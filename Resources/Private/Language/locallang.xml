@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the pt_extlist extension</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="localName">Country Name (local)</label>
+			<label index="capital">Capital</label>
+			<label index="isoCode2">ISO</label>
+			<label index="phone">Phone</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="localName">Ländername</label>
+			<label index="capital">Hauptstadt</label>
+			<label index="isoCode2">ISO</label>
+			<label index="phone">Vorwahl</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,674 @@
+config.tx_extbase {
+	persistence{
+		classes {
+			Tx_PtExtlist_Domain_Model_Countries {
+				mapping {
+					tableName = static_countries
+					columns {
+						cn_short_local.mapOnProperty = localName
+						cn_short_local.isSortable = 1
+						cn_capital.mapOnProperty = capital
+						cn_iso_2.mapOnProperty = isoCode2
+						cn_phone.mapOnProperty = phone		
+					}
+				}
+			}
+			Tx_PtExtlist_Domain_Model_Terretories {
+				mapping {
+					tableName = static_terretories
+					columns {
+						cn_short_local.mapOnProperty = localName
+						cn_short_local.isSortable = 1
+						cn_capital.mapOnProperty = capital
+						cn_iso_2.mapOnProperty = isoCode2
+						cn_phone.mapOnProperty = phone		
+					}
+				}
+			}
+		}
+	}
+}
+
+
+plugin.tx_ptextlist.settings {
+	limit = 25
+	offset = 0
+	MyDemoList {
+		query {
+
+			tables (
+				static_countries, 
+				static_territories st_continent, 
+				static_territories st_subcontinent
+			) 
+
+			baseFromClause (
+				static_countries 
+				LEFT JOIN static_territories	AS	st_subcontinent		ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+				LEFT JOIN static_territories 	AS	st_continent		ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr)
+			)
+
+			baseWhereClause (
+				st_continent.tr_name_en <> '' 
+				AND st_subcontinent.tr_name_en <> ''
+			)
+			
+		}
+				
+		mapping {
+			10.tableName = static_countries
+			10.columns {
+				cn_short_local.mapOnProperty = localName
+				cn_short_local.isSortable = 1
+				cn_capital.mapOnProperty = capital
+				cn_iso_2.mapOnProperty = isoCode2
+				cn_phone.mapOnProperty = phone
+			}
+			# 20.tableName = st_continent
+			# 20.columns {
+			# 	tr_name_en.mapOnProperty = continent
+			# }
+			# 30.tableName = st_subcontinent
+			# 30.columns {
+			# 	tr_name_en.mapOnProperty = subcontinent
+			# }
+		}
+
+
+		############################################################################
+		# Display columns configuration
+		############################################################################
+
+		columns {
+			10 {
+				# choose a columnIdentifier
+				columnIdentifier = nameColumn
+
+				# This label will be displayed in the item list (use lll here)
+				label = LLL:EXT:pt_list/typoscript/static/demolist/locallang.xml:column_nameColumn
+
+				# Set the dataDescriptions this columns refers to
+				# the dataDescriptionIdentifier is a single reference to a dataDescription if type is default
+				# or a csl list of referencs if type is "virtual"
+				dataDescriptionIdentifier = name_local, name_en, countryuid, uno_member
+
+				# a column is sortable if "isSortable" is set to 1 _and_
+				# all sortingColumns entries this column refers to are sortable too
+				isSortable = 1
+
+				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
+				# if not set, the first entry in dataDescriptionIdentifier will be used
+				sortingDataDescription = name_local
+
+				renderObj = COA
+				renderObj {
+					5 = IMAGE
+					5.if {
+						value.data = field:uno_member
+						equals = 1
+					}
+					5.file = EXT:pt_list/typoscript/static/demolist/un.gif
+					5.stdWrap.typolink.parameter = http://www.un.org
+					5.stdWrap.typolink.ATagParams = class="un-link"
+
+					10 = TEXT
+					10.data = field:name_en
+					10.append = TEXT
+					10.append {
+						data = field:name_local
+						if {
+							value.data = field:name_local
+							equals.data = field:name_en
+							negate = 1
+						}
+					}
+					10.append.noTrimWrap = | (|)|
+					10.wrap3 = |&nbsp;
+
+					20 = TEXT
+					20.value = Details
+					20.typolink.parameter = 1
+					20.typolink.additionalParams.dataWrap = &tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
+	 			}
+
+			}
+
+			11 {
+				label = Capital
+				columnIdentifier = capital
+				dataDescriptionIdentifier = capital
+			}
+
+			20 {
+				label = LLL:EXT:pt_list/typoscript/static/demolist/locallang.xml:column_isoNoColumn
+				columnIdentifier = isoNoColumn
+				dataDescriptionIdentifier = iso2
+				isSortable = 1
+				renderUserFunctions {
+					10 = EXT:pt_list/typoscript/static/demolist/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
+				}
+			}
+			30 {
+				label = Phone
+				columnIdentifier = phoneColumn
+				# default columns can only operate on _one_ dataDescription
+				dataDescriptionIdentifier = phone
+			}
+
+			40 {
+				label = Continent
+				columnIdentifier = continent
+				dataDescriptionIdentifier = continent
+			}
+
+			50 {
+				label = Subcontinent
+				columnIdentifier = subcontinent
+				dataDescriptionIdentifier = subcontinent
+			}
+
+			/*
+			40 {
+				label = Edit
+				columnIdentifier = editIcon
+				dataDescriptionIdentifier = countryuid
+				renderUserFunctions {
+
+					staticText < plugin.tx_ptextlist.alias.renderer_cObj
+					staticText {
+						renderObj = TEXT
+						renderObj.value = Edit
+					}
+
+					editIcon < plugin.tx_ptextlist.alias.renderer_editIcon
+					editIcon {
+						fields = cn_capital,cn_short_en
+						table = static_countries
+						dataDescriptionIdentifierContainingTheUid = countryuid
+						editIconConf {
+							# see properties of stdWrap's editIcon
+							beforeLastTag = 1
+							iconTitle = Bearbeiten
+						} 
+					}
+				}
+			}
+			*/
+		}
+
+		############################################################################
+		# Setting up the filters
+		############################################################################
+
+		filters.defaultFilterbox {
+		    10 < plugin.tx_ptextlist.alias.filter_string
+			10 {
+				filterIdentifier = stringCountryCapital
+				label = String search country/capital
+				submitValue = Search
+
+				# this is a csl of dataDescriptionIdentifier this filter refers to
+				dataDescriptionIdentifier = name_local, name_en, capital
+			}
+			20 < plugin.tx_ptextlist.alias.filter_min
+			20 {
+				filterIdentifier = minPhoneNumber
+				label = Minimum Phone Number
+				dataDescriptionIdentifier = phone
+				submitValue = Search
+			}
+			30 < plugin.tx_ptextlist.alias.filter_max
+			30 {
+				filterIdentifier = minIsoNo
+				label = Maximum Iso Number
+				dataDescriptionIdentifier = isoNo
+				submitValue = Search
+			}
+			40 < plugin.tx_ptextlist.alias.filter_options_group
+			40 {
+				filterIdentifier = groupContinents
+				label = Select continent
+				dataDescriptionIdentifier = continent
+				mode = checkbox
+				multiple = 1
+				submitValue = Search
+
+				# advmultiselectConf {
+				#	# can be an integer or "all" to set the size of the select box that way, that all items can be seen without scrolling
+				#	size = all
+				# }
+
+			}
+			50 < plugin.tx_ptextlist.alias.filter_options_group
+			50 {
+				filterIdentifier = groupSubContinents
+				label = Select region
+				dataDescriptionIdentifier = subcontinent
+				dependsOn = groupContinents
+				submitValue = Search
+			}
+
+		}
+
+		filters.preFilterbox {
+		    25 < plugin.tx_ptextlist.alias.filter_range
+			25 {
+				filterIdentifier = rangePhoneNumber
+				label = Range Phone Number
+				dataDescriptionIdentifier = phone
+			}
+		}
+
+		filters.topFilterbox {
+		    10 < plugin.tx_ptextlist.alias.filter_firstLetter
+			10 {
+				filterIdentifier = firstLetterCapital
+				label = First letter of the englisch country name
+				dataDescriptionIdentifier = name_en
+				hideResetLink = 1
+			}
+		}
+	}
+}
+
+plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
+	
+	
+		.tx-ptextlist-grid table {
+			margin: 0;
+		}
+
+		table.tx-ptextlist-list-standard {
+			border: 1px solid #99BBE8;
+			border-collapse: collapse;
+			border-spacing: 0;
+			font-size: 12px;
+		}
+
+		table.tx-ptextlist-list-standard th {
+			background-color: #EBF3FD;
+			border-left: 1px solid #99BBE8;
+			border-bottom: 1px solid #99BBE8;
+		}
+
+		table.tx-ptextlist-list-standard td {
+			padding: 5px;
+		}
+
+		th.tx-ptextlist-list-header {
+			padding: 4px;
+			white-space: nowrap;
+		}
+
+		table.tx-ptextlist-list-standard th a {
+			display: block;
+		}
+
+		li.tx-ptextlist-filter {
+			border: 1px solid #aaa;
+			padding: 0;
+			margin-bottom: 20px;
+			background-color: white;
+		}
+
+		li.tx-ptextlist-filter h4 {
+			padding: 5px 5px 5px 10px;
+			margin-top: 0;
+			height: auto;
+			background-color: #EBF3FD;
+		}
+
+		ul.tx-ptextlist-filterbox {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul.tx-ptextlist-filterbox li {
+			list-style-type: none;
+		}
+
+		.tx-ptextlist-filterbox-userinterface,
+		.resetlink {
+			margin: 10px;
+		}
+
+		.filteractive {
+			border: 3px solid #99BBE8;
+		}
+
+		.filterbox-label {
+			font-size: 8pt;
+			font-weight: bold;
+		}
+
+		.clearer {
+			clear: both;
+		}
+
+
+
+		table.tx-ptextlist-list {
+			width: 99.9%;
+			margin-left: 1px;
+			margin-bottom: 5px;
+		}
+
+		table.tx-ptextlist-list th, 
+		table.tx-ptextlist-list th a {
+			text-decoration: none;
+			color: black;
+		}
+		
+		# table.tx-ptextlist-list th.tx-ptextlist-sorting a {
+		# 	padding-right: 20px;
+		# 	background-position: right:
+		# }
+		# 
+		# table.tx-ptextlist-list th.tx-ptextlist-sorting-default a {
+		# 	background-image: url('Resources/Public/Icons/icon_sorting_default.png');
+		# }
+		# 
+		# table.tx-ptextlist-list th.tx-ptextlist-sorting-asc a {
+		# 	background-image: url('Resources/Public/Icons/icon_sorting_asc.png');
+		# }
+		# 
+		# table.tx-ptextlist-list th.tx-ptextlist-sorting-desc a {
+		# 	background-image: url('Resources/Public/Icons/icon_sorting_desc.png');
+		# }
+
+		table.tx-ptextlist-list tr.even {
+			background-color: #f5f5f5;
+		}
+
+		table.tx-ptextlist-list tr.odd {
+			background-color: white;
+		}
+
+		table.tx-ptextlist-list td {
+			background-color: transparent;
+		}
+
+
+		li.tx-ptextlist-controller-filter-group select {
+			width: 100%;
+		}
+
+		ul.filter-timeSpan-links,
+		ul.filter-group-links {
+			padding: 0;
+		}
+
+		ul.filter-timeSpan-links li,
+		ul.filter-group-links li {
+			list-style-type: none;
+		}
+
+		ul.filter-timeSpan-links a,
+		ul.filter-group-links a {
+			text-decoration: none;
+			color: black;
+		}
+
+		ul.filter-timeSpan-links a:hover,
+		ul.filter-group-links a:hover {
+			text-decoration: underline;
+		}
+
+		ul.filter-timeSpan-links li.selected a,
+		ul.filter-group-links li.selected a {
+			color: red;
+			font-weight: bold;
+		}
+
+		span.count {
+			color: #ccc;
+			float: none;
+		}
+
+		.advmultiselect-form,
+		.advmultiselect-form table,
+		.advmultiselect-form td,
+		.advmultiselect-form tr {
+			padding: 0;
+			margin: 0;
+		}
+
+		.advmultiselect-form table,
+		.advmultiselect-form select {
+			width: 100%;
+		}
+
+		.tx-ptextlist-aggregate-row {
+			border-top: 2px solid black;
+		}
+
+		.tx-ptextlist-aggregate-row .label {
+		}
+
+		.tx-ptextlist-aggregate-row .value {
+			font-weight: bold;
+		}
+
+		label {
+			font-size: small;
+		}
+
+
+
+		/***************************************************************************
+		 * Filter breadcrumb
+		 **************************************************************************/
+		div.tx-ptextlist-filterbreadcrumb-container-empty {
+			display: none;
+		}
+
+		div.tx-ptextlist-filterbreadcrumb-container {
+			border-top: 1px solid #99BBE8;
+			border-bottom: 1px solid #99BBE8;
+			padding: 5px 0;
+			overflow: hidden;
+			margin-bottom: 4px;
+		}
+
+			div.tx-ptextlist-filterbreadcrumbelement {
+				float: left;
+				padding: 0;
+				margin: 2px;
+				background-color: #EBF3FD;
+			}
+
+				div.breadcrumbcontent {
+					float: left;
+					padding: 4px;
+					border-right: 1px solid #99BBE8;
+					background-color: #fff;
+				}
+
+				div.breadcrumbresetlink {
+					float: left;
+					margin: 0;
+					padding: 5px;
+				}
+
+		div.tx-ptextlist-filterbreadcrumb-container span.label {
+			font-weight: bold;
+		}
+
+		div.tx-ptextlist-filterbreadcrumb-container h4 {
+			margin-bottom: 10px;
+		}
+
+		/***************************************************************************
+		 * Pager
+		 **************************************************************************/
+
+		/**
+		 * Centering the pager (hack for ie will be appended below)
+		 */
+		.tx-ptextlist-pagercontainer {
+		    display: table;
+		    margin: 0px auto;
+		}
+
+		ul.tx-ptextlist-pager {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		ul.tx-ptextlist-pager li {
+			margin-right: 2px;
+			list-style-type: none;
+			float: left;
+			border: 1px solid #AAA;
+			text-align: center;
+		}
+
+		ul.tx-ptextlist-pager li.offsetinfo,
+		ul.tx-ptextlist-pager li.offsetinfo:hover {
+			border: none;
+			background: none;
+		}
+
+		ul.tx-ptextlist-pager li:hover,
+		ul.tx-ptextlist-pager li.pageitem-current {
+			background-color: #EBF3FD;
+			border-color: #99BBE8;
+		}
+
+		ul.tx-ptextlist-pager li.prev-current, 
+		ul.tx-ptextlist-pager li.next-current, 
+		ul.tx-ptextlist-pager li.first-current, 
+		ul.tx-ptextlist-pager li.last-current {
+			border-color: #ddd;
+		}
+
+		ul.tx-ptextlist-pager li.prev-current span.unlinkedelement, 
+		ul.tx-ptextlist-pager li.next-current span.unlinkedelement, 
+		ul.tx-ptextlist-pager li.first-current span.unlinkedelement, 
+		ul.tx-ptextlist-pager li.last-current span.unlinkedelement {
+			color: #ddd;
+		}
+
+		ul.tx-ptextlist-pager li.prev, 
+		ul.tx-ptextlist-pager li.next, 
+		ul.tx-ptextlist-pager li.first, 
+		ul.tx-ptextlist-pager li.last {
+			width: 30px;
+		} 
+
+		ul.tx-ptextlist-pager li.prev {
+			margin-right: 10px;
+		}
+
+		ul.tx-ptextlist-pager li.next {
+			margin-left: 10px;
+		}
+
+		ul.tx-ptextlist-pager li.fillitem {
+			border-color: transparent;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		ul.tx-ptextlist-pager li a, 
+		ul.tx-ptextlist-pager li span.unlinkedelement {
+			font-size: smaller;
+			text-decoration: none;
+			color: black;
+			display: block;
+			padding: 2px 5px;
+			height: 100%;
+			vertical-align: middle;
+		}
+
+
+	.firstLetterCapital h4 {
+		display: none;
+	}
+	
+    .firstletterlist li a {
+        text-decoration: none;
+        color: black;
+        display: block;
+        padding: 2px 5px;
+    }
+    
+    .firstletterlist li {
+        list-style-type: none;
+        float: left;
+        background-color: #FFF;
+        border-top: 1px solid #AAA;
+        border-right: 1px solid #AAA;
+        border-left: 1px solid #AAA;
+        margin-right: 2px;
+        -moz-border-radius-bottomleft:0;
+        -moz-border-radius-bottomright:0;
+        -moz-border-radius-topleft:5px;
+        -moz-border-radius-topright:5px; 
+    }
+    
+    .firstletterlist li:hover,
+    .firstletterlist li.active {
+        background-color: #EBF3FD;
+        border-color: #99BBE8;
+    }
+    
+    .topFilterbox {
+        margin-bottom: 0px;
+    }   
+    
+    .topFilterbox li.tx-ptextlist-filter, .topFilterbox li.filteractive {
+        padding: 0 0 0 5px;
+        margin-bottom: 0px;
+        border: none;
+    }
+    	
+	ul.topFilterbox {
+		width: 100%;
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	.topFilterbox li .clearer {
+		margin: 0px;
+		padding: 0px;
+		height: 0px;
+	}
+	
+	table.tx-ptextlist-list td.tx-ptextlist-field-phoneColumn {
+		/* background-color: #fab; */
+	}
+	
+	a.un-link {
+		background: none !important;
+		padding: 0 5px 0 0 !important;
+	}
+
+)
+
+[browser = msie]
+
+plugin.tx_ptextlist_ie._CSS_DEFAULT_STYLE (
+
+	/**
+	 * Hack for IE to center the pager
+	 */
+	.tx-ptextlist-pagercontainer { 
+		text-align: center; 
+	}
+
+    ul.tx-ptextlist-pager { 
+    	display: inline-block; 
+    }
+
+    ul.tx-ptextlist-pager { 
+    	display: inline; 
+    }
+
+    ul.tx-ptextlist-pager li { 
+    	float: left; 
+    }
+
+)
+
+[global]

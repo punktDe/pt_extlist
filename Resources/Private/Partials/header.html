@@ -1,0 +1,9 @@
+<tr>
+	<f:for each="{list.listItemNames}" as="listItemName">
+	<th class="tx-ptlist-list-header tx-ptextlist-sorting tx-ptextlist-sorting-{sorting.currentOrder}">
+		<f:link.action action="switchOrdering" arguments="{sorting: {property: listItemName, currentOrder: '{sorting.currentOrder}'}}">
+			<f:translate key="{listItemName}">{listItemName}</f:translate>&nbsp;<f:image src="EXT:pt_extlist/Resources/Public/Icons/icon_sorting_{sorting.currentOrder}.png" alt="Sorting" />
+		</f:link.action>
+	</th>
+	</f:for>
+</tr>
