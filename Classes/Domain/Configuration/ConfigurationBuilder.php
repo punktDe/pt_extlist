@@ -1,6 +1,6 @@
 <?php
 
-class Tx_PtExtlist_Configuration_ConfigurationBuilder {
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 
 	/**
 	 * Holds a singleton instance of configuration builder object
@@ -17,20 +17,26 @@ class Tx_PtExtlist_Configuration_ConfigurationBuilder {
 	
 	/**
 	 * Returns a singleton instance of this class
-	 * 
+	 * @param $settings The current settings for this extension.
 	 * @return Tx_PtExtlist_Configuration_ConfigurationBuilder   Singleton instance of this class
 	 */
-	public static function getInstance() {
-		if (self::instance === null) {
-			self::initInstance();
+	public static function getInstance($settings) {
+		if (self::$instance === null) {
+			self::$instance = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
 		}
-		return self::instance;
+		return self::$instance;
 	}
 
 	
 	
-	protected __construct() {
+	protected function __construct($settings) {
 		// use getInstance!
+		
+		$this->sessionAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_SessionAdapter');
+		$this->getPostVarAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter');
+		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
+		
+		$this->initInstance();
 	}
 	
 	
@@ -38,9 +44,8 @@ class Tx_PtExtlist_Configuration_ConfigurationBuilder {
 	 * Initialize configuration builder
 	 */
 	protected static function initInstance() {
-		$this->sessionAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_SessionAdapter');
-		$this->getPostVarAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter');
-		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter');
+		
+		
 	}
 	
 	
@@ -48,8 +53,8 @@ class Tx_PtExtlist_Configuration_ConfigurationBuilder {
 	/**
 	 * @return Tx_PtExtlist_Configuration_MapperConfiguration
 	 */
-	public function getMapperConfiguratione() {
-        $mapperConfiguration = new Tx_PtExtlist_Configuration_MapperConfiguration();
+	public function buildMapperConfiguratione() {
+        $mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_MapperConfiguration();
 		return $mapperConfiguration;	
 	}
 	
@@ -57,8 +62,8 @@ class Tx_PtExtlist_Configuration_ConfigurationBuilder {
 	/**
 	 * @return Tx_PtExtlist_Configuration_RendererConfiguration
 	 */
-	public function getRendererConfiguration() {
-		$rendererConfiguration = new Tx_PtExtlist_Configuration_RendererConfiguration();
+	public function buildRendererConfiguration() {
+		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_RendererConfiguration();
 		return $rendererConfiguration;
 	}
 	
@@ -66,8 +71,23 @@ class Tx_PtExtlist_Configuration_ConfigurationBuilder {
 	/**
 	 * @return Tx_PtExtlist_Configuration_DataConfiguration
 	 */
-	public function getDataConfiguration() {
-		$dataConfiguration = new Tx_PtExtlist_Configuration_DataConfiguration();
+	public function buildDataConfiguration($listIdentifier) {
+		
+		$root = $this->extensionConfigurationAdapter->getDataConfigurationRoot($listIdentifier);
+
+		$backendType = $root['backend'];
+		$host = $root['datasource']['host'];
+		$username = $root['datasource']['username'];
+		$password = $root['datasource']['password'];
+		$source = $root['datasource']['database'];
+		
+		$query = $root['query'];
+		
+		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($query);
+		
+		$dataConfiguration = new Tx_PtExtlist_Domain_Configuration_DataConfiguration($backendType, $host, $username, $password, $source);
+		$dataConfiguration->setQueryConfiguration($queryConfiguration);
+		
 		return $dataConfiguration;
 	}
 	
@@ -75,7 +95,7 @@ class Tx_PtExtlist_Configuration_ConfigurationBuilder {
 	/**
 	 * 
 	 */
-	public function getFilterConfiguration() {
+	public function buildFilterConfiguration() {
 	}
 }
 

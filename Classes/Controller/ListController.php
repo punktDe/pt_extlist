@@ -1,13 +1,12 @@
 <?php
 
-require_once ('Classes/MVC/Controller/ActionController.php');
 
-class Tx_PtExtlist_Controller_ListController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController {
 
 	public function renderAsPluginAction() {
 		/**
 		 * Plugin bekommt von Flexform einen Listennamen
-		 * und kann damit die zugehörige Konfiguration 
+		 * und kann damit die zugehï¿½rige Konfiguration 
 		 * aus Typoscript auslesen.
 		 */
 		
@@ -25,7 +24,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_Extbase_MVC_Controller_A
 		/**
 		 * Subcontroller Aufruf aus anderer Extension, 
 		 * bei der die Konfiguration und damit auch die DATEN ebenfalls
-		 * durch einen Schüssel aus Typoscript
+		 * durch einen Schï¿½ssel aus Typoscript
 		 * ausgelesen wird
 		 */
 	}
@@ -35,7 +34,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_Extbase_MVC_Controller_A
 		/**
 		 * Subcontroller Aufruf aus anderer Extension,
 		 * bei dem der Listennamen und die Daten dem
-		 * Subcontroller Aufruf übergeben werden.
+		 * Subcontroller Aufruf ï¿½bergeben werden.
 		 */
 	}
 	
