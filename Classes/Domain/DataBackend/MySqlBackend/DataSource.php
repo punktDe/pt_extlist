@@ -12,6 +12,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlBackend_DataSource implements Tx_PtEx
 										$configuration->getSource());
 	}
 	
+	public function execute(Tx_PtExtlist_Domain_Query_QueryInterface $query) {
+		
+	}
 	
 	
 }

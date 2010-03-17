@@ -1,6 +1,6 @@
 <?php
 
-class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
+abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
 	/**
 	 * 
@@ -14,7 +14,6 @@ class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlis
 	protected $dataSource;
 	
 
-	
 	
 	public function injectMapper(Tx_PtExtlist_Domain_DataBackend_MapperInterface &$mapper) {
 		$this->mapper = $mapper;
