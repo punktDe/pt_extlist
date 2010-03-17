@@ -36,19 +36,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		$this->getPostVarAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter');
 		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
 		
-		$this->initInstance();
 	}
-	
-	
-	/**
-	 * Initialize configuration builder
-	 */
-	protected static function initInstance() {
-		
-		
-	}
-	
-	
+
 	
 	/**
 	 * @return Tx_PtExtlist_Configuration_MapperConfiguration

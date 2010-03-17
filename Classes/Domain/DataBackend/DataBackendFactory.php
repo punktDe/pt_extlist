@@ -2,7 +2,7 @@
 
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
-	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_DataConfiguration $configuration) {
+	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
 		
 		$backendType = $configuration->getBackendType();
 		
@@ -19,8 +19,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 		return $backend;
 	}
 	
-	protected static function createMysqlBackend(Tx_PtExtlist_Domain_Configuration_DataConfiguration $configuration) {
-		$backend = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_MySqlDataBackend();
+	protected static function createMysqlBackend(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
+		$backend = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_MySqlDataBackend($configuration);
 		
 		$mapper = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_Mapper();
 		
