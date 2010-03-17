@@ -20,11 +20,11 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	}
 	
 	protected static function createMysqlBackend(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
-		$backend = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_MySqlDataBackend($configuration);
+		$backend = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_MySqlDataBackend();
 		
 		$mapper = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_Mapper();
 		
-		$dataSource = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_DataSource();
+		$dataSource = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_DataSource($configuration);
 		
 		$backend->injectMapper($mapper);
 		$backend->injectDataSource($dataSource);

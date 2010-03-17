@@ -13,9 +13,7 @@ class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlis
 	 */
 	protected $dataSource;
 	
-	public function getListStructure() {
-	
-	}
+
 	
 	
 	public function injectMapper(Tx_PtExtlist_Domain_DataBackend_MapperInterface &$mapper) {
