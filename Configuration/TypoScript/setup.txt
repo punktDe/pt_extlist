@@ -54,27 +54,27 @@ plugin.tx_ptextlist.settings {
 				where = A = 1 AND (B = 1 OR C = 1)
 				where {
 				    and {
-					10 {
-					    field = A
-					    value = 1
-					    [comparator = eq]
-					}
-					
-					20 = OR
-					20 {
-					    10 {
-						field = B
-						value = 1
-						[comparator = eq]
-					    }
-					    
-					    20 {
-						field = C
-						value = 1
-						[comparator = eq]
-					    }
-					
-					}
+						10 {
+						    field = A
+						    value = 1
+						    [comparator = eq]
+						}
+						
+						20 = OR
+						20 {
+						    10 {
+							field = B
+							value = 1
+							[comparator = eq]
+						    }
+						    
+						    20 {
+							field = C
+							value = 1
+							[comparator = eq]
+						    }
+						
+						}
 				    }
 				}
 				
