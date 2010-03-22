@@ -20,6 +20,8 @@ class Tx_PtExtlist_Domain_Configuration_Query_Select implements Tx_PtExtlist_Dom
 	
 	public function isValid() {
 		
+		if(count($this->fields) == 0) return false;
+		
 		foreach($this->fields as $field => $alias) {
 			if($field == '') {
 				return false;

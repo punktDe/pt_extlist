@@ -24,8 +24,10 @@ class Tx_PtExtlist_Domain_Configuration_QueryConfiguration implements Tx_PtExtli
 	}
 	
 	public function isValid() {
-		if(! $this->select->isValid ) return false;
-		if(! $this->from->isValid ) return false;
+		if(! $this->select->isValid() ) return false;
+		if(! $this->from->isValid() ) return false;
+		
+		return true;
 	}
 }
 

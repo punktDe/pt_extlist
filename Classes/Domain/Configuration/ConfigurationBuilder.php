@@ -20,7 +20,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * @param $settings The current settings for this extension.
 	 * @return Tx_PtExtlist_Configuration_ConfigurationBuilder   Singleton instance of this class
 	 */
-	public static function getInstance($settings) {
+	public static function getInstance(array $settings) {
 		if (self::$instance === null) {
 			self::$instance = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
 		}
@@ -29,7 +29,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 
 	
 	
-	protected function __construct($settings) {
+	protected function __construct(array $settings) {
 		// use getInstance!
 		
 		$this->sessionAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_SessionAdapter');
@@ -38,6 +38,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		
 	}
 
+	public function setSettings(array $settings) {
+		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
+	}
 	
 	/**
 	 * @return Tx_PtExtlist_Configuration_MapperConfiguration
@@ -73,7 +76,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		$query = $root['query'];
 		
 		$select = $this->createSelectQueryConfiguration($query);
-		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($select, NULL);
+		$from = $this->createFromQueryConfiguration($query);
+		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($select, $from);
 		
 		$dataConfiguration = new Tx_PtExtlist_Domain_Configuration_DataConfiguration($backendType, $host, $username, $password, $source);
 		$dataConfiguration->setQueryConfiguration($queryConfiguration);
@@ -84,10 +88,28 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected function createSelectQueryConfiguration(array &$query) {
 		$select = new Tx_PtExtlist_Domain_Configuration_Query_Select();
 		$querySelect = $query['mapping'];
-		foreach($querySelect as $propery => $field) {
+		foreach($querySelect as $property => $field) {
 			$select->addField($field);
 		}
 		return $select;
+	}
+	
+	protected function createFromQueryConfiguration(array &$query) {
+		$from = new Tx_PtExtlist_Domain_Configuration_Query_From();
+		$queryFrom = $query['from'];
+
+		if( array_key_exists('_typoScriptNodeValue', $queryFrom) ) {
+		
+			$from->setSql($queryFrom['_typoScriptNodeValue']);
+			
+		} else {
+	
+			foreach($queryFrom as $key => $tableConfig) {
+				$from->addTable($tableConfig['table'], $tableConfig['alias']);
+			}
+		}
+		
+		return $from;
 	}
 	
 	

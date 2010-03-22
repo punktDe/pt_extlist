@@ -34,8 +34,14 @@ plugin.tx_ptextlist.settings {
 				
 				from = table1,table2
 				from {
-				    10 = table1
-				    20 = table2
+				    10 {
+				    	table = table1
+				    	alias = alias1
+				    }
+				    20 {
+				    	table = table2
+				    	alias = alias2
+				    }
 				}
 				
 				join = JOIN table1 AS a ON table1.id = table2.table1_id

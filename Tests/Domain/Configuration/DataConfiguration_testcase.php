@@ -3,7 +3,7 @@
 class Tx_PtExtlist_Domain_Configuration_DataConfiguration_testcase extends Tx_Extbase_BaseTestcase {
 	
 	protected $settingsFixture;
-	protected $configurationBuilder;
+
 	
 	public function setUp() {
 		$this->settingsFixture = array ( 'listConfig' => array ( 'test' => array (
@@ -15,12 +15,16 @@ class Tx_PtExtlist_Domain_Configuration_DataConfiguration_testcase extends Tx_Ex
 						'password' => 'password',
 						'database' => 'database'
 					),
-					
 					'query' => array (
 						'from' => array (
-							'10' => 'table1',
-							'20' => 'table2',
-							'_typoScriptNodeValue' => 'table1, table2'
+							'10' => array(
+								'table' => 'table1',
+								'alias' => 'alias1'
+							),
+							'20' => array(
+								'table' => 'table2',
+								'alias' => 'alias2'
+							)
 						),
 						
 						'join' => array (
@@ -68,19 +72,20 @@ class Tx_PtExtlist_Domain_Configuration_DataConfiguration_testcase extends Tx_Ex
 				)
 				)
 		);
-		
-		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
-		
 	}
 	
+	
+	
 	public function testDataConfigurationBuilder() {
-		$dataConfiguration = $this->configurationBuilder->buildDataConfiguration('test');
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
 		
 		$this->assertTrue( $dataConfiguration instanceof Tx_PtExtlist_Domain_Configuration_DataConfiguration);
 	}
 	
 	public function testDataConfigurationSetup() {
-		$dataConfiguration = $this->configurationBuilder->buildDataConfiguration('test');
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
 		
 		$backendType = $dataConfiguration->getBackendType();
 		$host = $dataConfiguration->getHost();
@@ -96,24 +101,6 @@ class Tx_PtExtlist_Domain_Configuration_DataConfiguration_testcase extends Tx_Ex
 		
 	}
 	
-	public function testQueryConfigurationBuilder() {
-		$dataConfiguration = $this->configurationBuilder->buildDataConfiguration('test');
-		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
-		
-		$this->assertTrue( $queryConfiguration instanceof Tx_PtExtlist_Domain_Configuration_QueryConfiguration);
-	}
-	
-	public function testQuerySelectConfiguration() {
-		$dataConfiguration = $this->configurationBuilder->buildDataConfiguration('test');
-		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
-		
-		$select = $queryConfiguration->getSelect();
-		$fields = $select->getFields();
-		
-		$this->assertTrue( array_key_exists('field1', $fields) );
-		$this->assertTrue( array_key_exists('field2', $fields) );
-		
-	}
 	
 }
 
