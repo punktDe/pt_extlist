@@ -57,6 +57,11 @@ class Tx_PtExtlist_Domain_Configuration_DataConfiguration_testcase extends Tx_Ex
 								)
 							),
 							'_typoScriptNodeValue' => 'A < AA AND (B = BB OR C = CC)',
+						),
+						
+						'mapping' => array (
+							'property1' => 'field1',
+							'property2' => 'field2',
 						)
 					)
 				)
@@ -96,6 +101,18 @@ class Tx_PtExtlist_Domain_Configuration_DataConfiguration_testcase extends Tx_Ex
 		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
 		
 		$this->assertTrue( $queryConfiguration instanceof Tx_PtExtlist_Domain_Configuration_QueryConfiguration);
+	}
+	
+	public function testQuerySelectConfiguration() {
+		$dataConfiguration = $this->configurationBuilder->buildDataConfiguration('test');
+		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
+		
+		$select = $queryConfiguration->getSelect();
+		$fields = $select->getFields();
+		
+		$this->assertTrue( array_key_exists('field1', $fields) );
+		$this->assertTrue( array_key_exists('field2', $fields) );
+		
 	}
 	
 }

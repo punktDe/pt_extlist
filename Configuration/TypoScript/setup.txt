@@ -63,15 +63,15 @@ plugin.tx_ptextlist.settings {
 						20 = OR
 						20 {
 						    10 {
-							field = B
-							value = 1
-							[comparator = eq]
+								field = B
+								value = 1
+								[comparator = eq]
 						    }
 						    
 						    20 {
-							field = C
-							value = 1
-							[comparator = eq]
+								field = C
+								value = 1
+								[comparator = eq]
 						    }
 						
 						}

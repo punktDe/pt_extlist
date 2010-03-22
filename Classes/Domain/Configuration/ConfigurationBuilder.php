@@ -72,12 +72,22 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		
 		$query = $root['query'];
 		
-		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($query);
+		$select = $this->createSelectQueryConfiguration($query);
+		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($select, NULL);
 		
 		$dataConfiguration = new Tx_PtExtlist_Domain_Configuration_DataConfiguration($backendType, $host, $username, $password, $source);
 		$dataConfiguration->setQueryConfiguration($queryConfiguration);
 		
 		return $dataConfiguration;
+	}
+	
+	protected function createSelectQueryConfiguration(array &$query) {
+		$select = new Tx_PtExtlist_Domain_Configuration_Query_Select();
+		$querySelect = $query['mapping'];
+		foreach($querySelect as $propery => $field) {
+			$select->addField($field);
+		}
+		return $select;
 	}
 	
 	
