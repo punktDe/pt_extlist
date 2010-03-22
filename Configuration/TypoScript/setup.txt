@@ -48,12 +48,12 @@ plugin.tx_ptextlist.settings {
 				join {
 				    [10 = INNER | LEFT | RIGHT]
 				    10 {
-					table = table1
-					alias = a
-					on {
-					    field = table1.id
-					    value = table2.table1_id
-					}
+						table = table1
+						alias = a
+						on {
+						    field = table1.id
+						    value = table2.table1_id
+						}
 				    }
 				}
 				

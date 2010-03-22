@@ -77,7 +77,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		
 		$select = $this->createSelectQueryConfiguration($query);
 		$from = $this->createFromQueryConfiguration($query);
+		$join = $this->createJoinQueryConfiguration($query);
 		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($select, $from);
+		
+		$queryConfiguration->setJoin($join);
+		
 		
 		$dataConfiguration = new Tx_PtExtlist_Domain_Configuration_DataConfiguration($backendType, $host, $username, $password, $source);
 		$dataConfiguration->setQueryConfiguration($queryConfiguration);
@@ -110,6 +114,20 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		}
 		
 		return $from;
+	}
+	
+	protected function createJoinQueryConfiguration(array &$query) {
+		$join = new Tx_PtExtlist_Domain_Configuration_Query_Join();
+		$queryJoin = $query['join'];
+		
+		if( array_key_exists('_typoScriptNodeValue',$queryJoin) ) {
+			$join->setSql($queryJoin['_typoScriptNodeValue']);
+		} else {
+			foreach($queryJoin as $key => $table) {
+				$join->addTable($table['table'], $table['alias'], $table['on']['field'], $table['on']['value']);
+			}
+		}
+		return $join;
 	}
 	
 	

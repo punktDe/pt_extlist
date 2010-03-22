@@ -1,27 +1,9 @@
 <?php
 
-class Tx_PtExtlist_Domain_Configuration_Query_From implements Tx_PtExtlist_Domain_Configuration_Query_ValidQueryInterface {
+class Tx_PtExtlist_Domain_Configuration_Query_From  extends Tx_PtExtlist_Domain_Configuration_Query_BiQueryConfigurationPart {
 		
 	protected $tables;
-	protected $sql;
-	protected $sqlMode;
 	
-	public function __construct() {
-		$this->sqlMode = false;
-	}
-	
-	public function setSql($fromSql) {
-		$this->sql = $fromSql;
-		$this->sqlMode = true;
-	}
-	
-	public function isSql() {
-		return $this->sqlMode;
-	}
-	
-	public function getSql() {
-		return $this->sql;
-	}
 	
 	public function addTable($table, $alias='') {
 		$this->tables[$table] = $alias;
@@ -37,6 +19,10 @@ class Tx_PtExtlist_Domain_Configuration_Query_From implements Tx_PtExtlist_Domai
 		return $this->tables;
 	}
 	
+	/**
+	 * (non-PHPdoc)
+	 * @see Query/Tx_PtExtlist_Domain_Configuration_Query_ValidQueryInterface#isValid()
+	 */
 	public function isValid() {
 		
 		if(!$this->sqlMode) {

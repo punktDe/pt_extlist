@@ -22,7 +22,7 @@ class Tx_PtExtlist_Domain_Configuration_QueryConfiguration_testcase extends Tx_E
 						
 						'join' => array (
 							'10' => array (
-								'table' => 'table',
+								'table' => 'table1',
 								'alias' => 'alias',
 								'_typoScriptNodeValue' => 'INNER',
 								'on' => array (
@@ -30,7 +30,7 @@ class Tx_PtExtlist_Domain_Configuration_QueryConfiguration_testcase extends Tx_E
 									'value' => 'value'
 								)
 							),
-							'_typoScriptNodeValue' => 'ON table1.id = table2.id'
+							
 						),
 						
 						'where' => array (
@@ -231,5 +231,108 @@ class Tx_PtExtlist_Domain_Configuration_QueryConfiguration_testcase extends Tx_E
 		$this->assertTrue( $queryConfiguration->isValid() );
 		
 	}
+	
+	public function testQueryJoinConfiguration() {
+//		$this->settingsFixture['listConfig']['test']['data']['query']['join']['_typoScriptNodeValue'] = 'table1 as t1 ON bla = foo';
+		
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+//		$configurationBuilder->setSettings($this->settingsFixture);
+		
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
+		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
+		
+		$join = $queryConfiguration->getJoin();
+		
+		$this->assertTrue($join instanceof Tx_PtExtlist_Domain_Configuration_Query_Join);
+		
+		$this->assertFalse($join->isSql());
+		
+		$tables = $join->getTables();
+		
+		$this->assertTrue(array_key_exists('table1', $tables));
+		
+		$this->assertEquals($tables['table1']['alias'], 'alias');
+		$this->assertEquals($tables['table1']['onField'], 'field');
+		$this->assertEquals($tables['table1']['onValue'], 'value');
+	}
+	
+	public function testQueryJoinSqlOverrideConfiguration() {
+		$this->settingsFixture['listConfig']['test']['data']['query']['join']['_typoScriptNodeValue'] = 'table1 as t1 ON bla = foo';
+		
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+		$configurationBuilder->setSettings($this->settingsFixture);
+		
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
+		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
+		
+		$join = $queryConfiguration->getJoin();
+		
+		$this->assertTrue($join instanceof Tx_PtExtlist_Domain_Configuration_Query_Join);
+		
+		$this->assertTrue($join->isSql());
+		
+		$sql = $join->getSql();
+		
+		$this->assertEquals($sql, 'table1 as t1 ON bla = foo');
+
+	}
+	
+	public function testQueryJoinTrueValidation() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+		$configurationBuilder->setSettings($this->settingsFixture);
+		
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
+		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
+		
+		$join = $queryConfiguration->getJoin();
+		$this->assertTrue($join->isValid());
+	}
+	
+	public function testQueryJoinFalseValidation() {
+		
+		/**
+		 * Check if a empty onField configuration is correctly validated
+		 */
+		$this->settingsFixture['listConfig']['test']['data']['query']['join']['on']['field'] = '';
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+		$configurationBuilder->setSettings($this->settingsFixture);
+		
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
+		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
+		
+		$join = $queryConfiguration->getJoin();
+		$this->assertFalse($join->isValid());
+		$this->assertFalse($queryConfiguration->isValid());
+		
+		/**
+		 * Check if a empty sql configuration is correctly validated
+		 */
+		$this->settingsFixture['listConfig']['test']['data']['query']['join']['_typoScriptNodeValue'] = '';
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+		$configurationBuilder->setSettings($this->settingsFixture);
+		
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
+		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
+		
+		$join = $queryConfiguration->getJoin();
+		$this->assertFalse($join->isValid());
+		$this->assertFalse($queryConfiguration->isValid());
+		
+		/**
+		 * Check if a empty configuration is correctly validated
+		 */
+		$this->settingsFixture['listConfig']['test']['data']['query']['join'] = array();
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settingsFixture);
+		$configurationBuilder->setSettings($this->settingsFixture);
+		
+		$dataConfiguration = $configurationBuilder->buildDataConfiguration('test');
+		$queryConfiguration = $dataConfiguration->getQueryConfiguration();
+		
+		$join = $queryConfiguration->getJoin();
+		$this->assertFalse($join->isValid());
+		$this->assertFalse($queryConfiguration->isValid());
+	}
+	
+	
 }
 ?>
