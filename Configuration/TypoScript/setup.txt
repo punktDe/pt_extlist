@@ -32,52 +32,79 @@ plugin.tx_ptextlist.settings {
 			
 			query {
 				
-				select {
-					
-					static_countries {
-						c {
-							column = cn_official_name_en
-							
-						}
-					}
-									
-					
-				}
-				
-				
+				from = table1,table2
 				from {
-					1 = static_countries
-					
+				    10 = table1
+				    20 = table2
 				}
 				
-				
+				join = JOIN table1 AS a ON table1.id = table2.table1_id
 				join {
-					
-					
+				    [10 = INNER | LEFT | RIGHT]
+				    10 {
+					table = table1
+					alias = a
+					on {
+					    field = table1.id
+					    value = table2.table1_id
+					}
+				    }
 				}
 				
-				
+				where = A = 1 AND (B = 1 OR C = 1)
 				where {
+				    and {
+					10 {
+					    field = A
+					    value = 1
+					    [comparator = eq]
+					}
 					
+					20 = OR
+					20 {
+					    10 {
+						field = B
+						value = 1
+						[comparator = eq]
+					    }
+					    
+					    20 {
+						field = C
+						value = 1
+						[comparator = eq]
+					    }
 					
+					}
+				    }
 				}
 				
-				
+				groupBy = foo.bar
 				groupBy {
-				
+				    10 {
+					table = foo
+					field = bar2
+				    }
 					
 				}
 				
-				
+				orderBy = foo.bar ASC
 				orderBy {
-				
+				    10 {
+					table = foo
+					field = bar
+					ordering = ASC
+				    }
 					
 				}	
 				
-				
+				limit = [5,]10
 				limit {
+				    value = 10
+				    [offset = 5]
+				}
 				
-					
+				mapping {
+				    property = field
 				}
 				
 			}

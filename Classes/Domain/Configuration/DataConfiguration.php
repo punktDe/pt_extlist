@@ -46,7 +46,7 @@ class Tx_PtExtlist_Domain_Configuration_DataConfiguration {
 	}
 	
 	public function getQueryConfiguration() {
-		return $this->queryConfiguration();
+		return $this->queryConfiguration;
 	}
 	
 	

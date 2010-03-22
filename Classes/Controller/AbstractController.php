@@ -1,6 +1,6 @@
 <?php
 
-class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
+abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
 	
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder

@@ -38,6 +38,10 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		 */
 	}
 	
+	public function indexAction() {
+		$this->dataBackend->getListStructure();
+	}
+	
 }
 
 ?>
