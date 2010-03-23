@@ -71,8 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		
 		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($select, $from);
 		$queryConfiguration->setJoin($join);
-		
-		
+
 		$dataConfiguration = $this->extensionConfigurationAdapter->getDataConfiguration($listIdentifier);
 		$dataConfiguration->setQueryConfiguration($queryConfiguration);
 		
