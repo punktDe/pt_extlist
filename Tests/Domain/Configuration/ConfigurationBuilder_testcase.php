@@ -9,12 +9,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder_testcase extends Tx
 												'getSelectQueryConfiguration',
 												'getFromQueryConfiguration',
 												'getJoinQueryConfiguration'
-										),
-										array(),
-										'',
-										FALSE,
-										FALSE,
-										FALSE);
+										));
 
 		$configAdapter
 			->expects($this->once())
@@ -39,21 +34,24 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder_testcase extends Tx
 			->method('getDataConfiguration')
 			->with($this->equalTo('test'))
 			->will($this->returnValue(new Tx_PtExtlist_Domain_Configuration_DataConfiguration()));
-			
-			
-//		$configAdapter->expects($this->once())->method('getDataConfiguration')->with($this->equalTo('test'));
-										
+								
 		
 		$builder = $this->getMock( $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'), 
 										array('dummy'),
 										array(),
 										'',
-										FALSE);
+										FALSE
+										);
 		
 		$builder->_set('extensionConfigurationAdapter', $configAdapter);
 		
 		
 		$builder->buildDataConfiguration('test');
+	unset($configAdapter);
+
+	}
+	
+	public function tearDown() {
 		
 	}
 	

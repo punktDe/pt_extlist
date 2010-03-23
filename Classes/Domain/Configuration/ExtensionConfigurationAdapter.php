@@ -83,11 +83,7 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter {
 
 		return $dataConfiguration;
 	}
-	
-	
-	
-	
-	
+
 	protected function getDataConfigurationRoot($listIdentifier) {
 		return $this->configuration['listConfig'][$listIdentifier]['data'];
 	}
