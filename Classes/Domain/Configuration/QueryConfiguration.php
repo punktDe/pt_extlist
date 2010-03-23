@@ -71,10 +71,13 @@ class Tx_PtExtlist_Domain_Configuration_QueryConfiguration implements Tx_PtExtli
 	 * @see Query/Tx_PtExtlist_Domain_Configuration_Query_ValidQueryInterface#isValid()
 	 */
 	public function isValid() {
+		
+		// Mandatory parts
 		if(! $this->select->isValid() ) return false;
 		if(! $this->from->isValid() ) return false;
 		
-		if($this->join != null && !$this->join->isValid()) return false;
+		// Non mandatory parts
+		if($this->join != null && ! $this->join->isValid()) return false;
 		
 		return true;
 	}

@@ -63,6 +63,13 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter {
 		return $join;
 	}
 	
+	public function getWhereQueryConfiguration($listIdentifier) {
+		$query = $this->getQueryConfigurationRoot($listIdentifier);
+		
+		
+		
+	}
+	
 	public function getDataConfiguration($listIdentifier) {
 		$data = $this->getDataConfigurationRoot($listIdentifier);
 
@@ -76,6 +83,10 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter {
 
 		return $dataConfiguration;
 	}
+	
+	
+	
+	
 	
 	protected function getDataConfigurationRoot($listIdentifier) {
 		return $this->configuration['listConfig'][$listIdentifier]['data'];

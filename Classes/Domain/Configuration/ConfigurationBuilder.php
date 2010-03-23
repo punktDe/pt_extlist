@@ -65,11 +65,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	public function buildDataConfiguration($listIdentifier) {
 		
-		
-
-		
-		
-		
 		$select = $this->extensionConfigurationAdapter->getSelectQueryConfiguration($listIdentifier);
 		$from = $this->extensionConfigurationAdapter->getFromQueryConfiguration($listIdentifier);
 		$join = $this->extensionConfigurationAdapter->getJoinQueryConfiguration($listIdentifier);
