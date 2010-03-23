@@ -65,70 +65,26 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	public function buildDataConfiguration($listIdentifier) {
 		
-		$root = $this->extensionConfigurationAdapter->getDataConfigurationRoot($listIdentifier);
+		
 
-		$backendType = $root['backend'];
-		$host = $root['datasource']['host'];
-		$username = $root['datasource']['username'];
-		$password = $root['datasource']['password'];
-		$source = $root['datasource']['database'];
 		
-		$query = $root['query'];
 		
-		$select = $this->createSelectQueryConfiguration($query);
-		$from = $this->createFromQueryConfiguration($query);
-		$join = $this->createJoinQueryConfiguration($query);
+		
+		$select = $this->extensionConfigurationAdapter->getSelectQueryConfiguration($listIdentifier);
+		$from = $this->extensionConfigurationAdapter->getFromQueryConfiguration($listIdentifier);
+		$join = $this->extensionConfigurationAdapter->getJoinQueryConfiguration($listIdentifier);
+		
 		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($select, $from);
-		
 		$queryConfiguration->setJoin($join);
 		
 		
-		$dataConfiguration = new Tx_PtExtlist_Domain_Configuration_DataConfiguration($backendType, $host, $username, $password, $source);
+		$dataConfiguration = $this->extensionConfigurationAdapter->getDataConfiguration($listIdentifier);
 		$dataConfiguration->setQueryConfiguration($queryConfiguration);
 		
 		return $dataConfiguration;
 	}
 	
-	protected function createSelectQueryConfiguration(array &$query) {
-		$select = new Tx_PtExtlist_Domain_Configuration_Query_Select();
-		$querySelect = $query['mapping'];
-		foreach($querySelect as $property => $field) {
-			$select->addField($field);
-		}
-		return $select;
-	}
 	
-	protected function createFromQueryConfiguration(array &$query) {
-		$from = new Tx_PtExtlist_Domain_Configuration_Query_From();
-		$queryFrom = $query['from'];
-
-		if( array_key_exists('_typoScriptNodeValue', $queryFrom) ) {
-		
-			$from->setSql($queryFrom['_typoScriptNodeValue']);
-			
-		} else {
-	
-			foreach($queryFrom as $key => $tableConfig) {
-				$from->addTable($tableConfig['table'], $tableConfig['alias']);
-			}
-		}
-		
-		return $from;
-	}
-	
-	protected function createJoinQueryConfiguration(array &$query) {
-		$join = new Tx_PtExtlist_Domain_Configuration_Query_Join();
-		$queryJoin = $query['join'];
-		
-		if( array_key_exists('_typoScriptNodeValue',$queryJoin) ) {
-			$join->setSql($queryJoin['_typoScriptNodeValue']);
-		} else {
-			foreach($queryJoin as $key => $table) {
-				$join->addTable($table['table'], $table['alias'], $table['on']['field'], $table['on']['value']);
-			}
-		}
-		return $join;
-	}
 	
 	
 	/**
