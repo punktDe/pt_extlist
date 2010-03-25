@@ -5,7 +5,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	/**
 	 * Holds a singleton instance of configuration builder object
 	 *
-	 * @var Tx_PtExtlist_Configuration_ConfigurationBuilder
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	private static $instance = null;
 
@@ -18,7 +18,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	/**
 	 * Returns a singleton instance of this class
 	 * @param $settings The current settings for this extension.
-	 * @return Tx_PtExtlist_Configuration_ConfigurationBuilder   Singleton instance of this class
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
 	 */
 	public static function getInstance(array $settings) {
 		if (self::$instance === null) {
@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	}
 	
 	/**
-	 * @return Tx_PtExtlist_Configuration_MapperConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_MapperConfiguration
 	 */
 	public function buildMapperConfiguratione() {
         $mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_MapperConfiguration();
@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
-	 * @return Tx_PtExtlist_Configuration_RendererConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_RendererConfiguration
 	 */
 	public function buildRendererConfiguration() {
 		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_RendererConfiguration();
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
-	 * @return Tx_PtExtlist_Configuration_DataConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_DataConfiguration
 	 */
 	public function buildDataConfiguration($listIdentifier) {
 		
