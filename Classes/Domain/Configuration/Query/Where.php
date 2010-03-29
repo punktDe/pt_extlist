@@ -1,47 +1,44 @@
 <?php
 
-class Tx_PtExtlist_Domain_Configuration_Query_Where extends Tx_PtExtlist_Domain_Configuration_Query_BiQueryConfigurationPart implements Iterator{
+class Tx_PtExtlist_Domain_Configuration_Query_Where extends Tx_PtExtlist_Domain_Configuration_Query_BiQueryConfigurationPart {
 	
 	protected $rootConditionNode;
 	protected $currentNode;
 	
-	public function addCondition(Tx_PtExtlist_Domain_Configuration_Query_Condition &$node) {
-		if($this->currentNode == NULL)
-			$this->currentNode = $node;
-		else
-			$this->currentNode->addNode($node);
-			
-		$this->currentIndex++;
+	public function add(Tx_PtExtlist_Domain_Configuration_Query_ConditionNode &$node) {
+		if($node instanceof Tx_PtExtlist_Domain_Configuration_Query_Condition) {
+			$this->addCondition($node);
+		} else {
+			$this->addOperation($node);
+		}
+
 	}
 	
-	public function addOperation(Tx_PtExtlist_Domain_Configuration_Query_Operation &$operand) {
+	public function addCondition(Tx_PtExtlist_Domain_Configuration_Query_Condition $node) {
+		if($this->currentNode == NULL) {
+			
+			$this->currentNode = $node;
+			$this->rootConditionNode = &$node;
+		} else {
+			$this->currentNode->addNode($node);			
+		}
+
+	}
+	
+	public function addOperation(Tx_PtExtlist_Domain_Configuration_Query_Operation $operand) {
 		if($this->currentNode == NULL) {
 			$this->currentNode = $operand;
+			$this->rootConditionNode = &$operand;
 		} else {
-			$operand->setLastOperation($this->currentNode);
+			
 			$this->currentNode->addNode($operand);
 			$this->currentNode = $operand;
 		}
-	}
-	
-	public function current() {
-		return $this->currentNode;
-	}
-	
-	public function key() {
-		return $this->currentIndex;
-	}
-	
-	public function next() {
 		
 	}
 	
-	public function rewind() {
-		
-	}
-	
-	public function valid() {
-		
+	public function getConditions() {
+		return $this->rootConditionNode;
 	}
 	
 	public function isValid() {

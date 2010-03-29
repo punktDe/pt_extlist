@@ -183,6 +183,59 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter_testcase e
 		
 	}
 	
+	public function testWhereConfigurationType() {
+		$adapter = new Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter($this->settingsFixture);
+		
+		$where = $adapter->getWhereQueryConfiguration('test');
+		
+		$this->assertTrue( $where instanceof Tx_PtExtlist_Domain_Configuration_Query_Where);
+	}
+	
+	public function testWhereConfiguration() {
+		$adapter = new Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter($this->settingsFixture);
+		
+		$where = $adapter->getWhereQueryConfiguration('test');
+		
+		$this->assertFalse($where->isSql());
+		
+		$conditions = $where->getConditions();
+		
+		$this->assertTrue($conditions instanceof Tx_PtExtlist_Domain_Configuration_Query_And);
+		$this->assertTrue($conditions[0] instanceof Tx_PtExtlist_Domain_Configuration_Query_Condition);
+		$this->assertTrue($conditions[1] instanceof Tx_PtExtlist_Domain_Configuration_Query_Or);
+		
+		$field = $conditions[0]->getField();
+		$value = $conditions[0]->getValue();
+		$comp = $conditions[0]->getComparator();
+		
+		$this->assertEquals($field, 'A');
+		$this->assertEquals($value, 'AA');
+		$this->assertEquals($comp, 'lt');
+		
+		$conditions = $conditions[1];
+		$this->assertTrue($conditions[0] instanceof Tx_PtExtlist_Domain_Configuration_Query_Condition);
+		$this->assertTrue($conditions[1] instanceof Tx_PtExtlist_Domain_Configuration_Query_Condition);
+		
+		$field = $conditions[0]->getField();
+		$value = $conditions[0]->getValue();
+		$comp = $conditions[0]->getComparator();
+		
+		$this->assertEquals($field, 'B');
+		$this->assertEquals($value, 'BB');
+		$this->assertEquals($comp, 'eq');
+		
+		$field = $conditions[1]->getField();
+		$value = $conditions[1]->getValue();
+		$comp = $conditions[1]->getComparator();
+		
+		$this->assertEquals($field, 'C');
+		$this->assertEquals($value, 'CC');
+		$this->assertEquals($comp, 'eq');
+		
+		
+		
+	}
+	
 }
 
 ?>

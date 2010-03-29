@@ -65,9 +65,47 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter {
 	
 	public function getWhereQueryConfiguration($listIdentifier) {
 		$query = $this->getQueryConfigurationRoot($listIdentifier);
+		$queryWhere = $query['where'];
 		
+		$where = new Tx_PtExtlist_Domain_Configuration_Query_Where();
 		
+		$this->buildWhereTree($queryWhere, $where);
 		
+		return $where;
+		
+	}
+	
+	protected function buildWhereTree(array $config, Tx_PtExtlist_Domain_Configuration_Query_Where $where) {
+		
+		foreach($config as $key => $conf) {
+			$key = strtoupper($key);
+			
+			if($key == 'AND' || ( array_key_exists('_typoScriptNodeValue',$conf) && strtoupper($conf['_typoScriptNodeValue']) == 'AND') ) {
+				$where->add( new Tx_PtExtlist_Domain_Configuration_Query_And() );
+				$this->buildWhereTree($conf, $where);
+				$break;
+			} elseif($key == 'OR' || ( array_key_exists('_typoScriptNodeValue',$conf) && strtoupper($conf['_typoScriptNodeValue']) == 'OR') ) {
+				$where->add( new Tx_PtExtlist_Domain_Configuration_Query_Or() );
+				$this->buildWhereTree($conf, $where);
+				break;
+			} elseif(is_array($conf)) {
+			
+				if( array_key_exists('field',$conf) && array_key_exists('value',$conf) ) {
+					if( array_key_exists('comparator',$conf) ) {
+						$condition = new Tx_PtExtlist_Domain_Configuration_Query_Condition($conf['field'],$conf['value'],$conf['comparator']);
+					} else {
+						$condition = new Tx_PtExtlist_Domain_Configuration_Query_Condition($conf['field'],$conf['value']);
+					}
+					
+					$where->add($condition);
+					
+				} else {
+					throw new Tx_PtExtlist_Exception_InvalidQueryConfigurationException('A where condition have to have a field and value configuration.');
+				}
+				
+			}
+			
+		} 
 	}
 	
 	public function getDataConfiguration($listIdentifier) {
