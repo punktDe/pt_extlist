@@ -60,8 +60,8 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter_testcase e
 										'comparator' => 'eq',
 									)
 								)
-							),
-							'_typoScriptNodeValue' => 'A < AA AND (B = BB OR C = CC)',
+							)
+							
 						),
 						
 						'mapping' => array (
@@ -231,9 +231,17 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter_testcase e
 		$this->assertEquals($field, 'C');
 		$this->assertEquals($value, 'CC');
 		$this->assertEquals($comp, 'eq');
+
+	}
+	
+	public function testWhereConfigurationSqlOverride() {
+		$this->settingsFixture['listConfig']['test']['data']['query']['where']['_typoScriptNodeValue'] = 'table1.id = bla AND table1.value = foo';		
+		$adapter = new Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter($this->settingsFixture);
 		
+		$where = $adapter->getWhereQueryConfiguration('test');
 		
-		
+		$this->assertTrue($where->isSql());
+		$this->assertEquals($where->getSql(), 'table1.id = bla AND table1.value = foo');
 	}
 	
 }

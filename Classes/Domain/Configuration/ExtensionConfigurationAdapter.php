@@ -69,7 +69,11 @@ class Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter {
 		
 		$where = new Tx_PtExtlist_Domain_Configuration_Query_Where();
 		
-		$this->buildWhereTree($queryWhere, $where);
+		if(array_key_exists('_typoScriptNodeValue', $queryWhere)){
+			$where->setSql($queryWhere['_typoScriptNodeValue']);
+		} else {
+			$this->buildWhereTree($queryWhere, $where);
+		}
 		
 		return $where;
 		
