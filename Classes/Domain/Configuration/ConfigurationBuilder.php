@@ -68,6 +68,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
+	 * Holds an instance of a columns configuration and handles it as a singleton instance
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 */
+	protected $columnsConfiguration = null;
+	
+	
+	
+	/**
 	 * Returns a singleton instance of this class
 	 * @param $settings The current settings for this extension.
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
@@ -166,23 +174,20 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	}
     	return $this->fieldsConfiguration;
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
-
+    
+    
+    /**
+     * Returns a singleton instance of columns configuration collection for current list configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+     */
+    public function buildColumnsConfiguration() {
+    	if (is_null($this->columnsConfiguration)) {
+    		$this->columnsConfiguration = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->settings['columns']);
+    	}
+    	return $this->fieldsConfiguration;
+    }
 }
 
 ?>
