@@ -1,16 +1,14 @@
-
 # Use a own dispatcher for setting up a external database connection and a different mapper logic.
 # ------------------------------------------------------------------------------------------------
 #includeLibs.tx_ptextdb_dispatcher = EXT:pt_extdb/Classes/Dispatcher.php
 #tt_content.list.20.ptextdb_pi1.userFunc = tx_ptextdb_dispatcher->dispatch
 
-
 plugin.tx_ptextlist.settings {
 
 	listConfig.test {
 	
-		#dataType =[extBase(default)|dosGenerator]
-		dataType = dosGenerator
+		#dataType =[extBase(default)|dataBase]
+		dataType = dataBase
 	
 		# config für extbase 
 		#data {

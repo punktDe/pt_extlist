@@ -27,8 +27,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		return self::$instance;
 	}
 
-	
-	
 	protected function __construct(array $settings) {
 		// use getInstance!
 		
