@@ -23,13 +23,19 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig_testcase extends
 		    'isSortable' => '0',
 		    'access' => '1,2,3,4'
 		);
-		$this->fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->fieldSettings);
+		$this->fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', $this->fieldSettings);
 	}
 	
 	
 	
 	public function testSetup() {
-		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->fieldSettings);
+		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', $this->fieldSettings);
+	}
+	
+	
+	
+	public function testGetIdentifier() {
+		$this->assertEquals($this->fieldConfig->getIdentifier(),'test1');
 	}
 	
 	
@@ -53,7 +59,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig_testcase extends
 	
 	
 	public function testDefaultGetIsSortable() {
-		$newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig(array('table' => '1', 'field' => '2'));
+		$newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', array('table' => '1', 'field' => '2'));
 		$this->assertEquals($newFieldConfig->getIsSortable(), 1);
 	}
 	
