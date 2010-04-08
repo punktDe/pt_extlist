@@ -31,6 +31,8 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
 	public function testGetFieldConfigCollection() {
 		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->fieldSettings);
 		$this->assertTrue(is_a($fieldConfigCollection, 'tx_pttools_objectCollection'));
+		$fieldConfig1 = $fieldConfigCollection->getFieldConfigByIdentifier('field1');
+		$this->assertEquals($fieldConfig1->getTable(), 'tableName1');
 	}
 			
 }
