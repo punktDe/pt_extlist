@@ -20,6 +20,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	}
 	
 	
+	
 	public function renderByListName($listName) {
 		/**
 		 * Subcontroller Aufruf aus anderer Extension, 
@@ -30,6 +31,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	}
 	
 	
+	
 	public function renderByListNameAndData($listName, $listData) {
 		/**
 		 * Subcontroller Aufruf aus anderer Extension,
@@ -37,14 +39,18 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		 * Subcontroller Aufruf �bergeben werden.
 		 */
 	}
+
 	
-	public function indexAction() {
-		#$this->dataBackend->getListStructure();
-		return "Hallo Welt aus der pt_list 2.0 indexAction";
-	}
 	
+	/**
+	 * List action rendering list for given
+	 * list identifier
+	 *
+	 * @return string  Rendered list for given list identifier
+	 * @author Michael Knoll <knoll@punkt.de>
+	 */
 	public function listAction() {
-		return "Hallo Welt aus pt_list 2.0 listAction";
+		return "listAction: ListIdentifier = " . $this->listIdentifier;
 	}
 	
 }

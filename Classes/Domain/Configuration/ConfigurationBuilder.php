@@ -4,13 +4,32 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 
 	/**
 	 * Holds a singleton instance of configuration builder object
-	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	private static $instance = null;
 
+	
+	
+	/**
+	 * Holds an instance of a session adapter
+	 * @var Tx_PtExtlist_Domain_Configuration_SessionAdapter
+	 */
 	protected $sessionAdapter;
+	
+	
+	
+	/**
+	 * Holds an instance of getPostVar adapter
+	 * @var Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter
+	 */
 	protected $getPostVarAdapter;
+	
+	
+	
+	/**
+	 * Holds an instance of extension configuration adapter
+	 * @var Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter
+	 */
 	protected $extensionConfigurationAdapter; 
 	
 	
@@ -29,26 +48,27 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 
 	
 	
+	/**
+	 * Constructor is private, use getInstance instead!
+	 * 
+	 * @param array $settings  Settings of extension
+	 */
 	protected function __construct(array $settings) {
-		// use getInstance!
-		
 		$this->sessionAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_SessionAdapter');
 		$this->getPostVarAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter');
 		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
-		
 	}
 
-	public function setSettings(array $settings) {
-		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
-	}
+	
 	
 	/**
 	 * @return Tx_PtExtlist_Domain_Configuration_MapperConfiguration
 	 */
-	public function buildMapperConfiguratione() {
+	public function buildMapperConfiguration() {
         $mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_MapperConfiguration();
 		return $mapperConfiguration;	
 	}
+	
 	
 	
 	/**
@@ -58,6 +78,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_RendererConfiguration();
 		return $rendererConfiguration;
 	}
+	
 	
 	
 	/**
@@ -77,7 +98,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		
 		return $dataConfiguration;
 	}
-	
 	
 	
 	
