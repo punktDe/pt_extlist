@@ -3,6 +3,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	protected $settings = array();
 	
+	
+	
 	public function setup() {
 		$this->settings = array(
 		    'listIdentifier' => 'test',
@@ -16,6 +18,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		
 		);
 	}
+	
+	
 	
 	public function testSetup() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);

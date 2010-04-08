@@ -60,6 +60,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
+	 * Holds an instance of a fields configuration and handles it as a singleton instance
+	 * @var 
+	 */
+	protected $fieldsConfiguration = null;
+	
+	
+	
+	/**
 	 * Returns a singleton instance of this class
 	 * @param $settings The current settings for this extension.
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
@@ -114,69 +122,62 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 
 	
 	
-	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_MapperConfiguration
-	 */
-	public function buildMapperConfiguration() {
-        $mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_MapperConfiguration();
-		return $mapperConfiguration;	
-	}
+    /**
+     * Returns array of settings for current plugin configuration
+     *
+     * @return array
+     * @author Michael Knoll <knoll@punkt.de>
+     */
+    public function getSettings() {
+        return $this->settings;
+    }
+    
+    
+    /**
+     * Returns identifier of list
+     *
+     * @return String
+     */
+    public function getListIdentifier() {
+        return $this->listIdentifier;
+    }
+    
+    
+    
+    /**
+     * Returns configuration for backend
+     *
+     * @return array    Part of list settings for backend configuration
+     */
+    public function getBackendConfiguration() {
+    	return $this->settings['backendConfig'];
+    }
+    
+    
+    
+    public function buildFieldsConfiguration() {
+    	if (is_null($this->fieldsConfiguration)) {
+    		$this->fieldsConfiguration = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::createFieldConfigCollection($this->settings['fields']);
+    	}
+    	return $this->fieldsConfiguration;
+    }
 	
 	
 	
-	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_RendererConfiguration
-	 */
-	public function buildRendererConfiguration() {
-		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_RendererConfiguration();
-		return $rendererConfiguration;
-	}
 	
 	
 	
-	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_DataConfiguration
-	 */
-	public function buildDataConfiguration($listIdentifier) {
-		
-//		$select = $this->extensionConfigurationAdapter->getSelectQueryConfiguration($listIdentifier);
-//		$from = $this->extensionConfigurationAdapter->getFromQueryConfiguration($listIdentifier);
-//		$join = $this->extensionConfigurationAdapter->getJoinQueryConfiguration($listIdentifier);
-//		
-//		$queryConfiguration = new Tx_PtExtlist_Domain_Configuration_QueryConfiguration($select, $from);
-//		$queryConfiguration->setJoin($join);
-//
-//		$dataConfiguration = $this->extensionConfigurationAdapter->getDataConfiguration($listIdentifier);
-//		$dataConfiguration->setQueryConfiguration($queryConfiguration);
-//		
-//		return $dataConfiguration;
-	}
 	
 	
 	
-	/**
-	 * 
-	 */
-	public function buildFilterConfiguration() {
-	}
 	
 	
 	
-	/**
-	 * Returns array of settings for current plugin configuration
-	 *
-	 * @return array
-	 * @author Michael Knoll <knoll@punkt.de>
-	 */
-	public function getSettings() {
-		return $this->settings;
-	}
 	
 	
+
 	
-	public function getListIdentifier() {
-		return $this->listIdentifier;
-	}
+
 }
 
 ?>
