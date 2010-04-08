@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	/**
 	 * Holds an instance of a fields configuration and handles it as a singleton instance
-	 * @var 
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldsConfiguration = null;
 	
@@ -155,9 +155,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     
+    /**
+     * Returns a singleton instance of a fields configuration collection for current list configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     */
     public function buildFieldsConfiguration() {
     	if (is_null($this->fieldsConfiguration)) {
-    		$this->fieldsConfiguration = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::createFieldConfigCollection($this->settings['fields']);
+    		$this->fieldsConfiguration = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->settings['fields']);
     	}
     	return $this->fieldsConfiguration;
     }

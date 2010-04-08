@@ -1,4 +1,5 @@
 <?php
+
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
 
 	/**
@@ -36,4 +37,5 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
 	}
 			
 }
+
 ?>

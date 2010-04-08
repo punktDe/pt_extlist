@@ -12,10 +12,23 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		    'listConfig' => array(
 		         'test' => array(
 		             'abc' => '2',
-		             'def' => '3'
-		         )
+		             'def' => '3',
+		             'fields' => array(
+				         'field1' => array( 
+				             'table' => 'tableName1',
+				             'field' => 'fieldName1',
+				             'isSortable' => '0',
+				             'access' => '1,2,3,4'
+				         ),
+				         'field2' => array( 
+				             'table' => 'tableName2',
+				             'field' => 'fieldName2',
+				             'isSortable' => '0',
+				             'access' => '1,2,3,4'
+				         )
+				     )
+		        )
 		    )
-		
 		);
 	}
 	
@@ -50,6 +63,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	public function testGetListIdentifier() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
 		$this->assertEquals($configurationBuilder->getListIdentifier(), $this->settings['listIdentifier']);
+	}
+	
+	
+	
+	public function testBuildFieldsConfiguration() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$fieldConfigCollection = $configurationBuilder->buildFieldsConfiguration();
 	}
 	
 }
