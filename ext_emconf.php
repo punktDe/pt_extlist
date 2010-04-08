@@ -14,11 +14,11 @@ $EM_CONF[$_EXTKEY] = array(
 	'title' => 'pt_extlist',
 	'description' => 'Proof of Concept: pt_list refactored to extbase',
 	'category' => '',
-	'author' => '',
-	'author_email' => '',
-	'author_company' => '',
+	'author' => 'Daniel Lienert, Christoph Ehscheidt, Michael Knoll',
+	'author_email' => 't3extensions@punkt.de',
+	'author_company' => 'http://www.punkt.de',
 	'shy' => '',
-	'dependencies' => 'cms,extbase,fluid',
+	'dependencies' => 'cms,extbase,fluid,pt_tools',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -33,8 +33,9 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'cms' => '',
-			'extbase' => '',
-			'fluid' => '',
+			'extbase' => '1.0.2',
+			'fluid' => '1.0.2',
+            'pt_tools' => '1.0.2 dev'
 		),
 		'conflicts' => array(
 		),
