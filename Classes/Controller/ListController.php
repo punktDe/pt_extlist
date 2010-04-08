@@ -39,7 +39,12 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	}
 	
 	public function indexAction() {
-		$this->dataBackend->getListStructure();
+		#$this->dataBackend->getListStructure();
+		return "Hallo Welt aus der pt_list 2.0 indexAction";
+	}
+	
+	public function listAction() {
+		return "Hallo Welt aus pt_list 2.0 listAction";
 	}
 	
 }
