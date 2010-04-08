@@ -3,13 +3,22 @@
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		// TODO finish this!		
-		//$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
-		//tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass']);	
-		//$dataBackendClassName = $dataBackendSettings['dataBackendClass'];
+		$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
+		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass']);	
+		$dataBackendClassName = $dataBackendSettings['dataBackendClass'];
 		
-		// TODO remove this after testing!
-		return new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend_DummyDataBackend($configurationBuilder);
+		// Check whether backend class exists
+		if (!class_exists($dataBackendClassName)) {
+			throw new Exception('Data Backend class ' . $dataBackendClassName . ' does not exist!');
+		}
+		$dataBackend = new $dataBackendClassName($configurationBuilder);
+		
+		// Check whether backend class implements abstract backend class
+		if (!($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend)) {
+			throw new Exception('Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend');
+		}
+		
+		return $dataBackend;
 	}
 	
 }

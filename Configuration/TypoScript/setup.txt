@@ -11,9 +11,6 @@ plugin.tx_ptextlist.settings {
 	
 	    abc = 2
 	
-		#dataType =[extBase(default)|dataBase]
-		backend = dataBase
-	
 		# config für extbase 
 		#backendConfig {
 		#		domainObject = FeUser	
@@ -23,6 +20,11 @@ plugin.tx_ptextlist.settings {
 		backendConfig {
 			#backend = [typo3|mysql|oracle|mssql|soap|textfile]
 			backend = mysql
+			
+			#dataType =[extBase(default)|dataBase]
+			# TODO think of some better syntax here...
+            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_DummyDataBackend_DummyDataBackend
+			
 			datasource {
 				host = localhost
 				username = typo3
