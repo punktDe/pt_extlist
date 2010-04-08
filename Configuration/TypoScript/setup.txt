@@ -19,7 +19,8 @@ plugin.tx_ptextlist.settings {
 		# config für dosGenerator
 		backendConfig {
 			#backend = [typo3|mysql|oracle|mssql|soap|textfile]
-			backend = mysql
+			# Does not work at the moment: 
+			# backend = mysql
 			
 			#dataType =[extBase(default)|dataBase]
 			# TODO think of some better syntax here...
