@@ -52,10 +52,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		}
 		
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
-		
-		#$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend(
-		#						$this->configurationBuilder->buildDataConfiguration($this->listIdentifier));
-		
+		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 	
 }

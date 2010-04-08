@@ -2,36 +2,15 @@
 
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
-	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
+	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		// TODO finish this!		
+		//$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
+		//tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass']);	
+		//$dataBackendClassName = $dataBackendSettings['dataBackendClass'];
 		
-		$backendType = $configuration->getBackendType();
-		
-		$backend = NULL;
-		switch($backendType) {
-			case 'mysql':
-				$backend = self::createMysqlBackend($configuration);
-				break;
-				
-			default:
-				throw new Tx_PtExtlist_Exception_InvalidBackendException('No or invalid backend type configured.');
-		}
-		
-		return $backend;
+		// TODO remove this after testing!
+		return new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend_DummyDataBackend($configurationBuilder);
 	}
-	
-	protected static function createMysqlBackend(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
-		$backend = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_MySqlDataBackend($configuration);
-		
-		$mapper = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_Mapper();
-		
-		$dataSource = new Tx_PtExtlist_Domain_DataBackend_MySqlBackend_DataSource($configuration);
-		
-		$backend->injectMapper($mapper);
-		$backend->injectDataSource($dataSource);
-		
-		return $backend;
-	}
-	
 	
 }
 

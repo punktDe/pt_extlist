@@ -14,9 +14,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $dataSource;
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_DataConfiguration
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected $configuration;
+	protected $configurationBuilder;
 	
 	
 	/**
@@ -25,13 +25,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $queryBuilder;
 	
 	
-	public function __construct(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
-		$this->configuration = $configuration;
-		
-		$this->initQueryBuilder();
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
 	}
-
-	protected abstract function initQueryBuilder();
 
 	public function injectMapper(Tx_PtExtlist_Domain_DataBackend_MapperInterface &$mapper) {
 		$this->mapper = $mapper;

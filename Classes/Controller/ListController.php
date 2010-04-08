@@ -2,6 +2,8 @@
 
 
 class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController {
+	
+	
 
 	public function renderAsPluginAction() {
 		/**
@@ -50,7 +52,8 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function listAction() {
-		return "listAction: ListIdentifier = " . $this->listIdentifier;
+		$listData = $this->dataBackend->getListData();
+		print_r($listData);
 	}
 	
 }
