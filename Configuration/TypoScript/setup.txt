@@ -5,7 +5,11 @@
 
 plugin.tx_ptextlist.settings {
 
+    abc = 1
+
 	listConfig.test {
+	
+	    abc = 2
 	
 		#dataType =[extBase(default)|dataBase]
 		dataType = dataBase
