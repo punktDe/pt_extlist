@@ -32,11 +32,6 @@
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
-	 */
-	protected static $columnConfigCollection;
-	
-	/**
 	 * Build and return ColumnConfigurationCollection
 	 *  
 	 * @param $columnSettings typoscript array of column Collection
@@ -44,12 +39,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public static function getColumnConfigCollection($columnSettings) {
-		
-		if(!is_object(self::$columnConfigCollection)) {
-			self::buildColumnConfigCollection($columnSettings);
-		}
-	    	
-		return self::$columnConfigCollection;
+		$columnConfigCollection = self::buildColumnConfigCollection($columnSettings);
+		return $columnConfigCollection;
 	}
 	
 	/**
@@ -57,8 +48,15 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	 * @return void
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
-	public static function buildColumnConfigCollection($columnSettings) {
-				
+	protected static function buildColumnConfigCollection(array $columnSettings) {
+		
+		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
+
+		foreach($columnSettings as $columnId => $columnSetting) {
+			$columnConfigCollection->addColumnConfig($columnId, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($columnSetting));
+		}
+		
+		return $columnConfigCollection;
 	}
 }
 ?>

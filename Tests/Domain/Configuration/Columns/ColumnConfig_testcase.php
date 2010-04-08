@@ -1,5 +1,5 @@
 <?php
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_ColumnConfig_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_Extbase_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a column config object
