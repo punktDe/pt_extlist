@@ -16,6 +16,12 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
 	
 	
 	
+	/**
+	 * Returns a field configuration object for a given identifier
+	 *
+	 * @param string $identifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+	 */
 	public function getFieldConfigByIdentifier($identifier) {
 		if ($this->hasItem($identifier)) {
 			return $this->getItemById($identifier);
