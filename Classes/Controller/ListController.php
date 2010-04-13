@@ -85,7 +85,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	public function listAction() {
 		$listData = $this->dataBackend->getListData();
 		$this->view->assign('listData', $listData);
-		#print_r($listData);
 	}
 	
 }

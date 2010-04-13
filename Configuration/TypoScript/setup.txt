@@ -24,7 +24,9 @@ plugin.tx_ptextlist.settings {
 			
 			#dataType =[extBase(default)|dataBase]
 			# TODO think of some better syntax here...
-            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_DummyDataBackend_DummyDataBackend
+            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
+            dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
+            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 			
 			datasource {
 				host = localhost
@@ -54,18 +56,29 @@ plugin.tx_ptextlist.settings {
 		}
 		
 		fields {
-		
-			name_local {
-                table = static_countries
-                field = cn_short_local
-                
-                # default for isSortable is "1"
-                isSortable = 1
+		    
+			#name_local {
+            #    table = static_countries
+            #    field = cn_short_local
+            #    
+            #    # default for isSortable is "1"
+            #    isSortable = 1
+            #}
+            
+            #name_en {
+            #    field = cn_short_en
+            #    table = static_countries
+            #}
+            
+            
+            field1 { 
+                table = t1
+                field = f1
             }
             
-            name_en {
-                field = cn_short_en
-                table = static_countries
+            field2 { 
+                table = t2
+                field = f1
             }
             
 		}

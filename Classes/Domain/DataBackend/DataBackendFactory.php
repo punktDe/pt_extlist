@@ -34,6 +34,9 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
+	
+	// TODO Data Backend needs to be a singleton!!!!!
+	
 	/**
 	 * Create new data backend object for given configuration
 	 *
