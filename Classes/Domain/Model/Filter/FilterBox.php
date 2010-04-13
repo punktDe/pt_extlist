@@ -26,8 +26,32 @@
 
 
 class Tx_PtExtlist_Domain_Model_Filter_FilterBox extends tx_pttools_objectCollection {
+
+	protected $filterBoxIdentifier;
 	
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface';
+	
+	
+	
+	/**
+	 * Constructor for filterbox
+	 *
+	 * @param string $filterBoxIdentifier  Identifier of filterbox
+	 */
+	public function __construct($filterBoxIdentifier) {
+		tx_pttools_assert::isNotEmptyString($filterBoxIdentifier, array('message' => 'Filterbox identifier was empty!'));
+		$this->filterBoxIdentifier = $filterBoxIdentifier;
+	}
+	
+	
+	/**
+	 * Returns filterbox identifier
+	 *
+	 * @return string
+	 */
+	public function getFilterBoxIdentifier() {
+		return $this->filterBoxIdentifier;
+	}
 	
 }
 

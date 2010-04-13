@@ -26,15 +26,23 @@
 
 
 /**
- * Implements collection for filterboxes
+ * Implements factory for filterboxe collections
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist 
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection extends Tx_PtExtlist_Domain_Model_Filter_Filterbox {
+class Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollectionFactory {
 	
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterBox';
+	public static function createInstanceByFilterBoxConfigCollection(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection $filterBoxConfigCollection) {
+		$filterBoxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection();
+		foreach($filterBoxConfigCollection as $filterBoxConfiguration) { /* @var $filterBoxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterBoxConfiguration */
+			$filterBox = Tx_PtExtlist_Domain_Model_Filter_FilterBoxFactory::createFilterBoxByFilterBoxConfiguration($filterBoxConfiguration);
+			// TODO CodeMonkey: add appropriate method!
+			$filterBoxCollection->addItem($filterBox, $filterBox->getFilterBoxIdentifier());
+		}
+		return $filterBoxCollection;
+	}
 	
 }
 
