@@ -23,11 +23,14 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+
+
 /**
  *  FieldConfigCollection Factory
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory {
 	
@@ -51,10 +54,11 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
 	 * @param array $fieldSettingsArray
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
-	protected static function buildFieldConfigCollection(array $fieldSettingsArray) {
+	protected static function buildFieldConfigCollection(array $fieldSettingsArray = null) {
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
 		foreach ($fieldSettingsArray as $fieldIdentifier => $fieldSettings) {
-			$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($fieldIdentifier, $fieldSettings));
+			$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($fieldIdentifier, $fieldSettings);
+			$fieldConfigCollection->addFieldConfig($fieldConfig);
 		}
 		return $fieldConfigCollection;
 	}
