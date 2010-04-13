@@ -26,46 +26,32 @@
 
 
 /**
- * This class implements a dummy data backend for generating
- * some output for testing and development.
+ * Class implements a factory for a data source
  * 
- * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+class Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceFactory {
 	
 	/**
-	 * Constructor for dummy data backend
+	 * Returns an instance of a data source for a given data source class name.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return mixed
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		parent::__construct($configurationBuilder);
-	}
-	
-	
-	
-	/**
-	 * Generates dummy list data
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function getListData() {
-		$rawListData = $this->getListDataFromDataSource();
-		$mappedListData = $this->dataMapper->getMappedListData($rawListData);
-		return $mappedListData;
-	}
-	
-	
-	
-	/**
-	 * Executes query on data source
-	 *
-	 * @return array   Raw list data array
-	 */
-	protected function getListDataFromDataSource() {
-		return $this->dataSource->execute();
+	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
+		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataSourceClass']);	
+		$dataSourceClassName = $dataBackendSettings['dataSourceClass'];
+		
+		// Check whether dataSource class exists
+		if (!class_exists($dataSourceClassName)) {
+			throw new Exception('Data Source class ' . $dataSourceClassName . ' does not exist!');
+		}
+		$dataSource = new $dataSourceClassName($configurationBuilder);
+		
+		return $dataSource;
 	}
 	
 }

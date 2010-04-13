@@ -21,30 +21,28 @@
 *  GNU General Public License for more details.
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+***************************************************************/+
 
 
 
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource {
-
-	protected $connection;
-	
-	
-	public function __construct(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
-		$this->connection = new mysqli(	$configuration->getHost(),
-										$configuration->getUsername(),
-										$configuration->getPassword(),
-										$configuration->getSource());
-	}
-	
-	
-	
-	
-	public function execute($query) {
-		
-	}
-	
-	
+class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+    
+    protected function initQueryBuilder() {
+        $this->queryBuilder = new Tx_PtExtlist_Domain_DataBackend_Query_MySqlQueryBuilder();
+    }
+    
+    public function getListData() {
+        $query = $this->queryBuilder->buildQuery($this->configuration->getQueryConfiguration());
+//      var_dump($this->configuration->getQueryConfiguration());
+        var_dump($query);
+            //$query = null;
+            
+            //$res = $this->dataSource->execute($query);
+            
+            //$structure = $this->mapper->map($res);
+            
+            //return $structure;
+    }
 }
 
 ?>

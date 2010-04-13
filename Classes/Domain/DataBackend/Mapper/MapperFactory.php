@@ -25,47 +25,37 @@
 
 
 
+// TODO implement tests!
+
+
+
 /**
- * This class implements a dummy data backend for generating
- * some output for testing and development.
+ * Class implements a factory for a data mapper
  * 
- * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 	
 	/**
-	 * Constructor for dummy data backend
+	 * Returns an instance of a data mapper for a given data mapper class name.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return mixed
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		parent::__construct($configurationBuilder);
-	}
-	
-	
-	
-	/**
-	 * Generates dummy list data
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function getListData() {
-		$rawListData = $this->getListDataFromDataSource();
-		$mappedListData = $this->dataMapper->getMappedListData($rawListData);
-		return $mappedListData;
-	}
-	
-	
-	
-	/**
-	 * Executes query on data source
-	 *
-	 * @return array   Raw list data array
-	 */
-	protected function getListDataFromDataSource() {
-		return $this->dataSource->execute();
+	public static function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
+		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataMapperClass']);	
+		$dataMapperClassName = $dataBackendSettings['dataMapperClass'];
+		
+		// Check whether dataMapper class exists
+		if (!class_exists($dataMapperClassName)) {
+			throw new Exception('Data Mapper class ' . $dataMapperClassName . ' does not exist!');
+		}
+		$dataMapper = new $dataMapperClassName($configurationBuilder);
+		
+		return $dataMapper;
 	}
 	
 }
