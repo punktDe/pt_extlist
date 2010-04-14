@@ -29,7 +29,16 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
+
+require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/FilterInterface.php';
+require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/AbstractFilter.php';
+
+/**
+ * Fake implementation for testing only!
+ *
+ */
+class Tx_PtExtlist_Domain_Model_Filter_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
+	
 }
 
 ?>
