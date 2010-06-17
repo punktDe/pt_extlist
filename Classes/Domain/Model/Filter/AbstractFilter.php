@@ -23,7 +23,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
+// TODO ry21 autoload is not working in unit tests... so we need this require here...
+require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/SessionPersistence/SessionPersistableInterface.php';
 
 /**
  * Abstract filter class for all pt_extlist filter models
@@ -32,7 +33,8 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
+abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
+    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface  {
 	
 	/**
 	 * Identifier of this filter
@@ -84,6 +86,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter implements Tx_PtE
 	public function getFilterIdentifier() {
 		return $this->filterIdentifier;
 	}
+	
+	
+	/****************************************************************************************************************
+	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
+	 *****************************************************************************************************************/
+    // TODO ry21 think about which methods can be implemented in the abstract class
+    // TODO ry21 what about list identifier? Shouldn't it be available here?
+	#abstract public function persistToSession();
+	#abstract public function getSessionNamespace();
+	#abstract public function loadFromSession(array $sessionData);
+	
 	
 }
 

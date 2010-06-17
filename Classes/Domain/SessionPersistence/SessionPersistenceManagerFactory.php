@@ -45,12 +45,24 @@ class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory {
 	 * 
 	 * @return Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager Singleton instance of session persistence manager 
 	 */
-	public static getInstance() {
+	public static function getInstance() {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager();
 			self::initializeInstance();
 		}
 		return self::$instance;
+	}
+	
+	
+	
+	/**
+	 * Initializes session persistence manager object
+	 *
+	 * @return void
+	 */
+	private static function initializeInstance() {
+		// TODO think about the fact that here a static property is manipulated... pass by reference?!?
+		self::$instance->injectSessionAdapter(tx_pttools_sessionStorageAdapter::getInstance());
 	}
 	
 }
