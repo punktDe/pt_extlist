@@ -36,6 +36,14 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/SessionPersis
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
     implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface  {
 	
+    /**
+     * Identifier of list to which this filter belongs to
+     *
+     * @var String
+     */	
+    protected $listIdentifier; 
+    	
+    	
 	/**
 	 * Identifier of this filter
 	 *
@@ -59,10 +67,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @param String $filterIdentifier     Identifier for filter
 	 */
-	public function __construct($filterIdentifier) {
+	public function __construct($filterIdentifier, $listIdentifier) {
 		// TODO use assertion message
 		tx_pttools_assert::isNotEmptyString($filterIdentifier); // filter identifier must not be empty!
+		tx_pttools_assert::isNotEmptyString($listIdentifier);   // list identifier must not be emppty!
 		$this->filterIdentifier = $filterIdentifier;
+		$this->listIdentifier = $listIdentifier;
 	}
 	
 	
@@ -81,10 +91,21 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Returns filter identifier
 	 *
-	 * @return string
+	 * @return string Identifier of filter
 	 */
 	public function getFilterIdentifier() {
 		return $this->filterIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Returns list identifier
+	 * 
+	 * @return string Identifier of list to which this filter belongs to
+	 */
+	public function getListIdentifier() {
+		return $this->listIdentifier;
 	}
 	
 	

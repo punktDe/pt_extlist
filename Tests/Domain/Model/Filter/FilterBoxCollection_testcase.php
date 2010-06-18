@@ -24,7 +24,6 @@
 ***************************************************************/
 
 
-
 /**
  * Testcase for filterbox collection
  * 
@@ -35,7 +34,16 @@
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterBoxCollection_testcase extends Tx_Extbase_BaseTestcase {
 	
 	public function testSetUp() {
-		$filterBoxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection();
+		$filterBoxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection('test');
+	}
+	
+	public function testAssertionOnEmptyListIdentifier() {
+		try {
+			$filterBoxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection();
+		} catch(Exception $e) {
+			return;
+		}
+		$this->fail('No exception has been thrown on empty list identifier!');
 	}
 	
 }

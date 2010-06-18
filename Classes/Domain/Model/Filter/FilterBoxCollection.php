@@ -24,10 +24,53 @@
 ***************************************************************/
 
 
-
+/**
+ * Class implements a collection of filterboxes
+ * 
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
 class Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection extends tx_pttools_objectCollection {
-
+    
+	/**
+	 * Restrict collection to filter box class
+	 *
+	 * @var String
+	 */
     protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterBox';
+    
+    
+    
+    /**
+     * List identifier of the list to which this filterbox collection belongs to
+     *
+     * @var String
+     */
+    protected $listIdentifier;
+    
+    
+    
+    /**
+     * Constructor for filterbox collection
+     *
+     * @param String $listIdentifier
+     */
+    public function __construct($listIdentifier) {
+    	tx_pttools_assert::isNotEmptyString($listIdentifier);
+    	$this->listIdentifier = $listIdentifier;
+    }
+    
+    
+    
+    /**
+     * Returns list identifier of list to which filterbox belongs to
+     *
+     * @return String
+     */
+    public function getListIdentifier() {
+    	return $this->listIdentifier;
+    }
 	
 }
 

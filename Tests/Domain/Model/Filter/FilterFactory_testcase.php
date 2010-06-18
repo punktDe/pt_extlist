@@ -36,9 +36,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_E
 	
 	public function testCreateInstanceByConfiguration() {
 		$filterConfigurationMock = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterBoxConfigurationCollectionMock();
-		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstanceByFilterConfig($filterConfigurationMock->getFilterConfigurationMock('filter1'));
+		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstanceByFilterConfigAndListIdentifier($filterConfigurationMock->getFilterConfigurationMock('filter1'), 'test');
 		$this->assertEquals($filter->getFilterIdentifier(), 'filter1');
-		
+	    $this->assertEquals($filter->getListIdentifier(), 'test');	
 	}
 	
 	
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_E
             ->will($this->returnValue(__CLASS__));
         
         try {
-            $filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstanceByFilterConfig($mockFilterConfiguration);
+            $filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstanceByFilterConfigAndListIdentifier($mockFilterConfiguration, 'test');
         } catch(Exception $e) {
         	return;
         }

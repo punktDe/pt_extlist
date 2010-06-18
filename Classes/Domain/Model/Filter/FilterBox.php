@@ -24,11 +24,38 @@
 ***************************************************************/
 
 
-
+/**
+ * Class implements a filterbox which is a collection of filters
+ * 
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
 class Tx_PtExtlist_Domain_Model_Filter_FilterBox extends tx_pttools_objectCollection {
 
+	/**
+	 * Filterbox identifier of this filterbox
+	 *
+	 * @var string
+	 */
 	protected $filterBoxIdentifier;
 	
+	
+	
+	/**
+	 * List identifier of list to which this filterbox belongs to
+	 *
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
+	
+	
+	/**
+	 * Class name to restrict collection to
+	 *
+	 * @var string
+	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface';
 	
 	
@@ -38,10 +65,13 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterBox extends tx_pttools_objectCollec
 	 *
 	 * @param string $filterBoxIdentifier  Identifier of filterbox
 	 */
-	public function __construct($filterBoxIdentifier) {
+	public function __construct($filterBoxIdentifier, $listIdentifier) {
 		tx_pttools_assert::isNotEmptyString($filterBoxIdentifier, array('message' => 'Filterbox identifier was empty!'));
+		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier was empty!'));
+		$this->listIdentifier = $listIdentifier;
 		$this->filterBoxIdentifier = $filterBoxIdentifier;
 	}
+	
 	
 	
 	/**
@@ -51,6 +81,17 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterBox extends tx_pttools_objectCollec
 	 */
 	public function getFilterBoxIdentifier() {
 		return $this->filterBoxIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Returns list identifier to which this filterbox belongs to
+	 *
+	 * @return string
+	 */
+	public function getListIdentifier() {
+		return $this->listIdentifier;
 	}
 	
 }

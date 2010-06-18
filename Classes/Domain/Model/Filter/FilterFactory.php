@@ -24,7 +24,13 @@
 ***************************************************************/
 
 
-
+/**
+ * Class implements factory for filter objects
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	
 	/**
@@ -33,11 +39,12 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
-	public static function createInstanceByFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
+	public static function createInstanceByFilterConfigAndListIdentifier(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, $listIdentifier) {
 		$filterClassName = $filterConfig->getFilterClassName();
 		tx_pttools_assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check configuration!'));
 		tx_pttools_assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class does not exist or is not loaded!'));
-		$filter = new $filterClassName($filterConfig->getFilterIdentifier());
+		tx_pttools_assert::isNotEmptyString($listIdentifier);
+		$filter = new $filterClassName($filterConfig->getFilterIdentifier(), $listIdentifier);
 		tx_pttools_assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface!'));
 		$filter->injectFilterConfig($filterConfig);
 		return $filter;
