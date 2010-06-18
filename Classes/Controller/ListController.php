@@ -76,8 +76,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	
 	
 	/**
-	 * List action rendering list for given
-	 * list identifier
+	 * List action rendering list
 	 *
 	 * @return string  Rendered list for given list identifier
 	 * @author Michael Knoll <knoll@punkt.de>

@@ -35,7 +35,7 @@
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
 	
-	// TODO Data Backend needs to be a singleton!!!!!
+	// TODO Data Backend needs to be a singleton!!!!! (for each list identifier)
 	
 	/**
 	 * Create new data backend object for given configuration
