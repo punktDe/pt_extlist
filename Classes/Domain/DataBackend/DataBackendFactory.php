@@ -49,7 +49,10 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
 	 */
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		if (!array_key_exists($configurationBuilder->getListIdentifier(),self::$instances)) {
+		
+		$listIdentifier = $configurationBuilder->getListIdentifier();
+		
+		if (!array_key_exists($listIdentifier, self::$instances)) {
 	        $dataBackendSettings = $configurationBuilder->getBackendConfiguration();
 	        tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass'], array('message' => 'dataBackendClass must not be empty!'));   
 	        
@@ -63,12 +66,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend , 
 	            array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
 
-	        $dataBackend = self::injectDataMapper($dataBackend, $configurationBuilder);
-	        $dataBackend = self::injectDataSource($dataBackend, $configurationBuilder);
+	            
+	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
+	        $dataBackend->injectDataSource(self::getDataSource($configurationBuilder));
 	        
-	        self::$instances[$configurationBuilder->getListIdentifier()] = $dataBackend;
+	        self::$instances[$listIdentifier] = $dataBackend;
 		}
-		return self::$instances[$configurationBuilder->getListIdentifier()];
+		return self::$instances[$listIdentifier];
 	}
 	
 	
@@ -76,13 +80,11 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	/**
 	 * Initializes the data source used for this data backend
 	 *
-	 * @param Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend $dataBackend
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-    protected static function injectDataSource(Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    protected static function getDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
          $dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceFactory::createDataSource($configurationBuilder);
-         $dataBackend->injectDataSource($dataSource);
-         return $dataBackend;
+         return $dataSource;
     }
     
     
@@ -90,17 +92,15 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     /**
      * Injects the data mapper used for created backend
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend $dataBackend
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      */
-    protected function injectDataMapper(Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    protected function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
         $dataMapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($configurationBuilder);
         // TODO this configuration might not be set!
         // TODO is this a good place to set configuration?!?
         $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration(); 
         $dataMapper->setMapperConfiguration($mapperConfiguration);
-        $dataBackend->injectDataMapper($dataMapper);
-        return $dataBackend;
+        return $dataMapper;
     }
 	
 }
