@@ -46,7 +46,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 	 */
 	public static function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
-		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataMapperClass']);	
+		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataMapperClass'], array("message" => 'No dataMapperClass given in settings'));	
 		$dataMapperClassName = $dataBackendSettings['dataMapperClass'];
 		
 		// Check whether dataMapper class exists

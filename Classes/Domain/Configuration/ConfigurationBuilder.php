@@ -118,7 +118,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
             	self::$instances[$settings['listIdentifier']] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
             }
         } else {
-            throw new Exception('No list identifier set!');
+            throw new Exception('No list identifier could be found in settings!');
         }
         return self::$instances[$settings['listIdentifier']];
 	}
@@ -153,11 +153,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	protected function mergeAndSetGlobalAndLocalConf() {
-		$mergedSettings = t3lib_div::array_merge_recursive_overrule(
-            $this->origSettings,
-            $this->origSettings['listConfig'][$this->listIdentifier]
-        );
-        $this->settings = $mergedSettings['listConfig'][$this->listIdentifier];
+		if (is_array($this->origSettings['listConfig'][$this->listIdentifier])) {
+			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+	            $this->origSettings,
+	            $this->origSettings['listConfig'][$this->listIdentifier]
+	        );
+	        $this->settings = $mergedSettings;
+		}
 	}
 
 	

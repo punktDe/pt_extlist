@@ -64,6 +64,13 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection
+	 */
+	protected $filterBoxCollection;
+	
+	
+	
+	/**
 	 * Constructor for data backend
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -92,6 +99,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	public function injectDataSource($dataSource) {
 		$this->dataSource = $dataSource;
+	}
+	
+	
+	
+	/**
+	 * Injector for filter box collection
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterBoxCollection
+	 */
+	public function injectFilterBoxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterBoxCollection) {
+		$this->filterBoxCollection = $filterBoxCollection;
 	}
 	
 }
