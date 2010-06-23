@@ -138,6 +138,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		$this->sessionAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_SessionAdapter');
 		$this->getPostVarAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter');
 		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
+		// TODO: MUST be injected through the factory 
 	}
 	
 	

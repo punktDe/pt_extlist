@@ -34,8 +34,13 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
+	/**
+     * Holds an associative array of instances of data backend objects
+     * Each list identifier holds its own data backend object
+     * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
+     */
+	private static $instances = null;
 	
-	// TODO Data Backend needs to be a singleton!!!!! (for each list identifier)
 	
 	/**
 	 * Create new data backend object for given configuration
@@ -44,24 +49,26 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
 	 */
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
-		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass'], array('message' => 'dataBackendClass must not be empty!'));	
-		$dataBackendClassName = $dataBackendSettings['dataBackendClass'];
-		
-		// Check whether backend class exists
-		if (!class_exists($dataBackendClassName)) {
-			throw new Exception('Data Backend class ' . $dataBackendClassName . ' does not exist!');
+		if (!array_key_exists($configurationBuilder->getListIdentifier(),self::$instances)) {
+	        $dataBackendSettings = $configurationBuilder->getBackendConfiguration();
+	        tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass'], array('message' => 'dataBackendClass must not be empty!'));   
+	        
+	        $dataBackendClassName = $dataBackendSettings['dataBackendClass'];
+	        
+	        // Check whether backend class exists
+	        tx_pttools_assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist!'));
+	        $dataBackend = new $dataBackendClassName($configurationBuilder);
+	        
+	        // Check whether backend class implements abstract backend class
+	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend , 
+	            array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
+
+	        $dataBackend = self::injectDataMapper($dataBackend, $configurationBuilder);
+	        $dataBackend = self::injectDataSource($dataBackend, $configurationBuilder);
+	        
+	        self::$instances[$configurationBuilder->getListIdentifier()] = $dataBackend;
 		}
-		$dataBackend = new $dataBackendClassName($configurationBuilder);
-		
-		
-		// Check whether backend class implements abstract backend class
-		if (!($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend)) {
-			throw new Exception('Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend');
-		}
-		$dataBackend = self::injectDataMapper($dataBackend, $configurationBuilder);
-		$dataBackend = self::injectDataSource($dataBackend, $configurationBuilder);
-		return $dataBackend;
+		return self::$instances[$configurationBuilder->getListIdentifier()];
 	}
 	
 	
@@ -87,7 +94,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      */
     protected function injectDataMapper(Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        // $this->dataMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
         $dataMapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($configurationBuilder);
         // TODO this configuration might not be set!
         // TODO is this a good place to set configuration?!?

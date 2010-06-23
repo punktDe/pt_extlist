@@ -40,6 +40,21 @@ class Tx_PtExtlist_Test_Domain_DataBackend_DataBackendFactory_testcase extends T
         $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($mockConfigurationBuilder);
     }
     
+    
+    public function testGetSingletonInstances() {
+    	$mockConfigurationBuilderForTest1 = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(array('listIdentifier' => 'test1'));
+    	$mockConfigurationBuilderForTest2 = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(array('listIdentifier' => 'test2'));
+    	$dataBackendForTest1 = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($mockConfigurationBuilderForTest1);
+    	$dataBackendForTest2 = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($mockConfigurationBuilderForTest2);
+    	
+    	$this->assertTrue($dataBackendForTest1 != $dataBackendForTest2);
+    	
+    	$duplicatedDataBackendForTest1 = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($mockConfigurationBuilderForTest1);
+    	  	
+    	$this->assertTrue($dataBackendForTest1 === $duplicatedDataBackendForTest1);
+    	
+    }
+    
 }
 
 ?>
