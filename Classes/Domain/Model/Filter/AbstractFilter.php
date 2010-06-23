@@ -69,8 +69,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function __construct($filterIdentifier, $listIdentifier) {
 		// TODO use assertion message
-		tx_pttools_assert::isNotEmptyString($filterIdentifier); // filter identifier must not be empty!
-		tx_pttools_assert::isNotEmptyString($listIdentifier);   // list identifier must not be emppty!
+		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'No listIdentifier specified.'));  
+		tx_pttools_assert::isNotEmptyString($filterIdentifier, array('message' => 'No filterIdentifier specified.')); 
+
 		$this->filterIdentifier = $filterIdentifier;
 		$this->listIdentifier = $listIdentifier;
 	}

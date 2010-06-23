@@ -52,9 +52,9 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	
 	public function __construct($identifier, $fieldSettings) {
-		tx_pttools_assert::isNotEmptyString($fieldSettings['table']);
-		tx_pttools_assert::isNotEmptyString($fieldSettings['field']);
-		tx_pttools_assert::isNotEmptyString($identifier);
+		tx_pttools_assert::isNotEmptyString($fieldSettings['table'], array('message' => 'No table specified in config.'));
+		tx_pttools_assert::isNotEmptyString($fieldSettings['field'], array('message' => 'No field specified in config.'));
+		tx_pttools_assert::isNotEmptyString($identifier, array('message' => 'No identifier specified.'));
 		
 		$this->identifier = $identifier;
 		$this->table = $fieldSettings['table'];

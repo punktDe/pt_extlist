@@ -41,7 +41,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_E
 	    $this->assertEquals($filter->getListIdentifier(), 'test');	
 	}
 	
-	
 	public function testCreateNonInterfaceImplementingClass() {
 		$mockFilterConfiguration = $this->getMock(
             'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
