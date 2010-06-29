@@ -30,10 +30,10 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollection_testcase extends Tx_Extbase_BaseTestcase {
 	
     public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig'), 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig does not exist!');
+    	$this->isTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection does not exist!'));
     }
 	
 }
