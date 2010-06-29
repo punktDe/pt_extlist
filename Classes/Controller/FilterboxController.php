@@ -38,6 +38,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 */
 	protected $filterboxIdentifier;
 	
+	
+	
 	/**
      * Injects the settings of the extension.
      *
@@ -46,23 +48,31 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      */
     public function injectSettings(array $settings) {
         parent::injectSettings($settings);
-        /* Make sure, filterbox identifier exists */
         tx_pttools_assert::isNotEmptyString($settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform!'));
         $this->filterboxIdentifier = $settings['filterboxIdentifier'];
     }
 	
     
     
-    
+    /**
+     * Renders a filterbox
+     * 
+     * @return string The rendered filterbox action
+     */
     public function showAction() {
-        print_r($this->settings);
-        return $this->listIdentifier;
+        
+    	
+    	print_r($this->filterboxIdentifier);
     }
     
     
     
+    /**
+     * Renders submit action
+     */
     public function submitAction() {
-    	
+    	// TODO test, whether this is working!
+        $this->redirect('show');
     }
     
 }
