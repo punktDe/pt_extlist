@@ -34,6 +34,5 @@ class Tx_PtExtlist_Domain_Configurration_Filters_FilterboxConfigCollectionFactor
 	public static function getFilterBoxConfigCollection() {
 		
 	}
-	
 }
 ?>

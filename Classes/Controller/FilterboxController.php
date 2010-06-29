@@ -24,24 +24,46 @@
 ***************************************************************/
 
 /**
- * Class Filtercontroller
+ * Class implementing filterbox controller
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Controller_FilterController extends Tx_PtExtlist_Controller_AbstractController {
+class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controller_AbstractController {
 
+	/**
+	 * Holds filterbox identifier to be rendered by this controller
+	 *
+	 * @var string
+	 */
+	protected $filterboxIdentifier;
+	
+	/**
+     * Injects the settings of the extension.
+     *
+     * @param array $settings Settings container of the current extension
+     * @return void
+     */
+    public function injectSettings(array $settings) {
+        parent::injectSettings($settings);
+        /* Make sure, filterbox identifier exists */
+        tx_pttools_assert::isNotEmptyString($settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform!'));
+        $this->filterboxIdentifier = $settings['filterboxIdentifier'];
+    }
+	
     
-	public function showAction() {
-        		
+    
+    
+    public function showAction() {
+        print_r($this->settings);
+        return $this->listIdentifier;
     }
     
     
     
     public function submitAction() {
-    	// TODO ry21 only a filterbox can be submitted - so does this really make sense?
+    	
     }
     
 }
-
 ?>

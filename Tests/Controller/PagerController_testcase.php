@@ -24,40 +24,18 @@
 ***************************************************************/
 
 /**
- * Class implementing testcase for filterb configuration
- * 
- * @package Typo3
+ * Testcase for pager controller class
+ *
+ * @package TYPO3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	protected $filterSettings = array();
-	
-	
-	public function setup() {
-		$this->filterSettings = array(
-		    'filterIdentifier' => 'filterName1'
-		);
-	}
-	
-	
-	
-	public function testSetup() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->filterSettings);
-	}
-	
-	
-	
-	public function testExceptionOnEmptyFilterIdentifier() {
-		try {
-		    $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(array());
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
-	
+class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
+    
+   public function testSetup() {
+   	    $this->assertTrue(class_exists('Tx_PtExtlist_Controller_PagerController'), 'Class Tx_PtExtlist_Controller_PagerController does not exist!');
+    }
+    
 }
 
 ?>

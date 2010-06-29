@@ -24,39 +24,17 @@
 ***************************************************************/
 
 /**
- * Class implementing testcase for filterb configuration
+ * Class implementing testcase for filter configuration factory
  * 
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
-	protected $filterSettings = array();
-	
-	
-	public function setup() {
-		$this->filterSettings = array(
-		    'filterIdentifier' => 'filterName1'
-		);
-	}
-	
-	
-	
-	public function testSetup() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->filterSettings);
-	}
-	
-	
-	
-	public function testExceptionOnEmptyFilterIdentifier() {
-		try {
-		    $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(array());
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
+    public function testSetup() {
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory does not exist!'));
+    }
 	
 }
 
