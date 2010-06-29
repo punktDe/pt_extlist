@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Controller_FilterBoxController extends Tx_PtExtlist_Controller_AbstractController {
+class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controller_AbstractController {
 
     
     public function showAction() {
