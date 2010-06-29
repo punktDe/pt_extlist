@@ -24,37 +24,23 @@
 ***************************************************************/
 
 /**
- * Testcase for filter controller class
+ * Class implementing filterbox controller
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Controller_FilterControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-   public function testSetup() {
-		$mockController = $this->getMock(
-		  $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterController'),
-		  array('dummy'),array(), '', FALSE);
+class Tx_PtExtlist_Controller_FilterBoxController extends Tx_PtExtlist_Controller_AbstractController {
+
+    
+    public function showAction() {
+                
     }
     
     
     
-    public function testShowAction() {
-    	$mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterController'),
-          array('dummy'),array(), '', FALSE);
-        $mockController->showAction();
-    }
-    
-    
-    
-    public function testSubmitAction() {
-    	$mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterController'),
-          array('dummy'),array(), '', FALSE);
-        $mockController->submitAction();
+    public function submitAction() {
+    	
     }
     
 }
-
 ?>

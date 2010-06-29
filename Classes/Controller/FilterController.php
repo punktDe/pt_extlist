@@ -31,10 +31,17 @@
  */
 class Tx_PtExtlist_Controller_FilterController extends Tx_PtExtlist_Controller_AbstractController {
 
-	public function testSetup() {
-		$controller = new Tx_PtExtlist_Controller_FilterController();
-	}
-	
+    
+	public function showAction() {
+        		
+    }
+    
+    
+    
+    public function submitAction() {
+    	// TODO ry21 only a filterbox can be submitted - so does this really make sense?
+    }
+    
 }
 
 ?>
