@@ -31,7 +31,9 @@
  */
 class Tx_PtExtlist_Controller_FilterController extends Tx_PtExtlist_Controller_AbstractController {
 
-	
+	public function testSetup() {
+		$controller = new Tx_PtExtlist_Controller_FilterController();
+	}
 	
 }
 

@@ -31,6 +31,12 @@
  */
 class Tx_PtExtlist_Tests_Controller_FilterControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
+   public function testSetup() {
+		$mockController = $this->getMock(
+		  $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterController'),
+		  array('dummy'),array(), '', FALSE);
+    }
+    
 }
 
 ?>
