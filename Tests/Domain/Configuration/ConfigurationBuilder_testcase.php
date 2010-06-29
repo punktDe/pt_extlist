@@ -141,5 +141,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
         }
 	}
 	
+	
+	public function testGetFilterSettings() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$this->assertEquals($configurationBuilder->getFilterSettings(), $this->settings['listConfig']['test']['filters']);
+	}
+	
 }
 ?>

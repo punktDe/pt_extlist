@@ -211,6 +211,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
+     * Returns configuration array for all filters
+     *
+     * @return array Settings for all filters
+     */
+    public function getFilterSettings() {
+    	return $this->settings['filters'];
+    }
+    
+    
+    /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
      *
      * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
@@ -235,6 +245,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	}
     	return $this->fieldsConfiguration;
     }
+    
 }
 
 ?>
