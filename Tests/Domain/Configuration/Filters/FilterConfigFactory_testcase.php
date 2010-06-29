@@ -33,7 +33,7 @@
 class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
     public function testSetup() {
-    	$this->isTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory does not exist!'));
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory does not exist!'));
     }
 	
 }
