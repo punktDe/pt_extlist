@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Configurration_Filters_FilterboxConfigCollectionFactory {
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory {
 	
 	public static function getFilterBoxConfigCollection() {
 		

@@ -60,14 +60,14 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        
 	        // Check whether backend class exists
 	        tx_pttools_assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist!'));
-	        $dataBackend = new $dataBackendClassName($configurationBuilder);
+	        $dataBackend = new $dataBackendClassName($configurationBuilder); 
 	        
 	        // Check whether backend class implements abstract backend class
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
 
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
 	        $dataBackend->injectDataSource(self::getDataSource($configurationBuilder));
-	        $dataBackend->injectFilterBoxCollection(self::getFilterBoxCollection($configurationBuilder));
+	        #$dataBackend->injectFilterBoxCollection(self::getFilterBoxCollection($configurationBuilder));
 	        
 	        self::$instances[$listIdentifier] = $dataBackend;
 		}
@@ -95,10 +95,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      */
     protected function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
         $dataMapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($configurationBuilder);
-        // TODO this configuration might not be set!
-        // TODO is this a good place to set configuration?!?
-        $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration(); 
-        $dataMapper->setMapperConfiguration($mapperConfiguration);
         return $dataMapper;
     }
     
@@ -109,7 +105,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * @since 23.06.2010
      */
     protected function getFilterBoxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	//$filterConfiguration = Tx_PtExtlist_Domain_Configurration_Filters_FilterboxConfigCollectionFactory::	
     	$filterBoxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollectionFactory::createInstanceByFilterBoxConfigCollectionAndListIdentifier();
     	return $filterBoxCollection;
     }

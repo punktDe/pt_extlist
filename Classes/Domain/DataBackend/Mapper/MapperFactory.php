@@ -27,7 +27,7 @@
 
 // TODO implement tests!
 
-
+// TODO check whether this should be singleton or not
 
 /**
  * Class implements a factory for a data mapper
@@ -54,6 +54,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 			throw new Exception('Data Mapper class ' . $dataMapperClassName . ' does not exist!');
 		}
 		$dataMapper = new $dataMapperClassName($configurationBuilder);
+		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration(); 
+        $dataMapper->setMapperConfiguration($mapperConfiguration);
 		
 		return $dataMapper;
 	}

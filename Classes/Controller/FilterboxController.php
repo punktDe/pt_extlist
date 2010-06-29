@@ -60,9 +60,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string The rendered filterbox action
      */
     public function showAction() {
-        
-    	
-    	print_r($this->filterboxIdentifier);
+
     }
     
     
