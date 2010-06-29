@@ -32,9 +32,21 @@
 class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
     
    public function testSetup() {
-        $mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
-          array('dummy'),array(), '', FALSE);
+        $this->assertTrue(class_exists('Tx_PtExtlist_Controller_FilterboxController', 'Class Tx_PtExtlist_Controller_FilterboxController does not exist!'));
+    }
+    
+    
+    
+    public function testThrowExceptionOnNonExistingFilterboxIdentifier() {
+    	try {
+	    	$mockController = $this->getMock(
+	          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
+	          array('dummy'),array(), '', FALSE);
+	        $mockController->injectSettings(array());
+	        $this->fail('No exception has been thrown, when no filterbox identifier has been set!');
+    	} catch(Exception $e) {
+	        return; 
+    	}
     }
     
     

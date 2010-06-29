@@ -84,7 +84,7 @@
         <type>array</type>
         <el>
 
-          <filterbox.filterboxIdentifier>
+          <settings.filterboxIdentifier>
             <TCEforms>
               <label>Filterbox Identifier</label>
               <config>
@@ -93,7 +93,7 @@
                 <eval>string</eval>
               </config>
             </TCEforms>
-          </filterbox.filterboxIdentifier>
+          </settings.filterboxIdentifier>
 
         </el>
       </ROOT>
