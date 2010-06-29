@@ -31,14 +31,14 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterBox extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollection {
 
 	/**
-	 * Filterbox identifier of this filterbox
+	 * filterbox identifier of this filterbox
 	 *
 	 * @var string
 	 */
-	protected $filterBoxIdentifier;
+	protected $filterboxIdentifier;
 	
 	
 	
@@ -63,13 +63,11 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterBox extends tx_pttools_objectCollec
 	/**
 	 * Constructor for filterbox
 	 *
-	 * @param string $filterBoxIdentifier  Identifier of filterbox
+	 * @param string $filterboxIdentifier  Identifier of filterbox
 	 */
-	public function __construct($filterBoxIdentifier, $listIdentifier) {
-		tx_pttools_assert::isNotEmptyString($filterBoxIdentifier, array('message' => 'Filterbox identifier was empty!'));
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier was empty!'));
-		$this->listIdentifier = $listIdentifier;
-		$this->filterBoxIdentifier = $filterBoxIdentifier;
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
+		$this->listIdentifier = $filterboxConfiguration->getListIdentifier();
+		$this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
 	}
 	
 	
@@ -79,8 +77,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterBox extends tx_pttools_objectCollec
 	 *
 	 * @return string
 	 */
-	public function getFilterBoxIdentifier() {
-		return $this->filterBoxIdentifier;
+	public function getfilterboxIdentifier() {
+		return $this->filterboxIdentifier;
 	}
 	
 	

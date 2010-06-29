@@ -36,6 +36,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionF
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory does not exist!'));
     }
 	
+    public function testCreateInstance() {
+    	$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+    	$filterboxConfigurationCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getFilterBoxConfigCollection($configurationBuilderMock);
+    	$filterBoxConfiguration = $filterboxConfigurationCollection['testfilterbox'];
+    	$this->assertEquals($filterBoxConfiguration->getFilterboxIdentifier(), 'testfilterbox');
+    }
+    
 }
 
 ?>

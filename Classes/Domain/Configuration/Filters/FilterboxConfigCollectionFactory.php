@@ -24,15 +24,22 @@
 ***************************************************************/
 
 /**
- * 
+ * Class implementing factory for collection of filterbox configurations
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory {
 	
-	public static function getFilterBoxConfigCollection() {
-		
+	public static function getFilterBoxConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$filterboxCollectionSettings = $configurationBuilder->getFilterSettings();
+		$filterBoxConfigCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection($configurationBuilder);
+		foreach($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
+			$filterboxConfiguration = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
+			// TODO code monkey: add method for this to collection!
+			$filterBoxConfigCollection->addItem($filterboxConfiguration, $filterboxIdentifier);
+		}
+		return $filterBoxConfigCollection;
 	}
 }
 ?>

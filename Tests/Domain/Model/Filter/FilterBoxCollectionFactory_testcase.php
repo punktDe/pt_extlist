@@ -31,12 +31,25 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterBoxCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
     
-    public function testCreateInstanceByFilterBoxConfigurationCollection() {
-        $filterBoxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterBoxConfigurationCollectionMock();
-        $filterBoxConfigurationCollection = $filterBoxConfigurationMock->getFilterBoxConfigurationCollectionMock();
-        $filterBoxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollectionFactory::createInstanceByFilterBoxConfigCollectionAndListIdentifier($filterBoxConfigurationCollection, 'test'); 
+    public function testCreateInstanceByfilterboxConfigurationCollection() {
+    	$configurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(
+    	   array(
+    	       'listIdentifier' => 'test',
+    	       'filters' => array( 
+    	           'filterbox1' => array(
+	    	           'filter1' => array('filterIdentifier' => 'test'), 
+	    	           'filter2' => array('filterIdentifier' => 'test')
+    	           ),
+    	           'filterbox2' => array(
+	                   'filter1' => array('filterIdentifier' => 'test'), 
+	                   'filter2' => array('filterIdentifier' => 'test')
+    	           )
+  	            )
+	        )
+	    );
+        $filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder); 
     }
     
 }

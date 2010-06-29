@@ -31,19 +31,29 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttools_objectCollection {
 
+	protected $listIdentifier;
+	
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig';
 	
-	protected $filterBoxIdentifier;
+	protected $filterboxIdentifier;
+
 	
-	
-	public function setFilterBoxIdentifier($filterBoxIdentifier) {
-		$this->filterBoxIdentifier = $filterBoxIdentifier;
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $settings) {
+		tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty!'));
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
+		$this->filterboxIdentifier = $filterboxIdentifier;
+		// TODO implement settings
 	}
 	
 	
 	
-	public function getFilterBoxIdentifier() {
-		return $this->filterBoxIdentifier;
+	public function getFilterboxIdentifier() {
+		return $this->filterboxIdentifier;
+	}
+	
+	
+	public function getListIdentifier() {
+		return $this->listIdentifier;
 	}
 	
 	

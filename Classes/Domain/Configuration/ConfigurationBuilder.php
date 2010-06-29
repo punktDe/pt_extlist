@@ -63,7 +63,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * Non-merged settings of plugin
 	 * @var array
 	 */
-	private $origSettings;
+	protected $origSettings;
 	
 	
 	

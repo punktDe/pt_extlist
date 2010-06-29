@@ -31,15 +31,15 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterBoxCollection_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extends Tx_Extbase_BaseTestcase {
 	
 	public function testSetUp() {
-		$filterBoxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection('test');
+		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection('test');
 	}
 	
 	public function testAssertionOnEmptyListIdentifier() {
 		try {
-			$filterBoxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection();
+			$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
 		} catch(Exception $e) {
 			return;
 		}

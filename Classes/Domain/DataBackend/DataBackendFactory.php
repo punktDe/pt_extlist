@@ -67,7 +67,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
 	        $dataBackend->injectDataSource(self::getDataSource($configurationBuilder));
-	        #$dataBackend->injectFilterBoxCollection(self::getFilterBoxCollection($configurationBuilder));
+	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 	        
 	        self::$instances[$listIdentifier] = $dataBackend;
 		}
@@ -100,13 +100,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     
     /**
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
      * @author Daniel Lienert <lienert@punkt.de>
      * @since 23.06.2010
      */
-    protected function getFilterBoxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$filterBoxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollectionFactory::createInstanceByFilterBoxConfigCollectionAndListIdentifier();
-    	return $filterBoxCollection;
+    protected function getfilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
+    	return $filterboxCollection;
     }
 	
 }

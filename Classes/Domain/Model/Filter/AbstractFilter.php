@@ -67,13 +67,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @param String $filterIdentifier     Identifier for filter
 	 */
-	public function __construct($filterIdentifier, $listIdentifier) {
-		// TODO use assertion message
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'No listIdentifier specified.'));  
-		tx_pttools_assert::isNotEmptyString($filterIdentifier, array('message' => 'No filterIdentifier specified.')); 
-
-		$this->filterIdentifier = $filterIdentifier;
-		$this->listIdentifier = $listIdentifier;
+	public function __construct() {
+		
 	}
 	
 	
@@ -85,6 +80,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$this->filterConfig = $filterConfig;
+        $this->filterIdentifier = $filterConfig->getFilterIdentifier();
+        $this->listIdentifier = $filterConfig->getListIdentifier();
 	}
 	
 	

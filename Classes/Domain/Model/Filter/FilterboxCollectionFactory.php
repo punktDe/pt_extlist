@@ -32,25 +32,25 @@
  * @package Typo3
  * @subpackage pt_extlist 
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollectionFactory {
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 	
 	/**
 	 * Factory method for creating filterbox collection for a given filterbox config collection
 	 * and a given list identifier
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection $filterBoxConfigCollection
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection $filterboxConfigCollection
 	 * @param String $listIdentifier Identifier of the list to which this filterbox collection belongs to
-	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
-	public static function createInstanceByFilterBoxConfigCollectionAndListIdentifier(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection $filterBoxConfigCollection, $listIdentifier) {
-		tx_pttools_assert::isNotEmptyString($listIdentifier);
-		$filterBoxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection($listIdentifier);
-		foreach($filterBoxConfigCollection as $filterBoxConfiguration) { /* @var $filterBoxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterBoxConfiguration */
-			$filterBox = Tx_PtExtlist_Domain_Model_Filter_FilterBoxFactory::createFilterBoxByFilterBoxConfigurationAndListIdentifier($filterBoxConfiguration, $listIdentifier);
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$filterboxConfigCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getfilterboxConfigCollection($configurationBuilder); 
+		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($listIdentifier);
+		foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterboxConfiguration */
+			$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
 			// TODO CodeMonkey: add appropriate method!
-			$filterBoxCollection->addItem($filterBox, $filterBox->getFilterBoxIdentifier());
+			$filterboxCollection->addItem($filterbox, $filterbox->getfilterboxIdentifier());
 		}
-		return $filterBoxCollection;
+		return $filterboxCollection;
 	}
 	
 }

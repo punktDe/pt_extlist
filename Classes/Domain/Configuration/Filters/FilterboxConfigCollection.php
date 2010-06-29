@@ -31,7 +31,13 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extends tx_pttools_objectCollection {
 	
+	protected $listIdentifier;
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig';
+	
+	
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
+	}
 	
 }
 

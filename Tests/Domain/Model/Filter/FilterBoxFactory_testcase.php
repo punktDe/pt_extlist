@@ -32,13 +32,13 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterBoxFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
-	public function testCreateInstanceByFilterBoxConfiguration() {
-		$filterBoxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterBoxConfigurationCollectionMock();
-		$filterBoxConfiguration = $filterBoxConfigurationMock->getFilterboxConfigurationMock('filterbox1');
+	public function testCreateInstanceByfilterboxConfiguration() {
+		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterboxConfigurationCollectionMock();
+		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         
-        $filterBox = Tx_PtExtlist_Domain_Model_Filter_FilterBoxFactory::createFilterBoxByFilterBoxConfigurationAndListIdentifier($filterBoxConfiguration, 'test');
+        $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createfilterboxByfilterboxConfigurationAndListIdentifier($filterboxConfiguration, 'test');
 	}
 	
 }

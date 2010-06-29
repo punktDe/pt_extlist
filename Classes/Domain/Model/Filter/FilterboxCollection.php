@@ -38,7 +38,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection extends tx_pttools_ob
 	 *
 	 * @var String
 	 */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterBox';
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_Filterbox';
     
     
     

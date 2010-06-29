@@ -31,6 +31,11 @@
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
+
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $settings) {
+		$filterboxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilder, $filterboxIdentifier, $settings);
+		return $filterboxConfiguration;
+	}
 	
 }
 

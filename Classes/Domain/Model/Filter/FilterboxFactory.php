@@ -31,27 +31,23 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterBoxFactory {
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 
 	/**
 	 * Factory method for filter boxes. Returns filterbox for a given filterbox configuration and list identifier
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBoxConfiguration
-	 * @param string $listIdentifier
-	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterBox
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
+	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
-	public static function createFilterBoxByFilterBoxConfigurationAndListIdentifier(
-	   Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBoxConfiguration,
-	   $listIdentifier
-	   ) {
-	   	tx_pttools_assert::isNotEmptyString($listIdentifier);
-		$filterBox = new Tx_PtExtlist_Domain_Model_Filter_FilterBox($filterBoxConfiguration->getFilterBoxIdentifier(), $listIdentifier);
-		foreach ($filterBoxConfiguration as $filterConfiguration) {
-			$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstanceByFilterConfigAndListIdentifier($filterConfiguration, $listIdentifier);
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
+	   	tx_pttools_assert::isNotEmptyString($filterConfiguration->getListIdentifier());
+		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($filterboxConfiguration);
+		foreach ($filterboxConfiguration as $filterConfiguration) {
+			$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
 			// TODO CodeMonkey: Add method to collection for adding filters to filterbox ;)
-			$filterBox->addItem($filter,$filter->getFilterIdentifier());
+			$filterbox->addItem($filter,$filter->getFilterIdentifier());
 		}
-		return $filterBox;
+		return $filterbox;
 	}
 	
 }
