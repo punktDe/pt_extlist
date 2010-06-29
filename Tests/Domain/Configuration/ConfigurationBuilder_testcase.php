@@ -66,6 +66,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 			                'fieldIdentifier' => 'field2',
 			                'label' => 'Column 2'
 			            )
+			        ),
+			        'filters' => array(
+			             'testfilterbox' => array(
+		                     'testkey' => 'testvalue'
+			             )
 			        )
 		        )
 		    )
@@ -116,6 +121,24 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	public function testBuildColumnsConfiguration() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
 		$columnConfigCollection = $configurationBuilder->buildColumnsConfiguration();
+	}
+	
+	
+	public function testGetFilterboxIdentifier() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+        $filterboxConfiguration = $configurationBuilder->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
+        $this->assertEquals($filterboxConfiguration['testkey'],'testvalue', 'Expected filterboxvalue was "testvalue" got "' . $filterboxConfiguration['testkey'] . '" instead!');
+	}
+	
+	
+	public function testThrowExceptionOnEmptyFilterboxIdentifier() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+        try {
+        	$configurationBuilder->getFilterboxConfigurationByFilterboxIdentifier('');
+        	$this->fail('No exception thrown on empty filterbox identifier');
+        } catch(Exception $e) {
+        	return;
+        }
 	}
 	
 }

@@ -199,6 +199,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
+     * Returns configuration array for filterbox identifier
+     *
+     * @param array $filterboxIdentifier
+     */
+    public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
+    	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty!'));
+    	return $this->settings['filters'][$filterboxIdentifier];
+    }
+    
+    
+    
+    /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
      *
      * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
