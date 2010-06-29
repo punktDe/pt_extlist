@@ -24,14 +24,12 @@
 ***************************************************************/
 
 /**
- * Class Filtercontroller
+ * Testcase for filter controller class
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Controller_FilterController extends Tx_PtExtlist_Controller_AbstractController {
-
-	
+class Tx_PtExtlist_Tests_Controller_FilterControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 }
 

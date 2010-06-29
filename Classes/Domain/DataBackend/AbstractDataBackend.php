@@ -35,15 +35,21 @@
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
 	/**
+	 * @var string List identifier of list this data backend belongs to
+	 */
+	protected $listIdentifier;
+	
+	
+	/**
 	 * 
-	 * @var x_PtExtlist_Domain_DataBackend_MapperInterface $mapper
+	 * @var Tx_PtExtlist_Domain_DataBackend_MapperInterface
 	 */
 	protected $dataMapper;
 	
 	
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataSourceInterface $dataSource
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataSourceInterface
 	 */
 	protected $dataSource;
 	
@@ -69,6 +75,14 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $filterBoxCollection;
 	
 	
+	// TODO replace with actual class name etc
+	protected $pager;
+	
+	
+	// TODO think about sorting(s)/collection
+	#protected $sorting
+	
+	
 	
 	/**
 	 * Constructor for data backend
@@ -77,6 +91,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 	}
 
 	
@@ -110,6 +125,13 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	public function injectFilterBoxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterBoxCollection) {
 		$this->filterBoxCollection = $filterBoxCollection;
+	}
+	
+	
+	
+	// TODO think about pager ;)
+	public function injectPager() {
+		
 	}
 	
 }
