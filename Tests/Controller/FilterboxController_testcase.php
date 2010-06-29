@@ -29,11 +29,11 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Controller_FilterBoxControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
     
    public function testSetup() {
         $mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterBoxController'),
+          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
           array('dummy'),array(), '', FALSE);
     }
     
@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Controller_FilterBoxControllerTestcase extends Tx_PtExt
     
     public function testShowAction() {
         $mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterBoxController'),
+          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
           array('dummy'),array(), '', FALSE);
         $mockController->showAction();
     }
@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Controller_FilterBoxControllerTestcase extends Tx_PtExt
     
     public function testSubmitAction() {
         $mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterBoxController'),
+          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
           array('dummy'),array(), '', FALSE);
         $mockController->submitAction();
     }
