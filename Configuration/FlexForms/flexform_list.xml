@@ -1,12 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
 <T3DataStructure>
   <sheets>
-    <sDEF>
+  
+    <!--##########################-->
+    <!-- Tab for general settings -->
+    <!--##########################-->
+    <sDefault>
       <ROOT>
         <TCEforms>
-          <sheetTitle>Options</sheetTitle>
+          <sheetTitle>General Options</sheetTitle>
         </TCEforms>
         <type>array</type>
         <el>
+
+
           <settings.listIdentifier>
             <TCEforms>
               <label>List Identifier</label>
@@ -17,8 +24,98 @@
               </config>
             </TCEforms>
           </settings.listIdentifier>
+          
+          
+          <switchableControllerActions>
+            <TCEforms>
+              <label>Plugin type</label>
+              <config>
+                <type>select</type>
+                <items type="array">
+                  <numIndex index="1" type="array">
+                    <numIndex index="0">List</numIndex>
+                    <numIndex index="1">List->list</numIndex>
+                  </numIndex>
+                  <numIndex index="2" type="array">
+                    <numIndex index="0">Filterbox</numIndex>
+                    <numIndex index="1">Filterbox->show</numIndex>
+                  </numIndex>
+                  <numIndex index="3" type="array">
+                    <numIndex index="0">Pager</numIndex>
+                    <numIndex index="1">Pager->show</numIndex>
+                  </numIndex>
+                </items>
+              </config>
+            </TCEforms>
+          </switchableControllerActions>
+
+
         </el>
       </ROOT>
-    </sDEF>
+    </sDefault>
+    
+    
+    <!--##########################-->
+    <!-- Tab for list settings    -->
+    <!--##########################-->
+    <list>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>List settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          
+
+        </el>
+      </ROOT>
+    </list>
+    
+    
+    <!--############################-->
+    <!-- Tab for filterbox settings -->
+    <!--############################-->
+    <filterbox>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Filterbox settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          <filterbox.filterboxIdentifier>
+            <TCEforms>
+              <label>Filterbox Identifier</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </filterbox.filterboxIdentifier>
+
+        </el>
+      </ROOT>
+    </filterbox>
+    
+    
+    <!--##########################-->
+    <!-- Tab for pager settings   -->
+    <!--##########################-->
+    <pager>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Pager settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          
+          
+          
+        </el>
+      </ROOT>
+    </pager>
+    
   </sheets>
 </T3DataStructure>

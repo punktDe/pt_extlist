@@ -33,7 +33,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 
     
     public function showAction() {
-                
+        print_r($this->settings);
+        return $this->listIdentifier;
     }
     
     
