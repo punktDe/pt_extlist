@@ -63,12 +63,11 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataBackend = new $dataBackendClassName($configurationBuilder);
 	        
 	        // Check whether backend class implements abstract backend class
-	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend , 
-	            array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
+	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
 
-	            
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
 	        $dataBackend->injectDataSource(self::getDataSource($configurationBuilder));
+	        $dataBackend->injectFilterBoxCollection(self::getFilterBoxCollection($configurationBuilder));
 	        
 	        self::$instances[$listIdentifier] = $dataBackend;
 		}
@@ -101,6 +100,18 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
         $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration(); 
         $dataMapper->setMapperConfiguration($mapperConfiguration);
         return $dataMapper;
+    }
+    
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 23.06.2010
+     */
+    protected function getFilterBoxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	//$filterConfiguration = Tx_PtExtlist_Domain_Configurration_Filters_FilterboxConfigCollectionFactory::	
+    	$filterBoxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollectionFactory::createInstanceByFilterBoxConfigCollectionAndListIdentifier();
+    	return $filterBoxCollection;
     }
 	
 }

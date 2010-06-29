@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceFactory {
 		if (!class_exists($dataSourceClassName)) {
 			throw new Exception('Data Source class ' . $dataSourceClassName . ' does not exist!');
 		}
-		$dataSource = new $dataSourceClassName($configurationBuilder);
+		$dataSource = new $dataSourceClassName($dataBackendSettings);
 		
 		return $dataSource;
 	}

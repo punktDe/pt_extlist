@@ -30,5 +30,10 @@
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Configurration_Filters_FilterboxConfigCollectionFactory {
+	
+	public static function getFilterBoxConfigCollection() {
+		
+	}
+	
 }
 ?>
