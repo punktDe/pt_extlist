@@ -140,6 +140,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		$this->pager = $pager;
 	}
 	
+	
+	
+	/**
+	 * Returns filterbox collection attached to this data backend
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection Filterbox collection attached to this data backend
+	 */
+	public function getFilterboxCollection() {
+		return $this->filterboxCollection;
+	}
+	
 }
 
 ?>
