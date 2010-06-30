@@ -32,7 +32,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
 	public function getFilterConfigurationMock($filterIdentifier) {
 		$mockFilterConfiguration1 = $this->getMock(
             'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
-            array('getFilterIdentifier', 'getFilterClassName'),array(),'',FALSE,FALSE,FALSE);
+            array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier'),array(),'',FALSE,FALSE,FALSE);
         
         $mockFilterConfiguration1->expects($this->once())
             ->method('getFilterIdentifier')
@@ -41,6 +41,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
         $mockFilterConfiguration1->expects($this->once())
             ->method('getFilterClassName')
             ->will($this->returnValue('Tx_PtExtlist_Domain_Model_Filter_FilterStub'));
+            
+        $mockFilterConfiguration1->expects($this->once())
+            ->method('getListIdentifier')
+            ->will($this->returnValue('test'));
             
         return $mockFilterConfiguration1;
          
