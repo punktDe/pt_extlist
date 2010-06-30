@@ -60,7 +60,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string The rendered filterbox action
      */
     public function showAction() {
-        $this->dataBackend->getFilterboxCollection();
+        $filterboxCollection = $this->dataBackend->getFilterboxCollection();
     }
     
     
