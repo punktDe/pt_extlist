@@ -33,17 +33,14 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extends Tx_Extbase_BaseTestcase {
 	
-	public function testSetUp() {
-		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection('test');
+	protected $configurationBuilderMock = null;
+	
+	public function setup() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
 	
-	public function testAssertionOnEmptyListIdentifier() {
-		try {
-			$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail('No exception has been thrown on empty list identifier!');
+	public function testSetUp() {
+		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
 	}
 	
 }
