@@ -107,14 +107,31 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 	
+	
+	/**
+	 * Initializes the filter
+	 * 
+	 * @return void
+	 */
+	abstract public function init();	
+	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
 	 *****************************************************************************************************************/
-    // TODO ry21 think about which methods can be implemented in the abstract class
-    // TODO ry21 what about list identifier? Shouldn't it be available here?
-	#abstract public function persistToSession();
-	#abstract public function getSessionNamespace();
+
+	/**
+	 * Returns namespace for persisting this filter to session
+	 * 
+	 * @return string Namespace to persist this filter with
+	 */
+	public function getSessionNamespace() {
+		// TODO ry21 insert filterbox identifier here
+		return $this->listIdentifier . 'filters' . $this->filterIdentifier;
+	}
+
+	
 	#abstract public function loadFromSession(array $sessionData);
+	#abstract public function persistToSession();
 	
 	
 }

@@ -46,11 +46,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 		$filter = new $filterClassName();
 		tx_pttools_assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
 		$filter->injectFilterConfig($filterConfig);
+		$filter->init();
 		return $filter;
 	}
 	
 }
-
-
 
 ?>

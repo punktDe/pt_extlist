@@ -24,16 +24,19 @@
 ***************************************************************/
 
 /**
- * Interface for all filter classes
+ * Testcase for String Filter class
  *
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
-
-	
-	
-}
-
-?>
+ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+ 	
+ 	public function testSetup() {
+ 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_StringFilter'));
+ 	}
+ 	
+ }
+ 
+ 
+ ?>

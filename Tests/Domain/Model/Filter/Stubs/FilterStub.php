@@ -43,6 +43,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterStub extends Tx_PtExtlist_Domain_Mo
 	public function persistToSession() {}
     public function getSessionNamespace() {return 'testnamespace';}
     public function loadFromSession(array $sessionData) {}
+    public function init() {}
 	
 }
 
