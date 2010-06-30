@@ -38,7 +38,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	protected $filterboxIdentifier;
 
 	
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $settings) {
+	public function __construct(
+	       Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, 
+	       $filterboxIdentifier, 
+	       $settings) {
 		tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty! 1277889451'));
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxIdentifier;
