@@ -36,6 +36,11 @@
  		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_StringFilter'));
  	}
  	
+ 	
+ 	public function testSessionPersistence() {
+ 		
+ 	}
+ 	
  }
  
  

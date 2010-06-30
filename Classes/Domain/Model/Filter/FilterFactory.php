@@ -42,6 +42,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$filter = self::createFilterObject($filterConfig->getFilterClassName());
 		$filter->injectFilterConfig($filterConfig);
+		$sessionPersistenceManager = Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager->loadFromSession($filter);
 		$filter->init();
 		return $filter;
 	}

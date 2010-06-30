@@ -97,8 +97,11 @@ class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager {
 	 * @return array
 	 */
 	private function getSessionDataByNamespace($sessionNamespace) {
-		$sessionData = array();
 		$sessionData = $this->sessionAdapter->read($sessionNamespace);
+		/* Interface expects an array, so fix this here */
+		if ($sessionData == null) {
+			$sessionData = array();
+		}
 	    return $sessionData;	
 	}
 	
