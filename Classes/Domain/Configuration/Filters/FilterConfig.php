@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 */
 	public function __construct(array $filterSettings) {
 		// TODO check which values need to be set here and add assertions!
-		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config.'));
+		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
 		
 		$this->filterIdentifier = $filterSettings['filterIdentifier'];
 	}

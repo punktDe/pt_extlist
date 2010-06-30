@@ -57,7 +57,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection extends tx_pttools_ob
      * @param String $listIdentifier
      */
     public function __construct($listIdentifier) {
-    	tx_pttools_assert::isNotEmptyString($listIdentifier);
+    	tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1277889457'));
     	$this->listIdentifier = $listIdentifier;
     }
     

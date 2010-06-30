@@ -32,11 +32,10 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Test_Domain_DataBackend_DataBackendFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
     public function testCreateDataBackend() {
-                    
-        $mockConfigurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(array('listIdentifier' => 'test'));
+        $mockConfigurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
         $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($mockConfigurationBuilder);
     }
     

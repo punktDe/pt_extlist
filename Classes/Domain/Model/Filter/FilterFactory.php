@@ -41,10 +41,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$filterClassName = $filterConfig->getFilterClassName();
-		tx_pttools_assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check configuration!'));
-		tx_pttools_assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class does not exist or is not loaded!'));
+		tx_pttools_assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check configuration! 1277889459'));
+		tx_pttools_assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class does not exist or is not loaded! 1277889460'));
 		$filter = new $filterClassName();
-		tx_pttools_assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface!'));
+		tx_pttools_assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
 		$filter->injectFilterConfig($filterConfig);
 		return $filter;
 	}

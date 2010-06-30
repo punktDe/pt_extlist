@@ -54,7 +54,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 		
 		if (!array_key_exists($listIdentifier, self::$instances)) {
 	        $dataBackendSettings = $configurationBuilder->getBackendConfiguration();
-	        tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass'], array('message' => 'dataBackendClass must not be empty!'));   
+	        tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataBackendClass'], array('message' => 'dataBackendClass must not be empty! 1277889456'));   
 	        
 	        $dataBackendClassName = $dataBackendSettings['dataBackendClass'];
 	        

@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceFactory {
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
-		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataSourceClass'], array("message" => "No dataSourceClass given in dataBackendSettings"));	
+		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataSourceClass'], array('message' => 'No dataSourceClass given in dataBackendSettings 1277889454'));	
 		$dataSourceClassName = $dataBackendSettings['dataSourceClass'];
 		
 		// Check whether dataSource class exists

@@ -204,7 +204,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @param array $filterboxIdentifier
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
-    	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty!'));
+    	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
     	return $this->settings['filters'][$filterboxIdentifier];
     }
     

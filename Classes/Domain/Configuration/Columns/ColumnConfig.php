@@ -52,8 +52,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function __construct(array $columnSettings) {
-		tx_pttools_assert::isNotEmptyString($columnSettings['columnIdentifier'], array(message => 'Column identifier not given'));
-		tx_pttools_assert::isNotEmptyString($columnSettings['fieldIdentifier'], array(message => 'Field identifier not given'));
+		tx_pttools_assert::isNotEmptyString($columnSettings['columnIdentifier'], array(message => 'Column identifier not given 1277889446'));
+		tx_pttools_assert::isNotEmptyString($columnSettings['fieldIdentifier'], array(message => 'Field identifier not given 1277889447'));
 		
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
 		$this->fieldIdentifier = $columnSettings['fieldIdentifier'];
