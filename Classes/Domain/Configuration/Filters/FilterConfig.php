@@ -24,10 +24,16 @@
 ***************************************************************/
 
 
-
+/**
+ * Class implementing configuration for filter
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
-	
+	protected $listIdentifier;
 	protected $filterClassName;
 	protected $filterIdentifier;
 	protected $label;
@@ -50,15 +56,31 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 *
 	 * @param array $filterSettings    Settings for filter
 	 */
-	public function __construct(array $filterSettings) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $filterSettings) {
+        $this->listIdentifier = $configurationBuilder->getListIdentifier();
 		// TODO check which values need to be set here and add assertions!
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
-		
 		$this->filterIdentifier = $filterSettings['filterIdentifier'];
 	}
 	
 	
 	
+	/**
+	 * Returns identifier of list to which this filter belongs to
+	 *
+	 * @return string  Identifier of list to which this filter belongs to
+	 */
+    public function getListIdentifier() {
+    	return $this->listIdentifier;	
+    }
+	
+    
+	
+    /**
+     * Returns class name of class implementing this filter
+     *
+     * @return string Class name of class implementing this filter
+     */
 	public function getFilterClassName() {
 		return $this->filterClassName;
 	}

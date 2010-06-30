@@ -13,11 +13,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterBoxConfigurationCollect
 	
 	public function getFilterboxConfigurationMock($filterBoxIdentifier) {
 		
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		
 		$mockFilterConfiguration1 = $this->getFilterConfigurationMock('filter1');
 		$mockFilterConfiguration2 = $this->getFilterConfigurationMock('filter2');
 		
-        $filterBoxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig();
-        $filterBoxConfiguration->setFilterBoxIdentifier($filterBoxIdentifier);
+        $filterBoxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilderMock, $filterBoxIdentifier, array());
         
         $filterBoxConfiguration->addItem($mockFilterConfiguration1);
         $filterBoxConfiguration->addItem($mockFilterConfiguration2);

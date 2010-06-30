@@ -33,9 +33,12 @@
 class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $filterSettings = array();
+	protected $configurationBuilderMock = null;
+	
 	
 	
 	public function setup() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$this->filterSettings = array(
 		    'filterIdentifier' => 'filterName1'
 		);
@@ -44,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	
 	
 	public function testSetup() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->filterSettings);
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings);
 	}
 	
 	

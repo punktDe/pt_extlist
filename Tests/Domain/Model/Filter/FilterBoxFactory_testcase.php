@@ -38,7 +38,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends T
 		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterboxConfigurationCollectionMock();
 		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         
-        $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createfilterboxByfilterboxConfigurationAndListIdentifier($filterboxConfiguration, 'test');
+        $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
 	}
 	
 }
