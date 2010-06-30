@@ -131,7 +131,11 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	
-	// TODO think about pager ;)
+	/**
+	 * Injector for pager
+	 * 
+	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
+	 */
 	public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
 		$this->pager = $pager;
 	}
