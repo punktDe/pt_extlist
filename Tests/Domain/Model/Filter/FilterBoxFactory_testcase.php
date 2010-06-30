@@ -35,7 +35,7 @@
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	public function testCreateInstanceByfilterboxConfiguration() {
-		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterboxConfigurationCollectionMock();
+		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
 		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         
         $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);

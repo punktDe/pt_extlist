@@ -1,8 +1,8 @@
 <?php
 
-class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterBoxConfigurationCollectionMock extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock extends Tx_Extbase_BaseTestcase {
 	
-	public function getFilterBoxConfigurationCollectionMock() {
+	public function getFilterboxConfigurationCollectionMock() {
 		$filterBoxConfigurationCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection();
 		$filterBoxConfigurationCollection->addItem($this->getFilterboxConfigurationMock('filterbox1'));
 		$filterBoxConfigurationCollection->addItem($this->getFilterboxConfigurationMock('filterbox2'));

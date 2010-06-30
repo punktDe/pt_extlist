@@ -24,18 +24,16 @@
 ***************************************************************/
 
 /**
- * 
+ * Class implements testcase for filterfactory
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
-require_once t3lib_extMgm::extPath('pt_extlist') . 'Tests/Domain/Model/Filter/Stubs/FilterStub.php';
-require_once t3lib_extMgm::extPath('pt_extlist') . 'Tests/Domain/Model/Filter/Stubs/FilterBoxConfigurationCollectionMock.php';
-
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	public function testCreateInstanceByConfiguration() {
-		$filterConfigurationMock = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterBoxConfigurationCollectionMock();
+		$filterConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
 		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstanceByFilterConfigAndListIdentifier($filterConfigurationMock->getFilterConfigurationMock('filter1'), 'test');
 		$this->assertEquals($filter->getFilterIdentifier(), 'filter1');
 	    $this->assertEquals($filter->getListIdentifier(), 'test');	
