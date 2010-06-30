@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$filterboxConfigCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getfilterboxConfigCollection($configurationBuilder); 
-		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($listIdentifier);
+		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($configurationBuilder);
 		foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterboxConfiguration */
 			$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
 			// TODO CodeMonkey: add appropriate method!
