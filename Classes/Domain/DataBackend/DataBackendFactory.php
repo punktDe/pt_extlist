@@ -42,6 +42,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	private static $instances = null;
 	
 	
+	
 	/**
 	 * Create new data backend object for given configuration
 	 *
@@ -97,6 +98,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
         $dataMapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($configurationBuilder);
         return $dataMapper;
     }
+    
+    
     
     /**
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder

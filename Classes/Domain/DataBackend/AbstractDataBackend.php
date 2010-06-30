@@ -75,7 +75,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $filterboxCollection;
 	
 	
-	// TODO replace with actual class name etc
+    /**
+     * @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     */
 	protected $pager;
 	
 	
@@ -130,8 +132,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	// TODO think about pager ;)
-	public function injectPager() {
-		
+	public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
+		$this->pager = $pager;
 	}
 	
 }

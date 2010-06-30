@@ -37,6 +37,13 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
     public function getListData();
+    
+    
+    
+    public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager);
+    public function injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper);
+    public function injectDataSource($dataSource);
+    public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection);
 
 }
 
