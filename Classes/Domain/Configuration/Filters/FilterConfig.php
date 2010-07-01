@@ -33,21 +33,147 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
+	/**
+	 * Identifier of list to which this filter belongs to
+	 *
+	 * @var string
+	 */
 	protected $listIdentifier;
+	
+	
+	
+	/**
+	 * Identifier of filterbox to which this filter belongs to
+	 *
+	 * @var string
+	 */
+	protected $filterboxIdentifier;
+	
+	
+	
+	/**
+	 * Name of class implementing this filter
+	 *
+	 * @var string
+	 */
 	protected $filterClassName;
+	
+	
+	
+	/**
+	 * Identifier of this filter
+	 *
+	 * @var string
+	 */
 	protected $filterIdentifier;
+	
+	
+	
+	/**
+	 * Label to be shown for this filter
+	 *
+	 * @var string
+	 */
 	protected $label;
+	
+	
+	
+	/**
+	 * Identifier of fieldDescription to which this filter belongs to
+	 * // TODO ry21 could be the actual fieldDescription object instead of its name?
+	 * @var string
+	 */
 	protected $fieldDescriptionIdentifier;
+	
+	
+	
+	/**
+	 * Comma seperated list of gids that have access to this filter
+	 *
+	 * @var string
+	 */
 	protected $access;
+	
+	
+	
+	/**
+	 * Array of columns to be hidden, if this filter is active
+	 *
+	 * @var array
+	 */
 	protected $hideColumns = array();
+	
+	
+	
+	/**
+	 * If true, sorting state is reset if filter is submitted
+	 *
+	 * @var bool
+	 */
 	protected $resetListSortingStateOnSubmit = false;
+	
+	
+	
+	/**
+	 * List of filters to be reset if this filter is submitted
+	 *
+	 * @var array
+	 */
 	protected $resetFilters = array();
+	
+	
+	
+	/**
+	 * TODO ry21 what does this property do?
+	 *
+	 * @var unknown_type
+	 */
 	protected $dependsOn;
+	
+	
+	
+	/**
+	 * TODO ry21 what does this property do?
+	 *
+	 * @var unknown_type
+	 */
 	protected $onValidated = array();
+	
+	
+	
+	/**
+	 * TODO ry21 what does this property do?
+	 *
+	 * @var unknown_type
+	 */
 	protected $invert;
+	
+	
+	
+	/**
+	 * If set to true, this filter is active
+	 *
+	 * @var bool
+	 */
 	protected $isActive = 1;
+	
+	
+	
+	/**
+	 * Pre-defined value of filter
+	 *
+	 * @var string
+	 */
 	protected $value;
-	protected $settings;
+	
+	
+	
+	/**
+	 * Holds all settings passed by TS
+	 *
+	 * @var array
+	 */
+	protected $settings = array();
 	
 	
 	
@@ -56,11 +182,28 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 *
 	 * @param array $filterSettings    Settings for filter
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $filterSettings) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings) {
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
-		// TODO check which values need to be set here and add assertions!
+        tx_pttools_assert::isNotEmptyString($filterboxIdentifier,array('message' => 'Filterbox identifier must not be empty. 1277889652'));
+        $this->filterboxIdentifier = $filterboxIdentifier;
+		$this->setPropertiesFromSettings($filterSettings);
+	}
+	
+	
+	
+	/**
+	 * Initializes properties from given settings array
+	 *
+	 * @param array $filterSettings
+	 */
+	protected function setPropertiesFromSettings(array $filterSettings) {
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
-		$this->filterIdentifier = $filterSettings['filterIdentifier'];
+        $this->filterIdentifier = $filterSettings['filterIdentifier'];
+        tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified in config. 1277889552'));
+        $this->filterClassName = $filterSettings['filterClassName'];
+        // TODO ry21 add all properties here
+		// TODO check which values need to be set here and add assertions!
+        $this->settings = $filterSettings;
 	}
 	
 	
@@ -74,6 +217,16 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
     	return $this->listIdentifier;	
     }
 	
+    
+    
+    /**
+     * Returns identifier of filterbox to which this filter belongs to
+     *
+     * @return string Identifier of filterbox to which this filter belongs to
+     */
+    public function getFilterboxIdentifier() {
+    	return $this->filterboxIdentifier;
+    }
     
 	
     /**

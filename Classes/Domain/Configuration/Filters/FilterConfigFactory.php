@@ -32,6 +32,11 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder, $filterboxIdentifier, $filterSettings) {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($configBuilder, $filterboxIdentifier, $filterSettings);
+		return $filterConfig;
+	}
+	
 }
 
 ?>
