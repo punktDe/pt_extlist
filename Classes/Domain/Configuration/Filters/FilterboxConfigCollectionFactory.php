@@ -39,7 +39,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
 			// TODO code monkey: add method for this to collection!
 			$filterBoxConfigCollection->addItem($filterboxConfiguration, $filterboxIdentifier);
 		}
-		print_r($filterBoxConfigCollection);
 		return $filterBoxConfigCollection;
 	}
 }

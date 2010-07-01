@@ -40,21 +40,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function setup() {
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$this->filterSettings = array(
-		    'filterIdentifier' => 'filterName1'
+		    'filterIdentifier' => 'filterName1',
+		    'filterClassName' => 'test'
 		);
 	}
 	
 	
 	
 	public function testSetup() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings);
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock,'testFilterbox', $this->filterSettings);
 	}
 	
 	
 	
 	public function testExceptionOnEmptyFilterIdentifier() {
 		try {
-		    $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(array());
+		    $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock,'testFilterbox', array());
 		} catch(Exception $e) {
 			return;
 		}

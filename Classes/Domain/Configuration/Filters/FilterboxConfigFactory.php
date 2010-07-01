@@ -32,7 +32,7 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
 
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $settings) {
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $settings) {
 		$filterboxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig(
 		    $configurationBuilder, $filterboxIdentifier, $settings);
 		foreach($settings as $arrayIndex => $filterSettings) {
