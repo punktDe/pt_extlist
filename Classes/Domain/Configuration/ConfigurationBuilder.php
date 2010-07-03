@@ -107,6 +107,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	
+    /**
+     * Holds an instance of a pager configuration associated to this list
+     * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+     */
+	protected $pagerConfiguration;
+	
+	
+	
 	/**
 	 * Returns a singleton instance of this class
 	 * @param $settings The current settings for this extension.
@@ -244,6 +252,31 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     		$this->columnsConfiguration = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->settings['columns']);
     	}
     	return $this->fieldsConfiguration;
+    }
+    
+    
+    
+    /**
+     * Returns configuration object for pager
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration Configuration object for pager
+     */
+    public function buildPagerConfiguration() {
+    	if (is_null($this->pagerConfiguration)) {
+    		$this->pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this, $this->getPagerSettings());
+    	}
+    	return $this->pagerConfiguration;
+    }
+    
+    
+    
+    /**
+     * Returns an array with pager configuration 
+     *
+     * @return array Pager configuration
+     */
+    public function getPagerSettings() {
+    	return $this->settings['pagerConfig'];
     }
     
 }

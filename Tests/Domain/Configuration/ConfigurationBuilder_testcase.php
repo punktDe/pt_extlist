@@ -73,6 +73,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 			             )
 			        )
 		        )
+		    ),
+		    'pagerConfig' => array(
+		        'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager' 
 		    )
 		);
 	}
@@ -128,6 +131,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
         $filterboxConfiguration = $configurationBuilder->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
         $this->assertEquals($filterboxConfiguration['testkey'],'testvalue', 'Expected filterboxvalue was "testvalue" got "' . $filterboxConfiguration['testkey'] . '" instead!');
+	}
+	
+	
+	public function testGetPagerSettings() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+        $pagerSettings = $configurationBuilder->getPagerSettings();
+        $pagerClassName = $pagerSettings['pagerClassName'];
+        $this->assertEquals($pagerClassName,'Tx_PtExtlist_Domain_Model_Pager_DefaultPager', 'Expected pagerClassName was "Tx_PtExtlist_Domain_Model_Pager_DefaultPager" got "' . $pagerClassName . '" instead!');
 	}
 	
 	
