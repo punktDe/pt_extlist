@@ -23,40 +23,18 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
- * Interface for pager
- * 
+ * Testcase for default pager object
+ *
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface 
-    extends Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface {
-	
-	public function init();
-	
-	
-	
-	public function injectSettings();
-	
-	
-	
-	public function getCurrentPage();
-	
-	
-	
-	public function setItemsCount();
-	
-	
-	
-	public function getItemsPerPage();
-	
-	
-	
-	public function getPages();
-	
-}
+class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-?>
+    public function testSetup() {
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Pager_DefaultPager'));
+    }
+}
+ 
+ ?>

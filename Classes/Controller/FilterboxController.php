@@ -61,6 +61,10 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      */
     public function showAction() {
         $filterboxCollection = $this->dataBackend->getFilterboxCollection();
+        $filterbox = $filterboxCollection[$this->filterboxIdentifier];
+        foreach ($filterbox as $filter) {
+        	// TODO ry21 think about how to display filters (subcontroller /view / ...)
+        }
     }
     
     
