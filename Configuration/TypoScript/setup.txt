@@ -98,7 +98,7 @@ plugin.tx_ptextlist.settings {
 			    20 {
 			        filterIdentifier = filter2
 			        filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
-			        label = Sringfilter 2
+			        label = Stringfilter 2
 			    }
 			
 			}
