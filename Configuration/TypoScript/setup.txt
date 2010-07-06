@@ -7,7 +7,7 @@ plugin.tx_ptextlist.settings {
 
     abc = 1
 
-	listConfig.test {
+	listConfig.list1 {
 	
 	    abc = 2
 	
@@ -92,11 +92,13 @@ plugin.tx_ptextlist.settings {
 			    10 {
 			        filterIdentifier = filter1
 			        filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+			        label = Test für Stringfilter
 			    }
 			    
 			    20 {
 			        filterIdentifier = filter2
 			        filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+			        label = Test für Stringfilter
 			    }
 			
 			}

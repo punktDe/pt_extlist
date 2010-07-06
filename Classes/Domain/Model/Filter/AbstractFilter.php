@@ -92,7 +92,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return string Identifier of filter
 	 */
 	public function getFilterIdentifier() {
-		return "test";
 		return $this->filterIdentifier;
 	}
 	
@@ -105,6 +104,28 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function getListIdentifier() {
 		return $this->listIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Returns TS config of this filter
+	 *
+	 * @return array TS config of this filter
+	 */
+	public function getTsConfig() {
+		return $this->filterConfig->getSettings();
+	}
+	
+	
+	
+	/**
+	 * Returns label of filter as configured in TS
+	 *
+	 * @return string Label of filter as configured in TS
+	 */
+	public function getLabel() {
+		return $this->filterConfig->getSettings('label');
 	}
 	
 	
