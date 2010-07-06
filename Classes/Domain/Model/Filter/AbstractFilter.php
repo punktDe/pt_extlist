@@ -35,14 +35,21 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/SessionPersis
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
     implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface  {
-	
+	 	
+    	
     /**
      * Identifier of list to which this filter belongs to
      *
      * @var String
      */	
     protected $listIdentifier; 
-    	
+
+    /**
+     * Filter Box Identifier
+     * 
+     * @var String
+     */
+    protected $filterBoxIdentifier;
     	
 	/**
 	 * Identifier of this filter
@@ -80,8 +87,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$this->filterConfig = $filterConfig;
-        $this->filterIdentifier = $filterConfig->getFilterIdentifier();
         $this->listIdentifier = $filterConfig->getListIdentifier();
+        $this->filterBoxIdentifier = $filterConfig->getFilterboxIdentifier();
+		$this->filterIdentifier = $filterConfig->getFilterIdentifier();
 	}
 	
 	
@@ -106,6 +114,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		return $this->listIdentifier;
 	}
 	
+	/** 
+	 * @return String
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 06.07.2010
+	 */
+	public function getFilterBoxIdentifier() {
+		return $this->filterBoxIdentifier;
+	}
 	
 	
 	/**
