@@ -152,11 +152,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	protected function setListIdentifier($settings) {
-	    if ($settings['listIdentifier'] != '') {
-            $this->listIdentifier = $settings['listIdentifier'];    
-        } else {
-            throw new Exception('No list identifier set!');
-        }
+		tx_pttools_assert::isNotEmptyString($settings['listIdentifier'], array('message' => 'List identifier must not be empty! 1278419535'));
+		tx_pttools_assert::isArray($settings['listConfig'][$settings['listIdentifier']], array('message' => 'No list configuration can be found for list identifier ' . $settings['listIdentifier'] . ' 1278419536'));
+        $this->listIdentifier = $settings['listIdentifier'];    
 	}
 	
 	

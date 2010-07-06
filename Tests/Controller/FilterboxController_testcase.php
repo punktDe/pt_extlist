@@ -52,6 +52,9 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
     
     
     public function testShowAction() {
+		$mockView = $this->getMock(
+    		'Tx_Fluid_Core_View_TemplateView',
+	       	array('assign'), array(), '', FALSE);
     	$mockDataBackend = $this->getMock(
     	    'Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', 
     	    array('getFilterboxCollection'), array(), '', FALSE);
@@ -59,6 +62,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
             array('dummy'),array(), '', FALSE);
         $mockController->_set('dataBackend', $mockDataBackend);
+        $mockController->_set('view', $mockView);
         $mockController->showAction();
     }
     
