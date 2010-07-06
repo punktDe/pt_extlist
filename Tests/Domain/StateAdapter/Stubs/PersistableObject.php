@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
 	
 	/**
 	 * Some dummy data to be stored in session
@@ -68,7 +68,7 @@ class Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject imple
 	 * @return String Namespace as key to store session data with
 	 */
     public function getObjectNamespace() {
-    	return 'tx_ptexlist.tests.sessionpersistence.stubs.persistableobject';
+    	return 'tx_ptexlist.tests.stateadapter.stubs.persistableobject';
     }
     
     

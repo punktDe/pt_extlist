@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  */
 
-class Tx_PtExtlist_Tests_Domain_SessionPersistence_SessionPersistenceManagerFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManagerFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	/**
 	 * Test for existence of class
