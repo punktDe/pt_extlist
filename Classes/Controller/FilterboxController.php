@@ -74,7 +74,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     public function submitAction() {
     	// TODO test, whether this is working!
         #$this->redirect('show');
-        $GLOBALS['trace'] = 1;	trace($_POST ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
     }    
 }
 ?>

@@ -33,7 +33,7 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface 
-    extends Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface {
+    extends Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
 	
 	public function init();
 	

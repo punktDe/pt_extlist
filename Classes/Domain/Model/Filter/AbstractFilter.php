@@ -23,9 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-// TODO ry21 autoload is not working in unit tests... so we need this require here...
-require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/SessionPersistence/SessionPersistableInterface.php';
-
 /**
  * Abstract filter class for all pt_extlist filter models
  * 
@@ -34,7 +31,7 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/SessionPersis
  * @subpackage pt_extlist
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
-    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface  {
+    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface  {
 	 	
     	
     /**
@@ -151,20 +148,28 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 * @return void
 	 */
-	abstract public function init();	
+	abstract public function init();
+
+	public function initTsValues() {
+		
+	}
+	
+	
+	public function initGpVars() {
+		
+	}
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
 	 *****************************************************************************************************************/
 
 	/**
-	 * Returns namespace for persisting this filter to session
+	 * Returns namespace for this object
 	 * 
-	 * @return string Namespace to persist this filter with
+	 * @return string Namespace to identify this object
 	 */
-	public function getSessionNamespace() {
-		// TODO ry21 insert filterbox identifier here
-		return $this->listIdentifier . 'filters' . $this->filterIdentifier;
+	public function getObjectNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier;
 	}
 
 	

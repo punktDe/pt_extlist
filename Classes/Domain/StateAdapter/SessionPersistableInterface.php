@@ -24,33 +24,27 @@
 ***************************************************************/
 
 /**
- * 
+ * Interface for objects to be persistable in sessions
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
-
-class Tx_PtExtlist_Tests_Domain_SessionPersistence_SessionPersistenceManagerFactory_testcase extends Tx_Extbase_BaseTestcase {
+interface Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 	
 	/**
-	 * Test for existence of class
+	 * Called by any mechanism to persist an object's state to session
+	 *
 	 */
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory'));
-	}
-
+    public function persistToSession();
+    
+    
+    
+    /**
+     * Called by any mechanism to inject an object's state from session
+     *
+     * @param array $sessionData Object's state to be persisted to session
+     */
+    public function injectSessionData(array $sessionData);
 	
-	
-	/**
-	 * Test whether returned instance is singleton
-	 */
-	public function testSingletonInstance() {
-		$firstInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-		$secondInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-		$this->assertTrue($firstInstance == $secondInstance);
-	}
 }
-
-
-
 ?>

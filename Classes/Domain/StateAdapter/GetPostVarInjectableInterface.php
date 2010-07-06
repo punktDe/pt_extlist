@@ -24,13 +24,19 @@
 ***************************************************************/
 
 /**
- * 
+ * Interface for objects to be persistable in sessions
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter {
-
+interface Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface  {
+    
+	/**
+	 * Inject GP Vars
+	 *
+	 * @param array $GPVars
+	 */
+	public function injectGPVars($GPVars);
 }
 
 ?>

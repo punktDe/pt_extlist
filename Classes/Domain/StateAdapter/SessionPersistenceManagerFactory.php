@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory {
+class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	
 	/**
 	 * Singleton instance of session persistence manager object
@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory {
 	 */
 	public static function getInstance() {
 		if (self::$instance == NULL) {
-			self::$instance = new Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager();
+			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
 			self::initializeInstance();
 		}
 		return self::$instance;

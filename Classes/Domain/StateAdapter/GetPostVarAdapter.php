@@ -29,28 +29,13 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-
-class Tx_PtExtlist_Tests_Domain_SessionPersistence_SessionPersistenceManagerFactory_testcase extends Tx_Extbase_BaseTestcase {
-	
-	/**
-	 * Test for existence of class
-	 */
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory'));
-	}
+class Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter {
 
 	
-	
-	/**
-	 * Test whether returned instance is singleton
-	 */
-	public function testSingletonInstance() {
-		$firstInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-		$secondInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-		$this->assertTrue($firstInstance == $secondInstance);
+	public function getParametersByObject() {
+		
 	}
+	
 }
-
-
 
 ?>

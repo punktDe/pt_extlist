@@ -47,7 +47,26 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 * @return void
 	 */
 	public function init() {
-		// TODO ry21 gather data from GP vars
+		/**
+		 * Where to get filter values from:
+		 * 
+		 * 1. TS-Settings
+		 * 2. Session
+		 * 3. GP-Vars
+		 */
+		
+		/* 1. Get Filter Value from Typoscript */
+		$this->filterValue = $this->filterConfig->getSettings('defaultValue');
+
+		/* 2. Get Filter Value from Session */
+		
+		
+		
+        /**
+		 * How to access GET / POST parameters for this filter:
+		 * plugingName [<listIdentifier>] [filters] [<filterboxIdentifier>] [<filterIdentifier>] [<filterValueKey>]
+		 */
+		
 	}
 	
 	public function getFilterValue() {
@@ -70,7 +89,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 *
 	 * @param array $sessionData Session data to restore filter from
 	 */
-	public function loadFromSession(array $sessionData) {
+	public function injectSessionData(array $sessionData) {
 		if (array_key_exists('filterValue',$sessionData)) {
 	       $this->filterValue = $sessionData['filterValue'];
 		}	

@@ -93,6 +93,7 @@ plugin.tx_ptextlist.settings {
 			        filterIdentifier = filter1
 			        filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
 			        label = Stringfilter 1
+			        defaultValue = DefaultString
 			    }
 			    
 			    20 {

@@ -73,17 +73,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	protected $listIdentifier;
 	
-	
-	
-	/**
-	 * Holds an instance of getPostVar adapter
-	 * @var Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter
-	 */
-	protected $getPostVarAdapter;
-	
-	
-	
-	/**
+
+    /**
 	 * Holds an instance of extension configuration adapter
 	 * @var Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter
 	 */
@@ -144,7 +135,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		$this->mergeAndSetGlobalAndLocalConf();
 		
 		$this->sessionAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_SessionAdapter');
-		$this->getPostVarAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_GetPostVarAdapter');
 		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
 		// TODO: MUST be injected through the factory 
 	}

@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::getSessionNamespace()
 	 *
 	 */
-	public function getSessionNamespace() {
+	public function getObjectNamespace() {
 	}
 	
 	/**
@@ -91,7 +91,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 *
 	 * @param array $sessionData
 	 */
-	public function loadFromSession(array $sessionData) {
+	public function injectSessionData(array $sessionData) {
 	}
 	
 	/**

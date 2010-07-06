@@ -30,7 +30,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager {
+class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager {
 	
 	/**
 	 * Holds an instance for a session adapter to store data to session
@@ -58,8 +58,9 @@ class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager {
 	 *
 	 * @param Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface $object
 	 */
-	public function persistToSession(Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface $object) {
-		$sessionNamespace = $object->getSessionNamespace();
+	public function persistToSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
+		$sessionNamespace = $object->getObjectNamespace();
+		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
 		$this->persistObjectDataToSessionByNamespace($sessionNamespace, $objectData);
 	}
@@ -71,10 +72,11 @@ class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager {
 	 *
 	 * @param Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface $object   Object to inject session data into
 	 */
-	public function loadFromSession(Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface $object) {
-		$sessionNamespace = $object->getSessionNamespace();
-		$objectData = $this->getSessionDataByNamespace($sessionNamespace);
-		$object->loadFromSession($objectData);
+	public function loadFromSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
+		$objectNamespace = $object->getObjectNamespace();
+		tx_pttools_assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
+		$objectData = $this->getSessionDataByNamespace($objectNamespace);
+		$object->injectSessionData($objectData);
 	}
 	
 
@@ -82,22 +84,22 @@ class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager {
     /**
 	 * Persists a given array to session into a given namespace
 	 *
-	 * @param String $sessionNamespace
+	 * @param String $objectNamespace
 	 * @param array $objectData
 	 */
-	private function persistObjectDataToSessionByNamespace($sessionNamespace, $objectData) {
-		$this->sessionAdapter->store($sessionNamespace, $objectData);
+	private function persistObjectDataToSessionByNamespace($objectNamespace, $objectData) {
+		$this->sessionAdapter->store($objectNamespace, $objectData);
 	}
 	
 	
 	/**
 	 * Returns data from session for given namespace
 	 *
-	 * @param string $sessionNamespace
+	 * @param string $objectNamespace
 	 * @return array
 	 */
-	private function getSessionDataByNamespace($sessionNamespace) {
-		$sessionData = $this->sessionAdapter->read($sessionNamespace);
+	private function getSessionDataByNamespace($objectNamespace) {
+		$sessionData = $this->sessionAdapter->read($objectNamespace);
 		/* Interface expects an array, so fix this here */
 		if ($sessionData == null) {
 			$sessionData = array();
