@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 */
 	protected $filterValue = '';
 	
-	
+
 	
 	/**
 	 * Initializes filter
@@ -50,7 +50,9 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 		// TODO ry21 gather data from GP vars
 	}
 	
-	
+	public function getFilterValue() {
+		return $this->filterValue;
+	}	
 	
 	/**
 	 * Persists filter state to session
