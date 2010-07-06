@@ -92,6 +92,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return string Identifier of filter
 	 */
 	public function getFilterIdentifier() {
+		return "test";
 		return $this->filterIdentifier;
 	}
 	
