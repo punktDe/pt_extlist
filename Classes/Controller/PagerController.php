@@ -35,10 +35,17 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		$this->view->assign('pager', $this->dataBackend->getPager());
 	}
 	
-	public function submitAction() {
+	public function submitAction($post) {
+		$pager = $this->dataBackend->getPager();
 		
 		
-		$this->dataBackend->getPager()->getSettings();
+		$pager->setCurrentPage(5);	
+	
+		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager->persistToSession($pager);
+        
+        $this->redirect('show');
+		
 	}
 }
 

@@ -65,7 +65,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * Updates the item count in the pager object.
 	 * @param array $rawListData
 	 */
-	protected function updatePager(&$rawListData) {
+	protected function updatePager(array &$rawListData) {
 		$this->pager->setItemCount(count($rawListData));
 	}
 	

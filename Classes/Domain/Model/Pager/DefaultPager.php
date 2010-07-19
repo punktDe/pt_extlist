@@ -45,6 +45,10 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return $this->currentPage;
 	}
 	
+	public function setCurrentPage($page) {
+		$this->currentPage = $page;
+	}
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getItemsPerPage()
 	 *

@@ -16,7 +16,7 @@
 
 	<f:for each="{pager.pages}" key="i" as="pageNumber">
 		<li style="display: inline;  list-style-type: none;">
-			<f:link.action action="submit" arguments="{page:i}">{pageNumber}</f:link.action>
+			<f:link.action action="submit" controller="Pager" arguments="{page:i}">{pageNumber}</f:link.action>
 		</li>
 	</f:for>
 	
@@ -33,6 +33,7 @@
 </ul>
 Item Count: {pager.itemCount} <br/>
 Items per page: {pager.itemsPerPage}<br />
+Current Page: {pager.currentPage}
 
 
 </div> 

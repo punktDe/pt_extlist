@@ -43,6 +43,8 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 
 	public function getCurrentPage();
 	
+	public function setCurrentPage($page);
+	
 
 	public function setItemCount($itemCount);
 	
