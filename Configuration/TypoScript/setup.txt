@@ -107,6 +107,12 @@ plugin.tx_ptextlist.settings {
 		
 		pagerConfig {
 			pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+			itemsPerPage = 2
+			
+			showNextLink = 1
+			showPreviousLink = 1
+			showFirstLink = 1
+			showLastLink = 1
 		}
 	
 	}

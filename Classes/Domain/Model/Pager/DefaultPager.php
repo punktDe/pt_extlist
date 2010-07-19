@@ -58,7 +58,15 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 *
 	 */
 	public function getPages() {
-		$pages = intval( ($this->totalItemCount / $this->itemsPerPage) + 1);
+		$pages = array();
+
+		$pageCount = ceil(($this->totalItemCount/$this->itemsPerPage));
+		
+		for($i=1; $i <= $pageCount; $i++) {
+			$pages[$i] = $i;
+		}
+
+		return $pages;
 	}
 	
 	/**
@@ -72,16 +80,28 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::injectSettings()
 	 *
 	 */
-	public function injectSettings($settings) {
+	public function injectSettings(array $settings) {
 		$this->settings = $settings;
+		
+		if(array_key_exists('itemsPerPage', $settings)) {
+			$this->itemsPerPage = $settings['itemsPerPage'];
+		}
 	}
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::setItemsCount()
 	 *
 	 */
-	public function setItemsCount($itemCount) {
+	public function setItemCount($itemCount) {
 		$this->totalItemCount = $itemCount;
+	}
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getItemCount()
+	 *
+	 */
+	public function getItemCount() {
+		return $this->totalItemCount;
 	}
 	
 	/**
@@ -109,6 +129,27 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	public function persistToSession() {
 		return array('currentPage' => $this->currentPage);
+	}
+	
+	public function getShowFirstLink() {
+		if($this->settings['showFirstLink'] == 1)
+			return true;
+		return false;
+	}
+	public function getShowLastLink() {
+		if($this->settings['showLastLink'] == 1)
+			return true;
+		return false;
+	}
+	public function getShowNextLink() {
+		if($this->settings['showNextLink'] == 1)
+			return true;
+		return false;
+	}
+	public function getShowPreviousLink() {
+		if($this->settings['showPreviousLink'] == 1)
+			return true;
+		return false;
 	}
 
 }

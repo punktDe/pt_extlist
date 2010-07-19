@@ -1,6 +1,38 @@
 <div style="background-color:#ddd; border:1px solid #ccc; padding:5px;">
-<b>Simple Pager Rendering</b>
 
+<b>Simple Pager Rendering</b><br />
+<ul id="pagebrowser">
+
+    <f:if condition="{pager.showFirstLink}">
+  		<li style="display: inline;  list-style-type: none;">
+  			<f:link.action action="submit" arguments="{page:'first'}">&lt;&lt;</f:link.action>
+  		</li>
+    </f:if>
+    <f:if condition="{pager.showPreviousLink}">
+  		<li style="display: inline;  list-style-type: none;">
+  			<f:link.action action="submit" arguments="{page:'previous'}">&lt;</f:link.action>
+  		</li>
+    </f:if>
+
+	<f:for each="{pager.pages}" key="i" as="pageNumber">
+		<li style="display: inline;  list-style-type: none;">
+			<f:link.action action="submit" arguments="{page:i}">{pageNumber}</f:link.action>
+		</li>
+	</f:for>
 	
+	<f:if condition="{pager.showNextLink}">
+  		<li style="display: inline;  list-style-type: none;">
+  			<f:link.action action="submit" arguments="{page:'next'}">&gt;</f:link.action>
+  		</li>
+    </f:if>
+    <f:if condition="{pager.showLastLink}">
+  		<li style="display: inline;  list-style-type: none;">
+  			<f:link.action action="submit" arguments="{page:'last'}">&gt;&gt;</f:link.action>
+  		</li>
+    </f:if>
+</ul>
+Item Count: {pager.itemCount} <br/>
+Items per page: {pager.itemsPerPage}<br />
+
 
 </div> 

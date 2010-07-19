@@ -53,11 +53,21 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 */
 	public function getListData() {
 		$rawListData = $this->getListDataFromDataSource();
+		
+		$this->updatePager($rawListData);
+		
 		$mappedListData = $this->dataMapper->getMappedListData($rawListData);
 		return $mappedListData;
 	}
 	
-	
+	/**
+	 * 
+	 * Updates the item count in the pager object.
+	 * @param array $rawListData
+	 */
+	protected function updatePager(&$rawListData) {
+		$this->pager->setItemCount(count($rawListData));
+	}
 	
 	/**
 	 * Executes query on data source

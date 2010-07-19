@@ -31,6 +31,15 @@
  */
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 
+	public function showAction() {
+		$this->view->assign('pager', $this->dataBackend->getPager());
+	}
+	
+	public function submitAction() {
+		
+		
+		$this->dataBackend->getPager()->getSettings();
+	}
 }
 
 ?>

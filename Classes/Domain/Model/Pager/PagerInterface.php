@@ -37,25 +37,32 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	public function init();
 	
+
+	public function injectSettings(array $settings);
 	
-	
-	public function injectSettings();
-	
-	
-	
+
 	public function getCurrentPage();
 	
+
+	public function setItemCount($itemCount);
 	
 	
-	public function setItemsCount($itemsCount);
-	
+	public function getItemCount();
 	
 	
 	public function getItemsPerPage();
 	
-	
-	
+	/**
+	 * 
+	 * Returns an array with the index=>pageNumber pairs
+	 * @return array PageNumbers
+	 */
 	public function getPages();
+	
+	public function getShowFirstLink();
+	public function getShowLastLink();
+	public function getShowNextLink();
+	public function getShowPreviousLink();
 	
 }
 
