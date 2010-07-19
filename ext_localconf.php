@@ -12,10 +12,12 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array(																			// An array holding the controller-action-combinations that are accessible 
 		'List' => 'list',	// The first controller and its first action will be the default
 		'Filterbox' => 'show,submit',
+		'Pager' => 'show, submit',
 		),
 	array(
 	   	'List' => 'list',														// An array of non-cachable controller-action-combinations (they must already be enabled)
 		'Filterbox' => 'show,submit',
+		'Pager' => 'show, submit',	
 	)
 
 );
