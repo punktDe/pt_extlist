@@ -104,6 +104,10 @@ plugin.tx_ptextlist.settings {
 			
 			}
 		}
+		
+		pagerConfig {
+			pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+		}
 	
 	}
 }

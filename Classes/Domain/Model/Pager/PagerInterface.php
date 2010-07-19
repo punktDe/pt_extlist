@@ -47,7 +47,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	
-	public function setItemsCount();
+	public function setItemsCount($itemsCount);
 	
 	
 	

@@ -45,7 +45,16 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
 	
 	
 	private static function createInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
-		$pagerClass = $pagerConfiguration->getPagerClassName();
+		$pagerClassName = $pagerConfiguration->getPagerClassName();
+		tx_pttools_assert::isNotEmptyString($pagerClassName, array('message' => 'No filter class name given, check configuration! 1279541291'));
+		tx_pttools_assert::isTrue(class_exists($pagerClassName), array('message' => 'Given pager class ' . $pagerClassName . ' does not exist or is not loaded! 1279541306'));
+		
+		$pager = new $pagerClassName();
+        tx_pttools_assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
+        
+        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager->loadFromSession($filter);
+        return $pager;
 	}
 	
 	
