@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -49,6 +49,14 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		$this->currentPage = $page;
 	}
 	
+	public function isEnabled() {
+		if($this->settings[enabled] == 1) {
+			return true;
+		}	
+		
+		return false;
+	}
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getItemsPerPage()
 	 *
@@ -74,6 +82,22 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	}
 	
 	/**
+	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
+	 *
+	 */
+	public function getFirstItemIndex() {
+		return ( ($this->currentPage-1) * $this->itemsPerPage) + 1;
+	}
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastItemIndex()
+	 *
+	 */
+	public function getLastItemIndex() {
+		return (($this->currentPage-1) * $this->itemsPerPage) + $this->itemsPerPage;
+	}
+	
+	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::init()
 	 *
 	 */
@@ -90,6 +114,33 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		if(array_key_exists('itemsPerPage', $settings)) {
 			$this->itemsPerPage = $settings['itemsPerPage'];
 		}
+	}
+	
+	/**
+	 * 
+	 * @see Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface::injectGPVars()
+	 */
+	public function injectGPVars($GPVars) {
+		$page = $GPVars['page'];
+	$old = $this->currentPage;
+		switch($page) {
+			case 'first':
+				$this->currentPage = 1;
+				break;
+			case 'last':
+				$this->currentPage = 4;
+				break;
+			case 'previous':
+				$this->currentPage = ($this->currentPage > 1 ? $this->currentPage-1 : 1);
+				break;
+			case 'next':
+				$this->currentPage = ($this->currentPage < 4 ? $this->currentPage+1 : 4);
+				break;
+			default:
+				$this->currentPage = (!$page ? 1 : (int)$page);
+			
+		}
+
 	}
 	
 	/**
@@ -113,7 +164,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 *
 	 */
 	public function getObjectNamespace() {
-		return 'defaultfilter';
+		return 'tx_ptextlist_pi1';
 	}
 	
 	/**
@@ -155,6 +206,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 			return true;
 		return false;
 	}
+	
+	
 
 }
  

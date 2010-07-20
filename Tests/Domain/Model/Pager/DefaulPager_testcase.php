@@ -91,6 +91,23 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     	
     	$this->assertEquals(count($this->pager->getPages()),11);
     }
+    
+    public function testGetFirstItemIndex() {
+    	$this->pager->setItemCount(100);
+    	$this->pager->injectSettings(array('itemsPerPage' => 10));
+    	$this->pager->setCurrentPage(2);
+    	
+    	$this->assertEquals($this->pager->getFirstItemIndex(), 11);
+    }
+    
+    public function testGetLastItemIndex() {
+    	$this->pager->setItemCount(100);
+    	$this->pager->injectSettings(array('itemsPerPage' => 10));
+    	$this->pager->setCurrentPage(3);
+    	
+    	$this->assertEquals($this->pager->getLastItemIndex(), 30);
+    }
+    
 }
  
  ?>

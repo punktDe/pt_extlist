@@ -66,7 +66,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @param array $rawListData
 	 */
 	protected function updatePager(array &$rawListData) {
-		$this->pager->setItemCount(count($rawListData));
+		$this->pager->setItemCount($this->dataSource->countItems());
 	}
 	
 	/**
@@ -75,6 +75,14 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @return array   Raw list data array
 	 */
 	protected function getListDataFromDataSource() {
+		
+		if($this->pager->isEnabled()) {
+			$startIndex = $this->pager->getFirstItemIndex();
+			$endIndex = $this->pager->getLastItemIndex();
+			
+			return $this->dataSource->executeWithLimit($startIndex, $endIndex);
+		}
+		
 		return $this->dataSource->execute();
 	}
 	

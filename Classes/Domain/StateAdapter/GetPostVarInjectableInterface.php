@@ -29,7 +29,9 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-interface Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface  {
+interface Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface 
+			extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+				
     
 	/**
 	 * Inject GP Vars

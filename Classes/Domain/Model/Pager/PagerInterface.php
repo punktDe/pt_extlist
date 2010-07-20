@@ -33,15 +33,23 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface 
-    extends Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
+    extends Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
+    		Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
 	public function init();
 	
+	/**
+	 * Checks if this page browser is enabled
+	 * @return boolean true if enabled
+	 */
+	public function isEnabled();
 
 	public function injectSettings(array $settings);
 	
 
 	public function getCurrentPage();
+	public function getFirstItemIndex();
+	public function getLastItemIndex();
 	
 	public function setCurrentPage($page);
 	
