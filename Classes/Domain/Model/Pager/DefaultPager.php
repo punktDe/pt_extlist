@@ -36,6 +36,13 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	protected $settings = array();
 	protected $itemsPerPage;
 	protected $totalItemCount;
+
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::init()
+	 *
+	 */
+	public function init() {}
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getCurrentPage()
@@ -49,6 +56,10 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		$this->currentPage = $page;
 	}
 	
+	/**
+	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::isEnabled()
+	 *
+	 */
 	public function isEnabled() {
 		if($this->settings[enabled] == 1) {
 			return true;
@@ -97,12 +108,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return (($this->currentPage-1) * $this->itemsPerPage) + $this->itemsPerPage;
 	}
 	
-	/**
-	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::init()
-	 *
-	 */
-	public function init() {
-	}
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::injectSettings()
@@ -122,25 +128,11 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	public function injectGPVars($GPVars) {
 		$page = $GPVars['page'];
-	$old = $this->currentPage;
-		switch($page) {
-			case 'first':
-				$this->currentPage = 1;
-				break;
-			case 'last':
-				$this->currentPage = 4;
-				break;
-			case 'previous':
-				$this->currentPage = ($this->currentPage > 1 ? $this->currentPage-1 : 1);
-				break;
-			case 'next':
-				$this->currentPage = ($this->currentPage < 4 ? $this->currentPage+1 : 4);
-				break;
-			default:
-				$this->currentPage = (!$page ? 1 : (int)$page);
+		
+		echo "LastPage = " . $this->getLastPage();
+		
+		$this->currentPage = (!$page ? 1 : (int)$page);
 			
-		}
-
 	}
 	
 	/**
@@ -176,6 +168,9 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		if(array_key_exists('currentPage', $sessionData)) {
 			$this->currentPage = $sessionData['currentPage'];
 		}
+		if(array_key_exists('totalItemCount', $sessionData)) {
+			$this->totalItemCount = $sessionData['totalItemCount'];
+		}
 	}
 	
 	/**
@@ -183,7 +178,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 *
 	 */
 	public function persistToSession() {
-		return array('currentPage' => $this->currentPage);
+		return array('currentPage' => $this->currentPage,
+						'totalItemCount' => $this->totalItemCount);
 	}
 	
 	public function getShowFirstLink() {
@@ -207,7 +203,29 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return false;
 	}
 	
+	public function getLastPage() {
+		return ceil(($this->totalItemCount/$this->itemsPerPage));
+	}
 	
+	public function getFirstPage() {
+		return 1;
+	}
+	
+	public function getPreviousPage() {
+		if($this->currentPage > $this->getFirstPage()) {			
+			return $this->currentPage - 1;
+		}
+		
+		return $this->getFirstPage();
+	}
+	
+	public function getNextPage() {
+		if($this->currentPage < $this->getLastPage()) {
+			return $this->currentPage + 1;
+		}
+		
+		return $this->getLastPage();
+	}
 
 }
  

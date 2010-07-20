@@ -74,6 +74,11 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	public function getShowNextLink();
 	public function getShowPreviousLink();
 	
+	public function getLastPage();
+	public function getFirstPage();
+	public function getPreviousPage();
+	public function getNextPage();
+	
 }
 
 ?>

@@ -5,12 +5,12 @@
 
     <f:if condition="{pager.showFirstLink}">
   		<li style="display: inline;  list-style-type: none;">
-  			<f:link.action action="submit" arguments="{page:'first'}">&lt;&lt;</f:link.action>
+  			<f:link.action action="submit" arguments="{page:pager.firstPage}">&lt;&lt;</f:link.action>
   		</li>
     </f:if>
     <f:if condition="{pager.showPreviousLink}">
   		<li style="display: inline;  list-style-type: none;">
-  			<f:link.action action="submit" arguments="{page:'previous'}">&lt;</f:link.action>
+  			<f:link.action action="submit" arguments="{page:pager.previousPage}">&lt;</f:link.action>
   		</li>
     </f:if>
 
@@ -29,12 +29,12 @@
 	
 	<f:if condition="{pager.showNextLink}">
   		<li style="display: inline;  list-style-type: none;">
-  			<f:link.action action="submit" arguments="{page:'next'}">&gt;</f:link.action>
+  			<f:link.action action="submit" arguments="{page:pager.nextPage}">&gt;</f:link.action>
   		</li>
     </f:if>
     <f:if condition="{pager.showLastLink}">
   		<li style="display: inline;  list-style-type: none;">
-  			<f:link.action action="submit" arguments="{page:'last'}">&gt;&gt;</f:link.action>
+  			<f:link.action action="submit" arguments="{page:pager.lastPage}">&gt;&gt;</f:link.action>
   		</li>
     </f:if>
 </ul>
