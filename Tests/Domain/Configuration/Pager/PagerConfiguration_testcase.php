@@ -32,16 +32,23 @@
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testSetup() {
+	protected $pagerConfiguration;
+	
+	public function setup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration'));
-	}
-	
-	public function testConstruct() {
+		
 		$this->initDefaultConfigurationBuilderMock();
-		$pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
-		$this->assertEquals($pagerConfiguration->getPagerClassName(), 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
+		$this->pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
+	}
+		
+	public function testGetPagerSettings() {
+		$settings = $this->pagerConfiguration->getPagerSettings();
+		$this->assertTrue(is_array($settings));
 	}
 	
+	public function testGetPagerClassName() {
+		$this->assertEquals($this->pagerConfiguration->getPagerClassName(), 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
+	}
 	
 	
 	
