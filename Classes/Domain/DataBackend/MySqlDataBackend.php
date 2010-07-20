@@ -36,6 +36,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend extends Tx_PtExtlist_Doma
 	public function getListData() {
 		
 	}
+	
+	protected function updatePager(array &$rawListData){
+		
+	}
 }
 
 ?>

@@ -97,7 +97,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
 	                             )
 	                         )
-	                    )
+	                    ),
+	                    'pagerConfig' => array(
+	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager'
+	                    ),
 	                )
 	            )
 	        ));
