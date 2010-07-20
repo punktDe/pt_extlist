@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -70,9 +70,9 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_GetPostVarAdapter_testcase extends 
 	}
 	
 	
-	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter'));
+		$this->assertTrue(class_exists('Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject'));
 	}
 	
 	
@@ -116,7 +116,18 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_GetPostVarAdapter_testcase extends 
     
     
     public function testGetParametersByObject() {
-    	$this->markTestIncomplete('This test has not been implemented yet!');
+
+    	$object = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject();
+    	$object->setObjectNamespace('key1.key2.key3');
+    	
+    	
+    	$this->gpVarAdapter->getParametersByObject($object);
+    	
+    	$injectedValues = $object->getValues();
+
+    	$this->assertEquals($injectedValues, $this->getVars['key1']['key2']['key3']);
+    	
+    	
     }
 	
 }

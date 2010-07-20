@@ -93,6 +93,8 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 */
 	public function getParametersByObject(Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object) {
 		// TODO ry21 to be implemented!
+		
+		$object->injectGPVars( $this->extractGpVarsByNamespace($object->getObjectNamespace()));
 	}
 	
 	
