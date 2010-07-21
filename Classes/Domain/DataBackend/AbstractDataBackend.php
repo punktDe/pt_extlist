@@ -160,12 +160,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		return $this->pager;
 	}
 	
-	/**
-	 * 
-	 * Updates the item count in the pager object.
-	 * @param array $rawListData
-	 */
-	abstract protected function updatePager(array &$rawListData);
+
 }
 
 ?>
