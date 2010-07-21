@@ -129,7 +129,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	public function injectGPVars($GPVars) {
 		$page = $GPVars['page'];
 		
-		echo "LastPage = " . $this->getLastPage();
+		// TODO: Check if $page is in a valid range
+		// Problem: We don't know the totalItemCount yet
 		
 		$this->currentPage = (!$page ? 1 : (int)$page);
 			
