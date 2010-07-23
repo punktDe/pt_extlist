@@ -61,6 +61,28 @@
  		$this->secondCriteria = $secondCriteria;
  	}
  	
+ 	
+ 	
+ 	/**
+ 	 * Return first criteria of and criteria
+ 	 *
+ 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+ 	 */
+ 	public function getFirstCriteria() {
+ 		return $this->firstCriteria;
+ 	}
+ 	
+ 	
+ 	
+ 	/**
+ 	 * Returns second criteria of and criteria
+ 	 *
+ 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+ 	 */
+ 	public function getSecondCriteria() {
+ 		return $this->secondCriteria;
+ 	}
+ 	
  }
  
  
