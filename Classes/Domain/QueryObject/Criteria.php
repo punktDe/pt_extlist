@@ -31,7 +31,64 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_QueryObject_Criteria {
+
+	public static function equals($field, $value) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '=');
+	}
 	
+	
+	
+	public static function greaterThan($field, $value) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '>');
+	}
+	
+	
+	
+	public static function greaterThanEquals($field, $value) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '>=');
+	}
+	
+	
+	
+	public static function lessThan($field, $value) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '<');
+	}
+	
+	
+	
+	public static function lessThanEquals($field, $value) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '<=');
+	}
+	
+	
+	
+	public static function like($field, $value) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, 'LIKE');
+	}
+	
+	
+	
+	public static function in($field, $values) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, 'IN');
+	}
+	
+	
+	
+	public static function andOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2){
+		return new Tx_PtExtlist_Domain_QueryObject_AndCriteria($criteria1, $criteria2);
+	}
+	
+	
+	
+	public static function orOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2) {
+		return new Tx_PtExtlist_Domain_QueryObject_OrCriteria($criteria1, $criteria2);
+	}
+	
+	
+	
+	public static function notOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+		return new Tx_PtExtlist_Domain_QueryObject_NotCriteria($criteria);
+	}
 }
  
  

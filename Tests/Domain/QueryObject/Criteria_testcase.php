@@ -32,6 +32,85 @@
  */
 class Tx_PtExtlist_Tests_Domain_QueryObject_Criteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	 
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_Criteria'));
+	}
+
+	
+	
+	public function testGreaterThan() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('test', 5);
+		$this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+	}
+	
+	
+	
+	public function testGreaterThanEquals() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals('test', 5);
+		$this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+	}
+	
+	
+	
+	public function testLessThan() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThan('test', 5);
+		$this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+	}
+	
+	
+	
+	public function testLessThanEquals() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals('test', 5);
+		$this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+	}
+	
+	
+	
+	public function testLike() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like('test', 'test');
+		$this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+	}
+	
+	
+	
+	public function testEquals() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals('test', 'test');
+		$this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+	}
+	
+	
+	
+	public function testNot() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThan('test', 10);
+		$notCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria);
+		$this->assertTrue(is_a($notCriteria, 'Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
+	}
+	
+	
+	
+	public function testAnd() {
+		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThan('test', 1);
+		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('test', 0);
+		$andCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria1, $criteria2);
+		$this->assertTrue(is_a($andCriteria, 'Tx_PtExtlist_Domain_QueryObject_AndCriteria'));
+	}
+	
+	
+	
+	public function testOr() {
+		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThan('test', 1);
+        $criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('test', 0);
+        $orCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria1, $criteria2);
+        $this->assertTrue(is_a($orCriteria, 'Tx_PtExtlist_Domain_QueryObject_OrCriteria')); 
+	}
+	
+	
+	
+	public function testIn() {
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in('test', 'test,test1,test2');
+        $this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+	}
+	
 }
  
  
