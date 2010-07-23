@@ -24,7 +24,8 @@
 ***************************************************************/
 
 /**
- * 
+ * Class implements Criteria. Besides an abstract base class for all other criterias,
+ * this class acts as a factory for all criteria objects. 
  *
  * @package Typo3
  * @subpackage pt_extlist
@@ -32,60 +33,129 @@
  */
 class Tx_PtExtlist_Domain_QueryObject_Criteria {
 
+	/**
+	 * Returns a new equals criteria for given field and value
+	 *
+	 * @param string $field Field name to compare value with
+	 * @param string $value Value to be compared
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
 	public static function equals($field, $value) {
 		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '=');
 	}
 	
 	
 	
+	/**
+	 * Returns a new greater than criteria for given field and value
+	 *
+	 * @param string $field Field to be compared
+	 * @param string $value Value to be compared
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
 	public static function greaterThan($field, $value) {
 		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '>');
 	}
 	
 	
 	
+	/**
+	 * Returns a new greater than equals criteria for given field and value
+	 *
+	 * @param string $field Field to be compared
+	 * @param string $value Value to be compared
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
 	public static function greaterThanEquals($field, $value) {
 		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '>=');
 	}
 	
 	
 	
+	/**
+	 * Returns a new less than criteria for given field and value
+	 *
+	 * @param string $field Field to be compared with
+	 * @param string $value Value to be compared with
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
 	public static function lessThan($field, $value) {
 		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '<');
 	}
 	
 	
 	
+	/**
+	 * Returns a new less than equals criteria for given field and value
+	 *
+	 * @param string $field Field to be compared with
+	 * @param string $value Value to be comperd with
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
 	public static function lessThanEquals($field, $value) {
 		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '<=');
 	}
 	
 	
 	
+	/**
+	 * Returns a new like criteria for given field and value
+	 *
+	 * @param string $field Field to be compared with
+	 * @param string $value Value to be compared with
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
 	public static function like($field, $value) {
 		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, 'LIKE');
 	}
 	
 	
 	
+	/**
+	 * Returns a new 'in' criteria for given field and value
+	 *
+	 * @param string $field Field to be compared with
+	 * @param string $values Values to compare content of field with
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
 	public static function in($field, $values) {
 		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, 'IN');
 	}
 	
 	
 	
+	/**
+	 * Returns a new 'and' criteria for two given criterias
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1 First criteria to be 'anded'
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2 Second criteria to be 'anded'
+	 * @return Tx_PtExtlist_Domain_QueryObject_AndCriteria
+	 */
 	public static function andOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2){
 		return new Tx_PtExtlist_Domain_QueryObject_AndCriteria($criteria1, $criteria2);
 	}
 	
 	
 	
+	/**
+	 * Returns a new 'or' criteria for two given criterias
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1 First criteria to be 'ored'
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2 Second criteria to be 'ored'
+	 * @return Tx_PtExtlist_Domain_QueryObject_OrCriteria
+	 */
 	public static function orOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2) {
 		return new Tx_PtExtlist_Domain_QueryObject_OrCriteria($criteria1, $criteria2);
 	}
 	
 	
 	
+	/**
+	 * Returns a new 'not' criteria for a given criteria
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be negated
+	 * @return Tx_PtExtlist_Domain_QueryObject_NotCriteria
+	 */
 	public static function notOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		return new Tx_PtExtlist_Domain_QueryObject_NotCriteria($criteria);
 	}
