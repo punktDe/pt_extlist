@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * 
+ * Class implements a 'not' operator for criterias
  *
  * @package Typo3
  * @subpackage pt_extlist
@@ -32,16 +32,31 @@
  */
 class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 
+	/**
+	 * Criteria to be negated
+	 *
+	 * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+	 */
     protected $criteria;
     
     
     
+    /**
+     * Constructor for not criteria. Takes a criteria as parameter
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+     */
     public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
         $this->criteria1 = $criteria;
     }
     
     
     
+    /**
+     * Returns criteria to be negated
+     *
+     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     */
     public function getCriteria() {
         return $this->criteria;
     }
