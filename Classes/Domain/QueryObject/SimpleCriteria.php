@@ -24,7 +24,11 @@
 ***************************************************************/
 
 /**
- * Implements a simple criteria
+ * Implements a simple criteria which works like
+ * 
+ * <field><operator><value>
+ * 
+ * 'testfield' = 'testvalue'
  *
  * @package Typo3
  * @subpackage pt_extlist
@@ -32,12 +36,40 @@
  */
 class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 	 
+	/**
+	 * Holds the field name for which the criteria holds
+	 *
+	 * @var string
+	 */
 	protected $field;
 	
+	
+	
+	/**
+	 * Holds the value against which the criteria is compared
+	 *
+	 * @var string
+	 */
 	protected $value;
 	
+	
+	
+	/**
+	 * Holds the operator with which field and value is compared
+	 *
+	 * @var string
+	 */
 	protected $operator;
 	
+	
+	/**
+	 * Constructor for criteria. Takes a field name a value and a operator.
+	 * Works like 'field' <operator> 'value'
+	 *
+	 * @param string $field
+	 * @param string $value
+	 * @param string $operator
+	 */
 	public function __construct($field = '', $value, $operator) {
 		tx_pttools_assert::isNotEmptyString($field, array('message' => 'Field must not be empty! TODO insert timestamp'));
 		tx_pttools_assert::isNotEmptyString($operator, array('message' => 'Operator must not be empty! TODO insert timestamp'));
@@ -48,18 +80,33 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
 	
 	
 	
+	/**
+	 * Returns field for which criteria holds
+	 *
+	 * @return string Field name of criteria
+	 */
 	public function getField() {
 		return $this->field;
 	}
 	
 	
 	
+	/**
+	 * Returns value with which field is compared
+	 *
+	 * @return string Value to compare field with
+	 */
 	public function getValue() {
 		return $this->value;
 	}
 	
 	
 	
+	/**
+	 * Returns operator to be used as comperator
+	 *
+	 * @return strging operator
+	 */
 	public function getOperator() {
 		return $this->operator;
 	}
