@@ -37,9 +37,22 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_Query_testcase extends Tx_PtExtlist_
     }
     
     
+    
     public function testAddCriteria() {
     	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
     	$this->assertTrue(method_exists($query, 'addCriteria'));
+    }
+    
+    
+    
+    public function testGetCriteria() {
+    	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $query->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::lessThan('test', 10));
+        $this->assertTrue(count($query->getCriterias()) == 1);
+        $criterias = $query->getCriterias();
+        $this->assertTrue($criterias[0]->getField() == 'test');
+        $this->assertTrue($criterias[0]->getValue() == 10);
+        $this->assertTrue($criterias[0]->getOperator() == '<');
     }
     
 }
