@@ -32,19 +32,178 @@
  */
 class Tx_PtExtlist_Domain_QueryObject_Query {
  	
+	/**
+	 * Holds array of field names to do query upon.
+	 * Can be encoded as <table>.<field> or as <field>
+	 *
+	 * @var array
+	 */
+	protected $fields = array();
+	
+	
+	
+	/**
+	 * Holds an array of table names to query from
+	 *
+	 * @var array
+	 */
+	protected $from = array();
+	
+	
+	
+	/**
+	 * Holds limit of query, encoded as <offset>:<count>
+	 *
+	 * @var string
+	 */
+	protected $limit;
+	
+	
+	
+	/**
+	 * Holds array of criterias to restrict selection
+	 *
+	 * @var array<Tx_PtExtlist_Domain_QueryObject_Criteria>
+	 */
 	protected $criterias = array();
 	
 	
+	
+	/**
+	 * Holds array of sorting for query.
+	 * Encoded as <field_name> [ASCENDING|DESCENDING]
+	 *
+	 * @var array
+	 */
+	protected $sortings = array();
+	
+	
+	
+	/**
+	 * Adds a field name to list of fields
+	 *
+	 * @param string $field Field name to be added to list of fields
+	 */
+	public function addField($field) {
+		tx_pttools_assert::isNotEmptyString($field, array('message' => 'Field must not be empty! 1279988488'));
+		$this->fields[] = $field;
+	}
+	
+	
+	
+	/**
+	 * Returns list of field names query works upon
+	 *
+	 * @return array
+	 */
+	public function getFields() {
+		return $this->fields;
+	}
+	
+	
+	
+	/**
+	 * Adds a new entry to from part of query
+	 *
+	 * @param string $from From part to be added to query
+	 */
+	public function addFrom($from) {
+		tx_pttools_assert::isNotEmptyString($from, array('message' => 'From must not be empty! 1279988763'));
+		$this->from[] = $from;
+	}
+	
+	
+	
+	/**
+	 * Returns all from parts from query
+	 *
+	 * @return array
+	 */
+	public function getFrom() {
+		return $this->from;
+	}
+	
+	
+	
+	/**
+	 * Adds a criteria to query
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be added to query
+	 */
 	public function addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		$this->criterias[] = $criteria;
 	}
 	
 	
 	
+	/**
+	 * Returns all criterias from this query
+	 *
+	 * @return array<Tx_PtExtlist_Domain_QueryObject_Criteria>
+	 */
 	public function getCriterias() {
 		return $this->criterias;
 	}
 	
+	
+	
+	/**
+	 * Sets limit. Possible formats are 'd' or 'd:d'
+	 *
+	 * @param string $limit Limit for query
+	 */
+	public function setLimit($limit) {
+		if ($limit == '') {
+			$this->limit = '';
+		} elseif (preg_match('/^[0-9]+$/', $limit)) {
+			$this->limit = $limit;
+		} elseif (preg_match('/^[0-9]+:[0-9]+$/', $limit)) {
+			$this->limit = $limit;
+		}
+		else {
+		    throw new Exception('Format of limit ' . $limit . ' does not fit (d) or (d:d)!');
+		}
+	}
+	
+	
+	
+	/**
+	 * Returns limit of query
+	 *
+	 * @return string
+	 */
+	public function getLimit() {
+		return $this->limit;
+	}
+	
+	
+	
+	/**
+	 * Adds a sorting for a given column and a given direction to array of sortings.
+	 * Direction may be either ASCENDING oder DESCENDING
+	 *
+	 * @param string $column Column to be sorted
+	 * @param string $direction Direction of sorting: ASCENDING or DESCENDING
+	 */
+	public function addSorting($column, $direction = 'ASCENDING') {
+		tx_pttools_assert::isNotEmptyString($column, array('message' => 'column must not be empty! 1280060692'));
+		if (preg_match('/ASCENDING/', $direction) || preg_match('/DESCENDING/', $direction)) {
+		    $this->sortings[] = $column . ' ' . $direction;	
+		} else {
+			throw new Exception('Given direction must be either DESCENDING or ASCENDING, but was ' . $direction);
+		}
+	}
+	
+	
+	
+	/**
+	 * Returns array of sortings
+	 *
+	 * @return array
+	 */
+	public function getSortings() {
+		return $this->sortings;
+	}
 	
 }
  
