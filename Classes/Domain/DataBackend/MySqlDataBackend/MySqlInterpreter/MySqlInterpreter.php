@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getCriterias()
+	 * Translates query's criterias into SQL string (without "WHERE")
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 */
@@ -64,6 +64,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 
 	
 	
+	/**
+	 * Translates given criteria into  SQL WHERE string (without 'WHERE')
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+	 * @return unknown
+	 */
 	protected static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		$criteriaString = '';
 		$criteriaClass = get_class($criteria);
@@ -78,21 +84,32 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getLimit()
+	 * Returns SQL limit string without "LIMIT"
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 */
 	public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+        $limitString = '';
+        $limit = $query->getLimit();
+        // TODO check syntax here
+        $limitString = $limit;
+        return $limitString;
 	}
 	
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getSorting()
+	 * Returns SQL sortings string without "ORDER BY"
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 */
 	public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+		$sortingsArray = array();
+		foreach ($query->getSortings() as $sorting) {
+			// TODO check for right syntax here!
+			$sortingsArray[] = $sorting;
+		}
+		return implode(', ', $sortingsArray);
 	}
 	
 	
@@ -109,10 +126,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 //	    
 //		return $sqlString;
 //	}
-
-	
-	
-
 	
 }
 
