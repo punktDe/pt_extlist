@@ -39,7 +39,7 @@ class Tx_PtExtlist_Test_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_
             'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder',
             array('getBackendConfiguration'),array(),'',FALSE,FALSE,FALSE);
             
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend($mockConfigurationBuilder);
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($mockConfigurationBuilder);
 	}
 	
 }
