@@ -23,7 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once ('Classes/Domain/DataBackend/CriteriaTranslatorInterface.php');
 
 /**
  * Translator for AND criteria
@@ -42,7 +41,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCrite
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 26.07.2010
 	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_NotCriteria  $criteria) {
+	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria  $criteria) {
 	    return 'NOT (' . $criteria->getCriteria() . ')';
 	}
 }
