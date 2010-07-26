@@ -61,19 +61,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter'));
 	}
 	
-
-	public function testInterpret() {
-		
-		$interpreter = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter();
-		$this->assertTrue(method_exists($interpreter, 'interpretQuery'));
-		$result = $interpreter->interpretQuery($this->queryObject);
-	}
-	
-	public function testGetSelectPart() {
-		$interpreter = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter');
-		$selectPart = $interpreter->getSelectPart($this->queryObject);
-	}
-	
 	
 }
 ?>

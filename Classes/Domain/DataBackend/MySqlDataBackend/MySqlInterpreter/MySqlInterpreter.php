@@ -33,51 +33,86 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter implements Tx_PtExtlist_Domain_DataBackend_QueryInterpreterInterface {
+class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
+
+	/**
+	 * Holds class names for translating different types of criterias
+	 *
+	 * @var array
+	 */
+	protected $translatorClasses = array('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
+	                                     'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator',
+	                                     'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
+	                                     'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator'
+	 );
+	 
+	 
 	
-	public function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
-	    $sqlString = '';
-		
-	    $sqlString .= $this->getSelectPart($query);
-	    $sqlString .= $this->getFromPart($query);
-	    $sqlString .= $this->getWherePart($query);
-	    $sqlString .= $this->getGroupByPart($query);
-	    $sqlString .= $this->getOrderByPart($query);
-	    
-		return $sqlString;
+	/**
+	 * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getCriterias()
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 */
+	public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+		$criteriaArray = array();
+		foreach ($query->getCriterias() as $criteria) {
+			$criteriaArray[] = self::translateCriteria($criteria);
+		}
+		$criteriaString = implode(' AND ', $criteriaArray);
+		return $criteriaString;
+	}
+
+	
+	
+	protected static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+		$criteriaString = '';
+		$criteriaClass = get_class($criteria);
+		if (array_key_exists($criteriaClass, $this->translatorClasses) && class_exists($this->translatorClasses[$criteriaClass])) {
+		  $criteriaString = $this->translatorClasses[$criteriaClass]->translateCriteria($criteria);	
+		} else {
+		  throw new Exception('Unknown type of criteria ' . get_class($criteria));
+		}
+		return $criteriaString;
 	}
 	
 	
 	
-	protected function getSelectPart($query) {
-		$selectPart = 'SELECT ';
-		
-		// TODO implement me :-)
-		
-		return $selectPart;
+	/**
+	 * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getLimit()
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 */
+	public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 	}
 	
 	
 	
-	protected function getFromPart($query) {
-		$fromPart = 'FROM ';
-		
-		// TODO implement me :-)
-		
-		return $fromPart;
+	/**
+	 * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getSorting()
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 */
+	public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 	}
 	
 	
 	
-	protected function getWherePart($query) {
-		$wherePart = 'WHERE ';
-		
-		// TODO implement me :-)
-		
-		return $wherePart;
-	}
+//	public function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+//	    $sqlString = '';
+//		
+//	    $sqlString .= $this->getSelectPart($query);
+//	    $sqlString .= $this->getFromPart($query);
+//	    $sqlString .= $this->getWherePart($query);
+//	    $sqlString .= $this->getGroupByPart($query);
+//	    $sqlString .= $this->getOrderByPart($query);
+//	    $sqlString .= $this->getLimitPart($query);
+//	    
+//		return $sqlString;
+//	}
+
 	
 	
+
 	
 }
 

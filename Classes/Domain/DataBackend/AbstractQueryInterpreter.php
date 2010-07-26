@@ -34,15 +34,34 @@
  * @author Daniel Lienert <lienert@punkt.de>
  */
 
-interface Tx_PtExtlist_Domain_DataBackend_QueryInterpreterInterface {
-	
+abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
+
 	/**
-	 * Interprets given query
+	 * Returns translated criteria(s)
 	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
-	 * @return mixed
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 */
-	public function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract static public function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    
+    
+    
+    /**
+     * Returns translated sortings
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     */
+    abstract static public function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    
+    
+    
+    /**
+     * Returns translated limit
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     */
+    abstract static public function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query);
+	
+	
 	
 }
 
