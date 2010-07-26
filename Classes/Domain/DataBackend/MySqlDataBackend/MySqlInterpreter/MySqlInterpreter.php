@@ -109,7 +109,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 			// TODO check for right syntax here!
 			$sortingsArray[] = $sorting;
 		}
-		return implode(', ', $sortingsArray);
+		$sortingString = implode(', ', $sortingsArray);
+		$sortingString = preg_replace('/ASCENDING/', 'ASC', $sortingString);
+		$sortingString = preg_replace('/DESCENDING/', 'DESC', $sortingString);
+		return $sortingString;
 	}
 	
 	

@@ -55,10 +55,32 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		// where
 		$this->queryObject->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals('name', 'Michael'));
 		
+		// limit
+		$this->queryObject->setLimit('10:10');
+		
+		// sortings
+		$this->queryObject->addSorting('test');
+		$this->queryObject->addSorting('test2', 'DESCENDING');
+		
 	}
+	
+	
 	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter'));
+	}
+	
+	
+	
+	public function testGetLimit() {
+		$this->assertTrue(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getLimit($this->queryObject) == '10:10');
+	}
+	
+	
+	
+	public function testGetSortings() {
+		$sorting = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getSorting($this->queryObject);
+		$this->assertTrue($sorting == 'test ASC, test2 DESC', $sorting);
 	}
 	
 	
