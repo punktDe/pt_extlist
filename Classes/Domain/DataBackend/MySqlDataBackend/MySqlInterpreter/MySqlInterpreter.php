@@ -36,8 +36,49 @@
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter implements Tx_PtExtlist_Domain_DataBackend_QueryInterpreterInterface {
 	
 	public function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
-	   return 'foo';
+	    $sqlString = '';
+		
+	    $sqlString .= $this->getSelectPart($query);
+	    $sqlString .= $this->getFromPart($query);
+	    $sqlString .= $this->getWherePart($query);
+	    $sqlString .= $this->getGroupByPart($query);
+	    $sqlString .= $this->getOrderByPart($query);
+	    
+		return $sqlString;
 	}
+	
+	
+	
+	protected function getSelectPart($query) {
+		$selectPart = 'SELECT ';
+		
+		// TODO implement me :-)
+		
+		return $selectPart;
+	}
+	
+	
+	
+	protected function getFromPart($query) {
+		$fromPart = 'FROM ';
+		
+		// TODO implement me :-)
+		
+		return $fromPart;
+	}
+	
+	
+	
+	protected function getWherePart($query) {
+		$wherePart = 'WHERE ';
+		
+		// TODO implement me :-)
+		
+		return $wherePart;
+	}
+	
+	
+	
 }
 
 ?>
