@@ -96,6 +96,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		}
 		$this->fail('No Exceptions has been raised for misconfiguration');
 	}
+	
+	
+	/*
+	public function testListIdentifierNotConfiguredException() {
+		try {
+			$conf
+		}
+	}
+    */
 
 	
 	

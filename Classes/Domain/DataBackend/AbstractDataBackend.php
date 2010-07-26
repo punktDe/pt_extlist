@@ -151,6 +151,16 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		return $this->filterboxCollection;
 	}
 	
+	/**
+	 * 
+	 * Returns the pager attached to this data backend.
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface The pager attached to this data backend.
+	 */
+	public function getPager() {
+		return $this->pager;
+	}
+	
+
 }
 
 ?>

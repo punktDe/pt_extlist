@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -29,12 +29,85 @@
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	protected $pager;
+	
+	public function setup() {
+		$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager();
+	}
+		
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Pager_DefaultPager'));
     }
+    
+    public function testCurrentPage() {
+    	$this->pager->setCurrentPage(10);
+    	$this->assertEquals($this->pager->getCurrentPage(), 10);
+    }
+    
+    public function testItemCount() {
+    	$this->pager->setItemCount(10);
+    	$this->assertEquals($this->pager->getItemCount(),10);
+    }
+    
+    public function testGetShowFirstLink() {
+    	$this->assertFalse($this->pager->getShowFirstLink());
+    	
+    	$settings['showFirstLink'] = 1;
+    	$this->pager->injectSettings($settings);
+    	$this->assertTrue($this->pager->getShowFirstLink());
+    }
+    
+    public function testGetShowLastLink() {
+    	$this->assertFalse($this->pager->getShowLastLink());
+    	
+    	$settings['showLastLink'] = 1;
+    	$this->pager->injectSettings($settings);
+    	$this->assertTrue($this->pager->getShowLastLink());
+    }
+    
+    public function testGetShowPreviousLink() {
+    	$this->assertFalse($this->pager->getShowPreviousLink());
+    	
+    	$settings['showPreviousLink'] = 1;
+    	$this->pager->injectSettings($settings);
+    	$this->assertTrue($this->pager->getShowPreviousLink());
+    }
+    
+    public function testGetShowNextLink() {
+    	$this->assertFalse($this->pager->getShowNextLink());
+    	
+    	$settings['showNextLink'] = 1;
+    	$this->pager->injectSettings($settings);
+    	$this->assertTrue($this->pager->getShowNextLink());
+    }
+    
+    public function testGetPages() {
+    	$this->pager->setItemCount(21);
+    	$this->pager->injectSettings(array('itemsPerPage' => 2));
+    	
+    	$this->assertEquals(count($this->pager->getPages()),11);
+    }
+    
+    public function testGetFirstItemIndex() {
+    	$this->pager->setItemCount(100);
+    	$this->pager->injectSettings(array('itemsPerPage' => 10));
+    	$this->pager->setCurrentPage(2);
+    	
+    	$this->assertEquals($this->pager->getFirstItemIndex(), 11);
+    }
+    
+    public function testGetLastItemIndex() {
+    	$this->pager->setItemCount(100);
+    	$this->pager->injectSettings(array('itemsPerPage' => 10));
+    	$this->pager->setCurrentPage(3);
+    	
+    	$this->assertEquals($this->pager->getLastItemIndex(), 30);
+    }
+    
 }
  
  ?>

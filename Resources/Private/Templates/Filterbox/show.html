@@ -1,2 +1,11 @@
-<h2>Simple Filterbox rendering</h2>
-
+<div style="background-color:#ddd; border:1px solid #ccc; padding:5px;">
+<b>Simple Filterbox rendering</b>
+<f:form controller="Filterbox" action="submit" method="post">
+	
+	<f:for each="{filterbox}" as="filter">
+	    <f:render partial="Filter/StringFilter" arguments="{filter : filter}" />
+	</f:for>
+	
+	<f:form.submit value="Submit Filters"/>
+</f:form>
+</div> 

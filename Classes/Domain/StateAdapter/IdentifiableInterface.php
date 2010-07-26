@@ -24,24 +24,23 @@
 ***************************************************************/
 
 /**
- * Class Filtercontroller
+ * Interface for objects to create a unique namespace for session persistence and addressing GP Vars
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Controller_FilterController extends Tx_PtExtlist_Controller_AbstractController {
-
-    
-	public function showAction() {
-        		
-    }
-    
-    
-    
-    public function submitAction() {
-    	// TODO ry21 only a filterbox can be submitted - so does this really make sense?
-    }
-    
+interface Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+	
+	/**
+	 * Generates an unique namespace for an object to be used
+	 * for addressing object specific session data and gp variables.
+	 * 
+	 * Expected notation: ns1.ns2.ns3.(...)
+	 *
+	 * @return String Unique namespace for object
+	 */
+    public function getObjectNamespace();
+	
 }
 
 ?>

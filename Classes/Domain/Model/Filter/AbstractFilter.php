@@ -23,9 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-// TODO ry21 autoload is not working in unit tests... so we need this require here...
-require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/SessionPersistence/SessionPersistableInterface.php';
-
 /**
  * Abstract filter class for all pt_extlist filter models
  * 
@@ -34,15 +31,22 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/SessionPersis
  * @subpackage pt_extlist
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
-    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface  {
-	
+    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface  {
+	 	
+    	
     /**
      * Identifier of list to which this filter belongs to
      *
      * @var String
      */	
     protected $listIdentifier; 
-    	
+
+    /**
+     * Filter Box Identifier
+     * 
+     * @var String
+     */
+    protected $filterBoxIdentifier;
     	
 	/**
 	 * Identifier of this filter
@@ -80,8 +84,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$this->filterConfig = $filterConfig;
-        $this->filterIdentifier = $filterConfig->getFilterIdentifier();
         $this->listIdentifier = $filterConfig->getListIdentifier();
+        $this->filterBoxIdentifier = $filterConfig->getFilterboxIdentifier();
+		$this->filterIdentifier = $filterConfig->getFilterIdentifier();
 	}
 	
 	
@@ -106,6 +111,36 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		return $this->listIdentifier;
 	}
 	
+	/** 
+	 * @return String
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 06.07.2010
+	 */
+	public function getFilterBoxIdentifier() {
+		return $this->filterBoxIdentifier;
+	}
+	
+	
+	/**
+	 * Returns TS config of this filter
+	 *
+	 * @return array TS config of this filter
+	 */
+	public function getTsConfig() {
+		return $this->filterConfig->getSettings();
+	}
+	
+	
+	
+	/**
+	 * Returns label of filter as configured in TS
+	 *
+	 * @return string Label of filter as configured in TS
+	 */
+	public function getLabel() {
+		return $this->filterConfig->getSettings('label');
+	}
+	
 	
 	
 	/**
@@ -113,20 +148,28 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 * @return void
 	 */
-	abstract public function init();	
+	abstract public function init();
+
+	public function initTsValues() {
+		
+	}
+	
+	
+	public function initGpVars() {
+		
+	}
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
 	 *****************************************************************************************************************/
 
 	/**
-	 * Returns namespace for persisting this filter to session
+	 * Returns namespace for this object
 	 * 
-	 * @return string Namespace to persist this filter with
+	 * @return string Namespace to identify this object
 	 */
-	public function getSessionNamespace() {
-		// TODO ry21 insert filterbox identifier here
-		return $this->listIdentifier . 'filters' . $this->filterIdentifier;
+	public function getObjectNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier;
 	}
 
 	
@@ -135,5 +178,4 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 }
-
 ?>

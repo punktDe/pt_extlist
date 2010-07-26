@@ -29,14 +29,25 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject implements Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
 	
 	/**
 	 * Some dummy data to be stored in session
 	 *
 	 * @var array
 	 */
-	public $dummyData = array('testkey1' => 'testvalue1', 'testkey2' => 'testvalue2');
+	public $dummyData = array();
+	
+	
+	
+	/**
+	 * Fake method to initialize some dummy data
+	 * 
+	 * @return void
+	 */
+	public function initSomeData() {
+		$this->dummyData = array('testkey1' => 'testvalue1', 'testkey2' => 'testvalue2');
+	}
 	
 	
 	
@@ -56,8 +67,8 @@ class Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject imple
 	 *
 	 * @return String Namespace as key to store session data with
 	 */
-    public function getSessionNamespace() {
-    	return 'tx_ptexlist.tests.sessionpersistence.stubs.persistableobject';
+    public function getObjectNamespace() {
+    	return 'tx_ptexlist.tests.stateadapter.stubs.persistableobject';
     }
     
     
@@ -67,7 +78,7 @@ class Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject imple
      *
      * @param array $sessionData
      */
-    public function loadFromSession(array $sessionData) {
+    public function injectSessionData(array $sessionData) {
     	$this->dummyData = $sessionData;
     }
 }

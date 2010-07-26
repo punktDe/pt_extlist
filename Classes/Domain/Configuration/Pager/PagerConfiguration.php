@@ -46,5 +46,9 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 		return $this->pagerClassName;
 	}
 	
+	public function getPagerSettings() {
+		return $this->settings;
+	}
+	
 }
 ?>

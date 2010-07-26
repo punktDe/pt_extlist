@@ -24,47 +24,33 @@
 ***************************************************************/
 
 /**
- * Class implements a factory for session persistence manager.
+ * 
  *
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory {
+
+class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManagerFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	/**
-	 * Singleton instance of session persistence manager object
-	 *
-	 * @var Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager
+	 * Test for existence of class
 	 */
-	private static $instance;
-	
-	
-	
-	/**
-	 * Factory method for session persistence manager 
-	 * 
-	 * @return Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager Singleton instance of session persistence manager 
-	 */
-	public static function getInstance() {
-		if (self::$instance == NULL) {
-			self::$instance = new Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager();
-			self::initializeInstance();
-		}
-		return self::$instance;
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory'));
 	}
-	
+
 	
 	
 	/**
-	 * Initializes session persistence manager object
-	 *
-	 * @return void
+	 * Test whether returned instance is singleton
 	 */
-	private static function initializeInstance() {
-		// TODO think about the fact that here a static property is manipulated... pass by reference?!?
-		self::$instance->injectSessionAdapter(tx_pttools_sessionStorageAdapter::getInstance());
+	public function testSingletonInstance() {
+		$firstInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$secondInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$this->assertTrue($firstInstance == $secondInstance);
 	}
-	
 }
+
+
 
 ?>

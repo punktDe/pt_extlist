@@ -29,19 +29,39 @@
  * Testcase for pt_list dummy data backend object. 
  * 
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Test_Domain_DataBackend_DummyDataBackend_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Test_Domain_DataBackend_DummyDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testSetUp() {
-		$mockConfigurationBuilder = $this->getMock(
-            'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder',
-            array('getBackendConfiguration'),array(),'',FALSE,FALSE,FALSE);
-            
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend($mockConfigurationBuilder);
-	}
+	protected $dataBackend;
 	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+  
+		$this->dataBackend = new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend($this->configurationBuilderMock);
+	}
+	 
+	public function testPagerUpdate() {
+		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('setItemCount'));
+		$pager->expects($this->once())
+				->method('setItemCount');
+		
+		$dataSource = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource',array('execute'));
+		$dataSource->expects($this->any())
+					->method('execute')
+					->will($this->returnValue(array(1,2,3,4,5,6,7,8)));
+
+		$mapper = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',array('getMappedListData'));
+					
+					
+		$this->dataBackend->injectPager($pager);
+		$this->dataBackend->injectDataSource($dataSource);
+		$this->dataBackend->injectDataMapper($mapper);
+
+		$this->dataBackend->getListData();
+	}
 }
 
 ?>

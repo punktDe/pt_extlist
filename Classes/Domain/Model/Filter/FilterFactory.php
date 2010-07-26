@@ -42,8 +42,6 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$filter = self::createFilterObject($filterConfig->getFilterClassName());
 		$filter->injectFilterConfig($filterConfig);
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory::getInstance();
-		$sessionPersistenceManager->loadFromSession($filter);
 		$filter->init();
 		return $filter;
 	}
@@ -61,6 +59,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 		tx_pttools_assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460'));
         $filter = new $filterClassName();
         tx_pttools_assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
+        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager->loadFromSession($filter);
         return $filter;
 	}
 	

@@ -31,28 +31,29 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_SessionPersistence_SessionPersistenceManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function testSetup() {
-		$sessionPersistenceManager = new Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager();
+		$sessionPersistenceManager = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
 	}
 	
 	
 	
 	public function testPersistToSession() {
-		$persistableObjectStub = new Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject();
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory::getInstance();
+		$persistableObjectStub = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject();
+		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
 		$sessionPersistenceManager->persistToSession($persistableObjectStub);
 	}
 	
 	
 	
 	public function testReloadFromSession() {
-		$persistableObjectStub = new Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject();
-        $sessionPersistenceManager = Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManagerFactory::getInstance();
+		$persistableObjectStub = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject();
+        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $persistableObjectStub->initSomeData();
         $sessionPersistenceManager->persistToSession($persistableObjectStub);
         
-        $reloadedPersistableObject = new Tx_PtExtlist_Tests_Domain_SessionPersistence_Stubs_PersistableObject();
+        $reloadedPersistableObject = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject();
         $sessionPersistenceManager->loadFromSession($reloadedPersistableObject);
         $this->assertTrue($reloadedPersistableObject->dummyData['testkey1'] == 'testvalue1');
 	}

@@ -43,6 +43,10 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend extends Tx_PtExtlist_Doma
             
             //return $structure;
     }
+    
+    protected function updatePager(array &$rawListData) {
+    	
+    }
 }
 
 ?>

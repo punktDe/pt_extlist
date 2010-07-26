@@ -1,8 +1,9 @@
 <?php
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -24,37 +25,43 @@
 ***************************************************************/
 
 /**
- * Testcase for filter controller class
+ * Dummy class implementing gpvar injectable object.
  *
  * @package TYPO3
  * @subpackage pt_extlist
- */
-class Tx_PtExtlist_Tests_Controller_FilterControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
+ */   
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject implements Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
-   public function testSetup() {
-		$mockController = $this->getMock(
-		  $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterController'),
-		  array('dummy'),array(), '', FALSE);
+	protected $values;
+	protected $namespace;
+	
+	/**
+	 * Inject GP Vars
+	 *
+	 * @param array $GPVars
+	 */
+	public function injectGPVars($GPVars) {
+		$this->values = $GPVars;
+	}
+	
+	public function getValues() {
+		return $this->values;
+	}
+	
+	/**
+	 * Returns namespace of object to store data in session with
+	 *
+	 * @return String Namespace as key to store session data with
+	 */
+    public function getObjectNamespace() {
+    	return $this->namespace;
     }
     
-    
-    
-    public function testShowAction() {
-    	$mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterController'),
-          array('dummy'),array(), '', FALSE);
-        $mockController->showAction();
+    public function setObjectNamespace($namespace) {
+    	$this->namespace = $namespace;
     }
-    
-    
-    
-    public function testSubmitAction() {
-    	$mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterController'),
-          array('dummy'),array(), '', FALSE);
-        $mockController->submitAction();
-    }
-    
+	
 }
+	
 
 ?>

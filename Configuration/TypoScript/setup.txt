@@ -1,4 +1,4 @@
-# Use a own dispatcher for setting up a external database connection and a different mapper logic.
+﻿# Use a own dispatcher for setting up a external database connection and a different mapper logic.
 # ------------------------------------------------------------------------------------------------
 #includeLibs.tx_ptextdb_dispatcher = EXT:pt_extdb/Classes/Dispatcher.php
 #tt_content.list.20.ptextdb_pi1.userFunc = tx_ptextdb_dispatcher->dispatch
@@ -7,7 +7,7 @@ plugin.tx_ptextlist.settings {
 
     abc = 1
 
-	listConfig.test {
+	listConfig.list1 {
 	
 	    abc = 2
 	
@@ -92,14 +92,28 @@ plugin.tx_ptextlist.settings {
 			    10 {
 			        filterIdentifier = filter1
 			        filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+			        label = Stringfilter 1
+			        defaultValue = DefaultString
 			    }
 			    
 			    20 {
 			        filterIdentifier = filter2
 			        filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+			        label = Stringfilter 2
 			    }
 			
 			}
+		}
+		
+		pagerConfig {
+			enabled = 1
+			pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+			itemsPerPage = 2
+			
+			showNextLink = 1
+			showPreviousLink = 1
+			showFirstLink = 1
+			showLastLink = 1
 		}
 	
 	}

@@ -60,22 +60,20 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string The rendered filterbox action
      */
     public function showAction() {
-        $filterboxCollection = $this->dataBackend->getFilterboxCollection();
+    	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
         $filterbox = $filterboxCollection[$this->filterboxIdentifier];
-        foreach ($filterbox as $filter) {
-        	// TODO ry21 think about how to display filters (subcontroller /view / ...)
-        }
+        $this->view->assign('filterbox', $filterbox);
     }
     
     
     
     /**
      * Renders submit action
+     * @return String
      */
     public function submitAction() {
     	// TODO test, whether this is working!
         #$this->redirect('show');
-    }
-    
+    }    
 }
 ?>

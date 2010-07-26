@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -26,11 +26,35 @@
 /**
  * Class Pager Controller
  *
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 
+	public function showAction() {
+		$this->view->assign('pager', $this->dataBackend->getPager());
+	}
+	
+	/**
+	 * 
+	 * Updates the pager model.
+	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+	 * @param string $page
+	 * @dontvalidate $page
+	 */
+	public function submitAction(string $page) {
+		$pager = $this->dataBackend->getPager();
+		die();
+		
+		$pager->setCurrentPage(5);	
+	
+		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager->persistToSession($pager);
+        
+        $this->redirect('show');
+		
+	}
 }
 
 ?>

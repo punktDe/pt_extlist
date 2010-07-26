@@ -70,6 +70,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataBackend->injectDataSource(self::getDataSource($configurationBuilder));
 	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 	        
+	        $dataBackend->injectPager(self::getPager($configurationBuilder));
+	        
 	        self::$instances[$listIdentifier] = $dataBackend;
 		}
 		return self::$instances[$listIdentifier];
@@ -110,6 +112,18 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     protected function getfilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
     	return $filterboxCollection;
+    }
+    
+    /**
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+     * @since 19.07.2010
+     */
+    protected function getPager(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($configurationBuilder, $configurationBuilder->buildPagerConfiguration());
+    	return $pager;
     }
 	
 }

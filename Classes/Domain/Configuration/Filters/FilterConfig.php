@@ -340,10 +340,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
     
     
     /**
-     * @return unknown
+     * @param string $key Key of settings array to be returned
+     * @return mixed
      */
-    public function getSettings() {
-        return $this->settings;
+    public function getSettings($key = '') {
+    	if ($key != '' ) {
+    	   if (array_key_exists($key, $this->settings)) {
+    		  return $this->settings[$key];
+    	   }
+    	} else {
+            return $this->settings;
+    	}
     }
     
     

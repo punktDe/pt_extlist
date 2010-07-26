@@ -23,23 +23,28 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+/**
+ * Interface for objects to be persistable in sessions
+ *
+ * @package TYPO3
+ * @subpackage pt_extlist
+ */
+interface Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 	
-	protected function initQueryBuilder() {
-		$this->queryBuilder = new Tx_PtExtlist_Domain_DataBackend_Query_MySqlQueryBuilder();
-	}
+	/**
+	 * Called by any mechanism to persist an object's state to session
+	 *
+	 */
+    public function persistToSession();
+    
+    
+    
+    /**
+     * Called by any mechanism to inject an object's state from session
+     *
+     * @param array $sessionData Object's state to be persisted to session
+     */
+    public function injectSessionData(array $sessionData);
 	
-	
-	
-	public function getListData() {
-		
-	}
-	
-	protected function updatePager(array &$rawListData){
-		
-	}
 }
-
 ?>

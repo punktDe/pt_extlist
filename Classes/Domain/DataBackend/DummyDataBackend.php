@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -52,12 +52,23 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
+		$this->updatePager();
+		
 		$rawListData = $this->getListDataFromDataSource();
+		
+		
 		$mappedListData = $this->dataMapper->getMappedListData($rawListData);
 		return $mappedListData;
 	}
 	
-	
+	/**
+	 * 
+	 * Updates the item count in the pager object.
+	 * @param array $rawListData
+	 */
+	protected function updatePager() {
+		$this->pager->setItemCount($this->dataSource->countItems());
+	}
 	
 	/**
 	 * Executes query on data source
@@ -65,6 +76,14 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @return array   Raw list data array
 	 */
 	protected function getListDataFromDataSource() {
+		
+		if($this->pager->isEnabled()) {
+			$startIndex = $this->pager->getFirstItemIndex();
+			$endIndex = $this->pager->getLastItemIndex();
+			
+			return $this->dataSource->executeWithLimit($startIndex, $endIndex);
+		}
+		
 		return $this->dataSource->execute();
 	}
 	
