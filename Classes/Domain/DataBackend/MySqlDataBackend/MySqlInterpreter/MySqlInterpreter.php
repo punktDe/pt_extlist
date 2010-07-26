@@ -40,10 +40,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 *
 	 * @var array
 	 */
-	protected $translatorClasses = array('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
-	                                     'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator',
-	                                     'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
-	                                     'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator'
+	protected static $translatorClasses = array('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
+	                                            'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator',
+	                                            'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
+	                                            'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator'
 	 );
 	 
 	 
@@ -73,8 +73,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	protected static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		$criteriaString = '';
 		$criteriaClass = get_class($criteria);
-		if (array_key_exists($criteriaClass, $this->translatorClasses) && class_exists($this->translatorClasses[$criteriaClass])) {
-		  $criteriaString = $this->translatorClasses[$criteriaClass]->translateCriteria($criteria);	
+		if (array_key_exists($criteriaClass, self::$translatorClasses) && class_exists(self::$translatorClasses[$criteriaClass])) {
+	      $className = self::$translatorClasses[$criteriaClass];
+		  $criteriaString = call_user_func($className . '::translateCriteria', $criteria);	
 		} else {
 		  throw new Exception('Unknown type of criteria ' . get_class($criteria));
 		}
@@ -117,18 +118,36 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	
 	
 	
-//	public function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
-//	    $sqlString = '';
-//		
-//	    $sqlString .= $this->getSelectPart($query);
-//	    $sqlString .= $this->getFromPart($query);
-//	    $sqlString .= $this->getWherePart($query);
-//	    $sqlString .= $this->getGroupByPart($query);
-//	    $sqlString .= $this->getOrderByPart($query);
-//	    $sqlString .= $this->getLimitPart($query);
-//	    
-//		return $sqlString;
-//	}
+	public static function getSelectPart(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+		$columnsArray = $query->getFields();
+		$selectString = '';
+		$selectString = implode(', ', $columnsArray);
+		return $selectString;
+	}
+	
+	
+	
+	public static function getFromPart(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+		$fromArray = $query->getFrom();
+		$fromString = '';
+		$fromString = implode(', ', $fromArray);
+		return $fromString;
+	}
+	
+	
+	
+	public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+	    $sqlString = '';
+		
+	    $sqlString .= self::getSelectPart($query) != '' ? 'SELECT ' . self::getSelectPart($query) : '';
+	    $sqlString .= self::getFromPart($query) != '' ? ' FROM ' . self::getFromPart($query) : '';
+	    $sqlString .= self::getCriterias($query) != '' ? ' WHERE ' . self::getCriterias($query) : '';
+	    //$sqlString .= $this->getGroupByPart($query);
+	    $sqlString .= self::getSorting($query) != '' ? ' ORDER BY ' . self::getSorting($query) : '';
+	    $sqlString .= self::getLimit($query) != '' ? ' LIMIT ' . self::getLimit($query) : '';
+	    
+		return $sqlString;
+	}
 	
 }
 

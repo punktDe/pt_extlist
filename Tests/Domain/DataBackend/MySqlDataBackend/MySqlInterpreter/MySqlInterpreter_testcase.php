@@ -84,5 +84,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	}
 	
 	
+	
+	public function testTranslateWholeQuery() {
+		$translatedQuery = 	Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::interpretQuery($this->queryObject);
+		print_r($translatedQuery);
+	}
+	
 }
 ?>
