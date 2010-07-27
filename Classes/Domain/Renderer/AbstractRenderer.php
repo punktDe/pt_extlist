@@ -24,8 +24,19 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
+abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface  {
 
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+	 */	
+	protected $rendererConfiguration;
+	
+	
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
+		$this->rendererConfiguration = $configuration;
+	}
+	
+	
 }
 
 ?>

@@ -25,7 +25,11 @@
 ***************************************************************/
 
 class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
-
+	
+	public function __construct() {
+		parent::__construct();
+	}
+	
 }
 
 ?>

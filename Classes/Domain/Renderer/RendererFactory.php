@@ -29,8 +29,15 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 	
 	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
 		
-//		$className = $configuration->g
+		$settings = $configuration->getSettings();
+		$className = $settings['rendererClassName'];
+		tx_pttools_assert::isNotEmpty($className, array('message' => 'No className for the renderer configured. 1280236277'));
+		tx_pttools_assert::isTrue(class_exists($className),array('message' => 'Class name '.$className.' does not exist. 1280236512'));
 		
+		$renderer = new $className($configuration);
+		
+		
+		return $renderer;
 	}
 }
 
