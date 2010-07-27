@@ -7,7 +7,7 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
  * the user input (default settings, FlexForm, URL etc.)
  */
 
-require_once '/home/ry21/public_html/ry21.ptlistdev.play.punkt.de/htdocs/typo3/sysext/extbase/Classes/Utility/Extension.php';
+require_once 'typo3/sysext/extbase/Classes/Utility/Extension.php';
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
