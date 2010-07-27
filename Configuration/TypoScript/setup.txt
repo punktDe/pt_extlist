@@ -84,11 +84,22 @@ plugin.tx_ptextlist.settings {
 		}
 		
 		columns {
+			10 {
+				label = renderedLabel1
+				columnIdentifier = renderedCol1
+				fieldIdentifier = field1
+			}
 			
+			20 {
+				label = renderedLabel2
+				columnIdentifier = renderedCol2
+				fieldIdentifier = field2
+			}
 		}
 		
 		renderer {
 			enabled = 1
+			captions = 1
 			rendererClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
 		}
 		

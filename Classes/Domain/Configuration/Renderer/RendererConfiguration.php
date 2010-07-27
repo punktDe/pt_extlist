@@ -44,6 +44,20 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	public function getColumnConfigCollection() {
 		return $this->columnConfigCollection;
 	}
+	
+	public function isEnabled() {
+		if($this->settings['enabled'] == '1') {
+			return true;
+		}
+		return false;
+	}
+	
+	public function showCaptions() {
+		if($this->settings['captions'] == '1') {
+			return true;
+		}
+		return false;
+	}
 }
 
 ?>
