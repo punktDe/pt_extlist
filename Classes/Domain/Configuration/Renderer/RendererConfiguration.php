@@ -33,6 +33,10 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 		$this->settings = $settings;
 	}
 	
+	public function getSettings() {
+		return $this->settings;
+	}
+	
 	public function setColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection) {
 		$this->columnConfigCollection = $columnConfigCollection;
 	}

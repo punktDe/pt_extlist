@@ -35,6 +35,18 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_tes
 	public function testGetSettings() {
 		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
 		$this->assertTrue(method_exists($config, 'getSettings'));
+		
+		$settings = $config->getSettings();
+		$this->assertEquals($this->settings, $settings);
+		
+	}
+	
+	public function testGetColumnConfiguration() {
+		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
+		$colConf = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
+		$config->setColumnConfigCollection($colConf);
+		$this->assertTrue(method_exists($config, 'getColumnConfigCollection'));
+		$this->assertEquals($config->getColumnConfigCollection(), $colConf);
 	}
 	
 }
