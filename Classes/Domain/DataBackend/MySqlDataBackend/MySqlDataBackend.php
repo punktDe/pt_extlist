@@ -110,9 +110,25 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string SELECT part of query without 'SELECT'
 	 */
 	public function buildSelectPart() {
-		$selectPart = '';
-        // TODO this function can only be implemented, if columns are implemented
-		return $selectPart;
+		$selectParts = array();
+        foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+        	$selectParts[] = $this->getSelectPartFromFieldConfiguration($fieldConfiguration);
+        }
+		return implode(', ', $selectParts);
+	}
+	
+	
+	
+	/**
+	 * Returns select part for table and field given in field configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+	 * @return string
+	 */
+	public function getSelectPartFromFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
+		$table = $fieldConfiguration->getTable();
+		$field = $fieldConfiguration->getField();
+		return $table . '.' . $field;
 	}
 	
 	
@@ -209,6 +225,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function buildOrderByPart() {
 		$orderByPart = '';
 		// TODO implement me!
+		// Implement column objects before!
 		return $orderByPart;
 	}
 	

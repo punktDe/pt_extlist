@@ -261,6 +261,48 @@ class Tx_PtExtlist_Test_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_
 	
 	
 	
+	public function testBuildSelectPart() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+
+        $fieldConfigurationCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigurationCollection->addItem($this->getFieldConfigMockForTableAndFieldAndIdentifier('table1', 'field1', 'test1'));
+        $fieldConfigurationCollection->addItem($this->getFieldConfigMockForTableAndFieldAndIdentifier('table1', 'field2', 'test2'));
+        $dataBackend->injectFieldConfigurationCollection($fieldConfigurationCollection);
+        
+        $selectPartForFieldConfigurationCollection = $dataBackend->buildSelectPart();
+        
+        $this->assertTrue($selectPartForFieldConfigurationCollection == 'table1.field1, table1.field2', 'Select part for field configuration collection should be "table1.field1, table1.field2" but was ' . $selectPartForFieldConfigurationCollection);
+	}
+	
+	
+	
+	
+	public function testGetSelectPartFromFieldConfiguration() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+        
+        $fieldConfigurationMock = $this->getFieldConfigMockForTableAndFieldAndIdentifier('table', 'field', 'test');
+       
+        $selectPartForFieldConfiguration = $dataBackend->getSelectPartFromFieldConfiguration($fieldConfigurationMock);
+        $this->assertTrue($selectPartForFieldConfiguration == 'table.field', 'Expected select part to be "table.field" but was ' . $selectPartForFieldConfiguration);
+	}
+	
+	
+	
+	protected function getFieldConfigMockForTableAndFieldAndIdentifier($table, $field, $identifier) {
+		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('table' => $table, 'field' => $field)));
+        $fieldConfigurationMock->expects($this->any())
+            ->method('getTable')
+            ->will($this->returnValue($table));
+        $fieldConfigurationMock->expects($this->any())
+            ->method('getField')
+            ->will($this->returnValue($field));
+        return $fieldConfigurationMock;
+	}
+	
+	
+	
 	protected function getFilterboxByArrayOfFilters($filtersArray) {
 		$filterBoxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilder, 'test', array());
         $filterBox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($filterBoxConfiguration);

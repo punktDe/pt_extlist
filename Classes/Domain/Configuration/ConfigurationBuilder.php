@@ -74,6 +74,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	protected $listIdentifier;
 	
+	
 
     /**
 	 * Holds an instance of extension configuration adapter
@@ -97,11 +98,15 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	protected $columnsConfiguration = null;
 	
+	
+	
 	/**
 	 * Holds an instance of a renderer configuration and handles it as a singleton instance.
 	 * @var Tx_Ptextlist_Configuration_Renderer_RendererConfiguration
 	 */
 	protected $rendererConfiguration = null;
+	
+	
 	
     /**
      * Holds an instance of a pager configuration associated to this list
@@ -146,6 +151,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	
+	/**
+	 * Sets the list identifier of current list
+	 *
+	 * @param array $settings
+	 */
 	protected function setListIdentifier($settings) {
 		tx_pttools_assert::isNotEmptyString($settings['listIdentifier'], array('message' => 'List identifier must not be empty! 1278419535'));
 		tx_pttools_assert::isArray($settings['listConfig'][$settings['listIdentifier']], array('message' => 'No list configuration can be found for list identifier ' . $settings['listIdentifier'] . ' 1278419536'));
@@ -154,6 +164,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	
+	/**
+	 * Merges configuration of settings in namespace of list identifiert
+	 * with settings from plugin.
+	 * 
+	 * @param void
+	 * @return void
+	 */
 	protected function mergeAndSetGlobalAndLocalConf() {
 		if (is_array($this->origSettings['listConfig'][$this->listIdentifier])) {
 			$mergedSettings = t3lib_div::array_merge_recursive_overrule(

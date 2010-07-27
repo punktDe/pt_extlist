@@ -91,6 +91,16 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	protected $dataSource;
 	
+	
+	/**
+	 * Holds an instance of a field collection where field configurations can be found
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	protected $fieldConfigurationCollection;
+	
+	
+	
 	// TODO think about sorting(s)/collection
 	#protected $sorting
 	
@@ -126,6 +136,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	public function injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper) {
 		$this->dataMapper = $mapper;
+	}
+	
+	
+	
+	/**
+	 * Injector for field configuration collection
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigurationCollection
+	 */
+	public function injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigurationCollection) {
+		$this->fieldConfigurationCollection = $fieldConfigurationCollection;
 	}
 	
 	
