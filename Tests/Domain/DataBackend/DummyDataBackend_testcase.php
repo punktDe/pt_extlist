@@ -42,7 +42,11 @@ class Tx_PtExtlist_Test_Domain_DataBackend_DummyDataBackend_testcase extends Tx_
   
 		$this->dataBackend = new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend($this->configurationBuilderMock);
 	}
-	 
+	
+	public function testSomething() {
+		
+	}
+	
 //	public function testPagerUpdate() {
 //		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
 //		$pager->expects($this->once())

@@ -39,7 +39,8 @@ class  Tx_PtExtlist_Test_Domain_DataBackend_DataSource_AbstractDataSource_testca
 	public function testNotify() {
 		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
 		$pager->expects($this->once())
-				->method('updateItemCount');
+				->method('updateItemCount')
+				->with(111);
 		
 		$this->mockObject->registerObserver($pager);
 		
