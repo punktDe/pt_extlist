@@ -122,7 +122,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
             	self::$instances[$settings['listIdentifier']] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
             }
         } else {
-            throw new Exception('No list identifier could be found in settings!');
+            throw new Exception('No list identifier could be found in settings! 1280230579');
         }
         return self::$instances[$settings['listIdentifier']];
 	}

@@ -24,104 +24,189 @@
 ***************************************************************/
 
 
-
+/**
+ * Class implements data backend for general mysql connections
+ * 
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+	    
+    /**
+     * @var Tx_PtExtlist_Domain_DataBackend_DataSourceInterface
+     */
+    protected $dataSource;
+    
+    
+    
+    /**
+     * Holds an instance of a query interpreter to be used for
+     * query objects
+     *
+     * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+     */
+    protected $queryInterpreter;
 
-	protected $backendConfiguration;
+   
+    
+    /**
+     * Injector for data source
+     *
+     * @param mixed $dataSource
+     */
+    public function injectDataSource($dataSource) {
+        $this->dataSource = $dataSource;
+    }
+    
+    
+    
+    /**
+     * Injector for query interpreter
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     */
+    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
+    	$this->queryInterpreter = $queryInterpreter;
+    }
 	
+		
 	
-	
-	protected $dbObject;
-	
-	
-	
-	protected $pager;
-	
-	
-	
-	protected $filter = array();
-	
-	
-	
-	protected $columns = array();
-	
-	
-	
-	public function injectBackendConfiguration($backendConfiguration) {
-		$this->backendConfiguration = $backendConfiguration;
-	}
-	
-	
-	
-	public function injectDbObject($dbObject) {
-		$this->dbObject = $dbObject;
-	}
-	
-	
-	
-	public function injectPager($pager) {
-		$this->pager = $pager;
-	}
-	
-	
-	
-	public function injectFilters($filters) {
-		$this->filter = $filters;
-	}
-	
-	
-	
-	public function injectColumns($columns) {
-		$this->columns = $columns;
-	}
-
-	
-	
+    /**
+     * Returns raw list data
+     *
+     * @return array Array of raw list data
+     */
 	public function getListData() {
 		
 	}
 	
 	
 	
+	/**
+	 * Builder for SQL query. Gathers information from
+	 * all parts of plugin (ts-config, pager, filters etc.)
+	 * and generates SQL query out of this information
+	 *
+	 * @return string An SQL query
+	 */
 	protected function buildQuery() {
 		$query = '';
 		
-		$query .= $this->buildSelectPart();
-		$query .= $this->buildFromPart();
-		$query .= $this->buildWherePart();
-		$query .= $this->buildOrderByPart();
-		$query .= $this->buildLimitPart();
+		$query .= $this->buildSelectPart() != ''  ? 'SELECT ' . $this->buildSelectPart() . ' ' : '';
+		$query .= $this->buildFromPart() != ''    ? 'FROM ' . $this->buildFromPart() . ' ' : '';
+		$query .= $this->buildWherePart() != ''   ? 'WHERE ' . $this->buildWherePart() . ' ' : '';
+		$query .= $this->buildOrderByPart() != '' ? 'ORDER BY ' . $this->buildOrderByPart() . ' ' : '';
+		$query .= $this->buildLimitPart() != ''   ? 'LIMIT ' . $this->buildLimitPart() . ' ' : '';
 		
 		return $query;
 	}
 	
 	
 	
-	protected function buildSelectPart() {
+	/**
+	 * Builds select part from all parts of plugin
+	 *
+	 * @return string SELECT part of query without 'SELECT'
+	 */
+	public function buildSelectPart() {
 		$selectPart = '';
-        // TODO implement me!		
+        // TODO this function can only be implemented, if columns are implemented
 		return $selectPart;
 	}
 	
 	
 	
-	protected function buildFromPart() {
-		$fromPart = '';
-		// TODO implement me!
+	/**
+	 * Builds from part from all parts of plugin
+	 *
+	 * @return string FROM part of query without 'FROM'
+	 */
+	public function buildFromPart() {
+		tx_pttools_assert::isNotEmptyString($this->backendConfiguration['tables'], array('message' => 'Configuration for data backend tables must not be empty! 1280234420'));
+		$fromPart = $this->backendConfiguration['tables'];
 		return $fromPart;
 	}
 	
 	
 	
-	protected function buildWherePart() {
+	/**
+	 * Builds where part of query from all parts of plugin
+	 *
+	 * @return string WHERE part of query without 'WHERE'
+	 */
+	public function buildWherePart() {
 		$wherePart = '';
-		// TODO implement me!
+		$wherePart .= $this->getBaseWhereClause() != '' ? $this->getBaseWhereClause() : '';
+		$wherePart .= $this->getWhereClauseFromFilterboxes() != '' ? $this->getWhereClauseFromFilterboxes() : ''; 
 		return $wherePart;
 	}
 	
 	
 	
-	protected function buildOrderByPart() {
+	/**
+	 * Returns base where clause from TS config
+	 *
+	 * @return string
+	 */
+	public function getBaseWhereClause() {
+		return $this->backendConfiguration['baseWhereClause'];
+	}
+	
+	
+	
+	/**
+	 * Returns where clauses from all filterboxes of a given collection of filterboxes
+	 *
+	 * @return string WHERE clause from filterboxcollection without 'WHERE'
+	 */
+	public function getWhereClauseFromFilterboxes() {
+		$whereClauses = array();
+		foreach ($this->filterboxCollection as $filterBox) {
+			$whereClauses[] = $this->getWhereClauseFromFilterbox($filterBox);
+		}
+		return '(' . implode(') AND (', $whereClauses) . ')';
+	}
+	
+	
+	
+	/**
+	 * Returns where clauses from all filters of a given filterbox
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
+	 * @return string WHERE clause from filterbox without 'WHERE'
+	 */
+	public function getWhereClauseFromFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox) {
+		$whereClausesFromFilterbox = array();
+		foreach($filterbox as $filter) {
+			$whereClausesFromFilterbox[] = $this->getWhereClauseFromFilter($filter);
+		}
+		return '(' . implode(') AND (', $whereClausesFromFilterbox) . ')';
+		
+	}
+	
+	
+	
+	/**
+	 * Returns WHERE clause for a given filter
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter
+	 * @return string WHERE clause for given filter without 'WHERE'
+	 */
+	public function getWhereClauseFromFilter(Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter) {
+		$whereClauseFromFilter = '';
+		$whereClauseFromFilter = $this->queryInterpreter->getCriterias($filter->getFilterQuery());
+		return $whereClauseFromFilter;
+	}
+	
+	
+	
+	/**
+	 * Builds order by part of query from all parts of plugin
+	 *
+	 * @return string ORDER BY part of query without 'ORDER BY'
+	 */
+	public function buildOrderByPart() {
 		$orderByPart = '';
 		// TODO implement me!
 		return $orderByPart;
@@ -129,9 +214,17 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	
 	
 	
-	protected function buildLimitPart() {
+	/**
+	 * Builds limit part of query from all parts of plugin
+	 *
+	 * @return string LIMIT part of query without 'LIMIT'
+	 */
+	public function buildLimitPart() {
 		$limitPart = '';
-		// TODO implement me!
+		$pagerOffset = intval($this->pager->getCurrentPage()) * intval($this->pager->getItemsPerPage());
+		$pagerLimit = intval($this->pager->getItemsPerPage());
+		$limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
+		$limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
 		return $limitPart;
 	}
 	

@@ -35,6 +35,15 @@
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
 	/**
+	 * Holds backend configuration for current backend
+	 *
+	 * @var array
+	 */
+	protected $backendConfiguration;
+	
+	
+	
+	/**
 	 * @var string List identifier of list this data backend belongs to
 	 */
 	protected $listIdentifier;
@@ -45,13 +54,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @var Tx_PtExtlist_Domain_DataBackend_MapperInterface
 	 */
 	protected $dataMapper;
-	
-	
-	
-	/**
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataSourceInterface
-	 */
-	protected $dataSource;
 	
 	
 	
@@ -81,6 +83,14 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $pager;
 	
 	
+	
+	/**
+	 * Holds an instance for data source
+	 *
+	 * @var mixed
+	 */
+	protected $dataSource;
+	
 	// TODO think about sorting(s)/collection
 	#protected $sorting
 	
@@ -99,23 +109,23 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	/**
+	 * Injects backend configuration for current backend
+	 *
+	 * @param array $backendConfiguration
+	 */
+    public function injectBackendConfiguration($backendConfiguration) {
+        $this->backendConfiguration = $backendConfiguration;
+    }
+	
+	
+	
+	/**
 	 * Injector for data mapper
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_MapperInterface $mapper
 	 */
 	public function injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper) {
 		$this->dataMapper = $mapper;
-	}
-	
-	
-	
-	/**
-	 * Injector for data source
-	 *
-	 * @param mixed $dataSource
-	 */
-	public function injectDataSource($dataSource) {
-		$this->dataSource = $dataSource;
 	}
 	
 	
@@ -138,6 +148,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
 		$this->pager = $pager;
+	}
+	
+	
+	
+	/**
+	 * Injector for data source
+	 *
+	 * @param mixed $dataSource
+	 */
+	public function injectDataSource($dataSource) {
+		$this->dataSource = $dataSource;
 	}
 	
 	
