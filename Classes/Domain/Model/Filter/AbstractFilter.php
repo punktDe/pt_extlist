@@ -67,12 +67,21 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Holds query object for this filter
+	 * 
+	 * @var Tx_PtExtlist_Domain_QueryObject_Query
+	 */
+	protected $filterQuery = null;
+	
+	
+	
+	/**
 	 * Constructor for filter
 	 *
 	 * @param String $filterIdentifier     Identifier for filter
 	 */
 	public function __construct() {
-		
+		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 	}
 	
 	
@@ -139,6 +148,18 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function getLabel() {
 		return $this->filterConfig->getSettings('label');
+	}
+	
+	
+	
+	/**
+	 * Returns query set up by filter. Query contains
+	 * all criterias set by filter
+	 *
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query
+	 */
+	public function getFilterQuery() {
+		return $this->filterQuery;
 	}
 	
 	

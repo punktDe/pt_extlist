@@ -31,7 +31,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_objectCollection {
     
 	/**
 	 * Restrict collection to filter box class
