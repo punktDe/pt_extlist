@@ -26,20 +26,115 @@
 
 
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+
+	protected $backendConfiguration;
 	
-	protected function initQueryBuilder() {
-		$this->queryBuilder = new Tx_PtExtlist_Domain_DataBackend_Query_MySqlQueryBuilder();
+	
+	
+	protected $dbObject;
+	
+	
+	
+	protected $pager;
+	
+	
+	
+	protected $filter = array();
+	
+	
+	
+	protected $columns = array();
+	
+	
+	
+	public function injectBackendConfiguration($backendConfiguration) {
+		$this->backendConfiguration = $backendConfiguration;
 	}
 	
+	
+	
+	public function injectDbObject($dbObject) {
+		$this->dbObject = $dbObject;
+	}
+	
+	
+	
+	public function injectPager($pager) {
+		$this->pager = $pager;
+	}
+	
+	
+	
+	public function injectFilters($filters) {
+		$this->filter = $filters;
+	}
+	
+	
+	
+	public function injectColumns($columns) {
+		$this->columns = $columns;
+	}
+
 	
 	
 	public function getListData() {
 		
 	}
 	
-	protected function updatePager(array &$rawListData){
+	
+	
+	protected function buildQuery() {
+		$query = '';
 		
+		$query .= $this->buildSelectPart();
+		$query .= $this->buildFromPart();
+		$query .= $this->buildWherePart();
+		$query .= $this->buildOrderByPart();
+		$query .= $this->buildLimitPart();
+		
+		return $query;
 	}
+	
+	
+	
+	protected function buildSelectPart() {
+		$selectPart = '';
+        // TODO implement me!		
+		return $selectPart;
+	}
+	
+	
+	
+	protected function buildFromPart() {
+		$fromPart = '';
+		// TODO implement me!
+		return $fromPart;
+	}
+	
+	
+	
+	protected function buildWherePart() {
+		$wherePart = '';
+		// TODO implement me!
+		return $wherePart;
+	}
+	
+	
+	
+	protected function buildOrderByPart() {
+		$orderByPart = '';
+		// TODO implement me!
+		return $orderByPart;
+	}
+	
+	
+	
+	protected function buildLimitPart() {
+		$limitPart = '';
+		// TODO implement me!
+		return $limitPart;
+	}
+	
 }
 
 ?>
