@@ -241,6 +241,26 @@ class Tx_PtExtlist_Test_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_
 	
 	
 	
+	public function testGetLimitPart() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+        
+        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
+        $pagerMock->expects($this->any())
+            ->method('getCurrentPage')
+            ->will($this->returnValue(10));
+        $pagerMock->expects($this->any())
+            ->method('getItemsPerPage')
+            ->will($this->returnValue(10));
+        
+        $dataBackend->injectPager($pagerMock);
+            
+        $limitPart = $dataBackend->buildLimitPart();
+        $this->assertTrue($limitPart == '100:10', 'Limit part of pager was expected to be 10:10 but was ' . $limitPart);
+	}
+	
+	
+	
 	protected function getFilterboxByArrayOfFilters($filtersArray) {
 		$filterBoxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilder, 'test', array());
         $filterBox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($filterBoxConfiguration);

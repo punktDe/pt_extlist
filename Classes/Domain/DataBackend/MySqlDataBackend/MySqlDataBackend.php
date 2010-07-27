@@ -111,8 +111,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildSelectPart() {
 		$selectPart = '';
-
-		
+        // TODO this function can only be implemented, if columns are implemented
 		return $selectPart;
 	}
 	
@@ -222,7 +221,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildLimitPart() {
 		$limitPart = '';
-		// TODO implement me!
+		$pagerOffset = intval($this->pager->getCurrentPage()) * intval($this->pager->getItemsPerPage());
+		$pagerLimit = intval($this->pager->getItemsPerPage());
+		$limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
+		$limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
 		return $limitPart;
 	}
 	
