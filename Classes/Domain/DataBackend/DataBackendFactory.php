@@ -66,11 +66,18 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        // Check whether backend class implements abstract backend class
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
 
+	        
+	        $dataSource = self::getDataSource($configurationBuilder);
+	        $pager = self::getPager($configurationBuilder);
+	        
+	        //Register pager as datasource observer
+	        $dataSource->registerObserver($pager);
+	        
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
-	        $dataBackend->injectDataSource(self::getDataSource($configurationBuilder));
+	        $dataBackend->injectDataSource($dataSource);
+	        $dataBackend->injectPager($pager);
 	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 	        
-	        $dataBackend->injectPager(self::getPager($configurationBuilder));
 	        
 	        self::$instances[$listIdentifier] = $dataBackend;
 		}

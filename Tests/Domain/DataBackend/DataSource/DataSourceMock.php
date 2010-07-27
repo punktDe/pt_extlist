@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  Christoph Ehscheidt <ehscheidt@punkt.de
 *  All rights reserved
 *
 *
@@ -23,29 +24,9 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * Class Pager Controller
- *
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
- */
-class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
-
-	public function showAction() {
-		$this->view->assign('pager', $this->dataBackend->getPager());
-	}
-	
-	/**
-	 * 
-	 * Updates the pager model.
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @param string $page
-	 * @dontvalidate $page
-	 */
-	public function submitAction(string $page) {
-		//TODO: check why this method is not called
-		
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DataSourceMock extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
+	public function update($value) {
+		$this->updateObserversItemCount($value);
 	}
 }
 

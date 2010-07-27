@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  Christoph Ehscheidt <ehscheidt@punkt.de
 *  All rights reserved
 *
 *
@@ -24,28 +25,32 @@
 ***************************************************************/
 
 /**
- * Class Pager Controller
- *
+ * The base class for all data source objects.
+ * Includes base methods for registering and updating observers.
+ * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
-
-	public function showAction() {
-		$this->view->assign('pager', $this->dataBackend->getPager());
+abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
+	protected $observers = array();
+	
+	/**
+	 * Register a new observer object.
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs The obeserver object to register
+	 */
+	public function registerObserver(Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs) {
+		$this->observers[] = $obs;
 	}
 	
 	/**
 	 * 
-	 * Updates the pager model.
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @param string $page
-	 * @dontvalidate $page
+	 * Updates the item count in each observer object.
+	 * @param int $itemCount The new item count.
 	 */
-	public function submitAction(string $page) {
-		//TODO: check why this method is not called
-		
+	protected function updateObserversItemCount($itemCount) {
+		foreach($this->observers as $observer) {
+			
+			$observer->updateItemCount($itemCount);
+		}
 	}
 }
 

@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  Christoph Ehscheidt <ehscheidt@punkt.de
 *  All rights reserved
 *
 *
@@ -23,30 +24,28 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * Class Pager Controller
- *
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
- */
-class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
+class  Tx_PtExtlist_Test_Domain_DataBackend_DataSource_AbstractDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function showAction() {
-		$this->view->assign('pager', $this->dataBackend->getPager());
+	protected $mockObject;
+	
+	public function setup() {
+		$this->mockObject = new Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DataSourceMock();
 	}
 	
-	/**
-	 * 
-	 * Updates the pager model.
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @param string $page
-	 * @dontvalidate $page
-	 */
-	public function submitAction(string $page) {
-		//TODO: check why this method is not called
-		
+	public function testRegisterObserver() {
+		$this->assertTrue(method_exists($this->mockObject,'registerObserver'));
 	}
+	
+	public function testNotify() {
+		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
+		$pager->expects($this->once())
+				->method('updateItemCount');
+		
+		$this->mockObject->registerObserver($pager);
+		
+		$this->mockObject->update(111);
+	}
+	
 }
 
 ?>

@@ -12,6 +12,7 @@ return array(
     /* Pt_ExtList depending classes */
     'tx_ptextlist_tests_domain_stateadapter_stubs_persistableobject' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/StateAdapter/Stubs/PersistableObject.php',
     'tx_ptextlist_tests_domain_stateadapter_stubs_getpostvarobject' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/StateAdapter/Stubs/GetPostVarObject.php',
+    'tx_ptextlist_tests_domain_databackend_datasource_datasourcemock' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/DataBackend/DataSource/DataSourceMock.php',
     'tx_ptextlist_tests_basetestcase' => t3lib_extMgm::extPath('pt_extlist').'Tests/BaseTestcase.php',
     'tx_ptextlist_tests_domain_configuration_filters_stubs_filterboxconfigurationcollectionmock' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Configuration/Filters/Stubs/FilterboxConfigurationCollectionMock.php',
     'tx_ptextlist_tests_domain_configuration_configurationbuildermock' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Configuration/ConfigurationBuilderMock.php',
