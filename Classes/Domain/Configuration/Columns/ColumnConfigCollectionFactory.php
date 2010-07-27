@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	
 	/**
 	 * @param $columnSettings
-	 * @return void
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	protected static function buildColumnConfigCollection(array $columnSettings) {

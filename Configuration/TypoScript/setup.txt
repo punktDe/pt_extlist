@@ -87,6 +87,11 @@ plugin.tx_ptextlist.settings {
 			
 		}
 		
+		renderer {
+			enabled = 1
+			rendererClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
+		}
+		
 		filters {
 			filterbox1 {
 			    10 {

@@ -24,27 +24,29 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class  Tx_PtExtlist_Test_Domain_DataBackend_DataSource_AbstractDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $mockObject;
+	protected $settings = array('bla' => 'blub');
 	
 	public function setup() {
-		$this->mockObject = new Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DataSourceMock();
+		
 	}
 	
-	public function testRegisterObserver() {
-		$this->assertTrue(method_exists($this->mockObject,'registerObserver'));
+	public function testGetSettings() {
+		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
+		$this->assertTrue(method_exists($config, 'getSettings'));
+		
+		$settings = $config->getSettings();
+		$this->assertEquals($this->settings, $settings);
+		
 	}
 	
-	public function testNotify() {
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
-		$pager->expects($this->once())
-				->method('updateItemCount')
-				->with(111);
-		
-		$this->mockObject->registerObserver($pager);
-		
-		$this->mockObject->update(111);
+	public function testGetColumnConfiguration() {
+		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
+		$colConf = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
+		$config->setColumnConfigCollection($colConf);
+		$this->assertTrue(method_exists($config, 'getColumnConfigCollection'));
+		$this->assertEquals($config->getColumnConfigCollection(), $colConf);
 	}
 	
 }

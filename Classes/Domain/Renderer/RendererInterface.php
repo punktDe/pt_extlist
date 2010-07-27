@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -24,29 +24,16 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class  Tx_PtExtlist_Test_Domain_DataBackend_DataSource_AbstractDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $mockObject;
+interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	
-	public function setup() {
-		$this->mockObject = new Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DataSourceMock();
-	}
-	
-	public function testRegisterObserver() {
-		$this->assertTrue(method_exists($this->mockObject,'registerObserver'));
-	}
-	
-	public function testNotify() {
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
-		$pager->expects($this->once())
-				->method('updateItemCount')
-				->with(111);
-		
-		$this->mockObject->registerObserver($pager);
-		
-		$this->mockObject->update(111);
-	}
-	
+	/**
+	 * 
+	 * Renders the given list through TypoScript.
+	 * Also uses the column definitions.
+	 * @param Tx_PtExtlist_Domain_Model_List_List $list
+	 * @return Tx_PtExtlist_Domain_Model_List_List
+	 */
+	public function render(Tx_PtExtlist_Domain_Model_List_List $list);
 }
 
 ?>

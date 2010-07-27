@@ -24,27 +24,16 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class  Tx_PtExtlist_Test_Domain_DataBackend_DataSource_AbstractDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
-	protected $mockObject;
-	
-	public function setup() {
-		$this->mockObject = new Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DataSourceMock();
-	}
-	
-	public function testRegisterObserver() {
-		$this->assertTrue(method_exists($this->mockObject,'registerObserver'));
-	}
-	
-	public function testNotify() {
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
-		$pager->expects($this->once())
-				->method('updateItemCount')
-				->with(111);
+	public static function getRendererConfiguration(array $settings, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection = null) {
+		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($settings);
 		
-		$this->mockObject->registerObserver($pager);
+		if(!is_null($columnConfigCollection)) {
+			$config->setColumnConfigCollection($columnConfigCollection);
+		}
 		
-		$this->mockObject->update(111);
+		return $config;
 	}
 	
 }

@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -96,7 +97,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	protected $columnsConfiguration = null;
 	
-	
+	/**
+	 * Holds an instance of a renderer configuration and handles it as a singleton instance.
+	 * @var Tx_Ptextlist_Configuration_Renderer_RendererConfiguration
+	 */
+	protected $rendererConfiguration = null;
 	
     /**
      * Holds an instance of a pager configuration associated to this list
@@ -239,10 +244,22 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	if (is_null($this->columnsConfiguration)) {
     		$this->columnsConfiguration = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->settings['columns']);
     	}
-    	return $this->fieldsConfiguration;
+    	return $this->columnsConfiguration;
     }
     
-    
+    /**
+     * Returns a singleton instance of the renderer configuration object.
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+     */
+    public function buildRendererConfiguration() {
+    	if(is_null($this->rendererConfiguration)) {
+    		tx_pttools_assert::isArray($this->settings['renderer'], array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
+    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer'], $this->buildColumnsConfiguration());
+    	}
+    	
+    	return $this->rendererConfiguration;
+    }
     
     /**
      * Returns configuration object for pager
@@ -266,6 +283,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     public function getPagerSettings() {
     	return $this->settings['pagerConfig'];
     }
+    
+
     
 }
 
