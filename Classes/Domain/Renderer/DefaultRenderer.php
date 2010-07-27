@@ -26,8 +26,15 @@
 
 class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
 	
-	public function __construct() {
-		parent::__construct();
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $config) {
+		parent::__construct($config);
+	}
+	
+	public function render(Tx_PtExtlist_Domain_Model_List_List $list) {
+		$renderedList = null;
+		
+		
+		return $renderedList;
 	}
 	
 }
