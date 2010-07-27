@@ -87,6 +87,10 @@ plugin.tx_ptextlist.settings {
 			
 		}
 		
+		renderer {
+		
+		}
+		
 		filters {
 			filterbox1 {
 			    10 {

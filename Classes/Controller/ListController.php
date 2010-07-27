@@ -82,6 +82,10 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function listAction() {
+		
+		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
+					$this->configurationBuilder->buildRendererConfiguration());
+		
 		$listData = $this->dataBackend->getListData();
 		$this->view->assign('listData', $listData);
 	}
