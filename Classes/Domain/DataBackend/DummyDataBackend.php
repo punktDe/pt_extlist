@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
-		$this->updatePager();
+		
 		
 		$rawListData = $this->getListDataFromDataSource();
 		
@@ -61,14 +61,6 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 		return $mappedListData;
 	}
 	
-	/**
-	 * 
-	 * Updates the item count in the pager object.
-	 * @param array $rawListData
-	 */
-	protected function updatePager() {
-		$this->pager->setItemCount($this->dataSource->countItems());
-	}
 	
 	/**
 	 * Executes query on data source

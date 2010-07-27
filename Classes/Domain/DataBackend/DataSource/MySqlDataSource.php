@@ -25,7 +25,7 @@
 
 
 
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource {
+class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 
 	protected $connection;
 	

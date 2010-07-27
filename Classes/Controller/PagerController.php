@@ -44,15 +44,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * @dontvalidate $page
 	 */
 	public function submitAction(string $page) {
-		$pager = $this->dataBackend->getPager();
-		die();
-		
-		$pager->setCurrentPage(5);	
-	
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-        $sessionPersistenceManager->persistToSession($pager);
-        
-        $this->redirect('show');
+		//TODO: check why this method is not called
 		
 	}
 }

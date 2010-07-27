@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
+class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface {
 	
 	protected $currentPage = 1;
 	protected $settings = array();
@@ -136,6 +136,14 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	public function setItemCount($itemCount) {
 		$this->totalItemCount = $itemCount;
+	}
+	
+	/**
+	 * 
+	 * @see Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface
+	 */
+	public function updateItemCount($itemCount) {
+		$this->setItemCount($itemCount);
 	}
 	
 	/**

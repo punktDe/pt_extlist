@@ -39,7 +39,7 @@
  * @subpackage pt_exlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource { 
+class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource{ 
 
 	private  $dummyArray = array(
 		    array('t1.f1' => 'v1_1', 't1.f2' => 'v1_2', 't1.f3' => 'v1_3','t2.f1' => 'v1_4', 't2.f2' => 'v1_5'),
@@ -59,6 +59,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource {
 	 * @return array
 	 */
 	public function execute(Tx_PtExtlist_Domain_Query_QueryInterface $query = null) {
+		$this->updateObserversItemCount($this->countItems());
 		return $this->dummyArray;
 	}
 	
@@ -73,6 +74,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource {
 	 * @param integer $end The end index of the requested data.
 	 */
 	public function executeWithLimit($start=1,$end=-1) {
+		$this->updateObserversItemCount($this->countItems());
 		
 		if($end ==-1) {
 			$end = $this->countItems(); 
