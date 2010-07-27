@@ -127,12 +127,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	public function testBuildFieldsConfiguration() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
 		$fieldConfigCollection = $configurationBuilder->buildFieldsConfiguration();
+		$this->assertTrue(is_a($fieldConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
 	}
 	
 	
 	public function testBuildColumnsConfiguration() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
 		$columnConfigCollection = $configurationBuilder->buildColumnsConfiguration();
+		$this->assertTrue(is_a($columnConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection'));
 	}
 	
 	
