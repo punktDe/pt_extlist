@@ -26,27 +26,36 @@
 
 class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $settings = array('bla' => 'blub');
+	protected $settings = array('bla' => 'blub', 'enabled'=>'0');
+	
+	protected $config;
 	
 	public function setup() {
-		
+		$this->config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
 	}
 	
 	public function testGetSettings() {
-		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
-		$this->assertTrue(method_exists($config, 'getSettings'));
 		
-		$settings = $config->getSettings();
+		$this->assertTrue(method_exists($this->config, 'getSettings'));
+		
+		$settings = $this->config->getSettings();
 		$this->assertEquals($this->settings, $settings);
 		
 	}
 	
 	public function testGetColumnConfiguration() {
-		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
+		
 		$colConf = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
-		$config->setColumnConfigCollection($colConf);
-		$this->assertTrue(method_exists($config, 'getColumnConfigCollection'));
-		$this->assertEquals($config->getColumnConfigCollection(), $colConf);
+		$this->config->setColumnConfigCollection($colConf);
+		$this->assertTrue(method_exists($this->config, 'getColumnConfigCollection'));
+		$this->assertEquals($this->config->getColumnConfigCollection(), $colConf);
+	}
+	
+	public function testIsEnabled() {
+
+		$this->assertFalse($this->config->isEnabled());
+				
+		
 	}
 	
 }
