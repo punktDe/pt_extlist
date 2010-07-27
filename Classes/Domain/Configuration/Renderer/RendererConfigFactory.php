@@ -26,8 +26,14 @@
 
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
-	public static function getRendererConfiguration(array $settings) {
-		return new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($settings);
+	public static function getRendererConfiguration(array $settings, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection = null) {
+		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($settings);
+		
+		if(!is_null($columnConfigCollection)) {
+			$config->setColumnConfigCollection($columnConfigCollection);
+		}
+		
+		return $config;
 	}
 	
 }

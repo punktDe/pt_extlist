@@ -27,9 +27,18 @@
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 
 	protected $settings = array();
+	protected $columnConfigCollection = null;
 	
 	public function __construct(array $settings) {
 		$this->settings = $settings;
+	}
+	
+	public function setColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection) {
+		$this->columnConfigCollection = $columnConfigCollection;
+	}
+	
+	public function getColumnConfigCollection() {
+		return $this->columnConfigCollection;
 	}
 }
 

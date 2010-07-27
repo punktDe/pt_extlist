@@ -254,7 +254,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildRendererConfiguration() {
     	if(is_null($this->rendererConfiguration)) {
-    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer']);
+    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer'], $this->buildColumnsConfiguration());
     	}
     	
     	return $this->rendererConfiguration;
@@ -283,10 +283,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->settings['pagerConfig'];
     }
     
-    
-    public function buildRendererConfiguration() {
-    	
-    }
+
     
 }
 
