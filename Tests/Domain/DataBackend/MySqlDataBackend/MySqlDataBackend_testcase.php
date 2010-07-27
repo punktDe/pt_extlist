@@ -150,7 +150,7 @@ class Tx_PtExtlist_Test_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_
 	
 	public function testInjectFilterboxCollection() {
         $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $filterBoxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection');		
+        $filterBoxCollectionMock = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilder);
 		$dataBackend->injectfilterboxCollection($filterBoxCollectionMock);
 	}
 	
@@ -230,13 +230,12 @@ class Tx_PtExtlist_Test_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_
         $filterbox2 = $this->getFilterboxByArrayOfFilters(array($filter3Mock, $filter4Mock));
         
         $filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilder);
-        print_r($filterboxCollection);
         $filterboxCollection->addItem($filterbox1);
         $filterboxCollection->addItem($filterbox2);
         
         $dataBackend->injectfilterboxCollection($filterboxCollection);
         $whereClauseForFilterboxCollection = $dataBackend->getWhereClauseFromFilterboxes();
-        print_r($whereClauseForFilterboxCollection);
+        $this->assertTrue($whereClauseForFilterboxCollection == '((test > 10) AND (test < 10)) AND ((test > 20) AND (test < 20))', 'Where clause for filterbox collection should have been "((test > 10) AND (test < 10)) AND ((test > 20) AND (test < 20))" but was ' . $whereClauseForFilterboxCollection);
         
 	}
 	
