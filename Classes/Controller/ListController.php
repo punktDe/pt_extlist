@@ -89,8 +89,9 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$listData = $this->dataBackend->getListData();
 		
 		$renderedListData = $renderer->render($listData);
+		$renderedCaptions = $renderer->renderCaptions();
 		
-		
+		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 	}
 	

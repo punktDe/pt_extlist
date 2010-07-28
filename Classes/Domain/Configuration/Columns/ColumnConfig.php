@@ -47,6 +47,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	protected $label;
 	
 	/**
+	 * @var array
+	 */
+	protected $stdWrap;
+	
+	
+	protected $renderObj;
+	
+	/**
 	 * @param $columnSettings array of coumn settings
 	 * @return void
 	 * @author Daniel Lienert <lienert@punkt.de>
@@ -62,6 +70,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 			$this->label = $columnSettings['label'];
 		} else {
 			$this->label = $this->columnIdentifier;
+		}
+		
+		if(array_key_exists('stdWrap', $columnSettings) && is_array($columnSettings['stdWrap'])) {
+			$this->stdWrap = $columnSettings['stdWrap'];
+		}
+		if(array_key_exists('renderObj', $columnSettings) && is_array($columnSettings['renderObj'])) {
+			$this->renderObj = $columnSettings['renderObj'];
 		}
 	}	
 	
@@ -90,5 +105,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	public function getLabel() {
 		return $this->label;
 	}	
+	
+	/**
+	 * 
+	 * @return array stdWrap
+	 */
+	public function getStdWrap() {
+		return $this->stdWrap;	
+	}
+	
+	public function getRenderObj() {
+		return $this->renderObj;
+	}
 }
 ?>
