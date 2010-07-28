@@ -26,7 +26,7 @@
 
 class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $settings = array('bla' => 'blub', 'enabled'=>'0');
+	protected $settings = array('bla' => 'blub', 'enabled'=>'0', 'showCaptionsInBody' => '1');
 	
 	protected $config;
 	
@@ -52,10 +52,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_tes
 	}
 	
 	public function testIsEnabled() {
-
 		$this->assertFalse($this->config->isEnabled());
-				
-		
+	}
+	
+	public function testShowCaptionsInBody() {
+		$this->assertTrue($this->config->showCaptionsInBody());
 	}
 	
 }

@@ -86,6 +86,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'label' => 'Column 2'
 	                        )
 	                    ),
+	                    'renderer' => array(
+	                    	'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
+	                    	'enable' => 1,
+	                    	'showCaptionsInBody' => 0,
+	                    ),
 	                    'filters' => array(
 	                         'testfilterbox' => array(
 	                             '10' => array(

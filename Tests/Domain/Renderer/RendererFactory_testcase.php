@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -24,18 +24,22 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface  {
+class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
-	 */	
-	protected $rendererConfiguration;
+	protected $rendererConfig;
 	
-	protected $cellRenderer;
+	public function setUp() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();		
+		$this->rendererConfig = $this->configurationBuilderMock->buildRendererConfiguration();
+	}
 	
-	
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
-		$this->rendererConfiguration = $configuration;		
+	public function testGetRenderer() {
+		
+		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->rendererConfig);
+		
+		$this->assertTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
+//		$this->assertTrue(method_exists($renderer, 'render'));
+//		$this->assertTrue(method_exists($renderer, 'renderCaptions'));
 	}
 	
 	
