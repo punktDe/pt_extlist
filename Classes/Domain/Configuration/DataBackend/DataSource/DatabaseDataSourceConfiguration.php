@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Configuration_DataConfiguration {
+class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration {
 
 	protected $backendType;
 	protected $host;
@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_Configuration_DataConfiguration {
 	 */
 	protected $queryConfiguration;
 	
-	public function __construct($backendType, $host, $username, $password, $source) {
+	public function __construct(array $dataSourceConfiguration) {
 		$this->backendType = $backendType;
 		$this->host = $host;
 		$this->username = $username;
