@@ -25,33 +25,22 @@
 
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_ColumnConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
 
+	
 	/**
-	 * Holds a dummy configuration for a column config collection object
-	 * @var array
+	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
 	 */
-	protected $columnSettings = array();
-	
-	
+	protected $configurationBuilderMock;
 	
 	public function setup() {
-		$this->columnsSettings = array(
-		    10 => array( 
-		        'columnIdentifier' => 'column1',
-		        'fieldIdentifier' => 'field1',
-		        'label' => 'Column 1'
-		    ),
-		    20 => array( 
-		        'columnIdentifier' => 'column2',
-		        'fieldIdentifier' => 'field2',
-		        'label' => 'Column 2'
-		    )
-		 );
+		
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		
 	}
 	
 	
 	
 	public function testGetColumnConfigCollection() {
-		$columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->columnsSettings);
+		$columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->configurationBuilderMock);
 		$this->assertTrue(is_a($columnConfigCollection, 'tx_pttools_objectCollection'));
 		
 		
