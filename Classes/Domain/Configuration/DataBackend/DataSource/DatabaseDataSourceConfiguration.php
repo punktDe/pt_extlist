@@ -24,60 +24,126 @@
 ***************************************************************/
 
 /**
- * Class Dataconfiguration
+ * Database Datasource configuration class. Holds configuration parameters for database data sources as MySql
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration {
 
-	protected $backendType;
+    /**
+     * Host name for database connection
+     *
+     * @var string
+     */
 	protected $host;
-	protected $username;
-	protected $password;
-	protected $source;
+	
+	
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_QueryConfiguration
+	 * Username for database connection
+	 *
+	 * @var string
 	 */
-	protected $queryConfiguration;
+	protected $username;
 	
+	
+	
+	/**
+	 * Password for database connection
+	 *
+	 * @var string
+	 */
+	protected $password;
+	
+	
+	
+	/**
+	 * Name of database to connect to
+	 *
+	 * @var string
+	 */
+	protected $databaseName;
+	
+	
+	
+	/**
+	 * Port number of database to connect to
+	 *
+	 * @var string
+	 */
+	protected $port;
+	
+	
+	
+	/**
+	 * Constructor for data source configuration
+	 *
+	 * @param array $dataSourceConfiguration
+	 */
 	public function __construct(array $dataSourceConfiguration) {
-		$this->backendType = $backendType;
-		$this->host = $host;
-		$this->username = $username;
-		$this->password = $password;
-		$this->source = $source;
+		$this->host = $dataSourceConfiguration['host'];
+		$this->username = $dataSourceConfiguration['username'];
+		$this->password = $dataSourceConfiguration['password'];
+		$this->databaseName = $dataSourceConfiguration['databaseName'];
+		$this->port = $dataSourceConfiguration['port'];
 	}
 	
-	public function getBackendType() {
-		return $this->backendType;
+	
+	
+	/**
+	 * Returns database name to connect to
+	 * 
+	 * @return string
+	 */
+	public function getDatabaseName() {
+		return $this->databaseName;
 	}
 	
+	
+	
+	/**
+	 * Returns host name or ip address to connect to
+	 * 
+	 * @return string
+	 */
 	public function getHost() {
 		return $this->host;
 	}
 	
-	public function getUsername() {
-		return $this->username;
-	}
 	
+	
+	/**
+	 * Returns password for db connection
+	 * 
+	 * @return string
+	 */
 	public function getPassword() {
 		return $this->password;
 	}
 	
-	public function getSource() {
-		return $this->source;
+	
+	
+	/**
+	 * Returns port to connect to
+	 * 
+	 * @return string
+	 */
+	public function getPort() {
+		return $this->port;
 	}
 	
-	public function setQueryConfiguration(Tx_PtExtlist_Domain_Configuration_QueryConfiguration $queryConfiguration) {
-		$this->queryConfiguration = $queryConfiguration;
-	}
 	
-	public function getQueryConfiguration() {
-		return $this->queryConfiguration;
-	}
 	
+	/**
+	 * Returns username for db connection
+	 * 
+	 * @return string
+	 */
+	public function getUsername() {
+		return $this->username;
+	}
 	
 }
 

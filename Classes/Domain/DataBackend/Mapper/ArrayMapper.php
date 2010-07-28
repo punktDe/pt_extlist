@@ -153,7 +153,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		if (array_key_exists($mapping->getTable() . '.' . $mapping->getField(), $row)) {
 			return $row[$mapping->getTable() . '.' . $mapping->getField()];
 		} else {
-			throw new Exception('Array key ' . $mapping->getTable() . '.' . $mapping->getField() . 'does not exist in row. Perhaps wrong mapping configuration?');
+			throw new Exception('Array key ' . $mapping->getTable() . '.' . $mapping->getField() . 'does not exist in row. Perhaps wrong mapping configuration? 1280317751');
 		}
 	}
 	

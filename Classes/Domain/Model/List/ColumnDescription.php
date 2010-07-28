@@ -24,12 +24,6 @@
 ***************************************************************/
 
 /**
- * 
- *
- * @package TYPO3
- * @subpackage pt_extlist
- */
-/**
  * Class holds information about columns for rendered list data.
  * 
  * @author Michael Knoll

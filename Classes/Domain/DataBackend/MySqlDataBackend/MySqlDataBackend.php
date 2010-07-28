@@ -48,8 +48,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
     protected $queryInterpreter;
 
-   
     
+       
     /**
      * Injector for data source
      *
@@ -78,7 +78,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return array Array of raw list data
      */
 	public function getListData() {
-		
+		$sqlQuery = $this->buildQuery();
+		$rawData = $this->dataSource->executeQuery($sqlQuery);
+		return $rawData;
 	}
 	
 	
@@ -90,7 +92,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 *
 	 * @return string An SQL query
 	 */
-	protected function buildQuery() {
+	public function buildQuery() {
 		$query = '';
 		
 		$query .= $this->buildSelectPart() != ''  ? 'SELECT ' . $this->buildSelectPart() . ' ' : '';
