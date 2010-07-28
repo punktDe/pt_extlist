@@ -69,7 +69,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		/**
 		 * Subcontroller Aufruf aus anderer Extension,
 		 * bei dem der Listennamen und die Daten dem
-		 * Subcontroller Aufruf ï¿½bergeben werden.
+		 * Subcontroller Aufruf übergeben werden.
 		 */
 	}
 

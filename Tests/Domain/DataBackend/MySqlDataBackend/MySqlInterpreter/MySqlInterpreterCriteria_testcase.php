@@ -116,6 +116,5 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$notCriteriaTestString = 'NOT (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($this->simpleCriteria1).')';
 		$this->assertTrue($andCriteriaSimpleString == $andCriteriaSimpleTestString, 'Test failed with SimpleCriteria. :: ' . $notCriteriaString . '!=' . $notCriteriaTestString);
 	}
-	
 }
 ?>

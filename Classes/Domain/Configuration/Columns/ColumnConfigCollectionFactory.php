@@ -34,12 +34,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	/**
 	 * Build and return ColumnConfigurationCollection
 	 *  
-	 * @param $columnSettings typoscript array of column Collection
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $columnSettings typoscript array of column Collection
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
-	public static function getColumnConfigCollection($columnSettings) {
-		$columnConfigCollection = self::buildColumnConfigCollection($columnSettings);
+	public static function getColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$columnConfigCollection = self::buildColumnConfigCollection($configurationBuilder);
 		return $columnConfigCollection;
 	}
 	
@@ -48,12 +48,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
-	protected static function buildColumnConfigCollection(array $columnSettings) {
+	protected static function buildColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
+		$columnSettings = $configurationBuilder->getColumnSettings();
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
 
 		foreach($columnSettings as $columnId => $columnSetting) {
-			$columnConfigCollection->addColumnConfig($columnId, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($columnSetting));
+			$columnConfigCollection->addColumnConfig($columnId, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSetting));
 		}
 		
 		return $columnConfigCollection;

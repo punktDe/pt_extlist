@@ -23,30 +23,18 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_ColumnConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+/**
+ * Class implements list header collection
+ * 
+ * @author Daniel Lienert
+ */
+class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection {
 
-	
-	/**
-	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
-	 */
-	protected $configurationBuilderMock;
-	
-	public function setup() {
-		
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		
+	public function addHeaderColumn($columnHeader, $columnIdentifier) {
+		$this->addItem($columnHeader, $columnIdentifier);
 	}
 	
-	
-	
-	public function testGetColumnConfigCollection() {
-		$columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->configurationBuilderMock);
-		$this->assertTrue(is_a($columnConfigCollection, 'tx_pttools_objectCollection'));
-		
-		
-		$columnConfig1 = $columnConfigCollection->getColumnConfigByIdentifier(10);
-		$this->assertEquals($columnConfig1->getColumnIdentifier(), 'column1');
-	}
-			
 }
+
+
 ?>
