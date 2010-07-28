@@ -26,15 +26,9 @@
 /**
  * Class implements list header collection
  * 
- * @author Daniel Lienert
+ * @author Daniel Lienert <lienert@punkt.de>
  */
-
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
-
-	/**
-	 * @var string
-	 */
-	protected $listIdentifier;
 	
 	/**
 	 * 
@@ -42,10 +36,47 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 */
 	protected $columnConfig;
 	
-
+	/**
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
+	/**
+	 * 
+	 * @var string
+	 */
+	protected $columnIdentifier;
+	
+	/**
+	 *
+	 * @var boolean
+	 */
+	protected $isSortable;
+	
+	
+	/**
+	 * 
+	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+	 * @return void
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 28.07.2010
+	 */
 	public function injectColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		$this->columnConfig = $columnConfig;
-		$this->listIdentifier = $columnConfig->
+		$this->listIdentifier = $columnConfig->getListIdentifier();
+		$this->columnIdentifier = $columnConfig->getColumnIdentifier();
+	}
+	
+	public function init() {
+		/**
+		 * Where to get filter values from:
+		 * 
+		 * 1. TS-Settings
+		 * 2. Session
+		 * 3. GP-Vars
+		 */
+		
+		
 	}
 	
 	/****************************************************************************************************************
@@ -59,7 +90,34 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * @return string Namespace to identify this object
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier;
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.headerColumns.' . $this->columnIdentifier;
 	}
+	
+	/**
+	 * Called by any mechanism to persist an object's state to session
+	 *
+	 */
+    public function persistToSession() {
+
+    }
+    
+    
+    /**
+     * Called by any mechanism to inject an object's state from session
+     *
+     * @param array $sessionData Object's state to be persisted to session
+     */
+    public function injectSessionData(array $sessionData) {
+    	
+    }
+    
+
+    
+    
+    
+    public function getLabel() {
+    	return $this->columnConfig->getLabel();
+    }
+    
 }
 ?>
