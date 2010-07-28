@@ -23,25 +23,19 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
+/**
+ * Data backend for typo3 database
+ * 
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ *
+ */
 class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
     
-    protected function initQueryBuilder() {
-        $this->queryBuilder = new Tx_PtExtlist_Domain_DataBackend_Query_MySqlQueryBuilder();
-    }
     
     public function getListData() {
-        //$query = $this->queryBuilder->buildQuery($this->configuration->getQueryConfiguration());
-//      var_dump($this->configuration->getQueryConfiguration());
-        //var_dump($query);
-            //$query = null;
-            
-            //$res = $this->dataSource->execute($query);
-            
-            //$structure = $this->mapper->map($res);
-            
-            //return $structure;
+
     }
     
     protected function updatePager(array &$rawListData) {
