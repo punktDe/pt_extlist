@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCrite
 	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria  $criteria) {
-	    return 'NOT (' . $criteria->getCriteria() . ')';
+	    return 'NOT (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getCriteria()) . ')';
 	}
 }
 

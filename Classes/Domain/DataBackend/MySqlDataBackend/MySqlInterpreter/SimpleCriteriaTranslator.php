@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-        return $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . $criteria->getValue();    
+        return '`' . $criteria->getField() . '` ' . $criteria->getOperator() . ' ' . '"' . mysql_real_escape_string($criteria->getValue()) . '"';    
 	}
 }
 

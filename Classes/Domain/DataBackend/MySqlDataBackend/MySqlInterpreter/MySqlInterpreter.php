@@ -70,7 +70,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
 	 * @return unknown
 	 */
-	protected static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		$criteriaString = '';
 		$criteriaClass = get_class($criteria);
 		if (array_key_exists($criteriaClass, self::$translatorClasses) && class_exists(self::$translatorClasses[$criteriaClass])) {

@@ -41,7 +41,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriter
 	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-		return '(' . $criteria->getFirstCriteria() . ') OR (' . $criteria->getSecondCriteria() . ')';	    
+		$orCriteriaString = '(' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getFirstCriteria()); 
+	   	$orCriteriaString .= ') OR ('; 
+	    $orCriteriaString .= Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
+	    
+	    return $orCriteriaString;    
 	}
 }
 

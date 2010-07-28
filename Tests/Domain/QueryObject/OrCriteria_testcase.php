@@ -51,8 +51,8 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_OrCriteria_testcase extends Tx_PtExt
 		$firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
         $secondCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '20', '<');
         $orCriteria = new Tx_PtExtlist_Domain_QueryObject_OrCriteria($firstCriteria, $secondCriteria);
-        $this->assertTrue($orCriteria->getCriteria1() === $firstCriteria);
-        $this->assertTrue($orCriteria->getCriteria2() === $secondCriteria);
+        $this->assertTrue($orCriteria->getFirstCriteria() === $firstCriteria);
+        $this->assertTrue($orCriteria->getSecondCriteria() === $secondCriteria);
 	}
 	
 	
