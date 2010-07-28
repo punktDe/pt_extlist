@@ -55,7 +55,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends t
 		if($this->hasItem($identifier)) {
 			return $this->getItemById($identifier);
 		} else {
-			throw new Exception('The column with id ' . $identifier . ' does not exist!');
+			throw new Exception('The column with id ' . $identifier . ' does not exist! 1280309838');
 		}
 	}
 	
