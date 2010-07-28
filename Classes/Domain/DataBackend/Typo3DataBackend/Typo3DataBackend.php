@@ -31,7 +31,7 @@
  * @subpackage pt_extlist
  *
  */
-class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
     
     
     public function getListData() {

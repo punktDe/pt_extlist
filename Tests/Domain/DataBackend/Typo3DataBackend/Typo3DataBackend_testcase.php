@@ -32,14 +32,10 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Test_Domain_DataBackend_Typo3DataBackend_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Test_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_testcase extends Tx_Extbase_BaseTestcase {
 
 	public function testSetUp() {
-		$mockConfigurationBuilder = $this->getMock(
-            'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder',
-            array('getBackendConfiguration'),array(),'',FALSE,FALSE,FALSE);
-  
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend($mockConfigurationBuilder);
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend'));
 	}
 	
 }
