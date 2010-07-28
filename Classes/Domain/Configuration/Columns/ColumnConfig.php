@@ -54,6 +54,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	protected $label;
 	
 	/**
+	 * @var boolean
+	 */
+	protected $isSortable = true;
+	
+	/**
 	 * @var array
 	 */
 	protected $stdWrap;
@@ -74,19 +79,38 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
 		$this->fieldIdentifier = $columnSettings['fieldIdentifier'];
 		
+		$this->label = $this->columnIdentifier;
+		
+		$this->setOptionalSettings($columnSettings);
+	}	
+	
+	/**
+	 * Set optional definable columnsettings
+	 * 
+	 * @param $columnSettings
+	 * @return void
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 */
+	protected function setOptionalSettings($columnSettings) {
+		
+		if(array_key_exists('isSortable', $columnSettings)) {
+			$this->isSortable = $columnSettings['isSortable'];
+		}
+		
 		if(array_key_exists('label', $columnSettings)) {
 			$this->label = $columnSettings['label'];
-		} else {
-			$this->label = $this->columnIdentifier;
 		}
 		
 		if(array_key_exists('stdWrap', $columnSettings) && is_array($columnSettings['stdWrap'])) {
 			$this->stdWrap = $columnSettings['stdWrap'];
 		}
+		
 		if(array_key_exists('renderObj', $columnSettings) && is_array($columnSettings['renderObj'])) {
 			$this->renderObj = $columnSettings['renderObj'];
 		}
-	}	
+	}
+	
+	
 	
 	/**
 	 * @return string listIdentifier
@@ -120,6 +144,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	public function getLabel() {
 		return $this->label;
 	}	
+	
+	public function getIsSortable() {
+		return $this->isSortable;
+	}
 	
 	/**
 	 * 

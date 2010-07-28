@@ -26,33 +26,27 @@
 
 class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $renderer;
+	/**
+	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
+	 */
+	protected $configurationBuilderMock;
+	
+	protected $renderSettings;
+	protected $columnSettings;
 	protected $settings;
 	
 	public function setUp() {
 
-		$this->settings = array('columns' => array(
-				 10 => array( 
-		         	'columnIdentifier' => 'column1',
-		         	'fieldIdentifier' => 'field1',
-		         	'label' => 'Column 1'
-		         ),
-		         20 => array( 
-		         	'columnIdentifier' => 'column2',
-		         	'fieldIdentifier' => 'field3',
-		         	'label' => 'Column 2'
-		         ),
-	         
-			),
-			'renderer' => array(
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		
+		$this->renderSettings = array(
 				'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
 				'enabled' => 1,
 				'showCaptionsInBody' => 0,
-			)
 		);
 		
-		$columnConfig = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->settings['columns']);
-		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer'],$columnConfig);
+		$columnConfig = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->configurationBuilderMock);
+		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->renderSettings,$columnConfig);
 		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfig);
 	}
 	
@@ -69,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 		$this->assertTrue(is_a($renderedList, 'Tx_PtExtlist_Domain_Model_List_ListData'));
 		
 		$this->assertEquals($renderedList->getItemByIndex(0)->getItemById('column1'),'val1');
-		$this->assertEquals($renderedList->getItemByIndex(0)->getItemById('column2'),'val3');
+		$this->assertEquals($renderedList->getItemByIndex(0)->getItemById('column2'),'val2');
 
 	}
 	

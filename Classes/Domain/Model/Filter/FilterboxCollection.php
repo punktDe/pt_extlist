@@ -60,6 +60,16 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     	$this->listIdentifier = $configurationBuilder->getListIdentifier();
     }
     
+    /**
+     * Add Filterbox to Collection
+     *  
+     * @param $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @param $filterBoxIdentifier string
+     * @author Daniel Lienert <lienert@punkt.de>
+     */
+    public function addFilterBox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterBox, $filterBoxIdentifier) {
+    	$this->addItem($filterBox, $filterBoxIdentifier);
+    }
     
     
     /**
