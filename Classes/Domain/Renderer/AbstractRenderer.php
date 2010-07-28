@@ -31,9 +31,11 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	 */	
 	protected $rendererConfiguration;
 	
+	protected $cellRenderer;
+	
 	
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
-		$this->rendererConfiguration = $configuration;
+		$this->rendererConfiguration = $configuration;		
 	}
 	
 	

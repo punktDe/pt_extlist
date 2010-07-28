@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -23,15 +24,9 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * Class holds information about columns for rendered list data.
- * 
- * @author Michael Knoll
- * @package Typo3
- * @subpackage pt_extlist
- */
-class Tx_PtExtlist_Domain_Model_List_ColumnDescription {
-	
+interface Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
+
+	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow);
 }
 
 ?>
