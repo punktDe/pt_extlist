@@ -52,8 +52,8 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 		return false;
 	}
 	
-	public function showCaptions() {
-		if($this->settings['captions'] == '1') {
+	public function showCaptionsInBody() {
+		if($this->settings['showCaptionsInBody'] == '1') {
 			return true;
 		}
 		return false;

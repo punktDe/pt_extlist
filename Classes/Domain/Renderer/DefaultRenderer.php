@@ -26,8 +26,11 @@
 
 class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
 	
+	protected $cObj;
+	
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $config) {
 		parent::__construct($config);
+		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 	}
 	
 	public function render(Tx_PtExtlist_Domain_Model_List_ListData $list) {
@@ -41,7 +44,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	protected function renderList(Tx_PtExtlist_Domain_Model_List_ListData $list) {
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
-		if($this->rendererConfiguration->showCaptions()) {
+		if($this->rendererConfiguration->showCaptionsInBody()) {
 			$renderedList->addRow($this->renderCaptions());
 		}
 		
@@ -57,14 +60,46 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
 		
+		$fieldSet = $this->generateRowFieldSet($row, $columnCollection);
+		
 		foreach($columnCollection->getIterator() as $column) {
 			$fieldIdent = $column->getFieldIdentifier();
 			$columnIdent = $column->getColumnIdentifier();
 			
-			$renderedRow->addCell($columnIdent, $row->getItemById($fieldIdent));
+			$renderedRow->addCell($columnIdent, $this->renderCell($row->getItemById($fieldIdent),$column, $fieldSet));
 		}
 		
 		return $renderedRow;
+	}
+	
+	protected function generateRowFieldSet($row, $columnCollection) {
+		$fieldSet = array();
+		
+		foreach($columnCollection->getIterator() as $column) {
+			$fieldIdent = $column->getFieldIdentifier();
+			$fieldSet[$fieldIdent] = $row->getItemById($fieldIdent);	
+		}
+		
+		return $fieldSet;
+	}
+	
+	protected function renderCell($content, $columnConfig, $fieldSet = array()) {
+
+		// Inject current data into the cObject
+		$this->cObj->start($fieldSet);
+
+					
+		// TS parsing
+		if($columnConfig->getRenderObj() != null) {
+			$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $columnConfig->getRenderObj());
+			$content = $this->cObj->cObjGet($conf);
+		}
+		
+		
+		// stdWrap 
+		$content = $this->cObj->stdWrap($content ,$columnConfig->getStdWrap());
+		
+		return $content;
 	}
 	
 	/**
@@ -73,7 +108,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_List_Row The caption row.
 	 */
-	protected function renderCaptions() {
+	public function renderCaptions() {
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
 		

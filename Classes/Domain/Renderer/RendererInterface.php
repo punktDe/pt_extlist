@@ -34,6 +34,12 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_ListData $list);
+	
+	/**
+	 * Renders the column captions out of the TS definition
+	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
+	 */
+	public function renderCaptions();
 }
 
 ?>

@@ -94,12 +94,28 @@ plugin.tx_ptextlist.settings {
 				label = renderedLabel2
 				columnIdentifier = renderedCol2
 				fieldIdentifier = field2
+				
+				renderObj = COA
+				renderObj {
+					
+					
+					10 = TEXT
+					10.data = field:field1
+					
+					15 = TEXT
+					15.value = ...
+					
+					20 = TEXT
+					20.data = field:field2
+				}
+				
+				stdWrap.wrap = _|_
 			}
 		}
 		
 		renderer {
 			enabled = 1
-			captions = 1
+			showCaptionsInBody = 0
 			rendererClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
 		}
 		
