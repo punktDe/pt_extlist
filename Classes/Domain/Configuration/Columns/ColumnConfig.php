@@ -31,6 +31,13 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	
+	/**
+	 * Identifier of list to which this column belongs to
+	 *
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
 	/** 
 	 * @var string
 	 */
@@ -59,10 +66,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	 * @return void
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
-	public function __construct(array $columnSettings) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $columnSettings) {
 		tx_pttools_assert::isNotEmptyString($columnSettings['columnIdentifier'], array(message => 'Column identifier not given 1277889446'));
 		tx_pttools_assert::isNotEmptyString($columnSettings['fieldIdentifier'], array(message => 'Field identifier not given 1277889447'));
 		
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
 		$this->fieldIdentifier = $columnSettings['fieldIdentifier'];
 		
@@ -80,6 +88,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 		}
 	}	
 	
+	/**
+	 * @return string listIdentifier
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 */
+	public function getListIdentifier() {
+		return $this->listIdentifier;
+	}
 	
 	/**
 	 * @return string columnIdentifier

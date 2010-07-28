@@ -237,6 +237,15 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->settings['filters'];
     }
     
+    /**
+     * Returns the configuration settings for all columns
+     * @return array Settings for all columns
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 28.07.2010
+     */
+    public function getColumnSettings() {
+    	return $this->settings['columns'];
+    }
     
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
@@ -259,7 +268,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildColumnsConfiguration() {
     	if (is_null($this->columnsConfiguration)) {
-    		$this->columnsConfiguration = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->settings['columns']);
+    		$this->columnsConfiguration = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this);
     	}
     	return $this->columnsConfiguration;
     }
