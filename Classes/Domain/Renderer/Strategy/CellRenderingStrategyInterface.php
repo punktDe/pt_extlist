@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -24,21 +24,9 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface  {
+interface Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
-	 */	
-	protected $rendererConfiguration;
-	
-	protected $cellRenderer;
-	
-	
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
-		$this->rendererConfiguration = $configuration;		
-	}
-	
-	
+	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow);
 }
 
 ?>
