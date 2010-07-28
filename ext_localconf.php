@@ -6,9 +6,6 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
  * right combination of Controller and Action according to
  * the user input (default settings, FlexForm, URL etc.)
  */
-
-require_once 'typo3/sysext/extbase/Classes/Utility/Extension.php';
-
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
 	'pi1',																			// A unique name of the plugin in UpperCamelCase
