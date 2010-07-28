@@ -36,10 +36,42 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	public function render(Tx_PtExtlist_Domain_Model_List_ListData $list) {
 		if(!$this->rendererConfiguration->isEnabled()) return $list;
 		
+		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280315003'));
+		
 		$renderedList = $this->renderList($list);
 	
 		return $renderedList;
 	}
+	
+	/**
+	 * 
+	 * Creates a row with captions.
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_List_Row The caption row.
+	 */
+	public function renderCaptions() {
+		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+		
+		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280315045'));
+		
+		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
+		
+		
+		foreach($columnCollection->getIterator() as $column) {
+			$label = $column->getLabel();
+			
+			// Use TS for rendering
+			if(is_array($label)) {
+				$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
+				$label = $this->cObj->cObjGet($conf);
+			}
+			
+			$row->addCell($column->getColumnIdentifier(), $label);
+		}
+		
+		return $row;
+	}
+	
 	
 	protected function renderList(Tx_PtExtlist_Domain_Model_List_ListData $list) {
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
@@ -83,10 +115,10 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		return $fieldSet;
 	}
 	
-	protected function renderCell($content, $columnConfig, $fieldSet = array()) {
+	protected function renderCell($content, $columnConfig, $fieldSet =null) {
 
 		// Inject current data into the cObject
-		$this->cObj->start($fieldSet);
+		if($fieldSet) $this->cObj->start($fieldSet);
 
 					
 		// TS parsing
@@ -97,28 +129,13 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		
 		
 		// stdWrap 
+		// TODO: check if this is needed.
 		$content = $this->cObj->stdWrap($content ,$columnConfig->getStdWrap());
 		
 		return $content;
 	}
 	
-	/**
-	 * 
-	 * Creates a row with captions.
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_Row The caption row.
-	 */
-	public function renderCaptions() {
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
-		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
-		
-		
-		foreach($columnCollection->getIterator() as $column) {
-			$row->addCell($column->getColumnIdentifier(), $column->getLabel());
-		}
-		
-		return $row;
-	}
+	
 	
 }
 
