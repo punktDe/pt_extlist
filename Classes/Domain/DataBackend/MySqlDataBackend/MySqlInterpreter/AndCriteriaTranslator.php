@@ -41,7 +41,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCrite
 	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-	    return '(' . $criteria->getFirstCriteria() . ') AND (' . $criteria->getSecondCriteria() . ')';
+	    $andCriteriaString = '(' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getFirstCriteria()); 
+	   	$andCriteriaString .= ') AND ('; 
+	    $andCriteriaString .= Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
+	    
+	    return $andCriteriaString;
 	}
 }
 

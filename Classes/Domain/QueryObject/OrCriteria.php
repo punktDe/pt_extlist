@@ -28,35 +28,45 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 
-	protected $criteria1;
+	protected $firstCriteria;
+	
+	protected $secondCriteria;
 	
 	
+	/** 
+	 * @param $firstCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
+	 * @param $secondCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
+	 * @return void
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 28.07.2010
+	 */
+	public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria) {
+		$this->firstCriteria = $firstCriteria;
+		$this->secondCriteria = $secondCriteria;
+	}
 	
-	protected $criteria2;
-	
-	
-	
-	public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2) {
-		$this->criteria1 = $criteria1;
-		$this->criteria2 = $criteria2;
+	/**
+	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 28.07.2010
+	 */
+	public function getFirstCriteria() {
+		return $this->firstCriteria;
 	}
 	
 	
-	
-	public function getCriteria1() {
-		return $this->criteria1;
+	/**
+	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 28.07.2010
+	 */	
+	public function getSecondCriteria() {
+		return $this->secondCriteria;
 	}
-	
-	
-	
-	public function getCriteria2() {
-		return $this->criteria2;
-	}
-	
 }
  
 ?>
