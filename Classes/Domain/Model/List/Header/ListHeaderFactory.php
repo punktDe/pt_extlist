@@ -30,6 +30,15 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	
+	
+	/**
+	 * build the listheader, a collection of columnheader objects
+	 * 
+	 * @param $configurationBuilder Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 29.07.2010
+	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 
 		$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();

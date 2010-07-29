@@ -42,13 +42,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $listIdentifier;
 	
 	/**
-	 * 
 	 * @var string
 	 */
 	protected $columnIdentifier;
 	
 	/**
-	 *
 	 * @var boolean
 	 */
 	protected $isSortable;
@@ -59,6 +57,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $sortingFieldConfig;
 	
 	
+	/**
+	 * @var integer
+	 */
 	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
 
 	
@@ -81,11 +82,16 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		
 	}
 	
-	
+	/**
+	 * @return string column label
+	 */
 	public function getLabel() {
     	return $this->columnConfig->getLabel();
     }
     
+    /**
+	 * @return string column identifier
+	 */
     public function getColumnIdentifier() {
     	return $this->columnIdentifier;
     }
