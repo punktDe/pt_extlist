@@ -32,39 +32,8 @@
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 	
-	/**
-	 * TODO no observers may be registered here, as data source is not generic!
-	 *
-	 * @var array
-	 */
-	protected $observers = array();
 	
 	
-	
-	/**
-	 * TODO this has to be implemented in data backend, not here!
-	 * Register a new observer object.
-	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs The obeserver object to register
-	 */
-	public function registerObserver(Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs) {
-		$this->observers[] = $obs;
-	}
-	
-	
-	
-	/**
-	 * TODO this has to be implemented in data backend, not here!
-	 * Updates the item count in each observer object.
-	 * 
-	 * @param int $itemCount The new item count.
-	 */
-	protected function updateObserversItemCount($itemCount) {
-		foreach($this->observers as $observer) {
-			
-			$observer->updateItemCount($itemCount);
-		}
-	}
 }
 
 ?>

@@ -59,7 +59,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 	 * @return array
 	 */
 	public function execute(Tx_PtExtlist_Domain_Query_QueryInterface $query = null) {
-		$this->updateObserversItemCount($this->countItems());
+		
 		return $this->dummyArray;
 	}
 	
@@ -74,7 +74,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 	 * @param integer $end The end index of the requested data.
 	 */
 	public function executeWithLimit($start=1,$end=-1) {
-		$this->updateObserversItemCount($this->countItems());
+		
 		
 		if($end ==-1) {
 			$end = $this->countItems(); 

@@ -25,41 +25,19 @@
 ***************************************************************/
 
 /**
- * Factory to put all parts of a list together.
+ * A interface for all data backend observers.
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  *
  */
-class Tx_PtExtlist_Domain_Model_List_ListFactory {
+interface Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface {
 
-	protected $dataBackend;
-	protected $configurationBuilder;
-	
 	/**
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * Updates the list item count.
+	 *  
+	 * @param int $itemCount
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
-	}
-	
-	/**
-	 * Returns a full featured list object.
-	 * 
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @return Tx_PtExtlist_Domain_Model_List_List
-	 */
-	public function createList() {
-		$listData = $this->dataBackend->getListData();
-		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
-		
-		$list = new Tx_PtExtlist_Domain_Model_List_List();
-		$list->setListData($listData);
-		$list->setListHeader($listHeader);
-		
-		return $list;
-	}
+	public function updateItemCount($itemCount);
 	
 }
 

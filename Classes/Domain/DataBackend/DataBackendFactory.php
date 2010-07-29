@@ -69,9 +69,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataSource = self::getDataSource($dataBackendClassName, $configurationBuilder);
 	        $pager = self::getPager($configurationBuilder);
 	        
-	        //Register pager as datasource observer
-	        // TODO pager must not be registered as an observer in data source!!!
-	        #$dataSource->registerObserver($pager);
+	        //Register pager as backend observer
+	        $dataBackend->registerObserver($pager);
 	        
 	        $dataBackend->injectBackendConfiguration($configurationBuilder->getBackendConfiguration());
 	        $dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());

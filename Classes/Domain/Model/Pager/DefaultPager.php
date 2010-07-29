@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface {
+class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface {
 	
 	protected $currentPage = 1;
 	protected $settings = array();
