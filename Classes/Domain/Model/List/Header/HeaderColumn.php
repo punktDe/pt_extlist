@@ -85,6 +85,10 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	public function getLabel() {
     	return $this->columnConfig->getLabel();
     }
+    
+    public function getColumnIdentifier() {
+    	return $this->columnConfig->getColumnIdentifier();
+    }
 
     /**
      * Build an array with sorting definitions for this column

@@ -69,7 +69,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		/**
 		 * Subcontroller Aufruf aus anderer Extension,
 		 * bei dem der Listennamen und die Daten dem
-		 * Subcontroller Aufruf übergeben werden.
+		 * Subcontroller Aufruf ï¿½bergeben werden.
 		 */
 	}
 
@@ -86,10 +86,10 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
 					$this->configurationBuilder->buildRendererConfiguration());
 		
-		$listData = $this->dataBackend->getListData();
+		$list = $this->dataBackend->getList();
 		
-		$renderedListData = $renderer->render($listData);
-		$renderedCaptions = $renderer->renderCaptions();
+		$renderedListData = $renderer->render($list);
+		$renderedCaptions = $renderer->renderCaptions($list);
 		
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
