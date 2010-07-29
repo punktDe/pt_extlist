@@ -114,7 +114,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		
 	}
 	
-     * TODO add some comment!
+    /** TODO add some comment!
      * 
 	 * @return unknown
 	 * @return string column label
