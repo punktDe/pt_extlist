@@ -67,11 +67,12 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend 1280400022'));
 
 	        
-	        $dataSource = self::getDataSource($configurationBuilder);
+	        $dataSource = self::getDataSource($dataBackendClassName, $configurationBuilder);
 	        $pager = self::getPager($configurationBuilder);
 	        
 	        //Register pager as datasource observer
-	        $dataSource->registerObserver($pager);
+	        // TODO pager must not be registered as an observer in data source!!!
+	        #$dataSource->registerObserver($pager);
 	        
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
 	        $dataBackend->injectDataSource($dataSource);
@@ -91,8 +92,10 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-    protected static function getDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-         $dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceFactory::createDataSource($configurationBuilder);
+    protected static function getDataSource($dataBackendClassName, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	 // Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
+         $dataSource = call_user_func($dataBackendClassName . '::createDataSource', $configurationBuilder);
+         print_r($dataSource);
          return $dataSource;
     }
     
@@ -120,6 +123,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
     	return $filterboxCollection;
     }
+    
+    
     
     /**
      * 

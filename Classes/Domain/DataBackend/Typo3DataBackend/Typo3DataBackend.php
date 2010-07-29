@@ -30,10 +30,28 @@
  * @package Typo3
  * @subpackage pt_extlist
  *
+ * TODO implement T3 db object methods for query (hidden fields, deleted rows etc...)
+ *  
  */
 class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend {
 
-	// Nothing to implement here so far, as data source has the same interface for mysql and t3 db!
+	/**
+	 * Factory method for data source
+	 * 
+	 * Only DataBackend knows, which data source to use and how to instantiate it.
+	 * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource Data source object for this data backend
+	 */
+	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$backendConfiguration = $configurationBuilder->getBackendConfiguration();
+		$dataSourceConfigurationArray = $backendConfiguration['dataSource'];
+		$dataSourceConfigurationObject = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->getBackendConfiguration());
+		$dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource($dataSourceConfigurationObject);
+		$dataSource->injectDataSource($GLOBALS['TYPO3_DB']);
+		return $dataSource;
+	}
 	
 }
 

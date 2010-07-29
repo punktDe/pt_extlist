@@ -74,6 +74,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	
 	/**
 	 * Executes given SQL query
+	 * 
+	 * // TODO use dedicated T3 query methods here!
 	 *
 	 * @param string $query SQL query to be executed
 	 */

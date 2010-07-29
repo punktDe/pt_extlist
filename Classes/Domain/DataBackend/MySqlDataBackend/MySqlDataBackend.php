@@ -49,6 +49,29 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $queryInterpreter;
 
     
+    
+    /**
+     * Factory method for data source
+     * 
+     * Only DataBackend knows, which data source to use and how to instantiate it.
+     * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource Data source object for this data backend
+     */
+    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+        $backendConfiguration = $configurationBuilder->getBackendConfiguration();
+        $dataSourceConfigurationArray = $backendConfiguration['dataSource'];
+        $dataSourceConfigurationObject = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->getBackendConfiguration());
+        $dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfigurationObject);
+        
+        // TODO initialize PDO with given parameters!!!
+        $dataSource->injectDataSource(new PDO());
+        
+        return $dataSource;
+    }
+    
+    
        
     /**
      * Injector for data source
