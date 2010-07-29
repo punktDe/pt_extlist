@@ -31,7 +31,7 @@
  * @subpackage pt_extlist
  *
  */
-class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource {
+class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend {
 
 	// Nothing to implement here so far, as data source has the same interface for mysql and t3 db!
 	
