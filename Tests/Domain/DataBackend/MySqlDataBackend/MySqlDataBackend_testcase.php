@@ -26,13 +26,13 @@
 
 
 /**
- * Testcase for pt_list mysql data backend object. 
+ * Testcase for mysql data backend 
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Test_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_Extbase_BaseTestcase {
 	
 	/**
 	 * Holds configuration string for demo TS setup

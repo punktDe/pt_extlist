@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Testcase for pt_list typo3 data backend object. 
  * 
@@ -32,7 +30,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Test_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_testcase extends Tx_Extbase_BaseTestcase {
 
 	public function testSetUp() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend'));

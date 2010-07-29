@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * 
+ * Interface for all data backends
  *
  * @package TYPO3
  * @subpackage pt_extlist
@@ -32,12 +32,21 @@
 interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
 	/**
+	 * Creates an instance of data source object to be used with current backend
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
+	
+	
+	
+	/**
 	 * Returns mapped List structure
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
     public function getListData();
-    
+
     
     
     public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager);

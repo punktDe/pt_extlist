@@ -24,17 +24,31 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class  Tx_PtExtlist_Test_Domain_DataBackend_DataSource_AbstractDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+/**
+ * Testcase for abstract datat source
+ * 
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
+class  Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_AbstractDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	// TODO rename variable: what is that mock object for?!?
 	protected $mockObject;
+	
+	
 	
 	public function setup() {
 		$this->mockObject = new Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DataSourceMock();
 	}
 	
+	
+	
 	public function testRegisterObserver() {
 		$this->assertTrue(method_exists($this->mockObject,'registerObserver'));
 	}
+	
+	
 	
 	public function testNotify() {
 		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));

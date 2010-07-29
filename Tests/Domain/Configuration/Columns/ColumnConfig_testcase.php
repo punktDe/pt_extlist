@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_Extbase_BaseTestcase {
 
 	
 	/**

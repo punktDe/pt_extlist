@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Testcase for pt_list dummy data backend object. 
  * 
@@ -33,15 +31,19 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Test_Domain_DataBackend_DummyDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $dataBackend;
+	
+	
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
   
 		$this->dataBackend = new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend($this->configurationBuilderMock);
 	}
+	
+	
 	
 	public function testSomething() {
 		

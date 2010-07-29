@@ -23,13 +23,21 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
-
+/**
+ * Testcase for column config collection factory
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_ColumnConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
 	 */
 	protected $configurationBuilderMock;
+
+	
 	
 	public function setup() {
 		

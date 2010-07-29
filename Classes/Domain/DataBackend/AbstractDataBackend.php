@@ -107,6 +107,20 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	/**
+	 * Per default, a data backend does not require a data source, so we return null here
+	 * 
+	 * // TODO think about this
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return unknown
+	 */
+	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return null;
+	}
+	
+	
+	
+	/**
 	 * Constructor for data backend
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder

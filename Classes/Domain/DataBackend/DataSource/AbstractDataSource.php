@@ -31,7 +31,10 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
+	
 	protected $observers = array();
+	
+	
 	
 	/**
 	 * Register a new observer object.
@@ -40,6 +43,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 	public function registerObserver(Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs) {
 		$this->observers[] = $obs;
 	}
+	
+	
 	
 	/**
 	 * 
