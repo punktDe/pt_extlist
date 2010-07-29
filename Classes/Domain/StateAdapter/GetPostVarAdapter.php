@@ -31,6 +31,7 @@
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
+		
 	
 	/**
 	 * Holds array with post vars from current HTTP request
@@ -47,22 +48,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @var array
 	 */
 	protected $getVars;
-
-	
-	
-	/**
-	 * Factory method to create a gp var adapter with current get and post vars
-	 *
-	 * @return Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
-	 */
-	public static function getInstanceFilledByGpVars() {
-		$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
-		$instance->injectGetVars($_GET);
-		$instance->injectPostVars($_POST);
-		return $instance;
-	}
-	
-	
+		
 	
 	/**
 	 * Injects array as post vars
@@ -73,8 +59,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		$this->postVars = $postVars;
 	}
 	
-	
-	
+
 	/**
 	 * Injects array as get vars
 	 *
@@ -84,8 +69,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		$this->getVars = $getVars;
 	}
 	
-	
-	
+		
 	/**
 	 * Fills a given object with parameters that correspond to namespace identified by object
 	 *

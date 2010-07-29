@@ -94,6 +94,9 @@ plugin.tx_ptextlist.settings {
 				
 				columnIdentifier = renderedCol1
 				fieldIdentifier = field1
+				
+				dataDescriptionIdentifier = 
+				sortingDataDescription
 			}
 			
 			20 {

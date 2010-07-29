@@ -23,29 +23,10 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * Class implements header column factory
- * 
- * @author Daniel Lienert <lienert@punkt.de>
- */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends tx_pttools_objectCollection {
 	
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
-		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
-		
-		$headerColumn->injectColumnConfig($columnConfiguration);
-		
-		// Inject settings from session.
-        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-        $sessionPersistenceManager->loadFromSession($headerColumn);
-        
-        // Inject settings from gp-vars.
-        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter::getInstanceFilledByGpVars();
-        $gpAdapter->getParametersByObject($headerColumn);
-		
-		$headerColumn->init();
-		return $headerColumn;
+	public function addSortingField($sortingField, $fieldIdentifier) {
+		$this->addItem($sortingField, $fieldIdentifier);
 	}
-
 }
 ?>

@@ -70,7 +70,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                         'field2' => array( 
 	                             'table' => 'tableName2',
 	                             'field' => 'fieldName2',
-	                             'isSortable' => '0',
+	                             'isSortable' => '1',
 	                             'access' => '1,2,3,4'
 	                         )
 	                    ),
@@ -78,12 +78,17 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                        10 => array( 
 	                            'columnIdentifier' => 'column1',
 	                            'fieldIdentifier' => 'field1',
-	                            'label' => 'Column 1'
+	                            'label' => 'Column 1',
+	                            'isSortable' => '0',
+	                            'access' => '1,2,3,4'
 	                        ),
 	                        20 => array( 
 	                            'columnIdentifier' => 'column2',
 	                            'fieldIdentifier' => 'field2',
-	                            'label' => 'Column 2'
+	                            'label' => 'Column 2',  
+	                            'isSortable' => '1',
+	                        	'sorting' => 'tstamp, title',
+	                            'access' => '1,2,3,4'
 	                        )
 	                    ),
 	                    'renderer' => array(

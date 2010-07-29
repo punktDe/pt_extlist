@@ -27,6 +27,7 @@
  * Class implementing container for all list elements, e.g. listData, filters, column descriptions...
  * 
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
@@ -34,9 +35,15 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	/**
 	 * Holds a reference of the list data object holding all list data
-	 * @var Tx_PtExtlist_Domain_Model_Data_List_ListData
+	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $listData;
+	
+	/**
+	 * A reference to the header data.
+	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	protected $listHeader;
 
     /**
      * Getter for list data. 
@@ -55,6 +62,23 @@ class Tx_PtExtlist_Domain_Model_List_List {
 		$this->listData = $listData;
 	}
 	
+	/**
+	 * 
+	 * Getter for list header.
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	public function getListHeader() {
+		return $this->listHeader;
+	}
+	
+	/**
+	 * 
+	 * Setter for list header.
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 */
+	public function setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		$this->listHeader = $listHeader;
+	}
 }
 
 ?>

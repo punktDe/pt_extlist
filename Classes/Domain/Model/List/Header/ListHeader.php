@@ -26,11 +26,12 @@
 /**
  * Class implements list header collection
  * 
- * @author Daniel Lienert
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection {
 
-	public function addHeaderColumn($columnHeader, $columnIdentifier) {
+	public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier) {
+		
 		$this->addItem($columnHeader, $columnIdentifier);
 	}
 	

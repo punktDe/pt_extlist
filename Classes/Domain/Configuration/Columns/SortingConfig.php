@@ -23,29 +23,41 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * Class implements header column factory
- * 
- * @author Daniel Lienert <lienert@punkt.de>
- */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
-		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
-		
-		$headerColumn->injectColumnConfig($columnConfiguration);
-		
-		// Inject settings from session.
-        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-        $sessionPersistenceManager->loadFromSession($headerColumn);
-        
-        // Inject settings from gp-vars.
-        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter::getInstanceFilledByGpVars();
-        $gpAdapter->getParametersByObject($headerColumn);
-		
-		$headerColumn->init();
-		return $headerColumn;
+	protected $field; 
+	
+	protected $direction;
+	
+	/**
+	 * if this is set to true, the direction cannot be changed 
+	 * 
+	 * @var bool
+	 */
+	protected $forceDirection;
+	
+	public function __construct($field, $direction, $forceDirection) {
+		$this->direction = $direction;
+		$this->field = $field; 
+		$this->forceDirection = $forceDirection;
 	}
-
+	
+	public function setDirection($direction) {
+		if($this->forceDirection == false) {
+			$this->direction = $direction;
+		}
+	}
+	
+	public function getDirection() {
+		return $this->direction;
+	}
+	
+	public function getForceDirection() {
+		return $this->forceDirection;
+	}
+	
+	public function getField() {
+		return $this->field;
+	}
 }
 ?>
