@@ -28,6 +28,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface 
 			extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {

@@ -23,15 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
-// TODO think about useful interface for dataSource
-// Query is not a useful interface, as it must be translated to 
-// a proprietary query command depending on data source!
-// ry21: I think there is no useful interface as 
-// each backend has to know how to access its datasource
-
-
 /**
  * Class implements a dummy data source that is mainly used for testing
  * 
@@ -41,6 +32,11 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource{ 
 
+	/**
+	 * Some dummy data to be returned
+	 *
+	 * @var array
+	 */
 	private  $dummyArray = array(
 		    array('t1.f1' => 'v1_1', 't1.f2' => 'v1_2', 't1.f3' => 'v1_3','t2.f1' => 'v1_4', 't2.f2' => 'v1_5'),
 		    array('t1.f1' => 'v2_1', 't1.f2' => 'v2_2', 't1.f3' => 'v2_3','t2.f1' => 'v2_4', 't2.f2' => 'v2_5'),
@@ -52,6 +48,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 		    array('t1.f1' => 'v8_1', 't1.f2' => 'v8_2', 't1.f3' => 'v8_3','t2.f1' => 'v8_4', 't2.f2' => 'v8_5'),
 		);
 	
+		
+		
 	/**
 	 * Returns some dummy data on an executed query
 	 *
@@ -63,11 +61,20 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 		return $this->dummyArray;
 	}
 	
+	
+	/**
+	 * TODO remove function!
+	 *
+	 * @return unknown
+	 */
 	public function countItems() {
 		return count($this->dummyArray);
 	}
 	
+	
+	
 	/**
+	 * TODO remove function!
 	 * 
 	 * Returns some dummy data, requested between a range.
 	 * @param integer $start The start index of the requested data.

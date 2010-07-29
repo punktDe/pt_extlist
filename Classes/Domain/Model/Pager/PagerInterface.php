@@ -23,10 +23,10 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Interface for pager
+ * 
+ * TODO this interface does not extend other interfaces!!! --> refactoring!
  * 
  * @package Typo3
  * @subpackage pt_extlist
@@ -37,7 +37,13 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
     extends Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
     		Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
+    /**
+     * TODO comment!
+     *
+     */
 	public function init();
+	
+	
 	
 	/**
 	 * Checks if this page browser is enabled
@@ -45,11 +51,14 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function isEnabled();
 
+	
+	
 	/**
 	 * Inject settings
 	 * @param array $settings The settings (most likely from TS)
 	 */
 	public function injectSettings(array $settings);
+	
 	
 
 	/**
@@ -59,12 +68,16 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getCurrentPage();
 	
+	
+	
 	/**
 	 * 
 	 * Returns the index of the first page.
 	 * @return int Index of first page
 	 */
 	public function getFirstItemIndex();
+	
+	
 	
 	/**
 	 * 
@@ -73,12 +86,16 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getLastItemIndex();
 	
+	
+	
 	/**
 	 * 
 	 * Sets the current page
 	 * @param int $page A page index
 	 */
 	public function setCurrentPage($page);
+	
+	
 	
 	/**
 	 * 
@@ -88,12 +105,16 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function setItemCount($itemCount);
 	
+	
+	
 	/**
 	 * 
 	 * Returns the total item count.
 	 * @return int The total item count.
 	 */
 	public function getItemCount();
+	
+	
 	
 	/**
 	 * 
@@ -102,12 +123,16 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getItemsPerPage();
 	
+	
+	
 	/**
 	 * 
 	 * Returns an array with the index=>pageNumber pairs
 	 * @return array PageNumbers
 	 */
 	public function getPages();
+	
+	
 	
 	/**
 	 * 
@@ -116,12 +141,16 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getShowFirstLink();
 	
+	
+	
 	/**
 	 * 
 	 * Let you know if you should display a last page link
 	 * @return boolean
 	 */
 	public function getShowLastLink();
+	
+	
 	
 	/**
 	 * 
@@ -130,6 +159,8 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getShowNextLink();
 	
+	
+	
 	/**
 	 * 
 	 * Let you know if you should display a previous page link
@@ -137,11 +168,15 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getShowPreviousLink();
 	
+	
+	
 	/**
 	 * Returns the last page index
 	 * @return int Index of last page
 	 */
 	public function getLastPage();
+	
+	
 	
 	/**
 	 * Returns the first page index
@@ -149,11 +184,15 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getFirstPage();
 	
+	
+	
 	/**
 	 * Returns the previous page index
 	 * @return int Index of previous page
 	 */
 	public function getPreviousPage();
+	
+	
 	
 	/**
 	 * Returns the last next index

@@ -24,8 +24,22 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * TODO insert comment!
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
 interface Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 
+	/**
+	 * TODO insert comment!
+	 *
+	 * @param unknown_type $fieldIdentifier
+	 * @param unknown_type $columnIndex
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
+	 */
 	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow);
 }
 

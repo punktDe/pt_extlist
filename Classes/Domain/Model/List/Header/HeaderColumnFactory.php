@@ -27,6 +27,8 @@
  * Class implements header column factory
  * 
  * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 	

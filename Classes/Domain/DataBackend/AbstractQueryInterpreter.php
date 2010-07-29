@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Interface for query interpreters
  * 
@@ -33,7 +31,6 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */
-
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
 
 	/**
@@ -60,8 +57,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
      * @param Tx_PtExtlist_Domain_QueryObject_Query $query
      */
     abstract static public function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query);
-	
-	
 	
 }
 

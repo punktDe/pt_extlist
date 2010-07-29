@@ -24,9 +24,21 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * TODO insert comment
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 
-	
+    /**
+     * TODO insert comment!
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
+     * @return unknown
+     */	
 	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
 		
 		$settings = $configuration->getSettings();
@@ -36,9 +48,9 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 		
 		$renderer = new $className($configuration);
 		
-		
 		return $renderer;
 	}
+	
 }
 
 ?>

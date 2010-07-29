@@ -27,9 +27,17 @@
  * Class implements list header collection
  * 
  * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection {
 
+	/**
+	 * TODO add some comment!
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader
+	 * @param unknown_type $columnIdentifier
+	 */
 	public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier) {
 		
 		$this->addItem($columnHeader, $columnIdentifier);

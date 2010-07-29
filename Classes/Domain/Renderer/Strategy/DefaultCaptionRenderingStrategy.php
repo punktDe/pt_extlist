@@ -24,6 +24,13 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * TODO insert comment
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
 
 	protected $cObj;

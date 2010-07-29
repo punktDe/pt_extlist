@@ -58,6 +58,12 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
 	
 	
 	
+	/**
+	 * Returns pager object configured by given pager configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+	 */
 	private static function createInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
 		$pagerClassName = $pagerConfiguration->getPagerClassName();
 		tx_pttools_assert::isNotEmptyString($pagerClassName, array('message' => 'No filter class name given, check configuration! 1279541291'));
@@ -83,9 +89,5 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
         return $pager;
 	}
 	
-	
-	
-	
 }
-
 ?>

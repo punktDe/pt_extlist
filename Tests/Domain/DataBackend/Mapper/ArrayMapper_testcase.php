@@ -136,6 +136,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
         $this->fail();
 	}
 	
+	
+	
+	public function testMappingOnNonDottedFieldnames() {
+		$this->markTestIncomplete('Not yet implemented!');
+	}
+	
 }
 
 ?>

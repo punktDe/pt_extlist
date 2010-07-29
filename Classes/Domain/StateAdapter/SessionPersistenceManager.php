@@ -29,6 +29,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager {
 	
@@ -90,6 +91,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager {
 	private function persistObjectDataToSessionByNamespace($objectNamespace, $objectData) {
 		$this->sessionAdapter->store($objectNamespace, $objectData);
 	}
+	
 	
 	
 	/**

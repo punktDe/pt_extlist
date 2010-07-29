@@ -69,9 +69,18 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 		
 	}
 	
+	
+	
+	/**
+	 * TODO add some comment!
+	 *
+	 * @return unknown
+	 */
 	public function getFilterValue() {
 		return $this->filterValue;
 	}	
+	
+	
 	
 	/**
 	 * Persists filter state to session

@@ -23,7 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
  * Class implements factory for filter boxes
  * 

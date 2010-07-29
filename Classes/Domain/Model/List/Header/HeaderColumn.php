@@ -27,43 +27,67 @@
  * Class implements list header collection
  * 
  * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
 	/**
+     * TODO add some comment!
+     * 
 	 * 
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
 	protected $columnConfig;
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @var string
 	 */
 	protected $listIdentifier;
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @var string
 	 */
 	protected $columnIdentifier;
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @var boolean
 	 */
 	protected $isSortable;
 	
+	
+	
 	/** 
+     * TODO add some comment!
+     * 
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	protected $sortingFieldConfig;
 	
 	
 	/**
+     * TODO add some comment!
+	 *
 	 * @var integer
 	 */
 	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
 
 	
+	
 	/**
+     * TODO add some comment!
 	 * 
 	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 * @return void
@@ -77,19 +101,38 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		$this->sortingFieldConfig = $columnConfig->getSortingConfig();
 	}
 	
+	
+	
+	/**
+	 * 
+     * TODO add some comment!
+     * 
+	 *
+	 */
 	public function init() {
 			
 		
 	}
 	
-	/**
+     * TODO add some comment!
+     * 
+	 * @return unknown
 	 * @return string column label
 	 */
 	public function getLabel() {
     	return $this->columnConfig->getLabel();
     }
     
+    
     /**
+     * 
+     * TODO add some comment!
+     *
+     * @return unknown
+     */
+    
+
+/**
 	 * @return string column identifier
 	 */
     public function getColumnIdentifier() {
@@ -119,8 +162,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	
     	return $sorting;
     }
-    
-    
+
+
     /**
      * return sorting State 
      * 
@@ -132,10 +175,10 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->sortingState;
     }
 	
+    
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
 	 *****************************************************************************************************************/
-
 	
 	/**
 	 * Returns namespace for this object
@@ -146,6 +189,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.headerColumns.' . $this->columnIdentifier;
 	}
 	
+	
+	
 	/**
 	 * Called by any mechanism to persist an object's state to session
 	 *
@@ -153,6 +198,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function persistToSession() {
 		return array('sortingState' => $this->sortingState);
     }
+    
     
     
     /**
@@ -165,6 +211,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     		$this->sortingState = $sessionData['sortingState'];
     	}
     }
+    
+    
     
 	/**
 	 * (non-PHPdoc)

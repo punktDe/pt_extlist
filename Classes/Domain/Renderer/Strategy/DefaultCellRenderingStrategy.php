@@ -24,11 +24,38 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * TODO insert comment!
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 
+	/**
+	 * TODO insert comment
+	 *
+	 * @var unknown_type
+	 */
 	protected $rendererConfiguration;
+	
+	
+	
+	/**
+	 * TODO insert comment
+	 *
+	 * @var unknown_type
+	 */
 	protected $cObj;
 	
+	
+	
+	/**
+	 * TODO insert comment
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
+	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
 		$this->rendererConfiguration = $configuration;
 		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280320558'));
@@ -36,6 +63,16 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 	}
 	
+	
+	
+	/**
+	 * TODO insert comment
+	 *
+	 * @param unknown_type $fieldIdentifier
+	 * @param unknown_type $columnIndex
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
+	 * @return unknown
+	 */
 	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow) {
 			
 		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnIndex);
@@ -60,6 +97,14 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		return $content;
 	}
 	
+	
+	
+	/**
+	 * TODO insert comment
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @return unknown
+	 */
 	protected function createFieldSet(Tx_PtExtlist_Domain_Model_List_Row &$row) {
 		$fieldSet = array();
 		
@@ -72,6 +117,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		
 		return $fieldSet;
 	}
+	
 }
 
 ?>
