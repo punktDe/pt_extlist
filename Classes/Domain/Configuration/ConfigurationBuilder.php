@@ -24,10 +24,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
- * Class implements a Builder for all configurations required in extlist.
+ * Class implements a Builder for all configurations required in pt_extlist.
  * 
  * @package Typo3
  * @subpackage pt_extlist
@@ -194,6 +192,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
     
     
+    
     /**
      * Returns identifier of list
      *
@@ -237,6 +236,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->settings['filters'];
     }
     
+    
+    
     /**
      * Returns the configuration settings for all columns
      * @return array Settings for all columns
@@ -246,6 +247,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     public function getColumnSettings() {
     	return $this->settings['columns'];
     }
+    
+    
     
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
@@ -273,6 +276,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->columnsConfiguration;
     }
     
+    
+    
     /**
      * Returns a singleton instance of the renderer configuration object.
      * 
@@ -287,6 +292,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->rendererConfiguration;
     }
     
+    
+    
     /**
      * Returns configuration object for pager
      *
@@ -294,7 +301,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildPagerConfiguration() {
     	if (is_null($this->pagerConfiguration)) {
-    		$this->pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this, $this->getPagerSettings());
+    		if (!is_array($this->getPagerSettings())) {
+    			throw new Exception('No pager configuration available for list ' . $this->getListIdentifier() . '. 1280408324');
+    		}
+    		$pagerSettings = $this->getPagerSettings();
+    		$this->pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this, $pagerSettings);
     	}
     	return $this->pagerConfiguration;
     }
@@ -309,8 +320,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     public function getPagerSettings() {
     	return $this->settings['pagerConfig'];
     }
-    
-
     
 }
 

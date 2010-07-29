@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * This class implements a dummy data backend for generating
  * some output for testing and development.
@@ -61,6 +59,8 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 		return $mappedListData;
 	}
 	
+	
+	
 	/**
 	 * 
 	 * Generates dummy list data and returns a wrapped list
@@ -80,6 +80,8 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 		
 		return $list;
 	}
+	
+	
 	
 	/**
 	 * Executes query on data source

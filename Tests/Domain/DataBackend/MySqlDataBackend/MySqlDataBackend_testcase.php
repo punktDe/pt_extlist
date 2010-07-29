@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Testcase for mysql data backend 
  * 
@@ -256,7 +254,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $dataBackend->injectPager($pagerMock);
             
         $limitPart = $dataBackend->buildLimitPart();
-        $this->assertTrue($limitPart == '100:10', 'Limit part of pager was expected to be 10:10 but was ' . $limitPart);
+        $this->assertTrue($limitPart == '90,10', 'Limit part of pager was expected to be 90,10 but was ' . $limitPart);
 	}
 	
 	
@@ -315,13 +313,21 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             ->method('getItemsPerPage')
             ->will($this->returnValue(10));
             
+            
+        $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper');
+        $mapperMock->expects($this->once())
+            ->method('getMappedListData')
+            ->will($this->returnValue($dataSourceReturnArray));
+            
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
         $dataBackend->injectDataSource($dataSourceMock);
         $dataBackend->injectPager($pagerMock);
+        $dataBackend->injectDataMapper($mapperMock);
         
-        $dataBackend->getListData();
+        $listData = $dataBackend->getListData();
+        $this->assertTrue($listData == $dataSourceReturnArray);
 	}
 	
 	
@@ -347,7 +353,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         }
         return $filterBox;
 	}
-	
 	
 	
 	

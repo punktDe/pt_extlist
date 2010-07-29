@@ -23,20 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
-/**
- * Aufgaben des Mappers:
- * 
- * 1) Umwandeln der von der Datenquelle gelieferten Daten in die Listendatenstruktur
- * 
- * 2) Umwandeln der generischen Query in eine von der DB verstandenen Query, evtl. eigene Query Verarbeitung
- * 
- * => Der Mapper hat 2 Aufgaben
- * 
- * => Dieser sollte in zwei Klassen aufgeteilt werden!
- */
-
 /**
  * Class implements a mapper that maps array data to list data structure for a given 
  * fields configuration.
@@ -151,7 +137,11 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	protected function getMappedCellValue(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping, array $row) {
 		if (array_key_exists($mapping->getTable() . '.' . $mapping->getField(), $row)) {
+			// Case field name is encoded as <table_name>.<field_name>
 			return $row[$mapping->getTable() . '.' . $mapping->getField()];
+		} elseif (array_key_exists($mapping->getField(), $row)){
+			// Case field name is encoded as <field_name>
+			return $row[$mapping->getField()];
 		} else {
 			throw new Exception('Array key ' . $mapping->getTable() . '.' . $mapping->getField() . 'does not exist in row. Perhaps wrong mapping configuration? 1280317751');
 		}
