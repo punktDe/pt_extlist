@@ -25,30 +25,20 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * A interface for all data backend observers.
  * 
- * @package Typo3
- * @subpackage pt_extlist
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ *
  */
-interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
-	
-	/**
-	 * 
-	 * Renders the given list through TypoScript.
-	 * Also uses the column definitions.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_List $list
-	 * @return Tx_PtExtlist_Domain_Model_List_List
-	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_List $list);
-	
-	/**
-	 * Renders the column captions out of the TS definition
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
-	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list);
+interface Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface {
 
+	/**
+	 * Updates the list item count.
+	 *  
+	 * @param int $itemCount
+	 */
+	public function updateItemCount($itemCount);
+	
 }
+
 ?>

@@ -54,7 +54,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	/**
      * TODO add some comment!
      * 
-	 * 
 	 * @var string
 	 */
 	protected $columnIdentifier;
@@ -64,7 +63,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	/**
      * TODO add some comment!
      * 
-	 *
 	 * @var boolean
 	 */
 	protected $isSortable;
@@ -80,11 +78,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	
 	
 	/**
-	 * 
      * TODO add some comment!
-     * 
 	 *
-	 * @var unknown_type
+	 * @var integer
 	 */
 	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
 
@@ -118,28 +114,27 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		
 	}
 	
-	
-	
-	/**
-	 * 
      * TODO add some comment!
      * 
-	 *
 	 * @return unknown
+	 * @return string column label
 	 */
 	public function getLabel() {
     	return $this->columnConfig->getLabel();
     }
-
     
     
     /**
      * 
      * TODO add some comment!
-     * 
      *
      * @return unknown
      */
+    
+
+/**
+	 * @return string column identifier
+	 */
     public function getColumnIdentifier() {
     	return $this->columnIdentifier;
     }
@@ -167,7 +162,18 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	
     	return $sorting;
     }
-    
+
+
+    /**
+     * return sorting State 
+     * 
+     * @return integer 1 = ASC, 0 = NONE,  -1 = DESC
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 29.07.2010
+     */
+    public function getSortingState() {
+    	return $this->sortingState;
+    }
 	
     
 	/****************************************************************************************************************
@@ -213,7 +219,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface#injectGPVars()
 	 */
     public function injectGPVars($GPVars) {
-    	
+    	if(array_key_exists('sortingState', $GPVars)) {
+    		$this->sortingState = $GPVars['sortingState'];
+    	}
     }   
 }
 ?>

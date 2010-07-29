@@ -33,10 +33,12 @@
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 	
 	/**
-	 * TODO add some comment!
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration
-	 * @return unknown
+	 * build an instance of a header column by columnConfiguration 
+	 * 
+	 * @param $columnConfiguration Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 29.07.2010
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();

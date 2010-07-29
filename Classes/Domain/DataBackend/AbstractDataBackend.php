@@ -105,6 +105,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	// TODO think about sorting(s)/collection
 	#protected $sorting
 	
+	protected $observers = array();
 	
 	
 	/**
@@ -197,6 +198,28 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		$this->dataSource = $dataSource;
 	}
 	
+	/**
+	 * Register a new observer object.
+	 * 
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs The obeserver object to register
+	 */
+	public function registerObserver(Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface $obs) {
+		$this->observers[] = $obs;
+	}
+	
+	
+	
+	/**
+	 * Updates the item count in each observer object.
+	 * 
+	 * @param int $itemCount The new item count.
+	 */
+	protected function updateObserversItemCount($itemCount) {
+		foreach($this->observers as $observer) {
+			
+			$observer->updateItemCount($itemCount);
+		}
+	}
 	
 	
 	/**

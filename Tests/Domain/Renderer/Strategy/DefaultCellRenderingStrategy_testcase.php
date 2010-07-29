@@ -24,16 +24,9 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	/**
-	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
-	 */
-	protected $configurationBuilderMock;
-	
-	protected $renderSettings;
-	protected $columnSettings;
-	protected $settings;
+	protected $cellRenderer;
 	
 	public function setUp() {
 
@@ -47,42 +40,25 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 		
 		$columnConfig = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->configurationBuilderMock);
 		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->renderSettings,$columnConfig);
-		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfig);
+		
+		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy($rendererConfig);
 	}
 	
-	public function testRender() {
-		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+	public function testRenderCell() {
+		
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+		
 		$row->addCell('field1', 'val1');
 		$row->addCell('field2', 'val2');
 		$row->addCell('field3', 'val3');
-		$listData->addRow($row);
 		
-		$list = new Tx_PtExtlist_Domain_Model_List_List();
-		$list->setListData($listData);
+		// see ConfigurationBuilderMock for column definition
+		$cellContent = $this->cellRenderer->renderCell('field1', '10', $row);
+		$this->assertEquals('val1', $cellContent); 
 		
-		$renderedList = $this->renderer->render($list);
-
-		$this->assertTrue(is_a($renderedList, 'Tx_PtExtlist_Domain_Model_List_ListData'));
-		
-		$this->assertEquals($renderedList->getItemByIndex(0)->getItemById('column1'),'val1');
-		$this->assertEquals($renderedList->getItemByIndex(0)->getItemById('column2'),'val2');
-
 	}
 	
-	public function testRenderCaptions() {
-		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilderMock);
-		$list = new Tx_PtExtlist_Domain_Model_List_List();
-		$list->setListHeader($listHeader);
-		
-		$captions = $this->renderer->renderCaptions($list);
-		
-		$this->assertTrue(is_a($captions, 'Tx_PtExtlist_Domain_Model_List_Row'));
-		
-		$this->assertEquals($captions->getItemById('column1'), 'Column 1');
-		$this->assertEquals($captions->getItemById('column2'), 'Column 2');
-		
-	}
+	
 	
 }
 

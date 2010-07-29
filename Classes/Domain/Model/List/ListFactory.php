@@ -25,30 +25,42 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * Factory to put all parts of a list together.
  * 
- * @package Typo3
- * @subpackage pt_extlist
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ *
  */
-interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
+class Tx_PtExtlist_Domain_Model_List_ListFactory {
+
+	protected $dataBackend;
+	protected $configurationBuilder;
 	
 	/**
 	 * 
-	 * Renders the given list through TypoScript.
-	 * Also uses the column definitions.
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+	}
+	
+	/**
+	 * Returns a full featured list object.
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_List $list
+	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_List $list);
+	public function createList() {
+		$listData = $this->dataBackend->getListData();
+		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
+		
+		$list = new Tx_PtExtlist_Domain_Model_List_List();
+		$list->setListData($listData);
+		$list->setListHeader($listHeader);
+		
+		return $list;
+	}
 	
-	/**
-	 * Renders the column captions out of the TS definition
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
-	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list);
-
 }
+
 ?>

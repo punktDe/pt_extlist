@@ -24,31 +24,30 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * TODO insert comment
- * 
- * @package Typo3
- * @subpackage pt_extlist
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- */
-interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
-	
-	/**
-	 * 
-	 * Renders the given list through TypoScript.
-	 * Also uses the column definitions.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_List $list
-	 * @return Tx_PtExtlist_Domain_Model_List_List
-	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_List $list);
-	
-	/**
-	 * Renders the column captions out of the TS definition
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
-	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list);
+class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	protected $listHeader;
+	protected $captionRenderer;
+	
+	public function setUp() {
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+	
+		$this->listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilderMock);
+		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy();
+	}
+	
+	public function testRenderCaption() {
+		// see ConfigurationBuilderMock for column definitions
+		
+		$list = new Tx_PtExtlist_Domain_Model_List_List();
+		$list->setListHeader($this->listHeader);
+		
+		$captions = $this->captionRenderer->renderCaptions($list);
+		
+		$this->assertEquals('Column 1', $captions->getItemByIndex(0));
+	}
+	
+	
 }
+
 ?>
