@@ -24,15 +24,20 @@
 ***************************************************************/
 
 /**
- * Testcase for pt_list typo3 data backend object. 
+ * Base testcase for testing data backends
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_testcase extends Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest {
-
-	protected $tsConfigString =
+abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_Extbase_BaseTestcase {
+   
+    /**
+     * Holds configuration string for demo TS setup
+     *
+     * @var string
+     */
+    protected $tsConfigString =
 "plugin.tx_ptextlist.settings {
 
     # This comes from flexform!
@@ -43,11 +48,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_te
         # config für dosGenerator
         backendConfig {
 
-            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
+            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
+            dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
             dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
             
             datasource {
-
+                host = localhost
+                username = typo3
+                password = typo3
+                database = typo3
             }
             
             tables (
@@ -66,20 +75,45 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_te
             
         }
 }";
-	
-	
-	
-	public function testSetUp() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend'));
-	}
-	
-	
-	
-	public function testCreateDataSource() {
-		$dataSource = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend::createDataSource($this->configurationBuilder);
-		$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource'));
-	}
+    
+    
+    
+    /**
+     * Holds array with demo ts config
+     *
+     * @var unknown_type
+     */
+    protected $tsConfig;
+    
+        
+    
+    /**
+     * Holds an instance of TS parser
+     *
+     * @var t3lib_TSparser
+     */
+    protected $typoScriptParser;
+    
+    
+    
+    /**
+     * Holds an instance of extlist configuration builder
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    protected $configurationBuilder;
+    
+    
+    
+    /**
+     * Setup test by loading some demo ts settings
+     */
+    public function setup() {
+         $this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
+         $this->typoScriptParser->parse($this->tsConfigString);
+         $this->tsConfig = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+         $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->tsConfig['plugin']['tx_ptextlist']['settings']);
+    }
 	
 }
-
 ?>
