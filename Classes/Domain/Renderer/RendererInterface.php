@@ -33,13 +33,13 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * @param Tx_PtExtlist_Domain_Model_List_List $list
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_ListData $list);
+	public function render(Tx_PtExtlist_Domain_Model_List_List $list);
 	
 	/**
 	 * Renders the column captions out of the TS definition
 	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
 	 */
-	public function renderCaptions();
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list);
 }
 
 ?>
