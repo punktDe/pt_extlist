@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -25,32 +24,23 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * Testcase for mapper factory
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Renderer_RendererFactory {
-
-    /**
-     * TODO insert comment!
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
-     * @return unknown
-     */	
-	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
-		
-		$settings = $configuration->getSettings();
-		$className = $settings['rendererClassName'];
-		tx_pttools_assert::isNotEmpty($className, array('message' => 'No className for the renderer configured. 1280236277'));
-		tx_pttools_assert::isTrue(class_exists($className),array('message' => 'Class name '.$className.' does not exist. 1280236512'));
-		
-		$renderer = new $className($configuration);
-		
-		return $renderer;
+class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+	
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
+	}
+	
+	
+	
+	public function testCreateInstance() {
+		$this->markTestIncomplete();
 	}
 	
 }
-
 ?>

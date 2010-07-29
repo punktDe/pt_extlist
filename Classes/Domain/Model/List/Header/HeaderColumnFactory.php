@@ -27,9 +27,17 @@
  * Class implements header column factory
  * 
  * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 	
+	/**
+	 * TODO add some comment!
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration
+	 * @return unknown
+	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		

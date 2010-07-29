@@ -24,13 +24,47 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * TODO insert comment
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
-	
+
+	/**
+	 * TODO insert comment!
+	 *
+	 * @var unknown_type
+	 */
 	protected $cObj;
 	
+	
+	
+	/**
+	 * TODO insert comment!
+	 *
+	 * @var unknown_type
+	 */
 	protected $cellRenderer;
+	
+	
+	
+	/**
+	 * TODO insert comment!
+	 *
+	 * @var unknown_type
+	 */
 	protected $captionRenderer;
 	
+	
+	
+	/**
+	 * TODO insert comment!
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $config
+	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $config) {
 		parent::__construct($config);
 		
@@ -40,7 +74,10 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 	}
 	
+	
+	
 	/**
+	 * TODO insert comment
 	 * 
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::render()
 	 */
@@ -54,7 +91,10 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		return $renderedList;
 	}
 	
+	
+	
 	/**
+	 * TODO insert comment!
 	 * 
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
 	 */
@@ -82,6 +122,13 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	}
 	
 	
+	
+	/**
+	 * TODO insert comment!
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $list
+	 * @return unknown
+	 */
 	protected function renderList(Tx_PtExtlist_Domain_Model_List_ListData $list) {
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
@@ -98,6 +145,13 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	}
 	
 	
+	
+	/**
+	 * TODO insert comment
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @return unknown
+	 */
 	protected function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row) {
 		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
@@ -114,10 +168,6 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		
 		return $renderedRow;
 	}
-		
-	
-	
-	
 	
 }
 

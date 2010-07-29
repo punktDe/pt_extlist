@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * 
+ * Class implements an or criteria
  *
  * @package Typo3
  * @subpackage pt_extlist
@@ -32,9 +32,22 @@
  */
 class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 
+	/**
+	 * Holds first criteria for or conjunction
+	 *
+	 * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+	 */
 	protected $firstCriteria;
 	
+	
+	
+	/**
+	 * Holds second criteria for or conjunction
+	 *
+	 * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+	 */
 	protected $secondCriteria;
+	
 	
 	
 	/** 
@@ -49,6 +62,8 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 		$this->secondCriteria = $secondCriteria;
 	}
 	
+	
+	
 	/**
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
 	 * @author Daniel Lienert <lienert@punkt.de>
@@ -57,6 +72,7 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	public function getFirstCriteria() {
 		return $this->firstCriteria;
 	}
+	
 	
 	
 	/**

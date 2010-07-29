@@ -218,7 +218,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getPager() {
 		return $this->pager;
 	}
-	
 
 }
 

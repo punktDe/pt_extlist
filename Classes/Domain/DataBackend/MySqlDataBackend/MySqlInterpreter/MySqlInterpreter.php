@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Interpreter for MySql queries
  * 
@@ -120,6 +118,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	
 	
 	
+	/**
+	 * Returns translated select part of query without 'SELECT'
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+	 * @return string Translated SELECT part of query without 'SELECT'
+	 */
 	public static function getSelectPart(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 		$columnsArray = $query->getFields();
 		$selectString = '';
@@ -129,6 +133,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	
 	
 	
+	/**
+	 * Returns translated from part of query without 'FROM'
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+	 * @return string Translated FROM part of query without 'FROM'
+	 */
 	public static function getFromPart(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 		$fromArray = $query->getFrom();
 		$fromString = '';
@@ -138,12 +148,19 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	
 	
 	
+	/**
+	 * Translates whole query with all keywords (SELECT, WHERE, FROM...)
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+	 * @return string Translated query with all keywords
+	 */
 	public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 	    $sqlString = '';
 		
 	    $sqlString .= self::getSelectPart($query) != '' ? 'SELECT ' . self::getSelectPart($query) : '';
 	    $sqlString .= self::getFromPart($query) != '' ? ' FROM ' . self::getFromPart($query) : '';
 	    $sqlString .= self::getCriterias($query) != '' ? ' WHERE ' . self::getCriterias($query) : '';
+	    // TODO implement group by!
 	    //$sqlString .= $this->getGroupByPart($query);
 	    $sqlString .= self::getSorting($query) != '' ? ' ORDER BY ' . self::getSorting($query) : '';
 	    $sqlString .= self::getLimit($query) != '' ? ' LIMIT ' . self::getLimit($query) : '';

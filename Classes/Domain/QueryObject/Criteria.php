@@ -114,12 +114,12 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
 	/**
 	 * Returns a new 'in' criteria for given field and value
 	 *
-	 * @param string $field Field to be compared with
-	 * @param string $values Values to compare content of field with
+	 * @param string $needle Field to be compared with
+	 * @param string $haystack Values to compare content of field with
 	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
 	 */
-	public static function in($field, $values) {
-		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, 'IN');
+	public static function in($needle, $haystack) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($needle, $haystack, 'IN');
 	}
 	
 	
@@ -159,7 +159,6 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
 	public static function notOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		return new Tx_PtExtlist_Domain_QueryObject_NotCriteria($criteria);
 	}
+	
 }
- 
- 
- ?>
+?>

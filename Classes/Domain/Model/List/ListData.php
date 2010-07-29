@@ -29,10 +29,19 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  * @author Christoph Ehscheidt
+ * @package Typo3
+ * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_List_ListData extends tx_pttools_objectCollection {
 	
+	/**
+	 * Class name to restrict collection to
+	 *
+	 * @var string
+	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_List_Row';
+	
+	
 	
 	/**
 	 * Adds a row to list data

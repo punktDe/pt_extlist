@@ -28,6 +28,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	

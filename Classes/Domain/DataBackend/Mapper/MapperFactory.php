@@ -23,12 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
-// TODO implement tests!
-
-// TODO check whether this should be singleton or not
-
 /**
  * Class implements a factory for a data mapper
  * 
@@ -49,12 +43,18 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataMapperClass'], array('message' => 'No dataMapperClass given in settings 1277889455'));	
 		$dataMapperClassName = $dataBackendSettings['dataMapperClass'];
 		
+		// TODO check whether we should use singleton here
+		
 		// Check whether dataMapper class exists
 		if (!class_exists($dataMapperClassName)) {
 			throw new Exception('Data Mapper class ' . $dataMapperClassName . ' does not exist!');
 		}
 		$dataMapper = new $dataMapperClassName($configurationBuilder);
-		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration(); 
+		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
+
+		// Check whether mapper implements interface
+		tx_pttools_assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
+		// TODO rename class name: use injectMapperConfiguration instead!
         $dataMapper->setMapperConfiguration($mapperConfiguration);
 		
 		return $dataMapper;

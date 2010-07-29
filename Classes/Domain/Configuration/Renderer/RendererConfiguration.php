@@ -24,27 +24,79 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * TODO add some comment!
+ *
+ */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 
+	/**
+	 * TODO add some comment!
+	 *
+	 * @var array
+	 */
 	protected $settings = array();
+	
+	
+	
+	/**
+	 * TODO add some comment!
+	 *
+	 * @var unknown_type
+	 */
 	protected $columnConfigCollection = null;
 	
+	
+	
+	/**
+	 * TODO add some comment!
+	 *
+	 * @param array $settings
+	 */
 	public function __construct(array $settings) {
 		$this->settings = $settings;
 	}
 	
+	
+	
+	/**
+	 * TODO add some comment
+	 *
+	 * @return unknown
+	 */
 	public function getSettings() {
 		return $this->settings;
 	}
 	
+	
+	
+	/**
+	 * TODO add some comment
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection
+	 */
 	public function setColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection) {
 		$this->columnConfigCollection = $columnConfigCollection;
 	}
 	
+	
+	
+	/**
+	 * TODO add some comment
+	 *
+	 * @return unknown
+	 */
 	public function getColumnConfigCollection() {
 		return $this->columnConfigCollection;
 	}
 	
+	
+	
+	/**
+	 * TODO add some comment
+	 *
+	 * @return unknown
+	 */
 	public function isEnabled() {
 		if($this->settings['enabled'] == '1') {
 			return true;
@@ -52,6 +104,13 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 		return false;
 	}
 	
+	
+	
+	/**
+	 * TODO add some comment
+	 *
+	 * @return unknown
+	 */
 	public function showCaptionsInBody() {
 		if($this->settings['showCaptionsInBody'] == '1') {
 			return true;

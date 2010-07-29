@@ -24,22 +24,34 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * TODO insert comment
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
 interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	
 	/**
 	 * 
 	 * Renders the given list through TypoScript.
 	 * Also uses the column definitions.
+	 * 
 	 * @param Tx_PtExtlist_Domain_Model_List_List $list
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_ListData $list);
+
+	
 	
 	/**
 	 * Renders the column captions out of the TS definition
+	 * 
 	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
 	 */
 	public function renderCaptions();
+	
 }
 
 ?>

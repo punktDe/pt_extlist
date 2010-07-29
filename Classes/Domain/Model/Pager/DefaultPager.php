@@ -29,36 +29,81 @@
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface {
 	
+	/**
+	 * TODO add some comment!
+	 *
+	 * @var int
+	 */
 	protected $currentPage = 1;
+	
+	
+	
+	/**
+	 * TODO Add some comment
+	 *
+	 * @var array
+	 */
 	protected $settings = array();
+	
+	
+	
+	/**
+	 * TODO add some comment
+	 *
+	 * @var int
+	 */
 	protected $itemsPerPage;
+	
+	
+	
+	/**
+	 * TODO add some comment!
+	 *
+	 * @var int
+	 */
 	protected $totalItemCount;
 
 	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::init()
 	 *
 	 */
 	public function init() {}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getCurrentPage()
 	 */
 	public function getCurrentPage() {
 		return $this->currentPage;
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::setCurrentPage()
 	 */
 	public function setCurrentPage($page) {
 		$this->currentPage = $page;
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::isEnabled()
 	 *
 	 */
@@ -70,13 +115,19 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return false;
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getItemsPerPage()
 	 *
 	 */
 	public function getItemsPerPage() {
 		return $this->itemsPerPage;
 	}
+	
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPages()
@@ -93,6 +144,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return $pages;
 	}
 	
+	
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
 	 */
@@ -100,12 +153,16 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return ( ($this->currentPage-1) * $this->itemsPerPage) + 1;
 	}
 	
+	
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastItemIndex()
 	 */
 	public function getLastItemIndex() {
 		return (($this->currentPage-1) * $this->itemsPerPage) + $this->itemsPerPage;
 	}
+	
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::injectSettings()
@@ -117,6 +174,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 			$this->itemsPerPage = $settings['itemsPerPage'];
 		}
 	}
+	
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface::injectGPVars()
@@ -131,14 +190,21 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 			
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::setItemsCount()
 	 */
 	public function setItemCount($itemCount) {
 		$this->totalItemCount = $itemCount;
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
 	 * 
 	 * @see Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface
 	 */
@@ -146,21 +212,33 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		$this->setItemCount($itemCount);
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getItemCount()
 	 */
 	public function getItemCount() {
 		return $this->totalItemCount;
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::getSessionNamespace()
 	 */
 	public function getObjectNamespace() {
 		return 'tx_ptextlist_pi1';
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::loadFromSession()
 	 */
 	public function injectSessionData(array $sessionData) {
@@ -172,6 +250,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		}
 	}
 	
+	
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::persistToSession()
 	 */
@@ -179,6 +259,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return array('currentPage' => $this->currentPage,
 						'totalItemCount' => $this->totalItemCount);
 	}
+	
+	
 	
 	/**
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowFirstLink()
@@ -189,6 +271,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return false;
 	}
 	
+	
+	
 	/**
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowLastLink()
 	 */
@@ -197,6 +281,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 			return true;
 		return false;
 	}
+	
+	
 	
 	/**
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowNextLink()
@@ -207,6 +293,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return false;
 	}
 	
+	
+	
 	/**
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowPreviousLink()
 	 */
@@ -216,7 +304,11 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return false;
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastPage()
 	 */
 	public function getLastPage() {
@@ -224,13 +316,19 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	}
 	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstPage()
 	 */
 	public function getFirstPage() {
 		return 1;
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPreviousPage()
 	 */
 	public function getPreviousPage() {
@@ -241,7 +339,11 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return $this->getFirstPage();
 	}
 	
+	
+	
 	/**
+     * TODO add some comment!
+     * 
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getNextPage()
 	 */
 	public function getNextPage() {

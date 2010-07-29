@@ -39,12 +39,16 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	 */
 	protected $listData;
 	
+	
+	
 	/**
 	 * A reference to the header data.
 	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	protected $listHeader;
 
+	
+	
     /**
      * Getter for list data. 
      *
@@ -53,6 +57,8 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	public function getListData() {
 		return $this->listData;
 	}
+	
+	
 	
 	/**
 	 * Setter for list data
@@ -70,6 +76,8 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	public function getListHeader() {
 		return $this->listHeader;
 	}
+	
+	
 	
 	/**
 	 * 

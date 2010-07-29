@@ -23,7 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
  * Class implements a collection of filterboxes
  * 
@@ -60,6 +59,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     	$this->listIdentifier = $configurationBuilder->getListIdentifier();
     }
     
+    
+    
     /**
      * Add Filterbox to Collection
      *  
@@ -70,6 +71,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     public function addFilterBox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterBox, $filterBoxIdentifier) {
     	$this->addItem($filterBox, $filterBoxIdentifier);
     }
+    
     
     
     /**
