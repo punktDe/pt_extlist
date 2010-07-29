@@ -60,11 +60,11 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataBackendClassName = $dataBackendSettings['dataBackendClass'];
 	        
 	        // Check whether backend class exists
-	        tx_pttools_assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist!'));
+	        tx_pttools_assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1280400021'));
 	        $dataBackend = new $dataBackendClassName($configurationBuilder); 
 	        
 	        // Check whether backend class implements abstract backend class
-	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
+	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend 1280400022'));
 
 	        
 	        $dataSource = self::getDataSource($configurationBuilder);
