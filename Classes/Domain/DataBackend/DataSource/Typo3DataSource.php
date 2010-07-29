@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	        $this->dbObj->sql_free_result($res);
 	        return $rows;
 		} catch(Exception $e) {
-			throw new Exception('Error while retrieving data from database using typo3 db object. Error: ' . $e->getMessage() . ' sql_error says: ' . $this->connection->sql_error());
+			throw new Exception('Error while retrieving data from database using typo3 db object. Error: ' . $e->getMessage() . ' sql_error says: ' . $this->connection->sql_error() . ' 1280400023');
 		}
 	}
 	
