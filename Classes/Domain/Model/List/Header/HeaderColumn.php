@@ -86,6 +86,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->columnConfig->getLabel();
     }
 
+    public function getColumnIdentifier() {
+    	return $this->getColumnIdentifier();
+    }
+    
+    
     /**
      * Build an array with sorting definitions for this column
      *  
@@ -95,9 +100,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      */
     public function getSorting() {
     	
-    	$sorting = array();
-    	
-    	if($this->sortingState != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
+    	$sorting = array();    	
+    	if($this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC || $this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
     		foreach($this->sortingFieldConfig as $fieldConfig) {
     			if($fieldConfig->getForceDirection()){
     				$sorting[$fieldConfig->getField()] = $fieldConfig->getDirection();
@@ -130,7 +134,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 *
 	 */
     public function persistToSession() {
-		return array('sorting' => $this->sortingState);
+		return array('sortingState' => $this->sortingState);
     }
     
     
@@ -140,7 +144,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @param array $sessionData Object's state to be persisted to session
      */
     public function injectSessionData(array $sessionData) {
-    	
+    	if(array_key_exists('sortingState', $sessionData)) {
+    		$this->sortingState = $sessionData['sortingState'];
+    	}
     }
     
 	/**
