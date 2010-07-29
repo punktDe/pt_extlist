@@ -23,9 +23,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
- * Class implements data backend for general mysql connections
+ * Class implements data backend for generic mysql connections
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
@@ -103,7 +102,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function getListData() {
 		$sqlQuery = $this->buildQuery();
 		$rawData = $this->dataSource->executeQuery($sqlQuery);
-		return $rawData;
+		$mappedListData = $this->dataMapper->getMappedListData($rawData);
+		return $mappedListData;
 	}
 	
 	
@@ -206,7 +206,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		foreach ($this->filterboxCollection as $filterBox) {
 			$whereClauses[] = $this->getWhereClauseFromFilterbox($filterBox);
 		}
-		return '(' . implode(') AND (', $whereClauses) . ')';
+		$whereClauseString = sizeof($whereClauses) > 0 ? '(' . implode(') AND (', $whereClauses) . ')' : '';
+		return $whereClauseString;
 	}
 	
 	
@@ -222,7 +223,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		foreach($filterbox as $filter) {
 			$whereClausesFromFilterbox[] = $this->getWhereClauseFromFilter($filter);
 		}
-		return '(' . implode(') AND (', $whereClausesFromFilterbox) . ')';
+		$whereClauseString = sizeof($whereClausesFromFilterbox) > 0 ? '(' . implode(') AND (', $whereClausesFromFilterbox) . ')' : '';
+		return $whereClauseString;
 		
 	}
 	
@@ -263,9 +265,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildLimitPart() {
 		$limitPart = '';
-		$pagerOffset = intval($this->pager->getCurrentPage()) * intval($this->pager->getItemsPerPage());
+		$pagerOffset = intval($this->pager->getCurrentPage() - 1) * intval($this->pager->getItemsPerPage());
 		$pagerLimit = intval($this->pager->getItemsPerPage());
-		$limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
+		$limitPart .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
 		$limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
 		return $limitPart;
 	}

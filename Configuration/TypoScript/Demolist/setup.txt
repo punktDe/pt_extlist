@@ -1,0 +1,95 @@
+####################################################
+# This template configures a demolist for use
+# with pt_extlist
+#
+# @author Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.settings {
+
+    listConfig.demolist {
+    
+        backendConfig {
+            
+            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
+            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
+            
+            datasource {
+                # no configuration required here
+            }
+            
+            
+            tables (
+                static_countries
+            )
+            
+            
+            #baseFromClause (
+            #    ...
+            #)
+            
+            #baseWhereClause (
+            #    ...
+            #) 
+            
+        }
+        
+
+        
+        fields {
+            
+            name_local {
+                table = static_countries
+                field = cn_short_local
+                
+                # default for isSortable is "1"
+                isSortable = 1
+            }
+            
+            name_english {
+                table = static_countries
+                field = cn_short_en
+                isSortable = 1
+            }
+            
+        }
+
+
+        
+        columns {
+            10 {
+                columnIdentifier = renderedCol1
+                fieldIdentifier = name_local
+            }
+            
+            20 {
+                columnIdentifier = renderedCol2
+                fieldIdentifier = name_english
+            }
+        }
+
+
+        
+        renderer {
+            enabled = 1
+            showCaptionsInBody = 0
+            rendererClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
+        }
+        
+        
+        
+        pagerConfig {
+            enabled = 1
+            pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+            itemsPerPage = 2
+            
+            showNextLink = 1
+            showPreviousLink = 1
+            showFirstLink = 1
+            showLastLink = 1
+        }
+    
+    }
+}

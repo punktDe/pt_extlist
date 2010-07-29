@@ -32,8 +32,22 @@
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
 	
+	/**
+	 * Holds an array with instances of pagers
+	 *
+	 * @var array
+	 */
 	protected static $instances = array();
 	
+	
+	
+	/**
+	 * Returns an instance of pager for a given configuration builder and a pager configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder,
 	    Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
 		if (!array_key_exists($configurationBuilder->getListIdentifier(), self::$instances)) {

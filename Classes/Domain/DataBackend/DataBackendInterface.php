@@ -28,6 +28,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
@@ -49,10 +50,48 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
     
     
+    /**
+     * Injector for pager
+     *
+     * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
+     */
     public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager);
+    
+    
+    
+    /**
+     * Injector for data mapper
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
+     */
     public function injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper);
+    
+    
+    
+    /**
+     * Injector for data source
+     *
+     * @param mixed $dataSource
+     */
     public function injectDataSource($dataSource);
+    
+    
+    
+    /**
+     * Injector for filterbox collection
+     *
+     * @param Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection
+     */
     public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection);
+    
+    
+    
+    /**
+     * Injector for backend configuration
+     *
+     * @param array $backendConfiguration
+     */
+    public function injectBackendConfiguration($backendConfiguration);
 
 }
 
