@@ -23,6 +23,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * @package        TYPO3
+ * @subpackage	   pt_extlist  
+ * @author         Daniel Lienert <lienert@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	
 	/**
@@ -39,25 +44,24 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 		$sortingFields = t3lib_div::trimExplode(',', $sortingSettings);
 		foreach($sortingFields as $sortingField) {
 			$sortingFieldOptions = t3lib_div::trimExplode(' ', $sortingField);
-			
 			$fieldName  = $sortingFieldOptions[0];
 			if($fieldName) {
-				$sortingDir = strtolower($sortingFieldOptions[1]);
+				$tempSortingDir = strtolower($sortingFieldOptions[1]);	
+				$sortingDir = 'asc';
 				$forceSortingDir = false;
-				
-				if(!in_array($sortingDir, array('asc','desc'))) {
-				} elseif(!in_array($sortingDir, array('!asc','!desc'))) {
-						$forceSortingDir = true;
-						$sortingDir = substr($sortingDir,1);
-				} else {
-					$sortingDir = 'asc';
+
+				if(in_array($tempSortingDir, array('asc','desc'))) {
+					$sortingDir = $tempSortingDir;
+				} elseif(in_array($tempSortingDir, array('!asc','!desc'))) {
+					$forceSortingDir = true;
+					$sortingDir = substr($tempSortingDir,1);
 				}
 
 				$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldName, $sortingDir, $forceSortingDir);
 				$sortingConfigCollection->addSortingField($sortingConfig, $fieldName);
 			}
 		}
-		
+
 		return $sortingConfigCollection;
 	}
 	
