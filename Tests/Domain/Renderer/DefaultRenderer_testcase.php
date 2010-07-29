@@ -58,7 +58,10 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 		$row->addCell('field3', 'val3');
 		$listData->addRow($row);
 		
-		$renderedList = $this->renderer->render($listData);
+		$list = new Tx_PtExtlist_Domain_Model_List_List();
+		$list->setListData($listData);
+		
+		$renderedList = $this->renderer->render($list);
 
 		$this->assertTrue(is_a($renderedList, 'Tx_PtExtlist_Domain_Model_List_ListData'));
 		
@@ -68,8 +71,11 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 	}
 	
 	public function testRenderCaptions() {
+		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilderMock);
+		$list = new Tx_PtExtlist_Domain_Model_List_List();
+		$list->setListHeader($listHeader);
 		
-		$captions = $this->renderer->renderCaptions();
+		$captions = $this->renderer->renderCaptions($list);
 		
 		$this->assertTrue(is_a($captions, 'Tx_PtExtlist_Domain_Model_List_Row'));
 		
