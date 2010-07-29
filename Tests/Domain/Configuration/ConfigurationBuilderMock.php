@@ -89,6 +89,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'isSortable' => '1',
 	                        	'sorting' => 'tstamp, title',
 	                            'access' => '1,2,3,4'
+	                        ),
+	                        30 => array( 
+	                            'columnIdentifier' => 'column3',
+	                            'fieldIdentifier' => 'field3',
+	                            'label' => 'Column 3',  
+	                            'isSortable' => '1',
+	                        	'sorting' => 'tstamp asc, title !DeSc',
+	                            'access' => '1,2,3,4'
 	                        )
 	                    ),
 	                    'renderer' => array(

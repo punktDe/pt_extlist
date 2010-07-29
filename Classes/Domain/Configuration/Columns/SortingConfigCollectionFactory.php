@@ -39,6 +39,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	 */
 	public static function getInstanceBySortingSettings($sortingSettings) {
 
+		$nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+		
 		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
 		
 		$sortingFields = t3lib_div::trimExplode(',', $sortingSettings);
@@ -47,14 +50,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 			$fieldName  = $sortingFieldOptions[0];
 			if($fieldName) {
 				$tempSortingDir = strtolower($sortingFieldOptions[1]);	
-				$sortingDir = 'asc';
+				$sortingDir = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
 				$forceSortingDir = false;
 
 				if(in_array($tempSortingDir, array('asc','desc'))) {
-					$sortingDir = $tempSortingDir;
+					$sortingDir = $nameToConstantMapping[$tempSortingDir];
 				} elseif(in_array($tempSortingDir, array('!asc','!desc'))) {
 					$forceSortingDir = true;
-					$sortingDir = substr($tempSortingDir,1);
+					$sortingDir = $nameToConstantMapping[substr($tempSortingDir,1)];
 				}
 
 				$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldName, $sortingDir, $forceSortingDir);

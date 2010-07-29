@@ -114,6 +114,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $sorting;
     }
     
+    
+    /**
+     * return sorting State 
+     * 
+     * @return integer 1 = ASC, 0 = NONE,  -1 = DESC
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 29.07.2010
+     */
+    public function getSortingState() {
+    	return $this->sortingState;
+    }
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
@@ -154,7 +165,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface#injectGPVars()
 	 */
     public function injectGPVars($GPVars) {
-    	
+    	if(array_key_exists('sortingState', $GPVars)) {
+    		$this->sortingState = $GPVars['sortingState'];
+    	}
     }   
 }
 ?>
