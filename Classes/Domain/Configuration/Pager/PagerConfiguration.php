@@ -32,20 +32,54 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	
+	/**
+	 * Holds an array of settings for pager
+	 *
+	 * @var array
+	 */
 	protected $settings = array();
 	
+	
+	
+	/**
+	 * Holds class name for pager
+	 *
+	 * @var string
+	 */
 	protected $pagerClassName = '';
 	
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $pagerSettings) {
+	
+	
+	/**
+	 * Constructor for pager configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param array $pagerSettings
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $pagerSettings=array()) {
 		$this->settings = $pagerSettings;
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings'));
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
 	}
 	
+	
+	
+	/**
+	 * Returns class name of pager
+	 *
+	 * @return string Class name of pager
+	 */
 	public function getPagerClassName() {
 		return $this->pagerClassName;
 	}
 	
+	
+	
+	/**
+	 * Returns settings array of pager
+	 *
+	 * @return array Array with settings for pager
+	 */
 	public function getPagerSettings() {
 		return $this->settings;
 	}
