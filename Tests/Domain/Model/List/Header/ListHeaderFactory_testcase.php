@@ -23,46 +23,16 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
+
+
+/**
+ * Testcase for list data class
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
+class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderfactory_testcase extends Tx_Extbase_BaseTestcase {
 	
-	protected $field; 
-	
-	protected $direction;
-	
-	/**
-	 * if this is set to true, the direction cannot be changed 
-	 * 
-	 * @var bool
-	 */
-	protected $forceDirection;
-	
-	
-	// TODO: implement sorting order
-	
-	
-	public function __construct($field, $direction, $forceDirection) {
-		$this->direction = $direction;
-		$this->field = $field; 
-		$this->forceDirection = $forceDirection;
-	}
-	
-	public function setDirection($direction) {
-		if($this->forceDirection == false) {
-			$this->direction = $direction;
-		}
-	}
-	
-	
-	public function getDirection() {
-		return $this->direction;
-	}
-	
-	public function getForceDirection() {
-		return $this->forceDirection;
-	}
-	
-	public function getField() {
-		return $this->field;
-	}
 }
 ?>

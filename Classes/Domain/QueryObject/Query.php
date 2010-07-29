@@ -206,7 +206,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 		if ($direction == self::SORTINGSTATE_ASC || $direction == self::SORTINGSTATE_DESC) {
 		    $this->sortings[$column] = $direction;	
 		} else {
-			throw new Exception('Given direction must be either DESCENDING or ASCENDING, but was ' . $direction);
+			throw new Exception('Given direction must be either SORTINGSTATE_ASC(1) or SORTINGSTATE_DESC(-1), but was ' . $direction);
 		}
 		
 	}

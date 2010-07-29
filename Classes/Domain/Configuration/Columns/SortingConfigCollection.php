@@ -26,7 +26,9 @@
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends tx_pttools_objectCollection {
 	
 	public function addSortingField($sortingField, $fieldIdentifier) {
+		
 		$this->addItem($sortingField, $fieldIdentifier);
+		
 	}
 }
 ?>
