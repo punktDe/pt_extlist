@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Abstract class as base class for all data backends
  * 
@@ -47,6 +45,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @var string List identifier of list this data backend belongs to
 	 */
 	protected $listIdentifier;
+	
 	
 	
 	/**
@@ -77,6 +76,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $filterboxCollection;
 	
 	
+	
     /**
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface
      */
@@ -90,6 +90,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @var mixed
 	 */
 	protected $dataSource;
+	
 	
 	
 	/**
@@ -206,6 +207,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getFilterboxCollection() {
 		return $this->filterboxCollection;
 	}
+	
+	
 	
 	/**
 	 * 
