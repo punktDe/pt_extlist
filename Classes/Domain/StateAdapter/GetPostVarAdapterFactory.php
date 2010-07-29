@@ -24,28 +24,34 @@
 ***************************************************************/
 
 /**
- * Class implements header column factory
- * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * Class implements a factory for GET/POST Var Adapter.
+ *
+ * @package TYPO3
+ * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
+class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
-		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+	/**
+	 * Singleton instance of GET/POST Var Adapter.
+	 *
+	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
+	 */
+	private static $instance;
+	
+	/**
+	 * Factory method for GET/POST Var Adapter.
+	 * 
+	 * @return Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter Singleton instance of GET/POST Var Adapter.
+	 */
+	public static function getInstance() {
+		if (self::$instance == NULL) {
+			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
+			
+			self::$instance->injectGetVars($_GET);
+			self::$instance->injectPostVars($_POST);
+		}
 		
-		$headerColumn->injectColumnConfig($columnConfiguration);
-		
-		// Inject settings from session.
-        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-        $sessionPersistenceManager->loadFromSession($headerColumn);
-        
-        // Inject settings from gp-vars.
-        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter::getInstanceFilledByGpVars();
-        $gpAdapter->getParametersByObject($headerColumn);
-		
-		$headerColumn->init();
-		return $headerColumn;
+		return self::$instance;
 	}
-
 }
 ?>

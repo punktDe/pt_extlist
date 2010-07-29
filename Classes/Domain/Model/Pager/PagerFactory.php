@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
         $sessionPersistenceManager->loadFromSession($pager);
         
         // Inject settings from gp-vars.
-        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter::getInstanceFilledByGpVars();
+        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpAdapter->getParametersByObject($pager);
         
         // Save new state to session.
