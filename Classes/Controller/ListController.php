@@ -83,10 +83,12 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function listAction() {
 		
+		$listFactory = new Tx_PtExtlist_Domain_Model_List_ListFactory($this->configurationBuilder);
+		
 		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
 					$this->configurationBuilder->buildRendererConfiguration());
 		
-		$list = $this->dataBackend->getList();
+		$list = $listFactory->createList();
 		
 		$renderedListData = $renderer->render($list);
 		$renderedCaptions = $renderer->renderCaptions($list);

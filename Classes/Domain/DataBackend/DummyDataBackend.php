@@ -60,29 +60,6 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	}
 	
 	
-	
-	/**
-	 * 
-	 * Generates dummy list data and returns a wrapped list
-	 * including header data.
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_List
-	 */
-	public function getList() {
-		$rawListData = $this->getListDataFromDataSource();
-		$mappedListData = $this->dataMapper->getMappedListData($rawListData);
-		
-		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
-		
-		$list = new Tx_PtExtlist_Domain_Model_List_List();
-		$list->setListData($mappedListData);
-		$list->setListHeader($listHeader);
-		
-		return $list;
-	}
-	
-	
-	
 	/**
 	 * Executes query on data source
 	 *
