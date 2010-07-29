@@ -48,6 +48,14 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	 */
     public function getListData();
 
+    /**
+	 * 
+	 * Generates dummy list data and returns a wrapped list
+	 * including header data.
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_List_List
+	 */
+	//public function getList();
     
     
     /**

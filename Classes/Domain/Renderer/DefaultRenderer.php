@@ -44,12 +44,15 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * 
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::render()
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_ListData $list) {
+	public function render(Tx_PtExtlist_Domain_Model_List_List $list) {
 		if(!$this->rendererConfiguration->isEnabled()) return $list;
 		
 		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280315003'));
 		
-		$renderedList = $this->renderList($list);
+		$listData = $list->getListData();
+		tx_pttools_assert::isNotNull($listData, array(message => 'No list data found in list. 1280405145'));
+		
+		$renderedList = $this->renderList($listData);
 	
 		return $renderedList;
 	}
@@ -58,27 +61,8 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * 
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
 	 */
-	public function renderCaptions() {
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
-		
-		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280315045'));
-		
-		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
-		
-		
-		foreach($columnCollection->getIterator() as $column) {
-			$label = $column->getLabel();
-			
-			// Use TS for rendering
-			if(is_array($label)) {
-				$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
-				$label = $this->cObj->cObjGet($conf);
-			}
-			
-			$row->addCell($column->getColumnIdentifier(), $label);
-		}
-		
-		return $row;
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list) {
+		return $this->captionRenderer->renderCaptions($list);
 	}
 	
 	
