@@ -23,14 +23,13 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Testcase for mysql query interpreter
  * 
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -40,6 +39,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	 * @var Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected $queryObject;
+	
+	
 	
 	public function setup() {
 		$this->queryObject = new Tx_PtExtlist_Domain_QueryObject_Query();
@@ -87,7 +88,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	public function testTranslateWholeQuery() {
 		$translatedQuery = 	Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::interpretQuery($this->queryObject);
-		print_r($translatedQuery);
 	}
 	
 }

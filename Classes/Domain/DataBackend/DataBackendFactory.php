@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Factory for data backend objects
  * 
@@ -61,9 +59,10 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        
 	        // Check whether backend class exists
 	        tx_pttools_assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1280400021'));
-	        $dataBackend = new $dataBackendClassName($configurationBuilder); 
+	        $dataBackend = new $dataBackendClassName($configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
 	        
 	        // Check whether backend class implements abstract backend class
+	        // TODO backend should be tested to implement interface not abstract class!
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend 1280400022'));
 
 	        
@@ -74,6 +73,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        // TODO pager must not be registered as an observer in data source!!!
 	        #$dataSource->registerObserver($pager);
 	        
+	        $dataBackend->injectBackendConfiguration($configurationBuilder->getBackendConfiguration());
+	        $dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
 	        $dataBackend->injectDataSource($dataSource);
 	        $dataBackend->injectPager($pager);
@@ -95,7 +96,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     protected static function getDataSource($dataBackendClassName, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	 // Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
          $dataSource = call_user_func($dataBackendClassName . '::createDataSource', $configurationBuilder);
-         print_r($dataSource);
          return $dataSource;
     }
     
