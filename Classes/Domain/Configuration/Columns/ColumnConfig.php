@@ -121,10 +121,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 			$this->renderObj = $columnSettings['renderObj'];
 		}
 		
-		if(!array_key_exists('sorting', $columnSettings)) {
-			$columnSettings['sorting'] = $this->fieldIdentifier;
+		if(array_key_exists('sorting', $columnSettings)) {
+			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
+		}else{
+			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
 		}
-		$this->sortingConfig = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
 	}
 	
 	

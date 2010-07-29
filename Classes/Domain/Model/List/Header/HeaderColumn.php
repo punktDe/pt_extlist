@@ -42,13 +42,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $listIdentifier;
 	
 	/**
-	 * 
 	 * @var string
 	 */
 	protected $columnIdentifier;
 	
 	/**
-	 *
 	 * @var boolean
 	 */
 	protected $isSortable;
@@ -59,6 +57,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $sortingFieldConfig;
 	
 	
+	/**
+	 * @var integer
+	 */
 	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
 
 	
@@ -81,11 +82,16 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		
 	}
 	
-	
+	/**
+	 * @return string column label
+	 */
 	public function getLabel() {
     	return $this->columnConfig->getLabel();
     }
     
+    /**
+	 * @return string column identifier
+	 */
     public function getColumnIdentifier() {
     	return $this->columnIdentifier;
     }
@@ -114,6 +120,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $sorting;
     }
     
+    
+    /**
+     * return sorting State 
+     * 
+     * @return integer 1 = ASC, 0 = NONE,  -1 = DESC
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 29.07.2010
+     */
+    public function getSortingState() {
+    	return $this->sortingState;
+    }
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
@@ -154,7 +171,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface#injectGPVars()
 	 */
     public function injectGPVars($GPVars) {
-    	
+    	if(array_key_exists('sortingState', $GPVars)) {
+    		$this->sortingState = $GPVars['sortingState'];
+    	}
     }   
 }
 ?>
