@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceFactory {
 		
 		// Check whether dataSource class exists
 		if (!class_exists($dataSourceClassName)) {
-			throw new Exception('Data Source class ' . $dataSourceClassName . ' does not exist!');
+			throw new Exception('Data Source class ' . $dataSourceClassName . ' does not exist! 1280400024');
 		}
 		$dataSource = new $dataSourceClassName($dataBackendSettings);
 		

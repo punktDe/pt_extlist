@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Testcase for array mapper object. 
  * 
@@ -34,7 +32,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Test_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extbase_BaseTestcase {
 
 	protected $arrayData;
 	
