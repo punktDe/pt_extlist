@@ -24,7 +24,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRendererStrategy implements Tx_PTExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
+class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
 
 }
 
