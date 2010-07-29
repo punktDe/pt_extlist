@@ -78,6 +78,21 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	protected $sortings = array();
 	
 	
+	/**
+     * @var integer
+     */
+	const SORTINGSTATE_NONE = 0;
+
+	/**
+     * @var integer
+     */
+	const SORTINGSTATE_ASC = 1;
+
+	/**
+     * @var integer
+     */
+	const SORTINGSTATE_DESC = -1;
+	
 	
 	/**
 	 * Adds a field name to list of fields
@@ -183,15 +198,17 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * Direction may be either ASCENDING oder DESCENDING
 	 *
 	 * @param string $column Column to be sorted
-	 * @param string $direction Direction of sorting: ASCENDING or DESCENDING
+	 * @param integer $direction Direction of sorting
 	 */
-	public function addSorting($column, $direction = 'ASCENDING') {
+	public function addSorting($column, $direction = self::SORTINGSTATE_ASC) {
 		tx_pttools_assert::isNotEmptyString($column, array('message' => 'column must not be empty! 1280060692'));
-		if (preg_match('/ASCENDING/', $direction) || preg_match('/DESCENDING/', $direction)) {
-		    $this->sortings[] = $column . ' ' . $direction;	
+		
+		if ($direction == self::SORTINGSTATE_ASC || $direction == self::SORTINGSTATE_DESC) {
+		    $this->sortings[$column] = $direction;	
 		} else {
 			throw new Exception('Given direction must be either DESCENDING or ASCENDING, but was ' . $direction);
 		}
+		
 	}
 	
 	
