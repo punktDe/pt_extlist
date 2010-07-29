@@ -23,19 +23,41 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * Class implements list header collection
- * 
- * @author Daniel Lienert <lienert@punkt.de>
- */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection {
-
-	public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier) {
-		
-		$this->addItem($columnHeader, $columnIdentifier);
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
+	
+	protected $field; 
+	
+	protected $direction;
+	
+	/**
+	 * if this is set to true, the direction cannot be changed 
+	 * 
+	 * @var bool
+	 */
+	protected $forceDirection;
+	
+	public function __construct($field, $direction, $forceDirection) {
+		$this->direction = $direction;
+		$this->field = $field; 
+		$this->forceDirection = $forceDirection;
 	}
 	
+	public function setDirection($direction) {
+		if($this->forceDirection == false) {
+			$this->direction = $direction;
+		}
+	}
+	
+	public function getDirection() {
+		return $direction;
+	}
+	
+	public function getForceDirection() {
+		return $this->forceDirection;
+	}
+	
+	public function getField() {
+		return $this->field;
+	}
 }
-
-
 ?>

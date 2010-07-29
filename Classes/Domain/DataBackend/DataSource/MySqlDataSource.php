@@ -23,25 +23,74 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
+/**
+ * Class implements data source for mysql databases
+ * 
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 
+	/**
+	 * Holds an instance of mysqli for database connection
+	 *
+	 * @var PDO
+	 */
 	protected $connection;
 	
 	
-	public function __construct(Tx_PtExtlist_Domain_Configuration_DataConfiguration &$configuration) {
-		$this->connection = new mysqli(	$configuration->getHost(),
-										$configuration->getUsername(),
-										$configuration->getPassword(),
-										$configuration->getSource());
+	
+	/**
+	 * Holds an instance of datasource configuration
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
+	 */
+	protected $databaseConfiguration;
+	
+	
+	
+	
+	/**
+	 * Constructor for datasource
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_DataConfiguration $configuration
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration) {
+		$this->databaseConfiguration = $configuration;
 	}
 	
 	
 	
+	/**
+	 * Injector for database connection object
+	 *
+	 * @param PDO $dbObject
+	 */
+	public function injectDbObject($dbObject) {
+		$this->connection = $dbObject;
+	}
 	
+	
+	
+	/**
+	 * Executes a query using current database connection
+	 *
+	 * @param string $query SQL query string
+	 * @return array Associative array of query result
+	 */
 	public function execute($query) {
-		
+		try {
+			/* @var $statement PDOStatement */
+		    $statement = $this->connection->prepare($query);
+		    $statement->execute();
+		    $result = $statement->fetchall();
+		} catch(Exception $e) {
+			throw new Exception('Error while trying to execute query on database! SQL-Statement: ' . $query . 
+			    ' 1280322659 - Error message from PDO: ' . $e->getMessage() . 
+			    '. Further information from PDO_errorInfo: ' . $statement->errorInfo());
+		}
+		return $result;
 	}
 	
 	

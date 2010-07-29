@@ -61,10 +61,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	/**
 	 * @var array
 	 */
-	protected $stdWrap;
+	protected $stdWrap = NULL;
 	
 	
 	protected $renderObj;
+
+	
+	protected $sortingConfig = NULL;
 	
 	/**
 	 * @param $columnSettings array of coumn settings
@@ -80,6 +83,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 		$this->fieldIdentifier = $columnSettings['fieldIdentifier'];
 		
 		$this->label = $this->columnIdentifier;
+
 		
 		$this->setOptionalSettings($columnSettings);
 	}	
@@ -108,6 +112,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 		if(array_key_exists('renderObj', $columnSettings) && is_array($columnSettings['renderObj'])) {
 			$this->renderObj = $columnSettings['renderObj'];
 		}
+		
+		if(!array_key_exists('sorting', $columnSettings)) {
+			$columnSettings['sorting'] = $this->fieldIdentifier;
+		}
+		$this->sorting = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
 	}
 	
 	
