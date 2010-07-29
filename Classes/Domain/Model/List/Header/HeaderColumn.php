@@ -87,10 +87,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     }
     
     public function getColumnIdentifier() {
-    	return $this->columnConfig->getColumnIdentifier();
-    }
-
-    public function getColumnIdentifier() {
     	return $this->columnIdentifier;
     }
     
