@@ -29,6 +29,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	protected $cObj;
 	
 	protected $cellRenderer;
+	protected $captionRenderer;
 	
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $config) {
 		parent::__construct($config);
