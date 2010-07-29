@@ -87,7 +87,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingCollectionFactory_testcas
 		$this->assertEquals($sortingCollection->count(), 1);
 		
 		$sortingConfigObject = $sortingCollection->getItemById('name');
-		$this->assertTrue(is_a($sortingConfigObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'),'The result is no object!');
+		$this->assertTrue(is_a($sortingConfigObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'),'The result is not an object!');
 		
 		$this->assertEquals($sortingConfigObject->getField(),'name');
 		$this->assertEquals($sortingConfigObject->getDirection(), 'asc');
@@ -99,5 +99,44 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingCollectionFactory_testcas
 		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($testDefinition);
 		$this->assertEquals($sortingCollection->count(), 0);
 	}
+	
+	public function testGetInstanceByFieldConfigurationSingle() {
+		$fieldConfiguration = 'name';
+		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfiguration);
+		
+		$this->assertEquals($sortingCollection->count(), 1);
+		
+		$sortingConfigObject = $sortingCollection->getItemById('name');
+		$this->assertTrue(is_a($sortingConfigObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'),'The result is not an object!');
+		
+		$this->assertEquals($sortingConfigObject->getField(),'name');
+		$this->assertEquals($sortingConfigObject->getDirection(), NULL);
+		$this->assertEquals($sortingConfigObject->getForceDirection(), false, 'ForceDirection should be false!');
+	}
+	
+	public function testGetInstanceByFieldConfigurationMulti() {
+		$fieldConfiguration = 'name,company';
+		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfiguration);
+		
+		$this->assertEquals($sortingCollection->count(), 2);
+		
+		// Test Object name
+		$sortingConfigNameObject = $sortingCollection->getItemById('name');
+		$this->assertTrue(is_a($sortingConfigNameObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'));
+		
+		$this->assertEquals($sortingConfigNameObject->getField(),'name');
+		$this->assertEquals($sortingConfigNameObject->getDirection(), NULL);
+		$this->assertEquals($sortingConfigNameObject->getForceDirection(),false, 'ForceDirection');
+
+		// Test Object company
+		
+		$sortingConfigNameObject = $sortingCollection->getItemById('company');
+		$this->assertTrue(is_a($sortingConfigNameObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'));
+		
+		$this->assertEquals($sortingConfigNameObject->getField(),'company');
+		$this->assertEquals($sortingConfigNameObject->getDirection(), NULL);
+		$this->assertEquals($sortingConfigNameObject->getForceDirection(), false, 'ForceDirection');
+	}
+	
 }
 ?>

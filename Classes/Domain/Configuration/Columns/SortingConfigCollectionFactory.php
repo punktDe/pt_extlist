@@ -65,5 +65,26 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 		return $sortingConfigCollection;
 	}
 	
+	/**
+	 * Generate an array by field configuration - direction is NULL here
+	 * 
+	 * @param $fields string
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 29.07.2010
+	 */
+	public static function getInstanceByFieldConfiguration($fields) {
+		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
+		
+		$fieldSet = t3lib_div::trimExplode(',', $fields);
+		
+		foreach($fieldSet as $fieldName) {
+			$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldName, NULL, false);
+			$sortingConfigCollection->addSortingField($sortingConfig, $fieldName);
+		}
+		
+		return $sortingConfigCollection;
+	}
+	
 }
 ?>

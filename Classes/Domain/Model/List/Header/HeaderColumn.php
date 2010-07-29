@@ -54,6 +54,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $isSortable;
 	
 	
+	
+	
 	/**
 	 * 
 	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
@@ -117,7 +119,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     
     public function getLabel() {
     	return $this->columnConfig->getLabel();
-    }
-    
+    } 
 }
 ?>
