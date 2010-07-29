@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingCollectionFactory_testcas
 		$this->assertEquals($sortingCollection->count(), 1);
 		
 		$this->assertEquals($sortingConfigObject->getField(),'name');
-		$this->assertEquals($sortingConfigObject->getDirection(), 'asc');
+		$this->assertEquals($sortingConfigObject->getDirection(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
 		$this->assertEquals($sortingConfigObject->getForceDirection(),false, 'ForceDirection');		
 	}
 	
@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingCollectionFactory_testcas
 		$this->assertEquals($sortingCollection->count(), 1);
 		
 		$this->assertEquals($sortingConfigObject->getField(),'name');
-		$this->assertEquals($sortingConfigObject->getDirection(), 'desc');
+		$this->assertEquals($sortingConfigObject->getDirection(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 		$this->assertEquals($sortingConfigObject->getForceDirection(),true, 'ForceDirection');		
 	}
 	
@@ -67,7 +67,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingCollectionFactory_testcas
 		$this->assertTrue(is_a($sortingConfigNameObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'));
 		
 		$this->assertEquals($sortingConfigNameObject->getField(),'name');
-		$this->assertEquals($sortingConfigNameObject->getDirection(), 'desc');
+		$this->assertEquals($sortingConfigNameObject->getDirection(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 		$this->assertEquals($sortingConfigNameObject->getForceDirection(),true, 'ForceDirection');
 
 		// Test Object company
@@ -76,7 +76,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingCollectionFactory_testcas
 		$this->assertTrue(is_a($sortingConfigNameObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'));
 		
 		$this->assertEquals($sortingConfigNameObject->getField(),'company');
-		$this->assertEquals($sortingConfigNameObject->getDirection(), 'asc');
+		$this->assertEquals($sortingConfigNameObject->getDirection(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
 		$this->assertEquals($sortingConfigNameObject->getForceDirection(),false, 'ForceDirection');
 	}
 	
@@ -90,7 +90,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingCollectionFactory_testcas
 		$this->assertTrue(is_a($sortingConfigObject, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'),'The result is not an object!');
 		
 		$this->assertEquals($sortingConfigObject->getField(),'name');
-		$this->assertEquals($sortingConfigObject->getDirection(), 'asc');
+		$this->assertEquals($sortingConfigObject->getDirection(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
 		$this->assertEquals($sortingConfigObject->getForceDirection(),false, 'ForceDirection should be false');
 	}
 	
