@@ -23,46 +23,31 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
-	
-	protected $field; 
-	
-	protected $direction;
+
+
+/**
+ * Testcase for list data class
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
+class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	/**
-	 * if this is set to true, the direction cannot be changed 
-	 * 
-	 * @var bool
+	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
 	 */
-	protected $forceDirection;
+	protected $configurationBuilderMock;
 	
-	
-	// TODO: implement sorting order
-	
-	
-	public function __construct($field, $direction, $forceDirection) {
-		$this->direction = $direction;
-		$this->field = $field; 
-		$this->forceDirection = $forceDirection;
+	public function setup() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
 	
-	public function setDirection($direction) {
-		if($this->forceDirection == false) {
-			$this->direction = $direction;
-		}
+	public function testCreateInstance() {
+		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+		$instance = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($columnsConfiguration->pop());
+		$this->assertTrue(is_a($instance, 'Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn'));
 	}
 	
-	
-	public function getDirection() {
-		return $this->direction;
-	}
-	
-	public function getForceDirection() {
-		return $this->forceDirection;
-	}
-	
-	public function getField() {
-		return $this->field;
-	}
 }
 ?>

@@ -63,11 +63,19 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	 */
 	protected $stdWrap = NULL;
 	
-	
 	protected $renderObj;
 
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+	 */
+	protected $sortingConfigCollection = NULL;
 	
-	protected $sortingConfig = NULL;
+	/**
+	 * Sortingstate of this column
+	 * @var integer
+	 */
+	protected $sortingState = 0;
+	
 	
 	/**
 	 * @param $columnSettings array of coumn settings
@@ -116,7 +124,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 		if(!array_key_exists('sorting', $columnSettings)) {
 			$columnSettings['sorting'] = $this->fieldIdentifier;
 		}
-		$this->sorting = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
+		$this->sortingConfig = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
 	}
 	
 	
@@ -168,6 +176,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	
 	public function getRenderObj() {
 		return $this->renderObj;
+	}
+	
+	/** 
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 */
+	public function getSortingConfig() {
+		return $this->sortingConfigCollection;
 	}
 }
 ?>

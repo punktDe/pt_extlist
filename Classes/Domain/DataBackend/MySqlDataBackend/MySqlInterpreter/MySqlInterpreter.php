@@ -105,14 +105,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 */
 	public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+		
+		$directionMap = array(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC => 'ASC',
+							  Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC => 'DESC');
+		
 		$sortingsArray = array();
-		foreach ($query->getSortings() as $sorting) {
-			// TODO check for right syntax here!
-			$sortingsArray[] = $sorting;
+		foreach ($query->getSortings() as $field => $direction) {
+			$sortingsArray[] = $field . ' ' . $directionMap[$direction];
 		}
 		$sortingString = implode(', ', $sortingsArray);
-		$sortingString = preg_replace('/ASCENDING/', 'ASC', $sortingString);
-		$sortingString = preg_replace('/DESCENDING/', 'DESC', $sortingString);
+
 		return $sortingString;
 	}
 	

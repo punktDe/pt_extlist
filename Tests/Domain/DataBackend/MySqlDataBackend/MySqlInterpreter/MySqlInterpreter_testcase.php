@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		
 		// sortings
 		$this->queryObject->addSorting('test');
-		$this->queryObject->addSorting('test2', 'DESCENDING');
+		$this->queryObject->addSorting('test2', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 		
 	}
 	

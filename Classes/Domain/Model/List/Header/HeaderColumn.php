@@ -28,7 +28,7 @@
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
+class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
 	/**
 	 * 
@@ -53,8 +53,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 */
 	protected $isSortable;
 	
+	/** 
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+	 */
+	protected $sortingFieldConfig;
 	
 	
+	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+
 	
 	/**
 	 * 
@@ -67,19 +73,47 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		$this->columnConfig = $columnConfig;
 		$this->listIdentifier = $columnConfig->getListIdentifier();
 		$this->columnIdentifier = $columnConfig->getColumnIdentifier();
+		$this->sortingFieldConfig = $columnConfig->getSortingConfig();
 	}
 	
 	public function init() {
-		/**
-		 * Where to get filter values from:
-		 * 
-		 * 1. TS-Settings
-		 * 2. Session
-		 * 3. GP-Vars
-		 */
-		
+			
 		
 	}
+	
+	
+	public function getLabel() {
+    	return $this->columnConfig->getLabel();
+    }
+
+    public function getColumnIdentifier() {
+    	return $this->columnIdentifier;
+    }
+    
+    
+    /**
+     * Build an array with sorting definitions for this column
+     *  
+     * @return array
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 29.07.2010
+     */
+    public function getSorting() {
+    	
+    	$sorting = array();    	
+    	if($this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC || $this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
+    		foreach($this->sortingFieldConfig as $fieldConfig) {
+    			if($fieldConfig->getForceDirection()){
+    				$sorting[$fieldConfig->getField()] = $fieldConfig->getDirection();
+    			} else {
+    				$sorting[$fieldConfig->getField()] = $this->sortingState;
+    			}
+    		}
+    	}
+    	
+    	return $sorting;
+    }
+    
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
@@ -100,7 +134,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 *
 	 */
     public function persistToSession() {
-
+		return array('sortingState' => $this->sortingState);
     }
     
     
@@ -110,15 +144,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @param array $sessionData Object's state to be persisted to session
      */
     public function injectSessionData(array $sessionData) {
-    	
+    	if(array_key_exists('sortingState', $sessionData)) {
+    		$this->sortingState = $sessionData['sortingState'];
+    	}
     }
     
-
-    
-    
-    
-    public function getLabel() {
-    	return $this->columnConfig->getLabel();
-    } 
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface#injectGPVars()
+	 */
+    public function injectGPVars($GPVars) {
+    	
+    }   
 }
 ?>

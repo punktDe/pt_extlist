@@ -124,7 +124,7 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_Query_testcase extends Tx_PtExtlist_
     public function testSetSorting() {
     	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
     	$this->assertTrue(method_exists($query, 'addSorting'));
-    	$query->addSorting('test', 'DESCENDING');
+    	$query->addSorting('test', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
     }
     
     
@@ -148,11 +148,12 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_Query_testcase extends Tx_PtExtlist_
     
     public function testGetSortings() {
     	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
-    	$query->addSorting('test1', 'ASCENDING');
-    	$query->addSorting('test2', 'DESCENDING');
+    	$query->addSorting('test1', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+    	$query->addSorting('test2', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
     	$sortings = $query->getSortings();
-    	$this->assertTrue($sortings[0] == 'test1 ASCENDING');
-    	$this->assertTrue($sortings[1] == 'test2 DESCENDING');
+    	
+    	$this->assertTrue($sortings['test1'] == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+    	$this->assertTrue($sortings['test2'] == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
     }
     
     

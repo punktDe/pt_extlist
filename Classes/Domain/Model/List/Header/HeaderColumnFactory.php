@@ -40,10 +40,13 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
         $sessionPersistenceManager->loadFromSession($headerColumn);
         
         // Inject settings from gp-vars.
-        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter::getInstanceFilledByGpVars();
+        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpAdapter->getParametersByObject($headerColumn);
 		
 		$headerColumn->init();
+		
+		$sessionPersistenceManager->persistToSession($headerColumn);
+		
 		return $headerColumn;
 	}
 
