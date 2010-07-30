@@ -37,12 +37,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
     extends Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
     		Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
-    /**
-     * TODO comment!
-     *
-     */
-	public function init();
-	
 	
 	
 	/**
