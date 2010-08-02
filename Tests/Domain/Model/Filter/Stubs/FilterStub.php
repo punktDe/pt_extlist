@@ -22,28 +22,26 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-
-/**
- * 
- *
- * @package TYPO3
- * @subpackage pt_extlist
- */
-
 require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/FilterInterface.php';
 require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/AbstractFilter.php';
 
 /**
- * Fake implementation for testing only!
+ * Class implements fake implementation of abstract filter (for testing only!)
  *
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
-	// Do something useful here!
 	public function persistToSession() {}
-    public function getObjectNamespace() {return 'testnamespace';}
+    #public function getObjectNamespace() {return 'testnamespace';}
     public function injectSessionData(array $sessionData) {}
     public function init() {}
+    protected function initFilterByTsConfig() {}
+    protected function initFilterBySession() {}
+    protected function iniFilterByGpVars() {}
+    protected function createFilterQuery() {}
 	
 }
 

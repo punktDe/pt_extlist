@@ -39,42 +39,12 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 */
 	protected $filterValue = '';
 	
-
-	
-	/**
-	 * Initializes filter
-	 * 
-	 * @return void
-	 */
-	public function init() {
-		/**
-		 * Where to get filter values from:
-		 * 
-		 * 1. TS-Settings
-		 * 2. Session
-		 * 3. GP-Vars
-		 */
-		
-		/* 1. Get Filter Value from Typoscript */
-		$this->filterValue = $this->filterConfig->getSettings('defaultValue');
-
-		/* 2. Get Filter Value from Session */
-		
-		
-		
-        /**
-		 * How to access GET / POST parameters for this filter:
-		 * plugingName [<listIdentifier>] [filters] [<filterboxIdentifier>] [<filterIdentifier>] [<filterValueKey>]
-		 */
-		
-	}
-	
 	
 	
 	/**
-	 * TODO add some comment!
+	 * Returns raw value of filter (NOT FILTER QUERY!!!)
 	 *
-	 * @return unknown
+	 * @return string
 	 */
 	public function getFilterValue() {
 		return $this->filterValue;
@@ -90,20 +60,41 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	public function persistToSession() {
 		return array('filterValue' => $this->filterValue);
 	}
-	
-	
+
+
 	
 	/**
-	 * Restores filter state from session
-	 *
-	 * @param array $sessionData Session data to restore filter from
-	 */
-	public function injectSessionData(array $sessionData) {
-		if (array_key_exists('filterValue',$sessionData)) {
-	       $this->filterValue = $sessionData['filterValue'];
-		}	
-	}
- 	
+     * Template method for initializing filter by TS configuration
+     */
+    protected function initFilterByTsConfig() {
+    	// TODO implement me!
+    }
+    
+    
+
+    /**
+     * Template method for initializing filter by session data
+     */
+    protected function initFilterBySession() {
+    	// TODO implement me!
+    }
+    
+    
+
+    /**
+     * Template method for initializing filter by get / post vars
+     */
+    protected function iniFilterByGpVars() {
+    	// TODO implement me!
+    }
+    
+    
+    
+    protected function createFilterQuery() {
+    	// TODO implement me!
+    }
+    
+	
 }
  
  ?>
