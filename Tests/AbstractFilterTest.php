@@ -32,6 +32,11 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
+	
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_AbstractFilter'));
     }
@@ -40,6 +45,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testInjectFilterConfig() {
         $filter = $this->getExtendingFilterMock();    	
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub'));
+        $filter->injectFilterConfig($filterConfig);
     }
     
     
@@ -47,7 +54,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     /**
      * Returns a filter mock object for testing abstract class
      *
-     * @return Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub'testFilter
+     * @return Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub
      */
     protected function getExtendingFilterMock() {
     	$filter = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub('testFilter');

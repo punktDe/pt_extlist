@@ -32,7 +32,13 @@
  */
 interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 
-	
+	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter);
+	public function getFilterIdentifier();
+	public function getListIdentifier();
+	public function getFilterBoxIdentifier();
+	public function getFilterQuery();
+	public function init();
 	
 }
 

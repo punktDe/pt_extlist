@@ -18,7 +18,7 @@ return array(
     'tx_ptextlist_tests_domain_configuration_configurationbuildermock' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Configuration/ConfigurationBuilderMock.php',
     'tx_ptextlist_tests_domain_configuration_filters_stubs_filterboxconfigurationmock' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Configuration/Filters/Stubs/FilterboxConfigurationMock.php',
     'tx_ptextlist_tests_domain_databackend_abstractdatabackendbasetest' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/DataBackend/AbstractDataBackendBaseTest.php',
-    'tx_ptextlist_domain_model_filter_filterstub' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Stubs/FilterStub.php',
+    'tx_ptextlist_tests_domain_model_filter_stubs_filterstub' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Stubs/FilterStub.php',
 
     /* External Extensions */
     'tx_pttools_objectcollection'       => t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_objectCollection.php',
