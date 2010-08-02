@@ -26,7 +26,7 @@
 /**
  * Testcase for mysql data backend 
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
@@ -281,6 +281,57 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         return $filterMock;
 	}
 	
+	
+	public function testGetOrderByFromListHeader() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+        
+        $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+        																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+        
+        $orderByString = $dataBackend->getOrderByFromListHeader($listHeaderMock);
+        
+		$this->assertEquals($orderByString, 'name ASC, company DESC', 'getOrderByFromListHeader expected to be "name ASC, company DESC", was ' . $orderByString);
+	}
+	
+	public function testGetOrderByFromHeaderColumn() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+        
+        $headerMock = $this->getHeaderColumnBySortingFieldAndDirection('name', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+        $orderByString = $dataBackend->getOrderByFromHeaderColumn($headerMock);
+        
+        
+        $this->assertEquals($orderByString, 'name ASC', 'getOrderByFromHeaderColumn expected to be "name ASC", was ' . $orderByString);
+	}
+	
+	protected function getHeaderColumnBySortingFieldAndDirection($field, $direction) {
+		$sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $sortingQuery->addSorting($field, $direction);
+        $headerMock = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getSortingQuery'));
+        $headerMock->expects($this->once())
+            ->method('getSortingQuery')
+            ->will($this->returnValue($sortingQuery));
+        return $headerMock;
+	}
+	
+	protected function getListHeaderByFieldAndDirectionArray($fieldAndDirectionArray) {
+		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
+		
+		foreach($fieldAndDirectionArray as $field => $direction) {
+			$sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        	$sortingQuery->addSorting($field, $direction);
+        	
+        	$headerMock = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getSortingQuery'));
+        	$headerMock->expects($this->once())
+            ->method('getSortingQuery')
+            ->will($this->returnValue($sortingQuery));
+            
+         	$listHeader->addHeaderColumn($headerMock, $field);   
+		}
+		
+		return $listHeader;
+	}
     	
 }
 
