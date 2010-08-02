@@ -51,6 +51,15 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	
 	
 	/**
+     * Injector for associated data backend
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     */
+	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
+	
+	
+	
+	/**
 	 * Returns identifier of filter
 	 * 
 	 * @return string Identifier of filter

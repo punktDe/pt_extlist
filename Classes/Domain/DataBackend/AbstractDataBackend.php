@@ -301,6 +301,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		return $this->listHeader;
 	}
 	
+	
+	
+	/**
+	 * Returns associated field config collection
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	public function getFieldConfigurationCollection() {
+		return $this->fieldConfigurationCollection;
+	}
+	
 }
 
 ?>

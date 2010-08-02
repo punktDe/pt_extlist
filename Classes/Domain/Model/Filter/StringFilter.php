@@ -122,8 +122,10 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Creates filter query from filter value and settings
      */
     protected function createFilterQuery() {
+    	$fieldDescriptionIdentifier = $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($this->fieldDescriptionIdentifier);
+    	$columnName = $fieldDescriptionIdentifier->getTable() . '.' . $fieldDescriptionIdentifier->getField();
     	$filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($this->fieldDescriptionIdentifier, $this->filterValue, 'LIKE');
+    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($columnName, $this->filterValue, 'LIKE');
     	$filterQuery->addCriteria($criteria);
     	$this->filterQuery = $filterQuery;
     }

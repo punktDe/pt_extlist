@@ -117,6 +117,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Holds a reference to associated data backend
+	 *
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 */
+	protected $dataBackend = null;
+	
+	
+	
+	/**
 	 * Constructor for filter
 	 *
 	 * @param String $filterIdentifier     Identifier for filter
@@ -148,6 +157,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter) {
 		$this->gpVarAdapter = $gpVarAdapter;
+	}
+	
+	
+	
+	/**
+	 * Injector for associated data backend
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 */
+	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$this->dataBackend = $dataBackend;
 	}
 	
 	

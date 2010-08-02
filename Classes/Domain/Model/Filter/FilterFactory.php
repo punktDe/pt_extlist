@@ -46,6 +46,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
         $gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $filter->injectGpVarAdapter($gpVarsAdapter);
         $gpVarsAdapter->getParametersByObject($filter);
+        $filter->injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($filterConfig->getListIdentifier()));
         $filter->init();
 		return $filter;
 	}

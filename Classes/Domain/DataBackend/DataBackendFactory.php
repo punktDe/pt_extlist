@@ -42,6 +42,27 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
 	
 	/**
+	 * Returns an instance of data backend for a given list identifier.
+	 *
+	 * @param string $listIdentifier
+	 * @param bool $throwExceptionOnNonExistingListIdentifier
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 */
+	public static function getInstanceByListIdentifier($listIdentifier, $throwExceptionOnNonExistingListIdentifier = true) {
+		if (array_key_exists($listIdentifier, self::$instances)) {
+			return self::$instances[$listIdentifier];
+		} else {
+			if ($throwExceptionOnNonExistingListIdentifier) {
+				throw new Exception('No data backend found for list identifier ' . $listIdentifier . ' 1280770617');
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	
+	
+	/**
 	 * Create new data backend object for given configuration
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -60,6 +81,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        // Check whether backend class exists
 	        tx_pttools_assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1280400021'));
 	        $dataBackend = new $dataBackendClassName($configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+	        
+	        // TODO as later objects to create will need databackend, register here?
+	        self::$instances[$listIdentifier] = $dataBackend;
 	        
 	        // Check whether backend class implements abstract backend class
 	        // TODO backend should be tested to implement interface not abstract class!
@@ -83,8 +107,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        	$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
 	        }
 	        
-	        
-	        self::$instances[$listIdentifier] = $dataBackend;
+	        #self::$instances[$listIdentifier] = $dataBackend;
 		}
 		return self::$instances[$listIdentifier];
 	}
