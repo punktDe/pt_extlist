@@ -26,8 +26,6 @@
 
 class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
-	
-	
 	/**
 	 * 
 	 * Enter description here ...
@@ -64,12 +62,12 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 	
 	protected function renderSorting(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
 
-		if(!$header->isSortable()) {
+		if(!$header->isSortable() || Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
 			return 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
 		} elseif($header->getSortingState() == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC) {
-			return 'typo3conf/ext/pt_extlist/Resources/Resources/Public/List/icon_table_sort_asc.png';
+			return 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_asc.png';
 		} else {
-			return 'typo3conf/ext/pt_extlist/Resources/Resources/Public/List/icon_table_sort_desc.png';
+			return 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_desc.png';
 		}
 
 	}
