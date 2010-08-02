@@ -116,13 +116,18 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string An SQL query
 	 */
 	public function buildQuery() {
-		$query = '';
+		$selectPart  = $this->buildSelectPart();
+		$fromPart    = $this->buildFromPart();
+		$wherePart   = $this->buildWherePart();
+		$orderByPart = $this->buildOrderByPart();
+		$limitPart   = $this->buildLimitPart();
 		
-		$query .= $this->buildSelectPart() != ''  ? 'SELECT ' . $this->buildSelectPart() . ' ' : '';
-		$query .= $this->buildFromPart() != ''    ? 'FROM ' . $this->buildFromPart() . ' ' : '';
-		$query .= $this->buildWherePart() != ''   ? 'WHERE ' . $this->buildWherePart() . ' ' : '';
-		$query .= $this->buildOrderByPart() != '' ? 'ORDER BY ' . $this->buildOrderByPart() . ' ' : '';
-		$query .= $this->buildLimitPart() != ''   ? 'LIMIT ' . $this->buildLimitPart() . ' ' : '';
+		$query = '';
+		$query .= $selectPart != ''  ? 'SELECT ' . $selectPart . ' ' : '';
+		$query .= $fromPart != ''    ? 'FROM ' . $fromPart . ' ' : '';
+		$query .= $wherePart != ''   ? 'WHERE ' . $wherePart . ' ' : '';
+		$query .= $orderByPart != '' ? 'ORDER BY ' . $orderByPart . ' ' : '';
+		$query .= $limitPart != ''   ? 'LIMIT ' . $$limitPart . ' ' : '';
 		
 		return $query;
 	}
@@ -250,10 +255,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string ORDER BY part of query without 'ORDER BY'
 	 */
 	public function buildOrderByPart() {
-		$orderByPart = '';
-		// TODO implement me!
-		// Implement column objects before!
-		return $orderByPart;
+		return $this->getOrderByFromListHeader($this->listHeader);
 	}
 	
 	/**

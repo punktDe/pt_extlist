@@ -227,19 +227,23 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $pagerMock->expects($this->any())
             ->method('getItemsPerPage')
             ->will($this->returnValue(10));
-            
+
+        $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+        																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
             
         $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper');
         $mapperMock->expects($this->once())
             ->method('getMappedListData')
             ->will($this->returnValue($dataSourceReturnArray));
             
+                
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
         $dataBackend->injectDataSource($dataSourceMock);
         $dataBackend->injectPager($pagerMock);
         $dataBackend->injectDataMapper($mapperMock);
+		$dataBackend->injectListHeader($listHeaderMock);
         
         $listData = $dataBackend->getListData();
         $this->assertTrue($listData == $dataSourceReturnArray);
