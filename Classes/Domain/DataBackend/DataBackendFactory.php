@@ -69,6 +69,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataSource = self::getDataSource($dataBackendClassName, $configurationBuilder);
 	        
 	        //Register pager as backend observer
+	        // TODO fix this! Pager is already injected below!
 	        $dataBackend->registerObserver($pager);
 	        
 	        $dataBackend->injectBackendConfiguration($configurationBuilder->getBackendConfiguration());
@@ -78,6 +79,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataBackend->injectPager($pager);
 	        $dataBackend->injectListHeader(self::getListHeader($configurationBuilder));
 	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
+	        if (self::getQueryInterpreter($configurationBuilder) != null) {
+	        	$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
+	        }
 	        
 	        
 	        self::$instances[$listIdentifier] = $dataBackend;
@@ -137,6 +141,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     	return $pager;
     }
     
+    
+    
     /**
      * 
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -147,6 +153,27 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     protected static function getListHeader(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
     	return $listHeader;
+    }
+    
+    
+    
+    /**
+     * Creates an instance of a query interpreter as configured in configuration builder
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+     */
+    protected static function getQueryInterpreter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	$backendSettings = $configurationBuilder->getBackendConfiguration();
+    	if (array_key_exists('queryInterpreterClassName', $backendSettings)) {
+    		$queryInterpreterClassName = $backendSettings['queryInterpreterClassName'];
+	    	tx_pttools_assert::isTrue(class_exists($queryInterpreterClassName), array('message' => 'Query interpreter ' . $queryInterpreterClassName . ' does not implement abstract query interpreter class! 1280767803'));
+	    	$queryInterpreter = new $queryInterpreterClassName;
+	    	tx_pttools_assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
+	    	return $queryInterpreter;
+    	} else {
+    		return null;
+    	}
     }
 	
 }

@@ -80,17 +80,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     public function injectDataSource($dataSource) {
         $this->dataSource = $dataSource;
     }
-    
-    
-    
-    /**
-     * Injector for query interpreter
-     *
-     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
-     */
-    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
-    	$this->queryInterpreter = $queryInterpreter;
-    }
 	
 		
 	
@@ -127,7 +116,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$query .= $fromPart != ''    ? 'FROM ' . $fromPart . ' ' : '';
 		$query .= $wherePart != ''   ? 'WHERE ' . $wherePart . ' ' : '';
 		$query .= $orderByPart != '' ? 'ORDER BY ' . $orderByPart . ' ' : '';
-		$query .= $limitPart != ''   ? 'LIMIT ' . $$limitPart . ' ' : '';
+		$query .= $limitPart != ''   ? 'LIMIT ' . $limitPart . ' ' : '';
 		
 		return $query;
 	}
@@ -270,7 +259,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$orderByArray = array();
 		
 		foreach($listHeader as $headerColumn) {
-			$orderByArray[] = $this->getOrderByFromHeaderColumn($headerColumn);
+			$headerColumnSorting = $this->getOrderByFromHeaderColumn($headerColumn);
+			if ($headerColumnSorting != '' ) {
+			   $orderByArray[] = $headerColumnSorting;
+			}
 		}
 		
 		return count($orderByArray) > 0 ? implode(', ', $orderByArray) : '';

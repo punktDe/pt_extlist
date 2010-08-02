@@ -76,10 +76,12 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $filterboxCollection;
 	
 	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	protected $listHeader;
+	
 	
 	
     /**
@@ -109,9 +111,24 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	// TODO think about sorting(s)/collection
 	#protected $sorting
+
 	
+	
+	/**
+	 * TODO THERE ARE NO OBSERVERS!!!! (pager, filter, sorting etc. act LIKE observers, but they are no observers!!!)
+	 * @var unknown_type
+	 */
 	protected $observers = array();
-	
+    
+    
+    
+    /**
+     * Holds an instance of a query interpreter to be used for
+     * query objects
+     *
+     * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+     */
+    protected $queryInterpreter;
 
 	
 		
@@ -205,6 +222,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		$this->dataSource = $dataSource;
 	}
 	
+	
+	
 	/**
 	 * Injector for List Header 
 	 * 
@@ -213,6 +232,19 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		$this->listHeader = $listHeader;
 	}
+    
+    
+    
+    /**
+     * Injector for query interpreter
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     */
+    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
+        $this->queryInterpreter = $queryInterpreter;
+    }
+    
+    
 	
 	/**
 	 * Register a new observer object.
@@ -238,6 +270,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 	
 	
+	
 	/**
 	 * Returns filterbox collection attached to this data backend
 	 *
@@ -257,6 +290,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getPager() {
 		return $this->pager;
 	}
+	
+	
 
 	/**
 	 * Returns the listHeader with sorting informations
