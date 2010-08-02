@@ -46,6 +46,12 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	protected $listHeader;
+	
+	/**
+	 * A reference to the column config collection.
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 */
+	protected $listColumnConfig;
 
 	
 	
@@ -86,6 +92,22 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	 */
 	public function setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		$this->listHeader = $listHeader;
+	}
+	
+	/**
+	 * Setter for listColumnConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfig
+	 */
+	public function setColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfig) {
+		$this->listColumnConfig = $columnConfig;	
+	}
+	
+	/**
+	 * Getter for listColumnConfig
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 */
+	public function getColumnConfig() {
+		return $this->listColumnConfig;
 	}
 }
 
