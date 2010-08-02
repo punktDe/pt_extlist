@@ -201,6 +201,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         $this->filterIdentifier = $filterSettings['filterIdentifier'];
         tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified in config. 1277889552'));
         $this->filterClassName = $filterSettings['filterClassName'];
+        $this->fieldDescriptionIdentifier = array_key_exists('fieldDescriptionIdentifier', $filterSettings) ? $filterSettings['fieldDescriptionIdentifier'] : '';
         // TODO ry21 add all properties here
 		// TODO check which values need to be set here and add assertions!
         $this->settings = $filterSettings;

@@ -80,6 +80,25 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
 	
 	
 	
+   /**
+    * Returns true, if criteria is equal to this object
+    *
+    * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
+    * @return bool
+    */
+    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+    	if (!is_a($criteria, __CLASS__)) {
+    		return false;
+    	} else {
+            if ($this->field == $criteria->field && $this->value == $criteria->value && $this->operator == $criteria->operator) {
+            	return true;     
+            }
+            return false;
+    	}
+    }
+	
+	
+	
 	/**
 	 * Returns field for which criteria holds
 	 *

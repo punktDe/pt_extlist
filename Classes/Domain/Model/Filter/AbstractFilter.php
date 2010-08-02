@@ -40,7 +40,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      *
      * @var String
      */	
-    protected $listIdentifier; 
+    protected $listIdentifier;
 
     
     
@@ -229,8 +229,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     public function getErrorMessages() {
     	return $this->errorMessages;
     }
-	
-	
+    
+    
 	
 	/**
 	 * Initializes the filter

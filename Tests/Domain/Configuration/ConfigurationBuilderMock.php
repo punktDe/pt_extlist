@@ -108,11 +108,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                         'testfilterbox' => array(
 	                             '10' => array(
 	                                'filterIdentifier' => 'filter1',
-	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field1'
 	                             ),
 	                             '20' => array(
 	                                'filterIdentifier' => 'filter2',
-	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field1'
 	                             )
 	                         )
 	                    ),

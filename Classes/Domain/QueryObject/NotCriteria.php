@@ -53,6 +53,23 @@ class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_Qu
     
     
     /**
+     * Returns true, if given criteria is equal to this object
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
+     * @return bool
+     */
+    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+        if (is_a($criteria, __CLASS__)) {
+        	if ($this->criteria->isEqualTo($criteria)) {
+        		return true;
+        	}
+        }
+        return false;
+    }
+    
+    
+    
+    /**
      * Returns criteria to be negated
      *
      * @return Tx_PtExtlist_Domain_QueryObject_Criteria

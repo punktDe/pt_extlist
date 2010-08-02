@@ -65,6 +65,26 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	
 	
 	/**
+	 * Returns true, if criteria is equal to this criteria
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this criteria
+	 * @return bool
+	 */
+    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+        if (!is_a($criteria, __CLASS__)) {
+        	return false;   
+        } else {
+        	if ($this->firstCriteria == $criteria->firstCriteria || $this->secondCriteria == $criteria->secondCriteria) {
+        		return true;
+        	} else {
+        		return false;
+        	}
+        }
+    }
+	
+	
+	
+	/**
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 28.07.2010
