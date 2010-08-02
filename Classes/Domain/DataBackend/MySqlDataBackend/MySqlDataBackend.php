@@ -26,7 +26,7 @@
 /**
  * Class implements data backend for generic mysql connections
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
