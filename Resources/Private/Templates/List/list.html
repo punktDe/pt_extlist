@@ -1,10 +1,12 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers} 
+
 <h2>Simple List rendering</h2>
 
 <table class="tx-ptextlist-list tx-ptextlist-list-standard">
 	<tr>
-		<f:for each="{listCaptions}" as="caption">
-			<th>{caption}</th>
-		</f:for>
+		<extlist:header headers="{listHeader}" captions="{listCaptions}">
+			<th>{label} : {sorting}</th>
+		</extlist:header>
 	</tr>
 	<f:for each="{listData}" as="listRow">
 	<tr>

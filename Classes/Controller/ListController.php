@@ -95,7 +95,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		
 		$columnConfig = $list->getColumnConfig();
 		
-		$this->view->assign('columnConfig', $columnConfig);
+		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 	}
