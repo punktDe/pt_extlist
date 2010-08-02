@@ -88,6 +88,12 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     	// TODO implement me!
     }
     
+    
+    
+    protected function createFilterQuery() {
+    	// TODO implement me!
+    }
+    
 	
 }
  

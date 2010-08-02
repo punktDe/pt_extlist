@@ -252,6 +252,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * 2.2. Init calls method to init filter by session data
 		 * 2.3. Init calls method to init filter by get / post vars 
 		 * 
+		 * 3. Create filter query
+		 * 
 		 * I you want to change the way, a filter initializes itsel, you have
 		 * to override init() in you own filter implementation!
 		 */
@@ -259,6 +261,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->initFilterByTsConfig();
 		$this->initFilterBySession();
 		$this->iniFilterByGpVars();
+		
+		$this->createFilterQuery();
 		
 	}
 	
@@ -282,6 +286,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * Template method for initializing filter by get / post vars
 	 */
 	abstract protected function iniFilterByGpVars();
+	
+	
+	
+	/**
+	 * Template method for creating filter query from initialized data
+	 */
+	abstract protected function createFilterQuery();
 	
 	
 	

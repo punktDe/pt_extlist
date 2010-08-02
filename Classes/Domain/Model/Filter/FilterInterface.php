@@ -32,12 +32,65 @@
  */
 interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 
+	/**
+	 * Injector for filter configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 */
 	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+	
+	
+	
+	/**
+	 * Injector for get / post vars adapter
+	 *
+	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter
+	 */
 	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter);
+	
+	
+	
+	/**
+	 * Returns identifier of filter
+	 * 
+	 * @return string Identifier of filter
+	 */
 	public function getFilterIdentifier();
+	
+	
+	
+	/**
+	 * Returns identifier of associated list
+	 * 
+	 * return @string Identifier of associated list
+	 */
 	public function getListIdentifier();
+	
+	
+	
+	/**
+	 * Returns Identifier of filterbox to which this filter belongs
+	 *
+	 * @return string Identifier of filterbox to which this filter belongs
+	 */
 	public function getFilterBoxIdentifier();
+	
+	
+	
+	/**
+	 * Returns query object for this filter
+	 * 
+     * @return Tx_PtExtlist_Domain_QueryObject_QueryObject Query object that describes criterias for this filter
+	 */
 	public function getFilterQuery();
+	
+	
+	
+	/**
+	 * Initializes filter settings
+	 * 
+	 * @return void
+	 */
 	public function init();
 	
 }

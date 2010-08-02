@@ -51,6 +51,33 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     
     
+    public function testInjectGpVarAdapter() {
+    	$filter = $this->getExtendingFilterMock();
+    	$gpVarAdapter = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
+    	$filter->injectGpVarAdapter($gpVarAdapter);
+    }
+    
+    
+    
+    public function testGetters() {
+    	$filter = $this->getExtendingFilterMock();     
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub'));
+        $filter->injectFilterConfig($filterConfig);
+        
+        $this->assertTrue($filter->getFilterIdentifier() == 'test');
+        $this->assertTrue($filter->getFilterBoxIdentifier() == 'test');
+        $this->assertTrue($filter->getListIdentifier() == 'test');
+        $this->assertTrue($filter->getObjectNamespace() == 'tx_ptextlist_pi1.test.filters.test.test', 'Object namespace was expected to be tx_ptextlist_pi1.test.filters.test.test but was ' . $filter->getObjectNamespace());
+    }
+    
+    
+    
+    public function testInjectSessionData() {
+    	$filter = $this->getExtendingFilterMock();
+    	$filter->injectSessionData(array('filterValue' => 'filterValueValue'));
+    }
+    
+    
     /**
      * Returns a filter mock object for testing abstract class
      *
