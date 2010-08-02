@@ -45,6 +45,14 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	}
 	
 	/**
+	 * Overrides the data backend.
+	 * @param Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend $dataBackend
+	 */
+	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$this->dataBackend = $dataBackend;
+	}
+	
+	/**
 	 * Returns a full featured list object.
 	 * 
 	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
@@ -53,10 +61,13 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	public function createList() {
 		$listData = $this->dataBackend->getListData();
 		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
+		$listColumnConfig = $this->configurationBuilder->buildColumnsConfiguration();
+		
 		
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
 		$list->setListData($listData);
 		$list->setListHeader($listHeader);
+		$list->setColumnConfig($listColumnConfig);
 		
 		return $list;
 	}

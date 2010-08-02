@@ -174,6 +174,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function getSortingState() {
     	return $this->sortingState;
     }
+    
+    /**
+     * Returns if the column is sortable.
+     * @return boolean True if sortable.
+     */
+    public function isSortable() {
+    	return $this->isSortable;
+    }
 	
     
 	/****************************************************************************************************************
