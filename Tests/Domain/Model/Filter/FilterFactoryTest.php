@@ -32,12 +32,20 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_FilterFactory'));
+	}
+	
+	
+	
 	public function testCreateInstanceByConfiguration() {
 		$filterConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
 		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfigurationMock->getFilterConfigurationMock('filter1'));
 		$this->assertEquals($filter->getFilterIdentifier(), 'filter1');
 	    $this->assertEquals($filter->getListIdentifier(), 'test');	
 	}
+	
+	
 	
 	public function testCreateNonInterfaceImplementingClass() {
 		$mockFilterConfiguration = $this->getMock(

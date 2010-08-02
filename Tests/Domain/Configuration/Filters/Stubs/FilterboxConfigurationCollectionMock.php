@@ -15,8 +15,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
 		
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		
-		$mockFilterConfiguration1 = $this->getFilterConfigurationMock('filter1');
-		$mockFilterConfiguration2 = $this->getFilterConfigurationMock('filter2');
+		$mockFilterConfiguration1 = $this->getFilterConfigurationMock('filter1', $filterBoxIdentifier);
+		$mockFilterConfiguration2 = $this->getFilterConfigurationMock('filter2', $filterBoxIdentifier);
 		
         $filterBoxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilderMock, $filterBoxIdentifier, array());
         
@@ -29,22 +29,26 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
 	
 	
 	
-	public function getFilterConfigurationMock($filterIdentifier) {
+	public function getFilterConfigurationMock($filterIdentifier, $filterboxIdentifer) {
 		$mockFilterConfiguration1 = $this->getMock(
             'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
-            array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier'),array(),'',FALSE,FALSE,FALSE);
+            array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier', 'getFilterboxIdentifier'),array(),'',FALSE,FALSE,FALSE);
         
-        $mockFilterConfiguration1->expects($this->once())
+        $mockFilterConfiguration1->expects($this->any())
             ->method('getFilterIdentifier')
             ->will($this->returnValue($filterIdentifier));
         
-        $mockFilterConfiguration1->expects($this->once())
+        $mockFilterConfiguration1->expects($this->any())
             ->method('getFilterClassName')
             ->will($this->returnValue('Tx_PtExtlist_Domain_Model_Filter_FilterStub'));
             
-        $mockFilterConfiguration1->expects($this->once())
+        $mockFilterConfiguration1->expects($this->any())
             ->method('getListIdentifier')
             ->will($this->returnValue('test'));
+            
+        $mockFilterConfiguration1->expects($this->any()) 
+            ->method('getFilterboxIdentifier')
+            ->will($this->returnValue($filterboxIdentifer));
             
         return $mockFilterConfiguration1;
          
