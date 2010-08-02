@@ -37,9 +37,18 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 *
 	 * @var string
 	 */
-	protected $filterValue = '';
+	protected $filterValue = ''; 
+    
+    
+    
+    /**
+     * Identifier of field on which this filter is operating (database field to be filtered)
+     *
+     * @var string
+     */
+    protected $fieldDescriptionIdentifier;
 	
-	
+		
 	
 	/**
 	 * Returns raw value of filter (NOT FILTER QUERY!!!)
@@ -50,6 +59,17 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 		return $this->filterValue;
 	}	
 	
+
+	
+    /**
+     * Returns field description identifier on which this filter operates
+     *
+     * @return string Field description Identifier
+     */
+    public function getFieldDescriptionIdentifier() {
+        return $this->fieldDescriptionIdentifier;
+    }
+    
 	
 	
 	/**
@@ -67,7 +87,13 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Template method for initializing filter by TS configuration
      */
     protected function initFilterByTsConfig() {
-    	// TODO implement me!
+    	// TODO think about what happens if filter is reseted!
+    	$settings = $this->filterConfig->getSettings();
+    	$this->filterValue = array_key_exists('filterDefaultValue', $settings) ? $settings['filterDefaultValue'] : $this->filterValue;
+    	if (!array_key_exists('fieldDescriptionIdentifier', $settings) || $settings['fieldDescriptionIdentifier'] == '') {
+    		throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->getFilterIdentifier() . ' 1280762513');
+    	}
+    	$this->fieldDescriptionIdentifier = $settings['fieldDescriptionIdentifier'];
     }
     
     
@@ -76,7 +102,8 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Template method for initializing filter by session data
      */
     protected function initFilterBySession() {
-    	// TODO implement me!
+    	// TODO think about what happens if filter is reseted!
+    	$this->filterValue = array_key_exists('filterValue', $this->sessionFilterData) ? $this->sessionFilterData['filterValue'] : $this->filterValue;
     }
     
     
@@ -85,13 +112,20 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Template method for initializing filter by get / post vars
      */
     protected function iniFilterByGpVars() {
-    	// TODO implement me!
+    	// TODO think about what happens if filter is resetted!
+    	$this->filterValue = array_key_exists('filterValue', $this->gpVarFilterData) ? $this->gpVarFilterData['filterValue'] : $this->filterValue;
     }
     
     
     
+    /**
+     * Creates filter query from filter value and settings
+     */
     protected function createFilterQuery() {
-    	// TODO implement me!
+    	$filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($this->fieldDescriptionIdentifier, $this->filterValue, 'LIKE');
+    	$filterQuery->addCriteria($criteria);
+    	$this->filterQuery = $filterQuery;
     }
     
 	

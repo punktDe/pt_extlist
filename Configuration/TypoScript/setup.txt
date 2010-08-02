@@ -27,6 +27,7 @@ plugin.tx_ptextlist.settings {
             dataBackendClass = Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
             dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
             dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
+            queryInterpreterClassName = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 			
 			datasource {
 				host = localhost

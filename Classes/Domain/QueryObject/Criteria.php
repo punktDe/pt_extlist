@@ -33,6 +33,19 @@
  */
 class Tx_PtExtlist_Domain_QueryObject_Criteria {
 
+    /**
+     * Returns true, if given criteria is equal to this object
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
+     * @return bool
+     */
+	public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+		// This class is something like abstract, so it can't be equal to anything else!
+		return false;
+	}
+	
+	
+	
 	/**
 	 * Returns a new equals criteria for given field and value
 	 *

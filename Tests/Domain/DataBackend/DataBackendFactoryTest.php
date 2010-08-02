@@ -36,14 +36,19 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
 
 	protected $mockConfigurationBuilder;
 	
+	
+	
 	public function setUp() {
 		$this->mockConfigurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
+	
+	
 	
     public function testCreateDataBackend() {
         $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->mockConfigurationBuilder);
         $this->assertTrue(is_a($dataBackend, 'Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
     }
+    
     
     
     public function testGetSingletonInstances() {
@@ -59,6 +64,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
     	  	
     	$this->assertTrue($dataBackendForTest1 === $duplicatedDataBackendForTest1);
     }
+    
     
     
     protected function getConfigForFirstDbe() {
@@ -99,11 +105,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                              'testfilterbox' => array(
                                  '10' => array(
                                     'filterIdentifier' => 'filter1',
-                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field1'
                                  ),
                                  '20' => array(
                                     'filterIdentifier' => 'filter2',
-                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field2'
                                  )
                              )
                         ),
@@ -114,6 +122,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                 )
             );
     }
+    
     
     
     protected function getConfigForSecondDbe() {
@@ -154,11 +163,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                              'testfilterbox' => array(
                                  '10' => array(
                                     'filterIdentifier' => 'filter1',
-                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field1'
                                  ),
                                  '20' => array(
                                     'filterIdentifier' => 'filter2',
-                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field2'
                                  )
                              )
                         ),
