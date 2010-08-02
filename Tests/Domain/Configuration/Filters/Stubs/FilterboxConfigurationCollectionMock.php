@@ -70,7 +70,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
         
         $mockFilterConfiguration1->expects($this->any())
             ->method('getFilterClassName')
-            ->will($this->returnValue('Tx_PtExtlist_Domain_Model_Filter_FilterStub'));
+            ->will($this->returnValue('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub'));
             
         $mockFilterConfiguration1->expects($this->any())
             ->method('getListIdentifier')
