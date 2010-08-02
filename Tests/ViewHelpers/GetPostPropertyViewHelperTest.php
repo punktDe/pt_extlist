@@ -24,6 +24,13 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * Testcase for getPostPropertyViewHelper
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
 class Tx_PtExtlist_Tests_ViewHelpers_GetPostPropertyViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
@@ -51,18 +58,14 @@ class Tx_PtExtlist_Tests_ViewHelpers_GetPostPropertyViewHelper_testcase extends 
 	public function testRenderWithKey() {
 		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GetPostPropertyViewHelper();
 		
-		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace','getLabel'));
+		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
             ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
-		$object->expects($this->once())
-            ->method('getLabel')
-            ->will($this->returnValue('test'));
-            
             
         $link = $linkViewHelper->render($object,'label');
         
-        $this->assertEquals($link, 'tx_ptextlist_pi1[listName][objectType][objectName][label]=test', 'NamespacePart should be tx_ptextlist_pi1[listName][objectType][objectName][label]=test but is "' . $link. '"');
+        $this->assertEquals($link, 'tx_ptextlist_pi1[listName][objectType][objectName][label]', 'NamespacePart should be tx_ptextlist_pi1[listName][objectType][objectName][label] but is "' . $link. '"');
 	}
 	
 	
