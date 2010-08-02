@@ -125,8 +125,26 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_Query_testcase extends Tx_PtExtlist_
     	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
     	$this->assertTrue(method_exists($query, 'addSorting'));
     	$query->addSorting('test', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+    	
+    	$sorting = $query->getSortings();
+    	$this->assertTrue(array_key_exists('test', $sorting));
+    	$this->assertEquals($sorting['test'], Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
     }
     
+    public function testAddSdortingArray() {
+    	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$this->assertTrue(method_exists($query, 'addSortingArray'));
+    	
+    	$query->addSorting('name', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+    	$query->addSortingArray(array('test' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+    	$query->addSorting('company', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+    	
+    	$sorting = $query->getSortings();
+    	$this->assertTrue(array_key_exists('test', $sorting));
+    	$this->assertEquals($sorting['test'], Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+    	$this->assertEquals($sorting['name'], Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+    	$this->assertEquals($sorting['company'], Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+    }
     
     
     public function testRaiseErrorOnAddingWrongSorting() {

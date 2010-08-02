@@ -28,15 +28,21 @@
 /**
  * Testcase for pt_extlist data backend factory 
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	protected $mockConfigurationBuilder;
+	
+	public function setUp() {
+		$this->mockConfigurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+	}
+	
     public function testCreateDataBackend() {
-        $mockConfigurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($mockConfigurationBuilder);
+        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->mockConfigurationBuilder);
+        $this->assertTrue(is_a($dataBackend, 'Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
     }
     
     

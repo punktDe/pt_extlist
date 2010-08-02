@@ -132,7 +132,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      */
     
 
-/**
+	/**
 	 * @return string column identifier
 	 */
     public function getColumnIdentifier() {
@@ -163,7 +163,19 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $sorting;
     }
 
-
+    /**
+     * Get a query with sorting definition set
+     * 
+     * @return unknown_type
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 02.08.2010
+     */
+    public function getSortingQuery() {
+    	$sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$sortingQuery->addSortingArray($this->getSorting());
+    	return $sortingQuery;
+    }
+    
     /**
      * return sorting State 
      * 
@@ -183,6 +195,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->isSortable;
     }
 	
+   	
     
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"

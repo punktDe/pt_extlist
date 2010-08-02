@@ -28,7 +28,7 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
@@ -76,6 +76,11 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $filterboxCollection;
 	
 	
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	protected $listHeader;
+	
 	
     /**
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface
@@ -107,7 +112,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	protected $observers = array();
 	
+
 	
+		
 	/**
 	 * Per default, a data backend does not require a data source, so we return null here
 	 * 
@@ -199,6 +206,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 	
 	/**
+	 * Injector for List Header 
+	 * 
+	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		$this->listHeader = $listHeader;
+	}
+	
+	/**
 	 * Register a new observer object.
 	 * 
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs The obeserver object to register
@@ -242,6 +258,14 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		return $this->pager;
 	}
 
+	/**
+	 * Returns the listHeader with sorting informations
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	public function getListHeader() {
+		return $this->listHeader;
+	}
+	
 }
 
 ?>

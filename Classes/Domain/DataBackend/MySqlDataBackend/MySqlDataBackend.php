@@ -26,7 +26,7 @@
 /**
  * Class implements data backend for generic mysql connections
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
@@ -116,13 +116,18 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string An SQL query
 	 */
 	public function buildQuery() {
-		$query = '';
+		$selectPart  = $this->buildSelectPart();
+		$fromPart    = $this->buildFromPart();
+		$wherePart   = $this->buildWherePart();
+		$orderByPart = $this->buildOrderByPart();
+		$limitPart   = $this->buildLimitPart();
 		
-		$query .= $this->buildSelectPart() != ''  ? 'SELECT ' . $this->buildSelectPart() . ' ' : '';
-		$query .= $this->buildFromPart() != ''    ? 'FROM ' . $this->buildFromPart() . ' ' : '';
-		$query .= $this->buildWherePart() != ''   ? 'WHERE ' . $this->buildWherePart() . ' ' : '';
-		$query .= $this->buildOrderByPart() != '' ? 'ORDER BY ' . $this->buildOrderByPart() . ' ' : '';
-		$query .= $this->buildLimitPart() != ''   ? 'LIMIT ' . $this->buildLimitPart() . ' ' : '';
+		$query = '';
+		$query .= $selectPart != ''  ? 'SELECT ' . $selectPart . ' ' : '';
+		$query .= $fromPart != ''    ? 'FROM ' . $fromPart . ' ' : '';
+		$query .= $wherePart != ''   ? 'WHERE ' . $wherePart . ' ' : '';
+		$query .= $orderByPart != '' ? 'ORDER BY ' . $orderByPart . ' ' : '';
+		$query .= $limitPart != ''   ? 'LIMIT ' . $$limitPart . ' ' : '';
 		
 		return $query;
 	}
@@ -250,13 +255,38 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string ORDER BY part of query without 'ORDER BY'
 	 */
 	public function buildOrderByPart() {
-		$orderByPart = '';
-		// TODO implement me!
-		// Implement column objects before!
-		return $orderByPart;
+		return $this->getOrderByFromListHeader($this->listHeader);
 	}
 	
+	/**
+	 * Build the order by string from list header
+	 * 
+	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 * @return string
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 02.08.2010
+	 */
+	public function getOrderByFromListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		$orderByArray = array();
+		
+		foreach($listHeader as $headerColumn) {
+			$orderByArray[] = $this->getOrderByFromHeaderColumn($headerColumn);
+		}
+		
+		return count($orderByArray) > 0 ? implode(', ', $orderByArray) : '';
+	}
 	
+	/**
+	 * Return the interpreted order by string from a single header column
+	 * 
+	 * @param $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
+	 * @return string
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 02.08.2010
+	 */
+	public function getOrderByFromHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
+		return $this->queryInterpreter->getSorting($headerColumn->getSortingQuery());	
+	}
 	
 	/**
 	 * Builds limit part of query from all parts of plugin

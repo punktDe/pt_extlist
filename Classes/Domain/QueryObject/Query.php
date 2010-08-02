@@ -181,7 +181,6 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	}
 	
 	
-	
 	/**
 	 * Returns limit of query
 	 *
@@ -194,23 +193,34 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	
 	
 	/**
-	 * Adds a sorting for a given column and a given direction to array of sortings.
-	 * Direction may be either ASCENDING oder DESCENDING
+	 * Adds a sorting for a given field and a given direction to array of sortings.
+	 * Direction may be either self::SORTINGSTATE_DESC oder self::SORTINGSTATE_ASC
 	 *
-	 * @param string $column Column to be sorted
+	 * @param string $field Field to be sorted
 	 * @param integer $direction Direction of sorting
 	 */
-	public function addSorting($column, $direction = self::SORTINGSTATE_ASC) {
-		tx_pttools_assert::isNotEmptyString($column, array('message' => 'column must not be empty! 1280060692'));
+	public function addSorting($field, $direction = self::SORTINGSTATE_ASC) {
+		tx_pttools_assert::isNotEmptyString($field, array('message' => 'field must not be empty! 1280060692'));
 		
 		if ($direction == self::SORTINGSTATE_ASC || $direction == self::SORTINGSTATE_DESC) {
-		    $this->sortings[$column] = $direction;	
+		    $this->sortings[$field] = $direction;	
 		} else {
 			throw new Exception('Given direction must be either SORTINGSTATE_ASC(1) or SORTINGSTATE_DESC(-1), but was ' . $direction);
 		}
 		
 	}
 	
+	/**
+	 * Add an array of fields and sorting direction to the array of sortings
+	 * 
+	 * @param $sortingArray array
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 02.08.2010
+	 */
+	public function addSortingArray(array $sortingArray) {
+		tx_pttools_assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
+		$this->sortings =  t3lib_div::array_merge_recursive_overrule($this->sortings, $sortingArray);
+	}
 	
 	
 	/**
