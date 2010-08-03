@@ -112,11 +112,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$limitPart   = $this->buildLimitPart();
 		
 		$query = '';
-		$query .= $selectPart != ''  ? 'SELECT ' . $selectPart . "\n " : '';
-		$query .= $fromPart != ''    ? 'FROM ' . $fromPart . "\n " : '';
-		$query .= $wherePart != ''   ? 'WHERE ' . $wherePart . "\n " : '';
-		$query .= $orderByPart != '' ? 'ORDER BY ' . $orderByPart . "\n " : '';
-		$query .= $limitPart != ''   ? 'LIMIT ' . $limitPart . "\n " : '';
+		$query .= $selectPart != ''  ? 'SELECT ' 	. $selectPart   . " \n" : '';
+		$query .= $fromPart != ''    ? 'FROM '   	. $fromPart 	. " \n" : '';
+		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
+		$query .= $orderByPart != '' ? 'ORDER BY ' 	. $orderByPart 	. " \n" : '';
+		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 		
 		return $query;
 	}
