@@ -110,6 +110,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @param array $backendConfiguration
      */
     public function injectBackendConfiguration($backendConfiguration);
+    
+    
+    
+    /**
+     * Returns associated filterbox collection
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection Associated filterbox collection
+     */
+    public function getFilterboxCollection();
 
 }
 

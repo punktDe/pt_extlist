@@ -91,6 +91,17 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 		return $this->listIdentifier;
 	}
 	
+	
+	
+	/**
+	 * Resets all filters in this filterbox
+	 *
+	 * @return void
+	 */
+	public function reset() {
+		// TODO implement me!
+	}
+	
 }
 
 ?>

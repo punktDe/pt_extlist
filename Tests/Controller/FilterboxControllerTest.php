@@ -31,6 +31,12 @@
  */
 class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
     
+   public function setup() {
+      $this->initDefaultConfigurationBuilderMock();
+   }
+   
+   
+	
    public function testSetup() {
         $this->assertTrue(class_exists('Tx_PtExtlist_Controller_FilterboxController', 'Class Tx_PtExtlist_Controller_FilterboxController does not exist!'));
     }
@@ -77,6 +83,34 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
           array('dummy'),array(), '', FALSE);
         $mockController->submitAction();
         */
+    }
+    
+    
+    
+    public function testResetAction() {
+    	$filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('reset'), array(), '', FALSE);
+    	$filterboxMock->expects($this->once())
+    	   ->method('reset');
+    	   
+    	$filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array(), array(), '', FALSE);
+    	$filterboxCollectionMock->expects($this->once())
+    	   ->method('getFilterboxByFilterboxIdentifier')
+    	   ->with('test')
+    	   ->will($this->returnValue($filterboxMock));
+    	
+    	$dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getFilterboxCollection'), array($this->configurationBuilderMock));
+        $dataBackendMock->expects($this->once())
+           ->method('getFilterboxCollection')
+           ->will($this->returnValue($filterboxCollectionMock));
+    	
+    	$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect'), array(), '', FALSE);
+    	$filterboxControllerMock->_set('dataBackend', $dataBackendMock);
+    	$filterboxControllerMock->_set('filterboxIdentifier', 'test');
+    	$filterboxControllerMock->expects($this->once())
+    	   ->method('redirect')
+    	   ->with('showAction');
+    	   
+    	$filterboxControllerMock->resetAction();
     }
     
 }
