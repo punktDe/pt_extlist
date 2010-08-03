@@ -23,6 +23,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * @package        TYPO3
+ * @subpackage	   pt_extlist  
+ * @author         Daniel Lienert <lienert@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends tx_pttools_objectCollection {
 	
 	public function addSortingField($sortingField, $fieldIdentifier) {

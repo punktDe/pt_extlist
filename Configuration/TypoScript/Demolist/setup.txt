@@ -44,9 +44,11 @@ plugin.tx_ptextlist.settings {
             name_local {
                 table = static_countries
                 field = cn_short_local
-                
-                # default for isSortable is "1"
-                isSortable = 1
+            }
+            
+            name_official {
+            	table = static_countries
+            	field = cn_official_name_en
             }
             
             name_english {
@@ -73,6 +75,15 @@ plugin.tx_ptextlist.settings {
             
                 columnIdentifier = renderedCol2
                 fieldIdentifier = name_english
+            }
+            
+            30 {
+            	isSortable = 1
+            	sorting = cn_official_name_en ASC
+            
+                columnIdentifier = official_name
+                fieldIdentifier = name_official
+                label = Official Name
             }
         }
         
