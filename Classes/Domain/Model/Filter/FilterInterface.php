@@ -102,6 +102,15 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	 */
 	public function init();
 	
+	
+	
+	/**
+	 * Resets filter
+	 *
+	 * @return void
+	 */
+	public function reset();
+	
 }
 
 ?>

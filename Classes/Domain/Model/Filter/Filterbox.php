@@ -99,7 +99,9 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 * @return void
 	 */
 	public function reset() {
-		// TODO implement me!
+		foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+			$filter->reset();
+		}
 	}
 	
 }
