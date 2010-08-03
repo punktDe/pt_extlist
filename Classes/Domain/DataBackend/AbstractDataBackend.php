@@ -106,21 +106,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldConfigurationCollection;
-	
-	
-	
-	// TODO think about sorting(s)/collection
-	#protected $sorting
 
 	
-	
-	/**
-	 * TODO THERE ARE NO OBSERVERS!!!! (pager, filter, sorting etc. act LIKE observers, but they are no observers!!!)
-	 * @var unknown_type
-	 */
-	protected $observers = array();
-    
-    
     
     /**
      * Holds an instance of a query interpreter to be used for
@@ -134,8 +121,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		
 	/**
 	 * Per default, a data backend does not require a data source, so we return null here
-	 * 
-	 * // TODO think about this
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return unknown
@@ -243,31 +228,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
         $this->queryInterpreter = $queryInterpreter;
     }
-    
-    
-	
-	/**
-	 * Register a new observer object.
-	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface $obs The obeserver object to register
-	 */
-	public function registerObserver(Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface $obs) {
-		$this->observers[] = $obs;
-	}
-	
-	
-	
-	/**
-	 * Updates the item count in each observer object.
-	 * 
-	 * @param int $itemCount The new item count.
-	 */
-	protected function updateObserversItemCount($itemCount) {
-		foreach($this->observers as $observer) {
-			
-			$observer->updateItemCount($itemCount);
-		}
-	}
 	
 	
 	

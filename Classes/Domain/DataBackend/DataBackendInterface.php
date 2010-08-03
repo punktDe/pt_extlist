@@ -69,6 +69,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     
     
     /**
+     * Returns the number of items for current settings without pager settings
+     *
+     * @return int Total number of items for current data set
+     */
+    public function getTotalItemsCount();
+    
+    
+    
+    /**
      * Injector for data mapper
      *
      * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper

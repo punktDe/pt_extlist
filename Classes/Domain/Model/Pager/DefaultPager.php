@@ -31,7 +31,10 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface {
+class Tx_PtExtlist_Domain_Model_Pager_DefaultPager 
+    implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, 
+               Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
+               Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface  {
 	
 	/**
 	 * The current page.
@@ -131,7 +134,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
 	 */
 	public function getFirstItemIndex() {
-		return ( ($this->currentPage-1) * $this->itemsPerPage) + 1;
+		return ( ($this->currentPage - 1) * $this->itemsPerPage) + 1;
 	}
 	
 	
@@ -140,7 +143,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastItemIndex()
 	 */
 	public function getLastItemIndex() {
-		return (($this->currentPage-1) * $this->itemsPerPage) + $this->itemsPerPage;
+		return (($this->currentPage - 1) * $this->itemsPerPage) + $this->itemsPerPage;
 	}
 	
 	
@@ -150,9 +153,10 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	public function injectSettings(array $settings) {
 		$this->settings = $settings;
-		
 		if(array_key_exists('itemsPerPage', $settings)) {
 			$this->itemsPerPage = $settings['itemsPerPage'];
+		} else {
+			throw new Exception('No items per page configuration set for pager. 1280845117');
 		}
 	}
 	
@@ -284,6 +288,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return ceil(($this->totalItemCount/$this->itemsPerPage));
 	}
 	
+	
+	
 	/**
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstPage()
 	 */
@@ -320,4 +326,4 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 }
  
  
- ?>
+?>

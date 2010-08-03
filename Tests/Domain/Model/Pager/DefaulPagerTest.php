@@ -35,28 +35,59 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
 
 	protected $pager;
 	
+	
+	
 	public function setup() {
 		$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager();
 	}
+	
+	
+	
+	public function testInjectSettings() {
+		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager();
+		$pager->injectSettings(array('itemsPerPage' => 10));
+		$this->assertTrue($pager->getItemsPerPage() == 10);
+	}
+	
+	
+	
+	public function testThrowExceptionOnMissingConfigParameters() {
+		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager();
+		try {
+		  $pager->injectSettings(array());
+		} catch(Exception $e) {
+			return;
+		}
+		$this->fail('No exception has been thrown on missing configuration parameter!');
+	}
+	
+	
 		
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Pager_DefaultPager'));
     }
+    
+    
     
     public function testCurrentPage() {
     	$this->pager->setCurrentPage(10);
     	$this->assertEquals($this->pager->getCurrentPage(), 10);
     }
     
+    
+    
     public function testItemCount() {
     	$this->pager->setItemCount(10);
     	$this->assertEquals($this->pager->getItemCount(),10);
     }
     
+    
+    
     public function testGetShowFirstLink() {
     	$this->assertFalse($this->pager->getShowFirstLink());
     	
     	$settings['showFirstLink'] = 1;
+    	$settings['itemsPerPage'] = 10;
     	$this->pager->injectSettings($settings);
     	$this->assertTrue($this->pager->getShowFirstLink());
     }
@@ -65,25 +96,34 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     	$this->assertFalse($this->pager->getShowLastLink());
     	
     	$settings['showLastLink'] = 1;
+        $settings['itemsPerPage'] = 10;
     	$this->pager->injectSettings($settings);
     	$this->assertTrue($this->pager->getShowLastLink());
     }
+    
+    
     
     public function testGetShowPreviousLink() {
     	$this->assertFalse($this->pager->getShowPreviousLink());
     	
     	$settings['showPreviousLink'] = 1;
+        $settings['itemsPerPage'] = 10;
     	$this->pager->injectSettings($settings);
     	$this->assertTrue($this->pager->getShowPreviousLink());
     }
+    
+    
     
     public function testGetShowNextLink() {
     	$this->assertFalse($this->pager->getShowNextLink());
     	
     	$settings['showNextLink'] = 1;
+        $settings['itemsPerPage'] = 10;
     	$this->pager->injectSettings($settings);
     	$this->assertTrue($this->pager->getShowNextLink());
     }
+    
+    
     
     public function testGetPages() {
     	$this->pager->setItemCount(21);
@@ -92,6 +132,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     	$this->assertEquals(count($this->pager->getPages()),11);
     }
     
+    
+    
     public function testGetFirstItemIndex() {
     	$this->pager->setItemCount(100);
     	$this->pager->injectSettings(array('itemsPerPage' => 10));
@@ -99,6 +141,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     	
     	$this->assertEquals($this->pager->getFirstItemIndex(), 11);
     }
+    
+    
     
     public function testGetLastItemIndex() {
     	$this->pager->setItemCount(100);

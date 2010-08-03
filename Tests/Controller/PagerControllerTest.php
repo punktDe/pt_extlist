@@ -31,9 +31,41 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
-    
+
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
+	
+	
    public function testSetup() {
    	    $this->assertTrue(class_exists('Tx_PtExtlist_Controller_PagerController'), 'Class Tx_PtExtlist_Controller_PagerController does not exist!');
+    }
+    
+    
+    
+    public function testShowAction() {
+    	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setItemCount'));
+    	$dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getTotalItemsCount'), array($this->configurationBuilderMock));
+    	$dataBackendMock->expects($this->once())
+    	   ->method('getTotalItemsCount')
+    	   ->will($this->returnValue(10));
+    	
+    	$mockView = $this->getMock('Tx_Fluid_Core_View_TemplateView', array('assign'));
+    	$mockView->expects($this->once())
+    	   ->method('assign')
+    	   ->with('pager', $this->isInstanceOf('Tx_PtExtlist_Domain_Model_Pager_PagerInterface'));
+    	   
+    	$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getPagerSettings'), array(), '', FALSE);
+    	$configurationBuilderMock->expects($this->once())
+    	   ->method('getPagerSettings')
+    	   ->will($this->returnValue(array('itemsPerPage' => '10', 'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager')));
+    	
+    	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('dummy'), array(), '', FALSE);
+    	$pagerControllerMock->_set('dataBackend', $dataBackendMock);
+    	$pagerControllerMock->_set('view', $mockView);
+    	$pagerControllerMock->_set('configurationBuilder', $configurationBuilderMock);
+    	$pagerControllerMock->showAction();
     }
     
 }

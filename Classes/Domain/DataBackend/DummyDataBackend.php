@@ -60,6 +60,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	}
 	
 	
+	
 	/**
 	 * Executes query on data source
 	 *
@@ -77,8 +78,27 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 		return $this->dataSource->execute();
 	}
 	
+	
+	
+	/**
+	 * Factory method for data source
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
+	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource();
+	}
+	
+	
+	
+	/**
+	 * Returns count of items 
+	 *
+	 * @return int Total count of items
+	 */
+	public function getTotalItemsCount() {
+		return 10;
 	}
 	
 }
