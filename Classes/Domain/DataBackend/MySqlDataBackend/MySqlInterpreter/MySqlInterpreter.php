@@ -158,13 +158,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 	    $sqlString = '';
 		
-	    $sqlString .= self::getSelectPart($query) != '' ? 'SELECT ' . self::getSelectPart($query) : '';
-	    $sqlString .= self::getFromPart($query) != '' ? ' FROM ' . self::getFromPart($query) : '';
-	    $sqlString .= self::getCriterias($query) != '' ? ' WHERE ' . self::getCriterias($query) : '';
+	    $sqlString .= self::getSelectPart($query) != '' ? 'SELECT ' . self::getSelectPart($query) . "\n" : '';
+	    $sqlString .= self::getFromPart($query) != '' ? ' FROM ' . self::getFromPart($query) . "\n" : '';
+	    $sqlString .= self::getCriterias($query) != '' ? ' WHERE ' . self::getCriterias($query) . "\n" : '';
 	    // TODO implement group by!
 	    //$sqlString .= $this->getGroupByPart($query);
-	    $sqlString .= self::getSorting($query) != '' ? ' ORDER BY ' . self::getSorting($query) : '';
-	    $sqlString .= self::getLimit($query) != '' ? ' LIMIT ' . self::getLimit($query) : '';
+	    $sqlString .= self::getSorting($query) != '' ? ' ORDER BY ' . self::getSorting($query) . "\n" : '';
+	    $sqlString .= self::getLimit($query) != '' ? ' LIMIT ' . self::getLimit($query) . "\n" : '';
 	    
 		return $sqlString;
 	}

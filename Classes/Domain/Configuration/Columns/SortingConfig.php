@@ -23,10 +23,23 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * @package        TYPO3
+ * @subpackage	   pt_extlist  
+ * @author         Daniel Lienert <lienert@punkt.de>
+ */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	
+	/**
+	 * 
+	 * @var string
+	 */
 	protected $field; 
 	
+	/**
+	 * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC / SORTINGSTATE_DESC / SORTINGSTATE_NONE
+	 * @var integer 
+	 */
 	protected $direction;
 	
 	/**
@@ -46,6 +59,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 		$this->forceDirection = $forceDirection;
 	}
 	
+	
+	
 	public function setDirection($direction) {
 		if($this->forceDirection == false) {
 			$this->direction = $direction;
@@ -57,9 +72,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 		return $this->direction;
 	}
 	
+	
+	
 	public function getForceDirection() {
 		return $this->forceDirection;
 	}
+	
+	
 	
 	public function getField() {
 		return $this->field;
