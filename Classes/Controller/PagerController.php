@@ -52,8 +52,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * @dontvalidate $page
 	 * @return string Rendered pager action HTML source
 	 */
-	public function submitAction(string $page) {
-		//TODO: check why this method is not called
+	public function submitAction($page) {
 		$this->redirect('showAction');
 	}
 	
