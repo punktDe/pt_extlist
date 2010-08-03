@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExt
 		
 		$nameSpacepart = $linkViewHelper->renderNamespacePart($object);
 		
-		$this->assertEquals($nameSpacepart, 'tx_ptextlist_pi1[listName][objectType][objectName]', 'NamespacePart should be tx_ptextlist_pi1[listName][objectType][objectName] but is ' . $nameSpacepart);
+		$this->assertEquals($nameSpacepart, 'listName[objectType][objectName]', 'NamespacePart should be listName[objectType][objectName] but is ' . $nameSpacepart);
 	}
 	
 	public function testRenderWithKey() {
@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExt
             
         $link = $linkViewHelper->render($object,'label');
         
-        $this->assertEquals($link, 'tx_ptextlist_pi1[listName][objectType][objectName][label]', 'NamespacePart should be tx_ptextlist_pi1[listName][objectType][objectName][label] but is "' . $link. '"');
+        $this->assertEquals($link, 'listName[objectType][objectName][label]', 'NamespacePart should be listName[objectType][objectName][label] but is "' . $link. '"');
 	}
 	
 	
@@ -79,7 +79,20 @@ class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExt
                         
         $link = $linkViewHelper->render($object,'label','test');
         
-        $this->assertEquals($link, 'tx_ptextlist_pi1[listName][objectType][objectName][label]=test', 'NamespacePart should be tx_ptextlist_pi1[listName][objectType][objectName][label]=test but is "' . $link. '"');
+        $this->assertEquals($link, 'listName[objectType][objectName][label]=test', 'NamespacePart should be listName[objectType][objectName][label]=test but is "' . $link. '"');
+	}
+	
+	public function testRenderNamespacePartWithPrefix() {
+		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
+		
+		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
+        $object->expects($this->once())
+            ->method('getObjectNamespace')
+            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
+		
+		$nameSpacepart = $linkViewHelper->renderNamespacePart($object, true);
+		
+		$this->assertEquals($nameSpacepart, 'tx_ptextlist_pi1[listName][objectType][objectName]', 'NamespacePart should be listName[objectType][objectName] but is ' . $nameSpacepart);
 	}
 	
 }
