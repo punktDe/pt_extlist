@@ -36,13 +36,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
 		$filterboxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig(
 		    $configurationBuilder, $filterboxIdentifier, $settings);
 		foreach($settings as $arrayIndex => $filterSettings) {
+			tx_pttools_assert::isArray($filterSettings, array('message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788'));
 			$filterConfig = Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory::createInstance(
 			    $configurationBuilder, $filterboxIdentifier, $filterSettings);
 			$filterboxConfiguration->addItem($filterConfig, $arrayIndex);
 		}
 		return $filterboxConfiguration;
 	}
-	
 }
-
 ?>

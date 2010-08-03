@@ -31,7 +31,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_ViewHelpers_GetPostPropertyViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -43,7 +43,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_GetPostPropertyViewHelper_testcase extends 
 	}
 	
 	public function testRenderNamespacePart() {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GetPostPropertyViewHelper();
+		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
 		
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_GetPostPropertyViewHelper_testcase extends 
 	}
 	
 	public function testRenderWithKey() {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GetPostPropertyViewHelper();
+		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
 		
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
@@ -70,7 +70,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_GetPostPropertyViewHelper_testcase extends 
 	
 	
 	public function testRenderWithKeyAndValue() {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GetPostPropertyViewHelper();
+		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
 		
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
