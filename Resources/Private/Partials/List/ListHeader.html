@@ -3,10 +3,13 @@
 <tr>
 	<extlist:header headers="{listHeader}" headerKey="header" captions="{listCaptions}" captionKey="caption">
 		<th>
-			{caption}		
+			{caption}	
+			<f:if condition="{sortable}">
+				
 			<extlist:link.sorting action="show" header="{header}">
 				<extlist:image.sorting header="{header}" alt="sorting"/>
 			</extlist:link.sorting>
+			</f:if>
 		</th>
 	</extlist:header>
 </tr>

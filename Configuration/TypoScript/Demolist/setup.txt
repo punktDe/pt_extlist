@@ -61,11 +61,16 @@ plugin.tx_ptextlist.settings {
         
         columns {
             10 {
+            	isSortable = 0
+            	      	
                 columnIdentifier = renderedCol1
                 fieldIdentifier = name_local
             }
             
             20 {
+            	isSortable = 1
+            	sorting = cn_short_en ASC
+            
                 columnIdentifier = renderedCol2
                 fieldIdentifier = name_english
             }

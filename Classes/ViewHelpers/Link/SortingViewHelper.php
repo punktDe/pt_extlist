@@ -32,8 +32,7 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 	 * 
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='show') {
-		
-		$value = $this->invertSortingState($header->getSortingState());
+		$value = $this->invertSortingState($header->getSortingState());		
 		$param = $this->buildNamespaceArray($header, $value);
 	
 		return parent::render($action,$param);
@@ -52,7 +51,7 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 			case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC:
 				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
 			default:
-				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
 		}
 	}
 	
@@ -73,12 +72,15 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 		$pointer = &$returnArray;
 		
 		// Build array
-		foreach($identChunks as $chunk) {
+		foreach($identChunks as $key => $chunk) {
+			// we don't want the first chunk eg. 'tx_ptextlist'
+			if($key <= 0) continue;
+			
 			$pointer = &$pointer[$chunk];
 		}
 
 		// Add value
-		$pointer = $header->getSortingState();
+		$pointer['sortingState'] = $value;
 		
 		return $returnArray;
 	}
