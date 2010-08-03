@@ -226,7 +226,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @return string
      */
     public function getSortingImageDesc() {
-    	$this->sortingImageDesc;
+    	return $this->sortingImageDesc;
     }
     
     /**
@@ -252,7 +252,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @return boolean True if sortable.
      */
     public function isSortable() {
-    	return $this->isSortable;
+    	return $this->columnConfig->getIsSortable();
     }
 	
    	
