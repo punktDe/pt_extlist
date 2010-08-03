@@ -1,9 +1,6 @@
-{namespace extlist=Tx_PtExtlist_ViewHelpers} 
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
 
 <div>
-<b><extlist:GPValue object="{filter}" property="filterValue" value="filterValue" /></b>
-
-
 <label for="{filter.filterIdentifier}">{filter.label}</label>
-<f:form.textbox property="filterValue" name="" />
+<f:form.textbox property="filterValue" name="{extlist:GPValue(object:'{filter}' property:'filterValue')}" />
 </div>
