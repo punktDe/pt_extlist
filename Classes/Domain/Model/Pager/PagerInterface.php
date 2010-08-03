@@ -26,18 +26,12 @@
 /**
  * Interface for pager
  * 
- * TODO this interface does not extend other interfaces!!! --> refactoring!
- * 
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface 
-    extends Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
-    		Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
-	
-	
+interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	
 	/**
 	 * Checks if this page browser is enabled
@@ -56,7 +50,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 
 	/**
-	 * 
 	 * Returns the current page index.
 	 * @return int The current page index
 	 */
@@ -65,7 +58,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Returns the index of the first page.
 	 * @return int Index of first page
 	 */
@@ -74,7 +66,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Returns the index of the last page.
 	 * @return int Index of last page
 	 */
@@ -83,7 +74,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Sets the current page
 	 * @param int $page A page index
 	 */
@@ -92,9 +82,9 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Sets the total item count.
-	 * Could used by a list to inject the amount of rows.
+	 * Could be used by a list to inject the amount of rows.
+	 * 
 	 * @param int $itemCount The amount of items.
 	 */
 	public function setItemCount($itemCount);
@@ -102,7 +92,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Returns the total item count.
 	 * @return int The total item count.
 	 */
@@ -111,7 +100,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Returns the items per page.
 	 * @return int Amount of items per page.
 	 */
@@ -120,7 +108,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Returns an array with the index=>pageNumber pairs
 	 * @return array PageNumbers
 	 */
@@ -129,7 +116,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Let you know if you should display a first page link
 	 * @return boolean
 	 */
@@ -138,7 +124,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Let you know if you should display a last page link
 	 * @return boolean
 	 */
@@ -147,7 +132,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Let you know if you should display a next page link
 	 * @return boolean
 	 */
@@ -156,7 +140,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	
 	
 	/**
-	 * 
 	 * Let you know if you should display a previous page link
 	 * @return boolean
 	 */

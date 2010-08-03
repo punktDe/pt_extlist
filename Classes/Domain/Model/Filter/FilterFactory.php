@@ -46,7 +46,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
         
         $gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpVarsAdapter->getParametersByObject($filter);
-        //$filter->injectGpVarAdapter($gpVarsAdapter); TODO is this REALY usefull??
+        $filter->injectGpVarAdapter($gpVarsAdapter); 
         
         $filter->injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($filterConfig->getListIdentifier()));
         $filter->init();

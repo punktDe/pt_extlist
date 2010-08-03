@@ -124,12 +124,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	protected $dataBackend = null;
 	
 	
+	
 	/**
 	 * Indicates if the filter is active
 	 * 
 	 * @var boolean
 	 */
 	protected $isActive = false;
+	
 	
 	
 	/**

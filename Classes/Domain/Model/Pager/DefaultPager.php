@@ -31,7 +31,11 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface {
+class Tx_PtExtlist_Domain_Model_Pager_DefaultPager 
+    implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, 
+               Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface,
+               Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
+               Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface  {
 	
 	/**
 	 * The current page.
