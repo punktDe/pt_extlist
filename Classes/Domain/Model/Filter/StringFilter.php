@@ -28,7 +28,7 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     /**
      * Template method for initializing filter by get / post vars
      */
-    protected function iniFilterByGpVars() {
+    protected function initFilterByGpVars() {
     	// TODO think about what happens if filter is resetted!
     	
     	if(array_key_exists('filterValue', $this->gpVarFilterData)) {
@@ -119,18 +119,27 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     	}
     }
     
-    
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter#initFilter()
+     */
+    protected function initFilter() {
+    	$this->isActive = trim($this->filterValue) != '' ? true : false; 
+    }
     
     /**
      * Creates filter query from filter value and settings
      */
     protected function createFilterQuery() {
-    	$fieldDescriptionIdentifier = $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($this->fieldDescriptionIdentifier);
-    	$columnName = $fieldDescriptionIdentifier->getTable() . '.' . $fieldDescriptionIdentifier->getField();
-    	$filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($columnName, $this->filterValue, 'LIKE');
-    	$filterQuery->addCriteria($criteria);
-    	$this->filterQuery = $filterQuery;
+    	$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+
+    	if($this->isActive) {
+    		$fieldDescriptionIdentifier = $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($this->fieldDescriptionIdentifier);
+	    	$columnName = $fieldDescriptionIdentifier->getTable() . '.' . $fieldDescriptionIdentifier->getField();
+	    	
+	    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($columnName, $this->filterValue, 'LIKE');
+	    	$this->filterQuery->addCriteria($criteria);	
+    	}
     }	
 }
  

@@ -124,6 +124,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	protected $dataBackend = null;
 	
 	
+	/**
+	 * Indicates if the filter is active
+	 * 
+	 * @var boolean
+	 */
+	protected $isActive = false;
+	
 	
 	/**
 	 * Constructor for filter
@@ -280,14 +287,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		
 		$this->initFilterByTsConfig();
 		$this->initFilterBySession();
-		$this->iniFilterByGpVars();
+		$this->initFilterByGpVars();
+		$this->initFilter();
 		
 		$this->createFilterQuery();
 		
 	}
-	
-	
-	
+		
 	/**
 	 * Template method for initializing filter by TS configuration
 	 */
@@ -305,7 +311,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Template method for initializing filter by get / post vars
 	 */
-	abstract protected function iniFilterByGpVars();
+	abstract protected function initFilterByGpVars();
+	
+	
+	
+	/**
+	 * Template method for initializing filter after setting all data
+	 */
+	abstract protected function initFilter();
 	
 	
 	
