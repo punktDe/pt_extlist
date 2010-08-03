@@ -43,11 +43,16 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 		$filter->injectFilterConfig($filterConfig);
         $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
         $sessionPersistenceManager->loadFromSession($filter);
+        
         $gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-        $filter->injectGpVarAdapter($gpVarsAdapter);
         $gpVarsAdapter->getParametersByObject($filter);
+        //$filter->injectGpVarAdapter($gpVarsAdapter); TODO is this REALY usefull??
+        
         $filter->injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($filterConfig->getListIdentifier()));
         $filter->init();
+        
+        $sessionPersistenceManager->persistToSession($filter);
+        
 		return $filter;
 	}
 	

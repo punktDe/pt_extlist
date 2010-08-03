@@ -73,7 +73,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      */
     public function submitAction() {
     	// TODO test, whether this is working!
-        #$this->redirect('show');
+        $this->redirect('show');
     }    
 }
 ?>

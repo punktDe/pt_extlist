@@ -33,20 +33,22 @@
  */
 class Tx_PtExtlist_ViewHelpers_GPValueViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 	
+	
 	/**
 	 * render a key/value GET/POST-string within the namespace of the given object
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * @param string $property
 	 * @param string $value 
+	 * @param boolean $addExtPrefix
 	 * @return string
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 02.08.2010
 	 */
-	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property, $value=NULL) {
+	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property, $value=NULL, $addExtPrefix = false) {
 		
 		$getPostProperty = '';
 	
-		$getPostProperty .= $this->renderNamespacePart($object);
+		$getPostProperty .= $this->renderNamespacePart($object, $addExtPrefix);
 		
 		/*
 		if(!$value) {
@@ -72,20 +74,23 @@ class Tx_PtExtlist_ViewHelpers_GPValueViewHelper extends Tx_Fluid_Core_ViewHelpe
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 02.08.2010
 	 */
-	public function renderNamespacePart(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object) {
+	public function renderNamespacePart(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $addExtPrefix) {
 		$nameSpace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 		
 		$identChunks =  t3lib_div::trimExplode('.', $nameSpace);
 		
-		$nameSpacePart = array_shift($identChunks);
+		if(!$addExtPrefix) {
+			array_shift($identChunks);
+		}
+		
+		$nameSpacePart  = array_shift($identChunks);
 		
 		foreach($identChunks as $chunk) {
 			$nameSpacePart .= '['.$chunk.']';
 		}
 		
 		return $nameSpacePart;
-	}
-	
+	}	
 }
 ?>

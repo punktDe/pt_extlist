@@ -80,6 +80,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	 * @param string $query SQL query to be executed
 	 */
 	public function executeQuery($query) {
+		$GLOBALS['trace'] = 1;	trace($query ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 		try {
 			$res = $this->connection->sql_query($query);
 	        tx_pttools_assert::isMySQLRessource($res, $this->dbObj);
