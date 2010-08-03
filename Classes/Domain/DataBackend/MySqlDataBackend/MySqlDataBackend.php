@@ -198,7 +198,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function getWhereClauseFromFilterboxes() {
 		$whereClauses = array();
 		foreach ($this->filterboxCollection as $filterBox) {
-			$whereClauses[] = $this->getWhereClauseFromFilterbox($filterBox);
+			$whereClauseFromFilterbox = $this->getWhereClauseFromFilterbox($filterBox);
+			if($whereClauseFromFilterbox) {
+				$whereClauses[] = $whereClauseFromFilterbox;
+			}
 		}
 		$whereClauseString = sizeof($whereClauses) > 0 ? '(' . implode(') AND (', $whereClauses) . ')' : '';
 		return $whereClauseString;
@@ -215,7 +218,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function getWhereClauseFromFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox) {
 		$whereClausesFromFilterbox = array();
 		foreach($filterbox as $filter) {
-			$whereClausesFromFilterbox[] = $this->getWhereClauseFromFilter($filter);
+			$whereClauseFromFilter = $this->getWhereClauseFromFilter($filter);
+			if($whereClauseFromFilter) {
+				$whereClausesFromFilterbox[] = $whereClauseFromFilter;	
+			}
 		}
 		$whereClauseString = sizeof($whereClausesFromFilterbox) > 0 ? '(' . implode(') AND (', $whereClausesFromFilterbox) . ')' : '';
 		return $whereClauseString;

@@ -57,6 +57,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 			$criteriaArray[] = self::translateCriteria($criteria);
 		}
 		$criteriaString = implode(' AND ', $criteriaArray);
+		
 		return $criteriaString;
 	}
 
