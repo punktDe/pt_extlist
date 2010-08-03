@@ -32,13 +32,55 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 	 * 
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='show') {
-		return parent::render($action,$this->createParameter($header));
+		
+		$value = $this->invertSortingState($header->getSortingState());
+		$param = $this->buildNamespaceArray($header, $value);
+	
+		return parent::render($action,$param);
 	}
 	
-	protected function createParameter(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
-		$namespace = $header->getObjectNamespace();
-		$param = array ($namespace => array('sortingState' => $header->getSortingState()));
-		return $param;
+	/**
+	 * Inverting the current sorting state.
+	 * 
+	 * @param int $sortingState
+	 * @return int The inverted sorting state.
+	 */
+	protected function invertSortingState($sortingState) {
+		switch($sortingState) {
+			case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC:
+				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC;
+			case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC:
+				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
+			default:
+				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+		}
+	}
+	
+	/**
+	 * Building a namespace array filled with an value.
+	 * 
+	 * @param $header Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
+	 * @param $value mixed
+	 * @return array The built array filled with the given value.
+	 */
+	public function buildNamespaceArray(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $header, $value) {
+		$nameSpace = $header->getObjectNamespace();
+		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+		
+		$identChunks =  t3lib_div::trimExplode('.', $nameSpace);
+		
+		$returnArray = array();
+		$pointer = &$returnArray;
+		
+		// Build array
+		foreach($identChunks as $chunk) {
+			$pointer = &$pointer[$chunk];
+		}
+
+		// Add value
+		$pointer = $header->getSortingState();
+		
+		return $returnArray;
 	}
 }
 

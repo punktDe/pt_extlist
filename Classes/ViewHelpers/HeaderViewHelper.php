@@ -46,12 +46,14 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 			$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));		
 			$this->templateVariableContainer->add($headerKey, $header);
 			$this->templateVariableContainer->add('sortable', $header->isSortable());
+			$this->templateVariableContainer->add('sortingState', $header->getSortingState());
 			
 			$output .= $this->renderChildren();
 			
 			$this->templateVariableContainer->remove($captionKey);
 			$this->templateVariableContainer->remove($headerKey);
 			$this->templateVariableContainer->remove('sortable');
+			$this->templateVariableContainer->remove('sortingState');
 			
 		}
 		return $output;
