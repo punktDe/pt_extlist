@@ -24,11 +24,21 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class  Tx_PtExtlist_ViewHelpers_SortingLinkViewHelper extends Tx_Fluid_Core_ViewHelper_TagBasedViewHelper {
+class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
+	/**
+	 * @param $header Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 * @param $action string
+	 * 
+	 */
+	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='show') {
+		return parent::render($action,$this->createParameter($header));
+	}
 	
-	public function render() {
-		
+	protected function createParameter(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
+		$namespace = $header->getObjectNamespace();
+		$param = array ($namespace => array('sortingState' => $header->getSortingState()));
+		return $param;
 	}
 }
 

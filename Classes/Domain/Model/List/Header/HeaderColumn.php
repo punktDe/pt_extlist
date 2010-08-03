@@ -33,6 +33,24 @@
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
 	/**
+	 * Image to show as sorting link.
+	 * @var string
+	 */
+	protected $sortingImageDefault = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
+	
+	/**
+	 * Image to show as sorting link.
+	 * @var string
+	 */
+	protected $sortingImageAsc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_asc.png';
+	
+	/**
+	 * Image to show as sorting link.
+	 * @var string
+	 */
+	protected $sortingImageDesc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_desc.png';
+	
+	/**
      * TODO add some comment!
      * 
 	 * 
@@ -186,6 +204,48 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function getSortingState() {
     	return $this->sortingState;
     }
+    
+    /**
+     * Return the default image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageDefault() {
+    	return $this->sortingImageDefault;
+    }
+    
+    /**
+     * Return the ASC image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageAsc() {
+    	return $this->sortingImageAsc;
+    }
+    
+    /**
+     * Return the DESC image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageDesc() {
+    	$this->sortingImageDesc;
+    }
+    
+    /**
+     * Returns the image path to show for sorting link.
+     * Depends on the sorting state.
+     * 
+     * @return string
+     */
+    public function getSortingImage() {
+    	switch($this->sortingState) {
+    		case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC:
+    			return $this->getSortingImageAsc();
+    		case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC:
+    			return $this->getSortingImageDesc();
+    		default:
+    			return $this->getSortingImageDefault();	
+    	}
+    }
+    
     
     /**
      * Returns if the column is sortable.
