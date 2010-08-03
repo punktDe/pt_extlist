@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackend_testcase extends
 	
 	
     public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend''));
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
     }
 }
 

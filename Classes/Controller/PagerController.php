@@ -38,10 +38,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * @return string Rendered pager action HTML source
 	 */
 	public function showAction() {
-		$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this->configurationBuilder->getPagerSettings());
-		$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($this->configurationBuilder, $pagerConfiguration);
-		$pager->setItemCount($this->dataBackend->getTotalItemsCount());
-		$this->view->assign('pager', $this->dataBackend->getPager());
+		$pager = $this->getPagerInstance();
+		$this->view->assign('pager', $pager);
 	}
 	
 	
@@ -57,6 +55,20 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	public function submitAction(string $page) {
 		//TODO: check why this method is not called
 		$this->redirect('showAction');
+	}
+	
+	
+	
+	/**
+	 * Returns an initialized pager object
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+	 */
+	protected function getPagerInstance() {
+		$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this->configurationBuilder);
+        $pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($this->configurationBuilder, $pagerConfiguration);
+        $pager->setItemCount($this->dataBackend->getTotalItemsCount());
+        return $pager;
 	}
 }
 

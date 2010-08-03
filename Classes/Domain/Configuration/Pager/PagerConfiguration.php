@@ -54,11 +54,11 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 * Constructor for pager configuration
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param array $pagerSettings
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $pagerSettings=array()) {
-		$this->settings = $pagerSettings;
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$pagerSettings = $configurationBuilder->getPagerSettings();
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings 1280408323'));
+		$this->settings = $pagerSettings;
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
 	}
 	
