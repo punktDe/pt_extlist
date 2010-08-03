@@ -119,7 +119,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                         )
 	                    ),
 	                    'pagerConfig' => array(
-	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager'
+	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                            'itemsPerPage'   => '10'
 	                    ),
 	                )
 	            )

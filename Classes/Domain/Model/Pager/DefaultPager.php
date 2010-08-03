@@ -135,7 +135,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
 	 */
 	public function getFirstItemIndex() {
-		return ( ($this->currentPage-1) * $this->itemsPerPage) + 1;
+		return ( ($this->currentPage - 1) * $this->itemsPerPage) + 1;
 	}
 	
 	
@@ -144,7 +144,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastItemIndex()
 	 */
 	public function getLastItemIndex() {
-		return (($this->currentPage-1) * $this->itemsPerPage) + $this->itemsPerPage;
+		return (($this->currentPage - 1) * $this->itemsPerPage) + $this->itemsPerPage;
 	}
 	
 	
@@ -154,9 +154,10 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 */
 	public function injectSettings(array $settings) {
 		$this->settings = $settings;
-		
 		if(array_key_exists('itemsPerPage', $settings)) {
 			$this->itemsPerPage = $settings['itemsPerPage'];
+		} else {
+			throw new Exception('No items per page configuration set for pager. 1280845117');
 		}
 	}
 	

@@ -119,6 +119,8 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     	}
     }
     
+    
+    
     /**
      * (non-PHPdoc)
      * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter#initFilter()
@@ -126,6 +128,8 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     protected function initFilter() {
     	$this->isActive = trim($this->filterValue) != '' ? true : false; 
     }
+    
+    
     
     /**
      * Creates filter query from filter value and settings
