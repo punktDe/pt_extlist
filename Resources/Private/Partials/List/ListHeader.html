@@ -1,0 +1,12 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers} 
+
+<tr>
+	<extlist:header headers="{listHeader}" headerKey="header" captions="{listCaptions}" captionKey="caption">
+		<th>
+			{caption}		
+			<extlist:link.sorting action="show" header="{header}">
+				<extlist:image.sorting header="{header}" alt="sorting"/>
+			</extlist:link.sorting>
+		</th>
+	</extlist:header>
+</tr>

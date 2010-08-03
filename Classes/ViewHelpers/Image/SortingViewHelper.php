@@ -24,41 +24,16 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_Image_SortingViewHelper extends Tx_Fluid_ViewHelpers_ImageViewHelper {
 
 	/**
 	 * 
-	 * Enter description here ...
-	 * @param $header
-	 * @param $captions
-	 * @param $headerKey string
-	 * @param $captionKey string
+	 * @param $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption") {
-		$output = '';
-		if ($headers === NULL || $captions === NULL) {
-			return '';
-		}
+	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
 		
-		$output = '';
-		foreach ($headers as $header) {
-
-			$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));		
-			$this->templateVariableContainer->add($headerKey, $header);
-			$this->templateVariableContainer->add('sortable', $header->isSortable());
-			
-			$output .= $this->renderChildren();
-			
-			$this->templateVariableContainer->remove($captionKey);
-			$this->templateVariableContainer->remove($headerKey);
-			$this->templateVariableContainer->remove('sortable');
-			
-		}
-		return $output;
-
+		return parent::render($header->getSortingImage());
 	}
-
-	
 	
 }
 
