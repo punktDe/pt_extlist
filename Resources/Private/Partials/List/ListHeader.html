@@ -1,0 +1,12 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers} 
+
+<tr>
+	<extlist:header headers="{listHeader}" captions="{listCaptions}">
+		<th>
+			{label}		
+				<f:link.action action="show" arguments="{parameterName:state}">
+					<f:image src="{sortingImg}" alt="sorting" />
+				</f:link.action>
+		</th>
+	</extlist:header>
+</tr>
