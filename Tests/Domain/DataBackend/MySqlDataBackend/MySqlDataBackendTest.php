@@ -113,7 +113,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$this->assertTrue($filterWhereClause == 'test > "10"', 'Filter where clause was expected to be "test > 10" but was ' . $filterWhereClause);
 	}
 	
-	
+	public function testGetWhereClauseFromFilterWithoutActiveFilter() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+		
+		$filterMock = $this->getFilterMockByCriteria();
+		
+		$filterWhereClause = $dataBackend->getWhereClauseFromFilter($filterMock);
+		$this->assertTrue($filterWhereClause == '', 'Filter where clause was expected to be "" but was ' . $filterWhereClause);
+	}
 	
 	public function testGetWhereClauseFromFilterbox() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
@@ -275,9 +283,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	
-	protected function getFilterMockByCriteria($criteria) {
+	protected function getFilterMockByCriteria($criteria = NULL) {
 		$filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-        $filterQuery->addCriteria($criteria);
+        
+		if($criteria != NULL) {
+        	$filterQuery->addCriteria($criteria);	
+        }
+		
         $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter', array('getFilterQuery'));
         $filterMock->expects($this->once())
             ->method('getFilterQuery')
