@@ -198,6 +198,10 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	}
 	
 	
+	public function getListIdentifier() {
+		return $this->listIdentifier;
+	}
+	
 	
 	/**
 	 * Called by any mechanism to persist an object's state to session
@@ -219,7 +223,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     		$this->sortingState = $sessionData['sortingState'];
     	}
     }
-    
     
     
 	/**

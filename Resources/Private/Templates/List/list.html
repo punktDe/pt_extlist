@@ -3,11 +3,8 @@
 <h2>Simple List rendering</h2>
 
 <table class="tx-ptextlist-list tx-ptextlist-list-standard">
-	<tr>
-		<extlist:header headers="{listHeader}" captions="{listCaptions}">
-			<th>{label} <f:if condition="{sortable}"><f:link.action action="sort" arguments="{column:column, state:state}"><f:image src="{sortingImg}" alt="sorting" /></f:link.action></f:if></th>
-		</extlist:header>
-	</tr>
+	<f:render partial="List/ListHeader" arguments="{listHeader : listHeader, listCaptions:listCaptions}" />
+	
 	<f:for each="{listData}" as="listRow">
 	<tr>
 	   <f:for each="{listRow}" as="cell">

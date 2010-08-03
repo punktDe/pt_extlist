@@ -43,17 +43,18 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 		
 		$output = '';
 		foreach ($headers as $header) {
+
 			$this->templateVariableContainer->add('label', $captions->getItemById($header->getColumnIdentifier()));		
 			$this->templateVariableContainer->add('sortingImg', $this->renderSorting($header));
-			$this->templateVariableContainer->add('state', $header->getSortingState());
-			$this->templateVariableContainer->add('column', $header->getColumnIdentifier());
+			$this->templateVariableContainer->add('newState', $header->getSortingState());
+			$this->templateVariableContainer->add('parameterName', 'pt_extlist_pi1.'.$header->getListIdentifier().'.headerColumns.'.$header->getColumnIdentifier());
 			$this->templateVariableContainer->add('sortable', $header->isSortable());
 			
 			$output .= $this->renderChildren();
 			
 			$this->templateVariableContainer->remove('label');
-			$this->templateVariableContainer->remove('state');
-			$this->templateVariableContainer->remove('column');
+			$this->templateVariableContainer->remove('newState');
+			$this->templateVariableContainer->remove('parameterName');
 			$this->templateVariableContainer->remove('sortable');
 			$this->templateVariableContainer->remove('sortingImg');
 			
@@ -64,13 +65,17 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 	
 	protected function renderSorting(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
 
-		if(!$header->isSortable()) {
-			return 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
-		} elseif($header->getSortingState() == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC) {
+//		if(!$header->isSortable()) {
+//			return 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
+//		} else
+		if($header->getSortingState() == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC) {
 			return 'typo3conf/ext/pt_extlist/Resources/Resources/Public/List/icon_table_sort_asc.png';
-		} else {
+		} else if($header->getSortingState() == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC){
 			return 'typo3conf/ext/pt_extlist/Resources/Resources/Public/List/icon_table_sort_desc.png';
-		}
+		} else {
+			return 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
+		} 
+		
 
 	}
 	
