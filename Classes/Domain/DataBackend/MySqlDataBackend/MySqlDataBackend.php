@@ -315,8 +315,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function getTotalItemsCount() {
 		$query = '';
 		$query .= 'SELECT COUNT(*) FROM ';
-		$query .= $this->buildFromPart() . ' WHERE ';
-		$query .= $this->buildWherePart();
+		$query .= $this->buildFromPart();
+		$query .= $this->buildWherePart() != '' ? ' WHERE ' . $this->buildWherePart() : '';
 		
 		$count = $this->dataSource->executeQuery($query);
 		

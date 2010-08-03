@@ -119,7 +119,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	public function getPages() {
 		$pages = array();
 
-		$pageCount = ceil(($this->totalItemCount/$this->itemsPerPage));
+		$pageCount = ceil(intval($this->totalItemCount) / intval($this->itemsPerPage));
 		
 		for($i=1; $i <= $pageCount; $i++) {
 			$pages[$i] = $i;
@@ -285,7 +285,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastPage()
 	 */
 	public function getLastPage() {
-		return ceil(($this->totalItemCount/$this->itemsPerPage));
+		return ceil((intval($this->totalItemCount)/intval($this->itemsPerPage)));
 	}
 	
 	
