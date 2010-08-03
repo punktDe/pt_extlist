@@ -75,11 +75,10 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 *
 	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object
 	 */
-	public function getParametersByObject(Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object) {
-		$object->injectGPVars( $this->extractGpVarsByNamespace($object->getObjectNamespace()));
+	public function injectParametersInObject(Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object) {
+		$object->injectGPVars( $this->extractPgVarsByNamespace($object->getObjectNamespace()));
 	}
-	
-	
+
 	
 	/**
 	 * Extracts merged GP vars for a given namespace. Merges Get vars over Post vars

@@ -292,7 +292,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @param array $sessionData Object's state to be persisted to session
      */
     public function injectSessionData(array $sessionData) {
-    	if(array_key_exists('sortingState', $sessionData)) {
+       	if(array_key_exists('sortingState', $sessionData)) {
     		$this->sortingState = $sessionData['sortingState'];
     	}
     }

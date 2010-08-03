@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
         
         // Inject settings from gp-vars.
         $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-        $gpAdapter->getParametersByObject($headerColumn);
+        $gpAdapter->injectParametersInObject($headerColumn);
 		
 		$headerColumn->init();
 		
@@ -59,6 +59,5 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 		
 		return $headerColumn;
 	}
-
 }
 ?>

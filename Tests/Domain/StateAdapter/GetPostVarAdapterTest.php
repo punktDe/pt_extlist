@@ -115,17 +115,16 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_GetPostVarAdapter_testcase extends 
     }
     
     
-    public function testGetParametersByObject() {
+    public function testInjectParametersInObject() {
 
     	$object = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject();
     	$object->setObjectNamespace('key1.key2.key3');
     	
     	
-    	$this->gpVarAdapter->getParametersByObject($object);
+    	$this->gpVarAdapter->injectParametersInObject($object);
     	
     	$injectedValues = $object->getValues();
-
-    	$this->assertEquals($injectedValues, $this->getVars['key1']['key2']['key3']);
+    	$this->assertEquals($injectedValues, $this->postVars['key1']['key2']['key3']);
     	
     	
     }
