@@ -24,6 +24,14 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * Testcase for abstract data backend
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ */
 class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setUp() {
@@ -31,27 +39,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackend_testcase extends
 	}
 	
 	
-	public function testRegisterObserver() {
-		$dataBackend = $this->getMockForAbstractClass('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend',array($this->configurationBuilderMock));
-		
-		$this->assertTrue(method_exists($dataBackend,'registerObserver'));
-	}
-	
-	
-	
-	public function testNotify() {
-		$dataBackendClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend');
-		$dataBackend = $this->getMockForAbstractClass($dataBackendClass,array($this->configurationBuilderMock));
-		
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
-		$pager->expects($this->once())
-				->method('updateItemCount')
-				->with(111);
-		
-		$dataBackend->_call(registerObserver,$pager);
-		
-		$dataBackend->_call(updateObserversItemCount, 111);
-	}
+    public function testSetup() {
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend''));
+    }
 }
 
 ?>

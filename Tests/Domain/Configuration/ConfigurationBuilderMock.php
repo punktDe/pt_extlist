@@ -43,6 +43,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 		             'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource');
 	}
 	
+	
+	
     /**
      * Returns a singleton instance of this class
      * @param $settings The current settings for this extension.

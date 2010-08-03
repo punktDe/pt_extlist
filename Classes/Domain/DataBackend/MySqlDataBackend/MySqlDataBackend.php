@@ -253,6 +253,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		return $this->getOrderByFromListHeader($this->listHeader);
 	}
 	
+	
+	
 	/**
 	 * Build the order by string from list header
 	 * 
@@ -274,6 +276,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		return count($orderByArray) > 0 ? implode(', ', $orderByArray) : '';
 	}
 	
+	
+	
 	/**
 	 * Return the interpreted order by string from a single header column
 	 * 
@@ -285,6 +289,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function getOrderByFromHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
 		return $this->queryInterpreter->getSorting($headerColumn->getSortingQuery());	
 	}
+	
+	
 	
 	/**
 	 * Builds limit part of query from all parts of plugin
@@ -298,6 +304,23 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$limitPart .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
 		$limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
 		return $limitPart;
+	}
+	
+	
+	/**
+	 * Returns number of records for current settings without pager
+	 * 
+	 * @return int Total number of records for current settings
+	 */
+	public function getTotalItemsCount() {
+		$query = '';
+		$query .= 'SELECT COUNT(*) FROM ';
+		$query .= $this->buildFromPart() . ' WHERE ';
+		$query .= $this->buildWherePart();
+		
+		$count = $this->dataSource->executeQuery($query);
+		
+		return $count;
 	}
 	
 }

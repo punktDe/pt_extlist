@@ -32,20 +32,31 @@
  */
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 
+	/**
+	 * Shows a pager as a frontend plugin
+	 *
+	 * @return string Rendered pager action HTML source
+	 */
 	public function showAction() {
+		$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this->configurationBuilder->getPagerSettings());
+		$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($this->configurationBuilder, $pagerConfiguration);
+		$pager->setItemCount($this->dataBackend->getTotalItemsCount());
 		$this->view->assign('pager', $this->dataBackend->getPager());
 	}
 	
+	
+	
 	/**
-	 * 
 	 * Updates the pager model.
+	 * 
 	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
 	 * @param string $page
 	 * @dontvalidate $page
+	 * @return string Rendered pager action HTML source
 	 */
 	public function submitAction(string $page) {
 		//TODO: check why this method is not called
-		
+		$this->redirect('showAction');
 	}
 }
 

@@ -33,7 +33,6 @@
  */
 class Tx_PtExtlist_Domain_Model_Pager_DefaultPager 
     implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, 
-               Tx_PtExtlist_Domain_DataBackend_DataBackendObserverInterface,
                Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
                Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface  {
 	
@@ -289,6 +288,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 		return ceil(($this->totalItemCount/$this->itemsPerPage));
 	}
 	
+	
+	
 	/**
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstPage()
 	 */
@@ -325,4 +326,4 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 }
  
  
- ?>
+?>

@@ -97,6 +97,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        	$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
 	        }
 		}
+		
 		return self::$instances[$listIdentifier];
 	}
 	
