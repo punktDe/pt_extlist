@@ -25,25 +25,24 @@
 ***************************************************************/
 
 /**
- * getPostPropertyViewHelper
+ * GPValueViewHelper
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_ViewHelpers_GetPostPropertyViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_GPValueViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 	
 	/**
 	 * render a key/value GET/POST-string within the namespace of the given object
 	 * 
-	 * @param $object Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
-	 * @param $property
-	 * @param $value
-	 * @return unknown_type
+	 * @param string $value 
+	 * @return string
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 02.08.2010
 	 */
-	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property, $value=NULL) {
+	public function render($value=NULL) {
+		
 		$getPostProperty = '';
 	
 		$getPostProperty .= $this->renderNamespacePart($object);
