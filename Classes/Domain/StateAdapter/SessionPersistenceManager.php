@@ -63,6 +63,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager {
 		$sessionNamespace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
+		
 		$this->persistObjectDataToSessionByNamespace($sessionNamespace, $objectData);
 	}
 	

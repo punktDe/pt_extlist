@@ -113,7 +113,10 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      */
     protected function iniFilterByGpVars() {
     	// TODO think about what happens if filter is resetted!
-    	$this->filterValue = array_key_exists('filterValue', $this->gpVarFilterData) ? $this->gpVarFilterData['filterValue'] : $this->filterValue;
+    	
+    	if(array_key_exists('filterValue', $this->gpVarFilterData)) {
+    		$this->filterValue = $this->gpVarFilterData['filterValue'];	
+    	}
     }
     
     
@@ -128,9 +131,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($columnName, $this->filterValue, 'LIKE');
     	$filterQuery->addCriteria($criteria);
     	$this->filterQuery = $filterQuery;
-    }
-    
-	
+    }	
 }
  
  ?>
