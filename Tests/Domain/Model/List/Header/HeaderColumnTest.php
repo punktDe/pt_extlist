@@ -57,6 +57,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertEquals(-1,$headerColumn->getSortingState());
 	}
 	
+	public function testGetSortingImage() {
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$this->assertTrue(method_exists($headerColumn, 'getSortingImage'));
+	}
+	
 	public function testGetSortings() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		
