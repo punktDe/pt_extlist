@@ -28,7 +28,7 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
@@ -77,6 +77,13 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	protected $listHeader;
+	
+	
+	
     /**
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface
      */
@@ -104,10 +111,27 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	// TODO think about sorting(s)/collection
 	#protected $sorting
+
 	
+	
+	/**
+	 * TODO THERE ARE NO OBSERVERS!!!! (pager, filter, sorting etc. act LIKE observers, but they are no observers!!!)
+	 * @var unknown_type
+	 */
 	protected $observers = array();
+    
+    
+    
+    /**
+     * Holds an instance of a query interpreter to be used for
+     * query objects
+     *
+     * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+     */
+    protected $queryInterpreter;
+
 	
-	
+		
 	/**
 	 * Per default, a data backend does not require a data source, so we return null here
 	 * 
@@ -198,6 +222,30 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		$this->dataSource = $dataSource;
 	}
 	
+	
+	
+	/**
+	 * Injector for List Header 
+	 * 
+	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		$this->listHeader = $listHeader;
+	}
+    
+    
+    
+    /**
+     * Injector for query interpreter
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     */
+    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
+        $this->queryInterpreter = $queryInterpreter;
+    }
+    
+    
+	
 	/**
 	 * Register a new observer object.
 	 * 
@@ -222,6 +270,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 	
 	
+	
 	/**
 	 * Returns filterbox collection attached to this data backend
 	 *
@@ -241,7 +290,28 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getPager() {
 		return $this->pager;
 	}
+	
+	
 
+	/**
+	 * Returns the listHeader with sorting informations
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	public function getListHeader() {
+		return $this->listHeader;
+	}
+	
+	
+	
+	/**
+	 * Returns associated field config collection
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	public function getFieldConfigurationCollection() {
+		return $this->fieldConfigurationCollection;
+	}
+	
 }
 
 ?>

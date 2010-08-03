@@ -63,6 +63,23 @@
  	
  	
  	
+    /**
+     * Returns true, if given criteria is equal to this object
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
+     * @return bool
+     */
+ 	public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+ 		if (is_a($criteria, __CLASS__)) {
+ 			if ($this->firstCriteria->isEqualTo($criteria->firstCriteria) && $this->secondCriteria->isEqualTo($criteria->secondCriteria)) {
+ 				return true;
+ 			}
+ 		}
+ 		return false;
+ 	}
+ 	
+ 	
+ 	
  	/**
  	 * Return first criteria of and criteria
  	 *

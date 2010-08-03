@@ -24,23 +24,26 @@
 ***************************************************************/
 
 /**
- * Abstract filter class for all pt_extlist filter models
+ * Abstract filter class for filter models
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
-    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface  {
-	 	
+    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, 
+               Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
+               Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
     	
     /**
      * Identifier of list to which this filter belongs to
      *
      * @var String
      */	
-    protected $listIdentifier; 
+    protected $listIdentifier;
 
+    
+    
     /**
      * Filter Box Identifier
      * 
@@ -48,6 +51,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      */
     protected $filterBoxIdentifier;
     	
+    
+    
 	/**
 	 * Identifier of this filter
 	 *
@@ -67,11 +72,56 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Holds data from session stored by this filter
+	 *
+	 * @var array
+	 */
+	protected $sessionFilterData;
+	
+	
+	
+	/**
+	 * Holds data from GP vars submitted for this filter
+	 *
+	 * @var array
+	 */
+	protected $gpVarFilterData;
+	
+	
+	
+	/**
+	 * Get/Post vars adapter
+	 *
+	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
+	 */
+	protected $gpVarAdapter = null;
+	
+	
+	
+	/**
 	 * Holds query object for this filter
 	 * 
 	 * @var Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected $filterQuery = null;
+	
+	
+	
+	/**
+	 * Holds an array of error messages if filter data does not validate
+	 *
+	 * @var array
+	 */
+	protected $errorMessages = array();
+	
+	
+	
+	/**
+	 * Holds a reference to associated data backend
+	 *
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 */
+	protected $dataBackend = null;
 	
 	
 	
@@ -101,6 +151,28 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Injector for Get/Post Vars adapter
+	 *
+	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter Get/Post vars adapter to be injected
+	 */
+	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter) {
+		$this->gpVarAdapter = $gpVarAdapter;
+	}
+	
+	
+	
+	/**
+	 * Injector for associated data backend
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 */
+	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$this->dataBackend = $dataBackend;
+	}
+	
+	
+	
+	/**
 	 * Returns filter identifier
 	 *
 	 * @return string Identifier of filter
@@ -120,7 +192,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		return $this->listIdentifier;
 	}
 	
+	
+	
 	/** 
+	 * Returns filterbox identifier for this filter
+	 * 
 	 * @return String
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 06.07.2010
@@ -128,6 +204,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function getFilterBoxIdentifier() {
 		return $this->filterBoxIdentifier;
 	}
+	
 	
 	
 	/**
@@ -165,20 +242,105 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Returns array of error messages if filter does not validate
+	 *
+	 * @return array
+	 */
+    public function getErrorMessages() {
+    	return $this->errorMessages;
+    }
+    
+    
+	
+	/**
 	 * Initializes the filter
 	 * 
 	 * @return void
 	 */
-	abstract public function init();
+	public function init() {
+		
+		/**
+		 * What happens during initialization:
+		 * 
+		 * 1. When being constructed, filter gets injected:
+		 * 1.1. Filter configuration from TS
+		 * 1.2. Session data from session adapter
+		 * 1.3. Get / Post vars from gpVarAdapter
+		 * 
+		 * 2. After construction, init() is called
+		 * 2.1. Init calls method to init filter by TS configuration
+		 * 2.2. Init calls method to init filter by session data
+		 * 2.3. Init calls method to init filter by get / post vars 
+		 * 
+		 * 3. Create filter query
+		 * 
+		 * I you want to change the way, a filter initializes itsel, you have
+		 * to override init() in you own filter implementation!
+		 */
+		
+		$this->initFilterByTsConfig();
+		$this->initFilterBySession();
+		$this->iniFilterByGpVars();
+		
+		$this->createFilterQuery();
+		
+	}
+	
+	
+	
+	/**
+	 * Template method for initializing filter by TS configuration
+	 */
+	abstract protected function initFilterByTsConfig();
+	
+	
 
-	public function initTsValues() {
-		
+	/**
+	 * Template method for initializing filter by session data
+	 */
+	abstract protected function initFilterBySession();
+	
+	
+
+	/**
+	 * Template method for initializing filter by get / post vars
+	 */
+	abstract protected function iniFilterByGpVars();
+	
+	
+	
+	/**
+	 * Template method for creating filter query from initialized data
+	 */
+	abstract protected function createFilterQuery();
+	
+	
+	
+	/**
+	 * Template method for validating filter data.
+	 * 
+	 * Method should write error messages to $this->errorMessages array
+	 *
+	 * @return bool True, if filter validates, false, if filter does not validate
+	 */
+	public function validate() {
+		return true;
+	}
+	
+	/****************************************************************************************************************
+     * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"
+     *****************************************************************************************************************/
+	
+	/**
+	 * Injector for get & post vars
+	 *
+	 * @param array $gpVars
+	 */
+	public function injectGPVars($gpVars) {
+		$this->gpVarFilterData = $gpVars;
 	}
 	
 	
-	public function initGpVars() {
-		
-	}
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
@@ -192,11 +354,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function getObjectNamespace() {
 		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier;
 	}
-
 	
-	#abstract public function loadFromSession(array $sessionData);
-	#abstract public function persistToSession();
 	
+	
+	/**
+	 * Injects data from session persistence for this filter
+	 *
+	 * @param array $sessionData Session data, that was previously stored to session by this filter
+	 */
+	public function injectSessionData(array $sessionData) {
+		$this->sessionFilterData = $sessionData;
+	}
 	
 }
 ?>

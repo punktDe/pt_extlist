@@ -32,16 +32,180 @@
  */
  class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
  	
- 	public function testSetup() {
+ 	public function setup() {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+    
+    
+    
+    public function testSetup() {
  		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_StringFilter'));
  	}
  	
  	
- 	public function testSessionPersistence() {
- 		
+ 	
+ 	public function testGetFilterValueAfterSessionInjection() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+ 		$filter->init();
+ 		$this->assertTrue($filter->getFilterValue() == 'sessionFilterValue');
  	}
  	
- }
+ 	
+ 	
+ 	public function testGetFilterValueAfterTsConfigInjection() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+ 		   array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'filterDefaultValue' => 'defaultValue', 'fieldDescriptionIdentifier' => 'testIdentifier')));
+ 		$filter->init();
+ 	    $this->assertTrue($filter->getFilterValue() == 'defaultValue');
+ 	}
+ 	
+ 	
+ 	
+ 	public function testGetFilterValueAfterFirstInjectingConfigThenInjectingSessionData() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+ 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+           array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'filterDefaultValue' => 'defaultValue', 'fieldDescriptionIdentifier' => 'testIdentifier')));
+        $filter->init();
+        $this->assertTrue($filter->getFilterValue() == 'sessionFilterValue');
+ 	}
+ 	
+ 	
+ 	
+ 	public function testGetFilterValueAfterFirstInjectingConfigThenInjectingSessionDataThenInjectingGpVars() {
+ 		$filter = $this->getStringFilterInstance();
+ 		
+ 		/* First test: GP vars holds value for filter --> gp var value should be returned */
+        $filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+        $filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+           array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'filterDefaultValue' => 'defaultValue', 'fieldDescriptionIdentifier' => 'testIdentifier')));
+        $filter->injectGPVars(array('filterValue' => 'gpVarsValue'));
+        $filter->init();
+        $this->assertTrue($filter->getFilterValue() == 'gpVarsValue');
+        
+        /* Second test: GP vars holds no value for filter --> session data should be returned */
+        $filter->injectGPVars(array());
+        $filter->init();
+        $this->assertTrue($filter->getFilterValue() == 'sessionFilterValue');
+ 	}
+ 	
+ 	
+ 	
+ 	public function testPersistToSession() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$filter->injectGPVars(array('filterValue' => 'persistedFilterValue'));
+ 		$filter->init();
+ 		$sessionValue = $filter->persistToSession();
+ 		$this->assertTrue(array_key_exists('filterValue', $sessionValue));
+ 		$this->assertTrue($sessionValue['filterValue'] == 'persistedFilterValue');
+ 	}
+ 	
+ 	
+ 	
+ 	public function testSetAndGetFieldDescriptionIdentifier() {
+ 		$filter = $this->getStringFilterInstance();
+        $filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test',
+            array('fieldDescriptionIdentifier' => 'testField','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'filterDefaultValue' => 'defaultValue', 'fieldDescriptionIdentifier' => 'testIdentifier')));
+        $filter->init();
+        $this->assertTrue($filter->getFieldDescriptionIdentifier() == 'testIdentifier');
+ 	}
+ 	
+ 	
+ 	
+ 	public function testThrowExceptionOnNonExistingFieldDescriptionIdentifier() {
+ 		$filter = $this->getStringFilterInstance();
+        $filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test',
+            array('fieldDescriptionIdentifier' => 'testField','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'filterDefaultValue' => 'defaultValue', 'fieldDescriptionIdentifier' => '')));
+        try {
+            $filter->init();
+        } catch(Exception $e) {
+        	return;
+        }
+        $this->fail('No exception has been thrown on missing field description identifier!');
+        
+ 	}
+ 	
+ 	
+ 	
+ 	public function testCreateQuery() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test',
+ 		    array('fieldDescriptionIdentifier' => 'testField','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'filterDefaultValue' => 'defaultValue', 'fieldDescriptionIdentifier' => 'testIdentifier')));
+        $filter->injectGPVars(array('filterValue' => 'testValue'));
+        $filter->init();
+        
+       
+        
+        $query = $filter->getFilterQuery();
+        $this->assertTrue(is_a($query, 'Tx_PtExtlist_Domain_QueryObject_Query'));
+        $this->assertTrue($this->queryHasCriteria($query, new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testtable.testfield', 'testValue', 'LIKE')));
+ 	}
+ 	
+ 	
+ 	
+ 	public function testValidate() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$this->assertTrue($filter->validate() == true);
+ 	}
+ 	
+ 	
+ 	
+ 	/**
+ 	 * Returns an instance of a string filter
+ 	 * 
+ 	 * @return Tx_PtExtlist_Domain_Model_Filter_StringFilter
+ 	 */
+ 	protected function getStringFilterInstance() {
+ 		$filter = new Tx_PtExtlist_Domain_Model_Filter_StringFilter();
+ 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+ 		    array('filterIdentifier' => 'stringFilter1', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'fieldDescriptionIdentifier' => 'testIdentifier')));
+
+ 		$fieldConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array('getTable', 'getField'), array('testfield', array('field' => 'testfield', 'table' => 'testtable')));
+        $fieldConfigMock->expects($this->any())
+            ->method('getTable')
+            ->will($this->returnValue('testtable'));
+        $fieldConfigMock->expects($this->any())
+            ->method('getField')
+            ->will($this->returnValue('testfield'));
+            
+        $fieldConfigCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection', array('getFieldConfigByIdentifier'));
+        $fieldConfigCollectionMock->expects($this->any())
+            ->method('getFieldConfigByIdentifier')
+            ->will($this->returnValue($fieldConfigMock));
+            
+        $dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getFieldConfigurationCollection'), array($this->configurationBuilderMock));
+        $dataBackendMock->expects($this->any())
+            ->method('getFieldConfigurationCollection')
+            ->will($this->returnValue($fieldConfigCollectionMock));
+            
+        $filter->injectDataBackend($dataBackendMock);
+ 		
+ 		return $filter;
+ 	}
+ 	
+ 	
+ 	
+ 	/**
+ 	 * Checks whether a query has a criteria
+ 	 *
+ 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+ 	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+ 	 * @return bool True, if criteria is contained by query
+ 	 */
+ 	protected function queryHasCriteria(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+ 		$criterias = $query->getCriterias();
+ 		foreach($criterias as $queryCriteria) { /* @var $queryCriteria Tx_PtExtlist_Domain_QueryObject_Criteria */
+ 			if ($criteria->isEqualTo($queryCriteria)) {
+ 				return true;
+ 			}
+ 		}
+ 		return false;
+ 	}
+ 	
+ 	
+ 	
+}
  
- 
- ?>
+?>

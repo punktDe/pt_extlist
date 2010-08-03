@@ -37,49 +37,39 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 *
 	 * @var string
 	 */
-	protected $filterValue = '';
+	protected $filterValue = ''; 
+    
+    
+    
+    /**
+     * Identifier of field on which this filter is operating (database field to be filtered)
+     *
+     * @var string
+     */
+    protected $fieldDescriptionIdentifier;
 	
-
-	
-	/**
-	 * Initializes filter
-	 * 
-	 * @return void
-	 */
-	public function init() {
-		/**
-		 * Where to get filter values from:
-		 * 
-		 * 1. TS-Settings
-		 * 2. Session
-		 * 3. GP-Vars
-		 */
 		
-		/* 1. Get Filter Value from Typoscript */
-		$this->filterValue = $this->filterConfig->getSettings('defaultValue');
-
-		/* 2. Get Filter Value from Session */
-		
-		
-		
-        /**
-		 * How to access GET / POST parameters for this filter:
-		 * plugingName [<listIdentifier>] [filters] [<filterboxIdentifier>] [<filterIdentifier>] [<filterValueKey>]
-		 */
-		
-	}
-	
-	
 	
 	/**
-	 * TODO add some comment!
+	 * Returns raw value of filter (NOT FILTER QUERY!!!)
 	 *
-	 * @return unknown
+	 * @return string
 	 */
 	public function getFilterValue() {
 		return $this->filterValue;
 	}	
 	
+
+	
+    /**
+     * Returns field description identifier on which this filter operates
+     *
+     * @return string Field description Identifier
+     */
+    public function getFieldDescriptionIdentifier() {
+        return $this->fieldDescriptionIdentifier;
+    }
+    
 	
 	
 	/**
@@ -90,20 +80,57 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	public function persistToSession() {
 		return array('filterValue' => $this->filterValue);
 	}
-	
-	
+
+
 	
 	/**
-	 * Restores filter state from session
-	 *
-	 * @param array $sessionData Session data to restore filter from
-	 */
-	public function injectSessionData(array $sessionData) {
-		if (array_key_exists('filterValue',$sessionData)) {
-	       $this->filterValue = $sessionData['filterValue'];
-		}	
-	}
- 	
+     * Template method for initializing filter by TS configuration
+     */
+    protected function initFilterByTsConfig() {
+    	// TODO think about what happens if filter is reseted!
+    	$settings = $this->filterConfig->getSettings();
+    	$this->filterValue = array_key_exists('filterDefaultValue', $settings) ? $settings['filterDefaultValue'] : $this->filterValue;
+    	if (!array_key_exists('fieldDescriptionIdentifier', $settings) || $settings['fieldDescriptionIdentifier'] == '') {
+    		throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->getFilterIdentifier() . ' 1280762513');
+    	}
+    	$this->fieldDescriptionIdentifier = $settings['fieldDescriptionIdentifier'];
+    }
+    
+    
+
+    /**
+     * Template method for initializing filter by session data
+     */
+    protected function initFilterBySession() {
+    	// TODO think about what happens if filter is reseted!
+    	$this->filterValue = array_key_exists('filterValue', $this->sessionFilterData) ? $this->sessionFilterData['filterValue'] : $this->filterValue;
+    }
+    
+    
+
+    /**
+     * Template method for initializing filter by get / post vars
+     */
+    protected function iniFilterByGpVars() {
+    	// TODO think about what happens if filter is resetted!
+    	$this->filterValue = array_key_exists('filterValue', $this->gpVarFilterData) ? $this->gpVarFilterData['filterValue'] : $this->filterValue;
+    }
+    
+    
+    
+    /**
+     * Creates filter query from filter value and settings
+     */
+    protected function createFilterQuery() {
+    	$fieldDescriptionIdentifier = $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($this->fieldDescriptionIdentifier);
+    	$columnName = $fieldDescriptionIdentifier->getTable() . '.' . $fieldDescriptionIdentifier->getField();
+    	$filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($columnName, $this->filterValue, 'LIKE');
+    	$filterQuery->addCriteria($criteria);
+    	$this->filterQuery = $filterQuery;
+    }
+    
+	
 }
  
  ?>

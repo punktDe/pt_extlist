@@ -47,6 +47,16 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
     public function getListData();
+    
+    
+    
+    /**
+     * Returns field configuraiton collection
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     */
+    public function getFieldConfigurationCollection(); 
+    
   
     
     /**

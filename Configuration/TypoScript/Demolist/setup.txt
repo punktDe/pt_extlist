@@ -15,6 +15,7 @@ plugin.tx_ptextlist.settings {
             
             dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
             dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
+            queryInterpreterClassName = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
             
             datasource {
                 # no configuration required here
@@ -69,6 +70,18 @@ plugin.tx_ptextlist.settings {
                 fieldIdentifier = name_english
             }
         }
+        
+        
+        
+        filters {
+            filterbox1 {
+                filterIdentifier = filter1
+                filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+                label = Stringfilter 1
+                defaultValue = DefaultString
+                fieldDescriptionIdentifier = name_english
+            }
+        }
 
 
         
@@ -83,7 +96,7 @@ plugin.tx_ptextlist.settings {
         pagerConfig {
             enabled = 1
             pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-            itemsPerPage = 2
+            itemsPerPage = 150
             
             showNextLink = 1
             showPreviousLink = 1
