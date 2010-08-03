@@ -88,19 +88,12 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        // Check whether backend class implements abstract backend class
 	        // TODO backend should be tested to implement interface not abstract class!
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend 1280400022'));
-
-	        $pager = self::getPager($configurationBuilder);
-	        $dataSource = self::getDataSource($dataBackendClassName, $configurationBuilder);
-	        
-	        //Register pager as backend observer
-	        // TODO fix this! Pager is already injected below!
-	        $dataBackend->registerObserver($pager);
 	        
 	        $dataBackend->injectBackendConfiguration($configurationBuilder->getBackendConfiguration());
 	        $dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
-	        $dataBackend->injectDataSource($dataSource);
-	        $dataBackend->injectPager($pager);
+	        $dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));
+	        $dataBackend->injectPager(self::getPager($configurationBuilder));
 	        $dataBackend->injectListHeader(self::getListHeader($configurationBuilder));
 	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 	        if (self::getQueryInterpreter($configurationBuilder) != null) {
