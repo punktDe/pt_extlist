@@ -35,13 +35,14 @@ class Tx_PtExtlist_ViewHelpers_GPValueViewHelper extends Tx_Fluid_Core_ViewHelpe
 	
 	/**
 	 * render a key/value GET/POST-string within the namespace of the given object
-	 * 
+	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param string $property
 	 * @param string $value 
 	 * @return string
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 02.08.2010
 	 */
-	public function render($value=NULL) {
+	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property, $value=NULL) {
 		
 		$getPostProperty = '';
 	

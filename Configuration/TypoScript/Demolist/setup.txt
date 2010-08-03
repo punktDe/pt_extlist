@@ -74,13 +74,15 @@ plugin.tx_ptextlist.settings {
         
         
         filters {
-            filterbox1 {
-                filterIdentifier = filter1
-                filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
-                label = Stringfilter 1
-                defaultValue = DefaultString
-                fieldDescriptionIdentifier = name_english
-            }
+	        filterbox1 {
+	              10 {
+	                filterIdentifier = filter1
+	                filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+	                label = Stringfilter 1
+	                defaultValue = DefaultString
+	                fieldDescriptionIdentifier = name_english
+	            }
+	         }
         }
 
 

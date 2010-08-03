@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	public function testSimpleCriteriaTranslator() {
 		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field','value','=');
 		$criteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria);
-		$this->assertTrue($criteriaString == '`field` = "value"');
+		$this->assertTrue($criteriaString == 'field = "value"');
 	}
 	
 	/**
@@ -86,7 +86,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$andCriteriaSimpleComplex = new Tx_PtExtlist_Domain_QueryObject_AndCriteria($this->simpleCriteria3, $andCriteriaSimple);
 		
 		$andCriteriaSimpleComplexString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator::translateCriteria($andCriteriaSimpleComplex);
-		$andCriteriaSimpleComplexTestString = '(`field3` = "value3") AND ((`field1` = "value1") AND (`field2` = "value2"))';
+		$andCriteriaSimpleComplexTestString = '(field3 = "value3") AND ((field1 = "value1") AND (field2 = "value2"))';
 		$this->assertTrue($andCriteriaSimpleComplexString == $andCriteriaSimpleComplexTestString, 'Test failed with SimpleCriteria AND ComplexCriteria. :: ' . $andCriteriaSimpleComplexString . ' != ' . $andCriteriaSimpleComplexTestString);
 	}
 	

@@ -110,7 +110,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$filterMock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 10, '>'));
 		
 		$filterWhereClause = $dataBackend->getWhereClauseFromFilter($filterMock);
-		$this->assertTrue($filterWhereClause == '`test` > "10"', 'Filter where clause was expected to be "test > 10" but was ' . $filterWhereClause);
+		$this->assertTrue($filterWhereClause == 'test > "10"', 'Filter where clause was expected to be "test > 10" but was ' . $filterWhereClause);
 	}
 	
 	
@@ -125,7 +125,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $filterBox = $this->getFilterboxByArrayOfFilters(array($filter1Mock, $filter2Mock));
 
         $whereClauseFromFilterbox = $dataBackend->getWhereClauseFromFilterbox($filterBox);
-        $this->assertTrue($whereClauseFromFilterbox == '(`test` > "10") AND (`test` < "10")', 'Where clause from filterbox was expected to be "(test > 10) AND (test < 10)" but was ' . $whereClauseFromFilterbox);
+        $this->assertTrue($whereClauseFromFilterbox == '(test > "10") AND (test < "10")', 'Where clause from filterbox was expected to be "(test > 10) AND (test < 10)" but was ' . $whereClauseFromFilterbox);
 	}
 	
 	
@@ -148,7 +148,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         
         $dataBackend->injectfilterboxCollection($filterboxCollection);
         $whereClauseForFilterboxCollection = $dataBackend->getWhereClauseFromFilterboxes();
-        $this->assertTrue($whereClauseForFilterboxCollection == '((`test` > "10") AND (`test` < "10")) AND ((`test` > "20") AND (`test` < "20"))', 'Where clause for filterbox collection should have been "((test > 10) AND (test < 10)) AND ((test > 20) AND (test < 20))" but was ' . $whereClauseForFilterboxCollection);
+        $this->assertTrue($whereClauseForFilterboxCollection == '((test > "10") AND (test < "10")) AND ((test > "20") AND (test < "20"))', 'Where clause for filterbox collection should have been "((test > 10) AND (test < 10)) AND ((test > 20) AND (test < 20))" but was ' . $whereClauseForFilterboxCollection);
         
 	}
 	
