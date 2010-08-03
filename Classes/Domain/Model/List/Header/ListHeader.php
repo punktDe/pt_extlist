@@ -30,7 +30,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 
 	/**
 	 * TODO add some comment!
@@ -38,9 +38,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_object
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader
 	 * @param unknown_type $columnIdentifier
 	 */
-	public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier) {
-		
+	public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier) {	
 		$this->addItem($columnHeader, $columnIdentifier);
+	}
+	
+	/**
+	 * Returns namespace for this object
+	 * 
+	 * @return string Namespace to identify this object
+	 */
+	public function getObjectNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.headerColumns';
 	}
 	
 }
