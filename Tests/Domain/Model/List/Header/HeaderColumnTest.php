@@ -83,6 +83,20 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting for tstamp is forced to desc, but is ascending here');
 	}
 	
+	public function testIsSortable() {
+		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+		
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnsConfiguration[10]);
+		
+		$this->assertFalse($headerColumn->isSortable());
+		
+		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+		
+		$this->assertTrue($headerColumn->isSortable());
+		
+	}
+	
 	public function testGetSortingQuery() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		

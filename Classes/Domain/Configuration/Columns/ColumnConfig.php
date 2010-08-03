@@ -164,7 +164,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	}	
 	
 	public function getIsSortable() {
-		return $this->isSortable;
+		return (bool)$this->isSortable;
 	}
 	
 	/**
