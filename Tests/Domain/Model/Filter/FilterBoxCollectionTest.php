@@ -35,14 +35,39 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
 	
 	protected $configurationBuilderMock = null;
 	
+	
+	
 	public function setup() {
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
+	
+	
 	
 	public function testSetUp() {
 		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
 	}
 	
+	
+	
+    public function testThrowExceptionOnAddingWrongDataType() {
+    	$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
+    	try {
+    		$filterboxCollection->addItem('wrong_data_type', 'identifier');	
+    	} catch(Exception $e) {
+    		return;
+    	}
+    	$this->fail('No error has been thrown on adding wrong data type');
+    }
+    
+    
+    
+    public function testGettingFilterboxByFilterboxIdentifier() {
+    	$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
+    	$filterboxConfiguration = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock($this->configurationBuilderMock, 'test', array());
+    	$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($filterboxConfiguration);
+    	$filterboxCollection->addFilterBox($filterbox, 'test');
+    	$this->assertTrue($filterboxCollection->getFilterboxByFilterboxIdentifier('test') == $filterbox);
+    }
 }
 
 ?>

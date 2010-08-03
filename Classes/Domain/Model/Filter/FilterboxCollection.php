@@ -75,6 +75,23 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     
     
     /**
+     * Returns a filterbox for a given filterbox identifier
+     *
+     * @param string $filterboxIdentifier Identifier of filterbox to be returned
+     * @param bool $throwExceptionOnNonExistingIdentifier If set to true, an exception will be thrown, if no filterbox is registered for given identifier
+     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     */
+    public function getFilterboxByFilterboxIdentifier($filterboxIdentifier, $throwExceptionOnNonExistingIdentifier = false) {
+    	if ($this->hasItem($filterboxIdentifier)) {
+    		return $this->getItemById($filterboxIdentifier);
+    	} elseif($throwExceptionOnNonExistingIdentifier) {
+    		throw new Exception('No filterbox can be found for ID ' . $filterboxIdentifier . ' 1280857703');
+    	}
+    }
+    
+    
+    
+    /**
      * Returns list identifier of list to which filterbox belongs to
      *
      * @return String
