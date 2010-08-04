@@ -61,8 +61,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string The rendered filterbox action
      */
     public function showAction() {
-    	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
-        $filterbox = $filterboxCollection[$this->filterboxIdentifier];
+    	$filterbox = $this->getFilterboxForControllerSettings();
         $this->view->assign('filterbox', $filterbox);
     }
     
@@ -74,6 +73,11 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return String
      */
     public function submitAction() {
+    	$filterbox = $this->getFilterboxForControllerSettings();
+    	if (!$filterbox->validate()) {
+    		$validationErrors = $filterbox->getFilterValidationErrors();
+    		$this->view->assign('filterValidationErrors', $validationErrors);
+    	}
         $this->redirect('show');
     }   
 
@@ -85,11 +89,23 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string Rendered reset action
      */
     public function resetAction() {
-    	print_r('in reset action');
     	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
     	$filterbox = $filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier);
     	$filterbox->reset();
     	$this->redirect('showAction');
+    }
+    
+    
+    
+    /**
+     * Returns filterbox configured to be handled by this controller
+     *
+     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     */
+    protected function getFilterboxForControllerSettings() {
+    	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
+        $filterbox = $filterboxCollection[$this->filterboxIdentifier];
+        return $filterbox;
     }
 }
 ?>

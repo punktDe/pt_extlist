@@ -119,9 +119,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Holds an array of error messages if filter data does not validate
 	 *
-	 * @var array
+	 * @var Tx_PtExtlist_Domain_Model_Messaging_MessageCollection 
 	 */
-	protected $errorMessages = array();
+	protected $errorMessages;
 	
 	
 	
@@ -150,6 +150,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function __construct() {
 		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+		$this->errorMessages = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollection();
 	}
 	
 	
@@ -271,9 +272,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
-	 * Returns array of error messages if filter does not validate
+	 * Returns collection of error messages if filter does not validate
 	 *
-	 * @return array
+	 * @return Tx_PtExtlist_Domain_Model_Messaging_MessageCollection
 	 */
     public function getErrorMessages() {
     	return $this->errorMessages;
