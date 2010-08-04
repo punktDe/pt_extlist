@@ -32,23 +32,6 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
-	/**
-	 * Image to show as sorting link.
-	 * @var string
-	 */
-	protected $sortingImageDefault = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
-	
-	/**
-	 * Image to show as sorting link.
-	 * @var string
-	 */
-	protected $sortingImageAsc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_asc.png';
-	
-	/**
-	 * Image to show as sorting link.
-	 * @var string
-	 */
-	protected $sortingImageDesc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_desc.png';
 	
 	/**
      * TODO add some comment!
@@ -206,6 +189,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     }
     
     /**
+     * Return the column configuration.
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     */
+    public function getColumnConfig() {
+    	return $this->columnConfig;
+    }
+    
+    /**
      * Return the default image path to show for sorting link.
      * @return string
      */
@@ -238,11 +229,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function getSortingImage() {
     	switch($this->sortingState) {
     		case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC:
-    			return $this->getSortingImageAsc();
+    			return $this->columnConfig->getSortingImageAsc();
     		case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC:
-    			return $this->getSortingImageDesc();
+    			return $this->columnConfig->getSortingImageDesc();
     		default:
-    			return $this->getSortingImageDefault();	
+    			return $this->columnConfig->getSortingImageDefault();	
     	}
     }
     

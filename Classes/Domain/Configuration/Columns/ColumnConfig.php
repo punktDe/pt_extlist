@@ -76,6 +76,24 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	 */
 	protected $sortingState = 0;
 	
+	/**
+	 * Image to show as sorting link.
+	 * @var string
+	 */
+	protected $sortingImageDefault = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
+	
+	/**
+	 * Image to show as sorting link.
+	 * @var string
+	 */
+	protected $sortingImageAsc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_asc.png';
+	
+	/**
+	 * Image to show as sorting link.
+	 * @var string
+	 */
+	protected $sortingImageDesc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_desc.png';
+	
 	
 	/**
 	 * @param $columnSettings array of coumn settings
@@ -126,6 +144,18 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 		}else{
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
 		}
+		
+		if(array_key_exists('sortingImageAsc', $columnSettings)) {
+			$this->sortingImageAsc = $columnSettings['sortingImageAsc'];
+		}
+		if(array_key_exists('sortingImageDesc', $columnSettings)) {
+			$this->sortingImageDesc = $columnSettings['sortingImageDesc'];
+		}
+		if(array_key_exists('sortingImageDefault', $columnSettings)) {
+			$this->sortingImageDefault = $columnSettings['sortingImageDefault'];
+		}
+		
+		
 	}
 	
 	
@@ -186,5 +216,30 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	public function getSortingConfig() {
 		return $this->sortingConfigCollection;
 	}
+	
+	/**
+     * Return the default image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageDefault() {
+    	return $this->sortingImageDefault;
+    }
+    
+    /**
+     * Return the ASC image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageAsc() {
+    	return $this->sortingImageAsc;
+    }
+    
+    /**
+     * Return the DESC image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageDesc() {
+    	return $this->sortingImageDesc;
+    }
+    
 }
 ?>
