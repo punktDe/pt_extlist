@@ -118,21 +118,26 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 	
 	public function testGetFilterValidationErrorsOnNonValidatingFilters() {
 		$nonValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
+		
+		$nonValidatingMessage = new Tx_PtExtlist_Domain_Model_Messaging_Message('testcontent', Tx_PtExtlist_Domain_Model_Messaging_Message::ERROR_MESSAGE_TYPE, 'testkey');
+		$nonValidatingMessageCollection = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollection();
+		$nonValidatingMessageCollection->addMessage($nonValidatingMessage, 'test');
+		
         $nonValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('getErrorMessages', 'validate', 'getFilterIdentifier'), array(), '', FALSE);
         $nonValidatingFilterMock->expects($this->any())
             ->method('validate')
             ->will($this->returnValue(false));
         $nonValidatingFilterMock->expects($this->any())
             ->method('getErrorMessages')
-            ->will($this->returnValue(array('errorKey' => 'errorValue')));
+            ->will($this->returnValue($nonValidatingMessageCollection));
         $nonValidatingFilterMock->expects($this->any())
             ->method('getFilterIdentifier')
             ->will($this->returnValue('testfilter'));
         $nonValidatingFilterboxMock->addItem($nonValidatingFilterMock);
         $this->assertTrue(count($nonValidatingFilterboxMock->getFilterValidationErrors())==1);
         $validationErrors = $nonValidatingFilterboxMock->getFilterValidationErrors();
-        $this->assertTrue(count($validationErrors['testfilter'])==1);
-        $this->assertTrue($validationErrors['testfilter']['errorKey'] == 'errorValue');
+        $this->assertTrue($validationErrors->hasItem('testfilter'));
+        $this->assertTrue($validationErrors->getItemById('testfilter')->getMessageByKey('test')->getMessageContent() == 'testcontent');
 	}
 	
 }

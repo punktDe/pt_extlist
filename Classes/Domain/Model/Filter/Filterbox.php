@@ -63,9 +63,9 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	/**
 	 * Holds error messages for filters that do not validate
 	 *
-	 * @var array
+	 * @var Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection
 	 */
-	protected $filterValidationErrors = array();
+	protected $filterValidationErrors;
 	
 	
 	
@@ -77,6 +77,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
 		$this->listIdentifier = $filterboxConfiguration->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
+		$this->filterValidationErrors = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection();
 	}
 	
 	
@@ -147,7 +148,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	/**
 	 * Returns validation errors of all filters 
 	 *
-	 * @return unknown
+	 * @return tx_pttools_collection
 	 */
 	public function getFilterValidationErrors() {
 	   foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */

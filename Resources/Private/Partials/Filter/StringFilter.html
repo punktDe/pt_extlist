@@ -1,3 +1,19 @@
+<!--  
+Partial for rendering a string filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_StringFilter   filter                      Holds an instance for the filterbox object
+array                                           filterValidationErrors      Holds an array of validation errors for each filter (access as filterValidationErrors[filterIdentifier][errorKey])
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+-->
+
+
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 <div>
 <label for="{filter.filterIdentifier}">{filter.label}</label>
