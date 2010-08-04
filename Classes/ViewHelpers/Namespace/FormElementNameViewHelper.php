@@ -31,43 +31,27 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_ViewHelpers_GPValueViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
-	
-	
+class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+		
 	/**
 	 * render a key/value GET/POST-string within the namespace of the given object
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
-	 * @param string $property
+	 * @param property $arguments
 	 * @param string $value 
-	 * @param boolean $addExtPrefix
 	 * @return string
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 02.08.2010
 	 */
-	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property, $value=NULL, $addExtPrefix = false) {
-		
+	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property) {
+			
 		$getPostProperty = '';
-	
-		$getPostProperty .= $this->renderNamespacePart($object, $addExtPrefix);
-		
-		/*
-		if(!$value) {
-			$getMethodName = 'get' . ucfirst($property);
-			tx_pttools_assert::isTrue(method_exists($object, $getMethodName), array('message' => 'No value is given and the object ' . get_class($object) . 'has no method ' . $getMethodName . 'to get the value! 1280767124'));
-			$value = $object->$getMethodName();
-		}
-		*/
-		if($value === NULL) {
-			$getPostProperty .= '['.$property.']';
-		} else {
-			$getPostProperty .= '['.$property.']=' . $value;
-		}
-		
-		return array('x'=>'y');
+		$getPostProperty .= $this->renderNamespacePart($object);
+		$getPostProperty .= '['.$property.']';
 		
 		return $getPostProperty;
 	}
 	
+
 	/**
 	 * Render the namespacepart
 	 * 

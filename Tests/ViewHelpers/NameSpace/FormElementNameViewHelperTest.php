@@ -31,7 +31,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -43,7 +43,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExt
 	}
 	
 	public function testRenderNamespacePart() {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
+		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper();
 		
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
@@ -55,8 +55,8 @@ class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExt
 		$this->assertEquals($nameSpacepart, 'listName[objectType][objectName]', 'NamespacePart should be listName[objectType][objectName] but is ' . $nameSpacepart);
 	}
 	
-	public function testRenderWithKey() {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
+	public function testRenderWithSingleKey() {
+		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper();
 		
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
@@ -67,33 +67,5 @@ class Tx_PtExtlist_Tests_ViewHelpers_GPValueViewHelper_testcase extends Tx_PtExt
         
         $this->assertEquals($link, 'listName[objectType][objectName][label]', 'NamespacePart should be listName[objectType][objectName][label] but is "' . $link. '"');
 	}
-	
-	
-	public function testRenderWithKeyAndValue() {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
-		
-		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
-        $object->expects($this->once())
-            ->method('getObjectNamespace')
-            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
-                        
-        $link = $linkViewHelper->render($object,'label','test');
-        
-        $this->assertEquals($link, 'listName[objectType][objectName][label]=test', 'NamespacePart should be listName[objectType][objectName][label]=test but is "' . $link. '"');
-	}
-	
-	public function testRenderNamespacePartWithPrefix() {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_GPValueViewHelper();
-		
-		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
-        $object->expects($this->once())
-            ->method('getObjectNamespace')
-            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
-		
-		$nameSpacepart = $linkViewHelper->renderNamespacePart($object, true);
-		
-		$this->assertEquals($nameSpacepart, 'tx_ptextlist_pi1[listName][objectType][objectName]', 'NamespacePart should be listName[objectType][objectName] but is ' . $nameSpacepart);
-	}
-	
 }
 ?>

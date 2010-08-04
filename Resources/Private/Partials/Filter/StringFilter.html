@@ -17,5 +17,5 @@ array                                           filterValidationErrors      Hold
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 <div>
 <label for="{filter.filterIdentifier}">{filter.label}</label>
-<f:form.textbox property="filterValue" value="{filter.filterValue}" name="{extlist:GPValue(object:'{filter}' property:'filterValue')}" />
+<f:form.textbox property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" />
 </div>
