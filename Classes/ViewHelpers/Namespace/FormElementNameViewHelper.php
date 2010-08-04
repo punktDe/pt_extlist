@@ -36,8 +36,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 	/**
 	 * render a key/value GET/POST-string within the namespace of the given object
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
-	 * @param property $arguments
-	 * @param string $value 
+	 * @param string $property
 	 * @return string
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 02.08.2010
