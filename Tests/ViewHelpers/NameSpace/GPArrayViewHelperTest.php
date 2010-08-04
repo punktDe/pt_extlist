@@ -82,7 +82,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$gpArray = $linkViewHelper->render($object,'label');
 		
 		$refArray['listName']['objectType']['objectName']['label'] = 'test';
-		$this->assertEquals($gpArray[0], $refArray);
+		$this->assertEquals($gpArray, $refArray);
 	}
 
 	public function testRenderWithObjectAndValue() {
@@ -97,7 +97,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$gpArray = $linkViewHelper->render($object,'label:test');
 		
 		$refArray['listName']['objectType']['objectName']['label'] = 'test';
-		$this->assertEquals($gpArray[0], $refArray);
+		$this->assertEquals($gpArray, $refArray);
 	}
 
 }
