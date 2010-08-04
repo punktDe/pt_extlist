@@ -31,9 +31,11 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 	 * @param $action string
 	 * 
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='show') {
+	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort') {
 		$value = $this->invertSortingState($header->getSortingState());		
-		$param = $this->buildNamespaceArray($header, $value);
+		
+		$gpVarViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+		$param = $gpVarViewHelper->buildObjectValueArray($header, 'sortingState', $value);
 	
 		return parent::render($action,$param);
 	}
@@ -53,36 +55,6 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 			default:
 				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
 		}
-	}
-	
-	/**
-	 * Building a namespace array filled with an value.
-	 * 
-	 * @param $header Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
-	 * @param $value mixed
-	 * @return array The built array filled with the given value.
-	 */
-	public function buildNamespaceArray(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $header, $value) {
-		$nameSpace = $header->getObjectNamespace();
-		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
-		
-		$identChunks =  t3lib_div::trimExplode('.', $nameSpace);
-		
-		$returnArray = array();
-		$pointer = &$returnArray;
-		
-		// Build array
-		foreach($identChunks as $key => $chunk) {
-			// we don't want the first chunk eg. 'tx_ptextlist'
-			if($key <= 0) continue;
-			
-			$pointer = &$pointer[$chunk];
-		}
-
-		// Add value
-		$pointer['sortingState'] = $value;
-		
-		return $returnArray;
 	}
 }
 
