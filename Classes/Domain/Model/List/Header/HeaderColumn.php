@@ -80,8 +80,15 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * @var integer
 	 */
 	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+	
+	
+	/**
+	 * Sorting query object for this column
+	 * @var Tx_PtExtlist_Domain_QueryObject_Query
+	 */
+	protected $sortingQuery;
 
-
+	
 	/**
 	 * Session persistence manager
 	 *
@@ -106,6 +113,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 */
 	public function injectColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		$this->columnConfig = $columnConfig;
+		$this->listIdentifier = $this->columnConfig->getListIdentifier();
+		$this->columnIdentifier = $this->columnConfig->getColumnIdentifier();
+		$this->sortingFieldConfig = $this->columnConfig->getSortingConfig();
 	}
 	
 	
@@ -114,17 +124,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * 
 	 */
 	public function init() {	
-		$this->initHeaderByTSConfig();
 		$this->initHeaderBySession();
 		$this->initHeaderByGpVars();
 		
+		$this->buildSortingQuery();
+		
 		$this->sessionPersistenceManager->persistToSession($this);
-	}
-	
-	protected function initHeaderByTSConfig() {
-		$this->listIdentifier = $this->columnConfig->getListIdentifier();
-		$this->columnIdentifier = $this->columnConfig->getColumnIdentifier();
-		$this->sortingFieldConfig = $this->columnConfig->getSortingConfig();
 	}
 	
 	
@@ -132,8 +137,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * Template method for initializing filter by session data
 	 */
 	protected function initHeaderBySession() {
-	     if(array_key_exists('sortingState', $this->headerSessionData)) {
-    		$this->sortingState = $this->headerSessionData['sortingState'];
+		if(array_key_exists('sortingState', $this->headerSessionData)) {
+			$this->sortingState = $this->headerSessionData['sortingState'];
     	}
 	}
 	
@@ -149,8 +154,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	}
 
 	
-    /** TODO add some comment!
-     * 
+    /**
 	 * @return string column label
 	 */
 	public function getLabel() {
@@ -165,7 +169,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function getColumnIdentifier() {
     	return $this->columnIdentifier;
     }
-    
+       
     
     /**
      * Build an array with sorting definitions for this column
@@ -175,7 +179,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @since 29.07.2010
      */
     public function getSorting() {
-    	
     	$sorting = array();    	
     	if($this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC || $this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
     		foreach($this->sortingFieldConfig as $fieldConfig) {
@@ -190,17 +193,22 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $sorting;
     }
 
+    
+    protected function buildSortingQuery() {
+    	$this->sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$this->sortingQuery->addSortingArray($this->getSorting());
+    }
+    
+    
     /**
      * Get a query with sorting definition set
      * 
-     * @return unknown_type
+     * @return Tx_PtExtlist_Domain_QueryObject_Query
      * @author Daniel Lienert <lienert@punkt.de>
      * @since 02.08.2010
      */
     public function getSortingQuery() {
-    	$sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-    	$sortingQuery->addSortingArray($this->getSorting());
-    	return $sortingQuery;
+    	return $this->sortingQuery;
     }
     
     /**
@@ -278,7 +286,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @author Daniel Lienert <lienert@punkt.de>
      * @since 04.08.2010
      */
-   	public function reset() {  		
+   	public function reset() {
+   		$this->sortingState  = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
    		$this->headerSessionData = array();
    		$this->init();
    	}

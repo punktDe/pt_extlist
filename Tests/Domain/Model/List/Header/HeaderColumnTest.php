@@ -46,13 +46,22 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	public function testConfigurationAndStateMerge() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+        $sessesionPersistanceManager->expects($this->once())
+            ->method('persistToSession');
+		
+		
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+		
+		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
 		
 		$this->assertEquals(0,$headerColumn->getSortingState());
 
 		$headerColumn->injectSessionData(array('sortingState' => 1));
 		$headerColumn->injectGPVars(array('sortingState' => -1));
+		
+		$headerColumn->init();
 		
 		$this->assertEquals(-1,$headerColumn->getSortingState());
 	}
@@ -63,22 +72,32 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	}
 	
 	public function testGetSortings() {
+		
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+        $sessesionPersistanceManager->expects($this->any())
+            ->method('persistToSession');
+		
+		
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
 		
 		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC));
+		$headerColumn->init();
 		$sorting = $headerColumn->getSorting();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting['tstamp'], 'Sorting has to be Ascending here');
 		
 		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+		$headerColumn->init();
 		$sorting = $headerColumn->getSorting();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting has to be descending here');
 		
 		// test with forces direction
 		$headerColumn->injectColumnConfig($columnsConfiguration[30]);
 		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+		$headerColumn->init();
 		$sorting = $headerColumn->getSorting();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting for tstamp is forced to desc, but is ascending here');
 	}
@@ -98,10 +117,17 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	}
 	
 	public function testGetSortingQuery() {
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+        $sessesionPersistanceManager->expects($this->any())
+            ->method('persistToSession');
+		
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+		
+		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
+		$headerColumn->init();
 		
 		$queryObject = $headerColumn->getSortingQuery();
 		$this->assertTrue(is_a($queryObject, 'Tx_PtExtlist_Domain_QueryObject_Query'));
