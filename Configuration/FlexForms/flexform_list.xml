@@ -34,7 +34,7 @@
                 <items type="array">
                   <numIndex index="1" type="array">
                     <numIndex index="0">List</numIndex>
-                    <numIndex index="1">List->list</numIndex>
+                    <numIndex index="1">List->list;List->sort</numIndex>
                   </numIndex>
                   <numIndex index="2" type="array">
                     <numIndex index="0">Filterbox</numIndex>

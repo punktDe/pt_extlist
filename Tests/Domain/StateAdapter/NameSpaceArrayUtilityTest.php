@@ -58,6 +58,18 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_NameSpaceArrayUtility_testcase exte
 	
 	public function testSaveDataInNamespaceTree() {
 		$testArray['key1']['key2']['key3'] = 'test';
+		$testArray2['key1']['key2']['key4'] = 'test4';
+		
+		$testArray = Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::saveDataInNamespaceTree('key1.key2.key3', $testArray, 'test2');
+		
+		$refArray['key1']['key2']['key3'] = 'test2';
+		$refArray2['key1']['key2']['key4'] = 'test4';
+		$this->assertEquals($testArray, $refArray);
+		$this->assertEquals($testArray2, $refArray2);
+	}
+	
+	public function testSaveDataInNamespaceTreeWithEmptyArray() {
+		$testArray = array();
 		$testArray = Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::saveDataInNamespaceTree('key1.key2.key3', $testArray, 'test2');
 		
 		$refArray['key1']['key2']['key3'] = 'test2';
