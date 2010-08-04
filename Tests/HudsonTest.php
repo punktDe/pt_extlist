@@ -27,8 +27,8 @@
 class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_BaseTestCase {
 
 	public function testHudson() {
-//		$this->assertTrue(true);
-		$this->fail("Hudson LAVA! :-)");
+		$this->assertTrue(true);
+//		$this->fail("Hudson LAVA! :-)");
 		// make it fail to test hudson testing
 	}
 }
