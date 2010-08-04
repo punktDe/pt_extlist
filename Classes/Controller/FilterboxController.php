@@ -78,7 +78,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     		$validationErrors = $filterbox->getFilterValidationErrors();
     		$this->view->assign('filterValidationErrors', $validationErrors);
     	}
-        $this->forward('show');
+        $this->redirect('show');
     }   
 
     
@@ -91,7 +91,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     public function resetAction() {
     	$filterbox = $this->getFilterboxForControllerSettings();
     	$filterbox->reset();
-    	$this->forward('showAction');
+    	$this->redirect('showAction');
     }
     
     
