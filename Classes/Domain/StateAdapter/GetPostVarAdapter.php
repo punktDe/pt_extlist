@@ -26,7 +26,8 @@
 /**
  * Class implements adapter for GET and POST vars to be used by 
  * objects implementing the according interface
- *
+
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
@@ -48,7 +49,18 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @var array
 	 */
 	protected $getVars;
-		
+	
+	/**
+	 * Holds an merged array of get and post vars with Post Vars precedence 
+	 * @var array
+	 */
+	protected $postGetVars = NULL;
+	
+	/**
+	 * Holds an merged array of get and post vars with Get Vars precedence 
+	 * @var array
+	 */
+	protected $getPostVars = NULL;
 	
 	/**
 	 * Injects array as post vars
@@ -76,9 +88,48 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object
 	 */
 	public function injectParametersInObject(Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object) {
-		$object->injectGPVars( $this->extractPgVarsByNamespace($object->getObjectNamespace()));
+		$object->injectGPVars($this->extractPgVarsByNamespace($object->getObjectNamespace()));
 	}
 
+	/**
+	 * return parameters by given namespace
+	 * 
+	 * @param $namespace string
+	 * @return array
+	 */
+	public function getParametersByNamespace($namespace) {
+		return $this->extractPgVarsByNamespace($namespace);	
+	}
+	
+	
+	
+	/**
+	 * return getVares by Namspace
+	 * 
+	 * @param string $nameSpace
+	 * @return array
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 04.08.2010
+	 */
+	public function getGetVarsByNamespace($nameSpace) {
+		return Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::getArrayContentByArrayAndNamespace($this->getVars, $nameSpace);
+	}
+	
+	
+	
+	/**
+	 * return postVars by Namespace
+	 * 
+	 * @param string $nameSpace
+	 * @return array
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 04.08.2010
+	 */
+	public function getPostVarsByNamespace($nameSpace) {
+		return Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::getArrayContentByArrayAndNamespace($this->postVars, $nameSpace);
+	}
+	
+	
 	
 	/**
 	 * Extracts merged GP vars for a given namespace. Merges Get vars over Post vars
@@ -86,20 +137,10 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @param string $namespace
 	 * @return array Merged get and post vars for given namespace
 	 */
-	public function extractGpVarsByNamespace($namespace) {
-		$getVars = $this->getGetVarsByNamespace($namespace);
-		$postVars = $this->getPostVarsByNamespace($namespace);
-		if (is_array($postVars) && is_array($getVars)) {
-			$mergedArray = t3lib_div::array_merge_recursive_overrule(
-	                $postVars,
-	                $getVars
-	            );
-		    return $mergedArray;
-		} else {
-			return $getVars;
-		}
+	public function extractGpVarsByNamespace($namespace) {	
+		return Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::getArrayContentByArrayAndNamespace($this->getMergedGpVars(), $namespace); 
 	}
-	
+
 	
 	
 	/**
@@ -108,78 +149,50 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
      * @param string $namespace
      * @return array Merged get and post vars for given namespace
 	 */
-	public function extractPgVarsByNamespace($namespace) {
-		$getVars = $this->getGetVarsByNamespace($namespace);
-		$postVars = $this->getPostVarsByNamespace($namespace);
-		if (is_array($getVars) && is_array($postVars)) {
-			$mergedArray = t3lib_div::array_merge_recursive_overrule(
-	                $getVars,
-	                $postVars
-	            );
-	        return $mergedArray;
-		} else {
-			return $postVars;
-		}
+	public function extractPgVarsByNamespace($namespace) {	
+		return Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::getArrayContentByArrayAndNamespace($this->getMergedPgVars(), $namespace); 	
 	}
 	
 	
 	
 	/**
-	 * Converts a namespace string into a array of namespace chunks
-	 *
-	 * @param string $namespaceString
-	 * @return array
+	 * Merges Post vars over Get vars
+	 * 
+	 * @return array Merged get and post vars
 	 */
-	private function getNamespaceArrayByNamespaceString($namespaceString) {
-		return explode('.', $namespaceString);
-	}
-	
-	
-	
-	/**
-	 * Returns get vars for a given namespace
-	 *
-	 * @param string $namespace
-	 * @return array
-	 */
-	public function getGetVarsByNamespace($namespace) {
-		return $this->getArrayContentByArrayAndNamespace($this->getVars, $namespace);
-	}
-	
-	
-	
-	/**
-	 * Returns post vars for a given namespace
-	 *
-	 * @param string $namespace
-	 * @return array
-	 */
-	public function getPostVarsByNamespace($namespace) {
-		return $this->getArrayContentByArrayAndNamespace($this->postVars, $namespace);
-	}
-	
-	
-	
-	/**
-	 * Returns part of an array according to given namespace
-	 *
-	 * @param array $array
-	 * @param string $namespace
-	 * @return array
-	 */
-	private function getArrayContentByArrayAndNamespace($array, $namespace) {
-		$namespaceArray = $this->getNamespaceArrayByNamespaceString($namespace);
-		$returnArray = $array;
-		foreach($namespaceArray as $namespaceChunk) {
-			if (array_key_exists($namespaceChunk, $returnArray)) {
-			    $returnArray = $returnArray[$namespaceChunk];
-			} else {
-				return array();
+	protected function getMergedPgVars() {
+		if(!is_array($this->postGetVars)) {
+			
+			$this->postGetVars = $this->postVars;	
+			if (is_array($this->getVars) && is_array($this->postVars)) {
+				$this->postGetVars = t3lib_div::array_merge_recursive_overrule($this->getVars, $this->postVars);
 			}
+				
 		}
-		return $returnArray;
+		
+		return $this->postGetVars;
 	}
 	
+	
+	
+	
+	/**
+	 * Merges Get vars over Post vars
+	 * 
+	 * @return array Merged get and post vars
+	 */
+	protected function getMergedGpVars() {
+		if(!is_array($this->getPostVars)) {
+			
+			$this->getPostVars = $this->getVars;	
+			if (is_array($this->getVars) && is_array($this->postVars)) {
+				$this->getPostVars = t3lib_div::array_merge_recursive_overrule($this->postVars, $this->getVars);
+			}
+				
+		}
+		
+		return $this->getPostVars;
+	}
 }
 
 ?>

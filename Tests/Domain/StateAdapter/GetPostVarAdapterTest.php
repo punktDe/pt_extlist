@@ -125,8 +125,6 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_GetPostVarAdapter_testcase extends 
     	
     	$injectedValues = $object->getValues();
     	$this->assertEquals($injectedValues, $this->postVars['key1']['key2']['key3']);
-    	
-    	
     }
 	
 }
