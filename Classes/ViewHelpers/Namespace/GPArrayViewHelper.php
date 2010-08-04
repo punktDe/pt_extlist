@@ -31,7 +31,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_ViewHelpers_Namespace_GparrayViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 	
 	/**
 	 * render build key/value GET/POST-array within the namespace of the given object
