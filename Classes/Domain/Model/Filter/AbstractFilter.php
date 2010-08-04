@@ -99,6 +99,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Session persistence manager
+	 *
+	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 */
+	protected $sessionPersistenceManager = null;
+	
+	
+	
+	/**
 	 * Holds query object for this filter
 	 * 
 	 * @var Tx_PtExtlist_Domain_QueryObject_Query
@@ -166,6 +175,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter) {
 		$this->gpVarAdapter = $gpVarAdapter;
+	}
+	
+	
+	
+	/**
+	 * Injector for session persistence manager
+	 *
+	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
 	
 	
@@ -281,7 +301,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * 2.2. Init calls method to init filter by session data
 		 * 2.3. Init calls method to init filter by get / post vars 
 		 * 
-		 * 3. Create filter query
+		 * 3. Store filter data to session
+		 * 
+		 * 4. Create filter query
 		 * 
 		 * I you want to change the way, a filter initializes itsel, you have
 		 * to override init() in you own filter implementation!
@@ -291,6 +313,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->initFilterBySession();
 		$this->initFilterByGpVars();
 		$this->initFilter();
+		
+		$this->sessionPersistenceManager->persistToSession($this);
 		
 		$this->createFilterQuery();
 		

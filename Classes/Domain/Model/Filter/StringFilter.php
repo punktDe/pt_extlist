@@ -83,9 +83,34 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	
 	
 	
+	/**
+	 * Resets filter to its default values
+	 * 
+	 * @return void
+	 */
 	public function reset() {
 		$this->filterValue = '';
-		// TODO delete session value!
+		$this->resetSessionDataForFilter();
+		$this->resetGpVarDataForFilter();
+		$this->init();
+	}
+	
+	
+	
+	/**
+	 * Resets session data for this filter
+	 */
+	protected function resetSessionDataForFilter() {
+		$this->sessionFilterData = array();
+	}
+	
+	
+	
+	/**
+	 * Resets get/post var data for this filter
+	 */
+	protected function resetGpVarDataForFilter() {
+		$this->gpVarFilterData = array();
 	}
 
 
@@ -94,7 +119,6 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Template method for initializing filter by TS configuration
      */
     protected function initFilterByTsConfig() {
-    	// TODO think about what happens if filter is reseted!
     	$settings = $this->filterConfig->getSettings();
     	$this->filterValue = array_key_exists('filterDefaultValue', $settings) ? $settings['filterDefaultValue'] : $this->filterValue;
     	if (!array_key_exists('fieldDescriptionIdentifier', $settings) || $settings['fieldDescriptionIdentifier'] == '') {
@@ -109,7 +133,6 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Template method for initializing filter by session data
      */
     protected function initFilterBySession() {
-    	// TODO think about what happens if filter is reseted!
     	$this->filterValue = array_key_exists('filterValue', $this->sessionFilterData) ? $this->sessionFilterData['filterValue'] : $this->filterValue;
     }
     
@@ -119,8 +142,6 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Template method for initializing filter by get / post vars
      */
     protected function initFilterByGpVars() {
-    	// TODO think about what happens if filter is resetted!
-    	
     	if(array_key_exists('filterValue', $this->gpVarFilterData)) {
     		$this->filterValue = $this->gpVarFilterData['filterValue'];	
     	}

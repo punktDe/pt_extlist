@@ -51,6 +51,15 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	
 	
 	/**
+     * Injector for session persistence manager
+     *
+     * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+     */
+    public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager);
+	
+	
+	
+	/**
      * Injector for associated data backend
      *
      * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend

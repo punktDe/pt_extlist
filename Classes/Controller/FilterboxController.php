@@ -28,6 +28,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controller_AbstractController {
 
@@ -69,15 +70,20 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     
     /**
      * Renders submit action
+     * 
      * @return String
      */
     public function submitAction() {
-    	// TODO test, whether this is working!
         $this->redirect('show');
     }   
 
     
     
+    /**
+     * Resets all filters of filterbox
+     * 
+     * @return string Rendered reset action
+     */
     public function resetAction() {
     	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
     	$filterbox = $filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier);
