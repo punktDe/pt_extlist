@@ -64,5 +64,29 @@ class Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility {
 	protected static function getNamespaceArrayByNamespaceString($namespaceString) {
 		return explode('.', $namespaceString);
 	}
+	
+	/**
+	 * Save a value on an array position identfied by namespace
+	 * 
+	 * @param string $nameSpace
+	 * @param array $array array to save the data
+	 * @param mixed $data
+	 * @return array
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 04.08.2010
+	 */
+	public static function saveDataInNamespaceTree($nameSpace, array $array, $data) {
+		
+		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);		
+		$key = array_pop($nameSpaceChunks);
+		$pointer = &$array;
+		
+		foreach($nameSpaceChunks as $chunk) {		
+			$pointer = &$pointer[$chunk];
+		}
+
+		$pointer[$key] = $data;
+		return $array;
+	}
 }
 ?>
