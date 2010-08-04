@@ -3,8 +3,8 @@ Template for filterbox plugin
 
 Here is a list of objects / variables that can be accessed in this template
 
-Tx_PtExtlist_Domain_Model_Filter_Filterbox      filterbox                   Holds an instance for the filterbox object
-array                                           filterValidationErrors      Holds an array of validation errors for each filter (access as filterValidationErrors[filterIdentifier][errorKey])
+Tx_PtExtlist_Domain_Model_Filter_Filterbox                          filterbox                   Holds an instance for the filterbox object
+Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection     filterValidationErrors      Holds an array of validation errors for each filter (access as filterValidationErrors[filterIdentifier][errorKey])
 
 
 @package Typo3
@@ -19,6 +19,10 @@ array                                           filterValidationErrors      Hold
 <div style="background-color:#ddd; border:1px solid #ccc; padding:5px;">
 <b>Simple Filterbox rendering</b>
 <f:form controller="Filterbox" action="submit" method="post">
+	
+	<f:if condition="{filterValidationErrors}">
+	   <div style="color: red">Error!!!</div><br />
+	</f:if>
 	
 	<f:for each="{filterbox}" as="filter">
 	    <f:render partial="Filter/StringFilter" arguments="{filter : filter, filterValidationErrors : filterValidationErrors}" />
