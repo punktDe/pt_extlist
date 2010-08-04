@@ -63,6 +63,8 @@ class Tx_PtExtlist_ViewHelpers_GPValueViewHelper extends Tx_Fluid_Core_ViewHelpe
 			$getPostProperty .= '['.$property.']=' . $value;
 		}
 		
+		return array('x'=>'y');
+		
 		return $getPostProperty;
 	}
 	

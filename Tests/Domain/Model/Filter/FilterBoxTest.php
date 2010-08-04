@@ -68,6 +68,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 		$filterbox->reset();
 	}
 	
+	
+	
+	public function testImplementsIdentifiableInterface() {
+		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
+		$this->assertTrue(is_a($filterbox, 'Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface'), 'Filterbox does not implement Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface!');
+		$this->assertTrue($filterbox->getObjectNamespace() == 'tx_ptextlist_pi1.' . $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier());
+	}
+	
 }
 
 ?>

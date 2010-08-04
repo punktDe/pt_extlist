@@ -85,6 +85,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string Rendered reset action
      */
     public function resetAction() {
+    	print_r('in reset action');
     	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
     	$filterbox = $filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier);
     	$filterbox->reset();

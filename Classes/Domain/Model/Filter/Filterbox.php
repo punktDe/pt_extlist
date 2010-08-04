@@ -30,7 +30,8 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollection
+    implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 
 	/**
 	 * filterbox identifier of this filterbox
@@ -102,6 +103,17 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 		foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 			$filter->reset();
 		}
+	}
+	
+	
+	
+	/**
+	 * Returns a object namespace for filterbox
+	 *
+	 * @return string Namespace of filterbox
+	 */
+	public function getObjectNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
 	}
 	
 }
