@@ -51,6 +51,15 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	
 	
 	/**
+     * Injector for session persistence manager
+     *
+     * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+     */
+    public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager);
+	
+	
+	
+	/**
      * Injector for associated data backend
      *
      * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
@@ -110,6 +119,24 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	 * @return void
 	 */
 	public function reset();
+	
+	
+	
+	/**
+	 * Checks whether a filter validates. 
+	 * 
+	 * @return bool True, if filter validates
+	 */
+	public function validate();
+	
+	
+	
+	/**
+	 * Returns validation errors for this filter
+	 * 
+	 * @return array Error messages for filter
+	 */
+	public function getErrorMessages();
 	
 }
 

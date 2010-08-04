@@ -152,6 +152,20 @@
  	
  	
  	
+ 	public function testReset() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+ 		    array('fieldDescriptionIdentifier' => 'testField','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'filterDefaultValue' => 'defaultValue', 'fieldDescriptionIdentifier' => 'testIdentifier')));
+        $filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+ 		$filter->injectGPVars(array('filterValue' => 'gpVarFilterValue'));
+ 		$filter->init();
+ 		$this->assertTrue($filter->getFilterValue() == 'gpVarFilterValue');
+ 		$filter->reset();
+ 		$this->assertTrue($filter->getFilterValue() =='defaultValue');
+ 	}
+ 	
+ 	
+ 	
  	/**
  	 * Returns an instance of a string filter
  	 * 
@@ -180,7 +194,10 @@
             ->method('getFieldConfigurationCollection')
             ->will($this->returnValue($fieldConfigCollectionMock));
             
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('loadFromSession', 'persistToSession'), array(), '', FALSE);
+            
         $filter->injectDataBackend($dataBackendMock);
+        $filter->injectSessionPersistenceManager($sessionPersistenceManagerMock);
  		
  		return $filter;
  	}

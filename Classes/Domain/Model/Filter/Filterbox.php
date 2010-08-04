@@ -30,7 +30,8 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollection
+    implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 
 	/**
 	 * filterbox identifier of this filterbox
@@ -56,6 +57,15 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 * @var string
 	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface';
+	
+	
+	
+	/**
+	 * Holds error messages for filters that do not validate
+	 *
+	 * @var array
+	 */
+	protected $filterValidationErrors = array();
 	
 	
 	
@@ -102,6 +112,50 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 		foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 			$filter->reset();
 		}
+	}
+	
+	
+	
+	/**
+	 * Returns a object namespace for filterbox
+	 *
+	 * @return string Namespace of filterbox
+	 */
+	public function getObjectNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Checks whether all filters in filterbox are validating.
+	 *
+	 * @return bool True, if all filters are validating
+	 */
+	public function validate() {
+		$validates = true;
+		foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+			if (!$filter->validate()) {
+				$validates = false;
+			}
+		}
+		return $validates;
+	}
+	
+	
+	
+	/**
+	 * Returns validation errors of all filters 
+	 *
+	 * @return unknown
+	 */
+	public function getFilterValidationErrors() {
+	   foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            if (!$filter->validate()) {
+				$this->filterValidationErrors[$filter->getFilterIdentifier()] = $filter->getErrorMessages();
+            }
+        }
+		return $this->filterValidationErrors;
 	}
 	
 }

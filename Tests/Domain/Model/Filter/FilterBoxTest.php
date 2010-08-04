@@ -68,6 +68,73 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 		$filterbox->reset();
 	}
 	
+	
+	
+	public function testImplementsIdentifiableInterface() {
+		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
+		$this->assertTrue(is_a($filterbox, 'Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface'), 'Filterbox does not implement Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface!');
+		$this->assertTrue($filterbox->getObjectNamespace() == 'tx_ptextlist_pi1.' . $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier());
+	}
+	
+	
+	
+	public function testValidateOnValidatingFilters() {
+		$validatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
+		$validatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', FALSE);
+		$validatingFilterMock->expects($this->once())
+		    ->method('validate')
+		    ->will($this->returnValue(true));
+		$validatingFilterboxMock->addItem($validatingFilterMock);
+		$this->assertTrue($validatingFilterboxMock->validate());
+	}
+	
+	
+	
+	public function testValidateOnNonValidatingFilters() {
+		$notValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
+		$notValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', FALSE);
+        $notValidatingFilterMock->expects($this->once())
+            ->method('validate')
+            ->will($this->returnValue(false));
+        $notValidatingFilterboxMock->addItem($notValidatingFilterMock);
+        $this->assertTrue(!$notValidatingFilterboxMock->validate());
+	}
+	
+	
+	
+	public function testGetFilterValidationErrorsOnValidatingFilters() {
+		$validatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
+		$validatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('getErrorMessages', 'validate'), array(), '', FALSE);
+        $validatingFilterMock->expects($this->once())
+            ->method('validate')
+            ->will($this->returnValue(true));
+        $validatingFilterMock->expects($this->never())
+            ->method('getErrorMessages');
+        $validatingFilterboxMock->addItem($validatingFilterMock);
+        $this->assertTrue(count($validatingFilterboxMock->getFilterValidationErrors())==0);
+	}
+	
+	
+	
+	public function testGetFilterValidationErrorsOnNonValidatingFilters() {
+		$nonValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
+        $nonValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('getErrorMessages', 'validate', 'getFilterIdentifier'), array(), '', FALSE);
+        $nonValidatingFilterMock->expects($this->any())
+            ->method('validate')
+            ->will($this->returnValue(false));
+        $nonValidatingFilterMock->expects($this->any())
+            ->method('getErrorMessages')
+            ->will($this->returnValue(array('errorKey' => 'errorValue')));
+        $nonValidatingFilterMock->expects($this->any())
+            ->method('getFilterIdentifier')
+            ->will($this->returnValue('testfilter'));
+        $nonValidatingFilterboxMock->addItem($nonValidatingFilterMock);
+        $this->assertTrue(count($nonValidatingFilterboxMock->getFilterValidationErrors())==1);
+        $validationErrors = $nonValidatingFilterboxMock->getFilterValidationErrors();
+        $this->assertTrue(count($validationErrors['testfilter'])==1);
+        $this->assertTrue($validationErrors['testfilter']['errorKey'] == 'errorValue');
+	}
+	
 }
 
 ?>
