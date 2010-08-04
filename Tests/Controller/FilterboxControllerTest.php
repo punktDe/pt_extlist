@@ -75,14 +75,12 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
     
     
     public function testSubmitAction() {
-        //deactivatet to avoid error from framework -> TODO reactivate
-        
-        /*
     	$mockController = $this->getMock(
-          $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
-          array('dummy'),array(), '', FALSE);
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect'),array(), '', FALSE);
+        $mockController->expects($this->once())
+            ->method('redirect')
+            ->with('show');
         $mockController->submitAction();
-        */
     }
     
     
