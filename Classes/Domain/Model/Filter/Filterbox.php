@@ -61,6 +61,15 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	
 	
 	/**
+	 * Holds error messages for filters that do not validate
+	 *
+	 * @var array
+	 */
+	protected $filterValidationErrors = array();
+	
+	
+	
+	/**
 	 * Constructor for filterbox
 	 *
 	 * @param string $filterboxIdentifier  Identifier of filterbox
@@ -114,6 +123,39 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 */
 	public function getObjectNamespace() {
 		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Checks whether all filters in filterbox are validating.
+	 *
+	 * @return bool True, if all filters are validating
+	 */
+	public function validate() {
+		$validates = true;
+		foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+			if (!$filter->validate()) {
+				$validates = false;
+			}
+		}
+		return $validates;
+	}
+	
+	
+	
+	/**
+	 * Returns validation errors of all filters 
+	 *
+	 * @return unknown
+	 */
+	public function getFilterValidationErrors() {
+	   foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            if (!$filter->validate()) {
+				$this->filterValidationErrors[$filter->getFilterIdentifier()] = $filter->getErrorMessages();
+            }
+        }
+		return $this->filterValidationErrors;
 	}
 	
 }

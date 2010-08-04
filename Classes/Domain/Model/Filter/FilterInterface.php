@@ -120,6 +120,24 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	 */
 	public function reset();
 	
+	
+	
+	/**
+	 * Checks whether a filter validates. 
+	 * 
+	 * @return bool True, if filter validates
+	 */
+	public function validate();
+	
+	
+	
+	/**
+	 * Returns validation errors for this filter
+	 * 
+	 * @return array Error messages for filter
+	 */
+	public function getErrorMessages();
+	
 }
 
 ?>
