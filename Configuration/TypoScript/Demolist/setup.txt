@@ -112,7 +112,17 @@ plugin.tx_ptextlist.settings {
 	         }
         }
 
-
+		
+		pagerConfig {
+		enabled = 1
+        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+        itemsPerPage = 10
+        
+        showNextLink = 1
+        showPreviousLink = 1
+        showFirstLink = 1
+        showLastLink = 1
+		}
         
         renderer {
             enabled = 1
