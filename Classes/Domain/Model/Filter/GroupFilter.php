@@ -92,5 +92,29 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 */
 	public function persistToSession() {
 	}
+	
+	
+	
+	/**
+	 * Returns an associative array of options as possible filter values
+	 *
+	 * @return array
+	 */
+	public function getOptions() {
+	    // TODO implement me!
+		return array('1' => 'Wert 1', '2' => 'Wert 2', '3' => 'Wert 3');
+	}
+	
+	
+	
+	/**
+	 * Returns value of selected option
+	 *
+	 * @return mixed String for single value, array for multiple values
+	 */
+	public function getValue() {
+		// TODO implement me!
+		return '2'';
+	}
 
 }

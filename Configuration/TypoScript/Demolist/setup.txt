@@ -109,10 +109,26 @@ plugin.tx_ptextlist.settings {
 	                  fieldDescriptionIdentifier = name_english
 	                  partialPath = Filter/StringFilter
 	              }
+	              
+	              20 {
+	                  filterIdentifier = filter2
+	                  label = GroupFilter 1
+	                  partialPath = Filter/GroupFilter
+	              }
 	         }
         }
 
 
+        pager {
+            enabled = 1
+            pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+            itemsPerPage = 10
+            
+            showNextLink = 1
+            showPreviousLink = 1
+            showFirstLink = 1
+            showLastLink = 1
+        }
         
         renderer {
             enabled = 1
