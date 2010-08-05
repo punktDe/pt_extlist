@@ -69,7 +69,7 @@ plugin.tx_ptextlist.settings {
         columns {
             10 {
             	isSortable = 0
-            	      	
+            	label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:column_name_local
                 columnIdentifier = renderedCol1
                 fieldIdentifier = name_local
             }
