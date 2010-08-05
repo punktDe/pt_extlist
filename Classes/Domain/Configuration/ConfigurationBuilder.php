@@ -57,7 +57,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected $settings;
 	
 	
-	
 	/**
 	 * Non-merged settings of plugin
 	 * @var array
@@ -251,7 +250,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->settings['columns'];
     }
     
-    
+    /**
+     * return a slice from the prototype arrray for the given objectName
+     * 
+     * @param string $objectName
+     * @return array prototypesettings
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 05.08.2010
+     */
+    public function getPrototypeSettingsForObject($objectName) {
+    	$protoTypeSettings = $this->settings['prototype'][$objectName];
+    	return $protoTypeSettings;
+    }
     
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
@@ -308,7 +318,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     			throw new Exception('No pager configuration available for list ' . $this->getListIdentifier() . '. 1280408324');
     		}
     		$pagerSettings = $this->getPagerSettings();
-    		$this->pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this, $pagerSettings);
+    		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this);
     	}
     	return $this->pagerConfiguration;
     }
@@ -321,25 +331,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array Pager configuration
      */
     public function getPagerSettings() {
-    	return $this->settings['pager'];
-    }
-    
-    /**
-     * 
-     * 
-     * @param $objectPrototypeSettings
-     * @param $objectSettings
-     * @return unknown_type
-     * @author Daniel Lienert <lienert@punkt.de>
-     * @since 05.08.2010
-     */
-    public function mergeWithPrototype($objectPrototypeSettings, $objectSettings) {
-    	$mergedSettings = t3lib_div::array_merge_recursive_overrule(
-	            $this->objectPrototypeSettings,
-	            $this->objectSettings);
-	    return $mergedSettings;
-    }
-    
+       	return $this->settings['pager'];
+    }    
 }
 
 ?>

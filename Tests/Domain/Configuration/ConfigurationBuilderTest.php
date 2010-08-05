@@ -37,6 +37,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$this->settings = array(
 		    'listIdentifier' => 'test',
 		    'abc' => '1',
+			'prototype' => array(
+				'pager' => array(
+						'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+					),
+				'column' => array (
+						'xy' => 'z',
+					),
+				) ,
 		    'listConfig' => array(
 		         'test' => array(
 		             'abc' => '2',
@@ -167,6 +175,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	public function testGetFilterSettings() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
 		$this->assertEquals($configurationBuilder->getFilterSettings(), $this->settings['listConfig']['test']['filters']);
+	}
+	
+	public function getPrototypeSettingsForObject() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$this->assertEquals($configurationBuilder->getPrototypeSettingsForObject('pager'), $this->settings['prototype']['pager']);
 	}
 	
 }
