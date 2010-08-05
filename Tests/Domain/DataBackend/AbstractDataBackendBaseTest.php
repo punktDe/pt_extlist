@@ -45,7 +45,6 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 
     listConfig.list1 {
     
-        # config für dosGenerator
         backendConfig {
 
             dataBackendClass = Tx_PtExtlist_Domain_DataBackend_DummyDataBackend

@@ -26,7 +26,8 @@
 /**
  * Testcase for mysql data backend 
  * 
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
@@ -113,6 +114,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$this->assertTrue($filterWhereClause == 'test > "10"', 'Filter where clause was expected to be "test > 10" but was ' . $filterWhereClause);
 	}
 	
+	
+	
 	public function testGetWhereClauseFromFilterWithoutActiveFilter() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
@@ -122,6 +125,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$filterWhereClause = $dataBackend->getWhereClauseFromFilter($filterMock);
 		$this->assertTrue($filterWhereClause == '', 'Filter where clause was expected to be "" but was ' . $filterWhereClause);
 	}
+	
+	
 	
 	public function testGetWhereClauseFromFilterbox() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
@@ -259,6 +264,37 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	
+	public function testGetOrderByFromListHeader() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+        
+        $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+        																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+        
+        $orderByString = $dataBackend->getOrderByFromListHeader($listHeaderMock);
+        
+		$this->assertEquals($orderByString, 'name ASC, company DESC', 'getOrderByFromListHeader expected to be "name ASC, company DESC", was ' . $orderByString);
+	}
+	
+	
+	
+	public function testGetOrderByFromHeaderColumn() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+        
+        $headerMock = $this->getHeaderColumnBySortingFieldAndDirection('name', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+        $orderByString = $dataBackend->getOrderByFromHeaderColumn($headerMock);
+        
+        
+        $this->assertEquals($orderByString, 'name ASC', 'getOrderByFromHeaderColumn expected to be "name ASC", was ' . $orderByString);
+	}
+
+	
+	
+	/**********************************************************************************************************************************************************
+	 * Helper methods 
+	 **********************************************************************************************************************************************************/
+	
 	protected function getFieldConfigMockForTableAndFieldAndIdentifier($table, $field, $identifier) {
 		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('table' => $table, 'field' => $field)));
         $fieldConfigurationMock->expects($this->any())
@@ -298,28 +334,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	}
 	
 	
-	public function testGetOrderByFromListHeader() {
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-        
-        $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
-        																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
-        
-        $orderByString = $dataBackend->getOrderByFromListHeader($listHeaderMock);
-        
-		$this->assertEquals($orderByString, 'name ASC, company DESC', 'getOrderByFromListHeader expected to be "name ASC, company DESC", was ' . $orderByString);
-	}
-	
-	public function testGetOrderByFromHeaderColumn() {
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-        
-        $headerMock = $this->getHeaderColumnBySortingFieldAndDirection('name', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
-        $orderByString = $dataBackend->getOrderByFromHeaderColumn($headerMock);
-        
-        
-        $this->assertEquals($orderByString, 'name ASC', 'getOrderByFromHeaderColumn expected to be "name ASC", was ' . $orderByString);
-	}
 	
 	protected function getHeaderColumnBySortingFieldAndDirection($field, $direction) {
 		$sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
@@ -330,6 +344,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             ->will($this->returnValue($sortingQuery));
         return $headerMock;
 	}
+	
+	
 	
 	protected function getListHeaderByFieldAndDirectionArray($fieldAndDirectionArray) {
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
