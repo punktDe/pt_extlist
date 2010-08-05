@@ -156,6 +156,10 @@ plugin.tx_ptextlist.settings {
 	                  filterIdentifier = filter2
 	                  label = GroupFilter 1
 	                  partialPath = Filter/GroupFilter
+	                  filterClassName = Tx_PtExtlist_Domain_Model_Filter_GroupFilter
+	                  fieldDescriptionIdentifier = test
+	                  optionsSourceFields = test1, test2
+	                  multiple = 1
 	              }
 	         }
         }

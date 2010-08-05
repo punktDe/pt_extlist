@@ -32,11 +32,53 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
+    /**
+     * Holds an array of filter values
+     *
+     * @var array
+     */
+	protected $filterValues = array();
+	
+	
+	
+	/**
+	 * Holds identifier of field that should be filtered
+	 *
+	 * @var string
+	 */
+	protected $fieldDescriptionIdentifier;
+	
+	
+	
+	/**
+	 * Holds an array of fields from where the options should come from
+	 * Encoded as array('<table>.<field>',...)
+	 * 
+	 * @var array
+	 */
+	protected $optionsSourceFields;
+	
+	
+	
+	/**
+	 * Array of filters to be excluded if options for this filter are determined
+	 *
+	 * @var array
+	 */
+	protected $excludeFilters = array();
+	
+	
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
 	 *
 	 */
 	protected function createFilterQuery() {
+		if (count($this->filterValues) == 1) {
+			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValues[0]));
+		} elseif (count($this->filterValues) > 1) {
+			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($this->fieldDescriptionIdentifier, $this->filterValues));
+		}
 	}
 	
 	
@@ -46,6 +88,7 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	protected function initFilter() {
+		
 	}
 	
 	
@@ -55,6 +98,9 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	protected function initFilterByGpVars() {
+		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
+			$this->filterValues = $this->gpVarFilterData['filterValues'];
+		}
 	}
 	
 	
@@ -64,6 +110,9 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	protected function initFilterBySession() {
+		if (array_key_exists('filterValues', $this->sessionFilterData)) {
+			$this->filterValues = $this->sessionFilterData['filterValues'];
+		}
 	}
 	
 	
@@ -73,6 +122,20 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	protected function initFilterByTsConfig() {
+		$filterSettings = $this->filterConfig->getSettings();
+	    
+		if (!array_key_exists('fieldDescriptionIdentifier', $filterSettings) || $filterSettings['fieldDescriptionIdentifier'] == '') {
+            throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281019496');
+        }
+        $this->fieldDescriptionIdentifier = $settings['fieldDescriptionIdentifier'];
+		
+        tx_pttools_assert::isNotEmptyString($filterSettings['optionsSourceFields'], array('message' => 'No optionsSourceFields set for ' . $this->getFilterBoxIdentifier() . '.' . $this->filterIdentifier . '! 1281019497'));
+        $this->optionsSourceFields = $filterSettings['optionsSourceFields'];
+
+        if (array_key_exists('excludeFilters', $filterSettings)) {
+        	$this->excludeFilters = $filterSettings['excludeFilters'];
+        }
+        
 	}
 	
 	
@@ -82,6 +145,8 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	public function reset() {
+		$this->sessionFilterData = array();
+		$this->init();
 	}
 	
 	
@@ -91,6 +156,7 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	public function persistToSession() {
+		return array('filterValues' => $this->filterValues);
 	}
 	
 	
@@ -101,8 +167,8 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 * @return array
 	 */
 	public function getOptions() {
-	    // TODO implement me!
-		return array('1' => 'Wert 1', '2' => 'Wert 2', '3' => 'Wert 3');
+	    $options = $this->dataBackend->getGroupData($this->optionsSourceFields, $this->excludeFilters);
+        return $options;
 	}
 	
 	
@@ -113,8 +179,7 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 * @return mixed String for single value, array for multiple values
 	 */
 	public function getValue() {
-		// TODO implement me!
-		return '2'';
+		return $this->filterValues;
 	}
 
 }

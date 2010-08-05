@@ -164,7 +164,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->filterConfig = $filterConfig;
         $this->listIdentifier = $filterConfig->getListIdentifier();
         $this->filterBoxIdentifier = $filterConfig->getFilterboxIdentifier();
-		$this->filterIdentifier = $filterConfig->getFilterIdentifier();
+        $this->filterIdentifier = $filterConfig->getFilterIdentifier();
 	}
 	
 	
@@ -375,8 +375,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return bool True, if filter validates, false, if filter does not validate
 	 */
 	public function validate() {
-		return true;
+		return 1;
 	}
+	
+	
 	
 	/****************************************************************************************************************
      * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"

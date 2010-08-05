@@ -15,7 +15,7 @@ Tx_PtExtlist_Domain_Model_Filter_StringFilter           filter                  
 
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 <div>
-<f:if condition="{filter.validate} != true">
+<f:if condition="{filter.validate} == 0">
     <div style="color: red">Validation Error: {filter.errorMessage}</div>
 </f:if>
 <label for="{filter.filterIdentifier}">{filter.label}</label>

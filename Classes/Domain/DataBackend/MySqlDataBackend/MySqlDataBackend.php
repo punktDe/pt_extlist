@@ -349,7 +349,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return array Array of group data with given fields as array keys
      */
     public function getGroupData($fieldsArray, $excludeFilters = array(), $additionalQuery = null) {
-        // TODO implement me!
+        return array('1' => 'value1', '2' => 'value2', '3' => 'value3');
     }
 	
 }
