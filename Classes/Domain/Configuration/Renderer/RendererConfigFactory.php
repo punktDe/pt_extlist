@@ -26,12 +26,20 @@
 
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
-	public static function getRendererConfiguration(array $settings, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection = null) {
+	public static function getRendererConfiguration(array $settings, 
+			Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection = null,
+			Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection = null) {
 		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($settings);
 		
 		if(!is_null($columnConfigCollection)) {
 			$config->setColumnConfigCollection($columnConfigCollection);
 		}
+		
+		if(!is_null($fieldConfigCollection)) {
+			$config->setFieldConfigCollection($fieldConfigCollection);
+		}
+		
+		
 		
 		return $config;
 	}
