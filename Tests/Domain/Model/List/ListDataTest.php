@@ -42,6 +42,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		$listData->addRow($row);
+		// TODO check row ??
 	}
 	
 }

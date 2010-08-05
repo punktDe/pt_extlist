@@ -65,11 +65,9 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
             )
             
             baseFromClause (
-                ...
             )
             
             baseWhereClause (
-                ...
             ) 
             
         }

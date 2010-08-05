@@ -53,9 +53,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
         $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpAdapter->injectParametersInObject($headerColumn);
 		
+        $headerColumn->injectSessionPersistenceManager($sessionPersistenceManager);
+        
 		$headerColumn->init();
-		
-		$sessionPersistenceManager->persistToSession($headerColumn);
 		
 		return $headerColumn;
 	}

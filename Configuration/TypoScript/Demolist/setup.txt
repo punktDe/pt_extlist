@@ -2,7 +2,7 @@
 # This template configures a demolist for use
 # with pt_extlist
 #
-# @author Michael Knoll <knoll@punkt.de>
+# @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
 # @package Typo3
 # @subpackage pt_extlist
 ####################################################
@@ -27,13 +27,14 @@ plugin.tx_ptextlist.settings {
             )
             
             
-            #baseFromClause (
-            #    ...
-            #)
+            baseFromClause (
+            	static_countries 
+            	inner join static_currencies on static_countries.cn_iso_nr = static_currencies.cu_iso_nr 
+            )
             
-            #baseWhereClause (
-            #    ...
-            #) 
+            baseWhereClause (
+            	static_currencies.cu_iso_nr > 100
+            ) 
             
         }
         
@@ -54,7 +55,11 @@ plugin.tx_ptextlist.settings {
             name_english {
                 table = static_countries
                 field = cn_short_en
-                isSortable = 1
+            }
+            
+            cu_name_english {
+            	table = static_currencies
+            	field = cu_name_en
             }
             
         }
@@ -64,7 +69,7 @@ plugin.tx_ptextlist.settings {
         columns {
             10 {
             	isSortable = 0
-            	      	
+            	label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:column_name_local
                 columnIdentifier = renderedCol1
                 fieldIdentifier = name_local
             }
@@ -84,6 +89,14 @@ plugin.tx_ptextlist.settings {
                 columnIdentifier = official_name
                 fieldIdentifier = name_official
                 label = Official Name
+            }
+            
+             40 {
+            	isSortable = 1
+           
+                columnIdentifier = cuname_english
+                fieldIdentifier = cu_name_english
+                label = Currency Name
             }
         }
         

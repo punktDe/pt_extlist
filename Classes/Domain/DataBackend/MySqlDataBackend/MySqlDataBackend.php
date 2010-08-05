@@ -160,6 +160,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function buildFromPart() {
 		tx_pttools_assert::isNotEmptyString($this->backendConfiguration['tables'], array('message' => 'Configuration for data backend tables must not be empty! 1280234420'));
 		$fromPart = $this->backendConfiguration['tables'];
+		
+		if(array_key_exists('baseFromClause', $this->backendConfiguration) && trim($this->backendConfiguration['baseFromClause'])) {
+			$fromPart = trim($this->backendConfiguration['baseFromClause']);
+		}
+		
 		return $fromPart;
 	}
 	
@@ -172,8 +177,15 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildWherePart() {
 		$wherePart = '';
-		$wherePart .= $this->getBaseWhereClause() != '' ? $this->getBaseWhereClause() : '';
-		$wherePart .= $this->getWhereClauseFromFilterboxes() != '' ? $this->getWhereClauseFromFilterboxes() : ''; 
+		$baseWhereClause = $this->getBaseWhereClause();
+		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes();
+		
+		if($baseWhereClause && $whereClauseFromFilterBoxes) {
+			$wherePart = '(' . $baseWhereClause . ') AND ' . $whereClauseFromFilterBoxes;
+		} else {
+			$wherePart = $baseWhereClause.$whereClauseFromFilterBoxes;			
+		}
+	 
 		return $wherePart;
 	}
 	
@@ -185,7 +197,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string
 	 */
 	public function getBaseWhereClause() {
-		return $this->backendConfiguration['baseWhereClause'];
+		return trim($this->backendConfiguration['baseWhereClause']);
 	}
 	
 	

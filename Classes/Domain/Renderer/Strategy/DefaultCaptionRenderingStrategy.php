@@ -35,8 +35,10 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy impl
 
 	protected $cObj;
 	
+	
 	public function __construct() {
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+	
 	}
 	
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list) {
@@ -49,12 +51,16 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy impl
 		
 		foreach($listHeader as $headerColumn) {
 			$label = $headerColumn->getLabel();
-			
+
 			// Use TS for rendering
 			if(is_array($label)) {
 				$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
 				$label = $this->cObj->cObjGet($conf);
+			} elseif(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
+				// Localization
+				$label = Tx_Extbase_Utility_Localization::translate($label);
 			}
+
 			
 			$row->addCell($headerColumn->getColumnIdentifier(), $label);
 		}

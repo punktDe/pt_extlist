@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for the countries demo in the pt_extlist extension</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+            <label index="test">TEST</label>
+		</languageKey>
+	</data>
+</T3locallang>

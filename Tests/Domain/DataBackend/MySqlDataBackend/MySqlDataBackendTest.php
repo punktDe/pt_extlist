@@ -90,7 +90,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
 		$fromPart = $dataBackend->buildFromPart();
-		$this->assertTrue($fromPart == $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['tables']);
+		$this->assertEquals($fromPart, $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['tables']);
 	}
 	
 	
