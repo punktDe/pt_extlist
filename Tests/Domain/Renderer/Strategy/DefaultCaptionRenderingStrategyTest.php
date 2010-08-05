@@ -52,25 +52,48 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		$returnMethods['getLabel'] = 'LLL:EXT:pt_extlist/Tests/Domain/Renderer/locallang.xml:test';
 		$returnMethods['getColoumnIdentifier'] = 'test';
 
-		$columnConfig = $this->getConfiguredMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', $methods, $returnMethods);
+		$headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
 		
+		// we need to give a list to the renderer
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
-		
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
-		
-		
-		
-		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
-		$headerColumn->injectColumnConfig($columnConfig);
-		
-		$listHeader->addHeaderColumn($headerColumn, $ident);
-		
+		$listHeader->addHeaderColumn($headerColumn, 'test');
 		$list->setListHeader($listHeader);
+		
 		
 		$captions = $this->captionRenderer->renderCaptions($list);
 
 		
 		$this->assertEquals('TEST', $captions->getItemByIndex(0));
+	}
+	
+	public function testSimpleTSLabel() {
+		
+		$ts = array('10' => array(
+						'_typoScriptNodeValue' => 'TEXT',
+						'value' => 'test',
+						),
+					'_typoScriptNodeValue' => 'COA'
+					);
+		
+		
+		$methods = array('getLabel', 'getColumnIdentifier');
+		$returnMethods['getLabel'] = $ts;
+		$returnMethods['getColoumnIdentifier'] = 'test';
+
+		$headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
+		
+		// we need to give a list to the renderer
+		$list = new Tx_PtExtlist_Domain_Model_List_List();
+		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
+		$listHeader->addHeaderColumn($headerColumn, 'test');
+		$list->setListHeader($listHeader);
+		
+		
+		$captions = $this->captionRenderer->renderCaptions($list);
+
+		
+		$this->assertEquals('test', $captions->getItemByIndex(0));
 	}
 	
 	protected function getConfiguredMock($className, array $methods, array $returnMethods) {
