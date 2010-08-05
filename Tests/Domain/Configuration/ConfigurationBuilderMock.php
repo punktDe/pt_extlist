@@ -58,6 +58,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
             $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock(array(
 	            'listIdentifier' => 'test',
 	            'abc' => '1',
+            	'prototype' => array(
+				'pager' => array(
+						'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+					),
+				'column' => array (
+						'xy' => 'z',
+					),
+				),
 	            'listConfig' => array(
 	                 'test' => array(
 	                     'abc' => '2',
@@ -122,7 +130,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                             )
 	                         )
 	                    ),
-	                    'pagerConfig' => array(
+	                    'pager' => array(
 	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                             'itemsPerPage'   => '10'
 	                    ),

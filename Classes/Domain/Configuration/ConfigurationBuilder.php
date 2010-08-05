@@ -57,7 +57,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected $settings;
 	
 	
-	
 	/**
 	 * Non-merged settings of plugin
 	 * @var array
@@ -114,13 +113,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	
+	
+	
 	/**
 	 * Returns a singleton instance of this class
 	 * @param $settings The current settings for this extension.
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
 	 */
 	public static function getInstance(array $settings) {
-	    if ($settings['listIdentifier'] != '') {
+		
+		if ($settings['listIdentifier'] != '') {
             if (!array_key_exists($settings['listIdentifier'],self::$instances)) {
             	self::$instances[$settings['listIdentifier']] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
             }
@@ -248,7 +250,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->settings['columns'];
     }
     
-    
+    /**
+     * return a slice from the prototype arrray for the given objectName
+     * 
+     * @param string $objectName
+     * @return array prototypesettings
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 05.08.2010
+     */
+    public function getPrototypeSettingsForObject($objectName) {
+    	$protoTypeSettings = $this->settings['prototype'][$objectName];
+    	return $protoTypeSettings;
+    }
     
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
@@ -305,7 +318,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     			throw new Exception('No pager configuration available for list ' . $this->getListIdentifier() . '. 1280408324');
     		}
     		$pagerSettings = $this->getPagerSettings();
-    		$this->pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this, $pagerSettings);
+    		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this);
     	}
     	return $this->pagerConfiguration;
     }
@@ -318,9 +331,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array Pager configuration
      */
     public function getPagerSettings() {
-    	return $this->settings['pagerConfig'];
-    }
-    
+       	return $this->settings['pager'];
+    }    
 }
 
 ?>
