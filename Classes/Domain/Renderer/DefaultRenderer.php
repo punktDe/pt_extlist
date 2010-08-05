@@ -80,6 +80,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * TODO insert comment
 	 * 
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::render()
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_List $list) {
 		if(!$this->rendererConfiguration->isEnabled()) return $list;
@@ -111,7 +112,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * TODO insert comment!
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_ListData $list
-	 * @return unknown
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected function renderList(Tx_PtExtlist_Domain_Model_List_ListData $list) {
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
