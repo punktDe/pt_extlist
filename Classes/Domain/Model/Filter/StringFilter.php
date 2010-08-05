@@ -98,8 +98,13 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	
 	
 	public function validate() {
-		$this->errorMessages->addMessage(new Tx_PtExtlist_Domain_Model_Messaging_Message('test'));
-		return false;
+		return true;
+	}
+	
+	
+	
+	public function getErrorMessage() {
+		return $this->errorMessage;
 	}
 	
 	

@@ -58,9 +58,10 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     /**
      * Renders a filterbox
      * 
+     * @param Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors
      * @return string The rendered filterbox action
      */
-    public function showAction() {
+    public function showAction(Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors = null) {
     	$filterbox = $this->getFilterboxForControllerSettings();
         $this->view->assign('filterbox', $filterbox);
     }
@@ -75,10 +76,9 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     public function submitAction() {
     	$filterbox = $this->getFilterboxForControllerSettings();
     	if (!$filterbox->validate()) {
-    		$validationErrors = $filterbox->getFilterValidationErrors();
-    		$this->view->assign('filterValidationErrors', $validationErrors);
-    	}
-        $this->redirect('show');
+            $this->view->assign('filtersDontValidate', true);
+        }
+    	$this->forward('show');
     }   
 
     

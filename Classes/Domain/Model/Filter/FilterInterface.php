@@ -132,11 +132,11 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	
 	
 	/**
-	 * Returns validation errors for this filter
+	 * Returns validation error for this filter
 	 * 
-	 * @return array Error messages for filter
+	 * @return string Error message for filter
 	 */
-	public function getErrorMessages();
+	public function getErrorMessage();
 	
 }
 

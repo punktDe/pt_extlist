@@ -117,15 +117,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
-	 * Holds an array of error messages if filter data does not validate
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Messaging_MessageCollection 
-	 */
-	protected $errorMessages;
-	
-	
-	
-	/**
 	 * Holds a reference to associated data backend
 	 *
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
@@ -140,6 +131,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var boolean
 	 */
 	protected $isActive = false;
+	
+	
+	
+	/**
+	 * Holds an error message for this filter
+	 *
+	 * @var string
+	 */
+	protected $errorMessage = '';
 	
 	
 	
@@ -274,10 +274,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Returns collection of error messages if filter does not validate
 	 *
-	 * @return Tx_PtExtlist_Domain_Model_Messaging_MessageCollection
+	 * @return string
 	 */
-    public function getErrorMessages() {
-    	return $this->errorMessages;
+    public function getErrorMessage() {
+    	return $this->errorMessage;
     }
     
     

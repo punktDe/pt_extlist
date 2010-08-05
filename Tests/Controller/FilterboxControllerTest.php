@@ -81,14 +81,11 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxMock->expects($this->once())
             ->method('validate')
             ->will($this->returnValue(false));
-        $filterboxMock->expects($this->once())
-            ->method('getFilterValidationErrors')
-            ->will($this->returnValue($errorMessage));
-       
+        
      	$filterboxControllerMock = $this->getMock(
-            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect','getFilterboxForControllerSettings'),array(), '', FALSE);
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward','getFilterboxForControllerSettings'),array(), '', FALSE);
         $filterboxControllerMock->expects($this->once())
-            ->method('redirect')
+            ->method('forward')
             ->with('show');
         $filterboxControllerMock->expects($this->once())
             ->method('getFilterboxForControllerSettings')
@@ -99,7 +96,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
             array('assign'), array(), '', FALSE);
         $viewMock->expects($this->once())
             ->method('assign')
-            ->with('filterValidationErrors', $errorMessage);
+            ->with('filtersDontValidate', true);
         
         $filterboxControllerMock->_set('view', $viewMock);
         $filterboxControllerMock->_set('dataBackend', $dataBackendMock);

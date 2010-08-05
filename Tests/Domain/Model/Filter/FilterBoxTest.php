@@ -100,46 +100,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
         $this->assertTrue(!$notValidatingFilterboxMock->validate());
 	}
 	
-	
-	
-	public function testGetFilterValidationErrorsOnValidatingFilters() {
-		$validatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
-		$validatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('getErrorMessages', 'validate'), array(), '', FALSE);
-        $validatingFilterMock->expects($this->once())
-            ->method('validate')
-            ->will($this->returnValue(true));
-        $validatingFilterMock->expects($this->never())
-            ->method('getErrorMessages');
-        $validatingFilterboxMock->addItem($validatingFilterMock);
-        $this->assertTrue(count($validatingFilterboxMock->getFilterValidationErrors())==0);
-	}
-	
-	
-	
-	public function testGetFilterValidationErrorsOnNonValidatingFilters() {
-		$nonValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
-		
-		$nonValidatingMessage = new Tx_PtExtlist_Domain_Model_Messaging_Message('testcontent', Tx_PtExtlist_Domain_Model_Messaging_Message::ERROR_MESSAGE_TYPE, 'testkey');
-		$nonValidatingMessageCollection = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollection();
-		$nonValidatingMessageCollection->addMessage($nonValidatingMessage, 'test');
-		
-        $nonValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('getErrorMessages', 'validate', 'getFilterIdentifier'), array(), '', FALSE);
-        $nonValidatingFilterMock->expects($this->any())
-            ->method('validate')
-            ->will($this->returnValue(false));
-        $nonValidatingFilterMock->expects($this->any())
-            ->method('getErrorMessages')
-            ->will($this->returnValue($nonValidatingMessageCollection));
-        $nonValidatingFilterMock->expects($this->any())
-            ->method('getFilterIdentifier')
-            ->will($this->returnValue('testfilter'));
-        $nonValidatingFilterboxMock->addItem($nonValidatingFilterMock);
-        $this->assertTrue(count($nonValidatingFilterboxMock->getFilterValidationErrors())==1);
-        $validationErrors = $nonValidatingFilterboxMock->getFilterValidationErrors();
-        $this->assertTrue($validationErrors->hasItem('testfilter'));
-        $this->assertTrue($validationErrors->getItemById('testfilter')->getMessageByKey('test')->getMessageContent() == 'testcontent');
-	}
-	
 }
 
 ?>
