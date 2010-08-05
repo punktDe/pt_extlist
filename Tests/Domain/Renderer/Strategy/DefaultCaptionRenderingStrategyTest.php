@@ -47,6 +47,43 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		$this->assertEquals('Column 1', $captions->getItemByIndex(0));
 	}
 	
+	public function testLabelLocalization() {
+		$methods = array('getLabel', 'getColumnIdentifier');
+		$returnMethods['getLabel'] = 'LLL:EXT:pt_extlist/Tests/Domain/Renderer/locallang.xml:test';
+		$returnMethods['getColoumnIdentifier'] = 'test';
+
+		$columnConfig = $this->getConfiguredMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', $methods, $returnMethods);
+		
+		$list = new Tx_PtExtlist_Domain_Model_List_List();
+		
+		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
+		
+		
+		
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnConfig);
+		
+		$listHeader->addHeaderColumn($headerColumn, $ident);
+		
+		$list->setListHeader($listHeader);
+		
+		$captions = $this->captionRenderer->renderCaptions($list);
+
+		
+		$this->assertEquals('TEST', $captions->getItemByIndex(0));
+	}
+	
+	protected function getConfiguredMock($className, array $methods, array $returnMethods) {
+		
+		$columnConfig = $this->getMock($className, 
+							$methods, array(), '', FALSE);
+							
+		foreach($returnMethods as $method => $returnValue) {
+			$columnConfig->expects($this->any())->method($method)->will($this->returnValue($returnValue));
+		}
+		
+		return $columnConfig;
+	} 
 	
 }
 
