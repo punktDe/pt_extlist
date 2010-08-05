@@ -11,11 +11,8 @@ plugin.tx_ptextlist.settings {
 
     listConfig.demolist {
     
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
         backendConfig {
-            
-            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
-            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
-            queryInterpreterClassName = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
             
             datasource {
                 # no configuration required here
@@ -104,14 +101,14 @@ plugin.tx_ptextlist.settings {
         
         filters {
 	        filterbox1 {
+	              10 < plugin.tx_ptextlist.prototype.filter.string 
 	              10 {
-	                filterIdentifier = filter1
-	                filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
-	                label = Stringfilter 1
-	                defaultValue = DefaultString
-	                fieldDescriptionIdentifier = name_english
-	                partialPath = Filter/StringFilter
-	            }
+	                  filterIdentifier = filter1
+	                  label = Stringfilter 1
+	                  defaultValue = DefaultString
+	                  fieldDescriptionIdentifier = name_english
+	                  partialPath = Filter/StringFilter
+	              }
 	         }
         }
 
@@ -121,20 +118,6 @@ plugin.tx_ptextlist.settings {
             enabled = 1
             showCaptionsInBody = 0
             rendererClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
-        }
-        
-        
-        
-        pagerConfig {
-            enabled = 1
-            pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-            itemsPerPage = 10
-            
-            showNextLink = 1
-            showPreviousLink = 1
-            showFirstLink = 1
-            showLastLink = 1
-        }
-    
+        }   
     }
 }
