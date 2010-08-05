@@ -91,11 +91,13 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_BaseTestcase {
                          'testfilterbox' => array(
                              '10' => array(
                                 'filterIdentifier' => 'filter1',
-                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                'partialPath' => 'Filter/StringFilter'
                              ),
                              '20' => array(
                                 'filterIdentifier' => 'filter2',
-                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter'
+                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                'partialPath' => 'Filter/StringFilter'
                              )
                          )
                     ),

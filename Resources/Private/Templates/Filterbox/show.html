@@ -24,7 +24,7 @@ bool                                                                filtersDontV
 	</f:if>
 	
 	<f:for each="{filterbox}" as="filter">
-	    <f:render partial="Filter/StringFilter" arguments="{filter : filter}" />
+	    <f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
 	</f:for>
 	
 	<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}">Reset filters</f:link.action><br /><br />
