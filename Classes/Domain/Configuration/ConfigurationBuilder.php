@@ -114,13 +114,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	
+	
+	
 	/**
 	 * Returns a singleton instance of this class
 	 * @param $settings The current settings for this extension.
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
 	 */
 	public static function getInstance(array $settings) {
-	    if ($settings['listIdentifier'] != '') {
+		
+		if ($settings['listIdentifier'] != '') {
             if (!array_key_exists($settings['listIdentifier'],self::$instances)) {
             	self::$instances[$settings['listIdentifier']] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
             }
@@ -318,7 +321,23 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array Pager configuration
      */
     public function getPagerSettings() {
-    	return $this->settings['pagerConfig'];
+    	return $this->settings['pager'];
+    }
+    
+    /**
+     * 
+     * 
+     * @param $objectPrototypeSettings
+     * @param $objectSettings
+     * @return unknown_type
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 05.08.2010
+     */
+    public function mergeWithPrototype($objectPrototypeSettings, $objectSettings) {
+    	$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+	            $this->objectPrototypeSettings,
+	            $this->objectSettings);
+	    return $mergedSettings;
     }
     
 }
