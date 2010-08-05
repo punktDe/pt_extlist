@@ -52,7 +52,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
         tx_pttools_assert::isNotEmptyString($settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
         $this->filterboxIdentifier = $settings['filterboxIdentifier'];
     }
-	
+    
     
     
     /**

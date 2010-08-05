@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testInjectFilterConfig() {
         $filter = $this->getExtendingFilterMock();    	
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub'));
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'));
         $filter->injectFilterConfig($filterConfig);
     }
     
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testGetters() {
     	$filter = $this->getExtendingFilterMock();     
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub'));
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'));
         $filter->injectFilterConfig($filterConfig);
         
         $this->assertTrue($filter->getFilterIdentifier() == 'test');
@@ -76,6 +76,16 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     	$filter = $this->getExtendingFilterMock();
     	$filter->injectSessionData(array('filterValue' => 'filterValueValue'));
     }
+    
+    
+    
+    public function testGetFilterConfiguration() {
+    	$filterConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', array(), array(), '', FALSE);
+    	$filter = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub('testfilter');
+    	$filter->injectFilterConfig($filterConfiguration);
+    	$this->assertTrue($filter->getFilterConfig() == $filterConfiguration);
+    }
+    
     
     
     /**

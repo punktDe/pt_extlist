@@ -110,6 +110,7 @@ plugin.tx_ptextlist.settings {
 	                label = Stringfilter 1
 	                defaultValue = DefaultString
 	                fieldDescriptionIdentifier = name_english
+	                partialPath = Filter/StringFilter
 	            }
 	         }
         }

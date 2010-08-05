@@ -138,6 +138,15 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	 */
 	public function getErrorMessage();
 	
+	
+	
+	/**
+     * Returns filter configuration of this filter
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfiguration
+     */
+    public function getFilterConfig();
+	
 }
 
 ?>

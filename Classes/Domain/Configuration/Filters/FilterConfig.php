@@ -178,6 +178,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
+	 * Holds path to partial for filter template
+	 *
+	 * @var string
+	 */
+	protected $partialPath;
+	
+	
+	
+	/**
 	 * Constructor for filter config
 	 *
 	 * @param array $filterSettings    Settings for filter
@@ -202,6 +211,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified in config. 1277889552'));
         $this->filterClassName = $filterSettings['filterClassName'];
         $this->fieldDescriptionIdentifier = array_key_exists('fieldDescriptionIdentifier', $filterSettings) ? $filterSettings['fieldDescriptionIdentifier'] : '';
+        tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for this filter (TS key parialPath). 1281013746'));
+        $this->partialPath = $filterSettings['partialPath'];
         // TODO ry21 add all properties here
 		// TODO check which values need to be set here and add assertions!
         $this->settings = $filterSettings;
@@ -218,6 +229,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
     	return $this->listIdentifier;	
     }
 	
+    
+    
+    /**
+     * Returns partial path for filter template
+     *
+     * @return string
+     */
+    public function getPartialPath() {
+    	return $this->partialPath;
+    }
+    
     
     
     /**

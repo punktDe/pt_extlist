@@ -106,12 +106,14 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                                  '10' => array(
                                     'filterIdentifier' => 'filter1',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field1'
+                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'partialPath' => 'partialPath'
                                  ),
                                  '20' => array(
                                     'filterIdentifier' => 'filter2',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field2'
+                                    'fieldDescriptionIdentifier' => 'field2',
+                                    'partialPath' => 'partialPath'
                                  )
                              )
                         ),
@@ -165,18 +167,20 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                                  '10' => array(
                                     'filterIdentifier' => 'filter1',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field1'
+                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'partialPath' => 'partialPath'
                                  ),
                                  '20' => array(
                                     'filterIdentifier' => 'filter2',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field2'
+                                    'fieldDescriptionIdentifier' => 'field2',
+                                    'partialPath' => 'partialPath'
                                  )
                              )
                         ),
                         'pagerConfig' => array(
 	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
-                            'itemsPerPage'   => '10'
+                            'itemsPerPage'   => '10',
 	                    ),
                     )
                 )

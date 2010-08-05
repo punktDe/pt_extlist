@@ -41,7 +41,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$this->filterSettings = array(
 		    'filterIdentifier' => 'filterName1',
-		    'filterClassName' => 'test'
+		    'filterClassName' => 'test',
+		    'partialPath' => 'partialPath'
 		);
 	}
 	
@@ -60,6 +61,24 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 			return;
 		}
 		$this->fail();
+	}
+	
+	
+	
+	public function testExceptionOnEmptyPartialPath() {
+		try {
+			$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('filterIdentifier' => 'test', 'filterClassName' => 'test'));
+		} catch(Exception $e) {
+			return;
+		}
+		$this->fail('No error has been thrown on non-existing partialPath setting');
+	}
+	
+	
+	
+	public function testGetPartialPath() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertTrue($filterConfig->getPartialPath() == 'partialPath');
 	}
 	
 }
