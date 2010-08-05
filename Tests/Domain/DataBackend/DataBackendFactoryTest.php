@@ -117,7 +117,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                                  )
                              )
                         ),
-                        'pagerConfig' => array(
+                        'pager' => array(
 	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                             'itemsPerPage'   => '10'
 	                    ),
@@ -178,7 +178,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                                  )
                              )
                         ),
-                        'pagerConfig' => array(
+                        'pager' => array(
 	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                             'itemsPerPage'   => '10',
 	                    ),

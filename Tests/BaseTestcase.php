@@ -54,59 +54,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_BaseTestcase {
 	 * @return void
 	 */
 	protected function initDefaultConfigurationBuilderMock() {
-		$this->settings = array(
-            'listIdentifier' => 'test',
-            'abc' => '1',
-            'listConfig' => array(
-                 'test' => array(
-                     'abc' => '2',
-                     'def' => '3',
-                     'fields' => array(
-                         'field1' => array( 
-                             'table' => 'tableName1',
-                             'field' => 'fieldName1',
-                             'isSortable' => '0',
-                             'access' => '1,2,3,4'
-                         ),
-                         'field2' => array( 
-                             'table' => 'tableName2',
-                             'field' => 'fieldName2',
-                             'isSortable' => '0',
-                             'access' => '1,2,3,4'
-                         )
-                    ),
-                    'columns' => array(
-                        10 => array( 
-                            'columnIdentifier' => 'column1',
-                            'fieldIdentifier' => 'field1',
-                            'label' => 'Column 1'
-                        ),
-                        20 => array( 
-                            'columnIdentifier' => 'column2',
-                            'fieldIdentifier' => 'field2',
-                            'label' => 'Column 2'
-                        )
-                    ),
-                    'filters' => array(
-                         'testfilterbox' => array(
-                             '10' => array(
-                                'filterIdentifier' => 'filter1',
-                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                'partialPath' => 'Filter/StringFilter'
-                             ),
-                             '20' => array(
-                                'filterIdentifier' => 'filter2',
-                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                'partialPath' => 'Filter/StringFilter'
-                             )
-                         )
-                    ),
-		            'pagerConfig' => array(
-		                'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager' 
-		            )
-                )
-            )
-        );
+
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings);		
 	}
 	
