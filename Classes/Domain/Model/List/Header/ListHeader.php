@@ -51,6 +51,19 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_object
 		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.headerColumns';
 	}
 	
+	/**
+	 * reset session of all list columnHeaders
+	 * 
+	 * @return unknown_type
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 04.08.2010
+	 */
+	public function reset() {
+		foreach($this->itemsArr as $headerColumn) {
+			$headerColumn->reset();
+		}
+	}
+	
 }
 
 

@@ -82,14 +82,14 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function listAction() {
-		
+			
 		$listFactory = new Tx_PtExtlist_Domain_Model_List_ListFactory($this->configurationBuilder);
 		
 		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
 					$this->configurationBuilder->buildRendererConfiguration());
 		
 		$list = $listFactory->createList();
-		
+
 		$renderedListData = $renderer->render($list);
 		$renderedCaptions = $renderer->renderCaptions($list);
 		
@@ -99,6 +99,15 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 	}
+	
+	public function sortAction() {
+		$headerList = $this->dataBackend->getListHeader();
+		$headerList->reset(); 
+		
+		$this->forward('list');
+	}
+	
+	
 	
 }
 

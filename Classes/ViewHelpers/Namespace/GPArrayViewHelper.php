@@ -45,15 +45,12 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		$GetPostValueArray = array();
 		$argumentStringArray = $this->getArgumentArray($arguments);
 		
-		$nameSpace = $object->getObjectNamespace();
-		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
-		
 		foreach($argumentStringArray as $key => $value) {
 			if(!$value) {
 				$value = $this->getObjectValue($object, $key);
 			}
 			 
-			$argumentArray[] = $this->buildNamespaceValueArray($nameSpace, $key, $value);
+			$argumentArray[] = $this->buildObjectValueArray($object, $key, $value);
 		}
 
 		return count($argumentArray) == 1 ? $argumentArray[0] : $argumentArray;
@@ -95,6 +92,12 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		return $argumentArray;
 	}
 	
+	public function buildObjectValueArray(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $key, $value) {
+		$nameSpace = $object->getObjectNamespace();
+		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+		
+		return $this->buildNamespaceValueArray($nameSpace, $key, $value);
+	}
 	
 	/**
 	 * Building a namespace array filled with an value.

@@ -34,103 +34,133 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	
 	
 	/**
-     * TODO add some comment!
-     * 
-	 * 
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
 	protected $columnConfig;
 	
 	
+	/**
+	 * @var array session data
+	 */
+	protected $headerSessionData;
+	
 	
 	/**
-     * TODO add some comment!
-     * 
+	 * 
+	 * @var array GP-Var Data
+	 */
+	protected $headerGPVarData;
+	
+	
+	/**
 	 * @var string
 	 */
 	protected $listIdentifier;
 	
 	
-	
 	/**
-     * TODO add some comment!
-     * 
 	 * @var string
 	 */
 	protected $columnIdentifier;
 	
 	
-	
 	/**
-     * TODO add some comment!
-     * 
 	 * @var boolean
 	 */
 	protected $isSortable;
 	
 	
-	
 	/** 
-     * TODO add some comment!
-     * 
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	protected $sortingFieldConfig;
 	
 	
 	/**
-     * TODO add some comment!
-	 *
 	 * @var integer
 	 */
 	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
-
 	
 	
 	/**
-     * TODO add some comment!
+	 * Sorting query object for this column
+	 * @var Tx_PtExtlist_Domain_QueryObject_Query
+	 */
+	protected $sortingQuery;
+
+	
+	/**
+	 * Session persistence manager
+	 *
+	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 */
+	protected $sessionPersistenceManager = null;
+	
+	
+	/**
+	 * Injector for session persistence manager
+	 *
+	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+		$this->sessionPersistenceManager = $sessionPersistenceManager;
+	}
+	
+	/**
+     * Det the Columnheader Configuration
 	 * 
 	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
-	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 28.07.2010
 	 */
 	public function injectColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		$this->columnConfig = $columnConfig;
-		$this->listIdentifier = $columnConfig->getListIdentifier();
-		$this->columnIdentifier = $columnConfig->getColumnIdentifier();
-		$this->sortingFieldConfig = $columnConfig->getSortingConfig();
+		$this->listIdentifier = $this->columnConfig->getListIdentifier();
+		$this->columnIdentifier = $this->columnConfig->getColumnIdentifier();
+		$this->sortingFieldConfig = $this->columnConfig->getSortingConfig();
 	}
-	
 	
 	
 	/**
+	 * Init the header column and persist the state to session
 	 * 
-     * TODO add some comment!
-     * 
-	 *
 	 */
-	public function init() {
-			
+	public function init() {	
+		$this->initHeaderBySession();
+		$this->initHeaderByGpVars();
 		
+		$this->buildSortingQuery();
+		
+		$this->sessionPersistenceManager->persistToSession($this);
 	}
 	
-    /** TODO add some comment!
-     * 
-	 * @return unknown
+	
+	/**
+	 * Template method for initializing filter by session data
+	 */
+	protected function initHeaderBySession() {
+		if(array_key_exists('sortingState', $this->headerSessionData)) {
+			$this->sortingState = $this->headerSessionData['sortingState'];
+    	}
+	}
+	
+	
+
+	/**
+	 * Template method for initializing filter by get / post vars
+	 */
+	protected function initHeaderByGpVars() {
+		if(array_key_exists('sortingState', $this->headerGPVarData)) {
+    		$this->sortingState = $this->headerGPVarData['sortingState'];
+    	}
+	}
+
+	
+    /**
 	 * @return string column label
 	 */
 	public function getLabel() {
     	return $this->columnConfig->getLabel();
     }
     
-    
-    /**
-     * 
-     * TODO add some comment!
-     *
-     * @return unknown
-     */
     
 
 	/**
@@ -139,7 +169,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function getColumnIdentifier() {
     	return $this->columnIdentifier;
     }
-    
+       
     
     /**
      * Build an array with sorting definitions for this column
@@ -149,7 +179,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @since 29.07.2010
      */
     public function getSorting() {
-    	
     	$sorting = array();    	
     	if($this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC || $this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
     		foreach($this->sortingFieldConfig as $fieldConfig) {
@@ -164,17 +193,22 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $sorting;
     }
 
+    
+    protected function buildSortingQuery() {
+    	$this->sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$this->sortingQuery->addSortingArray($this->getSorting());
+    }
+    
+    
     /**
      * Get a query with sorting definition set
      * 
-     * @return unknown_type
+     * @return Tx_PtExtlist_Domain_QueryObject_Query
      * @author Daniel Lienert <lienert@punkt.de>
      * @since 02.08.2010
      */
     public function getSortingQuery() {
-    	$sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-    	$sortingQuery->addSortingArray($this->getSorting());
-    	return $sortingQuery;
+    	return $this->sortingQuery;
     }
     
     /**
@@ -246,7 +280,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->columnConfig->getIsSortable();
     }
 	
-   	
+    /**
+     * reset session state
+     * 
+     * @author Daniel Lienert <lienert@punkt.de>
+     * @since 04.08.2010
+     */
+   	public function reset() {
+   		$this->sortingState  = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+   		$this->headerSessionData = array();
+   		$this->init();
+   	}
     
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
@@ -283,9 +327,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @param array $sessionData Object's state to be persisted to session
      */
     public function injectSessionData(array $sessionData) {
-       	if(array_key_exists('sortingState', $sessionData)) {
-    		$this->sortingState = $sessionData['sortingState'];
-    	}
+		$this->headerSessionData = $sessionData;
     }
     
     
@@ -294,9 +336,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface#injectGPVars()
 	 */
     public function injectGPVars($GPVars) {
-    	if(array_key_exists('sortingState', $GPVars)) {
-    		$this->sortingState = $GPVars['sortingState'];
-    	}
+    	$this->headerGPVarData = $GPVars;
     }   
 }
 ?>

@@ -29,9 +29,9 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager {
+class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager  {
 	
 	/**
 	 * Holds an instance for a session adapter to store data to session
@@ -92,8 +92,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager {
 	private function persistObjectDataToSessionByNamespace($objectNamespace, $objectData) {
 		$this->sessionAdapter->store($objectNamespace, $objectData);
 	}
-	
-	
+
 	
 	/**
 	 * Returns data from session for given namespace
@@ -108,6 +107,18 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager {
 			$sessionData = array();
 		}
 	    return $sessionData;	
+	}
+	
+	
+	/**
+	 * Remove session data by given namespace
+	 * 
+	 * @param $objectNamespace string
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 03.08.2010
+	 */
+	public function removeSessionDataByNamespace($objectNamespace) {
+		$this->sessionAdapter->delete($objectNamespace);
 	}
 	
 }
