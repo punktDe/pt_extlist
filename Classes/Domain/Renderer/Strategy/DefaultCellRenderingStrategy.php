@@ -68,10 +68,10 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	/**
 	 * TODO insert comment
 	 *
-	 * @param unknown_type $fieldIdentifier
-	 * @param unknown_type $columnIndex
+	 * @param string $fieldIdentifier
+	 * @param string $columnIndex
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
-	 * @return unknown
+	 * @return mixed
 	 */
 	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow) {
 			
@@ -89,10 +89,6 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 			$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $columnConfig->getRenderObj());
 			$content = $this->cObj->cObjGet($conf);
 		}
-	
-		// stdWrap 
-		// TODO: check if this is needed.
-		$content = $this->cObj->stdWrap($content ,$columnConfig->getStdWrap());
 		
 		return $content;
 	}
@@ -107,11 +103,11 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 */
 	protected function createFieldSet(Tx_PtExtlist_Domain_Model_List_Row &$row) {
 		$fieldSet = array();
+
+		$fieldCollection = $this->rendererConfiguration->getFieldConfigCollection();
 		
-		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
-		
-		foreach($columnCollection->getIterator() as $column) {
-			$fieldIdent = $column->getFieldIdentifier();
+		foreach($fieldCollection->getIterator() as $field) {
+			$fieldIdent = $field->getIdentifier();
 			$fieldSet[$fieldIdent] = $row->getItemById($fieldIdent);	
 		}
 		

@@ -8,7 +8,7 @@
 	<f:for each="{listData}" as="listRow">
 	<tr>
 	   <f:for each="{listRow}" as="cell">
-	       <td>{cell}</td>
+	       <td><f:format.html>{cell}</f:format.html></td>
 	   </f:for>
 	</tr>
 	</f:for>

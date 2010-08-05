@@ -40,13 +40,14 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	
 	
 	/**
-	 * TODO add some comment!
-	 *
-	 * @var unknown_type
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
 	protected $columnConfigCollection = null;
 	
-	
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	protected $fieldConfigCollection = null;
 	
 	/**
 	 * TODO add some comment!
@@ -71,15 +72,22 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	
 	
 	/**
-	 * TODO add some comment
-	 *
+	 * Setter for columnConfigCollection
+	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection
 	 */
 	public function setColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection) {
 		$this->columnConfigCollection = $columnConfigCollection;
 	}
 	
-	
+	/**
+	 * Setter for fieldConfigCollection
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+	 */
+	public function setFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
+		$this->fieldConfigCollection = $fieldConfigCollection;
+	}
 	
 	/**
 	 * TODO add some comment
@@ -88,6 +96,10 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	 */
 	public function getColumnConfigCollection() {
 		return $this->columnConfigCollection;
+	}
+	
+	public function getFieldConfigCollection() {
+		return $this->fieldConfigCollection;
 	}
 	
 	

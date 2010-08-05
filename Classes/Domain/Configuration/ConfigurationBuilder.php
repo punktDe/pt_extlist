@@ -289,7 +289,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     public function buildRendererConfiguration() {
     	if(is_null($this->rendererConfiguration)) {
     		tx_pttools_assert::isArray($this->settings['renderer'], array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
-    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer'], $this->buildColumnsConfiguration());
+    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer'], $this->buildColumnsConfiguration(), $this->buildFieldsConfiguration());
     	}
     	
     	return $this->rendererConfiguration;
