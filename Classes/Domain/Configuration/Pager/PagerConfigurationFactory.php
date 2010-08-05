@@ -32,5 +32,11 @@
  */
 
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory {
+	
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($configurationBuilder);
+
+		return $pagerConfiguration;
+	}
 }
 ?>

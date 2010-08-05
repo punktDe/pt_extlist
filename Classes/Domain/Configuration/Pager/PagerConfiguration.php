@@ -28,16 +28,25 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	
+
 	/**
 	 * Holds an array of settings for pager
 	 *
 	 * @var array
 	 */
 	protected $settings = array();
+	
+	
+	/**
+	 * Identifier of list to which this filter belongs to
+	 *
+	 * @var string
+	 */
+	protected $listIdentifier;
 	
 	
 	
@@ -59,6 +68,8 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 		$pagerSettings = $configurationBuilder->getPagerSettings();
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings 1280408323'));
 		$this->settings = $pagerSettings;
+		
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
 	}
 	
@@ -84,5 +95,11 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 		return $this->settings;
 	}
 	
+	/**
+	 * @return string
+	 */
+	public function getListIdentifier() {
+		return $this->listIdentifier;
+	}
 }
 ?>
