@@ -1,2 +1,17 @@
-﻿<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/BaseConfig.txt">
+﻿####################################################
+# Base Configuration for pt_extlist 
+#
+# @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/BaseConfig.txt">
+
+# Prototypes
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/Backend.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/List.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/Filter.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/Pager.txt">
+
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Themes/Default/plugin.tx_ptextlist._CSS_DEFAULT_STYLE.ts.css">
