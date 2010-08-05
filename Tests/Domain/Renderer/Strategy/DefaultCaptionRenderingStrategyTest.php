@@ -68,11 +68,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 	}
 	
 	public function testSimpleTSLabel() {
-		// TODO: check why other tests don't work in cli dispatch mode.
-			$this->assertTrue(TRUE);
-			return;
-		
-		
+
 		$ts = array('10' => array(
 						'_typoScriptNodeValue' => 'TEXT',
 						'value' => 'test',
@@ -80,6 +76,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 					'_typoScriptNodeValue' => 'COA'
 					);
 		
+		$cObjMock = $this->getMock('tslib_cObj', array('cObjGet'));
+		$cObjMock->expects($this->once())->method('cObjGet')->with(Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($ts));
 		
 		$methods = array('getLabel', 'getColumnIdentifier');
 		$returnMethods['getLabel'] = $ts;
@@ -94,9 +92,11 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		$list->setListHeader($listHeader);
 		
 		
-		$captions = $this->captionRenderer->renderCaptions($list);
+		$captionRendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy');
+		$captionRenderer = new $captionRendererClass();
+		$captionRenderer->_set('cObj', $cObjMock);
 		
-		$this->assertEquals('test', $captions->getItemByIndex(0));
+		$captions = $captionRenderer->renderCaptions($list);
 	}
 	
 	protected function getConfiguredMock($className, array $methods, array $returnMethods) {
