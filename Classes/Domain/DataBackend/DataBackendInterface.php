@@ -51,6 +51,20 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     
     
     /**
+     * Returns raw data for all filters excluding given filters. Optional query further constrains query.
+     * 
+     * Result is given as associative array with fields given in parameter fields array.
+     *
+     * @param array $fieldsArray Array of fields to be selected from data source (field names are translated according to data.fields settings in TS!)
+     * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $additionalQuery Additional query to further constrain query
+     * @return array Array of group data with given fields as array keys
+     */
+    public function getGroupData($fieldsArray, $excludeFilters = array(), $additionalQuery = null);
+    
+    
+    
+    /**
      * Returns field configuraiton collection
      *
      * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection

@@ -288,6 +288,21 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         
         $this->assertEquals($orderByString, 'name ASC', 'getOrderByFromHeaderColumn expected to be "name ASC", was ' . $orderByString);
 	}
+	
+	
+	
+	public function testGetGroupData() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		
+		$fields = array('field1', 'field2', 'field3');
+		$excludeFilters = array('filterbox1.filter1', 'filterbox1.filter2', 'filterbox2.filter1');
+		$additionalQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+		$additionalQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('field1', 10));
+		
+		$groupData = $dataBackend->getGroupData($fields, $excludeFilters, $additionalQuery);
+		// TODO Finish me!
+		
+	}
 
 	
 	
