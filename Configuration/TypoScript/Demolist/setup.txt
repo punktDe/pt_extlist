@@ -158,23 +158,10 @@ plugin.tx_ptextlist.settings {
 	                  partialPath = Filter/GroupFilter
 	                  filterClassName = Tx_PtExtlist_Domain_Model_Filter_GroupFilter
 	                  fieldDescriptionIdentifier = test
-	                  optionsSourceFields = test1, test2
+	                  optionsSourceFields = testtable1.testfield1, testtable1.testfield2
 	                  multiple = 1
 	              }
 	         }
-        }
-
-		
-
-        pager {
-            enabled = 1
-            pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-            itemsPerPage = 10
-            
-            showNextLink = 1
-            showPreviousLink = 1
-            showFirstLink = 1
-            showLastLink = 1
         }
         
         renderer {

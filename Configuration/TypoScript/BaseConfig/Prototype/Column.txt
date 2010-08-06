@@ -1,0 +1,17 @@
+####################################################
+# Definition of column prototypes for use in listconfiguration 
+#
+# @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.prototype.column {
+	
+	default {
+		sortingImageDefault = FILE:EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png
+		sortingImageAsc = FILE:EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png
+		sortingImageDesc = FILE:EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png
+	}
+		
+}
