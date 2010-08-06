@@ -39,15 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		
-		$this->renderSettings = array(
-				'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
-				'enabled' => 1,
-				'showCaptionsInBody' => 0,
-		);
-		
-		$columnConfig = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->configurationBuilderMock);
-		
-		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->renderSettings,$columnConfig,$this->configurationBuilderMock->buildFieldsConfiguration());
+		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
 		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfig);
 	}
 	

@@ -25,7 +25,7 @@
 ***************************************************************/
 
 /**
- * TODO insert comment!
+ * The default strategy to render a cell.
  * 
  * @package Typo3
  * @subpackage pt_extlist
@@ -34,18 +34,16 @@
 class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 
 	/**
-	 * TODO insert comment
-	 *
-	 * @var unknown_type
+	 * The configuration.
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
 	 */
 	protected $rendererConfiguration;
 	
 	
 	
 	/**
-	 * TODO insert comment
-	 *
-	 * @var unknown_type
+	 * A cObject for TS parsing
+	 * @var tslib_cObj
 	 */
 	protected $cObj;
 	
@@ -66,7 +64,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	
 	
 	/**
-	 * TODO insert comment
+	 * Renders the cell content.
 	 *
 	 * @param string $fieldIdentifier
 	 * @param string $columnIndex
@@ -90,13 +88,40 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 			$content = $this->cObj->cObjGet($conf);
 		}
 		
+		if(($userFunctions = $columnConfig->getRenderUserFunctions()) != null) {
+			$content = $this->renderWithUserFunc($userFunctions, $fieldSet);
+		}
+		
 		return $content;
 	}
 	
-	
+	/**
+	 * Calls userFunctions with fieldset and 
+	 * 
+	 * @param array $userFunctions
+	 * @param array $fieldSet
+	 * @return string The rendered content
+	 */
+	protected function renderWithUserFunc($content, array $userFunctions, $fieldSet) {
+		$sortedKeys = t3lib_TStemplate::sortedKeyList($userFunctions, false);
+
+		$params = array();
+		$params['values'] = $fieldSet;
+
+		$dummRef = ''; 
+		
+		foreach ($sortedKeys as $key) {
+			$rendererUserFunc = $userFunctions[$key];
+			$params['currentContent'] = $renderedContent;
+			$params['conf'] = $userFunctions[$key]; 
+			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
+		}
+		
+		return $content;
+	}
 	
 	/**
-	 * TODO insert comment
+	 * Creates a set of fields which are available. Defined by the 'fields' TS setup.
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
 	 * @return unknown

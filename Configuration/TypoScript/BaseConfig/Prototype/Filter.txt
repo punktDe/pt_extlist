@@ -10,10 +10,12 @@ plugin.tx_ptextlist.prototype.filter {
 
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+		partialPath = Filter/StringFilter
 	}
 	
 	group {
-		
+		partialPath = Filter/GroupFilter
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_GroupFilter
 	}
 
 }

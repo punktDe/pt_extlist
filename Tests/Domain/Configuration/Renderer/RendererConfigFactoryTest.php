@@ -26,25 +26,26 @@
 
 class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $settings;
+	protected $configurationBuilderMock;
 	
 	public function setup() {
-		$this->settings = array();
+		
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
 	
 	public function testGetRendererConfiguration() {
-		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings);
+		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
 		
 		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration);
 		
 		$columnConfig = $config->getColumnConfigCollection();
-		
-		$this->assertTrue(is_null($columnConfig));
+		$fieldConfig = $config->getFieldConfigCollection();
+		$this->assertNotNull($columnConfig);
+		$this->assertNotNull($fieldConfig);
 	}
 	
 	public function testGetRendererConfigurationWithColumnConfig() {
-		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings,
-				new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection());
+		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
 		
 		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration);
 		

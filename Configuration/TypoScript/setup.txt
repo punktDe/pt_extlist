@@ -10,6 +10,7 @@
 
 # Prototypes
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/Backend.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/Renderer.txt">
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/List.txt">
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/Column.txt">
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/Filter.txt">

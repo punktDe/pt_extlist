@@ -238,6 +238,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->settings['filters'];
     }
     
+    /**
+     * Returns configuration array for the renderer
+     *
+     * @return array Settings for the renderer
+     */
+    public function getRendererSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings['renderer'], 'renderer.default');
+    }
     
     
     /**
@@ -326,9 +334,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildRendererConfiguration() {
     	if(is_null($this->rendererConfiguration)) {
-    		$rendererSettings = $this->getMergedSettingsWithPrototype($this->settings['renderer'], 'renderer.default');
-    		tx_pttools_assert::isArray($rendererSettings, array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
-    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer'], $this->buildColumnsConfiguration(), $this->buildFieldsConfiguration());
+
+    		tx_pttools_assert::isArray($this->getRendererSettings(), array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
+    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this);
+
     	}
     	
     	return $this->rendererConfiguration;

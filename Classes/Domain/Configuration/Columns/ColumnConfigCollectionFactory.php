@@ -54,7 +54,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
 
 		foreach($columnSettings as $columnId => $columnSetting) {
-			$columnConfigCollection->addColumnConfig($columnId, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSetting));
+			$columnSettingMergedWithProtoType = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');
+			$columnConfigCollection->addColumnConfig($columnId, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSettingMergedWithProtoType));
 		}
 		
 		return $columnConfigCollection;
