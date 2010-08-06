@@ -91,7 +91,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     public function resetAction() {
     	$filterbox = $this->getFilterboxForControllerSettings();
     	$filterbox->reset();
-    	$this->forward('showAction');
+    	$this->forward('show');
     }
     
     
