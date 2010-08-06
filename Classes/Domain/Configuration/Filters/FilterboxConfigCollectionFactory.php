@@ -43,8 +43,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
 		$filterBoxConfigCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection($configurationBuilder);
 		foreach($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
 			$filterboxConfiguration = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
-			// TODO code monkey: add method for this to collection!
-			$filterBoxConfigCollection->addItem($filterboxConfiguration, $filterboxIdentifier);
+			
+			$filterBoxConfigCollection->addFilterBoxConfig($filterboxConfiguration, $filterboxIdentifier);
 		}
 		return $filterBoxConfigCollection;
 	}

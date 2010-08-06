@@ -1,3 +1,6 @@
+
+plugin.tx_ptextlist.settings.prototype < plugin.tx_ptextlist.prototype
+
 plugin.tx_ptextlist.settings {
     listConfig.tsTestList {
     	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
@@ -12,19 +15,21 @@ plugin.tx_ptextlist.settings {
         filters {
 	        filterbox1 {
 	              10 < plugin.tx_ptextlist.prototype.filter.string
-	              20 < plugin.tx_ptextlist.prototype.filter.group 
+	              10 {
+	              	filterIdentifier = test
+	              }
+	              20 < plugin.tx_ptextlist.prototype.filter.group
+	              20 {
+	              	filterIdentifier = test2
+	              } 
 	         }
         }  
     }
-}
 
-plugin.tx_ptextlist.settings {
     listConfig.t3BackendTestList {
-    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo
     }
-}
 
-plugin.tx_ptextlist.settings {
     listConfig.mysqlBackendTestList {
     	backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
     }

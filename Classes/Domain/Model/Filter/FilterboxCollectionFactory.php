@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$filterboxConfigCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getfilterboxConfigCollection($configurationBuilder); 
+		$filterboxConfigCollection = $configurationBuilder->buildFilterConfiguration(); 
 		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($configurationBuilder);
 		foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterboxConfiguration */
 			$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);

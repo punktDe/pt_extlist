@@ -39,6 +39,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 	}
 	
+	public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier) {
+		$this->addItem($filterBox, $filterBoxIdentifier);
+	}
+	
 }
 
 ?>

@@ -61,18 +61,20 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	public function testConfigurationBuilderWithTypo3Backend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('t3BackendTestList');
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
+		$configurationBuilder->getBackendConfiguration();
 	}
 	
 	public function testConfigurationBuilderWithMysqlBackend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('mysqlBackendTestList');
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
+	
 	}
 
 	
 	public function testBuildColumnsConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
-		$configurationBuilder->buildColumnsConfiguration();
+	
 	}
 	
 	public function testBuildRendererConfiguration() {
@@ -87,17 +89,27 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 		$configurationBuilder->buildPagerConfiguration();
 	}
 	
+	public function testBuildFilterBoxConfiguration() {
+		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
+		$configurationBuilder->buildFilterConfiguration();
+	}
+	
 	protected function buildTypoScriptConfigForConfigBuilder($listIdentifier) {
-		$TSString =$this->loadTestList();
-		$TSString .= $this->loadAllPrototypeTS();
+		$TSString = $this->loadAllPrototypeTS();
+		$TSString .=$this->loadTestList();
+		
 	
 		$parserInstance = t3lib_div::makeInstance('t3lib_tsparser');
 		$parserInstance->parse($TSString);
  		
+		//$cObj = t3lib_div::makeInstance('tslib_cObj');
+		//$output = $cObj->COBJ_ARRAY($parserInstance->setup);
+		
 		$tsSettings = $parserInstance->setup;
+
 		$settings = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
 		
-		$settings['plugin']['tx_ptextlist']['settings']['prototype'] = 	$settings['plugin']['tx_ptextlist']['prototype'];
 		$settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
 		
 		return $settings['plugin']['tx_ptextlist']['settings'];

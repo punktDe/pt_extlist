@@ -80,8 +80,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 			        ),
 			        'filters' => array(
 			             'testfilterbox' => array(
-		                     'testkey' => 'testvalue'
-			             )
+			        		10 => array (
+			        			'testkey' => 'testvalue',
+			        			'filterIdentifier' => 'filter1',
+			        			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+								'partialPath' => 'Filter/StringFilter',
+			        		)   
+			            )
 			        )
 		        )
 		    ),
@@ -142,7 +147,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	public function testGetFilterboxIdentifier() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
         $filterboxConfiguration = $configurationBuilder->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
-        $this->assertEquals($filterboxConfiguration['testkey'],'testvalue', 'Expected filterboxvalue was "testvalue" got "' . $filterboxConfiguration['testkey'] . '" instead!');
+        
+        $this->assertEquals($filterboxConfiguration->getFilterboxIdentifier(),'testfilterbox', 'Expected filterboxvalue was "testvalue" got "' . $filterboxConfiguration->getFilterboxIdentifier() . '" instead!');
 	}
 	
 	
