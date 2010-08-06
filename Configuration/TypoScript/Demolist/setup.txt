@@ -149,25 +149,17 @@ plugin.tx_ptextlist.settings {
 	                  label = Stringfilter 1
 	                  defaultValue = DefaultString
 	                  fieldDescriptionIdentifier = name_english
-	                  partialPath = Filter/StringFilter
 	              }
 	              
+	              20 < plugin.tx_ptextlist.prototype.filter.group 
 	              20 {
 	                  filterIdentifier = filter2
 	                  label = GroupFilter 1
-	                  partialPath = Filter/GroupFilter
-	                  filterClassName = Tx_PtExtlist_Domain_Model_Filter_GroupFilter
 	                  fieldDescriptionIdentifier = test
 	                  optionsSourceFields = testtable1.testfield1, testtable1.testfield2
 	                  multiple = 1
 	              }
 	         }
-        }
-        
-        renderer {
-            enabled = 1
-            showCaptionsInBody = 0
-            rendererClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
-        }   
+        }  
     }
 }

@@ -335,7 +335,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     public function buildRendererConfiguration() {
     	if(is_null($this->rendererConfiguration)) {
 
-    		
     		tx_pttools_assert::isArray($this->getRendererSettings(), array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
     		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this);
 
