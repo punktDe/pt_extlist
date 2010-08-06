@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
                'optionsSourceFields' => 'test1,test2'
     	));
     	$sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
-        $groupFilter->injectFilterConfig($filterConfiguration);
+        $groupFilter->injectSessionPersistenceManager($sessionManagerMock);
     	$groupFilter->injectFilterConfig($filterConfiguration);
     	try {
             $groupFilter->init();
@@ -100,7 +100,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
                'displayFields' => 'test'
         ));
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
-        $groupFilter->injectFilterConfig($filterConfiguration);
+        $groupFilter->injectSessionPersistenceManager($sessionManagerMock);
         $groupFilter->injectFilterConfig($filterConfiguration);
         try {
             $groupFilter->init();
@@ -124,7 +124,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
                'filterFields' => 'test'
         ));
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
-        $groupFilter->injectFilterConfig($filterConfiguration);
+        $groupFilter->injectSessionPersistenceManager($sessionManagerMock);
         $groupFilter->injectFilterConfig($filterConfiguration);
         try {
             $groupFilter->init();
@@ -132,6 +132,29 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
             return;
         }
         $this->fail('No error has been thrown on configuration without display fields configuration');
+    }
+    
+    
+    
+    public function testBuildExcludeFiltersArray() {
+    	$groupFilter = new Tx_PtExtlist_Domain_Model_Filter_GroupFilter();
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+           array(
+               'filterIdentifier' => 'test', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_GroupFilter',
+               'partialPath' => 'Filter/GroupFilter',
+               'partialPath' => 'Filter/GroupFilter',
+               'fieldDescriptionIdentifier' => 'test',
+               'filterFields' => 'test.test',
+               'displayFields' => 'test.test',
+               'excludeFilters' => 'filterbox1.filter1'
+        ));
+        $groupFilter->injectFilterConfig($filterConfiguration);
+        $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
+        $groupFilter->injectSessionPersistenceManager($sessionManagerMock);
+        $groupFilter->init();
+        $excludeFiltersArray = $groupFilter->buildExcludeFiltersArray();
+        $this->assertTrue(array_key_exists('filterbox1', $excludeFiltersArray) && in_array('filter1', $excludeFiltersArray['filterbox1']));
     }
 	
 }

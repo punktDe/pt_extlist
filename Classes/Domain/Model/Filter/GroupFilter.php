@@ -73,9 +73,9 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	/**
 	 * Array of filters to be excluded if options for this filter are determined
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $excludeFilters = array();
+	protected $excludeFilters;
 	
 	
 	
@@ -201,13 +201,17 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 				throw new Exception('wrong configuration of option source field for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281090352');
 			}
 		}
+		
 		if (count($tables) > 0) {
 			$fromString = implode(', ', $tables);
 			$selectString = implode(', ', $fields);
 			$groupDataQuery->addFrom($fromString);
 			$groupDataQuery->addField($selectString);
 
-			$options = $this->dataBackend->getGroupData($groupDataQuery, $this->excludeFilters);
+			$excludeFiltersArray = $this->buildExcludeFiltersArray();
+			// Add this filter to excluded filters
+			$excludeFiltersArray[$this->filterBoxIdentifier][] = $this->filterIdentifier;
+			$options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFilters);
 			
 		    $renderedOptions = array();
 		    
@@ -228,6 +232,31 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 		
 		}
         return $renderedOptions;
+	}
+	
+	
+	
+	/**
+	 * Returns associative array of exclude filters for given TS configuration
+	 *
+	 * @return array Array with exclude filters. Encoded as (array('filterboxIdentifier' => array('excludeFilter1','excludeFilter2',...)))
+	 */
+	public function buildExcludeFiltersArray() {
+		if ($this->excludeFilters != '') {
+			$excludeFiltersFlatArray = explode(',', $this->excludeFilters);
+			$excludeFiltersAssocArray = array();
+			foreach($excludeFiltersFlatArray as $excludeFilter) {
+				list($filterboxIdentifier, $filterIdentifier) = explode('.', trim($excludeFilter));
+				if ($filterIdentifier != '' && $filterboxIdentifier != '') {
+				    $excludeFiltersAssocArray[$filterboxIdentifier][] = $filterIdentifier;
+				} else {
+					throw new Exception('Wrong configuration of exclude filters for filter '. $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . '. Should be comma seperated list of <filterboxIdentifier>.<filterIdentifier> but was ' . $excludeFilter . ' 1281102702'); 
+				}
+			}
+			return $excludeFiltersAssocArray;
+		} else {
+			return array();
+		}
 	}
 	
 	
