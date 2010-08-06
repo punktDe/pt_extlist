@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_StateAdapter_NameSpaceArrayUtility_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $varArray;
 	
@@ -47,12 +47,12 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_NameSpaceArrayUtility_testcase exte
 	}
 	
 	public function testGetArrayContentByArrayAndNamespace() {
-		$extractedValue = Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::getArrayContentByArrayAndNamespace($this->varArray,'key1.key2.key3.key4');
+		$extractedValue = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->varArray,'key1.key2.key3.key4');
 		$this->assertEquals($extractedValue, 'value1', 'The extracted Value should be Value 1');
 	}
 	
 	public function testGetArrayContentByArrayAndNamespaceWithEmptyArray() {
-		$extractedValue = Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::getArrayContentByArrayAndNamespace(array(),'key1.key2.key3.key4');
+		$extractedValue = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace(array(),'key1.key2.key3.key4');
 		$this->assertEquals($extractedValue, array(), 'The method should return an empty array');
 	}
 	
@@ -60,7 +60,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_NameSpaceArrayUtility_testcase exte
 		$testArray['key1']['key2']['key3'] = 'test';
 		$testArray2['key1']['key2']['key4'] = 'test4';
 		
-		$testArray = Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::saveDataInNamespaceTree('key1.key2.key3', $testArray, 'test2');
+		$testArray = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree('key1.key2.key3', $testArray, 'test2');
 		
 		$refArray['key1']['key2']['key3'] = 'test2';
 		$refArray2['key1']['key2']['key4'] = 'test4';
@@ -70,7 +70,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_NameSpaceArrayUtility_testcase exte
 	
 	public function testSaveDataInNamespaceTreeWithEmptyArray() {
 		$testArray = array();
-		$testArray = Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility::saveDataInNamespaceTree('key1.key2.key3', $testArray, 'test2');
+		$testArray = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree('key1.key2.key3', $testArray, 'test2');
 		
 		$refArray['key1']['key2']['key3'] = 'test2';
 		$this->assertEquals($testArray, $refArray);

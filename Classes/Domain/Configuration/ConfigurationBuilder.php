@@ -251,17 +251,45 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
     
     /**
-     * return a slice from the prototype arrray for the given objectName
+     * return a slice from the prototype arrray for the given objectPath
      * 
-     * @param string $objectName
+     * @param string $objectPath
      * @return array prototypesettings
      * @author Daniel Lienert <lienert@punkt.de>
      * @since 05.08.2010
      */
-    public function getPrototypeSettingsForObject($objectName) {
-    	$protoTypeSettings = $this->settings['prototype'][$objectName];
+    public function getPrototypeSettingsForObject($objectPath) {
+
+    	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->settings['prototype'], $objectPath);
+    	
+    	if(!is_array($protoTypeSettings)) {
+    		$protoTypeSettings = array();
+    	} 
+    	
     	return $protoTypeSettings;
     }
+        
+    
+	/**
+	 * Return the list specific settings merged with prototype settings
+	 * 
+	 * @param array $listSepcificConfig
+	 * @param string $objectName
+	 * @return array
+	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @since 05.08.2010
+	 */
+	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectName) {
+		
+		if(!is_array($listSepcificConfig)) $listSepcificConfig = array();
+		
+		$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+            $this->getPrototypeSettingsForObject($objectName),
+			$listSepcificConfig
+        );
+
+        return $mergedSettings;
+	}
     
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
@@ -298,7 +326,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildRendererConfiguration() {
     	if(is_null($this->rendererConfiguration)) {
-    		tx_pttools_assert::isArray($this->settings['renderer'], array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
+    		$rendererSettings = $this->getMergedSettingsWithPrototype($this->settings['renderer'], 'renderer.default');
+    		tx_pttools_assert::isArray($rendererSettings, array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
     		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->settings['renderer'], $this->buildColumnsConfiguration(), $this->buildFieldsConfiguration());
     	}
     	
@@ -314,10 +343,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildPagerConfiguration() {
     	if (is_null($this->pagerConfiguration)) {
-    		if (!is_array($this->getPagerSettings())) {
-    			throw new Exception('No pager configuration available for list ' . $this->getListIdentifier() . '. 1280408324');
-    		}
-    		$pagerSettings = $this->getPagerSettings();
+    		$pagerSettings = $this->getMergedSettingsWithPrototype($this->getPagerSettings(), 'pager.default');
+    		tx_pttools_assert::isArray($pagerSettings, array('message' => 'No pager configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
+    		
     		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this);
     	}
     	return $this->pagerConfiguration;
