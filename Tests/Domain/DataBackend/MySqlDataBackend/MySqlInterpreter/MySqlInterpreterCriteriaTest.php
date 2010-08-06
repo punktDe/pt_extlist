@@ -35,8 +35,14 @@
 class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $simpleCriteria1;
+	
+	
 	protected $simpleCriteria2;
+	
+	
 	protected $simpleCriteria3;
+	
+	
 	
 	public function setup() {
 		$this->simpleCriteria1 = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field1','value1','=');
@@ -44,12 +50,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$this->simpleCriteria3 = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field3','value3','=');
 	}
 	
+	
+	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator'));
 	}
+	
+	
 	
 	/**
 	 * Test the translation of a simple criteria
@@ -61,6 +71,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$criteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria);
 		$this->assertTrue($criteriaString == 'field = "value"');
 	}
+	
+	
 	
 	/**
 	 * Test the AND translation of two simple criterias
@@ -76,6 +88,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$this->assertTrue($andCriteriaSimpleString == $andCriteriaSimpleTestString, 'Test failed with SimpleCriteria AND SimpleCriteria.(' . $andCriteriaSimpleString . '!=' . $andCriteriaSimpleTestString);
 	}
 	
+	
+	
 	/**
 	 * Test the AND translation of simple and complex criterias
 	 * @author Daniel Lienert <lienert@punkt.de>
@@ -89,6 +103,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$andCriteriaSimpleComplexTestString = '(field3 = "value3") AND ((field1 = "value1") AND (field2 = "value2"))';
 		$this->assertTrue($andCriteriaSimpleComplexString == $andCriteriaSimpleComplexTestString, 'Test failed with SimpleCriteria AND ComplexCriteria. :: ' . $andCriteriaSimpleComplexString . ' != ' . $andCriteriaSimpleComplexTestString);
 	}
+	
+	
 	
 	/**
 	 * Test the OR translation of two simple criterias
@@ -105,6 +121,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		
 	}
 	
+	
+	
 	/**
 	 * Test the NOT criteria translator
 	 * @author Daniel Lienert <lienert@punkt.de>
@@ -115,6 +133,24 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$notCriteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator::translateCriteria($notCriteria);
 		$notCriteriaTestString = 'NOT (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($this->simpleCriteria1).')';
 		$this->assertTrue($andCriteriaSimpleString == $andCriteriaSimpleTestString, 'Test failed with SimpleCriteria. :: ' . $notCriteriaString . '!=' . $notCriteriaTestString);
+	}
+	
+	
+	
+	public function testWrapArrayInBracketsInSimpleCriteriaTranslator() {
+		$wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets(array('tes"t1','test2','test3'));
+		$this->assertEquals($wrappedString, '("tes\"t1", "test2", "test3")');
+		
+		$wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets('tes"t1');
+		$this->assertEquals($wrappedString, '"tes\"t1"');
+	}
+	
+	
+	
+	public function testTranslateInCriteria() {
+		$inCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', array('test1', 'test2'), 'IN');
+		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($inCriteria);
+		$this->assertEquals($translatedCriteria, 'test IN ("test1", "test2")');
 	}
 }
 ?>

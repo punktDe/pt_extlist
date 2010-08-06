@@ -48,15 +48,25 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 */
 	protected $fieldDescriptionIdentifier;
 	
+	   
+	
+	/**
+	 * Holds an array of fields to be used as filter value when filter is submitted
+	 * encoded as array(<table>.<field>, <table>.<field>, ...)
+	 *
+	 * @var array
+	 */
+	protected $filterFields = array();
+	
 	
 	
 	/**
-	 * Holds an array of fields from where the options should come from
-	 * Encoded as array('<table>.<field>',...)
-	 * 
+	 * Holds an array of fields to be used as displayed values for the filter (the options that can be selected)
+	 * encoded as array(<table>.<field>,...)
+	 *
 	 * @var array
 	 */
-	protected $optionsSourceFields;
+	protected $displayFields = array();
 	
 	
 	
@@ -78,6 +88,8 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValues[0]));
 		} elseif (count($this->filterValues) > 1) {
 			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($this->fieldDescriptionIdentifier, $this->filterValues));
+		} else {
+			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
 	}
 	
@@ -127,10 +139,13 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 		if (!array_key_exists('fieldDescriptionIdentifier', $filterSettings) || $filterSettings['fieldDescriptionIdentifier'] == '') {
             throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281019496');
         }
-        $this->fieldDescriptionIdentifier = $settings['fieldDescriptionIdentifier'];
-		
-        tx_pttools_assert::isNotEmptyString($filterSettings['optionsSourceFields'], array('message' => 'No optionsSourceFields set for ' . $this->getFilterBoxIdentifier() . '.' . $this->filterIdentifier . '! 1281019497'));
-        $this->optionsSourceFields = $filterSettings['optionsSourceFields'];
+        $this->fieldDescriptionIdentifier = $filterSettings['fieldDescriptionIdentifier'];
+        
+        tx_pttools_assert::isNotEmptyString($filterSettings['filterFields']);
+        $this->filterFields = explode(',', $filterSettings['filterFields']);
+        
+        tx_pttools_assert::isNotEmptyString($filterSettings['displayFields']);
+        $this->displayFields = explode(',',$filterSettings['displayFields']);
 
         if (array_key_exists('excludeFilters', $filterSettings)) {
         	$this->excludeFilters = $filterSettings['excludeFilters'];
@@ -145,6 +160,7 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	public function reset() {
+		$this->filterValues = array();
 		$this->sessionFilterData = array();
 		$this->init();
 	}
@@ -167,8 +183,51 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 * @return array
 	 */
 	public function getOptions() {
-	    $options = $this->dataBackend->getGroupData($this->optionsSourceFields, $this->excludeFilters);
-        return $options;
+		// TODO refactor me!
+		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+		$tables = array();
+		$fields = array();
+		$options = array();
+		
+		$mergedFields = array_merge($this->displayFields, $this->filterFields);
+		foreach ($mergedFields as $optionSourceField) {
+			list($table,$field) = explode('.', trim($optionSourceField));
+			if ($table != '' && $field != '') {
+				if (!in_array($table, $tables)) {
+					$tables[] = $table;
+				}
+				$fields[] = $optionSourceField;
+			} else {
+				throw new Exception('wrong configuration of option source field for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281090352');
+			}
+		}
+		if (count($tables) > 0) {
+			$fromString = implode(', ', $tables);
+			$selectString = implode(', ', $fields);
+			$groupDataQuery->addFrom($fromString);
+			$groupDataQuery->addField($selectString);
+
+			$options = $this->dataBackend->getGroupData($groupDataQuery, $this->excludeFilters);
+			
+		    $renderedOptions = array();
+		    
+			foreach($options as $option) {
+				// TODO Add render-option to TS config for this stuff here
+				$key = '';
+				foreach($this->filterFields as $filterField) {
+                    list($filterTable, $filterField) = explode('.', trim($filterField));
+					$key .= $option[$filterField];
+				}
+				$value = '';
+			    foreach($this->displayFields as $displayField) {
+                    list($displayTable, $displayField) = explode('.', trim($displayField));
+                    $value .= $option[$displayField];
+                }
+	   		    $renderedOptions[$key] = $value;
+			}
+		
+		}
+        return $renderedOptions;
 	}
 	
 	

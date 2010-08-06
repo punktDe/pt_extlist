@@ -23,8 +23,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
-
 /**
  * Controller for all list actsions
  * 
@@ -100,6 +98,13 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$this->view->assign('listData', $renderedListData);
 	}
 	
+	
+	
+	/**
+	 * Sorting action used to change sorting of a list
+	 *
+	 * @return string Rendered sorting action
+	 */
 	public function sortAction() {
 		$headerList = $this->dataBackend->getListHeader();
 		$headerList->reset(); 

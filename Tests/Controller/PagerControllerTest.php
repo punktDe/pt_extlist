@@ -71,10 +71,10 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     
     
     public function testSubmitAction() {
-    	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('redirect'), array(), '', FALSE);
+    	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('forward'), array(), '', FALSE);
     	$pagerControllerMock->expects($this->once())
-    	   ->method('redirect')
-    	   ->with('showAction');
+    	   ->method('forward')
+    	   ->with('show');
         $pagerControllerMock->submitAction('1');
     }
     

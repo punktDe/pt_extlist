@@ -87,9 +87,10 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 			$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $columnConfig->getRenderObj());
 			$content = $this->cObj->cObjGet($conf);
 		}
+		$userFunctions = $columnConfig->getRenderUserFunctions();
 		
-		if(($userFunctions = $columnConfig->getRenderUserFunctions()) != null) {
-			$content = $this->renderWithUserFunc($userFunctions, $fieldSet);
+		if($userFunctions != null) {
+			$content = $this->renderWithUserFunc($content, $userFunctions, $fieldSet);
 		}
 		
 		return $content;
@@ -103,8 +104,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * @return string The rendered content
 	 */
 	protected function renderWithUserFunc($content, array $userFunctions, $fieldSet) {
+		$userFunctions = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $userFunctions );
 		$sortedKeys = t3lib_TStemplate::sortedKeyList($userFunctions, false);
-
 		$params = array();
 		$params['values'] = $fieldSet;
 
@@ -112,6 +113,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		
 		foreach ($sortedKeys as $key) {
 			$rendererUserFunc = $userFunctions[$key];
+			
 			$params['currentContent'] = $renderedContent;
 			$params['conf'] = $userFunctions[$key]; 
 			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);

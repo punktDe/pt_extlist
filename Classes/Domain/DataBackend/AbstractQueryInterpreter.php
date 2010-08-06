@@ -24,6 +24,8 @@
 ***************************************************************/
 
 /**
+ * TODO why is this an abstract class and not an interface?
+ * 
  * Interface for query interpreters
  * 
  * @package Typo3
@@ -57,6 +59,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
      * @param Tx_PtExtlist_Domain_QueryObject_Query $query
      */
     abstract static public function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    
+    
+    
+    /**
+     * Translates whole query with all keywords etc.
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     */
+    abstract static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query);
 	
 }
 

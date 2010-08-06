@@ -53,7 +53,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * @return string Rendered pager action HTML source
 	 */
 	public function submitAction($page) {
-		$this->redirect('showAction');
+		$this->forward('show');
 	}
 	
 	
