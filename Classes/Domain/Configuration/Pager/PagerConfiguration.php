@@ -66,13 +66,17 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$pagerSettings = $configurationBuilder->getPagerSettings();
+		
+		if (!is_array($pagerSettings)) {
+    		throw new Exception('No pager configuration available for list ' . $this->getListIdentifier() . '. 1280408324');
+    	}
+		
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings 1280408323'));
 		$this->settings = $pagerSettings;
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
 	}
-	
 	
 	
 	/**

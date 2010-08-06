@@ -147,6 +147,28 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 		return $fromString;
 	}
 	
+	
+	
+	/**
+	 * Translates whole query with all keywords (SELECT, WHERE, FROM...)
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+	 * @return string Translated query with all keywords
+	 */
+	public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+	    $sqlString = '';
+		
+	    $sqlString .= self::getSelectPart($query) != '' ? 'SELECT ' . self::getSelectPart($query) . "\n" : '';
+	    $sqlString .= self::getFromPart($query) != '' ? ' FROM ' . self::getFromPart($query) . "\n" : '';
+	    $sqlString .= self::getCriterias($query) != '' ? ' WHERE ' . self::getCriterias($query) . "\n" : '';
+	    // TODO implement group by!
+	    //$sqlString .= $this->getGroupByPart($query);
+	    $sqlString .= self::getSorting($query) != '' ? ' ORDER BY ' . self::getSorting($query) . "\n" : '';
+	    $sqlString .= self::getLimit($query) != '' ? ' LIMIT ' . self::getLimit($query) . "\n" : '';
+	    
+		return $sqlString;
+	}
+	
 }
 
 ?>

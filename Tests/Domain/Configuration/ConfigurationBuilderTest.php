@@ -39,7 +39,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		    'abc' => '1',
 			'prototype' => array(
 				'pager' => array(
+					'default' => array(
 						'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+						'pagerProperty' => 'pagerValue'
+					)
 					),
 				'column' => array (
 						'xy' => 'z',
@@ -106,16 +109,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	}
 	
 	
-	/*
-	public function testListIdentifierNotConfiguredException() {
-		try {
-			$conf
-		}
-	}
-    */
-
-	
-	
 	public function testSetAndMergeGlobalAndLocalConfig() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
 		$settings = $configurationBuilder->getSettings();
@@ -157,7 +150,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
         $pagerSettings = $configurationBuilder->getPagerSettings();
         $pagerClassName = $pagerSettings['pagerClassName'];
-        $this->assertEquals($pagerClassName,'Tx_PtExtlist_Domain_Model_Pager_DefaultPager', 'Expected pagerClassName was "Tx_PtExtlist_Domain_Model_Pager_DefaultPager" got "' . $pagerClassName . '" instead!');
+        $this->assertEquals($pagerClassName,'Tx_PtExtlist_Domain_Model_Pager_DefaultPager', 'Expected pagerClassName was "Tx_PtExtlist_Domain_Model_Pager_DefaultPager" got "' . $pagerClassName . '" instead!'); 
 	}
 	
 	
@@ -177,9 +170,24 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$this->assertEquals($configurationBuilder->getFilterSettings(), $this->settings['listConfig']['test']['filters']);
 	}
 	
-	public function getPrototypeSettingsForObject() {
+	public function testGetPrototypeSettingsForObject() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
-		$this->assertEquals($configurationBuilder->getPrototypeSettingsForObject('pager'), $this->settings['prototype']['pager']);
+		
+		$prototypeSettings = $configurationBuilder->getPrototypeSettingsForObject('pager.default');
+		$this->assertTrue(is_array($prototypeSettings), 'The return value must be an array');
+		$this->assertEquals($prototypeSettings, $this->settings['prototype']['pager']['default']);
+		
+		$prototypeSettings = $configurationBuilder->getPrototypeSettingsForObject('somthingThatDoesNotExist');
+		$this->assertTrue(is_array($prototypeSettings), 'The return value must be an array');
+	}
+	
+	public function testGetMergedSettingsWithPrototype() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		
+		$settings = $configurationBuilder->getMergedSettingsWithPrototype($this->settings['listConfig']['test']['pager'], 'pager.default');
+		$this->assertTrue(is_array($settings), 'The return value must be an array');
+
+		$this->assertEquals($this->settings['prototype']['pager']['default']['pagerProperty'], $settings['pagerProperty']);
 	}
 	
 }

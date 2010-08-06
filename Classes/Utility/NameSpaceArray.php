@@ -24,14 +24,13 @@
 ***************************************************************/
 
 /**
- * Persistence manager to store objects to session and reload objects from session.
- * Uses pt_tools sessionStorageAdapter for accessing T3 session.
+ * Utility to manage NameSpaceStrings and resulting arrays
  *
  * @package TYPO3
  * @subpackage pt_extlist
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility {
+class Tx_PtExtlist_Utility_NameSpaceArray {
 	
 	/**
 	 * Returns part of an array according to given namespace
@@ -62,7 +61,7 @@ class Tx_PtExtlist_Domain_StateAdapter_NameSpaceArrayUtility {
 	 * @return array
 	 */
 	protected static function getNamespaceArrayByNamespaceString($namespaceString) {
-		return explode('.', $namespaceString);
+		return t3lib_div::trimExplode('.', $namespaceString);
 	}
 	
 	/**
