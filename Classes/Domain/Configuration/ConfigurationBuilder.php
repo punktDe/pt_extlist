@@ -343,9 +343,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildPagerConfiguration() {
     	if (is_null($this->pagerConfiguration)) {
-    		$pagerSettings = $this->getMergedSettingsWithPrototype($this->getPagerSettings(), 'pager.default');
-    		tx_pttools_assert::isArray($pagerSettings, array('message' => 'No pager configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
-    		
     		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this);
     	}
     	return $this->pagerConfiguration;
@@ -359,7 +356,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array Pager configuration
      */
     public function getPagerSettings() {
-       	return $this->settings['pager'];
+       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager.default');
     }    
 }
 

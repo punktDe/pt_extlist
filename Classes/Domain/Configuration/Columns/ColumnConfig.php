@@ -80,19 +80,19 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	 * Image to show as sorting link.
 	 * @var string
 	 */
-	protected $sortingImageDefault = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_default.png';
+	protected $sortingImageDefault = '';
 	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
-	protected $sortingImageAsc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_asc.png';
+	protected $sortingImageAsc = '';
 	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
-	protected $sortingImageDesc = 'typo3conf/ext/pt_extlist/Resources/Public/List/icon_table_sort_desc.png';
+	protected $sortingImageDesc = '';
 	
 	
 	/**
