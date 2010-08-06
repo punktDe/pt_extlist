@@ -63,6 +63,11 @@ plugin.tx_ptextlist.settings {
 				table = static_countries
 				field = cn_uno_member
 			}
+			
+			iso2 {
+				table = static_countries
+				field = cn_iso_2
+			}
             
         }
 
@@ -137,6 +142,16 @@ plugin.tx_ptextlist.settings {
                 fieldIdentifier = cu_name_english
                 label = Currency Name
             }
+            
+            50 {
+				label = ISO
+				columnIdentifier = isoNoColumn
+				fieldIdentifier = iso2
+				
+				renderUserFunctions {
+					10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptlist_demolist_renderer.php:tx_ptlist_demolist_renderer->iso2CodeRenderer
+				}
+			}
         }
         
         
