@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
 	protected $serverUrl; 
 	
 	public function SetUp() {
-		$this->serverUrl = 'http://ry25.ptlistdev.play.punkt.de/index.php?id=9';
+		$this->serverUrl = 'http://cid642l771.devel.intern.punkt.de/index.php?id=4';
 	}
 	
 	/**
