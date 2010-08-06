@@ -84,11 +84,12 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	protected function createFilterQuery() {
-		print_r($this->filterValues);
 		if (count($this->filterValues) == 1) {
 			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValues[0]));
 		} elseif (count($this->filterValues) > 1) {
 			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($this->fieldDescriptionIdentifier, $this->filterValues));
+		} else {
+			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
 	}
 	
@@ -159,6 +160,7 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 *
 	 */
 	public function reset() {
+		$this->filterValues = array();
 		$this->sessionFilterData = array();
 		$this->init();
 	}
