@@ -119,7 +119,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
     	$filterboxControllerMock->_set('filterboxIdentifier', 'test');
     	$filterboxControllerMock->expects($this->once())
     	   ->method('forward')
-    	   ->with('showAction');
+    	   ->with('show');
     	   
     	$filterboxControllerMock->resetAction();
     }
