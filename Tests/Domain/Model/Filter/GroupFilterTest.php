@@ -54,7 +54,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_GroupFilter',
                'partialPath' => 'Filter/GroupFilter',
                'fieldDescriptionIdentifier' => 'test',
-               'optionsSourceFields' => 'test1,test2'
+               'displayFields' => 'test1,test2',
+               'filterFields' => 'test'
         ));
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         $groupFilter->injectFilterConfig($filterConfiguration);
@@ -87,7 +88,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
     
     
     
-    public function testExceptionOnMissingOptionsSourceFieldsConfiguration() {
+    public function testExceptionOnMissingFilterFieldsConfiguration() {
     	$groupFilter = new Tx_PtExtlist_Domain_Model_Filter_GroupFilter();
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
            array(
@@ -95,7 +96,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_GroupFilter',
                'partialPath' => 'Filter/GroupFilter',
                'partialPath' => 'Filter/GroupFilter',
-               'fieldDescriptionIdentifier' => 'test'
+               'fieldDescriptionIdentifier' => 'test',
+               'displayFields' => 'test'
         ));
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         $groupFilter->injectFilterConfig($filterConfiguration);
@@ -105,7 +107,31 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
         } catch(Exception $e) {
             return;
         }
-        $this->fail('No error has been thrown on configuration without optionsSourceFields configuration');
+        $this->fail('No error has been thrown on configuration without filter fields configuration');
+    }
+    
+    
+    
+    public function testExceptionOnMissingDisplayFieldsConfiguration() {
+        $groupFilter = new Tx_PtExtlist_Domain_Model_Filter_GroupFilter();
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+           array(
+               'filterIdentifier' => 'test', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_GroupFilter',
+               'partialPath' => 'Filter/GroupFilter',
+               'partialPath' => 'Filter/GroupFilter',
+               'fieldDescriptionIdentifier' => 'test',
+               'filterFields' => 'test'
+        ));
+        $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
+        $groupFilter->injectFilterConfig($filterConfiguration);
+        $groupFilter->injectFilterConfig($filterConfiguration);
+        try {
+            $groupFilter->init();
+        } catch(Exception $e) {
+            return;
+        }
+        $this->fail('No error has been thrown on configuration without display fields configuration');
     }
 	
 }

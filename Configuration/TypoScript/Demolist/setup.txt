@@ -30,7 +30,7 @@ plugin.tx_ptextlist.settings {
             )
             
             baseWhereClause (
-            	static_currencies.cu_iso_nr > 100
+            	
             ) 
             
         }
@@ -157,8 +157,9 @@ plugin.tx_ptextlist.settings {
 	                  label = GroupFilter 1
 	                  partialPath = Filter/GroupFilter
 	                  filterClassName = Tx_PtExtlist_Domain_Model_Filter_GroupFilter
-	                  fieldDescriptionIdentifier = test
-	                  optionsSourceFields = testtable1.testfield1, testtable1.testfield2
+	                  fieldDescriptionIdentifier = cn_currency_iso_nr
+	                  displayFields = static_currencies.cu_name_en
+	                  filterFields = static_currencies.cu_iso_nr
 	                  multiple = 1
 	              }
 	         }

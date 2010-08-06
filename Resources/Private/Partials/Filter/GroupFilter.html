@@ -19,5 +19,5 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
     <div style="color: red">Validation Error: {filter.errorMessage}</div>
 </f:if>
 <label for="{filter.filterIdentifier}">{filter.label}</label>
-    <f:form.select multiple="{filter.tsConfig.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" options="{filter.options}" value="{filter.value}" />
+    <f:form.select multiple="{filter.tsConfig.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" />
 </div>
