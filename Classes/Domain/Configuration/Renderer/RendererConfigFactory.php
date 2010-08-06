@@ -26,10 +26,15 @@
 
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
-	public static function getRendererConfiguration(array $settings, 
-			Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection = null,
-			Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection = null) {
+	
+	public static function getRendererConfiguration(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $builder) {
+		$settings = $builder->getRendererSettings();
+		tx_pttools_assert::isArray($settings, array(message => 'No renderer settings found. 1281087488'));
+		
 		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($settings);
+		
+		$columnConfigCollection = $builder->buildColumnsConfiguration();
+		$fieldConfigCollection = $builder->buildFieldsConfiguration();
 		
 		if(!is_null($columnConfigCollection)) {
 			$config->setColumnConfigCollection($columnConfigCollection);
@@ -38,8 +43,6 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 		if(!is_null($fieldConfigCollection)) {
 			$config->setFieldConfigCollection($fieldConfigCollection);
 		}
-		
-		
 		
 		return $config;
 	}

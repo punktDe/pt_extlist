@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	/**
 	 * @var array
 	 */
-	protected $stdWrap = NULL;
+	protected $renderUserFunctions = NULL;
 	
 	protected $renderObj;
 
@@ -131,10 +131,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 			$this->label = $columnSettings['label'];
 		}
 		
-		if(array_key_exists('stdWrap', $columnSettings) && is_array($columnSettings['stdWrap'])) {
-			$this->stdWrap = $columnSettings['stdWrap'];
+		if(array_key_exists('renderUserFunctions', $columnSettings)) {
+			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
 		}
-		
+				
 		if(array_key_exists('renderObj', $columnSettings) && is_array($columnSettings['renderObj'])) {
 			$this->renderObj = $columnSettings['renderObj'];
 		}
@@ -198,15 +198,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	}
 	
 	/**
-	 * 
-	 * @return array stdWrap
+	 * @return array
 	 */
-	public function getStdWrap() {
-		return $this->stdWrap;	
-	}
-	
 	public function getRenderObj() {
 		return $this->renderObj;
+	}
+	
+	/**
+	 * @return array
+	 */
+	public function getRenderUserFunctions() {
+		return $this->renderUserFunctions;
 	}
 	
 	/** 

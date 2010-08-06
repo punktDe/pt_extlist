@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_List $list) {
-		if(!$this->rendererConfiguration->isEnabled()) return $list;
+		if(!$this->rendererConfiguration->isEnabled()) return $list->getListData();
 		
 		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280315003'));
 		
