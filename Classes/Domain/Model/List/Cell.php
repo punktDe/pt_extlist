@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -23,32 +24,34 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * Class implements a row for a list data structure. Row contains
- * cells addressed by a identifier (column name).
- * 
- * @author Daniel Lienert
- * @author Michael Knoll
- * @author Christoph Ehscheidt
- * @package Typo3
- * @subpackage pt_extlist
- */
-class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
+class Tx_PtExtlist_Domain_Model_List_Cell {
+
+	protected $value;
+	protected $specialValues;
 	
-	/**
-	 * Add a new cell to row identified by a given column name
-	 *
-	 * @param string $columnName
-	 * @param string $value
-	 * @return void
-	 */
-	public function addCell($columnName, $value, array $specialValues = array()) {
-		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($value);
-		$cell->setSpecialValues($specialValues);
-		
-		$this->addItem($cell, $columnName);
+	public function __construct($value) {
+		$this->value = $value;
 	}
 	
+	public function setValue($value) {
+		$this->value = $value;
+	}
+	
+	public function getValue() {
+		return $this->value;
+	}
+	
+	public function setSpecialValues($specialValues) {
+		$this->specialValues;
+	}
+	
+	public function getSpecialValues() {
+		return $this->specialValues;
+	}	
+	
+	public function __toString() {
+		return $this->value;
+	}
 }
 
 ?>

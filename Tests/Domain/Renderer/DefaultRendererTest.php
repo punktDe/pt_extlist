@@ -58,8 +58,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 
 		$this->assertTrue(is_a($renderedList, 'Tx_PtExtlist_Domain_Model_List_ListData'));
 		
-		$this->assertEquals($renderedList->getItemByIndex(0)->getItemById('column1'),'val1');
-		$this->assertEquals($renderedList->getItemByIndex(0)->getItemById('column2'),'val2');
+		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getItemById('column1'),'val1');
+		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getItemById('column2'),'val2');
 
 	}
 	
@@ -72,8 +72,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 		
 		$this->assertTrue(is_a($captions, 'Tx_PtExtlist_Domain_Model_List_Row'));
 		
-		$this->assertEquals($captions->getItemById('column1'), 'Column 1');
-		$this->assertEquals($captions->getItemById('column2'), 'Column 2');
+		$this->assertEquals((string)$captions->getItemById('column1'), 'Column 1');
+		$this->assertEquals((string)$captions->getItemById('column2'), 'Column 2');
 		
 	}
 	

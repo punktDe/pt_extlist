@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
 	public function testGetMappedListDataWithoutConfiguration() {
 		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
-		$this->assertEquals($mappedListData[0]['t1.f1'], 'v1_1');
+		$this->assertEquals($mappedListData[0]['t1.f1']->getValue(), 'v1_1');
 	}
 	
 	
@@ -115,8 +115,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
 		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->fieldSettings);
 		$arrayMapper->setMapperConfiguration($fieldConfigCollection);
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
-		$this->assertEquals($mappedListData[0]['field1'], 'v1_1');
-		$this->assertEquals($mappedListData[3]['field2'], 'v4_4');
+		$this->assertEquals($mappedListData[0]['field1']->getValue(), 'v1_1');
+		$this->assertEquals($mappedListData[3]['field2']->getValue(), 'v4_4');
 	}
 	
 	

@@ -74,7 +74,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow) {
 			
 		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnIndex);
-		$content = $currentRow->getItemById($fieldIdentifier);
+		$content = $currentRow->getItemById($fieldIdentifier)->getValue();
 		
 		$fieldSet = $this->createFieldSet($currentRow);
 		

@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_Extbase_BaseT
         $row->addCell('testKey', 'testContent');
         foreach($row as $columnName => $cellContent) {
         	$this->assertEquals($columnName, 'testKey');
-        	$this->assertEquals($cellContent, 'testContent');
+        	$this->assertEquals($cellContent->getValue(), 'testContent');
         }
 	}
 	
@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_Extbase_BaseT
 	public function testRowArrayAccess() {
         $row = new Tx_PtExtlist_Domain_Model_List_Row();
         $row->addCell('testKey', 'testContent');
-		$this->assertEquals($row['testKey'], 'testContent');
+		$this->assertEquals($row['testKey']->getValue(), 'testContent');
 	}
 	
 }

@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		
 		$captions = $this->captionRenderer->renderCaptions($list);
 		
-		$this->assertEquals('Column 1', $captions->getItemByIndex(0));
+		$this->assertEquals('Column 1', $captions->getItemByIndex(0)->getValue());
 	}
 	
 	public function testLabelLocalization() {
@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		$captions = $this->captionRenderer->renderCaptions($list);
 
 		
-		$this->assertEquals('TEST', $captions->getItemByIndex(0));
+		$this->assertEquals('TEST', $captions->getItemByIndex(0)->getValue());
 	}
 	
 	public function testSimpleTSLabel() {
