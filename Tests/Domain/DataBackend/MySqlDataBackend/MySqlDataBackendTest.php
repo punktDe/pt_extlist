@@ -308,9 +308,38 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		
 		$groupData = $dataBackend->getGroupData($additionalQuery, $excludeFilters);
 		// TODO Finish me!
-		
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testCreateDataSource() {
+		$this->markTestIncomplete();
 	}
 
+	
+	
+	public function testBuildQuery() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testBuildWherePart() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testBuildOrderByPart() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testGetTotalItemsCount() {
+		$this->markTestIncomplete();
+	}
 	
 	
 	/**********************************************************************************************************************************************************
