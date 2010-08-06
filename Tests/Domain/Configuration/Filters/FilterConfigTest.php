@@ -42,7 +42,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->filterSettings = array(
 		    'filterIdentifier' => 'filterName1',
 		    'filterClassName' => 'test',
-		    'partialPath' => 'partialPath'
+		    'partialPath' => 'partialPath',
+		    'defaultValue' => 'default',
 		);
 	}
 	
@@ -74,6 +75,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->fail('No error has been thrown on non-existing partialPath setting');
 	}
 	
+	
+	public function testGetDefaultValue() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertEquals($filterConfig->getdefaultValue(), 'default');
+	}
 	
 	
 	public function testGetPartialPath() {

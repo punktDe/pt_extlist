@@ -70,6 +70,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
+	 * default value for this filter
+	 * 
+	 * @var string
+	 */
+	protected $defaultValue;
+	
+	
+	/**
 	 * Label to be shown for this filter
 	 *
 	 * @var string
@@ -206,13 +214,20 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 * @param array $filterSettings
 	 */
 	protected function setPropertiesFromSettings(array $filterSettings) {
+		
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
         $this->filterIdentifier = $filterSettings['filterIdentifier'];
+        
         tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified in config. 1277889552'));
         $this->filterClassName = $filterSettings['filterClassName'];
+        
         $this->fieldDescriptionIdentifier = array_key_exists('fieldDescriptionIdentifier', $filterSettings) ? $filterSettings['fieldDescriptionIdentifier'] : '';
+        
         tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for this filter (TS key parialPath). 1281013746'));
         $this->partialPath = $filterSettings['partialPath'];
+        
+        $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
+        
         // TODO ry21 add all properties here
 		// TODO check which values need to be set here and add assertions!
         $this->settings = $filterSettings;
@@ -297,6 +312,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         return $this->filterIdentifier;
     }
     
+    
+    public function getDefaultValue() {
+    	return $this->defaultValue;
+    }
     
     
     /**
