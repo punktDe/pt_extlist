@@ -41,8 +41,42 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-        return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . '"' . mysql_real_escape_string($criteria->getValue()) . '"';    
+        return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());    
 	}
+	
+	
+	
+	/**
+	 * Wraps an array in ("<array[0]>",...,"<array[n]>") and escapes values.
+	 * Returns string as escaped string if no array is given
+	 *
+	 * @param mixed $value
+	 */
+	public static function wrapArrayInBrackets($value) {
+		if (is_array($value)) {
+			$escapedValues = self::escapeArray($value);
+			$returnString = '("' . implode('", "', $escapedValues) . '")';
+        } else {
+            $returnString = '"' . mysql_real_escape_string($value) . '"';
+		}
+		return $returnString;
+	}
+	
+	
+	
+	/**
+	 * Escapes all values of a given array
+	 *
+	 * @param array $values Array with values that should be escaped
+	 * @return array Array with escaped values
+	 */
+	public static function escapeArray(array $values) {
+		foreach($values as $value) {
+			$escapedValues[] = mysql_real_escape_string($value);
+		}
+		return $escapedValues;
+	}
+	
 }
 
 ?>

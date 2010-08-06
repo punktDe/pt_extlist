@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
             ->will($this->returnValue($pdoStatementMock));
         
         $mysqlDataSource->injectDbObject($pdoMock);
-        $result = $mysqlDataSource->execute('SELECT * FROM test');
+        $result = $mysqlDataSource->executeQuery('SELECT * FROM test');
         
         $this->assertTrue($fakedReturnArray == $result);
 	}

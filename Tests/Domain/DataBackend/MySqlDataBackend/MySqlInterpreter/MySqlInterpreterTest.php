@@ -85,5 +85,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	}
 	
 	
+	
+	public function testInterpretQuery() {
+		$this->markTestIncomplete();
+	}
+	
+	
 }
 ?>
