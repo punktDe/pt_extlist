@@ -9,9 +9,15 @@
 plugin.tx_ptextlist.prototype.column {
 	
 	default {
-		sortingImageDefault = FILE:EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png
-		sortingImageAsc = FILE:EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png
-		sortingImageDesc = FILE:EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png
+		sortingImageDefault = EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png
+		sortingImageAsc = EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png
+		sortingImageDesc = EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png
+		
+		isSortable = 1
+        sorting = 
+		columnIdentifier = 
+        fieldIdentifier = 
+        label = 
 	}
 		
 }
