@@ -112,13 +112,13 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
     	$filterboxMock->expects($this->once())
     	   ->method('reset');
     	
-    	$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect','getFilterboxForControllerSettings'), array(), '', FALSE);
+    	$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward','getFilterboxForControllerSettings'), array(), '', FALSE);
     	$filterboxControllerMock->expects($this->once())
             ->method('getFilterboxForControllerSettings')
             ->will($this->returnValue($filterboxMock));
     	$filterboxControllerMock->_set('filterboxIdentifier', 'test');
     	$filterboxControllerMock->expects($this->once())
-    	   ->method('redirect')
+    	   ->method('forward')
     	   ->with('showAction');
     	   
     	$filterboxControllerMock->resetAction();
