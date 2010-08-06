@@ -80,6 +80,15 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	
 	
 	/**
+	 * Holds a comma seperated list of additional tables that are required for this filter
+	 *
+	 * @var string
+	 */
+	protected $additionalTables;
+	
+	
+	
+	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
 	 *
 	 */
@@ -151,6 +160,10 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
         	$this->excludeFilters = $filterSettings['excludeFilters'];
         }
         
+        if (array_key_exists('additionalTables', $filterSettings)) {
+        	$this->additionalTables = $filterSettings['additionalTables'];
+        }
+        
 	}
 	
 	
@@ -203,15 +216,16 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 		}
 		
 		if (count($tables) > 0) {
-			$fromString = implode(', ', $tables);
 			$selectString = implode(', ', $fields);
-			$groupDataQuery->addFrom($fromString);
+			if ($this->additionalTables != '') {
+			   $groupDataQuery->addFrom($this->additionalTables);
+			}
 			$groupDataQuery->addField($selectString);
 
 			$excludeFiltersArray = $this->buildExcludeFiltersArray();
 			// Add this filter to excluded filters
 			$excludeFiltersArray[$this->filterBoxIdentifier][] = $this->filterIdentifier;
-			$options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFilters);
+			$options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
 			
 		    $renderedOptions = array();
 		    

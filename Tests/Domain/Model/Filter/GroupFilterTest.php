@@ -156,6 +156,42 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_GroupFilter_testcase extends Tx_PtE
         $excludeFiltersArray = $groupFilter->buildExcludeFiltersArray();
         $this->assertTrue(array_key_exists('filterbox1', $excludeFiltersArray) && in_array('filter1', $excludeFiltersArray['filterbox1']));
     }
+    
+    
+    
+    public function testCreateFilterQuery() {
+    	$this->markTestIncomplete();
+    }
+    
+    
+    
+    public function testInit() {
+    	$this->markTestIncomplete();
+    }
+    
+    
+    
+    public function testReset() {
+    	$this->markTestIncomplete();
+    }
+    
+    
+    
+    public function testPersistToSession() {
+    	$this->markTestIncomplete();
+    }
+    
+    
+    
+    public function testGetOptions() {
+    	$this->markTestIncomplete();
+    }
+    
+    
+    
+    public function testGetValues() {
+    	$this->markTestIncomplete();
+    }
 	
 }
 
