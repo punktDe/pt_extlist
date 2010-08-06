@@ -181,7 +181,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection
 	 */
-	public function injectfilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection) {
+	public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection) {
 		$this->filterboxCollection = $filterboxCollection;
 	}
 	

@@ -112,6 +112,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected $pagerConfiguration;
 	
 	
+	/**
+	 * Holds an instance of the configuration of all filters associated to this list
+	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
+	 */
+	protected $filterConfiguration = null;
 	
 	
 	
@@ -218,16 +223,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
-     * Returns configuration array for filterbox identifier
+     * Returns configuration object for filterbox identifier
      *
      * @param array $filterboxIdentifier
+     * 
+     * 
+     * 
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
     	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
-    	return $this->settings['filters'][$filterboxIdentifier];
+    	return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
-    
-    
+
     
     /**
      * Returns configuration array for all filters
@@ -326,6 +333,20 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
     
     
+    
+	/**
+     * Returns a singleton instance of a filter configuration collection for current list configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
+     */
+    public function buildFilterConfiguration() {
+    	if (is_null($this->filterConfiguration)) {
+    		$this->filterConfiguration = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getfilterboxConfigCollection($this);
+    	}
+    	return $this->filterConfiguration;
+	}
+    
+	
     
     /**
      * Returns a singleton instance of the renderer configuration object.
