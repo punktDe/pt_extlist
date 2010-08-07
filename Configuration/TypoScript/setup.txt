@@ -1,4 +1,4 @@
-﻿####################################################
+####################################################
 # Base Configuration for pt_extlist 
 #
 # @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
