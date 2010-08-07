@@ -45,9 +45,7 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource Data source object for this data backend
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$backendConfiguration = $configurationBuilder->getBackendConfiguration();
-		$dataSourceConfigurationArray = $backendConfiguration['dataSource'];
-		$dataSourceConfigurationObject = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->getBackendConfiguration());
+		$dataSourceConfigurationObject = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration());
 		$dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource($dataSourceConfigurationObject);
 		$dataSource->injectDataSource($GLOBALS['TYPO3_DB']);
 		return $dataSource;

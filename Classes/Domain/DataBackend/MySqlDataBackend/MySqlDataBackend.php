@@ -59,13 +59,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource Data source object for this data backend
      */
     public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        $backendConfiguration = $configurationBuilder->getBackendConfiguration();
-        $dataSourceConfigurationArray = $backendConfiguration['dataSource'];
-        $dataSourceConfigurationObject = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->getBackendConfiguration());
-        $dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfigurationObject);
+        $backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
+        $dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($backendConfiguration);
+        $dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfiguration);
         
         // TODO initialize PDO with given parameters!!!
-        $dataSource->injectDataSource(new PDO());
+        $dataSource->injectDbObject(new PDO());
         
         return $dataSource;
     }
@@ -158,12 +157,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string FROM part of query without 'FROM'
 	 */
 	public function buildFromPart() {
-		if (array_key_exists('tables', $this->backendConfiguration)) {
-		    $fromPart = $this->backendConfiguration['tables'];
+		if ($this->backendConfiguration->getDataBackendSettings('tables')) {
+		    $fromPart = $this->backendConfiguration->getDataBackendSettings('tables');
 		}
 		
-		if(array_key_exists('baseFromClause', $this->backendConfiguration) && trim($this->backendConfiguration['baseFromClause'])) {
-			$fromPart = trim($this->backendConfiguration['baseFromClause']);
+		if(trim($this->backendConfiguration->getDataBackendSettings('baseFromClause'))) {
+			$fromPart = trim($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
 		}
 		
 		tx_pttools_assert::isNotEmptyString($fromPart, array('message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420'));
@@ -200,7 +199,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string
 	 */
 	public function getBaseWhereClause() {
-		return trim($this->backendConfiguration['baseWhereClause']);
+		return trim($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
 	}
 	
 	

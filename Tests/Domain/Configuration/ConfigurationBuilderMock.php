@@ -36,14 +36,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
         
     }
 	
-	
-	public function getBackendConfiguration() {
-		return array('dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_DummyDataBackend',
-		             'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-		             'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource');
-	}
-	
-	
+    /**
+     * Returns array of settings for current plugin configuration
+     *
+     * @return array
+     */
+    public function getPluginSettings() {
+    	return $this->origSettings;
+    }
 	
     /**
      * Returns a singleton instance of this class
@@ -60,7 +60,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	            'abc' => '1',
             	'prototype' => array(
 				'pager' => array(
-						'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+						'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
+					),
+				'backend' => array (
+					'mysql' => array (
+						'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+						'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+						'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+					)
 					),
 				'column' => array (
 						'xy' => 'z',
@@ -68,6 +75,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 				),
 	            'listConfig' => array(
 	                 'test' => array(
+						
+						'backendConfig' => array (
+								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+								'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+								'dataSource' => array(
+									'testKey' => 'testValue',
+								)
+							),
+						
 	                     'abc' => '2',
 	                     'def' => '3',
 	                     'fields' => array(

@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	public function testInjectBackendConfiguration() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-		$dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
+		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
 	}
 	
 	
@@ -56,7 +56,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	public function testInjectDataSource() {
         $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration(array())));
+        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
+        								 array('executeQuery'), 
+        								 array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration())
+        								 	)
+        								 );
 		$dataBackend->injectDataSource($dataSourceMock);
 	}
 	
@@ -88,16 +92,19 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	public function testBuildFromPart() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-		$dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
+		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
 		$fromPart = $dataBackend->buildFromPart();
-		$this->assertEquals($fromPart, $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['tables']);
+		$this->assertEquals($fromPart, 
+							$this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['tables'],
+							'Test expected . ' .$this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['tables'] . ' but recieved ' . $fromPart
+		);
 	}
 	
 	
 	
 	public function testGetBaseWhereClause() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-		$dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
+		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
 		$baseWhereClause = $dataBackend->getBaseWhereClause();
 		$this->assertTrue($baseWhereClause == $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['baseWhereClause']);
 	}
@@ -228,7 +235,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             array('t1.f1' => 'v8_1', 't1.f2' => 'v8_2', 't1.f3' => 'v8_3','t2.f1' => 'v8_4', 't2.f2' => 'v8_5'),
         );
 
-        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration(array())));
+        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
+        									array('executeQuery'), 
+        									array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration())));
         $dataSourceMock->expects($this->once())
             ->method('executeQuery')
             ->will($this->returnValue($dataSourceReturnArray));
@@ -251,7 +260,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             
                 
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-		$dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
+		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
         $dataBackend->injectDataSource($dataSourceMock);
         $dataBackend->injectPager($pagerMock);
@@ -302,7 +311,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
 
-        $dataBackend->injectBackendConfiguration($this->configurationBuilder->getBackendConfiguration());
+        $dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
 		

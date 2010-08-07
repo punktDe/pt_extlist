@@ -39,16 +39,11 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 	 * @return mixed
 	 */
 	public static function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendSettings = $configurationBuilder->getBackendConfiguration();
-		tx_pttools_assert::isNotEmptyString($dataBackendSettings['dataMapperClass'], array('message' => 'No dataMapperClass given in settings 1277889455'));	
-		$dataMapperClassName = $dataBackendSettings['dataMapperClass'];
+		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();	
+		$dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 		
 		// TODO check whether we should use singleton here
 		
-		// Check whether dataMapper class exists
-		if (!class_exists($dataMapperClassName)) {
-			throw new Exception('Data Mapper class ' . $dataMapperClassName . ' does not exist!');
-		}
 		$dataMapper = new $dataMapperClassName($configurationBuilder);
 		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 

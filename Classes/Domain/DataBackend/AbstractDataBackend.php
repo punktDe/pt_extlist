@@ -35,7 +35,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * Holds backend configuration for current backend
 	 *
-	 * @var array
+	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration
 	 */
 	protected $backendConfiguration;
 	
@@ -146,9 +146,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * Injects backend configuration for current backend
 	 *
-	 * @param array $backendConfiguration
+	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration
 	 */
-    public function injectBackendConfiguration($backendConfiguration) {
+    public function injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration) {
         $this->backendConfiguration = $backendConfiguration;
     }
 	

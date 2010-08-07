@@ -29,25 +29,9 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
-
-	/**
-	 * Holds an associative array of instances of configuration builder objects
-	 * Each list identifier holds its own configuration builder object
-	 * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
-	 */
-	private static $instances = null;
-
-	
-	
-	/**
-	 * Holds an instance of a session adapter
-	 * @var Tx_PtExtlist_Domain_Configuration_SessionAdapter
-	 */
-	protected $sessionAdapter;
-	
 	
 	
 	/**
@@ -64,6 +48,12 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected $origSettings;
 	
 	
+	/**
+	 * Prototype settings for ts-configurable objects
+	 * @var array
+	 */
+	protected $protoTypeSettings;
+	
 	
 	/**
 	 * Holds list identifier of current list
@@ -72,13 +62,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected $listIdentifier;
 	
 	
-
-    /**
-	 * Holds an instance of extension configuration adapter
-	 * @var Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter
+	/**
+	 * Holds an instance of a databackend configuration and handles it as a singleton instance
+	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
 	 */
-	protected $extensionConfigurationAdapter; 
-	
+	protected $dataBackendConfiguration = null;
 	
 	
 	/**
@@ -109,7 +97,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * Holds an instance of a pager configuration associated to this list
      * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
      */
-	protected $pagerConfiguration;
+	protected $pagerConfiguration = null;
 	
 	
 	/**
@@ -118,40 +106,27 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	protected $filterConfiguration = null;
 	
-	
-	
-	/**
-	 * Returns a singleton instance of this class
-	 * @param $settings The current settings for this extension.
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
-	 */
-	public static function getInstance(array $settings) {
 		
-		if ($settings['listIdentifier'] != '') {
-            if (!array_key_exists($settings['listIdentifier'],self::$instances)) {
-            	self::$instances[$settings['listIdentifier']] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
-            }
-        } else {
-            throw new Exception('No list identifier could be found in settings! 1280230579');
-        }
-        return self::$instances[$settings['listIdentifier']];
-	}
-
-	
-	
 	/**
 	 * Constructor is private, use getInstance instead!
 	 * 
 	 * @param array $settings  Settings of extension
 	 */
-	protected function __construct(array $settings) {
+	public function __construct(array $settings) {
+		$this->setProtoTypeSettings($settings);
 		$this->setListIdentifier($settings);
 		$this->origSettings = $settings;
 		$this->mergeAndSetGlobalAndLocalConf();
-		
-		$this->sessionAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_SessionAdapter');
-		$this->extensionConfigurationAdapter = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Configuration_ExtensionConfigurationAdapter', $settings);
-		// TODO: MUST be injected through the factory 
+	}
+	
+	
+	/**
+	 * Check and set the prototype settings
+	 * @param array $settings
+	 */
+	protected function setProtoTypeSettings($settings) {
+		tx_pttools_assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
+		$this->protoTypeSettings = $settings['prototype'];
 	}
 	
 	
@@ -162,8 +137,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * @param array $settings
 	 */
 	protected function setListIdentifier($settings) {
-		tx_pttools_assert::isNotEmptyString($settings['listIdentifier'], array('message' => 'List identifier must not be empty! 1278419535'));
-		tx_pttools_assert::isArray($settings['listConfig'][$settings['listIdentifier']], array('message' => 'No list configuration can be found for list identifier ' . $settings['listIdentifier'] . ' 1278419536'));
+		
+		if(!array_key_exists($settings['listIdentifier'], $settings['listConfig'])) {
+			if(count($settings['listConfig']) > 0) {
+				$helpListIdentifier = 'Available list configurations on this page are: ' . implode(', ', array_keys($settings['listConfig'])) . '.';
+			} else {
+				$helpListIdentifier = 'No list configurations available on this page.';
+			}
+			throw new Exception('No list configuration can be found for list identifier "' . $settings['listIdentifier'] . '" 1278419536' . '<br>' . $helpListIdentifier);
+		}
+
         $this->listIdentifier = $settings['listIdentifier'];    
 	}
 	
@@ -189,7 +172,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
     /**
-     * Returns array of settings for current plugin configuration
+     * Returns array of settings for current list configuration
      *
      * @return array
      * @author Michael Knoll <knoll@punkt.de>
@@ -197,7 +180,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     public function getSettings() {
         return $this->settings;
     }
-    
+
     
     
     /**
@@ -212,11 +195,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
-     * Returns configuration for backend
+     * Returns configuration for databackend
      *
      * @return array    Part of list settings for backend configuration
      */
-    public function getBackendConfiguration() {
+    public function getDatabackendSettings() {
     	return $this->settings['backendConfig'];
     }
     
@@ -226,9 +209,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * Returns configuration object for filterbox identifier
      *
      * @param array $filterboxIdentifier
-     * 
-     * 
-     * 
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
     	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
@@ -275,7 +255,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function getPrototypeSettingsForObject($objectPath) {
 
-    	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->settings['prototype'], $objectPath);
+    	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->protoTypeSettings, $objectPath);
     	
     	if(!is_array($protoTypeSettings)) {
     		$protoTypeSettings = array();
@@ -306,6 +286,21 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
         return $mergedSettings;
 	}
     
+	
+	/**
+	 * Returns a singleton instance of databackend configuration 
+	 * @returns Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
+	 */
+	public function buildDataBackendConfiguration() {
+		if(is_null($this->dataBackendConfiguration)) {
+			$this->dataBackendConfiguration = Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory::getInstance($this);
+		}
+		
+		return $this->dataBackendConfiguration;
+	}
+	
+	
+	
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
      *

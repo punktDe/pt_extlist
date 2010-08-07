@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 		$this->prototypeFiles = $this->loadProttypeFileNamesAsArray();	
 	}
 		
-	public function testTSInclusion() {
+	public function testTsInclusion() {
 		$TSIncludeString = $this->loadTSFile($this->baseConfigTSFile);
 		$tsFileArray = $this->loadProttypeFileNamesAsArray();
 		
@@ -60,38 +60,45 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testConfigurationBuilderWithTypo3Backend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('t3BackendTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
-		$configurationBuilder->getBackendConfiguration();
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
+		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
 	}
+	
+	
 	
 	public function testConfigurationBuilderWithMysqlBackend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('mysqlBackendTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
-	
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
+		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
 	}
 
 	
+	
 	public function testBuildColumnsConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
 	
 	}
 	
+	
+	
 	public function testBuildRendererConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
 		$configurationBuilder->buildRendererConfiguration();
 	}
 	
 	public function testBuildPagerConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
 		$configurationBuilder->buildPagerConfiguration();
 	}
 	
 	public function testBuildFilterBoxConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
 		$configurationBuilder->buildFilterConfiguration();
 	}
 	

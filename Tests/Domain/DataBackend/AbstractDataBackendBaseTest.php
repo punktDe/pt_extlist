@@ -40,6 +40,10 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
     protected $tsConfigString =
 "plugin.tx_ptextlist.settings {
 
+	prototype {
+	
+	}
+
     # This comes from flexform!
     listIdentifier = list1
 
@@ -47,9 +51,9 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
     
         backendConfig {
 
-            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
-            dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
-            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
+            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
+			dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
+			queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
             
             datasource {
                 host = localhost
@@ -109,7 +113,7 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
          $this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
          $this->typoScriptParser->parse($this->tsConfigString);
          $this->tsConfig = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
-         $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->tsConfig['plugin']['tx_ptextlist']['settings']);
+         $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->tsConfig['plugin']['tx_ptextlist']['settings']);
     }
 	
 }

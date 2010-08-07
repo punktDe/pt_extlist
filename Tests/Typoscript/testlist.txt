@@ -27,7 +27,7 @@ plugin.tx_ptextlist.settings {
     }
 
     listConfig.t3BackendTestList {
-    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
     }
 
     listConfig.mysqlBackendTestList {

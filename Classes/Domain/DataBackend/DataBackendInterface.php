@@ -120,9 +120,9 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Injector for backend configuration
      *
-     * @param array $backendConfiguration
+     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration
      */
-    public function injectBackendConfiguration($backendConfiguration);
+    public function injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration);
     
     
     
