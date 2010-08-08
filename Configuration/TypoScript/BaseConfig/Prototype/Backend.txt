@@ -13,9 +13,9 @@ plugin.tx_ptextlist.prototype.backend {
 		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 		
-		datasource {
-			host =
-			port =
+		dataSource {
+			host = localhost
+			port = 3306
 			username = 
 			password =
 			databaseName =       	

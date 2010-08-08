@@ -38,38 +38,16 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	 * @var t3lib_DB
 	 */
 	protected $connection;
-	
-	
-	
-	/**
-	 * Holds a data source configuration object
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
-	 */
-	protected $dataSourceConfiguration;
-	
-	
+
 	
 	/**
-	 * Constructor for typo3 data source
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-		$this->dataSourceConfiguration = $dataSourceConfiguration;
-	}
-	
-	
-	
-	/**
-	 * Injector for data source
+	 * Injector for database connection object
 	 *
 	 * @param t3lib_DB $dataSource
 	 */
-	public function injectDataSource(t3lib_DB $dataSource) {
-		$this->connection = $dataSource;
+	public function injectDbObject($dbObject) {
+		$this->connection = $dbObject;
 	}
-	
 	
 	
 	/**
@@ -80,7 +58,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	 * @param string $query SQL query to be executed
 	 */
 	public function executeQuery($query) {
-		$GLOBALS['trace'] = 1;	trace($query ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 		try {
 			$res = $this->connection->sql_query($query);
 	        tx_pttools_assert::isMySQLRessource($res, $this->dbObj);

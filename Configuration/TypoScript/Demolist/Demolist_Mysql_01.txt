@@ -2,7 +2,7 @@
 # This template configures a demolist for use
 # with pt_extlist
 #
-# @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+# @author Daniel Lienert <lienert@punkt.de>
 # @package Typo3
 # @subpackage pt_extlist
 ####################################################
@@ -14,8 +14,10 @@ plugin.tx_ptextlist.settings {
     	backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
         backendConfig {
             
-            datasource {
-               	
+            dataSource {
+				username = typo3 
+				password = typo3
+				databaseName = pt_extlist_test     	
             }
             
             

@@ -75,7 +75,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                 'listConfig' => array(
                      'test1' => array(
     				 'backendConfig' => array (
-								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
 								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
 								'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 								'dataSource' => array(
@@ -145,7 +145,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                 'listConfig' => array(
                      'test2' => array(
     				'backendConfig' => array (
-								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
 								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
 								'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 								'dataSource' => array(

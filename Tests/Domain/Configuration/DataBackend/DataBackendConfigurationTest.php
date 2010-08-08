@@ -49,12 +49,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
 	
 	public function testGetDataBackendSettingsAsArray() {
 		$dataBackendSettings = $this->dataBackendConfiguration->getDataBackendSettings();
-		$this->assertEquals($dataBackendSettings['dataBackendClass'], 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
+		$this->assertEquals($dataBackendSettings['dataBackendClass'], 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend');
 	}
 	
 	public function testGetDataBackendSettingsWithKey() {
 		$dataBackendClass = $this->dataBackendConfiguration->getDataBackendSettings('dataBackendClass');
-		$this->assertEquals($dataBackendClass, 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
+		$this->assertEquals($dataBackendClass, 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend');
 	}
 	
 	public function testGetDataSourceSettings() {
@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
 	}
 	
 	public function testGetDataBackendClass() {
-		$this->assertEquals($this->dataBackendConfiguration->getDataBackendClass(), 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
+		$this->assertEquals($this->dataBackendConfiguration->getDataBackendClass(), 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend');
 	}
 	
 	public function testGetDataMapperClass() {
