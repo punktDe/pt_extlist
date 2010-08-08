@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 		$this->table = $fieldSettings['table'];
 		$this->field = $fieldSettings['field'];
 		if (array_key_exists('isSortable', $fieldSettings)) {
-			$this->isSortable = $fieldSettings['isSortable'];
+			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
 		}
 		
 		if (array_key_exists('access', $fieldSettings)) {

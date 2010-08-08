@@ -84,14 +84,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	
 	public function testGetIsSortable() {
-		$this->assertEquals($this->fieldConfig->getIsSortable(), $this->fieldSettings['isSortable']);
+		$this->assertEquals($this->fieldConfig->getIsSortable(), ($this->fieldSettings['isSortable'] == 1 ? true : false));
 	}
 	
 	
 	
 	public function testDefaultGetIsSortable() {
 		$newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', array('table' => '1', 'field' => '2'));
-		$this->assertEquals($newFieldConfig->getIsSortable(), 1);
+		$this->assertEquals($newFieldConfig->getIsSortable(), true);
 	}
 	
 	

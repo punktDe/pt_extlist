@@ -71,6 +71,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 	 * @return array Associative array of query result
 	 */
 	public function executeQuery($query) {
+		$GLOBALS['trace'] = true; trace($query); $GLOBALS['trace']=off;
 		try {
 			/* @var $statement PDOStatement */
 		    $statement = $this->connection->prepare($query);
