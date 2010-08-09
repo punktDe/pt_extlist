@@ -113,7 +113,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
 		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
 		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
-		$GLOBALS['trace'] = 1;	trace($query ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 		return $query;
 	}
 	
