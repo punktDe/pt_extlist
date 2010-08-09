@@ -121,6 +121,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		return $cell;
 	}
 	
+	
+	
 	/**
 	 * Call user functions for building special values.
 	 * renderer.specialCell gets overridden by column.specialCell
@@ -149,6 +151,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		}
 	}
 	
+	
+	
 	/**
 	 * Calls userFunctions with fieldset 
 	 * 
@@ -174,6 +178,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		
 		return $content;
 	}
+	
+	
 	
 	/**
 	 * Creates a set of fields which are available. Defined by the 'fields' TS setup.

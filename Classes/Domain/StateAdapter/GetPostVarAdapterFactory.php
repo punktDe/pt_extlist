@@ -38,6 +38,8 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	 */
 	private static $instance;
 	
+	
+	
 	/**
 	 * Factory method for GET/POST Var Adapter.
 	 * 

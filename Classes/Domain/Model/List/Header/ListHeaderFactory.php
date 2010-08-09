@@ -31,7 +31,6 @@
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
-	
 
 	/**
 	 * build the listheader, a collection of columnheader objects

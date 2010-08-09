@@ -39,10 +39,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $columnConfig;
 	
 	
+	
 	/**
 	 * @var array session data
 	 */
 	protected $headerSessionData;
+	
 	
 	
 	/**
@@ -52,10 +54,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $headerGPVarData;
 	
 	
+	
 	/**
 	 * @var string
 	 */
 	protected $listIdentifier;
+	
 	
 	
 	/**
@@ -64,10 +68,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $columnIdentifier;
 	
 	
+	
 	/**
 	 * @var boolean
 	 */
 	protected $isSortable;
+	
 	
 	
 	/** 
@@ -76,10 +82,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $sortingFieldConfig;
 	
 	
+	
 	/**
 	 * @var integer
 	 */
 	protected $sortingState = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+	
 	
 	
 	/**
@@ -89,12 +97,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	protected $sortingQuery;
 
 	
+	
 	/**
 	 * Session persistence manager
 	 *
 	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager = null;
+	
 	
 	
 	/**
@@ -105,6 +115,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
 		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
+	
+	
 	
 	/**
      * Det the Columnheader Configuration
@@ -119,6 +131,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	}
 	
 	
+	
 	/**
 	 * Init the header column and persist the state to session
 	 * 
@@ -131,6 +144,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		
 		$this->sessionPersistenceManager->persistToSession($this);
 	}
+	
 	
 	
 	/**
@@ -154,6 +168,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	}
 
 	
+	
     /**
 	 * @return string column label
 	 */
@@ -170,6 +185,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->columnIdentifier;
     }
        
+    
     
     /**
      * Build an array with sorting definitions for this column
@@ -194,10 +210,16 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     }
 
     
+    
+    /**
+     * TODO please add some comment!
+     *
+     */
     protected function buildSortingQuery() {
     	$this->sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
     	$this->sortingQuery->addSortingArray($this->getSorting());
     }
+    
     
     
     /**
@@ -211,6 +233,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->sortingQuery;
     }
     
+    
+    
     /**
      * return sorting State 
      * 
@@ -222,6 +246,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->sortingState;
     }
     
+    
+    
     /**
      * Return the column configuration.
      * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
@@ -229,6 +255,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function getColumnConfig() {
     	return $this->columnConfig;
     }
+    
+    
     
     /**
      * Return the default image path to show for sorting link.
@@ -238,6 +266,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->sortingImageDefault;
     }
     
+    
+    
     /**
      * Return the ASC image path to show for sorting link.
      * @return string
@@ -246,6 +276,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->sortingImageAsc;
     }
     
+    
+    
     /**
      * Return the DESC image path to show for sorting link.
      * @return string
@@ -253,6 +285,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function getSortingImageDesc() {
     	return $this->sortingImageDesc;
     }
+    
+    
     
     /**
      * Returns the image path to show for sorting link.
@@ -272,6 +306,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     }
     
     
+    
     /**
      * Returns if the column is sortable.
      * @return boolean True if sortable.
@@ -280,6 +315,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     	return $this->columnConfig->getIsSortable();
     }
 	
+    
+    
     /**
      * reset session state
      * 
@@ -292,6 +329,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
    		$this->init();
    	}
     
+   	
+   	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"
 	 *****************************************************************************************************************/
@@ -306,9 +345,16 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	}
 	
 	
+	
+	/**
+	 * Returns list identifier of associated list
+	 *
+	 * @return string
+	 */
 	public function getListIdentifier() {
 		return $this->listIdentifier;
 	}
+	
 	
 	
 	/**
@@ -329,6 +375,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     public function injectSessionData(array $sessionData) {
 		$this->headerSessionData = $sessionData;
     }
+    
     
     
 	/**

@@ -47,6 +47,8 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	 */
 	protected $listHeader;
 	
+	
+	
 	/**
 	 * A reference to the column config collection.
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
@@ -74,6 +76,8 @@ class Tx_PtExtlist_Domain_Model_List_List {
 		$this->listData = $listData;
 	}
 	
+	
+	
 	/**
 	 * 
 	 * Getter for list header.
@@ -94,6 +98,8 @@ class Tx_PtExtlist_Domain_Model_List_List {
 		$this->listHeader = $listHeader;
 	}
 	
+	
+	
 	/**
 	 * Setter for listColumnConfig
 	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfig
@@ -101,6 +107,8 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	public function setColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfig) {
 		$this->listColumnConfig = $columnConfig;	
 	}
+	
+	
 	
 	/**
 	 * Getter for listColumnConfig

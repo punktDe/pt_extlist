@@ -50,17 +50,23 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 */
 	protected $getVars;
 	
+	
+	
 	/**
 	 * Holds an merged array of get and post vars with Post Vars precedence 
 	 * @var array
 	 */
 	protected $postGetVars = NULL;
 	
+	
+	
 	/**
 	 * Holds an merged array of get and post vars with Get Vars precedence 
 	 * @var array
 	 */
 	protected $getPostVars = NULL;
+	
+	
 	
 	/**
 	 * Injects array as post vars
@@ -70,6 +76,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	public function injectPostVars(array $postVars = array()) {
 		$this->postVars = $postVars;
 	}
+	
 	
 
 	/**
@@ -91,6 +98,8 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		$object->injectGPVars($this->extractPgVarsByNamespace($object->getObjectNamespace()));
 	}
 
+	
+	
 	/**
 	 * return parameters by given namespace
 	 * 

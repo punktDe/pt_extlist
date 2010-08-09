@@ -49,6 +49,11 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 		$this->addItem($cell, $columnName);
 	}
 	
+	
+	/**
+	 * TODO add getter for cells (getCell())
+	 */
+	
 }
 
 ?>
