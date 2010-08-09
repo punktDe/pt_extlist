@@ -107,7 +107,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         	if (class_exists($viewClassName)) {
         		$view = $this->objectManager->getObject($viewClassName);
         	} else {
-        		throw new Exception('View class does not exist! ' . $viewClassName);
+        		throw new Exception('View class does not exist! ' . $viewClassName . ' 1281369758');
         	}
         } else {
             $view = $this->objectManager->getObject('Tx_Fluid_View_TemplateView');
