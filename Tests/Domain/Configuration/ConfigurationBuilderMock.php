@@ -91,11 +91,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 									'host' => 'localhost',
 									'port' => 3306,
 									'databaseName' => 'typo3',
-								)
+								),
+								
+								'baseFromClause' => 'companies',
+								'baseGroupByClause' => 'company',
+								'baseWhereClause' => 'employees > 0'	
 							),
 						
 	                     'abc' => '2',
 	                     'def' => '3',
+							
 	                     'fields' => array(
 	                         'field1' => array( 
 	                             'table' => 'tableName1',
@@ -109,7 +114,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                             'isSortable' => '1',
 	                             'access' => '1,2,3,4'
 	                         )
-	                    ),
+	                     ),
 	                    'columns' => array(
 	                        10 => array( 
 	                            'columnIdentifier' => 'column1',
