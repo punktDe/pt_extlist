@@ -194,16 +194,6 @@ plugin.tx_ptextlist.settings {
 	                  multiple = 1
 	                  #excludeFilters = filterbox1.filter1
 	              }
-	              
-	              30 < plugin.tx_ptextlist.prototype.filter.select 
-	              30 {
-	                  filterIdentifier = filter3
-	                  label = Uno Member
-	                  fieldDescriptionIdentifier = cn_currency_iso_nr
-	                  filterField = static_countries.cn_uno_member
-	                  multiple = 0
-	                  #excludeFilters = filterbox1.filter1
-	              }
 	         }
         }  
     }

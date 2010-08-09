@@ -90,17 +90,19 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	
 	/**
 	 * Multiple or dropdown
-	 * @var boolean
+	 * @var integer
 	 */
-	protected $multiple = NULL;
+	protected $multiple;
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
 	 *
 	 */
 	protected function createFilterQuery() {
-		if ($this->filterValue) {
-			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValue));
+		if (count($this->filterValues) == 1 && $this->filterValues[0] != '') {
+			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValues[0]));
+		} elseif (count($this->filterValues) > 1) {
+			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($this->fieldDescriptionIdentifier, $this->filterValues));
 		} else {
 			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
@@ -171,9 +173,9 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
         if (array_key_exists('additionalTables', $filterSettings)) {
         	$this->additionalTables = $filterSettings['additionalTables'];
         }
-               
+        
 		if (array_key_exists('multiple', $filterSettings) && $filterSettings['multiple']) {
-        	$this->multiple = 1;
+        	$this->multiple = $filterSettings['multiple'];
         }
         
 	}
