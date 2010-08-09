@@ -139,7 +139,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         }
         $view->initializeView(); // In FLOW3, solved through Object Lifecycle methods, we need to call it explicitely
         $view->assign('settings', $this->settings); // same with settings injection.
-        print_r(get_class($view).'<br>');
         return $view;
     }
 	
