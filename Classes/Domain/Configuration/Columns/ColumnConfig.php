@@ -63,7 +63,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	 */
 	protected $renderUserFunctions = NULL;
 	
+	/**
+	 * @var array
+	 */
 	protected $renderObj;
+	
+	/**
+	 * 
+	 * @var string
+	 */
+	protected $specialCell = NULL;
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
@@ -154,6 +163,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 		if(array_key_exists('sortingImageDefault', $columnSettings)) {
 			$this->sortingImageDefault = $columnSettings['sortingImageDefault'];
 		}
+		if(array_key_exists('specialCell', $columnSettings)) {
+			$this->specialCell = $columnSettings['specialCell'];
+		}
 		
 		
 	}
@@ -241,6 +253,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
      */
     public function getSortingImageDesc() {
     	return $this->sortingImageDesc;
+    }
+    
+    /**
+     * Returns the special cell user function path
+     * @return string
+     */
+    public function getSpecialCell() {
+    	return $this->specialCell;
     }
     
 }

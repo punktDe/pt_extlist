@@ -32,19 +32,6 @@
  */
 class tx_ptlist_demolist_renderer {
 	
-	public static function testSpecial(array $params) {
-		
-		$index = $params['index'];
-				
-		$style='background-color:';
-		if($index%2 == 0) {
-			$style .= 'red;';
-		} else {
-			$style .= 'green;';
-		}
-		
-		return array('style' => $style);
-	}
 	
 	/**
 	 * This renderer appends an image with the current country flag (if available) to the current content
