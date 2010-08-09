@@ -166,7 +166,23 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
     }
 	
     public function testGetMultiple() {
-    	$this->markTestIncomplete();
+    	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+           array(
+               'filterIdentifier' => 'test', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+               'partialPath' => 'Filter/SelectFilter',
+               'fieldDescriptionIdentifier' => 'test',
+               'filterField' => 'test.test',
+               'displayFields' => 'test.test',
+               'excludeFilters' => 'filterbox1.filter1',
+               'multiple' => 1
+        ));
+        $selectFilter->injectFilterConfig($filterConfiguration);
+        $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
+        $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
+        $selectFilter->init();
+        $this->assertEquals($selectFilter->getMultiple(), 1);
     }
     
 }
