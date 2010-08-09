@@ -115,7 +115,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		$cell->setColumnIndex($columnIndex);
 		
 		// Resolve special cell values
-		$this->renderSpecialValues($cell);
+		$this->renderSpecialValues($cell, $columnConfig);
 		
 		
 		return $cell;
@@ -126,14 +126,19 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * renderer.specialCell gets overridden by column.specialCell
 	 * 
 	 * @param Tx_PtExtlist_Domain_Model_List_Cell &$cell
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig &$columnConfig
 	 */
-	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell &$cell) {
+	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell &$cell, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig &$columnConfig) {
 		
 		// Resolve special cell values
 		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
 			$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
 		}
 		
+	
+		if(!is_null($columnConfig->getSpecialCell())) {
+			$rendererUserFunc = $columnConfig->getSpecialCell();
+		}
 		
 		if(!empty($rendererUserFunc)) {
 
