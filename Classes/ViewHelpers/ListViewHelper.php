@@ -24,34 +24,12 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Domain_Model_List_Cell {
+class Tx_PtExtlist_ViewHelper_ListViewHelper {
 
-	protected $value;
-	protected $specialValues;
-	
-	public function __construct($value) {
-		$this->value = $value;
+	public function render() {
+		
 	}
 	
-	public function setValue($value) {
-		$this->value = $value;
-	}
-	
-	public function getValue() {
-		return $this->value;
-	}
-	
-	public function setSpecialValues($specialValues) {
-		$this->specialValues = $specialValues;
-	}
-	
-	public function getSpecialValues() {
-		return $this->specialValues;
-	}	
-	
-	public function __toString() {
-		return ($this->value == ''?'':$this->value);
-	}
 }
 
 ?>

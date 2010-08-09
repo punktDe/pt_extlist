@@ -37,7 +37,9 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	 */
 	protected $settings = array();
 	
+	protected $specialRow = NULL;
 	
+	protected $specialCell = NULL;
 	
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
@@ -56,9 +58,19 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	 */
 	public function __construct(array $settings) {
 		$this->settings = $settings;
+		$this->addOptionalSettings($settings);
 	}
 	
-	
+	protected function addOptionalSettings($settings) {
+		
+		if(array_key_exists('specialRow', $settings)) {
+			$this->specialRow = $settings['specialRow'];
+		}
+		
+		if(array_key_exists('specialCell', $settings)) {
+			$this->specialCell = $settings['specialCell'];
+		}
+	}
 	
 	/**
 	 * TODO add some comment
@@ -102,6 +114,13 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 		return $this->fieldConfigCollection;
 	}
 	
+	public function getSpecialRow() {
+		return $this->specialRow;
+	}
+	
+	public function getSpecialCell() {
+		return $this->specialCell;
+	}
 	
 	
 	/**

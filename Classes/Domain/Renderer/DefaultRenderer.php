@@ -122,8 +122,8 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 			$renderedList->addRow($this->renderCaptions());
 		}
 		
-		foreach($list->getIterator() as $row) {
-			$renderedList->addRow($this->renderRow($row));
+		foreach($list->getIterator() as $rowIndex => $row) {
+			$renderedList->addRow($this->renderRow($row, $rowIndex));
 		}
 		
 		return $renderedList;
@@ -137,18 +137,20 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
 	 * @return unknown
 	 */
-	protected function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row) {
+	protected function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex=0) {
 		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
 	
+		$columnIndex=0;
 		foreach($columnCollection->getIterator() as $id => $column) {
 			$fieldIdent = $column->getFieldIdentifier();
 			$columnIdent = $column->getColumnIdentifier();
 			
 			// Use strategy to render cells
-			$cell = $this->cellRenderer->renderCell($fieldIdent, $id, $row);
+			$cell = $this->cellRenderer->renderCell($fieldIdent, $id, $row, $columnIndex, $rowIndex);
 			
-			$renderedRow->addCell($columnIdent, $cell);
+			$renderedRow->addItem($cell,$columnIdent);
+			$columnIndex++;
 		}
 		
 		return $renderedRow;

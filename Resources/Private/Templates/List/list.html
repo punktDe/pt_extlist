@@ -6,10 +6,12 @@
 	<f:render partial="List/ListHeader" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
 	
 	<f:for each="{listData}" as="listRow">
+	
 	<tr>
 	   <f:for each="{listRow}" as="cell">
-	       <td><f:format.html>{cell}</f:format.html></td>
+	     <td style="{cell.specialValues.style}"><f:format.html>{cell}</f:format.html></td>
 	   </f:for>
 	</tr>
+	
 	</f:for>
 </table>

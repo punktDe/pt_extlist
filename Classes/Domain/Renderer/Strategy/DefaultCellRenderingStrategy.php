@@ -69,11 +69,11 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * @param string $fieldIdentifier
 	 * @param string $columnIndex
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
-	 * @return mixed
+	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
-	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow) {
+	public function renderCell($fieldIdentifier, $columnId, Tx_PtExtlist_Domain_Model_List_Row $currentRow, $columnIndex=0, $rowIndex = 0) {
 			
-		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnIndex);
+		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnId);
 		$content = $currentRow->getItemById($fieldIdentifier)->getValue();
 		
 		$fieldSet = $this->createFieldSet($currentRow);
@@ -93,7 +93,25 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 			$content = $this->renderWithUserFunc($content, $userFunctions, $fieldSet);
 		}
 		
-		return $content;
+		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($content);
+		
+		
+		// Resolve special cell values
+		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
+			
+			$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
+			
+			$params['columnIndex'] = $columnIndex;
+			$params['rowIndex'] = $rowIndex;
+			$params['content'] = $content;
+			$dummRef = '';
+			
+			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
+			$cell->setSpecialValues($specialValues);
+		}
+		
+		
+		return $cell;
 	}
 	
 	/**

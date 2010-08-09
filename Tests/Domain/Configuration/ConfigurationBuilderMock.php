@@ -113,6 +113,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                    	'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
 	                    	'enabled' => 1,
 	                    	'showCaptionsInBody' => 0,
+	                    	'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptlist_demolist_renderer.php:tx_ptlist_demolist_renderer->testSpecial'
 	                    ),
 	                    'filters' => array(
 	                         'testfilterbox' => array(

@@ -113,17 +113,15 @@ plugin.tx_ptextlist.settings {
             
             
             20 {
+          		columnIdentifier = renderedCol2
+                fieldIdentifier = name_english
+                
             	isSortable = 1
             	sorting = cn_short_en ASC
-            
-            	label = COA
-            	label {
-            		10 = TEXT
-            		10.value = bla
-            	}
-            
-                columnIdentifier = renderedCol2
-                fieldIdentifier = name_english
+            	
+           		label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:column_name_english
+                
+               
             }
             
             30 {
@@ -154,8 +152,9 @@ plugin.tx_ptextlist.settings {
 			}
         }
         
-        
-        
+        renderer {
+        	specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processCell
+        }
         filters {
 	        filterbox1 {
 	              10 < plugin.tx_ptextlist.prototype.filter.string 
