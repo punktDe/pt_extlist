@@ -105,12 +105,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$wherePart   = $this->buildWherePart();
 		$orderByPart = $this->buildOrderByPart();
 		$limitPart   = $this->buildLimitPart();
+		$groupByPart = $this->buildGroupByPart();
 		
 		$query = '';
 		$query .= $selectPart != ''  ? 'SELECT ' 	. $selectPart   . " \n" : '';
 		$query .= $fromPart != ''    ? 'FROM '   	. $fromPart 	. " \n" : '';
 		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
-		$query .= $orderByPart != '' ? 'ORDER BY ' 	. $orderByPart 	. " \n" : '';
+		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
 		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 		
 		return $query;
@@ -195,6 +196,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	
 	
 	/**
+	 * Builds groupBy part of query from all parts of plugin
+	 * @return string groupByPart
+	 */
+	public function buildGroupByPart() {
+		return $this->getBaseGroupByClause();
+	}
+	
+	
+	
+	/**
 	 * Returns base where clause from TS config
 	 *
 	 * @return string
@@ -204,6 +215,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	}
 	
 	
+	/**
+	 * Returns base group by clause from TS config
+	 * @return $string
+	 */
+	public function getBaseGroupByClause() {
+		return trim($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
+	}
 	
 	/**
 	 * Returns where clauses from all filterboxes of a given collection of filterboxes except filters defined in exclude filters
@@ -343,6 +361,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		
 		return $count;
 	}
+	
+	
 	
 	
 	

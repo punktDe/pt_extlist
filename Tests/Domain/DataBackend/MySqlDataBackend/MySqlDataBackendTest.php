@@ -372,10 +372,30 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$this->markTestIncomplete();
 	}
 	
+	public function testGetGroupByPart() {
+		$dataBackend = $this->getDataBackend();
+		$groupByPart = $dataBackend->buildGroupByPart();
+		$this->assertEquals($groupByPart, 'company');
+	}
+	
 	
 	/**********************************************************************************************************************************************************
 	 * Helper methods 
 	 **********************************************************************************************************************************************************/
+	
+	protected function getDataBackend() {
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($configurationBuilderMock);
+				
+		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
+        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
+
+        $dataBackend->injectBackendConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
+	    $dataBackend->injectDataSource($dataSourceMock);
+		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
+		
+		return $dataBackend;
+	}
 	
 	protected function getFieldConfigMockForTableAndFieldAndIdentifier($table, $field, $identifier) {
 		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('table' => $table, 'field' => $field)));

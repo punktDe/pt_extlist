@@ -11,7 +11,7 @@ plugin.tx_ptextlist.settings {
 
     listConfig.demolist_mysql_01 {
     
-    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
         backendConfig {
             
             dataSource {
@@ -28,8 +28,9 @@ plugin.tx_ptextlist.settings {
             
             
             baseFromClause (
-				City
-				inner join Country on City.CountryCode = Country.Code
+				Country
+				INNER JOIN City ON City.CountryCode = Country.Code
+				INNER JOIN CountryLanguage ON CountryLanguage.CountryCode = Country.Code
             )
             
             baseWhereClause (
@@ -37,16 +38,13 @@ plugin.tx_ptextlist.settings {
             ) 
             
             baseGroupByClause (
-            	group by Country.Code
-            )
-            
+            	Country.Code, City.ID
+            )            
         }
         
 
         
-        fields {
-            # TODO automatic resolve same names in different tables to diferent identifiers - maybe use fieldIdentifiers as alias
-            
+        fields {           
             continent_name {
             	table = Country
             	field = Continent
@@ -78,7 +76,7 @@ plugin.tx_ptextlist.settings {
             }
             
             country_language {
-             	special = group_concat(Language SEPARATOR ', ')
+             	special = group_concat(CountryLanguage.Language SEPARATOR ', ')
             }
             
         }
@@ -119,11 +117,11 @@ plugin.tx_ptextlist.settings {
             }
             
 
-            #60 {
-            # 	fieldIdentifier = country_language
-            # 	columnIdentifier = colCountryLanguages
-            # 	label = Spoken Languages
-            #}
+            60 {
+             	fieldIdentifier = country_language
+             	columnIdentifier = colCountryLanguages
+             	label = Spoken Languages
+            }
 	         
         }
         
