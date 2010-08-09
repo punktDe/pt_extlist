@@ -42,6 +42,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_object
 		$this->addItem($columnHeader, $columnIdentifier);
 	}
 	
+	
+	
 	/**
 	 * Returns namespace for this object
 	 * 
@@ -50,6 +52,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_object
 	public function getObjectNamespace() {
 		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.headerColumns';
 	}
+	
+	
 	
 	/**
 	 * reset session of all list columnHeaders

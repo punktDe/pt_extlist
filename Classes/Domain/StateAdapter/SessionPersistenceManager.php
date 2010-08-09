@@ -94,6 +94,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager  {
 	}
 
 	
+	
 	/**
 	 * Returns data from session for given namespace
 	 *
@@ -108,6 +109,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager  {
 		}
 	    return $sessionData;	
 	}
+	
 	
 	
 	/**

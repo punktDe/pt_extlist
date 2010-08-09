@@ -69,6 +69,12 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteria_testcase extends Tx_P
 		$this->assertTrue($this->simpleCriteria->getOperator() == '>');
 	}
 	
+	
+	
+	public function testIsEqualTo() {
+		$this->markTestIncomplete();
+	}
+	
 }
  
 ?>

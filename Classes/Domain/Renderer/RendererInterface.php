@@ -43,6 +43,8 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_List &$list);
 	
+	
+	
 	/**
 	 * Renders the column captions out of the TS definition
 	 * 
