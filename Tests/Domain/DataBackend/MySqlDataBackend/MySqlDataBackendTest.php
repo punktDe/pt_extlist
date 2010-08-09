@@ -194,7 +194,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	
-	public function testBuildSelectPart() {
+	public function testBuildSelectPartWithTableAndField() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 
@@ -212,6 +212,24 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             'Select part for field configuration collection should be "' . $expectedSelectPart . '" but was ' . $selectPartForFieldConfigurationCollection);
 	}
 	
+	
+	
+	
+	public function testBuildSelectPartWithSpecialString() {
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+
+        $fieldConfigurationCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigurationCollection->addItem($this->getFieldConfigMockForSpecialAndIdentifier('specialString', 'testFieldIdentifier'));
+        $dataBackend->injectFieldConfigurationCollection($fieldConfigurationCollection);
+        
+        $selectPartForFieldConfigurationCollection = $dataBackend->buildSelectPart();
+        
+        $expectedSelectPart = 'specialString AS testFieldIdentifier';
+        
+        $this->assertTrue($selectPartForFieldConfigurationCollection == $expectedSelectPart, 
+            'Select part for field configuration collection should be "' . $expectedSelectPart . '" but was ' . $selectPartForFieldConfigurationCollection);
+	}
 	
 	
 	
@@ -370,6 +388,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         return $fieldConfigurationMock;
 	}
 	
+	
+	protected function getFieldConfigMockForSpecialAndIdentifier($special, $identifier) {
+		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('special' => $special)));
+        $fieldConfigurationMock->expects($this->any())
+            ->method('getSpecial')
+            ->will($this->returnValue($special));
+        $fieldConfigurationMock->expects($this->any())
+            ->method('getIdentifier')
+            ->will($this->returnValue($identifier));
+        return $fieldConfigurationMock;
+	}
 	
 	
 	protected function getFilterboxByArrayOfFilters($filtersArray) {

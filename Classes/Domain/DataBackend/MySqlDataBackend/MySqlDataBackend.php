@@ -140,9 +140,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string
 	 */
 	public function getSelectPartFromFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
-		$table = $fieldConfiguration->getTable();
-		$field = $fieldConfiguration->getField();
-		return $table . '.' . $field . ' AS ' . $fieldConfiguration->getIdentifier();
+		if($fieldConfiguration->getSpecial()) {
+			$selectPart = $fieldConfiguration->getSpecial() . ' AS ' . $fieldConfiguration->getIdentifier();
+		} else {
+			$table = $fieldConfiguration->getTable();
+			$field = $fieldConfiguration->getField();
+			$selectPart = $table . '.' . $field . ' AS ' . $fieldConfiguration->getIdentifier();
+		}
+		return $selectPart;
 	}
 	
 	

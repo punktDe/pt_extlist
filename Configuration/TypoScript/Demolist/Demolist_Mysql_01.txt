@@ -77,10 +77,9 @@ plugin.tx_ptextlist.settings {
             	field = Population
             }
             
-            # TODO special string instead of table / field
-            #country_language {
-            # 	special = group_concat(Language SEPARATOR ', ')
-            #}
+            country_language {
+             	special = group_concat(Language SEPARATOR ', ')
+            }
             
         }
 
