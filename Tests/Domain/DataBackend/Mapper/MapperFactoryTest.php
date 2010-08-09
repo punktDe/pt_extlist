@@ -31,6 +31,12 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
+	
 	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
@@ -39,7 +45,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactory_testcase extend
 	
 	
 	public function testCreateInstance() {
-		$this->markTestIncomplete();
+		$mapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($this->configurationBuilderMock);
+		$this->assertTrue(is_a($mapper, 'Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface'));
 	}
 	
 }
