@@ -142,7 +142,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function getSelectPartFromFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
 		$table = $fieldConfiguration->getTable();
 		$field = $fieldConfiguration->getField();
-		return $table . '.' . $field;
+		return $table . '.' . $field . ' AS ' . $fieldConfiguration->getIdentifier();
 	}
 	
 	

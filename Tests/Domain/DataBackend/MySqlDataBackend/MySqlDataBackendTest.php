@@ -205,7 +205,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         
         $selectPartForFieldConfigurationCollection = $dataBackend->buildSelectPart();
         
-        $this->assertTrue($selectPartForFieldConfigurationCollection == 'table1.field1, table1.field2', 'Select part for field configuration collection should be "table1.field1, table1.field2" but was ' . $selectPartForFieldConfigurationCollection);
+        $expectedSelectPart = $dataBackend->getSelectPartFromFieldConfiguration($fieldConfigurationCollection[0]) . ', ' .
+            $dataBackend->getSelectPartFromFieldConfiguration($fieldConfigurationCollection[1]);
+        
+        $this->assertTrue($selectPartForFieldConfigurationCollection == $expectedSelectPart, 
+            'Select part for field configuration collection should be "' . $expectedSelectPart . '" but was ' . $selectPartForFieldConfigurationCollection);
 	}
 	
 	
@@ -218,7 +222,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $fieldConfigurationMock = $this->getFieldConfigMockForTableAndFieldAndIdentifier('table', 'field', 'test');
        
         $selectPartForFieldConfiguration = $dataBackend->getSelectPartFromFieldConfiguration($fieldConfigurationMock);
-        $this->assertTrue($selectPartForFieldConfiguration == 'table.field', 'Expected select part to be "table.field" but was ' . $selectPartForFieldConfiguration);
+        $this->assertTrue($selectPartForFieldConfiguration == 'table.field AS ' . $fieldConfigurationMock->getIdentifier(), 'Expected select part to be "table.field AS test" but was ' . $selectPartForFieldConfiguration);
 	}
 	
 	
