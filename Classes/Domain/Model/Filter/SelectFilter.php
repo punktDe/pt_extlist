@@ -26,7 +26,7 @@
 /**
  * Class implements a select filter
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
@@ -51,12 +51,12 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	   
 	
 	/**
-	 * Holds an array of fields to be used as filter value when filter is submitted
-	 * encoded as array(<table>.<field>, <table>.<field>, ...)
+	 * Holds the filter value to be used when filter is submitted
+	 * encoded as <table>.<field>
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $filterFields = array();
+	protected $filterField;
 	
 	
 	
@@ -89,14 +89,18 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	
 	
 	/**
+	 * Multiple or dropdown
+	 * @var boolean
+	 */
+	protected $multiple = NULL;
+	
+	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
 	 *
 	 */
 	protected function createFilterQuery() {
-		if (count($this->filterValues) == 1) {
-			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValues[0]));
-		} elseif (count($this->filterValues) > 1) {
-			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($this->fieldDescriptionIdentifier, $this->filterValues));
+		if ($this->filterValue) {
+			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValue));
 		} else {
 			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
@@ -111,8 +115,8 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	protected function initFilter() {
 		
 	}
-	
-	
+
+
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByGpVars()
@@ -151,18 +155,25 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 		
         $this->fieldDescriptionIdentifier = $this->filterConfig->getFieldDescriptionIdentifier();
         
-        tx_pttools_assert::isNotEmptyString($filterSettings['filterFields']);
-        $this->filterFields = explode(',', $filterSettings['filterFields']);
+        tx_pttools_assert::isNotEmptyString($filterSettings['filterField'], array('message' => 'No filter field for filter '.$this->filterIdentifier .' specified! 1281365131'));
+        $this->filterField = trim($filterSettings['filterField']);
         
-        tx_pttools_assert::isNotEmptyString($filterSettings['displayFields']);
-        $this->displayFields = explode(',',$filterSettings['displayFields']);
-
+        if(trim($filterSettings['displayFields'])) {
+        	$this->displayFields = explode(',',$filterSettings['displayFields']);	
+        } else {
+        	$this->displayFields = array($this->filterField);
+        }
+               
         if (array_key_exists('excludeFilters', $filterSettings)) {
         	$this->excludeFilters = $filterSettings['excludeFilters'];
         }
         
         if (array_key_exists('additionalTables', $filterSettings)) {
         	$this->additionalTables = $filterSettings['additionalTables'];
+        }
+               
+		if (array_key_exists('multiple', $filterSettings) && $filterSettings['multiple']) {
+        	$this->multiple = 1;
         }
         
 	}
@@ -202,11 +213,13 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 
 		$tables = $this->getTablesRequiredToBeSelected();
         $fields = $this->getFieldsRequiredToBeSelected();
-		
+
 		if (count($tables) > 0) {  // TODO why must table > 0 here?
             $options = $this->getOptionsByTablesAndFields($tables, $fields);
             $renderedOptions = $this->getRenderedOptionsByGroupData($options);
 		}
+		
+
         return $renderedOptions;
 	}
 	
@@ -226,13 +239,12 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
         if ($this->additionalTables != '') {
            $groupDataQuery->addFrom($this->additionalTables);
         }
+        
         $groupDataQuery->addField($selectString);
 
         $excludeFiltersArray = $this->buildExcludeFiltersArray();
         // Add this filter to excluded filters
-        $excludeFiltersArray[$this->filterBoxIdentifier][] = $this->filterIdentifier;
         $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
-        
         return $options;
 	}
 	
@@ -245,7 +257,8 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	 */
 	protected function getFieldsRequiredToBeSelected() {
         $fields = array();
-		$mergedFields = array_merge($this->displayFields, $this->filterFields);
+		$mergedFields = $this->displayFields;
+		$mergedFields[] = $this->filterField;
 	    foreach ($mergedFields as $optionSourceField) {
             $this->checkFieldConfig($optionSourceField);
             $fields[] = trim($optionSourceField);
@@ -262,10 +275,15 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	 */
 	protected function getTablesRequiredToBeSelected() {
 		$tables = array();
-	    $mergedFields = array_merge($this->displayFields, $this->filterFields);
+	    $mergedFields = $this->displayFields;
+	    $mergedFields[]= $this->filterField;
+    
         foreach ($mergedFields as $optionSourceField) {
             $this->checkFieldConfig($optionSourceField);
-        	if (!in_array($table, $tables)) {
+        	
+            list($table,$field) = explode('.', trim($optionSourceField));
+            
+            if (!in_array($table, $tables)) {
                 $tables[] = $table;
             }
         }
@@ -300,14 +318,13 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	 * @return array
 	 */
 	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
-	   $renderedOptions = array();
+		$renderedOptions = array();
 	   foreach($groupData as $option) {
             // TODO Add render-option to TS config for this stuff here
             $key = '';
-            foreach($this->filterFields as $filterField) {
-                list($filterTable, $filterField) = explode('.', trim($filterField));
-                $key .= $option[$filterField];
-            }
+            list($filterTable, $filterField) = explode('.', $this->filterField);
+            $key .= $option[$filterField];
+
             $value = '';
             foreach($this->displayFields as $displayField) {
                 list($displayTable, $displayField) = explode('.', trim($displayField));
@@ -355,4 +372,13 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 		return $this->filterValues;
 	}
 
+	
+	/**
+	 * 
+	 * Multiple or dropdown select
+	 * @return integer
+	 */
+	public function getMultiple() {
+		return $this->multiple;
+	}
 }

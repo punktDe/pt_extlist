@@ -17,7 +17,16 @@ plugin.tx_ptextlist.prototype.filter {
 	select {
 		partialPath = Filter/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+		
 		defaultValue =
+		filterIdentifier =
+		label = 
+		fieldDescriptionIdentifier =
+		displayFields = 
+		filterField = 
+		multiple = 0
+		excludeFilters = 
+		showGroupCount = 0
 	}
 
 }
