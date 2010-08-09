@@ -66,38 +66,58 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	/**
 	 * Renders the cell content.
 	 *
-	 * @param string $fieldIdentifier
-	 * @param string $columnIndex
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
+	 * @param string $fieldIdentifier The index of the current row (table data).
+	 * @param string $columnId The columnIdentifier.
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow The table data.
+	 * @param int $columnIndex Current column index.
+	 * @param int $rowIndex Current row index.
+	 * 
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
 
 	public function renderCell($fieldIdentifier, $columnId, Tx_PtExtlist_Domain_Model_List_Row $currentRow, $columnIndex=0, $rowIndex = 0) {
-			
+		
+		// Get the column config for columnId
 		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnId);
-		$content = $currentRow->getItemById($fieldIdentifier)->getValue();
-
 		
+		// Get field data and concat if fieldIdentifiers is defined as a list
+		$fields = explode(",",$fieldIdentifier);
+		$content = '';
+		foreach($fields as $i => $fieldId) {
+			$field = $currentRow->getItemById(trim($fieldId))->getValue();
+			$content .= ($i > 0 ? ', '.$field : $field);
+		}
+
+		// Load all available fields
 		$fieldSet = $this->createFieldSet($currentRow);
-		
-		// Inject current data into the cObject
-		if($fieldSet) $this->cObj->start($fieldSet);
-
-					
+						
 		// TS parsing
+		// This resets previous content from fieldIdentifier config.
+		// TODO: set currentData <= $content
 		if($columnConfig->getRenderObj() != null) {
+			// Inject current data into the cObject
+			if($fieldSet) $this->cObj->start($fieldSet);
 			$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $columnConfig->getRenderObj());
 			$content = $this->cObj->cObjGet($conf);
 		}
-		$userFunctions = $columnConfig->getRenderUserFunctions();
 		
+		// Call post render user functions
+		$userFunctions = $columnConfig->getRenderUserFunctions();
 		if($userFunctions != null) {
 			$content = $this->renderWithUserFunc($content, $userFunctions, $fieldSet);
 		}
 		
+		// Create new cell 
 		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($content);
+			
+		// Resolve special cell values
+		$this->renderSpecialValues($cell);
 		
 		
+		return $cell;
+	}
+	
+	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell &$cell) {
 		// Resolve special cell values
 		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
 			
@@ -111,13 +131,10 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
 			$cell->setSpecialValues($specialValues);
 		}
-		
-		
-		return $cell;
 	}
 	
 	/**
-	 * Calls userFunctions with fieldset and 
+	 * Calls userFunctions with fieldset 
 	 * 
 	 * @param array $userFunctions
 	 * @param array $fieldSet
