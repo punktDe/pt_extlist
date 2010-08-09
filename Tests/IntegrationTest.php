@@ -39,8 +39,11 @@ class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
 	 */
 	protected $serverUrl; 
 	
+	protected $ptExtlistPage;
+	
 	public function SetUp() {
-		$this->serverUrl = 'http://cid642l771.devel.intern.punkt.de/index.php?id=4';
+		$this->serverUrl = 'http://cid642l771.devel.intern.punkt.de/';
+		$this->ptExtlistPage = 'index.php?id=4';
 	}
 	
 	/**
@@ -50,8 +53,17 @@ class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 06.08.2010
 	 */
-	public function testForNoException() {
+	public function testPageRenderingWithoutException() {
+		
 		$handle = fopen ($this->serverUrl, 'r');
+		if(!$handle) {
+			 $this->markTestSkipped(
+              'Test skipped cause integration server is not reachable!.'
+            );
+		}
+		fclose($handle);
+		
+		$handle = fopen ($this->serverUrl.$this->ptExtlistPage, 'r');
 		if(!$handle) {
 			$this->assertEquals(false, 'While rendering the page, an exeption appears.');
 		}

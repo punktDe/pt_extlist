@@ -27,40 +27,60 @@
  * Class Field Config
  *
  * @package TYPO3
- * @subpackage pt_extlist
+ * @subpackage pt_extlist 
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
+	/**
+	 * Field Identifier
+	 * @var string
+	 */
 	protected $identifier;
 	
 	
-	
+	/**
+	 * Table name
+	 * @var string
+	 */
 	protected $table;
 	
 	
-	
+	/**
+	 * Field name
+	 * @var string
+	 */
 	protected $field;
 	
 	
+	/**
+	 * Determines if this column is sortable or not
+	 * @var bool
+	 */
+	protected $isSortable = true;
 	
-	protected $isSortable = 1;
 	
-	
-	
+	/**
+	 * 
+	 * Defines access on this column on usergroup level
+	 * @var array
+	 */
 	protected $access = array();
 	
 	
 	
 	public function __construct($identifier, $fieldSettings) {
-		tx_pttools_assert::isNotEmptyString($fieldSettings['table'], array('message' => 'No table specified in config. 1277889448'));
-		tx_pttools_assert::isNotEmptyString($fieldSettings['field'], array('message' => 'No field specified in config. 1277889449'));
 		tx_pttools_assert::isNotEmptyString($identifier, array('message' => 'No identifier specified. 1277889450'));
+		
+		tx_pttools_assert::isNotEmptyString($fieldSettings['table'], array('message' => 'No table specified for field config "' . $identifier . '" 1277889448'));
+		tx_pttools_assert::isNotEmptyString($fieldSettings['field'], array('message' => 'No field specified for field config "' . $identifier . '" 1277889449'));
+		
 		
 		$this->identifier = $identifier;
 		$this->table = $fieldSettings['table'];
 		$this->field = $fieldSettings['field'];
 		if (array_key_exists('isSortable', $fieldSettings)) {
-			$this->isSortable = $fieldSettings['isSortable'];
+			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
 		}
 		
 		if (array_key_exists('access', $fieldSettings)) {

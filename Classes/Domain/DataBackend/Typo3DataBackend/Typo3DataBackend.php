@@ -20,13 +20,13 @@
 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 *  GNU General Public License for more details.
 *
-*  This copyright notice MUST APPEAR in all copies of the script!
+*  This copyright notice MUST APPEAR in all copies of the script
 ***************************************************************/
 
 /**
  * Data backend for typo3 database
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  *
@@ -45,11 +45,8 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource Data source object for this data backend
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$backendConfiguration = $configurationBuilder->getBackendConfiguration();
-		$dataSourceConfigurationArray = $backendConfiguration['dataSource'];
-		$dataSourceConfigurationObject = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->getBackendConfiguration());
-		$dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource($dataSourceConfigurationObject);
-		$dataSource->injectDataSource($GLOBALS['TYPO3_DB']);
+		$dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration());
+		$dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($dataSourceConfiguration);
 		return $dataSource;
 	}
 	

@@ -80,8 +80,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 			        ),
 			        'filters' => array(
 			             'testfilterbox' => array(
-		                     'testkey' => 'testvalue'
-			             )
+			        		10 => array (
+			        			'testkey' => 'testvalue',
+			        			'filterIdentifier' => 'filter1',
+			        			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+								'partialPath' => 'Filter/StringFilter',
+			        		)   
+			            )
 			        )
 		        )
 		    ),
@@ -94,14 +99,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	
 	public function testSetup() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 	}
 	
 	
 
 	public function testNoListConfigException() {
 		try {
-		  $configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance(array());
+		  $configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance(array());
 		} catch(Exception $e) {
 			return;
 		}
@@ -110,7 +115,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	
 	public function testSetAndMergeGlobalAndLocalConfig() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$settings = $configurationBuilder->getSettings();
 		$this->assertEquals($settings['abc'], 2);
 		$this->assertEquals($settings['def'], 3);
@@ -119,35 +124,36 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	
 	public function testGetListIdentifier() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$this->assertEquals($configurationBuilder->getListIdentifier(), $this->settings['listIdentifier']);
 	}
 	
 	
 	
 	public function testBuildFieldsConfiguration() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$fieldConfigCollection = $configurationBuilder->buildFieldsConfiguration();
 		$this->assertTrue(is_a($fieldConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
 	}
 	
 	
 	public function testBuildColumnsConfiguration() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$columnConfigCollection = $configurationBuilder->buildColumnsConfiguration();
 		$this->assertTrue(is_a($columnConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection'));
 	}
 	
 	
 	public function testGetFilterboxIdentifier() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
         $filterboxConfiguration = $configurationBuilder->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
-        $this->assertEquals($filterboxConfiguration['testkey'],'testvalue', 'Expected filterboxvalue was "testvalue" got "' . $filterboxConfiguration['testkey'] . '" instead!');
+        
+        $this->assertEquals($filterboxConfiguration->getFilterboxIdentifier(),'testfilterbox', 'Expected filterboxvalue was "testvalue" got "' . $filterboxConfiguration->getFilterboxIdentifier() . '" instead!');
 	}
 	
 	
 	public function testGetPagerSettings() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
         $pagerSettings = $configurationBuilder->getPagerSettings();
         $pagerClassName = $pagerSettings['pagerClassName'];
         $this->assertEquals($pagerClassName,'Tx_PtExtlist_Domain_Model_Pager_DefaultPager', 'Expected pagerClassName was "Tx_PtExtlist_Domain_Model_Pager_DefaultPager" got "' . $pagerClassName . '" instead!'); 
@@ -155,7 +161,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	
 	public function testThrowExceptionOnEmptyFilterboxIdentifier() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
         try {
         	$configurationBuilder->getFilterboxConfigurationByFilterboxIdentifier('');
         	$this->fail('No exception thrown on empty filterbox identifier');
@@ -166,12 +172,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	
 	public function testGetFilterSettings() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$this->assertEquals($configurationBuilder->getFilterSettings(), $this->settings['listConfig']['test']['filters']);
 	}
 	
 	public function testGetPrototypeSettingsForObject() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		
 		$prototypeSettings = $configurationBuilder->getPrototypeSettingsForObject('pager.default');
 		$this->assertTrue(is_array($prototypeSettings), 'The return value must be an array');
@@ -182,7 +188,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	}
 	
 	public function testGetMergedSettingsWithPrototype() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::getInstance($this->settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		
 		$settings = $configurationBuilder->getMergedSettingsWithPrototype($this->settings['listConfig']['test']['pager'], 'pager.default');
 		$this->assertTrue(is_array($settings), 'The return value must be an array');

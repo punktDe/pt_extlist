@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Holds an instance of a query interpreter to be used for
      * query objects
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+     * @var Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
      */
     protected $queryInterpreter;
 	
@@ -59,13 +59,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource Data source object for this data backend
      */
     public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        $backendConfiguration = $configurationBuilder->getBackendConfiguration();
-        $dataSourceConfigurationArray = $backendConfiguration['dataSource'];
-        $dataSourceConfigurationObject = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->getBackendConfiguration());
-        $dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfigurationObject);
-        
-        // TODO initialize PDO with given parameters!!!
-        $dataSource->injectDataSource(new PDO());
+        $dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration());
+        $dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory::createInstance($dataSourceConfiguration);
         
         return $dataSource;
     }
@@ -158,12 +153,15 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string FROM part of query without 'FROM'
 	 */
 	public function buildFromPart() {
-		tx_pttools_assert::isNotEmptyString($this->backendConfiguration['tables'], array('message' => 'Configuration for data backend tables must not be empty! 1280234420'));
-		$fromPart = $this->backendConfiguration['tables'];
-		
-		if(array_key_exists('baseFromClause', $this->backendConfiguration) && trim($this->backendConfiguration['baseFromClause'])) {
-			$fromPart = trim($this->backendConfiguration['baseFromClause']);
+		if ($this->backendConfiguration->getDataBackendSettings('tables')) {
+		    $fromPart = $this->backendConfiguration->getDataBackendSettings('tables');
 		}
+		
+		if(trim($this->backendConfiguration->getDataBackendSettings('baseFromClause'))) {
+			$fromPart = trim($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
+		}
+		
+		tx_pttools_assert::isNotEmptyString($fromPart, array('message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420'));
 		
 		return $fromPart;
 	}
@@ -197,20 +195,22 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string
 	 */
 	public function getBaseWhereClause() {
-		return trim($this->backendConfiguration['baseWhereClause']);
+		return trim($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
 	}
 	
 	
 	
 	/**
-	 * Returns where clauses from all filterboxes of a given collection of filterboxes
+	 * Returns where clauses from all filterboxes of a given collection of filterboxes except filters defined in exclude filters
 	 *
+	 * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
 	 * @return string WHERE clause from filterboxcollection without 'WHERE'
 	 */
-	public function getWhereClauseFromFilterboxes() {
+	public function getWhereClauseFromFilterboxes($excludeFilters = array()) {
 		$whereClauses = array();
-		foreach ($this->filterboxCollection as $filterBox) {
-			$whereClauseFromFilterbox = $this->getWhereClauseFromFilterbox($filterBox);
+		foreach ($this->filterboxCollection as $filterBox) { /* @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+			$excludeFilterbox = array_key_exists($filterBox->getfilterboxIdentifier(), $excludeFilters) ? $excludeFilters[$filterBox->getfilterboxIdentifier()] : array();
+			$whereClauseFromFilterbox = $this->getWhereClauseFromFilterbox($filterBox, $excludeFilterbox);
 			if($whereClauseFromFilterbox) {
 				$whereClauses[] = $whereClauseFromFilterbox;
 			}
@@ -225,14 +225,17 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * Returns where clauses from all filters of a given filterbox
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
+	 * @param array $excludeFilters Filters from which no where clause should be returned
 	 * @return string WHERE clause from filterbox without 'WHERE'
 	 */
-	public function getWhereClauseFromFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox) {
+	public function getWhereClauseFromFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox, array $excludeFilters = array()) {
 		$whereClausesFromFilterbox = array();
-		foreach($filterbox as $filter) {
-			$whereClauseFromFilter = $this->getWhereClauseFromFilter($filter);
-			if($whereClauseFromFilter) {
-				$whereClausesFromFilterbox[] = $whereClauseFromFilter;	
+		foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+			if (!in_array($filter->getFilterIdentifier(), $excludeFilters)) {
+				$whereClauseFromFilter = $this->getWhereClauseFromFilter($filter);
+				if($whereClauseFromFilter) {
+					$whereClausesFromFilterbox[] = $whereClauseFromFilter;	
+				}
 			}
 		}
 		$whereClauseString = sizeof($whereClausesFromFilterbox) > 0 ? '(' . implode(') AND (', $whereClausesFromFilterbox) . ')' : '';
@@ -348,7 +351,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return array Array of group data with given fields as array keys
      */
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
-        $sqlQueryString = $this->queryInterpreter->interpretQuery($groupDataQuery);
+    	$filterWherePart = $this->getWhereClauseFromFilterboxes($excludeFilters);
+    	
+    	$sqlQueryString = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
+    	$sqlQueryString .= ' FROM ' . $this->buildFromPart();
+    	$sqlQueryString .= count($groupDataQuery->getFrom()) > 0 ? ', ' . $this->queryInterpreter->getFromPart($groupDataQuery) : '';
+    	$sqlQueryString .= $filterWherePart != '' ? ' WHERE ' . $filterWherePart : '';  
+    	// TODO add group by
+        
         $groupDataArray = $this->dataSource->executeQuery($sqlQueryString);
         return $groupDataArray;
     }

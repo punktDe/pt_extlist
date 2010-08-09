@@ -71,10 +71,12 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
+
 	public function renderCell($fieldIdentifier, $columnId, Tx_PtExtlist_Domain_Model_List_Row $currentRow, $columnIndex=0, $rowIndex = 0) {
 			
 		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnId);
 		$content = $currentRow->getItemById($fieldIdentifier)->getValue();
+
 		
 		$fieldSet = $this->createFieldSet($currentRow);
 		

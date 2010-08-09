@@ -1,0 +1,136 @@
+####################################################
+# This template configures a demolist for use
+# with pt_extlist
+#
+# @author Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.settings {
+
+    listConfig.demolist_mysql_01 {
+    
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
+        backendConfig {
+            
+            dataSource {
+				username = typo3 
+				password = typo3
+				databaseName = pt_extlist_test     	
+            }
+            
+            
+            tables (
+                City,
+                Country
+            )
+            
+            
+            baseFromClause (
+				City
+				inner join Country on City.CountryCode = Country.Code
+            )
+            
+            baseWhereClause (
+            	
+            ) 
+            
+            baseGroupByClause (
+            	group by Country.Code
+            )
+            
+        }
+        
+
+        
+        fields {
+            # TODO automatic resolve same names in different tables to diferent identifiers - maybe use fieldIdentifiers as alias
+            
+            continent_name {
+            	table = Country
+            	field = Continent
+            }
+            
+            country_name {
+            	table = Country
+            	field = Name
+            }
+			
+			country_localname {
+            	table = Country
+            	field = LocalName
+            }
+			            
+            city_name {
+            	table = City
+            	field = Name
+            }
+           
+            city_population {
+            	table = City
+            	field = Population
+            }
+            
+            country_population {
+            	table = Country
+            	field = Population
+            }
+            
+            # TODO special string instead of table / field
+            #country_language {
+            # 	special = group_concat(Language SEPARATOR ', ')
+            #}
+            
+        }
+
+
+        
+        columns {
+            
+            10 {
+            	fieldIdentifier = continent_name
+            	columnIdentifier = colContinentName
+            	label = Continent Name
+            }
+            
+            # Todo: allow multiple fields in one column
+            20 {
+            	fieldIdentifier = country_name #, country_localname             
+            	columnIdentifier = colCountryName
+            	label = Country Name
+            }
+            
+            30 {
+            	fieldIdentifier = country_population
+            	columnIdentifier = colCountryPopulation
+            	label = Country Population
+            }
+            
+            40 {
+            	fieldIdentifier = city_name
+            	columnIdentifier = colCityName
+            	label = City Name
+            }
+            
+            50 {
+            	fieldIdentifier = city_population
+            	columnIdentifier = colCityPopulation
+            	label = City Population
+            }
+            
+
+            #60 {
+            # 	fieldIdentifier = country_language
+            # 	columnIdentifier = colCountryLanguages
+            # 	label = Spoken Languages
+            #}
+	         
+        }
+        
+        pager {
+        	itemsPerPage = 30
+        }
+          
+    }
+}

@@ -26,14 +26,27 @@
 
 /**
  * The base class for all data source objects.
- * Includes base methods for registering and updating observers.
  * 
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 	
+	/**
+	 * Holds a data source configuration object
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
+	 */
+	protected $dataSourceConfiguration;
 	
 	
+	/**
+	 * Constructor for typo3 data source
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
+		$this->dataSourceConfiguration = $dataSourceConfiguration;
+	}
 }
 
 ?>

@@ -29,10 +29,11 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 	protected $cellRenderer;
 	
 	public function setUp() {
-		    $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		 
 		$settings = $this->configurationBuilderMock->getSettings();
 		
+		$settings['prototype'] = array();
 		$settings['listIdentifier'] = 'test';
 		$settings['listConfig']['test']['columns'][40] = array( 
                             'columnIdentifier' => 'column4',

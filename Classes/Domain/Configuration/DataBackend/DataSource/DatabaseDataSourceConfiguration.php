@@ -28,7 +28,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration {
 
@@ -80,14 +80,15 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
 	/**
 	 * Constructor for data source configuration
 	 *
-	 * @param array $dataSourceConfiguration
+	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $dataSourceConfiguration
 	 */
-	public function __construct(array $dataSourceConfiguration) {
-		$this->host = $dataSourceConfiguration['host'];
-		$this->username = $dataSourceConfiguration['username'];
-		$this->password = $dataSourceConfiguration['password'];
-		$this->databaseName = $dataSourceConfiguration['databaseName'];
-		$this->port = $dataSourceConfiguration['port'];
+	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $dataBackendConfiguration) {
+		$dataSourceSettings = $dataBackendConfiguration->getDataSourceSettings();
+		$this->host = $dataSourceSettings['host'];
+		$this->username = $dataSourceSettings['username'];
+		$this->password = $dataSourceSettings['password'];
+		$this->databaseName = $dataSourceSettings['databaseName'];
+		$this->port = $dataSourceSettings['port'];
 	}
 	
 	

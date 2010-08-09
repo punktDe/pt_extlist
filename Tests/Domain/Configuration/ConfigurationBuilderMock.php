@@ -36,14 +36,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
         
     }
 	
-	
-	public function getBackendConfiguration() {
-		return array('dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_DummyDataBackend',
-		             'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-		             'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource');
-	}
-	
-	
+    /**
+     * Returns array of settings for current plugin configuration
+     *
+     * @return array
+     */
+    public function getPluginSettings() {
+    	return $this->origSettings;
+    }
 	
     /**
      * Returns a singleton instance of this class
@@ -60,7 +60,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	            'abc' => '1',
             	'prototype' => array(
 				'pager' => array(
-						'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+						'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
+					),
+				'backend' => array (
+					'mysql' => array (
+						'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+						'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+						'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+						
+						
+					)
 					),
 				'column' => array (
 						'xy' => 'z',
@@ -68,6 +77,23 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 				),
 	            'listConfig' => array(
 	                 'test' => array(
+						
+						'backendConfig' => array (
+								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+								'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+				
+				
+								'dataSource' => array(
+									'testKey' => 'testValue',
+									'username' => 'user',
+									'password' => 'pass',
+									'host' => 'localhost',
+									'port' => 3306,
+									'databaseName' => 'typo3',
+								)
+							),
+						
 	                     'abc' => '2',
 	                     'def' => '3',
 	                     'fields' => array(
@@ -121,7 +147,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                                'filterIdentifier' => 'filter1',
 	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                     'fieldDescriptionIdentifier' => 'field1',
-	                                'partialPath' => 'Filter/StringFilter'
+	                                'partialPath' => 'Filter/StringFilter',
+	                                'defaultValue' => 'default',
 	                             ),
 	                             '20' => array(
 	                                'filterIdentifier' => 'filter2',

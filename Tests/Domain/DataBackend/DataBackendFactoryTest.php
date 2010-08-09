@@ -34,18 +34,18 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $mockConfigurationBuilder;
+	protected $configurationBuilderMock;
 	
 	
 	
 	public function setUp() {
-		$this->mockConfigurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
 	
 	
 	
     public function testCreateDataBackend() {
-        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->mockConfigurationBuilder);
+        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
         $this->assertTrue(is_a($dataBackend, 'Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
     }
     
@@ -71,8 +71,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
     	return array(
                 'listIdentifier' => 'test1',
                 'abc' => '1',
+    		  	'prototype' => array(),
                 'listConfig' => array(
                      'test1' => array(
+    				 'backendConfig' => array (
+								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+								'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+								'dataSource' => array(
+									'testKey' => 'testValue',
+								)
+							),
                          'abc' => '2',
                          'def' => '3',
                          'fields' => array(
@@ -132,8 +141,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
     	return array(
                 'listIdentifier' => 'test2',
                 'abc' => '1',
+    			'prototype' => array(),
                 'listConfig' => array(
                      'test2' => array(
+    				'backendConfig' => array (
+								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+								'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+								'dataSource' => array(
+									'testKey' => 'testValue',
+								)
+							),
                          'abc' => '2',
                          'def' => '3',
                          'fields' => array(

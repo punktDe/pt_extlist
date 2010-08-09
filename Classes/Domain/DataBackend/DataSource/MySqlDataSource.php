@@ -41,15 +41,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 	
 	
 	
-	/**
-	 * Holds an instance of datasource configuration
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
-	 */
-	protected $databaseConfiguration;
-	
-	
-	
 	
 	/**
 	 * Constructor for datasource
@@ -57,7 +48,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 	 * @param Tx_PtExtlist_Domain_Configuration_DataConfiguration $configuration
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration) {
-		$this->databaseConfiguration = $configuration;
+		$this->dataSourceConfiguration = $configuration;
 	}
 	
 	
@@ -80,6 +71,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 	 * @return array Associative array of query result
 	 */
 	public function executeQuery($query) {
+		$GLOBALS['trace'] = true; trace($query); $GLOBALS['trace']=off;
 		try {
 			/* @var $statement PDOStatement */
 		    $statement = $this->connection->prepare($query);
