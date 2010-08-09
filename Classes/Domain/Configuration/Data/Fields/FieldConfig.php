@@ -68,17 +68,26 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	protected $access = array();
 	
 	
+	/**
+	 * 
+	 * Special string to be interpreted by the querinterpreter
+	 * @var string
+	 */
+	protected $special;
+	
 	
 	public function __construct($identifier, $fieldSettings) {
 		tx_pttools_assert::isNotEmptyString($identifier, array('message' => 'No identifier specified. 1277889450'));
 		
-		tx_pttools_assert::isNotEmptyString($fieldSettings['table'], array('message' => 'No table specified for field config "' . $identifier . '" 1277889448'));
-		tx_pttools_assert::isNotEmptyString($fieldSettings['field'], array('message' => 'No field specified for field config "' . $identifier . '" 1277889449'));
-		
+		if(!trim($fieldSettings['special']) && (!trim($fieldSettings['table']) || !trim($fieldSettings['field']))) {
+			throw new Exception('Either a table and a field or a special string has to be given! 1281353522');
+		}
 		
 		$this->identifier = $identifier;
 		$this->table = $fieldSettings['table'];
 		$this->field = $fieldSettings['field'];
+		$this->special = $fieldSettings['spercial'];
+		
 		if (array_key_exists('isSortable', $fieldSettings)) {
 			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
 		}
@@ -115,6 +124,12 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	public function getAccess() {
 		return $this->access;
+	}
+	
+	
+	
+	public function getSpecial() {
+		return $this->special;
 	}
 	
 }
