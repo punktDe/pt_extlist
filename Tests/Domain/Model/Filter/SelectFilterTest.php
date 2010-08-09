@@ -55,7 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
                'partialPath' => 'Filter/SelectFilter',
                'fieldDescriptionIdentifier' => 'test',
                'displayFields' => 'test1,test2',
-               'filterFields' => 'test'
+               'filterField' => 'test'
         ));
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         $selectFilter->injectFilterConfig($filterConfiguration);
@@ -72,7 +72,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
     	       'filterIdentifier' => 'test', 
     	       'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
     	       'partialPath' => 'Filter/SelectFilter',
-               'optionsSourceFields' => 'test1,test2'
+               'optionsSourceField' => 'test1,test2'
     	));
     	$sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
@@ -95,7 +95,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                'partialPath' => 'Filter/SelectFilter',
                'fieldDescriptionIdentifier' => 'test',
-               'displayFields' => 'test'
+               'displayField' => 'test'
         ));
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
@@ -107,31 +107,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
         }
         $this->fail('No error has been thrown on configuration without filter fields configuration');
     }
-    
-    
-    
-    public function testExceptionOnMissingDisplayFieldsConfiguration() {
-        $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
-        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
-           array(
-               'filterIdentifier' => 'test', 
-               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-               'partialPath' => 'Filter/SelectFilter',
-               'fieldDescriptionIdentifier' => 'test',
-               'filterFields' => 'test'
-        ));
-        $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
-        $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
-        $selectFilter->injectFilterConfig($filterConfiguration);
-        try {
-            $selectFilter->init();
-        } catch(Exception $e) {
-            return;
-        }
-        $this->fail('No error has been thrown on configuration without display fields configuration');
-    }
-    
-    
+     
     
     public function testBuildExcludeFiltersArray() {
     	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
@@ -141,7 +117,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                'partialPath' => 'Filter/SelectFilter',
                'fieldDescriptionIdentifier' => 'test',
-               'filterFields' => 'test.test',
+               'filterField' => 'test.test',
                'displayFields' => 'test.test',
                'excludeFilters' => 'filterbox1.filter1'
         ));
@@ -189,6 +165,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
     	$this->markTestIncomplete();
     }
 	
+    public function testGetMultiple() {
+    	$this->markTestIncomplete();
+    }
+    
 }
 
 ?>
