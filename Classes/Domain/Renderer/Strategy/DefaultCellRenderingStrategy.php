@@ -50,7 +50,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	
 	
 	/**
-	 * TODO insert comment
+	 * Construct the strategy.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
 	 */
@@ -58,7 +58,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		$this->rendererConfiguration = $configuration;
 		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280320558'));
 
-		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		// $this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		$this->cObj = $GLOBALS['TSFE']->cObj;
 	}
 	
 	
@@ -120,18 +121,25 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		return $cell;
 	}
 	
+	/**
+	 * Call user functions for building special values.
+	 * renderer.specialCell gets overridden by column.specialCell
+	 * 
+	 * @param Tx_PtExtlist_Domain_Model_List_Cell &$cell
+	 */
 	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell &$cell) {
+		
 		// Resolve special cell values
 		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
-			
 			$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
+		}
+		
+		
+		if(!empty($rendererUserFunc)) {
+
+			$dummRef = '';			
+			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $cell, $dummRef);
 			
-			$params['columnIndex'] = $cell->getColumnIndex();
-			$params['rowIndex'] = $cell->getRowIndex();
-			$params['content'] = $cell->getValue();
-			$dummRef = '';
-			
-			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
 			$cell->setSpecialValues($specialValues);
 		}
 	}

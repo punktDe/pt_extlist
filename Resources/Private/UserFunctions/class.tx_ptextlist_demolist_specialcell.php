@@ -35,20 +35,17 @@ class tx_ptextlist_demolist_specialcell {
 	 * @param array $params Available keys are columnIndex, rowIndex, content
 	 * @return array
 	 */
-	public static function processCell($params) {
-		$columnIndex = $params['columnIndex'];
-		$rowIndex = $params['rowIndex'];
-		$content = $params['content'];
+	public static function processCell(Tx_PtExtlist_Domain_Model_List_Cell &$cell) {
+		$columnIndex = $cell->getColumnIndex();
+		$rowIndex = $cell->getRowIndex();
+		$content = $cell->getValue();
 		
 		$specialValues = array();
 
 		$color = self::fadeColor($columnIndex, $rowIndex);
 		
 		$specialValues['style'] = "background-color:rgb($color[0],$color[1],$color[2]);";
-	
-		
-		
-		
+
 		return $specialValues;
 	}
 	

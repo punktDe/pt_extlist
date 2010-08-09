@@ -110,6 +110,8 @@ plugin.tx_ptextlist.settings {
 					
 					
 	 			}
+	 			
+	 			specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processGrey
             }
             
             
