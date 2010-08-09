@@ -34,13 +34,17 @@
 interface Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 
 	/**
-	 * TODO insert comment!
+	 * Renders the cell content.
 	 *
-	 * @param unknown_type $fieldIdentifier
-	 * @param unknown_type $columnIndex
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
+	 * @param string $fieldIdentifier The index of the current row (table data).
+	 * @param string $columnIdentifier The columnIdentifier.
+	 * @param Tx_PtExtlist_Domain_Model_List_Row &$data The table data.
+	 * @param int $columnIndex Current column index.
+	 * @param int $rowIndex Current row index.
+	 * 
+	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
-	public function renderCell($fieldIdentifier, $columnIndex, Tx_PtExtlist_Domain_Model_List_Row $currentRow);
+	public function renderCell($fieldIdentifier, $columnIdentifier, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex);
 }
 
 ?>
