@@ -196,57 +196,127 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	 * @return array
 	 */
 	public function getOptions() {
-		// TODO refactor me!
-		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-		$tables = array();
-		$fields = array();
 		$options = array();
-		
-		$mergedFields = array_merge($this->displayFields, $this->filterFields);
-		foreach ($mergedFields as $optionSourceField) {
-			list($table,$field) = explode('.', trim($optionSourceField));
-			if ($table != '' && $field != '') {
-				if (!in_array($table, $tables)) {
-					$tables[] = $table;
-				}
-				$fields[] = $optionSourceField;
-			} else {
-				throw new Exception('wrong configuration of option source field for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281090352');
-			}
-		}
-		
-		if (count($tables) > 0) {
-			$selectString = implode(', ', $fields);
-			if ($this->additionalTables != '') {
-			   $groupDataQuery->addFrom($this->additionalTables);
-			}
-			$groupDataQuery->addField($selectString);
+		$renderedOptions = array();
 
-			$excludeFiltersArray = $this->buildExcludeFiltersArray();
-			// Add this filter to excluded filters
-			$excludeFiltersArray[$this->filterBoxIdentifier][] = $this->filterIdentifier;
-			$options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
-			
-		    $renderedOptions = array();
-		    
-			foreach($options as $option) {
-				// TODO Add render-option to TS config for this stuff here
-				$key = '';
-				foreach($this->filterFields as $filterField) {
-                    list($filterTable, $filterField) = explode('.', trim($filterField));
-					$key .= $option[$filterField];
-				}
-				$value = '';
-			    foreach($this->displayFields as $displayField) {
-                    list($displayTable, $displayField) = explode('.', trim($displayField));
-                    $value .= $option[$displayField];
-                }
-	   		    $renderedOptions[$key] = $value;
-			}
+		$tables = $this->getTablesRequiredToBeSelected();
+        $fields = $this->getFieldsRequiredToBeSelected();
 		
+		if (count($tables) > 0) {  // TODO why must table > 0 here?
+            $options = $this->getOptionsByTablesAndFields($tables, $fields);
+            $renderedOptions = $this->getRenderedOptionsByGroupData($options);
 		}
         return $renderedOptions;
 	}
+	
+	
+	
+	/**
+	 * Returns an array of options to be displayed by filter
+	 * for a given array of tables and a given array of fields
+	 *
+	 * @param array $tables
+	 * @param array $fields
+	 * @return array Options to be displayed by filter
+	 */
+	protected function getOptionsByTablesAndFields($tables, $fields) {
+		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+		$selectString = implode(', ', $fields);
+        if ($this->additionalTables != '') {
+           $groupDataQuery->addFrom($this->additionalTables);
+        }
+        $groupDataQuery->addField($selectString);
+
+        $excludeFiltersArray = $this->buildExcludeFiltersArray();
+        // Add this filter to excluded filters
+        $excludeFiltersArray[$this->filterBoxIdentifier][] = $this->filterIdentifier;
+        $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
+        
+        return $options;
+	}
+	
+	
+	
+	/**
+	 * Returns an array of <table>.<field> strings required by filter
+	 *
+	 * @return string
+	 */
+	protected function getFieldsRequiredToBeSelected() {
+        $fields = array();
+		$mergedFields = array_merge($this->displayFields, $this->filterFields);
+	    foreach ($mergedFields as $optionSourceField) {
+            $this->checkFieldConfig($optionSourceField);
+            $fields[] = trim($optionSourceField);
+        }
+        return $fields;
+	}
+	
+	
+	
+	/**
+	 * Returns an array of tables that are required by the filter
+	 *
+	 * @return array
+	 */
+	protected function getTablesRequiredToBeSelected() {
+		$tables = array();
+	    $mergedFields = array_merge($this->displayFields, $this->filterFields);
+        foreach ($mergedFields as $optionSourceField) {
+            $this->checkFieldConfig($optionSourceField);
+        	if (!in_array($table, $tables)) {
+                $tables[] = $table;
+            }
+        }
+        return $tables;
+	}
+	
+	
+	
+	/**
+	 * Checks for a field config whether it has right syntax:
+	 * 
+	 * <tablename>.<fieldname>
+	 *
+	 * @param string $fieldConfigString
+	 * @throws Exception on wrong syntax
+	 */
+	protected function checkFieldConfig($fieldConfigString) {
+		list($table,$field) = explode('.', trim($fieldConfigString));
+        if (!($table != '' && $field != '')) {
+        	throw new Exception('wrong configuration of option source field for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281090352');
+        }
+	}
+	
+	
+	
+	/**
+	 * Returns an array expected by f:form.select viewhelper:
+	 * 
+	 * array(<keyForReturnAsSelectedValue> => <valueToBeShownAsSelectValue>)
+	 *
+	 * @param array $groupData 
+	 * @return array
+	 */
+	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
+	   $renderedOptions = array();
+	   foreach($groupData as $option) {
+            // TODO Add render-option to TS config for this stuff here
+            $key = '';
+            foreach($this->filterFields as $filterField) {
+                list($filterTable, $filterField) = explode('.', trim($filterField));
+                $key .= $option[$filterField];
+            }
+            $value = '';
+            foreach($this->displayFields as $displayField) {
+                list($displayTable, $displayField) = explode('.', trim($displayField));
+                $value .= $option[$displayField];
+            }
+            $renderedOptions[$key] = $value;
+        }
+        return $renderedOptions;
+	}
+	
 	
 	
 	
