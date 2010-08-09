@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
+class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
 	/**
 	 * Holds the current filter value
