@@ -66,58 +66,78 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	/**
 	 * Renders the cell content.
 	 *
-	 * @param string $fieldIdentifier
-	 * @param string $columnIndex
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $currentRow
+	 * @param string $fieldIdentifier The index of the current row (table data).
+	 * @param string $columnIdentifier The columnIdentifier.
+	 * @param Tx_PtExtlist_Domain_Model_List_Row &$data The table data.
+	 * @param int $columnIndex Current column index.
+	 * @param int $rowIndex Current row index.
+	 * 
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
 
-	public function renderCell($fieldIdentifier, $columnId, Tx_PtExtlist_Domain_Model_List_Row $currentRow, $columnIndex=0, $rowIndex = 0) {
-			
-		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnId);
-		$content = $currentRow->getItemById($fieldIdentifier)->getValue();
-
+	public function renderCell($fieldIdentifier, $columnIdentifier, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
 		
-		$fieldSet = $this->createFieldSet($currentRow);
+		// Get the column config for columnId
+		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnIdentifier);
 		
-		// Inject current data into the cObject
-		if($fieldSet) $this->cObj->start($fieldSet);
+		// Get field data and concat if fieldIdentifiers is defined as a list
+		// TODO: think of merging content with fluid -> cell object holds a array of values
+		$fields = explode(",",$fieldIdentifier);
+		$content = '';
+		foreach($fields as $i => $fieldId) {
+			$field = $data->getItemById(trim($fieldId))->getValue();
+			$content .= ($i > 0 ? ', '.$field : $field);
+		}
 
-					
+		// Load all available fields
+		$fieldSet = $this->createFieldSet($data);
+						
 		// TS parsing
+		// This resets previous content from fieldIdentifier config.
+		// TODO: set cObj currentData <= $content
 		if($columnConfig->getRenderObj() != null) {
+			// Inject current data into the cObject
+			if($fieldSet) $this->cObj->start($fieldSet);
 			$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $columnConfig->getRenderObj());
 			$content = $this->cObj->cObjGet($conf);
 		}
-		$userFunctions = $columnConfig->getRenderUserFunctions();
 		
+		// Call post render user functions
+		$userFunctions = $columnConfig->getRenderUserFunctions();
 		if($userFunctions != null) {
 			$content = $this->renderWithUserFunc($content, $userFunctions, $fieldSet);
 		}
 		
+		// Create new cell 
 		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($content);
-		
+		$cell->setRowIndex($rowIndex);
+		$cell->setColumnIndex($columnIndex);
 		
 		// Resolve special cell values
-		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
-			
-			$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
-			
-			$params['columnIndex'] = $columnIndex;
-			$params['rowIndex'] = $rowIndex;
-			$params['content'] = $content;
-			$dummRef = '';
-			
-			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
-			$cell->setSpecialValues($specialValues);
-		}
+		$this->renderSpecialValues($cell);
 		
 		
 		return $cell;
 	}
 	
+	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell &$cell) {
+		// Resolve special cell values
+		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
+			
+			$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
+			
+			$params['columnIndex'] = $cell->getColumnIndex();
+			$params['rowIndex'] = $cell->getRowIndex();
+			$params['content'] = $cell->getValue();
+			$dummRef = '';
+			
+			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
+			$cell->setSpecialValues($specialValues);
+		}
+	}
+	
 	/**
-	 * Calls userFunctions with fieldset and 
+	 * Calls userFunctions with fieldset 
 	 * 
 	 * @param array $userFunctions
 	 * @param array $fieldSet

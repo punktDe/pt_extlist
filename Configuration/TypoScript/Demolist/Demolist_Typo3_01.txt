@@ -82,6 +82,7 @@ plugin.tx_ptextlist.settings {
                 columnIdentifier = renderedCol1
                 fieldIdentifier = name_local
                 
+                
                 renderObj = COA
 				renderObj {
 					5 = IMAGE
@@ -176,6 +177,17 @@ plugin.tx_ptextlist.settings {
 	                  displayFields = static_currencies.cu_name_en
 	                  filterFields = static_currencies.cu_iso_nr
 	                  multiple = 1
+	                  #excludeFilters = filterbox1.filter1
+	              }
+	              
+	              30 < plugin.tx_ptextlist.prototype.filter.group 
+	              30 {
+	                  filterIdentifier = filter3
+	                  label = Uno Member
+	                  fieldDescriptionIdentifier = cn_currency_iso_nr
+	                  displayFields = static_countries.cn_uno_member
+	                  filterFields = static_countries.cn_uno_member
+	                  multiple = 0
 	                  #excludeFilters = filterbox1.filter1
 	              }
 	         }

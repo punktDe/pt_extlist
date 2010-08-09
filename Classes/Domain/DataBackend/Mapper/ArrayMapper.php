@@ -136,14 +136,11 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 * @return string  Value of raw data array field corresponding to given mapping
 	 */
 	protected function getMappedCellValue(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping, array $row) {
-		if (array_key_exists($mapping->getTable() . '.' . $mapping->getField(), $row)) {
-			// Case field name is encoded as <table_name>.<field_name>
-			return $row[$mapping->getTable() . '.' . $mapping->getField()];
-		} elseif (array_key_exists($mapping->getField(), $row)){
-			// Case field name is encoded as <field_name>
-			return $row[$mapping->getField()];
+		if (array_key_exists($mapping->getIdentifier(), $row)) {
+			// Case field name is encoded as <table_name>_<field_name>
+			return $row[$mapping->getIdentifier()];
 		} else {
-			throw new Exception('Array key ' . $mapping->getTable() . '.' . $mapping->getField() . 'does not exist in row. Perhaps wrong mapping configuration? 1280317751');
+			throw new Exception('Array key ' . $mapping->getIdentifier() . 'does not exist in row. Perhaps wrong mapping configuration? 1280317751');
 		}
 	}
 	

@@ -4,14 +4,5 @@
 
 <table class="tx-ptextlist-list tx-ptextlist-list-standard">
 	<f:render partial="List/ListHeader" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
-	
-	<f:for each="{listData}" as="listRow">
-	
-	<tr>
-	   <f:for each="{listRow}" as="cell">
-	     <td style="{cell.specialValues.style}"><f:format.html>{cell}</f:format.html></td>
-	   </f:for>
-	</tr>
-	
-	</f:for>
+	<f:render partial="List/ListBody" arguments="{listData:listData}" />
 </table>

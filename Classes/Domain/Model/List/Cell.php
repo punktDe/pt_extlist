@@ -28,6 +28,8 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 
 	protected $value;
 	protected $specialValues;
+	protected $rowIndex;
+	protected $columnIndex;
 	
 	public function __construct($value) {
 		$this->value = $value;
@@ -49,9 +51,27 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 		return $this->specialValues;
 	}	
 	
+	public function setRowIndex($rowIndex) {
+		$this->rowIndex = $rowIndex;
+	}
+	
+	public function getRowIndex() {
+		return $this->rowIndex;
+	}
+	
+	public function setColumnIndex($columnIndex) {
+		$this->columnIndex = $columnIndex;
+	}
+	
+	public function getColumnIndex() {
+		return $this->columnIndex;
+	}
+	
 	public function __toString() {
 		return ($this->value == ''?'':$this->value);
 	}
+	
+	
 }
 
 ?>
