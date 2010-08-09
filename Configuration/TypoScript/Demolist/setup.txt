@@ -20,5 +20,5 @@
 # User: typo3
 # Pass: typo3
 #
-#<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Mysql_01.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Mysql_01.txt">
 
