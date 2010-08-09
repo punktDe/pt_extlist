@@ -345,6 +345,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testCreateDataSource() {
+		// TODO think about how to test this without getting an error from database (use Typo3 connection!)
+		// $dataSource = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend::createDataSource($this->configurationBuilder);
+		// $this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
 		$this->markTestIncomplete();
 	}
 
