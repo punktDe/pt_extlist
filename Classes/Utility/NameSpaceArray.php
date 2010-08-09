@@ -71,7 +71,7 @@ class Tx_PtExtlist_Utility_NameSpaceArray {
 	 * @param array $array array to save the data
 	 * @param mixed $data
 	 * @return array
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert <lienert@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
 	 * @since 04.08.2010
 	 */
 	public static function saveDataInNamespaceTree($nameSpace, array $array, $data) {

@@ -145,10 +145,11 @@ class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_M
 	protected function initFilterByTsConfig() {
 		$filterSettings = $this->filterConfig->getSettings();
 	    
-		if (!array_key_exists('fieldDescriptionIdentifier', $filterSettings) || $filterSettings['fieldDescriptionIdentifier'] == '') {
-            throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281019496');
-        }
-        $this->fieldDescriptionIdentifier = $filterSettings['fieldDescriptionIdentifier'];
+		if ($this->filterConfig->getFieldDescriptionIdentifier() == '') {
+    	    throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier . ' 1281019496');
+    	}
+		
+        $this->fieldDescriptionIdentifier = $this->filterConfig->getFieldDescriptionIdentifier();
         
         tx_pttools_assert::isNotEmptyString($filterSettings['filterFields']);
         $this->filterFields = explode(',', $filterSettings['filterFields']);
