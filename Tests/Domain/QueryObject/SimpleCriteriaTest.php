@@ -72,7 +72,11 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteria_testcase extends Tx_P
 	
 	
 	public function testIsEqualTo() {
-		$this->markTestIncomplete();
+		$criteriaReference = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'value', '=');
+		$criteriaEqual = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'value', '=');
+		$criteriaInEqual = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
+		$this->assertTrue($criteriaReference->isEqualTo($criteriaEqual));
+		$this->assertTrue(!($criteriaReference->isEqualTo($criteriaInEqual)));
 	}
 	
 }

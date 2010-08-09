@@ -92,8 +92,9 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
     	} else {
             if ($this->field == $criteria->field && $this->value == $criteria->value && $this->operator == $criteria->operator) {
             	return true;     
+            } else {
+                return false;
             }
-            return false;
     	}
     }
 	
