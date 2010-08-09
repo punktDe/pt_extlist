@@ -86,7 +86,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 		$this->identifier = $identifier;
 		$this->table = $fieldSettings['table'];
 		$this->field = $fieldSettings['field'];
-		$this->setSpecial($fieldSettings['spercial']);
+		$this->setSpecial($fieldSettings['special']);
 		
 		if (array_key_exists('isSortable', $fieldSettings)) {
 			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
