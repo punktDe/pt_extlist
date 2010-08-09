@@ -382,7 +382,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     	$sqlQueryString .= ' FROM ' . $this->buildFromPart();
     	$sqlQueryString .= count($groupDataQuery->getFrom()) > 0 ? ', ' . $this->queryInterpreter->getFromPart($groupDataQuery) : '';
     	$sqlQueryString .= $filterWherePart != '' ? ' WHERE ' . $filterWherePart : '';  
-    	$GLOBALS['trace'] = 1;	trace( $sqlQueryString,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+
     	// TODO add group by
         $groupDataArray = $this->dataSource->executeQuery($sqlQueryString);
         return $groupDataArray;
