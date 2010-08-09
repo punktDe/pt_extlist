@@ -18,7 +18,7 @@ plugin.tx_ptextlist.settings {
 	              10 {
 	              	filterIdentifier = test
 	              }
-	              20 < plugin.tx_ptextlist.prototype.filter.group
+	              20 < plugin.tx_ptextlist.prototype.filter.select
 	              20 {
 	              	filterIdentifier = test2
 	              } 

@@ -171,7 +171,7 @@ plugin.tx_ptextlist.settings {
 	                  fieldDescriptionIdentifier = name_english
 	              }
 	              
-	              20 < plugin.tx_ptextlist.prototype.filter.group 
+	              20 < plugin.tx_ptextlist.prototype.filter.select 
 	              20 {
 	                  filterIdentifier = filter2
 	                  label = GroupFilter 1
@@ -182,7 +182,7 @@ plugin.tx_ptextlist.settings {
 	                  #excludeFilters = filterbox1.filter1
 	              }
 	              
-	              30 < plugin.tx_ptextlist.prototype.filter.group 
+	              30 < plugin.tx_ptextlist.prototype.filter.select 
 	              30 {
 	                  filterIdentifier = filter3
 	                  label = Uno Member

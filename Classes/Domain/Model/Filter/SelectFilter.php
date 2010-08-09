@@ -24,13 +24,13 @@
 ***************************************************************/
 
 /**
- * Class implements a group filter
+ * Class implements a select filter
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_GroupFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
+class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
     /**
      * Holds an array of filter values
