@@ -87,6 +87,62 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 	
+	
+	
+    /**
+     * Prepares a view for the current action and stores it in $this->view.
+     * By default, this method tries to locate a view with a name matching
+     * the current action.
+     *
+     * Configuration for view in TS:
+     * 
+     * controller.<ControllerName>.<controllerActionName>.view = <viewClassName>
+     * 
+     * @return void
+     */
+    protected function resolveView() {
+    	// These lines have been added by Michael Knoll to make view configurable via TS
+        $viewClassName = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+        if ($viewClassName != '') {
+        	if (class_exists($viewClassName)) {
+        		$view = $this->objectManager->getObject($viewClassName);
+        	} else {
+        		throw new Exception('View class does not exist! ' . $viewClassName . ' 1281369758');
+        	}
+        } else {
+            $view = $this->objectManager->getObject('Tx_Fluid_View_TemplateView');
+        }
+        
+        $controllerContext = $this->buildControllerContext();
+        $view->setControllerContext($controllerContext);
+
+        // Template Path Override
+        $extbaseFrameworkConfiguration = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
+        if (isset($extbaseFrameworkConfiguration['view']['templateRootPath']) && strlen($extbaseFrameworkConfiguration['view']['templateRootPath']) > 0) {
+            $view->setTemplateRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']));
+        }
+        if (isset($extbaseFrameworkConfiguration['view']['layoutRootPath']) && strlen($extbaseFrameworkConfiguration['view']['layoutRootPath']) > 0) {
+            $view->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']));
+        }
+        if (isset($extbaseFrameworkConfiguration['view']['partialRootPath']) && strlen($extbaseFrameworkConfiguration['view']['partialRootPath']) > 0) {
+            $view->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']));
+        }
+
+        if ($view->hasTemplate() === FALSE) {
+            $viewObjectName = $this->resolveViewObjectName();
+            if (class_exists($viewObjectName) === FALSE) $viewObjectName = 'Tx_Extbase_MVC_View_EmptyView';
+            $view = $this->objectManager->getObject($viewObjectName);
+            $view->setControllerContext($controllerContext);
+        }
+        if (method_exists($view, 'injectSettings')) {
+            $view->injectSettings($this->settings);
+        }
+        $view->initializeView(); // In FLOW3, solved through Object Lifecycle methods, we need to call it explicitely
+        $view->assign('settings', $this->settings); // same with settings injection.
+        print_r(get_class($view).'<br>');
+        return $view;
+    }
+	
 }
 
 ?>
