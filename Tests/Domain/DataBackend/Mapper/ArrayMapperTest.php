@@ -48,10 +48,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
 	
 	public function setup() {
 		$this->arrayData = array(
-            array('t1.f1' => 'v1_1', 't1.f2' => 'v1_2', 't1.f3' => 'v1_3','t2.f1' => 'v1_4', 't2.f2' => 'v1_5'),
-            array('t1.f1' => 'v2_1', 't1.f2' => 'v2_2', 't1.f3' => 'v2_3','t2.f1' => 'v2_4', 't2.f2' => 'v2_5'),
-            array('t1.f1' => 'v3_1', 't1.f2' => 'v3_2', 't1.f3' => 'v3_3','t2.f1' => 'v3_4', 't2.f2' => 'v3_5'),
-            array('t1.f1' => 'v4_1', 't1.f2' => 'v4_2', 't1.f3' => 'v4_3','t2.f1' => 'v4_4', 't2.f2' => 'v4_5')
+            array('field1' => 'v1_1', 't1_f2' => 'v1_2', 't1_f3' => 'v1_3','field2' => 'v1_4', 't2_f2' => 'v1_5'),
+            array('field1' => 'v2_1', 't1_f2' => 'v2_2', 't1_f3' => 'v2_3','field2' => 'v2_4', 't2_f2' => 'v2_5'),
+            array('field1' => 'v3_1', 't1_f2' => 'v3_2', 't1_f3' => 'v3_3','field2' => 'v3_4', 't2_f2' => 'v3_5'),
+            array('field1' => 'v4_1', 't1_f2' => 'v4_2', 't1_f3' => 'v4_3','field2' => 'v4_4', 't2_f2' => 'v4_5')
         );
         
         $this->fieldSettings = array(
@@ -66,11 +66,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
         );
         
         $this->wrongFieldSettings = array(
-            'field1' => array( 
+            'fieldx' => array( 
                 'table' => 't5',
                 'field' => 'f1'
             ),
-            'field2' => array( 
+            'fieldy' => array( 
                 'table' => 't2',
                 'field' => 'f1'
             )
@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
 	public function testGetMappedListDataWithoutConfiguration() {
 		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
-		$this->assertEquals($mappedListData[0]['t1.f1']->getValue(), 'v1_1');
+		$this->assertEquals($mappedListData[0]['field1']->getValue(), 'v1_1');
 	}
 	
 	
@@ -115,8 +115,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
 		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->fieldSettings);
 		$arrayMapper->setMapperConfiguration($fieldConfigCollection);
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
-		$this->assertEquals($mappedListData[0]['field1']->getValue(), 'v1_1');
-		$this->assertEquals($mappedListData[3]['field2']->getValue(), 'v4_4');
+		$this->assertEquals($mappedListData[0][$fieldConfigCollection->getItemById('field1')->getIdentifier()]->getValue(), 'v1_1');
+		$this->assertEquals($mappedListData[3][$fieldConfigCollection->getItemById('field2')->getIdentifier()]->getValue(), 'v4_4');
 	}
 	
 	
@@ -134,12 +134,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
         	return;
         }
         $this->fail();
-	}
-	
-	
-	
-	public function testMappingOnNonDottedFieldnames() {
-		$this->markTestIncomplete('Not yet implemented!');
 	}
 	
 }
