@@ -74,10 +74,48 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
 	
 	
 	public function testErrorOnDbError() {
-		$this->markTestIncomplete();
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
+        $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
+        
+        $pdoMock = $this->getMock('TestPDO', array('prepare'));
+        $pdoMock->expects($this->once())
+            ->method('prepare')
+            ->will($this->returnValue(new Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_PDOErrorMock()));
+        
+        $mysqlDataSource->injectDbObject($pdoMock);
+        
+        try {
+            $result = $mysqlDataSource->executeQuery('SELECT * FROM test');
+        } catch(Exception $e) {
+        	return;        
+        }
+        $this->fail('No exception has been thrown on DB error!');
 	}
 	
 }
 
+
+
+/**
+ * Private class for mocking data source that throws an error
+ *
+ * @author Michael Knoll
+ * @package Typo3
+ * @subpackage pt_extlist
+ */
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_PDOErrorMock {
+	
+	public function execute() {
+		throw new Exception("STUB Exception");
+	}
+	
+	
+	
+	public function errorInfo() {
+		return '';
+	}
+	
+}
 
 ?>
