@@ -32,36 +32,27 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
-
-	/**
-	 * TODO insert comment!
-	 *
-	 * @var unknown_type
-	 */
-	protected $cObj;
-	
-	
 	
 	/**
-	 * TODO insert comment!
+	 * The Strategy for rendering cells.
 	 *
-	 * @var unknown_type
+	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
 	 */
 	protected $cellRenderer;
 	
 	
 	
 	/**
-	 * TODO insert comment!
+	 * The strategy for rendering captions.
 	 *
-	 * @var unknown_type
+	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface
 	 */
 	protected $captionRenderer;
 	
 	
 	
 	/**
-	 * TODO insert comment!
+	 * Constructor loads strategies.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $config
 	 */
@@ -71,18 +62,15 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy($config);
 		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy();
 		
-		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+	
 	}
 	
 	
 	
 	/**
-	 * TODO insert comment
-	 * 
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::render()
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_List $list) {
+	public function render(Tx_PtExtlist_Domain_Model_List_List &$list) {
 		if(!$this->rendererConfiguration->isEnabled()) return $list->getListData();
 		
 		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280315003'));
@@ -98,23 +86,22 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	
 	
 	/**
-	 * TODO insert comment!
-	 * 
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
 	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list) {
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List &$list) {
 		return $this->captionRenderer->renderCaptions($list);
 	}
 	
 	
 	
 	/**
-	 * TODO insert comment!
+	 * Renders  list data.
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $list
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData &$list
+	 * 
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	protected function renderList(Tx_PtExtlist_Domain_Model_List_ListData $list) {
+	protected function renderList(Tx_PtExtlist_Domain_Model_List_ListData &$list) {
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
 		// if defined in TS, use captions as the first row.
@@ -132,12 +119,12 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	
 	
 	/**
-	 * TODO insert comment
+	 * Renders a row
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
-	 * @return unknown
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
-	protected function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex=0) {
+	protected function renderRow(Tx_PtExtlist_Domain_Model_List_Row &$row, $rowIndex) {
 		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		$columnCollection = $this->rendererConfiguration->getColumnConfigCollection();
 	

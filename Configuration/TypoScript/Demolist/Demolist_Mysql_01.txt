@@ -11,13 +11,13 @@ plugin.tx_ptextlist.settings {
 
     listConfig.demolist_mysql_01 {
     
-    	backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
         backendConfig {
             
             dataSource {
-				username = typo3 
-				password = typo3
-				databaseName = pt_extlist_test     	
+				username = t3ry21ptldev 
+				password = upa8Shooyidom
+				databaseName = t3ry21ptldev     	
             }
             
             
@@ -77,10 +77,9 @@ plugin.tx_ptextlist.settings {
             	field = Population
             }
             
-            # TODO special string instead of table / field
-            #country_language {
-            # 	special = group_concat(Language SEPARATOR ', ')
-            #}
+            country_language {
+             	special = group_concat(Language SEPARATOR ', ')
+            }
             
         }
 
@@ -96,7 +95,7 @@ plugin.tx_ptextlist.settings {
             
             # Todo: allow multiple fields in one column
             20 {
-            	fieldIdentifier = country_name #, country_localname             
+            	fieldIdentifier = country_name     
             	columnIdentifier = colCountryName
             	label = Country Name
             }
@@ -127,6 +126,11 @@ plugin.tx_ptextlist.settings {
             #}
 	         
         }
+        
+        filters {
+	        filterbox1 {
+	        }
+	    }
         
         pager {
         	itemsPerPage = 30

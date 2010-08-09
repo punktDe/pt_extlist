@@ -89,6 +89,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	
 	
+	public function testGetSpecial() {
+		$fieldSettings = array(
+		    'special' => 'specialtestString',
+		);
+		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test', $fieldSettings);
+		$this->assertEquals($fieldConfig->getSpecial(), $fieldSettings['special']);
+	}
+	
+	
+	
 	public function testDefaultGetIsSortable() {
 		$newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', array('table' => '1', 'field' => '2'));
 		$this->assertEquals($newFieldConfig->getIsSortable(), true);
@@ -108,7 +118,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	public function testNoTableNameGivenException() {
 		try {
-			new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig(array('field' => '2'));
+			new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test', array('field' => '2'));
 		} catch(Exception $e) {
 			return;
 		}
@@ -119,13 +129,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
     public function testNoFieldNameGivenException() {
         try {
-            new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig(array('table' => '2'));
+            new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test',array('table' => '2'));
         } catch(Exception $e) {
             return;
         }
         $this->fail();
-    }
-	
-	
+    }	
 }
 ?>

@@ -37,8 +37,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy impl
 	
 	
 	public function __construct() {
-		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
-	
+		// $this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		$this->cObj = $GLOBALS['TSFE']->cObj;
 	}
 	
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list) {
