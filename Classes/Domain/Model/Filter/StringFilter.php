@@ -125,7 +125,6 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Template method for initializing filter by TS configuration
      */
     protected function initFilterByTsConfig() {
-    	$settings = $this->filterConfig->getSettings();
     	$this->filterValue = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
     	
     	if ($this->filterConfig->getFieldDescriptionIdentifier() == '') {

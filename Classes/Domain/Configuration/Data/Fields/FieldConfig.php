@@ -86,16 +86,21 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 		$this->identifier = $identifier;
 		$this->table = $fieldSettings['table'];
 		$this->field = $fieldSettings['field'];
-		$this->special = $fieldSettings['spercial'];
+		$this->setSpecial($fieldSettings['spercial']);
 		
 		if (array_key_exists('isSortable', $fieldSettings)) {
 			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
 		}
 		
 		if (array_key_exists('access', $fieldSettings)) {
-			$this->access = explode(',', $fieldSettings['access']);
+			$this->access = t3lib_div::trimExplode(',', $fieldSettings['access']);
 		}
 	}
+	
+	protected function setSpecial($special) {
+		$this->special = trim($special);
+	}
+	
 	
 	
 	public function getIdentifier() {
