@@ -33,13 +33,13 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	
-
 	/**
 	 * Holds an array of settings for pager
 	 *
 	 * @var array
 	 */
 	protected $settings = array();
+	
 	
 	
 	/**

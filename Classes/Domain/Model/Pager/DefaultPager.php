@@ -25,8 +25,6 @@
 
 /**
  * Class implements default pager for pt_extlist
- * 
- * TODO refactor this class to use pager config!!!
  *
  * @package Typo3
  * @subpackage pt_extlist

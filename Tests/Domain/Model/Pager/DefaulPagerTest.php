@@ -33,6 +33,11 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	/**
+	 * Holds an instance of pager object
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+	 */
 	protected $pager;
 	
 	
@@ -169,6 +174,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     
     
     
+    /**
+     * Returns a pager configuration object for a given settings array
+     *
+     * @param array $pagerConfigurationArray
+     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+     */
     protected function getPagerConfigurationByArray($pagerConfigurationArray) {
     	$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getPagerSettings', 'getListIdentifier'), array(array()), '', FALSE);
     	$configurationBuilderMock->expects($this->any())
@@ -184,6 +195,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     
     
     
+    /**
+     * Returns an array with settings required by pager configuration
+     *
+     * @return array
+     */
     protected function getPagerBaseSettings() {
     	return array('pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
     }
