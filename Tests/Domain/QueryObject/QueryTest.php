@@ -64,6 +64,24 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_Query_testcase extends Tx_PtExtlist_
     
     
     
+    public function testAddGroupBy() {
+    	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$this->assertTrue(method_exists($query, 'addGroupBy'));
+    }
+    
+    
+	public function testGetGroupBy() {
+    	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+    	$query->addGroupBy('test1');
+    	$query->addGroupBy('test2');
+    	$this->assertTrue(method_exists($query, 'getGroupBy'));
+    	$groupByfields = $query->getGroupBy();
+    	$this->assertTrue(in_array('test1', $groupByfields));
+    	$this->assertTrue(in_array('test2', $groupByfields));
+    }
+    
+    
+    
     public function testGetField() {
     	$query = new Tx_PtExtlist_Domain_QueryObject_Query();
     	$query->addField('test');
