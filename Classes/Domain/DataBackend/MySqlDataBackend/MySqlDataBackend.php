@@ -385,6 +385,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     	$sqlQueryString .= ' FROM ' . $this->buildFromPart();
     	$sqlQueryString .= count($groupDataQuery->getFrom()) > 0 ? ', ' . $this->queryInterpreter->getFromPart($groupDataQuery) : '';
     	$sqlQueryString .= $filterWherePart != '' ? ' WHERE ' . $filterWherePart : '';  
+    	$sqlQueryString .= count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
 
     	// TODO add group by
         $groupDataArray = $this->dataSource->executeQuery($sqlQueryString);

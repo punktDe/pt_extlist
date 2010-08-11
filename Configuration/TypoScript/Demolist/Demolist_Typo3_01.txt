@@ -192,6 +192,7 @@ plugin.tx_ptextlist.settings {
 	                  displayFields = static_currencies.cu_name_en
 	                  filterField = static_currencies.cu_iso_nr
 	                  multiple = 1
+	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
 	              }
 	         }

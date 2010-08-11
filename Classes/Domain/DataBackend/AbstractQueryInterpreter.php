@@ -62,6 +62,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
     
     
     
+     /**
+     * Returns translated group by
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     */
+    abstract static public function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    
+    
+    
     /**
      * Translates whole query with all keywords etc.
      *

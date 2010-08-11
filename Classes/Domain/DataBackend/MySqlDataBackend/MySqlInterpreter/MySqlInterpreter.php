@@ -147,6 +147,18 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 		return $fromString;
 	}
 	
+
+	/**
+	 * Returns translated group by fields with out the 'GROUP BY'
+	 * 
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 * @return string group by part
+	 */
+	public static function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+		$groupByString = implode(', ', $query->getGroupBy());
+		return $groupByString;
+	}
+	
 	
 	
 	/**

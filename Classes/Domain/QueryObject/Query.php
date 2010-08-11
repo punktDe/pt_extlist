@@ -52,6 +52,15 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	
 	
 	/**
+	 * 
+	 * Holds an array of fields to group by
+	 * @var array
+	 */
+	protected $groupByFields = array();
+	
+	
+	
+	/**
 	 * Holds limit of query, encoded as <offset>:<count>
 	 *
 	 * @var string
@@ -83,6 +92,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
      */
 	const SORTINGSTATE_NONE = 0;
 
+	
 	/**
      * @var integer
      */
@@ -152,6 +162,17 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	
 	
 	/**
+	 * Add group by clause
+	 * 
+	 * @param string $groupBy
+	 */
+	public function addGroupBy($groupBy) {
+		$this->groupByFields[] = $groupBy;
+	}
+	
+	
+	
+	/**
 	 * Returns all criterias from this query
 	 *
 	 * @return array<Tx_PtExtlist_Domain_QueryObject_Criteria>
@@ -178,6 +199,11 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 		else {
 		    throw new Exception('Format of limit ' . $limit . ' does not fit (d) or (d:d)!');
 		}
+	}
+	
+	
+	public function getGroupBy() {
+		return $this->groupByFields;
 	}
 	
 	
