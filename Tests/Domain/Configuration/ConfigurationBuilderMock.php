@@ -151,14 +151,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                             '10' => array(
 	                                'filterIdentifier' => 'filter1',
 	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'fieldIdentifier' => 'field1',
 	                                'partialPath' => 'Filter/StringFilter',
 	                                'defaultValue' => 'default',
 	                             ),
 	                             '20' => array(
 	                                'filterIdentifier' => 'filter2',
 	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'fieldIdentifier' => 'field1',
                                     'partialPath' => 'Filter/StringFilter'
 	                             )
 	                         )

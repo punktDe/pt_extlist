@@ -69,11 +69,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
     
     protected function getConfigForFirstDbe() {
     	return array(
-                'listIdentifier' => 'test1',
+                'listIdentifier' => 'testBackend1',
                 'abc' => '1',
     		  	'prototype' => array(),
                 'listConfig' => array(
-                     'test1' => array(
+                     'testBackend1' => array(
     				 'backendConfig' => array (
 								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
 								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
@@ -115,13 +115,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                                  '10' => array(
                                     'filterIdentifier' => 'filter1',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'fieldIdentifier' => 'field1',
                                     'partialPath' => 'partialPath'
                                  ),
                                  '20' => array(
                                     'filterIdentifier' => 'filter2',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field2',
+                                    'fieldIdentifier' => 'field2',
                                     'partialPath' => 'partialPath'
                                  )
                              )
@@ -139,11 +139,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
     
     protected function getConfigForSecondDbe() {
     	return array(
-                'listIdentifier' => 'test2',
+                'listIdentifier' => 'testBackend2',
                 'abc' => '1',
     			'prototype' => array(),
                 'listConfig' => array(
-                     'test2' => array(
+                     'testBackend2' => array(
     				'backendConfig' => array (
 								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
 								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
@@ -185,13 +185,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                                  '10' => array(
                                     'filterIdentifier' => 'filter1',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'fieldIdentifier' => 'field1',
                                     'partialPath' => 'partialPath'
                                  ),
                                  '20' => array(
                                     'filterIdentifier' => 'filter2',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldDescriptionIdentifier' => 'field2',
+                                    'fieldIdentifier' => 'field1',
                                     'partialPath' => 'partialPath'
                                  )
                              )

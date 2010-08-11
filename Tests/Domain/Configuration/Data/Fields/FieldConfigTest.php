@@ -82,6 +82,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	}
 	
 	
+	public function testGetTableFieldCombined() {
+		$this->assertEquals($this->fieldConfig->getTableFieldCombined(), $this->fieldSettings['table'] . '.' . $this->fieldSettings['field']);
+	}
+	
 	
 	public function testGetIsSortable() {
 		$this->assertEquals($this->fieldConfig->getIsSortable(), ($this->fieldSettings['isSortable'] == 1 ? true : false));

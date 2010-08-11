@@ -83,6 +83,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 			        		10 => array (
 			        			'testkey' => 'testvalue',
 			        			'filterIdentifier' => 'filter1',
+			        			'fieldIdentifier' => 'fiedl1',
 			        			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
 								'partialPath' => 'Filter/StringFilter',
 			        		)   
@@ -176,6 +177,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$this->assertEquals($configurationBuilder->getFilterSettings(), $this->settings['listConfig']['test']['filters']);
 	}
 	
+	
+	
 	public function testGetPrototypeSettingsForObject() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		
@@ -187,6 +190,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$this->assertTrue(is_array($prototypeSettings), 'The return value must be an array');
 	}
 	
+	
+	
 	public function testGetMergedSettingsWithPrototype() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		
@@ -196,5 +201,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$this->assertEquals($this->settings['prototype']['pager']['default']['pagerProperty'], $settings['pagerProperty']);
 	}
 	
+	
+	public function testGetInstanceByListIdentifier() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+		$this->assertTrue(is_a(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstanceByListIdentifier('test'), 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'));
+	}
+	
+	
+	public function testGetInstanceByListIdentifierException() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+		try {
+			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstanceByListIdentifier('test2');
+		} catch(Exception $e) {
+			return;
+		} 
+		
+		$this->fail('No Exception was thrown if no Configuration was found by given listIdentifier');
+	}
 }
 ?>

@@ -52,6 +52,39 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
         }        
 	}
 	
+	
+	
+	/**
+	 * Returns an array expected by f:form.select viewhelper:
+	 * 
+	 * array(<keyForReturnAsSelectedValue> => <valueToBeShownAsSelectValue>)
+	 *
+	 * @param array $groupData 
+	 * @return array
+	 */
+	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
+	   $renderedOptions = array();
+
+	   foreach($groupData as $option) {
+            // TODO Add render-option to TS config for this stuff here
+            $key = '';
+            list($filterTable, $filterField) = explode('.', $this->filterField);
+            $key .= $option[$filterField];
+            $value = '';
+            foreach($this->displayFields as $displayField) {
+                list($displayTable, $displayField) = explode('.', trim($displayField));
+                $value .= $option[$displayField];
+            }
+            
+            if($this->showRowCount) {
+            	$value .= ' (' . $option['rowCount'] . ')';
+            }        	    
+ 
+            $renderedOptions[$key] = $value;
+        }
+        
+        return $renderedOptions;
+	}
 
 	
 	/**

@@ -49,9 +49,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     	$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 
     	if($this->isActive) {
-    		// TODO put this into abstract class and make $this->fieldDescriptionIdentifier an object of this type
-    		$fieldDescriptionIdentifier = $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($this->fieldDescriptionIdentifier);
-	    	$columnName = $fieldDescriptionIdentifier->getTable() . '.' . $fieldDescriptionIdentifier->getField();
+	    	$columnName = $this->fieldIdentifier->getTableFieldCombined();
 	    	
 	    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($columnName, $this->filterValue, 'LIKE');
 	    	$this->filterQuery->addCriteria($criteria);	

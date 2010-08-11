@@ -58,5 +58,22 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
         return self::$instances[$settings['listIdentifier']];
 	}
 	
+	
+	
+	/**
+	 * Return an alread built Configurationbuilder obejct by listidentifier
+	 * 
+	 * @param string $listIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 * @throws Exception
+	 */
+	public static function getInstanceByListIdentifier($listIdentifier) {
+		if(is_a(self::$instances[$listIdentifier], 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')) {
+			return self::$instances[$listIdentifier];
+		} else {
+			throw new Exception('No configurationbuilder Object found by listIdentifier ' . $listIdentifier . '! 1281541740');
+		}
+	}
+	
 }
 ?>

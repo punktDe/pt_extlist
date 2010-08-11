@@ -419,5 +419,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->sessionFilterData = $sessionData;
 	}
 	
+	
+	protected function resolveFieldIdentifier($fieldIdentifier) {	
+		return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
+	}
+	
 }
 ?>

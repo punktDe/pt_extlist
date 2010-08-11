@@ -83,7 +83,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		
 		
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
-		
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
 		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
@@ -99,7 +98,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting has to be descending here');
 		
 		// test with forced direction
-		print_r($columnsConfiguration);
 		$headerColumn->injectColumnConfig($columnsConfiguration[30]);
 		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
 		$headerColumn->init();

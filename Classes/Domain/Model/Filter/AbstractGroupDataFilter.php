@@ -60,9 +60,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	/**
 	 * Holds identifier of field that should be filtered
 	 *
-	 * @var string
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 */
-	protected $fieldDescriptionIdentifier;
+	protected $fieldIdentifier;
 	
 	   
 	
@@ -126,10 +126,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 *
 	 */
 	protected function createFilterQuery() {
+		
+		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		
 		if (count($this->filterValues) == 1 && $this->filterValues[0] != '') {
-			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($this->fieldDescriptionIdentifier, $this->filterValues[0]));
+			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, $this->filterValues[0]));
 		} elseif (count($this->filterValues) > 1) {
-			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($this->fieldDescriptionIdentifier, $this->filterValues));
+			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $this->filterValues));
 		} else {
 			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
@@ -166,12 +169,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 */
 	protected function initFilterByTsConfig() {
 		$filterSettings = $this->filterConfig->getSettings();
-	    
-		if ($this->filterConfig->getFieldDescriptionIdentifier() == '') {
-    	    throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier . ' 1281019496');
-    	}
 		
-        $this->fieldDescriptionIdentifier = $this->filterConfig->getFieldDescriptionIdentifier();
+        $this->fieldIdentifier = $this->resolveFieldIdentifier($this->filterConfig->getFieldIdentifier());
         
         tx_pttools_assert::isNotEmptyString($filterSettings['filterField'], array('message' => 'No filter field for filter '.$this->filterIdentifier .' specified! 1281365131'));
         $this->filterField = trim($filterSettings['filterField']);
@@ -237,8 +236,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         $groupDataQuery->addField($selectString);
 
         if($this->showRowCount) {
-        	$groupDataQuery->addField('count(*) as rowCount');
-			$groupDataQuery->addGroupBy($this->filterField);
+        	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField));
+			$groupDataQuery->addGroupBy($this->filterField); 
         }
         
         $excludeFiltersArray = $this->buildExcludeFiltersArray();
@@ -285,35 +284,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         	throw new Exception('wrong configuration of option source field for filter ' . $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . ' 1281090352');
         }
 	}
-	
-	
-	
-	/**
-	 * Returns an array expected by f:form.select viewhelper:
-	 * 
-	 * array(<keyForReturnAsSelectedValue> => <valueToBeShownAsSelectValue>)
-	 *
-	 * @param array $groupData 
-	 * @return array
-	 */
-	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
-	   $renderedOptions = array();
-	   foreach($groupData as $option) {
-            // TODO Add render-option to TS config for this stuff here
-            $key = '';
-            list($filterTable, $filterField) = explode('.', $this->filterField);
-            $key .= $option[$filterField];
-
-            $value = '';
-            foreach($this->displayFields as $displayField) {
-                list($displayTable, $displayField) = explode('.', trim($displayField));
-                $value .= $option[$displayField];
-            }
-            $renderedOptions[$key] = $value;
-        }
-        return $renderedOptions;
-	}
-	
 	
 	
 	/**

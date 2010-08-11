@@ -5,6 +5,13 @@ plugin.tx_ptextlist.settings {
     listConfig.tsTestList {
     	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
     	
+    	fields {
+    		test {
+    			table = x
+    			field = y
+    		}		
+    	}
+    	
     	columns {
             10 {
             	columnIdentifier = test
@@ -12,15 +19,18 @@ plugin.tx_ptextlist.settings {
             }
         }
         
+        
         filters {
 	        filterbox1 {
 	              10 < plugin.tx_ptextlist.prototype.filter.string
 	              10 {
 	              	filterIdentifier = test
+	              	fieldIdentifier = test
 	              }
 	              20 < plugin.tx_ptextlist.prototype.filter.select
 	              20 {
 	              	filterIdentifier = test2
+	              	fieldIdentifier = test
 	              } 
 	         }
         }  

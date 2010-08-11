@@ -33,17 +33,21 @@ plugin.tx_ptextlist.settings {
             
             
             tables (
-                static_countries
+                static_countries,
+				static_territories st_continent,
+				static_territories st_subcontinent
             )
             
             
             baseFromClause (
-            	static_countries 
-            	inner join static_currencies on static_countries.cn_iso_nr = static_currencies.cu_iso_nr 
+            	static_countries
+				LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+				LEFT JOIN static_territories AS	st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
             )
             
             baseWhereClause (
-            	
+            	st_continent.tr_name_en <> '' 
+				AND st_subcontinent.tr_name_en <> ''
             ) 
             
         }
@@ -52,121 +56,145 @@ plugin.tx_ptextlist.settings {
         
         fields {
             
-            name_local {
-                table = static_countries
-                field = cn_short_local
-            }
-            
-            name_official {
-            	table = static_countries
-            	field = cn_official_name_en
-            }
-            
-            name_english {
-                table = static_countries
-                field = cn_short_en
-            }
-            
-            cu_name_english {
-            	table = static_currencies
-            	field = cu_name_en
-            }
-            
-            uno_member {
+	        name_local {
 				table = static_countries
-				field = cn_uno_member
+				field = cn_short_local
+				isSortable = 1
 			}
-			
+	
+			name_en {
+				field = cn_short_en
+				table = static_countries
+			}
+	
+			uno_member {
+				field = cn_uno_member
+				table = static_countries
+			}
+	
+			capital {
+				table = static_countries
+				field = cn_capital
+			}
+	
 			iso2 {
 				table = static_countries
 				field = cn_iso_2
+				isSortable = 0
 			}
-            
+	
+			phone {
+				table = static_countries
+				field = cn_phone
+			}
+	
+			isoNo {
+				table = static_countries
+				field = cn_currency_iso_nr
+			}
+	
+			continent {
+				table = st_continent
+				field = tr_name_en
+			}
+	
+			subcontinent {
+				table = st_subcontinent
+				field = tr_name_en
+			}
+	
+			countryuid {
+				table = static_countries
+				field = uid
+			}
+	            
         }
 
 
         
         columns {
-            10 {
-            	isSortable = 0
-            	
-            	label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:column_name_local
-            	
-                columnIdentifier = renderedCol1
-                fieldIdentifier = name_local
-                
-                
-                renderObj = COA
+	           10 {
+				# choose a columnIdentifier
+				columnIdentifier = nameColumn
+	
+				# This label will be displayed in the item list (use lll here)
+				label = LLL:EXT:pt_list/typoscript/static/demolist/locallang.xml:column_nameColumn
+	
+				# Set the dataDescriptions this columns refers to
+				# the dataDescriptionIdentifier is a single reference to a dataDescription if type is default
+				# or a csl list of referencs if type is "virtual"
+				fieldIdentifier = name_local, name_en, countryuid, uno_member
+	
+				# a column is sortable if "isSortable" is set to 1 _and_
+				# all sortingColumns entries this column refers to are sortable too
+				isSortable = 1
+	
+				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
+				# if not set, the first entry in dataDescriptionIdentifier will be used
+				sortingDataDescription = name_local
+	
+				renderObj = COA
 				renderObj {
 					5 = IMAGE
 					5.if {
 						value.data = field:uno_member
 						equals = 1
 					}
-					5.file = EXT:pt_extlist/Resources/Public/List/un.gif
+					5.file = EXT:pt_list/typoscript/static/demolist/un.gif
 					5.stdWrap.typolink.parameter = http://www.un.org
 					5.stdWrap.typolink.ATagParams = class="un-link"
-				
+	
 					10 = TEXT
-					10.data = field:name_english
+					10.data = field:name_en
 					10.append = TEXT
 					10.append {
 						data = field:name_local
 						if {
 							value.data = field:name_local
-							equals.data = field:name_english
+							equals.data = field:name_en
 							negate = 1
 						}
 					}
 					10.append.noTrimWrap = | (|)|
-					#10.wrap3 = |&nbsp;
-					
-					
+					10.wrap3 = |&nbsp;
+	
+					20 = TEXT
+					20.value = Details
+					20.typolink.parameter = 1
+					20.typolink.additionalParams.dataWrap = &tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
 	 			}
-	 			
-	 			specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processGrey
-            }
-            
-            
-            20 {
-            	isSortable = 1
-            	sorting = cn_short_en ASC
-            
-            	label = COA
-            	label {
-            		10 = TEXT
-            		10.value = bla
-            	}
-            
-                columnIdentifier = renderedCol2
-                fieldIdentifier = name_english
-            }
-            
-            30 {
-            	isSortable = 1
-            	sorting = cn_official_name_en ASC
-            
-                columnIdentifier = official_name
-                fieldIdentifier = name_official
-                label = Official Name
-            }
-            
-             40 {
-            	isSortable = 1
-           
-                columnIdentifier = cuname_english
-                fieldIdentifier = cu_name_english
-                label = Currency Name
-            }
-            
-            50 {
-				label = ISO
+	
+			}
+	
+			11 {
+				label = Capital
+				columnIdentifier = capital
+				fieldIdentifier = capital
+			}
+	
+			20 {
+				label = LLL:EXT:pt_list/typoscript/static/demolist/locallang.xml:column_isoNoColumn
 				columnIdentifier = isoNoColumn
 				fieldIdentifier = iso2
-				
-				renderUserFunctions {
-					10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptlist_demolist_renderer.php:tx_ptlist_demolist_renderer->iso2CodeRenderer
-				}
+				isSortable = 1
+			}
+			30 {
+				label = Phone
+				columnIdentifier = phoneColumn
+				# default columns can only operate on _one_ dataDescription
+				fieldIdentifier = phone
+			}
+	
+			40 {
+				label = Continent
+				columnIdentifier = continent
+				fieldIdentifier = continent
+			}
+	
+			50 {
+				label = Subcontinent
+				columnIdentifier = subcontinent
+				fieldIdentifier = subcontinent
 			}
         }
         
@@ -180,17 +208,15 @@ plugin.tx_ptextlist.settings {
 	              10 {
 	                  filterIdentifier = filter1
 	                  label = Stringfilter 1
-	                  defaultValue = DefaultString
-	                  fieldDescriptionIdentifier = name_english
+	                  fieldIdentifier = name_local
 	              }
 	              
 	              20 < plugin.tx_ptextlist.prototype.filter.select 
 	              20 {
 	                  filterIdentifier = filter2
 	                  label = GroupFilter 1
-	                  fieldDescriptionIdentifier = cn_currency_iso_nr
-	                  displayFields = static_currencies.cu_name_en
-	                  filterField = static_currencies.cu_iso_nr
+	                  fieldIdentifier = continent
+	                  filterField = st_continent.tr_name_en 
 	                  multiple = 1
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1

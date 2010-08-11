@@ -44,9 +44,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     /**
      * Identifier of field on which this filter is operating (database field to be filtered)
      *
-     * @var string
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
      */
-    protected $fieldDescriptionIdentifier;
+    protected $fieldIdentifier;
     
     
     
@@ -66,8 +66,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      *
      * @return string Field description Identifier
      */
-    public function getFieldDescriptionIdentifier() {
-        return $this->fieldDescriptionIdentifier;
+    public function getFieldIdentifier() {
+        return $this->fieldIdentifier;
     }
     
     
@@ -152,10 +152,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     protected function initFilterByTsConfig() {
         $this->filterValue = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
         
-        if ($this->filterConfig->getFieldDescriptionIdentifier() == '') {
-            throw new Exception('No fieldDescriptionIdentifier set in TS config for filter ' . $this->getFilterIdentifier() . ' 1280762513');
-        }
-        $this->fieldDescriptionIdentifier = $this->filterConfig->getFieldDescriptionIdentifier();
+        $this->fieldIdentifier = $this->resolveFieldIdentifier($this->filterConfig->getFieldIdentifier());
     }
 	
 }

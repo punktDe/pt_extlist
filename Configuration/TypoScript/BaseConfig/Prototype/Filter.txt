@@ -21,7 +21,7 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 		filterIdentifier =
 		label = 
-		fieldDescriptionIdentifier =
+		fieldIdentifier =
 		displayFields = 
 		filterField = 
 		multiple = 0

@@ -120,6 +120,10 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	}
 	
 	
+	public function getTableFieldCombined() {
+		return $this->table . '.' . $this->field;
+	}
+	
 	
 	public function getIsSortable() {
 		return $this->isSortable;

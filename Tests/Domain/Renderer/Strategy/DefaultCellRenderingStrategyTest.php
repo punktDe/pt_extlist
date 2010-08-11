@@ -34,8 +34,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		$settings = $this->configurationBuilderMock->getSettings();
 		
 		$settings['prototype'] = array();
-		$settings['listIdentifier'] = 'test';
-		$settings['listConfig']['test']['columns'][40] = array( 
+		$settings['listIdentifier'] = 'testCellRenderer';
+		$settings['listConfig']['testCellRenderer']['columns'][40] = array( 
                             'columnIdentifier' => 'column4',
                             'fieldIdentifier' => 'field3',
                             'label' => 'Column 3',  
@@ -47,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 								)	
 							)
 	                    );
-	    $settings['listConfig']['test']['columns'][50] = array( 
+	    $settings['listConfig']['testCellRenderer']['columns'][50] = array( 
                             'columnIdentifier' => 'column5',
                             'fieldIdentifier' => 'field5',
                             'label' => 'Column 5',  

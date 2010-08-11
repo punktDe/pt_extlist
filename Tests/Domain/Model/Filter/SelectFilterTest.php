@@ -53,7 +53,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
                'filterIdentifier' => 'test', 
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                'partialPath' => 'Filter/SelectFilter',
-               'fieldDescriptionIdentifier' => 'test',
+               'fieldIdentifier' => 'field1',
                'filterField' => 'test.test',
                'displayFields' => 'test.test',
                'excludeFilters' => 'filterbox1.filter1',
@@ -61,6 +61,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
         ));
         $selectFilter->injectFilterConfig($filterConfiguration);
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
+        
+        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
+    	$selectFilter->injectDataBackend($dataBackendMock);
+        
         $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
         $selectFilter->init();
         $this->assertEquals($selectFilter->getMultiple(), 1);

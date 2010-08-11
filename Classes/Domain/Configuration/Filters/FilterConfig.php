@@ -48,8 +48,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 * @var string
 	 */
 	protected $filterboxIdentifier;
+
 	
-	
+
 	
 	/**
 	 * Name of class implementing this filter
@@ -87,11 +88,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
-	 * Identifier of fieldDescription to which this filter belongs to
+	 * Identifier of field to which this filter belongs to
 	 * // TODO ry21 could be the actual fieldDescription object instead of its name?
 	 * @var string
 	 */
-	protected $fieldDescriptionIdentifier;
+	protected $fieldIdentifier;
 	
 	
 	
@@ -200,7 +201,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 * @param array $filterSettings    Settings for filter
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings) {
-        $this->listIdentifier = $configurationBuilder->getListIdentifier();
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
         tx_pttools_assert::isNotEmptyString($filterboxIdentifier,array('message' => 'Filterbox identifier must not be empty. 1277889652'));
         $this->filterboxIdentifier = $filterboxIdentifier;
 		$this->setPropertiesFromSettings($filterSettings);
@@ -214,15 +215,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 * @param array $filterSettings
 	 */
 	protected function setPropertiesFromSettings(array $filterSettings) {
-		
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
         $this->filterIdentifier = $filterSettings['filterIdentifier'];
         
         tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified in config. 1277889552'));
         $this->filterClassName = $filterSettings['filterClassName'];
         
-        $this->fieldDescriptionIdentifier = array_key_exists('fieldDescriptionIdentifier', $filterSettings) ? $filterSettings['fieldDescriptionIdentifier'] : '';
-        
+        tx_pttools_assert::isNotEmptyString($filterSettings['fieldIdentifier'], array('message' => 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513'));
+		$this->fieldIdentifier =  $filterSettings['fieldIdentifier'];
+               
         tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for this filter (TS key parialPath). 1281013746'));
         $this->partialPath = $filterSettings['partialPath'];
         
@@ -232,7 +233,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 		// TODO check which values need to be set here and add assertions!
         $this->settings = $filterSettings;
 	}
-	
+
 	
 	
 	/**
@@ -299,8 +300,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
     /**
      * @return unknown
      */
-    public function getFieldDescriptionIdentifier() {
-        return $this->fieldDescriptionIdentifier;
+    public function getFieldIdentifier() {
+        return $this->fieldIdentifier;
     }
     
     
