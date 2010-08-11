@@ -236,13 +236,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         
         $groupDataQuery->addField($selectString);
 
+        if($this->showRowCount) {
+        	$groupDataQuery->addField('count(*) as rowCount');
+			$groupDataQuery->addGroupBy($this->filterField);
+        }
+        
         $excludeFiltersArray = $this->buildExcludeFiltersArray();
         
         $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
         return $options;
 	}
-	
-	
+
 	
 	/**
 	 * Returns an array of <table>.<field> strings required by filter

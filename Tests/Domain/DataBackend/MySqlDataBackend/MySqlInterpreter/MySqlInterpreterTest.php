@@ -56,6 +56,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		// where
 		$this->queryObject->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals('name', 'Michael'));
 		
+		// group by
+		$this->queryObject->addGroupBy('name');
+		$this->queryObject->addGroupBy('company');
+		
 		// limit
 		$this->queryObject->setLimit('10:10');
 		
@@ -75,6 +79,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	public function testGetLimit() {
 		$this->assertTrue(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getLimit($this->queryObject) == '10:10');
+	}
+	
+	
+	
+	public function testGroupByClause() {
+		$this->assertTrue(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getGroupBy($this->queryObject) == 'name, company');
 	}
 	
 	
