@@ -33,24 +33,36 @@
 class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController {
 	
 	/**
+	 * Holds an instance of list renderer
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererInterface
+	 */
+	protected $renderer;
+	
+	
+	
+	/**
+	 * Initializes controller
+	 */
+	public function initializeAction() {
+		parent::initializeAction();
+		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
+                    $this->configurationBuilder->buildRendererConfiguration());
+	}
+	
+	
+	
+	/**
 	 * List action rendering list
 	 *
 	 * @return string  Rendered list for given list identifier
 	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function listAction() {
-			
-		$listFactory = new Tx_PtExtlist_Domain_Model_List_ListFactory($this->configurationBuilder);
-		
-		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
-					$this->configurationBuilder->buildRendererConfiguration());
-		
-		$list = $listFactory->createList();
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 
-		$renderedListData = $renderer->render($list);
-		$renderedCaptions = $renderer->renderCaptions($list);
-		
-		$columnConfig = $list->getColumnConfig();
+		$renderedListData = $this->renderer->render($list);
+		$renderedCaptions = $this->renderer->renderCaptions($list);
 		
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);

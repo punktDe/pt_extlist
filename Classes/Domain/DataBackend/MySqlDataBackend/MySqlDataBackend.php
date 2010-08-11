@@ -214,6 +214,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	}
 	
 	
+	
 	/**
 	 * Returns base group by clause from TS config
 	 * @return $string
@@ -221,6 +222,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function getBaseGroupByClause() {
 		return trim($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
 	}
+	
+	
 	
 	/**
 	 * Returns where clauses from all filterboxes of a given collection of filterboxes except filters defined in exclude filters
@@ -344,6 +347,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	}
 	
 	
+	
 	/**
 	 * Returns number of records for current settings without pager
 	 * 
@@ -360,8 +364,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		
 		return $count;
 	}
-	
-	
 	
 	
 	
