@@ -31,7 +31,7 @@
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter  {
-	
+		
     /**
 	 * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getCriterias()
 	 *
@@ -68,6 +68,29 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 */
 	static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+		
+	}
+	
+	
+	
+	/**
+	 * Translates a query into an extbase query
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 * @param Tx_Extbase_Persistence_Repository $repository
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	static function interpretQueryByRepository(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Repository $repository) {
+		$extbaseQuery = $repository->createQuery();
+		foreach($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+			if ($criteria->getOperator() == 'LIKE') {
+				// TODO fix this!
+				list ($foo, $field) = explode('.', $criteria->getField());
+				$extbaseQuery->matching($extbaseQuery->like($field, $criteria->getValue()));
+			}
+		}
+		
+		return $extbaseQuery;
 	}
 	
 	

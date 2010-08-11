@@ -10,6 +10,7 @@
 
 config.tx_extbase {
     persistence{
+        
         enableAutomaticCacheClearing = 1
         updateReferenceIndex = 0
         classes {
@@ -35,6 +36,7 @@ config.tx_extbase {
     }
 }
 
+plugin.tx_ptextlist.persistence.storagePid = 14
 
 plugin.tx_ptextlist.settings {
 
@@ -94,7 +96,20 @@ plugin.tx_ptextlist.settings {
         }
         
         filters {
-
+            
+            filterbox1 {
+            
+                10 < plugin.tx_ptextlist.prototype.filter.string
+                10 {
+                
+                    filterIdentifier = filter1
+                    label = Gruppentitel
+                    fieldIdentifier = title
+                
+                }
+            
+            }
+            
         }
         
         pager {

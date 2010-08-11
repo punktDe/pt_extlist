@@ -35,7 +35,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter'));
     }
-	
+
+    
+    
+    public function testInterpretQueryByRepository() {
+    	$this->markTestIncomplete();
+    }
+    
 }
 
 ?>

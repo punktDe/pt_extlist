@@ -72,12 +72,34 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	
 	
 	/**
+	 * Injects a query interpreter
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
+	 */
+	public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
+		tx_pttools_assert::isTrue(get_class($queryInterpreter) == 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter');
+		parent::injectQueryInterpreter($queryInterpreter); 
+	}
+	
+	
+	
+	/**
 	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
 	 *
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
-		$data = $this->repository->findAll();
+		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+		foreach($this->filterboxCollection as $filterbox) {
+			foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+				$criterias = $filter->getFilterQuery()->getCriterias();
+				foreach($criterias as $criteria) {
+                    $query->addCriteria($criteria);
+				}
+			}
+		}
+		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		$data = $extbaseQuery->execute();
 		$mappedListData = $this->dataMapper->getMappedListData($data);
 		return $mappedListData;
 	}
