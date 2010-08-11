@@ -25,6 +25,8 @@
 
 /**
  * Class implements default pager for pt_extlist
+ * 
+ * TODO refactor this class to use pager config!!!
  *
  * @package Typo3
  * @subpackage pt_extlist
@@ -70,8 +72,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @var int
 	 */
 	protected $totalItemCount;
-
 		
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getCurrentPage()

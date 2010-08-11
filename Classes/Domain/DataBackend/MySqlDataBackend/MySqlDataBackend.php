@@ -339,10 +339,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildLimitPart() {
 		$limitPart = '';
-		$pagerOffset = intval($this->pager->getCurrentPage() - 1) * intval($this->pager->getItemsPerPage());
-		$pagerLimit = intval($this->pager->getItemsPerPage());
-		$limitPart .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
-		$limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
+		if ($this->pager->isEnabled()) {
+			$pagerOffset = intval($this->pager->getCurrentPage() - 1) * intval($this->pager->getItemsPerPage());
+			$pagerLimit = intval($this->pager->getItemsPerPage());
+			$limitPart .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
+			$limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
+		}
 		return $limitPart;
 	}
 	

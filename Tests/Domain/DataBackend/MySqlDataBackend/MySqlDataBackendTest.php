@@ -185,6 +185,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $pagerMock->expects($this->any())
             ->method('getItemsPerPage')
             ->will($this->returnValue(10));
+        $pagerMock->expects($this->once())
+            ->method('isEnabled')
+            ->will($this->returnValue(true));
         
         $dataBackend->injectPager($pagerMock);
             
