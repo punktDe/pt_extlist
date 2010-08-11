@@ -33,11 +33,21 @@
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
 	/**
+	 * Holds a repository for creating domain objects
+	 *
+	 * @var Tx_Extbase_Persistence_Repository
+	 */
+	protected $repository;
+	
+	
+	
+	/**
 	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::createDataSource()
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		
 	}
 	
 	
@@ -48,6 +58,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend impl
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	public function getFieldConfigurationCollection() {
+		
 	}
 	
 	
@@ -115,11 +126,13 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend impl
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::injectDataSource()
+	 * Injector for data source. Expects Tx_Extbase_Persistence_Repository to be given as datasource
 	 *
 	 * @param mixed $dataSource
 	 */
 	public function injectDataSource($dataSource) {
+		tx_pttools_assert::isInstanceOf($dataSource, 'Tx_Extbase_Persistence_Repository', array('message' => 'Given data source must implement Tx_Extbase_Persistence_Repository but did not! 1281545172'));
+		$this->repository = $dataSource;
 	}
 	
 	

@@ -35,6 +35,27 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend'));
     }
+    
+    
+    
+    public function testInjectDataSource() {
+    	$dataSourceMock = $this->getMock('Tx_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array(), '', FALSE);
+    	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend();
+    	$extBaseDataBackend->injectDataSource($dataSourceMock);
+    }
+    
+    
+    
+    public function testThrowExceptionOnInjectingWrongDataSource() {
+    	$dataSourceMock = $this->getMock('Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest', array(), array(), '', FALSE);
+    	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend();
+    	try {
+    		$extBaseDataBackend->injectDataSource($dataSourceMock);
+    	} catch(Exception $e) {
+    		return;
+    	}
+    	$this->fail('No exception has been thrown when trying to inject wrong type of data source object');
+    }
 	
 }
 
