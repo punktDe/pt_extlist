@@ -45,7 +45,8 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     
     
     public function testShowAction() {
-    	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setItemCount'));
+    	$pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
+    	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setItemCount'), array($pagerConfiguration));
     	$dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getTotalItemsCount'), array($this->configurationBuilderMock));
     	$dataBackendMock->expects($this->once())
     	   ->method('getTotalItemsCount')

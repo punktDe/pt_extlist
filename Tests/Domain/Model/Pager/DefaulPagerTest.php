@@ -33,38 +33,37 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	/**
+	 * Holds an instance of pager object
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+	 */
 	protected $pager;
 	
 	
 	
 	public function setup() {
-		$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager();
-	}
-	
-	
-	
-	public function testInjectSettings() {
-		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager();
-		$pager->injectSettings(array('itemsPerPage' => 10));
-		$this->assertTrue($pager->getItemsPerPage() == 10);
-	}
-	
-	
-	
-	public function testThrowExceptionOnMissingConfigParameters() {
-		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager();
-		try {
-		  $pager->injectSettings(array());
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail('No exception has been thrown on missing configuration parameter!');
+		$this->initDefaultConfigurationBuilderMock();
+		$this->pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
+		$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->pagerConfiguration);
 	}
 	
 	
 		
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Pager_DefaultPager'));
+    }
+    
+    
+    
+    public function testIsEnabled() {
+    	$disabledPagerConfiguration = $this->getPagerConfigurationByArray(array('pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager', 'enabled' => '0'));
+    	$disabledPager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($disabledPagerConfiguration);
+    	$this->assertFalse($disabledPager->isEnabled());
+    	
+    	$enabledPagerConfiguration = $this->getPagerConfigurationByArray(array('pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager', 'enabled' => '1'));
+    	$enabledPager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($enabledPagerConfiguration);
+    	$this->assertTrue($enabledPager->isEnabled());
     }
     
     
@@ -86,18 +85,24 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     public function testGetShowFirstLink() {
     	$this->assertFalse($this->pager->getShowFirstLink());
     	
+    	$settings = $this->getPagerBaseSettings();
+    	
     	$settings['showFirstLink'] = 1;
     	$settings['itemsPerPage'] = 10;
-    	$this->pager->injectSettings($settings);
+    	
+    	$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
     	$this->assertTrue($this->pager->getShowFirstLink());
     }
     
     public function testGetShowLastLink() {
     	$this->assertFalse($this->pager->getShowLastLink());
     	
+        $settings = $this->getPagerBaseSettings();
+        
     	$settings['showLastLink'] = 1;
         $settings['itemsPerPage'] = 10;
-    	$this->pager->injectSettings($settings);
+    	
+        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
     	$this->assertTrue($this->pager->getShowLastLink());
     }
     
@@ -105,10 +110,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     
     public function testGetShowPreviousLink() {
     	$this->assertFalse($this->pager->getShowPreviousLink());
-    	
+        
+        $settings = $this->getPagerBaseSettings();
+        
     	$settings['showPreviousLink'] = 1;
         $settings['itemsPerPage'] = 10;
-    	$this->pager->injectSettings($settings);
+    	
+        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
     	$this->assertTrue($this->pager->getShowPreviousLink());
     }
     
@@ -116,18 +124,24 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     
     public function testGetShowNextLink() {
     	$this->assertFalse($this->pager->getShowNextLink());
-    	
-    	$settings['showNextLink'] = 1;
+        
+        $settings = $this->getPagerBaseSettings();
+        
+        $settings['showNextLink'] = 1;
         $settings['itemsPerPage'] = 10;
-    	$this->pager->injectSettings($settings);
+    	
+        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
     	$this->assertTrue($this->pager->getShowNextLink());
     }
     
     
     
     public function testGetPages() {
+    	$settings = $this->getPagerBaseSettings();
+    	$settings['itemsPerPage'] = 2;
+    	
+    	$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
     	$this->pager->setItemCount(21);
-    	$this->pager->injectSettings(array('itemsPerPage' => 2));
     	
     	$this->assertEquals(count($this->pager->getPages()),11);
     }
@@ -135,8 +149,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     
     
     public function testGetFirstItemIndex() {
+    	$settings = $this->getPagerBaseSettings();
+    	$settings['itemsPerPage'] = 10;
+    	
+    	$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
     	$this->pager->setItemCount(100);
-    	$this->pager->injectSettings(array('itemsPerPage' => 10));
     	$this->pager->setCurrentPage(2);
     	
     	$this->assertEquals($this->pager->getFirstItemIndex(), 11);
@@ -145,11 +162,46 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
     
     
     public function testGetLastItemIndex() {
-    	$this->pager->setItemCount(100);
-    	$this->pager->injectSettings(array('itemsPerPage' => 10));
+    	$settings = $this->getPagerBaseSettings();
+    	$settings['itemsPerPage'] = 10;
+    	
+    	$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
     	$this->pager->setCurrentPage(3);
+    	$this->pager->setItemCount(100);
     	
     	$this->assertEquals($this->pager->getLastItemIndex(), 30);
+    }
+    
+    
+    
+    /**
+     * Returns a pager configuration object for a given settings array
+     *
+     * @param array $pagerConfigurationArray
+     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+     */
+    protected function getPagerConfigurationByArray($pagerConfigurationArray) {
+    	$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getPagerSettings', 'getListIdentifier'), array(array()), '', FALSE);
+    	$configurationBuilderMock->expects($this->any())
+    	   ->method('getListIdentifier')
+    	   ->will($this->returnValue('test'));
+    	$configurationBuilderMock->expects($this->any())
+    	   ->method('getPagerSettings')
+    	   ->will($this->returnValue($pagerConfigurationArray));
+    	
+    	$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($configurationBuilderMock);
+    	return $pagerConfiguration;
+    }
+    
+    
+    
+    /**
+     * Returns an array with settings required by pager configuration
+     *
+     * @return array
+     */
+    protected function getPagerBaseSettings() {
+    	return array('pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
     }
     
 }

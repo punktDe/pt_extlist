@@ -28,17 +28,18 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	
-
 	/**
 	 * Holds an array of settings for pager
 	 *
 	 * @var array
 	 */
 	protected $settings = array();
+	
 	
 	
 	/**
@@ -60,6 +61,15 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	
 	
 	/**
+	 * If true, pager is enabled
+	 *
+	 * @var boolean
+	 */
+	protected $enabled;
+	
+	
+	
+	/**
 	 * Constructor for pager configuration
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -70,13 +80,15 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 		if (!is_array($pagerSettings)) {
     		throw new Exception('No pager configuration available for list ' . $this->getListIdentifier() . '. 1280408324');
     	}
-		
+    	
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings 1280408323'));
 		$this->settings = $pagerSettings;
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
+		$this->enabled = (array_key_exists('enabled', $pagerSettings) && $pagerSettings['enabled'] == '1') ? true : false;
 	}
+	
 	
 	
 	/**
@@ -99,11 +111,24 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 		return $this->settings;
 	}
 	
+	
+	
 	/**
 	 * @return string
 	 */
 	public function getListIdentifier() {
 		return $this->listIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Returns true, if pager is enabled
+	 *
+	 * @return bool True, if pager is enabled
+	 */
+	public function getEnabled() {
+		return $this->enabled;
 	}
 }
 ?>

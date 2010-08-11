@@ -31,11 +31,7 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
-	
-    public function setup() {
-        
-    }
-	
+
     /**
      * Returns array of settings for current plugin configuration
      *
@@ -44,6 +40,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     public function getPluginSettings() {
     	return $this->origSettings;
     }
+    
+    
 	
     /**
      * Returns a singleton instance of this class
@@ -165,7 +163,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                    ),
 	                    'pager' => array(
 	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
-                            'itemsPerPage'   => '10'
+                            'itemsPerPage'   => '10', 
+	                        'enabled' => '1'
 	                    ),
 	                )
 	            )

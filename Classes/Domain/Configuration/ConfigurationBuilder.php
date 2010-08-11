@@ -160,9 +160,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * @return void
 	 */
 	protected function mergeAndSetGlobalAndLocalConf() {
+		$settingsToBeMerged = $this->origSettings;
+		unset($settingsToBeMerged['listConfig']);
 		if (is_array($this->origSettings['listConfig'][$this->listIdentifier])) {
 			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
-	            $this->origSettings,
+	            $settingsToBeMerged,
 	            $this->origSettings['listConfig'][$this->listIdentifier]
 	        );
 	        $this->settings = $mergedSettings;
@@ -382,7 +384,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function getPagerSettings() {
        	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager.default');
-    }    
+    }
+    
 }
 
 ?>

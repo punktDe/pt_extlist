@@ -70,8 +70,40 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @var int
 	 */
 	protected $totalItemCount;
-
 		
+	
+	
+	/**
+	 * Holds pager configuration for this pager
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+	 */
+	protected $pagerConfiguration;
+	
+	
+	
+	/**
+	 * True, if pager is enabled.
+	 *
+	 * @var bool
+	 */
+	protected $enabled;
+	
+	
+	
+	/**
+	 * Constructor for pager
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration Configuration to be used for pager
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
+		$this->pagerConfiguration = $pagerConfiguration;
+		$this->enabled = $pagerConfiguration->getEnabled();
+		$this->settings = $pagerConfiguration->getPagerSettings();
+		$this->itemsPerPage = $this->settings['itemsPerPage'];
+	}
+	
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getCurrentPage()
@@ -95,11 +127,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::isEnabled()
 	 */
 	public function isEnabled() {
-		if($this->settings[enabled] == 1) {
-			return true;
-		}	
-		
-		return false;
+		return $this->enabled;
 	}
 	
 	
@@ -144,20 +172,6 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 */
 	public function getLastItemIndex() {
 		return (($this->currentPage - 1) * $this->itemsPerPage) + $this->itemsPerPage;
-	}
-	
-	
-	
-	/**
-	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::injectSettings()
-	 */
-	public function injectSettings(array $settings) {
-		$this->settings = $settings;
-		if(array_key_exists('itemsPerPage', $settings)) {
-			$this->itemsPerPage = $settings['itemsPerPage'];
-		} else {
-			throw new Exception('No items per page configuration set for pager. 1280845117');
-		}
 	}
 	
 	
@@ -231,8 +245,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
-		return array('currentPage' => $this->currentPage,
-						'totalItemCount' => $this->totalItemCount);
+		return array('currentPage'    => $this->currentPage,
+				     'totalItemCount' => $this->totalItemCount);
 	}
 	
 	
