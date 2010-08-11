@@ -40,9 +40,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_ColumnConfigCollection
 	
 	
 	public function setup() {
-		
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		
+	}
+	
+	
+	
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'));
 	}
 	
 	
@@ -55,6 +59,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_ColumnConfigCollection
 		$columnConfig1 = $columnConfigCollection->getColumnConfigByIdentifier(10);
 		$this->assertEquals($columnConfig1->getColumnIdentifier(), 'column1');
 	}
-			
+	
 }
 ?>

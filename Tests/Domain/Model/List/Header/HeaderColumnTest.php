@@ -66,10 +66,14 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertEquals(-1,$headerColumn->getSortingState());
 	}
 	
+	
+	
 	public function testGetSortingImage() {
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$this->assertTrue(method_exists($headerColumn, 'getSortingImage'));
 	}
+	
+	
 	
 	public function testGetSortings() {
 		
@@ -94,13 +98,16 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$sorting = $headerColumn->getSorting();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting has to be descending here');
 		
-		// test with forces direction
+		// test with forced direction
+		print_r($columnsConfiguration);
 		$headerColumn->injectColumnConfig($columnsConfiguration[30]);
 		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
 		$headerColumn->init();
 		$sorting = $headerColumn->getSorting();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting for tstamp is forced to desc, but is ascending here');
 	}
+	
+	
 	
 	public function testIsSortable() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();

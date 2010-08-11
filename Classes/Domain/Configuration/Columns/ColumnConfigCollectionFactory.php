@@ -28,25 +28,26 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	
-	/**
-	 * Build and return ColumnConfigurationCollection
+    /**
+	 * Build and return ColumnConfigurationCollection (as a singleton!)
 	 *  
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $columnSettings typoscript array of column Collection
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public static function getColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$columnConfigCollection = self::buildColumnConfigCollection($configurationBuilder);
-		return $columnConfigCollection;
+		return self::buildColumnConfigCollection($configurationBuilder);
 	}
+	
+	
 	
 	/**
 	 * @param $columnSettings
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	protected static function buildColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
