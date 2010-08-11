@@ -30,7 +30,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseBackend_ExtBaseBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
+class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::createDataSource()

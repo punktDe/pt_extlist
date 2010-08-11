@@ -24,16 +24,16 @@
 ***************************************************************/
 
 /**
- * Testcase for ExtBase Data Backend
+ * Testcase for ExtBase Query interpreter
  *
  * @package TYPO3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseBackend_ExtBaseBackendTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
     public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseBackend_ExtBaseBackend'));
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter'));
     }
 	
 }
