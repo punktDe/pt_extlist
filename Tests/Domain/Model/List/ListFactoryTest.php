@@ -24,31 +24,42 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * Testcase for list factory
+ * 
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ */
 class Tx_PtExtlist_Tests_DOmain_Model_List_ListFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $listFactory;
 	
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
-
-		$this->listFactory = new Tx_PtExtlist_Domain_Model_List_ListFactory($this->configurationBuilderMock);		
 	}
+
+	
+	
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_ListFactory'));
+	}
+	
+	
 	
 	public function testCreateList() {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
 		$backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getListData'), array($this->configurationBuilderMock));
-		$backendMock->expects($this->once())->method('getListData')->will($this->returnValue($listData));
+		$backendMock->expects($this->once())
+		    ->method('getListData')
+		    ->will($this->returnValue($listData));
 		
-		$this->listFactory->injectDataBackend($backendMock);
-		
-		$list = $this->listFactory->createList();
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($backendMock, $this->configurationBuilderMock);
 		
 		$this->assertNotNull($list->getColumnConfig());
 		$this->assertEquals($listData, $list->getListData());
 		$this->assertNotNull($list->getListHeader());
 	}
-	
 	
 }
 

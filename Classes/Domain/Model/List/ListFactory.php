@@ -27,60 +27,24 @@
 /**
  * Factory to put all parts of a list together.
  * 
- * TODO refactor this! Should be stateless class (STATIC)!
- * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_List_ListFactory {
-
-	/**
-	 * TODO Remove object-variables (factory must be static!)
-	 */
-	protected $dataBackend;
-	
-	
-
-	/**
-	 * TODO Remove object-variables (factory must be static!)
-	 */
-	protected $configurationBuilder;
-	
-	
-	
-	/**
-	 * TODO no constructor for static class! make this static!
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
-	}
-	
-	
-	
-	/**
-	 * TODO remove this! Factory must be static!
-	 * Overrides the data backend.
-	 * @param Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend $dataBackend
-	 */
-	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$this->dataBackend = $dataBackend;
-	}
-	
-	
-	
-	/**
-	 * TODO make this static!
+    
+    /**
 	 * Returns a full featured list object.
 	 * 
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @return Tx_PtExtlist_Domain_Model_List_List
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
-	public function createList() {
-		$listData = $this->dataBackend->getListData();
-		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
-		$listColumnConfig = $this->configurationBuilder->buildColumnsConfiguration();
-		
+	public static function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$listData = $dataBackend->getListData();
+		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
+		$listColumnConfig = $configurationBuilder->buildColumnsConfiguration();
 		
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
 		$list->setListData($listData);
