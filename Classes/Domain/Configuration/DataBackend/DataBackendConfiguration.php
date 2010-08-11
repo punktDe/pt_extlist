@@ -39,6 +39,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	protected $dataBackendClass;
 	
 	
+	
 	/**
 	 * Holds th classname of the datamapper class
 	 * @var string
@@ -46,11 +47,13 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	protected $dataMapperClass;
 	
 	
+	
 	/**
 	 * Holds th classname of the queryinterpreter class
 	 * @var string
 	 */
 	protected $queryInterpreterClass;
+	
 	
 	
 	/**
@@ -62,6 +65,11 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	
 	
 	
+	/**
+	 * Constructor for data backend configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->dataBackendSettings = $configurationBuilder->getDatabackendSettings();
 
@@ -107,12 +115,14 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	}
 	
 	
+	
 	/**
 	 * @return string classname;
 	 */
 	public function getDataBackendClass() {
 		return $this->dataBackendClass;
 	}
+	
 	
 	
 	/**
@@ -131,6 +141,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	}
 	
 	
+	
 	/**
 	 * @key if given, return the setting of this key
 	 * @return mixed databackend settings
@@ -146,6 +157,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 		
 		return $this->dataBackendSettings;
 	}
+	
 	
 	
 	/**

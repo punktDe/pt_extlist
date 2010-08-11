@@ -86,7 +86,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
-		$this->enabled = (array_key_exists('enabled', $pagerSettings) && $pagerSettings['enabled']) != 1 ? true : false;
+		$this->enabled = (array_key_exists('enabled', $pagerSettings) && $pagerSettings['enabled'] == '1') ? true : false;
 	}
 	
 	

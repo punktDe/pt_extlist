@@ -76,7 +76,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	public function testInjectPager() {
         $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager');		
+        $pagerConfiguration = $this->configurationBuilder->buildPagerConfiguration();
+        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array($pagerConfiguration));		
 		$dataBackend->injectPager($pagerMock);
 	}
 	
@@ -178,7 +179,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
         
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
+        $pagerConfiguration = $this->configurationBuilder->buildPagerConfiguration();
+        
+        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array($pagerConfiguration));
         $pagerMock->expects($this->any())
             ->method('getCurrentPage')
             ->will($this->returnValue(10));
@@ -267,7 +270,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             ->method('executeQuery')
             ->will($this->returnValue($dataSourceReturnArray));
             
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
+        $pagerConfiguration = $this->configurationBuilder->buildPagerConfiguration();
+        
+        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array($pagerConfiguration));
         $pagerMock->expects($this->any())
             ->method('getCurrentPage')
             ->will($this->returnValue(10));

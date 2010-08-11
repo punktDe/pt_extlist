@@ -38,14 +38,6 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 * @return boolean true if enabled
 	 */
 	public function isEnabled();
-
-	
-	
-	/**
-	 * Inject settings
-	 * @param array $settings The settings (most likely from TS)
-	 */
-	public function injectSettings(array $settings);
 	
 	
 
