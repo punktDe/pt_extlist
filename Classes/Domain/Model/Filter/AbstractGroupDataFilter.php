@@ -240,6 +240,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	protected function getOptionsByFields($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		$selectString = implode(', ', $fields);
+		
         if ($this->additionalTables != '') {
            $groupDataQuery->addFrom($this->additionalTables);
         }
@@ -250,7 +251,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField));
 			$groupDataQuery->addGroupBy($this->filterField); 
         }
-        
+
         $excludeFiltersArray = $this->buildExcludeFiltersArray();
         
         $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
@@ -303,10 +304,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * @return array Array with exclude filters. Encoded as (array('filterboxIdentifier' => array('excludeFilter1','excludeFilter2',...)))
 	 */
 	public function buildExcludeFiltersArray() {
+		
+		$excludeFiltersAssocArray = array($this->filterBoxIdentifier => array($this->filterIdentifier));
+		
 		if ($this->excludeFilters != '') {
 			
 			$excludeFiltersFlatArray = t3lib_div::trimExplode(',', $this->excludeFilters);
-			$excludeFiltersAssocArray = array();
 			
 			foreach($excludeFiltersFlatArray as $excludeFilter) {
 				list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludeFilter);
@@ -316,10 +319,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 					throw new Exception('Wrong configuration of exclude filters for filter '. $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier() . '. Should be comma seperated list of <filterboxIdentifier>.<filterIdentifier> but was ' . $excludeFilter . ' 1281102702'); 
 				}
 			}
-			return $excludeFiltersAssocArray;
-		} else {
-			return array();
 		}
+
+		return $excludeFiltersAssocArray;
+
 	}
 	
 	
