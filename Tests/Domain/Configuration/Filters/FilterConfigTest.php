@@ -45,6 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		    'partialPath' => 'partialPath',
 		    'defaultValue' => 'default',
 			'fieldIdentifier' => 'fieldName',
+			'invert' => '1',
 		);
 	}
 	
@@ -86,6 +87,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function testGetPartialPath() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
 		$this->assertTrue($filterConfig->getPartialPath() == 'partialPath');
+	}
+	
+	
+	public function testInvert() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertEquals(true, $filterConfig->getInvert());
 	}
 	
 }

@@ -35,15 +35,66 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
-		
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration');	
 	}
 	
 	
-	public function testCreateFilterQuery() {
-    	$this->markTestIncomplete();
+	public function testCreateFilterQuerySingleValue() {
+    	
+        $selectFilter = $this->buildAccessibleSelectFilter();
+		$selectFilter->_set('filterValues', array('filterValue'));
+		
+        $selectFilter->_call('createFilterQuery');
+ 		$filterQuery = $selectFilter->_get('filterQuery');
+		$criterias = $filterQuery->getCriterias();
+		
+		$this->assertEquals(count($criterias), 1);
+		$this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+		$this->assertEquals($criterias[0]->getField(), 'tableName1.fieldName1');
+		$this->assertEquals($criterias[0]->getValue(), 'filterValue');
+		$this->assertEquals($criterias[0]->getOperator(), '=');
     }
     
+    
+	public function testCreateFilterQueryMultipleValue() {
+    	
+        $selectFilter = $this->buildAccessibleSelectFilter();
+		$selectFilter->_set('filterValues', array('filterValue1', 'filterValue2'));
+		
+        $selectFilter->_call('createFilterQuery');
+ 		$filterQuery = $selectFilter->_get('filterQuery');
+		$criterias = $filterQuery->getCriterias();
+		
+		$this->assertEquals(count($criterias), 1);
+		$this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+		$this->assertEquals($criterias[0]->getField(), 'tableName1.fieldName1');
+		$this->assertEquals($criterias[0]->getValue(), array('filterValue1', 'filterValue2'));
+		$this->assertEquals($criterias[0]->getOperator(), 'IN');
+    }
+    
+    
+	public function testCreateFilterQuerySingleValueInverted() {
+    	
+		$filterSettings = array(
+               'filterIdentifier' => 'test', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+               'partialPath' => 'Filter/SelectFilter',
+               'fieldIdentifier' => 'field1',
+               'displayFields' => 'test1,test2',
+               'filterField' => 'test',
+               'invert' => '1'
+       		 );
+		
+		
+        $selectFilter = $this->buildAccessibleSelectFilter($filterSettings);
+		$selectFilter->_set('filterValues', array('filterValue'));
+		
+        $selectFilter->_call('createFilterQuery');
+ 		$filterQuery = $selectFilter->_get('filterQuery');
+		$criterias = $filterQuery->getCriterias();
+		
+		$this->assertEquals(count($criterias), 1);
+		$this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
+    }
     
     
     public function testInit() {
@@ -186,6 +237,47 @@ public function testInitOnCorrectConfiguration() {
         $excludeFiltersArray = $selectFilter->buildExcludeFiltersArray();
         $this->assertTrue(array_key_exists('filterbox1', $excludeFiltersArray) && in_array('filter1', $excludeFiltersArray['filterbox1']));
     }
+    
+    
+    /**
+     * Utility Methods
+     */
+    
+    public function buildAccessibleSelectFilter($filterSettings = NULL) {
+    	
+    	if(!$filterSettings) {
+    		$filterSettings = array(
+               'filterIdentifier' => 'test', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+               'partialPath' => 'Filter/SelectFilter',
+               'fieldIdentifier' => 'field1',
+               'displayFields' => 'test1,test2',
+               'filterField' => 'test',
+               'invert' => '0'
+       		 );
+    	}
+    	
+    	$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_SelectFilter');
+    	$selectFilter = new $accessibleClassName;
+        
+    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $filterSettings);
+        $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
+        
+        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
+        
+        $selectFilter->injectFilterConfig($filterConfiguration);
+        $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
+        $selectFilter->injectDataBackend($dataBackendMock);
+        $selectFilter->init();
+        
+        return $selectFilter;
+    }
+    
+    
+    
+    
+    
     
 }
 ?>

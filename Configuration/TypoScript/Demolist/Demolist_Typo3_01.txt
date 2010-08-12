@@ -118,7 +118,7 @@ plugin.tx_ptextlist.settings {
 				columnIdentifier = nameColumn
 	
 				# This label will be displayed in the item list (use lll here)
-				label = LLL:EXT:pt_list/typoscript/static/demolist/locallang.xml:column_nameColumn
+				label = LLL:EXT:pt_extlist/Configuration/Typoscript/Demolist/locallang.xml:column_nameColumn
 	
 				# Set the dataDescriptions this columns refers to
 				# the dataDescriptionIdentifier is a single reference to a dataDescription if type is default
@@ -173,7 +173,7 @@ plugin.tx_ptextlist.settings {
 			}
 	
 			20 {
-				label = LLL:EXT:pt_list/typoscript/static/demolist/locallang.xml:column_isoNoColumn
+				label = LLL:EXT:pt_extlist/Configuration/Typoscript/Demolist/locallang.xml:column_isoNoColumn
 				columnIdentifier = isoNoColumn
 				fieldIdentifier = iso2
 				isSortable = 1
@@ -220,6 +220,9 @@ plugin.tx_ptextlist.settings {
 	                  multiple = 1
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
+	                  submitOnChange = 0
+					  inactiveOption =
+					  invert = 0
 	              }
 	         }
         }  

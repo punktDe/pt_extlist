@@ -151,11 +151,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
-	 * TODO ry21 what does this property do?
+	 * If this is set to true, the query will be inverted
 	 *
-	 * @var unknown_type
+	 * @var boolean
 	 */
-	protected $invert;
+	protected $invert = false;
 	
 	
 	
@@ -227,7 +227,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for this filter (TS key parialPath). 1281013746'));
         $this->partialPath = $filterSettings['partialPath'];
         
+        if(array_key_exists('invert', $filterSettings)) {
+        	$this->invert = $filterSettings['invert'] ? true : false;
+        }
+        
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
+        
+        
         
         // TODO ry21 add all properties here
 		// TODO check which values need to be set here and add assertions!

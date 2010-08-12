@@ -126,16 +126,27 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 *
 	 */
 	protected function createFilterQuery() {
-		
+
 		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		$criteria = NULL;
 		
 		if (count($this->filterValues) == 1 && $this->filterValues[0] != '') {
-			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, $this->filterValues[0]));
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, $this->filterValues[0]);
 		} elseif (count($this->filterValues) > 1) {
-			$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $this->filterValues));
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $this->filterValues);
+		}
+		
+		
+		if($criteria) {
+			if($this->filterConfig->getInvert()) {
+				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
+			} else {
+				$this->filterQuery->addCriteria($criteria);
+			}
 		} else {
 			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
+		
 	}
 	
 	

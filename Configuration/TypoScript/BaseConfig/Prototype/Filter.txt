@@ -27,6 +27,9 @@ plugin.tx_ptextlist.prototype.filter {
 		multiple = 0
 		excludeFilters = 
 		showRowCount = 0
+		submitOnChange = 0
+		inactiveOption =
+		invert = 0
 	}
 
 }
