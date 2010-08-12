@@ -35,6 +35,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper'));
     }
+    
+    
+    
+    public function testGetMappedListData() {
+    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
+    	$this->assertTrue(method_exists($domainObjectMapper, 'getMappedListData'));
+    }
 	
 }
 

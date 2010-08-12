@@ -32,6 +32,15 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
 
-	
+	/**
+	 * Returns list data structure for given domain objects.
+	 * Uses configuration currently set in mapper.
+	 *
+	 * @param unknown_type $domainObjects
+	 */
+	public function getMappedListData($domainObjects) {
+		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		return $listData;
+	}
 	
 }
