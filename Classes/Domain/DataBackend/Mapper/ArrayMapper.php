@@ -33,27 +33,7 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
     
-	/**
-	 * Holds mapping configurations
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	protected $mapperConfiguration = null;
-	
-	
-	
-	/**
-	 * Sets the mapper configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
-	 */
-	public function setMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration) {
-		$this->mapperConfiguration = $mapperConfiguration;
-	}
-	
-	
-	
-	/**
+    /**
 	 * Maps given array data to list data structure.
 	 * If no configuration is set, the array is mapped 1:1 to the list data structure
 	 * If a configuration is given, this configuration is used to map the fields
