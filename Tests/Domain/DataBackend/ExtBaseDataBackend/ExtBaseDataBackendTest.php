@@ -32,6 +32,118 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
+	protected $settings = array('listIdentifier' => 'test',
+                'abc' => '1',
+                'prototype' => array(
+                'pager' => array(
+                        'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
+                    ),
+                'backend' => array (
+                    'mysql' => array (
+                        'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+                        'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                        'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        
+                        
+                    )
+                    ),
+                'column' => array (
+                        'xy' => 'z',
+                    ),
+                ),
+                'listConfig' => array(
+                     'test' => array(
+                        
+                        'backendConfig' => array (
+                                'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+                                'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                                'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+
+                                'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
+                
+                            ),
+                        
+                         'abc' => '2',
+                         'def' => '3',
+                            
+                         'fields' => array(
+                             'field1' => array( 
+                                 'table' => 'tableName1',
+                                 'field' => 'fieldName1',
+                                 'isSortable' => '0',
+                                 'access' => '1,2,3,4'
+                             ),
+                             'field2' => array( 
+                                 'table' => 'tableName2',
+                                 'field' => 'fieldName2',
+                                 'isSortable' => '1',
+                                 'access' => '1,2,3,4'
+                             )
+                         ),
+                        'columns' => array(
+                            10 => array( 
+                                'columnIdentifier' => 'column1',
+                                'fieldIdentifier' => 'field1',
+                                'label' => 'Column 1',
+                                'isSortable' => '0',
+                                'access' => '1,2,3,4'
+                            ),
+                            20 => array( 
+                                'columnIdentifier' => 'column2',
+                                'fieldIdentifier' => 'field2',
+                                'label' => 'Column 2',  
+                                'isSortable' => '1',
+                                'sorting' => 'tstamp, title',
+                                'access' => '1,2,3,4'
+                            ),
+                            30 => array( 
+                                'columnIdentifier' => 'column3',
+                                'fieldIdentifier' => 'field3',
+                                'label' => 'Column 3',  
+                                'isSortable' => '1',
+                                'sorting' => 'tstamp asc, title !DeSc',
+                                'access' => '1,2,3,4'
+                            )
+                        ),
+                        'renderer' => array(
+                            'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
+                            'enabled' => 1,
+                            'showCaptionsInBody' => 0,
+                            'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialcell->processCell'
+                        ),
+                        'filters' => array(
+                             'testfilterbox' => array(
+                                 '10' => array(
+                                    'filterIdentifier' => 'filter1',
+                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'partialPath' => 'Filter/StringFilter',
+                                    'defaultValue' => 'default',
+                                 ),
+                                 '20' => array(
+                                    'filterIdentifier' => 'filter2',
+                                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                    'fieldDescriptionIdentifier' => 'field1',
+                                    'partialPath' => 'Filter/StringFilter'
+                                 )
+                             )
+                        ),
+                        'pager' => array(
+                            'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                            'itemsPerPage'   => '10', 
+                            'enabled' => '1'
+                        ),
+                    )
+                )
+            );
+	
+	
+	public function setup() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings);   
+	}
+	
+	
+	
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend'));
     }
@@ -55,6 +167,14 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     		return;
     	}
     	$this->fail('No exception has been thrown when trying to inject wrong type of data source object');
+    }
+    
+    
+    
+    public function testCreateDataSource() {
+    	$dispatcher = new Tx_Extbase_Dispatcher();
+    	$dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
+    	$this->assertTrue(is_a($dataSource, 'Tx_Extbase_Persistence_Repository'));
     }
 	
 }
