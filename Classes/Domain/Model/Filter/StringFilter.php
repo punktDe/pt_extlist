@@ -51,7 +51,9 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     	if($this->isActive) {
 	    	$columnName = $this->fieldIdentifier->getTableFieldCombined();
 	    	
-	    	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($columnName, $this->filterValue, 'LIKE');
+	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($columnName, $this->filterValue);
+	    	if($this->invert) $criteria = Tx_PtExtlist_Domain_QueryObject_NotCriteria::notOp($criteria);
+	    	
 	    	$this->filterQuery->addCriteria($criteria);	
     	}
     }	

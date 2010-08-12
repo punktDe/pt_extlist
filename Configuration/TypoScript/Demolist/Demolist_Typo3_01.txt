@@ -223,6 +223,7 @@ plugin.tx_ptextlist.settings {
 	                  submitOnChange = 0
 					  inactiveOption =
 					  invert = 0
+					  invertable = 0
 	              }
 	         }
         }  

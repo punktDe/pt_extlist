@@ -38,17 +38,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      * @var string
      */
     protected $filterValue = '';
-    
-    
-    
-    /**
-     * Identifier of field on which this filter is operating (database field to be filtered)
-     *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
-     */
-    protected $fieldIdentifier;
-    
-    
+        
     
     /**
      * Returns raw value of filter (NOT FILTER QUERY!!!)
@@ -78,7 +68,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      * @return array Array of filter data to persist to session
      */
     public function persistToSession() {
-        return array('filterValue' => $this->filterValue);
+        return array('filterValue' => $this->filterValue, 'invert' => $this->invert);
     }
     
     
@@ -151,8 +141,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      */
     protected function initFilterByTsConfig() {
         $this->filterValue = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
-        
-        $this->fieldIdentifier = $this->resolveFieldIdentifier($this->filterConfig->getFieldIdentifier());
     }
 	
 }

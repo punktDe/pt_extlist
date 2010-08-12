@@ -30,6 +30,7 @@ plugin.tx_ptextlist.prototype.filter {
 		submitOnChange = 0
 		inactiveOption =
 		invert = 0
+		invertable = 0
 	}
 
 }

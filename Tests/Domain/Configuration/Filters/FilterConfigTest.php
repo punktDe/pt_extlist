@@ -46,6 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		    'defaultValue' => 'default',
 			'fieldIdentifier' => 'fieldName',
 			'invert' => '1',
+			'invertable' => '1',
 		);
 	}
 	
@@ -93,6 +94,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function testInvert() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
 		$this->assertEquals(true, $filterConfig->getInvert());
+	}
+	
+	public function testInvertable() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertEquals(true, $filterConfig->getInvertable());
 	}
 	
 }

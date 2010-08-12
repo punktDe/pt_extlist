@@ -158,6 +158,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	protected $invert = false;
 	
 	
+	/**
+	 * If this is set to true, the filter has the ability to be inverted
+	 *
+	 * @var truefalse
+	 */
+	protected $invertable = false;
+	
 	
 	/**
 	 * If set to true, this filter is active
@@ -229,6 +236,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         
         if(array_key_exists('invert', $filterSettings)) {
         	$this->invert = $filterSettings['invert'] ? true : false;
+        }
+        
+		if(array_key_exists('invertable', $filterSettings)) {
+        	$this->invertable = $filterSettings['invertable'] ? true : false;
         }
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
@@ -335,10 +346,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
     
     
     /**
-     * @return unknown
+     * @return boolean
      */
     public function getInvert() {
         return $this->invert;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function getInvertable() {
+    	return $this->invertable;
     }
     
     

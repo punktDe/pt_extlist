@@ -110,7 +110,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 *
 	 */
 	public function persistToSession() {
-		return array('filterValues' => $this->filterValues);
+		return array('filterValues' => $this->filterValues, 'invert' => $this->invert);
 	}
 	
 	
@@ -138,7 +138,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		
 		
 		if($criteria) {
-			if($this->filterConfig->getInvert()) {
+			if($this->invert) {
 				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
 			} else {
 				$this->filterQuery->addCriteria($criteria);
@@ -180,8 +180,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 */
 	protected function initFilterByTsConfig() {
 		$filterSettings = $this->filterConfig->getSettings();
-		
-        $this->fieldIdentifier = $this->resolveFieldIdentifier($this->filterConfig->getFieldIdentifier());
         
         tx_pttools_assert::isNotEmptyString($filterSettings['filterField'], array('message' => 'No filter field for filter '.$this->filterIdentifier .' specified! 1281365131'));
         $this->filterField = trim($filterSettings['filterField']);

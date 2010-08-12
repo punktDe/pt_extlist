@@ -12,7 +12,6 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 @author Daniel Lienert <lienert@punkt.de>
 -->
 
-
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 
 <div>
@@ -20,5 +19,9 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
     <div style="color: red">Validation Error: {filter.errorMessage}</div>
 </f:if>
 <label for="{filter.filterIdentifier}">{filter.label}</label>
-    	<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" />	
+    	<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" />
+    	
+    	<f:if condition="{filter.filterConfig.invertable}">
+    		<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" /> Invert
+    	</f:if>
 </div>

@@ -99,6 +99,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Indicates if this filter is inverted
+	 *
+	 * @var boolean
+	 */
+	protected $invert = false;
+	
+	
+	
+	/**
 	 * Session persistence manager
 	 *
 	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
@@ -113,6 +122,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected $filterQuery = null;
+	
+	
+	 
+	/**
+     * Identifier of field on which this filter is operating (database field to be filtered)
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     */
+    protected $fieldIdentifier;
 	
 	
 	
@@ -133,7 +151,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	protected $isActive = false;
 	
 	
-	
+		
 	/**
 	 * Holds an error message for this filter
 	 *
@@ -162,12 +180,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$this->filterConfig = $filterConfig;
+		
         $this->listIdentifier = $filterConfig->getListIdentifier();
         $this->filterBoxIdentifier = $filterConfig->getFilterboxIdentifier();
         $this->filterIdentifier = $filterConfig->getFilterIdentifier();
 	}
-	
-	
+
+
 	
 	/**
 	 * Injector for Get/Post Vars adapter
@@ -281,6 +300,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 	
+	/**
+	 * Return if this filter is inverted
+	 * 
+	 * @return boolean
+	 */
+    public function getInvert() {
+		return $this->invert;
+	}
+	
 	
 	/**
 	 * Returns collection of error messages if filter does not validate
@@ -320,10 +348,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * I you want to change the way, a filter initializes itsel, you have
 		 * to override init() in you own filter implementation!
 		 */
-		
+
+		$this->initGenericFilterByTSConfig();
 		$this->initFilterByTsConfig();
+		
+		$this->initGenericFilterBySession();
 		$this->initFilterBySession();
+		
+		$this->initGenericFilterByGPVars();
 		$this->initFilterByGpVars();
+		
 		$this->initFilter();
 		
 		$this->sessionPersistenceManager->persistToSession($this);
@@ -331,7 +365,45 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->createFilterQuery();
 		
 	}
-		
+	
+	
+    /**
+	 * Set generic config variables that exist for all filters
+	 * 
+	 */
+	protected function initGenericFilterByTSConfig() {
+		$this->fieldIdentifier = $this->resolveFieldIdentifier($this->filterConfig->getFieldIdentifier());
+		$this->invert = $this->filterConfig->getInvert();
+	}
+	
+	
+	
+	/**
+	 * Set generic filter values from GPVars
+	 * 
+	 */
+	protected function initGenericFilterByGPVars() {
+		if($this->filterConfig->getInvertable()) {
+			if(isset($this->gpVarFilterData['invert'])) {
+				$this->invert = $this->gpVarFilterData['invert'] ? true : false;	
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * Set generic filter values from Session
+	 * 
+	 */
+	protected function initGenericFilterBySession() {
+		if($this->filterConfig->getInvertable()) {
+			$this->invert = $this->sessionFilterData['invert'] ? true : false;
+		}		
+	}
+	
+	
+	
 	/**
 	 * Template method for initializing filter by TS configuration
 	 */
