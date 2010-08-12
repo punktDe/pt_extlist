@@ -70,6 +70,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      */
     public function getFieldConfigurationCollection(); 
     
+    
+    
+    /**
+     * Injector for field config collection
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+     */
+    public function injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection  $fieldConfigCollection);
+    
   
     
     /**
