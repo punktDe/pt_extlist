@@ -42,12 +42,19 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend impl
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::createDataSource()
+	 * Factory method for repository to be used with this data backend.
+	 * 
+	 * Although it's called data source, we create a extbase repository here which acts as a 
+	 * datasource for this backend.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
+		$dataBackendSettings =  $configurationBuilder->getDatabackendSettings();
+		tx_pttools_assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
+		tx_pttools_assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
+		$repository = t3lib_div::makeInstance($dataBackendSettings['repositoryClassName']);
+		return $repository;
 	}
 	
 	
