@@ -118,6 +118,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     
     
     /**
+     * Injector for list header
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     */
+    public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
+    
+    
+    
+    /**
      * Injector for filterbox collection
      *
      * @param Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection
