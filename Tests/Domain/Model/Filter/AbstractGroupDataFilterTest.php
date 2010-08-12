@@ -41,12 +41,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
 	public function testCreateFilterQuerySingleValue() {
     	
         $selectFilter = $this->buildAccessibleSelectFilter();
-		$selectFilter->_set('filterValues', array('filterValue'));
+		$selectFilter->_set('filterValues', 'filterValue');
 		
         $selectFilter->_call('createFilterQuery');
  		$filterQuery = $selectFilter->_get('filterQuery');
 		$criterias = $filterQuery->getCriterias();
-		
+
 		$this->assertEquals(count($criterias), 1);
 		$this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
 		$this->assertEquals($criterias[0]->getField(), 'tableName1.fieldName1');
@@ -86,7 +86,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
 		
 		
         $selectFilter = $this->buildAccessibleSelectFilter($filterSettings);
-		$selectFilter->_set('filterValues', array('filterValue'));
+		$selectFilter->_set('filterValues', 'filterValue');
 		
         $selectFilter->_call('createFilterQuery');
  		$filterQuery = $selectFilter->_get('filterQuery');

@@ -217,11 +217,11 @@ plugin.tx_ptextlist.settings {
 	                  label = GroupFilter 1
 	                  fieldIdentifier = continent
 	                  filterField = st_continent.tr_name_en 
-	                  multiple = 1
+	                  multiple = 0
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
-	                  submitOnChange = 0
-					  inactiveOption =
+	                  submitOnChange = 1
+					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
 	              }

@@ -88,6 +88,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
+	 * If set, it is the label for an inactive option added to the filter
+	 * @var string
+	 */
+	protected $inactiveOption;
+	
+	
+	
+	/**
 	 * Identifier of field to which this filter belongs to
 	 * // TODO ry21 could be the actual fieldDescription object instead of its name?
 	 * @var string
@@ -129,6 +137,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 * @var array
 	 */
 	protected $resetFilters = array();
+	
+	
+	
+	/**
+	 * Submit filter by javascript on change
+	 * 
+	 * @var boolean
+	 */
+	protected $submitOnChange = false;
 	
 	
 	
@@ -241,6 +258,16 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 		if(array_key_exists('invertable', $filterSettings)) {
         	$this->invertable = $filterSettings['invertable'] ? true : false;
         }
+        
+		if(array_key_exists('inactiveOption', $filterSettings)) {
+        	$this->inactiveOption = trim($filterSettings['inactiveOption']);
+        }
+        
+		if(array_key_exists('submitOnChange', $filterSettings)) {
+        	$this->submitOnChange = $filterSettings['submitOnChange'] ? true : false;
+        }
+        
+        
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
         
@@ -429,6 +456,24 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
      */
     public function getValue() {
         return $this->value;
+    }
+    
+    
+    
+	/**
+     * @return string
+     */
+    public function getInactiveOption() {
+        return $this->inactiveOption;
+    }
+    
+    
+    
+    /**
+     * @return boolean
+     */
+    public function getSubmitOnChange() {
+    	return $this->submitOnChange;
     }
 	
 }
