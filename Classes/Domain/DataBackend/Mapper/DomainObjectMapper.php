@@ -24,18 +24,12 @@
 ***************************************************************/
 
 /**
- * Testcase for mapper mapping domain object data on list data
- *
+ * Mapper for domain object data
+ * 
+ * @author Michael Knoll <knoll@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper'));
-    }
-	
-}
+class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
 
-?>
+}
