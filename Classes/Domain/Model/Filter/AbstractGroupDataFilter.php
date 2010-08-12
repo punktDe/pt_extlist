@@ -219,10 +219,28 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		$renderedOptions = array();
 
         $fields = $this->getFieldsRequiredToBeSelected();
-
         $options = $this->getOptionsByFields($fields);
+        
         $renderedOptions = $this->getRenderedOptionsByGroupData($options);
-		
+        $renderedOptions = $this->addInactiveOption($renderedOptions);
+        
+        return $renderedOptions;
+	}
+
+	
+	
+	/**
+	 * Add inactiveFilterOpotion to rendered options
+	 * TODO move to selectFilter?
+	 * 
+	 * @param array $renderedOptions
+	 */
+	protected function addInactiveOption($renderedOptions) {
+        
+		if($this->filterConfig->getInactiveOption()) {
+        	$renderedOptions[''] = $this->filterConfig->getInactiveOption();
+        }
+ 
         return $renderedOptions;
 	}
 	
@@ -244,6 +262,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         }
         
         $groupDataQuery->addField($selectString);
+        
+        foreach($this->displayFields as $displayField) {
+        	$groupDataQuery->addSorting($displayField, Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+        }
 
         if($this->showRowCount) {
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField));

@@ -221,7 +221,7 @@ plugin.tx_ptextlist.settings {
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
 	                  submitOnChange = 0
-					  inactiveOption =
+					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
 	              }

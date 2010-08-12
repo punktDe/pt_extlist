@@ -76,7 +76,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
                 $value .= $option[$displayField];
             }
             
-            if($this->showRowCount) {
+            if($this->showRowCount && array_key_exists('rowCount', $option)) {
             	$value .= ' (' . $option['rowCount'] . ')';
             }        	    
  
