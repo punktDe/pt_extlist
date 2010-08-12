@@ -32,7 +32,7 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 	 
@@ -62,16 +62,6 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
 	protected $operator;
 	
 	
-	
-	/**
-	 * Inverts the builded criteria
-	 * 
-	 * @var boolean
-	 */
-	protected $invert;
-	
-	
-	
 	/**
 	 * Constructor for criteria. Takes a field name a value and a operator.
 	 * Works like 'field' <operator> 'value'
@@ -80,13 +70,12 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
 	 * @param string $value
 	 * @param string $operator
 	 */
-	public function __construct($field, $value, $operator, $invert = false) {
+	public function __construct($field = '', $value, $operator) {
 		tx_pttools_assert::isNotEmptyString($field, array('message' => 'Field must not be empty! TODO insert timestamp'));
 		tx_pttools_assert::isNotEmptyString($operator, array('message' => 'Operator must not be empty! TODO insert timestamp'));
 		$this->field = $field;
 		$this->value = $value;
 		$this->operator = $operator;
-		$this->invert = $invert;
 	}
 	
 	
@@ -101,10 +90,7 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
     	if (!is_a($criteria, __CLASS__)) {
     		return false;
     	} else {
-            if ($this->field == $criteria->field && 
-            	$this->value == $criteria->value && 
-            	$this->operator == $criteria->operator && 
-            	$this->invert == $criteria->invert) {
+            if ($this->field == $criteria->field && $this->value == $criteria->value && $this->operator == $criteria->operator) {
             	return true;     
             } else {
                 return false;
@@ -139,21 +125,10 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
 	/**
 	 * Returns operator to be used as comperator
 	 *
-	 * @return string operator
+	 * @return strging operator
 	 */
 	public function getOperator() {
 		return $this->operator;
-	}
-	
-	
-	
-	/**
-	 * Returns if this criteria is inverted
-	 * 
-	 * @return boolean invert
-	 */
-	public function getInvert() {
-		return $this->invert;
 	}
 	
 }
