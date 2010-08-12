@@ -36,12 +36,44 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 * Returns list data structure for given domain objects.
 	 * Uses configuration currently set in mapper.
 	 *
-	 * @param unknown_type $domainObjects
+	 * @param mixed $domainObjects
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData List data generated for given mapping configuration
 	 */
 	public function getMappedListData($domainObjects) {
 		tx_pttools_assert::isNotNull($this->mapperConfiguration, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		
+		foreach($domainObjects as $domainObject) {
+			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
+			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+				$property = $fieldConfiguration->getField();
+				$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
+				$listDataRow->addCell($fieldConfiguration->getIdentifier(), $value);
+			}
+			$listData->addRow($listDataRow);
+		}
+		
 		return $listData;
+	}
+	
+	
+	
+	/**
+	 * Returns value of a property for a given domain object and property name.
+	 * Requires properties to be accessible via getters
+	 *
+	 * @param mixex $domainObject Object to get property value from
+	 * @param string $property Name of property to get value from
+	 * @return mixed Value of property
+	 */
+	public function getObjectPropertyValueByProperty($domainObject, $property) {
+		$getterMethodName = 'get' . ucfirst($property);
+		if (method_exists($domainObject, $getterMethodName)) {
+		    $value = $domainObject->$getterMethodName();
+			return $value;
+		} else {
+			throw new Exception('Trying to get a propert ' . $propery . ' on a domain object that does not implement a getter for this property: ' . get_class_vars($domainObject) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
+		}
 	}
 	
 }

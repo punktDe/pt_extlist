@@ -38,6 +38,9 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	/**
 	 * Add a new cell to row identified by a given column name
 	 *
+	 * TODO rename this method. Should be called createAndAddCell
+	 * TODO implement new method addCell that takes an already constructed cell
+	 * 
 	 * @param string $columnName
 	 * @param string $value
 	 * @return void
