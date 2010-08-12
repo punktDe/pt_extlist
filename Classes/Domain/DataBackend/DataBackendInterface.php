@@ -145,6 +145,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     
     
     /**
+     * Injector for query interpreter
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     */
+    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter);
+    
+    
+    
+    /**
      * Returns associated filterbox collection
      * 
      * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection Associated filterbox collection

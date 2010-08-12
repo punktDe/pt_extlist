@@ -205,7 +205,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     public function testInjectDataSource() {
     	$dataSourceMock = $this->getMock('Tx_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array(), '', FALSE);
-    	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend();
+    	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
     	$extBaseDataBackend->injectDataSource($dataSourceMock);
     }
     
@@ -213,7 +213,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     public function testThrowExceptionOnInjectingWrongDataSource() {
     	$dataSourceMock = $this->getMock('Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest', array(), array(), '', FALSE);
-    	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend();
+    	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
     	try {
     		$extBaseDataBackend->injectDataSource($dataSourceMock);
     	} catch(Exception $e) {
@@ -235,7 +235,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     public function testGetListData() {
     	$dispatcher = new Tx_Extbase_Dispatcher();
         $dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
-        $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend();
+        $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         $extBaseDataBackend->injectDataSource($dataSource);
         
         try {
@@ -243,6 +243,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         } catch (Exception $e) {
         	
         }
+        
+        $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper', array('getMappedListData'), array(), '', FALSE);
+        $mapperMock->expects($this->once())
+            ->method('getMappedListData')
+            ->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_List()));
+        $extBaseDataBackend->injectDataMapper($mapperMock);
         
         #print_r(Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration());
         
