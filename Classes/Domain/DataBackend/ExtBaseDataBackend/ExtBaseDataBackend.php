@@ -98,6 +98,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend impl
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
+		$data = $this->repository->findAll();
+		#print_r($data);
+		return $data;
 	}
 	
 	
