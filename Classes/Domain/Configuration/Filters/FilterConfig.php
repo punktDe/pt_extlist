@@ -141,6 +141,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
+	 * Submit filter by javascript on change
+	 * 
+	 * @var boolean
+	 */
+	protected $submitOnChange = false;
+	
+	
+	
+	/**
 	 * TODO ry21 what does this property do?
 	 *
 	 * @var unknown_type
@@ -253,6 +262,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 		if(array_key_exists('inactiveOption', $filterSettings)) {
         	$this->inactiveOption = trim($filterSettings['inactiveOption']);
         }
+        
+		if(array_key_exists('submitOnChange', $filterSettings)) {
+        	$this->submitOnChange = $filterSettings['submitOnChange'] ? true : false;
+        }
+        
+        
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
         
@@ -450,6 +465,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
      */
     public function getInactiveOption() {
         return $this->inactiveOption;
+    }
+    
+    
+    
+    /**
+     * @return boolean
+     */
+    public function getSubmitOnChange() {
+    	return $this->submitOnChange;
     }
 	
 }

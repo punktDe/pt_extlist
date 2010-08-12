@@ -48,6 +48,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 			'invert' => '1',
 			'invertable' => '1',
 			'inactiveOption' => '[All]',
+			'submitOnChange' => '1',
 		);
 	}
 	
@@ -105,6 +106,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function testGetInactiveOption() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
 		$this->assertEquals('[All]', $filterConfig->getInactiveOption());
+	}
+	
+	public function testGetSubmitOnChange() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertEquals(true, $filterConfig->getSubmitOnChange());
 	}
 	
 }

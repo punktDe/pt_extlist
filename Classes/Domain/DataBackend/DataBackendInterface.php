@@ -28,7 +28,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 

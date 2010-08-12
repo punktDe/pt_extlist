@@ -45,6 +45,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	 *
 	 */
 	protected function initFilterByTsConfig() {
+		
 		parent::initFilterByTsConfig();
 	    
 		if ($this->filterConfig->getSettings('multiple')) {
