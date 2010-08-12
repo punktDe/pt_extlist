@@ -8,6 +8,34 @@
 # @subpackage pt_extlist
 ####################################################
 
+config.tx_extbase {
+    persistence{
+        enableAutomaticCacheClearing = 1
+        updateReferenceIndex = 0
+        classes {
+            Tx_Extbase_Domain_Model_FrontendUser {
+                mapping {
+                    tableName = fe_users
+                    recordType = Tx_Extbase_Domain_Model_FrontendUser
+                    columns {
+                        lockToDomain.mapOnProperty = lockToDomain
+                    }
+                }
+            }
+            Tx_Extbase_Domain_Model_FrontendUserGroup {
+                mapping {
+                    tableName = fe_groups
+                    recordType =
+                    columns {
+                        lockToDomain.mapOnProperty = lockToDomain
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 plugin.tx_ptextlist.settings {
 
     listConfig.demolist_extbase_01 {
