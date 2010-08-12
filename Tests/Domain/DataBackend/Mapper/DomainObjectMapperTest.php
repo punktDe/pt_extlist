@@ -42,6 +42,33 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
     	$this->assertTrue(method_exists($domainObjectMapper, 'getMappedListData'));
     }
+    
+    
+    
+    public function testThrowExceptionOnNonExistingMappingConfiguration() {
+    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
+    	try {
+    		$domainObjectMapper->getMappedListData($this->createMappingTestData());
+    	} catch(Exception $e) {
+    		return;
+    	}
+    	$this->fail('No Exception has been thrown on non-existing mapping configuration');
+    }
+    
+    
+    
+    protected function createMappingTestData() {
+    	$objectCollection = new Tx_Extbase_Persistence_ObjectStorage();
+    	$feGroup1 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 1');
+    	$objectCollection->attach($feGroup1);
+    	$feGroup2 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 2');
+    	$objectCollection->attach($feGroup2);
+    	$feGroup3 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 3');
+    	$objectCollection->attach($feGroup3);
+    	$feGroup4 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 4');
+    	$objectCollection->attach($feGroup4);
+    	return $objectCollection;
+    }
 	
 }
 
