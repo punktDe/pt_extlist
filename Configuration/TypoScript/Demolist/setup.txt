@@ -2,7 +2,8 @@
 # This file shows a summary of the various demolists 
 # provided with this package
 #
-# @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+# @author Michael Knoll <knoll@punkt.de>
+# @author Daniel Lienert <lienert@punkt.de>
 # @package Typo3
 # @subpackage pt_extlist
 ####################################################
@@ -22,3 +23,7 @@
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Mysql_01.txt">
 
+#
+# Demolist from fe_users und fe_groups with extbase backend and some filters
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_ExtBase_01.txt">
