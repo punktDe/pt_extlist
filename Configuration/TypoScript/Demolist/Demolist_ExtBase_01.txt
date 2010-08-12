@@ -14,9 +14,14 @@ plugin.tx_ptextlist.settings {
     
         backendConfig < plugin.tx_ptextlist.prototype.backend.extbase
         backendConfig {
+        
+            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
+            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
+            queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
+            repositoryClassName = Tx_ExtBase_Domain_Repository_FrontendUserGroupRepository
             
             dataSource {
-                  
+            
             }
             
             
@@ -40,19 +45,28 @@ plugin.tx_ptextlist.settings {
         
         fields {           
             
+            title {
+                table = domObject
+                field = title
+            }
             
         }
 
 
         
         columns {
+        
+            10 {
+                  fieldIdentifier = title
+                  columnIdentifier = title
+                  label = Titel          
+            }
             
              
         }
         
         filters {
-            filterbox1 {
-            }
+
         }
         
         pager {

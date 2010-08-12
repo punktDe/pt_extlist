@@ -42,6 +42,24 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend impl
 	
 	
 	/**
+	 * Holds an instance of field config collection for field configuration
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	protected $fieldConfigCollection;
+	
+	
+	
+	/**
+	 * Holds list header for this list
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	protected $listHeader;
+	
+	
+	
+	/**
 	 * Factory method for repository to be used with this data backend.
 	 * 
 	 * Although it's called data source, we create a extbase repository here which acts as a 
@@ -163,6 +181,28 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend impl
 	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
 	 */
 	public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
+	}
+	
+	
+	
+	/**
+	 * Injector for field config collection
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+	 */
+	public function injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection  $fieldConfigCollection) {
+		$this->fieldConfigCollection = $fieldConfigCollection;
+	}
+	
+	
+	
+	/**
+	 * Injector for list header
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 */
+	public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		$this->listHeader = $listHeader;
 	}
 
 }
