@@ -197,7 +197,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 			$this->limit = $limit;
 		}
 		else {
-		    throw new Exception('Format of limit ' . $limit . ' does not fit (d) or (d:d)!');
+		    throw new Exception('Format of limit ' . $limit . ' does not fit (d) or (d:d)! 1281672837');
 		}
 	}
 	
