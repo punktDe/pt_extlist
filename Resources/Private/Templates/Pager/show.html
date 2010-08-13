@@ -1,7 +1,18 @@
 <div>
 	<strong>Simple Pager Rendering</strong>
 </div>
+<div class="pager_item_display">
+    <f:if condition="{pager.firstItemIndex}">
+        Zeige Element {pager.firstItemIndex} bis 
+        <f:if condition="{pager.itemCount} < {pager.lastItemIndex}"> 
+            <f:then>{pager.itemCount}</f:then>
+            <f:else>{pager.lastItemIndex}</f:else>
+            </f:if> von {pager.itemCount}
+    </f:if>
+</div>
 <ul class="pt-extlist-pager">
+
+    
 
 	<f:if condition="{pager.showFirstLink}">
 		<li class="first">
