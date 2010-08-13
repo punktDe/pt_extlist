@@ -236,6 +236,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     	$extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
         
         #print_r(Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration());
+        $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper', array('getMappedListData'), array(), '', FALSE);
+        $mapperMock->expects($this->any())
+            ->method('getMappedListData')
+            ->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_List()));
+        $extBaseDataBackend->injectDataMapper($mapperMock);
         
         $listData = $extBaseDataBackend->getListData();
     }
@@ -243,8 +248,21 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     
     public function testGetTotalItemsCount() {
+    	$extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
     	
+    	// overwrite datasource to return fake query object
+    	$queryObjectMock = $this->getMock('Tx_Extbase_Persistence_Query', array('count'), array(), '', FALSE);
+    	$queryObjectMock->expects($this->any())->method('count')->will($this->returnValue(10));
+    	
+    	$repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array('createQuery'), '', FALSE);
+    	$repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($queryObjectMock));
+    	
+    	$extBaseDataBackend->injectDataSource($repositoryMock);
+    	
+    	$this->assertEquals($extBaseDataBackend->getTotalItemsCount(), 10);
     }
+    
+    
 	
     protected function getPreparedExtbaseDataBackend() {
     	$dispatcher = new Tx_Extbase_Dispatcher();
@@ -257,12 +275,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         } catch (Exception $e) {
             
         }
-        
-        $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper', array('getMappedListData'), array(), '', FALSE);
-        $mapperMock->expects($this->once())
-            ->method('getMappedListData')
-            ->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_List()));
-        $extBaseDataBackend->injectDataMapper($mapperMock);
         
         $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), '', FALSE);
         $pagerMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
