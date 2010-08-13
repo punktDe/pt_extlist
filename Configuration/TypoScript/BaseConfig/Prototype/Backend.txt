@@ -26,6 +26,7 @@ plugin.tx_ptextlist.prototype.backend {
 		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
 		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+		useEnableFields = 1
 	}
 	
 	extbase {

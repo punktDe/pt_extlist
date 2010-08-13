@@ -215,8 +215,9 @@ plugin.tx_ptextlist.settings {
 	              20 {
 	                  filterIdentifier = filter2
 	                  label = GroupFilter 1
-	                  fieldIdentifier = continent
-	                  filterField = st_continent.tr_name_en 
+	                  fieldIdentifier = subcontinent
+	                  #filterField = st_subcontinent.tr_name_en 
+	                  #displayFields = st_continent.tr_name_en, st_subcontinent.tr_name_en
 	                  multiple = 0
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
