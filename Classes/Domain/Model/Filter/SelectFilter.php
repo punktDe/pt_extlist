@@ -53,43 +53,6 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
         }        
 	}
 	
-	
-	
-	/**
-	 * Returns an array expected by f:form.select viewhelper:
-	 * 
-	 * array(<keyForReturnAsSelectedValue> => <valueToBeShownAsSelectValue>)
-	 *
-	 * @param array $groupData 
-	 * @return array
-	 */
-	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
-	   $renderedOptions = array();
-		
-	   $GLOBALS['trace'] = 1;	trace($groupData ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
-	   
-	   foreach($groupData as $option) {
-            // TODO Add render-option to TS config for this stuff here
-            $key = '';
-            $key .= $option[$this->filterField->getIdentifier()];
-            $value = '';
-            foreach($this->displayFields as $displayField) {
-                $value .= $option[$displayField->getIdentifier()];
-            }
-            
-            if($this->showRowCount && array_key_exists('rowCount', $option)) {
-            	$value .= ' (' . $option['rowCount'] . ')';
-            }        	    
- 
-            $renderedOptions[$key] = $value;
-        }
-        
-
-        
-        return $renderedOptions;
-	}
-
-	
 	/**
 	 * 
 	 * Multiple or dropdown select

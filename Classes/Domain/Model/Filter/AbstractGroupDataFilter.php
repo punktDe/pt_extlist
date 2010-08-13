@@ -235,13 +235,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 
         $fields = $this->getFieldsRequiredToBeSelected();
         $options = $this->getOptionsByFields($fields);
-        
+
         $renderedOptions = $this->getRenderedOptionsByGroupData($options);
         $renderedOptions = $this->addInactiveOption($renderedOptions);
         
         return $renderedOptions;
 	}
-
 	
 	
 	/**
@@ -291,9 +290,63 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         $excludeFiltersArray = $this->buildExcludeFiltersArray();
         
         $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
-        return $options;
+        
+        $namedOptions = array();
+        foreach($options as $option) {
+        	$key = $option[$this->filterField->getIdentifier()];
+        	$namedOptions[$key] = $option;
+        }
+        
+        
+        return $namedOptions;
 	}
 
+	
+	
+	/**
+	 * Returns an array expected by f:form.select viewhelper:
+	 * 
+	 * array(<keyForReturnAsSelectedValue> => <valueToBeShownAsSelectValue>)
+	 *
+	 * @param array $groupData 
+	 * @return array
+	 */
+	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
+	   $renderedOptions = array();
+	   
+	   foreach($groupData as $key => $optionData) {	
+            $renderedOptions[$key] = $this->renderOptionData($optionData);
+        }
+      
+        return $renderedOptions;
+	}
+	
+	
+	/**
+	 * Render a single option line by cObject or default
+	 *
+	 * @param array $optionData
+	 */
+	protected function renderOptionData($optionData) {
+		
+		$option = '';
+		
+		foreach($this->displayFields as $displayField) {
+        	$values[] = $optionData[$displayField->getIdentifier()];
+        }
+		$optionData['allDisplayFields'] = implode(' ', $values);
+		
+		if(is_array($this->filterConfig->getRenderObj())) {
+			$GLOBALS['TSFE']->cObj->start($optionData);
+			$option = $GLOBALS['TSFE']->cObj->cObjGet($this->filterConfig->getRenderObj());
+		} else {
+	        $option = $optionData['allDisplayFields'];
+	        $option .= array_key_exists('rowCount', $optionData) ? ' (' . $optionData['rowCount'] . ')' : '';
+		}
+		
+		return $option;
+	}
+	
 	
 	/**
 	 * Returns an array of <table>.<field> strings required by filter

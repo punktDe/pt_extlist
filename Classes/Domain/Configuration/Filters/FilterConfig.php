@@ -220,6 +220,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
+	 * cObj config array to render every filteroption
+	 * in typoscript object array notation
+	 * @var array
+	 */
+	protected $renderObj = NULL;
+	
+	
+	
+	/**
 	 * Constructor for filter config
 	 *
 	 * @param array $filterSettings    Settings for filter
@@ -267,6 +276,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         	$this->submitOnChange = $filterSettings['submitOnChange'] ? true : false;
         }
         
+		if(array_key_exists('renderObj', $filterSettings)) {
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($filterSettings['renderObj']);
+        }
         
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
@@ -422,6 +434,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         return $this->resetFilters;
     }
     
+    
+	/**
+	 * cObj configuration
+     * @return array
+     */
+    public function getRenderObj() {
+        return $this->renderObj;
+    }
     
     
     /**

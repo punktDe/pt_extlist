@@ -216,8 +216,8 @@ plugin.tx_ptextlist.settings {
 	                  filterIdentifier = filter2
 	                  label = GroupFilter 1
 	                  fieldIdentifier = subcontinent
-	                  #filterField = st_subcontinent.tr_name_en 
-	                  #displayFields = st_continent.tr_name_en, st_subcontinent.tr_name_en
+	                  filterField = subcontinent
+	                  displayFields = continent, subcontinent
 	                  multiple = 0
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
@@ -225,6 +225,11 @@ plugin.tx_ptextlist.settings {
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
+					  
+					  renderObj = TEXT
+			  		    renderObj {
+							dataWrap = Test {field:continent}
+						  }
 	              }
 	         }
         }  
