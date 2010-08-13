@@ -263,7 +263,26 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     }
     
     
+    
+    public function testGetGroupData() {
+    	$this->markTestIncomplete('Method is not yet implemented');
+    }
+    
+    
+    
+    
+    
+    /************************************************************************************************************
+     * Helper methods  
+     ************************************************************************************************************/
 	
+    /**
+     * Returns a prepared extbase backend for testing
+     * 
+     * Data backend can be customized by injection different components
+     *
+     * @return Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
+     */
     protected function getPreparedExtbaseDataBackend() {
     	$dispatcher = new Tx_Extbase_Dispatcher();
         $dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
