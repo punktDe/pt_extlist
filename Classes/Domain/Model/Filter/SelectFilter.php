@@ -71,12 +71,10 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	   foreach($groupData as $option) {
             // TODO Add render-option to TS config for this stuff here
             $key = '';
-            list($filterTable, $filterField) = explode('.', $this->filterField);
-            $key .= $option[$filterField];
+            $key .= $option[$this->filterField->getIdentifier()];
             $value = '';
             foreach($this->displayFields as $displayField) {
-                list($displayTable, $displayField) = explode('.', trim($displayField));
-                $value .= $option[$displayField];
+                $value .= $option[$displayField->getIdentifier()];
             }
             
             if($this->showRowCount && array_key_exists('rowCount', $option)) {
