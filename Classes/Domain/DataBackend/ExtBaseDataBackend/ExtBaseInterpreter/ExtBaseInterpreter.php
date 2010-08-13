@@ -82,11 +82,25 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 */
 	static function interpretQueryByRepository(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Repository $repository) {
 		$extbaseQuery = $repository->createQuery();
+		
+		// translate criterias
 		foreach($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
 			if ($criteria->getOperator() == 'LIKE') {
 				// TODO fix this!
 				list ($foo, $field) = explode('.', $criteria->getField());
 				$extbaseQuery->matching($extbaseQuery->like($field, $criteria->getValue()));
+			}
+		}
+		
+		
+		// translate limit
+		if ($query->getLimit() != '') {
+			list($offset, $limit) = explode(':', $query->getLimit());
+			if (!$limit > 0) {
+				$extbaseQuery->setLimit(intval($offset)); // no offset set, so offset = limit
+			} else {
+			    $extbaseQuery->setOffset(intval($offset));
+			    $extbaseQuery->setLimit(intval($limit));
 			}
 		}
 		

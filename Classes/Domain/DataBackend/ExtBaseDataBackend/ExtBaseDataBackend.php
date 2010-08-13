@@ -26,6 +26,8 @@
 /**
  * Backend for using pt_extlist with ExtBase Domain objects
  * 
+ * TODO at the moment 2 queries are send to the database: 1) gather data 2) count rows in data --> cache data and count rows there
+ * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
@@ -89,19 +91,68 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
-		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
-		foreach($this->filterboxCollection as $filterbox) {
-			foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-				$criterias = $filter->getFilterQuery()->getCriterias();
-				foreach($criterias as $criteria) {
-                    $query->addCriteria($criteria);
-				}
-			}
-		}
-		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
 		$mappedListData = $this->dataMapper->getMappedListData($data);
 		return $mappedListData;
+	}
+	
+	
+	
+	/**
+	 * Builds query for current pager, filter and sorting settings
+	 *
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	protected function buildExtBaseQuery() {
+		$query = $this->buildGenericQueryWithoutPager();
+        
+        // Collect pager limit
+        if ($this->pager->isEnabled()) {
+            $pagerOffset = intval($this->pager->getCurrentPage() - 1) * intval($this->pager->getItemsPerPage());
+            $pagerLimit = intval($this->pager->getItemsPerPage());
+            $limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
+            $limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
+        }
+        $query->setLimit($limitPart);
+        
+        $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+        return $extbaseQuery;
+	}
+	
+	
+	
+	/**
+	 * Builds extlist query object without regarding pager
+	 *
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query
+	 */
+	protected function buildGenericQueryWithoutPager() {
+	    $query = new Tx_PtExtlist_Domain_QueryObject_Query();
+        
+        // Collect criterias from filters
+        foreach($this->filterboxCollection as $filterbox) {
+            foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+                $criterias = $filter->getFilterQuery()->getCriterias();
+                foreach($criterias as $criteria) {
+                    $query->addCriteria($criteria);
+                }
+            }
+        }
+        return $query;
+	}
+	
+	
+	
+	/**
+	 * Builds ExtBase query object without regarding pager
+	 *
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	protected function buildExtBaseQueryWithoutPager() {
+		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
+		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		return $extbaseQuery;
 	}
 	
 	
@@ -112,6 +163,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
+		return $extbaseQuery = $this->buildExtBaseQueryWithoutPager()->count();
 	}
 	
 	

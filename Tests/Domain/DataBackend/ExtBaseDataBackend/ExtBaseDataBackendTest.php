@@ -250,6 +250,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
             ->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_List()));
         $extBaseDataBackend->injectDataMapper($mapperMock);
         
+        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), '', FALSE);
+        $pagerMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
+        $pagerMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
+        $pagerMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
+        $extBaseDataBackend->injectPager($pagerMock);
+        
         #print_r(Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration());
         
         $listData = $extBaseDataBackend->getListData();
