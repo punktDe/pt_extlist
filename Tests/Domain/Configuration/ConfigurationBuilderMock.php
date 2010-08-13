@@ -111,6 +111,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                             'field' => 'fieldName2',
 	                             'isSortable' => '1',
 	                             'access' => '1,2,3,4'
+	                         ),
+	                         'field3' => array( 
+	                         	 'special' => 'special',
+	                             'isSortable' => '1',
+	                             'access' => '1,2,3,4'
 	                         )
 	                     ),
 	                    'columns' => array(

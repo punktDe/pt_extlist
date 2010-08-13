@@ -54,8 +54,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                'partialPath' => 'Filter/SelectFilter',
                'fieldIdentifier' => 'field1',
-               'filterField' => 'test.test',
-               'displayFields' => 'test.test',
+               'filterField' => 'field2',
+               'displayFields' => 'field1',
                'excludeFilters' => 'filterbox1.filter1',
                'multiple' => 1
         ));

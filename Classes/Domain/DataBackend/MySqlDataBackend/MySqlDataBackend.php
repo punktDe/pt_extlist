@@ -127,31 +127,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function buildSelectPart() {
 		$selectParts = array();
         foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
-        	$selectParts[] = $this->getSelectPartFromFieldConfiguration($fieldConfiguration);
+        	$selectParts[] = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
         }
 		return implode(', ', $selectParts);
 	}
 	
-	
-	
-	/**
-	 * Returns select part for table and field given in field configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
-	 * @return string
-	 */
-	public function getSelectPartFromFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
-		if($fieldConfiguration->getSpecial()) {
-			$selectPart = $fieldConfiguration->getSpecial() . ' AS ' . $fieldConfiguration->getIdentifier();
-		} else {
-			$table = $fieldConfiguration->getTable();
-			$field = $fieldConfiguration->getField();
-			$selectPart = $table . '.' . $field . ' AS ' . $fieldConfiguration->getIdentifier();
-		}
-		return $selectPart;
-	}
-	
-	
+
 	
 	/**
 	 * Builds from part from all parts of plugin
