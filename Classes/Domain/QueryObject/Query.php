@@ -87,21 +87,26 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	protected $sortings = array();
 	
 	
+	
 	/**
      * @var integer
      */
 	const SORTINGSTATE_NONE = 0;
 
 	
+	
 	/**
      * @var integer
      */
 	const SORTINGSTATE_ASC = 1;
 
+	
+	
 	/**
      * @var integer
      */
 	const SORTINGSTATE_DESC = -1;
+	
 	
 	
 	/**
@@ -202,9 +207,16 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	}
 	
 	
+	
+	/**
+	 * Getter for group by fields
+	 *
+	 * @return array
+	 */
 	public function getGroupBy() {
 		return $this->groupByFields;
 	}
+	
 	
 	
 	/**
@@ -236,6 +248,8 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 		
 	}
 	
+	
+	
 	/**
 	 * Add an array of fields and sorting direction to the array of sortings
 	 * 
@@ -247,6 +261,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 		tx_pttools_assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
 		$this->sortings =  t3lib_div::array_merge_recursive_overrule($this->sortings, $sortingArray);
 	}
+	
 	
 	
 	/**
