@@ -89,10 +89,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 */
 	public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query) {
-        $limitString = '';
         $limit = $query->getLimit();
-        // TODO check syntax here
-        $limitString = $limit;
+        $limitString = preg_replace('/:/', ',' ,$limit);
         return $limitString;
 	}
 	

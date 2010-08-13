@@ -78,7 +78,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	
 	public function testGetLimit() {
-		$this->assertTrue(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getLimit($this->queryObject) == '10:10');
+		$this->assertTrue(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getLimit($this->queryObject) == '10,10');
 	}
 	
 	
