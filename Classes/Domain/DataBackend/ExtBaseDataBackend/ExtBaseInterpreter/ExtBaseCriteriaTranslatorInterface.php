@@ -24,27 +24,25 @@
 ***************************************************************/
 
 /**
- * Translator class for translating and criterias for extbase data backend
+ * Interface for criteria translator classes for extbase data backend 
  *
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator 
-    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {
+interface Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {
 	
 	/**
-     * Translates a query an manipulates given query object
-     *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
-     * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
-     * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
-     */
-    public static function translateCriteria(
-           Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-           Tx_Extbase_Persistence_Query $extbaseQuery,
-           Tx_Extbase_Persistence_Repository $extbaseRepository) {
-	}
+	 * Translates a query an manipulates given query object
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+	 * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
+	 * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
+	 */
+	public static function translateCriteria(
+	       Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
+	       Tx_Extbase_Persistence_Query $extbaseQuery,
+	       Tx_Extbase_Persistence_Repository $extbaseRepository);
 	
 }
  

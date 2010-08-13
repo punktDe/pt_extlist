@@ -30,14 +30,20 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
- class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
+ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator 
+    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface::translateCriteria()
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
-	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+     * Translates a query an manipulates given query object
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+     * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
+     * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
+     */
+    public static function translateCriteria(
+           Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
+           Tx_Extbase_Persistence_Query $extbaseQuery,
+           Tx_Extbase_Persistence_Repository $extbaseRepository) {
 	}
 
  }

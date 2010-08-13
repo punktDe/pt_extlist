@@ -87,7 +87,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * @param Tx_Extbase_Persistence_Repository $repository
 	 * @return Tx_Extbase_Persistence_Query
 	 */
-	static function interpretQueryByRepository(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Repository $repository) {
+	static function interpretQueryByRepository(
+	       Tx_PtExtlist_Domain_QueryObject_Query $query, 
+	       Tx_Extbase_Persistence_Repository $repository) {
 		$extbaseQuery = $repository->createQuery();
 		
 		// translate criterias
