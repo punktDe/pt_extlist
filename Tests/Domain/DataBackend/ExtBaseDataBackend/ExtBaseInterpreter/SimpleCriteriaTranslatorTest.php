@@ -31,9 +31,113 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-     
+
+	protected $repositoryMock;
+	
+	
+	
+	public function setup() {
+		$this->repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array(), '', FALSE); 
+	}
+	
+	
+	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator'));
+	}
+	
+	
+	
+	public function testEqualsCriteria() {
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
+		$query = $this->getQueryMockWithMatchingCall(array('matching', 'equals'));
+		$query->expects($this->once())
+		    ->method('equals')
+		    ->with('field', 'value');
+		Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+		    $criteria, $query, $this->repositoryMock);
+	}
+	
+	
+	
+	public function testLessThanCriteria() {
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '<');
+		$query = $this->getQueryMockWithMatchingCall(array('matching', 'lessThan'));
+		$query->expects($this->once())
+		    ->method('lessThan')
+		    ->with('field', 'value');
+		Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+		    $criteria, $query, $this->repositoryMock);
+	}
+	
+	
+	
+	public function testLessThanEqualCriteria() {
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '<=');
+        $query = $this->getQueryMockWithMatchingCall(array('matching', 'lessThanOrEqual'));
+        $query->expects($this->once())
+            ->method('lessThanOrEqual')
+            ->with('field', 'value');
+        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+            $criteria, $query, $this->repositoryMock);
+	}
+	
+	
+	
+	public function testGreaterThanCriteria() {
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '>');
+        $query = $this->getQueryMockWithMatchingCall(array('matching', 'greaterThan'));
+        $query->expects($this->once())
+            ->method('greaterThan')
+            ->with('field', 'value');
+        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+            $criteria, $query, $this->repositoryMock);
+	}
+	
+	
+	
+	public function testGreaterThanEqualCriteria() {
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '>=');
+        $query = $this->getQueryMockWithMatchingCall(array('matching', 'greaterThanOrEqual'));
+        $query->expects($this->once())
+            ->method('greaterThanOrEqual')
+            ->with('field', 'value');
+        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+            $criteria, $query, $this->repositoryMock);
+	}
+	
+	
+	
+	public function testThrowExceptionOnInCriteria() {
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', 'IN');
+        $query = $this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
+        try {
+	        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+	            $criteria, $query, $this->repositoryMock);
+        } catch(Exception $e) {
+        	return;
+        }
+        $this->fail('No error thrown on trying to translate IN operator!');
+	}
+	
+	
+	
+	
+	/************************************************************************************************
+	 * Helper methods
+	 ************************************************************************************************/
+	
+	/**
+	 * Creates query mock with given methods
+	 *
+	 * @param array $mockedMethods Methods to be mocked
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	protected function getQueryMockWithMatchingCall(array $mockedMethods = array()) {
+		$query = $this->getMock('Tx_Extbase_Persistence_Query', $mockedMethods, array(), '', FALSE);
+        $query->expects($this->once())
+          ->method('matching');
+        return $query;
 	}
 	
 }

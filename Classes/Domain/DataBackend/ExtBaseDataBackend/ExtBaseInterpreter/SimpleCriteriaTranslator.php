@@ -44,6 +44,46 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
            Tx_Extbase_Persistence_Query $extbaseQuery,
            Tx_Extbase_Persistence_Repository $extbaseRepository) {
+           	
+           	tx_pttools_assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
+           	    array('message' => 'Criteria is not a simple criteria! 1281724991'));
+           	/* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+           	switch ($criteria->getOperator()) {
+           		case '=' :
+           		    $extbaseQuery->matching($extbaseQuery->equals($criteria->getField(), $criteria->getValue()));
+           		break;
+           		
+           		case '<' :
+           		    $extbaseQuery->matching($extbaseQuery->lessThan($criteria->getField(), $criteria->getValue()));   
+           	    break;
+           	    
+           		case '>' :
+           	        $extbaseQuery->matching($extbaseQuery->greaterThan($criteria->getField(), $criteria->getValue()));
+           		break;
+           		
+           		case '<=' :
+           			$extbaseQuery->matching($extbaseQuery->lessThanOrEqual($criteria->getField(), $criteria->getValue()));
+           		break;
+           		
+           		case '>=' :
+           		    $extbaseQuery->matching($extbaseQuery->greaterThanOrEqual($criteria->getField(), $criteria->getValue()));
+           		break;
+           		
+           		case 'LIKE' :
+           			$extbaseQuery->matching($extbaseQuery->like($criteria->getField(), $criteria->getValue()));
+           		break;
+           		
+           		case 'IN' :
+           			// TODO check mailinglist for solution!
+           		   	throw new Exception('IN operator is currently not supported by extbase! 1281727495');
+           	    break;
+           		
+           		default:
+           			throw new Exception('No translation implemented for ' . $criteria->getOperator() . ' Operator! 1281727494');
+           		break;
+           	}
+           	
+           	
 		
 	}
 	
