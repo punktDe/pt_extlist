@@ -233,6 +233,20 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     
     public function testGetListData() {
+    	$extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
+        
+        #print_r(Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration());
+        
+        $listData = $extBaseDataBackend->getListData();
+    }
+    
+    
+    
+    public function testGetTotalItemsCount() {
+    	
+    }
+	
+    protected function getPreparedExtbaseDataBackend() {
     	$dispatcher = new Tx_Extbase_Dispatcher();
         $dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
         $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
@@ -241,7 +255,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         try {
             $dispatcher->dispatch('content', $this->extBaseSettings);
         } catch (Exception $e) {
-        	
+            
         }
         
         $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper', array('getMappedListData'), array(), '', FALSE);
@@ -256,11 +270,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $pagerMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
         $extBaseDataBackend->injectPager($pagerMock);
         
-        #print_r(Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration());
-        
-        $listData = $extBaseDataBackend->getListData();
+        return $extBaseDataBackend;
     }
-	
 }
 
 ?>
