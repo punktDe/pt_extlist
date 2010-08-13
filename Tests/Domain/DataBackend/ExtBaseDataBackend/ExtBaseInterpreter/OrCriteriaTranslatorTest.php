@@ -24,30 +24,17 @@
 ***************************************************************/
 
 /**
- * Testcase for ExtBase Query interpreter
+ * Testcase for or criteria translator for extbase backend interpreter
  *
- * @package TYPO3
+ * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+     
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator'));
+	}
 	
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter'));
-    }
-
-    
-    
-    public function testInterpretQueryByRepository() {
-    	$this->markTestIncomplete();
-    }
-
-    
-    
-    public function testTranslateCriteria() {
-        $this->assertTrue(method_exists(Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter, 'translateCriteria'));    
-    }
-    
 }
-
 ?>

@@ -67,16 +67,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 * Translates given criteria into  SQL WHERE string (without 'WHERE')
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
-	 * @return unknown
+	 * @return string
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		$criteriaString = '';
 		$criteriaClass = get_class($criteria);
 		if (array_key_exists($criteriaClass, self::$translatorClasses) && class_exists(self::$translatorClasses[$criteriaClass])) {
-	      $className = self::$translatorClasses[$criteriaClass];
-		  $criteriaString = call_user_func($className . '::translateCriteria', $criteria);	
+	        $className = self::$translatorClasses[$criteriaClass];
+		    $criteriaString = call_user_func($className . '::translateCriteria', $criteria);	
 		} else {
-		  throw new Exception('Unknown type of criteria ' . get_class($criteria));
+		    throw new Exception('Unknown type of criteria ' . get_class($criteria));
 		}
 		return $criteriaString;
 	}
