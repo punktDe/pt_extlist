@@ -69,12 +69,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return array
 	 */
 	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters=array()) {
+		throw new Exception('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::getGroupData is not yet implemented! 1281686622');
 	}
 	
 	
 	
 	/**
 	 * Injects a query interpreter
+	 * 
+	 * This method is overwritten to make sure that correct type for interpreter is injected
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
