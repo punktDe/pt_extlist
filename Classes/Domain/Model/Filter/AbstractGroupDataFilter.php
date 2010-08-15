@@ -336,13 +336,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         }
 		$optionData['allDisplayFields'] = implode(' ', $values);
 		
-		if(is_array($this->filterConfig->getRenderObj())) {
-			$GLOBALS['TSFE']->cObj->start($optionData);
-			$option = $GLOBALS['TSFE']->cObj->cObjGet($this->filterConfig->getRenderObj());
-		} else {
-	        $option = $optionData['allDisplayFields'];
-	        $option .= array_key_exists('rowCount', $optionData) ? ' (' . $optionData['rowCount'] . ')' : '';
-		}
+		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
 		
 		return $option;
 	}

@@ -29,9 +29,9 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	
 	/**
 	 * Identifier of list to which this filter belongs to
@@ -229,6 +229,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	
 	
 	/**
+	 * renderuserFunction configuration to render everey filteroption
+	 * @var array
+	 */
+	protected $renderUserFunctions = NULL;
+	
+	
+	
+	/**
 	 * Constructor for filter config
 	 *
 	 * @param array $filterSettings    Settings for filter
@@ -248,6 +256,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
 	 * @param array $filterSettings
 	 */
 	protected function setPropertiesFromSettings(array $filterSettings) {
+		
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
         $this->filterIdentifier = $filterSettings['filterIdentifier'];
         
@@ -277,8 +286,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
         }
         
 		if(array_key_exists('renderObj', $filterSettings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($filterSettings['renderObj']);
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $filterSettings['renderObj']));
         }
+        
+		if(array_key_exists('renderUserFunctions', $columnSettings)) {
+			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
+		}
         
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
@@ -495,6 +508,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig {
     public function getSubmitOnChange() {
     	return $this->submitOnChange;
     }
+    
+    
+    
+	/**
+	 * @return array
+	 */
+	public function getRenderUserFunctions() {
+		return $this->renderUserFunctions;
+	}
 	
 }
 
