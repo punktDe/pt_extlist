@@ -265,7 +265,23 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     
     public function testGetGroupData() {
-    	$this->markTestIncomplete('Method is not yet implemented');
+    	$extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
+        
+        // overwrite datasource to return fake query object
+        $returnArray = array('field' => 'value');
+       
+        $queryObjectMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', array('getCriterias'), array(), '', FALSE);
+        $queryObjectMock->expects($this->any())->method('getCriterias')->will($this->returnValue(array()));
+        
+        $extbaseQueryObjectMock = $this->getMock('Tx_Extbase_Persistence_Query', array('execute','getObjectDataByQuery'), array(), '', FALSE);
+        $extbaseQueryObjectMock->expects($this->any())->method('execute')->will($this->returnValue($returnArray));
+        
+        $repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array('createQuery'), '', FALSE);
+        $repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($extbaseQueryObjectMock));
+        
+        $extBaseDataBackend->injectDataSource($repositoryMock);
+        
+        $this->assertEquals($extBaseDataBackend->getGroupData($queryObjectMock), $returnArray);
     }
     
     

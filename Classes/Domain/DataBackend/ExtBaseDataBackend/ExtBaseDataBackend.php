@@ -69,7 +69,30 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return array
 	 */
 	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters=array()) {
-		throw new Exception('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::getGroupData is not yet implemented! 1281686622');
+		$query = $this->buildGenericQueryWithoutPager();
+		$query = $this->mergeGenericQueries($query, $groupDataQuery);
+		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
+		        $query, $this->repository);
+		return $extBaseQuery->execute();
+	}
+	
+	
+	
+	/**
+	 * Merges criterias for two given queries
+	 * 
+	 * TODO put this into query class!
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $resultQuery Query to be returned after merge
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $queryToBeMerged Query to be merged into other query
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query
+	 */
+	protected function mergeGenericQueries(Tx_PtExtlist_Domain_QueryObject_Query $resultQuery, Tx_PtExtlist_Domain_QueryObject_Query $queryToBeMerged) {
+		// TODO merge other things, except criterias
+		foreach($queryToBeMerged->getCriterias() as $criteria) {
+			$resultQuery->addCriteria($criteria);
+		}
+		return $resultQuery;
 	}
 	
 	
@@ -131,14 +154,26 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected function buildGenericQueryWithoutPager() {
+        $query = $this->buildGenericQueryExcludingFilters();
+        return $query;
+	}
+	
+	
+	
+	/**
+	 * Builds extlist query object excluding criterias from filters given by parameter
+	 *
+	 * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
+	 */
+	protected function buildGenericQueryExcludingFilters(array $excludeFilters = array()) {
 	    $query = new Tx_PtExtlist_Domain_QueryObject_Query();
-        
-        // Collect criterias from filters
-        foreach($this->filterboxCollection as $filterbox) {
+	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-                $criterias = $filter->getFilterQuery()->getCriterias();
-                foreach($criterias as $criteria) {
-                    $query->addCriteria($criteria);
+		    	if (!in_array($filterbox->getfilterboxIdentifier() . '.' . $filter->getFilterIdentifier(), $excludeFilters)) {
+                    $criterias = $filter->getFilterQuery()->getCriterias();
+                    foreach($criterias as $criteria) {
+                        $query->addCriteria($criteria);
+                    }
                 }
             }
         }
