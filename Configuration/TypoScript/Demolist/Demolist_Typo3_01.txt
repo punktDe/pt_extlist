@@ -118,7 +118,7 @@ plugin.tx_ptextlist.settings {
 				columnIdentifier = nameColumn
 	
 				# This label will be displayed in the item list (use lll here)
-				label = LLL:EXT:pt_extlist/Configuration/Typoscript/Demolist/locallang.xml:column_nameColumn
+				label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:column_nameColumn
 	
 				# Set the dataDescriptions this columns refers to
 				# the dataDescriptionIdentifier is a single reference to a dataDescription if type is default
@@ -173,7 +173,7 @@ plugin.tx_ptextlist.settings {
 			}
 	
 			20 {
-				label = LLL:EXT:pt_extlist/Configuration/Typoscript/Demolist/locallang.xml:column_isoNoColumn
+				label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:column_isoNoColumn
 				columnIdentifier = isoNoColumn
 				fieldIdentifier = iso2
 				isSortable = 1
@@ -199,6 +199,7 @@ plugin.tx_ptextlist.settings {
         }
         
         renderer {
+        	# User function for generating 'special' cell variables
         	specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processCell
         }
         
