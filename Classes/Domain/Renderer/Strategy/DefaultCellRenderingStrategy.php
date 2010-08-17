@@ -170,7 +170,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		foreach ($sortedKeys as $key) {
 			$rendererUserFunc = $userFunctions[$key];
 			
-			$params['currentContent'] = $renderedContent;
+			$params['currentContent'] = $content;
 			$params['conf'] = $userFunctions[$key]; 
 			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
 		}
