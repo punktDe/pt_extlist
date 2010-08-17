@@ -84,12 +84,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     
     
     public function testSetCriteriaOnExtBaseQueryByCriteria() {
+    	$repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository',  array(), array(), '', FALSE);
     	$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
     	$extbaseQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
         $extbaseQueryMock->expects($this->once())
-           ->method('setLimit')
-           ->with(intval('20'));
-        $this->markTestIncomplete();
+            ->method('matching');
+        $extbaseQueryMock->expects($this->once())
+            ->method('equals')
+            ->with('field', 'value');
+        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQueryMock, $repositoryMock);
+        
     }
     
     
