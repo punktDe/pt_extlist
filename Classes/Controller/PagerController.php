@@ -39,6 +39,11 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 */
 	public function showAction() {
 		$pager = $this->getPagerInstance();
+		
+		// Do not show pager when nothing to page.
+		if($pager->getItemCount() <= 0) return '';
+		
+		
 		$this->view->assign('pager', $pager);
 	}
 	
