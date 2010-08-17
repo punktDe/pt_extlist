@@ -48,6 +48,25 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->assertTrue(method_exists(Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter, 'translateCriteria'));    
     }
     
+    
+    
+    public function testSetLimitOnExtBaseQueryByQueryObject() {
+    	$queryObjectMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', array(), array(), '', FALSE);
+    	$queryObjectMock->expects($this->any())
+    	   ->method('getLimit')
+    	   ->will($this->returnValue('20:10'));
+    	$extbaseQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
+    	$extbaseQueryMock->expects($this->once())
+    	   ->method('setOffset')
+    	   ->with(intval('20'));
+   	   $extbaseQueryMock->expects($this->once())
+           ->method('setLimit')
+           ->with(intval('10'));
+       Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setLimitOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock);
+    }
+    
+    
+    
 }
 
 ?>
