@@ -31,9 +31,34 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+    
+    protected $repositoryMock;
+    
+    
+    
+    public function setup() {
+        $this->repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array(), '', FALSE); 
+    }
+    
+    
      
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator'));
+	}
+	
+	
+	
+	public function testThrowExceptionOnWrongCriteriaType() {
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '='));
+        $query = $this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
+        try {
+            Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator::translateCriteria(
+                $criteria, $query, $this->repositoryMock
+            );
+        } catch(Exception $e) {
+            return;
+        }
+        $this->fail('No exception has been thrown on trying to translate wrong criteria class!');
 	}
 	
 }

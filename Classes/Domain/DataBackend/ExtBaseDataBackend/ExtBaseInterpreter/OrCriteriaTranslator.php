@@ -44,6 +44,12 @@
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
            Tx_Extbase_Persistence_Query $extbaseQuery,
            Tx_Extbase_Persistence_Repository $extbaseRepository) {
+           	
+           	tx_pttools_assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_OrCriteria',
+           	    array('message' => 'Criteria is not an or-criteria! 1281727496')));
+           	    
+           	/* @var $criteria Tx_PtExtlist_Domain_QueryObject_OrCriteria */
+           	
 	}
 
  }
