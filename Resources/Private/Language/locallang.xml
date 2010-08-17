@@ -8,10 +8,16 @@
 	<data type="array">
 		<languageKey index="default" type="array">
             <label index="emptyList">Sorry, no list items available.</label>
+            <label index="pager.of">of</label>
+            <label index="pager.to">to</label>
+            <label index="pager.showItems">Show item</label>
 		</languageKey>
 		
 		<languageKey index="de" type="array">
             <label index="emptyList">Leider keine Daten in der Liste.</label>
+            <label index="pager.of">von</label>
+            <label index="pager.to">bis</label>
+            <label index="pager.showItems">Zeige Element</label>
 		</languageKey>
 	</data>
 </T3locallang>
