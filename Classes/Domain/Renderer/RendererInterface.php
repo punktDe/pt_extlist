@@ -39,7 +39,7 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * Also uses the column definitions.
 	 * 
 	 * @param Tx_PtExtlist_Domain_Model_List_List $list
-	 * @return Tx_PtExtlist_Domain_Model_List_List
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_List &$list);
 	
