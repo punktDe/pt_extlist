@@ -7,6 +7,8 @@
 # @subpackage pt_extlist
 ####################################################
 
+
+
 plugin.tx_ptextlist.settings {
 
     ## Remove these lines for activating CSV rendering
@@ -20,7 +22,7 @@ plugin.tx_ptextlist.settings {
     #    fileNamePrefix = demolist
     #}
     
-    
+    _LOCAL_LANG.default.emptyList = blabla
 
     listConfig.demolist {
     
@@ -235,3 +237,13 @@ plugin.tx_ptextlist.settings {
     }
 }
 
+# Localization Override
+################################
+plugin.tx_ptextlist._LOCAL_LANG{
+	default {
+		emptyList = List is empty.
+	}
+	de {
+		emptyList = Liste ist leer.
+	}
+}
