@@ -35,56 +35,75 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
 	
 	/**
      * Translates a query an manipulates given query object
+     * 
+     * TODO check, if there is already a constraint added to extbase query and use AND constraint then
+     * TODO use AND to connect more than one constraint
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
      * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
      * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
      */
     public static function translateCriteria(
-           Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-           Tx_Extbase_Persistence_Query $extbaseQuery,
-           Tx_Extbase_Persistence_Repository $extbaseRepository) {
-           	
-           	tx_pttools_assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
-           	    array('message' => 'Criteria is not a simple criteria! 1281724991'));
-           	/* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
-           	switch ($criteria->getOperator()) {
-           		case '=' :
-           		    $extbaseQuery->matching($extbaseQuery->equals($criteria->getField(), $criteria->getValue()));
-           		break;
-           		
-           		case '<' :
-           		    $extbaseQuery->matching($extbaseQuery->lessThan($criteria->getField(), $criteria->getValue()));   
-           	    break;
-           	    
-           		case '>' :
-           	        $extbaseQuery->matching($extbaseQuery->greaterThan($criteria->getField(), $criteria->getValue()));
-           		break;
-           		
-           		case '<=' :
-           			$extbaseQuery->matching($extbaseQuery->lessThanOrEqual($criteria->getField(), $criteria->getValue()));
-           		break;
-           		
-           		case '>=' :
-           		    $extbaseQuery->matching($extbaseQuery->greaterThanOrEqual($criteria->getField(), $criteria->getValue()));
-           		break;
-           		
-           		case 'LIKE' :
-           			$extbaseQuery->matching($extbaseQuery->like($criteria->getField(), $criteria->getValue()));
-           		break;
-           		
-           		case 'IN' :
-           			// TODO check mailinglist for solution!
-           		   	throw new Exception('IN operator is currently not supported by extbase! 1281727495');
-           	    break;
-           		
-           		default:
-           			throw new Exception('No translation implemented for ' . $criteria->getOperator() . ' Operator! 1281727494');
-           		break;
-           	}
-           	
-           	
+            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
+            Tx_Extbase_Persistence_Query $extbaseQuery,
+            Tx_Extbase_Persistence_Repository $extbaseRepository) {
+
+        tx_pttools_assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
+      	    array('message' => 'Criteria is not a simple criteria! 1281724991'));
+      	/* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+      	    
+      	$propertyName = self::getPropertyNameByCriteria($criteria);
+      	    
+      	switch ($criteria->getOperator()) {
+      		case '=' :
+      		    $extbaseQuery->matching($extbaseQuery->equals($propertyName, $criteria->getValue()));
+      		break;
+      		
+      		case '<' :
+      		    $extbaseQuery->matching($extbaseQuery->lessThan($propertyName, $criteria->getValue()));   
+      	    break;
+      	    
+      		case '>' :
+      	        $extbaseQuery->matching($extbaseQuery->greaterThan($propertyName, $criteria->getValue()));
+      		break;
+      		
+      		case '<=' :
+      			$extbaseQuery->matching($extbaseQuery->lessThanOrEqual($propertyName, $criteria->getValue()));
+      		break;
+      		
+      		case '>=' :
+      		    $extbaseQuery->matching($extbaseQuery->greaterThanOrEqual($propertyName, $criteria->getValue()));
+      		break;
+      		
+      		case 'LIKE' :
+      			$extbaseQuery->matching($extbaseQuery->like($propertyName, $criteria->getValue()));
+      		break;
+      		
+      		case 'IN' :
+      			// TODO check mailinglist for solution!
+      		   	throw new Exception('IN operator is currently not supported by extbase! 1281727495');
+      	    break;
+      		
+      		default:
+      			throw new Exception('No translation implemented for ' . $criteria->getOperator() . ' operator! 1281727494');
+      		break;
+      	}
+      	
+      	return $extbaseQuery;
 		
+	}
+	
+	
+	
+	/**
+	 * Returns field name for a given criteria object
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria
+	 * @return string Fieldname
+	 */
+	protected static function getPropertyNameByCriteria(Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria) {
+		list($predot, $postdot) = explode('.', $criteria->getField());
+		return $postdot != '' ? $postdot : $predot;
 	}
 	
 }

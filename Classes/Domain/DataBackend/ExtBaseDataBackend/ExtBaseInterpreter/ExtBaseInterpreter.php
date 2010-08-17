@@ -26,6 +26,8 @@
 /**
  * Query interpreter for ExtBase data backend. Translates queries into extbase query objects
  * 
+ * TODO by calling static methods in Translator class, we have no loose coupling here. Change this by using instance of translator class.
+ * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
@@ -90,9 +92,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	public static function interpretQueryByRepository(
 	       Tx_PtExtlist_Domain_QueryObject_Query $query, 
 	       Tx_Extbase_Persistence_Repository $repository) {
-		$emptyExtbaseQuery = $repository->createQuery(); /* @var $criteria Tx_Extbase_Persistence_Query */
+	       	
+		$emptyExtbaseQuery = $repository->createQuery(); /* @var $emptyExtbaseQuery Tx_Extbase_Persistence_Query */
 		
-		$constrainedExtbaseQuery = self::setAllCriteriasOnExtBaseQueryByQueryObject($query, $emptyExtbaseQuery);
+		$constrainedExtbaseQuery = self::setAllCriteriasOnExtBaseQueryByQueryObject($query, $emptyExtbaseQuery, $repository);
 		$limitedExtbaseQuery = self::setLimitOnExtBaseQueryByQueryObject($query, $constrainedExtbaseQuery);
 		
 		return $limitedExtbaseQuery;
@@ -105,18 +108,29 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
+     * @param Tx_Extbase_Persistence_Repository $repository
 	 * @return Tx_Extbase_Persistence_Query
 	 */
-	public static function setAllCriteriasOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery) {
+	public static function setAllCriteriasOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_Repository $repository) {
         foreach($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
-        	// TODO use translators to do this job!
-            if ($criteria->getOperator() == 'LIKE') {
-                // TODO add mechanism to access properties that are objects themselves
-                list ($foo, $field) = explode('.', $criteria->getField());
-                $extbaseQuery->matching($extbaseQuery->like($field, $criteria->getValue()));
-            }
+            $extbaseQuery = self::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQuery, $repository);
         }
 		return $extbaseQuery;
+	}
+	
+	
+	
+	/**
+	 * Translates given criteria and adds it to extbase query criterias 
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
+	 * @param Tx_Extbase_Persistence_Repository $repository
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	public static function setCriteriaOnExtBaseQueryByCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria, Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_Repository $repository) {
+		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
+        return $extbaseQuery;
 	}
 	
 	
