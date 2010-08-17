@@ -93,10 +93,29 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('equals')
             ->with('field', 'value');
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQueryMock, $repositoryMock);
-        
     }
+
     
     
+    public function testSetAllCriteriasOnExtBaseQueryByQuery() {
+    	$repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository',  array(), array(), '', FALSE);
+        $criteria1 = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field1', 'value1', '=');
+        $criteria2 = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field2', 'value2', '>');
+        $queryMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', array(), array(), '', FALSE);
+        $queryMock->expects($this->once())
+            ->method('getCriterias')
+            ->will($this->returnValue(array($criteria1, $criteria2)));
+        $extbaseQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
+        $extbaseQueryMock->expects($this->any())
+            ->method('matching');
+        $extbaseQueryMock->expects($this->once())
+            ->method('equals')
+            ->with('field1', 'value1');
+        $extbaseQueryMock->expects($this->once())
+            ->method('greaterThan')
+            ->with('field2', 'value2');
+        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setAllCriteriasOnExtBaseQueryByQueryObject($queryMock, $extbaseQueryMock, $repositoryMock);
+    }
     
 }
 
