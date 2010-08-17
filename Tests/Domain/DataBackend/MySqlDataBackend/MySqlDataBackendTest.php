@@ -326,16 +326,18 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$additionalQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		$additionalQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('field1', 10));
 		
+		$returnArray = array('test');
+		
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
-
+        $dataSourceMock->expects($this->once())->method('executeQuery')->will($this->returnValue($returnArray));
+        
         $dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
 		
 		$groupData = $dataBackend->getGroupData($additionalQuery, $excludeFilters);
-		// TODO Finish me!
-		$this->markTestIncomplete();
+		$this->assertEquals($returnArray, $groupData);
 	}
 	
 	
