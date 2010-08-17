@@ -87,32 +87,57 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * @param Tx_Extbase_Persistence_Repository $repository
 	 * @return Tx_Extbase_Persistence_Query
 	 */
-	static function interpretQueryByRepository(
+	public static function interpretQueryByRepository(
 	       Tx_PtExtlist_Domain_QueryObject_Query $query, 
 	       Tx_Extbase_Persistence_Repository $repository) {
-		$extbaseQuery = $repository->createQuery();
+		$emptyExtbaseQuery = $repository->createQuery(); /* @var $criteria Tx_Extbase_Persistence_Query */
 		
-		// translate criterias
-		foreach($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
-			if ($criteria->getOperator() == 'LIKE') {
-				// TODO fix this!
-				list ($foo, $field) = explode('.', $criteria->getField());
-				$extbaseQuery->matching($extbaseQuery->like($field, $criteria->getValue()));
-			}
-		}
+		$constrainedExtbaseQuery = self::setAllCriteriasOnExtBaseQueryByQueryObject($query, $emptyExtbaseQuery);
+		$limitedExtbaseQuery = self::setLimitOnExtBaseQueryByQueryObject($query, $constrainedExtbaseQuery);
 		
-		
-		// translate limit
-		if ($query->getLimit() != '') {
-			list($offset, $limit) = explode(':', $query->getLimit());
-			if (!$limit > 0) {
-				$extbaseQuery->setLimit(intval($offset)); // no offset set, so offset = limit
-			} else {
-			    $extbaseQuery->setOffset(intval($offset));
-			    $extbaseQuery->setLimit(intval($limit));
-			}
-		}
-		
+		return $limitedExtbaseQuery;
+	}
+	
+	
+	
+	/**
+	 * Sets criterias from given query object on given extbase query object. Returns manipulated extbase query object
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	public static function setAllCriteriasOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery) {
+        foreach($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+        	// TODO use translators to do this job!
+            if ($criteria->getOperator() == 'LIKE') {
+                // TODO add mechanism to access properties that are objects themselves
+                list ($foo, $field) = explode('.', $criteria->getField());
+                $extbaseQuery->matching($extbaseQuery->like($field, $criteria->getValue()));
+            }
+        }
+		return $extbaseQuery;
+	}
+	
+	
+	
+	/**
+	 * Sets a limit on an extbase query by given query object. Returns manipulated extbase query.
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	public static function setLimitOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery) {
+        if ($query->getLimit() != '') {
+            list($offset, $limit) = explode(':', $query->getLimit());
+            if (!$limit > 0) {
+                $extbaseQuery->setLimit(intval($offset)); // no offset set, so offset = limit
+            } else {
+                $extbaseQuery->setOffset(intval($offset));
+                $extbaseQuery->setLimit(intval($limit));
+            }
+        }
 		return $extbaseQuery;
 	}
 	
