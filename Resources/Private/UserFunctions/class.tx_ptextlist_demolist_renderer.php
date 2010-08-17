@@ -47,9 +47,13 @@ class tx_ptextlist_demolist_renderer {
 	
 		$currentContent = $params['currentContent'];
 		
-		if (isset($values['iso2'])) {
+		$iso = $values['iso2'];
+		$value = $iso->getValue();
+		
+		
+		if (isset($value)) {
 			// check if file exists
-			$flagFileName =  'gfx/flags/' . strtolower($values['iso2']) . '.gif';
+			$flagFileName =  'gfx/flags/' . strtolower($value) . '.gif';
 			if (is_file(PATH_typo3 . $flagFileName)) {
 				$currentContent .= ' <img src="/typo3/'. $flagFileName .'" />'; 
 			}
