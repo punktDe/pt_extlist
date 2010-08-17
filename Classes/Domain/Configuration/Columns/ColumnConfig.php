@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
+class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	
 	/**
 	 * Identifier of list to which this column belongs to
@@ -225,7 +225,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig {
 	
 	/** 
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function getSortingConfig() {
 		return $this->sortingConfigCollection;

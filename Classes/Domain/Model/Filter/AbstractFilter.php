@@ -372,7 +372,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function initGenericFilterByTSConfig() {
-		$this->fieldIdentifier = $this->resolveFieldIdentifier($this->filterConfig->getFieldIdentifier());
+		$this->fieldIdentifier = $this->resolveFieldConfig($this->filterConfig->getFieldIdentifier());
 		$this->invert = $this->filterConfig->getInvert();
 	}
 	
@@ -492,7 +492,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 	
-	protected function resolveFieldIdentifier($fieldIdentifier) {	
+	protected function resolveFieldConfig($fieldIdentifier) {	
 		return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
 	}
 	

@@ -53,7 +53,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	/**
 	 * Executes given SQL query
 	 * 
-	 * // TODO use dedicated T3 query methods here!
 	 *
 	 * @param string $query SQL query to be executed
 	 */
@@ -61,12 +60,16 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 		try {
 			$res = $this->connection->sql_query($query);
 	        tx_pttools_assert::isMySQLRessource($res, $this->dbObj);
+	        
 	        $rows = array();
+	        
 	        while (($a_row = $this->connection->sql_fetch_assoc($res)) == true) {
 	            $rows[] = $a_row;
 	        }
+	        
 	        $this->connection->sql_free_result($res);
 	        return $rows;
+	        
 		} catch(Exception $e) {
 			throw new Exception('Error while retrieving data from database using typo3 db object.<br> 
 							     Error: ' . $e->getMessage() . ' sql_error says: ' . $this->connection->sql_error() . ' 1280400023<br><br>

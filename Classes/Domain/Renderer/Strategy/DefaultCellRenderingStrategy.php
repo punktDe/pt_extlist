@@ -92,7 +92,6 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data);
-						
 		// TS parsing
 		// This resets previous content from fieldIdentifier config.
 		// TODO: set cObj currentData <= $content

@@ -49,6 +49,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 			'invertable' => '1',
 			'inactiveOption' => '[All]',
 			'submitOnChange' => '1',
+			'renderObj' => array(	
+				'dataWrap' => '{field:allDisplayFields}',
+				'_typoScriptNodeValue' => 'TEXT',
+			)
 		);
 	}
 	
@@ -111,6 +115,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function testGetSubmitOnChange() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
 		$this->assertEquals(true, $filterConfig->getSubmitOnChange());
+	}
+	
+	public function testGetRenderObj() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$renderObj = $filterConfig->getRenderObj();
+		$refArray['renderObj'] = 'TEXT';
+		$refArray['renderObj.']['dataWrap'] = '{field:allDisplayFields}';
+		
+		$this->assertEquals($refArray, $renderObj);
 	}
 	
 }

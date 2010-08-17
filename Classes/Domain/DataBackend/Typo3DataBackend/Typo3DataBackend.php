@@ -50,6 +50,50 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 		return $dataSource;
 	}
 	
+	
+	/**
+	 * Builds where part of query from all parts of plugin
+	 *
+	 * @return string WHERE part of query without 'WHERE'
+	 */
+	public function buildWherePart() {
+		$wherePart = '';
+		$baseWhereClause = $this->getBaseWhereClause();
+		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes();
+		
+		if($baseWhereClause && $whereClauseFromFilterBoxes) {
+			$wherePart = '(' . $baseWhereClause . ') AND ' . $whereClauseFromFilterBoxes;
+		} else {
+			$wherePart = $baseWhereClause.$whereClauseFromFilterBoxes;			
+		}
+	 
+		$wherePart .= $this->getTypo3SpecialFieldsWhereClause();
+		
+		return $wherePart;
+	}
+	
+	
+	/**
+	 * Build and return whereclause part with TYPO3 enablefields criterias
+	 * for all tables wich are defined in backendConfig.tables and in TCA
+	 * 
+	 * @return string whereclause part with TYPO3 enablefields criterias
+	 */
+	protected function getTypo3SpecialFieldsWhereClause() {
+		$typo3Tables = t3lib_div::trimExplode(',', $this->backendConfiguration->getDataBackendSettings('tables'), true);
+		$specialFieldsWhereClause = '';
+
+		foreach($typo3Tables as $typo3Table) {
+			list($table, $alias) = t3lib_div::trimExplode(' ', $table, true);
+			
+			if (is_array($GLOBALS['TCA'][$typo3Table])) {
+	        	$specialFieldsWhereClause .= $GLOBALS['TSFE']->cObj->enableFields($typo3Table);
+			}
+		}
+		
+		return $specialFieldsWhereClause;
+	}
+	
 }
 
 ?>

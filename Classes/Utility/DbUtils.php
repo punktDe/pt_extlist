@@ -26,66 +26,31 @@
 /**
  * Class contains utility functions concerning database related stuff
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Utility_DbUtils {
 
-	/**
-	 * Creates an aliased select part for given table and field
-	 * 
-	 * <table>.<field> AS <table>_<field>
-	 *
-	 * @param string $table Tablename to select from
-	 * @param string $field Fieldname to select from
-	 * @return string <table>.<field> AS <table>_<field>
-	 */
-	public static function getAliasedSelectPartByTableAndField($table, $field) {
-		return $table . '.' . $field . ' AS ' . self::getAliasByTableAndField($table, $field);
-	}
-	
-	
-	
+
 	/**
 	 * Creates an aliased select part for given field config
 	 * 
-	 * <table>.<field> as <table>_<field>
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfig Field config to get aliased select part for
-	 * @return string <table>.<field> as <table>_<field>
-	 */
-	public static function getAliasedSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfig) {
-		return self::getAliasedSelectPartByTableAndField($fieldConfig->getTable(), $fieldConfig->getField());
-	}
-	
-	
-	
-	/**
-	 * Returns select alias for given table and field
-	 *
-	 * <table>_<field>
+	 * <table>.<field> as <fieldIdentifier>
 	 * 
-	 * @param string $table
-	 * @param string $field
+	 * Or: if a special mysql string is given
+	 * <special mysql string> as <fieldIdentifier>
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
 	 * @return string
 	 */
-	public static function getAliasByTableAndField($table, $field) {
-		return $table . '_' . $field;
-	}
-	
-	
-	
-	/**
-	 * Returns select alias for given field configuration
-	 * 
-	 * <table>_<field>
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfig Field configuration to get select alias from
-	 * @return string <table>_<field>
-	 */
-	public static function getAliasByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfig) {
-		return self::getAliasByTableAndField($fieldConfig->getTable(), $fieldConfig->getField());
+	public static function getAliasedSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
+		if($fieldConfiguration->getSpecial()) {
+			$selectPart = '(' . $fieldConfiguration->getSpecial() . ') AS ' . $fieldConfiguration->getIdentifier();
+		} else {
+			$selectPart = $fieldConfiguration->getTableFieldCombined() . ' AS ' . $fieldConfiguration->getIdentifier();
+		}
+		return $selectPart;
 	}
 	
 }

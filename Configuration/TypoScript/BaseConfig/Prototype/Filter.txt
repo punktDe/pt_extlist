@@ -31,6 +31,30 @@ plugin.tx_ptextlist.prototype.filter {
 		inactiveOption =
 		invert = 0
 		invertable = 0
+		
+		renderObj = TEXT
+	    renderObj {
+			dataWrap = {field:allDisplayFields} ({field:rowCount})
+		}
+	}
+	
+	checkbbox {
+		partialPath = Filter/CheckBox
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_CheckBoxFilter
+		
+		defaultValue =
+		filterIdentifier =
+		label = 
+		fieldIdentifier =
+		displayFields = 
+		filterField = 
+		multiple = 0
+		excludeFilters = 
+		showRowCount = 0
+		submitOnChange = 0
+		inactiveOption =
+		invert = 0
+		invertable = 0
 	}
 
 }
