@@ -47,7 +47,7 @@ class tx_ptextlist_demolist_renderer {
 	
 		$currentContent = $params['currentContent'];
 		
-		if (isset($values['iso2'].getValue())) {
+		if (isset($values['iso2'])) {
 			// check if file exists
 			$flagFileName =  'gfx/flags/' . strtolower($values['iso2']) . '.gif';
 			if (is_file(PATH_typo3 . $flagFileName)) {
