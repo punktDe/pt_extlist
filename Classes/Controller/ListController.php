@@ -60,13 +60,27 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-
+		
+		// Do not show the list if it is empty.
+		if($list->getListData()->count() <= 0) $this->forward('emptyList');
+		
+		
 		$renderedListData = $this->renderer->render($list);
 		$renderedCaptions = $this->renderer->renderCaptions($list);
 		
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
+	}
+	
+	/**
+	 * Shows a message that the list is empty.
+	 * 
+	 * @return string A message saying that the list is empty.
+	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+	 */
+	public function emptyListAction() {
+		// template handles translation...
 	}
 	
 	

@@ -7,14 +7,11 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-            <label index="column_name_local">Local Name</label>
-            <label index="column_name_english">English Name</label>
-            <label index="column_name_official">Official Name</label>
+            <label index="emptyList">Sorry, no list items available.</label>
 		</languageKey>
+		
 		<languageKey index="de" type="array">
-            <label index="column_name_local">Localer Name</label>
-            <label index="column_name_english">Englischer Name</label>
-            <label index="column_name_official">Ofizieller Name</label>
+            <label index="emptyList">Leider keine Daten in der Liste.</label>
 		</languageKey>
 	</data>
 </T3locallang>
