@@ -112,6 +112,20 @@ plugin.tx_ptextlist.settings {
 	            
         }
 
+		pager {
+			pagerConfigs {
+				second {
+					enabled = 1
+			        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+			        
+			        
+			        showNextLink = 1
+			        showPreviousLink = 1
+			        showFirstLink = 0
+			        showLastLink = 0
+				}
+			}
+		}
 
         
         columns {
@@ -216,7 +230,7 @@ plugin.tx_ptextlist.settings {
 	                  label = Stringfilter 1
 	                  fieldIdentifier = name_local
 	              }
-	              
+	              /*
 	              20 < plugin.tx_ptextlist.prototype.filter.select 
 	              20 {
 	                  filterIdentifier = filter2
@@ -229,6 +243,21 @@ plugin.tx_ptextlist.settings {
 	                  #excludeFilters = filterbox1.filter1
 	                  submitOnChange = 1
 					  inactiveOption = [ALL]
+					  invert = 0
+					  invertable = 0
+	              }
+	              */
+	              30 < plugin.tx_ptextlist.prototype.filter.checkbox 
+	              30 {
+	                  filterIdentifier = filter3
+	                  label = GroupFilter 2
+	                  fieldIdentifier = subcontinent
+	                  filterField = subcontinent
+	                  displayFields = continent, subcontinent
+	                  multiple = 0
+	                  showRowCount = 1
+	                  #excludeFilters = filterbox1.filter1
+	                  submitOnChange = 1
 					  invert = 0
 					  invertable = 0
 	              }

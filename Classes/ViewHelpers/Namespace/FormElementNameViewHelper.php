@@ -36,7 +36,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 	/**
 	 * render a key/value GET/POST-string within the namespace of the given object
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
-	 * @param string $property
+	 * @param string $property, single property or propertypath separated by '.'
 	 * @return string
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 * @since 02.08.2010
@@ -45,9 +45,25 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 			
 		$getPostProperty = '';
 		$getPostProperty .= $this->renderNamespacePart($object);
-		$getPostProperty .= '['.$property.']';
+		$getPostProperty .= $this->getPropertiesInBrackets($property);
 		
 		return $getPostProperty;
+	}
+	
+	/**
+	 * Split the propertystring by '.' and wrap them in brackets
+	 * 
+	 * @param string $propertyString
+	 */
+	protected function getPropertiesInBrackets($propertyString) {
+		$proprtyInBrackets = '';
+		
+		$properties = t3lib_div::trimExplode('.', $propertyString);
+		foreach($properties as $property) {
+			$proprtyInBrackets .= '[' . $property . ']';
+		}
+		
+		return $proprtyInBrackets;
 	}
 	
 

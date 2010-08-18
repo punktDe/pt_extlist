@@ -24,33 +24,30 @@
 ***************************************************************/
 
 /**
- * Factory to create configs for pager
+ * Testcase for group filter
  *
- * @package Typo3
+ * @package TYPO3
  * @subpackage pt_extlist
  * @author Daniel Lienert <lienert@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
-	/**
-	 * Returns a instance of a pager configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param string $pagerId 
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerId = 'default') {
-		$settings = $configurationBuilder->getPagerSettings();
-
-		tx_pttools_assert::isTrue(array_key_exists($pagerId, $settings['pagerConfigs']),  array(message => 'Pager Identifier \''.$pagerId.'\' not found. 1282132591'));
-		
-		$pagerSettings = $settings['pagerConfigs'][$pagerId];
-		$pagerSettings['itemsPerPage'] = $settings['itemsPerPage'];
-		
-		$pagerConfig = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($pagerSettings, $configurationBuilder->getListIdentifier(), $pagerId);
-		
-		return $pagerConfig;
+	public function setup() {
 	}
+	
+	
+	
+    public function testSetup() {
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_OptionsFilter'));
+    	$optionsFilter = new Tx_PtExtlist_Domain_Model_Filter_OptionsFilter();
+    	$this->assertTrue(is_a($optionsFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'));
+    }
+       
+    
+    
+    public function testGetoptions() {
+    	$this->markTestIncomplete();
+    }
+    
 }
 ?>

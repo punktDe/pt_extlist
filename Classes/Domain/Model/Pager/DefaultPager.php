@@ -35,7 +35,16 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
     implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, 
                Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
                Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface  {
+               	
+    /**
+     * The pager identifier.
+     * @var string
+     */
+    protected $pagerIdentifier;
 	
+    
+               	
+               	
 	/**
 	 * The current page.
 	 * Basis of all calculations.
@@ -101,9 +110,16 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 		$this->enabled = $pagerConfiguration->getEnabled();
 		$this->settings = $pagerConfiguration->getPagerSettings();
 		$this->itemsPerPage = $this->settings['itemsPerPage'];
+		$this->pagerIdentifier = $this->pagerConfiguration->getPagerIdentifier();
 	}
 	
-	
+    /**
+     * 
+     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPagerIdentifier()
+     */
+   	public function getPagerIdentifier() {
+   		return $this->pagerIdentifier;
+   	}
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getCurrentPage()

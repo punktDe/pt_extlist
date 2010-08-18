@@ -256,7 +256,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 * @param array $filterSettings
 	 */
 	protected function setPropertiesFromSettings(array $filterSettings) {
-		
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
         $this->filterIdentifier = $filterSettings['filterIdentifier'];
         

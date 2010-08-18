@@ -39,8 +39,13 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 */
 	public function isEnabled();
 	
+	/**
+	 * Returns the pager identifier.
+	 * 
+	 * @return string
+	 */
+	public function getPagerIdentifier();
 	
-
 	/**
 	 * Returns the current page index.
 	 * @return int The current page index

@@ -47,6 +47,7 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     public function testShowAction() {
     	$pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
     	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setItemCount'), array($pagerConfiguration));
+    	
     	$dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getTotalItemsCount'), array($this->configurationBuilderMock));
     	$dataBackendMock->expects($this->once())
     	   ->method('getTotalItemsCount')
@@ -57,10 +58,20 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     	   ->method('assign')
     	   ->with('pager', $this->isInstanceOf('Tx_PtExtlist_Domain_Model_Pager_PagerInterface'));
     	   
+    	
+    	$retArray = array(
+                            'itemsPerPage'   => '10',
+	                    	'pagerConfigs' => array(
+	                    		'default' => array(
+			                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+			                        'enabled' => '1'
+	                    		),
+	                  		),
+	                  	);
     	$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getPagerSettings'), array(), '', FALSE);
     	$configurationBuilderMock->expects($this->once())
     	   ->method('getPagerSettings')
-    	   ->will($this->returnValue(array('itemsPerPage' => '10', 'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager')));
+    	   ->will($this->returnValue($retArray));
     	
     	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('dummy'), array(), '', FALSE);
     	$pagerControllerMock->_set('dataBackend', $dataBackendMock);

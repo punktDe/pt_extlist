@@ -24,33 +24,22 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_Extbase_BaseTestCase {
+class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function setUp() {}
-	
-	public function testSetCurrentPage() {
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'',false, false, true);
-		
-		// should be called twice
-		$pager->expects($this->any())->method('setCurrentPage');
-		
-		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
-		$collection->addPager($pager);
-		
-		$collection->setCurrentPage(42);
-		
-		$this->assertEquals(42, $collection->getCurrentPage());
+	public function setUp() {
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
-	public function testAddPager() {
-		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
-		$collection->setCurrentPage(42);
+	public function testGetInstance() {
+		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilderMock);
 		
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'',false, false, true);
-		$pager->expects($this->once())->method('setCurrentPage')->with(42);
-
-		$collection->addPager($pager);
+		$this->assertEquals(1, $pagerCollection->count());
+		
+		$pager = $pagerCollection->getItemById('default');
+		
+		$this->assertNotNull($pager);
 	}
+	
 }
 
 ?>
