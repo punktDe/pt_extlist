@@ -47,6 +47,9 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 				$property = $fieldConfiguration->getField();
+				if ($fieldConfiguration->getTable() != '__self__') {
+					$property = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
+				}
 				$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
 				$listDataRow->addCell($fieldConfiguration->getIdentifier(), $value);
 			}
@@ -62,18 +65,72 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 * Returns value of a property for a given domain object and property name.
 	 * Requires properties to be accessible via getters
 	 *
-	 * @param mixex $domainObject Object to get property value from
+	 * @param mixed $domainObject Object to get property value from
 	 * @param string $property Name of property to get value from
 	 * @return mixed Value of property
 	 */
 	public function getObjectPropertyValueByProperty($domainObject, $property) {
+		$resolvedObject = $this->resolveObjectPath($domainObject, $property);
 		$getterMethodName = 'get' . ucfirst($property);
-		if (method_exists($domainObject, $getterMethodName)) {
-		    $value = $domainObject->$getterMethodName();
-			return $value;
+		
+		print_r($property. "<br>");
+		print_r(get_class($resolvedObject) . "<br>");
+		print_r($getterMethodName . "<br>");
+		
+	    // TODO THIS IS ONLY FOR PROOF OF CONCEPT!!!
+	    if (method_exists($resolvedObject, $getterMethodName)) {
+		    $value = $resolvedObject->$getterMethodName();
+
+		    var_dump($value);
+		    
+		    if (is_array($value)) {  // check whether returned value is an array (ObjectStorage)
+		    	print_r('bin in array' . "<br>");
+		    	/* @var $value Tx_Extbase_Persistence_ObjectStorage */
+		    	$returnValue = array();
+		    	foreach($resolvedObject as $object) {
+		    		$returnValue[] = $object->$getterMethodName();
+		    	}
+		    	$value = $returnValue;
+		    }
+		print_r("<br><br>");
+		    
 		} else {
-			throw new Exception('Trying to get a propert ' . $propery . ' on a domain object that does not implement a getter for this property: ' . get_class_vars($domainObject) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
+			throw new Exception('Trying to get a property ' . $property . ' on a domain object that does not implement a getter for this property: ' . get_class_vars($resolvedObject) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
 		}
+	    return $value;
+	}
+	
+	
+	
+	/**
+	 * Returns an object for given object path.
+	 * 
+	 * Example: objectPath = object1.object2.object3.property will return object3
+	 *
+	 * @param mixed $object
+	 * @param string $objectPath
+	 * @return mixed
+	 */
+	public function resolveObjectPath($object, $objectPath) {
+		$objectPathParts = explode('.', $objectPath);
+		if (count($objectPathParts) == 1) {
+			return $object;
+		}
+	    $getterMethodName = 'get' . ucfirst($objectPathParts[0]);
+		if (count($objectPathParts) > 2) {     // Recursive method call for resolving longer object paths
+			if (method_exists($object, $getterMethodName)) {
+				array_shift($objectPathParts);
+				return $this->resolveObjectPath($object->$getterMethodName(), implode('.',$objectPathParts)); 
+			} else {
+				throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
+			}
+		} else {      // Return last object in object path
+			if (method_exists($object, $getterMethodName)) {
+                return $object->$getterMethodName();
+			} else {
+				throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
+			}
+        }
 	}
 	
 }

@@ -69,11 +69,12 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return array
 	 */
 	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters=array()) {
-		$query = $this->buildGenericQueryWithoutPager();
-		$query = $this->mergeGenericQueries($query, $groupDataQuery);
-		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
-		        $query, $this->repository);
-		return $extBaseQuery->execute();
+		return array();
+//		$query = $this->buildGenericQueryWithoutPager();
+//		$query = $this->mergeGenericQueries($query, $groupDataQuery);
+//		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
+//		        $query, $this->repository);
+//		return $extBaseQuery->execute();
 	}
 	
 	
@@ -119,6 +120,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	public function getListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
+		#print_r($data);
 		$mappedListData = $this->dataMapper->getMappedListData($data);
 		return $mappedListData;
 	}

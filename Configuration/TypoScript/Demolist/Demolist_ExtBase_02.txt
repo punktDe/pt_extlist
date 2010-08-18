@@ -1,0 +1,149 @@
+####################################################
+# This template configures a demolist for use
+# with pt_extlist for rendering ExtBase Domain objects
+#
+# @author Michael Knoll <knoll@punkt.de>
+# @Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+config.tx_extbase {
+    persistence{
+        
+        enableAutomaticCacheClearing = 1
+        updateReferenceIndex = 0
+        classes {
+            Tx_Extbase_Domain_Model_FrontendUser {
+                mapping {
+                    tableName = fe_users
+                    recordType = 
+                    columns {
+                        lockToDomain.mapOnProperty = lockToDomain
+                    }
+                }
+            }
+            Tx_Extbase_Domain_Model_FrontendUserGroup {
+                mapping {
+                    tableName = fe_groups
+                    recordType =
+                    columns {
+                        lockToDomain.mapOnProperty = lockToDomain
+                    }
+                }
+            }
+        }
+    }
+}
+
+plugin.tx_ptextlist.persistence.storagePid = 12
+
+plugin.tx_ptextlist.settings {
+
+    listConfig.demolist_extbase_02 {
+    
+        backendConfig < plugin.tx_ptextlist.prototype.backend.extbase
+        backendConfig {
+        
+            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
+            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
+            queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
+            repositoryClassName = Tx_ExtBase_Domain_Repository_FrontendUserRepository
+            
+            dataSource {
+            
+            }
+            
+            
+            tables (
+              )
+            
+            
+            baseFromClause (
+            )
+            
+            baseWhereClause (
+                
+            ) 
+            
+            baseGroupByClause (
+            
+            )            
+        }
+        
+
+        
+        fields {           
+            
+            username {
+                table = __self__
+                field = username
+            }
+            
+            
+            
+           # groupuid {
+           #     table = __self__
+           #     field = group.uid
+           # }
+            
+           grouptitle {
+               table = usergroups
+               field = title
+           }
+            
+            
+        }
+
+
+        
+        columns {
+        
+            10 {
+                  fieldIdentifier = username
+                  columnIdentifier = username
+                  label = Username
+            }
+            
+            20 {
+                fieldIdentifier = grouptitle
+                columnIdentifier = grouptitle
+                label = Gruppen
+            }
+            
+             
+        }
+        
+        filters {
+            
+            filterbox1 {
+            
+                10 < plugin.tx_ptextlist.prototype.filter.string
+                10 {
+                
+                    filterIdentifier = filter1
+                    label = Benutzername
+                    fieldIdentifier = username
+                
+                }
+                
+               # 20 < plugin.tx_ptextlist.prototype.filter.select
+               # 20 {
+               #     filterIdentifier = filter2
+               #     label = Benutzergruppe
+               #     fieldIdentifier = groupuid
+               #     displayFields = grouptitle
+               #     filterField = groupuid
+               #     multiple = 1
+               # }
+            
+            }
+            
+        }
+        
+        pager {
+            itemsPerPage = 30
+        }
+          
+    }
+}

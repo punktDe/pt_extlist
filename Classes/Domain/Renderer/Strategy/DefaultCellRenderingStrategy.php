@@ -87,7 +87,13 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		$content = '';
 		foreach($fields as $i => $fieldId) {
 			$field = $data->getItemById(trim($fieldId))->getValue();
-			$content .= ($i > 0 ? ', '.$field : $field);
+			
+			// TODO for proof of concept for array values
+			if (is_array($field)) {
+				$content = implode(',', $field);
+			} else {
+    			$content .= ($i > 0 ? ', '.$field : $field);
+			}
 		}
 
 		// Load all available fields
