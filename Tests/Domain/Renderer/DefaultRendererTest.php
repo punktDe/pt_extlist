@@ -36,7 +36,9 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 	protected $renderSettings;
 	
 	
+	
 	protected $columnSettings;
+	
 	
 	
 	protected $settings;

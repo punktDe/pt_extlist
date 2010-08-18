@@ -72,28 +72,16 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	public function getObjectPropertyValueByProperty($domainObject, $property) {
 		$resolvedObject = $this->resolveObjectPath($domainObject, $property);
 		$getterMethodName = 'get' . ucfirst($property);
-		
-		print_r($property. "<br>");
-		print_r(get_class($resolvedObject) . "<br>");
-		print_r($getterMethodName . "<br>");
-		
-	    // TODO THIS IS ONLY FOR PROOF OF CONCEPT!!!
-	    if (method_exists($resolvedObject, $getterMethodName)) {
+		if (get_class($resolvedObject) == 'Tx_Extbase_Persistence_ObjectStorage') {  // check whether returned value is an array (ObjectStorage)
+	    	list($objectName, $propertyName) = explode('.', $property);
+	    	$getterMethodName = 'get' . ucfirst($propertyName);
+	    	/* @var $value Tx_Extbase_Persistence_ObjectStorage */
+	    	$value = array();
+	    	foreach($resolvedObject as $object) {
+	    		$value[] = $object->$getterMethodName();
+	    	}
+	    } elseif (method_exists($resolvedObject, $getterMethodName)) {
 		    $value = $resolvedObject->$getterMethodName();
-
-		    var_dump($value);
-		    
-		    if (is_array($value)) {  // check whether returned value is an array (ObjectStorage)
-		    	print_r('bin in array' . "<br>");
-		    	/* @var $value Tx_Extbase_Persistence_ObjectStorage */
-		    	$returnValue = array();
-		    	foreach($resolvedObject as $object) {
-		    		$returnValue[] = $object->$getterMethodName();
-		    	}
-		    	$value = $returnValue;
-		    }
-		print_r("<br><br>");
-		    
 		} else {
 			throw new Exception('Trying to get a property ' . $property . ' on a domain object that does not implement a getter for this property: ' . get_class_vars($resolvedObject) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
 		}

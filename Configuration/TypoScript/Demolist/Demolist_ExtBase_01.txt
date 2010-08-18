@@ -76,7 +76,7 @@ plugin.tx_ptextlist.settings {
         fields {           
             
             title {
-                table = domObject
+                table = __self__
                 field = title
             }
             

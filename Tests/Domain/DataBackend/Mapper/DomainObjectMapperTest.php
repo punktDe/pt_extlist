@@ -39,8 +39,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     
     public function testGetMappedListData() {
-    	$this->markTestSkipped();
-    	
     	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
     	$domainObjectMapper->setMapperConfiguration($this->createMapperConfiguration());
     	$mappedListData = $domainObjectMapper->getMappedListData($this->createMappingTestData()); 
@@ -109,8 +107,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     protected function createMapperConfiguration() {
     	$mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-    	$field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('table' => 'domObject', 'field' => 'title'));
-    	$field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', array('table' => 'domObject', 'field' => 'title'));
+    	$field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('table' => '__self__', 'field' => 'title'));
+    	$field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', array('table' => '__self__', 'field' => 'title'));
     	$mapperConfiguration->addFieldConfig($field1Configuration);
     	$mapperConfiguration->addFieldConfig($field2Configuration);
     	return $mapperConfiguration;
