@@ -29,8 +29,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_Extba
 	public function setUp() {}
 	
 	public function testSetCurrentPage() {
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'Tx_PtExtlist_Domain_Model_Pager_PagerInterface',false, false, false);
-		$pager->expects($this->once())->method('setCurrentPage')->with(42);
+		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'',false, false, true);
+		$pager->expects($this->any())->method('setCurrentPage');
 		
 		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
 		$collection->addPager($pager);
@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_Extba
 		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
 		$collection->setCurrentPage(42);
 		
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'Tx_PtExtlist_Domain_Model_Pager_PagerInterface',false, false, false);
+		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'',false, false, true);
 		$pager->expects($this->once())->method('setCurrentPage')->with(42);
 
 		$collection->addPager($pager);
