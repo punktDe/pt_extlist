@@ -85,8 +85,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataBackend->injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
 	        $dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
-	        $dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));
-	        $dataBackend->injectPager(self::getPager($configurationBuilder));
+	        $dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));   
+	        $dataBackend->injectPagerCollection(self::getPager($configurationBuilder));        
 	        $dataBackend->injectListHeader(self::getListHeader($configurationBuilder));
 	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 	        if (self::getQueryInterpreter($configurationBuilder) != null) {
@@ -140,13 +140,12 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     /**
      * 
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-     * @since 19.07.2010
+     * @since 18.08.2010
      */
     protected static function getPager(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($configurationBuilder, $configurationBuilder->buildPagerConfiguration());
-    	return $pager;
+    	return Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($configurationBuilder);
     }
     
     
