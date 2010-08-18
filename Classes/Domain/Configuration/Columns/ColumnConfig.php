@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	protected $columnIdentifier;
 
 	/** 
-	 * @var string
+	 * @var array
 	 */
 	protected $fieldIdentifier;
 	
@@ -115,13 +115,15 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
-		$this->fieldIdentifier = $columnSettings['fieldIdentifier'];
+		$this->fieldIdentifier =  t3lib_div::trimExplode(',', $columnSettings['fieldIdentifier']) ;
 		
 		$this->label = $this->columnIdentifier;
 
 		
 		$this->setOptionalSettings($columnSettings);
 	}	
+	
+	
 	
 	/**
 	 * Set optional definable columnsettings
@@ -140,13 +142,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 			$this->label = $columnSettings['label'];
 		}
 		
-		if(array_key_exists('renderUserFunctions', $columnSettings)) {
+		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($columnSettings['renderUserFunctions'])) {
+			asort($columnSettings['renderUserFunctions']);
 			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
 		}
 				
-		if(array_key_exists('renderObj', $columnSettings) && is_array($columnSettings['renderObj'])) {
-			$this->renderObj = $columnSettings['renderObj'];
-		}
+		if(array_key_exists('renderObj', $columnSettings)) {
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $columnSettings['renderObj']));
+        }
 		
 		if(array_key_exists('sorting', $columnSettings)) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
@@ -157,57 +160,63 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		if(array_key_exists('sortingImageAsc', $columnSettings)) {
 			$this->sortingImageAsc = $columnSettings['sortingImageAsc'];
 		}
+		
 		if(array_key_exists('sortingImageDesc', $columnSettings)) {
 			$this->sortingImageDesc = $columnSettings['sortingImageDesc'];
 		}
+		
 		if(array_key_exists('sortingImageDefault', $columnSettings)) {
 			$this->sortingImageDefault = $columnSettings['sortingImageDefault'];
 		}
+		
 		if(array_key_exists('specialCell', $columnSettings)) {
 			$this->specialCell = $columnSettings['specialCell'];
 		}
-		
-		
 	}
 	
 	
 	
 	/**
 	 * @return string listIdentifier
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function getListIdentifier() {
 		return $this->listIdentifier;
 	}
 	
+	
+	
 	/**
 	 * @return string columnIdentifier
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function getColumnIdentifier() {
 		return $this->columnIdentifier;
 	}
 	
 	
+	
 	/**
 	 * @return string fieldIdentifier
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function getFieldIdentifier() {
 		return $this->fieldIdentifier;
 	} 
 	
+	
+	
 	/**
 	 * @return string label
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function getLabel() {
 		return $this->label;
 	}	
 	
+	
+	
 	public function getIsSortable() {
 		return (bool)$this->isSortable;
 	}
+	
+	
 	
 	/**
 	 * @return array
