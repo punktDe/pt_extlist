@@ -134,9 +134,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$query = $this->buildGenericQueryWithoutPager();
         
         // Collect pager limit
-        if ($this->pager->isEnabled()) {
-            $pagerOffset = intval($this->pager->getCurrentPage() - 1) * intval($this->pager->getItemsPerPage());
-            $pagerLimit = intval($this->pager->getItemsPerPage());
+        if ($this->pagerCollection->isEnabled()) {
+            $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
+            $pagerLimit = intval($this->pagerCollection->getItemsPerPage());
             $limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
             $limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
         }

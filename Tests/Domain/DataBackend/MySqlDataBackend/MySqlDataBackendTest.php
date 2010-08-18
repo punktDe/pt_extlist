@@ -76,9 +76,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	public function testInjectPager() {
         $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $pagerConfiguration = $this->configurationBuilder->buildPagerConfiguration();
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array($pagerConfiguration));		
-		$dataBackend->injectPager($pagerMock);
+        
+
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array(),'',FALSE);
+        $pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
+        $pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
+        $pagerCollectionMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
+        
+
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
 	}
 	
 	
@@ -178,21 +184,19 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	public function testGetLimitPart() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-        
-        $pagerConfiguration = $this->configurationBuilder->buildPagerConfiguration();
-        
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array($pagerConfiguration));
-        $pagerMock->expects($this->any())
+
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array());
+        $pagerCollectionMock->expects($this->any())
             ->method('getCurrentPage')
             ->will($this->returnValue(10));
-        $pagerMock->expects($this->any())
+        $pagerCollectionMock->expects($this->any())
             ->method('getItemsPerPage')
             ->will($this->returnValue(10));
-        $pagerMock->expects($this->once())
+        $pagerCollectionMock->expects($this->once())
             ->method('isEnabled')
             ->will($this->returnValue(true));
         
-        $dataBackend->injectPager($pagerMock);
+        $dataBackend->injectPagerCollection($pagerCollectionMock);
             
         $limitPart = $dataBackend->buildLimitPart();
         $this->assertTrue($limitPart == '90,10', 'Limit part of pager was expected to be 90,10 but was ' . $limitPart);
@@ -258,15 +262,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             ->method('executeQuery')
             ->will($this->returnValue($dataSourceReturnArray));
             
-        $pagerConfiguration = $this->configurationBuilder->buildPagerConfiguration();
-        
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array($pagerConfiguration));
-        $pagerMock->expects($this->any())
+       
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array());
+        $pagerCollectionMock->expects($this->any())
             ->method('getCurrentPage')
             ->will($this->returnValue(10));
-        $pagerMock->expects($this->any())
+        $pagerCollectionMock->expects($this->any())
             ->method('getItemsPerPage')
             ->will($this->returnValue(10));
+        $pagerCollectionMock->expects($this->once())
+            ->method('isEnabled')
+            ->will($this->returnValue(true));
 
         $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
         																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
@@ -281,7 +287,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
         $dataBackend->injectDataSource($dataSourceMock);
-        $dataBackend->injectPager($pagerMock);
+        $dataBackend->injectPagerCollection($pagerCollectionMock);
         $dataBackend->injectDataMapper($mapperMock);
 		$dataBackend->injectListHeader($listHeaderMock);
         
