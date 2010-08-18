@@ -86,21 +86,21 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 *
 	 * @param array $data data values to be rendered
 	 * @param array $renderObjectConfig config for cObj rendering
-	 * @param array $renderUserFunctionConfig array and config for multiple renderuserfunction
+	 * @param array $renderUserFunctionConfig array config for multiple renderuserfunction
 	 * @return string rendered value
 	 */
 	public static function renderUncached(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL) {
 		$content = '';
 		
 		if($renderUserFunctionConfig) {
-			$content = self::renderValueByRenderUserFunction($data, $renderUserFunctionConfig);
+			$content = self::renderValueByRenderUserFunctionArray($data, $renderUserFunctionConfig);
 		}
 		
 		if($renderObjectConfig) {
 			$content = self::renderValueByRenderObject($data, $renderObjectConfig, $content);
 		}	
 
-		if(!$content) {
+		if(!$renderUserFunctionConfig && !$renderObjectConfig) {
 			$content = self::renderDefault($data);
 		}
 		
@@ -135,11 +135,27 @@ class Tx_PtExtlist_Utility_RenderValue {
 	}
 	
 	
-	public static function renderValueByRenderUserFunction(array $data, array $renderUserFunctionConfig) {
+	
+	/**
+	 * Render content by renderuserfunction array
+	 * 
+	 * @param array $data dataFields
+	 * @param array $renderUserFunctionConfig array of renderUserFunctions
+	 */
+	public static function renderValueByRenderUserFunctionArray(array $data, array $renderUserFunctionConfig) {
+		$params['values'] = $data; 
+		$content = '';
+		$dummRef = ''; 
+
+		foreach ($renderUserFunctionConfig as $key => $rendererUserFunc) {
+			$params['currentContent'] = $content;
+			$params['conf'] = $userFunctions[$key]; 
+			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
+		}
 		
+		return $content;
 	}
-	
-	
+		
 	
 	/**
 	 * return the cObj object 
@@ -148,7 +164,11 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	protected static function getCobj() {
 		if(!self::$cObj) {
-			self::$cObj = $GLOBALS['TSFE']->cObj;
+			if(is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
+				self::$cObj = $GLOBALS['TSFE']->cObj;
+			} else {
+				self::$cObj = t3lib_div::makeInstance('tslib_cObj');
+			}
 		}
 		
 		return self::$cObj;

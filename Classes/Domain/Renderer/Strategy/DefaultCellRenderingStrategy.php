@@ -77,7 +77,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 */
 
 	public function renderCell($fieldIdentifier, $columnIdentifier, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
-		
+				
 		// Get the column config for columnId
 		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnIdentifier);
 		
@@ -97,22 +97,9 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		}
 
 		// Load all available fields
-		$fieldSet = $this->createFieldSet($data);
-		// TS parsing
-		// This resets previous content from fieldIdentifier config.
-		// TODO: set cObj currentData <= $content
-		if($columnConfig->getRenderObj() != null) {
-			// Inject current data into the cObject
-			if($fieldSet) $this->cObj->start($fieldSet);
-			$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $columnConfig->getRenderObj());
-			$content = $this->cObj->cObjGet($conf);
-		}
+		$fieldSet = $this->createFieldSet($data, $columnConfig);
 		
-		// Call post render user functions
-		$userFunctions = $columnConfig->getRenderUserFunctions();
-		if($userFunctions != null) {
-			$content = $this->renderWithUserFunc($content, $userFunctions, $fieldSet);
-		}
+		$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);
 		
 		// Create new cell 
 		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($content);
@@ -135,7 +122,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * @param Tx_PtExtlist_Domain_Model_List_Cell &$cell
 	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig &$columnConfig
 	 */
-	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell &$cell, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig &$columnConfig) {
+	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell $cell, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		
 		// Resolve special cell values
 		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
@@ -155,36 +142,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 			$cell->setSpecialValues($specialValues);
 		}
 	}
-	
-	
-	
-	/**
-	 * Calls userFunctions with fieldset 
-	 * 
-	 * @param array $userFunctions
-	 * @param array $fieldSet
-	 * @return string The rendered content
-	 */
-	protected function renderWithUserFunc($content, array $userFunctions, $fieldSet) {
-		$userFunctions = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $userFunctions );
-		$sortedKeys = t3lib_TStemplate::sortedKeyList($userFunctions, false);
-		$params = array();
-		$params['values'] = $fieldSet;
-
-		$dummRef = ''; 
 		
-		foreach ($sortedKeys as $key) {
-			$rendererUserFunc = $userFunctions[$key];
-			
-			$params['currentContent'] = $content;
-			$params['conf'] = $userFunctions[$key]; 
-			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
-		}
-		
-		return $content;
-	}
-	
-	
 	
 	/**
 	 * Creates a set of fields which are available. Defined by the 'fields' TS setup.
@@ -192,14 +150,11 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
 	 * @return unknown
 	 */
-	protected function createFieldSet(Tx_PtExtlist_Domain_Model_List_Row &$row) {
+	protected function createFieldSet(Tx_PtExtlist_Domain_Model_List_Row $row, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		$fieldSet = array();
 
-		$fieldCollection = $this->rendererConfiguration->getFieldConfigCollection();
-		
-		foreach($fieldCollection->getIterator() as $field) {
-			$fieldIdent = $field->getIdentifier();
-			$fieldSet[$fieldIdent] = $row->getItemById($fieldIdent);	
+		foreach($columnConfig->getFieldIdentifier() as $fieldIdentifier) {
+			$fieldSet[$fieldIdentifier] = $row->getItemById($fieldIdentifier);	
 		}
 		
 		return $fieldSet;
