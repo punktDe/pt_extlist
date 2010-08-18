@@ -286,6 +286,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
         
 		if(array_key_exists('renderObj', $filterSettings)) {
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $filterSettings['renderObj']));
+        	
         }
         
 		if(array_key_exists('renderUserFunctions', $columnSettings)) {

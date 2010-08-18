@@ -164,7 +164,11 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	protected static function getCobj() {
 		if(!self::$cObj) {
-			self::$cObj = $GLOBALS['TSFE']->cObj;
+			if(is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
+				self::$cObj = $GLOBALS['TSFE']->cObj;
+			} else {
+				self::$cObj = t3lib_div::makeInstance('tslib_cObj');
+			}
 		}
 		
 		return self::$cObj;
