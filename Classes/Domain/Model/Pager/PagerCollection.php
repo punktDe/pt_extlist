@@ -24,8 +24,23 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * A collection to manage a bunch of pagers.
+ * 
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @package pt_extlist
+ * @subpackage Pager
+ */
 class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collection {
 
+	/**
+	 * Holds the current page index.
+	 * A bit redundant here cause every pager has it already.
+	 * 
+	 * @var int
+	 */
+	protected $currentPage;
+	
 	/**
 	 * Adds a pager to the collection.
 	 * 
@@ -41,9 +56,20 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @param int $pageIndex
 	 */
 	public function setCurrentPage($pageIndex) {
+		$this->currentPage = $pageIndex;
+		
 		foreach($this->itemsArr as $id => $pager) {
 			$pager->setCurrentPage($pageIndex);
 		}
+	}
+	
+	/**
+	 * Returns the current page which is valid for all pagers.
+	 *
+	 * @return number
+	 */
+	public function getCurrentPage() {
+		return $this->currentPage;
 	}
 }
 
