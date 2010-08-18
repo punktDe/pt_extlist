@@ -129,7 +129,27 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 	
 	
 	public function testUseAndForMultipleConstraints() {
-		$this->markTestIncomplete();
+		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
+		$firstConstraintMock = $this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE);
+		$secondConstraintMock = $this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE);
+		$andConstraintMock = $this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE);
+		$query = $this->getMock('Tx_Extbase_Persistence_Query', array('matching', 'equals', 'getConstraint', 'logicalAnd'), array(), '', FALSE);
+        $query->expects($this->once())
+          ->method('matching')
+          ->with($andConstraintMock);
+        $query->expects($this->any())
+            ->method('getConstraint')
+            ->will($this->returnValue($firstConstraintMock));
+		$query->expects($this->once())
+            ->method('equals')
+            ->with('field', 'value')
+            ->will($this->returnValue($secondConstraintMock));
+        $query->expects($this->once())
+            ->method('logicalAnd')
+            ->with($firstConstraintMock, $secondConstraintMock)
+            ->will($this->returnValue($andConstraintMock));
+        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+            $criteria, $query, $this->repositoryMock);
 	}
 	
 	
