@@ -90,7 +90,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * Returns true if any of the pages is enabled.
 	 * @return boolean
 	 */
-	public function isEnables() {
+	public function isEnabled() {
 		return $this->enabled;
 	}
 	
