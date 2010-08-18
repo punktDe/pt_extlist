@@ -55,9 +55,11 @@ class Tx_PtExtlist_Tests_Utility_RenderValue_testcase extends Tx_PtExtlist_Tests
 	
 	
 	public function testRenderValueByRenderObject() {
-		$data = array('allDisplayFields' => 'several fields', 'rowCount' => 20);
-		$renderOutput = Tx_PtExtlist_Utility_RenderValue::renderValueByRenderObject($data, $this->renderObj);
-		$this->assertEquals('several fields (20)', $renderOutput);
+		if(TYPO3_MODE == 'BE') {
+			$data = array('allDisplayFields' => 'several fields', 'rowCount' => 20);
+			$renderOutput = Tx_PtExtlist_Utility_RenderValue::renderValueByRenderObject($data, $this->renderObj);
+			$this->assertEquals('several fields (20)', $renderOutput);
+		}
 	}
 	
 	public function testRenderValueByRenderUserFunctionArray() {
