@@ -38,13 +38,13 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * @return string Rendered pager action HTML source
 	 */
 	public function showAction() {
-		$pager = $this->getPagerInstance();
+		$pagerCollection = $this->getPagerCollectionInstance();
 		
 		// Do not show pager when nothing to page.
-		if($pager->getItemCount() <= 0) return '';
+		if($pagerCollection->getItemCount() <= 0) return '';
 		
 		
-		$this->view->assign('pager', $pager);
+		$this->view->assign('pager', $pagerCollection->getItemById('default'));
 	}
 	
 	
@@ -68,12 +68,11 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
-	protected function getPagerInstance() {
-//		$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this->configurationBuilder);
-		$pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this->configurationBuilder);
-        $pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($this->configurationBuilder, $pagerConfiguration);
-        $pager->setItemCount($this->dataBackend->getTotalItemsCount());
-        return $pager;
+	protected function getPagerCollectionInstance() {
+		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+		
+        return $pagerCollection;
 	}
 }
 

@@ -31,7 +31,7 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds an instance of pager object
@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPager_testcase extends Tx_PtE
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
-		$this->pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
+		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this->configurationBuilderMock);
 		$this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->pagerConfiguration);
 	}
 	
