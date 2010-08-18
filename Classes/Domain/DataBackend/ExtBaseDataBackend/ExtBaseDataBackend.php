@@ -46,7 +46,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Factory method for repository to be used with this data backend.
 	 * 
-	 * Although it's called data source, we create a extbase repository here which acts as a 
+	 * Although it's called data source, we create an extbase repository here which acts as a 
 	 * datasource for this backend.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
