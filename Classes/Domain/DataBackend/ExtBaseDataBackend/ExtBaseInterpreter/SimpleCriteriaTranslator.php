@@ -56,27 +56,27 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
       	    
       	switch ($criteria->getOperator()) {
       		case '=' :
-      		    $extbaseQuery->matching($extbaseQuery->equals($propertyName, $criteria->getValue()));
+      		    self::addConstraint($extbaseQuery, $extbaseQuery->equals($propertyName, $criteria->getValue()));
       		break;
       		
       		case '<' :
-      		    $extbaseQuery->matching($extbaseQuery->lessThan($propertyName, $criteria->getValue()));   
+      		    self::addConstraint($extbaseQuery, $extbaseQuery->lessThan($propertyName, $criteria->getValue()));   
       	    break;
       	    
       		case '>' :
-      	        $extbaseQuery->matching($extbaseQuery->greaterThan($propertyName, $criteria->getValue()));
+      	        self::addConstraint($extbaseQuery, $extbaseQuery->greaterThan($propertyName, $criteria->getValue()));
       		break;
       		
       		case '<=' :
-      			$extbaseQuery->matching($extbaseQuery->lessThanOrEqual($propertyName, $criteria->getValue()));
+      			self::addConstraint($extbaseQuery, $extbaseQuery->lessThanOrEqual($propertyName, $criteria->getValue()));
       		break;
       		
       		case '>=' :
-      		    $extbaseQuery->matching($extbaseQuery->greaterThanOrEqual($propertyName, $criteria->getValue()));
+      		    self::addConstraint($extbaseQuery, $extbaseQuery->greaterThanOrEqual($propertyName, $criteria->getValue()));
       		break;
       		
       		case 'LIKE' :
-      			$extbaseQuery->matching($extbaseQuery->like($propertyName, $criteria->getValue()));
+      			self::addConstraint($extbaseQuery, $extbaseQuery->like($propertyName, $criteria->getValue()));
       		break;
       		
       		case 'IN' :
@@ -91,6 +91,24 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
       	
       	return $extbaseQuery;
 		
+	}
+	
+	
+	
+	/**
+	 * Adds given constraint to given query. Uses logical AND if there is already a constraint registered in query
+	 *
+	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
+	 * @param Tx_Extbase_Persistence_QOM_ConstraintInterface $constraint
+	 * @return Tx_Extbase_Persistence_Query
+	 */
+	protected static function addConstraint(Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_QOM_ConstraintInterface $constraint) {
+		if ($extbaseQuery->getConstraint() != null) {
+			$extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(), $constraint));
+		} else {
+			$extbaseQuery->matching($constraint);
+		}
+		return $extbaseQuery;
 	}
 	
 	

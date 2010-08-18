@@ -68,7 +68,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 		$query = $this->getQueryMockWithMatchingCall(array('matching', 'equals'));
 		$query->expects($this->once())
 		    ->method('equals')
-		    ->with('field', 'value');
+		    ->with('field', 'value')
+		    ->will($this->returnValue($this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE)));
 		Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
 		    $criteria, $query, $this->repositoryMock);
 	}
@@ -80,7 +81,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 		$query = $this->getQueryMockWithMatchingCall(array('matching', 'lessThan'));
 		$query->expects($this->once())
 		    ->method('lessThan')
-		    ->with('field', 'value');
+		    ->with('field', 'value')
+            ->will($this->returnValue($this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE)));
 		Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
 		    $criteria, $query, $this->repositoryMock);
 	}
@@ -92,7 +94,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $query = $this->getQueryMockWithMatchingCall(array('matching', 'lessThanOrEqual'));
         $query->expects($this->once())
             ->method('lessThanOrEqual')
-            ->with('field', 'value');
+            ->with('field', 'value')
+            ->will($this->returnValue($this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
 	}
@@ -104,7 +107,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $query = $this->getQueryMockWithMatchingCall(array('matching', 'greaterThan'));
         $query->expects($this->once())
             ->method('greaterThan')
-            ->with('field', 'value');
+            ->with('field', 'value')
+            ->will($this->returnValue($this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
 	}
@@ -116,9 +120,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $query = $this->getQueryMockWithMatchingCall(array('matching', 'greaterThanOrEqual'));
         $query->expects($this->once())
             ->method('greaterThanOrEqual')
-            ->with('field', 'value');
+            ->with('field', 'value')
+            ->will($this->returnValue($this->getMock('Tx_Extbase_Persistence_QOM_Constraint', array(), array(), '', FALSE)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
+	}
+	
+	
+	
+	public function testUseAndForMultipleConstraints() {
+		$this->markTestIncomplete();
 	}
 	
 	
@@ -150,8 +161,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 	 */
 	protected function getQueryMockWithMatchingCall(array $mockedMethods = array()) {
 		$query = $this->getMock('Tx_Extbase_Persistence_Query', $mockedMethods, array(), '', FALSE);
-        $query->expects($this->once())
+        $query->expects($this->any())
           ->method('matching');
+        $query->expects($this->any())
+            ->method('getConstraint')
+            ->will($this->returnValue(null));
         return $query;
 	}
 	
