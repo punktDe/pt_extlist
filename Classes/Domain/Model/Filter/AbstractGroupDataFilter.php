@@ -282,6 +282,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         }
 
         if($this->showRowCount) {
+        	// TODO only works with SQL!
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
 			$groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
         }

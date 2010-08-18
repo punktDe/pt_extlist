@@ -112,6 +112,20 @@ plugin.tx_ptextlist.settings {
 	            
         }
 
+		pager {
+			pagerConfigs {
+				second {
+					enabled = 1
+			        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+			        
+			        
+			        showNextLink = 1
+			        showPreviousLink = 1
+			        showFirstLink = 0
+			        showLastLink = 0
+				}
+			}
+		}
 
         
         columns {

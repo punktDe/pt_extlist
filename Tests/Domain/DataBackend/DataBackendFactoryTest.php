@@ -32,7 +32,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $configurationBuilderMock;
 	
@@ -127,8 +127,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                              )
                         ),
                         'pager' => array(
-	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
-                            'itemsPerPage'   => '10'
+                            'itemsPerPage'   => '10',
+	                    	'pagerConfigs' => array(
+	                    		'default' => array(
+			                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+			                        'enabled' => '1'
+	                    		),
+	                    	),
 	                    ),
                     )
                 )
@@ -197,8 +202,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactory_testcase extends 
                              )
                         ),
                         'pager' => array(
-	                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                             'itemsPerPage'   => '10',
+	                    	'pagerConfigs' => array(
+	                    		'default' => array(
+			                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+			                        'enabled' => '1'
+	                    		),
+	                    	),
 	                    ),
                     )
                 )

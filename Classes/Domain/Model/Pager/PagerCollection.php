@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
 		$pager->setCurrentPage($this->currentPage);
-		$this->addItem($pager);
+		$this->addItem($pager, $pager->getPagerIdentifier());
 	}
 	
 	/**
