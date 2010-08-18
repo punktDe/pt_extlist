@@ -81,6 +81,21 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		// Get the column config for columnId
 		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnIdentifier);
 		
+		// Get field data and concat if fieldIdentifiers is defined as a list
+		// TODO: think of merging content with fluid -> cell object holds a array of values
+		$fields = explode(",",$fieldIdentifier);
+		$content = '';
+		foreach($fields as $i => $fieldId) {
+			$field = $data->getItemById(trim($fieldId))->getValue();
+			
+			// TODO for proof of concept for array values
+			if (is_array($field)) {
+				$content = implode(',', $field);
+			} else {
+    			$content .= ($i > 0 ? ', '.$field : $field);
+			}
+		}
+
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
 		

@@ -55,6 +55,8 @@ class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
 	 */
 	public function testPageRenderingWithoutException() {
 		
+		$this->markTestSkipped();
+		
 		$handle = fopen ($this->serverUrl, 'r');
 		if(!$handle) {
 			 $this->markTestSkipped(

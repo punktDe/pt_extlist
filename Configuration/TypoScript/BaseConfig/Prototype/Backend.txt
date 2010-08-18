@@ -30,7 +30,10 @@ plugin.tx_ptextlist.prototype.backend {
 	}
 	
 	extbase {
-	
+	    dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
+        dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
+        queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
+        repositoryClassName = 
 	}
 
 }
