@@ -3,11 +3,11 @@
 </div>
 <div class="pt-extlist-pager-item-display">
     <f:if condition="{pager.firstItemIndex}">
-        Zeige Element {pager.firstItemIndex} bis 
+        <f:translate key="pager.showItems" default="Show items from" /> {pager.firstItemIndex} <f:translate key="pager.to" default="to" />
         <f:if condition="{pager.itemCount} < {pager.lastItemIndex}"> 
             <f:then>{pager.itemCount}</f:then>
             <f:else>{pager.lastItemIndex}</f:else>
-            </f:if> von {pager.itemCount}
+            </f:if> <f:translate key="pager.of" default="of" /> {pager.itemCount}
     </f:if>
 </div>
 <ul class="pt-extlist-pager">
