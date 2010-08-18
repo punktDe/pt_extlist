@@ -35,7 +35,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 
 	/**
 	 * Holds the current page index.
-	 * A bit redundant here cause every pager has it already.
+	 * New pagers need to know the current page.
 	 * 
 	 * @var int
 	 */
@@ -47,6 +47,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
+		$pager->setCurrentPage($this->currentPage);
 		$this->addItem($pager);
 	}
 	
