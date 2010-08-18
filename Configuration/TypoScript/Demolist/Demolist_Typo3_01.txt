@@ -260,6 +260,10 @@ plugin.tx_ptextlist.settings {
 	                  submitOnChange = 1
 					  invert = 0
 					  invertable = 0
+					  defaultValue {
+					  	10 = Western Europe
+					  	20 = Southern Europe
+					  }
 					  
 					  renderUserFunctions {
 							10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer

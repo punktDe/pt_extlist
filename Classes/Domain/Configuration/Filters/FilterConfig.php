@@ -193,15 +193,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	
 	
 	/**
-	 * Pre-defined value of filter
-	 *
-	 * @var string
-	 */
-	protected $value;
-	
-	
-	
-	/**
 	 * Holds all settings passed by TS
 	 *
 	 * @var array
@@ -295,7 +286,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
         
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
-        
         
         
         // TODO ry21 add all properties here
@@ -482,16 +472,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     	}
     }
     
-    
-    
-    /**
-     * @return unknown
-     */
-    public function getValue() {
-        return $this->value;
-    }
-    
-    
+      
     
 	/**
      * @return string
