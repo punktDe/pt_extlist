@@ -127,7 +127,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 
 		$columnName = $this->fieldIdentifier->getTableFieldCombined();
 		$criteria = NULL;
-		
 		if (!is_array($this->filterValues) && $this->filterValues != '') {
 			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, $this->filterValues);
 		} elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {

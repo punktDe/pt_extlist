@@ -37,53 +37,8 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
      *
      * @var string
      */
-    protected $tsConfigString =
-"plugin.tx_ptextlist.settings {
+    protected $tsConfigString;
 
-	prototype {
-	
-	   pager.pagerConfigs.default.pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-	   pager.pagerConfigs.default.enabled = 1
-	
-	}
-
-    # This comes from flexform!
-    listIdentifier = list1
-
-    listConfig.list1 {
-    
-        backendConfig {
-
-            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
-			dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
-			queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
-            
-            datasource {
-                host = localhost
-                username = typo3
-                password = typo3
-                database = typo3
-            }
-            
-            tables (
-                static_countries, 
-                static_territories st_continent, 
-                static_territories st_subcontinent
-            )
-            
-            baseFromClause (
-            )
-            
-            baseWhereClause (
-            ) 
-            
-        }
-   }
-   
-   
-
-
-}";
     
     
     
@@ -118,10 +73,53 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
      * Setup test by loading some demo ts settings
      */
     public function setup() {
-         $this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
-         $this->typoScriptParser->parse($this->tsConfigString);
-         $this->tsConfig = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
-         $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->tsConfig['plugin']['tx_ptextlist']['settings']);
+    	$this->tsConfigString = 
+			"plugin.tx_ptextlist.settings {
+			
+			    prototype {
+			    
+			       pager.pagerConfigs.default.pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+	   			   pager.pagerConfigs.default.enabled = 1
+			    
+			    }
+			
+			    # This comes from flexform!
+			    listIdentifier = list1
+			
+			    listConfig.list1 {
+			    
+			        backendConfig {
+			
+			            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
+			            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
+			            queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+			            
+			            datasource {
+			                host = " . TYPO3_db_host . "
+			                username = " . TYPO3_db_username . "
+			                password = " . TYPO3_db_password . "
+			                database = " . TYPO3_db ."
+			            }
+			            
+			            tables (
+			                static_countries, 
+			                static_territories st_continent, 
+			                static_territories st_subcontinent
+			            )
+			            
+			            baseFromClause (
+			            )
+			            
+			            baseWhereClause (
+			            ) 
+			            
+			        }
+			   }
+			}";
+        $this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
+        $this->typoScriptParser->parse($this->tsConfigString);
+        $this->tsConfig = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->tsConfig['plugin']['tx_ptextlist']['settings']);
     }
 	
 }

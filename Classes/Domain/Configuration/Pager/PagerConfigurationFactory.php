@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory {
 		$pagerSettings = $settings['pagerConfigs'][$pagerId];
 		$pagerSettings['itemsPerPage'] = $settings['itemsPerPage'];
 		
-		$pagerConfig = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($pagerSettings, $configurationBuilder->getListIdentifier());
+		$pagerConfig = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($pagerSettings, $configurationBuilder->getListIdentifier(), $pagerId);
 		
 		return $pagerConfig;
 	}

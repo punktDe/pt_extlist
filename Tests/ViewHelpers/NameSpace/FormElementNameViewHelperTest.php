@@ -67,5 +67,18 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcas
         
         $this->assertEquals($link, 'listName[objectType][objectName][label]', 'NamespacePart should be listName[objectType][objectName][label] but is "' . $link. '"');
 	}
+	
+	public function testRenderWithPropertyPath() {
+		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper();
+		
+		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
+        $object->expects($this->once())
+            ->method('getObjectNamespace')
+            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
+            
+        $link = $linkViewHelper->render($object,'label.label1');
+        
+        $this->assertEquals($link, 'listName[objectType][objectName][label][label1]', 'NamespacePart should be listName[objectType][objectName][label][label1] but is "' . $link. '"');
+	}
 }
 ?>

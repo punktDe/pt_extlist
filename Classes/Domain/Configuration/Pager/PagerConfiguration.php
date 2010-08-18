@@ -49,7 +49,12 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 */
 	protected $listIdentifier;
 	
-	
+	/**
+	 * The pager identifier.
+	 * 
+	 * @var string
+	 */
+	protected $pagerIdentifier;
 	
 	/**
 	 * Holds class name for pager
@@ -74,7 +79,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public function __construct(array $pagerSettings, $listIdentifier) {
+	public function __construct(array $pagerSettings, $listIdentifier, $pagerIdentifier) {
 		
 		
 		if (!is_array($pagerSettings)) {
@@ -83,13 +88,20 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
     	
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings 1280408323'));
 		$this->settings = $pagerSettings;
-		
+		$this->pagerIdentifier = $pagerIdentifier;
 		$this->listIdentifier = $listIdentifier;
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
 		$this->enabled = (array_key_exists('enabled', $pagerSettings) && $pagerSettings['enabled'] == '1') ? true : false;
 	}
 	
-	
+	/**
+	 * Returns the pager identifier.
+	 * 
+	 * @return string
+	 */
+	public function getPagerIdentifier() {
+		return $this->pagerIdentifier;
+	}
 	
 	/**
 	 * Returns class name of pager

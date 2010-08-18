@@ -159,11 +159,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * Builds where part of query from all parts of plugin
 	 *
 	 * @return string WHERE part of query without 'WHERE'
+	 * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
 	 */
-	public function buildWherePart() {
+	public function buildWherePart($excludeFilters = array()) {
 		$wherePart = '';
 		$baseWhereClause = $this->getBaseWhereClause();
-		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes();
+		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes($excludeFilters);
 		
 		if($baseWhereClause && $whereClauseFromFilterBoxes) {
 			$wherePart = '(' . $baseWhereClause . ') AND ' . $whereClauseFromFilterBoxes;
@@ -361,7 +362,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return array Array of group data with given fields as array keys
      */
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
-    	$filterWherePart = $this->getWhereClauseFromFilterboxes($excludeFilters);
+    	$filterWherePart = $this->buildWherePart($excludeFilters);
     	
     	$sqlQueryString = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
     	$sqlQueryString .= ' FROM ' . $this->buildFromPart();

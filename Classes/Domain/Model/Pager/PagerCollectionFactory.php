@@ -38,18 +38,21 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder,
-	    Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 	    	
 	    $pagerSettings = $configurationBuilder->getPagerSettings();
 		
 		if(self::$pagerCollection == NULL) {
 			self::$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
+			
+			// Create pagers and add them to the collection
+			foreach($pagerSettings['pagerConfigs'] as $pagerId => $pagerConfig) {
+				$pagerConfig = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($configurationBuilder, $pagerId);
+				$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($configurationBuilder, $pagerConfig);
+				self::$pagerCollection->addPager($pager);
+			}
 		}
 		
-		foreach($pagerSettings['pagerConfigs'] as $pagerId => $pagerConfig) {
-			
-		}
 		
 		
 		return self::$pagerCollection;
