@@ -55,11 +55,12 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * Builds where part of query from all parts of plugin
 	 *
 	 * @return string WHERE part of query without 'WHERE'
+	 * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
 	 */
-	public function buildWherePart() {
+	public function buildWherePart($excludeFilters = array()) {
 		$wherePart = '';
 		$baseWhereClause = $this->getBaseWhereClause();
-		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes();
+		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes($excludeFilters);
 		
 		if($baseWhereClause && $whereClauseFromFilterBoxes) {
 			$wherePart = '(' . $baseWhereClause . ') AND ' . $whereClauseFromFilterBoxes;
