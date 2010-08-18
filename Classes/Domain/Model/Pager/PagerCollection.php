@@ -41,6 +41,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 */
 	protected $currentPage;
 	
+	
+	
 	/**
 	 * Adds a pager to the collection.
 	 * 
@@ -50,6 +52,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		$pager->setCurrentPage($this->currentPage);
 		$this->addItem($pager, $pager->getPagerIdentifier());
 	}
+	
+	
 	
 	/**
 	 * Sets the current page index to all pagers.
@@ -64,10 +68,12 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		}
 	}
 	
+	
+	
 	/**
 	 * Returns the current page which is valid for all pagers.
 	 *
-	 * @return number
+	 * @return int
 	 */
 	public function getCurrentPage() {
 		return $this->currentPage;

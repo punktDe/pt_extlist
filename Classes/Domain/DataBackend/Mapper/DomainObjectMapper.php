@@ -94,6 +94,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 * Returns an object for given object path.
 	 * 
 	 * Example: objectPath = object1.object2.object3.property will return object3
+	 * 
+	 * TODO refactor me!
 	 *
 	 * @param mixed $object
 	 * @param string $objectPath
