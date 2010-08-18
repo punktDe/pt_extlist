@@ -88,21 +88,37 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	public function getObjectPropertyValueByProperty($domainObject, $property) {
 		$resolvedObject = $this->resolveObjectPath($domainObject, $property);
-		$getterMethodName = 'get' . ucfirst($property);
-		if (get_class($resolvedObject) == 'Tx_Extbase_Persistence_ObjectStorage') {  // check whether returned value is an array (ObjectStorage)
+		if (get_class($resolvedObject) == 'Tx_Extbase_Persistence_ObjectStorage') {  
+			// property is collection of objects
 	    	list($objectName, $propertyName) = explode('.', $property);
-	    	$getterMethodName = 'get' . ucfirst($propertyName);
-	    	/* @var $value Tx_Extbase_Persistence_ObjectStorage */
 	    	$value = array();
 	    	foreach($resolvedObject as $object) {
-	    		$value[] = $object->$getterMethodName();
+	    		$value[] = $this->getPropertyValueSafely($object, $propertyName);
 	    	}
-	    } elseif (method_exists($resolvedObject, $getterMethodName)) {
-		    $value = $resolvedObject->$getterMethodName();
-		} else {
-			throw new Exception('Trying to get a property ' . $property . ' on a domain object that does not implement a getter for this property: ' . get_class_vars($resolvedObject) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
-		}
+	    } else {
+	    	// property is scalar value
+	    	$value = $this->getPropertyValueSafely($resolvedObject, $property);
+	    }
 	    return $value;
+	}
+	
+	
+	
+	/**
+	 * Returns property value for given object and property name.
+	 * Throws exception on non-existing getter method for property.
+	 *
+	 * @param mixed $object
+	 * @param string $property
+	 * @return mixed
+	 */
+	protected function getPropertyValueSafely($object, $property) {
+		$getterMethodName = 'get' . ucfirst($property);
+		if (method_exists($object, $getterMethodName)) {
+			return $object->$getterMethodName();
+		} else {
+			throw new Exception('Trying to get a property ' . $property . ' on a domain object that does not implement a getter for this property: ' . get_class_vars($object) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
+		}
 	}
 	
 	
