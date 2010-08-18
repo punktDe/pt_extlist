@@ -46,10 +46,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 		foreach($domainObjects as $domainObject) {
 			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
-				$property = $fieldConfiguration->getField();
-				if ($fieldConfiguration->getTable() != '__self__') {
-					$property = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
-				}
+				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
 				$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
 				$listDataRow->addCell($fieldConfiguration->getIdentifier(), $value);
 			}
@@ -57,6 +54,26 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 		}
 		
 		return $listData;
+	}
+	
+	
+	
+	/**
+	 * Returns property name for given fieldConfiguration
+	 * 
+	 * If __self__ is referenced, only field name is returned. 
+	 * If another domain object is referenced, domain object name (table) is prepended
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+	 * @return string
+	 */
+	protected function getPropertyNameByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
+        if ($fieldConfiguration->getTable() != '__self__') {  // __self__ references current domain object
+            $property = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
+        } else {
+        	$property = $fieldConfiguration->getField();
+        }
+        return $property;
 	}
 	
 	
