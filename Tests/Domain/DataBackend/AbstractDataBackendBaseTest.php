@@ -42,8 +42,8 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 
 	prototype {
 	
-	   pager.default.pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-	   pager.default.enabled = 1
+	   pager.pagerConfigs.default.pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+	   pager.pagerConfigs.default.enabled = 1
 	
 	}
 

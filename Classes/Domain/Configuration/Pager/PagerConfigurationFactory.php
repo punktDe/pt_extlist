@@ -24,19 +24,33 @@
 ***************************************************************/
 
 /**
- * Class implements configuration for pager
+ * Factory to create configs for pager
  *
  * @package Typo3
  * @subpackage pt_extlist
  * @author Daniel Lienert <lienert@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory {
 	
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($configurationBuilder);
+	/**
+	 * Returns a instance of a pager configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param string $pagerId 
+	 */
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerId = 'default') {
+		$settings = $configurationBuilder->getPagerSettings();
 
-		return $pagerConfiguration;
+		tx_pttools_assert::isTrue(array_key_exists($pagerId, $settings['pagerConfigs']),  array(message => 'Pager Identifier \''.$pagerId.'\' not found. 1282132591'));
+		
+		$pagerSettings = $settings['pagerConfigs'][$pagerId];
+		$pagerSettings['itemsPerPage'] = $settings['itemsPerPage'];
+		
+		$pagerConfig = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($pagerSettings, $configurationBuilder->getListIdentifier());
+		
+		return $pagerConfig;
 	}
 }
 ?>

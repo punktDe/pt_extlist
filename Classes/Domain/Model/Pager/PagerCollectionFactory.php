@@ -24,33 +24,37 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_Extbase_BaseTestCase {
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 
-	public function setUp() {}
+	/**
+	 * Holds an instance of the pager collection.
+	 * 
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+	 */
+	protected static $pagerCollection = NULL;
 	
-	public function testSetCurrentPage() {
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'',false, false, true);
+	/**
+	 * Returns a instance of the pager collection.
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+	 */
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder,
+	    Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
+	    	
+	    $pagerSettings = $configurationBuilder->getPagerSettings();
 		
-		// should be called twice
-		$pager->expects($this->any())->method('setCurrentPage');
+		if(self::$pagerCollection == NULL) {
+			self::$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
+		}
 		
-		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
-		$collection->addPager($pager);
+		foreach($pagerSettings['pagerConfigs'] as $pagerId => $pagerConfig) {
+			
+		}
 		
-		$collection->setCurrentPage(42);
 		
-		$this->assertEquals(42, $collection->getCurrentPage());
+		return self::$pagerCollection;
 	}
 	
-	public function testAddPager() {
-		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
-		$collection->setCurrentPage(42);
-		
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'',false, false, true);
-		$pager->expects($this->once())->method('setCurrentPage')->with(42);
-
-		$collection->addPager($pager);
-	}
 }
 
 ?>

@@ -74,17 +74,17 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$pagerSettings = $configurationBuilder->getPagerSettings();
+	public function __construct(array $pagerSettings, $listIdentifier) {
+		
 		
 		if (!is_array($pagerSettings)) {
-    		throw new Exception('No pager configuration available for list ' . $this->getListIdentifier() . '. 1280408324');
+    		throw new Exception('No pager configuration available for list ' . $listIdentifier . '. 1280408324');
     	}
     	
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings 1280408323'));
 		$this->settings = $pagerSettings;
 		
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
+		$this->listIdentifier = $listIdentifier;
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
 		$this->enabled = (array_key_exists('enabled', $pagerSettings) && $pagerSettings['enabled'] == '1') ? true : false;
 	}

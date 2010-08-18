@@ -8,15 +8,20 @@
 
 plugin.tx_ptextlist.prototype.pager {
 
-	default {
-	    enabled = 1
-        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-        itemsPerPage = 10
-        
-        showNextLink = 1
-        showPreviousLink = 1
-        showFirstLink = 1
-        showLastLink = 1
+	itemsPerPage = 10
+
+	pagerConfigs {
+	
+		default {
+		    enabled = 1
+	        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+	        
+	        
+	        showNextLink = 1
+	        showPreviousLink = 1
+	        showFirstLink = 1
+	        showLastLink = 1
+		}
 	}
 
 }

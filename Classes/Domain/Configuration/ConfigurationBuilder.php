@@ -383,7 +383,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array Pager configuration
      */
     public function getPagerSettings() {
-       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager.default');
+       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager');
     }
     
 }
