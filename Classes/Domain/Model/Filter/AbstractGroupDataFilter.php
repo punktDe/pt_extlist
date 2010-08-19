@@ -124,7 +124,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 *
 	 */
 	protected function createFilterQuery() {
-
 		$columnName = $this->fieldIdentifier->getTableFieldCombined();
 		$criteria = NULL;
 		if (is_array($this->filterValues) && count($this->filterValues) == 1) {
@@ -133,7 +132,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $this->filterValues);
 		}
 
-		
 		if($criteria) {
 			if($this->invert) {
 				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
@@ -143,7 +141,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		} else {
 			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
-		
 	}
 	
 	
@@ -155,9 +152,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	protected function initFilterByGpVars() {
 		
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
-			$filterValue = $this->gpVarFilterData['filterValues'];
-			
-			$this->filterValues = is_array($filterValue) ? $filterValue : array($filterValue => $filterValue);
+			$filterValues= $this->gpVarFilterData['filterValues'];
+			$this->filterValues = is_array($filterValues) ? array_filter($filterValues) : array($filterValues);
 		}
 	}
 	

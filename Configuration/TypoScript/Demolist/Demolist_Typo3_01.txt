@@ -226,67 +226,42 @@ plugin.tx_ptextlist.settings {
 	              10 < plugin.tx_ptextlist.prototype.filter.string 
 	              10 {
 	                  filterIdentifier = filter1
-	                  label = Stringfilter 1
+	                  label = Local name
 	                  fieldIdentifier = name_local
 	              }
-	              
-	              /*
-	              20 < plugin.tx_ptextlist.prototype.filter.select 
+
+    			  20 < plugin.tx_ptextlist.prototype.filter.checkbox 
 	              20 {
 	                  filterIdentifier = filter2
-	                  label = GroupFilter 1
+	                  label = Continent
+	                  fieldIdentifier = continent
+	                  filterField = continent
+	                  displayFields = continent
+	                  multiple = 0
+	                  showRowCount = 1
+	                  submitOnChange = 0
+					  invert = 0
+					  invertable = 0				  
+					  accessGroups = 3
+					  excludeFilters = filterbox1.filter3
+	              }
+	              
+	             
+	              30 < plugin.tx_ptextlist.prototype.filter.select 
+	              30 {
+	                  filterIdentifier = filter3
+	                  label = Subcontinent
 	                  fieldIdentifier = subcontinent
 	                  filterField = subcontinent
 	                  displayFields = continent, subcontinent
 	                  multiple = 0
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
-	                  submitOnChange = 1
+	                  submitOnChange = 0
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
 	              }
-*/
-	              30 < plugin.tx_ptextlist.prototype.filter.checkbox 
-	              30 {
-	                  filterIdentifier = filter3
-	                  label = GroupFilter 2
-	                  fieldIdentifier = subcontinent
-	                  filterField = subcontinent
-	                  displayFields = continent, subcontinent
-	                  multiple = 0
-	                  showRowCount = 1
-	                  #excludeFilters = filterbox1.filter1
-	                  submitOnChange = 1
-					  invert = 0
-					  invertable = 0
-					  defaultValue {
-					  	10 = Western Europe
-					  	20 = Southern Europe
-					  }
-					  
-					  accessGroups = 3
-	              }
-				 /*
-	              
-	              40 < plugin.tx_ptextlist.prototype.filter.radiobutton 
-	              40 {
-	                  filterIdentifier = filter4
-	                  label = GroupFilter 2
-	                  fieldIdentifier = subcontinent
-	                  filterField = subcontinent
-	                  displayFields = continent, subcontinent
-	                  multiple = 0
-	                  showRowCount = 1
-	                  #excludeFilters = filterbox1.filter1
-	                  submitOnChange = 1
-					  invert = 0
-					  invertable = 0
-					  defaultValue = Western Europe
-					  
-					  accessGroups = 3
-	              }
-	              /*
 	         }
         }  
     }
