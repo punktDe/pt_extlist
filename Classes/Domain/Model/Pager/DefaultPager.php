@@ -189,7 +189,14 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 		return $pages;
 	}
 	
-	
+	/**
+	 * Returns pager configuration
+	 * 
+	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+	 */
+	public function getPagerConfiguration() {
+		return $this->pagerConfiguration;
+	}
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
