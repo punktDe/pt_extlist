@@ -75,7 +75,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase 
 		$this->assertEquals('default', $this->pagerConfiguration->getPagerIdentifier());
 	}
 	
-	
+	public function testGetTemplatePath() {
+		$this->assertNotNull($this->pagerConfiguration->getTemplatePath());
+	}
 	
 }
  
