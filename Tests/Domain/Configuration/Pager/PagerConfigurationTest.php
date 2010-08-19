@@ -71,6 +71,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase 
 		$this->assertTrue($this->pagerConfiguration->getEnabled());
 	}
 	
+	public function testGetPagerIdentifier() {
+		$this->assertEquals('default', $this->pagerConfiguration->getPagerIdentifier());
+	}
+	
 	
 	
 }
