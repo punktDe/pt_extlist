@@ -76,6 +76,7 @@ plugin.tx_ptextlist.settings {
 			capital {
 				table = static_countries
 				field = cn_capital
+				accessGroups = 3
 			}
 	
 			iso2 {
