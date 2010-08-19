@@ -40,6 +40,13 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	protected $pagerCollection;
 	
 	/**
+	 * The pager identifier of the pager configured for this view.
+	 * 
+	 * @var string
+	 */
+	protected $pagerIdentifier;
+	
+	/**
 	 * Injects the settings of the extension.
 	 *
 	 * @param array $settings Settings container of the current extension
@@ -48,6 +55,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	public function injectSettings(array $settings) {
 		parent::injectSettings($settings);
 		$this->pagerCollection = $this->getPagerCollectionInstance();
+		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
 	}
 	
 	/**
@@ -59,9 +67,12 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		// Do not show pager when nothing to page.
 		if($this->pagerCollection->getItemCount() <= 0) return '';
 		
-		foreach($this->pagerCollection as $pagerId =>$pager){	
-			$this->view->assign($pagerId, $this->pagerCollection->getItemById($pagerId));
-		}
+		
+		
+		tx_pttools_assert::isTrue($this->pagerCollection->hasItem($this->pagerIdentifier), array(message => 'No pager configuration with id '.$this->pagerIdentifier.' found. 1282216891'));
+		
+		$this->view->assign('pager', $this->pagerCollection->getItemById($this->pagerIdentifier));
+		
 	}
 	
 	
