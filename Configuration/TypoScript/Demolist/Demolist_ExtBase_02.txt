@@ -17,7 +17,7 @@ config.tx_extbase {
             Tx_Extbase_Domain_Model_FrontendUser {
                 mapping {
                     tableName = fe_users
-                    recordType = Tx_Extbase_Domain_Model_FrontendUser
+                    recordType = 
                     columns {
                         lockToDomain.mapOnProperty = lockToDomain
                     }
@@ -36,11 +36,11 @@ config.tx_extbase {
     }
 }
 
-plugin.tx_ptextlist.persistence.storagePid = 14
+plugin.tx_ptextlist.persistence.storagePid = 12
 
 plugin.tx_ptextlist.settings {
 
-    listConfig.demolist_extbase_01 {
+    listConfig.demolist_extbase_02 {
     
         backendConfig < plugin.tx_ptextlist.prototype.backend.extbase
         backendConfig {
@@ -48,7 +48,7 @@ plugin.tx_ptextlist.settings {
             dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
             dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
             queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
-            repositoryClassName = Tx_ExtBase_Domain_Repository_FrontendUserGroupRepository
+            repositoryClassName = Tx_ExtBase_Domain_Repository_FrontendUserRepository
             
             dataSource {
             
@@ -75,10 +75,23 @@ plugin.tx_ptextlist.settings {
         
         fields {           
             
-            title {
+            username {
                 table = __self__
-                field = title
+                field = username
             }
+            
+            
+            
+           # groupuid {
+           #     table = __self__
+           #     field = group.uid
+           # }
+            
+           grouptitle {
+               table = usergroups
+               field = title
+           }
+            
             
         }
 
@@ -87,9 +100,15 @@ plugin.tx_ptextlist.settings {
         columns {
         
             10 {
-                  fieldIdentifier = title
-                  columnIdentifier = title
-                  label = Titel          
+                  fieldIdentifier = username
+                  columnIdentifier = username
+                  label = Username
+            }
+            
+            20 {
+                fieldIdentifier = grouptitle
+                columnIdentifier = grouptitle
+                label = Gruppen
             }
             
              
@@ -103,10 +122,20 @@ plugin.tx_ptextlist.settings {
                 10 {
                 
                     filterIdentifier = filter1
-                    label = Gruppentitel
-                    fieldIdentifier = title
+                    label = Benutzername
+                    fieldIdentifier = username
                 
                 }
+                
+               # 20 < plugin.tx_ptextlist.prototype.filter.select
+               # 20 {
+               #     filterIdentifier = filter2
+               #     label = Benutzergruppe
+               #     fieldIdentifier = groupuid
+               #     displayFields = grouptitle
+               #     filterField = groupuid
+               #     multiple = 1
+               # }
             
             }
             

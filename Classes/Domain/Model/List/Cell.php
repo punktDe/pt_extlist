@@ -175,7 +175,12 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	 * @return string
 	 */
 	public function __toString() {
-		return ($this->value == '' ? '' : $this->value);
+		// TODO this usage prevents cells from holding array values --> no good solution!
+		if (is_array($this->value)) {
+			return implode(',', $this->value);
+		} else {
+		    return ($this->value == '' ? '' : $this->value);
+		}
 	}
 	
 }

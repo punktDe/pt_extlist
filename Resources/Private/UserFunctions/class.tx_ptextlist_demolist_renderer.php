@@ -42,14 +42,12 @@ class tx_ptextlist_demolist_renderer {
 	 * @since	2009-02-10
 	 */
 	public static function iso2CodeRenderer(array $params) {
-		
 		$values = $params['values'];
 	
 		$currentContent = $params['currentContent'];
 		
 		$iso = $values['iso2'];
 		$value = $iso->getValue();
-		
 		
 		if (isset($value)) {
 			// check if file exists

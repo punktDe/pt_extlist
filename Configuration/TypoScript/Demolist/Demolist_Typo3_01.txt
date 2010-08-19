@@ -260,6 +260,12 @@ plugin.tx_ptextlist.settings {
 	                  submitOnChange = 1
 					  invert = 0
 					  invertable = 0
+					  defaultValue {
+					  	10 = Western Europe
+					  	20 = Southern Europe
+					  }
+					  
+					  accessGroups = 3
 	              }
 	         }
         }  

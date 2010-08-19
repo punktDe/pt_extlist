@@ -31,9 +31,19 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 	 */
 	protected $configurationBuilderMock;
 	
+	
+	
 	protected $renderSettings;
+	
+	
+	
 	protected $columnSettings;
+	
+	
+	
 	protected $settings;
+	
+	
 	
 	public function setUp() {
 
@@ -42,6 +52,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
 		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfig);
 	}
+	
+	
 	
 	public function testRender() {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
@@ -62,6 +74,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getItemById('column2'),'val2');
 
 	}
+	
+	
 	
 	public function testRenderCaptions() {
 		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilderMock);

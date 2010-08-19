@@ -53,7 +53,9 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	
 	
 	/**
-	 * Maps raw list data with given mapper configuration.
+	 * Maps raw list data without any mapper configuration.
+	 * Each field of the given raw array is mapped to
+	 * a cell in the list data structure
 	 *
 	 * @param array $arrayData Raw array to be mapped
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData Mapped list data structure
@@ -73,9 +75,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	
 	
 	/**
-	 * Maps raw list data without any mapper configuration.
-	 * Each field of the given raw array is mapped to
-	 * a cell in the list data structure
+	 * Maps raw list data with given mapper configuration.
 	 *
 	 * @param array $arrayData Raw array to be mapped
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData Mapped list data structure

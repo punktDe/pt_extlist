@@ -64,6 +64,32 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     
     
+    public function testResolveObjectPath() {
+    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
+        $domainObjectMapper->setMapperConfiguration($this->createMapperConfiguration());
+    	$rightObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getName'), array(), '', FALSE);
+    	$rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
+    	$groupObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getRight'), array(), '', FALSE);
+    	$groupObjectMock->expects($this->any())->method('getRight')->will($this->returnValue($rightObjectMock));
+    	$userObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser', array('getGroup'), array(), '', FALSE);
+    	$userObjectMock->expects($this->any())->method('getGroup')->will($this->returnValue($groupObjectMock));
+    	$objectPath = 'group.right.name';
+    	$resolvedObject = $domainObjectMapper->resolveObjectPath($userObjectMock, $objectPath);
+    	$this->assertEquals($rightObjectMock, $resolvedObject);
+    	$this->assertEquals('test', $resolvedObject->getName());
+    	
+    	// test throw exception on non exisiting property (wrong object path)
+    	try {
+    		$objectPath = 'group.rights.name';
+            $resolvedObject = $domainObjectMapper->resolveObjectPath($userObjectMock, $objectPath);
+    	} catch(Exception $e) {
+    		return;
+    	}
+    	$this->fail('No exception has been thrown on trying to access non-existing property!');
+    }
+    
+    
+    
     protected function createMappingTestData() {
     	$objectCollection = new Tx_Extbase_Persistence_ObjectStorage();
     	$feGroup1 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 1');
@@ -81,8 +107,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     protected function createMapperConfiguration() {
     	$mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-    	$field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('table' => 'domObject', 'field' => 'title'));
-    	$field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', array('table' => 'domObject', 'field' => 'title'));
+    	$field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('table' => '__self__', 'field' => 'title'));
+    	$field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', array('table' => '__self__', 'field' => 'title'));
     	$mapperConfiguration->addFieldConfig($field1Configuration);
     	$mapperConfiguration->addFieldConfig($field2Configuration);
     	return $mapperConfiguration;

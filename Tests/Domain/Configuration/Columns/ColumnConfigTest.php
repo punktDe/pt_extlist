@@ -68,7 +68,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	
 	
 	public function testGetFieldIdentifier() {
-		$this->assertEquals($this->columnConfig->getFieldIdentifier(), $this->columnSettings['fieldIdentifier']);
+		$this->assertEquals($this->columnConfig->getFieldIdentifier(), array($this->columnSettings['fieldIdentifier']));
 	}
 	
 	

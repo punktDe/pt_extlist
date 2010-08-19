@@ -94,7 +94,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		$cellContent = $this->cellRenderer->renderCell('field1', '10', $row);
 		$this->assertTrue(is_array($cellContent->getSpecialValues()));
 	}
-	
+	/*
  	public function testTSRendering() {
 		$cObjMock = $this->getMock('tslib_cObj', array('cObjGet'));
 		$cObjMock->expects($this->once())->method('cObjGet');
@@ -127,7 +127,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		
 		$cellContent = $this->cellRenderer->renderCell('field3', '50', $row);
 	}
-	
+	*/
 	
 	
 }

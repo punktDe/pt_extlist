@@ -198,8 +198,27 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		if (array_key_exists('showRowCount', $filterSettings) && $filterSettings['showRowCount']) {
         	$this->showRowCount = $filterSettings['showRowCount'];
         }
+       
+        if($this->filterConfig->getDefaultValue()) {
+        	$this->setDefaultValuesFromTSConfig($this->filterConfig->getDefaultValue());
+        }
 	}
 
+	/**
+	 * Set the groupfilters default value
+	 * 
+	 * @param mixed $defaultValue single value or array of preselected values
+	 */
+	protected function setDefaultValuesFromTSConfig($defaultValue) {	
+		if(is_array($defaultValue)) {
+			unset($defaultValue['_typoScriptNodeValue']);
+			foreach($defaultValue as $value) {
+				$this->filterValues[$value] = $value;
+			}
+		} else {
+			$this->filterValues[$defaultValue] = $defaultValue;
+		}
+	}
 	
 	
 	/**
@@ -282,6 +301,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         }
 
         if($this->showRowCount) {
+        	// TODO only works with SQL!
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
 			$groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
         }

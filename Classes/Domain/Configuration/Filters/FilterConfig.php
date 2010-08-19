@@ -109,7 +109,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 *
 	 * @var string
 	 */
-	protected $access;
+	protected $accessGroups;
 	
 	
 	
@@ -193,15 +193,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	
 	
 	/**
-	 * Pre-defined value of filter
-	 *
-	 * @var string
-	 */
-	protected $value;
-	
-	
-	
-	/**
 	 * Holds all settings passed by TS
 	 *
 	 * @var array
@@ -255,7 +246,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 *
 	 * @param array $filterSettings
 	 */
-	protected function setPropertiesFromSettings(array $filterSettings) {
+	protected function setPropertiesFromSettings(array $filterSettings) {	
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
         $this->filterIdentifier = $filterSettings['filterIdentifier'];
         
@@ -267,6 +258,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
                
         tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for this filter (TS key parialPath). 1281013746'));
         $this->partialPath = $filterSettings['partialPath'];
+        
         
         if(array_key_exists('invert', $filterSettings)) {
         	$this->invert = $filterSettings['invert'] ? true : false;
@@ -286,16 +278,18 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
         
 		if(array_key_exists('renderObj', $filterSettings)) {
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $filterSettings['renderObj']));
+        	
         }
         
-		if(array_key_exists('renderUserFunctions', $columnSettings)) {
-			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
+		if(array_key_exists('renderUserFunctions', $filterSettings)) {
+			$this->renderUserFunctions = $filterSettings['renderUserFunctions'];
 		}
-        
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
         
-        
+		if(array_key_exists('accessGroups', $filterSettings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $filterSettings['accessGroups']);
+		}
         
         // TODO ry21 add all properties here
 		// TODO check which values need to be set here and add assertions!
@@ -348,10 +342,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	
 	
     /**
-     * @return unknown
+     * @return array of group IDs
      */
-    public function getAccess() {
-        return $this->access;
+    public function getAccessGroups() {
+        return $this->accessGroups;
     }
     
     
@@ -481,16 +475,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     	}
     }
     
-    
-    
-    /**
-     * @return unknown
-     */
-    public function getValue() {
-        return $this->value;
-    }
-    
-    
+      
     
 	/**
      * @return string
