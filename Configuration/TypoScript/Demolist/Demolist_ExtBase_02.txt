@@ -121,6 +121,7 @@ plugin.tx_ptextlist.settings {
             
                 10 < plugin.tx_ptextlist.prototype.filter.string
                 10 {
+                    partialPath = EXT:pt_extlist/Resources/Private/Partials/Filter/StringFilter.html
                     filterIdentifier = filter1
                     label = Benutzername
                     fieldIdentifier = username
