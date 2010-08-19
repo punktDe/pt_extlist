@@ -35,6 +35,26 @@
 class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 
 	/**
+	 * Holds settings for plugin
+	 *
+	 * @var array
+	 */
+	protected $settings = array();
+	
+	
+	
+	/**
+	 * Injects settings for plugin
+	 *
+	 * @param array $settings
+	 */
+	public function injectSettings(&$settings) {
+		$this->settings = &$settings;
+	}
+	
+	
+	
+	/**
      * Figures out which partial to use.
      * 
      * We overwrite this method to make sure that we can use something like this in our partial:
@@ -44,7 +64,6 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
      * @param string $partialName The name of the partial
      * @return string the full path which should be used. The path definitely exists.
      * @throws Tx_Fluid_View_Exception_InvalidTemplateResourceException
-     * @author Sebastian KurfÃ¼rst <sebastian@typo3.org>
      */
 	protected function resolvePartialPathAndFilename($partialName) {
 		if (file_exists($partialName)) { // partial is given as absolute path (rather unusual :-) )
@@ -53,6 +72,31 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 			return t3lib_div::getFileAbsFileName($partialName);
 		} else { // partial is given in the "ExtBase" way
 			return parent::resolvePartialPathAndFilename($partialName);
+		}
+	}
+	
+	
+	
+	/**
+     * Resolve the template path and filename for the given action. If $actionName
+     * is NULL, looks into the current request.
+     * 
+     * Tries to read template path and filename from current settings.
+     * Path can be set there by $controller->setTemplatePathAndFilename(Path to template)
+     *
+     * @param string $actionName Name of the action. If NULL, will be taken from request.
+     * @return string Full path to template
+     * @throws Tx_Fluid_View_Exception_InvalidTemplateResourceException
+     */
+	protected function resolveTemplatePathAndFilename($actionName = NULL) {
+		if (array_key_exists('__templatePathAndFileName', $this->settings) && $this->settings['__templatePathAndFileName'] != '') {
+			if (file_exists($this->settings['__templatePathAndFileName'])) {
+			    return $this->settings['__templatePathAndFileName'];
+			} elseif (file_exists(t3lib_div::getFileAbsFileName($this->settings['__templatePathAndFileName']))) { 
+				return t3lib_div::getFileAbsFileName($this->settings['__templatePathAndFileName']);
+			}
+		} else {
+			return parent::resolveTemplatePathAndFilename($actionName);
 		}
 	}
 	

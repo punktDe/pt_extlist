@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
 	public function testCreateFilterQuerySingleValue() {
     	
         $selectFilter = $this->buildAccessibleSelectFilter();
-		$selectFilter->_set('filterValues', 'filterValue');
+		$selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
 		
         $selectFilter->_call('createFilterQuery');
  		$filterQuery = $selectFilter->_get('filterQuery');
@@ -86,7 +86,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
 		
 		
         $selectFilter = $this->buildAccessibleSelectFilter($filterSettings);
-		$selectFilter->_set('filterValues', 'filterValue');
+		$selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
 		
         $selectFilter->_call('createFilterQuery');
  		$filterQuery = $selectFilter->_get('filterQuery');

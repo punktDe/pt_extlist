@@ -1,5 +1,5 @@
 <!--  
-Partial for rendering a checkBox filter
+Partial for rendering a radio filter
 
 Here is a list of objects / variables that can be accessed in this partial
 
@@ -17,12 +17,22 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 <f:if condition="{filter.validate} == 0">
     <div style="color: red">Validation Error: {filter.errorMessage}</div>
 </f:if>
+
 <label for="{filter.filterIdentifier}">{filter.label}</label>
     	
-    	<f:for each="{filter.options}" key="optionValue" as="option">
-    		<li><f:form.checkBox name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" checked="{option.selected}"/> {option.value}</li>
-    	</f:for>
-    	    	
+    	<f:if condition="{filter.filterConfig.submitOnChange}">
+    		<f:then>
+    			<f:for each="{filter.options}" key="optionValue" as="option">
+    				<li><f:form.radio name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" value="{optionValue}" checked="{option.selected}" additionalAttributes="{onchange : 'submit()'}"/> {option.value}</li>
+	    		</f:for>
+    		</f:then>
+	    	<f:else>
+	    		<f:for each="{filter.options}" key="optionValue" as="option">
+    				<li><f:form.radio name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" value="{optionValue}" checked="{option.selected}"/> {option.value}</li>
+	    		</f:for>
+	    	</f:else>
+    	</f:if>
+    	    	    	
     	<f:if condition="{filter.filterConfig.invertable}">
     		<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" /> Invert
     	</f:if>
