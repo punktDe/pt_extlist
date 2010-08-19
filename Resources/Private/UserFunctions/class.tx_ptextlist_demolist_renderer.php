@@ -46,8 +46,6 @@ class tx_ptextlist_demolist_renderer {
 	
 		$currentContent = $params['currentContent'];
 		
-		throw new Exception();
-		
 		$iso = $values['iso2'];
 		$value = $iso->getValue();
 		
