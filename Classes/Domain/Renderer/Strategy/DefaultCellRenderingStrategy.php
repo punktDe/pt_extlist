@@ -40,15 +40,6 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	protected $rendererConfiguration;
 	
 	
-	
-	/**
-	 * A cObject for TS parsing
-	 * @var tslib_cObj
-	 */
-	protected $cObj;
-	
-	
-	
 	/**
 	 * Construct the strategy.
 	 *
@@ -58,8 +49,6 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		$this->rendererConfiguration = $configuration;
 		tx_pttools_assert::isNotEmpty($this->rendererConfiguration->getColumnConfigCollection(), array('message' => 'No column configuration found. 1280320558'));
 
-		// $this->cObj = t3lib_div::makeInstance('tslib_cObj');
-		$this->cObj = $GLOBALS['TSFE']->cObj;
 	}
 	
 	
@@ -75,30 +64,14 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * 
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
-
 	public function renderCell($fieldIdentifier, $columnIdentifier, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
-				
+		
 		// Get the column config for columnId
 		$columnConfig = $this->rendererConfiguration->getColumnConfigCollection()->getColumnConfigByIdentifier($columnIdentifier);
-		
-		// Get field data and concat if fieldIdentifiers is defined as a list
-		// TODO: think of merging content with fluid -> cell object holds a array of values
-		$fields = explode(",",$fieldIdentifier);
-		$content = '';
-		foreach($fields as $i => $fieldId) {
-			$field = $data->getItemById(trim($fieldId))->getValue();
-			
-			// TODO for proof of concept for array values
-			if (is_array($field)) {
-				$content = implode(',', $field);
-			} else {
-    			$content .= ($i > 0 ? ', '.$field : $field);
-			}
-		}
 
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
-		
+
 		$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);
 		
 		// Create new cell 
@@ -123,7 +96,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig &$columnConfig
 	 */
 	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell $cell, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
-		
+
 		// Resolve special cell values
 		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
 			$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
@@ -156,7 +129,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		foreach($columnConfig->getFieldIdentifier() as $fieldIdentifier) {
 			$fieldSet[$fieldIdentifier] = $row->getItemById($fieldIdentifier);	
 		}
-		
+
 		return $fieldSet;
 	}
 	

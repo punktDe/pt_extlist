@@ -43,8 +43,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($filterboxConfiguration);
 		foreach ($filterboxConfiguration as $filterConfiguration) {
 			$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
-			// TODO CodeMonkey: Add method to collection for adding filters to filterbox ;)
-			$filterbox->addItem($filter,$filter->getFilterIdentifier());
+			$filterbox->addFilter($filter,$filter->getFilterIdentifier());
 		}
 		return $filterbox;
 	}

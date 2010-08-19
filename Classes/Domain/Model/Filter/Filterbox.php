@@ -26,7 +26,7 @@
 /**
  * Class implements a filterbox which is a collection of filters
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
@@ -132,6 +132,17 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 			}
 		}
 		return $validates;
+	}
+	
+	
+	/**
+	 * Add Filter to Filterbox 
+	 * 
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+	 * @param string $filteridentifier
+	 */
+	public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filteridentifier) {
+		$this->addItem($filter, $filterIdentifier);
 	}
 	
 }
