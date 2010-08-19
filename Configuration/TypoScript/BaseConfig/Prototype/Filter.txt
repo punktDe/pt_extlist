@@ -10,13 +10,13 @@ plugin.tx_ptextlist.prototype.filter {
 
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
-		partialPath = Filter/StringFilter
+		partialPath = Filter/String/StringFilter
 		defaultValue = 
 		accessGroups =
 	}
 	
 	select {
-		partialPath = Filter/SelectFilter
+		partialPath = Filter/Group/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		
 		defaultValue =
@@ -41,10 +41,10 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	checkbox {
-		partialPath = Filter/checkBoxFilter
+		partialPath = Filter/Group/checkBoxFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
 		
-		# defaultValues are defined as array 10 = value, 20 = value
+		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
 		
 		filterIdentifier =
@@ -66,5 +66,34 @@ plugin.tx_ptextlist.prototype.filter {
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
 	}
+
+	
+	radiobutton {
+		partialPath = Filter/Group/radioButtonFilter
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
+		
+		# defaultValues are defined as array 10 = value, 20 = value or single value 20
+		defaultValue =
+		
+		filterIdentifier =
+		label = 
+		fieldIdentifier =
+		displayFields = 
+		filterField = 
+		multiple = 0
+		excludeFilters = 
+		showRowCount = 0
+		submitOnChange = 0
+		inactiveOption =
+		invert = 0
+		invertable = 0
+		accessGroups =
+		
+		renderObj = TEXT
+		renderObj {
+			dataWrap = {field:allDisplayFields} ({field:rowCount})
+		}
+	}
+	
 
 }

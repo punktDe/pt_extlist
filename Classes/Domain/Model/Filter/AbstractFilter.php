@@ -376,8 +376,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->invert = $this->filterConfig->getInvert();
 	}
 	
-	
-	
 	/**
 	 * Set generic filter values from GPVars
 	 * 
