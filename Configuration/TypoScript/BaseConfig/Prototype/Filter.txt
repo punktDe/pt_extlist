@@ -12,6 +12,7 @@ plugin.tx_ptextlist.prototype.filter {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
 		partialPath = Filter/StringFilter
 		defaultValue = 
+		accessGroups =
 	}
 	
 	select {
@@ -31,6 +32,7 @@ plugin.tx_ptextlist.prototype.filter {
 		inactiveOption =
 		invert = 0
 		invertable = 0
+		accessGroups =
 		
 		renderObj = TEXT
 	    renderObj {
@@ -57,6 +59,7 @@ plugin.tx_ptextlist.prototype.filter {
 		inactiveOption =
 		invert = 0
 		invertable = 0
+		accessGroups =
 		
 		renderObj = TEXT
 		renderObj {
