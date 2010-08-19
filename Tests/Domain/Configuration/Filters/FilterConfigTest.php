@@ -52,7 +52,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 			'renderObj' => array(	
 				'dataWrap' => '{field:allDisplayFields}',
 				'_typoScriptNodeValue' => 'TEXT',
-			)
+			),
+			'renderUserFunctions' => array(
+				10 => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer',
+			),
+			'accessGroups' => '1,2,3',
 		);
 	}
 	
@@ -125,6 +129,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		
 		$this->assertEquals($refArray, $renderObj);
 	}
+	
+	public function testGetRenderUserFunction() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertEquals($this->filterSettings['renderUserFunctions'], $filterConfig->getRenderUserFunctions());
+	}
+	
+	public function testGetAccess() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertEquals(array(1,2,3), $filterConfig->getAccessGroups());
+	}	
 	
 }
 

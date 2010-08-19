@@ -109,7 +109,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 *
 	 * @var string
 	 */
-	protected $access;
+	protected $accessGroups;
 	
 	
 	
@@ -189,15 +189,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 * @var bool
 	 */
 	protected $isActive = 1;
-	
-	
-	
-	/**
-	 * Pre-defined value of filter
-	 *
-	 * @var string
-	 */
-	protected $value;
 	
 	
 	
@@ -289,14 +280,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
         	
         }
         
-		if(array_key_exists('renderUserFunctions', $columnSettings)) {
-			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
+		if(array_key_exists('renderUserFunctions', $filterSettings)) {
+			$this->renderUserFunctions = $filterSettings['renderUserFunctions'];
 		}
-        
         
         $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
         
-        
+		if(array_key_exists('accessGroups', $filterSettings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $filterSettings['accessGroups']);
+		}
         
         // TODO ry21 add all properties here
 		// TODO check which values need to be set here and add assertions!
@@ -349,10 +341,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	
 	
     /**
-     * @return unknown
+     * @return array of group IDs
      */
-    public function getAccess() {
-        return $this->access;
+    public function getAccessGroups() {
+        return $this->accessGroups;
     }
     
     
@@ -482,16 +474,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     	}
     }
     
-    
-    
-    /**
-     * @return unknown
-     */
-    public function getValue() {
-        return $this->value;
-    }
-    
-    
+      
     
 	/**
      * @return string

@@ -224,6 +224,22 @@ public function testInitOnCorrectConfiguration() {
     }
     
     
+   public function testSetDefaultValuesFromTSConfigSingle() {
+   		$testFilter = $this->buildAccessibleSelectFilter();
+   		$defaultValue = 'test';
+   		$testFilter->_call('setDefaultValuesFromTSConfig', $defaultValue);
+   		$this->assertEquals(array('test' => 'test'), $testFilter->_get('filterValues'));
+   }
+    
+   
+ 	public function testSetDefaultValuesFromTSConfigMultiple() {
+   		$testFilter = $this->buildAccessibleSelectFilter();
+   		$defaultValue = array(10 => 'test', 20 => 'test2');
+   		$testFilter->_call('setDefaultValuesFromTSConfig', $defaultValue);
+   		$this->assertEquals(array('test' => 'test', 'test2' => 'test2'), $testFilter->_get('filterValues'));
+   }
+   
+   
     /**
      * Utility Methods
      */
