@@ -70,7 +70,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		tx_pttools_assert::isTrue($this->pagerCollection->hasItem($this->pagerIdentifier), array(message => 'No pager configuration with id '.$this->pagerIdentifier.' found. 1282216891'));
 		
 		// TODO use correct TS setting here!
-		# $this->setTemplatePathAndFilename('EXT:pt_extlist/Resources/Private/Templates/Pager/second.html');
+		// TODO change testcase to accept this call
+		#$this->setTemplatePathAndFilename('EXT:pt_extlist/Resources/Private/Templates/Pager/second.html');
 		
 		$this->view->assign('pager', $this->pagerCollection->getItemById($this->pagerIdentifier));
 		

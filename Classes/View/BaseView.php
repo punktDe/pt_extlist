@@ -89,11 +89,11 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
      * @throws Tx_Fluid_View_Exception_InvalidTemplateResourceException
      */
 	protected function resolveTemplatePathAndFilename($actionName = NULL) {
-		if (array_key_exists('__templatePathAndFileName', $this->settings) && $this->settings['__templatePathAndFileName'] != '') {
-			if (file_exists($this->settings['__templatePathAndFileName'])) {
+		if ($this->templatePathAndFilename != '') {
+			if (file_exists($this->templatePathAndFilename)) {
 			    return $this->settings['__templatePathAndFileName'];
-			} elseif (file_exists(t3lib_div::getFileAbsFileName($this->settings['__templatePathAndFileName']))) { 
-				return t3lib_div::getFileAbsFileName($this->settings['__templatePathAndFileName']);
+			} elseif (file_exists(t3lib_div::getFileAbsFileName($this->templatePathAndFilename))) { 
+				return t3lib_div::getFileAbsFileName($this->templatePathAndFilename);
 			}
 		} else {
 			return parent::resolveTemplatePathAndFilename($actionName);
