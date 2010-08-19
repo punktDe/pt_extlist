@@ -45,8 +45,16 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     
     
     public function testShowAction() {
-    	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array(), '', FALSE);
+    	
+    	$pagerConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration',array('getTemplatePath'),array(),'', FALSE);
+    	
+    	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('getPagerConfiguration'), array(), '', FALSE);
+    	
+    	$pagerMock->expects($this->once())
+    		->method('getPagerConfiguration')
+    		->will($this->returnValue($pagerConfiguration));
    	
+    	
     	$mockView = $this->getMock('Tx_Fluid_Core_View_TemplateView', array('assign'));
     	$mockView->expects($this->once())
     	   ->method('assign')
