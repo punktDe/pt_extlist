@@ -49,7 +49,6 @@ class tx_ptextlist_demolist_renderer {
 		$iso = $values['iso2'];
 		$value = $iso->getValue();
 		
-		
 		if (isset($value)) {
 			// check if file exists
 			$flagFileName =  'gfx/flags/' . strtolower($value) . '.gif';

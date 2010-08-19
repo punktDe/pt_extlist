@@ -73,6 +73,12 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	protected $enabled;
 	
 	
+	/**
+	 * Holds the templatePath to override default extbase settings.
+	 * 
+	 * @var string
+	 */
+	protected $templatePath = NULL;
 	
 	/**
 	 * Constructor for pager configuration
@@ -92,6 +98,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 		$this->listIdentifier = $listIdentifier;
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
 		$this->enabled = (array_key_exists('enabled', $pagerSettings) && $pagerSettings['enabled'] == '1') ? true : false;
+		$this->templatePath = (array_key_exists('templatePath', $this->settings) ? $this->settings['templatePath'] : NULL);
 	}
 	
 	/**
@@ -101,6 +108,10 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 */
 	public function getPagerIdentifier() {
 		return $this->pagerIdentifier;
+	}
+	
+	public function getTemplatePath() {
+		return $this->templatePath;
 	}
 	
 	/**

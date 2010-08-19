@@ -170,6 +170,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
                             'itemsPerPage'   => '10',
 	                    	'pagerConfigs' => array(
 	                    		'default' => array(
+	                    			'templatePath' => 'EXT:pt_extlist/',
 			                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
 			                        'enabled' => '1'
 	                    		),

@@ -312,11 +312,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
             
         }
         
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), '', FALSE);
-        $pagerMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
-        $pagerMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
-        $pagerMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
-        $extBaseDataBackend->injectPager($pagerMock);
+//        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), '', FALSE);
+        
+        
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array(),'',FALSE);
+        $pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
+        $pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
+        $pagerCollectionMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
+        
+        $extBaseDataBackend->injectPagerCollection($pagerCollectionMock);
         
         return $extBaseDataBackend;
     }

@@ -85,10 +85,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
     /**
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
-	protected $pager;
-	
+	protected $pagerCollection;
 	
 	
 	/**
@@ -188,15 +187,13 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	/**
-	 * Injector for pager
+	 * Injector for pager collection
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
-	 */
-	public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
-		$this->pager = $pager;
+	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection
+	 */	
+	public function injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection) {
+		$this->pagerCollection = $pagerCollection;
 	}
-	
-	
 	
 	/**
 	 * Injector for data source
@@ -243,12 +240,12 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	/**
+	 * Returns the pager collection attached to this data backend.
 	 * 
-	 * Returns the pager attached to this data backend.
-	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface The pager attached to this data backend.
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection The pager collection attached to this data backend.
 	 */
-	public function getPager() {
-		return $this->pager;
+	public function getPagerCollection() {
+		return $this->pagerCollection;
 	}
 	
 	

@@ -23,21 +23,6 @@
 			<f:link.action action="submit" arguments="{page:pager.previousPage}">&lt;</f:link.action>
 		</li>
 	</f:if>
-
-	<f:for each="{pager.pages}" key="i" as="pageNumber">
-		<li class="number">
-			<f:if condition="{pager.currentPage} != {pageNumber}">
-				<f:then>
-					<f:link.action action="submit" controller="Pager" arguments="{page:i, list:pager.listIdentifier}">{pageNumber}</f:link.action>
-				</f:then>
-				<f:else>
-					<span class="cur">
-						{pageNumber}
-					</span>
-				</f:else>
-			</f:if>
-		</li>
-	</f:for>
 	
 	<f:if condition="{pager.showNextLink}">
 		<li class="next">
