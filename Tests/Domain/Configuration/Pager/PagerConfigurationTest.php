@@ -79,6 +79,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase 
 		$this->assertNotNull($this->pagerConfiguration->getTemplatePath());
 	}
 	
+	
+	
 }
  
 ?>
