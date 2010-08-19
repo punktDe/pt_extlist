@@ -91,7 +91,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	public static function renderUncached(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL) {
 		$content = '';
-		
+
 		if($renderUserFunctionConfig) {
 			$content = self::renderValueByRenderUserFunctionArray($data, $renderUserFunctionConfig);
 		}

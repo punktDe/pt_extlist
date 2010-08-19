@@ -259,6 +259,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
         tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for this filter (TS key parialPath). 1281013746'));
         $this->partialPath = $filterSettings['partialPath'];
         
+        
         if(array_key_exists('invert', $filterSettings)) {
         	$this->invert = $filterSettings['invert'] ? true : false;
         }
