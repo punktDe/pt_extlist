@@ -50,10 +50,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder,
 	    Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
-		if (!array_key_exists($configurationBuilder->getListIdentifier(), self::$instances)) {
-			self::$instances[$configurationBuilder->getListIdentifier()] = self::createInstance($pagerConfiguration);
+		if (!array_key_exists($configurationBuilder->getListIdentifier(), self::$instances) || 
+			!array_key_exists($pagerConfiguration->getPagerIdentifier(), self::$instances[$configurationBuilder->getListIdentifier()])) {
+			self::$instances[$configurationBuilder->getListIdentifier()][$pagerConfiguration->getPagerIdentifier()] = self::createInstance($pagerConfiguration);
 		}
-		return self::$instances[$configurationBuilder->getListIdentifier()];
+		return self::$instances[$configurationBuilder->getListIdentifier()][$pagerConfiguration->getPagerIdentifier()];
 	}
 	
 	
