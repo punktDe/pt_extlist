@@ -39,12 +39,16 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 */
 	protected $pagerCollection;
 	
+	
+	
 	/**
 	 * The pager identifier of the pager configured for this view.
 	 * 
 	 * @var string
 	 */
 	protected $pagerIdentifier;
+	
+	
 	
 	/**
 	 * Injects the settings of the extension.
@@ -57,6 +61,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		$this->pagerCollection = $this->getPagerCollectionInstance();
 		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
 	}
+	
+	
 	
 	/**
 	 * Shows a pager as a frontend plugin
@@ -71,6 +77,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		
 		// TODO use correct TS setting here!
 		// TODO change testcase to accept this call
+		// TODO think about using initializeView method call for all this
 		#$this->setTemplatePathAndFilename('EXT:pt_extlist/Resources/Private/Templates/Pager/second.html');
 		
 		$this->view->assign('pager', $this->pagerCollection->getItemById($this->pagerIdentifier));
@@ -114,6 +121,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		
         return $pagerCollection;
 	}
+	
 }
 
 ?>
