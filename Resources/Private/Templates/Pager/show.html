@@ -1,3 +1,5 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers} 
+
 <div>
 	<strong>Simple Pager Rendering</strong>
 </div>
@@ -26,7 +28,7 @@
 		<li class="number">
 			<f:if condition="{pager.currentPage} != {pageNumber}">
 				<f:then>
-					<f:link.action action="submit" controller="Pager" arguments="{page:i}">{pageNumber}</f:link.action>
+					<f:link.action action="submit" controller="Pager" arguments="{page:i, list:pager.listIdentifier}">{pageNumber}</f:link.action>
 				</f:then>
 				<f:else>
 					<span class="cur">

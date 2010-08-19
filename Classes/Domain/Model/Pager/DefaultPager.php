@@ -98,6 +98,13 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 */
 	protected $enabled;
 	
+	/**
+	 * The listIdentifier for which this pager is active.
+	 * 
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
 	
 	
 	/**
@@ -111,6 +118,16 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 		$this->settings = $pagerConfiguration->getPagerSettings();
 		$this->itemsPerPage = $this->settings['itemsPerPage'];
 		$this->pagerIdentifier = $this->pagerConfiguration->getPagerIdentifier();
+		$this->listIdentifier = $pagerConfiguration->getListIdentifier();
+	}
+	
+	/**
+	 * Returns the list identifier.
+	 * 
+	 * @return string
+	 */
+	public function getListIdentifier() {
+		return $this->listIdentifier;
 	}
 	
     /**
@@ -238,7 +255,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::getSessionNamespace()
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1';
+		return 'tx_ptextlist_pi1.'.$this->listIdentifier.'.pager';
 	}
 	
 	

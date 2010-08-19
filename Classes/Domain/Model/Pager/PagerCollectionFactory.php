@@ -44,9 +44,10 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 		
 		if(self::$pagerCollection == NULL) {
 			self::$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
-			
+		
 			// Create pagers and add them to the collection
 			foreach($pagerSettings['pagerConfigs'] as $pagerId => $pagerConfig) {
+				
 				$pagerConfig = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($configurationBuilder, $pagerId);
 				$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($configurationBuilder, $pagerConfig);
 				self::$pagerCollection->addPager($pager);

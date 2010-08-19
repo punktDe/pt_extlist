@@ -42,7 +42,7 @@
                   </numIndex>
                   <numIndex index="3" type="array">
                     <numIndex index="0">Pager</numIndex>
-                    <numIndex index="1">Pager->show</numIndex>
+                    <numIndex index="1">Pager->show;Pager->submit</numIndex>
                   </numIndex>
                 </items>
               </config>
@@ -110,9 +110,16 @@
         </TCEforms>
         <type>array</type>
         <el>
-          
-          
-          
+           <settings.pagerIdentifier>
+            <TCEforms>
+              <label>Pager Identifier</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.pagerIdentifier>
         </el>
       </ROOT>
     </pager>

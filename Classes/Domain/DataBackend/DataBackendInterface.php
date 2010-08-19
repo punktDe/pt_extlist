@@ -82,11 +82,11 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
   
     
     /**
-     * Injector for pager
+     * Injector for pager collection.
      *
-     * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
+     * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection
      */
-    public function injectPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager);
+    public function injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection);
     
     
     

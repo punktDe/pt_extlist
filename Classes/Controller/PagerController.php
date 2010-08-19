@@ -33,18 +33,44 @@
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 
 	/**
+	 * Holds the pager collection.
+	 * 
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+	 */
+	protected $pagerCollection;
+	
+	/**
+	 * The pager identifier of the pager configured for this view.
+	 * 
+	 * @var string
+	 */
+	protected $pagerIdentifier;
+	
+	/**
+	 * Injects the settings of the extension.
+	 *
+	 * @param array $settings Settings container of the current extension
+	 * @return void
+	 */
+	public function injectSettings(array $settings) {
+		parent::injectSettings($settings);
+		$this->pagerCollection = $this->getPagerCollectionInstance();
+		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
+	}
+	
+	/**
 	 * Shows a pager as a frontend plugin
 	 *
 	 * @return string Rendered pager action HTML source
 	 */
 	public function showAction() {
-		$pager = $this->getPagerInstance();
-		
 		// Do not show pager when nothing to page.
-		if($pager->getItemCount() <= 0) return '';
+		if($this->pagerCollection->getItemCount() <= 0) return '';
+		echo $this->pagerCollection->count();
+		tx_pttools_assert::isTrue($this->pagerCollection->hasItem($this->pagerIdentifier), array(message => 'No pager configuration with id '.$this->pagerIdentifier.' found. 1282216891'));
 		
+		$this->view->assign('pager', $this->pagerCollection->getItemById($this->pagerIdentifier));
 		
-		$this->view->assign('pager', $pager);
 	}
 	
 	
@@ -53,11 +79,21 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * Updates the pager model.
 	 * 
 	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @param string $page
-	 * @dontvalidate $page
+	 * @param int $page
+	 * @param string list
 	 * @return string Rendered pager action HTML source
 	 */
-	public function submitAction($page) {
+	public function submitAction($page, $list) {
+		
+		// Only update pager if the listIdentifier equals this list.
+		if ($this->listIdentifier != $list) {
+			$this->forward('show');
+			return;
+		}
+		
+		
+		$this->pagerCollection->setCurrentPage($page);
+		
 		$this->forward('show');
 	}
 	
@@ -68,12 +104,11 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
-	protected function getPagerInstance() {
-//		$pagerConfiguration = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($this->configurationBuilder);
-		$pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this->configurationBuilder);
-        $pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($this->configurationBuilder, $pagerConfiguration);
-        $pager->setItemCount($this->dataBackend->getTotalItemsCount());
-        return $pager;
+	protected function getPagerCollectionInstance() {
+		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+		
+        return $pagerCollection;
 	}
 }
 

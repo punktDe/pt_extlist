@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase 
 	public function setup() {
 		
 		$this->initDefaultConfigurationBuilderMock();
-		$this->pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
+		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this->configurationBuilderMock);
 	}
 		
 	
@@ -69,6 +69,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase 
 	
 	public function testGetEnabled() {
 		$this->assertTrue($this->pagerConfiguration->getEnabled());
+	}
+	
+	public function testGetPagerIdentifier() {
+		$this->assertEquals('default', $this->pagerConfiguration->getPagerIdentifier());
 	}
 	
 	
