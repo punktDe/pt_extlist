@@ -42,7 +42,7 @@
                   </numIndex>
                   <numIndex index="3" type="array">
                     <numIndex index="0">Pager</numIndex>
-                    <numIndex index="1">Pager->show</numIndex>
+                    <numIndex index="1">Pager->show;Pager->submit</numIndex>
                   </numIndex>
                 </items>
               </config>

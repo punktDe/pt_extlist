@@ -71,17 +71,6 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
         		
 		$pager = new $pagerClassName($pagerConfiguration);
         tx_pttools_assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
-  
-		// Inject settings from session.
-        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-        $sessionPersistenceManager->loadFromSession($pager);
-        
-        // Inject settings from gp-vars.
-        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-        $gpAdapter->injectParametersInObject($pager);
-        
-        // Save new state to session.
-        $sessionPersistenceManager->persistToSession($pager);
         
         return $pager;
 	}

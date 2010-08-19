@@ -33,18 +33,34 @@
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 
 	/**
+	 * Holds the pager collection.
+	 * 
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+	 */
+	protected $pagerCollection;
+	
+	/**
+	 * Injects the settings of the extension.
+	 *
+	 * @param array $settings Settings container of the current extension
+	 * @return void
+	 */
+	public function injectSettings(array $settings) {
+		parent::injectSettings($settings);
+		$this->pagerCollection = $this->getPagerCollectionInstance();
+	}
+	
+	/**
 	 * Shows a pager as a frontend plugin
 	 *
 	 * @return string Rendered pager action HTML source
 	 */
 	public function showAction() {
-		$pagerCollection = $this->getPagerCollectionInstance();
-		
 		// Do not show pager when nothing to page.
-		if($pagerCollection->getItemCount() <= 0) return '';
+		if($this->pagerCollection->getItemCount() <= 0) return '';
 		
 		
-		$this->view->assign('pager', $pagerCollection->getItemById('default'));
+		$this->view->assign('pager', $this->pagerCollection->getItemById('default'));
 	}
 	
 	
@@ -53,11 +69,21 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * Updates the pager model.
 	 * 
 	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @param string $page
-	 * @dontvalidate $page
+	 * @param int $page
+	 * @param string list
 	 * @return string Rendered pager action HTML source
 	 */
-	public function submitAction($page) {
+	public function submitAction($page, $list) {
+		
+		// Only update pager if the listIdentifier equals this list.
+		if ($this->listIdentifier != $list) {
+			$this->forward('show');
+			return;
+		}
+		
+		
+		$this->pagerCollection->setCurrentPage($page);
+		
 		$this->forward('show');
 	}
 	

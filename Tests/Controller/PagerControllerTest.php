@@ -45,38 +45,26 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     
     
     public function testShowAction() {
-//    	$pagerConfiguration = $this->configurationBuilderMock->buildPagerConfiguration();
-//    	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setItemCount'), array($pagerConfiguration));
-    	
-    	$dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getTotalItemsCount'), array($this->configurationBuilderMock));
-    	$dataBackendMock->expects($this->once())
-    	   ->method('getTotalItemsCount')
-    	   ->will($this->returnValue(10));
-    	
+   	
     	$mockView = $this->getMock('Tx_Fluid_Core_View_TemplateView', array('assign'));
     	$mockView->expects($this->once())
     	   ->method('assign')
     	   ->with('pager', $this->isInstanceOf('Tx_PtExtlist_Domain_Model_Pager_PagerInterface'));
-    	   
+
+    	$pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array(), '', FALSE);
     	
-    	$retArray = array(
-                            'itemsPerPage'   => '10',
-	                    	'pagerConfigs' => array(
-	                    		'default' => array(
-			                    	'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
-			                        'enabled' => '1'
-	                    		),
-	                  		),
-	                  	);
-    	$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getPagerSettings'), array(), '', FALSE);
-    	$configurationBuilderMock->expects($this->any())
-    	   ->method('getPagerSettings')
-    	   ->will($this->returnValue($retArray));
+    	$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('getItemCount', 'getItemById'), array(),'',FALSE);
+    	$pagerCollectionMock->expects($this->once())
+    		->method('getItemCount')
+    		->will($this->returnValue(1));
+    	$pagerCollectionMock->expects($this->once())
+    		->method('getItemById')
+    		->with('default')
+    		->will($this->returnValue($pagerMock));
     	
     	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('dummy'), array(), '', FALSE);
-    	$pagerControllerMock->_set('dataBackend', $dataBackendMock);
     	$pagerControllerMock->_set('view', $mockView);
-    	$pagerControllerMock->_set('configurationBuilder', $configurationBuilderMock);
+    	$pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
     	$pagerControllerMock->showAction();
     }
     
@@ -87,7 +75,33 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     	$pagerControllerMock->expects($this->once())
     	   ->method('forward')
     	   ->with('show');
-        $pagerControllerMock->submitAction('1');
+    	
+    	$pagerControllerMock->_set('listIdentifier','list');
+    	
+    	$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setCurrentPage'), array(),'',FALSE);
+    	$pagerCollectionMock->expects($this->once())
+    		->method('setCurrentPage')
+    		->with(42);
+    		
+    	$pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
+    	    		
+        $pagerControllerMock->submitAction(42,'list');
+    }
+    
+    public function testSubmitActionWithWrongList() {
+    	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('forward'), array(), '', FALSE);
+    	$pagerControllerMock->expects($this->once())
+    	   ->method('forward')
+    	   ->with('show');
+	
+    	$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setCurrentPage'), array(),'',FALSE);
+    	$pagerCollectionMock->expects($this->never())
+    		->method('setCurrentPage');
+    		
+    	$pagerControllerMock->_set('listIdentifier','list');
+    	$pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
+    	    		
+        $pagerControllerMock->submitAction(42,'wronglist');
     }
     
 }

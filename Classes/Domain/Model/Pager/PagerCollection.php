@@ -49,12 +49,31 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	protected $enabled = false;
 	
 	/**
+	 * Holds a instance of the persitence manager.
+	 * 
+	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 */
+	protected $sessionPersistenceManager;
+	
+	public function __construct() {
+	
+		  
+		// Inject settings from session.
+        $this->sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+       
+               
+
+		
+	}
+	
+	/**
 	 * Adds a pager to the collection.
 	 * 
 	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
-		$pager->setCurrentPage($this->currentPage);
+		// Inject session pager data from session
+		$this->sessionPersistenceManager->loadFromSession($pager);
 		
 		// As if one pager is enabled, the collection is marked a enabled.
 		if($pager->isEnabled()) {
@@ -74,6 +93,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		
 		foreach($this->itemsArr as $id => $pager) {
 			$pager->setCurrentPage($pageIndex);
+			
+			// Save updated pager to session.
+			$this->sessionPersistenceManager->persistToSession($pager);
 		}
 	}
 	
