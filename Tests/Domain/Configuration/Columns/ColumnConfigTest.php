@@ -84,6 +84,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	}
 	
 	
+	public function testGetAccessGroups() {
+		$this->assertEquals($this->columnConfig->getAccessGroups(), t3lib_div::trimExplode(',',$this->columnSettings['accessGroups']));
+	}
+	
 	
 	public function testGetLabelWhenLabelNotGiven() {
 		unset($this->columnSettings['label']);

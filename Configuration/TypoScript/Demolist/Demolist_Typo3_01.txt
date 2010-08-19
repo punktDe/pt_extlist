@@ -246,7 +246,7 @@ plugin.tx_ptextlist.settings {
 					  invert = 0
 					  invertable = 0
 	              }
-
+*/
 	              30 < plugin.tx_ptextlist.prototype.filter.checkbox 
 	              30 {
 	                  filterIdentifier = filter3
@@ -267,7 +267,7 @@ plugin.tx_ptextlist.settings {
 					  
 					  accessGroups = 3
 	              }
-				 */
+				 /*
 	              
 	              40 < plugin.tx_ptextlist.prototype.filter.radiobutton 
 	              40 {
@@ -286,6 +286,7 @@ plugin.tx_ptextlist.settings {
 					  
 					  accessGroups = 3
 	              }
+	              /*
 	         }
         }  
     }

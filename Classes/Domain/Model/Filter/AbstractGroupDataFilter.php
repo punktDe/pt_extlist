@@ -153,6 +153,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 *
 	 */
 	protected function initFilterByGpVars() {
+		
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
 			$filterValue = $this->gpVarFilterData['filterValues'];
 			
