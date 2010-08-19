@@ -141,7 +141,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
 	 * @param string $filteridentifier
 	 */
-	public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filteridentifier) {
+	public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterIdentifier) {
 		$this->addItem($filter, $filterIdentifier);
 	}
 	
