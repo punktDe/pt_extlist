@@ -249,11 +249,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		$renderedOptions = array();
 
         $fields = $this->getFieldsRequiredToBeSelected();
-        $options = $this->getOptionsByFields($fields);
-
-        $renderedOptions = $this->getRenderedOptionsByGroupData($options);
-        $renderedOptions = $this->addInactiveOption($renderedOptions);
-        
+        $renderedOptions = $this->getRenderedOptionsByFields($fields);
+        $this->addInactiveOption($renderedOptions);
         return $renderedOptions;
 	}
 	
@@ -264,7 +261,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * 
 	 * @param array $renderedOptions
 	 */
-	protected function addInactiveOption($renderedOptions) {
+	protected function addInactiveOption(&$renderedOptions) {
         
 		if($this->filterConfig->getInactiveOption()) {
         	$renderedOptions[''] = $this->filterConfig->getInactiveOption();
@@ -282,7 +279,28 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 * @return array Options to be displayed by filter
 	 */
-	protected function getOptionsByFields($fields) {
+	protected function getRenderedOptionsByFields($fields) {
+		
+		$groupDataQuery = $this->buildGroupDataQuery($fields);
+        $excludeFiltersArray = $this->buildExcludeFiltersArray();
+        
+        $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
+        
+        foreach($options as $optionData) {
+        	$key = $optionData[$this->filterField->getIdentifier()];
+        	$renderedOptions[$key] = $this->renderOptionData($optionData);
+        }
+        
+        return $renderedOptions;
+	}
+	
+	
+	/**
+	 * Build the group data query to retrieve the group data
+	 * 
+	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+	 */
+	protected function buildGroupDataQuery($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		
 		foreach($fields as $selectField) {
@@ -302,39 +320,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
 			$groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
         }
-
-        $excludeFiltersArray = $this->buildExcludeFiltersArray();
         
-        $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
-        
-        $namedOptions = array();
-        foreach($options as $option) {
-        	$key = $option[$this->filterField->getIdentifier()];
-        	$namedOptions[$key] = $option;
-        }
-        
-        
-        return $namedOptions;
-	}
-
-	
-	
-	/**
-	 * Returns an array expected by f:form.select viewhelper:
-	 * 
-	 * array(<keyForReturnAsSelectedValue> => <valueToBeShownAsSelectValue>)
-	 *
-	 * @param array $groupData 
-	 * @return array
-	 */
-	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
-	   $renderedOptions = array();
-	   
-	   foreach($groupData as $key => $optionData) {	
-            $renderedOptions[$key] = $this->renderOptionData($optionData);
-        }
-      
-        return $renderedOptions;
+        return $groupDataQuery;
 	}
 	
 	
