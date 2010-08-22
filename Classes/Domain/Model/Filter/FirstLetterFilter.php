@@ -31,15 +31,14 @@
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter {	
+
 	
 	/**
-	 * Returns an array of options to be displayed by filter
-	 * for a given array of fields
-	 *
-	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
-	 * @return array Options to be displayed by filter
+	 * Build the group data query to retrieve the group data
+	 * 
+	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
 	 */
-	protected function getOptionsByFields($fields) {
+	protected function buildGroupDataQuery($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		
 		reset($this->displayFields);
@@ -56,20 +55,14 @@ class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Do
         if($this->showRowCount) {
         	// TODO only works with SQL!
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
-			$groupDataQuery->addGroupBy('firstLetter'); 
         }
-
-        $excludeFiltersArray = $this->buildExcludeFiltersArray();
         
-        $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
+        $groupDataQuery->addGroupBy('firstLetter'); 
         
-        $namedOptions = array();
-        foreach($options as $option) {
-        	$key = $option['firstLetter'] . '%';
-        	$namedOptions[$key] = $option;
-        }       
-        return $namedOptions;
+        return $groupDataQuery;
 	}
+	
+	
 	
 	/**
 	 * Returns an associative array of options 
@@ -79,6 +72,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Do
 	 */
 	public function getOptions() {
 		$renderedOptions = parent::getOptions();
+		$GLOBALS['trace'] = true; trace($renderedOptions); $GLOBALS['trace']=off;
 		$optionsArray = array();
 		foreach($renderedOptions as $optionKey => $optionValue) {
 			$selected = in_array($optionKey, $this->filterValues)  ? true : false;

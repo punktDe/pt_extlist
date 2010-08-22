@@ -238,7 +238,6 @@ plugin.tx_ptextlist.settings {
 	                  fieldIdentifier = continent
 	                  filterField = continent
 	                  displayFields = continent
-	                  multiple = 0
 	                  showRowCount = 1
 	                  submitOnChange = 0
 					  invert = 0

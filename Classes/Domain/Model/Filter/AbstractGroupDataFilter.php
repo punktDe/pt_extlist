@@ -155,7 +155,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
 			$filterValues= $this->gpVarFilterData['filterValues'];
-			$this->filterValues = is_array($filterValues) ? array_filter($filterValues) : array($filterValues);
+			$this->filterValues = is_array($filterValues) ? array_filter($filterValues) : array($filterValues => $filterValues);
 		}
 	}
 	
@@ -280,18 +280,29 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * @return array Options to be displayed by filter
 	 */
 	protected function getRenderedOptionsByFields($fields) {
+		$options =& $this->getOptionsByFields($fields);
 		
-		$groupDataQuery = $this->buildGroupDataQuery($fields);
-        $excludeFiltersArray = $this->buildExcludeFiltersArray();
-        
-        $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
-        
         foreach($options as $optionData) {
-        	$key = $optionData[$this->filterField->getIdentifier()];
-        	$renderedOptions[$key] = $this->renderOptionData($optionData);
+        	$optionKey = $optionData[$this->filterField->getIdentifier()];
+        	$selected = in_array($optionKey, $this->filterValues)  ? true : false;
+        	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
+        									'selected' => $selected);
         }
         
         return $renderedOptions;
+	}
+	
+	
+	/**
+	 * Get the raw data from the database
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+	 */
+	protected function getOptionsByFields($fields) {
+		$groupDataQuery = $this->buildGroupDataQuery($fields);
+        $excludeFiltersArray = $this->buildExcludeFiltersArray();
+        
+        return $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
 	}
 	
 	
@@ -318,8 +329,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         if($this->showRowCount) {
         	// TODO only works with SQL!
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
-			$groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
         }
+        
+        $groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
         
         return $groupDataQuery;
 	}
@@ -395,7 +407,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * @return mixed String for single value, array for multiple values
 	 */
 	public function getValue() {
-		return $this->filterValues;
+		if(count($this->filterValues) > 1){
+			return $this->filterValues;
+		} else {
+			return current($this->filterValues);
+		}
 	}
 	
 	
