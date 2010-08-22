@@ -65,22 +65,53 @@ class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Do
 	
 	
 	/**
-	 * Returns an associative array of options 
-	 * option[key] = array(value => '...', selected =
-	 *
-	 * @return array
+	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
 	 */
-	public function getOptions() {
-		$renderedOptions = parent::getOptions();
-		$GLOBALS['trace'] = true; trace($renderedOptions); $GLOBALS['trace']=off;
-		$optionsArray = array();
-		foreach($renderedOptions as $optionKey => $optionValue) {
-			$selected = in_array($optionKey, $this->filterValues)  ? true : false;
-			$optionsArray[$optionKey] = array('value' => $optionValue,
-											  'selected' => $selected);
-		}
-		return $optionsArray;
+	protected function buildFilterCriteria() {
 		
+		$criteria = NULL;
+		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		$filterValues = array_filter($this->filterValues);
+		
+		if(count($filterValues)) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($columnName, current($filterValues).'%');
+		}
+		
+		return $criteria;
+	}
+	
+	
+	
+	/**
+	 * Returns an array of options to be displayed by filter
+	 * for a given array of fields
+	 *
+	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+	 * @return array Options to be displayed by filter
+	 */
+	protected function getRenderedOptionsByFields($fields) {
+		$options =& $this->getOptionsByFields($fields);
+		
+        foreach($options as $optionData) {
+        	$optionKey = $optionData['firstLetter'];
+        	$selected = in_array($optionKey, $this->filterValues)  ? true : false;
+        	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
+        									'selected' => $selected);
+        }
+
+        return $renderedOptions;
+	}
+	
+	
+	
+	/**
+	 * Render a single option line by cObject or default
+	 *
+	 * @param array $optionData
+	 */
+	protected function renderOptionData($optionData) {
+		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+		return $option;
 	}
 	
 	

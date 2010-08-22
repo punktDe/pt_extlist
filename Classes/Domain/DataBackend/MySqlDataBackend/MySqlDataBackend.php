@@ -154,6 +154,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
 		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 
+		$GLOBALS['trace'] = true; trace($query); $GLOBALS['trace']=off;
 		return $query;
 	}
 	
