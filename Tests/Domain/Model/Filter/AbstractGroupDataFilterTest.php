@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
 		$selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
 		
-        $selectFilter->_call('createFilterQuery');
+        $selectFilter->_call('buildFilterQuery');
  		$filterQuery = $selectFilter->_get('filterQuery');
 		$criterias = $filterQuery->getCriterias();
 
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
 		$selectFilter->_set('filterValues', array('filterValue1', 'filterValue2'));
 		
-        $selectFilter->_call('createFilterQuery');
+        $selectFilter->_call('buildFilterQuery');
  		$filterQuery = $selectFilter->_get('filterQuery');
 		$criterias = $filterQuery->getCriterias();
 		
@@ -89,7 +89,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter($filterSettings);
 		$selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
 		
-        $selectFilter->_call('createFilterQuery');
+        $selectFilter->_call('buildFilterQuery');
  		$filterQuery = $selectFilter->_get('filterQuery');
 		$criterias = $filterQuery->getCriterias();
 		
@@ -120,6 +120,32 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractGroupDataFilterTest extends
     	$this->markTestIncomplete();
     }
     
+    public function testAddInactiveOption() {
+    	
+    	$settings = array(
+               'filterIdentifier' => 'test', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+               'partialPath' => 'Filter/SelectFilter',
+               'fieldIdentifier' => 'field1',
+               'displayFields' => 'field1,field2',
+               'filterField' => 'field3',
+               'invert' => '0',
+    		   'inactiveOption' => 'all',
+       		 );
+    	
+    	$abstractGroupDataFilter = $this->buildAccessibleAbstractGroupDataFilter($settings);
+    	$options = array();
+    	$abstractGroupDataFilter->_callRef('addInactiveOption', $options);
+    	
+    	$this->assertEquals($options['']['value'], 'all');
+    	$this->assertEquals($options['']['selected'], true, 'Selected must be true cause no filterValues are set');
+    	
+    	$options = array();
+    	$abstractGroupDataFilter->_set('filterValues', array('x' => 'x'));
+    	$abstractGroupDataFilter->_callRef('addInactiveOption', $options);
+    	$this->assertEquals($options['']['value'], 'all');
+    	$this->assertEquals($options['']['selected'], false, 'Selected must be false cause we have a filterValue');
+    }
     
     
     public function testGetFieldsRequiredToBeSelected() {

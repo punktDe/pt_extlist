@@ -94,9 +94,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Do
 		
         foreach($options as $optionData) {
         	$optionKey = $optionData['firstLetter'];
+        	
         	$selected = in_array($optionKey, $this->filterValues)  ? true : false;
         	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
-        									'selected' => $selected);
+        										'selected' => $selected);
         }
 
         return $renderedOptions;

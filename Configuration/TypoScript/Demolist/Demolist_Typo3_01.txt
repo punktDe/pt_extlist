@@ -271,6 +271,7 @@ plugin.tx_ptextlist.settings {
 	         		filterIdentifier = filter4
 	         		label = Capital
 	         		fieldIdentifier = capital
+	         		inactiveOption = [ALL]
 	         	}
 	         }
         }  
