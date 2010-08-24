@@ -26,8 +26,8 @@
 /**
  * Interface for criteria translator classes for extbase data backend 
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {

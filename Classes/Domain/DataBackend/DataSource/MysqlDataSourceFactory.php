@@ -27,8 +27,8 @@
  * Class implements data source for mysql databases
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\DataSource
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory  {
 	

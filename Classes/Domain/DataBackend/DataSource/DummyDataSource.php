@@ -26,8 +26,8 @@
 /**
  * Class implements a dummy data source that is mainly used for testing
  * 
- * @package Typo3
- * @subpackage pt_exlist
+ * @package Domain
+ * @subpackage DataBackend\DataSource
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource{ 

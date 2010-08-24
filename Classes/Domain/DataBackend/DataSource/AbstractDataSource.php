@@ -26,6 +26,8 @@
 
 /**
  * The base class for all data source objects.
+ * @package Domain
+ * @subpackage DataBackend\DataSource
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
