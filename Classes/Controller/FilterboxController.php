@@ -83,6 +83,9 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     	if (!$filterbox->validate()) {
             $this->view->assign('filtersDontValidate', true);
         }
+        
+        $this->resetPagers();
+        
     	$this->forward('show');
     }   
 
@@ -97,6 +100,16 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     	$filterbox = $this->getFilterboxForControllerSettings();
     	$filterbox->reset();
     	
+    	$this->resetPagers();
+    	    	
+    	$this->forward('show');
+    }
+    
+    /**
+     * Reset all pagers for this list.
+     * 
+     */
+    protected function resetPagers(){
     	// Reset pagers
     	if($this->pagerCollection === NULL) {
     		// Only get pagerCollection if it's not set already. Important for testing.
@@ -104,11 +117,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	    	$this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
     	}
     	$this->pagerCollection->reset();
-    	
-    	$this->forward('show');
     }
-    
-    
     
     /**
      * Returns filterbox configured to be handled by this controller
