@@ -26,8 +26,8 @@
 /**
  * Column Config Object 
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Columns
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	
