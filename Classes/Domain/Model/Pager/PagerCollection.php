@@ -103,6 +103,17 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		}
 	}
 	
+	/**
+	 * Resets every pager to start page.
+	 * 
+	 */
+	public function reset() {
+		$this->currentPage = 1;
+		
+		foreach($this as $pager) {
+			$pager->setCurrentPage(1);
+		}
+	} 
 	
 	
 	/**

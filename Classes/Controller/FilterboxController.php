@@ -39,7 +39,12 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 */
 	protected $filterboxIdentifier;
 	
-	
+	/**
+	 * Holds a pagerCollection.
+	 * 
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+	 */
+	protected $pagerCollection = NULL;
 	
 	/**
      * Injects the settings of the extension.
@@ -91,6 +96,15 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     public function resetAction() {
     	$filterbox = $this->getFilterboxForControllerSettings();
     	$filterbox->reset();
+    	
+    	// Reset pagers
+    	if($this->pagerCollection === NULL) {
+    		// Only get pagerCollection if it's not set already. Important for testing.
+    		// TODO: How can we mock Factories? 		
+	    	$this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+    	}
+    	$this->pagerCollection->reset();
+    	
     	$this->forward('show');
     }
     
