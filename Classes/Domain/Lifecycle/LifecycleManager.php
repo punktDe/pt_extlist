@@ -75,10 +75,21 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 		
 //		echo "NEW LIFECYCLE STATE: ".$this->state." -> ".$state;
 		$this->state = $state;
+		$this->fireUpdate();
 	}
 	
-	public function register(Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface $observer) {
-		$this->observers[] = $observer;
+	/**
+	 * Register a lifecycle observer.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface $observer
+	 * @param bool $static Override existing observer of same class.
+	 */
+	public function register(Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface $observer, $static = TRUE) {
+		if($static) {		
+			$this->observers[get_class($observer)] = $observer;
+		} else {
+			$this->observers[] = $observer;
+		}
 	}
 	
 	protected function fireUpdate() {

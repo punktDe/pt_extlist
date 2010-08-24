@@ -31,7 +31,7 @@
  * @subpackage pt_extlist
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager  {
+class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface {
 	
 	/**
 	 * Holds an instance for a session adapter to store data to session
@@ -40,7 +40,12 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager  {
 	 */
 	private $sessionAdapter = null;
 	
-	
+	/**
+	 * Holds cached session data.
+	 * 
+	 * @var array
+	 */
+	private $sessionData = array();
 	
 	/**
 	 * Injector for session adapter
@@ -63,8 +68,9 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager  {
 		$sessionNamespace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
+	
+		$this->sessionData[$sessionNamespace] = $objectData;
 		
-		$this->persistObjectDataToSessionByNamespace($sessionNamespace, $objectData);
 	}
 	
 	
@@ -77,10 +83,48 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager  {
 	public function loadFromSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
 		$objectNamespace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
-		$objectData = $this->getSessionDataByNamespace($objectNamespace);
-		$object->injectSessionData($objectData);
+
+		if(array_key_exists($objectNamespace, $this->sessionData)) {	
+			$objectData = $this->sessionData[$objectNamespace];
+			$object->injectSessionData($objectData);
+		}
 	}
 	
+	/**
+	 * Persist the cached session data.
+	 * 
+	 */
+	public function persist() {
+	
+		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
+	}
+	
+	/**
+	 * Read the session data into the cache.
+	 * 
+	 */
+	public function read() {
+		
+		$this->sessionData = $this->sessionAdapter->read('pt_extlist.cached.session');
+		
+	}
+	
+	/**
+	 * React on lifecycle events.
+	 * 
+	 * @param int $state
+	 */
+	public function lifecycleUpdate($state) {
+		switch($state) {
+			case Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START:
+				$this->read();
+				break;
+			case Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END:
+				$this->persist();
+				break;
+			
+		}
+	}
 
 
     /**

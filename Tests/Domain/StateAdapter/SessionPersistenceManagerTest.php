@@ -28,8 +28,8 @@
 /**
  * 
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Tests
  */
 class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	

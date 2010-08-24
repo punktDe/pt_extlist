@@ -271,6 +271,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::loadFromSession()
 	 */
 	public function injectSessionData(array $sessionData) {
+
 		if(array_key_exists('currentPage', $sessionData)) {
 			$this->currentPage = $sessionData['currentPage'];
 		}
@@ -285,6 +286,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
+
 		return array('currentPage'    => $this->currentPage,
 				     'totalItemCount' => $this->totalItemCount);
 	}
