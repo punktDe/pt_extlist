@@ -39,7 +39,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected $configurationBuilder;
 	
-	
+	/**
+	 * @var Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
+	 */
+	protected $lifecycleManager;
 	
 	/**
 	 * 
@@ -63,6 +66,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function __construct() {
+		$this->lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
 		parent::__construct();
 	}
 	
@@ -85,6 +89,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+	
+		// SET LIFECYCLE TO START
+		$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
 	}
 	
 	
