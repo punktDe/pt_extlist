@@ -26,8 +26,8 @@
 /**
  * column config collection
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Columns
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends tx_pttools_objectCollection {
 

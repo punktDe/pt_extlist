@@ -27,9 +27,12 @@
 /**
  * Class implements a Builder for all configurations required in pt_extlist.
  * 
- * @package Typo3
- * @subpackage pt_extlist
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @package pt_extlist
+ * @subpackage Domain\Configuration
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	

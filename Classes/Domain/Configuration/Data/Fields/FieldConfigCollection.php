@@ -26,8 +26,8 @@
 /**
  * Class implements a collection of field configurations.
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Data\Fields
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends tx_pttools_objectCollection {

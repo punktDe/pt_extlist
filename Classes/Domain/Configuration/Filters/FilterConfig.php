@@ -27,8 +27,8 @@
 /**
  * Class implementing configuration for filter
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Filters
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {

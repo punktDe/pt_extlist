@@ -26,8 +26,8 @@
 /**
  * ColumnConfigCollectionFactory for ColumnConfig Objects 
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Columns
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */
