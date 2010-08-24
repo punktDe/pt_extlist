@@ -53,6 +53,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $label;
 	
+	/** 
+	 * @var array
+	 */
+	protected $accessGroups;	
+	
 	/**
 	 * @var boolean
 	 */
@@ -172,6 +177,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		if(array_key_exists('specialCell', $columnSettings)) {
 			$this->specialCell = $columnSettings['specialCell'];
 		}
+		
+		if(array_key_exists('accessGroups', $columnSettings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',',$columnSettings['accessGroups']);
+		}
 	}
 	
 	
@@ -269,6 +278,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
      */
     public function getSpecialCell() {
     	return $this->specialCell;
+    }
+    
+  	/**
+     * Return array off groupIds
+     * @return array
+     */
+    public function getAccessGroups() {
+    	return $this->accessGroups;
     }
     
 }

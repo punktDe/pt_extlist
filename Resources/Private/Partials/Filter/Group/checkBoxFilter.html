@@ -13,6 +13,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 
+
 <div>
 <f:if condition="{filter.validate} == 0">
     <div style="color: red">Validation Error: {filter.errorMessage}</div>
@@ -20,16 +21,19 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 <label for="{filter.filterIdentifier}">{filter.label}</label>
     	
     	<f:if condition="{filter.filterConfig.submitOnChange}">
+    		
     		<f:then>
     			<f:for each="{filter.options}" key="optionValue" as="option">
     				<li><f:form.checkBox name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" checked="{option.selected}" additionalAttributes="{onchange : 'submit()'}"/> {option.value}</li>
 	    		</f:for>
     		</f:then>
+    		
 	    	<f:else>
 	    		<f:for each="{filter.options}" key="optionValue" as="option">
     				<li><f:form.checkBox name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" checked="{option.selected}"/> {option.value}</li>
 	    		</f:for>
 	    	</f:else>
+	    	
     	</f:if>
     	    	    	
     	<f:if condition="{filter.filterConfig.invertable}">

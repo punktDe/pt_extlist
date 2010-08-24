@@ -61,11 +61,11 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	
 	/**
-	 * 
 	 * Defines access on this column on usergroup level
+	 * 
 	 * @var array
 	 */
-	protected $access = array();
+	protected $accessGroups = array();
 	
 	
 	/**
@@ -92,8 +92,8 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
 		}
 		
-		if (array_key_exists('access', $fieldSettings)) {
-			$this->access = t3lib_div::trimExplode(',', $fieldSettings['access']);
+		if (array_key_exists('accessGroups', $fieldSettings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $fieldSettings['accessGroups']);
 		}
 	}
 	
@@ -131,8 +131,8 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	
 	
-	public function getAccess() {
-		return $this->access;
+	public function getAccessGroups() {
+		return $this->accessGroups;
 	}
 	
 	

@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_Model_Filter_OptionsFilter extends Tx_PtExtlist_Domain
 		$renderedOptions = parent::getOptions();
 		$optionsArray = array();
 		foreach($renderedOptions as $optionKey => $optionValue) {
-			$selected = $this->filterValues[$optionKey] ? true : false;
+			$selected = in_array($optionKey, $this->filterValues)  ? true : false;
 			$optionsArray[$optionKey] = array('value' => $optionValue,
 											  'selected' => $selected);
 		}
