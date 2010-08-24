@@ -29,8 +29,8 @@
  * Abstract controller for all pt_extlist controllers
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Controller
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
 	

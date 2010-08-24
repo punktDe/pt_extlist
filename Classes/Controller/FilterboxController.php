@@ -26,8 +26,8 @@
 /**
  * Class implementing filterbox controller
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controller_AbstractController {

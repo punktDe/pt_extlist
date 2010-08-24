@@ -26,8 +26,8 @@
 /**
  * Controller for all list actsions
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController {

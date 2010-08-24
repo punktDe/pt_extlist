@@ -27,8 +27,8 @@
  * Class Pager Controller
  *
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Controller
  */
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 
