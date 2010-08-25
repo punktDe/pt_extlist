@@ -31,6 +31,10 @@
 class tx_PtExtlist_Domain_Lifecycle_LifecycleHookManager {
 	
 	function updateEnd(&$params, &$reference) {
+		
+		//If the class can not be resolved, we are not in a extbase context. therefore exit here.
+		if(!class_exists('Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory')) return;
+		
 		$lifecycle = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
 		$lifecycle->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
 	}
