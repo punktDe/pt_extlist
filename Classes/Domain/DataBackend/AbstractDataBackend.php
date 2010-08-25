@@ -151,7 +151,33 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
         $this->backendConfiguration = $backendConfiguration;
     }
 	
-	
+    
+    
+    /**
+     * Init method
+     * 
+     */
+    public function init() {
+    	$this->initBackendByTsConfig();
+    	$this->initBackend();
+    }
+    
+    
+    
+    /**
+     * Init method to be overwritten in the 
+     * concrete backends
+     * 
+     */
+    protected function initBackend() {}    
+    
+    
+    /**
+     * Init the backend specific configuration from TS config
+     * 
+     */
+    protected function initBackendByTsConfig() {}	
+    
 	
 	/**
 	 * Injector for data mapper
