@@ -84,9 +84,9 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 		}
 		
 		$this->identifier = $identifier;
-		$this->table = $fieldSettings['table'];
-		$this->field = $fieldSettings['field'];
-		$this->setSpecial($fieldSettings['special']);
+		$this->table = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['table']);
+		$this->field = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['field']);
+		$this->special = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['special']);
 		
 		if (array_key_exists('isSortable', $fieldSettings)) {
 			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
@@ -96,12 +96,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 			$this->accessGroups = t3lib_div::trimExplode(',', $fieldSettings['accessGroups']);
 		}
 	}
-	
-	protected function setSpecial($special) {
-		$this->special = trim($special);
-	}
-	
-	
+		
 	
 	public function getIdentifier() {
 		return $this->identifier;
