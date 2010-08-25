@@ -264,6 +264,15 @@ plugin.tx_ptextlist.settings {
 					  invertable = 0
 	              }
 	         }
+	         
+	         filterbox2 {
+	         	10 < plugin.tx_ptextlist.prototype.filter.firstLetter
+	         	10 {
+	         		filterIdentifier = filter4
+	         		label = Capital
+	         		fieldIdentifier = capital
+	         	}
+	         }
         }  
     }
 }

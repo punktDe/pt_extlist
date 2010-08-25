@@ -46,6 +46,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
 			
 			$filterBoxConfigCollection->addFilterBoxConfig($filterboxConfiguration, $filterboxIdentifier);
 		}
+		
 		return $filterBoxConfigCollection;
 	}
 }

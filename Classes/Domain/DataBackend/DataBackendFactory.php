@@ -131,7 +131,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * @author Daniel Lienert <lienert@punkt.de>
      * @since 23.06.2010
      */
-    protected static function getfilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    protected static function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
     	return $filterboxCollection;
     }

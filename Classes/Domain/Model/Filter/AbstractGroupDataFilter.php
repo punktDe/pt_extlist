@@ -32,7 +32,6 @@
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 
-	
 	/**
 	 * Array of filters to be excluded if options for this filter are determined
 	 *
@@ -191,10 +190,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         
         if (array_key_exists('additionalTables', $filterSettings)) {
         	$this->additionalTables = $filterSettings['additionalTables'];
-        }
-        
-		if (array_key_exists('multiple', $filterSettings) && $filterSettings['multiple']) {
-        	$this->multiple = $filterSettings['multiple'];
         }
         
 		if (array_key_exists('showRowCount', $filterSettings) && $filterSettings['showRowCount']) {
