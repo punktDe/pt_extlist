@@ -201,7 +201,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildWherePart($excludeFilters = array()) {
 		$wherePart = '';
-		$baseWhereClause = $this->baseWhereClause;
+		$baseWhereClause = $this->getBaseWhereClause();
 		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes($excludeFilters);
 		
 		if($baseWhereClause && $whereClauseFromFilterBoxes) {
@@ -220,9 +220,30 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string groupByPart
 	 */
 	public function buildGroupByPart() {
+		return $this->getBaseGroupByClause();
+	}
+	
+	
+	
+	/**
+	 * Returns base where clause from TS config
+	 *
+	 * @return string
+	 */
+	public function getBaseWhereClause() {
+		return $this->baseWhereClause;
+	}
+	
+	
+	
+	/**
+	 * Returns base group by clause from TS config
+	 * @return $string
+	 */
+	public function getBaseGroupByClause() {
 		return $this->baseGroupByClause;
 	}
-
+	
 	
 	
 	/**
