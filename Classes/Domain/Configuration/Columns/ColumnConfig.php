@@ -144,7 +144,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		}
 		
 		if(array_key_exists('label', $columnSettings)) {
-			$this->label = $columnSettings['label'];
+			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($columnSettings['label']);
 		}
 		
 		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($columnSettings['renderUserFunctions'])) {
