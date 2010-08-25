@@ -180,10 +180,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string FROM part of query without 'FROM'
 	 */
 	public function buildFromPart() {
-		if($this->tables) {
-			$fromPart = $this->tables;
-		} else {
+		if($this->baseFromClause) {
 			$fromPart = $this->baseFromClause;
+		} else {
+			$fromPart = $this->tables;
 		}
 				
 		tx_pttools_assert::isNotEmptyString($fromPart, array('message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420'));
