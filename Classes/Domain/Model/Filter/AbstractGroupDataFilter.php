@@ -124,12 +124,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 *
 	 */
 	protected function createFilterQuery() {
-		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		
 		$criteria = NULL;
-		if (is_array($this->filterValues) && count($this->filterValues) == 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, current($this->filterValues));
-		} elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $this->filterValues);
+		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		$filterValues = array_filter($this->filterValues);
+		
+		if (is_array($filterValues) && count($filterValues) == 1) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, current($filterValues));
+		} elseif (is_array($filterValues) && count($filterValues) > 1) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $filterValues);
 		}
 
 		if($criteria) {
