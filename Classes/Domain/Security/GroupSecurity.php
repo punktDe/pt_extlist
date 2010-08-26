@@ -50,12 +50,18 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		$fieldIds = explode(',', trim($fieldIdentifier));
 		$fieldConfigCollection = $configBuilder->buildFieldsConfiguration();
 		
+		// FAIL if one of this tests are failing.
 		if(!$this->checkFields($fieldConfigCollection, $fieldIds)) {
+			
 			return false;
 		}
-	
-		// TODO: check if filter has own access rules...
+		// OR
+		if(!$this->checkFilter($filterConfig)) {
+			
+			return false;
+		}
 		
+		// OTHERWISE allow access.
 		return true;
 	}
 	
@@ -72,16 +78,22 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		return true;
 	}
 	
+	protected function checkFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filter) {
+		$groups = $filter->getAccessGroups();
+		if(!is_array($groups)) return true; // for testing purposes
+		return $this->compareAccess($groups);
+	}
+	
 	/**
 	 * Compare the defined access credentials with internal data (e.g. FE-USER-GROUP)
 	 * 
-	 * @param string $ident
+	 * @param string $groups
 	 * @return bool
 	 */
-	protected function compareAccess(array $ident) {
+	protected function compareAccess(array $groups) {
+		if(count($groups) == 0) return true;
 	
-		
-		foreach($ident as $group) {
+		foreach($groups as $group) {
 			foreach($this->usergroups as $groupData) {
 				
 				if($group == $groupData['uid']) return true;

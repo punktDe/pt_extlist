@@ -30,7 +30,7 @@
  * @subpackage Security
  */
 
-class Tx_PtExtlist_Tests_Domain_Security_SecurityTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $filterConfigMock;
 	protected $securityMock;
@@ -54,11 +54,11 @@ class Tx_PtExtlist_Tests_Domain_Security_SecurityTest extends Tx_PtExtlist_Tests
 		
 		$this->filterConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', array('getAccessGroups', 'getFieldIdentifier'), array(), '',FALSE);
 		
+//		$this->filterConfigMock
+//			->expects($this->any())
+//			->method('getAccessGroups')
+//			->will($this->returnValue(array()));
 		
-		$this->filterConfigMock
-			->expects($this->any())
-			->method('getAccessGroups')
-			->will($this->returnValue('foobar'));
 			
 		$this->securityMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Security_GroupSecurity', array('dummy'), array(), '', FALSE);
 		
@@ -135,6 +135,149 @@ class Tx_PtExtlist_Tests_Domain_Security_SecurityTest extends Tx_PtExtlist_Tests
 
 		
 		$this->securityMock->_set('usergroups',array(array('uid' => 'foobar'), array('uid'=>'whatever')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertFalse($access);
+	}
+	
+	public function testFilterAccess() {
+		// Field2 doesn't have a accessRule
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field2'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foobar')));
+		
+		$this->securityMock->_set('usergroups',array((array('uid' => 'foobar'))));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertTrue($access);
+	}
+	
+	public function testFilterDenied() {
+		// Field2 doesn't have a accessRule
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field2'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foobar')));
+		
+		$this->securityMock->_set('usergroups',array((array('uid' => 'noaccess'))));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertFalse($access);
+	}
+	
+	public function testFilterAndFieldSameGroupsAccess() {
+		// Field2 doesn't have a accessRule
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field1'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foo')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid' => 'foo')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertTrue($access);
+	}
+	
+	public function testFilterAndFieldDifferentGroupsAccess() {
+	
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field1'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foobar')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid' => 'foo'), array('uid'=>'foobar')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertTrue($access);
+	}
+	
+	public function testFilterAndFieldSameGroupsDenied() {
+		
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field1'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foo')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid' => 'foobar')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertFalse($access);
+	}
+	
+	public function testFilterAndFieldDifferentGroupsDeniedCausedByOnlyOneGroup() {
+		
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field1'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foobar')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid' => 'foo')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertFalse($access);
+	}
+	
+	public function testFilterAndFieldDifferentGroupsDeniedCausedByWrongGroups() {
+		
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field1'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('bar')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid' => 'foo'), array('uid'=>'foobar')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertFalse($access);
+	}
+	public function testFilterAndFieldSameGroupsDeniedCausedByWrongGroups() {
+		
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field1'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foo')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);

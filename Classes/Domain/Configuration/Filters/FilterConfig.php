@@ -107,9 +107,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	/**
 	 * Comma seperated list of gids that have access to this filter
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $accessGroups;
+	protected $accessGroups = array();
 	
 	
 	
