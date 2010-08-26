@@ -1,0 +1,29 @@
+<!--  
+Partial for rendering a firstLetter filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                      Holds an instance for the group filter object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <lienert@punkt.de>
+-->
+
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+
+<div>
+<f:if condition="{filter.validate} == 0">
+    <div style="color: red">Validation Error: {filter.errorMessage}</div>
+</f:if>
+<label for="{filter.filterIdentifier}">{filter.label}</label>
+    	
+   		<f:for each="{filter.options}" key="optionValue" as="option">
+  				{optionValue}
+   		</f:for>
+    	    	    	
+    	<f:if condition="{filter.filterConfig.invertable}">
+    		<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" /> Invert
+    	</f:if>
+</div>

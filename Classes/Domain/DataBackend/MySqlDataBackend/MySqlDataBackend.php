@@ -38,7 +38,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $dataSource;
     
     
-    
     /**
      * Holds an instance of a query interpreter to be used for
      * query objects
@@ -47,6 +46,34 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
     protected $queryInterpreter;
 	
+    
+    /**
+     * Table definitions from TSConfig
+     * @var string
+     */
+    protected $tables;
+    
+    
+    /**
+     * The baseWhereClause from TSConfig
+     * @var string
+     */
+    protected $baseWhereClause;
+    
+    
+    /**
+     * The baseFromClause from TSConfig
+     * @var string
+     */
+    protected $baseFromClause;
+    
+    
+    /**
+     * The baseGroupByClause from TSConfig
+     * 
+     * @var unknown_type
+     */
+    protected $baseGroupByClause;
     
     
 	/**
@@ -63,6 +90,19 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory::createInstance($dataSourceConfiguration);
         
         return $dataSource;
+    }
+    
+    
+    
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend::initBackendByTsConfig()
+     */
+    protected function initBackendByTsConfig() {
+    	$this->tables = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables')); 
+    	$this->baseWhereClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
+    	$this->baseFromClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
+    	$this->baseGroupByClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause')); 
     }
     
     
@@ -113,7 +153,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
 		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
 		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
-				
+
 		return $query;
 	}
 	
@@ -140,14 +180,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string FROM part of query without 'FROM'
 	 */
 	public function buildFromPart() {
-		if ($this->backendConfiguration->getDataBackendSettings('tables')) {
-		    $fromPart = $this->backendConfiguration->getDataBackendSettings('tables');
+		if($this->baseFromClause) {
+			$fromPart = $this->baseFromClause;
+		} else {
+			$fromPart = $this->tables;
 		}
-		
-		if(trim($this->backendConfiguration->getDataBackendSettings('baseFromClause'))) {
-			$fromPart = trim($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
-		}
-		
+				
 		tx_pttools_assert::isNotEmptyString($fromPart, array('message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420'));
 		
 		return $fromPart;
@@ -193,7 +231,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string
 	 */
 	public function getBaseWhereClause() {
-		return trim($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
+		return $this->baseWhereClause;
 	}
 	
 	
@@ -203,7 +241,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return $string
 	 */
 	public function getBaseGroupByClause() {
-		return trim($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
+		return $this->baseGroupByClause;
 	}
 	
 	

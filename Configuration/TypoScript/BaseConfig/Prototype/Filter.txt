@@ -95,5 +95,30 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 	
+	firstLetter {
+		partialPath = Filter/Group/firstLetterFilter
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
+		
+		# defaultValues are defined as array 10 = value, 20 = value or single value 20
+		defaultValue =
+		
+		filterIdentifier =
+		label = 
+		fieldIdentifier =
+		displayFields = 
+		filterField = 
+		excludeFilters = 
+		showRowCount = 0
+		inactiveOption =
+		invert = 0
+		invertable = 0
+		accessGroups =
+		
+		renderObj = TEXT
+		renderObj {
+			dataWrap = {field:allDisplayFields} ({field:rowCount})
+		}
+	}
+	
 
 }

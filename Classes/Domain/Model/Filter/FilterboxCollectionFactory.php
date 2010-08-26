@@ -48,6 +48,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 
 			$filterboxCollection->addFilterBox($filterbox, $filterbox->getfilterboxIdentifier());
 		}
+
 		return $filterboxCollection;
 	}
 	
