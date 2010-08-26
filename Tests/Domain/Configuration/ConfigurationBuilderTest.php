@@ -83,7 +83,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 			        		10 => array (
 			        			'testkey' => 'testvalue',
 			        			'filterIdentifier' => 'filter1',
-			        			'fieldIdentifier' => 'fiedl1',
+			        			'fieldIdentifier' => 'field1',
 			        			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
 								'partialPath' => 'Filter/StringFilter',
 			        		)   

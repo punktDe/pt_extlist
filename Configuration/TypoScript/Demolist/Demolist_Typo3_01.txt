@@ -61,6 +61,7 @@ plugin.tx_ptextlist.settings {
 				table = static_countries
 				field = cn_short_local
 				isSortable = 1
+				accessGroups = foo 
 			}
 	
 			name_en {
