@@ -174,5 +174,21 @@ class Tx_PtExtlist_Utility_RenderValue {
 		return self::$cObj;
 	}
 	
+	/**
+	 * If the given value is a plain array, it is converted 
+	 * to a typoscript array and rendered with stdWrap.
+	 * Otherwise the input value is returned
+	 * 
+	 * @param mixed $tsConfigValue
+	 * @return rendered typoscript value or plain input value
+	 */
+	public static function stdWrapIfPlainArray($tsConfigValue) {
+		if(!is_array($tsConfigValue)) return $tsConfigValue;
+		
+		$tsArray = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));	
+		$content = self::getCobj()->stdWrap($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);	
+		
+		return $content;
+	}
 	
 }

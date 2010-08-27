@@ -26,8 +26,8 @@
 /**
  * Column Config Object 
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Columns
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	
@@ -52,6 +52,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 * @var string
 	 */
 	protected $label;
+	
+	/** 
+	 * @var array
+	 */
+	protected $accessGroups;	
 	
 	/**
 	 * @var boolean
@@ -139,7 +144,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		}
 		
 		if(array_key_exists('label', $columnSettings)) {
-			$this->label = $columnSettings['label'];
+			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($columnSettings['label']);
 		}
 		
 		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($columnSettings['renderUserFunctions'])) {
@@ -171,6 +176,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		
 		if(array_key_exists('specialCell', $columnSettings)) {
 			$this->specialCell = $columnSettings['specialCell'];
+		}
+		
+		if(array_key_exists('accessGroups', $columnSettings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',',$columnSettings['accessGroups']);
 		}
 	}
 	
@@ -269,6 +278,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
      */
     public function getSpecialCell() {
     	return $this->specialCell;
+    }
+    
+  	/**
+     * Return array off groupIds
+     * @return array
+     */
+    public function getAccessGroups() {
+    	return $this->accessGroups;
     }
     
 }

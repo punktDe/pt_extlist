@@ -175,6 +175,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     	$this->assertEquals($this->pager->getLastItemIndex(), 30);
     }
     
+	public function testgetPagerConfiguration() {
+		$this->assertNotNull($this->pager->getPagerConfiguration());	
+	}
     
     
     /**

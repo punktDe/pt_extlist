@@ -26,8 +26,8 @@
 /**
  * Class Filterbox Config 
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Filters
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttools_objectCollection {
 

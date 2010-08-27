@@ -41,7 +41,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtli
     protected function initFilterByTsConfig() {}
     protected function initFilterBySession() {}
     protected function initFilterByGpVars() {}
-    protected function createFilterQuery() {}
+    protected function buildFilterQuery() {}
+	protected function buildFilterCriteria() {}
     protected function initFilter() {}
     public function reset() {}
 	

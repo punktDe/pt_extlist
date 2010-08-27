@@ -26,8 +26,8 @@
 /**
  * Class implementing filterbox controller
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controller_AbstractController {
@@ -39,7 +39,12 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 */
 	protected $filterboxIdentifier;
 	
-	
+	/**
+	 * Holds a pagerCollection.
+	 * 
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+	 */
+	protected $pagerCollection = NULL;
 	
 	/**
      * Injects the settings of the extension.
@@ -78,6 +83,9 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     	if (!$filterbox->validate()) {
             $this->view->assign('filtersDontValidate', true);
         }
+        
+        $this->resetPagers();
+        
     	$this->forward('show');
     }   
 
@@ -91,10 +99,25 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     public function resetAction() {
     	$filterbox = $this->getFilterboxForControllerSettings();
     	$filterbox->reset();
+    	
+    	$this->resetPagers();
+    	    	
     	$this->forward('show');
     }
     
-    
+    /**
+     * Reset all pagers for this list.
+     * 
+     */
+    protected function resetPagers(){
+    	// Reset pagers
+    	if($this->pagerCollection === NULL) {
+    		// Only get pagerCollection if it's not set already. Important for testing.
+    		// TODO: How can we mock Factories? 		
+	    	$this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+    	}
+    	$this->pagerCollection->reset();
+    }
     
     /**
      * Returns filterbox configured to be handled by this controller

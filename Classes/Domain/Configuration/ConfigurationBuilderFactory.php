@@ -27,8 +27,8 @@
 /**
  * Factory for Configuration Builder
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {

@@ -26,8 +26,8 @@
 /**
  * Interface for configuration objects wich hold configuration for value rendering
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration
  * @author Daniel Lienert <lienert@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {

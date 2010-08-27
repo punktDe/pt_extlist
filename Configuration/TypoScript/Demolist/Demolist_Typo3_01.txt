@@ -54,7 +54,6 @@ plugin.tx_ptextlist.settings {
             
         }
         
-
         
         fields {
             
@@ -62,6 +61,7 @@ plugin.tx_ptextlist.settings {
 				table = static_countries
 				field = cn_short_local
 				isSortable = 1
+				accessGroups = foo 
 			}
 	
 			name_en {
@@ -77,6 +77,7 @@ plugin.tx_ptextlist.settings {
 			capital {
 				table = static_countries
 				field = cn_capital
+				accessGroups = 3
 			}
 	
 			iso2 {
@@ -222,51 +223,92 @@ plugin.tx_ptextlist.settings {
         	specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processCell
         }
         
+        aggregateData {
+        	# methods: sum, min, max, avg
+        	sumPhone {
+        		fieldIdentifier = phone
+        		method = sum
+        	}
+        	avgPhone {
+        		fieldIdentifier = phone
+        		method = avg
+        	}
+        	maxPhone {
+        		fieldIdentifier = phone
+        		method = max
+        	}
+        	minPhone {
+        		fieldIdentifier = phone
+        		method = min
+        	}
+        }
+        
+        aggregateRows {
+        	10 {
+        		phoneColumn {
+        			aggregateDataIdentifier = sumPhone, avgPhone, maxPhone, minPhone
+        			renderObj = TEXT
+					renderObj.value (
+						 Min.: <b>{field:minPhone}</b><br /> 
+						 &empty;: <b>{field:avgPhone}</b><br />
+						 Max.: <b>{field:maxPhone}</b><br />
+						 &sum;: <b>{field:sumPhone}</b><br />
+					)
+        		}
+        	}
+        }
+        
+        
         filters {
 	        filterbox1 {
 	              10 < plugin.tx_ptextlist.prototype.filter.string 
 	              10 {
 	                  filterIdentifier = filter1
-	                  label = Stringfilter 1
+	                  label = Local name
 	                  fieldIdentifier = name_local
 	              }
-	              /*
-	              20 < plugin.tx_ptextlist.prototype.filter.select 
+
+    			  20 < plugin.tx_ptextlist.prototype.filter.checkbox 
 	              20 {
 	                  filterIdentifier = filter2
-	                  label = GroupFilter 1
+	                  label = Continent
+	                  fieldIdentifier = continent
+	                  filterField = continent
+	                  displayFields = continent
+	                  showRowCount = 1
+	                  submitOnChange = 0
+					  invert = 0
+					  invertable = 0				  
+					  accessGroups = 3
+					  excludeFilters = filterbox1.filter3
+	              }
+	              
+	             
+	              30 < plugin.tx_ptextlist.prototype.filter.select 
+	              30 {
+	                  filterIdentifier = filter3
+	                  label = Subcontinent
 	                  fieldIdentifier = subcontinent
 	                  filterField = subcontinent
 	                  displayFields = continent, subcontinent
 	                  multiple = 0
 	                  showRowCount = 1
 	                  #excludeFilters = filterbox1.filter1
-	                  submitOnChange = 1
+	                  submitOnChange = 0
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
 	              }
-	              */
-	              30 < plugin.tx_ptextlist.prototype.filter.checkbox 
-	              30 {
-	                  filterIdentifier = filter3
-	                  label = GroupFilter 2
-	                  fieldIdentifier = subcontinent
-	                  filterField = subcontinent
-	                  displayFields = continent, subcontinent
-	                  multiple = 0
-	                  showRowCount = 1
-	                  #excludeFilters = filterbox1.filter1
-	                  submitOnChange = 1
-					  invert = 0
-					  invertable = 0
-					  defaultValue {
-					  	10 = Western Europe
-					  	20 = Southern Europe
-					  }
-					  
-					  accessGroups = 3
-	              }
+	         }
+	         
+	         filterbox2 {
+	         	10 < plugin.tx_ptextlist.prototype.filter.firstLetter
+	         	10 {
+	         		filterIdentifier = filter4
+	         		label = Capital
+	         		fieldIdentifier = capital
+	         		inactiveOption = [ALL]
+	         	}
 	         }
         }  
     }

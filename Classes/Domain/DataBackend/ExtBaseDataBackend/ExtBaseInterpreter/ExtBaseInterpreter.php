@@ -28,9 +28,9 @@
  * 
  * TODO by calling static methods in Translator class, we have no loose coupling here. Change this by using instance of translator class.
  * 
- * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
+ * @subpackage Domain\ExtBaseDataBackend\ExtBaseInterpreter
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter  {
 

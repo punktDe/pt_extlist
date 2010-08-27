@@ -26,8 +26,8 @@
 /**
  * Databackend configuration class. Holds configuration parameters for the dataBackend
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\DataBackend
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {

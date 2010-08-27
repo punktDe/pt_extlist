@@ -29,8 +29,8 @@
  * TODO at the moment 2 queries are send to the database: 1) gather data 2) count rows in data --> cache data and count rows there
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\ExtBaseDataBackend
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
 	

@@ -24,6 +24,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Renderer
+ */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
 	

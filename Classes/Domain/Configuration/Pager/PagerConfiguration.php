@@ -26,10 +26,11 @@
 /**
  * Class implements configuration for pager
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Pager
  * @author Michael Knoll <knoll@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	

@@ -21,5 +21,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 
 );
-
+echo "register hook";
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_eofe'][] = 'EXT:pt_extlist/Classes/Domain/Lifecycle/LifecycleHookManager.php:tx_PtExtlist_Domain_Lifecycle_LifecycleHookManager->updateEnd';
 ?>

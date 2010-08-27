@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 		    'table' => 'tableName',
 		    'field' => 'fieldName',
 		    'isSortable' => '0',
-		    'access' => '1,2,3,4'
+		    'accessGroups' => '1,2,3,4'
 		);
 		$this->fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', $this->fieldSettings);
 	}
@@ -110,8 +110,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	
 	
-	public function testGetAccess() {
-		$accessArray = $this->fieldConfig->getAccess();
+	public function testGetAccessGroups() {
+		$accessArray = $this->fieldConfig->getAccessGroups();
 		$this->assertTrue(in_array('1', $accessArray));
 		$this->assertTrue(in_array('2', $accessArray));
 		$this->assertTrue(in_array('3', $accessArray));

@@ -24,8 +24,8 @@
 ***************************************************************/
 
 /**
- * @package        TYPO3
- * @subpackage	   pt_extlist  
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Columns  
  * @author         Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {

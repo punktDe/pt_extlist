@@ -26,8 +26,8 @@
 /**
  * Database Datasource configuration class. Holds configuration parameters for database data sources as MySql
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\DataBackend\DataSource
  * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration {

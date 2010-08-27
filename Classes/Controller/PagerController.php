@@ -27,8 +27,8 @@
  * Class Pager Controller
  *
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Controller
  */
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 
@@ -73,14 +73,20 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		// Do not show pager when nothing to page.
 		if($this->pagerCollection->getItemCount() <= 0) return '';
 
+		
 		tx_pttools_assert::isTrue($this->pagerCollection->hasItem($this->pagerIdentifier), array(message => 'No pager configuration with id '.$this->pagerIdentifier.' found. 1282216891'));
+		$pager = $this->pagerCollection->getItemById($this->pagerIdentifier);
 		
 		// TODO use correct TS setting here!
 		// TODO change testcase to accept this call
 		// TODO think about using initializeView method call for all this
 		#$this->setTemplatePathAndFilename('EXT:pt_extlist/Resources/Private/Templates/Pager/second.html');
+		$templatePath = $pager->getPagerConfiguration()->getTemplatePath();
+		if(!empty($templatePath)) {
+			$this->setTemplatePathAndFilename($templatePath);			
+		}
 		
-		$this->view->assign('pager', $this->pagerCollection->getItemById($this->pagerIdentifier));
+		$this->view->assign('pager', $pager);
 		
 	}
 	

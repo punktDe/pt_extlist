@@ -28,8 +28,8 @@
 /**
  *  FieldConfigCollection Factory
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Data\Fields
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory {

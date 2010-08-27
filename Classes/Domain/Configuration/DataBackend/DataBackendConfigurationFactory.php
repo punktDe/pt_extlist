@@ -26,8 +26,8 @@
 /**
  * Factory class for databaceknd config objects
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\DataBackend
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory {

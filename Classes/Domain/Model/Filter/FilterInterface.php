@@ -67,7 +67,6 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
 	
 	
-	
 	/**
 	 * Returns identifier of filter
 	 * 

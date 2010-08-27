@@ -53,6 +53,41 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
         }        
 	}
 	
+	
+	/**
+	 * Returns an array of options to be displayed by filter
+	 * for a given array of fields
+	 *
+	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+	 * @return array Options to be displayed by filter
+	 */
+	protected function getRenderedOptionsByFields($fields) {
+		$options =& $this->getOptionsByFields($fields);
+		
+        foreach($options as $optionData) {
+        	$optionKey = $optionData[$this->filterField->getIdentifier()];
+        	$renderedOptions[$optionKey] =  $this->renderOptionData($optionData);
+        }
+        
+        return $renderedOptions;
+	}
+	
+	
+	/**
+	 * Add inactiveFilterOpotion to rendered options
+	 * 
+	 * @param array $renderedOptions
+	 */
+	protected function addInactiveOption(&$renderedOptions) {
+        
+		if($this->filterConfig->getInactiveOption()) {
+        	$renderedOptions[''] = $this->filterConfig->getInactiveOption();
+        }
+ 
+        return $renderedOptions;
+	}
+	
+	
 	/**
 	 * 
 	 * Multiple or dropdown select

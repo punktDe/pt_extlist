@@ -26,8 +26,8 @@
 /**
  * Translator class for simple criteria for extbase data backend interpreter
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator 

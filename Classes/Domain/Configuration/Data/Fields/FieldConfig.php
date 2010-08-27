@@ -26,8 +26,8 @@
 /**
  * Class Field Config
  *
- * @package TYPO3
- * @subpackage pt_extlist 
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Data\Fields 
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
@@ -61,16 +61,16 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	
 	/**
-	 * 
 	 * Defines access on this column on usergroup level
+	 * 
 	 * @var array
 	 */
-	protected $access = array();
+	protected $accessGroups = array();
 	
 	
 	/**
 	 * 
-	 * Special string to be interpreted by the querinterpreter
+	 * Special string to be interpreted by the queryinterpreter
 	 * @var string
 	 */
 	protected $special;
@@ -84,24 +84,19 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 		}
 		
 		$this->identifier = $identifier;
-		$this->table = $fieldSettings['table'];
-		$this->field = $fieldSettings['field'];
-		$this->setSpecial($fieldSettings['special']);
+		$this->table = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['table']);
+		$this->field = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['field']);
+		$this->special = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['special']);
 		
 		if (array_key_exists('isSortable', $fieldSettings)) {
 			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
 		}
 		
-		if (array_key_exists('access', $fieldSettings)) {
-			$this->access = t3lib_div::trimExplode(',', $fieldSettings['access']);
+		if (array_key_exists('accessGroups', $fieldSettings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $fieldSettings['accessGroups']);
 		}
 	}
-	
-	protected function setSpecial($special) {
-		$this->special = trim($special);
-	}
-	
-	
+		
 	
 	public function getIdentifier() {
 		return $this->identifier;
@@ -131,8 +126,8 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	
 	
-	public function getAccess() {
-		return $this->access;
+	public function getAccessGroups() {
+		return $this->accessGroups;
 	}
 	
 	

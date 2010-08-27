@@ -27,8 +27,8 @@
 /**
  * Class implementing configuration for filter
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Filters
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
@@ -107,9 +107,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	/**
 	 * Comma seperated list of gids that have access to this filter
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $accessGroups;
+	protected $accessGroups = array();
 	
 	
 	
@@ -225,6 +225,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 */
 	protected $renderUserFunctions = NULL;
 	
+	/**
+	 * This flag indicates if this filter is accessable for the current user.
+	 * Will be injected from the factory.
+	 * @var bool
+	 */
+	protected $accessable = FALSE;
 	
 	
 	/**
@@ -500,6 +506,25 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 */
 	public function getRenderUserFunctions() {
 		return $this->renderUserFunctions;
+	}
+	
+	/**
+	 * Sets the accessable flag.
+	 * 
+	 * @param bool $accessable
+	 */
+	public function injectAccessable($accessable) {
+		$this->accessable = (bool)$accessable;
+	}
+	
+	
+	/**
+	 * Returns the accessable flag.
+	 * 
+	 * @return bool
+	 */
+	public function isAccessable() {
+		return $this->accessable;
 	}
 	
 }

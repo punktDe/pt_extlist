@@ -29,8 +29,8 @@
  * Abstract controller for all pt_extlist controllers
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Controller
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
 	
@@ -39,7 +39,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected $configurationBuilder;
 	
-	
+	/**
+	 * @var Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
+	 */
+	protected $lifecycleManager;
 	
 	/**
 	 * 
@@ -63,6 +66,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function __construct() {
+		$this->lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
+		$this->lifecycleManager->register(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		// SET LIFECYCLE TO START -> read session data into cache
+		$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+		
 		parent::__construct();
 	}
 	
@@ -85,6 +93,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+	
+		
 	}
 	
 	

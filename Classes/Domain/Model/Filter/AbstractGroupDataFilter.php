@@ -32,7 +32,6 @@
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 
-	
 	/**
 	 * Array of filters to be excluded if options for this filter are determined
 	 *
@@ -118,36 +117,27 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
-	 *
 	 */
 	protected function initFilter() {}
 
-
+	
+	
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
-	 *
+	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterCriteria()
 	 */
-	protected function createFilterQuery() {
-
-		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+	protected function buildFilterCriteria() {
+		
 		$criteria = NULL;
-		if (!is_array($this->filterValues) && $this->filterValues != '') {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, $this->filterValues);
-		} elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $this->filterValues);
-		}
-
+		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		$filterValues = array_filter($this->filterValues);
 		
-		if($criteria) {
-			if($this->invert) {
-				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
-			} else {
-				$this->filterQuery->addCriteria($criteria);
-			}
-		} else {
-			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+		if (is_array($filterValues) && count($filterValues) == 1) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, current($filterValues));
+		} elseif (is_array($filterValues) && count($filterValues) > 1) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $filterValues);
 		}
 		
+		return $criteria;
 	}
 	
 	
@@ -158,7 +148,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 */
 	protected function initFilterByGpVars() {
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
-			$this->filterValues = $this->gpVarFilterData['filterValues'];
+			$filterValues= $this->gpVarFilterData['filterValues'];
+			$this->filterValues = is_array($filterValues) ? array_filter($filterValues) : array($filterValues => $filterValues);
 		}
 	}
 	
@@ -195,10 +186,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         	$this->additionalTables = $filterSettings['additionalTables'];
         }
         
-		if (array_key_exists('multiple', $filterSettings) && $filterSettings['multiple']) {
-        	$this->multiple = $filterSettings['multiple'];
-        }
-        
 		if (array_key_exists('showRowCount', $filterSettings) && $filterSettings['showRowCount']) {
         	$this->showRowCount = $filterSettings['showRowCount'];
         }
@@ -208,6 +195,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         }
 	}
 
+	
+	
 	/**
 	 * Set the groupfilters default value
 	 * 
@@ -257,11 +246,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		$renderedOptions = array();
 
         $fields = $this->getFieldsRequiredToBeSelected();
-        $options = $this->getOptionsByFields($fields);
+        $renderedOptions = $this->getRenderedOptionsByFields($fields);
+        $this->addInactiveOption($renderedOptions);
 
-        $renderedOptions = $this->getRenderedOptionsByGroupData($options);
-        $renderedOptions = $this->addInactiveOption($renderedOptions);
-        
         return $renderedOptions;
 	}
 	
@@ -269,14 +256,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	
 	/**
 	 * Add inactiveFilterOpotion to rendered options
-	 * TODO move to selectFilter?
 	 * 
 	 * @param array $renderedOptions
 	 */
-	protected function addInactiveOption($renderedOptions) {
+	protected function addInactiveOption(&$renderedOptions) {
         
+		$filterValues = array_filter($this->filterValues);
+
 		if($this->filterConfig->getInactiveOption()) {
-        	$renderedOptions[''] = $this->filterConfig->getInactiveOption();
+        	$renderedOptions[''] = array('value' => $this->filterConfig->getInactiveOption(),
+        									'selected' => empty($filterValues));
         }
  
         return $renderedOptions;
@@ -291,7 +280,39 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 * @return array Options to be displayed by filter
 	 */
+	protected function getRenderedOptionsByFields($fields) {
+		$options =& $this->getOptionsByFields($fields);
+		
+        foreach($options as $optionData) {
+        	$optionKey = $optionData[$this->filterField->getIdentifier()];
+        	$selected = in_array($optionKey, $this->filterValues)  ? true : false;
+        	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
+        									'selected' => $selected);
+        }
+        
+        return $renderedOptions;
+	}
+	
+	
+	/**
+	 * Get the raw data from the database
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+	 */
 	protected function getOptionsByFields($fields) {
+		$groupDataQuery = $this->buildGroupDataQuery($fields);
+        $excludeFiltersArray = $this->buildExcludeFiltersArray();
+        
+        return $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
+	}
+	
+	
+	/**
+	 * Build the group data query to retrieve the group data
+	 * 
+	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+	 */
+	protected function buildGroupDataQuery($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		
 		foreach($fields as $selectField) {
@@ -309,41 +330,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         if($this->showRowCount) {
         	// TODO only works with SQL!
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
-			$groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
-        }
-
-        $excludeFiltersArray = $this->buildExcludeFiltersArray();
-        
-        $options = $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
-        
-        $namedOptions = array();
-        foreach($options as $option) {
-        	$key = $option[$this->filterField->getIdentifier()];
-        	$namedOptions[$key] = $option;
         }
         
+        $groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
         
-        return $namedOptions;
-	}
-
-	
-	
-	/**
-	 * Returns an array expected by f:form.select viewhelper:
-	 * 
-	 * array(<keyForReturnAsSelectedValue> => <valueToBeShownAsSelectValue>)
-	 *
-	 * @param array $groupData 
-	 * @return array
-	 */
-	protected function getRenderedOptionsByGroupData(array $groupData = array()) {
-	   $renderedOptions = array();
-	   
-	   foreach($groupData as $key => $optionData) {	
-            $renderedOptions[$key] = $this->renderOptionData($optionData);
-        }
-      
-        return $renderedOptions;
+        return $groupDataQuery;
 	}
 	
 	
@@ -419,7 +410,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * @return mixed String for single value, array for multiple values
 	 */
 	public function getValue() {
-		return $this->filterValues;
+		if(count($this->filterValues) > 1){
+			return $this->filterValues;
+		} else {
+			return current($this->filterValues);
+		}
 	}
 	
 	

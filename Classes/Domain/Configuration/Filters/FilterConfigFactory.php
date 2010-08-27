@@ -26,14 +26,28 @@
 /**
  * Class implementing factory for filter configuration
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\Configuration\Filters
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder, $filterboxIdentifier, array $filterSettings) {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($configBuilder, $filterboxIdentifier, $filterSettings);
+		$filterConfig = self::setAccessableFlag($filterConfig, $configBuilder);
+		return $filterConfig;
+	}
+	
+	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
+		
+		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
+		
+		$accessable = $security->isAccessableFilter($filterConfig, $configBuilder);
+
+		$filterConfig->injectAccessable($accessable);
+		
+		
+		
 		return $filterConfig;
 	}
 	

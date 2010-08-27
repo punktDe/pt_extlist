@@ -27,9 +27,12 @@
 /**
  * Class implements a Builder for all configurations required in pt_extlist.
  * 
- * @package Typo3
- * @subpackage pt_extlist
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @package pt_extlist
+ * @subpackage Domain\Configuration
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
@@ -75,6 +78,12 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	protected $fieldsConfiguration = null;
 	
+	
+	/**
+	 * Holds an instance of a aggregate data configuration and handles it as a singleton instance
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+	 */
+	protected $aggregateDataConfig = null;
 	
 	
 	/**
@@ -315,6 +324,20 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->fieldsConfiguration;
     }
 
+
+    
+    /**
+     * Returns a singleton instance of a aggregateData configuration collection for current list configuration
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     */
+    public function buildAggregateDataConfig() {
+    	if(is_null($this->aggregateDataConfig)) {
+    		$this->aggregateDataConfig = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this->settings['aggregateData']);
+    	}
+    	return $this->aggregateDataConfig;
+    }
+    
     
     
     /**

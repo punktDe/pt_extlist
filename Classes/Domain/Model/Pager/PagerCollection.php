@@ -58,14 +58,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	protected $sessionPersistenceManager;
 	
 	public function __construct() {
-	
-		  
 		// Inject settings from session.
         $this->sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-       
-               
-
-		
 	}
 	
 	/**
@@ -76,7 +70,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
 		// Inject session pager data from session
 		$this->sessionPersistenceManager->loadFromSession($pager);
-		
+	
 		// As if one pager is enabled, the collection is marked a enabled.
 		if($pager->isEnabled()) {
 			$this->enabled = true;
@@ -103,6 +97,17 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		}
 	}
 	
+	/**
+	 * Resets every pager to start page.
+	 * 
+	 */
+	public function reset() {
+		$this->currentPage = 1;
+		
+		foreach($this as $pager) {
+			$pager->setCurrentPage(1);
+		}
+	} 
 	
 	
 	/**
