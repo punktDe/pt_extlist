@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 *
 	 * @var int
 	 */
-    public $date;	
+    public $createDate;	
 	
 	
 	
@@ -108,7 +108,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	/**
 	 * @return int
 	 */
-	public function getDate() {
+	public function getCreateDate() {
 		return $this->date;
 	}
 	
@@ -162,7 +162,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	/**
 	 * @param int $date
 	 */
-	public function setDate($date) {
+	public function setCreateDate($date) {
 		$this->date = $date;
 	}
 	
