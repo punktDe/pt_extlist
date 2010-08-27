@@ -70,7 +70,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	/**
 	 * 
-	 * Special string to be interpreted by the querinterpreter
+	 * Special string to be interpreted by the queryinterpreter
 	 * @var string
 	 */
 	protected $special;
