@@ -79,6 +79,12 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected $fieldsConfiguration = null;
 	
 	
+	/**
+	 * Holds an instance of a aggregate data configuration and handles it as a singleton instance
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+	 */
+	protected $aggregateDataConfig = null;
+	
 	
 	/**
 	 * Holds an instance of a columns configuration and handles it as a singleton instance
@@ -318,6 +324,20 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->fieldsConfiguration;
     }
 
+
+    
+    /**
+     * Returns a singleton instance of a aggregateData configuration collection for current list configuration
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     */
+    public function buildAggregateDataConfig() {
+    	if(is_null($this->aggregateDataConfig)) {
+    		$this->aggregateDataConfig = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this->settings['aggregateData']);
+    	}
+    	return $this->aggregateDataConfig;
+    }
+    
     
     
     /**

@@ -93,7 +93,19 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		    ),
 		    'pager' => array(
 		        'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager' 
-		    )
+		    ),
+		    
+		    'aggregateData' => array(
+		    	'sumField1' => array (
+		    		'fieldIdentifier' => 'field1',
+		    		'method' => 'sum',
+		    	),
+		    	'avgField2' => array (
+		    		'fieldIdentifier' => 'field2',
+		    		'method' => 'avg',
+		    	),
+		    ),
+		    
 		);
 	}
 	
@@ -135,6 +147,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$fieldConfigCollection = $configurationBuilder->buildFieldsConfiguration();
 		$this->assertTrue(is_a($fieldConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
+	}
+	
+	
+	public function testBuildAggregateDataConfiguration() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+		$aggregateDataConfigCollection = $configurationBuilder->buildAggregateDataConfig();
+		$this->assertTrue(is_a($aggregateDataConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection'));
 	}
 	
 	
