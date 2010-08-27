@@ -372,6 +372,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     	$sqlQueryString .= count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
         $groupDataArray = $this->dataSource->executeQuery($sqlQueryString);
+        
+        print_r($groupDataArray);
+        
         return $groupDataArray;
     }
 	

@@ -41,6 +41,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	protected $excludeFilters;
 	
 	
+	
 	/**
      * Holds an array of filter values
      *
@@ -49,12 +50,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	protected $filterValues = array();
 	
 	
+	
 	/**
 	 * Show the group row count
 	 * 
 	 * @var integer
 	 */
 	protected $showRowCount;
+	
 	
 	
 	/**
@@ -90,6 +93,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 * @var string
 	 */
 	protected $additionalTables;
+	
 	
 	
 	/**
@@ -221,6 +225,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	}
 	
 	
+	
 	/**
 	 * Set DisplayFields by TS-Settings
 	 * 
@@ -259,6 +264,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         
         return $renderedOptions;
 	}
+	
 	
 	
 	/**
@@ -341,6 +347,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	}
 	
 	
+	
 	/**
 	 * Render a single option line by cObject or default
 	 *
@@ -359,6 +366,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		
 		return $option;
 	}
+	
 	
 	
 	/**

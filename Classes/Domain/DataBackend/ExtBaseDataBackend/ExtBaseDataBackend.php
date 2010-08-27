@@ -62,6 +62,21 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	
 	
 	/**
+	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function getListData() {
+		$extbaseQuery = $this->buildExtBaseQuery();
+		$data = $extbaseQuery->execute();
+		#print_r($data);
+		$mappedListData = $this->dataMapper->getMappedListData($data);
+		return $mappedListData;
+	}
+	
+	
+	
+	/**
 	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getGroupData()
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery
@@ -69,12 +84,51 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return array
 	 */
 	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters=array()) {
-		return array();
-//		$query = $this->buildGenericQueryWithoutPager();
-//		$query = $this->mergeGenericQueries($query, $groupDataQuery);
-//		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
-//		        $query, $this->repository);
-//		return $extBaseQuery->execute();
+		/**
+		 * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
+		 * 
+		 * additionalTables = Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
+		 * --> this is used to register a different repository than backend uses to create and execute query for group data
+		 * 
+		 * displayFields = grouptitle
+		 * --> this is used to generate the options of the group filter by the domain objects returned by repository
+		 * 
+		 * filterField = groupuid
+		 * --> this is used to generate value of selected objects (the value that is used for filtering)
+		 * 
+		 * TODO no row count is possible at the moment (could only be realised by a 'non-Extbase SQL query'
+		 */
+		$query = $this->buildGenericQueryWithoutPager($excludeFilters);
+		$query = $this->mergeGenericQueries($query, $groupDataQuery);
+		
+		if (count($groupDataQuery->getFrom()) >= 1) {  // use different repository for group data query
+			$fromArray = $groupDataQuery->getFrom();
+			$repositoryClassName = $fromArray[0];
+			tx_pttools_assert::isTrue(class_exists($repositoryClassName), 
+			    array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
+		    $repository = t3lib_div::makeInstance($repositoryClassName);
+			tx_pttools_assert::isTrue(is_a($repository, 'Tx_Extbase_Persistence_Repository'), 
+			    array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));   
+		} else {
+			$repository = $this->repository;
+		}
+		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
+		        $query, $repository);
+		$domainObjectsForFilterOptions = $extBaseQuery->execute();
+        
+		$result = array();
+		
+		foreach($domainObjectsForFilterOptions as $domainObjectForFilterOption) {
+			$row = array();
+		    foreach($groupDataQuery->getFields() as $field) {
+		    	list($dottedField, $alias) = explode('AS', $field);
+		    	list($object, $property) = explode('.', $dottedField);
+		    	$getterMethodName = 'get' . ucfirst(trim($property));
+			    $row[trim($alias)] = $domainObjectForFilterOption->$getterMethodName();
+		    }
+	        $result[] = $row;
+		}
+		return $result;
 	}
 	
 	
@@ -113,21 +167,6 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function getListData() {
-		$extbaseQuery = $this->buildExtBaseQuery();
-		$data = $extbaseQuery->execute();
-		#print_r($data);
-		$mappedListData = $this->dataMapper->getMappedListData($data);
-		return $mappedListData;
-	}
-	
-	
-	
-	/**
 	 * Builds query for current pager, filter and sorting settings
 	 *
 	 * @return Tx_Extbase_Persistence_Query
@@ -155,8 +194,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 *
 	 * @return Tx_PtExtlist_Domain_QueryObject_Query
 	 */
-	protected function buildGenericQueryWithoutPager() {
-        $query = $this->buildGenericQueryExcludingFilters();
+	protected function buildGenericQueryWithoutPager(array $excludeFilters = array()) {
+        $query = $this->buildGenericQueryExcludingFilters($excludeFilters);
         return $query;
 	}
 	
@@ -171,7 +210,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	    $query = new Tx_PtExtlist_Domain_QueryObject_Query();
 	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-		    	if (!in_array($filterbox->getfilterboxIdentifier() . '.' . $filter->getFilterIdentifier(), $excludeFilters)) {
+		    	if (!in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
                     $criterias = $filter->getFilterQuery()->getCriterias();
                     foreach($criterias as $criteria) {
                         $query->addCriteria($criteria);
