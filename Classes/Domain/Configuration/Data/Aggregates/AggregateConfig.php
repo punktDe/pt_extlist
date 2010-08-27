@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	
 	/**
 	 * field identifier
-	 * @var array of fieldIdentifiers
+	 * @var string
 	 */
 	protected $fieldIdentifier;
 	
@@ -62,7 +62,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 			throw new Exception('No fieldIdentifier for aggregate given! 1282891630');
 		}
 		
-		$this->fieldIdentifier = t3lib_div::trimExplode(',', $aggregateSettings['fieldIdentifier']);
+		$this->fieldIdentifier = $aggregateSettings['fieldIdentifier'];
 		
 		if(!$aggregateSettings['method']) {
 			throw new Exception('No aggregate method given! 1282891831');

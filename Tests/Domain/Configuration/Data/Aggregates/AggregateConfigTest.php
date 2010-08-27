@@ -57,7 +57,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfig_te
 	
 	
 	public function testGetFieldIdentifier() {
-		$this->assertEquals(array('fieldName'), $this->aggregateConfig->getFieldIdentifier());
+		$this->assertEquals('fieldName', $this->aggregateConfig->getFieldIdentifier());
 	}
 	
 	public function testGetIndetifier() {

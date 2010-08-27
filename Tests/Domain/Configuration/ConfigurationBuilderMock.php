@@ -176,6 +176,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                    		),
 	                    	),
 	                    ),
+	                     'aggregateData' => array(
+					    	'sumField1' => array (
+					    		'fieldIdentifier' => 'field1',
+					    		'method' => 'sum',
+					    	),
+					    	'avgField2' => array (
+					    		'fieldIdentifier' => 'field2',
+					    		'method' => 'avg',
+					    	),
+					    ),
 	                )
 	            )
 	        ));
