@@ -24,36 +24,44 @@
 ***************************************************************/
 
 /**
- * Class implements factory for array aggregator
- * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * collection of aggregate row configs
+ *
  * @package pt_extlist
- * @subpackage \Domain\Model\List\Aggregates
+ * @subpackage Domain\Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorfactory {
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection extends tx_pttools_objectCollection {
 
 	/**
-	 * Holds a single instance of ab array agregator
-	 * 
-	 * @var Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+	 * @var string
 	 */
-	private static $instance = null;
+	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig';
+	
 	
 	
 	/**
-	 * build the listheader, a collection of columnheader objects
+	 * Add rowconfig to collection
 	 * 
-	 * @param $configurationBuilder Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+	 * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig
+	 * @param integer $rowId
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $listData) {
-		
-		if(!self::$instance) {
-			self::$instance = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
-			self::$instance->injectListData($listData);	
-		}
-		
-		return self::$instance;
+	public function addAggregateRowConfig(Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig, $rowId) {
+		$this->addItem($aggregateRowConfig, $rowId);
 	}
+	
+	
+	
+	/** 
+	 * @param int $rowId
+	 * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig
+	 */
+	public function getAggregateRowConfig($rowId) {
+		if($this->hasItem($rowId)) {
+			return $this->getItemById($rowId);
+		} else {
+			throw new Exception('The aggregate row with id ' . $rowId . ' does not exist! 1282922836');
+		}
+	}
+	
 }
+
 ?>

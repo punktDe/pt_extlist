@@ -106,6 +106,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		    	),
 		    ),
 		    
+		    
+		    'aggregateRows' => array (
+	        	10 => array (
+	        		'column2' => array (
+	        			'aggregateDataIdentifier' => 'avgField2',
+					)
+				)
+		    )
+		    
 		);
 	}
 	
@@ -154,6 +163,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
 		$aggregateDataConfigCollection = $configurationBuilder->buildAggregateDataConfig();
 		$this->assertTrue(is_a($aggregateDataConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection'));
+	}
+	
+	
+	public function testBuildAggregateRowConfiguration() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+		$aggregateRowConfigCollection = $configurationBuilder->buildAggregateRowConfig();
+		$this->assertTrue(is_a($aggregateRowConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection'));
 	}
 	
 	

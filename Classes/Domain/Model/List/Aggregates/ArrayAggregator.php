@@ -52,22 +52,26 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
 	 */
 	public function getAggregateByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
-		$this->buildFieldData($aggregateConfig->getFieldIdentifier());
+		$fieldIdentifier = $aggregateConfig->getFieldIdentifier();
+		
+		if(!is_array($this->fieldData[$fieldIdentifier])) {
+			$this->buildFieldData($fieldIdentifier);
+		}
 		
 		$methodName = 'getField' . ucfirst($aggregateConfig->getMethod());
 		if(!method_exists($this, $methodName)) {
 			throw new Exception('The array aggregate Method "' . $aggregateConfig->getMethod() . '" is not implemented 1282905192');
 		}
 		
-		return $this->$methodName($aggregateConfig->getFieldIdentifier());
+		return $this->$methodName($fieldIdentifier);
 	}
 	
-	protected function buildFieldData($fieldIdentifier) {
-		if(!is_array($this->fieldData[$fieldIdentifier])) {
-			foreach($this->listData as $row) {
-				$this->fieldData[$fieldIdentifier][] = $row[$fieldIdentifier]->getValue();
-			}	
-		}
+	protected function buildFieldData($fieldIdentifier) {	
+		$this->fieldData[$fieldIdentifier] = array();
+		
+		foreach($this->listData as $row) {
+			$this->fieldData[$fieldIdentifier][] = $row[$fieldIdentifier]->getValue();
+		}	
 	}
 	
 	
@@ -75,7 +79,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 		return array_sum($this->fieldData[$fieldIdentifier]);
 	}
 	
-	protected function getFieldAverage($fieldIdentifier) {
+	protected function getFieldAvg($fieldIdentifier) {
 		return array_sum($this->fieldData[$fieldIdentifier])/count($this->fieldData[$fieldIdentifier]);
 	}
 	

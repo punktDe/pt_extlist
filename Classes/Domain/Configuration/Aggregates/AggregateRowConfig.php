@@ -24,36 +24,42 @@
 ***************************************************************/
 
 /**
- * Class implements factory for array aggregator
- * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * aggregate row config - collection of aggregate column configs
+ *
  * @package pt_extlist
- * @subpackage \Domain\Model\List\Aggregates
+ * @subpackage Domain\Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorfactory {
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig extends tx_pttools_objectCollection {
 
 	/**
-	 * Holds a single instance of ab array agregator
-	 * 
-	 * @var Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+	 * @var string
 	 */
-	private static $instance = null;
+	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig';
+	
 	
 	
 	/**
-	 * build the listheader, a collection of columnheader objects
-	 * 
-	 * @param $configurationBuilder Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+	 * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig $aggregateColumnConfig 
+	 * @param string $columnIdentifier
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $listData) {
-		
-		if(!self::$instance) {
-			self::$instance = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
-			self::$instance->injectListData($listData);	
-		}
-		
-		return self::$instance;
+	public function addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier) {
+		$this->addItem($aggregateColumnConfig, $columnIdentifier);
 	}
+	
+	
+	
+	/** 
+	 * @param string $identifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
+	 */
+	public function getAggregateColumnConfigByIdentifier($columnIdentifier) {
+		if($this->hasItem($columnIdentifier)) {
+			return $this->getItemById($columnIdentifier);
+		} else {
+			throw new Exception('The aggregate column with id ' . $columnIdentifier . ' does not exist! 1282919033');
+		}
+	}
+	
 }
+
 ?>

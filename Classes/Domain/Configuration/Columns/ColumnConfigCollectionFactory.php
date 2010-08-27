@@ -33,6 +33,7 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	
+
     /**
 	 * Build and return ColumnConfigurationCollection (as a singleton!)
 	 *  
@@ -40,7 +41,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
 	public static function getColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return self::buildColumnConfigCollection($configurationBuilder);
+		return  self::buildColumnConfigCollection($configurationBuilder);	
 	}
 	
 	

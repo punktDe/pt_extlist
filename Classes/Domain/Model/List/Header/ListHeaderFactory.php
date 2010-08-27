@@ -27,18 +27,16 @@
  * Class implements factory for complete list header
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage \Domain\Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 
 	/**
 	 * build the listheader, a collection of columnheader objects
 	 * 
-	 * @param $configurationBuilder Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 * @param $configurationBuilder Tx_PtExtlist_Domain_Model_List_ListData
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 29.07.2010
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 

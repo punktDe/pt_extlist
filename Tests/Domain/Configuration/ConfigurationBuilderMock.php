@@ -176,7 +176,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                    		),
 	                    	),
 	                    ),
-	                     'aggregateData' => array(
+
+	                    
+	                    'aggregateData' => array(
 					    	'sumField1' => array (
 					    		'fieldIdentifier' => 'field1',
 					    		'method' => 'sum',
@@ -186,6 +188,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 					    		'method' => 'avg',
 					    	),
 					    ),
+					    
+					    
+				    	'aggregateRows' => array (
+				        	10 => array (
+				        		'column2' => array (
+				        			'aggregateDataIdentifier' => 'avgField2',
+								)
+							)
+					    )
 	                )
 	            )
 	        ));
