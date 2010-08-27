@@ -56,7 +56,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * List action rendering list
 	 *
 	 * @return string  Rendered list for given list identifier
-	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
@@ -77,7 +76,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * Shows a message that the list is empty.
 	 * 
 	 * @return string A message saying that the list is empty.
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
 	 */
 	public function emptyListAction() {
 		// template handles translation...
