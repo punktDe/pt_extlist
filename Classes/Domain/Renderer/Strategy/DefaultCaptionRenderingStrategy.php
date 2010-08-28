@@ -33,17 +33,12 @@
  */
 class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
 
-	protected $cObj;
-	
-	
 	public function __construct() {
 		// $this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		$this->cObj = $GLOBALS['TSFE']->cObj;
 	}
 	
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List $list) {
-		
-		$listHeader = $list->getListHeader();
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader &$listHeader) {
 		
 		tx_pttools_assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
@@ -51,7 +46,9 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy impl
 		
 		foreach($listHeader as $headerColumn) {
 			$label = $headerColumn->getLabel();
-
+			
+			// TODO: use Tx_PtExtlist_Utility_RenderValue and configuration for rendering!
+			
 			// Use TS for rendering
 			if(is_array($label)) {
 				$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
@@ -62,7 +59,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy impl
 			}
 
 			
-			$row->addCell($headerColumn->getColumnIdentifier(), $label);
+			$row->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 		}
 		
 		return $row;

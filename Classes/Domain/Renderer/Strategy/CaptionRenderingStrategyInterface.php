@@ -32,7 +32,7 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
-
+	// TODO insert interfacemethods !!
 }
 
 ?>

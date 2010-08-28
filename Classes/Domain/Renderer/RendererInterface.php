@@ -38,10 +38,10 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * Renders the given list through TypoScript.
 	 * Also uses the column definitions.
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_List $list
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_List &$list);
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData &$listData);
 	
 	
 	
@@ -50,7 +50,7 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
 	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_List &$list);
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader &$listHeader);
 
 }
 ?>
