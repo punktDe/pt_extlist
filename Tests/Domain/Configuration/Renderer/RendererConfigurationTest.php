@@ -26,7 +26,7 @@
 
 class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $settings = array('bla' => 'blub', 'enabled'=>'0', 'showCaptionsInBody' => '1');
+	protected $settings = array('rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase', 'enabled'=>'0', 'showCaptionsInBody' => '1');
 	
 	protected $config;
 	
@@ -42,23 +42,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_tes
 		$this->assertEquals($this->settings, $settings);
 		
 	}
-	
-	public function testGetColumnConfiguration() {
-		
-		$colConf = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
-		$this->config->setColumnConfigCollection($colConf);
-		$this->assertTrue(method_exists($this->config, 'getColumnConfigCollection'));
-		$this->assertEquals($this->config->getColumnConfigCollection(), $colConf);
-	}
+
 	
 	public function testIsEnabled() {
 		$this->assertFalse($this->config->isEnabled());
 	}
-	
-	public function testShowCaptionsInBody() {
-		$this->assertTrue($this->config->showCaptionsInBody());
-	}
-	
 }
 
 ?>

@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
 				$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
-				$listDataRow->addCell($fieldConfiguration->getIdentifier(), $value);
+				$listDataRow->createAndAddCell($value, $fieldConfiguration->getIdentifier());
 			}
 			$listData->addRow($listDataRow);
 		}

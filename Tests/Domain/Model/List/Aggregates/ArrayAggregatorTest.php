@@ -106,9 +106,9 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregator_testcase e
 		
 		foreach($this->testData as $data) {
 			$row = new Tx_PtExtlist_Domain_Model_List_Row();
-			$row->addCell('field1', $data/10);
-			$row->addCell('field2', $data);
-			$row->addCell('field3', $data*10);
+			$row->createAndAddCell($data/10, 'field1');
+			$row->createAndAddCell($data, 'field2');
+			$row->createAndAddCell($data*10, 'field3');
 			$this->testListData->addRow($row);	
 		}
 	}

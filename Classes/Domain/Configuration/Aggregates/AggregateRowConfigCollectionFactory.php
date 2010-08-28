@@ -52,6 +52,8 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionF
 	protected static function buildAggregateRowConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
 		$aggregateRowSettings = $configurationBuilder->getAggregateRowSettings();
+		ksort($aggregateRowSettings);
+		
 		$aggregateRowConfigCollection = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection();
 
 		foreach($aggregateRowSettings as $rowId => $rowSetting) {

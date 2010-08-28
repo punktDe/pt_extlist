@@ -53,6 +53,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	protected static function buildColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
 		$columnSettings = $configurationBuilder->getColumnSettings();
+		ksort($columnSettings);
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
 
 		foreach($columnSettings as $columnId => $columnSetting) {

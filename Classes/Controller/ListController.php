@@ -46,8 +46,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function initializeAction() {
 		parent::initializeAction();
-		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
-                    $this->configurationBuilder->buildRendererConfiguration());
+		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->configurationBuilder);
 	}
 	
 	
@@ -64,8 +63,9 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		if($list->getListData()->count() <= 0) $this->forward('emptyList');
 		
 		
-		$renderedListData = $this->renderer->render($list);
-		$renderedCaptions = $this->renderer->renderCaptions($list);
+		$renderedListData = $this->renderer->renderList($list->getListData());
+		$renderedCaptions = $this->renderer->renderCaptions($list->getListHeader());
+
 		
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);

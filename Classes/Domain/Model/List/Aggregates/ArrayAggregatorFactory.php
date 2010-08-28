@@ -30,10 +30,10 @@
  * @package pt_extlist
  * @subpackage \Domain\Model\List\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorfactory {
+class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory {
 
 	/**
-	 * Holds a single instance of ab array agregator
+	 * Holds a single instance of an array agregator
 	 * 
 	 * @var Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
 	 */
@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorfactory {
 	
 	
 	/**
-	 * build the listheader, a collection of columnheader objects
+	 *  build the arrayAgregator
 	 * 
 	 * @param $configurationBuilder Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator

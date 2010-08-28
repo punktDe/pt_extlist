@@ -64,8 +64,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		foreach ($arrayData as $row) {
 			$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-			foreach ($row as $fieldname => $value) {
-				$mappedRow->addCell($fieldname, $value);
+			foreach ($row as $columnName => $value) {
+				$mappedRow->createAndAddCell($value, $columnName);
 			}
 			$listData->addRow($mappedRow);
 		}
@@ -101,7 +101,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		foreach ($this->mapperConfiguration as $mapping) { /* @var $mapping Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 			$mappedCellValue = $this->getMappedCellValue($mapping, $row);
-			$mappedRow->addCell($mapping->getIdentifier(), $mappedCellValue);
+			$mappedRow->createAndAddCell($mappedCellValue, $mapping->getIdentifier());
 		}
 		return $mappedRow;
 	}

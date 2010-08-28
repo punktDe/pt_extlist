@@ -198,17 +198,19 @@ plugin.tx_ptextlist.settings {
 					10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
 				}
 			}
-			30 {
-				label = Phone
-				columnIdentifier = phoneColumn
-				# default columns can only operate on _one_ dataDescription
-				fieldIdentifier = phone
-			}
+	
 	
 			40 {
 				label = Continent
 				columnIdentifier = continent
 				fieldIdentifier = continent
+			}
+	
+			30 {
+				label = Phone
+				columnIdentifier = phoneColumn
+				# default columns can only operate on _one_ dataDescription
+				fieldIdentifier = phone
 			}
 	
 			50 {
