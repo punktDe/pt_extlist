@@ -35,7 +35,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	
 	/**
 	 * 
-	 * TODO - make them configurationable?
+	 * TODO - make them configurationable and use factories!
 	 */
 	public function initRendererStrategies() {
 		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy($this->configurationBuilder);
@@ -82,23 +82,27 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
-	protected function renderRow(Tx_PtExtlist_Domain_Model_List_Row &$row, $rowIndex) {
+	public function renderRow(Tx_PtExtlist_Domain_Model_List_Row &$row, $rowIndex) {
 		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		$columnCollection = $this->configurationBuilder->buildColumnsConfiguration();
 	
 		$columnIndex=0;
 		foreach($columnCollection->getIterator() as $culumnId => $columnConfig) {
-			$fieldIdentifier = $columnConfig->getFieldIdentifier();
 			$columnIdentifier = $columnConfig->getColumnIdentifier();
 			
 			// Use strategy to render cells
-			$cell = $this->cellRenderer->renderCell($columnConfig, $fieldIdentifier, $row, $columnIndex, $rowIndex);
+			$cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
 			
 			$renderedRow->addCell($cell, $columnIdentifier);
 			$columnIndex++;
 		}
 		
 		return $renderedRow;
+	}
+	
+	
+	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
+		return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
 	}
 	
 }

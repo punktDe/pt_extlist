@@ -250,7 +250,7 @@ plugin.tx_ptextlist.settings {
         		phoneColumn {
         			aggregateDataIdentifier = sumPhone, avgPhone, maxPhone, minPhone
         			renderObj = TEXT
-					renderObj.value (
+					renderObj.dataWrap (
 						 Min.: <b>{field:minPhone}</b><br /> 
 						 &empty;: <b>{field:avgPhone}</b><br />
 						 Max.: <b>{field:maxPhone}</b><br />

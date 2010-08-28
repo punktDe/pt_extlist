@@ -30,7 +30,7 @@
  * @package pt_extlist
  * @subpackage Domain\Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 	
 	/**
 	 * Identifier of list to which this column belongs to
@@ -75,7 +75,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 		$this->columnIdentifier = $columnIdentifier;
 		$this->aggregateDataIdentifier = t3lib_div::trimExplode(',', $aggregateColumnSettings['aggregateDataIdentifier']);
 				
-		$this->setOptionalSettings($columnSettings);
+		$this->setOptionalSettings($aggregateColumnSettings);
 	}	
 	
 	
@@ -87,15 +87,15 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	 * @return void
 	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
-	protected function setOptionalSettings($columnSettings) {
-		
-		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($columnSettings['renderUserFunctions'])) {
-			asort($columnSettings['renderUserFunctions']);
-			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
+	protected function setOptionalSettings($aggregateColumnSettings) {
+
+		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($aggregateColumnSettings['renderUserFunctions'])) {
+			asort($aggregateColumnSettings['renderUserFunctions']);
+			$this->renderUserFunctions = $aggregateColumnSettings['renderUserFunctions'];
 		}
 				
-		if(array_key_exists('renderObj', $columnSettings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $columnSettings['renderObj']));
+		if(array_key_exists('renderObj', $aggregateColumnSettings)) {
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $aggregateColumnSettings['renderObj']));
         }
 	}
 	
@@ -125,6 +125,24 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	public function getAggregateDataIdentifier() {
 		return $this->aggregateDataIdentifier;
 	} 
+	
+	
+	
+	/**
+	 * This method exists to fullfill the interface
+	 * The renderer expects the method to map da data to the column
+	 * 
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface::getFieldIdentifier()
+	 */
+	public function getFieldIdentifier() {
+		return $this->aggregateDataIdentifier;
+	}
+	
+	
+	public function getSpecialCell() {
+		return '';
+	}
 	
 	
 	/**

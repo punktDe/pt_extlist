@@ -66,6 +66,8 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 		return $this->$methodName($fieldIdentifier);
 	}
 	
+	
+	
 	protected function buildFieldData($fieldIdentifier) {	
 		$this->fieldData[$fieldIdentifier] = array();
 		

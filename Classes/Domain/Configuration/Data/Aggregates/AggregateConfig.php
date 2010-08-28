@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	
 	
 	/**
-	 * field identifier
+	 * identifier of the field that will be aggregated
 	 * @var string
 	 */
 	protected $fieldIdentifier;

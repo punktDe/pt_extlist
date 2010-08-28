@@ -412,8 +412,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
         $groupDataArray = $this->dataSource->executeQuery($sqlQueryString);
         
-        print_r($groupDataArray);
-        
         return $groupDataArray;
     }
 	

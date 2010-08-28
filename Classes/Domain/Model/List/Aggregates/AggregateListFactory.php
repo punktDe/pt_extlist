@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * Class implements factory the list of aggregate rows
+ * Class implements factory the aggregate list builder
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package pt_extlist
@@ -32,44 +32,28 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 	
-	
 	/**
-	 * Get defined aggregate rows as list
+	 * Get defined aggregate rows as list data structure
+	 * if no aggregate Rows are defined return an empty list structure
 	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public static function getAggregateList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function getAggregateListData(Tx_PtExtlist_Domain_Model_List_ListData $listData, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
-		
-	}
-	
-	
-	/**
-	 * Build the aggregate list
-	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	protected static function buildAggregateList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$aggregateRowConfigurations = $configurationBuilder->buildAggregateRowConfig();
-		
-		foreach($aggregateRowConfigurations as $aggregateRowConfiguration) {
+		if($configurationBuilder->getAggregateRowSettings()) {
 			
+			$aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
+			$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($listData));
+			$aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($configurationBuilder));
+			$aggregateListBuilder->init();
+			
+			$aggregateListData = $aggregateListBuilder->buildAggregateList();	
+		} else {
+			$aggregateListData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		}
+		
+		return $aggregateListData;
 	}
-	
-	
-	
-	/**
-	 * Build the aggregate row
-	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfiguration
-	 */
-	public static function buildAggregateRow(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfiguration) {
-		$columnConfig = $
-	}
-	
 }
 ?>

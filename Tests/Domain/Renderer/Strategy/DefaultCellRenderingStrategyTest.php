@@ -79,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		
 		// see ConfigurationBuilderMock for column definition
 		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'column1', 'fieldIdentifier' => 'field1'));
-		$cellContent = $this->cellRenderer->renderCell($columnConfig, '10', $row);
+		$cellContent = $this->cellRenderer->renderCell($columnConfig, $row);
 		$this->assertEquals('val1', $cellContent->getValue()); 
 		
 	}
@@ -93,7 +93,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		
 		// see ConfigurationBuilderMock for column definition
 		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'column1', 'fieldIdentifier' => 'field1'));
-		$cellContent = $this->cellRenderer->renderCell($columnConfig, '10', $row);
+		$cellContent = $this->cellRenderer->renderCell($columnConfig, $row, '10');
 		$this->assertTrue(is_array($cellContent->getSpecialValues()));
 	}
 	/*

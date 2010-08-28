@@ -56,7 +56,6 @@ class Tx_PtExtlist_Tests_DOmain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 		
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($backendMock, $this->configurationBuilderMock);
 		
-		$this->assertNotNull($list->getColumnConfig());
 		$this->assertEquals($listData, $list->getListData());
 		$this->assertNotNull($list->getListHeader());
 	}

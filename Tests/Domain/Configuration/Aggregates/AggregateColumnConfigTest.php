@@ -66,5 +66,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_t
 	public function testGetColumnIdentifier() {
 		$this->assertEquals($this->aggregateColumnConfig->getColumnIdentifier(), 'column2');
 	}
+	
 }
 ?>

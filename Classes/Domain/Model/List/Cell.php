@@ -179,7 +179,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 		if (is_array($this->value)) {
 			return implode(',', $this->value);
 		} else {
-		    return ($this->value == '' ? '' : $this->value);
+		    return (string) $this->value;
 		}
 	}
 	

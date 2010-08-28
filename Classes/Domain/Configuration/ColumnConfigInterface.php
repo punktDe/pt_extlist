@@ -24,25 +24,30 @@
 ***************************************************************/
 
 /**
- * Class implements factory for array aggregator
- * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * Interface for configuration objects wich hold configuration for list columns
+ *
  * @package pt_extlist
- * @subpackage \Domain\Model\List\Aggregates
+ * @subpackage Domain\Configuration
+ * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory {
-
-	/**
-	 *  build the arrayAgregator
-	 * 
-	 * @param $configurationBuilder Tx_PtExtlist_Domain_Model_List_ListData
-	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
-	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		$arrayAgregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
-		$arrayAgregator->injectListData($listData);	
+interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	
-		return $arrayAgregator;
-	}
+	
+	/**
+	 * Returns the identifier for the column
+	 * @return string
+	 */
+	public function getColumnIdentifier();
+	
+	
+	/**
+	 * Returns an array of field identifiers, the datafields assigned to this collumn
+	 * @return array
+	 */
+	public function getFieldIdentifier();
+	
+	
+	
+	public function getSpecialCell();
 }
 ?>
