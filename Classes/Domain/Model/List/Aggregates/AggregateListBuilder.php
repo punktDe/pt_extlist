@@ -67,6 +67,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	protected $aggregateDataConfiguration;
 	
 	
+	
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
 		$this->aggregateDataConfiguration = $configurationBuilder->buildAggregateDataConfig();
@@ -74,16 +78,25 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	
 	
 	
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator
+	 */
 	public function injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator) {
 		$this->arrayAggregator = $arrayAggregator;
 	}
 
 	
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer
+	 */
 	public function injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer) {
 		$this->renderer = $renderer;
 	}
 	
 	
+	/**
+	 * Init the aggregates to fill in the columns
+	 */
 	public function init() {
 		$this->aggregatedDataRow = $this->buildAggregateDataRow();
 	}

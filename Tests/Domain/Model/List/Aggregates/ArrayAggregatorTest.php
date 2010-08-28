@@ -100,6 +100,17 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregator_testcase e
 	}
 	
 	
+	public function testBuildFieldData() {
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator');
+    	$arrayAggregator = new $accessibleClassName;
+    	
+    	$arrayAggregator->injectListData($this->testListData);
+    	$arrayAggregator->_call('buildFieldData', 'field2');
+    	$fieldData = $arrayAggregator->_get('fieldData');
+    	$this->assertEquals($this->testData, $fieldData['field2']);
+	}
+	
+	
 	protected function buildTestListData() {
 		
 		$this->testListData = new Tx_PtExtlist_Domain_Model_List_ListData();
@@ -112,6 +123,9 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregator_testcase e
 			$this->testListData->addRow($row);	
 		}
 	}
+	
+	
+	
 
 }
 ?>
