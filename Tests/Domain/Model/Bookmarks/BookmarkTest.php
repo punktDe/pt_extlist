@@ -36,5 +36,54 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_Bookmark_testcase extends Tx_PtE
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark'));
 	}
 	
+	
+	
+    public function testGetSetContent() {
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+        $bookmark->setContent('test');
+        $this->assertEquals($bookmark->getContent(), 'test');
+    }
+    
+    
+    
+    public function testGetSetCreateDate() {
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+        $bookmark->setCreateDate(1234);
+        $this->assertEquals($bookmark->getCreateDate(), 1234);
+    }
+    
+    
+    
+    public function testGetSetDescription() {
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+        $bookmark->setDescription('description');
+        $this->assertEquals($bookmark->getDescription(), 'description');
+    }
+    
+    
+    
+    public function testGetSetFeUser() {
+        $feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+        $bookmark->setFeUser($feUserMock);
+        $this->assertEquals($bookmark->getFeUser(), $feUserMock);
+    }
+    
+    
+
+    public function testGetSetListId() {
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+        $bookmark->setListId('list_id');
+        $this->assertEquals($bookmark->getListId(),'list_id');
+    }
+    
+    
+    
+    public function testGetSetName() {
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+        $bookmark->setName('testname');
+        $this->assertEquals($bookmark->getName(), 'testname');
+    }
+    
 }
 ?>
