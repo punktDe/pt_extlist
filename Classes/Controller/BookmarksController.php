@@ -105,8 +105,12 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return string The rendered HTML source for this action
      */
     public function showAction() {
-    	$bookmarksCollection = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
-    	$this->view->assign('bookmarks', $bookmarksCollection);
+    	if ($this->feUser != null) {
+    	   $bookmarksCollection = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+    	   $this->view->assign('bookmarks', $bookmarksCollection);
+    	} else {
+    		$this->view->assign('bookmarks', null);
+    	}
     }
     
 }
