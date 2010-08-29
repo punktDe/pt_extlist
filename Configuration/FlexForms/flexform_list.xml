@@ -44,6 +44,10 @@
                     <numIndex index="0">Pager</numIndex>
                     <numIndex index="1">Pager->show;Pager->submit</numIndex>
                   </numIndex>
+                  <numIndex index="4" type="array">
+                    <numIndex index="0">Bookmarks</numIndex>
+                    <numIndex index="1">Bookmarks->show</numIndex>
+                  </numIndex>
                 </items>
               </config>
             </TCEforms>
@@ -53,6 +57,8 @@
         </el>
       </ROOT>
     </sDefault>
+    
+    
     
     
     <!--##########################-->
@@ -71,6 +77,26 @@
         </el>
       </ROOT>
     </list>
+    
+    
+    
+    <!--###############################-->
+    <!-- Tab for bookmarks settings    -->
+    <!--###############################-->
+    <list>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Bookmarks settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          
+
+        </el>
+      </ROOT>
+    </list>
+    
     
     
     <!--############################-->
@@ -100,6 +126,7 @@
     </filterbox>
     
     
+    
     <!--##########################-->
     <!-- Tab for pager settings   -->
     <!--##########################-->
@@ -123,6 +150,8 @@
         </el>
       </ROOT>
     </pager>
+    
+    
     
   </sheets>
 </T3DataStructure>
