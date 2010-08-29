@@ -31,9 +31,33 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtExtlist_Tests_BaseTestcase {
-     
+
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Controller_BookmarksController'));
+	}
+	
+	
+	
+	public function testShowAction() {
+		$bookmarksCollectionMock = array('test' => 'value');
+		$bookmarksRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_BookmarksRepository', array(), array(), '', FALSE);
+		$bookmarksRepositoryMock->expects($this->once())->method('findBookmarksByFeUserAndListIdentifier')->will($this->returnValue($bookmarksCollectionMock));
+		
+		$feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+		
+		$mockView = $this->getMock(
+            'Tx_Fluid_Core_View_TemplateView',
+            array('assign'), array(), '', FALSE);
+        $mockView->expects($this->once())->method('assign')->with('bookmarks', $bookmarksCollectionMock);
+        
+        $mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('dummy'),array(), '', FALSE);
+        $mockController->_set('view', $mockView);
+        $mockController->_set('bookmarksRepository', $bookmarksRepositoryMock);
+        $mockController->_set('feUser', $feUserMock);
+        
+        $mockController->showAction();
 	}
 	
 }
