@@ -36,5 +36,26 @@ class Tx_PtExtlist_Tests_Domain_Repository_BookmarksRepository_testcase extends 
 		$this->assertTrue(class_exists(Tx_PtExtlist_Domain_Repository_BookmarksRepository));
 	}
 	
+	
+	
+	public function testFindBookmarksByFeUserAndListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		$this->assertTrue(method_exists($bookmarksRepository, 'findBookmarksByFeUserAndListIdentifier'));
+		// TODO think about how to test repository method!
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testThrowExceptionOnFindBookmarksByFeUserAndListIdentifierWithEmptyListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		try {
+			$bookmarksRepository->findBookmarksByFeUserAndListIdentifier(null, '');
+		} catch(Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
+	
 }
 ?>
