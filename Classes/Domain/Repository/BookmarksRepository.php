@@ -32,6 +32,26 @@
  */
 class Tx_PtExtlist_Domain_Repository_BookmarksRepository extends Tx_Extbase_Persistence_Repository {
 	
+    /**
+     * Returns collection of bookmarks for given feUser and list identifier
+     *
+     * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
+     * @param string $listIdentifier
+     * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
+     */	
+	public function findBookmarksByFeUserAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $listIdentifier) {
+		$feUserUid = $feUser->getUid();
+		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117065'));
+		if ($feUserUid > 0) {
+			$query = $this->createQuery();
+			$query->matching($query->logicalAnd($query->equals('feUser', $feUserUid), $query->equals('listId', $listIdentifier)));
+			$result = $query->execute();
+			return $result;
+		}
+		else {
+		    return null;
+		}
+	}
 }
  
 ?>
