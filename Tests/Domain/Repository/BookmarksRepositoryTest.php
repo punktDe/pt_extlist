@@ -57,5 +57,17 @@ class Tx_PtExtlist_Tests_Domain_Repository_BookmarksRepository_testcase extends 
 		$this->fail();
 	}
 	
+	
+	
+	public function testThrowExceptionOnFindingPublicBookmarksWithoutListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+        try {
+            $bookmarksRepository->findPublicBookmarksByListIdentifier('');
+        } catch(Exception $e) {
+            return;
+        }
+        $this->fail();
+	}
+	
 }
 ?>
