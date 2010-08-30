@@ -104,6 +104,36 @@ class Tx_PtExtlist_Domain_Repository_BookmarksRepository extends Tx_Extbase_Pers
 		return $query->execute();
 	}
 	
+	
+	
+	/**
+	 * Returns all group bookmarks for a given user and a given list of group uids for which bookmarks should be collected for a given list identifier.
+	 * 
+	 * Example: 
+	 *     User is in Groups (1,2,3,4)
+	 *     Groups to be shown (3,4)
+	 *     ==> all bookmarks for groups 3,4 are returned
+	 *
+	 * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
+	 * @param unknown_type $groupIds
+	 * @param unknown_type $listIdentifier
+	 * @return unknown
+	 */
+	public function findBookmarksByFeUserGroupIdsAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $groupIds, $listIdentifier) {
+		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117069'));
+		if (!is_array($groupIds)) {
+			$groupIds = explode(',', $groupIds);
+		}
+		$groupBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
+		$feUserGroups = $feUser->getUsergroups();
+        foreach($feUserGroups as $feUserGroup) { /* @var $feUserGroup Tx_Extbase_Domain_Model_FrontendUserGroup */
+            if (in_array($feUserGroup->getUid(), $groupIds)) {
+            	$groupBookmarks->addAll($this->findGroupBookmarksByFeGroupAndListIdentifier($feUserGroup, $listIdentifier));
+            }
+        }
+        return $groupBookmarks;
+	}
+	
 }
  
 ?>
