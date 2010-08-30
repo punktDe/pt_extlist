@@ -108,6 +108,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $sortingImageDesc = '';
 	
+	/**
+	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
+	 * 
+	 * @var bool
+	 */
+	protected $accessable = false;
+	
 	
 	/**
 	 * @param $columnSettings array of coumn settings
@@ -128,7 +135,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		$this->setOptionalSettings($columnSettings);
 	}	
 	
+	public function injectAccessable($accessable) {
+		$this->accessable = $accessable;
+	}
 	
+	public function isAccessable() {
+		return $this->accessable;
+	}
 	
 	/**
 	 * Set optional definable columnsettings
