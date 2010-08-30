@@ -96,7 +96,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	}
 	
 	
-	
 	public function testNoColumnIdentifierGivenException() {
 		try {
 			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig(array('fieldIdentifier' => 'test'));
@@ -115,6 +114,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 			return;
 		}
 		$this->fail();
+	}
+
+	public function testInjectAccessable() {
+		$this->columnConfig->injectAccessable(true);
+		$this->assertTrue($this->columnConfig->isAccessable());
+	}
+	
+	public function testIsAccessableDefault() {
+		$this->assertFalse($this->columnConfig->isAccessable());
 	}
 }
 ?>

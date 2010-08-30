@@ -30,6 +30,7 @@
  * @subpackage Domain\Configuration\Columns
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	
@@ -55,10 +56,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 		$columnSettings = $configurationBuilder->getColumnSettings();
 		ksort($columnSettings);
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
-
+		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
+		
 		foreach($columnSettings as $columnId => $columnSetting) {
 			$columnSettingMergedWithProtoType = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');
-			$columnConfigCollection->addColumnConfig($columnId, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSettingMergedWithProtoType));
+			$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSettingMergedWithProtoType);
+			
+			// Inject security information
+			$accessable = $security->isAccessableColumn($columnConfig, $configurationBuilder);
+			$columnConfig->injectAccessable($accessable);
+			
+			$columnConfigCollection->addColumnConfig($columnId, $columnConfig);
 		}
 		
 		return $columnConfigCollection;

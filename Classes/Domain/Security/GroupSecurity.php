@@ -48,8 +48,8 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 * @return bool
 	 */
 	public function isAccessableColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
-		$fieldIdentifier = $columnConfig->getFieldIdentifier();
-		$fieldIds = explode(',', trim($fieldIdentifier));
+		$fieldIds = $columnConfig->getFieldIdentifier();
+		
 		$fieldConfigCollection = $configBuilder->buildFieldsConfiguration();
 		
 		// FAIL if one of this tests are failing.
@@ -83,8 +83,11 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 */
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
 		$fieldIdentifier = $filterConfig->getFieldIdentifier();
+		
 		$fieldIds = explode(',', trim($fieldIdentifier));
 		$fieldConfigCollection = $configBuilder->buildFieldsConfiguration();
+		
+		
 		
 		// FAIL if one of this tests are failing.
 		if(!$this->checkFields($fieldConfigCollection, $fieldIds)) {
