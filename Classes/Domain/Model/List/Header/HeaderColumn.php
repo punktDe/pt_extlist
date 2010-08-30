@@ -91,6 +91,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	
 	
 	/**
+	 * Array with the actual sorting state
+	 * @var array
+	 */
+	protected $sorting;
+	
+	
+	
+	/**
 	 * Sorting query object for this column
 	 * @var Tx_PtExtlist_Domain_QueryObject_Query
 	 */
@@ -133,13 +141,19 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	
 	
 	/**
-	 * Init the header column and persist the state to session
+	 * Init the header column:
 	 * 
+	 * 1. Set state from Session
+	 * 2. Overwrite state from GPVars
+	 * 3. Build the sorting state from config and state
+	 * 4. Build the sorting Query Object
+	 * 5. Save to Session
 	 */
 	public function init() {	
 		$this->initHeaderBySession();
 		$this->initHeaderByGpVars();
 		
+		$this->buildSorting();
 		$this->buildSortingQuery();
 		
 		$this->sessionPersistenceManager->persistToSession($this);
@@ -152,7 +166,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 */
 	protected function initHeaderBySession() {
 		if(array_key_exists('sortingState', $this->headerSessionData)) {
-			$this->sortingState = $this->headerSessionData['sortingState'];
+			$this->sortingState = (int) $this->headerSessionData['sortingState'];
     	}
 	}
 	
@@ -163,7 +177,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 */
 	protected function initHeaderByGpVars() {
 		if(array_key_exists('sortingState', $this->headerGPVarData)) {
-    		$this->sortingState = $this->headerGPVarData['sortingState'];
+    		$this->sortingState = (int) $this->headerGPVarData['sortingState'];
     	}
 	}
 
@@ -188,15 +202,25 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     
     
     /**
-     * Build an array with sorting definitions for this column
+     * Return an array with sorting definitions for this column
      *  
-     * @return array
+     * @return array of sortings
      * @author Daniel Lienert <lienert@punkt.de>
-     * @since 29.07.2010
      */
     public function getSorting() {
+    	return $this->sorting;
+    }
+
+    
+    /**
+     * build the sorting array for this column
+     * @return void
+     */
+    protected function buildSorting() {
     	$sorting = array();    	
+    	
     	if($this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC || $this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
+    		
     		foreach($this->sortingFieldConfig as $fieldConfig) {
     			if($fieldConfig->getForceDirection()){
     				$sorting[$fieldConfig->getField()] = $fieldConfig->getDirection();
@@ -206,14 +230,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     		}
     	}
     	
-    	return $sorting;
+		$this->sorting = $sorting;
     }
-
     
     
     /**
-     * TODO please add some comment!
-     *
+     * Build a QueryObject for sorting 
+     * out of the sorting information array
+     * @return void
      */
     protected function buildSortingQuery() {
     	$this->sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
