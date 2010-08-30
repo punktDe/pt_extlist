@@ -148,14 +148,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$groupByPart = $this->buildGroupByPart();
 		
 		$query = '';
-		$query .= $selectPart != ''  ? 'SELECT ' 	. $selectPart   . " \n" : '';
-		$query .= $fromPart != ''    ? 'FROM '   	. $fromPart 	. " \n" : '';
-		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
-		$query .= $orderByPart != '' ? 'ORDER BY '  . $orderByPart 	. " \n" : '';
+		$query .= $selectPart  != '' ? 'SELECT ' 	. $selectPart   . " \n" : '';
+		$query .= $fromPart    != '' ? 'FROM '   	. $fromPart 	. " \n" : '';
+		$query .= $wherePart   != '' ? 'WHERE '  	. $wherePart 	. " \n" : '';
 		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
-		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
+		$query .= $orderByPart != '' ? 'ORDER BY '  . $orderByPart 	. " \n" : '';
+		$query .= $limitPart   != '' ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 
-		$GLOBALS['trace'] = true; trace($query); $GLOBALS['trace']=off;
+		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 		return $query;
 	}
 	
@@ -399,14 +399,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
     	$filterWherePart = $this->buildWherePart($excludeFilters);
     	
-    	$sqlQueryString = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
-    	$sqlQueryString .= ' FROM ' . $this->buildFromPart();
-    	$sqlQueryString .= count($groupDataQuery->getFrom()) > 0 ? ', ' . $this->queryInterpreter->getFromPart($groupDataQuery) : '';
-    	$sqlQueryString .= $filterWherePart != '' ? ' WHERE ' . $filterWherePart : '';  
-    	$sqlQueryString .= count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
-    	$sqlQueryString .= count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
+    	$query = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
+    	$query .= ' FROM ' . $this->buildFromPart();
+    	$query .= count($groupDataQuery->getFrom()) > 0 ? ', ' . $this->queryInterpreter->getFromPart($groupDataQuery) : '';
+    	$query .= $filterWherePart != '' ? ' WHERE ' . $filterWherePart : '';  
+    	$query .= count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
+    	$query .= count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
-        $groupDataArray = $this->dataSource->executeQuery($sqlQueryString);
+    	if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+    	
+        $groupDataArray = $this->dataSource->executeQuery($query);
         
         return $groupDataArray;
     }

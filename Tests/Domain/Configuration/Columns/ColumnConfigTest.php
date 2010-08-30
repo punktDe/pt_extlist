@@ -60,7 +60,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$allColumnSettings = $this->configurationBuilderMock->getColumnSettings();
-		$this->columnSettings = $allColumnSettings[10];
+		$this->columnSettings = $allColumnSettings[30];
 		
 		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
 	}

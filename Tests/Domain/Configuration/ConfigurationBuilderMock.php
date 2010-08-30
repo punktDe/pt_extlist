@@ -128,7 +128,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field1',
 	                            'label' => 'Column 1',
 	                            'isSortable' => '0',
-	                            'accessGroups' => '1,2,3,4'
+	                            
 	                        ),
 	                        20 => array( 
 	                            'columnIdentifier' => 'column2',
@@ -136,7 +136,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'label' => 'Column 2',  
 	                            'isSortable' => '1',
 	                        	'sorting' => 'tstamp, title',
-	                            'accessGroups' => '1,2,3,4'
+	                            
 	                        ),
 	                        30 => array( 
 	                            'columnIdentifier' => 'column3',

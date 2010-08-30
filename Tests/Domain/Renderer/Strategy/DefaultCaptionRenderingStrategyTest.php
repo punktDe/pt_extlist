@@ -51,6 +51,14 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 
 		$headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
 		
+		$columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('isAccessable'),array(),'',FALSE);
+		$columnConfigMock->expects($this->any())
+			->method('isAccessable')
+			->will($this->returnValue(true));
+			
+		$headerColumn->injectColumnConfig($columnConfigMock);
+		
+		
 		// we need to give a list to the renderer
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
 		$listHeader->addHeaderColumn($headerColumn, 'test');
@@ -79,6 +87,13 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		$returnMethods['getColumnIdentifier'] = 'bla';
 						
 		$headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
+		
+		$columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('isAccessable'),array(),'',FALSE);
+		$columnConfigMock->expects($this->any())
+			->method('isAccessable')
+			->will($this->returnValue(true));
+			
+		$headerColumn->injectColumnConfig($columnConfigMock);
 		
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
 		$listHeader->addHeaderColumn($headerColumn, 'bla');

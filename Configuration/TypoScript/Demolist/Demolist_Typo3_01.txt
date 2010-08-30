@@ -217,6 +217,7 @@ plugin.tx_ptextlist.settings {
 				label = Subcontinent
 				columnIdentifier = subcontinent
 				fieldIdentifier = subcontinent
+				accessGroups = 3
 			}
         }
         
