@@ -27,7 +27,7 @@
  * Class implements list data object containing rows for a list.
  * 
  * @author Michael Knoll
- * @author Daniel Lienert
+ * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt
  * @package Typo3
  * @subpackage pt_extlist

@@ -28,6 +28,7 @@
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Typo3
  * @subpackage pt_extlist
  */
@@ -47,14 +48,14 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	 */
 	protected $listHeader;
 	
-	
+
 	
 	/**
-	 * A reference to the column config collection.
-	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 * A List Data Object holding the aggregate rows
+	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	protected $listColumnConfig;
-
+	protected $aggreagteRows;
+	
 	
 	
     /**
@@ -64,6 +65,16 @@ class Tx_PtExtlist_Domain_Model_List_List {
      */	
 	public function getListData() {
 		return $this->listData;
+	}
+	
+	
+	
+	/**
+	 * Setter for aggregate rows
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData  $listData   List data object holding aggregate rows
+	 */
+	public function setAggregateRows(Tx_PtExtlist_Domain_Model_List_ListData $aggregates) {
+		$this->aggreagteRows = $aggregates;
 	}
 	
 	
@@ -80,17 +91,6 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	/**
 	 * 
-	 * Getter for list header.
-	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 */
-	public function getListHeader() {
-		return $this->listHeader;
-	}
-	
-	
-	
-	/**
-	 * 
 	 * Setter for list header.
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
@@ -101,21 +101,22 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	
 	/**
-	 * Setter for listColumnConfig
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfig
+	 * 
+	 * Getter for list header.
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
-	public function setColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfig) {
-		$this->listColumnConfig = $columnConfig;	
+	public function getListHeader() {
+		return $this->listHeader;
 	}
 	
 	
 	
 	/**
-	 * Getter for listColumnConfig
-	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 * Getter for aggregate rows
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function getColumnConfig() {
-		return $this->listColumnConfig;
+	public function getAggregateRows() {
+		return $this->aggreagteRows;
 	}
 }
 

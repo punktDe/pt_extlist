@@ -26,32 +26,15 @@
 
 class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $configurationBuilderMock;
-	
+
 	public function setup() {
-		
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	public function testGetRendererConfiguration() {
 		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
 		
 		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration);
-		
-		$columnConfig = $config->getColumnConfigCollection();
-		$fieldConfig = $config->getFieldConfigCollection();
-		$this->assertNotNull($columnConfig);
-		$this->assertNotNull($fieldConfig);
-	}
-	
-	public function testGetRendererConfigurationWithColumnConfig() {
-		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
-		
-		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration);
-		
-		$columnConfig = $config->getColumnConfigCollection();
-		
-		$this->assertTrue($columnConfig instanceof Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection);
 	}
 }
 

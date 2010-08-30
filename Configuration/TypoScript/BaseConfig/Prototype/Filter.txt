@@ -116,7 +116,7 @@ plugin.tx_ptextlist.prototype.filter {
 		
 		renderObj = TEXT
 		renderObj {
-			dataWrap = {field:allDisplayFields} ({field:rowCount})
+			dataWrap = {field:firstLetter}
 		}
 	}
 	

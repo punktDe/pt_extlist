@@ -45,7 +45,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_Pt
 	
 	
     public function testCreateDataBackend() {
-        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+    	$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+        
         $this->assertTrue(is_a($dataBackend, 'Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
     }
     

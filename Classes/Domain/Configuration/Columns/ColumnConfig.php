@@ -29,7 +29,7 @@
  * @package pt_extlist
  * @subpackage Domain\Configuration\Columns
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
+class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 	
 	/**
 	 * Identifier of list to which this column belongs to

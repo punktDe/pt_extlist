@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
 				$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
-				$listDataRow->addCell($fieldConfiguration->getIdentifier(), $value);
+				$listDataRow->createAndAddCell($value, $fieldConfiguration->getIdentifier());
 			}
 			$listData->addRow($listDataRow);
 		}
@@ -87,6 +87,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 * @return mixed Value of property
 	 */
 	public function getObjectPropertyValueByProperty($domainObject, $property) {
+		// if property is aggregated object, resolve object path
 		$resolvedObject = $this->resolveObjectPath($domainObject, $property);
 		if (get_class($resolvedObject) == 'Tx_Extbase_Persistence_ObjectStorage') {  
 			// property is collection of objects
@@ -117,7 +118,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 		if (method_exists($object, $getterMethodName)) {
 			return $object->$getterMethodName();
 		} else {
-			throw new Exception('Trying to get a property ' . $property . ' on a domain object that does not implement a getter for this property: ' . get_class_vars($object) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
+			throw new Exception('Trying to get a property ' . $property . ' on a domain object that does not implement a getter for this property: ' . 
+			    get_class_vars($object) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
 		}
 	}
 	

@@ -25,7 +25,7 @@
 ***************************************************************/
 
 /**
- * @author Christoph Ehscheidt <ehscheidt@punkt.de
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
  * @package pt_extlist
  * @subpackage Domain\Configuration\Renderer
  */
@@ -42,15 +42,13 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	
 	protected $specialCell = NULL;
 	
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
-	 */
-	protected $columnConfigCollection = null;
+	protected $rendererClassName;
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 * @var boolean 
 	 */
-	protected $fieldConfigCollection = null;
+	protected $enabled;
+
 	
 	/**
 	 * TODO add some comment!
@@ -59,8 +57,15 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 	 */
 	public function __construct(array $settings) {
 		$this->settings = $settings;
+		
+		tx_pttools_assert::isNotEmpty($settings['rendererClassName'], array('message' => 'No className for the renderer configured. 1280236277'));
+		tx_pttools_assert::isTrue(class_exists($settings['rendererClassName']),array('message' => 'Class name '.$className.' does not exist. 1280236512'));
+		$this->rendererClassName = $settings['rendererClassName'];
+		
 		$this->addOptionalSettings($settings);
 	}
+	
+	
 	
 	protected function addOptionalSettings($settings) {
 		
@@ -71,83 +76,40 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 		if(array_key_exists('specialCell', $settings)) {
 			$this->specialCell = $settings['specialCell'];
 		}
+		
+		if(array_key_exists('enabled', $settings)) {
+			$this->enabled = $settings['enabled'] == 1 ? true : false;
+		}
 	}
 	
-	/**
-	 * TODO add some comment
-	 *
-	 * @return unknown
-	 */
+	
+
 	public function getSettings() {
 		return $this->settings;
 	}
 	
 	
 	
-	/**
-	 * Setter for columnConfigCollection
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection
-	 */
-	public function setColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection) {
-		$this->columnConfigCollection = $columnConfigCollection;
-	}
-	
-	/**
-	 * Setter for fieldConfigCollection
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
-	 */
-	public function setFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
-		$this->fieldConfigCollection = $fieldConfigCollection;
-	}
-	
-	/**
-	 * TODO add some comment
-	 *
-	 * @return unknown
-	 */
-	public function getColumnConfigCollection() {
-		return $this->columnConfigCollection;
-	}
-	
-	public function getFieldConfigCollection() {
-		return $this->fieldConfigCollection;
-	}
-	
 	public function getSpecialRow() {
 		return $this->specialRow;
 	}
+	
+	
 	
 	public function getSpecialCell() {
 		return $this->specialCell;
 	}
 	
 	
-	/**
-	 * TODO add some comment
-	 *
-	 * @return unknown
-	 */
+	
 	public function isEnabled() {
-		if($this->settings['enabled'] == '1') {
-			return true;
-		}
-		return false;
+		return $this->enabled;
 	}
 	
 	
 	
-	/**
-	 * TODO add some comment
-	 *
-	 * @return unknown
-	 */
-	public function showCaptionsInBody() {
-		if($this->settings['showCaptionsInBody'] == '1') {
-			return true;
-		}
-		return false;
+	public function getRendererClassName() {
+		return $this->rendererClassName;
 	}
 }
 

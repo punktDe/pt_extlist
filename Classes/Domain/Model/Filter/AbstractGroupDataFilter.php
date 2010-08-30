@@ -40,6 +40,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	protected $excludeFilters;
 	
 	
+	
 	/**
      * Holds an array of filter values
      *
@@ -48,12 +49,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	protected $filterValues = array();
 	
 	
+	
 	/**
 	 * Show the group row count
 	 * 
 	 * @var integer
 	 */
 	protected $showRowCount;
+	
 	
 	
 	/**
@@ -91,6 +94,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	protected $additionalTables;
 	
 	
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_FilterInterface::reset()
 	 *
@@ -113,16 +117,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
-	 *
 	 */
 	protected function initFilter() {}
 
-
+	
+	
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
-	 *
+	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterCriteria()
 	 */
-	protected function createFilterQuery() {
+	protected function buildFilterCriteria() {
 		
 		$criteria = NULL;
 		$columnName = $this->fieldIdentifier->getTableFieldCombined();
@@ -133,16 +136,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		} elseif (is_array($filterValues) && count($filterValues) > 1) {
 			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $filterValues);
 		}
-
-		if($criteria) {
-			if($this->invert) {
-				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
-			} else {
-				$this->filterQuery->addCriteria($criteria);
-			}
-		} else {
-			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-		}
+		
+		return $criteria;
 	}
 	
 	
@@ -152,7 +147,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	 *
 	 */
 	protected function initFilterByGpVars() {
-		
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
 			$filterValues= $this->gpVarFilterData['filterValues'];
 			$this->filterValues = is_array($filterValues) ? array_filter($filterValues) : array($filterValues => $filterValues);
@@ -201,6 +195,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         }
 	}
 
+	
+	
 	/**
 	 * Set the groupfilters default value
 	 * 
@@ -216,6 +212,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 			$this->filterValues[$defaultValue] = $defaultValue;
 		}
 	}
+	
 	
 	
 	/**
@@ -251,20 +248,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
         $fields = $this->getFieldsRequiredToBeSelected();
         $renderedOptions = $this->getRenderedOptionsByFields($fields);
         $this->addInactiveOption($renderedOptions);
+
         return $renderedOptions;
 	}
 	
 	
+	
 	/**
 	 * Add inactiveFilterOpotion to rendered options
-	 * TODO move to selectFilter?
 	 * 
 	 * @param array $renderedOptions
 	 */
 	protected function addInactiveOption(&$renderedOptions) {
         
+		$filterValues = array_filter($this->filterValues);
+
 		if($this->filterConfig->getInactiveOption()) {
-        	$renderedOptions[''] = $this->filterConfig->getInactiveOption();
+        	$renderedOptions[''] = array('value' => $this->filterConfig->getInactiveOption(),
+        									'selected' => empty($filterValues));
         }
  
         return $renderedOptions;
@@ -337,6 +338,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 	}
 	
 	
+	
 	/**
 	 * Render a single option line by cObject or default
 	 *
@@ -355,6 +357,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter extends 
 		
 		return $option;
 	}
+	
 	
 	
 	/**

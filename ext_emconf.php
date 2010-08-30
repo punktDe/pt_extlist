@@ -1,7 +1,7 @@
 <?php
 
 ########################################################################
-# Extension Manager/Repository config file for ext "pt_books".
+# Extension Manager/Repository config file for ext "pt_extlist".
 #
 # Auto generated 12-02-2010 15:05
 #
@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'pt_extlist',
-	'description' => 'Proof of Concept: pt_list refactored to extbase',
+	'description' => 'List generator for Typo3 based on ExtBase',
 	'category' => '',
 	'author' => 'Daniel Lienert, Christoph Ehscheidt, Michael Knoll',
 	'author_email' => 't3extensions@punkt.de',

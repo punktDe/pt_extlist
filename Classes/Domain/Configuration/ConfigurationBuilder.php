@@ -79,6 +79,19 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	protected $fieldsConfiguration = null;
 	
 	
+	/**
+	 * Holds an instance of a aggregate data configuration and handles it as a singleton instance
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+	 */
+	protected $aggregateDataConfig = null;
+	
+	
+	/**
+	 * Holds an instance of a aggregate row configurations and handles it as a singleton instance
+	 * @var Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
+	 */
+	protected $aggregateRowConfig = null;
+	
 	
 	/**
 	 * Holds an instance of a columns configuration and handles it as a singleton instance
@@ -243,12 +256,21 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     /**
      * Returns the configuration settings for all columns
      * @return array Settings for all columns
-     * @author Daniel Lienert <lienert@punkt.de>
-     * @since 28.07.2010
      */
     public function getColumnSettings() {
     	return $this->settings['columns'];
     }
+    
+    
+    
+    /**
+     * @return array aggregate row settings
+     */
+    public function getAggregateRowSettings() {
+    	return $this->settings['aggregateRows'];
+    }
+    
+    
     
     /**
      * return a slice from the prototype arrray for the given objectPath
@@ -318,6 +340,35 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->fieldsConfiguration;
     }
 
+
+    
+    /**
+     * Returns a singleton instance of a aggregateData configuration collection for current list configuration
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     */
+    public function buildAggregateDataConfig() {
+    	if(is_null($this->aggregateDataConfig)) {
+    		$this->aggregateDataConfig = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this->settings['aggregateData']);
+    	}
+    	return $this->aggregateDataConfig;
+    }
+    
+    
+    
+    /**
+     * return a singelton instance of aggregate row collection 
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
+     */
+    public function buildAggregateRowConfig() {
+    	if(is_null($this->aggregateRowConfig)) {
+    		$this->aggregateRowConfig = Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory::getColumnConfigCollection($this);
+    	}
+    	
+    	return $this->aggregateRowConfig;
+    }
+    
     
     
     /**

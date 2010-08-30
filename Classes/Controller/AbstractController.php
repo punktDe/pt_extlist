@@ -165,7 +165,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
      * @param string $templatePathAndFilename
      */
     public function setTemplatePathAndFilename($templatePathAndFilename) {
-    	$this->settings['__templatePathAndFileName'] = $templatePathAndFilename;
+    	$this->view->setTemplatePathAndFilename($templatePathAndFilename);
     }
 	
 }

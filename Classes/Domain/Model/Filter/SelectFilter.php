@@ -74,6 +74,21 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	
 	
 	/**
+	 * Add inactiveFilterOpotion to rendered options
+	 * 
+	 * @param array $renderedOptions
+	 */
+	protected function addInactiveOption(&$renderedOptions) {
+        
+		if($this->filterConfig->getInactiveOption()) {
+        	$renderedOptions[''] = $this->filterConfig->getInactiveOption();
+        }
+ 
+        return $renderedOptions;
+	}
+	
+	
+	/**
 	 * 
 	 * Multiple or dropdown select
 	 * @return integer

@@ -20,7 +20,9 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 <label for="{filter.filterIdentifier}">{filter.label}</label>
     	
    		<f:for each="{filter.options}" key="optionValue" as="option">
-  				{optionValue}
+			<f:if condition="{option.selected}"><font weight="bold" size="14pt"></f:if>
+				<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
+			<f:if condition="{option.selected}"></font></f:if>
    		</f:for>
     	    	    	
     	<f:if condition="{filter.filterConfig.invertable}">

@@ -362,7 +362,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		
 		$this->sessionPersistenceManager->persistToSession($this);
 		
-		$this->createFilterQuery();
+		$this->buildFilterQuery();
 		
 	}
 	
@@ -375,6 +375,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->fieldIdentifier = $this->resolveFieldConfig($this->filterConfig->getFieldIdentifier());
 		$this->invert = $this->filterConfig->getInvert();
 	}
+	
+	
 	
 	/**
 	 * Set generic filter values from GPVars
@@ -431,12 +433,35 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
-	 * Template method for creating filter query from initialized data
+	 * Build the filter query 
+	 * 
 	 */
-	abstract protected function createFilterQuery();
+	protected function buildFilterQuery() {
+		
+		$criteria = $this->buildFilterCriteria();
+		
+		if($criteria) {
+			if($this->invert) {
+				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
+			} else {
+				$this->filterQuery->addCriteria($criteria);
+			}
+		} else {
+			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+		}
+	}
 	
 	
 	
+	/**
+	 * Template function to create filter criterias
+	 * 
+	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+	 */
+	abstract protected function buildFilterCriteria();
+	
+	
+
 	/**
 	 * Template method for validating filter data.
 	 * 

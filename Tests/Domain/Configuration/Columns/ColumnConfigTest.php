@@ -24,10 +24,10 @@
 ***************************************************************/
 
 /**
- * Class implementing a mock for configuration builder
+ * Class implementing tests for column config
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Tests\Domain\Configuration\Columns
  * @author Daniel Lienert <linert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_Extbase_BaseTestcase {

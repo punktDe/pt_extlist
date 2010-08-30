@@ -35,18 +35,19 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	
 	/**
 	 * render build key/value GET/POST-array within the namespace of the given object
+	 * 
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
-	 * @param string $arguments
-	 * @return array
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 02.08.2010
+	 * @param string $arguments : list of arguments
+	 * 	either as list of 'key : value' pairs 
+	 *  or as list of properties wich are the recieved from the object
+	 * @return array GPArray of objects namespace
 	 */
 	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $arguments) {
 		$GetPostValueArray = array();
 		$argumentStringArray = $this->getArgumentArray($arguments);
-		
+
 		foreach($argumentStringArray as $key => $value) {
-			if(!$value) {
+			if($value === false) {
 				$value = $this->getObjectValue($object, $key);
 			}
 			 
@@ -62,12 +63,10 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * @param string $property
 	 * @return mixed value
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 04.08.2010
 	 */
 	protected function getObjectValue(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property) {
 		$getterMethod = 'get'.ucfirst($property);
-		tx_pttools_assert::isTrue(method_exists($object, $getterMethod), array('message' => 'The Object' . get_class($object) . ' has no getter method '  . $getterMethod . '! 1280929630'));
+		tx_pttools_assert::isTrue(method_exists($object, $getterMethod), array('message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630'));
 		
 		return $object->$getterMethod();
 	}
@@ -78,15 +77,19 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * 
 	 * @param string $argumentString
 	 * @return array
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 04.08.2010
 	 */
 	public function getArgumentArray($argumentString) {
 		$argumentArray = array();
 		$argumentChunks = t3lib_div::trimExplode(',', $argumentString);
+		
 		foreach($argumentChunks as $argument) {
-			list($key, $value) = t3lib_div::trimExplode(':', $argument);
-			$argumentArray[$key] = $value;
+			if(strstr($argument, ':')) {
+				list($key, $value) = t3lib_div::trimExplode(':', $argument);
+				$argumentArray[$key] = $value;	
+			} else {
+				$key = $argument;
+				$argumentArray[$key] = false;
+			}
 		}
 		
 		return $argumentArray;

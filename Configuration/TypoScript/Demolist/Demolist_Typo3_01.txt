@@ -198,17 +198,19 @@ plugin.tx_ptextlist.settings {
 					10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
 				}
 			}
-			30 {
-				label = Phone
-				columnIdentifier = phoneColumn
-				# default columns can only operate on _one_ dataDescription
-				fieldIdentifier = phone
-			}
+	
 	
 			40 {
 				label = Continent
 				columnIdentifier = continent
 				fieldIdentifier = continent
+			}
+	
+			30 {
+				label = Phone
+				columnIdentifier = phoneColumn
+				# default columns can only operate on _one_ dataDescription
+				fieldIdentifier = phone
 			}
 	
 			50 {
@@ -222,6 +224,42 @@ plugin.tx_ptextlist.settings {
         	# User function for generating 'special' cell variables
         	specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processCell
         }
+        
+        aggregateData {
+        	# methods: sum, min, max, avg
+        	sumPhone {
+        		fieldIdentifier = phone
+        		method = sum
+        	}
+        	avgPhone {
+        		fieldIdentifier = phone
+        		method = avg
+        	}
+        	maxPhone {
+        		fieldIdentifier = phone
+        		method = max
+        	}
+        	minPhone {
+        		fieldIdentifier = phone
+        		method = min
+        	}
+        }
+        
+        aggregateRows {
+        	10 {
+        		phoneColumn {
+        			aggregateDataIdentifier = sumPhone, avgPhone, maxPhone, minPhone
+        			renderObj = TEXT
+					renderObj.dataWrap (
+						 Min.: <b>{field:minPhone}</b><br /> 
+						 &empty;: <b>{field:avgPhone}</b><br />
+						 Max.: <b>{field:maxPhone}</b><br />
+						 &sum;: <b>{field:sumPhone}</b><br />
+					)
+        		}
+        	}
+        }
+        
         
         filters {
 	        filterbox1 {
@@ -271,6 +309,7 @@ plugin.tx_ptextlist.settings {
 	         		filterIdentifier = filter4
 	         		label = Capital
 	         		fieldIdentifier = capital
+	         		inactiveOption = [ALL]
 	         	}
 	         }
         }  
