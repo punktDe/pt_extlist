@@ -218,7 +218,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      */
     protected function buildSorting() {
     	$sorting = array();    	
-    	
+
     	if($this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC || $this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
     		
     		foreach($this->sortingFieldConfig as $fieldConfig) {
@@ -229,7 +229,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     			}
     		}
     	}
-    	
+
 		$this->sorting = $sorting;
     }
     
