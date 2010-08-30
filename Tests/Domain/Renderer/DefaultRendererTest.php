@@ -52,6 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 		$row->createAndAddCell('val1', 'field1');
 		$row->createAndAddCell('val2', 'field2');
 		$row->createAndAddCell('val3', 'field3');
+		$row->createAndAddCell('val4', 'field4');
 		$listData->addRow($row);
 		
 		$renderedList = $this->renderer->renderList($listData);

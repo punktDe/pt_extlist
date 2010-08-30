@@ -32,15 +32,11 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
-	/**
-	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
-	 */
-	protected $configurationBuilderMock;
 	
 	public function setup() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	public function testConfigurationAndStateMerge() {
@@ -75,8 +71,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	
 	
 	
-	public function testGetSortings() {
-		
+	public function testGetSortings() {	
 		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
         $sessesionPersistanceManager->expects($this->any())
             ->method('persistToSession');
@@ -105,6 +100,23 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting for tstamp is forced to desc, but is ascending here');
 	}
 	
+	
+	public function testGetSortingsWithoutSortingDefinitions() {	
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+        $sessesionPersistanceManager->expects($this->any())
+            ->method('persistToSession');
+		
+		
+		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnsConfiguration[40]);
+		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
+		
+		$headerColumn->injectGPVars(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC));
+		$headerColumn->init();
+		$sorting = $headerColumn->getSorting();
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting['field4'], 'Sorting has to be Ascending here');
+	}
 	
 	
 	public function testIsSortable() {

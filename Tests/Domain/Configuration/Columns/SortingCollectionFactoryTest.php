@@ -101,9 +101,8 @@ class Tx_PtExtlist_Tests_Configuration_Columns_SortingCollectionFactory_testcase
 	}
 	
 	public function testGetInstanceByFieldConfigurationSingle() {
-		$fieldConfiguration = 'name';
+		$fieldConfiguration = array('name');
 		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfiguration);
-		
 		$this->assertEquals($sortingCollection->count(), 1);
 		
 		$sortingConfigObject = $sortingCollection->getItemById('name');
@@ -115,7 +114,7 @@ class Tx_PtExtlist_Tests_Configuration_Columns_SortingCollectionFactory_testcase
 	}
 	
 	public function testGetInstanceByFieldConfigurationMulti() {
-		$fieldConfiguration = 'name,company';
+		$fieldConfiguration = array('name','company');
 		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfiguration);
 		
 		$this->assertEquals($sortingCollection->count(), 2);

@@ -116,6 +116,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                         	 'special' => 'special',
 	                             'isSortable' => '1',
 	                             'access' => '1,2,3,4'
+	                         ),
+	                         'field4' => array( 
+	                             'table' => 'tableName4',
+	                             'field' => 'fieldName4',
 	                         )
 	                     ),
 	                    'columns' => array(
@@ -141,6 +145,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'isSortable' => '1',
 	                        	'sorting' => 'tstamp asc, title !DeSc',
 	                            'accessGroups' => '1,2,3,4'
+	                        ),
+	                        40 => array( 
+	                            'columnIdentifier' => 'column4',
+	                            'fieldIdentifier' => 'field4',
+	                            'label' => 'Column 4',  
 	                        )
 	                    ),
 	                    'renderer' => array(
