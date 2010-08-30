@@ -55,11 +55,20 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
      *
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$this->listIdentifier = $configurationBuilder->getListIdentifier();
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder = NULL) {
+    	if($configurationBuilder != NULL) {
+	    	$this->listIdentifier = $configurationBuilder->getListIdentifier();
+    	}
     }
     
-    
+    /**
+     * Sets the listIdentifier
+     * 
+     * @param string $listIdentifier
+     */
+    public function setListIdentifier($listIdentifier) {
+    	$this->listIdentifier = $listIdentifier;
+    }
     
     /**
      * Add Filterbox to Collection
@@ -89,7 +98,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     	}
     }
     
+    public function getAccessableFilterboxCollection() {
     
+    }
     
     /**
      * Returns list identifier of list to which filterbox belongs to

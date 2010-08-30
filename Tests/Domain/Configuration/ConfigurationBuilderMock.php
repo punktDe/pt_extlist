@@ -162,7 +162,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                                'filterIdentifier' => 'filter2',
 	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                     'fieldIdentifier' => 'field1',
-                                    'partialPath' => 'Filter/StringFilter'
+                                    'partialPath' => 'Filter/StringFilter',
+                                    'accessGroups' => '1,2,3'
 	                             )
 	                         )
 	                    ),
