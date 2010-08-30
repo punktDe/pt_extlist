@@ -90,10 +90,13 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		foreach($columnCollection->getIterator() as $culumnId => $columnConfig) {
 			$columnIdentifier = $columnConfig->getColumnIdentifier();
 			
-			// Use strategy to render cells
-			$cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
+			// Only render if FE-User is allowed to see the column
+			if($columnConfig->isAccessable()) {
+				// Use strategy to render cells
+				$cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
+				$renderedRow->addCell($cell, $columnIdentifier);
+			} 
 			
-			$renderedRow->addCell($cell, $columnIdentifier);
 			$columnIndex++;
 		}
 		
