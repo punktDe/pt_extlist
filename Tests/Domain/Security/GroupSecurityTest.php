@@ -180,7 +180,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	}
 	
 	public function testFilterAndFieldSameGroupsAccess() {
-		// Field2 doesn't have a accessRule
+		
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
@@ -319,6 +319,59 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
 	}
+	
+	public function testColumnAccess() {
+		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
+		$columnConfigMock
+			->expects($this->once())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field2'));
+		$columnConfigMock
+			->expects($this->once())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foo')));
+			
+		$this->securityMock->_set('usergroups',array(array('uid'=>'foo')));
+		
+		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+		$this->assertTrue($access);
+	}
+	
+	public function testColumnDenied() {
+		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
+		$columnConfigMock
+			->expects($this->once())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field2'));
+		$columnConfigMock
+			->expects($this->once())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foo')));
+			
+		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		
+		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+		$this->assertFalse($access);
+	}
+	
+	public function testColumnAndFieldAccess() {
+		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
+		$columnConfigMock
+			->expects($this->once())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field1'));
+			
+		$columnConfigMock
+			->expects($this->once())
+			->method('getAccessGroups')
+			->will($this->returnValue(array('foo')));
+			
+		$this->securityMock->_set('usergroups',array(array('uid'=>'foo')));
+		
+		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+		$this->assertTrue($access);
+	}
+	
 	
 }
 
