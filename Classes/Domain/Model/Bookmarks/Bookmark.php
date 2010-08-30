@@ -38,7 +38,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 *
 	 * @var string
 	 */
-	public $name;
+	protected $name;
 	
 	
 	
@@ -47,7 +47,16 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 *
 	 * @var Tx_Extbase_Domain_Model_FrontendUser
 	 */
-	public $feUser;
+	protected $feUser;
+	
+	
+	
+	/**
+     * Frontend group bookmark should be shown to
+     *
+     * @var Tx_Extbase_Domain_Model_FrontendUserGroup
+     */
+	protected $feGroup;
 	
 	
 	
@@ -56,7 +65,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 *
 	 * @var string
 	 */
-	public $description;
+	protected $description;
 	
 	
 	
@@ -65,7 +74,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 *
 	 * @var string
 	 */
-	public $content;
+	protected $content;
 	
 	
 	
@@ -74,7 +83,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 *
 	 * @var string
 	 */
-	public $listId;
+	protected $listId;
 	
 	
 	
@@ -83,7 +92,16 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 *
 	 * @var int
 	 */
-    public $createDate;	
+    protected $createDate;	
+    
+    
+    
+    /**
+     * True, if bookmark is public
+     *
+     * @var bool
+     */
+    protected $isPublic;
 	
 	
 	
@@ -133,6 +151,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	
 	
 	/**
+	 * Returns FE group to which this bookmark should be shown to
+	 *
+	 * @return Tx_Extbase_Domain_Model_FrontendUserGroup
+	 */
+	public function getFeGroup() {
+		return $this->feGroup;
+	}
+	
+	
+	
+	/**
 	 * @return string
 	 */
 	public function getListId() {
@@ -146,6 +175,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 */
 	public function getName() {
 		return $this->name;
+	}
+	
+	
+	
+	/**
+	 * Getter for is public property
+	 *
+	 * @return bool
+	 */
+	public function getIsPublic() {
+		return $this->isPublic;
 	}
 	
 	
@@ -187,6 +227,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	
 	
 	/**
+	 * Setter for fe group to which this bookmark should be shown to
+	 *
+	 * @param Tx_Extbase_Domain_Model_FrontendUserGroup $feGroup
+	 */
+	public function setFeGroup($feGroup) {
+		$this->feGroup = $feGroup;
+	}
+	
+	
+	
+	/**
 	 * @param string $listId
 	 */
 	public function setListId($listId) {
@@ -200,6 +251,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
 	 */
 	public function setName($name) {
 		$this->name = $name;
+	}
+	
+	
+
+	/**
+	 * Setter for isPublic property
+	 *
+	 * @param bool $isPublic
+	 */
+	public function setIsPublic($isPublic) {
+		$this->isPublic = $isPublic;
 	}
 
 }

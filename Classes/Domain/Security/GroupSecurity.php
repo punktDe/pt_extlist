@@ -38,6 +38,42 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		$this->usergroups = $GLOBALS['TSFE']->fe_user->user['groupData'];
 		
 	}
+	
+	/**
+	 * Evaluates if a column is accessable by the FE-User(-Group).
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
+	 * 
+	 * @return bool
+	 */
+	public function isAccessableColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
+		$fieldIdentifier = $columnConfig->getFieldIdentifier();
+		$fieldIds = explode(',', trim($fieldIdentifier));
+		$fieldConfigCollection = $configBuilder->buildFieldsConfiguration();
+		
+		// FAIL if one of this tests are failing.
+		if(!$this->checkFields($fieldConfigCollection, $fieldIds)) {
+			return false;
+		}
+		// OR
+		if(!$this->checkColumn($columnConfig)) {
+			return false;
+		}
+		
+		// OTHERWISE allow access.
+		return true;
+	}
+	
+	protected function checkColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
+		$groups = $columnConfig->getAccessGroups();
+		
+		if(!is_array($groups)) return true; // for testing purposes
+		if(empty($groups)) return true;
+		
+		return $this->compareAccess($groups);
+	}
+	
 	/**
 	 * Evaluates if a filter is accessable by the FE-User(-Group).
 	 * 
@@ -81,6 +117,9 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	protected function checkFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filter) {
 		$groups = $filter->getAccessGroups();
 		if(!is_array($groups)) return true; // for testing purposes
+	
+		if(empty($groups)) return true;
+		
 		return $this->compareAccess($groups);
 	}
 	
@@ -92,8 +131,11 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 */
 	protected function compareAccess(array $groups) {
 		if(count($groups) == 0) return true;
-	
+
 		foreach($groups as $group) {
+			$group = trim($group);
+			if(empty($group)) return true;
+			
 			foreach($this->usergroups as $groupData) {
 				
 				if($group == $groupData['uid']) return true;

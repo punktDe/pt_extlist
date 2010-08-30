@@ -49,7 +49,12 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 */
 	protected $listIdentifier;
 	
-	
+	/**
+	 * Holds an instance of the configuration
+	 * 
+	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+	 */
+	protected $filterBoxConfig;
 	
 	/**
 	 * Class name to restrict collection to
@@ -65,13 +70,32 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 *
 	 * @param string $filterboxIdentifier  Identifier of filterbox
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration = NULL) {
+		if($filterboxConfiguration != NULL) {
+			$this->injectFilterboxConfiguration($filterboxConfiguration);
+		}
+	}
+	
+	/**
+	 * Injects filterbox configuration
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
+	 */
+	public function injectFilterboxConfiguration(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
+		$this->filterBoxConfig = $filterboxConfiguration;
 		$this->listIdentifier = $filterboxConfiguration->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
 		$this->filterValidationErrors = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection();
 	}
 	
-	
+	/**
+	 * Returns the filterbox configuration
+	 * 
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+	 */
+	public function getFilterboxConfiguration() {
+		return $this->filterBoxConfig;
+	}
 	
 	/**
 	 * Returns filterbox identifier
@@ -93,7 +117,14 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 		return $this->listIdentifier;
 	}
 	
-	
+	/**
+	 * Returns a new filterbox with accessable filters only.
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+	 */
+	public function getAccessableFilterbox() {
+		return Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createAccessableInstance($this);
+	}
 	
 	/**
 	 * Resets all filters in this filterbox

@@ -61,7 +61,7 @@ plugin.tx_ptextlist.settings {
 				table = static_countries
 				field = cn_short_local
 				isSortable = 1
-				accessGroups = foo 
+				
 			}
 	
 			name_en {
@@ -77,7 +77,7 @@ plugin.tx_ptextlist.settings {
 			capital {
 				table = static_countries
 				field = cn_capital
-				accessGroups = 3
+			
 			}
 	
 			iso2 {
@@ -281,7 +281,7 @@ plugin.tx_ptextlist.settings {
 	                  submitOnChange = 0
 					  invert = 0
 					  invertable = 0				  
-					  accessGroups = 3
+					  
 					  excludeFilters = filterbox1.filter3
 	              }
 	              
@@ -300,6 +300,7 @@ plugin.tx_ptextlist.settings {
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
+					  accessGroups = 3
 	              }
 	         }
 	         

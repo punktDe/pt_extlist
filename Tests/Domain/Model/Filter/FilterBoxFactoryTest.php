@@ -32,13 +32,32 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+		Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+	}
 	
 	public function testCreateInstanceByfilterboxConfiguration() {
 		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
 		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         
         $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
+	}
+	
+	public function testCreateAccessableInstance() {
+		
+		
+		$filterBoxConfig = $this->configurationBuilderMock->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
+		$filterBox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterBoxConfig);
+
+		$accessableFilterBox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createAccessableInstance($filterBox);
+		
+		// AccessGroups are configured for filter2 -> should not be allowed to access.
+		$this->assertTrue($accessableFilterBox->hasItem('filter1'));
+		$this->assertFalse($accessableFilterBox->hasItem('filter2'));
+		
 	}
 	
 }
