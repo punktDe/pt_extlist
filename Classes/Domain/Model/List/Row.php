@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	 */
 	public function getCell($columnIdentifier) {
 		if(!$this->hasItem($columnIdentifier)) {
-			Throw new Exception('No Cell with ColumnIdentifier ' . $columnIdentifier . ' found in Row! 1282978972');
+			Throw new Exception('No Cell with Identifier ' . $columnIdentifier . ' found in Row! 1282978972');
 		}
 		return $this->getItemById($columnIdentifier);
 	}

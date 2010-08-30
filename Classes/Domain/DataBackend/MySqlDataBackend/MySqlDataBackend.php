@@ -151,6 +151,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$query .= $selectPart != ''  ? 'SELECT ' 	. $selectPart   . " \n" : '';
 		$query .= $fromPart != ''    ? 'FROM '   	. $fromPart 	. " \n" : '';
 		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
+		$query .= $orderByPart != '' ? 'ORDER BY '  . $orderByPart 	. " \n" : '';
 		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
 		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 
@@ -322,8 +323,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * 
 	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 * @return string
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 02.08.2010
 	 */
 	public function getOrderByFromListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		$orderByArray = array();
@@ -334,7 +333,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			   $orderByArray[] = $headerColumnSorting;
 			}
 		}
-		
 		return count($orderByArray) > 0 ? implode(', ', $orderByArray) : '';
 	}
 	
@@ -345,8 +343,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * 
 	 * @param $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * @return string
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 02.08.2010
 	 */
 	public function getOrderByFromHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
 		return $this->queryInterpreter->getSorting($headerColumn->getSortingQuery());	

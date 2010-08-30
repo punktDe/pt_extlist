@@ -14,7 +14,6 @@ plugin.tx_ptextlist.prototype.column {
 		sortingImageDesc = EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png
 		
 		isSortable = 1
-        sorting = 
 		columnIdentifier = 
         fieldIdentifier = 
         label = 
