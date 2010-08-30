@@ -81,6 +81,9 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	protected function checkFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filter) {
 		$groups = $filter->getAccessGroups();
 		if(!is_array($groups)) return true; // for testing purposes
+	
+		if(empty($groups)) return true;
+		
 		return $this->compareAccess($groups);
 	}
 	
@@ -92,8 +95,11 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 */
 	protected function compareAccess(array $groups) {
 		if(count($groups) == 0) return true;
-	
+
 		foreach($groups as $group) {
+			$group = trim($group);
+			if(empty($group)) return true;
+			
 			foreach($this->usergroups as $groupData) {
 				
 				if($group == $groupData['uid']) return true;
