@@ -151,8 +151,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$query .= $selectPart != ''  ? 'SELECT ' 	. $selectPart   . " \n" : '';
 		$query .= $fromPart != ''    ? 'FROM '   	. $fromPart 	. " \n" : '';
 		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
-		$query .= $orderByPart != '' ? 'ORDER BY '  . $orderByPart 	. " \n" : '';
 		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
+		$query .= $orderByPart != '' ? 'ORDER BY '  . $orderByPart 	. " \n" : '';
 		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 
 		$GLOBALS['trace'] = true; trace($query); $GLOBALS['trace']=off;

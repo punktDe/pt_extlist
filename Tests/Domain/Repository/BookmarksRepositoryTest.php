@@ -25,6 +25,8 @@
 
 /**
  * Testcase for bookmarks repository
+ * 
+ * TODO this testcase will not run standalone as it requires Extbase Dispatcher to be set up (compare testcase for ExtBase DataBackend!)
  *
  * @package Typo3
  * @subpackage pt_extlist
@@ -32,6 +34,12 @@
  */
 class Tx_PtExtlist_Tests_Domain_Repository_BookmarksRepository_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	public function setup() {
+		
+	}
+	
+	
+	
 	public function testSetup() {
 		$this->assertTrue(class_exists(Tx_PtExtlist_Domain_Repository_BookmarksRepository));
 	}
@@ -94,6 +102,37 @@ class Tx_PtExtlist_Tests_Domain_Repository_BookmarksRepository_testcase extends 
 		$this->assertTrue(method_exists($bookmarksRepository, 'findGroupBookmarksByFeUserAndListIdentifier'));
 		// TODO think about how to test this
 		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testFindBookmarksByFeUserGroupIdsAndListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		$this->assertTrue(method_exists($bookmarksRepository, 'findBookmarksByFeUserGroupIdsAndListIdentifier'));
+		// TODO think about how to test this
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testFindNoBookmarksOnDifferingGroupIdsAndFeUserGroupBelongTos() {
+		$groupUids = '1,2,3,4';
+		
+		$userGroup1Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+		$userGroup1Mock->expects($this->any())->method('getUid')->will($this->returnValue(5));
+		
+		$userGroup2Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+		$userGroup2Mock->expects($this->any())->method('getUid')->will($this->returnValue(6));
+		
+		$userGroupObjectStorageMock = new Tx_Extbase_Persistence_ObjectStorage();
+		$userGroupObjectStorageMock->attach($userGroup1Mock);
+		$userGroupObjectStorageMock->attach($userGroup2Mock);
+		
+		$feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+		$feUserMock->expects($this->any())->method('getUsergroups')->will($this->returnValue($userGroupObjectStorageMock));
+
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		$this->assertEquals(count($bookmarksRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($feUserMock, $groupUids, 'test')), 0);
 	}
 	
 }
