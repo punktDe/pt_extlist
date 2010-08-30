@@ -32,6 +32,39 @@
  */
 class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Extbase_Persistence_Repository {
 	
+	/**
+	 * Holds PID of folder for bookmarks. This can be set via settings.bookmarks.bookmarksPid
+	 *
+	 * @var int
+	 */
+	protected $bookmarksStoragePid = 0;
+
+	
+	
+	/**
+	 * Overwrites createQuery method to overwrite storage pid
+	 */
+	public function createQuery() {
+	   $query = parent::createQuery();
+	   if ($this->bookmarksStoragePid > 0)	{
+	       $query->getQuerySettings()->setRespectStoragePage(FALSE);
+	   }
+	   return $query;
+    }
+	
+    
+    
+    /**
+     * Setter for storage pid for bookmarks
+     *
+     * @param int $bookmarksStoragePid
+     */
+    public function setBookmarksStoragePid($bookmarksStoragePid) {
+    	$this->bookmarksStoragePid = $bookmarksStoragePid;
+    }
+    
+	
+	
     /**
      * Returns collection of bookmarks for given feUser and list identifier
      *
@@ -64,7 +97,9 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 	public function findPublicBookmarksByListIdentifier($listIdentifier) {
 		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117066'));
 		$query = $this->createQuery();
-		$query->matching($query->equals('listId', $listIdentifier));
+		$query->matching($query->logicalAnd(
+		    $query->logicalAnd($query->equals('listId', $listIdentifier), $query->equals('isPublic', 1)), 
+		    $query->equals('pid', $this->bookmarksStoragePid)));
 		$result = $query->execute();
 		return $result;
 	}
