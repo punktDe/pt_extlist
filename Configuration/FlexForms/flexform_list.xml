@@ -46,7 +46,7 @@
                   </numIndex>
                   <numIndex index="4" type="array">
                     <numIndex index="0">Bookmarks</numIndex>
-                    <numIndex index="1">Bookmarks->show</numIndex>
+                    <numIndex index="1">Bookmarks->show;Bookmarks->edit;Bookmarks->create;Bookmarks->edit;Bookmarks->update</numIndex>
                   </numIndex>
                 </items>
               </config>

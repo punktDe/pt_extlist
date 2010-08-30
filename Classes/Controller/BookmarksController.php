@@ -79,7 +79,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function injectSettings(array $settings) {
         parent::injectSettings($settings);
-        // TODO this is here for enabling testing only!
+        // TODO we create feUserRepository here to be able to set one manually when testing
         $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */   
     }
     
@@ -111,6 +111,42 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     	} else {
     		$this->view->assign('bookmarks', null);
     	}
+    }
+    
+    
+    
+    /**
+     * Action for creating a new bookmark
+     */
+    public function createAction() {
+    	
+    }
+    
+    
+    
+    /**
+     * Action for updating a bookmark
+     */
+    public function updateAction() {
+    	
+    }
+    
+    
+    
+    /**
+     * Action for deleting a bookmark
+     */
+    public function deleteAction() {
+    	
+    }
+    
+    
+    
+    /**
+     * Action for editing a bookmark
+     */
+    public function editAction() {
+    	
     }
     
 }

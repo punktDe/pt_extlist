@@ -60,5 +60,29 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->showAction();
 	}
 	
+	
+	
+	public function testCreateAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testDeleteAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testUpdateAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testEditAction() {
+		$this->markTestIncomplete();
+	}
+	
 }
 ?>
