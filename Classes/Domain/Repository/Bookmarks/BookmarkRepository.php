@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Repository_BookmarksRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Extbase_Persistence_Repository {
 	
     /**
      * Returns collection of bookmarks for given feUser and list identifier

@@ -66,7 +66,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function __construct() {
     	parent::__construct();
-    	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_BookmarksRepository');
+    	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
     }
     
     
@@ -105,11 +105,17 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return string The rendered HTML source for this action
      */
     public function showAction() {
-    	if ($this->feUser != null) {
-    	   $bookmarksCollection = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
-    	   $this->view->assign('bookmarks', $bookmarksCollection);
-    	} else {
-    		$this->view->assign('bookmarks', null);
+    	if ($this->showPublicBookmarks()) {
+	    	$publicBookmarks = $this->bookmarksRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
+	    	$this->view->assign('publicBookmarks', $publicBookmarks);
+    	}
+    	if ($this->showUserBookmarks() && $this->feUser != null) {
+    	    $userBookmarks = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+    	    $this->view->assign('userBookmarks', $userBookmarks);
+    	}
+    	if ($this->showGroupBookmarks() && $this->feUser != null && count($this->feUser->getUsergroups()) > 0) {
+    		$groupBookmarks = $this->bookmarksRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($this->feUser, $this->getGroupIdsToShowBookmarksFor(), $this->listIdentifier);
+    		$this->view->assign('groupBookmarks', $groupBookmarks);
     	}
     }
     
@@ -147,6 +153,34 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function editAction() {
     	
+    }
+    
+    
+    
+    protected function showUserBookmarks() {
+    	// TODO read out settings here!
+    	return true;
+    }
+    
+    
+    
+    protected function showGroupBookmarks() {
+    	// TODO read out settings here!
+    	return true;
+    }
+    
+    
+    
+    protected function showPublicBookmarks() {
+    	// TODO read out settings here!
+    	return true;
+    }
+    
+    
+    
+    protected function getGroupIdsToShowBookmarksFor() {
+    	// TODO read out settings here!
+    	return '1,2,3,4,5';
     }
     
 }
