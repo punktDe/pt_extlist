@@ -36,6 +36,18 @@ class Tx_PtExtlist_Tests_Controller_ListControllerTestcase extends Tx_PtExtlist_
    	    $this->assertTrue(class_exists('Tx_PtExtlist_Controller_ListController'), 'Class Tx_PtExtlist_Controller_ListController does not exist!');
     }
     
+    
+    
+    public function testSortingAction() {
+    	$this->markTestIncomplete();
+    }
+    
+    
+    
+    public function testEmptyListAction() {
+    	$this->markTestIncomplete();
+    }
+    
 }
 
 ?>

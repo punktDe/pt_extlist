@@ -52,6 +52,23 @@ class Tx_PtExtlist_Domain_Repository_BookmarksRepository extends Tx_Extbase_Pers
 		    return null;
 		}
 	}
+	
+	
+	
+	/**
+	 * Returns collection of PUBLIC bookmarks for given list identifier
+	 *
+	 * @param string $listIdentifier
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
+	 */
+	public function findPublicBookmarksByListIdentifier($listIdentifier) {
+		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117066'));
+		$query = $this->createQuery();
+		$query->matching($query->equals('listId', $listIdentifier));
+		$result = $query->execute();
+		return $result;
+	}
+	
 }
  
 ?>
