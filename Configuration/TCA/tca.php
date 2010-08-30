@@ -5,8 +5,8 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 /**
  * Configuration for bookmars table
  */
-$TCA['tx_ptextlist_domain_model_bookmars_bookmark'] = array(
-    'ctrl' => $TCA['tx_ptextlist_domain_model_bookmars_bookmark']['ctrl'],
+$TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
+    'ctrl' => $TCA['tx_ptextlist_domain_model_bookmarks_bookmark']['ctrl'],
     'interface' => array(
         'showRecordFieldList' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content'
     ),
@@ -125,11 +125,12 @@ $TCA['tx_ptextlist_domain_model_bookmars_bookmark'] = array(
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user',
             'config'  => array(
-                'type' => 'select',
-                'foreign_table' => 'fe_users',
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'fe_users',
                 'foreign_class' => 'Tx_Extbase_Domain_Model_FrontendUser',
                 'size' => 1,
-                'minitems' => 1,
+                'minitems' => 0,
                 'maxitems'      => 1,
                 'multiple' => 0
             )
@@ -139,11 +140,12 @@ $TCA['tx_ptextlist_domain_model_bookmars_bookmark'] = array(
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group',
             'config'  => array(
-                'type' => 'select',
-                'foreign_table' => 'fe_groups',
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'fe_users',
                 'foreign_class' => 'Tx_Extbase_Domain_Model_FrontendUserGroup',
                 'size' => 1,
-                'minitems' => 1,
+                'minitems' => 0,
                 'maxitems'      => 1,
                 'multiple' => 0
             )
