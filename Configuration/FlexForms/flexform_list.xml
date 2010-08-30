@@ -91,7 +91,54 @@
         <type>array</type>
         <el>
 
+          <settings.bookmarks.showUserBookmarks>
+            <TCEforms>
+              <label>Show User's Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showUserBookmarks>
           
+          <settings.bookmarks.showGroupBookmarks>
+            <TCEforms>
+              <label>Show Group's Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showGroupBookmarks>
+          
+          <settings.bookmarks.showPublicBookmarks>
+            <TCEforms>
+              <label>Show public Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showPublicBookmarks>
+          
+          <settings.bookmarks.feUsersAllowedToEdit>
+            <TCEforms>
+              <label>FE User IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feUsersAllowedToEdit>
+          
+          <settings.bookmarks.feGroupsAllowedToEdit>
+            <TCEforms>
+              <label>FE Group IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feGroupsAllowedToEdit>
 
         </el>
       </ROOT>
