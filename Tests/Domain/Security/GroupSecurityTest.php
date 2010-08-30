@@ -48,6 +48,9 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$settings['listConfig']['test']['fields']['field4']['accessGroups'] = 'whatever';
 		$settings['listConfig']['test']['fields']['field4']['table'] = 'whatever';
 		$settings['listConfig']['test']['fields']['field4']['field'] = 'whatever';
+		$settings['listConfig']['test']['fields']['field5']['accessGroups'] = '';
+		$settings['listConfig']['test']['fields']['field5']['table'] = 'whatever';
+		$settings['listConfig']['test']['fields']['field5']['field'] = 'whatever';
 
 	                    
 	    $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($settings);
@@ -281,6 +284,40 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
+	}
+	
+	public function testEmptyAccessGroups() {
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field5'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array(' ')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertTrue($access);
+	}
+	
+	public function testEmptyAccessGroupsSpaces() {
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getFieldIdentifier')
+			->will($this->returnValue('field5'));
+			
+		$this->filterConfigMock
+			->expects($this->any())
+			->method('getAccessGroups')
+			->will($this->returnValue(array(' ')));
+		
+		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		
+		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+		$this->assertTrue($access);
 	}
 	
 }
