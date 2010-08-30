@@ -57,5 +57,44 @@ class Tx_PtExtlist_Tests_Domain_Repository_BookmarksRepository_testcase extends 
 		$this->fail();
 	}
 	
+	
+	
+	public function testFindPublicBookmarksByListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		$this->assertTrue(method_exists($bookmarksRepository, 'findPublicBookmarksByListIdentifier'));
+		// TODO think about how to test this!
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testThrowExceptionOnFindingPublicBookmarksWithoutListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+        try {
+            $bookmarksRepository->findPublicBookmarksByListIdentifier('');
+        } catch(Exception $e) {
+            return;
+        }
+        $this->fail();
+	}
+	
+	
+	
+	public function testFindGroupBookmarksByFeGroupAndListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		$this->assertTrue(method_exists($bookmarksRepository, 'findGroupBookmarksByFeGroupAndListIdentifier'));
+		// TODO think about how to test this
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testFindGroupBookmarksByFeUserAndListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		$this->assertTrue(method_exists($bookmarksRepository, 'findGroupBookmarksByFeUserAndListIdentifier'));
+		// TODO think about how to test this
+		$this->markTestIncomplete();
+	}
+	
 }
 ?>
