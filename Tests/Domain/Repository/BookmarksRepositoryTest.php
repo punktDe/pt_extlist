@@ -59,6 +59,15 @@ class Tx_PtExtlist_Tests_Domain_Repository_BookmarksRepository_testcase extends 
 	
 	
 	
+	public function testFindPublicBookmarksByListIdentifier() {
+		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
+		$this->assertTrue(method_exists($bookmarksRepository, 'findPublicBookmarksByListIdentifier'));
+		// TODO think about how to test this!
+		$this->markTestIncomplete();
+	}
+	
+	
+	
 	public function testThrowExceptionOnFindingPublicBookmarksWithoutListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_BookmarksRepository();
         try {
