@@ -1,0 +1,937 @@
+/**
+ * 					D I S A B L E  D E P R E C A T E D  H T M L
+ ******************************************************************************/
+
+font, basefont {
+	color: inherit;
+	font: inherit;
+	font-size: 100%;
+}
+
+center,
+*[align] {
+	text-align: inherit;
+}
+
+s,
+strike,
+u {
+	text-decoration: inherit;
+}
+
+img {
+	border: none;
+	margin: 0;
+}
+
+ol {
+	list-style-type: decimal;
+}
+
+body {
+	background-color: transparent;
+}
+
+tr,
+th,
+td {
+	background-color: transparent;
+	border: none;
+	height: auto;
+	vertical-align: inherit;
+	width: auto;
+}
+
+table[border],
+.content table[border] {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+nobr {
+	white-space: normal;
+}
+
+marquee {
+	-moz-binding: none;
+	overflow: visible;
+}
+
+blink {
+	text-decoration: none;
+}
+
+/**
+ * 									G E N E R A L
+ ******************************************************************************/
+
+
+html {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 125%; /* = 20px, if the browser default is 16px */
+	overflow-y: scroll; /* http://www.michael-van-laar.de/blog/artikel/der-bessere-trick-gegen-ruckelnde-websites/ */
+}
+
+body {
+	font-size: 50%; /* = 10px, if the browser default is 16px */
+}
+
+a {
+	color: #0000EE;
+	text-decoration: underline;
+}
+
+strong,
+th,
+thead td,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+	font-weight: bold;
+}
+
+cite,
+em,
+dfn {
+	font-style: italic;
+}
+
+code,
+kbd,
+samp,
+pre,
+tt,
+var,
+input[type='text'],
+input[type='password'],
+textarea {
+	1font-family: mono-space,monospace;
+	font-size: 100%;
+}
+
+pre {
+	white-space: pre;
+}
+
+pre * {
+	font-size: 100%;
+	white-space: pre;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+ins,
+dfn {
+	border-bottom: 1px solid #000000;
+}
+
+small,
+sup,
+sub {
+	font-size: 85%;
+}
+
+big {
+	font-size: 125%;
+	line-height: 80%;
+}
+
+abbr,
+acronym {
+	font-size: 85%;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+}
+
+abbr[title],
+acronym[title],
+dfn[title] {
+	border-bottom: 1px dotted #000000;
+	cursor: help;
+}
+
+sup {
+	vertical-align: super;
+}
+
+sub {
+	vertical-align: sub;
+}
+
+blockquote {
+	padding-left: 2.2em;
+}
+
+hr {
+	display: none; /* We will re-reset it later for content */
+}
+
+:lang(af),
+:lang(nl),
+:lang(pl) {
+	quotes: '\201E' '\201D' '\201A' '\2019';
+}
+
+:lang(bg),
+:lang(cs),
+:lang(de),
+:lang(is),
+:lang(lt),
+:lang(sk),
+:lang(sr),
+:lang(ro) {
+	quotes: '\201E' '\201C' '\201A' '\2018';
+}
+
+:lang(da),
+:lang(hr) {
+	quotes: '\00BB' '\00AB' '\203A' '\2039';
+}
+
+:lang(el),
+:lang(es),
+:lang(sq),
+:lang(tr) {
+	quotes: '\00AB' '\00BB' '\2039' '\203A';
+}
+
+:lang(en-GB) {
+	quotes: '\2018' '\2019' '\201C' '\201D';
+}
+
+:lang(fi),
+:lang(sv) {
+	quotes: '\201D' '\201D' '\2019' '\2019';
+}
+
+:lang(fr) {
+	quotes: '\ab\2005' '\2005\bb' '\2039\2005' '\2005\203a';
+}
+
+*[lang|='en'] q:before {
+	content: '\201C';
+}
+
+*[lang|='en'] q:after {
+	content: '\201D';
+}
+
+*[lang|='en'] q q:before {
+	content: '\2018';
+}
+
+*[lang|='en'] q q:after {
+	content: '\2019';
+}
+
+input,
+select,
+button {
+	cursor: pointer;
+}
+
+input[type='text'],
+input[type='password'] {
+	cursor: text;
+}
+
+input[type='hidden'] {
+	display: none;
+}
+
+/**
+ * 								C O N T E N T
+ ******************************************************************************/
+
+.content {
+	font-size: 1.2em;
+	line-height: 1.6em;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+	1color: #000000;
+}
+
+.content h1 {
+	font-size: 1.5em;
+	line-height: 1;
+	margin: 1em 0 .5em;
+}
+
+.content h2 {
+	font-size: 1.333em;
+	line-height: 1;
+	margin: 1.07em 0 .535em;
+}
+
+.content h3 {
+	font-size: 1.166em;
+	line-height: 1;
+	margin: 1.14em 0 .57em;
+}
+
+.content h4 {
+	font-size: 1em;
+	line-height: 1;
+	margin: 1.23em 0 .615em;
+}
+
+.content h5 {
+	font-size: .833em;
+	line-height: 1;
+	margin: 1.33em 0 .67em;
+}
+
+.content h6 {
+	font-size: .833em;
+	font-weight: 400;
+	line-height: 1;
+	margin: 1.6em 0 .8em;
+}
+
+.content hr {
+	background: #000000;
+	border: none;
+	color: #000000;
+	display: block;
+	height: 1px;
+	width: 100%;
+}
+
+.content ul {
+	list-style: disc outside;
+}
+
+.content ol {
+	list-style: decimal outside;
+}
+
+.content table {
+	border-collapse: collapse;
+}
+
+/**
+ * 						T Y P O 3  T A B L E  E L E M E N T
+ ******************************************************************************/
+
+.content th,
+.content td {
+	padding: .25em;
+}
+
+.content th {
+	background-color: #ECECEC; /* for old browsers */
+	background-color: rgba(128, 128, 128, .15);
+	border-bottom: 2px solid #CCC;
+}
+
+.content td {
+	border-bottom: 1px solid #CCC;
+}
+
+.content .zebra tbody tr:nth-child(even) {
+	background-color: rgba(128, 128, 128, .05);
+}
+
+.content hr,
+.content p,
+.content ul,
+.content ol,
+.content dl,
+.content pre,
+.content address,
+.content table,
+.content form {
+	margin-bottom: 1.6em;
+}
+
+.content p+p {
+	margin-top: -.8em;
+}
+
+/**
+ * 									F O R M S
+ ******************************************************************************/
+
+.content form {
+	overflow: hidden;
+}
+
+.content fieldset {
+	margin-bottom: .8em;
+	padding-bottom: .8em;
+}
+
+/* hide for IE5 (only Mac) \*/
+
+.content legend {
+	border-bottom: 1px dotted #CCC;
+	display: block;
+	font-size: 14px;
+	font-weight: 700;
+	width: 100%;
+}
+
+/* end hack */
+
+@media all and (min-width: 0px) /* for Opera 8 */ {
+
+	.content legend {
+		margin-bottom: .8em;
+		padding-bottom: .8em;
+	}
+	
+	.content fieldset {
+		margin-top: 0;
+	}
+	
+	/* deactivated for the extension 'css2inline' (newsletter) */
+	/*
+	.content[class^='content'] fieldset {
+		margin-bottom: .8em;
+		padding-bottom: .8em;
+	}
+	*/
+	
+}
+
+.content fieldset>*:first-child {
+	margin-top: 0;
+}
+
+.content .outer-wrapper {
+	overflow: hidden;
+}
+
+.content .outer-wrapper,
+.content .tx_powermail_pi1_fieldwrap_html {
+	float: left;
+	padding: 0 0 1em 0;
+	width: 100%;
+}
+
+.content .type-checkbox,
+.content .type-radio {
+	padding-bottom: 0;
+}
+
+.content .field-wrapper-indent {
+	padding-left: 30%;
+	width: 70%;
+}
+
+.content .outer-field-wrapper {
+	margin-left: 30%;
+	overflow: hidden;
+} 
+
+.content .type-button {
+	1border-bottom: 1px dotted #CCC;
+}
+
+.content .type-button input,
+#login .type-button input,
+#search .type-button input,
+.powermail_submit,
+.tx-powermail-pi1_mandatory_submit,
+.tx-powermail-pi1_confirmation_back,
+.tx-powermail-pi1_confirmation_submit {
+	background: -webkit-gradient( linear, 0 0, 0 100%, from(#FFFFFF), to(#CCCCCC) );
+	background: -moz-linear-gradient( top, #FFFFFF, #CCCCCC );
+	border: 1px solid #666666;
+	border-left-color: #CCCCCC;
+	border-top-color: #CCCCCC;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: .2em .5em .1em;
+}
+
+.content .type-button input:hover,
+#login .type-button input:hover,
+#search .type-button input:hover,
+.powermail_submit:hover,
+.tx-powermail-pi1_mandatory_submit:hover,
+.tx-powermail-pi1_confirmation_back:hover,
+.tx-powermail-pi1_confirmation_submit:hover {
+	background: -webkit-gradient( linear, 0 0, 0 100%, from(#CCCCCC), to(#FFFFFF) );
+	background: -moz-linear-gradient( top, #CCCCCC, #FFFFFF );
+	border: 1px solid #CCCCCC;
+	border-left-color: #666666;
+	border-top-color: #666666;
+}
+
+.content label,
+.content p.label,
+.tx_powermail_pi1_fieldwrap_html_checkbox_title,
+.tx_powermail_pi1_fieldwrap_html_radio_title {
+	1color: #000000;
+	display: block;
+	float: left;
+	font-weight: 700;
+	padding-right: 2%;
+	width: 28%;
+}
+
+.content .type-radio label,
+.content .type-checkbox label {
+	display: inline;
+	float: none;
+}
+
+.tx_powermail_pi1_fieldwrap_html_check label,
+.tx_powermail_pi1_fieldwrap_html_radio label {
+	font-weight: 400;
+}
+
+.content textarea,
+.content input[type='text'],
+.content input[type='password'],
+.content .powermail_text,
+.content .powermail_textarea,
+#login input.text,
+#search input.text {
+	background: -webkit-gradient( linear, 0 0, 0 100%, from(#EEEEEE), to(#FFFFFF) );
+	background: -moz-linear-gradient( top, #EEEEEE, #FFFFFF );
+	border: 1px solid #CCCCCC;
+	border-left-color: #666666;
+	border-top-color: #666666;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	float: left;
+	margin-right: -3px;
+	padding: .2em;
+	width: 67.8%;
+}
+
+#login input.text,
+#search input.text {
+	float: none;
+	width: auto;
+}
+
+.content textarea:focus,
+.content input[type='text']:focus,
+.content input[type='password']:focus,
+.content .powermail_text:focus,
+.content .powermail_textarea:focus,
+#login input.text:focus,
+#search input.text:focus {
+	background: #FFFFFF;
+}
+
+.content input[type='text'],
+.content .powermail_text,
+.content textarea {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.content input,
+#login .button,
+#search .button {
+	1padding: .2em .1em;
+}
+
+.content select {
+	float: left;
+	margin-right: -3px;
+	padding: .2em .1em 0;
+	width: 69.3%;
+}
+
+.content select[multiple] {
+	margin-bottom: .8em;
+}
+
+.content option {
+	padding: 0 .4em .1em;
+}
+
+.content button {
+	padding: .3em .5em;
+}
+
+.content .powermail_check_inner,
+.content .powermail_radio_inner,
+.content .tx_powermail_pi1_fieldwrap_html_reset,
+.content .tx_powermail_pi1_fieldwrap_html_submit {
+	margin-left: 30%;
+}
+
+.content .tx_powermail_pi1_fieldwrap_html_check p,
+.content .tx_powermail_pi1_fieldwrap_html_radio p {
+	margin-bottom: .8em;
+}
+
+.content .tx_powermail_pi1_fieldwrap_html_check label,
+.content .tx_powermail_pi1_fieldwrap_html_radio label {
+	float: none;
+}
+
+.content .type-checkbox input {
+	margin-left: 0;
+}
+
+.content input[type='radio'] {
+	1bottom: -.2em;
+	1position: relative;
+}
+
+.powermail_check,
+.powermail_radio {
+	float: left;
+	margin-right: 1em;
+}
+
+#recaptcha_widget_div {
+	float: left;
+}
+
+/**
+ * 									L I S T S
+ ******************************************************************************/
+
+.content dt {
+	margin-bottom: .4em;
+	margin-top: .8em;
+}
+
+.content ul,
+.content ol {
+	margin-left: 2.2em;
+}
+
+.content caption {
+	padding-bottom: .8em;
+}
+
+.content ul ul,
+.content ol ul,
+.content ul ol,
+.content ol ol {
+	margin-bottom: 0;
+}
+
+/**
+ * 							C O M M O N  C L A S S E S
+ ******************************************************************************/
+
+/* new clearfix */
+
+.group:after {
+	clear: both;
+	content: " ";
+	display: block;
+	font-size: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+/* messages */
+
+.error,
+.powermail_mandatory_js {
+	color: #FF3333;
+}
+
+.info {
+	color: #0066FF;
+}
+
+.success {
+	color: #339933;
+}
+
+/**
+ * 									B O X E S
+ ******************************************************************************/
+
+.box-01 {
+	border: 1px solid #CCC;
+	padding: 1em;
+}
+
+/* rounded corner boxes */
+
+/* default settings for rounded corner boxes */
+
+.rounded-corner-box {
+	position: relative;
+	1margin-left: auto;
+	1margin-right: auto;
+}
+
+.rounded-corner-box h2,
+.rounded-corner-box .body {
+	margin: 0;
+	padding: 15px;
+}
+
+.rounded-corner-box .body {
+	overflow: hidden;
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+/* sytles for rounded-corner-box-01 */
+
+.rounded-corner-box-01 .body {
+	padding-top: 15px;
+}
+
+.rounded-corner-box-01 {
+	background-color: #F5F5F5;
+}
+
+.rounded-corner-box-01 .header-wrapper {
+	background-color: #CCC;
+}
+
+/*
+ * border code follows
+ * 
+ * tlc = top left corner
+ * trc = top right corner
+ * blc = bottom left corner
+ * brc = bottom right corner
+ * lb = left border
+ * rb = right border
+ * tb = top border
+ * bb = bottom border 
+ * 
+*/
+
+/* \*/
+* html .rounded-corner-box .tlc,
+* html .rounded-corner-box .trc,
+* html .rounded-corner-box-01 .header-tlc,
+* html  .rounded-corner-box-01 .header-trc {
+	height: 1%;
+}
+/* */
+
+.rounded-corner-box .tlc,
+.rounded-corner-box .trc,
+.rounded-corner-box-01 .header-tlc,
+.rounded-corner-box-01 .header-trc {
+	zoom: 1;
+}
+
+.rounded-corner-box .tlc,
+.rounded-corner-box .trc,
+.rounded-corner-box .blc,
+.rounded-corner-box .brc,
+.rounded-corner-box-01 .header-tlc,
+.rounded-corner-box-01 .header-trc,
+.rounded-corner-box-01 .header-blc,
+.rounded-corner-box-01 .header-brc {
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.rounded-corner-box .tlc,
+.rounded-corner-box-01 .header-tlc {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/rc_01_transparent_top_left.png");
+	background-position: 0% 0%;
+}
+
+.rounded-corner-box .trc,
+.rounded-corner-box-01 .header-trc {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/rc_01_transparent_top_right.png");
+	background-position: 100% 0%;
+}
+	
+.rounded-corner-box .blc {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/rc_01_transparent_bottom_left.png");
+	background-position: 0% 100%;
+}
+
+.rounded-corner-box .brc {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/rc_01_transparent_bottom_right.png");
+	background-position: 100% 100%;
+}
+
+.rounded-corner-box .tb,
+.rounded-corner-box .bb,
+.rounded-corner-box-01 .header-tb,
+.rounded-corner-box-01 .header-bb {
+	background-color: transparent;
+	background-repeat: repeat-x;
+}
+			
+.rounded-corner-box .tb,
+.rounded-corner-box-01 .header-tb {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/dot_999.gif");
+	background-position: 0% 0%;
+}
+
+.rounded-corner-box .bb,
+.rounded-corner-box-01 .header-bb {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/dot_999.gif");
+	background-position: 50% 100%;
+}
+	
+.rounded-corner-box .rb,
+.rounded-corner-box-01 .header-rb {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/dot_999.gif");
+	background-position: 100% 0%;
+	background-repeat: repeat-y;
+}
+
+.rounded-corner-box .lb,
+.rounded-corner-box-01 .header-lb {
+	background-image: url("/fileadmin/_t3templates/images/rounded_corners/dot_999.gif");
+	background-position: 0% 100%;
+	background-repeat: repeat-y;
+}
+
+/* css_styled_content extension */
+
+/* ... */
+
+/**
+* 								Y A M L  C L A S S E S
+******************************************************************************/
+
+/* floatbox */
+
+.floatbox {
+	overflow: hidden;
+}
+
+/* Subtemplates */
+
+.subcolumns {
+	margin: 0 -1px 0 -1px;
+	overflow: hidden;
+	padding: 0 1px 0 1px;
+	width: 100%;
+}
+
+.c50l,
+.c25l,
+.c28l,
+.c30l,
+.c33l,
+.c38l,
+.c66l,
+.c70l,
+.c72l,
+.c75l,
+.c62l {
+	float: left;
+	overflow: hidden;
+}
+
+.c50r,
+.c25r,
+.c28r,
+.c30r,
+.c33r,
+.c38r,
+.c66r,
+.c70r,
+.c72r,
+.c75r,
+.c62r {
+	float: right;
+	overflow: hidden;
+}
+
+.c25l,
+.c25r {
+	width: 24.999%;
+}
+
+.c28l,
+.c28r {
+	width: 27.999%;
+}
+
+.c30l,
+.c30r {
+	width: 29.999%;
+}
+
+.c33l,
+.c33r {
+	width: 33.333%;
+}
+
+.c50l,
+.c50r {
+	width: 49.999%;
+}
+
+.c66l,
+.c66r {
+	width: 66.666%;
+}
+
+.c70l,
+.c70r {
+	width: 69.999%;
+}
+
+.c72l,
+.c72r {
+	width: 71.999%;
+}
+
+.c75l,
+.c75r {
+	width: 74.999%;
+}
+
+.c38l,
+.c38r {
+	width: 38.196%; /* golden ratio */
+}
+
+.c62l,
+.c62r {
+	width: 61.803%; /* golden ratio */
+}
+
+.subc {
+	overflow: hidden;
+	padding: 0 0.5em 0 0.5em;
+}
+
+.subcl {
+	overflow: hidden;
+	padding: 0 1em 0 0;
+}
+
+.subcr {
+	overflow: hidden;
+	padding: 0 0 0 1em;
+}
+
+.equalize,
+.equalize .subcolumns {
+	display: table;
+	overflow: visible;
+	table-layout: fixed;
+}
+
+.equalize > div {
+	display: table-cell;
+	float: none;
+	margin: 0;
+	overflow: hidden;
+	vertical-align: top;
+}

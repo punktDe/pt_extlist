@@ -1,0 +1,208 @@
+/**
+ * 								C O N T E N T
+ ******************************************************************************/
+
+textarea {
+	white-space: pre;
+}
+
+.content legend {
+	margin-bottom: 1.6em;
+}
+
+.content fieldset {
+	padding-top: 0;
+}
+
+sup,
+sub {
+	font-size: 100%;
+}
+
+.content legend:first-child {
+	margin-top: 0;
+}
+
+a abbr,
+a acronym {
+	text-decoration: underline;
+}
+
+* html .content blockquote * {
+	margin: .8em 0;
+}
+
+* html input {
+	cursor: expression(this.type=='text' || this.type=='password' ? 'text' : 'pointer');
+	display: expression(this.type=='hidden' ? 'none' : 'inline');
+}
+
+* html .content textarea,
+* html .content input,
+.content input[type='submit'],
+.content input[type='button'] {
+	1padding: 0;
+}
+
+/**
+ * 								F R A M E W O R K
+ ******************************************************************************/
+
+/* new clearfix */
+
+* html .group {
+	zoom: 1; /* IE6 */
+}
+
+*:first-child+html .group {
+	zoom: 1; /* IE7 */
+}
+
+/**
+ * 					G E N E R A L  H A C K S  F R O M  Y A M L
+ ******************************************************************************/
+
+/* Scrollbar-Fix wird in alten IE's nicht benötigt, zudem verursacht der Fix Probleme im IE6 */
+
+body { o\verflow: visible; }
+
+/* Korrigiert das fehlerhafte overflow-Verhalten von textarea und input-Elementen */
+
+* html textarea { overflow: scroll; overflow-x: hidden; }
+
+* html input { overflow: hidden; }
+
+/* Stabilitätsverbesserungen durch 'position:relative' */
+
+body,
+#main { position: relative; }
+
+* html body { position: static; }
+
+/* Bugfix für unvollständige Darstellung der Spalteninhalte / Spaltentrenner */
+
+/*
+* html #content,
+* html #sidebar-right,
+* html #sidebar-left { position: relative; }
+*/
+
+/* Vermeidung verschiedenster Bugs durch Erzwingen von "hasLayout" */
+
+body { height: 1%; }
+
+#page,
+#page-inner,
+#main { zoom: 1; } /* IE6 & IE7 */
+
+* html #page,
+* html #page-inner { height: 1%; hei\ght: auto; } /* IE 5.x & IE6 | IE6 only */
+
+* html #main { width: 100%; wid\th: auto; } /* IE 5.x & IE6 | IE6 only */
+
+/* Disappearing List-Background Bug */
+
+* html ul,
+* html ol,
+* html dl { position: relative; }
+
+/* List-Numbering Bug */
+
+body ol li { display: list-item; }
+
+/* Form related bugfixes */
+
+fieldset,
+legend { position: relative; }
+
+/* IE/Win Guillotine Bug */
+
+* html body a,
+* html body a:hover { background-color: transparent; }
+
+/* IE-Anpassung für Spaltencontainer und Subtemplates (Doubled Float-Margin Bug */   
+
+#content,
+#sidebar-right { display: inline; }
+
+/* Internet Explorer and the Expanding Box Problem */
+
+* html .content { word-wrap: break-word; }
+
+/* IE-Adjustments for content columns and subtemplates */
+
+.c20l,
+.c25l,
+.c33l,
+.c38l,
+.c40l,
+.c50l,
+.c60l,
+.c62l,
+.c66l,
+.c75l,
+.c80l,
+.c20r,
+.c25r,
+.c33r,
+.c38r,
+.c40r,
+.c50r,
+.c60r,
+.c66r,
+.c62r,
+.c75r,
+.c80r {
+	display: inline;
+}
+
+/* Fix for: "Linking to anchors in elements within the containing block" Problem in IE5.x & IE 6.0 */
+
+* html .equalize,
+* html .equalize .subcolumns {
+	display: block;
+	overflow: visible;
+}
+
+.equalize,
+.equalize .subcolumns {
+	display: block;
+	overflow: hidden;
+}
+
+/* transform CSS tables back into floats */
+
+.equalize .c20l,
+.equalize .c40l,
+.equalize .c60l,
+.equalize .c80l,
+.equalize .c25l,
+.equalize .c33l,
+.equalize .c38l,
+.equalize .c50l,
+.equalize .c62l,
+.equalize .c66l,
+.equalize .c75l {
+	display: inline;
+	float: left;
+	padding-bottom: 32767px;
+	margin-bottom: -32767px;
+}
+
+.equalize .c20r,
+.equalize .c40r,
+.equalize .c60r,
+.equalize .c80r,
+.equalize .c25r,
+.equalize .c33r,
+.equalize .c38r,
+.equalize .c50r,
+.equalize .c62r,
+.equalize .c66r,
+.equalize .c75r {
+	display: inline;
+	float: right;
+	margin-left: -5px; 
+	padding-bottom: 32767px;
+	margin-bottom: -32767px;
+}
