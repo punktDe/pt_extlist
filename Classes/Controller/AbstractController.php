@@ -84,7 +84,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	public function injectSettings(array $settings) {
 		parent::injectSettings($settings);
-
+		
 		if ($this->settings['listIdentifier'] != '') {
 		    $this->listIdentifier = $this->settings['listIdentifier'];
 		} else {

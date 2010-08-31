@@ -133,6 +133,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
 	public function getListData() {
 		$sqlQuery = $this->buildQuery();
+		
 		$rawData = $this->dataSource->executeQuery($sqlQuery);
 		$mappedListData = $this->dataMapper->getMappedListData($rawData);
 		return $mappedListData;
