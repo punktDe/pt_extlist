@@ -473,7 +473,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		return 1;
 	}
 	
-	
+	/**
+	 * Wrapper method for validate(). Needed for Fluid access.
+	 * 
+	 * @return bool
+	 */
+    public function getValidate() {
+    	return $this->validate();
+    }
 	
 	/****************************************************************************************************************
      * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"

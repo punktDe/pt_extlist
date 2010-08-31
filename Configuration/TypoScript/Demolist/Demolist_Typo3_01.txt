@@ -270,6 +270,13 @@ plugin.tx_ptextlist.settings {
 	                  label = Local name
 	                  fieldIdentifier = name_local
 	              }
+	              
+	              15 < plugin.tx_ptextlist.prototype.filter.max
+	              15 {
+	                  filterIdentifier = filter15
+	                  label = Max Phone
+	                  fieldIdentifier = phone
+	              }
 
     			  20 < plugin.tx_ptextlist.prototype.filter.checkbox 
 	              20 {
