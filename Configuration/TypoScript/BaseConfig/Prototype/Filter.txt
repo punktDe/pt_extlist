@@ -24,6 +24,15 @@ plugin.tx_ptextlist.prototype.filter {
 		#validation.minValue = 0
 	}
 	
+	min {
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MinFilter
+		partialPath = Filter/Range/MinFilter
+		defaultValue = 
+		accessGroups =
+		#validation.maxValue = 500
+		#validation.minValue = 0
+	}
+	
 	select {
 		partialPath = Filter/Group/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
