@@ -66,7 +66,6 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function __construct() {
     	parent::__construct();
-    	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_BookmarksRepository');
     }
     
     
@@ -79,8 +78,10 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function injectSettings(array $settings) {
         parent::injectSettings($settings);
-        // TODO this is here for enabling testing only!
+        // TODO we create feUserRepository here to be able to set one manually when testing
         $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */   
+    	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
+    	$this->bookmarksRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
     }
     
     
@@ -105,12 +106,82 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return string The rendered HTML source for this action
      */
     public function showAction() {
-    	if ($this->feUser != null) {
-    	   $bookmarksCollection = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
-    	   $this->view->assign('bookmarks', $bookmarksCollection);
-    	} else {
-    		$this->view->assign('bookmarks', null);
+    	if ($this->showPublicBookmarks()) {
+	    	$publicBookmarks = $this->bookmarksRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
+	    	$this->view->assign('publicBookmarks', $publicBookmarks);
     	}
+    	if ($this->showUserBookmarks() && $this->feUser != null) {
+    	    $userBookmarks = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+    	    $this->view->assign('userBookmarks', $userBookmarks);
+    	}
+    	if ($this->showGroupBookmarks() && $this->feUser != null && count($this->feUser->getUsergroups()) > 0) {
+    		$groupBookmarks = $this->bookmarksRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($this->feUser, $this->getGroupIdsToShowBookmarksFor(), $this->listIdentifier);
+    		$this->view->assign('groupBookmarks', $groupBookmarks);
+    	}
+    }
+    
+    
+    
+    /**
+     * Action for creating a new bookmark
+     */
+    public function createAction() {
+    	
+    }
+    
+    
+    
+    /**
+     * Action for updating a bookmark
+     */
+    public function updateAction() {
+    	
+    }
+    
+    
+    
+    /**
+     * Action for deleting a bookmark
+     */
+    public function deleteAction() {
+    	
+    }
+    
+    
+    
+    /**
+     * Action for editing a bookmark
+     */
+    public function editAction() {
+    	
+    }
+    
+    
+    
+    protected function showUserBookmarks() {
+    	// TODO read out settings here!
+    	return true;
+    }
+    
+    
+    
+    protected function showGroupBookmarks() {
+    	// TODO read out settings here!
+    	return true;
+    }
+    
+    
+    
+    protected function showPublicBookmarks() {
+    	// TODO read out settings here!
+    	return true;
+    }
+    
+    
+    
+    protected function getGroupIdsToShowBookmarksFor() {
+    	// TODO read out settings here!
+    	return '1,2,3,4,5';
     }
     
 }

@@ -28,6 +28,8 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 $extensionName = t3lib_div::underscoredToUpperCamelCase($_EXTKEY);
 $pluginSignature = strtolower($extensionName) . '_pi1';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature]='layout,select_key,pages';
+
 t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_list.xml');
 
 
@@ -35,8 +37,8 @@ t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Co
 /**
  * Configuration for Bookmarks table
  */
-t3lib_extMgm::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmars_bookmark');
-$TCA['tx_ptextlist_domain_model_bookmars_bookmark'] = array (
+t3lib_extMgm::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmarks_bookmark');
+$TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array (
     'ctrl' => array (
         'title'             => 'Bookmark', 
         'label'             => 'name',

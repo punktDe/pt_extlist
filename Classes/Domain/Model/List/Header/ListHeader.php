@@ -33,7 +33,7 @@
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 
 	/**
-	 * TODO add some comment!
+	 * Add a header column to the collection
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader
 	 * @param unknown_type $columnIdentifier
@@ -58,9 +58,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_object
 	/**
 	 * reset session of all list columnHeaders
 	 * 
-	 * @return unknown_type
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 04.08.2010
+	 * @return void
 	 */
 	public function reset() {
 		foreach($this->itemsArr as $headerColumn) {

@@ -39,16 +39,23 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	
 	
 	public function testShowAction() {
-		$bookmarksCollectionMock = array('test' => 'value');
-		$bookmarksRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_BookmarksRepository', array(), array(), '', FALSE);
-		$bookmarksRepositoryMock->expects($this->once())->method('findBookmarksByFeUserAndListIdentifier')->will($this->returnValue($bookmarksCollectionMock));
+		$userBookmarksCollectionMock = array('test' => 'value');
+		$publicBookmarksCollectionMock = array('test2' => 'value2');
+		$groupBookmarksMock = array('test3' => 'value3');
 		
-		$feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+		$bookmarksRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_BookmarksRepository', array('findPublicBookmarksByListIdentifier', 'findBookmarksByFeUserAndListIdentifier', 'findBookmarksByFeUserGroupIdsAndListIdentifier'), array(), '', FALSE);
+		$bookmarksRepositoryMock->expects($this->once())->method('findBookmarksByFeUserAndListIdentifier')->will($this->returnValue($userBookmarksCollectionMock));
+		$bookmarksRepositoryMock->expects($this->once())->method('findPublicBookmarksByListIdentifier')->will($this->returnValue($publicBookmarksCollectionMock));
+		$bookmarksRepositoryMock->expects($this->once())->method('findBookmarksByFeUserGroupIdsAndListIdentifier')->will($this->returnValue($groupBookmarksMock));
+		
+		$feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser', array('getUsergroups'), array(), '', FALSE);
+		$feUserMock->expects($this->once())->method('getUsergroups')->will($this->returnValue(array(1,2,3,4)));
 		
 		$mockView = $this->getMock(
             'Tx_Fluid_Core_View_TemplateView',
             array('assign'), array(), '', FALSE);
-        $mockView->expects($this->once())->method('assign')->with('bookmarks', $bookmarksCollectionMock);
+        $mockView->expects($this->at(0))->method('assign')->with('publicBookmarks', $publicBookmarksCollectionMock);
+        $mockView->expects($this->at(1))->method('assign')->with('userBookmarks', $userBookmarksCollectionMock);
         
         $mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
@@ -58,6 +65,30 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->_set('feUser', $feUserMock);
         
         $mockController->showAction();
+	}
+	
+	
+	
+	public function testCreateAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testDeleteAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testUpdateAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testEditAction() {
+		$this->markTestIncomplete();
 	}
 	
 }

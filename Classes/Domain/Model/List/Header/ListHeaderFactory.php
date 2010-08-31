@@ -31,7 +31,7 @@
  * @subpackage \Domain\Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
-
+	
 	/**
 	 * build the listheader, a collection of columnheader objects
 	 * 
@@ -39,13 +39,16 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-
+		
 		$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
 		
 		foreach($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
 			$headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
-			$listHeader->addHeaderColumn($headerColumn, $columnIdentifier);
+			
+			if($headerColumn->getColumnConfig()->isAccessable()) {
+				$listHeader->addHeaderColumn($headerColumn, $columnIdentifier);
+			}
 		}
 		
 		return $listHeader;

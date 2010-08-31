@@ -85,5 +85,23 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_Bookmark_testcase extends Tx_PtE
         $this->assertEquals($bookmark->getName(), 'testname');
     }
     
+    
+    
+    public function testGetSetFeGroup() {
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+        $feGroupMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+        $bookmark->setFeGroup($feGroupMock);
+        $this->assertEquals($bookmark->getFeGroup(), $feGroupMock); 	
+    }
+
+    
+    
+    public function testGetSetIsPublic() {
+    	$bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+    	$isPublic = false;
+    	$bookmark->setIsPublic($isPublic);
+    	$this->assertEquals($bookmark->getIsPublic(), $isPublic);
+    }
+
 }
 ?>

@@ -45,6 +45,9 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy impl
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		
 		foreach($listHeader as $headerColumn) {
+			// Do not add a column wich is not accessable by the current FE-User!
+			if(!$headerColumn->getColumnConfig()->isAccessable()) continue;
+			
 			$label = $headerColumn->getLabel();
 			
 			// TODO: use Tx_PtExtlist_Utility_RenderValue and configuration for rendering!

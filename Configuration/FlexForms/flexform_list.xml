@@ -46,7 +46,7 @@
                   </numIndex>
                   <numIndex index="4" type="array">
                     <numIndex index="0">Bookmarks</numIndex>
-                    <numIndex index="1">Bookmarks->show</numIndex>
+                    <numIndex index="1">Bookmarks->show;Bookmarks->edit;Bookmarks->create;Bookmarks->edit;Bookmarks->update</numIndex>
                   </numIndex>
                 </items>
               </config>
@@ -90,8 +90,66 @@
         </TCEforms>
         <type>array</type>
         <el>
+        
+          <settings.bookmarks.bookmarksPid>
+            <TCEforms>
+              <label>Bookmarks PID</label>
+              <config>
+                <type>input</type>
+                <size>4</size>
+                <eval>int</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.bookmarksPid>
 
+          <settings.bookmarks.showUserBookmarks>
+            <TCEforms>
+              <label>Show User's Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showUserBookmarks>
           
+          <settings.bookmarks.showGroupBookmarks>
+            <TCEforms>
+              <label>Show Group's Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showGroupBookmarks>
+          
+          <settings.bookmarks.showPublicBookmarks>
+            <TCEforms>
+              <label>Show public Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showPublicBookmarks>
+          
+          <settings.bookmarks.feUsersAllowedToEdit>
+            <TCEforms>
+              <label>FE User IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feUsersAllowedToEdit>
+          
+          <settings.bookmarks.feGroupsAllowedToEdit>
+            <TCEforms>
+              <label>FE Group IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feGroupsAllowedToEdit>
 
         </el>
       </ROOT>

@@ -116,6 +116,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                         	 'special' => 'special',
 	                             'isSortable' => '1',
 	                             'access' => '1,2,3,4'
+	                         ),
+	                         'field4' => array( 
+	                             'table' => 'tableName4',
+	                             'field' => 'fieldName4',
 	                         )
 	                     ),
 	                    'columns' => array(
@@ -124,7 +128,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field1',
 	                            'label' => 'Column 1',
 	                            'isSortable' => '0',
-	                            'accessGroups' => '1,2,3,4'
+	                            
 	                        ),
 	                        20 => array( 
 	                            'columnIdentifier' => 'column2',
@@ -132,7 +136,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'label' => 'Column 2',  
 	                            'isSortable' => '1',
 	                        	'sorting' => 'tstamp, title',
-	                            'accessGroups' => '1,2,3,4'
+	                            
 	                        ),
 	                        30 => array( 
 	                            'columnIdentifier' => 'column3',
@@ -141,6 +145,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'isSortable' => '1',
 	                        	'sorting' => 'tstamp asc, title !DeSc',
 	                            'accessGroups' => '1,2,3,4'
+	                        ),
+	                        40 => array( 
+	                            'columnIdentifier' => 'column4',
+	                            'fieldIdentifier' => 'field4',
+	                            'label' => 'Column 4',  
 	                        )
 	                    ),
 	                    'renderer' => array(
@@ -162,7 +171,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                                'filterIdentifier' => 'filter2',
 	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                     'fieldIdentifier' => 'field1',
-                                    'partialPath' => 'Filter/StringFilter'
+                                    'partialPath' => 'Filter/StringFilter',
+                                    'accessGroups' => '1,2,3'
 	                             )
 	                         )
 	                    ),
