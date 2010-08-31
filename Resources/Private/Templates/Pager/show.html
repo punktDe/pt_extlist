@@ -1,23 +1,29 @@
 {namespace extlist=Tx_PtExtlist_ViewHelpers} 
 
-<div>
-	<strong>Simple Pager Rendering</strong>
-</div>
+<h2>
+	Simple Pager Rendering
+</h2>
 <div class="pt-extlist-pager-item-display">
-    <f:if condition="{pager.firstItemIndex}">
-        <f:translate key="pager.showItems" default="Show items from" /> {pager.firstItemIndex} <f:translate key="pager.to" default="to" />
-        <f:if condition="{pager.itemCount} < {pager.lastItemIndex}"> 
-            <f:then>{pager.itemCount}</f:then>
-            <f:else>{pager.lastItemIndex}</f:else>
-            </f:if> <f:translate key="pager.of" default="of" /> {pager.itemCount}
-    </f:if>
+	
+	<f:if condition="{pager.firstItemIndex}">
+		<f:translate key="pager.showItems" default="Show items from" /> <span class="first">{pager.firstItemIndex}</span>
+		<f:translate key="pager.to" default="to" />
+		<f:if condition="{pager.itemCount} < {pager.lastItemIndex}"> 
+			<f:then><span>{pager.itemCount}</span></f:then>
+			<f:else><span class="last">{pager.lastItemIndex}</span></f:else>
+		</f:if>
+		<f:translate key="pager.of" default="of" /> <span class="count">{pager.itemCount}</span>
+	</f:if>
+	
 </div>
 <ul class="pt-extlist-pager">
+	
 	<f:if condition="{pager.showFirstLink}">
 		<li class="first">
 			<f:link.action action="submit" arguments="{page:pager.firstPage, list:pager.listIdentifier}">&lt;&lt;</f:link.action>
 		</li>
 	</f:if>
+	
 	<f:if condition="{pager.showPreviousLink}">
 		<li class="previous">
 			<f:link.action action="submit" arguments="{page:pager.previousPage, list:pager.listIdentifier}">&lt;</f:link.action>
@@ -44,11 +50,13 @@
 			<f:link.action action="submit" arguments="{page:pager.nextPage, list:pager.listIdentifier}">&gt;</f:link.action>
 		</li>
 	</f:if>
+	
 	<f:if condition="{pager.showLastLink}">
 		<li class="last">
 			<f:link.action action="submit" arguments="{page:pager.lastPage, list:pager.listIdentifier}">&gt;&gt;</f:link.action>
 		</li>
 	</f:if>
+	
 </ul>
 
 <!--

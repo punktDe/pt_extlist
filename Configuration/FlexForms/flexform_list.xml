@@ -90,6 +90,17 @@
         </TCEforms>
         <type>array</type>
         <el>
+        
+          <settings.bookmarks.bookmarksPid>
+            <TCEforms>
+              <label>Bookmarks PID</label>
+              <config>
+                <type>input</type>
+                <size>4</size>
+                <eval>int</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.bookmarksPid>
 
           <settings.bookmarks.showUserBookmarks>
             <TCEforms>

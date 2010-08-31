@@ -1,7 +1,7 @@
 #
 # Table structure for table 'tx_ptextlist_domain_model_bookmars_bookmark'
 #
-CREATE TABLE tx_ptextlist_domain_model_bookmars_bookmark (
+CREATE TABLE tx_ptextlist_domain_model_bookmarks_bookmark (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) DEFAULT '0' NOT NULL,
   tstamp int(11) unsigned DEFAULT '0' NOT NULL,
