@@ -37,6 +37,17 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerFactory_testcase extends Tx_PtE
     	$this->assertTrue(class_exists('Tx_PtExtlist_Controller_SubcontrollerFactory'));
     }
 	
+    
+    
+    public function testGetSingleton() {
+    	$instance1 = Tx_PtExtlist_Controller_SubcontrollerFactory::getInstanceByListIdentifier('test');
+    	$instance2 = Tx_PtExtlist_Controller_SubcontrollerFactory::getInstanceByListIdentifier('test');
+    	$this->assertEquals($instance1, $instance2);
+    	
+    	$instance3 = Tx_PtExtlist_Controller_SubcontrollerFactory::getInstanceByListIdentifier('test2');
+    	$this->assertNotEquals($instance1, $instance3);
+    }
+    
 }
 
 ?>
