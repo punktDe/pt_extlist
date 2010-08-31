@@ -37,7 +37,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
 	
 	
 	public function testValidationOnInactiveState() {
-		$filterMock = $this->getFilterMock(0,0,0,false);
+		$filterMock = $this->getFilterMock(0,0,0,true,false);
 		$this->assertTrue((bool)$filterMock->validate());
 	}
 	public function testValidationMaxEquals() {
@@ -72,27 +72,46 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
 		$this->assertFalse((bool)$filterMock->validate());
 	}
 	
+	public function testCriteria() {
+		$filterMock = $this->getFilterMock(5,10,1,false);
+		
+		$criteria = $filterMock->_callRef('buildFilterCriteria');
+		
+		$this->assertTrue(is_a($criteria,'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+		
+		$this->assertEquals('<=',$criteria->getOperator());
+		$this->assertEquals('5',$criteria->getValue());
+	}
 	
 	
+	protected function getFilterMock($filterValue, $max=10, $min=1, $injectConfigMock = true, $active = true) {
+		if($injectConfigMock) {
+			
+			$configMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', 
+				array('getSettings'), array(),'',FALSE);			
+				
+			$settings = array('maxValue'=>$max, 'minValue'=>$min);
+			$configMock
+				->expects($this->any())
+				->method('getSettings')
+				->with('validation')
+				->will($this->returnValue($settings));
+		}
+			
+		$fieldMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig',
+			array('getTableFieldCombined'), array(),'',FALSE);
+		$fieldMock->expects($this->any())
+			->method('getTableFieldCombined')
+			->will($this->returnValue('foo'));
 	
-	protected function getFilterMock($filterValue, $max=10, $min=1, $active = true) {
-		$configMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', 
-			array('getSettings'), array(),'',FALSE);
-			
-			
-		$settings = array('maxValue'=>$max, 'minValue'=>$min);
-		$configMock->expects($this->once())
-			->method('getSettings')
-			->with('validation')
-			->will($this->returnValue($settings));
-			
 		$filterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_MaxFilter', 
 			array('dummyMethod'), array(),'',FALSE);
 			
 		$filterMock->_set('listIdentifier','test');
-		$filterMock->_set('filterConfig', $configMock);
+		if($injectConfigMock) $filterMock->_set('filterConfig', $configMock);
 		$filterMock->_set('isActive', $active);
 		$filterMock->_set('filterValue',$filterValue);
+		$filterMock->_set('fieldIdentifier', $fieldMock);
 		
 		return $filterMock;
 	}
