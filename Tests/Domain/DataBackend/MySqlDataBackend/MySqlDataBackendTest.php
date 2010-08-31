@@ -354,14 +354,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$additionalQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('field1', 10));
 		
 		$returnArray = array('test');
+		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
 		
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
         $dataSourceMock->expects($this->once())->method('executeQuery')->will($this->returnValue($returnArray));
         
         $dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
+        $dataBackend->injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder));
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
+		$dataBackend->injectListHeader($listHeader);
 		$dataBackend->init();
 		
 		$groupData = $dataBackend->getGroupData($additionalQuery, $excludeFilters);

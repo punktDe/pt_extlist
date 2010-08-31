@@ -34,12 +34,8 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $configurationBuilderMock;
-	
-	
-	
 	public function setUp() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	
