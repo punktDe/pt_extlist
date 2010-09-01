@@ -424,7 +424,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildPagerConfiguration() {
     	if (is_null($this->pagerConfiguration)) {
-    		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this);
+    		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory::getPagerConfigCollection($this);
     	}
     	return $this->pagerConfiguration;
     }

@@ -24,33 +24,32 @@
 ***************************************************************/
 
 /**
- * Factory to create configs for pager
- *
+ * Class implementing factory for collection of filterbox configurations
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package pt_extlist
  * @subpackage Domain\Configuration\Pager
- * @author Daniel Lienert <lienert@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory {
+class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory {
 	
 	/**
-	 * Returns a instance of a pager configuration.
-	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param string $pagerId 
+	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection
 	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerId = 'default') {
-		$settings = $configurationBuilder->getPagerSettings();
-
-		tx_pttools_assert::isTrue(array_key_exists($pagerId, $settings['pagerConfigs']),  array(message => 'Pager Identifier \''.$pagerId.'\' not found. 1282132591'));
+	public static function getPagerConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$pagerCollectionSettings = $configurationBuilder->getPagerSettings();
 		
-		$pagerSettings = $settings['pagerConfigs'][$pagerId];
-		$pagerSettings['itemsPerPage'] = $settings['itemsPerPage'];
+		$pagerConfigCollection = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection($configurationBuilder);
 		
-		$pagerConfig = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration($pagerSettings, $configurationBuilder->getListIdentifier(), $pagerId);
+		foreach($pagerCollectionSettings['pagerConfigs'] as $pagerIdentifier => $pagerSettings) {
+			
+			$pagerSettings['itemsPerPage'] = $pagerCollectionSettings['itemsPerPage'];
+			$pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($configurationBuilder, $pagerIdentifier, $pagerSettings);
+			
+			$pagerConfigCollection->addPagerConfig($pagerConfiguration, $pagerIdentifier);
+		}
 		
-		return $pagerConfig;
+		return $pagerConfigCollection;
 	}
 }
 ?>
