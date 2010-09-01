@@ -93,13 +93,10 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig {
 		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager "' . $pagerIdentifier . '" 1280408323'));
 		tx_pttools_assert::isTrue(class_exists($pagerSettings['pagerClassName']), array('message' => 'Given pager class ' . $pagerSettings['pagerClassName'] . ' does not exist or is not loaded! 1279541306'));
 		
-		tx_pttools_assert::isNotEmptyString($pagerSettings['templatePath'],array('message' => 'No template path given for pager "' . $pagerIdentifier . '" 1283377261'));
-		
 		$this->settings = $pagerSettings;
 		$this->pagerIdentifier = $pagerIdentifier;
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
-		$this->templatePath = $pagerSettings['templatePath'];
 		
 		$this->setOptionalSettings($pagerSettings);
 	}
@@ -119,6 +116,11 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig {
 			$this->itemsPerPage = $pagerSettings['itemsPerPage'];
 		}
 	
+		if(array_key_exists('templatePath', $pagerSettings)) {
+			$this->templatePath = $pagerSettings['templatePath'];
+		}
+		
+		
 	}
 	
 	

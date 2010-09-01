@@ -169,8 +169,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		if(array_key_exists('renderObj', $columnSettings)) {
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $columnSettings['renderObj']));
         }
-		
-		if(array_key_exists('sorting', $columnSettings)) {
+
+		if(array_key_exists('sorting', $columnSettings) && trim($columnSettings['sorting'])) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
 		}else{
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
