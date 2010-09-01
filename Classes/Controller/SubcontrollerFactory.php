@@ -138,7 +138,13 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
 
         $persistenceManager = self::getPersistenceManager();
 
-        $controller = $this->getPreparedController($request);
+        $subcontroller = $this->getPreparedController($request);
+        
+        $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+        $subcontrollerWrapper->injectSubcontroller($controller);
+        $subcontrollerWrapper->injectSubcontrollerFactory($this);
+        
+/*        
         #try {
             $controller->processRequest($request, $response);
         #} catch (Tx_Extbase_MVC_Exception_StopAction $ignoredException) {
@@ -149,8 +155,9 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
         }
         
         print_r($response->getContent());
+*/
         
-        return $controller;
+        return $subcontrollerWrapper;
 	}
 	
 }
