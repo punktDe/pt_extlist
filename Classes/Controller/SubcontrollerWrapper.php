@@ -70,14 +70,24 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	
 	
 	
-	public function injectRequest() {
-		
+	/**
+	 * Injector for request
+	 *
+	 * @param Tx_Extbase_MVC_Web_Request $request
+	 */
+	public function injectRequest(Tx_Extbase_MVC_Web_Request $request) {
+		$thist->request = $request;
 	}
 	
 	
 	
-	public function injectResponse() {
-		
+	/**
+	 * Injector for response
+	 *
+	 * @param Tx_Extbase_MVC_Web_Response $response
+	 */
+	public function injectResponse(Tx_Extbase_MVC_Web_Response $response) {
+	    $this->response = $response;	
 	}
 	
 	
