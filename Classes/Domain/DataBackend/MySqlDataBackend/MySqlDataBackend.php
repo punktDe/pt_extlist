@@ -448,9 +448,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     }
     
     /**
-     * Replaces all 
+     * Replaces all occurrences of "table.field AS fieldIdentifier" and "table.field"
      * 
-     * @param unknown_type $query
+     * @param string $query
      */
     protected function convertTableFieldToAlias($query) {
     	

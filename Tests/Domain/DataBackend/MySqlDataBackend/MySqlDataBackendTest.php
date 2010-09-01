@@ -381,6 +381,21 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	}
 
 	
+	public function testConvertTableFieldToAlias() {
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
+		$dataBackend = new $accessibleClassName($this->configurationBuilder);
+		$dataBackend->injectFieldConfigurationCollection($this->configurationBuilder->buildFieldsConfiguration());
+		
+		$strings[] = array('test' => 'table1.field1 AS fieldIndentifier1', 'return' =>'fieldIndentifier1'); 
+		$strings[] = array('test' => '(someSepcial table1.field1) AS SpecialIdentifier', 'return' =>'(someSepcial fieldIndentifier1) AS SpecialIdentifier'); 
+		$strings[] = array('test' => 'GROUP BY table1.field1', 'return' =>'GROUP BY fieldIndentifier1'); 
+		
+		foreach($strings as $string) {
+			$returnString = $dataBackend->_call('convertTableFieldToAlias', $string['test']);
+			$this->assertEquals($string['return'], $returnString, 'Mangled string is not as excepted : ' . $returnString . ' is not ' . $string['return']);
+		}
+	}
+	
 	
 	public function testBuildQuery() {
 		$this->markTestIncomplete();

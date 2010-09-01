@@ -1,0 +1,337 @@
+/**
+ * 								F R A M E W O R K
+ ******************************************************************************/
+
+body {
+	1background-color: #F5F5F5;
+	margin: 0;
+	padding: 20px 0;
+}
+
+#page {
+	margin: 0 auto;
+	position: relative;
+	text-align: left;
+	width: 960px;
+}
+
+/* clearing for elements */
+
+#header,
+#main-navigation,
+#breadcrumb,
+#main,
+#footer {
+	clear: both;
+}
+
+/**
+ * 									H E A D E R
+ ******************************************************************************/
+
+#header {
+	background-color: #DDDDDD;
+	border: 1px solid #AAAAAA;
+	height: 100px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+/* positioning for header elements */
+
+#meta-navigation,
+#login,
+#search,
+#logo,
+#subtitle {
+	position: absolute;
+}
+
+/* meta navigation */
+
+#meta-navigation {
+	right: 25px;
+	top: 15px;
+}
+
+#meta-navigation a {
+	text-decoration: none;
+}
+
+/* login */
+
+#login {
+	right: 25px;
+	top: 35px;
+}
+
+#login .field-wrapper {
+	display: inline;
+	margin-left: 1em;
+}
+
+#login .button {
+	font-size: 11px;
+}
+
+/* search */
+
+#search {
+	right: 25px;
+	top: 65px;
+}
+
+#search .field-wrapper {
+	display: inline;
+	margin-left: 1em;
+}
+
+#search .button {
+	font-size: 11px;
+}
+
+/* logo */
+
+#logo {
+	left: 25px;
+	top: 25px;
+}
+
+/* subtitle */
+
+#subtitle {
+	left: 25px;
+	top: 50px;
+}
+
+/**
+ * 							M A I N - N A V I G A T I O N
+ ******************************************************************************/
+
+#main-navigation {
+	background-color: #CCCCCC;
+	clear: both;
+	margin-bottom: 10px;
+}
+
+#main-navigation ul {
+	border: 1px solid #AAAAAA;
+	overflow: hidden;
+}
+
+#main-navigation li {
+	float: left;
+}
+
+#main-navigation a {
+	border-right: 1px solid #AAAAAA;
+	display: block;
+	padding: 5px 25px;
+	text-decoration: none;
+	zoom: 1;
+}
+
+#main-navigation a.cur,
+#main-navigation a.curifsub,
+#main-navigation a.actifsub {
+	background-color: #FFFFFF;
+}
+
+#main-navigation a:hover {
+	background-color: #DDDDDD;
+}
+
+/**
+ * 								B R E A D C R U M B
+ ******************************************************************************/
+
+#breadcrumb {
+	border: 1px solid #AAAAAA;
+	margin-bottom: 1em;
+	padding: 5px 25px;
+}
+
+#breadcrumb a {
+	text-decoration: none;
+}
+
+/**
+ * 						M A I N  C O L U M N  ( 3 | 1 | 2 )
+ ******************************************************************************/
+
+#main {
+	float: left;
+	padding-bottom: 1em;
+	width: 100%;
+}
+
+/* column 1 */
+
+#content {
+	float: right;
+	margin: 0 230px 0 -730px;
+	width: 500px;
+}
+
+/* column 2 */
+
+#sidebar-right {
+	float: right;
+	margin: 0;
+	width: 230px;
+}
+
+#sidebar-right-inner {
+	padding-left: 30px;
+}
+
+/* column 3 */
+
+#sidebar-left {
+	float: left;
+	margin-left: 0;
+	margin-right: -5px;
+	width: 230px;
+}
+
+#sidebar-left-inner {
+	padding-right: 30px;
+}
+
+/* page template #01.03 [2 cols: sub nav, sidebar, content] */
+
+.pt-01-03 #content {
+	margin-right: 0;
+	width: 730px;
+}
+
+.pt-01-03 #content-inner {
+	padding-right: 30px;
+}
+
+/* page template #01.01 [1 col: content] */
+
+.pt-01-04 #content {
+	margin: 0;
+	width: 960px;
+}
+
+/**
+ * 							S I D E B A R - L E F T
+ ******************************************************************************/
+
+/* sidebar-left navigation */
+
+#sidebar-left .nav {
+	border: 1px solid #AAAAAA;
+	border-top: 0;
+}
+
+#sidebar-left .nav a {
+	background-color: #DDDDDD;
+	border-top: 1px solid #AAAAAA;
+	display: block;
+	line-height: 1.25em;
+	padding: 5px 25px;
+	text-decoration: none;
+	width: auto;
+}
+
+#sidebar-left .nav a.cur,
+#sidebar-left .nav a.curifsub,
+#sidebar-left .nav li.active a.cur,
+#sidebar-left .nav li.active a.curifsub {
+	background-color: #FFFFFF;
+}
+
+#sidebar-left .nav a:hover,
+#sidebar-left .nav li.active a:hover {
+	background-color: #F5F5F5;
+}
+
+#sidebar-left .nav li.active a {
+	background-color: #EEEEEE;
+}
+
+/* sidebar-left navigation 2nd level */
+
+#sidebar-left .nav ul a {
+	padding-left: 35px;
+}
+
+/* sidebar-left navigation 3rd level */
+
+#sidebar-left .nav ul ul a {
+	padding-left: 45px;
+}
+
+/**
+ * 									F O O T E R
+ ******************************************************************************/
+
+#footer {
+	background-color: #DDDDDD;
+	border: 1px solid #AAAAAA;
+	padding: 5px 25px;
+}
+
+#footer .content {
+	font-size: 10px;
+}
+
+/**
+ * 									P R I N T
+ ******************************************************************************/
+
+@media print {
+
+	/* hide elements */
+	 
+	#header,
+	#main-navigation,
+	#breadcrumb,
+	#footer,
+	#sidebar-left .nav {
+		display: none;
+	}
+
+	/* avoid page breaks right after headings */
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		page-break-after: avoid;
+	}
+
+	/* linearize columns  */
+
+	#content,
+	#content-inner {
+		border: 0;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
+	#sidebar-right,
+	#sidebar-right-inner {
+		border: 0;
+		float: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}	
+
+	#sidebar-left,
+	#sidebar-left-inner {
+		border: 0;
+		float: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}	
+
+}
