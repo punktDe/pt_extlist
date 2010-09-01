@@ -31,34 +31,86 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttools_objectCollection {
 
+	/**
+	 * Identifier of current list
+	 * @var string
+	 */
 	protected $listIdentifier;
 	
+	
+	/**
+	 * @var string
+	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig';
 	
+	
+	/**
+	 * Identifier of this filterbox
+	 * @var string
+	 */
 	protected $filterboxIdentifier;
 
+	
+	/**
+	 * Show a reset link / button
+	 * @var boolean
+	 */
+	protected $showReset = true;
+	
+	
 	
 	public function __construct(
 	       Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, 
 	       $filterboxIdentifier, 
-	       $settings) {
+	       $filterBoxSettings) {
 		tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty! 1277889451'));
+		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxIdentifier;
-		// TODO implement settings
+		
+		$this->setOptionalSettings($filterBoxSettings);
 	}
 	
 	
+	/**
+	 * Set the optional settings
+	 * 
+	 * @param array $filterBoxSettings
+	 */
+	protected function setOptionalSettings($filterBoxSettings) {
+		
+		if(array_key_exists('showReset', $filterBoxSettings)) {
+			$this->showReset = $filterBoxSettings['showReset'] == 1 ? true : false;
+		}
+		
+	} 
 	
+	
+	/**
+	 * @return string filterboxIdentifier
+	 */
 	public function getFilterboxIdentifier() {
 		return $this->filterboxIdentifier;
 	}
 	
 	
+	
+	/*
+	 * @return string listIdentifier
+	 */
 	public function getListIdentifier() {
 		return $this->listIdentifier;
 	}
 	
+	
+	
+	/**
+	 * Show Reset button / link in filterbox
+	 * @return boolean showReset
+	 */
+	public function getShowReset() {
+		return $this->showReset;
+	}
 	
 }
 
