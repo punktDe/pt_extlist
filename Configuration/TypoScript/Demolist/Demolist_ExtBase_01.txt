@@ -98,15 +98,17 @@ plugin.tx_ptextlist.settings {
         filters {
             
             filterbox1 {
-            
-                10 < plugin.tx_ptextlist.prototype.filter.string
-                10 {
-                
-                    filterIdentifier = filter1
-                    label = Gruppentitel
-                    fieldIdentifier = title
-                
-                }
+            	filterConfigs {
+	                10 < plugin.tx_ptextlist.prototype.filter.string
+	                10 {
+	                
+	                    filterIdentifier = filter1
+	                    label = Gruppentitel
+	                    fieldIdentifier = title
+	                
+	                }
+	            
+	            }
             
             }
             

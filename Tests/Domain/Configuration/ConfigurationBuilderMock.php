@@ -160,20 +160,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                    ),
 	                    'filters' => array(
 	                         'testfilterbox' => array(
-	                             '10' => array(
-	                                'filterIdentifier' => 'filter1',
-	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldIdentifier' => 'field1',
-	                                'partialPath' => 'Filter/StringFilter',
-	                                'defaultValue' => 'default',
-	                             ),
-	                             '20' => array(
-	                                'filterIdentifier' => 'filter2',
-	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldIdentifier' => 'field1',
-                                    'partialPath' => 'Filter/StringFilter',
-                                    'accessGroups' => '1,2,3'
-	                             )
+	                            'filterConfigs' => array( 
+		                         	'10' => array(
+		                                'filterIdentifier' => 'filter1',
+		                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+	                                    'fieldIdentifier' => 'field1',
+		                                'partialPath' => 'Filter/StringFilter',
+		                                'defaultValue' => 'default',
+		                             ),
+		                             '20' => array(
+		                                'filterIdentifier' => 'filter2',
+		                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+	                                    'fieldIdentifier' => 'field1',
+	                                    'partialPath' => 'Filter/StringFilter',
+	                                    'accessGroups' => '1,2,3'
+		                             )
+		                         )
 	                         )
 	                    ),
 	                    'pager' => array(
