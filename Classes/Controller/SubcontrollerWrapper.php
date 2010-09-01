@@ -53,6 +53,36 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	
 	
 	/**
+	 * Holds an instance of current request that has to be processed by subcontroller
+	 *
+	 * @var Tx_Extbase_MVC_Web_Request
+	 */
+	protected $request;
+	
+	
+	
+	/**
+	 * Holds an instance of current response that is manipulated by subcontroller
+	 *
+	 * @var Tx_Extbase_MVC_Web_Response
+	 */
+	protected $response;
+	
+	
+	
+	public function injectRequest() {
+		
+	}
+	
+	
+	
+	public function injectResponse() {
+		
+	}
+	
+	
+	
+	/**
 	 * Injector for subcontroller
 	 *
 	 * @param Tx_PtExtlist_Controller_AbstractController $subcontroller
@@ -94,7 +124,15 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
     
     
     protected function processAction($method, $args) {
-        
+        while (!$this->request->isDispatched()) {
+            if ($dispatchLoopCount++ > 99) throw new Tx_Extbase_MVC_Exception_InfiniteLoop('Could not ultimately dispatch the request after '  . $dispatchLoopCount . ' iterations.', 1217839467);
+            // TODO has to be taken from subcontroller factory
+            try {
+                $this->subController->processRequest($this->request, $this->response);
+            } catch (Tx_Extbase_MVC_Exception_StopAction $ignoredException) {
+            }
+            $this->subController = $this->subcontrollerFactory->getPreparedSubController($this->request);
+        }
     }
 	
 	

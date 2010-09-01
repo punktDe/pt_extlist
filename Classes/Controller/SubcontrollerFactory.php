@@ -165,4 +165,17 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
         return $subcontrollerWrapper;
 	}
 	
+	
+	
+	
+	/**
+	 * Returns current subcontroller
+	 *
+	 * @param Tx_Extbase_MVC_Web_Request $request
+	 * @return Tx_Extbase_MVC_Controller_ControllerInterface
+	 */
+	public function getPreparedSubController(Tx_Extbase_MVC_Web_Request $request) {
+		return $this->getPreparedController($request);
+	}
+	
 }
