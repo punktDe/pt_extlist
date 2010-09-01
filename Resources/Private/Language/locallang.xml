@@ -7,10 +7,16 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+            
             <label index="emptyList">Sorry, no list items available.</label>
+            
             <label index="pager.of">of</label>
             <label index="pager.to">to</label>
             <label index="pager.showItems">Show item</label>
+            
+            <label index="filterBox.resetFilters">Reset Filters</label>
+            <label index="filterBox.errorInFilter">The filters contain errors.</label>
+            
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Description</label>
@@ -26,6 +32,10 @@
             <label index="pager.of">von</label>
             <label index="pager.to">bis</label>
             <label index="pager.showItems">Zeige Element</label>
+            
+            <label index="filterBox.resetFilters">Filter zurücksetzen.</label>
+            <label index="filterBox.errorInFilter">Die Eingaben der Filter enthalten Fehler.</label>
+            
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Beschreibung</label>

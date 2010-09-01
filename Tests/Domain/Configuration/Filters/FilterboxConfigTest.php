@@ -28,12 +28,29 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
+	public function setUp() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig'), 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig does not exist!');
+    }
+    
+    public function testGetFilterIdentifier() {
+    	$filterBoxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array());
+    	$this->assertEquals('testfilterbox', $filterBoxConfig->getFilterboxIdentifier());
+    }
+    
+    public function testGetshowReset() {
+    	$filterBoxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array());
+    	$this->assertEquals(true, $filterBoxConfig->getShowReset());
+    	
+    	$filterBoxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('showReset' => 0));
+    	$this->assertEquals(false, $filterBoxConfig->getShowReset());
     }
 	
 }
