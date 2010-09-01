@@ -161,8 +161,23 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
         $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
         $subcontrollerWrapper->injectSubcontroller($subcontroller);
         $subcontrollerWrapper->injectSubcontrollerFactory($this);
+        $subcontrollerWrapper->injectRequest($request);
+        $subcontrollerWrapper->injectResponse($response);
         
         return $subcontrollerWrapper;
+	}
+	
+	
+	
+	
+	/**
+	 * Returns current subcontroller
+	 *
+	 * @param Tx_Extbase_MVC_Web_Request $request
+	 * @return Tx_Extbase_MVC_Controller_ControllerInterface
+	 */
+	public function getPreparedSubController(Tx_Extbase_MVC_Web_Request $request) {
+		return $this->getPreparedController($request);
 	}
 	
 }
