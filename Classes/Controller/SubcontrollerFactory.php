@@ -117,9 +117,24 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
         $this->initializeConfigurationManagerAndFrameworkConfiguration($configuration);
         
         // TODO fake request!
-        $requestBuilder = t3lib_div::makeInstance('Tx_Extbase_MVC_Web_RequestBuilder');
-        $request = $requestBuilder->initialize(self::$extbaseFrameworkConfiguration);
-        $request = $requestBuilder->build();
+        try {
+	        $requestBuilder = t3lib_div::makeInstance('Tx_Extbase_MVC_Web_RequestBuilder'); /* @var $requestBuilder Tx_Extbase_MVC_Web_RequestBuilder */
+	        $request = $requestBuilder->initialize(self::$extbaseFrameworkConfiguration);
+	        $request = $requestBuilder->build();
+        } catch(Exception $e) {
+        	/* TODO this is done for being testable in CLI environment! */
+        	$actionNames = $configuration['switchableControllerActions.']['1.']['actions'];
+        	$actions = explode(',', $actionNames);
+        	
+        	$request = t3lib_div::makeInstance('Tx_Extbase_MVC_Web_Request'); /* @var $request Tx_Extbase_MVC_Web_Request */
+            $request->setPluginName($configuration['pluginName']);
+	        $request->setControllerExtensionName($configuration['extensionName']);
+	        $request->setControllerName($configuration['controller']);
+	        $request->setControllerActionName($actions[0]);
+	        $request->setRequestURI('http://fakeuri.com');
+	        $request->setBaseURI('http://fakeuri.com');
+	        $request->setMethod('HTTP');
+        }
         
 		// Remind setting list identifier in TS! plugin.tx_ptextlist.settings.listIdentifier = <listIdentifier>
 		self::$extbaseFrameworkConfiguration = t3lib_div::array_merge_recursive_overrule(
@@ -146,19 +161,6 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
         $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
         $subcontrollerWrapper->injectSubcontroller($subcontroller);
         $subcontrollerWrapper->injectSubcontrollerFactory($this);
-        
-/*        
-        #try {
-            $controller->processRequest($request, $response);
-        #} catch (Tx_Extbase_MVC_Exception_StopAction $ignoredException) {
-        #}
-        
-        if (count($response->getAdditionalHeaderData()) > 0) {
-            $GLOBALS['TSFE']->additionalHeaderData[$request->getControllerExtensionName()] = implode("\n", $response->getAdditionalHeaderData());
-        }
-        
-        print_r($response->getContent());
-*/
         
         return $subcontrollerWrapper;
 	}
