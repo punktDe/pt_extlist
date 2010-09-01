@@ -106,9 +106,14 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerFactory_testcase extends Tx_PtE
                             'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialcell->processCell'
                         ),
                         'pager' => array(
-                            'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
-                            'itemsPerPage'   => '10', 
-                            'enabled' => '1'
+                            'itemsPerPage'   => '10',
+                            'pagerConfigs' => array(
+                                'default' => array(
+                                    'templatePath' => 'EXT:pt_extlist/',
+                                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                                    'enabled' => '1'
+                                ),
+                            ),
                         ),
                     )
                 )
