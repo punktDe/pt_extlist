@@ -51,6 +51,15 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtE
     	$subcontrollerMock = $this->getMock('Tx_PtExtlist_Controller_ListController', array(), array(), '', FALSE);
     	$subcontrollerWrapper->injectSubcontroller($subcontrollerMock);
     }
+    
+    
+    
+    public function testInjectSubcontrollerFactory() {
+    	$subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+    	$this->assertTrue(method_exists($subcontrollerWrapper, 'injectSubcontrollerFactory'));
+    	$subcontrollerFactoryMock = $this->getMock('Tx_PtExtlist_Controller_SubcontrollerFactory', array(), array(), '', FALSE);
+    	$subcontrollerWrapper->injectSubcontrollerFactory($subcontrollerFactoryMock);
+    }
 	
 }
 

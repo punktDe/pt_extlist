@@ -43,6 +43,16 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	
 	
 	/**
+	 * Holds an instance of subcontroller factory to create
+	 * instances of subcontrollers for forwardings etc.
+	 *
+	 * @var Tx_PtExtlist_Controller_SubcontrollerFactory
+	 */
+	protected $subcontrollerFactory;
+	
+	
+	
+	/**
 	 * Injector for subcontroller
 	 *
 	 * @param Tx_PtExtlist_Controller_AbstractController $subcontroller
@@ -50,6 +60,29 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	public function injectSubcontroller(Tx_PtExtlist_Controller_AbstractController $subcontroller) {
 		$this->subcontroller = $subcontroller;
 	}
+	
+	
+	
+	/**
+	 * Injector for subcontroller factory
+	 *
+	 * @param Tx_PtExtlist_Controller_SubcontrollerFactory $subcontrollerFactory
+	 */
+	public function injectSubcontrollerFactory(Tx_PtExtlist_Controller_SubcontrollerFactory $subcontrollerFactory) {
+		$this->subcontrollerFactory = $subcontrollerFactory;
+	}
+	
+	
+	
+    public function __call($method, $args) {
+    	
+    }
+    
+    
+    
+    public function processAction() {
+        
+    }
 	
 	
 }

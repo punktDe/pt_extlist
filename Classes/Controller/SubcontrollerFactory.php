@@ -84,7 +84,6 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
 	
 	
 	public function createListController($config = array()) {
-		// TODO merge $config over generic config
 		$configuration = array(
 			"userFunc"=>		 "tx_extbase_dispatcher->dispatch",
 			"pluginName"=>			 "pi1",
@@ -115,14 +114,33 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
 			"_LOCAL_LANG"=>			  "< plugin.tx_ptextlist._LOCAL_LANG"
 		);
 		
-		// Remind setting list identifier in TS! plugin.tx_ptextlist.listIdentifier = <listIdentifier>
-		
         $this->initializeConfigurationManagerAndFrameworkConfiguration($configuration);
         
         // TODO fake request!
-        $requestBuilder = t3lib_div::makeInstance('Tx_Extbase_MVC_Web_RequestBuilder');
-        $request = $requestBuilder->initialize(self::$extbaseFrameworkConfiguration);
-        $request = $requestBuilder->build();
+        try {
+	        $requestBuilder = t3lib_div::makeInstance('Tx_Extbase_MVC_Web_RequestBuilder'); /* @var $requestBuilder Tx_Extbase_MVC_Web_RequestBuilder */
+	        $request = $requestBuilder->initialize(self::$extbaseFrameworkConfiguration);
+	        $request = $requestBuilder->build();
+        } catch(Exception $e) {
+        	/* TODO this is done for being testable in CLI environment! */
+        	$actionNames = $configuration['switchableControllerActions.']['1.']['actions'];
+        	$actions = explode(',', $actionNames);
+        	
+        	$request = t3lib_div::makeInstance('Tx_Extbase_MVC_Web_Request'); /* @var $request Tx_Extbase_MVC_Web_Request */
+            $request->setPluginName($configuration['pluginName']);
+	        $request->setControllerExtensionName($configuration['extensionName']);
+	        $request->setControllerName($configuration['controller']);
+	        $request->setControllerActionName($actions[0]);
+	        $request->setRequestURI('http://fakeuri.com');
+	        $request->setBaseURI('http://fakeuri.com');
+	        $request->setMethod('HTTP');
+        }
+        
+		// Remind setting list identifier in TS! plugin.tx_ptextlist.settings.listIdentifier = <listIdentifier>
+		self::$extbaseFrameworkConfiguration = t3lib_div::array_merge_recursive_overrule(
+            self::$extbaseFrameworkConfiguration,
+            $config
+        );
         
         if (isset($this->cObj->data) && is_array($this->cObj->data)) {
             // we need to check the above conditions as cObj is not available in Backend.
@@ -138,19 +156,13 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
 
         $persistenceManager = self::getPersistenceManager();
 
-        $controller = $this->getPreparedController($request);
-        #try {
-            $controller->processRequest($request, $response);
-        #} catch (Tx_Extbase_MVC_Exception_StopAction $ignoredException) {
-        #}
+        $subcontroller = $this->getPreparedController($request);
         
-        if (count($response->getAdditionalHeaderData()) > 0) {
-            $GLOBALS['TSFE']->additionalHeaderData[$request->getControllerExtensionName()] = implode("\n", $response->getAdditionalHeaderData());
-        }
+        $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+        $subcontrollerWrapper->injectSubcontroller($subcontroller);
+        $subcontrollerWrapper->injectSubcontrollerFactory($this);
         
-        print_r($response->getContent());
-        
-        return $controller;
+        return $subcontrollerWrapper;
 	}
 	
 }
