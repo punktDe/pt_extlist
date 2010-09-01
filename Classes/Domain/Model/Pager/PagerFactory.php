@@ -28,47 +28,33 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
-	
-	/**
-	 * Holds an array with instances of pagers
-	 *
-	 * @var array
-	 */
-	protected static $instances = array();
-	
 	
 	
 	/**
 	 * Returns an instance of pager for a given configuration builder and a pager configuration
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration
+	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder,
-	    Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
-		if (!array_key_exists($configurationBuilder->getListIdentifier(), self::$instances) || 
-			!array_key_exists($pagerConfiguration->getPagerIdentifier(), self::$instances[$configurationBuilder->getListIdentifier()])) {
-			self::$instances[$configurationBuilder->getListIdentifier()][$pagerConfiguration->getPagerIdentifier()] = self::createInstance($pagerConfiguration);
-		}
-		return self::$instances[$configurationBuilder->getListIdentifier()][$pagerConfiguration->getPagerIdentifier()];
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration) {
+		
+		return  self::createInstance($pagerConfiguration);
+	
 	}
 	
 	
 	
 	/**
 	 * Returns pager object configured by given pager configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
-	private static function createInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
+	private static function createInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration) {
 		$pagerClassName = $pagerConfiguration->getPagerClassName();
-		tx_pttools_assert::isNotEmptyString($pagerClassName, array('message' => 'No filter class name given, check configuration! 1279541291'));
-		tx_pttools_assert::isTrue(class_exists($pagerClassName), array('message' => 'Given pager class ' . $pagerClassName . ' does not exist or is not loaded! 1279541306'));
         		
 		$pager = new $pagerClassName($pagerConfiguration);
         tx_pttools_assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));

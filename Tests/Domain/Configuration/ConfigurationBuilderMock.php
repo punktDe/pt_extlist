@@ -57,9 +57,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	            'listIdentifier' => 'test',
 	            'abc' => '1',
             	'prototype' => array(
-				'pager' => array(
-						'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
-					),
+
 				'backend' => array (
 					'mysql' => array (
 						'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
