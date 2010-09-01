@@ -44,12 +44,29 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtE
     }
     
     
+    public function testInjectRequest() {
+        $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+        $this->assertTrue(method_exists($subcontrollerWrapper, 'injectRequest'));
+        $requestMock = $this->getMock('Tx_Extbase_MVC_Web_Request');
+        $subcontrollerWrapper->injectRequest($requestMock);
+    }
+    
+    
     
     public function testInjectSubcontroller() {
     	$subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
     	$this->assertTrue(method_exists($subcontrollerWrapper, 'injectSubcontroller'));
     	$subcontrollerMock = $this->getMock('Tx_PtExtlist_Controller_ListController', array(), array(), '', FALSE);
     	$subcontrollerWrapper->injectSubcontroller($subcontrollerMock);
+    }
+    
+    
+    
+    public function testInjectResponse() {
+        $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+        $this->assertTrue(method_exists($subcontrollerWrapper, 'injectResponse'));
+        $responseMock = $this->getMock('Tx_Extbase_MVC_Web_Response');
+        $subcontrollerWrapper->injectResponse($responseMock);
     }
     
     
