@@ -31,11 +31,12 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
     
     public function testCreateInstanceByfilterboxConfigurationCollection() {
-    	$configurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder); 
+    	$this->initDefaultConfigurationBuilderMock();
+    	Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+        $filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($this->configurationBuilderMock); 
     }
     
 }
