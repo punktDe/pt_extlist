@@ -83,11 +83,8 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 */
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
 		$fieldIdentifier = $filterConfig->getFieldIdentifier();
-		
-		$fieldIds = explode(',', trim($fieldIdentifier));
+		$fieldIds = t3lib_div::trimExplode(',', $fieldIdentifier);
 		$fieldConfigCollection = $configBuilder->buildFieldsConfiguration();
-		
-		
 		
 		// FAIL if one of this tests are failing.
 		if(!$this->checkFields($fieldConfigCollection, $fieldIds)) {
@@ -104,14 +101,21 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		return true;
 	}
 	
+	
+	/**
+	 * Check field access 
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+	 * @param array $fieldIds
+	 */
 	protected function checkFields(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection, array $fieldIds) {
+			
 		foreach($fieldIds as $fieldId) {
-			$fieldConfig = $fieldConfigCollection->getItemById($fieldId);
+			$fieldConfig = $fieldConfigCollection->getFieldConfigByIdentifier($fieldId);
 			$ident = $fieldConfig->getAccessGroups();
 				
 			if( empty($ident) ) continue;
 			if(! $this->compareAccess($ident) ) return false;
-
 		}
 		
 		return true;
