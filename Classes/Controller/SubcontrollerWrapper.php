@@ -39,7 +39,7 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	 * @var Tx_PtExtlist_Controller_AbstractController
 	 */
 	protected $subcontroller;
-	
+
 	
 	
 	/**

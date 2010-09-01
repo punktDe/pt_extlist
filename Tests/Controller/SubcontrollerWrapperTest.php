@@ -36,6 +36,13 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtE
     	$this->assertTrue(class_exists('Tx_PtExtlist_Controller_SubcontrollerWrapper'));
     }
     
+
+    
+    public function setup() {
+        parent::setup();
+        $this->setupDispatcher();
+    }
+    
     
     
     public function testInjectSubcontroller() {
