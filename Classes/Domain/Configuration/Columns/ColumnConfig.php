@@ -25,7 +25,8 @@
 
 /**
  * Column Config Object 
- *
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package pt_extlist
  * @subpackage Domain\Configuration\Columns
  */
@@ -116,7 +117,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $columnSettings) {
 		tx_pttools_assert::isNotEmptyString($columnSettings['columnIdentifier'], array(message => 'Column identifier not given 1277889446'));
-		tx_pttools_assert::isNotEmptyString($columnSettings['fieldIdentifier'], array(message => 'Field identifier not given 1277889447'));
+		tx_pttools_assert::isNotEmptyString($columnSettings['fieldIdentifier'], array(message => 'Field identifier for Column "'.$columnSettings['columnIdentifier'].'" not given 1277889447'));
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
