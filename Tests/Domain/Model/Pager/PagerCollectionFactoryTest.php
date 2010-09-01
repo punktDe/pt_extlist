@@ -26,9 +26,98 @@
 
 class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	protected $settings = array(
+                'listIdentifier' => 'Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest',
+                'prototype' => array(
+                'pager' => array(
+                        'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
+                    ),
+                'backend' => array (
+                    'mysql' => array (
+                        'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+                        'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                        'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        
+                        
+                    )
+                    ),
+                'column' => array (
+                        'xy' => 'z',
+                    ),
+                ),
+                'listConfig' => array(
+                     'Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest' => array(
+                        
+                        'backendConfig' => array (
+                                'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+                                'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                                'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+
+                                'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
+                
+                            ),
+                        
+                         'abc' => '2',
+                         'def' => '3',
+                            
+                         'fields' => array(
+                             'field1' => array( 
+                                 'table' => 'tableName1',
+                                 'field' => 'fieldName1',
+                                 'isSortable' => '0',
+                                 'access' => '1,2,3,4'
+                             ),
+                             'field2' => array( 
+                                 'table' => 'tableName2',
+                                 'field' => 'fieldName2',
+                                 'isSortable' => '1',
+                                 'access' => '1,2,3,4'
+                             )
+                         ),
+                        'columns' => array(
+                            10 => array( 
+                                'columnIdentifier' => 'column1',
+                                'fieldIdentifier' => 'field1',
+                                'label' => 'Column 1',
+                                'isSortable' => '0',
+                                'access' => '1,2,3,4'
+                            ),
+                            20 => array( 
+                                'columnIdentifier' => 'column2',
+                                'fieldIdentifier' => 'field2',
+                                'label' => 'Column 2',  
+                                'isSortable' => '1',
+                                'sorting' => 'tstamp, title',
+                                'access' => '1,2,3,4'
+                            )
+                        ),
+                        'renderer' => array(
+                            'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
+                            'enabled' => 1,
+                            'showCaptionsInBody' => 0,
+                            'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialcell->processCell'
+                        ),
+                        'pager' => array(
+                            'itemsPerPage'   => '10',
+                            'pagerConfigs' => array(
+                                'default' => array(
+                                    'templatePath' => 'EXT:pt_extlist/',
+                                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                                    'enabled' => '1'
+                                ),
+                            ),
+                        ),
+                    )
+                )
+        );
+	
+	
+        
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
+	
+	
 	
 	public function testGetInstance() {
 		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilderMock);
