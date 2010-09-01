@@ -54,13 +54,22 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 		$listIdentifier = $configurationBuilder->getListIdentifier();
 		
 		if(self::$pagerCollection[$listIdentifier] == NULL) {
-			self::$pagerCollection[$listIdentifier] = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection();
-		
+			$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($configurationBuilder);
+			
+			$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+			$sessionPersistenceManager->loadFromSession($pagerCollection);
+			
+			Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->injectParametersInObject($pagerCollection);
+			
 			// Create pagers and add them to the collection
 			foreach($pagerConfigurationCollection as $pagerIdentifier => $pagerConfig) {
 				$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($pagerConfig);
-				self::$pagerCollection[$listIdentifier]->addPager($pager);
+				$pagerCollection->addPager($pager);
 			}
+			
+			$sessionPersistenceManager->persistToSession($pagerCollection);
+			
+			self::$pagerCollection[$listIdentifier] = $pagerCollection;
 		}
 		
 		
