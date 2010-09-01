@@ -83,6 +83,14 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
 	
 	
 	
+	/**
+	 * Creates a controller object for list controller
+	 * 
+	 * // TODO make this generic for all controllers (--> how to get dynamic TS config for plugin?)
+	 *
+	 * @param unknown_type $config
+	 * @return unknown
+	 */
 	public function createListController($config = array()) {
 		$configuration = array(
 			"userFunc"=>		 "tx_extbase_dispatcher->dispatch",
