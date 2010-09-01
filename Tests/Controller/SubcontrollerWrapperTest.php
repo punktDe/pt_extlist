@@ -44,6 +44,7 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtE
     }
     
     
+    
     public function testInjectRequest() {
         $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
         $this->assertTrue(method_exists($subcontrollerWrapper, 'injectRequest'));
@@ -103,7 +104,26 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtE
     	}
     	$this->fail('No Exception has been thrown when trying to call non-existing action on list controller!');
     }
-	
+    
+    
+    
+    public function testCallActionOnControllerWhenProcessingAction() {
+        $subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+        
+        $subcontrollerMock = $this->getMock('Tx_PtExtlist_Controller_ListController', array(), array(), '', FALSE);
+        $subcontrollerMock->expects($this->once())->method('processRequest');
+        $subcontrollerWrapper->injectSubcontroller($subcontrollerMock);
+
+        $requestMock = $this->getMock('Tx_Extbase_MVC_Web_Request');
+        $requestMock->expects($this->at(0))->method('isDispatched')->will($this->returnValue(FALSE));
+        $requestMock->expects($this->at(1))->method('isDispatched')->will($this->returnValue(TRUE));
+        $subcontrollerWrapper->injectRequest($requestMock);
+        
+        $responseMock = $this->getMock('Tx_Extbase_MVC_Web_Response');
+        $subcontrollerWrapper->injectResponse($responseMock);
+        
+        $subcontrollerWrapper->listAction();
+    }	
 }
 
 ?>
