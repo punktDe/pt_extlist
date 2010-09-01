@@ -20,7 +20,7 @@ bool                                                                filtersDontV
 		
 		<f:if condition="{filtersDontValidate}">
 			<div class="error">
-				Error!!!
+				<f:translate key="filterBox.errorInFilter" default="Errors in Filter." />
 			</div>
 		</f:if>
 		
@@ -32,11 +32,13 @@ bool                                                                filtersDontV
 			<div class="outer-field-wrapper">
 				<div class="field-wrapper type-button">
 					<f:form.submit value="Submit Filters"/>
-					<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
-						<span>
-							Reset filters
-						</span>
-					</f:link.action>
+						<f:if condition="{filterbox.filterboxConfiguration.showReset}">
+							<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
+								<span>
+									<f:translate key="filterBox.resetFilters" default="Reset filters" />
+								</span>
+							</f:link.action>
+						</f:if>
 				</div>
 			</div>
 		</div>
