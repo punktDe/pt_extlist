@@ -118,27 +118,27 @@ plugin.tx_ptextlist.settings {
         filters {
             
             filterbox1 {
-            
-                10 < plugin.tx_ptextlist.prototype.filter.string
-                10 {
-                    partialPath = EXT:pt_extlist/Resources/Private/Partials/Filter/StringFilter.html
-                    filterIdentifier = filter1
-                    label = Benutzername
-                    fieldIdentifier = username
-                }
-                
-                20 < plugin.tx_ptextlist.prototype.filter.select
-                20 {
-                    additionalTables = Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
-                    filterIdentifier = filter2
-                    label = Benutzergruppe
-                    fieldIdentifier = groupuid
-                    displayFields = grouptitle
-                    filterField = groupuid
-                    multiple = 1
-                    excludeFilters = filterbox1.filter1
-                }
-            
+            	filterConfigs {
+	                10 < plugin.tx_ptextlist.prototype.filter.string
+	                10 {
+	                    partialPath = EXT:pt_extlist/Resources/Private/Partials/Filter/StringFilter.html
+	                    filterIdentifier = filter1
+	                    label = Benutzername
+	                    fieldIdentifier = username
+	                }
+	                
+	                20 < plugin.tx_ptextlist.prototype.filter.select
+	                20 {
+	                    additionalTables = Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
+	                    filterIdentifier = filter2
+	                    label = Benutzergruppe
+	                    fieldIdentifier = groupuid
+	                    displayFields = grouptitle
+	                    filterField = groupuid
+	                    multiple = 1
+	                    excludeFilters = filterbox1.filter1
+	                }
+            	}
             }
             
         }

@@ -264,6 +264,7 @@ plugin.tx_ptextlist.settings {
         
         filters {
 	        filterbox1 {
+	        	filterConfigs {
 	              10 < plugin.tx_ptextlist.prototype.filter.string 
 	              10 {
 	                  filterIdentifier = filter1
@@ -309,17 +310,20 @@ plugin.tx_ptextlist.settings {
 					  invert = 0
 					  invertable = 0
 					  accessGroups = 3
+					  }
 	              }
 	         }
 	         
 	         filterbox2 {
-	         	10 < plugin.tx_ptextlist.prototype.filter.firstLetter
-	         	10 {
-	         		filterIdentifier = filter4
-	         		label = Capital
-	         		fieldIdentifier = capital
-	         		inactiveOption = [ALL]
-	         	}
+	         	filterConfigs {
+		         	10 < plugin.tx_ptextlist.prototype.filter.firstLetter
+		         	10 {
+		         		filterIdentifier = filter4
+		         		label = Capital
+		         		fieldIdentifier = capital
+		         		inactiveOption = [ALL]
+		         	}
+		         }
 	         }
         }  
     }
