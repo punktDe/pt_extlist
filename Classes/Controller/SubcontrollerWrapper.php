@@ -74,13 +74,26 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	
 	
 	
+	/**
+	 * Magic function that handles action-calls on subcontroller wrapper.
+	 * Checks whether given method name is a correct action and whether action exists in controller
+	 *
+	 * @param string $method Method name to be called on subcontroller
+	 * @param array $args Arguments delivered for action to be called
+	 */
     public function __call($method, $args) {
-    	
+    	if (!preg_match('/(.+?)Action/', $method)) {
+    		throw new Exception('Given method name is not a correct action name: ' . $method . ' 1283351947');
+    	}
+    	if (!method_exists($this->subcontroller, $method)) {
+    		throw new Exception('Trying to call action ' . $method . ' on ' . get_class($this->subcontroller) . ' which does not exist! 1283351948');
+    	}
+    	$this->processAction($method, $args);
     }
     
     
     
-    public function processAction() {
+    protected function processAction($method, $args) {
         
     }
 	

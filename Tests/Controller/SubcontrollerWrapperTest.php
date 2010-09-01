@@ -60,6 +60,32 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtE
     	$subcontrollerFactoryMock = $this->getMock('Tx_PtExtlist_Controller_SubcontrollerFactory', array(), array(), '', FALSE);
     	$subcontrollerWrapper->injectSubcontrollerFactory($subcontrollerFactoryMock);
     }
+    
+    
+    
+    public function testThrowExceptionOnWrongActionName() {
+    	$subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+    	try {
+    		$subcontrollerWrapper->wrongActName();
+    	} catch(Exception $e) {
+    		return;
+    	}
+    	$this->fail('No Exception has been thrown when trying to call wrong action method on subcontroller wrapper!');
+    }
+    
+    
+    
+    public function testThrowExceptionOnNonExistingAction() {
+    	$subcontrollerMock = $this->getMock('Tx_PtExtlist_Controller_ListController', array(), array(), '', FALSE);
+    	$subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+    	$subcontrollerWrapper->injectSubcontroller($subcontrollerMock);
+    	try {
+    		$subcontrollerWrapper->wrongListAction();
+    	} catch(Exception $e) {
+    		return;
+    	}
+    	$this->fail('No Exception has been thrown when trying to call non-existing action on list controller!');
+    }
 	
 }
 

@@ -138,11 +138,12 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerFactory_testcase extends Tx_PtE
     }
     
     
+    
     public function testCreateListController() {
     	$subcontrollerFactory = Tx_PtExtlist_Controller_SubcontrollerFactory::getInstanceByListIdentifier('test');
     	$this->assertTrue(method_exists($subcontrollerFactory, 'createListController'));
     	
-    	// Faked settings have to be given as parameter to make sure, that factory has list settings
+    	// Faked settings have to be given as parameter to make sure, that factory has list settings when testing
     	$listSubController = $subcontrollerFactory->createListController($this->settings);
     	
     	$this->assertTrue(is_a($listSubController, 'Tx_PtExtlist_Controller_SubcontrollerWrapper'));
