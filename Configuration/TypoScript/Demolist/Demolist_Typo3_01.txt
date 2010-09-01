@@ -50,8 +50,9 @@ plugin.tx_ptextlist.settings {
             baseWhereClause (
             	st_continent.tr_name_en <> '' 
 				AND st_subcontinent.tr_name_en <> ''
-            ) 
+            )
             
+         
         }
         
         
@@ -61,7 +62,6 @@ plugin.tx_ptextlist.settings {
 				table = static_countries
 				field = cn_short_local
 				isSortable = 1
-				
 			}
 	
 			name_en {

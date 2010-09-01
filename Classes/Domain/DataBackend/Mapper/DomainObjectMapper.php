@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	protected function getPropertyNameByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
         if ($fieldConfiguration->getTable() != '__self__') {  // __self__ references current domain object
-            $property = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
+            $property = $fieldConfiguration->getTableFieldCombined();
         } else {
         	$property = $fieldConfiguration->getField();
         }

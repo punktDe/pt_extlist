@@ -164,7 +164,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$this->listQueryParts['LIMIT'] = 	$limitPart != '' ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 
 		$query = implode('', $this->listQueryParts);
-		
+		$GLOBALS['trace'] = 1;	trace($query ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 		return $query;
 	}
@@ -384,13 +384,22 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return int Total number of records for current settings
 	 */
 	public function getTotalItemsCount() {
-		$query = '';
-		$query .= 'SELECT COUNT(*) AS totalItemCount FROM ';
-		$query .= $this->buildFromPart();
-		$query .= $this->buildWherePart() != '' ? ' WHERE ' . $this->buildWherePart() : '';
 		
+		if(!is_array($this->listQueryParts)) $this->buildQuery();
+		
+		$query = '';
+		$query .= 'SELECT COUNT(*) AS totalItemCount ';
+		$query .= $this->listQueryParts['FROM'];
+		$query .= $this->listQueryParts['WHERE'];
+		$query .= $this->listQueryParts['GROUPBY'];
+				
 		$countResult = $this->dataSource->executeQuery($query);
-		$count = intval($countResult[0]['totalItemCount']);
+		
+		if($this->listQueryParts['GROUPBY']) {
+			$count = count($countResult);
+		} else {
+			$count = intval($countResult[0]['totalItemCount']);	
+		}
 		
 		return $count;
 	}
