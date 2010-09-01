@@ -33,4 +33,23 @@
  */
 class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controller_AbstractController {
 
+	/**
+	 * Holds a reference of the controller to be used as subcontroller
+	 *
+	 * @var Tx_PtExtlist_Controller_AbstractController
+	 */
+	protected $subcontroller;
+	
+	
+	
+	/**
+	 * Injector for subcontroller
+	 *
+	 * @param Tx_PtExtlist_Controller_AbstractController $subcontroller
+	 */
+	public function injectSubcontroller(Tx_PtExtlist_Controller_AbstractController $subcontroller) {
+		$this->subcontroller = $subcontroller;
+	}
+	
+	
 }

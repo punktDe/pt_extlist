@@ -30,10 +30,19 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_SubcontrollerWrapper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Controller_SubcontrollerWrapper'));
+    }
+    
+    
+    
+    public function testInjectSubcontroller() {
+    	$subcontrollerWrapper = new Tx_PtExtlist_Controller_SubcontrollerWrapper();
+    	$this->assertTrue(method_exists($subcontrollerWrapper, 'injectSubcontroller'));
+    	$subcontrollerMock = $this->getMock('Tx_PtExtlist_Controller_ListController', array(), array(), '', FALSE);
+    	$subcontrollerWrapper->injectSubcontroller($subcontrollerMock);
     }
 	
 }
