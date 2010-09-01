@@ -32,55 +32,6 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
-	protected $extBaseSettings = array();
-	
-	
-	
-	protected $extBaseSettingsString = '
-	
-	plugin.tx_ptextlist.settings.persistence.storagePid = 12
-	
-	extensionName = PtExtlist
-    pluginName = pi1
-    controller = List
-    action = list
-    switchableControllerActions {
-       10 {
-           controller = List
-           action = list
-       }
-    
-    }
-	
-	# Required for requestBuilder
-	
-    persistence{
-        enableAutomaticCacheClearing = 1
-        updateReferenceIndex = 0
-        classes {
-            Tx_Extbase_Domain_Model_FrontendUser {
-                mapping {
-                    tableName = fe_users
-                    recordType = Tx_Extbase_Domain_Model_FrontendUser
-                    columns {
-                        lockToDomain.mapOnProperty = lockToDomain
-                    }
-                }
-            }
-            Tx_Extbase_Domain_Model_FrontendUserGroup {
-                mapping {
-                    tableName = fe_groups
-                    recordType =
-                    columns {
-                        lockToDomain.mapOnProperty = lockToDomain
-                    }
-                }
-            }
-        }
-}';
-	
-	
-	
 	protected $settings = array('listIdentifier' => 'test',
                 'abc' => '1',
                 'prototype' => array(
@@ -188,11 +139,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
 	
 	
 	public function setup() {
+        parent::setup();
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings); 
-		  
-		$typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
-        $typoScriptParser->parse($this->extBaseSettingsString);
-        $this->extBaseSettings = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
 	}
 	
 	
@@ -301,16 +249,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
      * @return Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
      */
     protected function getPreparedExtbaseDataBackend() {
-    	$dispatcher = new Tx_Extbase_Dispatcher();
+    	$this->setupDispatcher();
         $dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
         $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         $extBaseDataBackend->injectDataSource($dataSource);
         
-        try {
-            $dispatcher->dispatch('content', $this->extBaseSettings);
-        } catch (Exception $e) {
-            
-        }
+        
         
 //        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), '', FALSE);
         
@@ -324,6 +268,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         
         return $extBaseDataBackend;
     }
+
 }
 
 ?>

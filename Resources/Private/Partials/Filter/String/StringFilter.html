@@ -14,10 +14,21 @@ Tx_PtExtlist_Domain_Model_Filter_StringFilter           filter                  
 
 
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
-<div>
-<f:if condition="{filter.validate} == 0">
-    <div style="color: red">Validation Error: {filter.errorMessage}</div>
-</f:if>
-<label for="{filter.filterIdentifier}">{filter.label}</label>
-<f:form.textbox property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" />
+
+<div class="outer-wrapper">
+	
+	<f:if condition="{filter.validate} == 0">
+		<div class="error">
+			Validation Error: {filter.errorMessage}
+		</div>
+	</f:if>
+	
+	<label for="{filter.filterIdentifier}">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+		<div class="field-wrapper type-text">
+			<f:form.textbox property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" />
+		</div>
+	</div>
 </div>

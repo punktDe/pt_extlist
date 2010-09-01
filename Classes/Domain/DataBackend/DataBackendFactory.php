@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
 	 */
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
+			
 		$listIdentifier = $configurationBuilder->getListIdentifier();
 		
 		if (!array_key_exists($listIdentifier, self::$instances)) {

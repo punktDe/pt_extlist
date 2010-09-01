@@ -44,13 +44,13 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	public static function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$listData = $dataBackend->getListData();
 		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
-		$listColumnConfig = $configurationBuilder->buildColumnsConfiguration();
+		$aggregateRows = Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($listData, $configurationBuilder);
 		
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
 		$list->setListData($listData);
 		$list->setListHeader($listHeader);
-		$list->setColumnConfig($listColumnConfig);
-		
+		$list->setAggregateRows($aggregateRows);
+	
 		return $list;
 	}
 	

@@ -64,11 +64,28 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
     	$mockDataBackend = $this->getMock(
     	    'Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', 
     	    array('getFilterboxCollection'), array(), '', FALSE);
+    	    
+    	$mockFilterboxCollection = $this->getAccessibleMock(
+    		'Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('dummy'), array(), '', FALSE);
+    	    
+    	$mockFilterbox = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array('getAccessableFilterbox'), array(), '', FALSE);
+    	$mockFilterbox->expects($this->once())
+			->method('getAccessableFilterbox')
+			->will($this->returnValue($mockFilterbox));    
+
+		$mockFilterboxCollection->addFilterbox($mockFilterbox,'test');
+	
+    	
+    	$mockDataBackend->expects($this->once())
+    		->method('getFilterboxCollection')
+    		->will($this->returnValue($mockFilterboxCollection));    
+    	
         $mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
             array('dummy'),array(), '', FALSE);
         $mockController->_set('dataBackend', $mockDataBackend);
         $mockController->_set('view', $mockView);
+        $mockController->_set('filterboxIdentifier','test');
         $mockController->showAction();
     }
     

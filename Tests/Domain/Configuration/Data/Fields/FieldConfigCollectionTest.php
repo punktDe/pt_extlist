@@ -33,15 +33,15 @@
 class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_testcase extends Tx_Extbase_BaseTestcase {
 
 	/**
-	 * Holds a dummy configuration for a field config collection object
+	 * Holds a dummy configuration for a aggregate config collection object
 	 * @var array
 	 */
-	protected $fieldSettings = array();
+	protected $aggregateSettings = array();
 	
 	
 	
 	public function setup() {
-		$this->fieldSettings = array(
+		$this->aggregateSettings = array(
 		    'field1' => array( 
 		        'table' => 'tableName1',
 		        'field' => 'fieldName1',
@@ -91,8 +91,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
 	
 	public function testAddGetCorrectItems() {
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', $this->fieldSettings['field1']));
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', $this->fieldSettings['field2']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', $this->aggregateSettings['field1']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', $this->aggregateSettings['field2']));
 		$fieldConfig1 = $fieldConfigCollection->getFieldConfigByIdentifier('field1');
 		$this->assertEquals($fieldConfig1->getIdentifier(), 'field1');
 		$fieldConfig2 = $fieldConfigCollection->getFieldConfigByIdentifier('field2');

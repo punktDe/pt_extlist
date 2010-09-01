@@ -61,6 +61,7 @@ plugin.tx_ptextlist.settings {
 				table = static_countries
 				field = cn_short_local
 				isSortable = 1
+				
 			}
 	
 			name_en {
@@ -76,7 +77,7 @@ plugin.tx_ptextlist.settings {
 			capital {
 				table = static_countries
 				field = cn_capital
-				accessGroups = 3
+			
 			}
 	
 			iso2 {
@@ -197,12 +198,7 @@ plugin.tx_ptextlist.settings {
 					10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
 				}
 			}
-			30 {
-				label = Phone
-				columnIdentifier = phoneColumn
-				# default columns can only operate on _one_ dataDescription
-				fieldIdentifier = phone
-			}
+	
 	
 			40 {
 				label = Continent
@@ -210,10 +206,18 @@ plugin.tx_ptextlist.settings {
 				fieldIdentifier = continent
 			}
 	
+			30 {
+				label = Phone
+				columnIdentifier = phoneColumn
+				# default columns can only operate on _one_ dataDescription
+				fieldIdentifier = phone
+			}
+	
 			50 {
 				label = Subcontinent
 				columnIdentifier = subcontinent
 				fieldIdentifier = subcontinent
+				accessGroups = 3
 			}
         }
         
@@ -221,6 +225,42 @@ plugin.tx_ptextlist.settings {
         	# User function for generating 'special' cell variables
         	specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processCell
         }
+        
+        aggregateData {
+        	# methods: sum, min, max, avg
+        	sumPhone {
+        		fieldIdentifier = phone
+        		method = sum
+        	}
+        	avgPhone {
+        		fieldIdentifier = phone
+        		method = avg
+        	}
+        	maxPhone {
+        		fieldIdentifier = phone
+        		method = max
+        	}
+        	minPhone {
+        		fieldIdentifier = phone
+        		method = min
+        	}
+        }
+        
+        aggregateRows {
+        	10 {
+        		phoneColumn {
+        			aggregateDataIdentifier = sumPhone, avgPhone, maxPhone, minPhone
+        			renderObj = TEXT
+					renderObj.dataWrap (
+						 Min.: <b>{field:minPhone}</b><br /> 
+						 &empty;: <b>{field:avgPhone}</b><br />
+						 Max.: <b>{field:maxPhone}</b><br />
+						 &sum;: <b>{field:sumPhone}</b><br />
+					)
+        		}
+        	}
+        }
+        
         
         filters {
 	        filterbox1 {
@@ -230,6 +270,13 @@ plugin.tx_ptextlist.settings {
 	                  label = Local name
 	                  fieldIdentifier = name_local
 	              }
+	              
+	              15 < plugin.tx_ptextlist.prototype.filter.max
+	              15 {
+	                  filterIdentifier = filter15
+	                  label = Max Phone
+	                  fieldIdentifier = phone
+	              }
 
     			  20 < plugin.tx_ptextlist.prototype.filter.checkbox 
 	              20 {
@@ -238,12 +285,11 @@ plugin.tx_ptextlist.settings {
 	                  fieldIdentifier = continent
 	                  filterField = continent
 	                  displayFields = continent
-	                  multiple = 0
 	                  showRowCount = 1
 	                  submitOnChange = 0
 					  invert = 0
 					  invertable = 0				  
-					  accessGroups = 3
+					  
 					  excludeFilters = filterbox1.filter3
 	              }
 	              
@@ -262,6 +308,7 @@ plugin.tx_ptextlist.settings {
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
+					  accessGroups = 3
 	              }
 	         }
 	         
@@ -271,6 +318,7 @@ plugin.tx_ptextlist.settings {
 	         		filterIdentifier = filter4
 	         		label = Capital
 	         		fieldIdentifier = capital
+	         		inactiveOption = [ALL]
 	         	}
 	         }
         }  

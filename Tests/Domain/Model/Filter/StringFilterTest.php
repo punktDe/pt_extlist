@@ -141,7 +141,7 @@
 
         $query = $filter->getFilterQuery();
         $this->assertTrue(is_a($query, 'Tx_PtExtlist_Domain_QueryObject_Query'));
-        $this->assertTrue($this->queryHasCriteria($query, new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testtable.testfield', 'testValue', 'LIKE')));
+        $this->assertTrue($this->queryHasCriteria($query, new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testtable.testfield', '%testValue%', 'LIKE')));
  	}
  	
  	

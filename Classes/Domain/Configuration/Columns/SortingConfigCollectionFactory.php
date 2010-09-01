@@ -34,8 +34,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	 * Parse the sorting config string and build sorting config objects 
 	 * @param $sortingSettings string
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 28.07.2010
 	 */
 	public static function getInstanceBySortingSettings($sortingSettings) {
 
@@ -73,14 +71,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	 * 
 	 * @param $fields string
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 29.07.2010
 	 */
-	public static function getInstanceByFieldConfiguration($fields) {
+	public static function getInstanceByFieldConfiguration($fieldSet) {
 		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
-		
-		$fieldSet = t3lib_div::trimExplode(',', $fields);
-		
 		foreach($fieldSet as $fieldName) {
 			$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldName, NULL, false);
 			$sortingConfigCollection->addSortingField($sortingConfig, $fieldName);

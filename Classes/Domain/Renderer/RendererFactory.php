@@ -25,29 +25,28 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * Factory for renderer
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 
     /**
-     * TODO insert comment!
+     * Build and return the renderer
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
-     * @return unknown
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Renderer_RendererInterface
      */	
-	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
+	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
-		$settings = $configuration->getSettings();
-		$className = $settings['rendererClassName'];
-		tx_pttools_assert::isNotEmpty($className, array('message' => 'No className for the renderer configured. 1280236277'));
-		tx_pttools_assert::isTrue(class_exists($className),array('message' => 'Class name '.$className.' does not exist. 1280236512'));
-		
-		$renderer = new $className($configuration);
-		
+		$rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
+		$className = $rendererConfiguration->getRendererClassName();
+
+		$renderer = new $className();
+		$renderer->injectConfigurationBuilder($configurationBuilder);
+		$renderer->initRendererStrategies();
 		return $renderer;
 	}
 	

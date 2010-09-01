@@ -71,9 +71,17 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * The baseGroupByClause from TSConfig
      * 
-     * @var unknown_type
+     * @var string
      */
     protected $baseGroupByClause;
+    
+    
+    /**
+     * Array of complete query list query parts with MYSQL keywords
+     * 
+     * @var array
+     */
+    protected $listQueryParts = NULL;
     
     
 	/**
@@ -125,6 +133,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
 	public function getListData() {
 		$sqlQuery = $this->buildQuery();
+		
 		$rawData = $this->dataSource->executeQuery($sqlQuery);
 		$mappedListData = $this->dataMapper->getMappedListData($rawData);
 		return $mappedListData;
@@ -147,13 +156,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$limitPart   = $this->buildLimitPart();
 		$groupByPart = $this->buildGroupByPart();
 		
-		$query = '';
-		$query .= $selectPart != ''  ? 'SELECT ' 	. $selectPart   . " \n" : '';
-		$query .= $fromPart != ''    ? 'FROM '   	. $fromPart 	. " \n" : '';
-		$query .= $wherePart != ''   ? 'WHERE '  	. $wherePart 	. " \n" : '';
-		$query .= $groupByPart != '' ? 'GROUP BY ' 	. $groupByPart 	. " \n" : '';
-		$query .= $limitPart != ''   ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
+		$this->listQueryParts['SELECT'] =	$selectPart != '' ? 'SELECT ' 	. $selectPart   . " \n" : '';
+		$this->listQueryParts['FROM'] = 	$fromPart != '' ? 'FROM '   	. $fromPart 	. " \n" : '';
+		$this->listQueryParts['WHERE'] = 	$wherePart != '' ? 'WHERE '  	. $wherePart 	. " \n" : '';
+		$this->listQueryParts['GROUPBY'] = $groupByPart!= '' ? 'GROUP BY ' . $groupByPart 	. " \n" : '';
+		$this->listQueryParts['ORDERBY'] = $orderByPart!= '' ? 'ORDER BY ' . $orderByPart 	. " \n" : '';
+		$this->listQueryParts['LIMIT'] = 	$limitPart != '' ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 
+		$query = implode('', $this->listQueryParts);
+		
+		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 		return $query;
 	}
 	
@@ -321,8 +333,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * 
 	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 * @return string
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 02.08.2010
 	 */
 	public function getOrderByFromListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		$orderByArray = array();
@@ -333,7 +343,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			   $orderByArray[] = $headerColumnSorting;
 			}
 		}
-		
 		return count($orderByArray) > 0 ? implode(', ', $orderByArray) : '';
 	}
 	
@@ -344,8 +353,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * 
 	 * @param $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * @return string
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 02.08.2010
 	 */
 	public function getOrderByFromHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
 		return $this->queryInterpreter->getSorting($headerColumn->getSortingQuery());	
@@ -400,19 +407,66 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return array Array of group data with given fields as array keys
      */
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
-    	$filterWherePart = $this->buildWherePart($excludeFilters);
+    	  	
+    	if(!is_array($this->listQueryParts)) $this->buildQuery();
     	
-    	$sqlQueryString = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
-    	$sqlQueryString .= ' FROM ' . $this->buildFromPart();
-    	$sqlQueryString .= count($groupDataQuery->getFrom()) > 0 ? ', ' . $this->queryInterpreter->getFromPart($groupDataQuery) : '';
-    	$sqlQueryString .= $filterWherePart != '' ? ' WHERE ' . $filterWherePart : '';  
-    	$sqlQueryString .= count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
-    	$sqlQueryString .= count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
-
-        $groupDataArray = $this->dataSource->executeQuery($sqlQueryString);
+    	$selectPart  = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
+    	$fromPart = $this->listQueryParts['FROM'];
+    	$groupPart   = count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
+    	$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
+    	
+    	if(count($groupDataQuery->getFrom()) > 0) {
+    		// special from part from filter TODO think about this and implement it!
+    		$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
+    		
+    	} elseif($this->listQueryParts['GROUPBY']) {
+    		// if the list has a group by clause itself, we have to use the listquery as subquery
+    		$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+    		
+    		$selectPart = $this->convertTableFieldToAlias($selectPart);
+    		$groupPart = $this->convertTableFieldToAlias($groupPart);
+    		$sortingPart = $this->convertTableFieldToAlias($sortingPart);
+    		$filterWherePart = $this->convertTableFieldToAlias($this->getWhereClauseFromFilterboxes($excludeFilters));
+    		
+    	} else {
+    		$filterWherePart =  $this->buildWherePart($excludeFilters);
+    		if($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
+    	}
+    	
+    	
+    	$query =  $selectPart 		. " \n";
+    	$query .= $fromPart 		. " \n";
+    	$query .= $filterWherePart 	. " \n";  
+    	$query .= $groupPart 		. " \n";
+    	$query .= $sortingPart 		. " \n";
+    	
+    	if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+    	
+        $groupDataArray = $this->dataSource->executeQuery($query);
+        
         return $groupDataArray;
     }
-	
+    
+    /**
+     * Replaces all occurrences of "table.field AS fieldIdentifier" and "table.field"
+     * 
+     * @param string $query
+     */
+    protected function convertTableFieldToAlias($query) {
+    	
+    	$convertTableFieldAsAliasArray = array();
+    	$convertTableFieldArray = array(); 
+    	
+    	foreach($this->getFieldConfigurationCollection() as $fieldConfiguration) {
+    		$convertTableFieldAsAliasArray[$fieldConfiguration->getIdentifier()] = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField() . ' AS ' . $fieldConfiguration->getIdentifier();
+    		$convertTableFieldArray[$fieldConfiguration->getIdentifier()] =  $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
+    	}
+    	
+    	$query = str_replace(array_values($convertTableFieldAsAliasArray), array_keys($convertTableFieldAsAliasArray), $query);
+    	$query = str_replace(array_values($convertTableFieldArray), array_keys($convertTableFieldArray), $query);
+    	
+    	return $query;
+    }
 }
 
 ?>

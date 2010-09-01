@@ -46,8 +46,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function initializeAction() {
 		parent::initializeAction();
-		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer(
-                    $this->configurationBuilder->buildRendererConfiguration());
+		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->configurationBuilder);
 	}
 	
 	
@@ -56,28 +55,29 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * List action rendering list
 	 *
 	 * @return string  Rendered list for given list identifier
-	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function listAction() {
+		
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 		
 		// Do not show the list if it is empty.
+		// TODO do not use forward here!!!
 		if($list->getListData()->count() <= 0) $this->forward('emptyList');
 		
-		
-		$renderedListData = $this->renderer->render($list);
-		$renderedCaptions = $this->renderer->renderCaptions($list);
+		$renderedListData = $this->renderer->renderList($list->getListData());
+		$renderedCaptions = $this->renderer->renderCaptions($list->getListHeader());
+
 		
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
+		$this->view->assign('aggregateRows', $list->getAggregateRows());
 	}
 	
 	/**
 	 * Shows a message that the list is empty.
 	 * 
 	 * @return string A message saying that the list is empty.
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
 	 */
 	public function emptyListAction() {
 		// template handles translation...

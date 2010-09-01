@@ -11,19 +11,38 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 @author Daniel Lienert <lienert@punkt.de>
 -->
 
+
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 
-<div>
-<f:if condition="{filter.validate} == 0">
-    <div style="color: red">Validation Error: {filter.errorMessage}</div>
-</f:if>
-<label for="{filter.filterIdentifier}">{filter.label}</label>
-    	
-   		<f:for each="{filter.options}" key="optionValue" as="option">
-  				{optionValue}
-   		</f:for>
-    	    	    	
-    	<f:if condition="{filter.filterConfig.invertable}">
-    		<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" /> Invert
-    	</f:if>
+<div class="outer-wrapper">
+	
+	<f:if condition="{filter.validate} == 0">
+		<div class="error">
+			Validation Error: {filter.errorMessage}
+		</div>
+	</f:if>
+	
+	<label for="{filter.filterIdentifier}">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+	
+		<f:for each="{filter.options}" key="optionValue" as="option">
+			<div class="field-wrapper type-content">
+				<f:if condition="{option.selected}"><span class="selected"></f:if>
+				<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
+				<f:if condition="{option.selected}"></span></f:if>
+			</div>
+		</f:for>
+		
+		<f:if condition="{filter.filterConfig.invertable}">
+			<div class="field-wrapper type-checkbox">
+				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<label>
+					Invert
+				</label>
+			</div>
+		</f:if>
+		
+	</div>
 </div>

@@ -88,7 +88,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 		$this->assertTrue($validatingFilterboxMock->validate());
 	}
 	
-	
+	public function testGetAccessableFilterbox() {
+		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
+		$accessableFilterbox = $filterbox->getAccessableFilterbox();
+		
+		$this->assertTrue(is_a($accessableFilterbox, 'Tx_PtExtlist_Domain_Model_Filter_Filterbox'));
+	}
 	
 	public function testValidateOnNonValidatingFilters() {
 		$notValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));

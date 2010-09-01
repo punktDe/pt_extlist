@@ -31,23 +31,4 @@
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Domain_Model_Filter_OptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractGroupDataFilter {	
-	
-	/**
-	 * Returns an associative array of options 
-	 * option[key] = array(value => '...', selected =
-	 *
-	 * @return array
-	 */
-	public function getOptions() {
-		$renderedOptions = parent::getOptions();
-		$optionsArray = array();
-		foreach($renderedOptions as $optionKey => $optionValue) {
-			$selected = in_array($optionKey, $this->filterValues)  ? true : false;
-			$optionsArray[$optionKey] = array('value' => $optionValue,
-											  'selected' => $selected);
-		}
-		
-		return $optionsArray;
-	}
-	
 }

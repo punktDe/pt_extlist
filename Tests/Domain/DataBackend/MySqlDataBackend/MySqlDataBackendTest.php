@@ -354,14 +354,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$additionalQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('field1', 10));
 		
 		$returnArray = array('test');
+		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
 		
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
         $dataSourceMock->expects($this->once())->method('executeQuery')->will($this->returnValue($returnArray));
         
         $dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
+        $dataBackend->injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder));
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
+		$dataBackend->injectListHeader($listHeader);
 		$dataBackend->init();
 		
 		$groupData = $dataBackend->getGroupData($additionalQuery, $excludeFilters);
@@ -377,6 +380,21 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		#$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
 	}
 
+	
+	public function testConvertTableFieldToAlias() {
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
+		$dataBackend = new $accessibleClassName($this->configurationBuilder);
+		$dataBackend->injectFieldConfigurationCollection($this->configurationBuilder->buildFieldsConfiguration());
+		
+		$strings[] = array('test' => 'table1.field1 AS fieldIndentifier1', 'return' =>'fieldIndentifier1'); 
+		$strings[] = array('test' => '(someSepcial table1.field1) AS SpecialIdentifier', 'return' =>'(someSepcial fieldIndentifier1) AS SpecialIdentifier'); 
+		$strings[] = array('test' => 'GROUP BY table1.field1', 'return' =>'GROUP BY fieldIndentifier1'); 
+		
+		foreach($strings as $string) {
+			$returnString = $dataBackend->_call('convertTableFieldToAlias', $string['test']);
+			$this->assertEquals($string['return'], $returnString, 'Mangled string is not as excepted : ' . $returnString . ' is not ' . $string['return']);
+		}
+	}
 	
 	
 	public function testBuildQuery() {

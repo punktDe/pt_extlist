@@ -12,26 +12,44 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 @author Daniel Lienert <lienert@punkt.de>
 -->
 
+
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 
-<div>
-<f:if condition="{filter.validate} == 0">
-    <div style="color: red">Validation Error: {filter.errorMessage}</div>
-</f:if>
-<label for="{filter.filterIdentifier}">{filter.label}</label>
-    	
-    	<f:if condition="{filter.filterConfig.submitOnChange}">
-    		<f:then>
-    			<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{onchange : 'submit()'}" />
-    		</f:then>
-	    	<f:else>
-	    		<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}"/>
-	    	</f:else>
-    	</f:if>
-    	
-    	<f:if condition="{filter.filterConfig.invertable}">
-    		<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" /> Invert
-    	</f:if>
+<div class="outer-wrapper">
+		
+	<f:if condition="{filter.validate} == 0">
+		<div class="error">
+			Validation Error: {filter.errorMessage}
+		</div>
+	</f:if>
+	
+	<label for="{filter.filterIdentifier}">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+	
+		<f:if condition="{filter.filterConfig.submitOnChange}">
+			<f:then>
+				<div class="field-wrapper type-select">
+					<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{onchange : 'submit()'}" />
+				</div>
+			</f:then>
+			<f:else>
+				<div class="field-wrapper type-select">
+					<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}"/>
+				</div>
+			</f:else>
+		</f:if>
+		
+		<f:if condition="{filter.filterConfig.invertable}">
+			<div class="field-wrapper type-checkbox">
+				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<label>
+					Invert
+				</label>
+			</div>
+		</f:if>
+		
+	</div>
 </div>
-
 

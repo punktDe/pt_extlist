@@ -27,7 +27,7 @@
  * Class implements a row for a list data structure. Row contains
  * cells addressed by a identifier (column name).
  * 
- * @author Daniel Lienert
+ * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll
  * @author Christoph Ehscheidt
  * @package Typo3
@@ -37,26 +37,37 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	
 	/**
 	 * Add a new cell to row identified by a given column name
-	 *
-	 * TODO rename this method. Should be called createAndAddCell
-	 * TODO implement new method addCell that takes an already constructed cell
 	 * 
 	 * @param string $columnName
-	 * @param string $value
+	 * @param Tx_PtExtlist_Domain_Model_List_Cell $cell
 	 * @return void
 	 */
-	public function addCell($columnName, $value, array $specialValues = array()) {
-		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($value);
-		$cell->setSpecialValues($specialValues);
-		
+	public function addCell(Tx_PtExtlist_Domain_Model_List_Cell $cell, $columnName) {
 		$this->addItem($cell, $columnName);
 	}
 	
 	
 	/**
-	 * TODO add getter for cells (getCell())
+	 * Create a new Cell with the Content and add it
+	 * 
+	 * @param string $cellContent
+	 * @param string $columnName
 	 */
+	public function createAndAddCell($cellContent, $columnIdentifier) {
+		$this->addItem(new Tx_PtExtlist_Domain_Model_List_Cell($cellContent), $columnIdentifier);
+	}
 	
+	
+	/**
+	 * @param string $columnIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_List_Cell
+	 */
+	public function getCell($columnIdentifier) {
+		if(!$this->hasItem($columnIdentifier)) {
+			Throw new Exception('No Cell with Identifier ' . $columnIdentifier . ' found in Row! 1282978972');
+		}
+		return $this->getItemById($columnIdentifier);
+	}
 }
 
 ?>

@@ -126,7 +126,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      */
     protected function getFilterboxForControllerSettings() {
     	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
-        $filterbox = $filterboxCollection[$this->filterboxIdentifier];
+        $filterbox = $filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier);
+        $filterbox = $filterbox->getAccessableFilterbox();
         return $filterbox;
     }
 }

@@ -114,6 +114,13 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			            ) 
 			            
 			        }
+			        
+			        fields {
+			        	fieldIndentifier1 {
+			        		table = table1
+			        		field = field1
+			        	}
+			        }
 			   }
 			}";
         $this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');

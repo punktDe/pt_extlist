@@ -65,7 +65,6 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
 			throw new Exception('Field configuration for key ' . $identifier . ' does not exist! 1280772114');
 		}
 	}
-	
 }
 
 ?>

@@ -29,13 +29,15 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactory_testcase extends Tx_PtE
 	protected $rendererConfig;
 	
 	public function setUp() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();		
+
+		$this->initDefaultConfigurationBuilderMock();
+		
 		$this->rendererConfig = $this->configurationBuilderMock->buildRendererConfiguration();
 	}
 	
 	public function testGetRenderer() {
 		
-		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->rendererConfig);
+		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->configurationBuilderMock);
 		
 		$this->assertTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
 //		$this->assertTrue(method_exists($renderer, 'render'));

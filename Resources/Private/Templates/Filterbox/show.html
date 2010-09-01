@@ -13,20 +13,32 @@ bool                                                                filtersDontV
 -->
 
 
-{namespace extlist=Tx_PtExtlist_ViewHelpers} 
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
 
-<div style="background-color:#ddd; border:1px solid #ccc; padding:5px;">
-<f:form controller="Filterbox" action="submit" method="post">
-	
-	<f:if condition="{filtersDontValidate}">
-	   <div style="color: red">Error!!!</div><br />
-	</f:if>
-	
-	<f:for each="{filterbox}" as="filter">
-	    <f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
-	</f:for>
-	
-	<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}">Reset filters</f:link.action><br /><br />
-	<f:form.submit value="Submit Filters"/>
-</f:form>
+<div class="filterbox">
+	<f:form controller="Filterbox" action="submit" method="post">
+		
+		<f:if condition="{filtersDontValidate}">
+			<div class="error">
+				Error!!!
+			</div>
+		</f:if>
+		
+		<f:for each="{filterbox}" as="filter">
+			<f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
+		</f:for>
+		
+		<div class="outer-wrapper">
+			<div class="outer-field-wrapper">
+				<div class="field-wrapper type-button">
+					<f:form.submit value="Submit Filters"/>
+					<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
+						<span>
+							Reset filters
+						</span>
+					</f:link.action>
+				</div>
+			</div>
+		</div>
+	</f:form>
 </div> 

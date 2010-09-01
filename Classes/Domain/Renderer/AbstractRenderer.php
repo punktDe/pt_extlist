@@ -34,31 +34,51 @@
 abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface  {
 
 	/**
-	 * TODO insert comment
-	 * 
-	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */	
-	protected $rendererConfiguration;
-	
+	protected $configurationBuilder;
 	
 	
 	/**
-	 * TODO insert comment
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+	 */
+	protected $rendererConfiguration;
+	
+	
+	/**
+	 * The Strategy for rendering cells.
 	 *
-	 * @var unknown_type
+	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
 	 */
 	protected $cellRenderer;
 	
 	
 	
 	/**
-	 * TODO insert comment!
+	 * The strategy for rendering captions.
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
+	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration) {
-		$this->rendererConfiguration = $configuration;		
+	protected $captionRenderer;
+	
+	
+	
+	/**
+	 * Inject the Configuration Builder
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+		$this->rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
 	}
+	
+	
+	/**
+	 * Init the RendererStrategies for Cells and Captions
+	 */
+	abstract public function initRendererStrategies();
+	
 	
 }
 

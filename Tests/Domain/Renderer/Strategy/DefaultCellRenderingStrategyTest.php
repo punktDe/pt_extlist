@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
 		$rendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy');
 		
-		$this->cellRenderer = new $rendererClass($rendererConfig);
+		$this->cellRenderer = new $rendererClass($this->configurationBuilderMock);
 		
 	}
 	
@@ -73,12 +73,13 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		
-		$row->addCell('field1', 'val1');
-		$row->addCell('field2', 'val2');
-		$row->addCell('field3', 'val3');
+		$row->createAndAddCell('val1', 'field1');
+		$row->createAndAddCell('val2', 'field2');
+		$row->createAndAddCell('val3', 'field3');
 		
 		// see ConfigurationBuilderMock for column definition
-		$cellContent = $this->cellRenderer->renderCell('field1', '10', $row);
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'column1', 'fieldIdentifier' => 'field1'));
+		$cellContent = $this->cellRenderer->renderCell($columnConfig, $row);
 		$this->assertEquals('val1', $cellContent->getValue()); 
 		
 	}
@@ -86,12 +87,13 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 	public function testSpecialValueRendering() {
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		
-		$row->addCell('field1', 'val1');
-		$row->addCell('field2', 'val2');
-		$row->addCell('field3', 'val3');
+		$row->createAndAddCell('val1', 'field1');
+		$row->createAndAddCell('val2', 'field2');
+		$row->createAndAddCell('val3', 'field3');
 		
 		// see ConfigurationBuilderMock for column definition
-		$cellContent = $this->cellRenderer->renderCell('field1', '10', $row);
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'column1', 'fieldIdentifier' => 'field1'));
+		$cellContent = $this->cellRenderer->renderCell($columnConfig, $row, '10');
 		$this->assertTrue(is_array($cellContent->getSpecialValues()));
 	}
 	/*
