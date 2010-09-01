@@ -122,13 +122,16 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	 * @param array $args Arguments delivered for action to be called
 	 */
     public function __call($method, $args) {
-    	if (!preg_match('/(.+?)Action/', $method)) {
+    	$matches = array();
+    	if (!preg_match('/(.+?)Action/', $method, $matches)) {
     		throw new Exception('Given method name is not a correct action name: ' . $method . ' 1283351947');
     	}
+    	tx_pttools_assert::isNotEmptyString($matches[1], array('message' => 'No action name could be parsed from ' . $method . ' 1283351949'));
+    	$controllerActionname = $matches[1];
     	if (!method_exists($this->subcontroller, $method)) {
     		throw new Exception('Trying to call action ' . $method . ' on ' . get_class($this->subcontroller) . ' which does not exist! 1283351948');
     	}
-    	$this->processAction($method, $args);
+    	return $this->processAction($controllerActionname, $args);
     }
     
     
@@ -136,24 +139,27 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
     /**
      * Processes action called on subcontroller
      *
-     * @param string $method
+     * @param string $controllerActionName
      * @param array $args
      * @return string HTML source: the rendered action
      */
-    protected function processAction($method, $args) {
-    	// TODO insert arguments into request!
+    protected function processAction($controllerActionName, $args) {
     	$dispatchLoopCount = 0;
-        while (!$this->request->isDispatched()) {
+    	// TODO insert arguments into request!
+    	// Perhaps this works like that: $this->request->setArguments();
+    	$this->request->setControllerActionName($controllerActionName);
+
+    	while (!$this->request->isDispatched()) {
             if ($dispatchLoopCount > 0) {
             	$this->subController = $this->subcontrollerFactory->getPreparedSubController($this->request);
             }
-            if ($dispatchLoopCount++ > 99) throw new Tx_Extbase_MVC_Exception_InfiniteLoop('Could not ultimately dispatch the request after '  . $dispatchLoopCount . ' iterations.', 1217839467);
-            // TODO has to be taken from subcontroller factory
+            if ($dispatchLoopCount++ > 99) throw new Tx_Extbase_MVC_Exception_InfiniteLoop('Could not ultimately dispatch the request after '  . $dispatchLoopCount . ' iterations.', 1283351950);
             try {
                 $this->subcontroller->processRequest($this->request, $this->response);
             } catch (Tx_Extbase_MVC_Exception_StopAction $ignoredException) {
             }
         }
+        
         return $this->response->getContent();
     }
 	

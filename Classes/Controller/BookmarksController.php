@@ -44,7 +44,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     /**
      * Holds an instance of bookmarks repository
      *
-     * @var Tx_PtExtlist_Domain_Repository_BookmarksRepository
+     * @var Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
      */
     protected $bookmarksRepository = null;
     
@@ -106,18 +106,23 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return string The rendered HTML source for this action
      */
     public function showAction() {
+    	$allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
     	if ($this->showPublicBookmarks()) {
 	    	$publicBookmarks = $this->bookmarksRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
+	    	$this->addObjectsToObjectStorageByArray($allBookmarks, $publicBookmarks);
 	    	$this->view->assign('publicBookmarks', $publicBookmarks);
     	}
     	if ($this->showUserBookmarks() && $this->feUser != null) {
     	    $userBookmarks = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+    	    $this->addObjectsToObjectStorageByArray($allBookmarks, $userBookmarks);
     	    $this->view->assign('userBookmarks', $userBookmarks);
     	}
     	if ($this->showGroupBookmarks() && $this->feUser != null && count($this->feUser->getUsergroups()) > 0) {
     		$groupBookmarks = $this->bookmarksRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($this->feUser, $this->getGroupIdsToShowBookmarksFor(), $this->listIdentifier);
+    		$this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
     		$this->view->assign('groupBookmarks', $groupBookmarks);
     	}
+    	$this->view->assign('allBookmarks', $allBookmarks);
     }
     
     
@@ -182,6 +187,20 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     protected function getGroupIdsToShowBookmarksFor() {
     	// TODO read out settings here!
     	return '1,2,3,4,5';
+    }
+    
+    
+    
+    /**
+     * Adds given elements of an array to given object storage
+     *
+     * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
+     * @param array $arrayToBeAdded
+     */
+    protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, array $arrayToBeAdded) {
+    	foreach ($arrayToBeAdded as $key => $value) {
+    		$objectStorage->attach($value, $key);
+    	}
     }
     
 }

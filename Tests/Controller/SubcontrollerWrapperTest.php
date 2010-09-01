@@ -116,7 +116,9 @@ class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtE
 
         $requestMock = $this->getMock('Tx_Extbase_MVC_Web_Request');
         $requestMock->expects($this->at(0))->method('isDispatched')->will($this->returnValue(FALSE));
-        $requestMock->expects($this->at(1))->method('isDispatched')->will($this->returnValue(TRUE));
+        $requestMock->expects($this->at(1))->method('isDispatched')->will($this->returnValue(FALSE));
+        $requestMock->expects($this->at(2))->method('isDispatched')->will($this->returnValue(TRUE));
+        $requestMock->expects($this->any())->method('getControllerActionName')->will($this->returnValue('list'));
         $subcontrollerWrapper->injectRequest($requestMock);
         
         $responseMock = $this->getMock('Tx_Extbase_MVC_Web_Response');

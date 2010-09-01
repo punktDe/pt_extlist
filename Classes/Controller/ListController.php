@@ -57,7 +57,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @return string  Rendered list for given list identifier
 	 */
 	public function listAction() {
-		
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 		
 		// Do not show the list if it is empty.
