@@ -128,7 +128,7 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
     	if (!method_exists($this->subcontroller, $method)) {
     		throw new Exception('Trying to call action ' . $method . ' on ' . get_class($this->subcontroller) . ' which does not exist! 1283351948');
     	}
-    	$this->processAction($method, $args);
+    	return $this->processAction($method, $args);
     }
     
     
@@ -154,6 +154,7 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
             } catch (Tx_Extbase_MVC_Exception_StopAction $ignoredException) {
             }
         }
+        
         return $this->response->getContent();
     }
 	
