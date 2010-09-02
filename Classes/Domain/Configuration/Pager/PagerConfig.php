@@ -32,23 +32,15 @@
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
-	
-	/**
-	 * Holds an array of settings for pager
-	 *
-	 * @var array
-	 */
-	protected $settings = array();
-	
-	
-	
+class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig {
+		
 	/**
 	 * Identifier of list to which this filter belongs to
 	 *
 	 * @var string
 	 */
 	protected $listIdentifier;
+	
 	
 	/**
 	 * The pager identifier.
@@ -57,13 +49,13 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 */
 	protected $pagerIdentifier;
 	
+	
 	/**
 	 * Holds class name for pager
 	 *
 	 * @var string
 	 */
 	protected $pagerClassName = '';
-	
 	
 	
 	/**
@@ -81,26 +73,54 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 */
 	protected $templatePath = NULL;
 	
+	
 	/**
-	 * Constructor for pager configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * Global value for all filters
+	 * 
+	 * @var integer
 	 */
-	public function __construct(array $pagerSettings, $listIdentifier, $pagerIdentifier) {
+	protected $itemsPerPage;
+	
+	
+	/** 
+	 * Enter description here ...
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param string $pagerIdentifier
+	 * @param array $pagerSettings
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $pagerSettings) {
+
+		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager "' . $pagerIdentifier . '" 1280408323'));
+		tx_pttools_assert::isTrue(class_exists($pagerSettings['pagerClassName']), array('message' => 'Given pager class ' . $pagerSettings['pagerClassName'] . ' does not exist or is not loaded! 1279541306'));
 		
+		tx_pttools_assert::isNotEmptyString($pagerSettings['templatePath'],array('message' => 'No template path given for pager "' . $pagerIdentifier . '" 1283377261'));
 		
-		if (!is_array($pagerSettings)) {
-    		throw new Exception('No pager configuration available for list ' . $listIdentifier . '. 1280408324');
-    	}
-    	
-		tx_pttools_assert::isNotEmptyString($pagerSettings['pagerClassName'],array('message' => 'No class name given for pager settings 1280408323'));
 		$this->settings = $pagerSettings;
 		$this->pagerIdentifier = $pagerIdentifier;
-		$this->listIdentifier = $listIdentifier;
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->pagerClassName = $pagerSettings['pagerClassName'];
-		$this->enabled = (array_key_exists('enabled', $pagerSettings) && $pagerSettings['enabled'] == '1') ? true : false;
-		$this->templatePath = (array_key_exists('templatePath', $this->settings) ? $this->settings['templatePath'] : NULL);
+		$this->templatePath = $pagerSettings['templatePath'];
+		
+		$this->setOptionalSettings($pagerSettings);
 	}
+	
+	
+	/**
+	 * Set the optional pager Settings
+	 * 
+	 * @param array $pagerSettings
+	 */
+	protected function setOptionalSettings(array $pagerSettings) {
+		if(array_key_exists('enabled', $pagerSettings)) {
+			$this->enabled = $pagerSettings['enabled'] == 1 ? true : false;
+		}
+
+		if(array_key_exists('itemsPerPage', $pagerSettings)) {
+			$this->itemsPerPage = $pagerSettings['itemsPerPage'];
+		}
+	
+	}
+	
 	
 	/**
 	 * Returns the pager identifier.
@@ -110,6 +130,9 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	public function getPagerIdentifier() {
 		return $this->pagerIdentifier;
 	}
+	
+	
+	
 	
 	public function getTemplatePath() {
 		return $this->templatePath;
@@ -153,6 +176,15 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration {
 	 */
 	public function getEnabled() {
 		return $this->enabled;
+	}
+	
+	
+	
+	/**
+	 * @return integer itemsPerPage
+	 */
+	public function getItemsPerPage() {
+		return $this->itemsPerPage;
 	}
 }
 ?>
