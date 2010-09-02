@@ -108,7 +108,7 @@ plugin.tx_ptextlist.settings {
 			50 {
 				label = Countries
 				columnIdentifier = country
-				fieldIdentifier = country_en, capital, horst
+				fieldIdentifier = country_en, capital
 			}
 	
 	
