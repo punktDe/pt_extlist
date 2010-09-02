@@ -66,8 +66,8 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		
 		
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
-		
-		foreach($listData->getIterator() as $rowIndex => $row) {
+
+		foreach($listData as $rowIndex => $row) {
 			$renderedList->addRow($this->renderRow($row, $rowIndex));
 		}
 		
@@ -87,13 +87,12 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 		$columnCollection = $this->configurationBuilder->buildColumnsConfiguration();
 	
 		$columnIndex=0;
-		foreach($columnCollection->getIterator() as $culumnId => $columnConfig) {
+		foreach($columnCollection as $culumnId => $columnConfig) {
 			$columnIdentifier = $columnConfig->getColumnIdentifier();
 			
 			// Only render if FE-User is allowed to see the column
 			if($columnConfig->isAccessable()) {
 				// Use strategy to render cells
-				$GLOBALS['trace'] = true; trace($columnConfig); $GLOBALS['trace']=off;
 				$cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
 				$renderedRow->addCell($cell, $columnIdentifier);
 			} 

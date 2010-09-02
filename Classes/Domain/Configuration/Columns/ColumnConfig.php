@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	protected $columnIdentifier;
 
 	/** 
-	 * @var array
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
 	
@@ -127,7 +127,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
-		$this->fieldIdentifier =  t3lib_div::trimExplode(',', $columnSettings['fieldIdentifier']) ;
+		
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $columnSettings['fieldIdentifier']);
+		$this->fieldIdentifier =  $configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 		
 		$this->label = $this->columnIdentifier;
 
@@ -136,8 +138,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	}	
 	
 	
-	
-	public function injectAccessable($accessable) {
+	/**
+	 * @param boolean $accessable
+	 */
+	public function setAccessable($accessable) {
 		$this->accessable = $accessable;
 	}
 	
@@ -222,7 +226,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	
 	
 	/**
-	 * @return string fieldIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
 	 */
 	public function getFieldIdentifier() {
 		return $this->fieldIdentifier;

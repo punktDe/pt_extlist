@@ -71,6 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
 	 * get part of the collection with entrys selected by the array 
 	 * 
 	 * @param array $fieldIdentifierList
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection;
 	 */
 	public function extractCollectionByIdentifierList(array $fieldIdentifierList) {
 		$collection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();

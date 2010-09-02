@@ -68,7 +68,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	
 	
 	public function testGetFieldIdentifier() {
-		$this->assertEquals($this->columnConfig->getFieldIdentifier(), array($this->columnSettings['fieldIdentifier']));
+		$this->assertEquals($this->columnConfig->getFieldIdentifier()->getFieldConfigByIdentifier($this->columnSettings['fieldIdentifier'])->getIdentifier(), $this->columnSettings['fieldIdentifier']);
 	}
 	
 	
@@ -117,7 +117,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	}
 
 	public function testInjectAccessable() {
-		$this->columnConfig->injectAccessable(true);
+		$this->columnConfig->setAccessable(true);
 		$this->assertTrue($this->columnConfig->isAccessable());
 	}
 	

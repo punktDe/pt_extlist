@@ -85,7 +85,6 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	 * 
 	 * @param $columnSettings
 	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	protected function setOptionalSettings($aggregateColumnSettings) {
 

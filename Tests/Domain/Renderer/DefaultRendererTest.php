@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DefaultRenderer_testcase extends Tx_PtE
 	
 	
 	
-	public function testRender() {
+	public function testRenderList() {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		$row->createAndAddCell('val1', 'field1');

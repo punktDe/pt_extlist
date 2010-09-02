@@ -128,7 +128,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	protected function createFieldSet(Tx_PtExtlist_Domain_Model_List_Row $row, Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig) {
 		$fieldSet = array();
 
-		foreach($columnConfig->getFieldIdentifier() as $fieldIdentifier) {
+		foreach($columnConfig->getFieldIdentifier() as $fieldConfig) {
+			$fieldIdentifier = (string) $fieldConfig;
 			$fieldSet[$fieldIdentifier] = $row->getCell($fieldIdentifier);	
 		}
 

@@ -109,7 +109,16 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 			$this->expandGroupRows = $fieldSettings['expandGroupRows'] == 1 ? true : false;
 		}
 	}
-		
+
+	
+	/* 
+	 * method to be comatible with structures using fieldIdentifier as array of strings
+	 * TODO - all objects should use fieldConfigCollections 
+	 */ 
+	public function __toString() {
+		return $this->identifier;
+	}
+	
 	
 	public function getIdentifier() {
 		return $this->identifier;
