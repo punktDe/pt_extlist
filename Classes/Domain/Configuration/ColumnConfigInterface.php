@@ -49,5 +49,9 @@ interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtE
 	
 	
 	public function getSpecialCell();
+	
+	
+	public function getContainsArrayData();
+	
 }
 ?>

@@ -112,9 +112,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	/**
 	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
 	 * 
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $accessable = false;
+	
+	
+	/**
+	 * if one of this columns fields is a expanded GroupField, 
+	 * this column has an array as dataStructure
+	 * @var boolean
+	 */
+	protected $containsArrayData = false;
 	
 	
 	/**
@@ -129,7 +137,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
 		
 		$fieldIdentifierList = t3lib_div::trimExplode(',', $columnSettings['fieldIdentifier']);
-		$this->fieldIdentifier =  $configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+		$this->fieldIdentifier = $configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+		
+		foreach($this->fieldIdentifier as $fieldConfig) {
+			if($fieldConfig->getExpandGroupRows()) {
+				$this->containsArrayData = true;
+				break;
+			}
+		}
 		
 		$this->label = $this->columnIdentifier;
 
@@ -308,6 +323,15 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
      */
     public function getAccessGroups() {
     	return $this->accessGroups;
+    }
+    
+    
+    /**
+     * Indicates if the data for this columns cells are arrays
+     * @return boolean 
+     */
+    public function getContainsArrayData() {
+    	return $this->containsArrayData;
     }
     
 }

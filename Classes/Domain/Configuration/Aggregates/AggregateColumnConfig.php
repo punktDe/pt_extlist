@@ -139,8 +139,14 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	}
 	
 	
+	
 	public function getSpecialCell() {
 		return '';
+	}
+	
+	
+	public function getContainsArrayData() {
+		return false;
 	}
 	
 	
