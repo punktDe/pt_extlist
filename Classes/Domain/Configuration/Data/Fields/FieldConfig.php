@@ -76,6 +76,15 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	protected $special;
 	
 	
+	/**
+	 * Indicates if the field is expanded to an array of values 
+	 * if the row is grouped (e.g. by group by clause in SQL) 
+	 * @var boolean
+	 */
+	protected $expandGroupRows = false;
+	
+	
+	
 	public function __construct($identifier, $fieldSettings) {
 		tx_pttools_assert::isNotEmptyString($identifier, array('message' => 'No identifier specified. 1277889450'));
 		
@@ -94,6 +103,10 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 		
 		if (array_key_exists('accessGroups', $fieldSettings)) {
 			$this->accessGroups = t3lib_div::trimExplode(',', $fieldSettings['accessGroups']);
+		}
+		
+		if (array_key_exists('expandGroupRows', $fieldSettings)) {
+			$this->expandGroupRows = $fieldSettings['expandGroupRows'] == 1 ? true : false;
 		}
 	}
 		
@@ -115,9 +128,11 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	}
 	
 	
+	
 	public function getTableFieldCombined() {
 		return $this->table . '.' . $this->field;
 	}
+	
 	
 	
 	public function getIsSortable() {
@@ -134,6 +149,12 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	public function getSpecial() {
 		return $this->special;
+	}
+	
+	
+	
+	public function getExpandGroupRwos() {
+		return $this->expandGroupRows;
 	}
 	
 }
