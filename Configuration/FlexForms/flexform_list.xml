@@ -48,6 +48,10 @@
                     <numIndex index="0">Bookmarks</numIndex>
                     <numIndex index="1">Bookmarks->show;Bookmarks->edit;Bookmarks->create;Bookmarks->edit;Bookmarks->update</numIndex>
                   </numIndex>
+                  <numIndex index="5" type="array">
+                    <numIndex index="0">Breadcrumbs</numIndex>
+                    <numIndex index="1">BreadCrumbs->index</numIndex>
+                  </numIndex>
                 </items>
               </config>
             </TCEforms>
@@ -83,7 +87,7 @@
     <!--###############################-->
     <!-- Tab for bookmarks settings    -->
     <!--###############################-->
-    <list>
+    <bookmarks>
       <ROOT>
         <TCEforms>
           <sheetTitle>Bookmarks settings</sheetTitle>
@@ -153,7 +157,7 @@
 
         </el>
       </ROOT>
-    </list>
+    </bookmarks>
     
     
     
@@ -208,6 +212,25 @@
         </el>
       </ROOT>
     </pager>
+    
+    
+    
+    <!--##########################-->
+    <!-- Tab for list settings    -->
+    <!--##########################-->
+    <breadcrumbs>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Breadcrumbs settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          
+
+        </el>
+      </ROOT>
+    </breadcrumbs>
     
     
     

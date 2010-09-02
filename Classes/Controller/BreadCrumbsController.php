@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Controller_BreadCrumbController extends Tx_PtExtlist_Controller_AbstractController {
+class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController {
 	
 	public function indexAction() {
 		
