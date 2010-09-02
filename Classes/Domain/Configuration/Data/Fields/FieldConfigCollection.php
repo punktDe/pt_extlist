@@ -65,6 +65,23 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
 			throw new Exception('Field configuration for key ' . $identifier . ' does not exist! 1280772114');
 		}
 	}
+	
+	
+	/**
+	 * get part of the collection with entrys selected by the array 
+	 * 
+	 * @param array $fieldIdentifierList
+	 */
+	public function extractCollectionByIdentifierList(array $fieldIdentifierList) {
+		$collection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		foreach($fieldIdentifierList as $fieldIdentifier) {
+			$collection->addFieldConfig($this->getFieldConfigByIdentifier($fieldIdentifier));
+		}
+		
+		return $collection;
+	}
+	
+	
 }
 
 ?>
