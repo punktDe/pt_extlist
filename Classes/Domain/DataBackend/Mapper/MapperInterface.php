@@ -32,5 +32,10 @@
  */
 interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
 	
+	/**
+	 * This method is called frm the factory to init the mapper
+	 */
+	 public function init();
+	
 }
 ?>

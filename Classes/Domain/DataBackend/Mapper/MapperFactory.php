@@ -49,9 +49,10 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 
 		// Check whether mapper implements interface
 		tx_pttools_assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
-		// TODO rename class name: use injectMapperConfiguration instead!
-        $dataMapper->setMapperConfiguration($mapperConfiguration);
 		
+        $dataMapper->injectMapperConfiguration($mapperConfiguration);
+		$dataMapper->init();
+        
 		return $dataMapper;
 	}
 	

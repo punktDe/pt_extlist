@@ -32,6 +32,10 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
+	public function setUp() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper'));
     }
@@ -39,8 +43,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     
     public function testGetMappedListData() {
-    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
-    	$domainObjectMapper->setMapperConfiguration($this->createMapperConfiguration());
+    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+    	$domainObjectMapper->injectMapperConfiguration($this->createMapperConfiguration());
     	$mappedListData = $domainObjectMapper->getMappedListData($this->createMappingTestData()); 
     	$this->assertEquals(count($mappedListData), 4);
     	$this->assertEquals(get_class($mappedListData[0]), 'Tx_PtExtlist_Domain_Model_List_Row');
@@ -53,7 +57,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     
     public function testThrowExceptionOnNonExistingMappingConfiguration() {
-    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
+    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
     	try {
     		$domainObjectMapper->getMappedListData($this->createMappingTestData());
     	} catch(Exception $e) {
@@ -65,8 +69,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     
     public function testResolveObjectPath() {
-    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper();
-        $domainObjectMapper->setMapperConfiguration($this->createMapperConfiguration());
+    	$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+        $domainObjectMapper->injectMapperConfiguration($this->createMapperConfiguration());
     	$rightObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getName'), array(), '', FALSE);
     	$rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
     	$groupObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getRight'), array(), '', FALSE);
