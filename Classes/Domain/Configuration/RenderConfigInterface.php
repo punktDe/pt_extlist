@@ -51,5 +51,12 @@ interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	 */
 	public function getRenderUserFunctions();
 	
+	
+	/**
+	 * Returns a path to a fluid template file
+	 * 
+	 * @returns string template
+	 */
+	public function getRenderTemplate();
 }
 ?>

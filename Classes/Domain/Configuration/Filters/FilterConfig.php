@@ -225,6 +225,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 */
 	protected $renderUserFunctions = NULL;
 	
+	
+	/**
+	 * Path to fluid template
+	 * @var string
+	 */
+	protected $renderTemplate;
+	
+	
 	/**
 	 * This flag indicates if this filter is accessable for the current user.
 	 * Will be injected from the factory.
@@ -291,12 +299,19 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 			$this->renderUserFunctions = $filterSettings['renderUserFunctions'];
 		}
         
-        $this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
+		
+		if(array_key_exists('renderTemplate', $filterSettings)) {
+			$this->renderTemplate = $filterSettings['renderTemplate'];
+		}
+		
+        
+		$this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
         
 		if(array_key_exists('accessGroups', $filterSettings)) {
 			$this->accessGroups = t3lib_div::trimExplode(',', $filterSettings['accessGroups']);
 		}
-        
+       
+		
         // TODO ry21 add all properties here
 		// TODO check which values need to be set here and add assertions!
         $this->settings = $filterSettings;
@@ -453,6 +468,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
      */
     public function getRenderObj() {
         return $this->renderObj;
+    }
+    
+    
+    /**
+     * @return string renderTemplate
+     */
+    public function getRenderTemplate() {
+    	return $this->renderTemplate;
     }
     
     

@@ -36,6 +36,10 @@ class Tx_PtExtlist_Utility_RenderValue {
 	
 	protected static $cObj;
 	
+	/**
+	 * @var Tx_Fluid_View_TemplateView
+	 */
+	protected static $fluidRenderer;	
 	
 	protected static $renderCache = array();
 	
@@ -66,7 +70,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
 	 */
 	public static function renderByConfigObject(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig) {
-		return self::render($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions());
+		return self::render($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
 	}
 	
 	
@@ -77,7 +81,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
 	 */
 	public static function renderByConfigObjectUncached(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig) {
-		return self::renderUncached($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions());
+		return self::renderUncached($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
 	}
 	
 	
@@ -87,9 +91,10 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param array $data data values to be rendered
 	 * @param array $renderObjectConfig config for cObj rendering
 	 * @param array $renderUserFunctionConfig array config for multiple renderuserfunction
+	 * @param string $renderTemplate
 	 * @return string rendered value
 	 */
-	public static function renderUncached(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL) {
+	public static function renderUncached(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL, $renderTemplate = NULL) {
 		$content = '';
 
 		if($renderUserFunctionConfig) {
@@ -100,12 +105,17 @@ class Tx_PtExtlist_Utility_RenderValue {
 			$content = self::renderValueByRenderObject($data, $renderObjectConfig, $content);
 		}	
 
-		if(!$renderUserFunctionConfig && !$renderObjectConfig) {
+		if($renderTemplate) {
+			$content = self::renderValueByTemplate($data, $renderTemplate);
+		}
+		
+		if(!$renderUserFunctionConfig && !$renderObjectConfig && !$renderTemplate) {
 			$content = self::renderDefault($data);
 		}
 		
 		return $content;
 	}
+	
 	
 	
 	/**
@@ -147,6 +157,21 @@ class Tx_PtExtlist_Utility_RenderValue {
 	}
 	
 	
+	/**
+	 * Render the given data by the defined Fluid Template
+	 * 
+	 * @param array $data data values
+	 * @param string $templatePath
+	 */
+	public static function renderValueByTemplate(array $data, $templatePath) {
+		
+		self::getFluidRenderer()->setTemplatePathAndFilename($templatePath);
+		self::$fluidRenderer->assign('infos', $infos);
+		$rendered = self::$fluidRenderer->render();
+		
+		return $rendered;		
+	}
+	
 	
 	/**
 	 * Render content by renderuserfunction array
@@ -185,6 +210,27 @@ class Tx_PtExtlist_Utility_RenderValue {
 		
 		return self::$cObj;
 	}
+	
+	
+	
+	/**
+	 * Build a fluid renderer object 
+	 * 
+	 * @return Tx_Fluid_View_TemplateView
+	 */
+	protected static function getFluidRenderer() {
+		
+		if(!self::$fluidRenderer) {
+			self::$fluidRenderer = t3lib_div::makeInstance('Tx_Fluid_View_TemplateView');
+			$controllerContext = t3lib_div::makeInstance('Tx_Extbase_MVC_Controller_ControllerContext');
+			$controllerContext->setRequest(t3lib_div::makeInstance('Tx_Extbase_MVC_Request'));
+			self::$fluidRenderer->setControllerContext($controllerContext);	
+		}
+		
+		return self::$fluidRenderer;
+	}
+	
+	
 	
 	/**
 	 * If the given value is a plain array, it is converted 

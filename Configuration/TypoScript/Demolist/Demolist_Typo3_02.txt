@@ -123,7 +123,7 @@ plugin.tx_ptextlist.settings {
 				label = Countriy
 				columnIdentifier = country
 				fieldIdentifier = country_en, capital
-				renderTemplate = 
+				renderTemplate = typo3conf/ext/pt_extlist/Resources/Private/Templates/Demo/HierarchicStructure.html
 			}
         }
         
