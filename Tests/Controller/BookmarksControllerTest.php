@@ -76,6 +76,12 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	
 	
 	
+	public function testProcessAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
 	public function testDeleteAction() {
 		$this->markTestIncomplete();
 	}

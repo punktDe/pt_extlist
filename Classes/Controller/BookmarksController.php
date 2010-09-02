@@ -128,6 +128,18 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     
     
     /**
+     * Makes a bookmark being processed
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be processed
+     */
+    public function processAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+    	print_r('in process action');
+    	$this->forward('show');
+    }
+    
+    
+    
+    /**
      * Action for creating a new bookmark
      */
     public function createAction() {

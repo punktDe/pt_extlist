@@ -13,14 +13,14 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'List' => 'list,sort',	                                                        // The first controller and its first action will be the default
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
-	    'Bookmarks' => 'show,edit,update,delete,create',
+	    'Bookmarks' => 'show,process,edit,update,delete,create',
 	    'BreadCrumbs' => 'index'
 		),
 	array(
 	   	'List' => 'list,sort',														    // An array of non-cachable controller-action-combinations (they must already be enabled)
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
-	    'Bookmarks' => 'show,edit,update,delete,create',
+	    'Bookmarks' => 'show,process,edit,update,delete,create',
         'BreadCrumbs' => 'index'
 	)
 
