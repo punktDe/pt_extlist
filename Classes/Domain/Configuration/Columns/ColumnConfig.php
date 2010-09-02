@@ -74,16 +74,26 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $renderObj;
 	
+	
+	/**
+	 * Path to fluid template
+	 * @var string
+	 */
+	protected $renderTemplate;
+	
+	
 	/**
 	 * 
 	 * @var string
 	 */
 	protected $specialCell = NULL;
+	
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	protected $sortingConfigCollection = NULL;
+	
 	
 	/**
 	 * Sortingstate of this column
@@ -91,11 +101,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $sortingState = 0;
 	
+	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
 	protected $sortingImageDefault = '';
+	
 	
 	/**
 	 * Image to show as sorting link.
@@ -103,11 +115,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $sortingImageAsc = '';
 	
+	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
 	protected $sortingImageDesc = '';
+	
 	
 	/**
 	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
@@ -187,6 +201,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($columnSettings['renderUserFunctions'])) {
 			asort($columnSettings['renderUserFunctions']);
 			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
+		}
+		
+		if(array_key_exists('renderTemplate', $columnSettings)) {
+			$this->renderTemplate = $columnSettings['renderTemplate'];
 		}
 				
 		if(array_key_exists('renderObj', $columnSettings)) {
@@ -332,6 +350,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
      */
     public function getContainsArrayData() {
     	return $this->containsArrayData;
+    }
+    
+    
+    /**
+     * @return string renderTemplate
+     */
+    public function getRenderTemplate() {
+    	return $this->renderTemplate;
     }
     
 }

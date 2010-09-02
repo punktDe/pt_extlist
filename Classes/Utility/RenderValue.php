@@ -115,7 +115,19 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @return string rendered data
 	 */
 	public static function renderDefault(array $data) {
-		return implode(', ', $data);	
+		if(!is_array(current($data))) {
+			return implode(', ', $data);
+				
+		} else {
+			$defaultRenderString = '';
+			foreach($data as $row) {
+				foreach($row as $label => $field) {
+					$defaultRenderString .= $label . ' : ' . $field . ', ';
+				}
+			}
+			
+			return $defaultRenderString;
+		}
 	}
 
 	

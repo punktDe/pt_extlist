@@ -57,6 +57,7 @@ plugin.tx_ptextlist.settings {
 			country_en {
 				field = cn_short_en
 				table = static_countries
+				expandGroupRows = 1
 			}
 	
 			uno_member {
@@ -104,14 +105,7 @@ plugin.tx_ptextlist.settings {
         }
         
         columns {
-	
-			50 {
-				label = Countries
-				columnIdentifier = country
-				fieldIdentifier = country_en, capital
-			}
-	
-	
+		
 			10 {
 				label = Continent
 				columnIdentifier = continent
@@ -123,6 +117,13 @@ plugin.tx_ptextlist.settings {
 				label = Subcontinent
 				columnIdentifier = subcontinent
 				fieldIdentifier = subcontinent
+			}
+			
+			30 {
+				label = Countriy
+				columnIdentifier = country
+				fieldIdentifier = country_en, capital
+				renderTemplate = 
 			}
         }
         

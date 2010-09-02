@@ -116,13 +116,21 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$this->fail();
 	}
 
-	public function testInjectAccessable() {
+	public function testSetAccessable() {
 		$this->columnConfig->setAccessable(true);
 		$this->assertTrue($this->columnConfig->isAccessable());
 	}
 	
+	
+	
 	public function testIsAccessableDefault() {
 		$this->assertFalse($this->columnConfig->isAccessable());
+	}
+	
+	
+	
+	public function testGetRenderTemplate() {
+		$this->assertEquals($this->columnSettings['renderTemplate'], $this->columnConfig->getRenderTemplate());
 	}
 }
 ?>
