@@ -128,6 +128,19 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	}
 	
 	
+	public function testGetContainsArrayData() {
+		$pluginSettings = $this->configurationBuilderMock->getPluginSettings();
+		$pluginSettings['listConfig']['test']['fields']['field4']['expandGroupRows'] = 1;
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($pluginSettings);
+		
+		$allColumnSettings = $configurationBuilderMock->getColumnSettings();
+		
+		$columnSettings = $allColumnSettings[40];
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilderMock, $columnSettings);
+		
+		$this->assertTrue($columnConfig->getContainsArrayData());
+	}
+	
 	
 	public function testGetRenderTemplate() {
 		$this->assertEquals($this->columnSettings['renderTemplate'], $this->columnConfig->getRenderTemplate());
