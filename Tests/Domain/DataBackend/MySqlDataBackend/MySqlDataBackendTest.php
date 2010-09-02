@@ -48,7 +48,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	public function testInjectDataMapper() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-		$dataMapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper', array(), array());
+		$dataMapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper', array(), array($this->configurationBuilder));
 		$dataBackend->injectDataMapper($dataMapperMock);
 	}
 	
@@ -297,7 +297,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
         																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
             
-        $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper');
+        $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper', array(), array($this->configurationBuilder));
         $mapperMock->expects($this->once())
             ->method('getMappedListData')
             ->will($this->returnValue($dataSourceReturnArray));

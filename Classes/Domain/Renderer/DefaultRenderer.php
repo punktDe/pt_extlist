@@ -93,6 +93,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 			// Only render if FE-User is allowed to see the column
 			if($columnConfig->isAccessable()) {
 				// Use strategy to render cells
+				$GLOBALS['trace'] = true; trace($columnConfig); $GLOBALS['trace']=off;
 				$cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
 				$renderedRow->addCell($cell, $columnIdentifier);
 			} 

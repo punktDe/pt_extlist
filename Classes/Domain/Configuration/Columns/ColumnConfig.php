@@ -120,7 +120,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	/**
 	 * @param $columnSettings array of coumn settings
 	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $columnSettings) {
 		tx_pttools_assert::isNotEmptyString($columnSettings['columnIdentifier'], array(message => 'Column identifier not given 1277889446'));
@@ -136,20 +135,25 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		$this->setOptionalSettings($columnSettings);
 	}	
 	
+	
+	
 	public function injectAccessable($accessable) {
 		$this->accessable = $accessable;
 	}
 	
+	
+	
 	public function isAccessable() {
 		return $this->accessable;
 	}
+	
+	
 	
 	/**
 	 * Set optional definable columnsettings
 	 * 
 	 * @param $columnSettings
 	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	protected function setOptionalSettings($columnSettings) {
 		

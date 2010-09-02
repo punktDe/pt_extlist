@@ -153,7 +153,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	
 	
-	public function getExpandGroupRwos() {
+	public function getExpandGroupRows() {
 		return $this->expandGroupRows;
 	}
 	

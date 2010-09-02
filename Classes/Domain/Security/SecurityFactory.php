@@ -28,6 +28,9 @@ class Tx_PtExtlist_Domain_Security_SecurityFactory {
 
 	protected static $instance = NULL;
 	
+	/**
+	 * @return Tx_PtExtlist_Domain_Security_GroupSecurity
+	 */
 	public static function getInstance() {
 		if(self::$instance === NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_Security_GroupSecurity();

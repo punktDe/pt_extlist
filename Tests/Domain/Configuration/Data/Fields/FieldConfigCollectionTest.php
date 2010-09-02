@@ -53,6 +53,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
                 'field' => 'fieldName2',
                 'isSortable' => '0',
                 'access' => '1,2,3,4'
+            ),
+            'field3' => array( 
+                'table' => 'tableName3',
+                'field' => 'fieldName3',
+                'isSortable' => '0',
+                'access' => '1,2,3,4'
             )
 		);
 	}
@@ -97,6 +103,19 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
 		$this->assertEquals($fieldConfig1->getIdentifier(), 'field1');
 		$fieldConfig2 = $fieldConfigCollection->getFieldConfigByIdentifier('field2');
 		$this->assertEquals($fieldConfig2->getIdentifier(), 'field2');
+	}
+	
+	
+	public function testAxtractCollectionByIdentifierList() {
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', $this->aggregateSettings['field1']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', $this->aggregateSettings['field2']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field3', $this->aggregateSettings['field3']));
+		
+		$extractFieldConfigCollection = $fieldConfigCollection->extractCollectionByIdentifierList(array('field1', 'field3'));
+		$this->assertEquals(count($extractFieldConfigCollection), 2);
+		$this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field1'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+		$this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field3'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
 	}
 	
 }

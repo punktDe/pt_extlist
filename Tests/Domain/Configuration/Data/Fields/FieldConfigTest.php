@@ -72,7 +72,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	
 	public function testGetExpandGroupRows() {
-		$this->assertEquals($this->fieldConfig->getExpandGroupRwos(), true);
+		$this->assertEquals($this->fieldConfig->getExpandGroupRows(), true);
 	}
 	
 	
