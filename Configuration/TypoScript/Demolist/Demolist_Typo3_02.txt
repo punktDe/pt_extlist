@@ -44,7 +44,7 @@ plugin.tx_ptextlist.settings {
             )
         }
         
-        pager.itemsPerPage =
+        pager.itemsPerPage = 
         
         fields {
             
@@ -80,6 +80,12 @@ plugin.tx_ptextlist.settings {
 			phone {
 				table = static_countries
 				field = cn_phone
+			}
+			
+			tld {
+				table = static_countries
+				field = cn_tldomain
+				expandGroupRows = 1
 			}
 	
 			isoNo {
@@ -122,7 +128,7 @@ plugin.tx_ptextlist.settings {
 			30 {
 				label = Countriy
 				columnIdentifier = country
-				fieldIdentifier = country_en, capital
+				fieldIdentifier = country_en, capital, tld
 				renderTemplate = typo3conf/ext/pt_extlist/Resources/Private/Templates/Demo/HierarchicStructure.html
 			}
         }

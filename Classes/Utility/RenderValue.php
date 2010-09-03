@@ -53,10 +53,10 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param array $renderUserFunctionConfig array and config for multiple renderuserfunctions
 	 * @return string rendered value
 	 */
-	public static function render(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL) {
+	public static function render(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL, $renderTemplate = NULL) {
 		$cacheKey = md5(serialize(func_get_args()));
 		if(!self::$renderCache[$cacheId]) {
-			self::$renderCache[$cacheKey] = self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig);
+			self::$renderCache[$cacheKey] = self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
 		}
 		return self::$renderCache[$cacheKey];
 	}
@@ -166,7 +166,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function renderValueByTemplate(array $data, $templatePath) {
 		
 		self::getFluidRenderer()->setTemplatePathAndFilename($templatePath);
-		self::$fluidRenderer->assign('infos', $infos);
+		self::$fluidRenderer->assign('data', $data);
 		$rendered = self::$fluidRenderer->render();
 		
 		return $rendered;		
