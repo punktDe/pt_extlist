@@ -216,7 +216,6 @@ plugin.tx_ptextlist.settings {
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
-					  accessGroups = 3
 					  }
 	              }
 	         }
