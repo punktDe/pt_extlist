@@ -1,3 +1,5 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
 <!--  
 Template for rendering a list.
 
@@ -12,9 +14,9 @@ Tx_PtExtlist_Domain_Model_List_ListData				aggregateRows	A collection of aggrega
 @subpackage pt_extlist
 @author Christoph Ehscheidt <ehscheidt@punkt.de>
 -->
+</extlist:comment>
 
-
-{namespace extlist=Tx_PtExtlist_ViewHelpers} 
+ 
 
 <table class="tx-ptextlist-list tx-ptextlist-list-standard">
 	<f:render partial="List/ListHeader" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
