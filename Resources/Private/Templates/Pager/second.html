@@ -27,23 +27,23 @@ Tx_PtExtlist_Domain_Model_Pager				The pager object
 <ul class="pt-extlist-pager">
 	<f:if condition="{pager.showFirstLink}">
 		<li class="first">
-			<f:link.action action="submit" arguments="{page:pager.firstPage, list:pager.listIdentifier}">&lt;&lt;</f:link.action>
+			<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.firstPage}')}">&lt;&lt;</f:link.action>
 		</li>
 	</f:if>
 	<f:if condition="{pager.showPreviousLink}">
 		<li class="previous">
-			<f:link.action action="submit" arguments="{page:pager.previousPage, list:pager.listIdentifier}">&lt;</f:link.action>
+			<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.previousPage}')}">&lt;</f:link.action>
 		</li>
 	</f:if>
 	
 	<f:if condition="{pager.showNextLink}">
 		<li class="next">
-			<f:link.action action="submit" arguments="{page:pager.nextPage, list:pager.listIdentifier}">&gt;</f:link.action>
+			<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.nextPage}')}">&gt;</f:link.action>
 		</li>
 	</f:if>
 	<f:if condition="{pager.showLastLink}">
 		<li class="last">
-			<f:link.action action="submit" arguments="{page:pager.lastPage, list:pager.listIdentifier}">&gt;&gt;</f:link.action>
+			<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.lastPage}')}">&gt;&gt;</f:link.action>
 		</li>
 	</f:if>
 </ul>
