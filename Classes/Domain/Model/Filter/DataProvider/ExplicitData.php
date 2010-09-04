@@ -24,11 +24,24 @@
 ***************************************************************/
 
 /**
- * Class implements a generic options filter
+ * Implements data provider for grouped list data
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_OptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+
+	protected $filterConfig;
+	
+	
+	public function injectFilterConfig($filterConfig) {
+		$this->filterConfig = $filterConfig;
+	}
+	
+	public function getRenderedOptions() {
+		
+	}
+	
 }
+?>

@@ -24,11 +24,33 @@
 ***************************************************************/
 
 /**
- * Class implements a generic options filter
+ * Interface for filterData provider
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_OptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
+interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+		
+	/**
+	 * inject the filterconfig
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 */
+	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+	
+	
+	/**
+	 * Init the data provider
+	 */
+	public function init();
+	
+	
+	/**
+	 * Return the rendered filteroptions
+	 * 
+	 * @return array filter options
+	 */
+	public function getRenderedOptions();
+	
 }

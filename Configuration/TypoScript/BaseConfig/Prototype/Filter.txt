@@ -34,7 +34,7 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	select {
-		partialPath = Filter/Group/SelectFilter
+		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		
 		defaultValue =
@@ -51,6 +51,7 @@ plugin.tx_ptextlist.prototype.filter {
 		invert = 0
 		invertable = 0
 		accessGroups =
+		#dataProviderClass = 
 		
 		renderObj = TEXT
 	    renderObj {
@@ -59,7 +60,7 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	checkbox {
-		partialPath = Filter/Group/checkBoxFilter
+		partialPath = Filter/Options/checkBoxFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
 		
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
@@ -78,6 +79,7 @@ plugin.tx_ptextlist.prototype.filter {
 		invert = 0
 		invertable = 0
 		accessGroups =
+		#dataProviderClass = 
 		
 		renderObj = TEXT
 		renderObj {
@@ -87,7 +89,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 	
 	radiobutton {
-		partialPath = Filter/Group/radioButtonFilter
+		partialPath = Filter/Options/radioButtonFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
 		
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
@@ -106,6 +108,7 @@ plugin.tx_ptextlist.prototype.filter {
 		invert = 0
 		invertable = 0
 		accessGroups =
+		#dataProviderClass = 
 		
 		renderObj = TEXT
 		renderObj {
@@ -114,10 +117,9 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	firstLetter {
-		partialPath = Filter/Group/firstLetterFilter
+		partialPath = Filter/Options/firstLetterFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
 		
-		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
 		
 		filterIdentifier =
@@ -131,6 +133,7 @@ plugin.tx_ptextlist.prototype.filter {
 		invert = 0
 		invertable = 0
 		accessGroups =
+		#dataProviderClass = 
 		
 		renderObj = TEXT
 		renderObj {

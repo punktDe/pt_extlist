@@ -114,15 +114,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	
 	
 	/**
-	 * Array of columns to be hidden, if this filter is active
-	 *
-	 * @var array
-	 */
-	protected $hideColumns = array();
-	
-	
-	
-	/**
 	 * If true, sorting state is reset if filter is submitted
 	 *
 	 * @var bool
@@ -399,16 +390,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     
     public function getDefaultValue() {
     	return $this->defaultValue;
-    }
-    
-    
-    /**
-     * @return unknown
-     */
-    public function getHideColumns() {
-        return $this->hideColumns;
-    }
-    
+    }  
     
     
     /**
