@@ -57,8 +57,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 	 * @return string dataProviderClass
 	 */
 	protected static function determineDataProviderClass(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		if($filterConfig->getSettings('dataProviderClass')) {
-			$dataProviderClassName = $filterConfig->getSettings('dataProviderClass');
+		if($filterConfig->getSettings('dataProviderClassName')) {
+			$dataProviderClassName = $filterConfig->getSettings('dataProviderClassName');
 		} else {
 			if($filterConfig->getSettings('options')) {
 				$dataProviderClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData';
