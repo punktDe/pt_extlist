@@ -18,12 +18,12 @@ Tx_PtExtlist_Domain_Model_List_Cell		cell		A cell which holds the value and addi
 -->
 </extlist:comment>
 
-<f:for each="{listData}" as="listRow">
+<f:for each="{listData}" key="rowIndex" as="listRow">
 	
-	<tr>
+	<tr class="{f:if(condition: '{rowIndex} % 2', then: 'even', else: 'odd')}">
 		
-		<f:for each="{listRow}" as="cell">
-			<td style="{cell.specialValues.style}"><f:format.html>{cell}</f:format.html></td>
+		<f:for each="{listRow}" key="columnIdentifier" as="cell">
+			<td class="tx-ptextlist-field-{columnIdentifier}"><f:format.html>{cell}</f:format.html></td>
 		</f:for>
 		
 	</tr>
