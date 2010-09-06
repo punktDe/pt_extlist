@@ -1,5 +1,5 @@
-page.includeCSS {
-	reset = EXT:pt_extlist/Resources/Public/CSS/reset.css
-	content = EXT:pt_extlist/Resources/Public/CSS/content.css
-	framework = EXT:pt_extlist/Resources/Public/CSS/framework.css
-}
+#page.includeCSS {
+#	reset = EXT:pt_extlist/Resources/Public/CSS/reset.css
+#	content = EXT:pt_extlist/Resources/Public/CSS/content.css
+#	framework = EXT:pt_extlist/Resources/Public/CSS/framework.css
+#}
