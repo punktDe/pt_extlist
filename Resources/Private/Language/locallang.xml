@@ -15,6 +15,7 @@
             <label index="pager.showItems">Show item</label>
             
             <label index="filterBox.resetFilters">Reset Filters</label>
+            <label index="filterBox.submitFilters">Submit Filters</label>
             <label index="filterBox.errorInFilter">The filters contain errors.</label>
             
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
