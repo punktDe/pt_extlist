@@ -132,6 +132,21 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 	*/
 	
 	
+	public function testCreateArrayDataFieldSet() {
+		$array = array('field1' => 'test1',
+					   'field2' => array ('value1', 'value2', 'value3'),
+					   'field3' => 'test3',
+						);
+		
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy');
+		$defaultCellRenderer = new $accessibleClassName($this->configurationBuilderMock);
+		
+		$outArray = $defaultCellRenderer->_call('createArrayDataFieldSet', $array);
+		$this->assertEquals($outArray[1]['field2'], 'value2');
+		$this->assertEquals($outArray[1]['field3'], 'test3');
+	}
+	
+	
 }
 
 ?>

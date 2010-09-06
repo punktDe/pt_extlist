@@ -28,9 +28,9 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds an instance of pager configuration
@@ -44,23 +44,20 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase 
 	public function setup() {
 		
 		$this->initDefaultConfigurationBuilderMock();
-		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigurationFactory::getInstance($this->configurationBuilderMock);
+		$pagerSettings = $this->configurationBuilderMock->getPagerSettings();
+		$pagerSettings = $pagerSettings['pagerConfigs']['default'];
+		$pagerSettings['itemsPerPage'] = 10;
+		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($this->configurationBuilderMock, 'default', $pagerSettings);
 	}
 		
 	
 	
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration'));
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig'));
 	}
 	
 	
-	public function testGetPagerSettings() {
-		$settings = $this->pagerConfiguration->getPagerSettings();
-		$this->assertTrue(is_array($settings));
-	}
-	
-	
-	
+
 	public function testGetPagerClassName() {
 		$this->assertEquals($this->pagerConfiguration->getPagerClassName(), 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
 	}
@@ -77,6 +74,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfiguration_testcase 
 	
 	public function testGetTemplatePath() {
 		$this->assertNotNull($this->pagerConfiguration->getTemplatePath());
+	}
+	
+	public function testGetItemsPerPage() {
+		$this->assertEquals(10, $this->pagerConfiguration->getItemsPerPage());
 	}
 	
 	

@@ -53,6 +53,46 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	
 	
 	/**
+	 * Holds an instance of current request that has to be processed by subcontroller
+	 *
+	 * @var Tx_Extbase_MVC_Web_Request
+	 */
+	protected $request;
+	
+	
+	
+	/**
+	 * Holds an instance of current response that is manipulated by subcontroller
+	 *
+	 * @var Tx_Extbase_MVC_Web_Response
+	 */
+	protected $response;
+	
+	
+	
+	/**
+	 * Injector for request
+	 *
+	 * @param Tx_Extbase_MVC_Web_Request $request
+	 */
+	public function injectRequest(Tx_Extbase_MVC_Web_Request $request) {
+		$this->request = $request;
+	}
+	
+	
+	
+	/**
+	 * Injector for response
+	 *
+	 * @param Tx_Extbase_MVC_Web_Response $response
+	 */
+	public function injectResponse(Tx_Extbase_MVC_Web_Response $response) {
+	    $this->response = $response;	
+	}
+	
+	
+	
+	/**
 	 * Injector for subcontroller
 	 *
 	 * @param Tx_PtExtlist_Controller_AbstractController $subcontroller
@@ -74,14 +114,53 @@ class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controll
 	
 	
 	
+	/**
+	 * Magic function that handles action-calls on subcontroller wrapper.
+	 * Checks whether given method name is a correct action and whether action exists in controller
+	 *
+	 * @param string $method Method name to be called on subcontroller
+	 * @param array $args Arguments delivered for action to be called
+	 */
     public function __call($method, $args) {
-    	
+    	$matches = array();
+    	if (!preg_match('/(.+?)Action/', $method, $matches)) {
+    		throw new Exception('Given method name is not a correct action name: ' . $method . ' 1283351947');
+    	}
+    	tx_pttools_assert::isNotEmptyString($matches[1], array('message' => 'No action name could be parsed from ' . $method . ' 1283351949'));
+    	$controllerActionname = $matches[1];
+    	if (!method_exists($this->subcontroller, $method)) {
+    		throw new Exception('Trying to call action ' . $method . ' on ' . get_class($this->subcontroller) . ' which does not exist! 1283351948');
+    	}
+    	return $this->processAction($controllerActionname, $args);
     }
     
     
     
-    public function processAction() {
+    /**
+     * Processes action called on subcontroller
+     *
+     * @param string $controllerActionName
+     * @param array $args
+     * @return string HTML source: the rendered action
+     */
+    protected function processAction($controllerActionName, $args) {
+    	$dispatchLoopCount = 0;
+    	// TODO insert arguments into request!
+    	// Perhaps this works like that: $this->request->setArguments();
+    	$this->request->setControllerActionName($controllerActionName);
+
+    	while (!$this->request->isDispatched()) {
+            if ($dispatchLoopCount > 0) {
+            	$this->subController = $this->subcontrollerFactory->getPreparedSubController($this->request);
+            }
+            if ($dispatchLoopCount++ > 99) throw new Tx_Extbase_MVC_Exception_InfiniteLoop('Could not ultimately dispatch the request after '  . $dispatchLoopCount . ' iterations.', 1283351950);
+            try {
+                $this->subcontroller->processRequest($this->request, $this->response);
+            } catch (Tx_Extbase_MVC_Exception_StopAction $ignoredException) {
+            }
+        }
         
+        return $this->response->getContent();
     }
 	
 	

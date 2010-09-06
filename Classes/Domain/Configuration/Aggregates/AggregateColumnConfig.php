@@ -39,11 +39,13 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	 */
 	protected $listIdentifier;
 	
+	
 	/** 
 	 * @var string
 	 */
 	protected $columnIdentifier;
 
+	
 	/** 
 	 * @var array
 	 */
@@ -55,10 +57,18 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	 */
 	protected $renderUserFunctions = NULL;
 	
+	
 	/**
 	 * @var array
 	 */
 	protected $renderObj = null;
+	
+	
+	/**
+	 * Path to fluid template
+	 * @var string
+	 */
+	protected $renderTemplate;
 	
 		
 	/**
@@ -85,7 +95,6 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	 * 
 	 * @param $columnSettings
 	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	protected function setOptionalSettings($aggregateColumnSettings) {
 
@@ -97,6 +106,10 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 		if(array_key_exists('renderObj', $aggregateColumnSettings)) {
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $aggregateColumnSettings['renderObj']));
         }
+        
+		if(array_key_exists('renderTemplate', $aggregateColumnSettings)) {
+			$this->renderTemplate = $aggregateColumnSettings['renderTemplate'];
+		}
 	}
 	
 	
@@ -140,8 +153,14 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	}
 	
 	
+	
 	public function getSpecialCell() {
 		return '';
+	}
+	
+	
+	public function getContainsArrayData() {
+		return false;
 	}
 	
 	
@@ -160,5 +179,14 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	public function getRenderUserFunctions() {
 		return $this->renderUserFunctions;
 	}
+	
+	
+	
+    /**
+     * @return string renderTemplate
+     */
+    public function getRenderTemplate() {
+    	return $this->renderTemplate;
+    }
 }
 ?>

@@ -36,7 +36,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public static function getInstanceBySortingSettings($sortingSettings) {
-
 		$nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
 									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 		
@@ -69,14 +68,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	/**
 	 * Generate an array by field configuration - direction is NULL here
 	 * 
-	 * @param $fields string
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
-	public static function getInstanceByFieldConfiguration($fieldSet) {
+	public static function getInstanceByFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
 		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
-		foreach($fieldSet as $fieldName) {
-			$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldName, NULL, false);
-			$sortingConfigCollection->addSortingField($sortingConfig, $fieldName);
+		foreach($fieldConfigCollection as $fieldConfig) {
+			$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldConfig->getIdentifier(), NULL, false);
+			$sortingConfigCollection->addSortingField($sortingConfig, $fieldConfig->getIdentifier());
 		}
 		
 		return $sortingConfigCollection;

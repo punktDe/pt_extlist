@@ -67,5 +67,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_t
 		$this->assertEquals($this->aggregateColumnConfig->getColumnIdentifier(), 'column2');
 	}
 	
+	
+	public function testGetRenderTemplate() {
+		$this->markTestIncomplete();
+	}
+	
 }
 ?>

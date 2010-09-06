@@ -43,17 +43,13 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 * Evaluates if a column is accessable by the FE-User(-Group).
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
 	 * 
 	 * @return bool
 	 */
-	public function isAccessableColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
-		$fieldIds = $columnConfig->getFieldIdentifier();
-		
-		$fieldConfigCollection = $configBuilder->buildFieldsConfiguration();
-		
+	public function isAccessableColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
+				
 		// FAIL if one of this tests are failing.
-		if(!$this->checkFields($fieldConfigCollection, $fieldIds)) {
+		if(!$this->checkFields($columnConfig->getFieldIdentifier())) {
 			return false;
 		}
 		// OR
@@ -82,21 +78,20 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 * @return bool
 	 */
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
+		
+		// TODO when fiterConfig returns a a real FieldDescription object remove this
+		
 		$fieldIdentifier = $filterConfig->getFieldIdentifier();
-		
-		$fieldIds = explode(',', trim($fieldIdentifier));
-		$fieldConfigCollection = $configBuilder->buildFieldsConfiguration();
-		
-		
+		$fieldIds = t3lib_div::trimExplode(',', $fieldIdentifier);
+		$fieldConfigCollection = $fieldConfigCollection = $configBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIds);
 		
 		// FAIL if one of this tests are failing.
-		if(!$this->checkFields($fieldConfigCollection, $fieldIds)) {
-			
+		if(!$this->checkFields($fieldConfigCollection)) {
 			return false;
 		}
+		
 		// OR
 		if(!$this->checkFilter($filterConfig)) {
-			
 			return false;
 		}
 		
@@ -104,14 +99,19 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		return true;
 	}
 	
-	protected function checkFields(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection, array $fieldIds) {
-		foreach($fieldIds as $fieldId) {
-			$fieldConfig = $fieldConfigCollection->getItemById($fieldId);
+	
+	/**
+	 * Check field access 
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+	 */
+	protected function checkFields(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
+
+		foreach($fieldConfigCollection as $fieldConfig) {
 			$ident = $fieldConfig->getAccessGroups();
 				
 			if( empty($ident) ) continue;
 			if(! $this->compareAccess($ident) ) return false;
-
 		}
 		
 		return true;

@@ -68,7 +68,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	
 	
 	public function testGetFieldIdentifier() {
-		$this->assertEquals($this->columnConfig->getFieldIdentifier(), array($this->columnSettings['fieldIdentifier']));
+		$this->assertEquals($this->columnConfig->getFieldIdentifier()->getFieldConfigByIdentifier($this->columnSettings['fieldIdentifier'])->getIdentifier(), $this->columnSettings['fieldIdentifier']);
 	}
 	
 	
@@ -116,13 +116,34 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$this->fail();
 	}
 
-	public function testInjectAccessable() {
-		$this->columnConfig->injectAccessable(true);
+	public function testSetAccessable() {
+		$this->columnConfig->setAccessable(true);
 		$this->assertTrue($this->columnConfig->isAccessable());
 	}
 	
+	
+	
 	public function testIsAccessableDefault() {
 		$this->assertFalse($this->columnConfig->isAccessable());
+	}
+	
+	
+	public function testGetContainsArrayData() {
+		$pluginSettings = $this->configurationBuilderMock->getPluginSettings();
+		$pluginSettings['listConfig']['test']['fields']['field4']['expandGroupRows'] = 1;
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($pluginSettings);
+		
+		$allColumnSettings = $configurationBuilderMock->getColumnSettings();
+		
+		$columnSettings = $allColumnSettings[40];
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilderMock, $columnSettings);
+		
+		$this->assertTrue($columnConfig->getContainsArrayData());
+	}
+	
+	
+	public function testGetRenderTemplate() {
+		$this->assertEquals($this->columnSettings['renderTemplate'], $this->columnConfig->getRenderTemplate());
 	}
 }
 ?>

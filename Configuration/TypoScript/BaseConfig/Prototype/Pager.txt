@@ -15,8 +15,7 @@ plugin.tx_ptextlist.prototype.pager {
 		default {
 		    enabled = 1
 	        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-	        
-	        
+	        	        
 	        showNextLink = 1
 	        showPreviousLink = 1
 	        showFirstLink = 1

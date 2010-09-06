@@ -56,6 +56,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
             array('assign'), array(), '', FALSE);
         $mockView->expects($this->at(0))->method('assign')->with('publicBookmarks', $publicBookmarksCollectionMock);
         $mockView->expects($this->at(1))->method('assign')->with('userBookmarks', $userBookmarksCollectionMock);
+        $mockView->expects($this->at(2))->method('assign');
         
         $mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),

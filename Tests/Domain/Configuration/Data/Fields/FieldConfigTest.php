@@ -52,7 +52,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 		    'table' => 'tableName',
 		    'field' => 'fieldName',
 		    'isSortable' => '0',
-		    'accessGroups' => '1,2,3,4'
+		    'accessGroups' => '1,2,3,4',
+			'expandGroupRows' => 1
 		);
 		$this->fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', $this->fieldSettings);
 	}
@@ -69,6 +70,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 		$this->assertEquals($this->fieldConfig->getIdentifier(),'test1');
 	}
 	
+	
+	public function testGetExpandGroupRows() {
+		$this->assertEquals($this->fieldConfig->getExpandGroupRows(), true);
+	}
 	
 	
 	public function testGetTable() {

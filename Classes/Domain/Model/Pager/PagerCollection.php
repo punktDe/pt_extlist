@@ -31,8 +31,16 @@
  * @package pt_extlist
  * @subpackage Pager
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collection {
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collection 
+			implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 
+	
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */			
+	protected $configurationBuilder;
+
+	
 	/**
 	 * Holds the current page index.
 	 * New pagers need to know the current page.
@@ -42,13 +50,13 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	protected $currentPage;
 	
 	
-	
 	/**
 	 * Shows if one of the pagers is enabled.
 	 * 
 	 * @var boolean
 	 */
 	protected $enabled = false;
+	
 	
 	/**
 	 * Holds a instance of the persitence manager.
@@ -57,10 +65,15 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 */
 	protected $sessionPersistenceManager;
 	
-	public function __construct() {
-		// Inject settings from session.
-        $this->sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+	
+	
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
 	}
+	
 	
 	/**
 	 * Adds a pager to the collection.
@@ -68,9 +81,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
-		// Inject session pager data from session
-		$this->sessionPersistenceManager->loadFromSession($pager);
 	
+		$pager->setCurrentPage($this->currentPage);
+		
 		// As if one pager is enabled, the collection is marked a enabled.
 		if($pager->isEnabled()) {
 			$this->enabled = true;
@@ -91,11 +104,10 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		
 		foreach($this->itemsArr as $id => $pager) {
 			$pager->setCurrentPage($pageIndex);
-			
-			// Save updated pager to session.
-			$this->sessionPersistenceManager->persistToSession($pager);
 		}
 	}
+	
+	
 	
 	/**
 	 * Resets every pager to start page.
@@ -110,6 +122,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	} 
 	
 	
+	
 	/**
 	 * Returns the current page which is valid for all pagers.
 	 *
@@ -119,6 +132,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		return $this->currentPage;
 	}
 	
+	
+	
 	/**
 	 * Returns true if any of the pages is enabled.
 	 * @return boolean
@@ -126,6 +141,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function isEnabled() {
 		return $this->enabled;
 	}
+	
 	
 	
 	/**
@@ -139,6 +155,51 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 			$pager->setItemCount($itemCount);
 		}
 	}
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
+	 */
+	public function getObjectNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->configurationBuilder->getListIdentifier() . '.pagerCollection';
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface::injectGPVars()
+	 */
+	public function injectGPVars($GPVars) {
+		if(array_key_exists('page', $GPVars)) {
+			$this->currentPage = (int)$GPVars['page'];
+		}
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::injectSessionData()
+	 */
+	public function injectSessionData(array $sessionData) {
+		if(array_key_exists('page', $sessionData)) {
+			$this->currentPage = (int)$sessionData['page'];
+		}
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
+	 */
+	public function persistToSession() {
+		return array('page' => $this->currentPage);
+	}
+	
+	
 	
 	/**********************************************************
 	 * 

@@ -17,6 +17,10 @@ plugin.tx_ptextlist.prototype.column {
 		columnIdentifier = 
         fieldIdentifier = 
         label = 
+        sorting =
+        #renderUserFunction =
+        #renderObj = 
+        #renderTemplate =
 	}
 		
 }

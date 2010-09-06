@@ -32,7 +32,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $arrayData;
 	
@@ -47,6 +47,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
     
 	
 	public function setup() {
+		
+		$this->initDefaultConfigurationBuilderMock();
+		
 		$this->arrayData = array(
             array('field1' => 'v1_1', 't1_f2' => 'v1_2', 't1_f3' => 'v1_3','field2' => 'v1_4', 't2_f2' => 'v1_5'),
             array('field1' => 'v2_1', 't1_f2' => 'v2_2', 't1_f3' => 'v2_3','field2' => 'v2_4', 't2_f2' => 'v2_5'),
@@ -81,23 +84,24 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
 	
 	
 	public function testSetUp() {
-		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
+		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 	}
 	
 	
 	
 	public function testSetMappingConfiguration() {
-	   	$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
+	   	$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 	   	$mockFieldConfigCollection = $this->getMock(
             'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection',
             array(),array(),'',FALSE,FALSE,FALSE);
-	   	$arrayMapper->setMapperConfiguration($mockFieldConfigCollection);
+	   	$arrayMapper->injectMapperConfiguration($mockFieldConfigCollection);
 	}
 	
 	
 	
 	public function testGetMappedListDataWithoutConfiguration() {
-		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
+		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
+		$arrayMapper->init();
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
 		$this->assertEquals($mappedListData[0]['field1']->getValue(), 'v1_1');
 	}
@@ -108,12 +112,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
 	 * TODO For some curious reason, this test fails, if the testcase is run alone 
 	 */
 	public function testGetMappedListDataWithMappingConfiguration() {
-		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
+		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 		/**
 		 * TODO think about better way to test this without need of dependent object!
 		 */
 		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->fieldSettings);
-		$arrayMapper->setMapperConfiguration($fieldConfigCollection);
+		$arrayMapper->injectMapperConfiguration($fieldConfigCollection);
+		$arrayMapper->init();
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
 		$this->assertEquals($mappedListData[0][$fieldConfigCollection->getItemById('field1')->getIdentifier()]->getValue(), 'v1_1');
 		$this->assertEquals($mappedListData[3][$fieldConfigCollection->getItemById('field2')->getIdentifier()]->getValue(), 'v4_4');
@@ -125,9 +130,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_Extb
      * TODO For some curious reason, this test fails, if the testcase is run alone 
      */
 	public function testThrowExceptionOnNonExistingFieldName() {
-		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper();
+		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
         $fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->wrongFieldSettings);
-        $arrayMapper->setMapperConfiguration($fieldConfigCollection);
+        $arrayMapper->injectMapperConfiguration($fieldConfigCollection);
+        $arrayMapper->init();
+        
         try {
             $mappedListData = $arrayMapper->getMappedListData($this->arrayData);
         } catch(Exception $e) {

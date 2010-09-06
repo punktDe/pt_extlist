@@ -24,6 +24,10 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * Testcase for pager collection factory
+ *
+ */
 class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $settings = array(
@@ -113,7 +117,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx
 	
 	
         
-	public function setUp() {
+	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
 	

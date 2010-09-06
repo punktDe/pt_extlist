@@ -30,6 +30,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Pager_DefaultPager 
     implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, 
@@ -109,15 +110,15 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	
 	/**
 	 * Constructor for pager
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration Configuration to be used for pager
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration Configuration to be used for pager
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration $pagerConfiguration) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration) {
 		$this->pagerConfiguration = $pagerConfiguration;
 		$this->enabled = $pagerConfiguration->getEnabled();
 		$this->settings = $pagerConfiguration->getPagerSettings();
-		$this->itemsPerPage = $this->settings['itemsPerPage'];
-		$this->pagerIdentifier = $this->pagerConfiguration->getPagerIdentifier();
+		$this->itemsPerPage = $pagerConfiguration->getItemsPerPage();
+		$this->pagerIdentifier = $pagerConfiguration->getPagerIdentifier();
 		$this->listIdentifier = $pagerConfiguration->getListIdentifier();
 	}
 	

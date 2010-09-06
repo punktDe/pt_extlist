@@ -26,6 +26,7 @@
 /**
  * Class FilterboxConfig Collection
  *
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package pt_extlist
  * @subpackage Domain\Configuration\Filters
  */
@@ -35,9 +36,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig';
 	
 	
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 	}
+	
+	
 	
 	public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier) {
 		$this->addItem($filterBox, $filterBoxIdentifier);

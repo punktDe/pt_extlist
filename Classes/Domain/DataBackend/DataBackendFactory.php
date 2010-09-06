@@ -128,8 +128,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     /**
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
-     * @author Daniel Lienert <lienert@punkt.de>
-     * @since 23.06.2010
      */
     protected static function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
@@ -142,8 +140,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * 
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
-     * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-     * @since 18.08.2010
      */
     protected static function getPagerCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	return Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($configurationBuilder);
@@ -155,8 +151,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * 
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-     * @author Daniel Lienert <lienert@punkt.de>
-     * @since 02.08.2010
      */
     protected static function getListHeader(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);

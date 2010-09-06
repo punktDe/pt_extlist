@@ -57,9 +57,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	            'listIdentifier' => 'test',
 	            'abc' => '1',
             	'prototype' => array(
-				'pager' => array(
-						'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
-					),
+
 				'backend' => array (
 					'mysql' => array (
 						'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
@@ -150,6 +148,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'columnIdentifier' => 'column4',
 	                            'fieldIdentifier' => 'field4',
 	                            'label' => 'Column 4',  
+	                        	//'renderTemplate' => 'typo3conf/ext/pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html',
 	                        )
 	                    ),
 	                    'renderer' => array(
@@ -160,20 +159,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                    ),
 	                    'filters' => array(
 	                         'testfilterbox' => array(
-	                             '10' => array(
-	                                'filterIdentifier' => 'filter1',
-	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldIdentifier' => 'field1',
-	                                'partialPath' => 'Filter/StringFilter',
-	                                'defaultValue' => 'default',
-	                             ),
-	                             '20' => array(
-	                                'filterIdentifier' => 'filter2',
-	                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-                                    'fieldIdentifier' => 'field1',
-                                    'partialPath' => 'Filter/StringFilter',
-                                    'accessGroups' => '1,2,3'
-	                             )
+	                            'filterConfigs' => array( 
+		                         	'10' => array(
+		                                'filterIdentifier' => 'filter1',
+		                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+	                                    'fieldIdentifier' => 'field1',
+		                                'partialPath' => 'Filter/StringFilter',
+		                                'defaultValue' => 'default',
+		                             ),
+		                             '20' => array(
+		                                'filterIdentifier' => 'filter2',
+		                                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+	                                    'fieldIdentifier' => 'field1',
+	                                    'partialPath' => 'Filter/StringFilter',
+	                                    'accessGroups' => '1,2,3'
+		                             )
+		                         )
 	                         )
 	                    ),
 	                    'pager' => array(
