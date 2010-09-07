@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	protected $columnIdentifier;
 
 	/** 
-	 * @var array
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
 	
@@ -74,16 +74,26 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $renderObj;
 	
+	
+	/**
+	 * Path to fluid template
+	 * @var string
+	 */
+	protected $renderTemplate;
+	
+	
 	/**
 	 * 
 	 * @var string
 	 */
 	protected $specialCell = NULL;
+	
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	protected $sortingConfigCollection = NULL;
+	
 	
 	/**
 	 * Sortingstate of this column
@@ -91,11 +101,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $sortingState = 0;
 	
+	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
 	protected $sortingImageDefault = '';
+	
 	
 	/**
 	 * Image to show as sorting link.
@@ -103,24 +115,33 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	 */
 	protected $sortingImageAsc = '';
 	
+	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
 	protected $sortingImageDesc = '';
 	
+	
 	/**
 	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
 	 * 
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $accessable = false;
 	
 	
 	/**
+	 * if one of this columns fields is a expanded GroupField, 
+	 * this column has an array as dataStructure
+	 * @var boolean
+	 */
+	protected $containsArrayData = false;
+	
+	
+	/**
 	 * @param $columnSettings array of coumn settings
 	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $columnSettings) {
 		tx_pttools_assert::isNotEmptyString($columnSettings['columnIdentifier'], array(message => 'Column identifier not given 1277889446'));
@@ -128,7 +149,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->columnIdentifier = $columnSettings['columnIdentifier'];
-		$this->fieldIdentifier =  t3lib_div::trimExplode(',', $columnSettings['fieldIdentifier']) ;
+		
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $columnSettings['fieldIdentifier']);
+		$this->fieldIdentifier = $configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+		
+		foreach($this->fieldIdentifier as $fieldConfig) {
+			if($fieldConfig->getExpandGroupRows()) {
+				$this->containsArrayData = true;
+				break;
+			}
+		}
 		
 		$this->label = $this->columnIdentifier;
 
@@ -136,20 +166,27 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		$this->setOptionalSettings($columnSettings);
 	}	
 	
-	public function injectAccessable($accessable) {
+	
+	/**
+	 * @param boolean $accessable
+	 */
+	public function setAccessable($accessable) {
 		$this->accessable = $accessable;
 	}
+	
+	
 	
 	public function isAccessable() {
 		return $this->accessable;
 	}
+	
+	
 	
 	/**
 	 * Set optional definable columnsettings
 	 * 
 	 * @param $columnSettings
 	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
 	 */
 	protected function setOptionalSettings($columnSettings) {
 		
@@ -165,12 +202,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 			asort($columnSettings['renderUserFunctions']);
 			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
 		}
+		
+		if(array_key_exists('renderTemplate', $columnSettings)) {
+			$this->renderTemplate = $columnSettings['renderTemplate'];
+		}
 				
 		if(array_key_exists('renderObj', $columnSettings)) {
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $columnSettings['renderObj']));
         }
-		
-		if(array_key_exists('sorting', $columnSettings)) {
+
+		if(array_key_exists('sorting', $columnSettings) && trim($columnSettings['sorting'])) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
 		}else{
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
@@ -218,7 +259,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	
 	
 	/**
-	 * @return string fieldIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
 	 */
 	public function getFieldIdentifier() {
 		return $this->fieldIdentifier;
@@ -300,6 +341,23 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
      */
     public function getAccessGroups() {
     	return $this->accessGroups;
+    }
+    
+    
+    /**
+     * Indicates if the data for this columns cells are arrays
+     * @return boolean 
+     */
+    public function getContainsArrayData() {
+    	return $this->containsArrayData;
+    }
+    
+    
+    /**
+     * @return string renderTemplate
+     */
+    public function getRenderTemplate() {
+    	return $this->renderTemplate;
     }
     
 }

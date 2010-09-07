@@ -46,7 +46,6 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
 	}
 	
 	
-	
 	/**
 	 * Returns pager object configured by given pager configuration
 	 * 

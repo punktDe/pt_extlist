@@ -46,8 +46,7 @@ class tx_ptextlist_demolist_renderer {
 	
 		$currentContent = $params['currentContent'];
 		
-		$iso = $values['iso2'];
-		$value = $iso->getValue();
+		$value = $values['iso2'];
 		
 		if (isset($value)) {
 			// check if file exists

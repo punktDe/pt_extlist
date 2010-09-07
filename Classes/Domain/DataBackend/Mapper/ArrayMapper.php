@@ -33,6 +33,16 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
     
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	protected $fieldConfigurationCollection;
+	
+	
+	public function init() {
+		$this->fieldConfigurationCollection = $this->configurationBuilder->buildFieldsConfiguration();
+	}
+	
     /**
 	 * Maps given array data to list data structure.
 	 * If no configuration is set, the array is mapped 1:1 to the list data structure
@@ -65,7 +75,13 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		foreach ($arrayData as $row) {
 			$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach ($row as $columnName => $value) {
-				$mappedRow->createAndAddCell($value, $columnName);
+				
+				//if($this->fieldConfigurationCollection->getFieldConfigByIdentifier($columnName)->getExpandGroupRows()) {	
+				//	$mappedRow->createAndAddCell($this->expandGroupedData($value), $columnName);	
+				//} else {
+					$mappedRow->createAndAddCell($value, $columnName);
+				//}
+				
 			}
 			$listData->addRow($mappedRow);
 		}
@@ -117,12 +133,30 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	protected function getMappedCellValue(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping, array $row) {
 		if (array_key_exists($mapping->getIdentifier(), $row)) {
-			// Case field name is encoded as <table_name>_<field_name>
-			return $row[$mapping->getIdentifier()];
+			
+			if($this->fieldConfigurationCollection[$mapping->getIdentifier()]->getExpandGroupRows()) {
+				return $this->expandGroupedData($row[$mapping->getIdentifier()]);
+			} else {
+				return $row[$mapping->getIdentifier()];
+			}
+			
 		} else {
 			throw new Exception('Array key ' . $mapping->getIdentifier() . 'does not exist in row. Perhaps wrong mapping configuration? 1280317751');
 		}
 	}
+	
+	
+	
+	/**
+	 * Expand the field by delimiter
+	 * TODO: make the delimiter configurable
+	 * 
+	 * @param string $value
+	 */
+	protected function expandGroupedData($value) {
+		return explode(',', $value);
+	}
+	
 	
 }
 

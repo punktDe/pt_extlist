@@ -149,23 +149,26 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string An SQL query
 	 */
 	public function buildQuery() {
-		$selectPart  = $this->buildSelectPart();
-		$fromPart    = $this->buildFromPart();
-		$wherePart   = $this->buildWherePart();
-		$orderByPart = $this->buildOrderByPart();
-		$limitPart   = $this->buildLimitPart();
-		$groupByPart = $this->buildGroupByPart();
 		
-		$this->listQueryParts['SELECT'] =	$selectPart != '' ? 'SELECT ' 	. $selectPart   . " \n" : '';
-		$this->listQueryParts['FROM'] = 	$fromPart != '' ? 'FROM '   	. $fromPart 	. " \n" : '';
-		$this->listQueryParts['WHERE'] = 	$wherePart != '' ? 'WHERE '  	. $wherePart 	. " \n" : '';
-		$this->listQueryParts['GROUPBY'] = $groupByPart!= '' ? 'GROUP BY ' . $groupByPart 	. " \n" : '';
-		$this->listQueryParts['ORDERBY'] = $orderByPart!= '' ? 'ORDER BY ' . $orderByPart 	. " \n" : '';
-		$this->listQueryParts['LIMIT'] = 	$limitPart != '' ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
-
+		if(!is_array($this->listQueryParts)) {
+			$selectPart  = $this->buildSelectPart();
+			$fromPart    = $this->buildFromPart();
+			$wherePart   = $this->buildWherePart();
+			$orderByPart = $this->buildOrderByPart();
+			$limitPart   = $this->buildLimitPart();
+			$groupByPart = $this->buildGroupByPart();
+			
+			$this->listQueryParts['SELECT'] =	$selectPart != '' ? 'SELECT ' 	. $selectPart   . " \n" : '';
+			$this->listQueryParts['FROM'] = 	$fromPart != '' ? 'FROM '   	. $fromPart 	. " \n" : '';
+			$this->listQueryParts['WHERE'] = 	$wherePart != '' ? 'WHERE '  	. $wherePart 	. " \n" : '';
+			$this->listQueryParts['GROUPBY'] = $groupByPart!= '' ? 'GROUP BY ' . $groupByPart 	. " \n" : '';
+			$this->listQueryParts['ORDERBY'] = $orderByPart!= '' ? 'ORDER BY ' . $orderByPart 	. " \n" : '';
+			$this->listQueryParts['LIMIT'] = 	$limitPart != '' ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
+		}
+		
 		$query = implode('', $this->listQueryParts);
-		$GLOBALS['trace'] = 1;	trace($query ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
+	
 		return $query;
 	}
 	
@@ -178,10 +181,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildSelectPart() {
 		$selectParts = array();
-        foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
-        	$selectParts[] = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
+        
+		foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+			if($fieldConfiguration->getExpandGroupRows() && $this->baseGroupByClause) {
+        		$selectParts[] = 'group_concat('.Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldConfiguration).') AS ' . $fieldConfiguration->getIdentifier();		
+        	} else {
+        		$selectParts[] = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
+        	}
         }
-		return implode(', ', $selectParts);
+		
+        return implode(', ', $selectParts);
 	}
 	
 
@@ -426,16 +435,20 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     	
     	if(count($groupDataQuery->getFrom()) > 0) {
     		// special from part from filter TODO think about this and implement it!
-    		$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
+    		//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
     		
     	} elseif($this->listQueryParts['GROUPBY']) {
-    		// if the list has a group by clause itself, we have to use the listquery as subquery
-    		$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
-    		
     		$selectPart = $this->convertTableFieldToAlias($selectPart);
     		$groupPart = $this->convertTableFieldToAlias($groupPart);
     		$sortingPart = $this->convertTableFieldToAlias($sortingPart);
-    		$filterWherePart = $this->convertTableFieldToAlias($this->getWhereClauseFromFilterboxes($excludeFilters));
+    		
+    		$filterWherePart = $this->buildWherePart($excludeFilters);
+    		$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
+    		
+    		// if the list has a group by clause itself, we have to use the listquery as subquery
+    		$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+    		
+    		unset($filterWherePart);	// we confined the subquery, so we dont need this in the group query 
     		
     	} else {
     		$filterWherePart =  $this->buildWherePart($excludeFilters);
@@ -455,6 +468,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         
         return $groupDataArray;
     }
+    
+    
     
     /**
      * Replaces all occurrences of "table.field AS fieldIdentifier" and "table.field"

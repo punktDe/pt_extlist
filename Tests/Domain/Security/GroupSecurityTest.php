@@ -321,11 +321,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	}
 	
 	public function testColumnAccess() {
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', array('special' => 'test')));
+		
 		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
 		$columnConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue(array('field2')));
+			->will($this->returnValue($fieldConfigCollection));
 		$columnConfigMock
 			->expects($this->once())
 			->method('getAccessGroups')
@@ -338,11 +341,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	}
 	
 	public function testColumnDenied() {
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', array('special' => 'test')));
+		
 		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
 		$columnConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue(array('field2')));
+			->will($this->returnValue($fieldConfigCollection));
 		$columnConfigMock
 			->expects($this->once())
 			->method('getAccessGroups')
@@ -355,11 +361,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	}
 	
 	public function testColumnAndFieldSameGroupsAccess() {
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
+		
 		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
 		$columnConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue(array('field1')));
+			->will($this->returnValue($fieldConfigCollection));
 			
 		$columnConfigMock
 			->expects($this->once())
@@ -373,11 +382,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	}
 	
 	public function testColumnAndFieldDeniedCausedByDifferentGroups() {
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
+		
 		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
 		$columnConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue(array('field1')));
+			->will($this->returnValue($fieldConfigCollection));
 			
 		$columnConfigMock
 			->expects($this->once())
@@ -391,11 +403,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	}
 	
 	public function testColumnAndFieldDifferentGroupsAccess() {
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
+		
 		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
 		$columnConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue(array('field1')));
+			->will($this->returnValue($fieldConfigCollection));
 			
 		$columnConfigMock
 			->expects($this->once())
@@ -407,12 +422,17 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
 	}
+	
+	
 	public function testColumnAndFieldDifferentGroupsDeniedCausedByOnlyOneGroup() {
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
+	
 		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('getFieldIdentifier','getAccessGroups'),array(),'',FALSE);
 		$columnConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue(array('field1')));
+			->will($this->returnValue($fieldConfigCollection));
 			
 		$columnConfigMock
 			->expects($this->never())
@@ -426,5 +446,4 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	}
 	
 }
-
 ?>

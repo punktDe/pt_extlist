@@ -45,11 +45,27 @@ class Tx_PtExtlist_Utility_DbUtils {
 	 * @return string
 	 */
 	public static function getAliasedSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
+		return self::getSelectPartByFieldConfig($fieldConfiguration) . ' AS ' . $fieldConfiguration->getIdentifier();
+	}
+	
+	
+	/**
+	  * Creates the select part for given field config
+	 * 
+	 * <table>.<field>
+	 * 
+	 * Or: if a special mysql string is given
+	 * <special mysql string>
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+	 */
+	public static function getSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
 		if($fieldConfiguration->getSpecial()) {
-			$selectPart = '(' . $fieldConfiguration->getSpecial() . ') AS ' . $fieldConfiguration->getIdentifier();
+			$selectPart = '(' . $fieldConfiguration->getSpecial() . ')';
 		} else {
-			$selectPart = $fieldConfiguration->getTableFieldCombined() . ' AS ' . $fieldConfiguration->getIdentifier();
+			$selectPart = $fieldConfiguration->getTableFieldCombined();
 		}
+		
 		return $selectPart;
 	}
 	

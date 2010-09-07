@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  
 *  All rights reserved
 *
 *
@@ -24,39 +25,29 @@
 ***************************************************************/
 
 /**
- * Interface for configuration objects wich hold configuration for value rendering
- *
- * @package pt_extlist
- * @subpackage Domain\Configuration
+ * CommentViewHelper
+ * Displays nothing by default or the comment, if the variable "show" is set to true
+ * Remove this viewheper if a appropriate viewhelper is implemented in fluid
+ * 
  * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
-interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
+class Tx_PtExtlist_ViewHelpers_CommentViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 	
 	/**
-	 * Returns a configuration array in typoscript config array notation:
-	 * array {
-	 * 	'renderObj' => 'TEXT|COA|....'
-	 *  'renderObj.' => {
-	 *  	...
-	 *  }
-	 * @return array cObj Configuration
-	 */
-	public function getRenderObj();
-	
-	
-	/**
-	 * Returns a configuration array for user functions
+	 * Return nothing or the comment if the variable is set to "show"
+	 * TODO: Think about a global variable to display / hide all comments
 	 * 
-	 * @return array userFunctions Configuration
+	 * @param boolean $show
+	 * @return string 
 	 */
-	public function getRenderUserFunctions();
-	
-	
-	/**
-	 * Returns a path to a fluid template file
-	 * 
-	 * @returns string template
-	 */
-	public function getRenderTemplate();
+	public function render($show = FALSE) {
+		if ($show) {
+			return $this->renderChildren();
+		} else {
+			return '';
+		}
+	}
 }
 ?>

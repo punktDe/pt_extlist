@@ -148,6 +148,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'columnIdentifier' => 'column4',
 	                            'fieldIdentifier' => 'field4',
 	                            'label' => 'Column 4',  
+	                        	//'renderTemplate' => 'typo3conf/ext/pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html',
 	                        )
 	                    ),
 	                    'renderer' => array(

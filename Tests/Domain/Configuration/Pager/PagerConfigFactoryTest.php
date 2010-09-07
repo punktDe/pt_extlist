@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -24,12 +23,26 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_ViewHelper_ListViewHelper {
+/**
+ * Class implements testcase for pagers configuration factory
+ *
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Daniel Lienert <lienert@punkt.de>
+ */
+class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function render() {
+	// TODO : Implement the needed Tests
+	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
 		
+	
+	
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory'));
 	}
 	
-}
-
+}	
 ?>

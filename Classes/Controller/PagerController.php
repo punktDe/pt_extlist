@@ -86,6 +86,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 			$this->setTemplatePathAndFilename($templatePath);			
 		}
 		
+		$this->view->assign('pagerCollection', $this->pagerCollection);
 		$this->view->assign('pager', $pager);
 		
 	}
@@ -96,11 +97,9 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * Updates the pager model.
 	 * 
 	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @param int $page
-	 * @param string list
 	 * @return string Rendered pager action HTML source
 	 */
-	public function submitAction($page, $list) {
+	public function submitAction() {
 		
 		// Only update pager if the listIdentifier equals this list.
 		if ($this->listIdentifier != $list) {

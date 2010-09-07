@@ -24,39 +24,33 @@
 ***************************************************************/
 
 /**
- * Interface for configuration objects wich hold configuration for value rendering
- *
- * @package pt_extlist
- * @subpackage Domain\Configuration
+ * Interface for filterData provider
+ * 
  * @author Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
  */
-interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
-	
+interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+		
 	/**
-	 * Returns a configuration array in typoscript config array notation:
-	 * array {
-	 * 	'renderObj' => 'TEXT|COA|....'
-	 *  'renderObj.' => {
-	 *  	...
-	 *  }
-	 * @return array cObj Configuration
+	 * inject the filterconfig
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 */
-	public function getRenderObj();
+	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
 	
 	
 	/**
-	 * Returns a configuration array for user functions
+	 * Init the data provider
+	 */
+	public function init();
+	
+	
+	/**
+	 * Return the rendered filteroptions
 	 * 
-	 * @return array userFunctions Configuration
+	 * @return array filter options
 	 */
-	public function getRenderUserFunctions();
+	public function getRenderedOptions();
 	
-	
-	/**
-	 * Returns a path to a fluid template file
-	 * 
-	 * @returns string template
-	 */
-	public function getRenderTemplate();
 }
-?>

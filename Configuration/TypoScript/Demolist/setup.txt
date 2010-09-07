@@ -14,6 +14,11 @@
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_01.txt">
 
 #
+# Demolist from static countries with typo3 backend, and grouped data
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.txt">
+
+#
 # Demolist with mysql backend and external mysql data
 # As demo data we use the "World data" http://dev.mysql.com/doc/index-other.html
 # Host: localhost

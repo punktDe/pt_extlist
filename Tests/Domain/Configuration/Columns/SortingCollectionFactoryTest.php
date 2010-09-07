@@ -101,8 +101,10 @@ class Tx_PtExtlist_Tests_Configuration_Columns_SortingCollectionFactory_testcase
 	}
 	
 	public function testGetInstanceByFieldConfigurationSingle() {
-		$fieldConfiguration = array('name');
-		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfiguration);
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('name', array('special' => 'test')));
+		
+		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfigCollection);
 		$this->assertEquals($sortingCollection->count(), 1);
 		
 		$sortingConfigObject = $sortingCollection->getItemById('name');
@@ -114,8 +116,12 @@ class Tx_PtExtlist_Tests_Configuration_Columns_SortingCollectionFactory_testcase
 	}
 	
 	public function testGetInstanceByFieldConfigurationMulti() {
-		$fieldConfiguration = array('name','company');
-		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfiguration);
+		
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('name', array('special' => 'test')));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('company', array('special' => 'test')));
+		
+		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfigCollection);
 		
 		$this->assertEquals($sortingCollection->count(), 2);
 		

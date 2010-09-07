@@ -56,11 +56,7 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
    	
     	
     	$mockView = $this->getMock('Tx_Fluid_Core_View_TemplateView', array('assign'));
-    	$mockView->expects($this->once())
-    	   ->method('assign')
-    	   ->with('pager', $pagerMock);
-
-    	
+    	    	
     	$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('getItemCount','getItemById','hasItem'), array(),'',FALSE);
     	$pagerCollectionMock->expects($this->once())
     		->method('getItemCount')
@@ -95,13 +91,10 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     	$pagerControllerMock->_set('listIdentifier','list');
     	
     	$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setCurrentPage'), array(),'',FALSE);
-    	$pagerCollectionMock->expects($this->once())
-    		->method('setCurrentPage')
-    		->with(42);
     		
     	$pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
     	    		
-        $pagerControllerMock->submitAction(42,'list');
+        $pagerControllerMock->submitAction();
     }
     
     public function testSubmitActionWithWrongList() {
