@@ -35,14 +35,16 @@ bool                                                                filtersDontV
 		<div class="outer-wrapper tx-ptextlist-filterboxcontrols">
 			<div class="outer-field-wrapper">
 				<div class="field-wrapper type-button">
-					<f:form.submit value="{f:translate(key:'filterBox.submitFilters', default:'Submit Filters')}"/>
-						<f:if condition="{filterbox.filterboxConfiguration.showReset}">
-							<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
-								<span>
-									<f:translate key="filterBox.resetFilters" default="Reset filters" />
-								</span>
-							</f:link.action>
-						</f:if>
+					<f:if condition="{filterbox.filterboxConfiguration.showSubmit}">
+						<f:form.submit value="{f:translate(key:'filterBox.submitFilters', default:'Submit Filters')}"/>
+					</f:if>
+					<f:if condition="{filterbox.filterboxConfiguration.showReset}">
+						<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
+							<span>
+								<f:translate key="filterBox.resetFilters" default="Reset filters" />
+							</span>
+						</f:link.action>
+					</f:if>
 				</div>
 			</div>
 		</div>

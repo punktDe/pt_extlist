@@ -46,7 +46,7 @@ plugin.tx_ptextlist.prototype.filter {
 		filterField = 
 		multiple = 0
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
 		invert = 0
@@ -60,7 +60,7 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	checkbox {
-		partialPath = Filter/Options/checkBoxFilter
+		partialPath = Filter/Options/CheckBoxFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
 		#dataProviderClassName = 
 				
@@ -74,7 +74,7 @@ plugin.tx_ptextlist.prototype.filter {
 		filterField = 
 		multiple = 0
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
 		invert = 0
@@ -89,7 +89,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 	
 	radiobutton {
-		partialPath = Filter/Options/radioButtonFilter
+		partialPath = Filter/Options/RadioButtonFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
 		#dataProviderClassName = 
 				
@@ -103,7 +103,7 @@ plugin.tx_ptextlist.prototype.filter {
 		filterField = 
 		multiple = 0
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
 		invert = 0
@@ -117,7 +117,7 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	firstLetter {
-		partialPath = Filter/Options/firstLetterFilter
+		partialPath = Filter/Options/FirstLetterFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
 		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
 		
@@ -129,7 +129,7 @@ plugin.tx_ptextlist.prototype.filter {
 		displayFields = 
 		filterField = 
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		inactiveOption =
 		invert = 0
 		invertable = 0

@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
         	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
         										 'selected' => false);
         }
-        
+       
         return $renderedOptions;
 	}
 	
@@ -142,7 +142,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	protected function getOptionsByFields($fields) {
 		$groupDataQuery = $this->buildGroupDataQuery($fields);
         $excludeFiltersArray = $this->buildExcludeFiltersArray();
-        
         return $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
 	}
 	
@@ -173,8 +172,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
         }
         
-        $groupDataQuery->addGroupBy($this->filterField->getIdentifier()); 
-        
+        $groupDataQuery->addGroupBy($this->filterField->getIdentifier());
+
         return $groupDataQuery;
 	}
 	
