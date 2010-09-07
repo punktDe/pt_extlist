@@ -56,13 +56,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	 * @var boolean
 	 */
 	protected $showReset = true;
+
+	
+	/**
+	 * Show a submit link / button
+	 * @var boolean
+	 */
+	protected $showSubmit = true;
 	
 	
-	
-	public function __construct(
-	       Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, 
-	       $filterboxIdentifier, 
-	       $filterBoxSettings) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings) {
+		
 		tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty! 1277889451'));
 		
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
@@ -81,6 +85,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 		
 		if(array_key_exists('showReset', $filterBoxSettings)) {
 			$this->showReset = $filterBoxSettings['showReset'] == 1 ? true : false;
+		}
+		
+		if(array_key_exists('showSubmit', $filterBoxSettings)) {
+			$this->showSubmit = $filterBoxSettings['showSubmit'] == 1 ? true : false;
 		}
 		
 	} 
@@ -110,6 +118,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	 */
 	public function getShowReset() {
 		return $this->showReset;
+	}
+	
+	
+	/**
+	 * Show Submit button / link in filterbox
+	 * @return boolean showSubmit
+	 */
+	public function getShowSubmit() {
+		return $this->showSubmit;
 	}
 	
 }
