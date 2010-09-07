@@ -143,6 +143,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     	$options = array();
     	$abstractGroupDataFilter->_set('filterValues', array('x' => 'x'));
     	$abstractGroupDataFilter->_callRef('addInactiveOption', $options);
+    	
     	$this->assertEquals($options['']['value'], 'all');
     	$this->assertEquals($options['']['selected'], false, 'Selected must be false cause we have a filterValue');
     }
