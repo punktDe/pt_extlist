@@ -73,6 +73,8 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$this->view->assign('aggregateRows', $list->getAggregateRows());
 	}
 	
+	
+	
 	/**
 	 * Shows a message that the list is empty.
 	 * 
