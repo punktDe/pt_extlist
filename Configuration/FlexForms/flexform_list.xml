@@ -37,18 +37,22 @@
                     <numIndex index="1">List->list;List->sort</numIndex>
                   </numIndex>
                   <numIndex index="2" type="array">
+                    <numIndex index="0">Export</numIndex>
+                    <numIndex index="1">List->export</numIndex>
+                  </numIndex>
+                  <numIndex index="3" type="array">
                     <numIndex index="0">Filterbox</numIndex>
                     <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset</numIndex>
                   </numIndex>
-                  <numIndex index="3" type="array">
+                  <numIndex index="4" type="array">
                     <numIndex index="0">Pager</numIndex>
                     <numIndex index="1">Pager->show;Pager->submit</numIndex>
                   </numIndex>
-                  <numIndex index="4" type="array">
+                  <numIndex index="5" type="array">
                     <numIndex index="0">Bookmarks</numIndex>
                     <numIndex index="1">Bookmarks->show;Bookmarks->edit;Bookmarks->create;Bookmarks->edit;Bookmarks->update;Bookmarks->process</numIndex>
                   </numIndex>
-                  <numIndex index="5" type="array">
+                  <numIndex index="6" type="array">
                     <numIndex index="0">Breadcrumbs</numIndex>
                     <numIndex index="1">BreadCrumbs->index</numIndex>
                   </numIndex>

@@ -100,6 +100,16 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	
 	
 	
+	/**
+	 * Export action for exporting list data
+	 *
+	 * @return mixed Whatever format-specific view returns
+	 */
+	public function exportAction() {
+		return 'export action';
+	}
+	
+	
 }
 
 ?>

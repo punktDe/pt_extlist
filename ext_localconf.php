@@ -10,14 +10,14 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
 	'pi1',																			// A unique name of the plugin in UpperCamelCase
 	array(																			// An array holding the controller-action-combinations that are accessible 
-		'List' => 'list,sort',	                                                        // The first controller and its first action will be the default
+		'List' => 'list,sort,export',	                                                        // The first controller and its first action will be the default
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
 	    'Bookmarks' => 'show,process,edit,update,delete,create',
 	    'BreadCrumbs' => 'index'
 		),
 	array(
-	   	'List' => 'list,sort',														    // An array of non-cachable controller-action-combinations (they must already be enabled)
+	   	'List' => 'list,sort,export',														    // An array of non-cachable controller-action-combinations (they must already be enabled)
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
 	    'Bookmarks' => 'show,process,edit,update,delete,create',
