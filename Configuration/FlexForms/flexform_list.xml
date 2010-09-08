@@ -89,7 +89,7 @@
     
     
     <!--##########################-->
-    <!-- Tab for list settings    -->
+    <!-- Tab for export settings  -->
     <!--##########################-->
     <list>
       <ROOT>
@@ -106,7 +106,7 @@
                 <type>select</type>
                   <items type="array">
                     <numIndex index="1" type="array">
-                      <numIndex index="0"></numIndex>
+                      <numIndex index="0">Empty (from TypoScript)</numIndex>
                       <numIndex index="1"></numIndex>
                     </numIndex>
                     <numIndex index="2" type="array">
@@ -117,6 +117,56 @@
               </config>
             </TCEforms>
           </settings.controller.List.export.view>
+          
+          <settings.export.downloadType>
+            <TCEforms>
+              <label>Download Type</label>
+              <config>
+                <type>select</type>
+                  <items type="array">
+                    <numIndex index="1" type="array">
+                      <numIndex index="0">(Try to) show in Browser</numIndex>
+                      <numIndex index="1">I</numIndex>
+                    </numIndex>
+                    <numIndex index="2" type="array">
+                      <numIndex index="0">Force Download</numIndex>
+                      <numIndex index="1">D</numIndex>
+                    </numIndex>
+                  </items>
+              </config>
+            </TCEforms>
+          </settings.export.downloadType>
+
+          <settings.export.filename>
+            <TCEforms>
+              <label>Filename (Prefix)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.export.filename>
+          
+          <settings.export.fileEnding>
+            <TCEforms>
+              <label>File Ending (Suffix without ".")</label>
+              <config>
+                <type>input</type>
+                <size>4</size>
+                <eval>trim</eval>
+              </config>
+            </TCEforms>
+          </settings.export.fileEnding>
+          
+          <settings.export.addDateToFilename>
+            <TCEforms>
+              <label>Add Date to Filname</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.export.addDateToFilename>
 
         </el>
       </ROOT>
