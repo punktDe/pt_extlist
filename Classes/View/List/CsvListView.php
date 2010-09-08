@@ -40,10 +40,8 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_BaseView {
     public function render() {
         ob_clean();
 
-        $csvContent = '';
-
-        $full_filename = $this->generateFilenameFromTs();
-        $this->sendHeader($full_filename);
+        $fullFilename = $this->generateFilenameFromTs();
+        $this->sendHeader($fullFilename);
         $out = fopen('php://output', 'w');
 
         // Headers
@@ -71,14 +69,15 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_BaseView {
     
     
     /**
-     * Helper method to generate file name from TS config
+     * Helper method for generating file name from TS config
      * 
      * @return  string      File name of CSV File
      */
     protected function generateFilenameFromTs() {
-        
         // load TS configuration for CSV generation
         $csvfFilename = $this->variables['settings']['view']['CsvListView']['fileName'];
+        $fileNameSuffix = $this->variables['settings']['view']['CsvListView']['fileNameSuffix'] != '' ? 
+            $this->variables['settings']['view']['CsvListView']['fileNameSuffix'] : 'csv';
         $useDateAndTimeInFilename = $this->variables['settings']['view']['CsvListView']['useDateAndTimestampInFilename'];
 
         if ($useDateAndTimeInFilename == '1') {
@@ -86,11 +85,11 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_BaseView {
             if ($fileNamePrefix == '' ) {
                 $fileNamePrefix = 'itemlist_';
             }
-            $full_filename = $fileNamePrefix.date('Y-m-d', time()) .'.csv';
+            $fullFilename = $fileNamePrefix . date('Y-m-d', time()) . '.' . $fileNameSuffix;
         } elseif ($csvfFilename != '') {
-           $full_filename = $csvfFilename;
+           $fullFilename = $csvfFilename . '.' . $fileNameSuffix;
         }
-        return $full_filename;
+        return $fullFilename;
         
     }
     
