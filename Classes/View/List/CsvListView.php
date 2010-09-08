@@ -30,7 +30,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_BaseView {
+class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_AbstractExportView {
 
     /**
      * Overwriting the render method to generate a CSV output
@@ -40,16 +40,17 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_BaseView {
     public function render() {
         ob_clean();
 
-        $fullFilename = $this->generateFilenameFromTs();
-        $this->sendHeader($fullFilename);
+        $this->sendHeader($this->fullFilename);
         $out = fopen('php://output', 'w');
 
         // Headers
-        $row = array();
-        foreach ($this->variables['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
-                $row[] = $header->getLabel();
+        if (array_key_exists($this->variables['listHeader'])) {
+	        $row = array();
+	        foreach ($this->variables['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+	                $row[] = $header->getLabel();
+	        }
+	        fputcsv($out, $row, ";");
         }
-        fputcsv($out, $row, ";");
 
         // Rows
         foreach ($this->variables['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
@@ -69,84 +70,12 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_BaseView {
     
     
     /**
-     * TODO this is needed for not overwriting view with emptyView
+     * Returns file ending, if no file ending is given in TS
      *
-     * @return bool
+     * @return string
      */
-    public function hasTemplate() {
-    	return TRUE;
+    protected function getDefaultFilePrefix() {
+    	return 'csv';
     }
-    
-    
-    
-    /**
-     * Helper method for generating file name from TS config
-     * 
-     * @return  string      File name of CSV File
-     */
-    protected function generateFilenameFromTs() {
-        // load TS configuration for CSV generation
-        $csvfFilename = $this->variables['settings']['view']['CsvListView']['fileName'];
-        $fileNameSuffix = $this->variables['settings']['view']['CsvListView']['fileNameSuffix'] != '' ? 
-            $this->variables['settings']['view']['CsvListView']['fileNameSuffix'] : 'csv';
-        $useDateAndTimeInFilename = $this->variables['settings']['view']['CsvListView']['useDateAndTimestampInFilename'];
-
-        if ($useDateAndTimeInFilename == '1') {
-            $fileNamePrefix = $this->variables['settings']['view']['CsvListView']['fileNamePrefix'];
-            if ($fileNamePrefix == '' ) {
-                $fileNamePrefix = 'itemlist_';
-            }
-            $fullFilename = $fileNamePrefix . date('Y-m-d', time()) . '.' . $fileNameSuffix;
-        } elseif ($csvfFilename != '') {
-           $fullFilename = $csvfFilename . '.' . $fileNameSuffix;
-        }
-        return $fullFilename;
-        
-    }
-    
-    
-    
-    /**
-     * Generate header depending on download handling setting in TS
-     * 
-     * Functionality is taken from FPDF!
-     * 
-     * @param   string  name of the file to send to the browser
-     * @return  void
-     */
-    protected function sendHeader($filename) {
-        
-        $downloadType = $this->variables['settings']['view']['CsvListView']['fileHandlingType'];
-        
-        if ($downloadType == '') {
-            $downloadType = 'I';
-        }
-        tx_pttools_assert::isInList($downloadType, 'D,I', array('message' => 'Invalid download type'));
-        
-        switch($downloadType)
-        {
-                case 'I':
-                        //We send to a browser
-                        header('Content-Type: text/x-csv');
-                        if(headers_sent())
-                                throw new Exception('Some data has already been output to browser, can\'t send CSV file');
-                        header('Content-disposition: inline; filename="'.$filename.'"');
-                        break;
-
-                case 'D':
-                        //Download file
-                        if(isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE'))
-                                header('Content-Type: application/force-download');
-                        else
-                                header('Content-Type: application/octet-stream');
-                        header('Content-disposition: attachment; filename="'.$filename.'"');
-                        break;
-
-                default:
-                        throw new Exception('No valid download handling set for CSV file! 1281366941');
-        }
-        
-    }
-    
 	
 }
