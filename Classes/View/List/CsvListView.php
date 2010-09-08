@@ -69,6 +69,17 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_BaseView {
     
     
     /**
+     * TODO this is needed for not overwriting view with emptyView
+     *
+     * @return bool
+     */
+    public function hasTemplate() {
+    	return TRUE;
+    }
+    
+    
+    
+    /**
      * Helper method for generating file name from TS config
      * 
      * @return  string      File name of CSV File

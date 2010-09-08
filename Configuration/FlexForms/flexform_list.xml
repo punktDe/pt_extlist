@@ -88,6 +88,42 @@
     
     
     
+    <!--##########################-->
+    <!-- Tab for list settings    -->
+    <!--##########################-->
+    <list>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Export settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          <settings.controller.List.export.view>
+            <TCEforms>
+              <label>Export Format</label>
+              <config>
+                <type>select</type>
+                  <items type="array">
+                    <numIndex index="1" type="array">
+                      <numIndex index="0"></numIndex>
+                      <numIndex index="1"></numIndex>
+                    </numIndex>
+                    <numIndex index="2" type="array">
+                      <numIndex index="0">CSV</numIndex>
+                      <numIndex index="1">Tx_PtExtlist_View_List_CsvListView</numIndex>
+                    </numIndex>
+                  </items>
+              </config>
+            </TCEforms>
+          </settings.controller.List.export.view>
+
+        </el>
+      </ROOT>
+    </list>
+    
+    
+    
     <!--###############################-->
     <!-- Tab for bookmarks settings    -->
     <!--###############################-->
