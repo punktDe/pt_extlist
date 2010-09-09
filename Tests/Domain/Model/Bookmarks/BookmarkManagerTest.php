@@ -36,5 +36,19 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager'));
 	}
 	
+	
+	
+	public function testSingletonInstance() {
+		$listIdentifier1 = 'test1';
+		$listIdentifier2 = 'test2';
+		
+		$instance1 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier1);
+		$instance2 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier1);
+		$instance3 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier2);
+		
+		$this->assertEquals($instance1, $instance2);
+		$this->assertTrue($instance1 != $instance3);
+	}
+	
 }
 ?>

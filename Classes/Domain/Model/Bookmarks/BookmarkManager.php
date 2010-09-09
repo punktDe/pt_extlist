@@ -32,6 +32,32 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
+	protected static $instancesArray;
+	
+	
+	
+	protected $listIdentifier;
+	
+	
+	
+	protected $configurationBuilder;
+	
+	
+	
+	public static function getInstanceByListIdentifier($listIdentifier) {
+		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1284039926'));
+		if (self::$instancesArray[$listIdentifier] === NULL) {
+			self::$instancesArray[$listIdentifier] = new self($listIdentifier);
+		}
+		return self::$instancesArray[$listIdentifier];
+	}
+	
+	
+	
+	protected function __construct($listIdentifier) {
+		$this->listIdentifier = $listIdentifier;
+	}
+	
 }
  
 ?>

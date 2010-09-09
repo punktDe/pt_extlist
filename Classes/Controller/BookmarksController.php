@@ -79,6 +79,16 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     public function injectSettings(array $settings) {
         parent::injectSettings($settings);
         // TODO we create feUserRepository here to be able to set one manually when testing
+        $this->initDependencies();
+    }
+    
+    
+    
+    /**
+     * Initializes and sets dependent objects
+     *
+     */
+    protected function initDependencies() {
         $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */   
     	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
     	$this->bookmarksRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
