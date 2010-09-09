@@ -143,6 +143,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be processed
      */
     public function processAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+        $bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($this->listIdentifier);
     	$this->view->assign('processedBookmark', $bookmark);
     	$this->forward('show');
     }

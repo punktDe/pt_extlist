@@ -90,6 +90,8 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
         $mockController->_set('view', $mockView);
         $mockController->_set('request', $mockRequest);
+        $mockController->_set('listIdentifier', 'test');
+        
         $mockController->processAction($bookmarkMock);
 	}
 	

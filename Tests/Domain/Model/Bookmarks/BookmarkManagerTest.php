@@ -50,5 +50,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 		$this->assertTrue($instance1 != $instance3);
 	}
 	
+	
+	
+	public function testSetCurrentBookmark() {
+		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager->setCurrentBookmark($bookmarkMock);
+		$this->assertTrue($bookmarkManager->getCurrentBookmark() === $bookmarkMock);
+	}
+	
 }
 ?>

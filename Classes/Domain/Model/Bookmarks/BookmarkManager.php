@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	
 	
-	protected $configurationBuilder;
+	protected $currentBookmark;
 	
 	
 	
@@ -56,6 +56,18 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	protected function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
+	}
+	
+	
+	
+	public function setCurrentBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark) {
+		$this->currentBookmark = $currentBookmark;
+	}
+	
+	
+	
+	public function getCurrentBookmark() {
+		return $this->currentBookmark;
 	}
 	
 }
