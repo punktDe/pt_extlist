@@ -47,7 +47,7 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_AbstractExpor
         $out = fopen('php://output', 'w');
 
         // Headers
-        if (array_key_exists($templateVariableContainer['listHeader'])) {
+        if ($templateVariableContainer->exists('listHeader')) {
 	        $row = array();
 	        foreach ($templateVariableContainer['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 	                $row[] = $header->getLabel();
