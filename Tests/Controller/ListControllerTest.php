@@ -48,6 +48,18 @@ class Tx_PtExtlist_Tests_Controller_ListControllerTestcase extends Tx_PtExtlist_
     	$this->markTestIncomplete();
     }
     
+    
+    
+    public function testListAction() {
+    	$this->markTestIncomplete();
+    }
+    
+    
+    
+    public function testExportAction() {
+    	$this->markTestIncomplete();
+    }
+    
 }
 
 ?>

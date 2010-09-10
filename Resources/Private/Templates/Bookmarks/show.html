@@ -15,6 +15,6 @@ Here is a list of objects / variables that can be accessed in this template
 
 <h2>Bookmarks</h2>
 
-<f:for each="{publicBookmarks}" as="publicBookmark">
-    <h3>{publicBookmark.name}</h3>
+<f:for each="{allBookmarks}" as="bookmark">
+    <f:link.action action="process" arguments="{bookmark: bookmark}">{bookmark.name}</f:link.action><br />
 </f:for>

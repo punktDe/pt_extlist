@@ -24,23 +24,45 @@
 ***************************************************************/
 
 /**
- * Controller for showing filter breadcrumbs
+ * Testcase for Abstract export view
  *
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController {
+class Tx_PtExtlist_Tests_View_AbstractExportView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_View_AbstractExportView'));
+	}
 	
-	/**
-	 * Renders index action for breadcrumbs controller
-	 * 
-	 * @return string The rendered index action
-	 */
-	public function indexAction() {
-		
+	
+	
+	public function testInjectSettings() {
+		$viewMock = new Tx_PtExtlist_Tests_View_AbstractExportView_ConcreteExportView();
+		$settings = array('test' => 'test');
+		$viewMock->injectSettings($settings);
+		$this->markTestIncomplete('Check for Settings after init process');
 	}
 	
 }
- 
+
+
+
+/**
+ * Private class for testing abstract export view
+ *
+ */
+class Tx_PtExtlist_Tests_View_AbstractExportView_ConcreteExportView extends Tx_PtExtlist_View_AbstractExportView {
+	
+	/**
+	 * @see Tx_PtExtlist_View_AbstractExportView::getDefaultFilePrefix()
+	 *
+	 * @return string
+	 */
+	protected function getDefaultFilePrefix() {
+		return 'testprefix';
+	}
+	
+}
 ?>

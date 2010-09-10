@@ -1,12 +1,11 @@
 <?php
 if (!defined ('TYPO3_MODE')) die ('Access denied.');
 
-
-
 /**
- * Load static template for Typoscript settings
+ * Load static templates for Typoscript settings
  */
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '[pt_extlist] Basic settings');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Export', '[pt_extlist] Export settings');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_extlist] Static Countries Demolist');
 
 
@@ -15,9 +14,9 @@ t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_
  * Register plugin in ExtBase
  */
 Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
+	$_EXTKEY,           // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
 	'Pi1',				// A unique name of the plugin in UpperCamelCase
-	'pt_extlist'	// A title shown in the backend dropdown field
+	'pt_extlist'	    // A title shown in the backend dropdown field
 );
 
 
@@ -30,6 +29,11 @@ $pluginSignature = strtolower($extensionName) . '_pi1';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature]='layout,select_key,pages';
 
+
+
+/**
+ * Register flexform
+ */
 t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_list.xml');
 
 
