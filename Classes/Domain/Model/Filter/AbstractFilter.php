@@ -517,7 +517,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @param array $sessionData Session data, that was previously stored to session by this filter
 	 */
-	public function injectSessionData(array $sessionData) {
+	public function injectSessionData($sessionData) {
 		$this->sessionFilterData = $sessionData;
 	}
 	
