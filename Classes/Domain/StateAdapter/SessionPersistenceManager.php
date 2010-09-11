@@ -72,9 +72,40 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$sessionNamespace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
-	
-		$this->sessionData[$sessionNamespace] = $objectData;
+	    
+		if ($objectData == null) {
+            $objectData = array();
+        }
+        
+        if ($this->sessionData == null) {
+        	$this->sessionData = array();
+        }
+        
+        // TODO adding keys to namespace array should go into utility class!
+        $this->addKeysToArray($sessionNamespace, $this->sessionData);
+		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
 		
+	}
+	
+	
+	
+	/**
+	 * Adds keys to an array given by namespace string (dot-seperated)
+	 * 
+	 * TODO this method should go into namespace array utility class
+	 *
+	 * @param string $keyString
+	 * @param array $array
+	 * @return array
+	 */
+	protected function addKeysToArray($keyString, $array) {
+		$keysArray = explode('.', $keyString);
+		$pointer = &$array;
+		foreach($keysArray as $key) {
+			$pointer[$key] = array();
+			$pointer = &$pointer[$key];
+		}
+		return $array;
 	}
 	
 	
@@ -88,10 +119,12 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$objectNamespace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
 
-		if(array_key_exists($objectNamespace, $this->sessionData)) {	
-			$objectData = $this->sessionData[$objectNamespace];
+		$objectData = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
+		
+		if (is_array($objectData)) {
 			$object->injectSessionData($objectData);
 		}
+
 	}
 	
 	
