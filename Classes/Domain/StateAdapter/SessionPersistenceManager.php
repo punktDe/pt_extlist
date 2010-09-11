@@ -82,9 +82,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
         }
         
         // TODO adding keys to namespace array should go into utility class!
-        $this->addKeysToArray($sessionNamespace, $this->sessionData);
+        $this->sessionData = $this->addKeysToArray($sessionNamespace, $this->sessionData);
 		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
-		
 	}
 	
 	
@@ -102,7 +101,9 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$keysArray = explode('.', $keyString);
 		$pointer = &$array;
 		foreach($keysArray as $key) {
-			$pointer[$key] = array();
+			if (!array_key_exists($key, $pointer)) {
+			    $pointer[$key] = array();
+			}
 			$pointer = &$pointer[$key];
 		}
 		return $array;
@@ -135,6 +136,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function persist() {
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
+		var_dump($this->sessionData);
 	}
 	
 	
@@ -171,16 +173,21 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	/**
 	 * Returns data from session for given namespace
 	 *
+	 * TODO test me!
+	 * 
 	 * @param string $objectNamespace
 	 * @return array
 	 */
-	private function getSessionDataByNamespace($objectNamespace) {
-		$sessionData = $this->sessionAdapter->read($objectNamespace);
-		/* Interface expects an array, so fix this here */
-		if ($sessionData == null) {
-			$sessionData = array();
-		}
-	    return $sessionData;	
+	public function getSessionDataByNamespace($objectNamespace) {
+		return array('test');
+		
+		# old code
+		#$sessionData = $this->sessionAdapter->read($objectNamespace);
+		#/* Interface expects an array, so fix this here */
+		#if ($sessionData == null) {
+		#	$sessionData = array();
+		#}
+	    #return $sessionData;	
 	}
 	
 	

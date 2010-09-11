@@ -63,11 +63,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	public function testAddContentToBookmark() {	
         $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-		
+
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager',array('getSessionDataByNamespace'), array(), '', FALSE);
+        $returnArray = array('test');
+		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('tx_ptextlist_pi1.test.filters')->will($this->returnValue($returnArray));
+        
 		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+        $bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
+
         $bookmarkManager->addContentToBookmark($bookmark);
-		
-        $this->markTestIncomplete();
+        
+        $this->assertEquals(serialize($returnArray), $bookmark->getContent());
 	}
 	
 	
@@ -78,8 +84,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
 		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
 	}
-	
-	
 	
 }
 ?>

@@ -173,7 +173,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     	$bookmark->setListId($this->listIdentifier);
     	
     	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($this->listIdentifier);
-    	$bookmarkManager->injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($this->configurationBuilder));
+    	$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
     	$bookmarkManager->addContentToBookmark($bookmark);
     	
     	$this->bookmarksRepository->add($bookmark);

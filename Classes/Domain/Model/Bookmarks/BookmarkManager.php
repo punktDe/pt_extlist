@@ -104,7 +104,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
 	 */
 	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
-		$this->sessionPersistenceManager = $session;
+		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
 	
 	
@@ -137,8 +137,19 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
 	 */
 	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-        
-		$bookmark->setContent('');
+        $filterboxesContent = serialize($this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace()));
+		$bookmark->setContent($filterboxesContent);
+	}
+	
+	
+	
+	/**
+	 * Returns session namespace string for filters
+	 *
+	 * @return string
+	 */
+	protected function getFilterboxCollectionNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters';
 	}
 	
 }
