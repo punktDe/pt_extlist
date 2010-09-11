@@ -166,18 +166,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		}
 	}
 
-
-	
-    /**
-	 * Persists a given array to session into a given namespace
-	 *
-	 * @param String $objectNamespace
-	 * @param array $objectData
-	 */
-	private function persistObjectDataToSessionByNamespace($objectNamespace, $objectData) {
-		$this->sessionAdapter->store($objectNamespace, $objectData);
-	}
-
 	
 	
 	/**
