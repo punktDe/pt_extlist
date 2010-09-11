@@ -28,7 +28,8 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Utility_NameSpaceArray {
 	
@@ -64,6 +65,8 @@ class Tx_PtExtlist_Utility_NameSpaceArray {
 		return t3lib_div::trimExplode('.', $namespaceString);
 	}
 	
+	
+	
 	/**
 	 * Save a value on an array position identfied by namespace
 	 * 
@@ -87,5 +90,6 @@ class Tx_PtExtlist_Utility_NameSpaceArray {
 		$pointer[$key] = $data;
 		return $array;
 	}
+	
 }
 ?>

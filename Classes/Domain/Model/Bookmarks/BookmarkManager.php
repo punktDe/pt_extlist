@@ -32,18 +32,51 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
+	/**
+	 * TODO: Refactor me --> use factory for bookmark managers
+	 * Holds an array of instances for each list identifier
+	 *
+	 * @var array<Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager>
+	 */
 	protected static $instancesArray;
 	
 	
 	
+	/**
+	 * Holds identifier of list
+	 *
+	 * @var string
+	 */
 	protected $listIdentifier;
 	
 	
 	
+	/**
+	 * Holds an instance of a bookmark being currently applied to list
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
+	 */
 	protected $currentBookmark;
 	
 	
 	
+	/**
+	 * Holds an instance of filterbox collection
+	 * for serializing it into bookmark
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+	 */
+	protected $filterboxCollection;
+	
+	
+	
+	/**
+	 * Factory method for bookmark manager. 
+	 * TODO: Refactor this, use factory for bookmark manager
+	 *
+	 * @param string $listIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+	 */
 	public static function getInstanceByListIdentifier($listIdentifier) {
 		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1284039926'));
 		if (self::$instancesArray[$listIdentifier] === NULL) {
@@ -54,20 +87,58 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	
 	
+	/**
+	 * Constructor for bookmark manager
+	 *
+	 * @param string $listIdentifier
+	 */
 	protected function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
 	}
 	
 	
 	
+	/**
+	 * Injector for Filterbox collection
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection
+	 */
+	public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection) {
+		$this->filterboxCollection = $filterboxCollection;
+	}
+	
+	
+	
+	/**
+	 * Sets bookmark which is currently applied to list
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark
+	 */
 	public function setCurrentBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark) {
 		$this->currentBookmark = $currentBookmark;
 	}
 	
 	
 	
+	/**
+	 * Returns bookmark which is currently applied to list
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
+	 */
 	public function getCurrentBookmark() {
 		return $this->currentBookmark;
+	}
+	
+	
+	
+	/**
+	 * Adds content to bookmark which has to be stored in bookmark
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+	 */
+	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+        // TODO finish me
+		$bookmark->setContent('');
 	}
 	
 }

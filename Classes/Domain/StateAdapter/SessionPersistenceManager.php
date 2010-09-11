@@ -40,12 +40,16 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	private $sessionAdapter = null;
 	
+	
+	
 	/**
 	 * Holds cached session data.
 	 * 
 	 * @var array
 	 */
 	private $sessionData = array();
+	
+	
 	
 	/**
 	 * Injector for session adapter
@@ -90,24 +94,27 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		}
 	}
 	
+	
+	
 	/**
 	 * Persist the cached session data.
 	 * 
 	 */
 	public function persist() {
-	
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
 	}
+	
+	
 	
 	/**
 	 * Read the session data into the cache.
 	 * 
 	 */
 	public function read() {
-		
 		$this->sessionData = $this->sessionAdapter->read('pt_extlist.cached.session');
-		
 	}
+	
+	
 	
 	/**
 	 * React on lifecycle events.
@@ -127,6 +134,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	}
 
 
+	
     /**
 	 * Persists a given array to session into a given namespace
 	 *
@@ -160,8 +168,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * Remove session data by given namespace
 	 * 
 	 * @param $objectNamespace string
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 03.08.2010
 	 */
 	public function removeSessionDataByNamespace($objectNamespace) {
 		$this->sessionAdapter->delete($objectNamespace);

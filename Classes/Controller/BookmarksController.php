@@ -152,9 +152,34 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     
     /**
      * Action for creating a new bookmark
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+     * @dontvalidate $bookmark
+     * @return string The rendered new action
      */
-    public function createAction() {
+    public function newAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark=null) {
+        $this->view->assign('bookmark', $bookmark);	
+    }
+    
+    
+    
+    /**
+     * Creates a new bookmark and forwards to show action
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+     */
+    public function createAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+    	$bookmark->setIsPublic(true);
+    	$bookmark->setListId($this->listIdentifier);
     	
+    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($this->listIdentifier);
+    	$bookmarkManager->injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($this->configurationBuilder));
+    	$bookmarkManager->addContentToBookmark($bookmark);
+    	
+    	$this->bookmarksRepository->add($bookmark);
+    	$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
+        $persistenceManager->persistAll();
+        $this->forward('show');
     }
     
     

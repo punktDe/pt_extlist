@@ -27,6 +27,8 @@
 /**
  * Builds a Lifecycle Manager 
  * 
+ * TODO shouldn't there be an instance for each list identifier?
+ * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @package pt_extlist
  * @subpackage Lifecycle
@@ -41,6 +43,13 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory {
 	protected static $instance = NULL;
 	
 	
+	
+	/**
+	 * Factory method for lifecycle manager instances. Returns singleton instance 
+	 * of lifecycle manager.
+	 *
+	 * @return Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
+	 */
 	public static function getInstance() {
 		if(self::$instance === NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_Lifecycle_LifecycleManager();
