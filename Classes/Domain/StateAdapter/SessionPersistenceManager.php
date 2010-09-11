@@ -135,6 +135,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function persist() {
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
+		var_dump($this->sessionData);
 	}
 	
 	
@@ -189,6 +190,20 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function removeSessionDataByNamespace($objectNamespace) {
 		$this->sessionAdapter->delete($objectNamespace);
+	}
+	
+	
+	
+	/**
+	 * Overwrites session data by bookmark
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+	 */
+	public function processBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+		$bookmarkContentArray = unserialize($bookmark->getContent());
+		$namespace = 'tx_ptextlist_pi1.' . $bookmark->getListId() . '.filters';
+		$this->sessionData = $this->addKeysToArray($namespace, $this->sessionData);
+		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
 	}
 	
 }

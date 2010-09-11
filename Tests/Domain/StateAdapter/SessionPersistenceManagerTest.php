@@ -79,5 +79,16 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 		$this->assertEquals($sessionPersistenceManager->getSessionDataByNamespace('test1.test2.test3'), 'value');
 	}
 	
+	
+	
+	public function testProcessBookmark() {
+		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+		$bookmark->setContent(serialize(array('filters' => array('test' => 'value'))));
+		$bookmark->setListId('test');
+		$sessionPersistenceManager->processBookmark($bookmark);
+		$this->assertEquals($sessionPersistenceManager->getSessionDataByNamespace('tx_ptextlist_pi1.test.filters.test'), 'value');
+	}
+	
 }
 ?>

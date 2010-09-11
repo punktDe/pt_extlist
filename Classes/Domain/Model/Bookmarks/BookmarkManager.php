@@ -116,6 +116,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 */
 	public function setCurrentBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark) {
 		$this->currentBookmark = $currentBookmark;
+		$this->sessionPersistenceManager->processBookmark($this->currentBookmark);
 	}
 	
 	
