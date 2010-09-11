@@ -61,21 +61,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	
-	public function testInjectFilterboxCollection() {
-		$filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection');
-		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
-		$bookmarkManager->injectFilterboxCollection($filterboxCollectionMock);
-	}
-	
-	
-	
-	public function testAddContentToBookmark() {
-        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection');
-		
+	public function testAddContentToBookmark() {	
         $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
 		
 		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
-		$bookmarkManager->injectFilterboxCollection($filterboxCollectionMock);
         $bookmarkManager->addContentToBookmark($bookmark);
 		
         $this->markTestIncomplete();

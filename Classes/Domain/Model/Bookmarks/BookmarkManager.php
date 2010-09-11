@@ -61,16 +61,6 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	
 	/**
-	 * Holds an instance of filterbox collection
-	 * for serializing it into bookmark
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
-	 */
-	protected $filterboxCollection;
-	
-	
-	
-	/**
 	 * Factory method for bookmark manager. 
 	 * TODO: Refactor this, use factory for bookmark manager
 	 *
@@ -94,17 +84,6 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 */
 	protected function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
-	}
-	
-	
-	
-	/**
-	 * Injector for Filterbox collection
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection
-	 */
-	public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection) {
-		$this->filterboxCollection = $filterboxCollection;
 	}
 	
 	
