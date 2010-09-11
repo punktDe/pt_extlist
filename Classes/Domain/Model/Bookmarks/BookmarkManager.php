@@ -137,7 +137,8 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
 	 */
 	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-        $filterboxesContent = serialize($this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace()));
+		// TODO use object instead of array to save session data in bookmark
+        $filterboxesContent = serialize(array('filters' => $this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace())));
 		$bookmark->setContent($filterboxesContent);
 	}
 	

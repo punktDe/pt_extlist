@@ -58,7 +58,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function injectSessionAdapter(tx_pttools_sessionStorageAdapter $sessionAdapter) {
 		$this->sessionAdapter = $sessionAdapter;
-		
 	}
 	
 	
@@ -178,15 +177,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @return array
 	 */
 	public function getSessionDataByNamespace($objectNamespace) {
-		return array('test');
-		
-		# old code
-		#$sessionData = $this->sessionAdapter->read($objectNamespace);
-		#/* Interface expects an array, so fix this here */
-		#if ($sessionData == null) {
-		#	$sessionData = array();
-		#}
-	    #return $sessionData;	
+		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
 	}
 	
 	

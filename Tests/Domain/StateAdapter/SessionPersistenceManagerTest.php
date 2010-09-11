@@ -57,5 +57,27 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
         $this->assertTrue($reloadedPersistableObject->dummyData['testkey1'] == 'testvalue1');
 	}
 	
+	
+	
+	public function testInjectSessionAdapter() {
+		$sessionAdapter = tx_pttools_sessionStorageAdapter::getInstance();
+		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager->injectSessionAdapter($sessionAdapter);
+	}
+	
+	
+	
+	public function testGetSessionDataByNamespace() {
+		$returnArray = array('test1' => array('test2' => array('test3' => 'value')));
+		
+		$sessionAdapterMock = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_SessionAdapterMock();
+		
+		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager->injectSessionAdapter($sessionAdapterMock);
+        $sessionPersistenceManager->read();
+        
+		$this->assertEquals($sessionPersistenceManager->getSessionDataByNamespace('test1.test2.test3'), 'value');
+	}
+	
 }
 ?>

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -24,43 +24,23 @@
 ***************************************************************/
 
 /**
- * Dummy class implementing gpvar injectable object.
+ * Dummy class implementing session adapter
  *
  * @package TYPO3
  * @subpackage pt_extlist
- */   
-class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject implements Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
-	
-	protected $values;
-	protected $namespace;
-	
-	/**
-	 * Inject GP Vars
-	 *
-	 * @param array $GPVars
-	 */
-	public function injectGPVars($GPVars) {
-		$this->values = $GPVars;
-	}
-	
-	public function getValues() {
-		return $this->values;
-	}
-	
-	/**
-	 * Returns namespace of object to store data in session with
-	 *
-	 * @return String Namespace as key to store session data with
-	 */
-    public function getObjectNamespace() {
-    	return $this->namespace;
-    }
+ * @author Michael Knoll <knoll@punkt.de>
+ */
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_SessionAdapterMock extends tx_pttools_sessionStorageAdapter {
     
-    public function setObjectNamespace($namespace) {
-    	$this->namespace = $namespace;
-    }
+	public function __construct() {
+	}
+	
+	
+	
+	public function read($string) {
+	    return array('test1' => array('test2' => array('test3' => 'value')));
+	}
 	
 }
-	
 
 ?>

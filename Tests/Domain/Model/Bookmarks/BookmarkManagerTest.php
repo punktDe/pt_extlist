@@ -73,7 +73,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 
         $bookmarkManager->addContentToBookmark($bookmark);
         
-        $this->assertEquals(serialize($returnArray), $bookmark->getContent());
+        $this->assertEquals(serialize(array('filters' => $returnArray)), $bookmark->getContent());
 	}
 	
 	
