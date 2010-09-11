@@ -61,6 +61,16 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	
 	/**
+	 * Holds an instance of a session persistence manager
+	 *
+	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 */
+	protected $sessionPersistenceManager = null;
+	
+	
+	
+	
+	/**
 	 * Factory method for bookmark manager. 
 	 * TODO: Refactor this, use factory for bookmark manager
 	 *
@@ -84,6 +94,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 */
 	protected function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Injector for session persistence manager
+	 *
+	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+		$this->sessionPersistenceManager = $session;
 	}
 	
 	
@@ -116,7 +137,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
 	 */
 	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-        // TODO finish me
+        
 		$bookmark->setContent('');
 	}
 	

@@ -72,5 +72,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	
+	public function testInjectSessionPersistenceManager() {
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager');
+		
+		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
+	}
+	
+	
+	
 }
 ?>
