@@ -83,13 +83,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected function buildFilterCriteria() {
 		
 		$criteria = NULL;
-		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
 		$filterValues = array_filter($this->filterValues);
 		
 		if (is_array($filterValues) && count($filterValues) == 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($columnName, current($filterValues));
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($filterValues));
 		} elseif (is_array($filterValues) && count($filterValues) > 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($columnName, $filterValues);
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $filterValues);
 		}
 		
 		return $criteria;

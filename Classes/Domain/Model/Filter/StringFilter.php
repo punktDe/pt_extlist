@@ -46,11 +46,11 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Creates filter query from filter value and settings
      */
     protected function buildFilterCriteria() {
-    	$columnName = $this->fieldIdentifier->getTableFieldCombined();
+    	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
     	$filterValue = '%'.$this->filterValue.'%';
     	
     	if($this->isActive) {
-	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($columnName, $filterValue);	
+	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);	
     	}
     	
     	return $criteria;
