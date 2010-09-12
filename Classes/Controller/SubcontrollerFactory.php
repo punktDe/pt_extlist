@@ -127,8 +127,14 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
         // TODO fake request!
         try {
 	        $requestBuilder = t3lib_div::makeInstance('Tx_Extbase_MVC_Web_RequestBuilder'); /* @var $requestBuilder Tx_Extbase_MVC_Web_RequestBuilder */
-	        $request = $requestBuilder->initialize(self::$extbaseFrameworkConfiguration);
+	        $request = $requestBuilder->initialize(self::$extbaseFrameworkConfiguration);	        
 	        $request = $requestBuilder->build();
+
+	        // The controller configuration ist fixed. It should be a ListController.
+	        $request->setPluginName($configuration['pluginName']);
+	        $request->setControllerExtensionName($configuration['extensionName']);
+	        $request->setControllerName($configuration['controller']);
+	        $request->setControllerActionName($configuration['action']);
         } catch(Exception $e) {
         	/* TODO this is done for being testable in CLI environment! */
         	$actionNames = $configuration['switchableControllerActions.']['1.']['actions'];
