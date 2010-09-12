@@ -111,7 +111,7 @@
                     </numIndex>
                     <numIndex index="2" type="array">
                       <numIndex index="0">CSV</numIndex>
-                      <numIndex index="1">Tx_PtExtlist_View_List_CsvListView</numIndex>
+                      <numIndex index="1">Tx_PtExtlist_View_Export_CsvListView</numIndex>
                     </numIndex>
                   </items>
               </config>

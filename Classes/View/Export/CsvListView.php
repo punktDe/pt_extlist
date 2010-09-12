@@ -30,7 +30,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_AbstractExportView {
+class Tx_PtExtlist_View_Export_CsvListView Extends Tx_PtExtlist_View_Export_AbstractExportView {
 
     /**
      * Overwriting the render method to generate a CSV output

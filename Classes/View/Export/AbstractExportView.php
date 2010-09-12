@@ -31,7 +31,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-abstract class Tx_PtExtlist_View_AbstractExportView extends Tx_PtExtlist_View_BaseView {
+abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView {
 	
 	/**
 	 * Constant for downloadtype "force download"
