@@ -324,6 +324,34 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	
 	
 	
+	public function testDeleteActionConfirmed() {
+		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+        $bookmarkMock = clone $bookmarkMockNonCloned;
+        
+        $mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument'), array(), '', FALSE);
+        $mockRequest->expects($this->once())->method('hasArgument')->with('reallyDelete')->will($this->returnValue(true));
+
+        $bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository', array('remove'), array(),'', FALSE);
+        $bookmarkRepositoryMock->expects($this->once())->method('remove')->with($bookmarkMock);
+        
+        $persistenceManagerMock = $this->getMock('Tx_Extbase_Persistence_Manager', array('persistAll'), array(), '', FALSE);
+        
+        $mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('forward'),array(), '', FALSE);
+        $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
+        $mockController->_set('view', $mockView);
+        $mockController->_set('request', $mockRequest);
+        $mockController->_set('listIdentifier', 'test');
+        $mockController->_set('settings', $this->settings);
+        $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
+        $mockController->_set('persistenceManager', $persistenceManagerMock);
+        
+        $mockController->deleteAction($bookmarkMock);
+	}
+	
+	
+	
 	public function testUpdateAction() {
 		$this->markTestIncomplete();
 	}
