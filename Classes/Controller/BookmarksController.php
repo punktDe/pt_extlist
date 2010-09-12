@@ -236,9 +236,17 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     
     /**
      * Action for deleting a bookmark
+     * 
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be deleted
      */
-    public function deleteAction() {
-    	
+    public function deleteAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+    	if ($this->request->hasArgument('reallyDelete')) {
+    		$this->bookmarksRepository->remove($bookmark);
+    		$this->persistenceManager->persistAll();
+    		$this->forward('show');
+    	} else {
+    		$this->view->assign('bookmark', $bookmark);
+    	}
     }
     
     
