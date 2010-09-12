@@ -23,13 +23,18 @@ Image/SortingViewHelper		Creates a soring image based on the header information.
 
 <tr>
 	<extlist:header headers="{listHeader}" headerKey="header" captions="{listCaptions}" captionKey="caption">
-		<th>
-			{caption}	
-			<f:if condition="{sortable}">
+		<th class="tx-ptextlist-list-header">
 				
-			<extlist:link.sorting action="sort" header="{header}">
-				<extlist:image.sorting header="{header}" alt="sorting"/>
-			</extlist:link.sorting>
+			<f:if condition="{sortable}">
+			<f:then>
+				<extlist:link.sorting action="sort" header="{header}">
+					{caption}
+					<extlist:image.sorting header="{header}" alt="sorting"/>
+				</extlist:link.sorting>
+			</f:then>
+			<f:else>
+				{caption}
+			</f:else>
 			</f:if>
 		</th>
 	</extlist:header>

@@ -38,22 +38,25 @@ class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_AbstractExpor
      * @return  void (never returns)
      */
     public function render() {
-        ob_clean();
+		
+    	$templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+    	
+    	ob_clean();
 
         $this->sendHeader($this->fullFilename);
         $out = fopen('php://output', 'w');
 
         // Headers
-        if (array_key_exists($this->variables['listHeader'])) {
+        if ($templateVariableContainer->exists('listHeader')) {
 	        $row = array();
-	        foreach ($this->variables['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+	        foreach ($templateVariableContainer['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 	                $row[] = $header->getLabel();
 	        }
 	        fputcsv($out, $row, ";");
         }
 
         // Rows
-        foreach ($this->variables['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+        foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
         	$row = array();
         	foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
         		$row[] = $listCell->getValue();

@@ -36,7 +36,8 @@ plugin.tx_ptextlist.prototype.filter {
 	select {
 		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
-		
+		#dataProviderClassName = 
+				
 		defaultValue =
 		filterIdentifier =
 		label = 
@@ -45,13 +46,12 @@ plugin.tx_ptextlist.prototype.filter {
 		filterField = 
 		multiple = 0
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
 		invert = 0
 		invertable = 0
 		accessGroups =
-		#dataProviderClass = 
 		
 		renderObj = TEXT
 	    renderObj {
@@ -60,9 +60,10 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	checkbox {
-		partialPath = Filter/Options/checkBoxFilter
+		partialPath = Filter/Options/CheckBoxFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
-		
+		#dataProviderClassName = 
+				
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
 		
@@ -73,13 +74,12 @@ plugin.tx_ptextlist.prototype.filter {
 		filterField = 
 		multiple = 0
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
 		invert = 0
 		invertable = 0
 		accessGroups =
-		#dataProviderClass = 
 		
 		renderObj = TEXT
 		renderObj {
@@ -89,9 +89,10 @@ plugin.tx_ptextlist.prototype.filter {
 
 	
 	radiobutton {
-		partialPath = Filter/Options/radioButtonFilter
+		partialPath = Filter/Options/RadioButtonFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
-		
+		#dataProviderClassName = 
+				
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
 		
@@ -102,14 +103,13 @@ plugin.tx_ptextlist.prototype.filter {
 		filterField = 
 		multiple = 0
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
 		invert = 0
 		invertable = 0
 		accessGroups =
-		#dataProviderClass = 
-		
+
 		renderObj = TEXT
 		renderObj {
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
@@ -117,8 +117,9 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 	
 	firstLetter {
-		partialPath = Filter/Options/firstLetterFilter
+		partialPath = Filter/Options/FirstLetterFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
+		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
 		
 		defaultValue =
 		
@@ -128,12 +129,11 @@ plugin.tx_ptextlist.prototype.filter {
 		displayFields = 
 		filterField = 
 		excludeFilters = 
-		showRowCount = 0
+		showRowCount = 1
 		inactiveOption =
 		invert = 0
 		invertable = 0
 		accessGroups =
-		#dataProviderClass = 
 		
 		renderObj = TEXT
 		renderObj {

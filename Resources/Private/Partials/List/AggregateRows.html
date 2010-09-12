@@ -15,10 +15,10 @@ Tx_PtExtlist_Domain_Model_List_ListData		aggregateRows		A collection with aggreg
 
 <f:for each="{aggregateRows}" as="aggregateRow">
 	
-	<tr>
+	<tr class="tx-ptextlist-aggregaterow aggregaterow-{f:if(condition: '{rowIndex} % 2', then: 'even', else: 'odd')}">
 		
-		<f:for each="{aggregateRow}" as="cell">
-			<td><f:format.html>{cell}</f:format.html></td>
+		<f:for each="{aggregateRow}" key="columnIdentifier" as="cell">
+			<td class="tx-ptextlist-aggregatefield-{columnIdentifier}"><f:format.html>{cell}</f:format.html></td>
 		</f:for>
 		
 	</tr>
