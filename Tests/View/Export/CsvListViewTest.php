@@ -33,7 +33,7 @@
 class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
     public function testSetup() {
-        $this->assertTrue(class_exists('Tx_PtExtlist_View_List_CsvListView'));
+        $this->assertTrue(class_exists('Tx_PtExtlist_View_Export_CsvListView'));
     }
     
     
