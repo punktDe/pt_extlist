@@ -232,6 +232,24 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	
 	
 	
+	public function testNewAction() {
+		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+        $bookmarkMock = clone $bookmarkMockNonCloned;
+		
+        $mockView = $this->getMock(
+            'Tx_Fluid_Core_View_TemplateView',
+            array('assign'), array(), '', FALSE);
+        $mockView->expects($this->once())->method('assign')->with('bookmark', $bookmarkMock);
+        
+        $mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('dummy'),array(), '', FALSE);
+        $mockController->_set('view', $mockView);
+        $mockController->newAction($bookmarkMock);
+	}
+	
+	
+	
 	public function testCreateAction() {
 		$this->markTestIncomplete();
 	}
