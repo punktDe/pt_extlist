@@ -153,4 +153,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     	$this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false; 
     }
 	
+    
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     */
+    protected function initFilter() {
+    	
+    }
 }
