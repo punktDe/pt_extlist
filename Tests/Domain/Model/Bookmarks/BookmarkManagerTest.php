@@ -36,5 +36,55 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager'));
 	}
 	
+	
+	
+	public function testSingletonInstance() {
+		$listIdentifier1 = 'test1';
+		$listIdentifier2 = 'test2';
+		
+		$instance1 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier1);
+		$instance2 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier1);
+		$instance3 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier2);
+		
+		$this->assertEquals($instance1, $instance2);
+		$this->assertTrue($instance1 != $instance3);
+	}
+	
+	
+	
+	public function testGetSetCurrentBookmark() {
+		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager->setCurrentBookmark($bookmarkMock);
+		$this->assertTrue($bookmarkManager->getCurrentBookmark() === $bookmarkMock);
+	}
+	
+	
+	
+	public function testAddContentToBookmark() {	
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager',array('getSessionDataByNamespace'), array(), '', FALSE);
+        $returnArray = array('test');
+		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('tx_ptextlist_pi1.test.filters')->will($this->returnValue($returnArray));
+        
+		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+        $bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
+
+        $bookmarkManager->addContentToBookmark($bookmark);
+        
+        $this->assertEquals(serialize(array('filters' => $returnArray)), $bookmark->getContent());
+	}
+	
+	
+	
+	public function testInjectSessionPersistenceManager() {
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager');
+		
+		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
+	}
+	
 }
+
 ?>

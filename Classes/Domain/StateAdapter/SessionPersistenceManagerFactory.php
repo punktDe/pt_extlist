@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	/**
 	 * Factory method for session persistence manager 
 	 * 
-	 * @return Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager Singleton instance of session persistence manager 
+	 * @return Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager Singleton instance of session persistence manager 
 	 */
 	public static function getInstance() {
 		if (self::$instance == NULL) {

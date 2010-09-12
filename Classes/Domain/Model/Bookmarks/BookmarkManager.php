@@ -32,6 +32,128 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
+	/**
+	 * TODO: Refactor me --> use factory for bookmark managers
+	 * Holds an array of instances for each list identifier
+	 *
+	 * @var array<Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager>
+	 */
+	protected static $instancesArray;
+	
+	
+	
+	/**
+	 * Holds identifier of list
+	 *
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
+	
+	
+	/**
+	 * Holds an instance of a bookmark being currently applied to list
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
+	 */
+	protected $currentBookmark;
+	
+	
+	
+	/**
+	 * Holds an instance of a session persistence manager
+	 *
+	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 */
+	protected $sessionPersistenceManager = null;
+	
+	
+	
+	
+	/**
+	 * Factory method for bookmark manager. 
+	 * TODO: Refactor this, use factory for bookmark manager
+	 *
+	 * @param string $listIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+	 */
+	public static function getInstanceByListIdentifier($listIdentifier) {
+		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1284039926'));
+		if (self::$instancesArray[$listIdentifier] === NULL) {
+			self::$instancesArray[$listIdentifier] = new self($listIdentifier);
+		}
+		return self::$instancesArray[$listIdentifier];
+	}
+	
+	
+	
+	/**
+	 * Constructor for bookmark manager
+	 *
+	 * @param string $listIdentifier
+	 */
+	protected function __construct($listIdentifier) {
+		$this->listIdentifier = $listIdentifier;
+	}
+	
+	
+	
+	/**
+	 * Injector for session persistence manager
+	 *
+	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+		$this->sessionPersistenceManager = $sessionPersistenceManager;
+	}
+	
+	
+	
+	/**
+	 * Sets bookmark which is currently applied to list
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark
+	 */
+	public function setCurrentBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark) {
+		$this->currentBookmark = $currentBookmark;
+		$this->sessionPersistenceManager->processBookmark($this->currentBookmark);
+	}
+	
+	
+	
+	/**
+	 * Returns bookmark which is currently applied to list
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
+	 */
+	public function getCurrentBookmark() {
+		return $this->currentBookmark;
+	}
+	
+	
+	
+	/**
+	 * Adds content to bookmark which has to be stored in bookmark
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+	 */
+	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+		// TODO use object instead of array to save session data in bookmark
+        $filterboxesContent = serialize(array('filters' => $this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace())));
+		$bookmark->setContent($filterboxesContent);
+	}
+	
+	
+	
+	/**
+	 * Returns session namespace string for filters
+	 *
+	 * @return string
+	 */
+	protected function getFilterboxCollectionNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters';
+	}
+	
 }
  
 ?>
