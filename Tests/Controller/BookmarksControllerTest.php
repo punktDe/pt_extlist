@@ -251,7 +251,27 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	
 	
 	public function testCreateAction() {
-		$this->markTestIncomplete();
+		$nonClonedBookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+		$bookmark = clone $nonClonedBookmark;
+		
+        $bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository', array('add'), array(),'', FALSE);
+        $bookmarkRepositoryMock->expects($this->once())->method('add')->with($bookmark);
+		
+        $persistenceManagerMock = $this->getMock('Tx_Extbase_Persistence_Manager', array('persistAll'), array(), '', FALSE);
+        
+		$mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('forward'),array(), '', FALSE);
+        $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
+        $mockController->_set('request', $mockRequest);
+        $mockController->_set('listIdentifier', 'test');
+        $mockController->_set('settings', $this->settings);
+        $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
+        $mockController->_set('persistenceManager', $persistenceManagerMock);
+        
+        $mockController->createAction($bookmark);
+        
+        $this->markTestIncomplete();
 	}
 	
 	
@@ -259,11 +279,14 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	public function testProcessAction() {
 		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
 		$bookmarkMock = clone $bookmarkMockNonCloned;
+		
 		$mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array('dummy'), array(), '', FALSE);
+		
 		$mockView = $this->getMock(
             'Tx_Fluid_Core_View_TemplateView',
             array('assign'), array(), '', FALSE);
         $mockView->expects($this->once())->method('assign')->with('processedBookmark', $bookmarkMock);
+        
 		$mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
             array('forward'),array(), '', FALSE);

@@ -57,6 +57,10 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     protected $feUser = null;
     
+    
+    
+    protected $persistenceManager = null;
+    
 
     
     /**
@@ -109,6 +113,8 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
         $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */   
     	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
     	$this->bookmarksRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
+
+    	$this->persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
     }
     
     
@@ -212,8 +218,8 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     	$bookmarkManager->addContentToBookmark($bookmark);
     	
     	$this->bookmarksRepository->add($bookmark);
-    	$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
-        $persistenceManager->persistAll();
+    	$this->persistenceManager->persistAll();
+    	
         $this->forward('show');
     }
     
