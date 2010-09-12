@@ -135,7 +135,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function persist() {
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
-		var_dump($this->sessionData);
 	}
 	
 	
@@ -171,8 +170,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	/**
 	 * Returns data from session for given namespace
-	 *
-	 * TODO test me!
 	 * 
 	 * @param string $objectNamespace
 	 * @return array

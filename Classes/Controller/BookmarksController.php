@@ -77,9 +77,26 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return void
      */
     public function injectSettings(array $settings) {
-        parent::injectSettings($settings);
+        /**
+         * We cannot use parent::injectSettings here, as we have to 
+         * create an instance of configuration builder and
+         * data backend AFTER bookmark data has been written to session
+         */
+    	parent::injectSettings($settings, FALSE, FALSE);
+        
         // TODO we create feUserRepository here to be able to set one manually when testing
         $this->initDependencies();
+    }
+    
+    
+    
+    /**
+     * Inits configuration builder and data backend
+     *
+     */
+    protected function initConfiBuilderAndDataBackend() {
+        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+        $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
     }
     
     
@@ -116,6 +133,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return string The rendered HTML source for this action
      */
     public function showAction() {
+    	$this->initConfiBuilderAndDataBackend();
     	$allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
     	if ($this->showPublicBookmarks()) {
 	    	$publicBookmarks = $this->bookmarksRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
@@ -143,10 +161,22 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be processed
      */
     public function processAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-    	// TODO setting session content is too late here!
-        $bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($this->listIdentifier);
+        /**
+         * Note: To make this work here, we change the order of
+         * initializing data backend and configuration manager, 
+         * as those objects require consistent session data, which can't be
+         * changed afterwards!
+         */
+    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($this->listIdentifier);
         $bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
         $bookmarkManager->setCurrentBookmark($bookmark);
+
+        /**
+         * Only now, session data is completed and we can initialize
+         * configuration builder and data backend
+         */
+        $this->initConfiBuilderAndDataBackend();
+        
     	$this->view->assign('processedBookmark', $bookmark);
     	$this->forward('show');
     }
@@ -172,6 +202,8 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
      */
     public function createAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+    	$this->initConfiBuilderAndDataBackend();
+    	
     	$bookmark->setIsPublic(true);
     	$bookmark->setListId($this->listIdentifier);
     	
