@@ -84,17 +84,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		
 		$criteria = NULL;
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
-		$filterValues = array_filter($this->filterValues);
-		
-		if (is_array($filterValues) && count($filterValues) == 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($filterValues));
-		} elseif (is_array($filterValues) && count($filterValues) > 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $filterValues);
+	
+		if (is_array($this->filterValues) && count($this->filterValues) == 1) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues));
+		} elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
 		}
-		
+
 		return $criteria;
 	}
 	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+	 */
+	protected function setActiveState() {
+		$this->isActive = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? false : true;
+	}
 	
 	
 	/**
@@ -190,13 +197,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @param array $renderedOptions
 	 */
 	protected function addInactiveOption(&$renderedOptions) {
-        
-		$filterValues = array_filter($this->filterValues);
 
 		if($this->filterConfig->getInactiveOption()) {
-            $renderedOptionsWithInactive[''] = array('value' => $this->filterConfig->getInactiveOption(),
-        											 'selected' => empty($filterValues));
-
+            $selected = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? true : false; 
+   			$inactiveValue = $this->filterConfig->getInactiveValue();
+            
+			$renderedOptionsWithInactive[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
+        													     'selected' => $selected);
+			
         	$renderedOptionsWithInactive=array_merge($renderedOptionsWithInactive, $renderedOptions);
         	$renderedOptions = $renderedOptionsWithInactive;
         }
