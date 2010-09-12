@@ -199,7 +199,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected function addInactiveOption(&$renderedOptions) {
 
 		if($this->filterConfig->getInactiveOption()) {
-            $selected = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? true : false; 
+			if(count($this->filterValues) == 0) {
+				$selected = true;
+			} else {
+				$selected = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? true : false;	
+			}
+             
    			$inactiveValue = $this->filterConfig->getInactiveValue();
             
 			$renderedOptionsWithInactive[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
