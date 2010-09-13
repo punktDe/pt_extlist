@@ -142,7 +142,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
      *
      */
     protected function initPropertiesFromSettings() {
-    	$this->bookmarksPid = array_key_exists('bookmarksPid ', $this->settingsArray) ? $this->settingsArray['bookmarksPid '] : '';
+    	$this->bookmarksPid = array_key_exists('bookmarksPid', $this->settingsArray) ? $this->settingsArray['bookmarksPid'] : '';
         $this->showUserBookmarks = $this->settingsArray['showUserBookmarks'] == '1' ? true : false;
         $this->showGroupBookmarks = $this->settingsArray['showGroupBookmarks'] == '1' ? true : false;
         $this->showPublicBookmarks = $this->settingsArray['showPublicBookmarks'] == '1' ? true : false;
