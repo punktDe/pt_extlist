@@ -94,6 +94,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	protected $inactiveOption;
 	
 	
+	/**
+	 * If set, the filter sets itself inactive when this value is submitted
+	 * @var string
+	 */
+	protected $inactiveValue = '';
+	
 	
 	/**
 	 * Identifier of field to which this filter belongs to
@@ -277,6 +283,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
         	$this->inactiveOption = trim($filterSettings['inactiveOption']);
         }
         
+		if(array_key_exists('inactiveValue', $filterSettings)) {
+        	$this->inactiveValue = trim($filterSettings['inactiveValue']);
+        }
+        
 		if(array_key_exists('submitOnChange', $filterSettings)) {
         	$this->submitOnChange = $filterSettings['submitOnChange'] ? true : false;
         }
@@ -388,9 +398,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     }
     
     
+    
+    /**
+     * Get the default value
+     * @return string
+     */
     public function getDefaultValue() {
     	return $this->defaultValue;
     }  
+    
     
     
     /**
@@ -399,6 +415,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     public function getInvert() {
         return $this->invert;
     }
+    
+    
     
     /**
      * @return boolean
@@ -410,7 +428,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     
     
     /**
-     * @return unknown
+     * @return boolean
      */
     public function getIsActive() {
         return $this->isActive;
@@ -437,7 +455,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     
     
     /**
-     * @return unknown
+     * @return boolean
      */
     public function getResetFilters() {
         return $this->resetFilters;
@@ -462,7 +480,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     
     
     /**
-     * @return unknown
+     * @return boolean
      */
     public function getResetListSortingStateOnSubmit() {
         return $this->resetListSortingStateOnSubmit;
@@ -493,6 +511,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
      */
     public function getInactiveOption() {
         return $this->inactiveOption;
+    }
+    
+    
+    
+	/**
+     * @return string
+     */
+    public function getInactiveValue() {
+        return $this->inactiveValue;
     }
     
     

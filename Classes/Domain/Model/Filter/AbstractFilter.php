@@ -340,6 +340,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * 2.1. Init calls method to init filter by TS configuration
 		 * 2.2. Init calls method to init filter by session data
 		 * 2.3. Init calls method to init filter by get / post vars 
+		 * 2.4. Sets the filter active
 		 * 
 		 * 3. Store filter data to session
 		 * 
@@ -358,6 +359,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->initGenericFilterByGPVars();
 		$this->initFilterByGpVars();
 		
+		$this->setActiveState();
 		$this->initFilter();
 		
 		$this->sessionPersistenceManager->persistToSession($this);
@@ -438,19 +440,21 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	protected function buildFilterQuery() {
 		
-		$criteria = $this->buildFilterCriteria();
-		
+		if($this->isActive) $criteria = $this->buildFilterCriteria();
+			
 		if($criteria) {
 			if($this->invert) {
 				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
 			} else {
 				$this->filterQuery->addCriteria($criteria);
 			}
-		} else {
-			$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		}
 	}
 	
+	/**
+	 * Sets the active state of this filter
+	 */
+	abstract protected function setActiveState();
 	
 	
 	/**

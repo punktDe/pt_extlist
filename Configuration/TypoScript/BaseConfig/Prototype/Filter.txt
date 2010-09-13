@@ -49,6 +49,7 @@ plugin.tx_ptextlist.prototype.filter {
 		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
+		inactiveValue =
 		invert = 0
 		invertable = 0
 		accessGroups =
@@ -77,6 +78,7 @@ plugin.tx_ptextlist.prototype.filter {
 		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
+		inactiveValue =
 		invert = 0
 		invertable = 0
 		accessGroups =
@@ -106,6 +108,7 @@ plugin.tx_ptextlist.prototype.filter {
 		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
+		inactiveValue =
 		invert = 0
 		invertable = 0
 		accessGroups =
@@ -131,6 +134,7 @@ plugin.tx_ptextlist.prototype.filter {
 		excludeFilters = 
 		showRowCount = 1
 		inactiveOption =
+		inactiveValue =
 		invert = 0
 		invertable = 0
 		accessGroups =

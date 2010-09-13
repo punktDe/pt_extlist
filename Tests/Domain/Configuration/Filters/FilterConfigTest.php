@@ -48,6 +48,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 			'invert' => '1',
 			'invertable' => '1',
 			'inactiveOption' => '[All]',
+			'inactiveValue' => 'inactiveValue',
 			'submitOnChange' => '1',
 			'renderObj' => array(	
 				'dataWrap' => '{field:allDisplayFields}',
@@ -119,6 +120,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function testGetSubmitOnChange() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
 		$this->assertEquals(true, $filterConfig->getSubmitOnChange());
+	}
+	
+	public function testGetInactiveValue() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->filterSettings);
+		$this->assertEquals('inactiveValue', $filterConfig->getInactiveValue());
 	}
 	
 	public function testGetRenderObj() {
