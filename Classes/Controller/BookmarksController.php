@@ -59,6 +59,11 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     
     
     
+    /**
+     * Holds an instance of persistence manager
+     *
+     * @var Tx_Extbase_Persistence_Manager
+     */
     protected $persistenceManager = null;
     
 
@@ -229,7 +234,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * Action for updating a bookmark
      */
     public function updateAction() {
-    	
+    	// TODO implement me, if you have the time
     }
     
     
@@ -255,35 +260,67 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * Action for editing a bookmark
      */
     public function editAction() {
-    	
+    	// TODO implement me, if you have the time
     }
     
     
     
+    /*****************************************************************************
+     * Helper methods
+     *****************************************************************************/
+    
+    /**
+     * Returns true, if user bookmarks should be shown
+     *
+     * @return bool True, if user bookmarks should be shown
+     */
     protected function showUserBookmarks() {
-    	// TODO read out settings here!
-    	return true;
+    	if ($this->settings['bookmarks']['showUserBookmarks'] == '1') {
+    	    return true;
+    	} else {
+    		return false;
+    	}
     }
     
     
     
+    /**
+     * Returns true, if group bookmarks should be shown
+     *
+     * @return bool True, if group bookmarks should be shown
+     */
     protected function showGroupBookmarks() {
-    	// TODO read out settings here!
-    	return true;
+    	if ($this->settings['bookmarks']['showGroupBookmarks'] == '1') {
+    	    return true;
+    	} else {
+    		return false;
+    	}
     }
     
     
     
+    /**
+     * Returns true, if public bookmarks should be shown
+     *
+     * @return bool True, if public bookmarks should be shown
+     */
     protected function showPublicBookmarks() {
-    	// TODO read out settings here!
-    	return true;
+    	if ($this->settings['bookmarks']['showPublicBookmarks'] == '1') {
+    	    return true;
+    	} else {
+    		return false;
+    	}
     }
     
     
     
+    /**
+     * Returns a comma seperated list of group ids to show bookmarks for
+     *
+     * @return string Comma-seperated list of group ids
+     */
     protected function getGroupIdsToShowBookmarksFor() {
-    	// TODO read out settings here!
-    	return '1,2,3,4,5';
+    	return $this->settings['bookmarks']['groupIdsToShowBookmarksFor'];
     }
     
     

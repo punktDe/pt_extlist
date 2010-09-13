@@ -245,6 +245,17 @@
             </TCEforms>
           </settings.bookmarks.feGroupsAllowedToEdit>
 
+          <settings.bookmarks.groupIdsToShowBookmarksFor>
+            <TCEforms>
+              <label>Group IDs for which to show bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.groupIdsToShowBookmarksFor>
+
         </el>
       </ROOT>
     </bookmarks>
