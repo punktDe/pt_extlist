@@ -92,7 +92,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 *
 	 * @param string $listIdentifier
 	 */
-	protected function __construct($listIdentifier) {
+	public function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
 	}
 	

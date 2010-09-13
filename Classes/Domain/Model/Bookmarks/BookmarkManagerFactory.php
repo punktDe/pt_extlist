@@ -32,6 +32,42 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
 	
+	/**
+	 * Holds an array of instances for each list identifier
+	 *
+	 * @var array
+	 */
+	protected static $instances = array();
+	
+	
+	
+	/**
+	 * Returns an instance of bookmark manager for a given configuration builder
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+	 */
+	public static function getInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$listIdentifier = $configurationBuilder->getListIdentifier();
+		if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === NULL) {
+			self::$instances[$listIdentifier] = self::createNewInstanceByConfigurationBuilder($configurationBuilder);
+		}
+		return self::$instances[$listIdentifier];
+	}
+	
+	
+	
+	/**
+	 * Creates a new instance of bookmark manager for given configuration builder
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+	 */
+	protected static function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($configurationBuilder->getListIdentifier());
+		$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		return $bookmarkManager;
+	}
 }
  
 ?>
