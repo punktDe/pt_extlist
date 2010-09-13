@@ -24,22 +24,75 @@
 ***************************************************************/
 
 /**
- * Implements data provider for grouped list data
+ * Implements data provider for explicid defined data in typoscript
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
 
+	/**
+	 * Filter configuration object
+	 * 
+	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig 
+	 */
 	protected $filterConfig;
 	
 	
-	public function injectFilterConfig($filterConfig) {
+	/**
+	 * array of options defined in typoscript
+	 * 
+	 * @var array
+	 */
+	protected $tsOptions;
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
+	 */
+	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$this->filterConfig = $filterConfig;
 	}
 	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+	 */
 	public function getRenderedOptions() {
+		$renderedOptions = array();
+		
+		foreach ($this->tsOptions as $optionKey => $option) {
+			
+			$optionData['allDisplayFields'] = trim($option);
+			$renderedOptions[$optionKey] = array('value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
+        										 'selected' => false);
+		}
+		
+		return $renderedOptions;
+	}
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+	 */
+	public function init() {
+		$this->initDataProviderByTsConfig($this->filterConfig->getSettings());
+	} 
+	
+	
+	/**
+	 * Init the dataProvider by TS-conifg
+	 * 
+	 * @param array $filterSettings
+	 */
+	protected function initDataProviderByTsConfig($filterSettings) {
+		
+		$this->tsOptions = $this->filterConfig->getSettings('options');
+		tx_pttools_assert::isArray($this->tsOptions, array('message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006'));
 		
 	}
 	

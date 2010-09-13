@@ -1,0 +1,40 @@
+####################################################
+# This template configures export handling
+# with pt_extlist
+#
+# Using this template requires a configured list
+# on the same page or a parent page. Only
+# settings for export are given here!
+#
+# @author Michael Knoll <knoll@punkt.de>
+# @author Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+
+
+plugin.tx_ptextlist.settings.export {
+      # Sets view class for export handling
+    view = 
+      # D = Force Download; I = Try to open in Browser (e.g. PDF)
+    downloadType = 
+      # Filename Prefix
+    filename = 
+      # Filname Suffix (without ".")
+    fileEnding =
+      # Adds a date string to filename [0|1]
+    addDateToFilename = 
+      # Enable/Disable Pager [0|1]
+    pager.enabled = 
+}
+
+
+
+plugin.tx_ptextlist.settings {
+
+    controller.List.export.view < plugin.tx_ptextlist.settings.export.view
+      # TODO this is not working yet!    
+    pager.enabled < plugin.tx_ptextlist.settings.export.pager.enabled
+
+}

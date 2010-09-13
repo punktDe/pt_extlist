@@ -44,8 +44,8 @@ plugin.tx_ptextlist.settings {
             )
         }
         
-        pager.itemsPerPage = 
-        
+
+
         fields {
             
 	        country_local {
