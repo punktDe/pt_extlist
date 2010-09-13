@@ -198,6 +198,12 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
                 )
             );
 	
+            
+            
+    public function setup() {
+    	$this->initDefaultConfigurationBuilderMock();
+    }
+            
 	
 	
 	public function testSetup() {
@@ -230,6 +236,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
             array('dummy'),array(), '', FALSE);
         $mockController->_set('view', $mockView);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('bookmarksRepository', $bookmarksRepositoryMock);
         $mockController->_set('feUser', $feUserMock);
         $mockController->_set('settings', $this->settings);
@@ -264,6 +271,8 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository', array('add'), array(),'', FALSE);
         $bookmarkRepositoryMock->expects($this->once())->method('add')->with($bookmark);
 		
+        $bookmarkManagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager');
+        
         $persistenceManagerMock = $this->getMock('Tx_Extbase_Persistence_Manager', array('persistAll'), array(), '', FALSE);
         
 		$mockController = $this->getMock(
@@ -273,7 +282,9 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->_set('request', $mockRequest);
         $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
+        $mockController->_set('bookmarkManager', $bookmarkManagerMock);
         $mockController->_set('persistenceManager', $persistenceManagerMock);
         
         $mockController->createAction($bookmark);
@@ -284,6 +295,8 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	public function testProcessAction() {
 		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
 		$bookmarkMock = clone $bookmarkMockNonCloned;
+        
+        $bookmarkManagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager');
 		
 		$mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array('dummy'), array(), '', FALSE);
 		
@@ -298,8 +311,10 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
         $mockController->_set('view', $mockView);
         $mockController->_set('request', $mockRequest);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
+        $mockController->_set('bookmarkManager', $bookmarkManagerMock);
         
         $mockController->processAction($bookmarkMock);
 	}
@@ -323,6 +338,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
             array('dummy'),array(), '', FALSE);
         $mockController->_set('view', $mockView);
         $mockController->_set('request', $mockRequest);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
 		
@@ -351,6 +367,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->_set('request', $mockRequest);
         $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
         $mockController->_set('persistenceManager', $persistenceManagerMock);
         

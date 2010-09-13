@@ -32,22 +32,61 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+    /**
+     * Holds an array of settings
+     *
+     * @var array
+     */
+    protected $settings = array(
+
+                'listIdentifier' => 'Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase',
+
+                'prototype' => array(
+
+                    'backend' => array (
+                        'mysql' => array (
+                            'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+                            'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                            'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                            
+                            
+                        )
+                    ),
+                ),
+                
+                'listConfig' => array(
+                     'Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase' => array(
+                        
+                        'backendConfig' => array (
+                                'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+                                'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                                'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        ),
+                            
+                                            
+                        // this is really ugly but required to make controller work
+                        'bookmarks' => array(
+                            'showPublicBookmarks' => '1',
+                            'showUserBookmarks' => '1',
+                            'showGroupBookmarks' => '1',
+                            'bookmarksPid' => '1,2,3',
+                            'feUsersAllowedToEdit' => '2,3,4',
+                            'feGroupsAllowedToEdit' => '3,4,5',
+                            'groupIdsToShowBookmarksFor' => '4,5,6'
+                        ),
+                    )
+                )
+            );
+            
+            
+            
+    public function setup() {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+	
+	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager'));
-	}
-	
-	
-	
-	public function testSingletonInstance() {
-		$listIdentifier1 = 'test1';
-		$listIdentifier2 = 'test2';
-		
-		$instance1 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier1);
-		$instance2 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier1);
-		$instance3 = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($listIdentifier2);
-		
-		$this->assertEquals($instance1, $instance2);
-		$this->assertTrue($instance1 != $instance3);
 	}
 	
 	
@@ -56,7 +95,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager');
 		
 		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
-		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
 		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
 		$bookmarkManager->setCurrentBookmark($bookmarkMock);
 		
@@ -70,9 +109,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 
         $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager',array('getSessionDataByNamespace'), array(), '', FALSE);
         $returnArray = array('test');
-		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('tx_ptextlist_pi1.test.filters')->will($this->returnValue($returnArray));
+		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('tx_ptextlist_pi1.Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase.filters')->will($this->returnValue($returnArray));
         
-		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
         $bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
 
         $bookmarkManager->addContentToBookmark($bookmark);
@@ -85,7 +124,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	public function testInjectSessionPersistenceManager() {
 		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager');
 		
-		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
 		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
 	}
 	

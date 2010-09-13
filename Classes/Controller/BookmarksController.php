@@ -66,6 +66,15 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     protected $persistenceManager = null;
     
+    
+    
+    /**
+     * Holds an instance of boomark manager
+     *
+     * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+     */
+    protected $bookmarkManager = null;
+    
 
     
     /**
@@ -104,7 +113,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      */
     protected function initConfiBuilderAndDataBackend() {
-        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+    	// TODO this should be removed after refactoring!
         $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
     }
     
@@ -115,10 +124,15 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      */
     protected function initDependencies() {
-        $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */   
+        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+        $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */
+
+        // TODO create bookmark repository in bookmark manager and let it do the job
     	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
     	$this->bookmarksRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
 
+    	$this->bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($this->configurationBuilder);
+    	
     	$this->persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
     }
     
@@ -178,9 +192,8 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
          * as those objects require consistent session data, which can't be
          * changed afterwards!
          */
-    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($this->listIdentifier);
-        $bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
-        $bookmarkManager->setCurrentBookmark($bookmark);
+        $this->bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+        $this->bookmarkManager->setCurrentBookmark($bookmark);
 
         /**
          * Only now, session data is completed and we can initialize
@@ -218,9 +231,8 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     	$bookmark->setIsPublic(true);
     	$bookmark->setListId($this->listIdentifier);
     	
-    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier($this->listIdentifier);
-    	$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
-    	$bookmarkManager->addContentToBookmark($bookmark);
+    	$this->bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+    	$this->bookmarkManager->addContentToBookmark($bookmark);
     	
     	$this->bookmarksRepository->add($bookmark);
     	$this->persistenceManager->persistAll();

@@ -32,17 +32,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
-	/**
-	 * TODO: Refactor me --> use factory for bookmark managers
-	 * Holds an array of instances for each list identifier
-	 *
-	 * @var array<Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager>
-	 */
-	protected static $instancesArray;
-	
-	
-	
-	/**
+    /**
 	 * Holds identifier of list
 	 *
 	 * @var string
@@ -66,24 +56,6 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager = null;
-	
-	
-	
-	
-	/**
-	 * Factory method for bookmark manager. 
-	 * TODO: Refactor this, use factory for bookmark manager
-	 *
-	 * @param string $listIdentifier
-	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
-	 */
-	public static function getInstanceByListIdentifier($listIdentifier) {
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1284039926'));
-		if (self::$instancesArray[$listIdentifier] === NULL) {
-			self::$instancesArray[$listIdentifier] = new self($listIdentifier);
-		}
-		return self::$instancesArray[$listIdentifier];
-	}
 	
 	
 	
