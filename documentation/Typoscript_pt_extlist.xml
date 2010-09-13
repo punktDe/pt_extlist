@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Verwenden Sie dieses Template nur für Extension-Dokumentationen.--><!-- This document was created with Syntext Serna Free. -->
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <reference>
+    <info>
+      <title>TypoScript Referenz</title>
+      <releaseinfo role="meta"> $Id: titlepage.xsl 7058 2007-07-17 13:59:29Z xmldoc $ </releaseinfo>
+    </info>
+    <partintro xml:id="intro_partintro">
+      <title>Introduction</title>
+      <para>Dies ist die Referenz-Dokumentation für TypoScript (Extensions).</para>
+      <para> Dies ist eine Dokumentation für Administratoren und Entwickler.</para>
+    </partintro>
+    <refentry>
+      <refsect1>
+        <refnamediv>
+          <refname>Name der Property</refname>
+          <refpurpose>Zweck der Property</refpurpose>
+        </refnamediv>
+        <title>Datentyp</title>
+        <para>plugin.tx_ptextlist.settings {
+
+    listConfig.demolist_mysql_01 </para>
+        <para>{
+    
+    backendConfig &lt; plugin.tx_ptextlist.prototype.backend.mysql
+        backendConfig </para>
+        <para>{
+            
+            dataSource </para>
+        <para>{
+username = t3ry21ptldev 
+password = upa8Shooyidom
+databaseName = t3ry21ptldev     
+            }
+            
+            
+            </para>
+        <para>tables (
+                City,
+                Country
+            )
+            
+            
+            baseFromClause </para>
+        <para>(
+Country
+INNER JOIN City ON City.CountryCode = Country.Code
+INNER JOIN CountryLanguage ON CountryLanguage.CountryCode = Country.Code
+            )
+            
+            </para>
+        <para>baseWhereClause (
+            
+            ) 
+            
+            </para>
+        <para>baseGroupByClause (
+            Country.Code, City.ID
+            )            
+        }
+        
+
+        
+        </para>
+        <para>fields {           
+            continent_name </para>
+        <para>{
+            table = Country
+            field = Continent
+            }</para>
+        <para>
+            
+            country_name {
+            table = Country
+            field = Name
+            }</para>
+        <para>
+
+country_localname {
+            table = Country
+            field = LocalName
+            }</para>
+        <para>
+            
+            city_name {
+            table = City
+            field = Name
+            }
+           
+            </para>
+        <para>city_population {
+            table = City
+            field = Population
+            }</para>
+        <para>
+            
+            country_population {
+            table = Country
+            field = Population
+            }</para>
+        <para>
+            
+            country_language {
+             special = group_concat(CountryLanguage.Language SEPARATOR &apos;, &apos;)
+            }
+            
+        }
+
+
+        
+        columns {
+            
+            10 {
+            fieldIdentifier = continent_name
+            columnIdentifier = colContinentName
+            label = Continent Name
+            }</para>
+        <para>
+            
+            # Todo: allow multiple fields in one column
+            20 </para>
+        <para>{
+            fieldIdentifier = country_name     
+            columnIdentifier = colCountryName
+            label = Country Name
+            }
+            
+            </para>
+        <para>30 {
+            fieldIdentifier = country_population
+            columnIdentifier = colCountryPopulation
+            label = Country Population
+            }</para>
+        <para>
+            
+            40 {
+            fieldIdentifier = city_name
+            columnIdentifier = colCityName
+            label = City Name
+            }
+            
+            </para>
+        <para>50 {
+            fieldIdentifier = city_population
+            columnIdentifier = colCityPopulation
+            label = City Population
+            }
+            
+
+            60 {
+             fieldIdentifier = country_language
+             columnIdentifier = colCountryLanguages
+             label = Spoken Languages
+            }
+         
+        }</para>
+        <para>
+        
+        filters {
+        filterbox1 {
+        }
+    }
+        
+        pager {
+        itemsPerPage = 30
+        }
+          
+    }
+}</para>
+        <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc. KEINE
+                    WERTE!)</para>
+      </refsect1>
+      <refsect1>
+        <title>Beschreibung</title>
+        <para>Beschreiben Sie iIhre Property.</para>
+      </refsect1>
+      <refsect1>
+        <title>Beispiel</title>
+        <para>Geben Sie ein Besipiel an.</para>
+        <note>
+          <para>Wenn Sie einen wichtig Hinweis haben, schreiben Sie ihn hier
+    auf.</para>
+        </note>
+      </refsect1>
+      <refsect1>
+        <title>Elternelemente</title>
+        <para>Schreiben Sie hier die Elternelemente auf.</para>
+      </refsect1>
+      <refsect1>
+        <title>Kindelemente</title>
+        <para>Schreiben Sie hier die Kindelemente auf.</para>
+      </refsect1>
+      <refsect1>
+        <title>Werte</title>
+        <para>Wenn Sie Werte festhalten wollen, bitte hier..</para>
+      </refsect1>
+      <refsect1>
+        <para>See also:</para>
+        <itemizedlist>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+        </itemizedlist>
+      </refsect1>
+    </refentry>
+    <refentry>
+      <refsect1>
+        <refnamediv>
+          <refname>Name der Property</refname>
+          <refpurpose>Zweck der Property</refpurpose>
+        </refnamediv>
+        <title>Datentyp</title>
+        <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc. KEINE
+  WERTE!)</para>
+        <title>Beschreibung</title>
+        <para>Beschreiben Sie iIhre Property.</para>
+      </refsect1>
+      <refsect1>
+        <title>Beispiel</title>
+        <para>Geben Sie ein Besipiel an.</para>
+        <note>
+          <para>Wenn Sie einen wichtig Hinweis haben, schreiben Sie ihn hier
+    auf.</para>
+        </note>
+      </refsect1>
+      <refsect1>
+        <title>Elternelemente</title>
+        <para>Schreiben Sie hier die Elternelemente auf.</para>
+      </refsect1>
+      <refsect1>
+        <title>Kindelemente</title>
+        <para>Schreiben Sie hier die Kindelemente auf.</para>
+      </refsect1>
+      <refsect1>
+        <title>Werte</title>
+        <para>Wenn Sie Werte festhalten wollen, bitte hier..</para>
+      </refsect1>
+      <refsect1>
+        <para>See also:</para>
+        <itemizedlist>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+        </itemizedlist>
+      </refsect1>
+    </refentry>
+  </reference>
+</section>
