@@ -154,7 +154,20 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         return $view;
     }
     
-    
+    /**
+	 * Initializes the view before invoking an action method.
+	 *
+	 * Override this method to solve assign variables common for all actions
+	 * or prepare the view in another way before the action is called.
+	 *
+	 * @param Tx_Extbase_View_ViewInterface $view The view to be initialized
+	 * @return void
+	 * @api
+	 */
+	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
+		
+		
+	}
     
     /**
      * Sets template to be used by current action.

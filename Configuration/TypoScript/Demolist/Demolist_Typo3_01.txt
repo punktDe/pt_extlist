@@ -23,7 +23,8 @@ plugin.tx_ptextlist.settings {
     #}
     
     _LOCAL_LANG.default.emptyList = blabla
-
+	
+	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
     listConfig.demolist {
     
     	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
