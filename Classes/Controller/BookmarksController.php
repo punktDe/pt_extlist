@@ -278,6 +278,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     	if ($this->settings['bookmarks']['showUserBookmarks'] == '1') {
     	    return true;
     	} else {
+    		print_r('dont show user books');
     		return false;
     	}
     }

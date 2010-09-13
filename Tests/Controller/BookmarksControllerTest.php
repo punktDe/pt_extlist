@@ -33,6 +33,13 @@
 class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $settings = array(
+	            
+                        // this is really ugly but required to make controller work
+                        'bookmarks' => array(
+                            'showPublicBookmarks' => '1',
+                            'showUserBookmarks' => '1',
+                            'showGroupBookmarks' => '1'
+                        ),
                 'listIdentifier' => 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase',
                 'abc' => '1',
                 'prototype' => array(
@@ -264,7 +271,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
             array('forward'),array(), '', FALSE);
         $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
         $mockController->_set('request', $mockRequest);
-        $mockController->_set('listIdentifier', 'test');
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
         $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
         $mockController->_set('persistenceManager', $persistenceManagerMock);
@@ -291,7 +298,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
         $mockController->_set('view', $mockView);
         $mockController->_set('request', $mockRequest);
-        $mockController->_set('listIdentifier', 'test');
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
         
         $mockController->processAction($bookmarkMock);
@@ -316,7 +323,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
             array('dummy'),array(), '', FALSE);
         $mockController->_set('view', $mockView);
         $mockController->_set('request', $mockRequest);
-        $mockController->_set('listIdentifier', 'test');
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
 		
         $mockController->deleteAction($bookmarkMock);
@@ -342,7 +349,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
         $mockController->_set('view', $mockView);
         $mockController->_set('request', $mockRequest);
-        $mockController->_set('listIdentifier', 'test');
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
         $mockController->_set('settings', $this->settings);
         $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
         $mockController->_set('persistenceManager', $persistenceManagerMock);
