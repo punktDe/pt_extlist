@@ -115,6 +115,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
      */
     protected $queryInterpreter;
+    
+    
+    
+    /**
+     * Holds an instance of bookmark manager
+     *
+     * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+     */
+    protected $bookmarkManager;
 
 	
 		
@@ -250,6 +259,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      */
     public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
         $this->queryInterpreter = $queryInterpreter;
+    }
+    
+    
+    
+    /**
+     * Injector for bookmark manager
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager
+     */
+    public function injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager) {
+    	$this->bookmarkManager = $bookmarkManager;
     }
 	
 	

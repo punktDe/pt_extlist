@@ -154,6 +154,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     
     
     /**
+     * Injector for bookmark manager
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager
+     */
+    public function injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager);
+    
+    
+    
+    /**
      * Returns associated filterbox collection
      * 
      * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection Associated filterbox collection

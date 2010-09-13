@@ -89,6 +89,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataBackend->injectPagerCollection(self::getPagerCollection($configurationBuilder));        
 	        $dataBackend->injectListHeader(self::getListHeader($configurationBuilder));
 	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
+	        $dataBackend->injectBookmarkManager(self::getBookmarkManager($configurationBuilder));
 	        if (self::getQueryInterpreter($configurationBuilder) != null) {
 	        	$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
 	        }
@@ -172,6 +173,19 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	    
 	    tx_pttools_assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
 	    return $queryInterpreter;
+    }
+    
+    
+    
+    /**
+     * Creates an instance of a bookmark manager
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+     */
+    protected static function getBookmarkManager(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($configurationBuilder);
+    	return $bookmarkManager;
     }
 	
 }
