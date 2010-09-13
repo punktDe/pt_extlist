@@ -102,6 +102,22 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	
 	/**
+	 * Processes bookmark from GP vars given for current request
+	 *
+	 */
+	public function processBookmark() {
+		$gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+		$gpVars = $gpVarAdapter->extractGpVarsByNamespace('tx_ptextlist_pi1');
+		if ($gpVars['controller'] == 'Bookmarks' && $gpVars['action'] == 'process') {
+			$bookmark = $this->bookmarkRepository->findByUid(12);
+			$this->setCurrentBookmark($bookmark);
+		}
+	}
+	
+	
+	
+	
+	/**
 	 * Sets bookmark which is currently applied to list
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark
