@@ -52,6 +52,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase e
     	$filterBoxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('showReset' => 0));
     	$this->assertEquals(false, $filterBoxConfig->getShowReset());
     }
+    
+    
+	public function testGetshowSubmit () {
+    	$filterBoxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array());
+    	$this->assertEquals(true, $filterBoxConfig->getShowSubmit());
+    	
+    	$filterBoxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('showSubmit' => 0));
+    	$this->assertEquals(false, $filterBoxConfig->getShowSubmit());
+    }
 	
 }
 

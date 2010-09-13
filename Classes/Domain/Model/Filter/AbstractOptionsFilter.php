@@ -194,8 +194,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$filterValues = array_filter($this->filterValues);
 
 		if($this->filterConfig->getInactiveOption()) {
-        	$renderedOptions[''] = array('value' => $this->filterConfig->getInactiveOption(),
-        									'selected' => empty($filterValues));
+            $renderedOptionsWithInactive[''] = array('value' => $this->filterConfig->getInactiveOption(),
+        											 'selected' => empty($filterValues));
+
+        	$renderedOptionsWithInactive=array_merge($renderedOptionsWithInactive, $renderedOptions);
+        	$renderedOptions = $renderedOptionsWithInactive;
         }
  
         return $renderedOptions;

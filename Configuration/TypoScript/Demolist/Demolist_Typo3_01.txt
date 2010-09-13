@@ -277,6 +277,7 @@ plugin.tx_ptextlist.settings {
 	                  filterIdentifier = filter15
 	                  label = Max Phone
 	                  fieldIdentifier = phone
+					  accessGroups = 3
 	              }
 
     			  20 < plugin.tx_ptextlist.prototype.filter.checkbox 
@@ -309,7 +310,10 @@ plugin.tx_ptextlist.settings {
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
-					  accessGroups = 3
+					  options {
+					  	x = Hallo Welt
+					  	y = So was .. 
+					  	}
 					  }
 	              }
 	         }

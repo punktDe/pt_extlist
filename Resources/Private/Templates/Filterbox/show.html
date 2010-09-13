@@ -15,7 +15,7 @@ bool                                                                filtersDontV
 -->
 </extlist:comment>
 
-<div class="filterbox">
+<div class="tx-ptextlist-filterbox tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
 	<f:form controller="Filterbox" action="submit" method="post">
 		
 		<f:if condition="{filtersDontValidate}">
@@ -24,21 +24,27 @@ bool                                                                filtersDontV
 			</div>
 		</f:if>
 		
-		<f:for each="{filterbox}" as="filter">
-			<f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
-		</f:for>
+		<ul class="tx-ptextlist-filters">
+			<f:for each="{filterbox}" as="filter">
+				<li class="tx-ptextlist-filter tx-ptextlist-filter-{filter.filterIdentifier}">
+					<f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
+				</li>
+			</f:for>
+		</ul>
 		
-		<div class="outer-wrapper">
+		<div class="outer-wrapper tx-ptextlist-filterboxcontrols">
 			<div class="outer-field-wrapper">
 				<div class="field-wrapper type-button">
-					<f:form.submit value="Submit Filters"/>
-						<f:if condition="{filterbox.filterboxConfiguration.showReset}">
-							<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
-								<span>
-									<f:translate key="filterBox.resetFilters" default="Reset filters" />
-								</span>
-							</f:link.action>
-						</f:if>
+					<f:if condition="{filterbox.filterboxConfiguration.showSubmit}">
+						<f:form.submit value="{f:translate(key:'filterBox.submitFilters', default:'Submit Filters')}"/>
+					</f:if>
+					<f:if condition="{filterbox.filterboxConfiguration.showReset}">
+						<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
+							<span>
+								<f:translate key="filterBox.resetFilters" default="Reset filters" />
+							</span>
+						</f:link.action>
+					</f:if>
 				</div>
 			</div>
 		</div>
