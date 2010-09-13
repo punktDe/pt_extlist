@@ -254,11 +254,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         $extBaseDataBackend->injectDataSource($dataSource);
         
-        
-        
-//        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array(), array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), '', FALSE);
-        
-        
         $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array(),'',FALSE);
         $pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
         $pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));

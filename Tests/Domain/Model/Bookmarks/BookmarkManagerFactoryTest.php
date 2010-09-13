@@ -81,7 +81,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactory_testcase 
             
             
     public function setup() {
+    	parent::setup();
     	$this->initDefaultConfigurationBuilderMock();
+    	$this->setupDispatcher();
     }
             
             

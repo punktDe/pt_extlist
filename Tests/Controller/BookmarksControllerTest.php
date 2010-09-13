@@ -201,7 +201,9 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
             
             
     public function setup() {
+    	parent::setup();
     	$this->initDefaultConfigurationBuilderMock();
+    	$this->setupDispatcher();
     }
             
 	
