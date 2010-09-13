@@ -63,8 +63,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
                                 'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                         ),
                             
-                                            
-                        // this is really ugly but required to make controller work
                         'bookmarks' => array(
                             'showPublicBookmarks' => '1',
                             'showUserBookmarks' => '1',

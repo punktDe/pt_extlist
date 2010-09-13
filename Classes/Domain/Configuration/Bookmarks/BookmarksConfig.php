@@ -129,8 +129,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
      */
     public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$this->configurationBuilder = $configurationBuilder;
-    	$globalSettingsArray = $this->configurationBuilder->getSettings();
-    	$this->settingsArray = $globalSettingsArray['bookmarks'];
+    	$this->settingsArray = $configurationBuilder->getBookmarksSettings();
     	$this->listIdentifier = $this->configurationBuilder->getListIdentifier();
     	$this->initPropertiesFromSettings();
     }
