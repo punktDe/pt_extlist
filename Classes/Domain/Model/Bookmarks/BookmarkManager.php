@@ -60,6 +60,15 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	
 	/**
+	 * Holds an instance of a bookmark repository
+	 *
+	 * @var Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
+	 */
+	protected $bookmarkRepository = null;
+	
+	
+	
+	/**
 	 * Constructor for bookmark manager
 	 *
 	 * @param string $listIdentifier
@@ -77,6 +86,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 */
 	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
 		$this->sessionPersistenceManager = $sessionPersistenceManager;
+	}
+	
+	
+	
+	/**
+	 * Injector for bookmark repository
+	 *
+	 * @param Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository $bookmarkRepository
+	 */
+	public function injectBookmarkRepository(Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository $bookmarkRepository) {
+		$this->bookmarkRepository = $bookmarkRepository;
 	}
 	
 	

@@ -126,6 +126,15 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
 	}
 	
+	
+	
+	public function testInjectBookmarkRepository() {
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository', array(), array(), '', FALSE);
+		
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
+		$bookmarkManager->injectBookmarkRepository($bookmarkRepositoryMock);
+	}
+	
 }
 
 ?>
