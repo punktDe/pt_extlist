@@ -53,9 +53,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	public function testGetSetCurrentBookmark() {
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager');
+		
 		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
 		$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager::getInstanceByListIdentifier('test');
+		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
 		$bookmarkManager->setCurrentBookmark($bookmarkMock);
+		
 		$this->assertTrue($bookmarkManager->getCurrentBookmark() === $bookmarkMock);
 	}
 	
