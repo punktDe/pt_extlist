@@ -30,6 +30,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
+require_once t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php';
+
 
 /**
  * Register LifeCycle Manager
