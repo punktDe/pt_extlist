@@ -1,0 +1,26 @@
+####################################################
+# Definition of backend prototypes for use in listconfiguration 
+#
+# @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.prototype.export {
+	
+	# D = Force Download; I = Try to open in Browser (e.g. PDF)
+    downloadType = 
+    
+    # Filename Prefix
+    filename = 
+    
+    # Filname Suffix (without ".")
+    fileExtension =
+    
+    # Adds a date string to filename [0|1]
+    addDateToFilename = 
+    
+    # Enable/Disable Pager [0|1]
+    pager.enabled =
+    
+}

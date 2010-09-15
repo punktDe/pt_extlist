@@ -88,7 +88,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 * @param array $config
 	 */
 	protected function initTsDataProvider($config) {
-		$this->setCurrentPID($config);
+		$this->currentPid =  $this->getCurrentPID($config);
 		$this->loadExtListTyposcriptArray();
 	}
 	
@@ -99,8 +99,8 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 * 
 	 * @param array $config
 	 */
-	protected function setCurrentPID($config) {
-		$this->currentPid = (int) $config['row']['pid'];
+	protected function getCurrentPID($config) {
+		return (int) $config['row']['pid'];
 	}
 	
 	
@@ -110,7 +110,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	protected function loadExtListTyposcriptArray() {
 		if(is_null($this->extListTypoScript)) {
 			$extListTS = tx_pttools_div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
-			$this->extListTypoScript = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
+			$this->extListTypoScript =  Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
 		}
 	}
 	

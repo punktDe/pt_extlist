@@ -12,21 +12,29 @@
 # @subpackage pt_extlist
 ####################################################
 
-
-
 plugin.tx_ptextlist.settings.export {
-      # Sets view class for export handling
-    view = 
-      # D = Force Download; I = Try to open in Browser (e.g. PDF)
-    downloadType = 
-      # Filename Prefix
-    filename = 
-      # Filname Suffix (without ".")
-    fileEnding =
-      # Adds a date string to filename [0|1]
-    addDateToFilename = 
-      # Enable/Disable Pager [0|1]
-    pager.enabled = 
+	
+	exportConfigs {
+		
+		csvExport < plugin.tx_ptextlist.prototype.export 
+		csvExport {
+			view = 
+			fileExtension =	csv
+		}
+		
+		fluidTemplateExport < plugin.tx_ptextlist.prototype.export
+		fluidTemplateExport {
+			view =
+			fileExtension = txt
+			template =
+		}
+		
+		pdfExport < plugin.tx_ptextlist.prototype.export
+		pdfExport {
+			view = 
+			fileExtension = pdf
+		}	
+	}    
 }
 
 

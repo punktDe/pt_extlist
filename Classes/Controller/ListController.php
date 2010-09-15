@@ -26,8 +26,7 @@
 /**
  * Controller for all list actsions
  * 
- * @package pt_extlist
- * @subpackage Controller
+ * @package Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController {

@@ -105,7 +105,7 @@
         <type>array</type>
         <el>
 
-          <settings.controller.List.export.view>
+          <settings.exportType>
             <TCEforms>
               <label>Export Type</label>
               <config>
@@ -120,7 +120,7 @@
 					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedExportTypes</itemsProcFunc>
               </config>
             </TCEforms>
-          </settings.controller.List.export.view>
+          </settings.exportType>
           
           <settings.export.downloadType>
             <TCEforms>

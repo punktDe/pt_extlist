@@ -26,8 +26,8 @@
 /**
  * Class implementing a mock for configuration builder
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Configuration
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
@@ -55,6 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     		
             $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock(array(
 	            'listIdentifier' => 'test',
+            	
 	            'abc' => '1',
             	'prototype' => array(
 
@@ -96,6 +97,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 						
 	                     'abc' => '2',
 	                     'def' => '3',
+						 'exportType' => 'test',
 							
 	                     'fields' => array(
 	                         'field1' => array( 
@@ -207,7 +209,20 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 				        			'aggregateDataIdentifier' => 'avgField2',
 								)
 							)
-					    )
+					    ),
+					    
+					    'export' => array (
+					    	'exportConfigs' => array (
+					    		'test' => array (
+						    		'downloadType' => 'D',
+						    		'fileName' => 'testfile',
+						    		'fileExtension' => 'ext',
+						    		'addDateToFilename' => 1,
+						    		'pager' => array('enabled' => 0),
+					    			'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
+					    		)
+					    	)
+					    )				    
 	                )
 	            )
 	        ));

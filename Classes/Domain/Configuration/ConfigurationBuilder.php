@@ -27,8 +27,8 @@
 /**
  * Class implements a Builder for all configurations required in pt_extlist.
  * 
- * @package pt_extlist
- * @subpackage Domain\Configuration
+ * @package Domain
+ * @subpackage Configuration
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
@@ -121,6 +121,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
 	 */
 	protected $filterConfiguration = null;
+	
+	
+	/**
+	 * Holds an instance of the export configuration
+	 * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+	 */
+	protected $exportConfiguration;
 	
 		
 	/**
@@ -273,6 +280,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
+     * @return array export settings
+     */
+    public function getExportSettings() {
+    	return $this->settings['export']['exportConfigs'][$this->settings['exportType']];
+    }
+    
+    
+    /**
      * return a slice from the prototype arrray for the given objectPath
      * 
      * @param string $objectPath
@@ -326,6 +341,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	
+	
+	
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
      *
@@ -365,6 +382,20 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	}
     	
     	return $this->aggregateRowConfig;
+    }
+    
+    
+    
+    /**
+     * return a singleton instance of export configuratrion
+     * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+     */
+    public function buildExportConfiguration() {
+    	if(is_null($this->exportConfiguration)) {
+    		$this->exportConfiguration = Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory::getInstance($this);
+    	}
+    	
+    	return $this->exportConfiguration;
     }
     
     

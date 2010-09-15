@@ -10,18 +10,7 @@
 
 
 plugin.tx_ptextlist.settings {
-
-    ## Remove these lines for activating CSV rendering
-    #controller.List.list.view = Tx_PtExtlist_View_List_CsvListView
-    #
-    #
-    #view.CsvListView {
-    #    fileName = test.csv
-    #    fileHandlingType = D
-    #    useDateAndTimestampInFilename = 1
-    #    fileNamePrefix = demolist
-    #}
-    
+   
     _LOCAL_LANG.default.emptyList = blabla
 	
 	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
