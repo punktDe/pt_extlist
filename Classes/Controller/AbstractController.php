@@ -127,6 +127,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         $controllerContext = $this->buildControllerContext();
         $view->setControllerContext($controllerContext);
 
+		// Setting the controllerContext for the FLUID template renderer         
+        Tx_PtExtlist_Utility_RenderValue::setControllerContext($controllerContext);
+        
         // Template Path Override
         $extbaseFrameworkConfiguration = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
         if (isset($extbaseFrameworkConfiguration['view']['templateRootPath']) && strlen($extbaseFrameworkConfiguration['view']['templateRootPath']) > 0) {
