@@ -63,6 +63,10 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		// TODO do not use forward here!!!
 		if($list->getListData()->count() <= 0) $this->forward('emptyList');
 		
+		
+		
+		
+		
 		$renderedListData = $this->renderer->renderList($list->getListData());
 		$renderedCaptions = $this->renderer->renderCaptions($list->getListHeader());
 

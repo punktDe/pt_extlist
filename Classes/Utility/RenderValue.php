@@ -33,7 +33,7 @@
  */
 class Tx_PtExtlist_Utility_RenderValue {
 	
-	
+	public static $controllerContext;
 	protected static $cObj;
 	
 	/**
@@ -42,6 +42,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 	protected static $fluidRenderer;	
 	
 	protected static $renderCache = array();
+	
+	
 	
 	
 	
@@ -164,6 +166,9 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param string $templatePath
 	 */
 	public static function renderValueByTemplate(array $data, $templatePath) {
+		if(!file_exists($templatePath)) {
+			$templatePath = t3lib_div::getFileAbsFileName($templatePath);
+		}
 		
 		self::getFluidRenderer()->setTemplatePathAndFilename($templatePath);
 		self::$fluidRenderer->assign('data', $data);
@@ -222,15 +227,16 @@ class Tx_PtExtlist_Utility_RenderValue {
 		
 		if(!self::$fluidRenderer) {
 			self::$fluidRenderer = t3lib_div::makeInstance('Tx_Fluid_View_TemplateView');
-			$controllerContext = t3lib_div::makeInstance('Tx_Extbase_MVC_Controller_ControllerContext');
-			$controllerContext->setRequest(t3lib_div::makeInstance('Tx_Extbase_MVC_Request'));
-			self::$fluidRenderer->setControllerContext($controllerContext);	
+
+			self::$fluidRenderer->setControllerContext(self::$controllerContext);	
 		}
 		
 		return self::$fluidRenderer;
 	}
 	
-	
+	public static function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
+		self::$controllerContext = $controllerContext;
+	}
 	
 	/**
 	 * If the given value is a plain array, it is converted 

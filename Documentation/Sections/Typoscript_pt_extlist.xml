@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Verwenden Sie dieses Template nur für Extension-Dokumentationen.-->
+<!-- This document was created with Syntext Serna Free. -->
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <reference>
+    <info>
+      <title>TypoScript Reference</title>
+
+      <releaseinfo role="meta">$Id: titlepage.xsl 7058 2007-07-17 13:59:29Z
+      xmldoc $</releaseinfo>
+    </info>
+
+    <refentry>
+      <refsection>
+        <title>plugin.tx_ptextlist.setting</title>
+
+        <refpurpose>Zweck der Property</refpurpose>
+
+        <title>datatype</title>
+
+        <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc.
+        KEINE WERTE!)</para>
+      </refsection>
+
+      <refsection>
+        <title>description</title>
+
+        <para>Beschreiben Sie iIhre Property.</para>
+      </refsection>
+
+      <refsection>
+        <title>example</title>
+
+        <para>Geben Sie ein Besipiel an.</para>
+
+        <note>
+          <para>Wenn Sie einen wichtig Hinweis haben, schreiben Sie ihn hier
+          auf.</para>
+        </note>
+      </refsection>
+
+      <refsection>
+        <title>parent elements</title>
+
+        <para>Schreiben Sie hier die Elternelemente auf.</para>
+      </refsection>
+
+      <refsection>
+        <title>child elements</title>
+
+        <para>listConfig.demolist_mysql_01</para>
+
+        <para>backendConfig</para>
+
+        <para>dataSource</para>
+
+        <para>tables</para>
+
+        <para>baseFromClause</para>
+
+        <para>baseWhereClause</para>
+
+        <para>baseGroupByClause</para>
+      </refsection>
+
+      <refsection>
+        <title>values</title>
+
+        <para>Wenn Sie Werte festhalten wollen, bitte hier..</para>
+      </refsection>
+
+      <refsection>
+        <title>See also:</title>
+
+        <itemizedlist>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+        </itemizedlist>
+      </refsection>
+    </refentry>
+
+    <refentry>
+      <refsection>
+          <title>Name der Property</title>
+
+          <refpurpose>Zweck der Property</refpurpose>
+       
+
+        <title>datatype</title>
+
+        <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc.
+        KEINE WERTE!)</para>
+
+        <title>description</title>
+
+        <para>Beschreiben Sie iIhre Property.</para>
+      </refsection>
+
+      <refsection>
+        <title>example</title>
+
+        <para>Geben Sie ein Besipiel an.</para>
+
+        <note>
+          <para>Wenn Sie einen wichtig Hinweis haben, schreiben Sie ihn hier
+          auf.</para>
+        </note>
+      </refsection>
+
+      <refsection>
+        <title>parent elements</title>
+
+        <para>Schreiben Sie hier die Elternelemente auf.</para>
+      </refsection>
+
+      <refsection>
+        <title>child elements</title>
+
+        <para>Schreiben Sie hier die Kindelemente auf.</para>
+      </refsection>
+
+      <refsection>
+        <title>values</title>
+
+        <para>Wenn Sie Werte festhalten wollen, bitte hier..</para>
+      </refsection>
+
+      <refsection>
+        <title>See also:</title>
+
+        <itemizedlist>
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+
+          <listitem override="bullet">
+            <para linkend="to_similiar_subject">x</para>
+          </listitem>
+        </itemizedlist>
+      </refsection>
+    </refentry>
+  </reference>
+</section>

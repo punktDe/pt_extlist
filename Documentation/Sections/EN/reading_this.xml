@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Reading this (fix title)</title>
+
+  <para>Use this section, to define your target group and to illustrate your intention. This section is preceded by the toc. </para>
+
+  <para>Answer following questions:</para>
+
+  <para>Who are the readers of the document?</para>
+
+  <para>Which knowledge do they need to get the documentation?</para>
+
+  <para>What is the  author's intention?</para>
+</section>

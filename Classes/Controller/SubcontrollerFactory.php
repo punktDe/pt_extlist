@@ -134,7 +134,7 @@ class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher
 	        $request->setPluginName($configuration['pluginName']);
 	        $request->setControllerExtensionName($configuration['extensionName']);
 	        $request->setControllerName($configuration['controller']);
-	        $request->setControllerActionName($configuration['action']);
+//	        $request->setControllerActionName($configuration['action']);
         } catch(Exception $e) {
         	/* TODO this is done for being testable in CLI environment! */
         	$actionNames = $configuration['switchableControllerActions.']['1.']['actions'];

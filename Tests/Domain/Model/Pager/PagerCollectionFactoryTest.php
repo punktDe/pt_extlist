@@ -129,7 +129,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx
 		$this->assertEquals(1, $pagerCollection->count());
 		
 		$pager = $pagerCollection->getItemById('default');
-		print_r($pager);
+//		print_r($pager);
 		$this->assertNotNull($pager);
 	}
 	
