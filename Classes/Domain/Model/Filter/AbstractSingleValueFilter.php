@@ -142,5 +142,23 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     protected function initFilterByTsConfig() {
         $this->filterValue = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
     }
+   
+    
+    
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+     */
+    protected function setActiveState() {
+    	$this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false; 
+    }
 	
+    
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     */
+    protected function initFilter() {
+    	
+    }
 }

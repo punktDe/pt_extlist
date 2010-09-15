@@ -31,10 +31,7 @@
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase extends Tx_Extbase_BaseTestcase {
 	
-	protected $settings = array();
-	
-	public function setup() {
-		$this->settings = array(
+	protected $settings = array(
 		    'listIdentifier' => 'test',
 		    'abc' => '1',
 			'prototype' => array(
@@ -43,11 +40,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 						'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
 						'pagerProperty' => 'pagerValue'
 					)
-					),
+				),
 				'column' => array (
 						'xy' => 'z',
 					),
-				) ,
+				'bookmarks' => array (
+				),
+			) ,
 		    'listConfig' => array(
 		         'test' => array(
 		             'abc' => '2',
@@ -88,37 +87,45 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 								'partialPath' => 'Filter/StringFilter',
 			        		)   
 			            )
-			        )
-		        )
-		    ),
-		    'pager' => array(
-		        'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager' 
-		    ),
-		    
-		    'aggregateData' => array(
-		    	'sumField1' => array (
-		    		'fieldIdentifier' => 'field1',
-		    		'method' => 'sum',
-		    	),
-		    	'avgField2' => array (
-		    		'fieldIdentifier' => 'field2',
-		    		'method' => 'avg',
-		    	),
-		    ),
-		    
-		    
-		    'aggregateRows' => array (
-	        	10 => array (
-	        		'column2' => array (
-	        			'aggregateDataIdentifier' => 'avgField2',
-					)
-				)
+			        ),
+				    'pager' => array(
+				        'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager' 
+				    ),
+				    
+				    'aggregateData' => array(
+				    	'sumField1' => array (
+				    		'fieldIdentifier' => 'field1',
+				    		'method' => 'sum',
+				    	),
+				    	'avgField2' => array (
+				    		'fieldIdentifier' => 'field2',
+				    		'method' => 'avg',
+				    	),
+				    ),
+				    
+				    'bookmarks' => array(
+		                            'showPublicBookmarks' => '1',
+		                            'showUserBookmarks' => '1',
+		                            'showGroupBookmarks' => '1',
+		                            'bookmarksPid' => '1,2,3',
+		                            'feUsersAllowedToEdit' => '2,3,4',
+		                            'feGroupsAllowedToEdit' => '3,4,5',
+		                            'groupIdsToShowBookmarksFor' => '4,5,6'
+		                        ),
+				    
+				    
+				    'aggregateRows' => array (
+			        	10 => array (
+			        		'column2' => array (
+			        			'aggregateDataIdentifier' => 'avgField2',
+							)
+						)
+				    )
+			    )
 		    )
-		    
 		);
-	}
-	
-	
+
+		
 	
 	public function testSetup() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
@@ -252,6 +259,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		} 
 		
 		$this->fail('No Exception was thrown if no Configuration was found by given listIdentifier');
+	}
+	
+	
+	
+	public function testGetBookmarksSettings() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+		$bookmarkSettings = $configurationBuilder->getBookmarksSettings();
+		$this->assertEquals($this->settings['listConfig']['test']['bookmarks'], $bookmarkSettings);
+	}
+	
+	
+	
+	public function testBuildBookmarksConfiguration() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+		$bookmarkConfig = $configurationBuilder->buildBookmarksConfiguration();
+		$this->assertTrue(is_a($bookmarkConfig, 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig'));
 	}
 }
 ?>

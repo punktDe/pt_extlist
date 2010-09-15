@@ -32,6 +32,182 @@
  */
 class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	protected $settings = array(
+	            
+                        // this is really ugly but required to make controller work
+                        'bookmarks' => array(
+                            'showPublicBookmarks' => '1',
+                            'showUserBookmarks' => '1',
+                            'showGroupBookmarks' => '1'
+                        ),
+                'listIdentifier' => 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase',
+                'abc' => '1',
+                'prototype' => array(
+
+                'backend' => array (
+                    'mysql' => array (
+                        'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
+                        'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                        'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        
+                        
+                    )
+                    ),
+                'column' => array (
+                        'xy' => 'z',
+                    ),
+                ),
+                'listConfig' => array(
+                     'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase' => array(
+                        
+                        'backendConfig' => array (
+                                'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+                                'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+                                'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                
+                
+                                'dataSource' => array(
+                                    'testKey' => 'testValue',
+                                    'username' => 'user',
+                                    'password' => 'pass',
+                                    'host' => 'localhost',
+                                    'port' => 3306,
+                                    'databaseName' => 'typo3',
+                                ),
+                                
+                                'baseFromClause' => 'companies',
+                                'baseGroupByClause' => 'company',
+                                'baseWhereClause' => 'employees > 0'    
+                            ),
+                        
+                         'abc' => '2',
+                         'def' => '3',
+                            
+                         'fields' => array(
+                             'field1' => array( 
+                                 'table' => 'tableName1',
+                                 'field' => 'fieldName1',
+                                 'isSortable' => '0',
+                                 'access' => '1,2,3,4'
+                             ),
+                             'field2' => array( 
+                                 'table' => 'tableName2',
+                                 'field' => 'fieldName2',
+                                 'isSortable' => '1',
+                                 'access' => '1,2,3,4'
+                             ),
+                             'field3' => array( 
+                                 'special' => 'special',
+                                 'isSortable' => '1',
+                                 'access' => '1,2,3,4'
+                             ),
+                             'field4' => array( 
+                                 'table' => 'tableName4',
+                                 'field' => 'fieldName4',
+                             )
+                         ),
+                        'columns' => array(
+                            10 => array( 
+                                'columnIdentifier' => 'column1',
+                                'fieldIdentifier' => 'field1',
+                                'label' => 'Column 1',
+                                'isSortable' => '0',
+                                
+                            ),
+                            20 => array( 
+                                'columnIdentifier' => 'column2',
+                                'fieldIdentifier' => 'field2',
+                                'label' => 'Column 2',  
+                                'isSortable' => '1',
+                                'sorting' => 'tstamp, title',
+                                
+                            ),
+                            30 => array( 
+                                'columnIdentifier' => 'column3',
+                                'fieldIdentifier' => 'field3',
+                                'label' => 'Column 3',  
+                                'isSortable' => '1',
+                                'sorting' => 'tstamp asc, title !DeSc',
+                                'accessGroups' => '1,2,3,4'
+                            ),
+                            40 => array( 
+                                'columnIdentifier' => 'column4',
+                                'fieldIdentifier' => 'field4',
+                                'label' => 'Column 4',  
+                                //'renderTemplate' => 'typo3conf/ext/pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html',
+                            )
+                        ),
+                        'renderer' => array(
+                            'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
+                            'enabled' => 1,
+                            'showCaptionsInBody' => 0,
+                            'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialcell->processCell'
+                        ),
+                        'filters' => array(
+                             'testfilterbox' => array(
+                                'filterConfigs' => array( 
+                                    '10' => array(
+                                        'filterIdentifier' => 'filter1',
+                                        'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                        'fieldIdentifier' => 'field1',
+                                        'partialPath' => 'Filter/StringFilter',
+                                        'defaultValue' => 'default',
+                                     ),
+                                     '20' => array(
+                                        'filterIdentifier' => 'filter2',
+                                        'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                                        'fieldIdentifier' => 'field1',
+                                        'partialPath' => 'Filter/StringFilter',
+                                        'accessGroups' => '1,2,3'
+                                     )
+                                 )
+                             )
+                        ),
+                        'pager' => array(
+                            'itemsPerPage'   => '10',
+                            'pagerConfigs' => array(
+                                'default' => array(
+                                    'templatePath' => 'EXT:pt_extlist/',
+                                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                                    'enabled' => '1'
+                                ),
+                            ),
+                        ),
+
+                        
+                        'aggregateData' => array(
+                            'sumField1' => array (
+                                'fieldIdentifier' => 'field1',
+                                'method' => 'sum',
+                            ),
+                            'avgField2' => array (
+                                'fieldIdentifier' => 'field2',
+                                'method' => 'avg',
+                            ),
+                        ),
+                        
+                        
+                        'aggregateRows' => array (
+                            10 => array (
+                                'column2' => array (
+                                    'aggregateDataIdentifier' => 'avgField2',
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+	
+            
+            
+    public function setup() {
+    	parent::setup();
+    	$this->initDefaultConfigurationBuilderMock();
+    	$this->setupDispatcher();
+    }
+            
+	
+	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Controller_BookmarksController'));
 	}
@@ -62,16 +238,58 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
             array('dummy'),array(), '', FALSE);
         $mockController->_set('view', $mockView);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('bookmarksRepository', $bookmarksRepositoryMock);
         $mockController->_set('feUser', $feUserMock);
+        $mockController->_set('settings', $this->settings);
         
         $mockController->showAction();
 	}
 	
 	
 	
+	public function testNewAction() {
+		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+        $bookmarkMock = clone $bookmarkMockNonCloned;
+		
+        $mockView = $this->getMock(
+            'Tx_Fluid_Core_View_TemplateView',
+            array('assign'), array(), '', FALSE);
+        $mockView->expects($this->once())->method('assign')->with('bookmark', $bookmarkMock);
+        
+        $mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('dummy'),array(), '', FALSE);
+        $mockController->_set('view', $mockView);
+        $mockController->newAction($bookmarkMock);
+	}
+	
+	
+	
 	public function testCreateAction() {
-		$this->markTestIncomplete();
+		$nonClonedBookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+		$bookmark = clone $nonClonedBookmark;
+		
+        $bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository', array('add'), array(),'', FALSE);
+        $bookmarkRepositoryMock->expects($this->once())->method('add')->with($bookmark);
+		
+        $bookmarkManagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager');
+        
+        $persistenceManagerMock = $this->getMock('Tx_Extbase_Persistence_Manager', array('persistAll'), array(), '', FALSE);
+        
+		$mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('forward'),array(), '', FALSE);
+        $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
+        $mockController->_set('request', $mockRequest);
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
+        $mockController->_set('settings', $this->settings);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
+        $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
+        $mockController->_set('bookmarkManager', $bookmarkManagerMock);
+        $mockController->_set('persistenceManager', $persistenceManagerMock);
+        
+        $mockController->createAction($bookmark);
 	}
 	
 	
@@ -79,24 +297,83 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	public function testProcessAction() {
 		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
 		$bookmarkMock = clone $bookmarkMockNonCloned;
+        
+        $bookmarkManagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager');
+		
 		$mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array('dummy'), array(), '', FALSE);
+		
 		$mockView = $this->getMock(
             'Tx_Fluid_Core_View_TemplateView',
             array('assign'), array(), '', FALSE);
         $mockView->expects($this->once())->method('assign')->with('processedBookmark', $bookmarkMock);
+        
 		$mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
             array('forward'),array(), '', FALSE);
         $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
         $mockController->_set('view', $mockView);
         $mockController->_set('request', $mockRequest);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
+        $mockController->_set('settings', $this->settings);
+        $mockController->_set('bookmarkManager', $bookmarkManagerMock);
+        
         $mockController->processAction($bookmarkMock);
 	}
 	
 	
 	
-	public function testDeleteAction() {
-		$this->markTestIncomplete();
+	public function testDeleteActionNonConfirmed() {
+		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+        $bookmarkMock = clone $bookmarkMockNonCloned;
+        
+        $mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument'), array(), '', FALSE);
+		$mockRequest->expects($this->once())->method('hasArgument')->with('reallyDelete')->will($this->returnValue(false));
+		
+		$mockView = $this->getMock(
+            'Tx_Fluid_Core_View_TemplateView',
+            array('assign'), array(), '', FALSE);
+        $mockView->expects($this->once())->method('assign')->with('bookmark', $bookmarkMock);
+        
+        $mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('dummy'),array(), '', FALSE);
+        $mockController->_set('view', $mockView);
+        $mockController->_set('request', $mockRequest);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
+        $mockController->_set('settings', $this->settings);
+		
+        $mockController->deleteAction($bookmarkMock);
+	}
+	
+	
+	
+	public function testDeleteActionConfirmed() {
+		$bookmarkMockNonCloned = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+        $bookmarkMock = clone $bookmarkMockNonCloned;
+        
+        $mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument'), array(), '', FALSE);
+        $mockRequest->expects($this->once())->method('hasArgument')->with('reallyDelete')->will($this->returnValue(true));
+
+        $bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository', array('remove'), array(),'', FALSE);
+        $bookmarkRepositoryMock->expects($this->once())->method('remove')->with($bookmarkMock);
+        
+        $persistenceManagerMock = $this->getMock('Tx_Extbase_Persistence_Manager', array('persistAll'), array(), '', FALSE);
+        
+        $mockController = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
+            array('forward'),array(), '', FALSE);
+        $mockController->expects($this->once())->method('forward')->with('show')->will($this->returnValue(true));
+        $mockController->_set('view', $mockView);
+        $mockController->_set('request', $mockRequest);
+        $mockController->_set('listIdentifier', 'Tx_PtExtlist_Tests_Controller_BookmarksController_testcase');
+        $mockController->_set('settings', $this->settings);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
+        $mockController->_set('bookmarksRepository', $bookmarkRepositoryMock);
+        $mockController->_set('persistenceManager', $persistenceManagerMock);
+        
+        $mockController->deleteAction($bookmarkMock);
 	}
 	
 	
@@ -112,4 +389,5 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 	}
 	
 }
+
 ?>

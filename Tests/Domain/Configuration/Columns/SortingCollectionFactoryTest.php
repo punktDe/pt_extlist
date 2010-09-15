@@ -23,7 +23,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Configuration_Columns_SortingCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_SortingCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	public function setup() {
 		

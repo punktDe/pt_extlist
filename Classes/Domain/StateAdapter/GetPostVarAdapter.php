@@ -88,6 +88,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		$this->getVars = $getVars;
 	}
 	
+	
 		
 	/**
 	 * Fills a given object with parameters that correspond to namespace identified by object
@@ -117,8 +118,6 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * 
 	 * @param string $nameSpace
 	 * @return array
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 04.08.2010
 	 */
 	public function getGetVarsByNamespace($nameSpace) {
 		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->getVars, $nameSpace);
@@ -131,8 +130,6 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * 
 	 * @param string $nameSpace
 	 * @return array
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 04.08.2010
 	 */
 	public function getPostVarsByNamespace($nameSpace) {
 		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->postVars, $nameSpace);
@@ -202,6 +199,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		
 		return $this->getPostVars;
 	}
+	
 }
 
 ?>

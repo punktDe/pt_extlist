@@ -298,11 +298,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * @param array $listSepcificConfig
 	 * @param string $objectName
 	 * @return array
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 05.08.2010
 	 */
 	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectName) {
-		
+		// TODO cache this!
 		if(!is_array($listSepcificConfig)) $listSepcificConfig = array();
 		
 		$mergedSettings = t3lib_div::array_merge_recursive_overrule(
@@ -438,6 +436,28 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function getPagerSettings() {
        	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager');
+    }
+    
+    
+    
+    /**
+     * Returns an array with bookmarks settings
+     *
+     * @return array Bookmarks settings
+     */
+    public function getBookmarksSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
+    }
+    
+    
+    
+    /**
+     * Returns bookmarks configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+     */
+    public function buildBookmarksConfiguration() {
+        return new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this);	
     }
     
 }

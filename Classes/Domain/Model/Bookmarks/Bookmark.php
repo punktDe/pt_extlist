@@ -31,7 +31,9 @@
  * @subpackage pt_extlist
  * @entity
  */
-class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark 
+    extends Tx_Extbase_DomainObject_AbstractEntity 
+    implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 	
 	/**
 	 * Name for bookmark
@@ -102,6 +104,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark extends Tx_Extbase_DomainObje
      * @var bool
      */
     protected $isPublic;
+	
+    
+    
+	/**
+	 * @see Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
+	 *
+	 * @return String
+	 */
+	public function getObjectNamespace() {
+		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.bookmark.' . $this->getUid();
+	}
 	
 	
 	

@@ -40,12 +40,16 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	private $sessionAdapter = null;
 	
+	
+	
 	/**
 	 * Holds cached session data.
 	 * 
 	 * @var array
 	 */
 	private $sessionData = array();
+	
+	
 	
 	/**
 	 * Injector for session adapter
@@ -54,7 +58,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function injectSessionAdapter(tx_pttools_sessionStorageAdapter $sessionAdapter) {
 		$this->sessionAdapter = $sessionAdapter;
-		
 	}
 	
 	
@@ -68,9 +71,41 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$sessionNamespace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
+	    
+		if ($objectData == null) {
+            $objectData = array();
+        }
+        
+        if ($this->sessionData == null) {
+        	$this->sessionData = array();
+        }
+        
+        // TODO adding keys to namespace array should go into utility class!
+        $this->sessionData = $this->addKeysToArray($sessionNamespace, $this->sessionData);
+		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
+	}
 	
-		$this->sessionData[$sessionNamespace] = $objectData;
-		
+	
+	
+	/**
+	 * Adds keys to an array given by namespace string (dot-seperated)
+	 * 
+	 * TODO this method should go into namespace array utility class
+	 *
+	 * @param string $keyString
+	 * @param array $array
+	 * @return array
+	 */
+	protected function addKeysToArray($keyString, $array) {
+		$keysArray = explode('.', $keyString);
+		$pointer = &$array;
+		foreach($keysArray as $key) {
+			if (!array_key_exists($key, $pointer)) {
+			    $pointer[$key] = array();
+			}
+			$pointer = &$pointer[$key];
+		}
+		return $array;
 	}
 	
 	
@@ -84,30 +119,35 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$objectNamespace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
 
-		if(array_key_exists($objectNamespace, $this->sessionData)) {	
-			$objectData = $this->sessionData[$objectNamespace];
+		$objectData = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
+		
+		if (is_array($objectData)) {
 			$object->injectSessionData($objectData);
 		}
+
 	}
+	
+	
 	
 	/**
 	 * Persist the cached session data.
 	 * 
 	 */
 	public function persist() {
-	
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
 	}
+	
+	
 	
 	/**
 	 * Read the session data into the cache.
 	 * 
 	 */
 	public function read() {
-		
 		$this->sessionData = $this->sessionAdapter->read('pt_extlist.cached.session');
-		
 	}
+	
+	
 	
 	/**
 	 * React on lifecycle events.
@@ -126,32 +166,16 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		}
 	}
 
-
-    /**
-	 * Persists a given array to session into a given namespace
-	 *
-	 * @param String $objectNamespace
-	 * @param array $objectData
-	 */
-	private function persistObjectDataToSessionByNamespace($objectNamespace, $objectData) {
-		$this->sessionAdapter->store($objectNamespace, $objectData);
-	}
-
 	
 	
 	/**
 	 * Returns data from session for given namespace
-	 *
+	 * 
 	 * @param string $objectNamespace
 	 * @return array
 	 */
-	private function getSessionDataByNamespace($objectNamespace) {
-		$sessionData = $this->sessionAdapter->read($objectNamespace);
-		/* Interface expects an array, so fix this here */
-		if ($sessionData == null) {
-			$sessionData = array();
-		}
-	    return $sessionData;	
+	public function getSessionDataByNamespace($objectNamespace) {
+		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
 	}
 	
 	
@@ -160,11 +184,23 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * Remove session data by given namespace
 	 * 
 	 * @param $objectNamespace string
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 03.08.2010
 	 */
 	public function removeSessionDataByNamespace($objectNamespace) {
 		$this->sessionAdapter->delete($objectNamespace);
+	}
+	
+	
+	
+	/**
+	 * Overwrites session data by bookmark
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+	 */
+	public function processBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+		$bookmarkContentArray = unserialize($bookmark->getContent());
+		$namespace = 'tx_ptextlist_pi1.' . $bookmark->getListId() . '.filters';
+		$this->sessionData = $this->addKeysToArray($namespace, $this->sessionData);
+		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
 	}
 	
 }

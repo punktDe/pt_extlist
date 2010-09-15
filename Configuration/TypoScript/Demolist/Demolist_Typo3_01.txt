@@ -334,6 +334,7 @@ plugin.tx_ptextlist.settings {
     }
 }
 
+################################
 # Localization Override
 ################################
 plugin.tx_ptextlist._LOCAL_LANG{

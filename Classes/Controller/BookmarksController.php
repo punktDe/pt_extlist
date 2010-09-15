@@ -57,6 +57,24 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     protected $feUser = null;
     
+    
+    
+    /**
+     * Holds an instance of persistence manager
+     *
+     * @var Tx_Extbase_Persistence_Manager
+     */
+    protected $persistenceManager = null;
+    
+    
+    
+    /**
+     * Holds an instance of boomark manager
+     *
+     * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+     */
+    protected $bookmarkManager = null;
+    
 
     
     /**
@@ -77,11 +95,29 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return void
      */
     public function injectSettings(array $settings) {
-        parent::injectSettings($settings);
+    	parent::injectSettings($settings);
+        
         // TODO we create feUserRepository here to be able to set one manually when testing
-        $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */   
+        $this->initDependencies();
+    }
+    
+    
+    
+    /**
+     * Initializes and sets dependent objects
+     *
+     */
+    protected function initDependencies() {
+        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+        $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */
+
+        // TODO create bookmark repository in bookmark manager and let it do the job
     	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
     	$this->bookmarksRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
+
+    	$this->bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($this->configurationBuilder);
+    	
+    	$this->persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
     }
     
     
@@ -141,9 +177,33 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     
     /**
      * Action for creating a new bookmark
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+     * @dontvalidate $bookmark
+     * @return string The rendered new action
      */
-    public function createAction() {
+    public function newAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark=null) {
+        $this->view->assign('bookmark', $bookmark);	
+    }
+    
+    
+    
+    /**
+     * Creates a new bookmark and forwards to show action
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+     */
+    public function createAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+    	$bookmark->setIsPublic(true);
+    	$bookmark->setListId($this->listIdentifier);
     	
+    	$this->bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+    	$this->bookmarkManager->addContentToBookmark($bookmark);
+    	
+    	$this->bookmarksRepository->add($bookmark);
+    	$this->persistenceManager->persistAll();
+    	
+        $this->forward('show');
     }
     
     
@@ -152,16 +212,24 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * Action for updating a bookmark
      */
     public function updateAction() {
-    	
+    	// TODO implement me, if you have the time
     }
     
     
     
     /**
      * Action for deleting a bookmark
+     * 
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be deleted
      */
-    public function deleteAction() {
-    	
+    public function deleteAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+    	if ($this->request->hasArgument('reallyDelete')) {
+    		$this->bookmarksRepository->remove($bookmark);
+    		$this->persistenceManager->persistAll();
+    		$this->forward('show');
+    	} else {
+    		$this->view->assign('bookmark', $bookmark);
+    	}
     }
     
     
@@ -170,35 +238,67 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * Action for editing a bookmark
      */
     public function editAction() {
-    	
+    	// TODO implement me, if you have the time
     }
     
     
     
+    /*****************************************************************************
+     * Helper methods
+     *****************************************************************************/
+    
+    /**
+     * Returns true, if user bookmarks should be shown
+     *
+     * @return bool True, if user bookmarks should be shown
+     */
     protected function showUserBookmarks() {
-    	// TODO read out settings here!
-    	return true;
+    	if ($this->settings['bookmarks']['showUserBookmarks'] == '1') {
+    	    return true;
+    	} else {
+    		return false;
+    	}
     }
     
     
     
+    /**
+     * Returns true, if group bookmarks should be shown
+     *
+     * @return bool True, if group bookmarks should be shown
+     */
     protected function showGroupBookmarks() {
-    	// TODO read out settings here!
-    	return true;
+    	if ($this->settings['bookmarks']['showGroupBookmarks'] == '1') {
+    	    return true;
+    	} else {
+    		return false;
+    	}
     }
     
     
     
+    /**
+     * Returns true, if public bookmarks should be shown
+     *
+     * @return bool True, if public bookmarks should be shown
+     */
     protected function showPublicBookmarks() {
-    	// TODO read out settings here!
-    	return true;
+    	if ($this->settings['bookmarks']['showPublicBookmarks'] == '1') {
+    	    return true;
+    	} else {
+    		return false;
+    	}
     }
     
     
     
+    /**
+     * Returns a comma seperated list of group ids to show bookmarks for
+     *
+     * @return string Comma-seperated list of group ids
+     */
     protected function getGroupIdsToShowBookmarksFor() {
-    	// TODO read out settings here!
-    	return '1,2,3,4,5';
+    	return $this->settings['bookmarks']['groupIdsToShowBookmarksFor'];
     }
     
     

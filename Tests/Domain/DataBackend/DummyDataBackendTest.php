@@ -33,6 +33,11 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	/**
+	 * Holds an instance of data backend class to be tested
+	 *
+	 * @var Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
+	 */
 	protected $dataBackend;
 	
 	
@@ -45,29 +50,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackend_testcase extends Tx
 	
 	
 	
-	public function testSomething() {
-		
+	public function testInjectBookmarkManager() {
+		$this->dataBackend->injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager'));
 	}
 	
-//	public function testPagerUpdate() {
-//		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager',array('updateItemCount'));
-//		$pager->expects($this->once())
-//				->method('updateItemCount');
-//		
-//		$dataSource = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource',array('execute'));
-//		$dataSource->expects($this->any())
-//					->method('execute')
-//					->will($this->returnValue(array(1,2,3,4,5,6,7,8)));
-//
-//		$mapper = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',array('getMappedListData'));
-//					
-//					
-//		$this->dataBackend->injectPager($pager);
-//		$this->dataBackend->injectDataSource($dataSource);
-//		$this->dataBackend->injectDataMapper($mapper);
-//
-//		$this->dataBackend->getListData();
-//	}
 }
 
 ?>

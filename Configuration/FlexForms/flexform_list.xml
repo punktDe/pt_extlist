@@ -50,7 +50,7 @@
                   </numIndex>
                   <numIndex index="5" type="array">
                     <numIndex index="0">Bookmarks</numIndex>
-                    <numIndex index="1">Bookmarks->show;Bookmarks->edit;Bookmarks->create;Bookmarks->edit;Bookmarks->update;Bookmarks->process</numIndex>
+                    <numIndex index="1">Bookmarks->show;Bookmarks->delete;Bookmarks->new;Bookmarks->edit;Bookmarks->update;Bookmarks->process;Bookmarks->create</numIndex>
                   </numIndex>
                   <numIndex index="6" type="array">
                     <numIndex index="0">Breadcrumbs</numIndex>
@@ -244,6 +244,17 @@
               </config>
             </TCEforms>
           </settings.bookmarks.feGroupsAllowedToEdit>
+
+          <settings.bookmarks.groupIdsToShowBookmarksFor>
+            <TCEforms>
+              <label>Group IDs for which to show bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.groupIdsToShowBookmarksFor>
 
         </el>
       </ROOT>

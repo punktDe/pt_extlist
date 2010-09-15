@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -25,37 +24,21 @@
 ***************************************************************/
 
 /**
- * Builds a Lifecycle Manager 
- * 
- * TODO shouldn't there be an instance for each list identifier?
- * 
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package pt_extlist
- * @subpackage Lifecycle
+ * Dummy class implementing session adapter
+ *
+ * @package TYPO3
+ * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory {
-
-	/**
-	 * Holds the single instance of a lifecycle manager.
-	 * 
-	 * @var Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
-	 */
-	protected static $instance = NULL;
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_SessionAdapterMock extends tx_pttools_sessionStorageAdapter {
+    
+	public function __construct() {
+	}
 	
 	
 	
-	/**
-	 * Factory method for lifecycle manager instances. Returns singleton instance 
-	 * of lifecycle manager.
-	 *
-	 * @return Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
-	 */
-	public static function getInstance() {
-		if(self::$instance === NULL) {
-			self::$instance = new Tx_PtExtlist_Domain_Lifecycle_LifecycleManager();
-		}
-		
-		return self::$instance;
+	public function read($string) {
+	    return array('test1' => array('test2' => array('test3' => 'value')));
 	}
 	
 }

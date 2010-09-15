@@ -25,14 +25,17 @@
 ***************************************************************/
 
 /**
+ * TODO what is this class doing? Write some comments!
+ * 
  * @package pt_extlist
  * @subpackage Lifecycle
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 class tx_PtExtlist_Domain_Lifecycle_LifecycleHookManager {
 	
 	function updateEnd(&$params, &$reference) {
 		
-		//If the class can not be resolved, we are not in a extbase context. therefore exit here.
+		//If the class can not be resolved, we are not in pt_extlist context. therefore exit here.
 		if(!class_exists('Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory')) return;
 		
 		$lifecycle = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();

@@ -83,6 +83,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
 	        
 	        $dataBackend->injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
+	        $dataBackend->injectBookmarkManager(self::getBookmarkManagerAndProcessBookmark($configurationBuilder));
 	        $dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
 	        $dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));   
@@ -172,6 +173,21 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	    
 	    tx_pttools_assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
 	    return $queryInterpreter;
+    }
+    
+    
+    
+    /**
+     * Creates an instance of a bookmark manager
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+     */
+    protected static function getBookmarkManagerAndProcessBookmark(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($configurationBuilder);
+    	// That's the part where bookmarks are written back to session
+    	$bookmarkManager->processBookmark();
+    	return $bookmarkManager;
     }
 	
 }

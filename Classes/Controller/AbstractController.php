@@ -80,9 +80,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 * Injects the settings of the extension.
 	 *
 	 * @param array $settings Settings container of the current extension
+	 * @param bool $initConfigurationBuilder If set to true, a configuration builder is set in controller
+	 * @param bool $initDataBackend If set to true, a data backend is set in controller
 	 * @return void
 	 */
-	public function injectSettings(array $settings) {
+	public function injectSettings(array $settings, $initConfigurationBuilder = TRUE, $initDataBackend = TRUE) {
 		parent::injectSettings($settings);
 		
 		if ($this->settings['listIdentifier'] != '') {
@@ -91,10 +93,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
 		
-		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
-	
-		
+		$this->configurationBuilder = $initConfigurationBuilder ? Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings) : null;
+		$this->dataBackend = $initDataBackend ? Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder) : null;
 	}
 	
 	

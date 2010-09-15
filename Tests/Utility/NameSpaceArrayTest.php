@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * Class implements a testcase for a get / post var adapter
+ * Class implements a testcase for namespace utility class
  *
  * @package TYPO3
  * @subpackage pt_extlist
@@ -33,6 +33,8 @@
 class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $varArray;
+	
+	
 	
 	public function setUp() {
 		$this->varArray = array('key1' => array(
@@ -46,15 +48,21 @@ class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Te
 		);
 	}
 	
+	
+	
 	public function testGetArrayContentByArrayAndNamespace() {
 		$extractedValue = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->varArray,'key1.key2.key3.key4');
 		$this->assertEquals($extractedValue, 'value1', 'The extracted Value should be Value 1');
 	}
 	
+	
+	
 	public function testGetArrayContentByArrayAndNamespaceWithEmptyArray() {
 		$extractedValue = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace(array(),'key1.key2.key3.key4');
 		$this->assertEquals($extractedValue, array(), 'The method should return an empty array');
 	}
+	
+	
 	
 	public function testSaveDataInNamespaceTree() {
 		$testArray['key1']['key2']['key3'] = 'test';
@@ -68,6 +76,8 @@ class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Te
 		$this->assertEquals($testArray2, $refArray2);
 	}
 	
+	
+	
 	public function testSaveDataInNamespaceTreeWithEmptyArray() {
 		$testArray = array();
 		$testArray = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree('key1.key2.key3', $testArray, 'test2');
@@ -75,5 +85,7 @@ class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Te
 		$refArray['key1']['key2']['key3'] = 'test2';
 		$this->assertEquals($testArray, $refArray);
 	}
+	
 }
+
 ?>

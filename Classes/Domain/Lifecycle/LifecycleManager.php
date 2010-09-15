@@ -23,6 +23,7 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
 /**
  * Lifecycle Manager allowes to register class wich will be notified 
  * by different lifecycle envents.
@@ -36,6 +37,8 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	const UNDEFINED = 0;
 	const START = 1;
 	const END = 10;
+
+	
 	
 	/**
 	 * Holds the state of the lifecycle.
@@ -44,6 +47,8 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	 */
 	protected $state;
 	
+	
+	
 	/**
 	 * Holds all observers which need to be updated.
 	 * 
@@ -51,9 +56,17 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	 */
 	protected $observers;
 	
+	
+	
+	/**
+	 * Constructor for lifecycle manager
+	 *
+	 */
 	public function __construct() {
 		$this->state = self::UNDEFINED;
 	}
+	
+	
 	
 	/**
 	 * Returns the current state of the lifecycle.
@@ -63,6 +76,8 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	public function getState() {
 		return $this->state;
 	}
+	
+	
 	
 	/**
 	 * Updates the current lifecycle state. 
@@ -78,6 +93,8 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 		$this->fireUpdate();
 	}
 	
+	
+	
 	/**
 	 * Register a lifecycle observer.
 	 * 
@@ -92,6 +109,12 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 		}
 	}
 	
+	
+	
+	/**
+	 * Notifies observers about state being updated
+	 *
+	 */
 	protected function fireUpdate() {
 		foreach($this->observers as $observer) {
 			$observer->lifecycleUpdate($this->state);

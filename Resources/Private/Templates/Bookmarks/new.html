@@ -1,0 +1,22 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Template for bookmarks plugin
+
+Here is a list of objects / variables that can be accessed in this template
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<h2>New Bookmark</h2>
+<f:form controller="Bookmarks" action="create" method="post" name="bookmark" object="{bookmark}">
+    Name: <f:form.textbox property="name" /><br />
+    Description: <f:form.textbox property="description" /></br>
+    Is Public: <!-- TODO why is this not working? <f:form.checkbox property="isPublic" value="1" /></br> -->
+    <f:form.submit value="Create" />
+</f:form>
