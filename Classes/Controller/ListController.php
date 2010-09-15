@@ -110,7 +110,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function exportAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-        
+
         $renderedListData = $this->renderer->renderList($list->getListData());
         $renderedCaptions = $this->renderer->renderCaptions($list->getListHeader());
         

@@ -74,9 +74,16 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 * @param array $config
 	 * @return array $config
 	 */
-	public function getDefinedExportTypes(array $config) {
+	public function getDefinedExportConfigs(array $config) {
 		$this->initTsDataProvider($config);
-		$config['items'] = array_merge($config['items'],$this->getTypoScriptKeyList('settings.export.exportConfigs'));
+		
+		$tsArray = $this->getTSArrayByPath('settings.export.exportConfigs');
+		foreach($tsArray as $key => $exportConfig) {
+			
+			if(array_key_exists('viewClassName', $exportConfig) && $exportConfig['viewClassName']) {
+				$config['items'][] = array($key, 'export.exportConfigs.'.$key);	
+			} 
+		}
 		
 		return $config;
 	}
@@ -123,17 +130,28 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	protected function getTypoScriptKeyList($typoScriptPath) {
 		
 		$keyList = array();
+		$tsArray = $this->getTSArrayByPath($typoScriptPath);
 		
-		$pathArray = explode('.', $typoScriptPath);
-		$outTSArray = Tx_Extbase_Utility_Arrays::getValueByPath($this->extListTypoScript, $pathArray);
-
-		foreach($outTSArray as $key => $valueArray) {
+		foreach($tsArray as $key => $valueArray) {
 			$keyList[] = array($key, $key);
 		}
 		
 		return $keyList;
 	}
 	
+	
+	/**
+	 * return a typoscript array by given typoscript path
+	 * 
+	 * @param string $typoScriptPath
+	 * @return array 
+	 */
+	protected function getTSArrayByPath($typoScriptPath) {
+		$pathArray = explode('.', $typoScriptPath);
+		$outTSArray = Tx_Extbase_Utility_Arrays::getValueByPath($this->extListTypoScript, $pathArray);
+		
+		return $outTSArray;
+	}
 	
 }
 ?>

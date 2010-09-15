@@ -202,8 +202,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array
      * @author Michael Knoll <knoll@punkt.de>
      */
-    public function getSettings() {
-        return $this->settings;
+    public function getSettings($key = NULL) {
+    	if(!$key) {
+        	return $this->settings;	
+        } else {
+        	if(array_key_exists($key, $this->settings)) {
+        		return $this->settings[$key];
+        	}
+        }
     }
 
     
@@ -283,7 +289,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array export settings
      */
     public function getExportSettings() {
-    	return $this->settings['export']['exportConfigs'][$this->settings['exportType']];
+    	return $this->settings['export'];
     }
     
     

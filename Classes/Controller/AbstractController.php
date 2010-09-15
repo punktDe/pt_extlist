@@ -110,18 +110,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
      * @return void
      */
     protected function resolveView() {
-    	// These lines have been added by Michael Knoll to make view configurable via TS
-        $viewClassName = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
-        if ($viewClassName != '') {
-        	if (class_exists($viewClassName)) {
-        		$view = $this->objectManager->getObject($viewClassName);
-        	} else {
-        		throw new Exception('View class does not exist! ' . $viewClassName . ' 1281369758');
-        	}
-        } else {
-        	// We replace Tx_Fluid_View_TemplateView by Tx_PtExtlist_View_BaseView here to use our own view base class
-            $view = $this->objectManager->getObject('Tx_PtExtlist_View_BaseView');
-        }
+    	
+    	$view = $this->resolveViewObject();
         
         $controllerContext = $this->buildControllerContext();
         $view->setControllerContext($controllerContext);
@@ -155,6 +145,42 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         
         return $view;
     }
+    
+    
+    
+    /**
+     * These lines have been added by Michael Knoll to make view configurable via TS
+     * Added TS-Key redirect by Daniel Lienert. If the tsPath points to a TS Configuration with child key viewClassName, it uses this as view class
+     * 
+     * @throws Exception
+     */
+    protected function resolveViewObject() {
+   
+        $viewClassName = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+
+        if ($viewClassName != '') {
+
+        	if (class_exists($viewClassName)) {
+        		return $this->objectManager->getObject($viewClassName);
+        	} 
+
+        	$viewClassName .= '.viewClassName';
+        	$tsRedirectPath = explode('.', $viewClassName);
+        	$viewClassName = Tx_Extbase_Utility_Arrays::getValueByPath($this->settings, $tsRedirectPath);
+        	
+        	if (class_exists($viewClassName)) {
+        		return $this->objectManager->getObject($viewClassName);
+        	}
+        	
+        	throw new Exception('View class does not exist! ' . $viewClassName . ' 1281369758');
+        } else {
+        	
+        	// We replace Tx_Fluid_View_TemplateView by Tx_PtExtlist_View_BaseView here to use our own view base class
+        	return $this->objectManager->getObject('Tx_PtExtlist_View_BaseView');	
+        }
+    }
+    
+    
     
 	/**
 	 * Initializes the view before invoking an action method.

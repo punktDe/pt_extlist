@@ -105,7 +105,7 @@
         <type>array</type>
         <el>
 
-          <settings.exportType>
+          <settings.controller.List.export.view>
             <TCEforms>
               <label>Export Type</label>
               <config>
@@ -117,12 +117,12 @@
 						</numIndex>
 					</items>
 					<default></default>
-					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedExportTypes</itemsProcFunc>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedExportConfigs</itemsProcFunc>
               </config>
             </TCEforms>
-          </settings.exportType>
+          </settings.controller.List.export.view>
           
-          <settings.export.downloadType>
+          <prototype.export.downloadType>
             <TCEforms>
               <label>Download Type</label>
               <config>
@@ -139,9 +139,9 @@
                   </items>
               </config>
             </TCEforms>
-          </settings.export.downloadType>
+          </prototype.export.downloadType>
 
-          <settings.export.filename>
+          <prototype.export.filename>
             <TCEforms>
               <label>Filename (Prefix)</label>
               <config>
@@ -150,9 +150,9 @@
                 <eval>string</eval>
               </config>
             </TCEforms>
-          </settings.export.filename>
+          </prototype.export.filename>
           
-          <settings.export.fileEnding>
+          <prototype.export.fileEnding>
             <TCEforms>
               <label>File Ending (Suffix without ".")</label>
               <config>
@@ -161,16 +161,16 @@
                 <eval>trim</eval>
               </config>
             </TCEforms>
-          </settings.export.fileEnding>
+          </prototype.export.fileEnding>
           
-          <settings.export.addDateToFilename>
+          <prototype.export.addDateToFilename>
             <TCEforms>
               <label>Add Date to Filname</label>
               <config>
                 <type>check</type>
               </config>
             </TCEforms>
-          </settings.export.addDateToFilename>
+          </prototype.export.addDateToFilename>
 
         </el>
       </ROOT>

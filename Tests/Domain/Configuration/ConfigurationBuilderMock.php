@@ -97,7 +97,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 						
 	                     'abc' => '2',
 	                     'def' => '3',
-						 'exportType' => 'test',
+						 
+	                     'controller' => array (
+							'List' => array (
+								'export' => array(
+									'view' => 'export.exportConfigs.test'
+								)
+							)
+						),
 							
 	                     'fields' => array(
 	                         'field1' => array( 

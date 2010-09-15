@@ -46,11 +46,11 @@ class Tx_PtExtlist_Tests_Utility_FlexformDataProvider_testcase extends Tx_PtExtl
 	
 	
 	
-	public function testGetDefinedExportTypes() {
+	public function testGetDefinedExportConfigs() {
 		$flexFormDataProvider = $this->getAccessibleFlexFormDataProvider();
 		
 		$config = array('items' => array(array('default', 'default')));
-		$selectArray = $flexFormDataProvider->getDefinedExportTypes($config);
+		$selectArray = $flexFormDataProvider->getDefinedExportConfigs($config);
 
 		$this->assertEquals(current(current($selectArray['items'])), 'default', 'The default key does not exist.');
 		$this->assertEquals($selectArray['items'][1][0], 'export1');
@@ -76,8 +76,8 @@ class Tx_PtExtlist_Tests_Utility_FlexformDataProvider_testcase extends Tx_PtExtl
 
 		$tsArray['settings']['listConfig']['testList'] = $this->configurationBuilderMock->getSettings(); 
 		
-		$tsArray['settings']['export']['exportConfigs'] = array ('export1' => array('key1Config')
-																, 'export2' => array('key2Config'));
+		$tsArray['settings']['export']['exportConfigs'] = array ('export1' => array('viewClassName' => 'x')
+																, 'export2' => array('viewClassName' => 'y'));
 		
 		
 		$flexformDataProviderMock = $this->getAccessibleMock('user_Tx_PtExtlist_Utility_FlexformDataProvider', array('loadExtListTyposcriptArray'));

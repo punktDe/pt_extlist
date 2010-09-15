@@ -41,10 +41,27 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
-		$exportSettings = $configurationBuilder->getExportSettings();
+		$exportSettings = self::getExportSettingsForCurrentView($configurationBuilder);
 		$exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($configurationBuilder, $exportSettings);
 		
 		return $exportConfig;
+	}
+	
+	
+	/**
+	 * Get the settings 
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		
+		$allExportSettings = $configurationBuilder->getExportSettings();
+		$controllerSettings = $configurationBuilder->getSettings('controller');
+		$selectedViewSettingsKey = $controllerSettings['List']['export']['view'];
+
+		$exportSettingsPath = explode('.',$selectedViewSettingsKey);
+
+		return Tx_Extbase_Utility_Arrays::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
 	}
 }
 ?>

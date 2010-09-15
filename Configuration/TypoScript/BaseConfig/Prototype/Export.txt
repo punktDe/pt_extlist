@@ -9,18 +9,18 @@
 plugin.tx_ptextlist.prototype.export {
 	
 	# D = Force Download; I = Try to open in Browser (e.g. PDF)
-    downloadType = 
+    #downloadType = 
     
     # Filename Prefix
-    filename = 
+    #filename = 
     
     # Filname Suffix (without ".")
-    fileExtension =
+    #fileExtension =
     
     # Adds a date string to filename [0|1]
-    addDateToFilename = 
+    #addDateToFilename = 
     
     # Enable/Disable Pager [0|1]
-    pager.enabled =
+    #pager.enabled =
     
 }

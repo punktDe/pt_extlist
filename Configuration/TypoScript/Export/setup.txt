@@ -18,31 +18,15 @@ plugin.tx_ptextlist.settings.export {
 		
 		csvExport < plugin.tx_ptextlist.prototype.export 
 		csvExport {
-			view = 
+			viewClassName = Tx_PtExtlist_View_Export_CsvListView
 			fileExtension =	csv
 		}
 		
 		fluidTemplateExport < plugin.tx_ptextlist.prototype.export
 		fluidTemplateExport {
-			view =
+			viewClassName = Tx_PtExtlist_View_Export_FluidListView
 			fileExtension = txt
 			template =
 		}
-		
-		pdfExport < plugin.tx_ptextlist.prototype.export
-		pdfExport {
-			view = 
-			fileExtension = pdf
-		}	
 	}    
-}
-
-
-
-plugin.tx_ptextlist.settings {
-
-    controller.List.export.view < plugin.tx_ptextlist.settings.export.view
-      # TODO this is not working yet!    
-    pager.enabled < plugin.tx_ptextlist.settings.export.pager.enabled
-
 }
