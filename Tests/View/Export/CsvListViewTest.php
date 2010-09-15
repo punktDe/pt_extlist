@@ -24,45 +24,23 @@
 ***************************************************************/
 
 /**
- * Testcase for Abstract export view
+ * Testcase for CSV export view
  *
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Tests_View_AbstractExportView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_View_AbstractExportView'));
-	}
-	
-	
-	
-	public function testInjectSettings() {
-		$viewMock = new Tx_PtExtlist_Tests_View_AbstractExportView_ConcreteExportView();
-		$settings = array('test' => 'test');
-		$viewMock->injectSettings($settings);
-		$this->markTestIncomplete('Check for Settings after init process');
-	}
-	
-}
-
-
-
-/**
- * Private class for testing abstract export view
- *
- */
-class Tx_PtExtlist_Tests_View_AbstractExportView_ConcreteExportView extends Tx_PtExtlist_View_AbstractExportView {
-	
-	/**
-	 * @see Tx_PtExtlist_View_AbstractExportView::getDefaultFilePrefix()
-	 *
-	 * @return string
-	 */
-	protected function getDefaultFilePrefix() {
-		return 'testprefix';
-	}
-	
+    public function testSetup() {
+        $this->assertTrue(class_exists('Tx_PtExtlist_View_Export_CsvListView'));
+    }
+    
+    
+    
+    public function testRender() {
+    	$this->markTestIncomplete('How can this be tested? Idea: do not write on StdOUT but in file and compare?');
+    }
+    
 }
 ?>

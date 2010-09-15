@@ -24,47 +24,30 @@
 ***************************************************************/
 
 /**
- * Implements a view for rendering CSV values
+ * Implements a view for rendering a export with fluid
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_View_List_CsvListView Extends Tx_PtExtlist_View_AbstractExportView {
+class Tx_PtExtlist_View_Export_FluidListView Extends Tx_PtExtlist_View_Export_AbstractExportView {
 
     /**
-     * Overwriting the render method to generate a CSV output
+     * Overwriting the render method to generate a downloadable output
      *
      * @return  void (never returns)
      */
     public function render() {
-		
-    	$templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
     	
     	ob_clean();
 
+    	$outputData = parent::render();
+    	
         $this->sendHeader($this->fullFilename);
         $out = fopen('php://output', 'w');
-
-        // Headers
-        if ($templateVariableContainer->exists('listHeader')) {
-	        $row = array();
-	        foreach ($templateVariableContainer['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
-	                $row[] = $header->getLabel();
-	        }
-	        fputcsv($out, $row, ";");
-        }
-
-        // Rows
-        foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
-        	$row = array();
-        	foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
-        		$row[] = $listCell->getValue();
-        	}
-        	$row = tx_pttools_div::iconvArray($row, 'UTF-8', 'ISO-8859-1');     // TODO: make encoding configurable via TS
-            fputcsv($out, $row, ";");
-        }
-
+		
+        fwrite($out, $outputData);
+        
         fclose($out);
 
         exit();

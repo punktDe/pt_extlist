@@ -18,9 +18,15 @@
             <TCEforms>
               <label>List Identifier</label>
               <config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
+                <type>select</type>
+                	<items>
+						<numIndex index="0" type="array">
+							<numIndex index="0">[Please select a defined listConfig]</numIndex>
+							<numIndex index="1"></numIndex>
+						</numIndex>
+					</items>
+					<default></default>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedListConfigs</itemsProcFunc>
               </config>
             </TCEforms>
           </settings.listIdentifier>
@@ -101,19 +107,17 @@
 
           <settings.controller.List.export.view>
             <TCEforms>
-              <label>Export Format</label>
+              <label>Export Type</label>
               <config>
                 <type>select</type>
-                  <items type="array">
-                    <numIndex index="1" type="array">
-                      <numIndex index="0">Empty (from TypoScript)</numIndex>
-                      <numIndex index="1"></numIndex>
-                    </numIndex>
-                    <numIndex index="2" type="array">
-                      <numIndex index="0">CSV</numIndex>
-                      <numIndex index="1">Tx_PtExtlist_View_List_CsvListView</numIndex>
-                    </numIndex>
-                  </items>
+                	<items>
+						<numIndex index="0" type="array">
+							<numIndex index="0">[Please select the export type]</numIndex>
+							<numIndex index="1"></numIndex>
+						</numIndex>
+					</items>
+					<default></default>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedExportTypes</itemsProcFunc>
               </config>
             </TCEforms>
           </settings.controller.List.export.view>
