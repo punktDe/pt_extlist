@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Reading this </title>
+
+  <para>This documenation is about the administration of xy. 
+  With this documentation administrators learn in detail to manage the user administration, to execute database enquiries and to check the system easier and faster.</para>
+  <para>Following skills are assumed:</para>
+    <itemizedlist>
+    <listitem>
+      <para>workflow of TYPO3</para>
+    </listitem>
+    <listitem>
+      <para>dealing with and CMS</para>
+    </listitem>
+    <listitem>
+      <para>special terms of software and hardware</para>
+    </listitem>
+    <listitem>
+      <para>experience as administrator</para>
+    </listitem>
+  </itemizedlist>
+
+  <para> After reading this document you are able to work with TYPO3 on your own.</para>
+</section>
