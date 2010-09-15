@@ -154,7 +154,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         return $view;
     }
     
-    /**
+	/**
 	 * Initializes the view before invoking an action method.
 	 *
 	 * Override this method to solve assign variables common for all actions
@@ -165,7 +165,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @api
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
-		
+        $templatePath = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+		if (isset($templatePath) && strlen($templatePath) > 0) {
+            $view->setTemplatePathAndFilename($templatePath);
+        }
 		
 	}
     
