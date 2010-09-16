@@ -133,7 +133,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 	 * @param array $exportSettings
 	 */
 	protected function setPropertiesFromSettings(array $exportSettings) {
-	
+		
 		tx_pttools_assert::isNotEmptyString($exportSettings['fileName'], array('message' => 'No filename given for export file! 1284563488'));
 		$this->fileName = $exportSettings['fileName'];
 		

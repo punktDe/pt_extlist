@@ -12,7 +12,7 @@ plugin.tx_ptextlist.prototype.export {
     #downloadType = 
     
     # Filename Prefix
-    #filename = 
+    #fileName = 
     
     # Filname Suffix (without ".")
     #fileExtension =
