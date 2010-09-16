@@ -1,66 +1,106 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- This document was created with Syntext Serna Free. -->
-<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>Konzept, Beschreibung, Anleitung etc. + Projektname </title>
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
 
-  <section><title> Über dieses Dokument </title>
-  <para>Dies ist immer Ihre erste Seite bzw. Ihr Deckblatt. Nach dieser section folgt das Vorwort.</para></section>
-  <table>
-    <title>Infomationen zum Dokument</title>
-    <tgroup cols="2">
-      <thead>
-        <row>
-          <entry>x</entry>
-          <entry>x</entry>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <entry>Autor</entry>
-          <entry>Name</entry>
-        </row>
-        <row>
-          <entry>Version</entry>
-          <entry>1.0</entry>
-        </row>
-        <row>
-          <entry>Status</entry>
-          <entry>Entwurf</entry>
-        </row>
-        <row>
-          <entry>Vertraulichkeit</entry>
-          <entry>intern</entry>
-        </row>
-        <row>
-          <entry>Dateiname</entry>
-          <entry>Ueber_dieses_Dokument</entry>
-        </row>
-        <row>
-          <entry>Dokumenttyp</entry>
-          <entry>Anleitung, Technische Beschreibung, etc.</entry>
-        </row>
-        <row>
-          <entry>begonnen am</entry>
-          <entry>27.08.2010</entry>
-        </row>
-        <row>
-          <entry>letzte Bearbeitung</entry>
-          <entry>01.09.2010</entry>
-        </row>
-        <row>
-          <entry>letztes Druckdatum</entry>
-          <entry/>
-        </row>
-      </tbody>
-    </tgroup>
-  </table>
-  <para>
-    <emphasis role="bold">Impressum </emphasis>
+  <section>
+    <title>Über dieses Dokument</title>
+
+    <para>Dies ist immer Ihre erste Seite bzw. Ihr Deckblatt. Nach dieser section folgt das Vorwort.</para>
+
+    <table>
+      <title>Infomationen zum Dokument</title>
+
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>x</entry>
+
+            <entry>x</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>Author</entry>
+
+            <entry>Name</entry>
+          </row>
+
+          <row>
+            <entry>Version</entry>
+
+            <entry>1.0</entry>
+          </row>
+
+          <row>
+            <entry>Status</entry>
+
+            <entry>Entwurf</entry>
+          </row>
+
+          <row>
+            <entry>Vertraulichkeit</entry>
+
+            <entry>intern o. extern</entry>
+          </row>
+
+          <row>
+            <entry>Dateiname</entry>
+
+            <entry>Kürzel_JJJJMMTT_Vxx</entry>
+          </row>
+
+          <row>
+            <entry>Dokumenttyp</entry>
+
+            <entry>Anleitung, Technische Beschreibung, etc.</entry>
+          </row>
+
+          <row>
+            <entry>begonnen am</entry>
+
+            <entry>27.08.2010</entry>
+          </row>
+
+          <row>
+            <entry>letzte Bearbeitung</entry>
+
+            <entry>01.09.2010</entry>
+          </row>
+
+          <row>
+            <entry>letztes Druckdatum</entry>
+
+            <entry/>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+	<para>
+    <emphasis role="bold">Impressum</emphasis>
   </para>
+
   <para>Herausgeber: punkt.de</para>
+
   <para>Jahr: 2010</para>
-  <para>Ausgabet: 1</para>
-  <para>Verantwortlliche:</para>
-  <para>Der Autor übernimmt keinerlei Gewähr für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der bereitgestellten Informationen. Haftungsansprüche gegen den Autor, welche sich auf Schäden materieller oder ideeller Art beziehen, die durch die Nutzung oder Nichtnutzung der dargebotenen Informationen bzw. durch die Nutzung fehlerhafter und unvollständiger Informationen verursacht wurden, sind grundsätzlich ausgeschlossen, sofern seitens des Autors kein nachweislich vorsätzliches oder grob fahrlässiges Verschulden vorliegt. Alle Angebote sind freibleibend und unverbindlich. Der Autor behält es sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen..</para>
+
+  <para>Ausgabe: 1</para>
+
+  <para>Verantwortliche:</para>
+
+   <para>Der Autor übernimmt keinerlei Gewähr für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der bereitgestellten Informationen. Haftungsansprüche gegen den Autor, welche sich auf Schäden materieller oder ideeller Art beziehen, die durch die Nutzung oder Nichtnutzung der dargebotenen Informationen bzw. durch die Nutzung fehlerhafter und unvollständiger Informationen verursacht wurden, sind grundsätzlich ausgeschlossen, sofern seitens des Autors kein nachweislich vorsätzliches oder grob fahrlässiges Verschulden vorliegt. Alle Angebote sind freibleibend und unverbindlich. Der Autor behält es sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen..</para>
   <para>Der Autor ist bestrebt, in allen Publikationen die Urheberrechte der verwendeten Grafiken, Tondokumente, Videosequenzen und Texte zu beachten, von ihm selbst erstellte Grafiken, Tondokumente, Videosequenzen und Texte zu nutzen oder auf lizenzfreie Grafiken, Tondokumente, Videosequenzen und Texte zurückzugreifen. Alle innerhalb des Internetangebotes genannten und ggf. durch Dritte geschützten Marken- und Warenzeichen unterliegen uneingeschränkt den Bestimmungen des jeweils gültigen Kennzeichenrechts und den Besitzrechten der jeweiligen eingetragenen Eigentümer. Allein aufgrund der bloßen Nennung ist nicht der Schluss zu ziehen, dass Markenzeichen nicht durch Rechte Dritter geschützt sind! Das Copyright für veröffentlichte, vom Autor selbst erstellte Objekte bleibt allein beim Autor der Seiten. Eine Vervielfältigung oder Verwendung solcher Grafiken, Tondokumente, Videosequenzen und Texte in anderen elektronischen oder gedruckten Publikationen ist ohne ausdrückliche Zustimmung des Autors nicht gestattet.</para>
-</article>
+  </section>
+
+</section>
+
+
+
+
+

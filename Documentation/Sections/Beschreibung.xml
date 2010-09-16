@@ -4,9 +4,10 @@
   <title>Schreiben Sie die Überschrift kurz und prägnant</title>
   <para>Wenn Sie eine Produkt oder ein Sachverhalt beschreiben möchten, benutzen Sie diese section z. B. technische Beschreibungen. Schreiben Sie eine Einleitung, wenn nötig.</para>
   <para>Ein Satz darf nicht länger als 25 Wörter sein. Sie dürfen passive Formulierungen verwenden. Auf eine Beschreibung kann eine Handlungsanweisung folgen.</para>
-<!--<subsection1>
+<!--<section>
     <para>Verwenden Sie diese subsection für untere Hierarchieebenen.</para>
-  </subsection1>  -->  <figure>
+  </section>  --> 
+  <figure>
     <title>Geben Sie dem Bild einen kurzen prägnanten Namen.</title>
     <mediaobject>
       <imageobject>
@@ -41,3 +42,23 @@
     </tgroup>
   </table>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,130 +1,184 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Verwenden Sie dieses Template nur für Extension-Dokumentationen.-->
-<section version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">  
-<reference> 
-  <info>
+<!-- This document was created with Syntext Serna Free. -->
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xi="http://www.w3.org/2001/XInclude"
+           xmlns:svg="http://www.w3.org/2000/svg"
+           xmlns:m="http://www.w3.org/1998/Math/MathML"
+           xmlns:html="http://www.w3.org/1999/xhtml"
+           xmlns:db="http://docbook.org/ns/docbook">
+ 
+ <info>
     <title>TypoScript Referenz</title>
-    <releaseinfo role="meta">
-      $Id: titlepage.xsl 7058 2007-07-17 13:59:29Z xmldoc $
-    </releaseinfo>
+
+    <releaseinfo role="meta">$Id: titlepage.xsl 7058 2007-07-17 13:59:29Z
+    xmldoc $</releaseinfo>
   </info>
-  <partintro xml:id="intro_partintro">
-    <title>Introduction</title>
-    
-<para>Dies ist die Referenz-Dokumentation für TypoScript (Extensions).</para>
 
-    
-<para> Dies ist eine Dokumentation für Administratoren und Entwickler.</para>
+  <refentry>
+    <refmeta>
+      <refentrytitle>Name der Property</refentrytitle>
 
-  </partintro>
+      <manvolnum></manvolnum>
+    </refmeta>
 
-<refentry>
-          <refsect1>
-                    <refnamediv>
-                                <refname>Name der Property</refname>
-                                <refpurpose>Zweck der Property</refpurpose>
-                    </refnamediv>
-                    <title>Datentyp</title>
+    <refnamediv>
+      <refname>Name der Property</refname>
 
-                    <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc. KEINE
-                    WERTE!)</para> 
-           </refsect1>
+      <refpurpose>Zweck der Property</refpurpose>
+    </refnamediv>
 
-           <refsect1><title>Beschreibung</title>
+    <refsynopsisdiv>
+      <cmdsynopsis>
+        <command></command>
+      </cmdsynopsis>
+    </refsynopsisdiv>
 
-                 <para>Beschreiben Sie iIhre Property.</para></refsect1>
+    <refsection>
+      <title>Datentyp</title>
 
-            <refsect1><title>Beispiel</title>
+      <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc. KEINE
+                    WERTE!)</para>
+    </refsection>
 
-            <para>Geben Sie ein Besipiel an.</para>
+    <refsection>
+      <title>Beschreibung</title>
 
-  <note>
-    <para>Wenn Sie einen wichtig Hinweis haben, schreiben Sie ihn hier
-    auf.</para>
-  </note></refsect1>
+      <para>Beschreiben Sie Ihre Property.</para>
+    </refsection>
 
-    <refsect1><title>Elternelemente</title>
+    <refsection>
+      <title>Beispiel</title>
 
-  <para>Schreiben Sie hier die Elternelemente auf.</para></refsect1>
+      <para>Geben Sie ein Besipiel an (Programmcode).</para>
 
-    <refsect1><title>Kindelemente</title>
+      <caution>
+        <para>Wenn Sie einen wichtigen Hinweis haben, halten Sie ihn hier fest.</para>
+      </caution>
+    </refsection>
 
-  <para>Schreiben Sie hier die Kindelemente auf.</para></refsect1>
+    <refsection>
+      <title>Elternelemente</title>
 
-    <refsect1><title>Werte</title>
+      <para>Schreiben Sie hier alle Elternelemente auf.(Liste)</para>
+    </refsection>
 
-  <para>Wenn Sie Werte festhalten wollen, bitte hier..</para></refsect1>
+    <refsection>
+      <title>Kindelmente</title>
 
-  <refsect1><para>See also:</para>
+      <para>Schreiben Sie hier alle Kindelemente auf. (Liste)</para>
+    </refsection>
 
-  <itemizedlist>
-    <listitem override="bullet">
-      <para linkend="to_similiar_subject">x</para>
-    </listitem>
+    <refsection>
+      <title>Werte</title>
 
-    <listitem override="bullet">
-      <para linkend="to_similiar_subject">x</para>
-    </listitem>
+      <para>Wenn Sie Werte festhalten wollen, bitte hier.</para>
+    </refsection>
 
-    <listitem override="bullet">
-      <para linkend="to_similiar_subject">x</para>
-    </listitem>
-  </itemizedlist>
-  </refsect1>
-</refentry>
-  
-<refentry>
-  <refsect1> 
-<refnamediv>
-<refname>Name der Property</refname>
-<refpurpose>Zweck der Property</refpurpose>
-</refnamediv>
-<title>Datentyp</title>
+    <refsection>
+      <title>See also:</title>
 
-  <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc. KEINE
-  WERTE!)</para>
+      <itemizedlist>
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
 
-  <title>Beschreibung</title>
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
 
-  <para>Beschreiben Sie iIhre Property.</para></refsect1>
-
-    <refsect1><title>Beispiel</title>
-
-  <para>Geben Sie ein Besipiel an.</para>
-
-  <note>
-    <para>Wenn Sie einen wichtig Hinweis haben, schreiben Sie ihn hier
-    auf.</para>
-  </note></refsect1>
-
-    <refsect1><title>Elternelemente</title>
-
-  <para>Schreiben Sie hier die Elternelemente auf.</para></refsect1>
-
-   <refsect1> <title>Kindelemente</title>
-
-  <para>Schreiben Sie hier die Kindelemente auf.</para></refsect1>
-
-   <refsect1> <title>Werte</title>
-
-  <para>Wenn Sie Werte festhalten wollen, bitte hier..</para> </refsect1>
-
-  <refsect1> <para>See also:</para>
-
-  <itemizedlist>
-    <listitem override="bullet">
-      <para linkend="to_similiar_subject">x</para>
-    </listitem>
-
-    <listitem override="bullet">
-      <para linkend="to_similiar_subject">x</para>
-    </listitem>
-
-    <listitem override="bullet">
-      <para linkend="to_similiar_subject">x</para>
-    </listitem>
-  </itemizedlist>
-  </refsect1>
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
+      </itemizedlist>
+    </refsection>
   </refentry>
-</reference>
+  
+    <refentry>
+    <refmeta>
+      <refentrytitle>Name der Property</refentrytitle>
+
+      <manvolnum></manvolnum>
+    </refmeta>
+
+    <refnamediv>
+      <refname>Name der Property</refname>
+
+      <refpurpose>Zweck der Property</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+      <cmdsynopsis>
+        <command></command>
+      </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsection>
+      <title>Datentyp</title>
+
+      <para>Schreiben Sie hier den Datentyp (string, integer, boolean, etc. KEINE
+                    WERTE!)</para>
+    </refsection>
+
+    <refsection>
+      <title>Beschreibung</title>
+
+      <para>Beschreiben Sie Ihre Property.</para>
+    </refsection>
+
+    <refsection>
+      <title>Beispiel</title>
+
+      <para>Geben Sie ein Besipiel an (Programmcode).</para>
+
+      <caution>
+        <para>Wenn Sie einen wichtigen Hinweis haben, halten Sie ihn hier fest.</para>
+      </caution>
+    </refsection>
+
+    <refsection>
+      <title>Elternelemente</title>
+
+      <para>Schreiben Sie hier alle Elternelemente auf.(Liste)</para>
+    </refsection>
+
+    <refsection>
+      <title>Kindelmente</title>
+
+      <para>Schreiben Sie hier alle Kindelemente auf. (Liste)</para>
+    </refsection>
+
+    <refsection>
+      <title>Werte</title>
+
+      <para>Wenn Sie Werte festhalten wollen, bitte hier.</para>
+    </refsection>
+
+    <refsection>
+      <title>See also:</title>
+
+      <itemizedlist>
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
+
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
+
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
+      </itemizedlist>
+    </refsection>
+  </refentry>
+  
 </section>
+
+
+
+
+
+
+

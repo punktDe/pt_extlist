@@ -2,10 +2,17 @@
 <!-- This document was created with Syntext Serna Free. -->
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <title>Schreiben Sie den Titel handlungsorientiert z. B. Haus bauen, Bücher lesen, Software intsallieren, etc.</title>
-  <para><!-- Löschen Sie das para-Element, wenn Sie keine Einführung brauchen.-->Wenn Sie den Anwender veranlassen möchten etwas zu tun, verwenden Sie diese section. Schreiben Sie eine kurze Einleitung (1 Satz). Ein Satz darf nicht mehr als 25 Wörter beinhalten. Bleiben Sie konsistent: Selbe Bezeichnung für dieselbe Bedeutung. Vermeiden Sie Fremdwörter (je nach Zielgruppe). Sie können die Anleitung mit einem Besipiel verlinken. Wenn Sie Bilder verwenden, benennen Sie diese (Bildunterschrift). Beachten Sie die Reihenfolge.</para>
+  <para><!-- Löschen Sie das para-Element, wenn Sie keine Einführung brauchen.-->
+  Wenn Sie den Anwender veranlassen möchten etwas zu tun, verwenden Sie diese section. 
+  Schreiben Sie eine kurze Einleitung (1 Satz). Ein Satz darf nicht mehr als 25 Wörter beinhalten. 
+  Bleiben Sie konsistent: Selbe Bezeichnung für dieselbe Bedeutung. 
+  Vermeiden Sie Fremdwörter (je nach Zielgruppe). Sie können die Anleitung mit einem Besipiel verlinken. 
+  Wenn Sie Bilder verwenden, benennen Sie diese (Bildunterschrift). 
+  Beachten Sie die Reihenfolge.</para>
   <procedure>
     <step>
-      <para>Schreibe Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Vermeiden Sie passive Formulierungen.</para>
+      <para>Schreiben Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. 
+	  Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Vermeiden Sie passive Formulierungen.</para>
       <stepalternatives>
         <step>
           <para>Schreiben Sie hier eine optionale Variante, wenn nötig.</para>
@@ -13,21 +20,26 @@
       </stepalternatives>
     </step>
     <step>
-      <para>Schreibe Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
-      <note>Wenn eine Gefahr für das Produkt besteht, verwenden Sie eine positive Formulierung. Wenn eine Bedingung auftritt, setzen Sie den &quot;Wenn&quot;-Satz an den Anfang.</note>
+      <para>Schreiben Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. 
+	  Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
+      <caution><para>Wenn eine Gefahr für das Produkt besteht, verwenden Sie eine positive Formulierung. 
+	  Wenn eine Bedingung auftritt, setzen Sie den &quot;Wenn&quot;-Satz an den Anfang.</para></caution>
     </step>
     <step>
-      <para>Schreibe Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
-      <para>--&gt; Beschreiben Sie ein Zwischenergebnis, wenn nötig. Z. B: Dialogfenster xy öffnet sich.</para>
+      <para>Schreiben Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. 
+	  Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
+      <para>--> Schreiben Sie hier ein Zwischenergebnis, z. B.: "Dialogbox öffnet sich."</para>
     </step>
     <step>
-      <para>Schreibe Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
-      <para>=&gt; Beschreiben Sie das Endergebnis. Z. B.: Sie haben die Software installiert.</para>
+      <para>Schreiben Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. 
+	  Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
+      <para>=> Schreiben Sie hier ein Endergebnis, z. B.: "Sie haben die Software installiert."</para>
     </step>
   </procedure>
   <procedure>
     <step>
-      <para>Schreibe Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
+      <para>Schreiben Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. 
+	  Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
       <warning>
         <para>Wenn eine Gefahr für den Menschen besteht, verneinen Sie den Hinweis. z. B. &quot;Drücken Sie nicht den roten Schalter!&quot;</para>
       </warning>
@@ -47,13 +59,14 @@
         </info>
         <mediaobject>
           <imageobject>
-            <imagedata depth="" fileref="any_URI" scale="" width=""/>
+            <imagedata fileref=""/>
           </imageobject>
         </mediaobject>
       </screenshot>
     </figure>
     <step>
-      <para>Schreibe Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
+      <para>Schreiben Sie eine Handlungsanweisung pro Satz mit mind. einem Prädikat und einem Objekt. 
+	  Verwenden Sie den Imperativ. Verwenden Sie die formale Anrede. Verwmeiden Sie passive Formulierungen.</para>
       <stepalternatives>
         <step>
           <para>Schreiben Sie hier eine optionale Variante, wenn nötig.</para>
@@ -61,7 +74,8 @@
       </stepalternatives>
     </step>
   </procedure>
-  <subsection1>
-    <title>Fügen Sie subsections hinzu, wenn nötig.</title>
-  </subsection1>
+  <section>
+    <title>Fügen Sie Unterkapitel hinzu, wenn nötig.</title>
+	<para>  </para>
+  </section>
 </section>

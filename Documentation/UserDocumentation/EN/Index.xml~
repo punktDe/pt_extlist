@@ -20,12 +20,11 @@
     <pubdate></pubdate>
   </info>
 
-  <xi:include href="About_the_document.xml" xpointer="element(/1)" />
-  <xi:include href="reading_this_pt_extlist.xml" xpointer="element(/1)" />
-  <xi:include href="legend.xml" xpointer="element(/1)" />
-  <xi:include href="description_pt_extlist.xml" xpointer="element(/1)" />
-  <xi:include href="instruction.xml" xpointer="element(/1)" />
-  <xi:include href="example.xml" xpointer="element(/1)" />
-   <xi:include href="typoscript_pt_extlist.xml" xpointer="element(/1)" />
-   <xi:include href="glossary.xml" xpointer="element(/1)" />
+  <xi:include href="Sections/AboutTheDocument.xml" xpointer="element(/1)" />
+  <xi:include href="Sections/ReadingThisPtExtlist.xml" xpointer="element(/1)" />
+  <xi:include href="Sections/Legend.xml" xpointer="element(/1)" />
+  <xi:include href="Sections/DescriptionPtExtlist.xml" xpointer="element(/1)" />
+  <xi:include href="Sections/Instruction.xml" xpointer="element(/1)" />
+  <xi:include href="Sections/Example.xml" xpointer="element(/1)" />
+   <xi:include href="Sections/Glossary.xml" xpointer="element(/1)" />
 </article>
