@@ -27,8 +27,7 @@
  * Class contains utility functions concerning database related stuff
  * 
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Utility
  */
 class Tx_PtExtlist_Utility_DbUtils {
 
