@@ -27,8 +27,8 @@
  * Class implements a mapper that maps array data to list data structure for a given 
  * fields configuration.
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\Mapper
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {

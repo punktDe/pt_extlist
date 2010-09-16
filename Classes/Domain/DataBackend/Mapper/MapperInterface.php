@@ -27,8 +27,8 @@
  * Interface for mappers
  *
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\Mapper
  */
 interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
 	
