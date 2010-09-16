@@ -118,7 +118,8 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     protected function initDependencies() {
         $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
         $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */
-
+        $this->feUser = $this->feUserRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        
         // TODO create bookmark repository in bookmark manager and let it do the job
     	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
     	$this->bookmarksRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
@@ -201,6 +202,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return string The rendered new action
      */
     public function newAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark=null) {
+    	$this->view->assign('allowedToStorePublicBookmark', $this->userIsAllowedToCreatePublicBookmarks());
         $this->view->assign('bookmark', $bookmark);	
     }
     
@@ -288,7 +290,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
      * @param array $arrayToBeAdded
      */
-    protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, array $arrayToBeAdded) {
+    protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, $arrayToBeAdded) {
     	foreach ($arrayToBeAdded as $key => $value) {
     		$objectStorage->attach($value, $key);
     	}
@@ -296,8 +298,33 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     
     
     
+    /**
+     * Returns true, if user is allowed to create public bookmarks
+     *
+     * @return bool
+     */
     protected function userIsAllowedToCreatePublicBookmarks() {
-    	return true;
+    	if ($this->feUser == null) {
+    		return false;
+    	}
+    	
+    	// User UID is allowed to store public bookmarks?
+    	$userUid = $this->feUser->getUid();
+    	$userUidsAllowedToStorePublicBookmarks = explode(',', $this->bookmarkConfiguration->getFeUsersAllowedToEditPublic());
+    	if (in_array($userUid, $userUidsAllowedToStorePublicBookmarks)) {
+    		return true;
+    	}
+
+    	// group UID is allowed to store public bookmarks?
+    	$groupUidsAllowedToStorePublicBookmarks = explode(',', $this->bookmarkConfiguration->getFeGroupsAllowedToEditPublic());
+    	$groupUids = $this->feUser->getUsergroups();
+    	foreach($this->feUser->getUsergroups() as $usergroup) {
+    		if (in_array($usergroup->getUid(), $groupUidsAllowedToStorePublicBookmarks)) {
+    			return true;
+    		}
+    	}
+
+    	return false;
     }
     
 }

@@ -38,10 +38,14 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected $configurationBuilder;
 	
+	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
 	 */
 	protected $lifecycleManager;
+	
+	
 	
 	/**
 	 * 
@@ -198,6 +202,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         }
 		
 	}
+	
+	
     
     /**
      * Sets template to be used by current action.

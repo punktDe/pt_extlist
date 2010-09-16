@@ -261,7 +261,8 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockView = $this->getMock(
             'Tx_Fluid_Core_View_TemplateView',
             array('assign'), array(), '', FALSE);
-        $mockView->expects($this->once())->method('assign')->with('bookmark', $bookmarkMock);
+        $mockView->expects($this->at(0))->method('assign')->with('allowedToStorePublicBookmark', false);
+        $mockView->expects($this->at(1))->method('assign')->with('bookmark', $bookmarkMock);
         
         $mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
