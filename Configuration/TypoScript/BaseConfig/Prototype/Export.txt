@@ -27,7 +27,5 @@ plugin.tx_ptextlist.prototype.export {
     #contentType = 
     
     # Enable/Disable Pager [0|1]
-    #pager.enabled =
-    
-    
+    #pager.enabled = 
 }
