@@ -26,8 +26,8 @@
 /**
  * Bookmark manager
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {

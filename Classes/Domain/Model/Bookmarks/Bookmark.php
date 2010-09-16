@@ -27,8 +27,8 @@
  * Class implements a bookmark domain object to store session information for filters etc.
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Bookmarks
  * @entity
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark 
