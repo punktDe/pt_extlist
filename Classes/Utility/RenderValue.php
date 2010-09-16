@@ -27,8 +27,7 @@
  * Utility to render values by renderObject or renderUserFunction
  * Caching for rendered Values is implemented here
  * 
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Utility
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Utility_RenderValue {

@@ -26,8 +26,7 @@
 /**
  * Utility to manage NameSpaceStrings and resulting arrays
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Utility
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
