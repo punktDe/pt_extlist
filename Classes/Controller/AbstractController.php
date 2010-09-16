@@ -198,9 +198,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
         $templatePath = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
 		if (isset($templatePath) && strlen($templatePath) > 0) {
-            $view->setTemplatePathAndFilename($templatePath);
+			if (file_exists(t3lib_div::getFileAbsFileName($this->templatePathAndFilename))) { 
+                $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($this->templatePathAndFilename));
+			}
         }
-		
 	}
 	
 	
