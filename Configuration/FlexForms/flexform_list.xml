@@ -189,7 +189,7 @@
         <type>array</type>
         <el>
         
-          <settings.bookmarks.bookmarksPid>
+          <settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
             <TCEforms>
               <label>Bookmarks PID</label>
               <config>
@@ -198,7 +198,7 @@
                 <eval>int</eval>
               </config>
             </TCEforms>
-          </settings.bookmarks.bookmarksPid>
+          </settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
 
           <settings.bookmarks.showUserBookmarks>
             <TCEforms>

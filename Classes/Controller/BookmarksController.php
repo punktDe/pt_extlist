@@ -143,21 +143,25 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function showAction() {
     	$allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
+    	
     	if ($this->showPublicBookmarks()) {
 	    	$publicBookmarks = $this->bookmarksRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
 	    	$this->addObjectsToObjectStorageByArray($allBookmarks, $publicBookmarks);
 	    	$this->view->assign('publicBookmarks', $publicBookmarks);
     	}
+    	
     	if ($this->showUserBookmarks() && $this->feUser != null) {
     	    $userBookmarks = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
     	    $this->addObjectsToObjectStorageByArray($allBookmarks, $userBookmarks);
     	    $this->view->assign('userBookmarks', $userBookmarks);
     	}
+    	
     	if ($this->showGroupBookmarks() && $this->feUser != null && count($this->feUser->getUsergroups()) > 0) {
     		$groupBookmarks = $this->bookmarksRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($this->feUser, $this->getGroupIdsToShowBookmarksFor(), $this->listIdentifier);
     		$this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
     		$this->view->assign('groupBookmarks', $groupBookmarks);
     	}
+    	
     	$this->view->assign('allBookmarks', $allBookmarks);
     }
     
@@ -194,10 +198,11 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
      */
     public function createAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-    	$bookmark->setIsPublic(true);
-    	$bookmark->setListId($this->listIdentifier);
+    	if ($this->request->hasArgument('isPublic') && $this->request->getArgument('isPublic') == '1') {
+    		$bookmark->setIsPublic(true);
+    	}
     	
-    	$this->bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+    	$bookmark->setPid($this->settings['bookmarks']['bookmarksPid']);
     	$this->bookmarkManager->addContentToBookmark($bookmark);
     	
     	$this->bookmarksRepository->add($bookmark);
