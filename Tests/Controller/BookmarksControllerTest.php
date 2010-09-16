@@ -219,6 +219,11 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 		$publicBookmarksCollectionMock = array('test2' => 'value2');
 		$groupBookmarksMock = array('test3' => 'value3');
 		
+		$bookmarksConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig', array(), array(), '', FALSE);
+		$bookmarksConfigurationMock->expects($this->once())->method('getShowPublicBookmarks')->will($this->returnValue(true));
+		$bookmarksConfigurationMock->expects($this->once())->method('getShowUserBookmarks')->will($this->returnValue(true));
+		$bookmarksConfigurationMock->expects($this->once())->method('getShowGroupBookmarks')->will($this->returnValue(true));
+		
 		$bookmarksRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_BookmarksRepository', array('findPublicBookmarksByListIdentifier', 'findBookmarksByFeUserAndListIdentifier', 'findBookmarksByFeUserGroupIdsAndListIdentifier'), array(), '', FALSE);
 		$bookmarksRepositoryMock->expects($this->once())->method('findBookmarksByFeUserAndListIdentifier')->will($this->returnValue($userBookmarksCollectionMock));
 		$bookmarksRepositoryMock->expects($this->once())->method('findPublicBookmarksByListIdentifier')->will($this->returnValue($publicBookmarksCollectionMock));
@@ -242,6 +247,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->_set('bookmarksRepository', $bookmarksRepositoryMock);
         $mockController->_set('feUser', $feUserMock);
         $mockController->_set('settings', $this->settings);
+        $mockController->_set('bookmarkConfiguration', $bookmarksConfigurationMock);
         
         $mockController->showAction();
 	}

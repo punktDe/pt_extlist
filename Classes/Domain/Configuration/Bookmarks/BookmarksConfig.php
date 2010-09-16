@@ -96,6 +96,24 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
     
     
     /**
+     * Comma seperated list of fe users that are allowed to edit public bookmarks
+     *
+     * @var string
+     */
+    protected $feUsersAllowedToEditPublic;
+    
+    
+    
+    /**
+     * Comma seperated list of fe groups that are allowed to edit public bookmarks
+     *
+     * @var unknown_type
+     */
+    protected $feGroupsAllowedToEditPublic;
+    
+    
+    
+    /**
      * Holds comma-seperated list of fe group ids to show bookmarks for 
      *
      * @var string
@@ -147,6 +165,8 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
         $this->showPublicBookmarks = $this->settingsArray['showPublicBookmarks'] == '1' ? true : false;
         $this->feUsersAllowedToEdit = array_key_exists('feUsersAllowedToEdit', $this->settingsArray) ? $this->settingsArray['feUsersAllowedToEdit'] : '';
         $this->feGroupsAllowedToEdit = array_key_exists('feGroupsAllowedToEdit', $this->settingsArray) ? $this->settingsArray['feGroupsAllowedToEdit'] : '';
+        $this->feUsersAllowedToEditPublic = array_key_exists('feUsersAllowedToEditPublic', $this->settingsArray) ? $this->settingsArray['feUsersAllowedToEditPublic'] : '';
+        $this->feGroupsAllowedToEditPublic = array_key_exists('feGroupsAllowedToEditPublic', $this->settingsArray) ? $this->settingsArray['feGroupsAllowedToEditPublic'] : '';
         $this->groupIdsToShowBookmarksFor = array_key_exists('groupIdsToShowBookmarksFor', $this->settingsArray) ? $this->settingsArray['groupIdsToShowBookmarksFor'] : '';
     }
     
@@ -181,6 +201,28 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
 	 */
 	public function getFeUsersAllowedToEdit() {
 		return $this->feUsersAllowedToEdit;
+	}
+	
+	
+	
+	/**
+	 * Returns comma-seperated list of fe users that are allowed editing public bookmarks
+	 *
+	 * @return string
+	 */
+	public function getFeUsersAllowedToEditPublic() {
+		return $this->feUsersAllowedToEditPublic;
+	}
+	
+	
+	
+	/**
+	 * Returns comma-seperated list of fe groups that are allowed editing public bookmarks
+	 *
+	 * @return string
+	 */
+	public function getFeGroupsAllowedToEditPublic() {
+		return $this->feGroupsAllowedToEditPublic;
 	}
 	
 	
