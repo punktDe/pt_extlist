@@ -227,9 +227,31 @@
             </TCEforms>
           </settings.bookmarks.showPublicBookmarks>
           
+          <settings.bookmarks.feUsersAllowedToCreatePublic>
+            <TCEforms>
+              <label>FE User IDs that are allowed to create public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feUsersAllowedToCreatePublic>
+          
+          <settings.bookmarks.feUserGroupsAllowedToCreatePublic>
+            <TCEforms>
+              <label>FE Group IDs that are allowed to create public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feUserGroupsAllowedToCreatePublic>
+          
           <settings.bookmarks.feUsersAllowedToEdit>
             <TCEforms>
-              <label>FE User IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <label>FE User IDs that are allowed to edit bookmarks (comma-seperated)</label>
               <config>
                 <type>input</type>
                 <size>30</size>
@@ -240,7 +262,7 @@
           
           <settings.bookmarks.feGroupsAllowedToEdit>
             <TCEforms>
-              <label>FE Group IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <label>FE Group IDs that are allowed to edit bookmarks (comma-seperated)</label>
               <config>
                 <type>input</type>
                 <size>30</size>
