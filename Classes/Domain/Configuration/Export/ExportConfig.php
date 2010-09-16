@@ -37,11 +37,28 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 	 */
 	protected $listIdentifier;
 	
+	
+	/**
+	 * Array of all exoort settings
+	 * 
+	 * @var array
+	 */
+	protected $exportSettings;
+	
+	
 	/**
 	 * Add current date to filename
 	 * @var boolean
 	 */
 	protected $addDateToFileName;
+	
+	
+	/**
+	 * Date forma string in php's date format
+	 * 
+	 * @var string
+	 */
+	protected $dateFormat = 'Y-m-d';
 	
 	
 	/**
@@ -61,6 +78,15 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 	 * @var string
 	 */
 	protected $viewClassName;
+
+	
+	/**
+	 * Mime Type for content inline display
+	 * See: http://de.selfhtml.org/diverses/mimetypen.htm
+	 * 
+	 * @var string
+	 */
+	protected $contentType;
 	
 	
 	/**
@@ -70,9 +96,21 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 	 * 
 	 * @var string
 	 */
-	protected $downloadType;
+	protected $downloadType = self::FORCE_DOWNLOAD;
 
 	
+	/**
+	 * Constant for downloadtype "force download"
+	 */
+	const FORCE_DOWNLOAD = 'D';
+
+	
+	
+	/**
+	 * Constant for downloadtype "open in browser"
+	 */
+	const OPEN_IN_BROWSER = 'I';
+
 	
 	
 	/**
@@ -83,17 +121,19 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $exportSettings) {
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
+		$this->exportSettings = $exportSettings;
 		$this->setPropertiesFromSettings($exportSettings);
 	}
 	
 	
+	
 	/**
-	 * Set the optional pager Settings
+	 * Set the optional export Settings
 	 * 
-	 * @param array $pagerSettings
+	 * @param array $exportSettings
 	 */
 	protected function setPropertiesFromSettings(array $exportSettings) {
-	
+		
 		tx_pttools_assert::isNotEmptyString($exportSettings['fileName'], array('message' => 'No filename given for export file! 1284563488'));
 		$this->fileName = $exportSettings['fileName'];
 		
@@ -101,49 +141,103 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 		tx_pttools_assert::isTrue(class_exists($exportSettings['viewClassName']), array('message' => 'The classname "' . $exportSettings['viewClassName'] . '" for export view does not exist! 1284563683'));
 		$this->viewClassName = $exportSettings['viewClassName'];
 		
-		if(array_key_exists('fileExtension', $exportSettings)) {
-			$this->fileExtension = $exportSettings['fileExtension'];	
-		}
+		tx_pttools_assert::isNotEmptyString($exportSettings['fileExtension'], array('message' => 'No file extension given for export file! 1284620580'));
+		$this->fileExtension = $exportSettings['fileExtension'];	
 		
 		if(array_key_exists('downloadtype', $exportSettings)) {
-			$this->downloadType = $exportSettings['downloadtype'];	
-		} else {
-			$this->downloadType = 'D';
+			$this->downloadType = $exportSettings['downloadtype'] == 'D' ? self::FORCE_DOWNLOAD : self::OPEN_IN_BROWSER;	
 		}
 		
 		if(array_key_exists('addDateToFilename', $exportSettings)) {
 			$this->addDateToFilename = $exportSettings['addDateToFilename'];	
-		}		
+		}	
+
+		if(array_key_exists('dateFormat', $exportSettings)) {
+			$this->dateFormat = $exportSettings['dateFormat'];	
+		}
+		
+		if(array_key_exists('contentType', $exportSettings)) {
+			$this->contentType = $exportSettings['contentType'];	
+		}
 	}
 	
 	
 	
+	/**
+	 * @return string
+	 */
 	public function getFileName() {
 		return $this->fileName;
 	}
 	
 	
 	
+	/**
+	 * @return string
+	 */
 	public function getDownloadType() {
 		return $this->downloadType;	
 	}
 	
 	
 	
+	/**
+	 * @return boolean
+	 */
 	public function getAddDateToFilename() {
 		return $this->addDateToFilename;
 	}
 	
 	
 	
+	/**
+	 * @return string
+	 */
 	public function getViewClassName() {
 		return $this->viewClassName;	
 	}
 	
 	
 	
+	/**
+	 * @return string
+	 */
 	public function getFileExtension() {
 		return $this->fileExtension;
+	}
+	
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getDateFormat() {
+		return $this->dateFormat;
+	}
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getContentType() {
+		return $this->contentType;
+	}
+	
+	
+	/**
+	 * Get additional settings
+	 * 
+	 * @param string $key
+	 * @retun mixed
+	 */
+	public function getSettings($key = NULL) {
+		if($key == NULL) {
+			return $this->exportSettings;
+		} else  {
+			if(array_key_exists($key, $this->exportSettings)) {
+				return $this->exportSettings[$key];	
+			}
+		}
 	}
 }
 ?>

@@ -298,8 +298,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * 
      * @param string $objectPath
      * @return array prototypesettings
-     * @author Daniel Lienert <lienert@punkt.de>
-     * @since 05.08.2010
      */
     public function getPrototypeSettingsForObject($objectPath) {
 
@@ -320,12 +318,12 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * @param string $objectName
 	 * @return array
 	 */
-	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectName) {
+	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectPath) {
 		// TODO cache this!
 		if(!is_array($listSepcificConfig)) $listSepcificConfig = array();
 		
 		$mergedSettings = t3lib_div::array_merge_recursive_overrule(
-            $this->getPrototypeSettingsForObject($objectName),
+            $this->getPrototypeSettingsForObject($objectPath),
 			$listSepcificConfig
         );
 

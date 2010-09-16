@@ -43,7 +43,7 @@ class Tx_PtExtlist_View_Export_CsvListView Extends Tx_PtExtlist_View_Export_Abst
     	
     	ob_clean();
 
-        $this->sendHeader($this->fullFilename);
+        $this->sendHeader($this->getFilenameFromTs());
         $out = fopen('php://output', 'w');
 
         // Headers
@@ -52,7 +52,7 @@ class Tx_PtExtlist_View_Export_CsvListView Extends Tx_PtExtlist_View_Export_Abst
 	        foreach ($templateVariableContainer['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 	                $row[] = $header->getLabel();
 	        }
-	        fputcsv($out, $row, ";");
+	        fputcsv($out, $row, ";"); // todo - delimiter configurabe by ts
         }
 
         // Rows
@@ -69,16 +69,4 @@ class Tx_PtExtlist_View_Export_CsvListView Extends Tx_PtExtlist_View_Export_Abst
 
         exit();
     }
-    
-    
-    
-    /**
-     * Returns file ending, if no file ending is given in TS
-     *
-     * @return string
-     */
-    protected function getDefaultFilePrefix() {
-    	return 'csv';
-    }
-	
 }

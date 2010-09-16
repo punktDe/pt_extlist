@@ -27,8 +27,8 @@
  * Aggregate Column Config Object 
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage Domain\Configuration\Aggregates
+ * @package Domain
+ * @subpackage Configuration\Aggregates
  */
 class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 	

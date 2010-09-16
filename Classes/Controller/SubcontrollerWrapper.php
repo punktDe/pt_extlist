@@ -28,8 +28,7 @@
  * and emulates dispatching functionality like forwarding etc.
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Controller
  */
 class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controller_AbstractController {
 

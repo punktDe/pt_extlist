@@ -122,7 +122,7 @@
             </TCEforms>
           </settings.controller.List.export.view>
           
-          <prototype.export.downloadType>
+          <settings.prototype.export.downloadType>
             <TCEforms>
               <label>Download Type</label>
               <config>
@@ -139,9 +139,9 @@
                   </items>
               </config>
             </TCEforms>
-          </prototype.export.downloadType>
+          </settings.prototype.export.downloadType>
 
-          <prototype.export.filename>
+          <settings.prototype.export.fileName>
             <TCEforms>
               <label>Filename (Prefix)</label>
               <config>
@@ -150,27 +150,27 @@
                 <eval>string</eval>
               </config>
             </TCEforms>
-          </prototype.export.filename>
+          </settings.prototype.export.fileName>
           
-          <prototype.export.fileEnding>
+          <settings.prototype.export.fileExtension>
             <TCEforms>
-              <label>File Ending (Suffix without ".")</label>
+              <label>File Extension (Suffix without ".")</label>
               <config>
                 <type>input</type>
                 <size>4</size>
                 <eval>trim</eval>
               </config>
             </TCEforms>
-          </prototype.export.fileEnding>
+          </settings.prototype.export.fileExtension>
           
-          <prototype.export.addDateToFilename>
+          <settings.prototype.export.addDateToFilename>
             <TCEforms>
               <label>Add Date to Filname</label>
               <config>
                 <type>check</type>
               </config>
             </TCEforms>
-          </prototype.export.addDateToFilename>
+          </settings.prototype.export.addDateToFilename>
 
         </el>
       </ROOT>

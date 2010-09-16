@@ -26,8 +26,7 @@
 /**
  * Class implementing bookmarks controller
  *
- * @package pt_extlist
- * @subpackage Controller
+ * @package Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controller_AbstractController {
