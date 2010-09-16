@@ -227,7 +227,7 @@
             </TCEforms>
           </settings.bookmarks.showPublicBookmarks>
           
-          <settings.bookmarks.feUsersAllowedToCreatePublic>
+          <settings.bookmarks.feUsersAllowedToEditPublic>
             <TCEforms>
               <label>FE User IDs that are allowed to create public bookmarks (comma-seperated)</label>
               <config>
@@ -236,9 +236,9 @@
                 <eval>string</eval>
               </config>
             </TCEforms>
-          </settings.bookmarks.feUsersAllowedToCreatePublic>
+          </settings.bookmarks.feUsersAllowedToEditPublic>
           
-          <settings.bookmarks.feUserGroupsAllowedToCreatePublic>
+          <settings.bookmarks.feUserGroupsAllowedToEditPublic>
             <TCEforms>
               <label>FE Group IDs that are allowed to create public bookmarks (comma-seperated)</label>
               <config>
@@ -247,7 +247,7 @@
                 <eval>string</eval>
               </config>
             </TCEforms>
-          </settings.bookmarks.feUserGroupsAllowedToCreatePublic>
+          </settings.bookmarks.feUserGroupsAllowedToEditPublic>
           
           <settings.bookmarks.feUsersAllowedToEdit>
             <TCEforms>
