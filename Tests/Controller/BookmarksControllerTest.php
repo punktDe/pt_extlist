@@ -285,7 +285,8 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $persistenceManagerMock = $this->getMock('Tx_Extbase_Persistence_Manager', array('persistAll'), array(), '', FALSE);
         
         $mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array(), array(), '', FALSE);
-        $mockRequest->expects($this->once())->method('hasArgument')->with('isPublic')->will($this->returnValue(1));
+        // TODO here are some things missing to be tested
+        $mockRequest->expects($this->at(0))->method('hasArgument')->will($this->returnValue(0));
         
 		$mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),

@@ -159,13 +159,18 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 		if (!is_array($groupIds)) {
 			$groupIds = explode(',', $groupIds);
 		}
+		
 		$groupBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
 		$feUserGroups = $feUser->getUsergroups();
         foreach($feUserGroups as $feUserGroup) { /* @var $feUserGroup Tx_Extbase_Domain_Model_FrontendUserGroup */
             if (in_array($feUserGroup->getUid(), $groupIds)) {
-            	$groupBookmarks->addAll($this->findGroupBookmarksByFeGroupAndListIdentifier($feUserGroup, $listIdentifier));
+            	$bookmarks = $this->findGroupBookmarksByFeGroupAndListIdentifier($feUserGroup, $listIdentifier);
+            	foreach($bookmarks as $bookmark) {
+            	    $groupBookmarks->attach($bookmark);
+            	}
             }
         }
+        
         return $groupBookmarks;
 	}
 	
