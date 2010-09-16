@@ -41,9 +41,9 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 */
 	public static function getDataBackend($listIdentifier) {
 		
-		$extListTs = self::getExtListTyposcriptSettings();
+		$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
 		
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($extListTS);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($extListTs);
 		$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 		
 		return $extListBackend;
@@ -59,15 +59,16 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * @return array
 	 */
 	protected static function getExtListTyposcriptSettings($listIdentifier) {
-		$extListTS = tx_pttools_div::typoscriptRegistry('plugin.tx_ptextlist.settings');
-		
-		if(!array_key_exists($listIdentifier, $extListTS['listConfig'])) {
-			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page!');
+		$extListTS = tx_pttools_div::getTS('plugin.tx_ptextlist.settings.');
+		$extListTSArray = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
+
+		if(!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {
+			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page! 1284655053');
 		}
 		
-		$extListTS['listIdentifier'] = $listIdentifier;
+		$extListTSArray['listIdentifier'] = $listIdentifier;
 		
-		return $extListTS;
+		return $extListTSArray;
 	}
 	
 }
