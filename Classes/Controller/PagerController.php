@@ -27,8 +27,7 @@
  * Class Pager Controller
  *
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package pt_extlist
- * @subpackage Controller
+ * @package Controller
  */
 class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
 

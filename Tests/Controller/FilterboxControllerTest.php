@@ -26,8 +26,8 @@
 /**
  * Testcase for filterbox controller class
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Controller
  */
 class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
     

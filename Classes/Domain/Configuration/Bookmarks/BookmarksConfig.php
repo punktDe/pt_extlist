@@ -26,8 +26,8 @@
 /**
  * Class implements configuration for bookmarks
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Configuration\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {

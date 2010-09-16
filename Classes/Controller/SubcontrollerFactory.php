@@ -28,8 +28,7 @@
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Controller
  */
 class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher {
 
