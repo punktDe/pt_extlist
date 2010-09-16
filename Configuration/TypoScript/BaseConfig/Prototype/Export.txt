@@ -20,7 +20,14 @@ plugin.tx_ptextlist.prototype.export {
     # Adds a date string to filename [0|1]
     #addDateToFilename = 
     
+    # Format for date string in php's date format
+    #dateFormat = Y-m-d
+    
+    # Mime-Type string, used for inline viewing of export data 
+    #contentType = 
+    
     # Enable/Disable Pager [0|1]
     #pager.enabled =
+    
     
 }

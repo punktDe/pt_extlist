@@ -29,27 +29,32 @@
  * Class type for base view can be changed by changing pt_extlist AbstractController::resolveView()
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package View
  */
 class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 
 	/**
-	 * Holds settings for plugin
-	 *
-	 * @var array
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected $settings = array();
+	protected $configurationBuilder;
+	
+	
+	/**
+	 * Inject the configurationBuilder
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+	}
 	
 	
 	
 	/**
-	 * Injects settings for plugin
-	 *
-	 * @param array $settings
+	 * (non-PHPdoc)
+	 * @see Classes/View/Tx_Fluid_View_TemplateView::initializeView()
 	 */
-	public function injectSettings(&$settings) {
-		$this->settings = &$settings;
+	public function initializeView() {
 	}
 	
 	
@@ -91,7 +96,7 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	protected function resolveTemplatePathAndFilename($actionName = NULL) {
 		if ($this->templatePathAndFilename != '') {
 			if (file_exists($this->templatePathAndFilename)) {
-			    return $this->settings['__templatePathAndFileName'];
+			    return $this->configurationBuilder->getSettings('__templatePathAndFileName');
 			} elseif (file_exists(t3lib_div::getFileAbsFileName($this->templatePathAndFilename))) { 
 				return t3lib_div::getFileAbsFileName($this->templatePathAndFilename);
 			}

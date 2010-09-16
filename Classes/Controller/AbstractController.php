@@ -110,7 +110,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
      * @return void
      */
     protected function resolveView() {
-    	
     	$view = $this->resolveViewObject();
         
         $controllerContext = $this->buildControllerContext();
@@ -137,8 +136,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
             $view = $this->objectManager->getObject($viewObjectName);
             $view->setControllerContext($controllerContext);
         }
-        if (method_exists($view, 'injectSettings')) {
-            $view->injectSettings($this->settings);
+        if (method_exists($view, 'injectConfigurationBuilder')) {
+            $view->injectConfigurationBuilder($this->configurationBuilder);
         }
         $view->initializeView(); // In FLOW3, solved through Object Lifecycle methods, we need to call it explicitely
         $view->assign('settings', $this->settings); // same with settings injection.

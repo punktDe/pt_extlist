@@ -27,11 +27,32 @@
  * Implements a view for rendering a export with fluid
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package View
+ * @subpackage Export
  */
 class Tx_PtExtlist_View_Export_FluidListView Extends Tx_PtExtlist_View_Export_AbstractExportView {
 
+	/**
+	 * Path to fluid template
+	 * 
+	 * @var string
+	 */
+	protected $templatePath;
+	
+	
+    /**
+     * Initialize additional class properties
+     *
+     */
+    protected function initConfiguration() {
+    	tx_pttools_assert::isNotEmptyString($exportSettings['templatePath'], array('message' => 'No template path given for fluid export! 1284621481'));
+		$this->templatePath = $exportSettings['templatePath'];
+		
+		$this->setTemplatePathAndFilename($this->templatePath);
+    }
+	
+	
+	
     /**
      * Overwriting the render method to generate a downloadable output
      *
@@ -43,7 +64,7 @@ class Tx_PtExtlist_View_Export_FluidListView Extends Tx_PtExtlist_View_Export_Ab
 
     	$outputData = parent::render();
     	
-        $this->sendHeader($this->fullFilename);
+        $this->sendHeader($this->getFilenameFromTs());
         $out = fopen('php://output', 'w');
 		
         fwrite($out, $outputData);
@@ -52,16 +73,4 @@ class Tx_PtExtlist_View_Export_FluidListView Extends Tx_PtExtlist_View_Export_Ab
 
         exit();
     }
-    
-    
-    
-    /**
-     * Returns file ending, if no file ending is given in TS
-     *
-     * @return string
-     */
-    protected function getDefaultFilePrefix() {
-    	return 'csv';
-    }
-	
 }
