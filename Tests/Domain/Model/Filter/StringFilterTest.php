@@ -26,7 +26,7 @@
 /**
  * Testcase for String Filter class
  *
- * @package Test
+ * @package Tests
  * @subpackage Domain\Model\Filter
  * @author Michael Knoll <knoll@punkt.de>
  */
@@ -171,7 +171,7 @@
  		$filter = $this->getStringFilterInstance();
  		$breadCrumb = $filter->getFilterBreadCrumb();
  		$this->assertEquals($breadCrumb->getFilter(), $filter);
- 		$this->assertEquals($breadCrumb->getMessage(), $filter->getFilterIdentifier() . ' = ');
+ 		$this->assertEquals($breadCrumb->getMessage(), null);
  	}
  	
  	

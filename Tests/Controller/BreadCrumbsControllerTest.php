@@ -36,5 +36,17 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
 		$this->assertTrue(class_exists(Tx_PtExtlist_Controller_BreadCrumbsController));
 	}
 	
+	
+	public function testShowAction() {
+		$this->markTestIncomplete();
+	}
+	
+	
+	
+	public function testResetFilterAction() {
+		$this->markTestIncomplete();
+	}
+	
 }
+
 ?>

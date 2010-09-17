@@ -29,8 +29,8 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/
  * Class implements fake implementation of abstract filter (for testing only!)
  *
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\Filter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
@@ -47,6 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtli
  	protected function setActiveState() {}
     public function reset() {}
     public function getFilterBreadCrumb() {return null;}
+    public function isActive() {return false;}
 	
 }
 
