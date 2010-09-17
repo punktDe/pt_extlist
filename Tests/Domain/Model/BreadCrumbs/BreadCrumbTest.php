@@ -35,6 +35,46 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumb_testcase extends Tx
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb'));	
     }
+    
+    
+    
+    public function testConstruct() {
+    	$filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
+    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($filterMock);
+    	$this->assertTrue(is_a($breadCrumb, 'Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb'));
+    }
+    
+    
+    
+    public function testGetFilter() {
+        $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
+        $breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($filterMock);
+        $this->assertEquals($breadCrumb->getFilter(), $filterMock);
+    }
+    
+    
+    
+    public function testGetSetIsResettable() {
+        $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
+        $breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($filterMock);
+        
+        // Test default value
+        $this->assertEquals($breadCrumb->getIsResettable(), true);
+        
+        // Test setter
+        $breadCrumb->setIsResettable(false);
+        $this->assertEquals($breadCrumb->getIsResettable(), false);
+    }
+    
+    
+    
+    public function testGetSetMessage() {
+    	$filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
+        $breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($filterMock);
+        
+        $breadCrumb->setMessage('breadcrumb');
+        $this->assertEquals($breadCrumb->getMessage(), 'breadcrumb');
+    }
 	
 }
 

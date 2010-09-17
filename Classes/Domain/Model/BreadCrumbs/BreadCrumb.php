@@ -32,6 +32,97 @@
  */
 class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
 	
+	/**
+	 * Associated filter object
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+	 */
+	protected $filter;
+	
+	
+	
+	/**
+	 * Message to be shown as breadcrumb
+	 *
+	 * @var string
+	 */
+	protected $message;
+	
+	
+	
+	/**
+	 * True, if filter can be resetted via breadcrumb
+	 *
+	 * @var bool
+	 */
+	protected $isResettable = true;
+	
+	
+	
+	/**
+	 * Constructor for breadcrumb. Takes filter object to show breadcrumb for as parameter
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter) {
+		$this->filter = $filter;
+	}
+	
+	
+	
+	/**
+	 * Getter for filter object
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+	 */
+	public function getFilter() {
+		return $this->filter;
+	}
+	
+	
+	
+	/**
+	 * Setter for breadcrumb message
+	 *
+	 * @param string $message
+	 */
+	public function setMessage($message) {
+		$this->message = $message;
+	}
+	
+	
+	
+	/**
+	 * Getter for breadcrumb message
+	 *
+	 * @return string
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
+	
+	
+	
+	/**
+	 * Setter for is resettable (true, if filter can be resetted via breadcrumb)
+	 *
+	 * @param bool $isResettable
+	 */
+	public function setIsResettable($isResettable) {
+		$this->isResettable = $isResettable;
+	}
+	
+	
+	
+	/**
+	 * Getter for is resettable (true, if filter can be resetted via breadcrumb)
+	 *
+	 * @return bool
+	 */
+	public function getIsResettable() {
+		return $this->isResettable;
+	}
+	
 }
  
 ?>
