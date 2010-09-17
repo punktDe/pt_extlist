@@ -32,13 +32,43 @@
  */
 class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
      
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
+	
+	
 	public function testSetup() {
 		$this->assertTrue(class_exists(Tx_PtExtlist_Controller_BreadCrumbsController));
 	}
 	
 	
+	
 	public function testShowAction() {
 		$this->markTestIncomplete();
+		
+		// TODO refactor bread crumb controller and breadcrumbs collection factory
+		
+		/*
+		// databackend is required to be found later!
+		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+		print_r('danach');
+		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder(
+		    $this->configurationBuilderMock);
+		
+		$mockView = $this->getMock(
+            'Tx_Fluid_Core_View_TemplateView',
+            array('assign'), array(), '', FALSE);
+        $mockView->expects($this->once())->method('assign')->with('breadcrumbs', $breadcrumbs);
+    
+		
+		$mockController = $this->getMock(
+              $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BreadCrumbsController'),
+              array('dummy'),array(), '', FALSE);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
+        $mockController->_set('view', $mockView);
+        
+		$mockController->indexAction(); */
 	}
 	
 	
