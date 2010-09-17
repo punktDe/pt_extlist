@@ -167,6 +167,15 @@
  	
  	
  	
+ 	public function testGetFilterBreadCrumb() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$breadCrumb = $filter->getFilterBreadCrumb();
+ 		$this->assertEquals($breadCrumb->getFilter(), $filter);
+ 		$this->assertEquals($breadCrumb->getMessage(), $filter->getFilterIdentifier() . ' = ');
+ 	}
+ 	
+ 	
+ 	
  	/**
  	 * Returns an instance of a string filter
  	 * 
