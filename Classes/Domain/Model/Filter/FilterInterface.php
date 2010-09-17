@@ -145,6 +145,15 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
      * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfiguration
      */
     public function getFilterConfig();
+    
+    
+    
+    /**
+     * Returns filter breadcrumb for this filter
+     * 
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     */
+    public function getFilterBreadCrumb();
 	
 }
 

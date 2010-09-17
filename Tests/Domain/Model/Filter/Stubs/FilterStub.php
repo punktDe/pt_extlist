@@ -46,6 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtli
     protected function initFilter() {}
  	protected function setActiveState() {}
     public function reset() {}
+    public function getFilterBreadCrumb() {return null;}
 	
 }
 

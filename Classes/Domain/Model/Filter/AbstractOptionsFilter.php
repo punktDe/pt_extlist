@@ -219,10 +219,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	}
 	
 	
-	
-	
-	
-	
 
 	/**
 	 * Returns value of selected option
@@ -235,5 +231,19 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		} else {
 			return current($this->filterValues);
 		}
+	}
+	
+	
+	
+	/**
+	 * Returns filter breadcrumb for this filter.
+	 * Most likely to be overwritten in concrete filter class.
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 */
+	public function getFilterBreadCrumb() {
+		$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+		$breadCrumb->setMessage($this->filterIdentifier . ' = ' . implode(', ', $this->filterValues));
+		return $breadCrumb;
 	}
 }

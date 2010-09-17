@@ -164,4 +164,18 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     protected function initFilter() {
     	
     }
+    
+    
+    
+    /**
+     * Returns filter breadcrumb for this filter
+     * Most likely to be overwritten in concrete filter class
+     *
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     */
+    public function getFilterBreadCrumb() {
+    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+    	$breadCrumb->setMessage($this->filterIdentifier . ' = ' . $this->filterValue);
+    	return $breadCrumb;
+    }
 }
