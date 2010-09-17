@@ -168,8 +168,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     
     
     /**
-     * Returns filter breadcrumb for this filter
-     * Most likely to be overwritten in concrete filter class
+     * Returns filter breadcrumb for this filter.
+     * Most likely to be overwritten in concrete filter class.
      *
      * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
      */
