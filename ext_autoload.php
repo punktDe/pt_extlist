@@ -5,9 +5,6 @@
  * So only files and classes from 'old' Extensions are 
  * listed here.
  */
-
-// TODO ry21 why does this not work in Unit Tests?
-
 return array(
     /* Pt_ExtList depending classes */
     'tx_ptextlist_tests_domain_stateadapter_stubs_persistableobject' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/StateAdapter/Stubs/PersistableObject.php',
@@ -22,6 +19,7 @@ return array(
     'tx_ptextlist_tests_domain_model_filter_stubs_filterstub' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Stubs/FilterStub.php',
     'tx_ptextlist_view_export_abstractexportview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/Export/AbstractExportView.php',
     'tx_ptextlist_view_baseview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/BaseView.php',
+    'user_tx_ptextlist_utility_flexformdataprovider' => t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php',
 
     /* External Extensions */
     'tx_pttools_objectcollection'       => t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_objectCollection.php',
