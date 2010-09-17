@@ -342,9 +342,9 @@
     
     
     
-    <!--##########################-->
-    <!-- Tab for list settings    -->
-    <!--##########################-->
+    <!--#################################-->
+    <!-- Tab for breadcrumbs settings    -->
+    <!--#################################-->
     <breadcrumbs>
       <ROOT>
         <TCEforms>
@@ -353,7 +353,14 @@
         <type>array</type>
         <el>
 
-          
+          <settings.breadCrumbs.showResetLinks>
+            <TCEforms>
+              <label>Show reset links</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.breadCrumbs.showResetLinks>
 
         </el>
       </ROOT>
