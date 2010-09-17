@@ -36,7 +36,6 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
      * Creates filter query from filter value and settings
      */
     protected function buildFilterCriteria() {
-    	
     	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
     	$filterValue = '%'.$this->filterValue.'%';
     	

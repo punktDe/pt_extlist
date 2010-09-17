@@ -40,6 +40,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     protected $filterValue = '';
         
     
+    
     /**
      * Returns raw value of filter (NOT FILTER QUERY!!!)
      *
@@ -82,7 +83,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
         $this->filterValue = '';
         $this->resetSessionDataForFilter();
         $this->resetGpVarDataForFilter();
-        $this->init();
+        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
     }
     
     
@@ -152,6 +153,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     protected function setActiveState() {
     	$this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false; 
     }
+    
 	
     
     /**

@@ -58,6 +58,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$this->filterValues = array();
 		$this->sessionFilterData = array();
 		$this->init();
+		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 	}
 	
 	

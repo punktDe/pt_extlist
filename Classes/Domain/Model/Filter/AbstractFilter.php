@@ -247,8 +247,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * Returns filterbox identifier for this filter
 	 * 
 	 * @return String
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 06.07.2010
 	 */
 	public function getFilterBoxIdentifier() {
 		return $this->filterBoxIdentifier;
