@@ -60,7 +60,7 @@
                   </numIndex>
                   <numIndex index="6" type="array">
                     <numIndex index="0">Breadcrumbs</numIndex>
-                    <numIndex index="1">BreadCrumbs->index</numIndex>
+                    <numIndex index="1">BreadCrumbs->index;BreadCrumbs->resetFilter</numIndex>
                   </numIndex>
                 </items>
               </config>
