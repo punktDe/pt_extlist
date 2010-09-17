@@ -36,6 +36,14 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollection_testcase 
         $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection'));		
 	}
 	
+	
+	
+	public function testAddBreadCrumb() {
+		$breadCrumbMock = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array(), array(),'', FALSE);
+		$breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
+		$breadCrumbCollection->addBreadCrumb($breadCrumbMock);
+	}
+	
 }
 
 ?>

@@ -39,6 +39,17 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends tx_ptto
      */
     protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb';
     
+    
+    
+    /**
+     * Adds a breadcrumb to collection
+     *
+     * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb BreadCrumb to be added
+     */
+    public function addBreadCrumb(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb) {
+    	$this->addItem($breadCrumb);
+    }
+    
 }
 
 ?>
