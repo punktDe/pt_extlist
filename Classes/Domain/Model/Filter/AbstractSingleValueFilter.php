@@ -84,6 +84,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
         $this->resetSessionDataForFilter();
         $this->resetGpVarDataForFilter();
         $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $this->init();
     }
     
     

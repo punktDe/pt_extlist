@@ -28,21 +28,29 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
     
     /**
      * Creates filter query from filter value and settings
+     * 
+     * @return Tx_PtExtlist_Domain_QueryObject_Criteria Criteria for current filter value (null, if empty)
      */
     protected function buildFilterCriteria() {
-    	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
-    	$filterValue = '%'.$this->filterValue.'%';
+    	if ($this->filterValue != '') {
+	    	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
+	    	$filterValue = '%'.$this->filterValue.'%';
+	    	
+	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);	
+	    	
+	    	return $criteria;
+    	} else {
+    		return null;
+    	}
+    }
     	
-    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);	
-    	
-    	return $criteria;
-    }	
 }
  
 ?>
