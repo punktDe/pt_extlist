@@ -24,33 +24,14 @@
 ***************************************************************/
 
 /**
- * Class implements a string filter
+ * Class implements a filter breadcrumb
  *
  * @package Domain
- * @subpackage Model\Filter
- * @author Daniel Lienert <lienert@punkt.de>
+ * @subpackage Model\BreadCrumbs
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
-    
-    /**
-     * Creates filter query from filter value and settings
-     * 
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria Criteria for current filter value (null, if empty)
-     */
-    protected function buildFilterCriteria() {
-    	if ($this->filterValue != '') {
-	    	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
-	    	$filterValue = '%'.$this->filterValue.'%';
-	    	
-	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);	
-	    	
-	    	return $criteria;
-    	} else {
-    		return null;
-    	}
-    }
-    	
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
+	
 }
  
 ?>

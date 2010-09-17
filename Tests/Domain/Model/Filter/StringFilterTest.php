@@ -26,8 +26,8 @@
 /**
  * Testcase for String Filter class
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Test
+ * @subpackage Domain\Model\Filter
  * @author Michael Knoll <knoll@punkt.de>
  */
  class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
