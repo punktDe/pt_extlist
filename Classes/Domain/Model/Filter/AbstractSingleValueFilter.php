@@ -175,7 +175,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      */
     public function getFilterBreadCrumb() {
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-    	$breadCrumb->setMessage($this->filterIdentifier . ' = ' . $this->filterValue);
+    	if ($this->filterValue != '') {
+    	    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . $this->filterValue);
+    	}
     	return $breadCrumb;
     }
 }

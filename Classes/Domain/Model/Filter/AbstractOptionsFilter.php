@@ -243,7 +243,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 */
 	public function getFilterBreadCrumb() {
 		$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-		$breadCrumb->setMessage($this->filterIdentifier . ' = ' . implode(', ', $this->filterValues));
+		if (count($this->filterValues) > 0) {
+		    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . implode(', ', $this->filterValues));
+		}
 		return $breadCrumb;
 	}
 }

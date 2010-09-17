@@ -311,6 +311,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
+	 * Returns true, if filter is active
+	 *
+	 * @return bool True, if filter is active
+	 */
+	public function isActive() {
+		return $this->isActive;
+	}
+	
+	
+	
+	/**
 	 * Returns collection of error messages if filter does not validate
 	 *
 	 * @return string
