@@ -50,18 +50,8 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory {
     public static function getInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	if (!array_key_exists($configurationBuilder->getListIdentifier(), self::$instances) 
     	    || self::$instances[$configurationBuilder->getListIdentifier()] == null) {
-    	    
-    	    $breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
-    	    
     	    $filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
-    	    foreach($filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
-    	    	foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-    	    		if ($filter->isActive()) {
-    	    			$breadCrumbCollection->addBreadCrumb($filter->getFilterBreadCrumb());
-    	    		}
-    	    	}
-    	    }
-    	    
+            $breadCrumbCollection = self::getInstanceByFilterboxCollection($filterboxCollection);    	    
     	    self::$instances[$configurationBuilder->getListIdentifier()] = $breadCrumbCollection;
     	}
     	
@@ -69,5 +59,30 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory {
     	
     }
     
+    
+    
+    /**
+     * Factory method creates instance of breadcrumbs collection for a given filterbox collection
+     *
+     * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection
+     */
+    public static function getInstanceByFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection) {
+        if (!array_key_exists($filterboxCollection->getListIdentifier(), self::$instances
+            || self::$instances[$filterboxCollection->getListIdentifier()] == null)) {
+	    	$breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
+	    	foreach($filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+	            foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+	                if ($filter->isActive()) {
+	                    $breadCrumbCollection->addBreadCrumb($filter->getFilterBreadCrumb());
+	                }
+	            }
+	        }
+	        self::$instances[$filterboxCollection->getListIdentifier()] = $breadCrumbCollection;	
+        }
+        return self::$instances[$filterboxCollection->getListIdentifier()];
+    }
+    
 }
+
 ?>

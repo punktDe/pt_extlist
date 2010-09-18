@@ -44,37 +44,59 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
 	
 	
 	
-	public function testShowAction() {
-		$this->markTestIncomplete();
+	public function testIndexAction() {
+		$breadCrumb = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array(), array(), '', FALSE);
 		
-		// TODO refactor bread crumb controller and breadcrumbs collection factory
+		$filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
+		$filterMock->expects($this->any())->method('getFilterBreadCrumb')->will($this->returnValue($breadCrumb));
 		
-		/*
-		// databackend is required to be found later!
-		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-		print_r('danach');
-		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder(
-		    $this->configurationBuilderMock);
+		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+		$filterbox->addFilter($filterMock);
+		
+		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
+		$filterboxCollection->addFilterBox($filterbox);
+		
+		$breadCrumbCollection = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+		    $filterboxCollection
+		);
 		
 		$mockView = $this->getMock(
             'Tx_Fluid_Core_View_TemplateView',
             array('assign'), array(), '', FALSE);
-        $mockView->expects($this->once())->method('assign')->with('breadcrumbs', $breadcrumbs);
+        $mockView->expects($this->once())->method('assign')->with('breadcrumbs', $breadCrumbCollection);
     
-		
-		$mockController = $this->getMock(
+        
+        $mockController = $this->getMock(
               $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BreadCrumbsController'),
               array('dummy'),array(), '', FALSE);
-        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
+        $mockController->_set('filterboxCollection', $filterboxCollection);
         $mockController->_set('view', $mockView);
         
-		$mockController->indexAction(); */
+        $mockController->indexAction();
 	}
 	
 	
 	
 	public function testResetFilterAction() {
-		$this->markTestIncomplete();
+		$breadCrumb = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array(), array(), '', FALSE);
+        
+        $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
+        $filterMock->expects($this->any())->method('getFilterBreadCrumb')->will($this->returnValue($breadCrumb));
+        $filterMock->expects($this->once())->method('reset');
+        
+        $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+        $filterbox->addFilter($filterMock, 'test');
+        
+        $filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
+        $filterboxCollection->addFilterBox($filterbox, 'test');
+		
+		$mockController = $this->getMock(
+              $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BreadCrumbsController'),
+              array('forward'),array(), '', FALSE);
+        $mockController->expects($this->once())->method('forward')->with('index');
+        $mockController->_set('filterboxCollection', $filterboxCollection);
+        
+        $mockController->resetFilterAction('test', 'test');
 	}
 	
 }
