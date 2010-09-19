@@ -482,8 +482,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     	$convertTableFieldArray = array(); 
     	
     	foreach($this->getFieldConfigurationCollection() as $fieldConfiguration) {
-    		$convertTableFieldAsAliasArray[$fieldConfiguration->getIdentifier()] = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField() . ' AS ' . $fieldConfiguration->getIdentifier();
-    		$convertTableFieldArray[$fieldConfiguration->getIdentifier()] =  $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
+
+    		if($fieldConfiguration->getSpecial() == '') {
+    			$convertTableFieldAsAliasArray[$fieldConfiguration->getIdentifier()] = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField() . ' AS ' . $fieldConfiguration->getIdentifier();
+	    		$convertTableFieldArray[$fieldConfiguration->getIdentifier()] =  $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();	
+    		}
     	}
     	
     	$query = str_replace(array_values($convertTableFieldAsAliasArray), array_keys($convertTableFieldAsAliasArray), $query);
