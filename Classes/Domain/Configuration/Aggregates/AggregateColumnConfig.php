@@ -188,5 +188,11 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
     public function getRenderTemplate() {
     	return $this->renderTemplate;
     }
+    
+    
+    public function getCellCssClass() {
+    	// TODO implement me
+    	return NULL;
+    }
 }
 ?>
