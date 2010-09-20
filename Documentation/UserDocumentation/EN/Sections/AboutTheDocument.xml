@@ -20,8 +20,6 @@
       <title>Information about the document</title>
 
       <tgroup cols="2">
-        <thead></thead>
-
         <tbody>
           <row>
             <entry>author</entry>

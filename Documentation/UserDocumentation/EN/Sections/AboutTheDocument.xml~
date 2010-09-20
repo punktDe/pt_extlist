@@ -7,7 +7,7 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
-  <title>draft, description or something els etc. + name of the
+  <title>draft, description or something else etc. + name of the
   project</title>
 
   <section>
@@ -20,13 +20,7 @@
       <title>Information about the document</title>
 
       <tgroup cols="2">
-        <thead>
-          <row>
-            <entry>x</entry>
-
-            <entry>x</entry>
-          </row>
-        </thead>
+        <thead></thead>
 
         <tbody>
           <row>
@@ -81,58 +75,55 @@
           <row>
             <entry>last date of printing</entry>
 
-            <entry />
+            <entry></entry>
           </row>
         </tbody>
       </tgroup>
     </table>
-	<para>
-    <emphasis role="bold">disclaimer</emphasis>
-  </para>
 
-  <para>publisher: punkt.de</para>
+    <para><emphasis role="bold">disclaimer</emphasis></para>
 
-  <para>publication: 2010</para>
+    <para>publisher: punkt.de</para>
 
-  <para>print-out: 1</para>
+    <para>publication: 2010</para>
 
-  <para>person responsible</para>
+    <para>print-out: 1</para>
 
-  <para>Copyright, brands and trademarks : The author will make every endeavor
-  to consider in all publications copyrights of the used illustrations,
-  sounds, video sequences and texts, to use illustrations, sounds, video
-  sequences produced by himself, or to fall back on license-free
-  illustrations, sounds, video sequences and texts. All brands and trade
-  marks, mentioned within the internet offer, which may be registered and
-  protected by third parties are unrestricted subject to the regulations of
-  the respective valid laws and to the rights of the registered owners.
-  However, due to the bare mention of an brand or trademark, one can not jump
-  to the conclusion, that brand names are not protected by rights of third
-  parties! The copyright for published objects, produced by the author
-  himself, remains only with the author of the pages. A duplication or a use
-  of such illustrations, sounds, video sequences and texts in other electronic
-  or printed publications without the strict agreement of the author is not
-  permitted.</para>
+    <para>person responsible</para>
 
-  <para>disclaimer: The author does not take over any guarantee for the
-  topicality, the correctness, completeness or quality of the information,
-  made available. Liability claims against the author, concerning damage of
-  idealistic or of material kind, which was caused by the use or not use of
-  the presented information and/or by the use of incorrect and incomplete
-  information, are in principle impossible, so far as not a deliberate or
-  roughly negligent fault can be proved on the part of the author. The
-  documents and graphics on this Web site can be affected by technical
-  inaccuracies or misprints, for which we don't assume any liability. FuG any
-  time and without announcement can carry out technical amendments or
-  improvements at the products which don't have to be documented absolutely on
-  this Web site. Therefore FuG doesn't take any guarantee for the correctness
-  of the details on this Web site. A legally binding contract on no account
-  takes place alone by the information given here. Please consult us before
-  you make use of the information given here for your application. The author
-  expressly reserves itself the right, to change, to supplement or to delete
-  parts of the pages or the entire offer or occasionally or finally to stop
-  the publication without separate announcement.</para>
+    <para>Copyright, brands and trademarks : The author will make every
+    endeavor to consider in all publications copyrights of the used
+    illustrations, sounds, video sequences and texts, to use illustrations,
+    sounds, video sequences produced by himself, or to fall back on
+    license-free illustrations, sounds, video sequences and texts. All brands
+    and trade marks, mentioned within the internet offer, which may be
+    registered and protected by third parties are unrestricted subject to the
+    regulations of the respective valid laws and to the rights of the
+    registered owners. However, due to the bare mention of an brand or
+    trademark, one can not jump to the conclusion, that brand names are not
+    protected by rights of third parties! The copyright for published objects,
+    produced by the author himself, remains only with the author of the pages.
+    A duplication or a use of such illustrations, sounds, video sequences and
+    texts in other electronic or printed publications without the strict
+    agreement of the author is not permitted.</para>
+
+    <para>disclaimer: The author does not take over any guarantee for the
+    topicality, the correctness, completeness or quality of the information,
+    made available. Liability claims against the author, concerning damage of
+    idealistic or of material kind, which was caused by the use or not use of
+    the presented information and/or by the use of incorrect and incomplete
+    information, are in principle impossible, so far as not a deliberate or
+    roughly negligent fault can be proved on the part of the author. The
+    documents and graphics on this Web site can be affected by technical
+    inaccuracies or misprints, for which we don't assume any liability. FuG
+    any time and without announcement can carry out technical amendments or
+    improvements at the products which don't have to be documented absolutely
+    on this Web site. Therefore FuG doesn't take any guarantee for the
+    correctness of the details on this Web site. A legally binding contract on
+    no account takes place alone by the information given here. Please consult
+    us before you make use of the information given here for your application.
+    The author expressly reserves itself the right, to change, to supplement
+    or to delete parts of the pages or the entire offer or occasionally or
+    finally to stop the publication without separate announcement.</para>
   </section>
-
-  
 </section>
