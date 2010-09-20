@@ -7,11 +7,10 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
-  <title>draft, description or something else etc. + name of the
-  project</title>
+		 
+  <title>Aboth the document</title>
 
-  <section>
-    <title>About this document</title>
+  
 
     <para>This is the first part of every documentation followed by "Reading
     this".</para>
@@ -20,8 +19,6 @@
       <title>Information about the document</title>
 
       <tgroup cols="2">
-        <thead></thead>
-
         <tbody>
           <row>
             <entry>author</entry>
@@ -75,7 +72,7 @@
           <row>
             <entry>last date of printing</entry>
 
-            <entry></entry>
+            <entry>-</entry>
           </row>
         </tbody>
       </tgroup>
@@ -125,5 +122,4 @@
     The author expressly reserves itself the right, to change, to supplement
     or to delete parts of the pages or the entire offer or occasionally or
     finally to stop the publication without separate announcement.</para>
-  </section>
 </section>
