@@ -1,54 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<article version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. -->
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <info>
     <title>draft, description or something else + name of the project</title>
-
     <author>
-      <personname><firstname></firstname><surname></surname></personname>
-
+      <personname>
+        <firstname/>
+        <surname/>
+      </personname>
       <affiliation>
-        <orgname></orgname>
+        <orgname/>
       </affiliation>
     </author>
-
-    <pubdate></pubdate>
+    <pubdate/>
   </info>
-
-  <xi:include href="Sections/AboutTheDocument.xml" />
-
-  <!--xpointer="element(/1)" -->
-
-  <xi:include href="Sections/ReadingThisPtExtlist.xml" />
-
-  <!--xpointer="element(/1)" -->
-
-  <xi:include href="Sections/Legend.xml" />
-
-  <!--xpointer="element(/1)" -->
-
-  <xi:include href="Sections/DescriptionPtExtlist.xml" />
-
-  <!--xpointer="element(/1)" -->
-
-  <xi:include href="Sections/Instruction.xml" />
-
-  <!--xpointer="element(/1)" -->
-
-  <xi:include href="Sections/Example.xml" />
-
-  <!--xpointer="element(/1)" -->
-
-  <xi:include href="Sections/Glossary.xml" />
-
-  <!--xpointer="element(/1)" -->
-
-  <xi:include href="Sections/TypoScriptReference.xml" />
-
-  <!--xpointer="element(/1)" -->
-</article>
+  <xi:include href="Sections/AboutTheDocument.xml"/>
+<!--xpointer="element(/1)" -->  <xi:include href="Sections/ReadingThisPtExtlist.xml"/>
+<!--xpointer="element(/1)" -->  <xi:include href="Sections/Legend.xml"/>
+<!--xpointer="element(/1)" -->  <xi:include href="Sections/DescriptionPtExtlist.xml"/>
+<!--xpointer="element(/1)" -->  <xi:include href="Sections/Instruction.xml"/>
+<!--xpointer="element(/1)" -->  <xi:include href="Sections/Example.xml"/>
+<!--xpointer="element(/1)" -->  <xi:include href="Sections/Glossary.xml"/>
+<!--xpointer="element(/1)" -->  <xi:include href="Sections/TypoScriptReference.xml"/>
+<!--xpointer="element(/1)" --></article>
