@@ -26,8 +26,7 @@
 /**
  * Class implementing bookmarks controller
  *
- * @package pt_extlist
- * @subpackage Controller
+ * @package Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controller_AbstractController {
@@ -75,7 +74,16 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     protected $bookmarkManager = null;
     
+    
+    
+    /**
+     * Holds configuration object for bookmark settings
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+     */
+    protected $bookmarkConfiguration = null;
 
+    
     
     /**
      * Constructor for bookmarks controller
@@ -110,11 +118,14 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     protected function initDependencies() {
         $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
         $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */
-
+        $this->feUser = $this->feUserRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        
         // TODO create bookmark repository in bookmark manager and let it do the job
     	$this->bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository');
     	$this->bookmarksRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
 
+    	$this->bookmarkConfiguration = $this->configurationBuilder->buildBookmarksConfiguration();
+    	
     	$this->bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($this->configurationBuilder);
     	
     	$this->persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
@@ -143,21 +154,25 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function showAction() {
     	$allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
-    	if ($this->showPublicBookmarks()) {
+    	
+    	if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
 	    	$publicBookmarks = $this->bookmarksRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
 	    	$this->addObjectsToObjectStorageByArray($allBookmarks, $publicBookmarks);
 	    	$this->view->assign('publicBookmarks', $publicBookmarks);
     	}
-    	if ($this->showUserBookmarks() && $this->feUser != null) {
+    	
+    	if ($this->bookmarkConfiguration->getShowUserBookmarks() && $this->feUser != null) {
     	    $userBookmarks = $this->bookmarksRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
     	    $this->addObjectsToObjectStorageByArray($allBookmarks, $userBookmarks);
     	    $this->view->assign('userBookmarks', $userBookmarks);
     	}
-    	if ($this->showGroupBookmarks() && $this->feUser != null && count($this->feUser->getUsergroups()) > 0) {
-    		$groupBookmarks = $this->bookmarksRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($this->feUser, $this->getGroupIdsToShowBookmarksFor(), $this->listIdentifier);
+    	
+    	if ($this->bookmarkConfiguration->getShowGroupBookmarks() && $this->feUser != null && count($this->feUser->getUsergroups()) > 0) {
+    		$groupBookmarks = $this->bookmarksRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($this->feUser, $this->bookmarkConfiguration->getGroupIdsToShowBookmarksFor(), $this->listIdentifier);
     		$this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
     		$this->view->assign('groupBookmarks', $groupBookmarks);
     	}
+    	
     	$this->view->assign('allBookmarks', $allBookmarks);
     }
     
@@ -169,6 +184,10 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be processed
      */
     public function processAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+    	/**
+    	 * Bookmark is not directly processed here but in DataBackend as we need to manipulate
+    	 * session data which is too late here as session is already loaded and processed.
+    	 */
     	$this->view->assign('processedBookmark', $bookmark);
     	$this->forward('show');
     }
@@ -183,6 +202,16 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return string The rendered new action
      */
     public function newAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark=null) {
+    	// Assign groups for group bookmarks
+    	$groups = array('0' => ' ');
+    	if ($this->feUser != null && $this->userIsAllowedToCreateGroupBookmarks()) {
+    	   foreach($this->feUser->getUsergroups() as $userGroup) { /* @var $userGroup Tx_Extbase_Domain_Model_FrontendUserGroup */ 
+    	   	   $groups[$userGroup->getUid()] = $userGroup->getTitle();
+    	   }
+    	   $this->view->assign('groups', $groups);
+    	}
+    	
+    	$this->view->assign('allowedToStorePublicBookmark', $this->userIsAllowedToCreatePublicBookmarks());
         $this->view->assign('bookmark', $bookmark);	
     }
     
@@ -194,10 +223,28 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
      */
     public function createAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-    	$bookmark->setIsPublic(true);
-    	$bookmark->setListId($this->listIdentifier);
+    	// Check whether user is allowed to create public bookmarks 
+    	if ($this->request->hasArgument('isPublic') && $this->request->getArgument('isPublic') == '1') {
+    		if ($this->userIsAllowedToCreatePublicBookmarks()) {
+    		    $bookmark->setIsPublic(true);
+    		} else {
+    			// TODO show some message, that user is not allowed to create public bookmarks
+    			$this->forward('show');
+    		}
+    	}
     	
-    	$this->bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+    	
+    	// Check, whether user is allowed to create group bookmarks
+    	if ($this->request->hasArgument('feGroup') && $this->request->getArgument('feGroup') > 0) {
+    		if ($this->userIsAllowedToCreateGroupBookmarks()) {
+    			$bookmark->setFeGroup($this->request->getArgument('feGroup'));
+    		} else {
+    			$this->forward('show');
+    		}
+    	}
+    	
+    	
+    	$bookmark->setPid($this->settings['bookmarks']['bookmarksPid']);
     	$this->bookmarkManager->addContentToBookmark($bookmark);
     	
     	$this->bookmarksRepository->add($bookmark);
@@ -248,51 +295,6 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *****************************************************************************/
     
     /**
-     * Returns true, if user bookmarks should be shown
-     *
-     * @return bool True, if user bookmarks should be shown
-     */
-    protected function showUserBookmarks() {
-    	if ($this->settings['bookmarks']['showUserBookmarks'] == '1') {
-    	    return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    
-    
-    /**
-     * Returns true, if group bookmarks should be shown
-     *
-     * @return bool True, if group bookmarks should be shown
-     */
-    protected function showGroupBookmarks() {
-    	if ($this->settings['bookmarks']['showGroupBookmarks'] == '1') {
-    	    return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    
-    
-    /**
-     * Returns true, if public bookmarks should be shown
-     *
-     * @return bool True, if public bookmarks should be shown
-     */
-    protected function showPublicBookmarks() {
-    	if ($this->settings['bookmarks']['showPublicBookmarks'] == '1') {
-    	    return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    
-    
-    /**
      * Returns a comma seperated list of group ids to show bookmarks for
      *
      * @return string Comma-seperated list of group ids
@@ -309,10 +311,72 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
      * @param array $arrayToBeAdded
      */
-    protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, array $arrayToBeAdded) {
+    protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, $arrayToBeAdded) {
     	foreach ($arrayToBeAdded as $key => $value) {
     		$objectStorage->attach($value, $key);
     	}
+    }
+    
+    
+    
+    /**
+     * Returns true, if user is allowed to create public bookmarks
+     *
+     * @return bool
+     */
+    protected function userIsAllowedToCreatePublicBookmarks() {
+    	if ($this->feUser == null) {
+    		return false;
+    	}
+    	
+    	// User UID is allowed to store public bookmarks?
+    	$userUid = $this->feUser->getUid();
+    	$userUidsAllowedToStorePublicBookmarks = explode(',', $this->bookmarkConfiguration->getFeUsersAllowedToEditPublic());
+    	if (in_array($userUid, $userUidsAllowedToStorePublicBookmarks)) {
+    		return true;
+    	}
+
+    	// group UID is allowed to store public bookmarks?
+    	$groupUidsAllowedToStorePublicBookmarks = explode(',', $this->bookmarkConfiguration->getFeGroupsAllowedToEditPublic());
+    	foreach($this->feUser->getUsergroups() as $usergroup) {
+    		if (in_array($usergroup->getUid(), $groupUidsAllowedToStorePublicBookmarks)) {
+    			return true;
+    		}
+    	}
+
+    	return false;
+    }
+    
+    
+    
+    /**
+     * Returns true, if a user is allowed to create group bookmarks
+     *
+     * @return bool
+     */
+    protected function userIsAllowedToCreateGroupBookmarks() {
+    	if ($this->feUser == null) {
+    		return false;
+    	}
+    	
+    	// User UID is allowed to store group bookmarks?
+        $userUid = $this->feUser->getUid();
+        $userUidsAllowedToStoreGroupBookmarks = explode(',', $this->bookmarkConfiguration->getFeUsersAllowedToEdit());
+        if (in_array($userUid, $userUidsAllowedToStoreGroupBookmarks)) {
+            return true;
+        }
+        
+    	// group UID is allowed to store public bookmarks?
+    	$groupUidsAllowedToStoreGroupBookmarks = explode(',', $this->bookmarkConfiguration->getFeGroupsAllowedToEdit());
+    	
+        $groupUids = $this->feUser->getUsergroups();
+        foreach($this->feUser->getUsergroups() as $usergroup) {
+            if (in_array($usergroup->getUid(), $groupUidsAllowedToStoreGroupBookmarks)) {
+                return true;
+            }
+        }
+
+        return false;
     }
     
 }

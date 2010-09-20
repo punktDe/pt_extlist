@@ -26,8 +26,8 @@
 /**
  * Testcase for CSV export view
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage View\Export
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

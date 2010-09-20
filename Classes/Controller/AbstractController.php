@@ -38,10 +38,14 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected $configurationBuilder;
 	
+	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
 	 */
 	protected $lifecycleManager;
+	
+	
 	
 	/**
 	 * 
@@ -110,7 +114,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
      * @return void
      */
     protected function resolveView() {
-    	
     	$view = $this->resolveViewObject();
         
         $controllerContext = $this->buildControllerContext();
@@ -137,8 +140,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
             $view = $this->objectManager->getObject($viewObjectName);
             $view->setControllerContext($controllerContext);
         }
-        if (method_exists($view, 'injectSettings')) {
-            $view->injectSettings($this->settings);
+        if (method_exists($view, 'injectConfigurationBuilder')) {
+            $view->injectConfigurationBuilder($this->configurationBuilder);
         }
         $view->initializeView(); // In FLOW3, solved through Object Lifecycle methods, we need to call it explicitely
         $view->assign('settings', $this->settings); // same with settings injection.
@@ -193,12 +196,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @api
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
-        $templatePath = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
-		if (isset($templatePath) && strlen($templatePath) > 0) {
-            $view->setTemplatePathAndFilename($templatePath);
+        $templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+		if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
+			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { 
+                $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
+			} else {
+				throw new Exception('Given template path and filename could not be found or resolved: ' . $templatePathAndFilename . ' 1284655109');
+			}
         }
-		
 	}
+	
+	
     
     /**
      * Sets template to be used by current action.

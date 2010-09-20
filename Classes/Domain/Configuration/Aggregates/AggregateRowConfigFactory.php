@@ -26,8 +26,8 @@
 /**
  * AggregateRowConfigFactory for Aggregate config collection Objects 
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Aggregates
+ * @package Domain
+ * @subpackage Configuration\Aggregates
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigFactory {

@@ -26,8 +26,8 @@
 /**
  * Testcase for bookmarks controller
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtExtlist_Tests_BaseTestcase {
@@ -219,6 +219,11 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
 		$publicBookmarksCollectionMock = array('test2' => 'value2');
 		$groupBookmarksMock = array('test3' => 'value3');
 		
+		$bookmarksConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig', array(), array(), '', FALSE);
+		$bookmarksConfigurationMock->expects($this->once())->method('getShowPublicBookmarks')->will($this->returnValue(true));
+		$bookmarksConfigurationMock->expects($this->once())->method('getShowUserBookmarks')->will($this->returnValue(true));
+		$bookmarksConfigurationMock->expects($this->once())->method('getShowGroupBookmarks')->will($this->returnValue(true));
+		
 		$bookmarksRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_BookmarksRepository', array('findPublicBookmarksByListIdentifier', 'findBookmarksByFeUserAndListIdentifier', 'findBookmarksByFeUserGroupIdsAndListIdentifier'), array(), '', FALSE);
 		$bookmarksRepositoryMock->expects($this->once())->method('findBookmarksByFeUserAndListIdentifier')->will($this->returnValue($userBookmarksCollectionMock));
 		$bookmarksRepositoryMock->expects($this->once())->method('findPublicBookmarksByListIdentifier')->will($this->returnValue($publicBookmarksCollectionMock));
@@ -242,6 +247,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockController->_set('bookmarksRepository', $bookmarksRepositoryMock);
         $mockController->_set('feUser', $feUserMock);
         $mockController->_set('settings', $this->settings);
+        $mockController->_set('bookmarkConfiguration', $bookmarksConfigurationMock);
         
         $mockController->showAction();
 	}
@@ -255,7 +261,8 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $mockView = $this->getMock(
             'Tx_Fluid_Core_View_TemplateView',
             array('assign'), array(), '', FALSE);
-        $mockView->expects($this->once())->method('assign')->with('bookmark', $bookmarkMock);
+        $mockView->expects($this->at(0))->method('assign')->with('allowedToStorePublicBookmark', false);
+        $mockView->expects($this->at(1))->method('assign')->with('bookmark', $bookmarkMock);
         
         $mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),
@@ -276,6 +283,10 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         $bookmarkManagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager');
         
         $persistenceManagerMock = $this->getMock('Tx_Extbase_Persistence_Manager', array('persistAll'), array(), '', FALSE);
+        
+        $mockRequest = $this->getMock('Tx_Extbase_MVC_Request', array(), array(), '', FALSE);
+        // TODO here are some things missing to be tested
+        $mockRequest->expects($this->at(0))->method('hasArgument')->will($this->returnValue(0));
         
 		$mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BookmarksController'),

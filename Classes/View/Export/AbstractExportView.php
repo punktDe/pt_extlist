@@ -27,73 +27,20 @@
  * Abstract view for exports. This class acts as a base class for
  * all exports. It handles settings for export and header generation etc.
  *
- * @package Typo3
- * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @package View
+ * @subpackage Export
+ * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView {
 	
 	/**
-	 * Constant for downloadtype "force download"
-	 *
+	 * Export configuration objekt
+	 * 
+	 * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
 	 */
-	const FORCE_DOWNLOAD = 'D';
-
-	
-	
-	/**
-	 * Constant for downloadtype "open in browser"
-	 *
-	 */
-	const OPEN_IN_BROWSER = 'I';
-	
-	
-	
-	/**
-	 * Suffix of filename
-	 *
-	 * @var string
-	 */
-	protected $filenameSuffix;
-	
-	
-	
-	/**
-	 * Prefix of filename
-	 *
-	 * @var string
-	 */
-	protected $filenamePrefix;
-	
-	
-	
-	/**
-	 * Download type of export
-	 *
-	 * @var string
-	 */
-	protected $downloadType = self::FORCE_DOWNLOAD;
-	
-	
-	
-	/**
-	 * True, if date and timestamp should be used in filename
-	 *
-	 * @var bool
-	 */
-	protected $useDateAndTimestampInFilename = false;
-	
-	
-	
-	/**
-	 * Holds full filename with suffix, prefix and date
-	 *
-	 * @var string
-	 */
-	protected $fullFilename;
-	
-	
-    
+	protected $exportConfiguration;
+		
+   
     /**
      * Returns true, if view has a template
      * 
@@ -109,36 +56,22 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
     
     
     /**
-     * Injector for settings
-     *
-     * @param array $settings
+     * (non-PHPdoc)
+     * @see Classes/View/Tx_PtExtlist_View_BaseView::injectConfigurationBuilder()
      */
-    public function injectSettings(&$settings) {
-    	parent::injectSettings($settings);
-    	$this->initSettings();
+    public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	parent::injectConfigurationBuilder($configurationBuilder);
+    	$this->exportConfiguration = $configurationBuilder->buildExportConfiguration();
+    	$this->initConfiguration();
     }
     
     
     
     /**
-     * Initialize class properties by settings
+     * Initialize additional class properties
      *
      */
-    protected function initSettings() {
-    	$exportSettings = $this->settings['export'];
-        if (array_key_exists('filename', $exportSettings)) {
-        	$this->filenameSuffix = $exportSettings['filename'];
-        }
-        if (array_key_exists('fileEnding', $exportSettings)) {
-        	$this->filenamePrefix = $exportSettings['fileEnding'];
-        }
-        if (array_key_exists('downloadType', $exportSettings)) {
-        	$this->downloadType = $exportSettings['downloadType'];
-        }
-        if (array_key_exists('addDateToFilename', $exportSettings && $exportSettings['addDateToFilename'] == '1')) {
-        	$this->useDateAndTimestampInFilename = true;
-        }
-    	$this->generateFilenameFromTs();
+    protected function initConfiguration() {
     }
     
     
@@ -148,25 +81,18 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
      * 
      * @return  string      File name of Export File
      */
-    protected function generateFilenameFromTs() {
+    protected function getFilenameFromTs() {
         $fullFilename = '';
         
-        if ($this->filenamePrefix == '' ) {
-            $this->filenamePrefix = $this->getDefaultFilePrefix();
-        } 
+        $fullFilename .= $this->exportConfiguration->getFileName();
         
-        if ($this->filenameSuffix == '') {
-         	$this->filenameSuffix = $this->getDefaultFileSuffix();
+    	if ($this->exportConfiguration->getAddDateToFilename()) {
+        	$fullFilename .= date($this->exportConfiguration->getDateFormat(), time());
         }
         
-        $fullFilename .= $this->filenameSuffix; 
-
-        if ($this->useDateAndTimestampInFilename) {
-        	$fullFilename .= date('Y-m-d', time());
-        }
+        $fullFilename .= '.' . $this->exportConfiguration->getFileExtension();
         
-        $fullFilename .= '.' . $this->filenamePrefix;
-        $this->fullFilename = $fullFilename;
+        return $fullFilename;
     }
     
     
@@ -180,51 +106,35 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
      * @return  void
      */
     protected function sendHeader($filename) {
-        switch($this->downloadType) {
+        switch($this->exportConfiguration->getDownloadType()) {
         	
-                case self::OPEN_IN_BROWSER :
-                        header('Content-Type: text/x-csv');
+                case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::OPEN_IN_BROWSER:
+                        
+                		if($this->exportConfiguration->getContentType()) {
+                			header('Content-Type: ' . $this->exportConfiguration->getContentType());	
+                		}
+                		
                         if(headers_sent()) {
                             throw new Exception('Some data has already been output to browser, can\'t send Export file 1283945901');
                         }
-                        header('Content-disposition: inline; filename="'.$filename.'"');
+                        
+                        header('Content-disposition: inline; filename="'.$this->getFilenameFromTs().'"');
                         break;
 
-                case self::FORCE_DOWNLOAD:
-                        if(isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
+                case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
+                	
+                		if(isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
                             header('Content-Type: application/force-download');
                         } else {
                             header('Content-Type: application/octet-stream');
                         }
-                        header('Content-disposition: attachment; filename="'.$filename.'"');
+                        
+                        header('Content-disposition: attachment; filename="'. $this->getFilenameFromTs() .'"');
                         break;
 
                 default:
                         throw new Exception('No valid download handling set for Export file! 1283945902');
         }
-    }
-    
-    
-    
-    /**
-     * Returns default filename suffix if no suffix is set in TS
-     *
-     * @return string
-     */
-    protected function getDefaultFileSuffix() {
-    	return 'list';
-    }
-    
-    
-    
-    /**
-     * Returns default file ending if no file ending is set in TS
-     * 
-     * @return string
-     */
-    abstract protected function getDefaultFilePrefix();
-    
-    
+    }  
 }
- 
 ?>

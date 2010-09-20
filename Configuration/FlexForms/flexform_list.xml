@@ -122,7 +122,7 @@
             </TCEforms>
           </settings.controller.List.export.view>
           
-          <prototype.export.downloadType>
+          <settings.prototype.export.downloadType>
             <TCEforms>
               <label>Download Type</label>
               <config>
@@ -139,9 +139,9 @@
                   </items>
               </config>
             </TCEforms>
-          </prototype.export.downloadType>
+          </settings.prototype.export.downloadType>
 
-          <prototype.export.filename>
+          <settings.prototype.export.fileName>
             <TCEforms>
               <label>Filename (Prefix)</label>
               <config>
@@ -150,27 +150,27 @@
                 <eval>string</eval>
               </config>
             </TCEforms>
-          </prototype.export.filename>
+          </settings.prototype.export.fileName>
           
-          <prototype.export.fileEnding>
+          <settings.prototype.export.fileExtension>
             <TCEforms>
-              <label>File Ending (Suffix without ".")</label>
+              <label>File Extension (Suffix without ".")</label>
               <config>
                 <type>input</type>
                 <size>4</size>
                 <eval>trim</eval>
               </config>
             </TCEforms>
-          </prototype.export.fileEnding>
+          </settings.prototype.export.fileExtension>
           
-          <prototype.export.addDateToFilename>
+          <settings.prototype.export.addDateToFilename>
             <TCEforms>
               <label>Add Date to Filname</label>
               <config>
                 <type>check</type>
               </config>
             </TCEforms>
-          </prototype.export.addDateToFilename>
+          </settings.prototype.export.addDateToFilename>
 
         </el>
       </ROOT>
@@ -189,7 +189,7 @@
         <type>array</type>
         <el>
         
-          <settings.bookmarks.bookmarksPid>
+          <settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
             <TCEforms>
               <label>Bookmarks PID</label>
               <config>
@@ -198,7 +198,7 @@
                 <eval>int</eval>
               </config>
             </TCEforms>
-          </settings.bookmarks.bookmarksPid>
+          </settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
 
           <settings.bookmarks.showUserBookmarks>
             <TCEforms>
@@ -227,9 +227,31 @@
             </TCEforms>
           </settings.bookmarks.showPublicBookmarks>
           
+          <settings.bookmarks.feUsersAllowedToEditPublic>
+            <TCEforms>
+              <label>FE User IDs that are allowed to create public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feUsersAllowedToEditPublic>
+          
+          <settings.bookmarks.feGroupsAllowedToEditPublic>
+            <TCEforms>
+              <label>FE Group IDs that are allowed to create public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feGroupsAllowedToEditPublic>
+          
           <settings.bookmarks.feUsersAllowedToEdit>
             <TCEforms>
-              <label>FE User IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <label>FE User IDs that are allowed to edit bookmarks (comma-seperated)</label>
               <config>
                 <type>input</type>
                 <size>30</size>
@@ -240,7 +262,7 @@
           
           <settings.bookmarks.feGroupsAllowedToEdit>
             <TCEforms>
-              <label>FE Group IDs that are allowed to edit public bookmarks (comma-seperated)</label>
+              <label>FE Group IDs that are allowed to edit bookmarks (comma-seperated)</label>
               <config>
                 <type>input</type>
                 <size>30</size>

@@ -26,8 +26,8 @@
 /**
  * ColumnConfigCollectionFactory for ColumnConfig Objects 
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Columns
+ * @package Domain
+ * @subpackage Configuration\Columns
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>

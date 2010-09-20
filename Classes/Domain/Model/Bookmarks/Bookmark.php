@@ -27,8 +27,8 @@
  * Class implements a bookmark domain object to store session information for filters etc.
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Bookmarks
  * @entity
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark 
@@ -104,6 +104,15 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
      * @var bool
      */
     protected $isPublic;
+    
+    
+    
+    /**
+     * PID of bookmark
+     *
+     * @var int
+     */
+    protected $pid;
 	
     
     
@@ -123,6 +132,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
 	 */
 	public function __construct() {
 	
+	}
+	
+	
+	
+	/**
+	 * Getter for PID
+	 *
+	 * @return int
+	 */
+	public function getPid() {
+		return $this->pid;
 	}
 	
 	
@@ -200,6 +220,17 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
 	public function getIsPublic() {
 		return $this->isPublic;
 	}
+    
+    
+    
+    /**
+     * Setter for PID
+     *
+     * @param int $pid
+     */
+    public function setPid($pid) {
+        $this->pid = $pid;
+    }
 	
 	
 	

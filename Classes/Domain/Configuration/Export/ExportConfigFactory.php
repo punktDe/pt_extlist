@@ -54,6 +54,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$testConfig = $configurationBuilder->getSettings();
 		
 		$allExportSettings = $configurationBuilder->getExportSettings();
 		$controllerSettings = $configurationBuilder->getSettings('controller');
@@ -61,7 +62,14 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 
 		$exportSettingsPath = explode('.',$selectedViewSettingsKey);
 
-		return Tx_Extbase_Utility_Arrays::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
+		$exportSettings = Tx_Extbase_Utility_Arrays::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
+		
+		/* In this case we have to merge the prototype settings again because the prototype settings are filled from flexform....
+		 * This smells ... 
+		 * TODO: find a better way .... 
+		 */
+		
+		return $configurationBuilder->getMergedSettingsWithPrototype($exportSettings, 'export');
 	}
 }
 ?>

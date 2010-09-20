@@ -81,9 +81,13 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 		foreach($tsArray as $key => $exportConfig) {
 			
 			if(array_key_exists('viewClassName', $exportConfig) && $exportConfig['viewClassName']) {
-				$config['items'][] = array($key, 'export.exportConfigs.'.$key);	
+				$exportConfigs[] = array($key, 'export.exportConfigs.'.$key);	
 			} 
 		}
+		
+		ksort($exportConfigs);
+		
+		$config['items'] = array_merge($config['items'], $exportConfigs); 
 		
 		return $config;
 	}

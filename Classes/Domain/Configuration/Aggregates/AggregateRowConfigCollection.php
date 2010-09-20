@@ -26,8 +26,8 @@
 /**
  * collection of aggregate row configs
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Aggregates
+ * @package Domain
+ * @subpackage Configuration\Aggregates
  */
 class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection extends tx_pttools_objectCollection {
 

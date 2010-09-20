@@ -26,8 +26,8 @@
 /**
  * Testcase for subcontroller wrapper
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Controller
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Controller_SubcontrollerWrapper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

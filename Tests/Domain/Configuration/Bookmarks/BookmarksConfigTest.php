@@ -95,7 +95,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
                             'bookmarksPid' => '1,2,3',
 						    'feUsersAllowedToEdit' => '2,3,4',
 						    'feGroupsAllowedToEdit' => '3,4,5',
-						    'groupIdsToShowBookmarksFor' => '4,5,6'
+						    'groupIdsToShowBookmarksFor' => '4,5,6',
+                            'feUsersAllowedToEditPublic' => '5,6,7',
+                            'feGroupsAllowedToEditPublic' => '6,7,8'
                         ),
                     )
                 )
@@ -143,6 +145,18 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
     
     public function testGetGroupIdsToShowBookmarksFor() {
         $this->assertEquals($this->bookmarkConfigToBeTested->getGroupIdsToShowBookmarksFor(), '4,5,6');
+    }
+    
+    
+    
+    public function testGetFeUsersAllowdToEditPublic() {
+    	$this->assertEquals($this->bookmarkConfigToBeTested->getFeUsersAllowedToEditPublic(), '5,6,7');
+    }
+    
+    
+    
+    public function testGetFeGroupsAllowedToEditPublic() {
+    	$this->assertEquals($this->bookmarkConfigToBeTested->getFeGroupsAllowedToEditPublic(), '6,7,8');
     }
     
     

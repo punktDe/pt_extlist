@@ -26,8 +26,8 @@
 /**
  * Class implements a factory for a data mapper
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\Mapper
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {

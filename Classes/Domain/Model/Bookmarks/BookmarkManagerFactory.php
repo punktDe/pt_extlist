@@ -26,8 +26,8 @@
 /**
  * Factory for bookmark manager
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
@@ -64,9 +64,15 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
 	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
 	 */
 	protected static function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$bookmarksConfiguration = $configurationBuilder->buildBookmarksConfiguration();
+
+		$bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'); /* @var $bookmarksRepository Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository */
+		$bookmarksRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());
+		
 		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($configurationBuilder->getListIdentifier());
 		$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
 		$bookmarkManager->injectBookmarkRepository(t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'));
+
 		return $bookmarkManager;
 	}
 }

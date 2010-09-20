@@ -26,22 +26,26 @@
 /**
  * Testcase for Abstract export view
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage View\Export
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_View_Export_AbstractExportView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	public function setUp() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_View_Export_AbstractExportView'));
 	}
 	
 	
 	
-	public function testInjectSettings() {
+	public function testInjectConfigurationBuilder() {
 		$viewMock = new Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView();
-		$settings = array('test' => 'test');
-		$viewMock->injectSettings($settings);
+
+		$viewMock->injectConfigurationBuilder($this->configurationBuilderMock);
 		$this->markTestIncomplete('Check for Settings after init process');
 	}
 	

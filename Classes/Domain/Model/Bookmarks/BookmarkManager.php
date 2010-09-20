@@ -26,8 +26,8 @@
 /**
  * Bookmark manager
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
@@ -109,8 +109,11 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 		$gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
 		$gpVars = $gpVarAdapter->extractGpVarsByNamespace('tx_ptextlist_pi1');
 		if ($gpVars['controller'] == 'Bookmarks' && $gpVars['action'] == 'process') {
-			$bookmark = $this->bookmarkRepository->findByUid(12);
-			$this->setCurrentBookmark($bookmark);
+			$bookmarkId = $gpVars['bookmark'];
+			$bookmark = $this->bookmarkRepository->findByUid($bookmarkId);
+			if (!is_null($bookmark)) {
+			    $this->setCurrentBookmark($bookmark);
+			}
 		}
 	}
 	

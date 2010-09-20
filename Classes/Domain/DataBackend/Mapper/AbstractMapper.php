@@ -27,8 +27,8 @@
  * Abstract class for mapper classes
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\Mapper
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface{
 	
