@@ -1,132 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="documentation-pdf_test.xsl"?>
-<section version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. -->
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <table>
     <title>An example of complex table</title>
-
     <tgroup cols="11">
-      <colspec colname="c1" colwidth="1.5cm" />
-
-      <colspec colname="c2" colwidth="1.2cm" />
-
-      <colspec colname="c3" colwidth="1.5cm" />
-
-      <colspec colname="c4" colwidth="1.9cm" />
-
-      <colspec colname="c5" colwidth="1.7cm" />
-
-      <colspec colname="c6" colwidth="2.0cm" />
-
-      <colspec colname="c7" colwidth="1.4cm" />
-
-      <colspec colname="c8" colwidth="1.3cm" />
-
-      <colspec colname="c9" colwidth="0.9cm" />
-
-      <colspec colname="c10" colwidth="0.8cm" />
-
-      <colspec colname="c11" colwidth="0.8cm" />
-
-      <colspec colname="c12" colwidth="0.9cm" />
-
+      <colspec colname="c1" colwidth="1.5cm"/>
+      <colspec colname="c2" colwidth="1.2cm"/>
+      <colspec colname="c3" colwidth="1.5cm"/>
+      <colspec colname="c4" colwidth="1.9cm"/>
+      <colspec colname="c5" colwidth="1.7cm"/>
+      <colspec colname="c6" colwidth="2.0cm"/>
+      <colspec colname="c7" colwidth="1.4cm"/>
+      <colspec colname="c8" colwidth="1.3cm"/>
+      <colspec colname="c9" colwidth="0.9cm"/>
+      <colspec colname="c10" colwidth="0.8cm"/>
+      <colspec colname="c11" colwidth="0.8cm"/>
+      <colspec colname="c12" colwidth="0.9cm"/>
       <thead>
         <row>
           <entry nameend="c2" namest="c1" valign="top">
             <para>Title 1</para>
           </entry>
-
-          <entry morerows="1" nameend="c4" namest="c3" valign="middle">
+          <entry nameend="c4" namest="c3" valign="middle" morerows="1">
             <para>Title 2</para>
           </entry>
-
           <entry nameend="c6" namest="c5" valign="top">
             <para>Title 3</para>
           </entry>
-
           <entry nameend="c8" namest="c7" valign="top">
             <para>Title 4</para>
           </entry>
-
           <entry nameend="c12" namest="c9" valign="top">
             <para>Title 5</para>
           </entry>
         </row>
-
         <row>
           <entry valign="middle">
             <para>Sub1</para>
           </entry>
-
           <entry valign="middle">
             <para>Sub2</para>
           </entry>
-
           <entry valign="middle">
             <para>Sub3</para>
           </entry>
-
           <entry valign="middle">
             <para>Sub4</para>
           </entry>
-
           <entry valign="middle">
             <para>Sub5</para>
           </entry>
-
           <entry valign="middle">
             <para>Sub6</para>
           </entry>
-
           <entry nameend="c10" namest="c9" valign="middle">
             <para>Sub7</para>
           </entry>
-
           <entry nameend="c12" namest="c11" valign="middle">
             <para>Sub8</para>
           </entry>
         </row>
       </thead>
-
       <tbody>
         <row>
-          <entry morerows="1" nameend="c2" namest="c1" valign="top">
-            <graphic align="center" fileref="syntext_logo.png" />
-
-            <para>A B C D E F G</para>
+          <entry nameend="c2" namest="c1" valign="top" morerows="1">
+            <para><figure/> A B C D E F G</para>
           </entry>
-
           <entry nameend="c6" namest="c3" valign="top">
             <orderedlist>
               <listitem>
                 <para>This is item1</para>
               </listitem>
-
               <listitem>
                 <para>This is item2</para>
               </listitem>
             </orderedlist>
           </entry>
-
           <entry nameend="c8" namest="c7" valign="top">
             <para>Content</para>
           </entry>
-
-          <entry morerows="1" nameend="c12" namest="c9" valign="top">
+          <entry nameend="c12" namest="c9" valign="top" morerows="1">
             <para>Cells with vertical span.</para>
           </entry>
         </row>
-
         <row>
           <entry nameend="c4" namest="c3" valign="top">
             <para>Contents....</para>
           </entry>
-
           <entry nameend="c8" namest="c5" valign="top">
             <para>This is another horizontal span.</para>
           </entry>
