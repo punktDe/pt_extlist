@@ -1,18 +1,29 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>Write the title action-orientated according to the target group.</title>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This document was created with Syntext Serna Free. -->
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Write the title action-orientated according to the target
+  group.</title>
+
   <para><!-- Delete the following para-tag , if you don't need an introduction.-->If
   you want to make the user to do something use this section . Write a short
   introduction or if necessary a short summary for long instructions. A
-  sentence mustn&apos;t be longer than 25 words. Use the same words for the same
+  sentence mustn't be longer than 25 words. Use the same words for the same
   meaning, be consistent. Use as less specialist terms as possible according
   to the target group. An instruction can be linked to an example. If you need
   figures, use a caption. Observe the chronology.</para>
+
   <procedure>
     <step>
       <para>Write one step each sentence, at least one predicat and one
       object. Use the imperative. Use the formal term of address somebody.
       Avoid passive formulation.</para>
+
       <stepalternatives>
         <step>
           <para>Write an alternative, at least one predicat and one object.
@@ -21,39 +32,54 @@
         </step>
       </stepalternatives>
     </step>
+
     <step>
       <para>Write one step each sentence, at least one predicat and one
       object. Use the imperative. Use the formal term of address somebody.
       Avoid passive formulation.</para>
+
       <caution>
         <para>If there is a danger for human beings (element warning), you can
-        use &quot;do not...&quot;. If there is a danger for the product use a positive
-        formulation. If there is a condition, use the term &quot;when&quot; at the
+        use "do not...". If there is a danger for the product use a positive
+        formulation. If there is a condition, use the term "when" at the
         beginning of the sentence.</para>
       </caution>
     </step>
+
     <step>
       <para>Write one step each sentence, at least one predicat and one
       object. Use the imperative. Use the formal term of address somebody.
       Avoid passive formulation.</para>
+
       <para>--&gt; Write a an interim result. E.g.:Dialog box opens.</para>
     </step>
+
     <step>
       <para>Write one step each sentence, at least one predicat and one
       object. Use the imperative. Use the formal term of address somebody.
       Avoid passive formulation.</para>
-      <para>=&gt; Write a result.E.g.:You installed programm xy.</para>
+
+      <para>=&gt; Write a result.E.g.:You installed program xy.</para>
     </step>
   </procedure>
+
   <procedure>
     <step>
       <para>Write one step each sentence, at least one predicat and one
       object. Use the imperative. Use the formal term of address somebody.
       Avoid passive formulation.</para>
+    </step>
+
+    <step>
+      <para>Write one step each sentence, at least one predicat and one
+      object. Use the imperative. Use the formal term of address somebody.
+      Avoid passive formulation.</para>
+
       <warning>
         <para>If there is a danger for human beings (element warning), you can
-        use &quot;Do not...&quot;.</para>
+        use "Do not...".</para>
       </warning>
+
       <stepalternatives>
         <step>
           <para>Write an alternative, at least one predicat and one object.
@@ -63,24 +89,19 @@
       </stepalternatives>
     </step>
   </procedure>
+
   <procedure>
-    <figure>
-      <title>Write the title short and simple</title>
-      <screenshot>
-        <info>
-          <title/>
-        </info>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref=""/>
-          </imageobject>
-        </mediaobject>
-      </screenshot>
-    </figure>
     <step>
       <para>Write one step each sentence, at least one predicat and one
       object. Use the imperative. Use the formal term of address somebody.
       Avoid passive formulation.</para>
+    </step>
+
+    <step>
+      <para>Write one step each sentence, at least one predicat and one
+      object. Use the imperative. Use the formal term of address somebody.
+      Avoid passive formulation.</para>
+
       <stepalternatives>
         <step>
           <para>Write an alternative, at least one predicat and one object.
@@ -90,8 +111,10 @@
       </stepalternatives>
     </step>
   </procedure>
+
   <section>
     <title>Add subsections, if necessary.</title>
-    <para/>
+
+    <para></para>
   </section>
 </section>
