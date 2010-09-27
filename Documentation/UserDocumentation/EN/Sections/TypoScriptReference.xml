@@ -29,11 +29,6 @@
       <refpurpose>purpose of the property</refpurpose>
     </refnamediv>
 
-    <refsynopsisdiv>
-      <cmdsynopsis>
-        <command></command>
-      </cmdsynopsis>
-    </refsynopsisdiv>
 
     <refsection>
       <title>datatype</title>
