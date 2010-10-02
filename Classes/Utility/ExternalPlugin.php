@@ -41,14 +41,28 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 */
 	public static function getDataBackend($listIdentifier) {
 		
-		$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
+		$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 		
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($extListTs);
-		$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+		if($extListBackend == NULL) {
+			$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
+			self::loadLifeCycleManager();
+			
+			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($extListTs);
+			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);	
+		}
 		
 		return $extListBackend;
 	}
 	
+	/**
+	 * Read the Session data into the cache
+	 */
+	protected function loadLifeCycleManager() {
+		$lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
+		$lifecycleManager->register(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		// SET LIFECYCLE TO START -> read session data into cache
+		$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+	}
 	
 	
 	/**

@@ -24,13 +24,13 @@
 ***************************************************************/
 
 /**
- * Class implements an abstract filter for all options filters
+ * Class implements an proxy filter to get data from a filter of an other list
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage Model\Filter
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
+abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
 	/**
      * Holds an array of filter values

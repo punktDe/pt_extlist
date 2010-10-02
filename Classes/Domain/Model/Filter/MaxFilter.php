@@ -28,7 +28,7 @@
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @package Domain
- * @subpackage Filter
+ * @subpackage Model\Filter
  */
 class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
  	
