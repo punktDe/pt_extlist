@@ -27,8 +27,8 @@
  * Class implements a select filter
  * 
  * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter
  */
 class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
 	

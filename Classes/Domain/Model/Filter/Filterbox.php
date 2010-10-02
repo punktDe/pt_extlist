@@ -27,8 +27,8 @@
  * Class implements a filterbox which is a collection of filters
  * 
  * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter
  */
 class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollection
     implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {

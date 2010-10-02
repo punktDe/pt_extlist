@@ -26,8 +26,8 @@
 /**
  * Interface for all filter classes
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {

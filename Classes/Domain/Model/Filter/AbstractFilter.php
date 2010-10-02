@@ -26,9 +26,9 @@
 /**
  * Abstract filter class for filter models
  * 
- * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>, Daliel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage Model\Filter
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
     implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, 
