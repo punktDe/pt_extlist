@@ -49,12 +49,16 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 */
 	protected $listIdentifier;
 	
+	
+	
 	/**
 	 * Holds an instance of the configuration
 	 * 
 	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
 	 */
 	protected $filterBoxConfig;
+	
+	
 	
 	/**
 	 * Class name to restrict collection to
@@ -76,6 +80,8 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 		}
 	}
 	
+	
+	
 	/**
 	 * Injects filterbox configuration
 	 * 
@@ -88,6 +94,8 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 		$this->filterValidationErrors = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection();
 	}
 	
+	
+	
 	/**
 	 * Returns the filterbox configuration
 	 * 
@@ -96,6 +104,8 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	public function getFilterboxConfiguration() {
 		return $this->filterBoxConfig;
 	}
+	
+	
 	
 	/**
 	 * Returns filterbox identifier
@@ -117,6 +127,8 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 		return $this->listIdentifier;
 	}
 	
+	
+	
 	/**
 	 * Returns a new filterbox with accessable filters only.
 	 * 
@@ -125,6 +137,8 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	public function getAccessableFilterbox() {
 		return Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createAccessableInstance($this);
 	}
+	
+	
 	
 	/**
 	 * Resets all filters in this filterbox
@@ -166,6 +180,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	}
 	
 	
+	
 	/**
 	 * Add Filter to Filterbox 
 	 * 
@@ -174,6 +189,22 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 */
 	public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterIdentifier) {
 		$this->addItem($filter, $filterIdentifier);
+	}
+	
+	
+	
+	/**
+	 * Returns filter by given filter identifier
+	 *
+	 * @param unknown_type $filterIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+	 */
+	public function getFilterByFilterIdentifier($filterIdentifier) {
+		if ($this->hasItem($filterIdentifier)) {
+			return $this->getItemById($filterIdentifier);
+		} else {
+			return null;
+		}
 	}
 	
 }

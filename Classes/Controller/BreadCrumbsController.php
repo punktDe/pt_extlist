@@ -32,12 +32,48 @@
 class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController {
 	
 	/**
+	 * Holds an instance of filterbox collection processed by this controller
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Filters_FilterboxCollection
+	 */
+	protected $filterboxCollection;
+	
+	/**
+	 * Overwrites initAction for setting properties
+	 * and enable easy testing
+	 *
+	 */
+	protected function initializeAction() {
+		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
+	}
+	
+	
+	
+	/**
 	 * Renders index action for breadcrumbs controller
 	 * 
 	 * @return string The rendered index action
 	 */
 	public function indexAction() {
-		
+		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+		    $this->filterboxCollection
+		);
+		$this->view->assign('breadcrumbs', $breadcrumbs);
+	}
+	
+	
+	
+	/**
+	 * Resets given filter and forwards to index action
+	 *
+	 * @param string $filterIdentifier Identifier of filter to be resetted
+	 * @param string $filterboxIdentifier Identifier of filterbox of filter to be resetted
+	 */
+	public function resetFilterAction($filterIdentifier, $filterboxIdentifier) {
+		$filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
+		$filter->reset();
+		$this->forward('index');
 	}
 	
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Verwenden Sie dieses Template nur für Extension-Dokumentationen.-->
+<!-- This document was created with Syntext Serna Free. -->
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xi="http://www.w3.org/2001/XInclude"
+           xmlns:svg="http://www.w3.org/2000/svg"
+           xmlns:m="http://www.w3.org/1998/Math/MathML"
+           xmlns:html="http://www.w3.org/1999/xhtml"
+           xmlns:db="http://docbook.org/ns/docbook">
+ 
+ <info>
+    <title>TypoScript Reference</title>
+
+    <releaseinfo role="meta">$Id: titlepage.xsl 7058 2007-07-17 13:59:29Z
+    xmldoc $</releaseinfo>
+  </info>
+
+  <refentry>
+    <refmeta>
+      <refentrytitle>plugin.tx_ptextlist.setting</refentrytitle>
+
+      <manvolnum></manvolnum>
+    </refmeta>
+
+    <refnamediv>
+      <refname>plugin.tx_ptextlist.setting</refname>
+
+      <refpurpose>purpose of the property</refpurpose>
+    </refnamediv>
+
+
+    <refsection>
+      <title>datatype</title>
+
+      <para>Describe the property as short as possible.</para>
+    </refsection>
+
+    <refsection>
+      <title>description</title>
+
+      <para>Describe the property as short as possible.</para>
+    </refsection>
+
+    <refsection>
+      <title>example</title>
+
+      <para>Give an example (programcode).</para>
+
+      <caution>
+        <para>If you have an important information write it here.</para>
+      </caution>
+    </refsection>
+
+    <refsection>
+      <title>parent elements</title>
+
+      <para>None.</para>
+    </refsection>
+
+    <refsection>
+      <title>child elements</title>
+
+      <para>listConfig.demolist_mysql_01</para>
+
+      <para>backendConfig</para>
+
+      <para>dataSource</para>
+
+      <para>tables</para>
+
+      <para>baseFromClause</para>
+
+      <para>baseWhereClause</para>
+
+      <para>baseGroupByClause</para>
+    </refsection>
+
+    <refsection>
+      <title>values</title>
+
+      <para>If you want to make a note of the values, write them right
+      here.</para>
+    </refsection>
+
+    <refsection>
+      <title>See also:</title>
+
+      <itemizedlist>
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
+
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
+
+        <listitem override="bullet">
+          <para>x</para>
+        </listitem>
+      </itemizedlist>
+    </refsection>
+  </refentry>
+ 
+</section>

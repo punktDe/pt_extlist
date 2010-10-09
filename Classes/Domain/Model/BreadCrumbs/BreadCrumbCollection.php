@@ -24,33 +24,32 @@
 ***************************************************************/
 
 /**
- * Class implements a string filter
+ * Class implements a collection of breadcrumbs
  *
  * @package Domain
- * @subpackage Model\Filter
- * @author Daniel Lienert <lienert@punkt.de>
+ * @subpackage Model\BreadCrumbs
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends tx_pttools_objectCollection {
+	 
+    /**
+     * Restrict collection to breadcrumb class
+     *
+     * @var String
+     */
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb';
+    
+    
     
     /**
-     * Creates filter query from filter value and settings
-     * 
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria Criteria for current filter value (null, if empty)
+     * Adds a breadcrumb to collection
+     *
+     * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb BreadCrumb to be added
      */
-    protected function buildFilterCriteria() {
-    	if ($this->filterValue != '') {
-	    	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
-	    	$filterValue = '%'.$this->filterValue.'%';
-	    	
-	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);	
-	    	
-	    	return $criteria;
-    	} else {
-    		return null;
-    	}
+    public function addBreadCrumb(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb) {
+    	$this->addItem($breadCrumb);
     }
-    	
+    
 }
- 
+
 ?>

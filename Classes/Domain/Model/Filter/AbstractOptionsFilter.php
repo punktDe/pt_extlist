@@ -57,6 +57,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	public function reset() {
 		$this->filterValues = array();
 		$this->sessionFilterData = array();
+		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		$this->init();
 	}
 	
@@ -218,10 +219,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	}
 	
 	
-	
-	
-	
-	
 
 	/**
 	 * Returns value of selected option
@@ -234,5 +231,21 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		} else {
 			return current($this->filterValues);
 		}
+	}
+	
+	
+	
+	/**
+	 * Returns filter breadcrumb for this filter.
+	 * Most likely to be overwritten in concrete filter class.
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 */
+	public function getFilterBreadCrumb() {
+		$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+		if (count($this->filterValues) > 0) {
+		    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . implode(', ', $this->filterValues));
+		}
+		return $breadCrumb;
 	}
 }

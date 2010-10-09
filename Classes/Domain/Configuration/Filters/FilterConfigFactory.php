@@ -38,15 +38,19 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 		return $filterConfig;
 	}
 	
+	
+	
+	/**
+	 * Sets accessable flag for filter
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+	 */
 	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
-		
 		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
-		
 		$accessable = $security->isAccessableFilter($filterConfig, $configBuilder);
-
 		$filterConfig->injectAccessable($accessable);
-		
-		
 		
 		return $filterConfig;
 	}

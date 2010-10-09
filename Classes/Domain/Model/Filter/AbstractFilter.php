@@ -26,7 +26,11 @@
 /**
  * Abstract filter class for filter models
  * 
+<<<<<<< HEAD
  * @author Michael Knoll <knoll@punkt.de>, Daliel Lienert <lienert@punkt.de>
+=======
+ * @author Michael Knoll <knoll@punkt.de>
+>>>>>>> 1c8ed3fa327d24d192007cee0ed6d192063f760d
  * @package Domain
  * @subpackage Model\Filter
  */
@@ -247,8 +251,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * Returns filterbox identifier for this filter
 	 * 
 	 * @return String
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 06.07.2010
 	 */
 	public function getFilterBoxIdentifier() {
 		return $this->filterBoxIdentifier;
@@ -300,6 +302,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 	
+	
 	/**
 	 * Return if this filter is inverted
 	 * 
@@ -308,6 +311,18 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     public function getInvert() {
 		return $this->invert;
 	}
+	
+	
+	
+	/**
+	 * Returns true, if filter is active
+	 *
+	 * @return bool True, if filter is active
+	 */
+	public function isActive() {
+		return $this->isActive;
+	}
+	
 	
 	
 	/**
@@ -367,6 +382,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->buildFilterQuery();
 		
 	}
+	
 	
 	
     /**
@@ -435,11 +451,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
-	 * Build the filter query 
+	 * Build filter query for current filter state 
 	 * 
 	 */
 	protected function buildFilterQuery() {
-		
 		if($this->isActive) $criteria = $this->buildFilterCriteria();
 			
 		if($criteria) {
@@ -451,10 +466,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		}
 	}
 	
+	
+	
 	/**
 	 * Sets the active state of this filter
 	 */
 	abstract protected function setActiveState();
+	
 	
 	
 	/**
@@ -476,6 +494,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function validate() {
 		return 1;
 	}
+	
+	
 	
 	/**
 	 * Wrapper method for validate(). Needed for Fluid access.
@@ -526,9 +546,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 	
+	
+	/**
+	 * Returns a field configuration for a given identifier
+	 *
+	 * @param string $fieldIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig Field configuration for given identifier
+	 */
 	protected function resolveFieldConfig($fieldIdentifier) {	
 		return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
 	}
 	
 }
+
 ?>

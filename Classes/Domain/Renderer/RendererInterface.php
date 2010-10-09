@@ -25,11 +25,12 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * Interface for list renderers
  * 
  * @package Typo3
  * @subpackage pt_extlist
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	
@@ -51,6 +52,23 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader &$listHeader);
+	
+	
+	
+	/**
+	 * Injects configuration builder
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
+	
+	
+	
+	/**
+	 * Inits rendering strategies
+	 *
+	 */
+	public function initRendererStrategies();
 
 }
 ?>
