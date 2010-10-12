@@ -2,13 +2,14 @@
 <!-- Verwenden Sie dieses Template nur für Extension-Dokumentationen.-->
 <!-- This document was created with Syntext Serna Free. -->
 <section version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <info>
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xi="http://www.w3.org/2001/XInclude"
+           xmlns:svg="http://www.w3.org/2000/svg"
+           xmlns:m="http://www.w3.org/1998/Math/MathML"
+           xmlns:html="http://www.w3.org/1999/xhtml"
+           xmlns:db="http://docbook.org/ns/docbook">
+ 
+ <info>
     <title>TypoScript Reference</title>
 
     <releaseinfo role="meta">$Id: titlepage.xsl 7058 2007-07-17 13:59:29Z
@@ -28,6 +29,7 @@
       <refpurpose>purpose of the property</refpurpose>
     </refnamediv>
 
+
     <refsection>
       <title>datatype</title>
 
@@ -44,8 +46,6 @@
       <title>example</title>
 
       <para>Give an example (programcode).</para>
-
-      <programlisting></programlisting>
 
       <caution>
         <para>If you have an important information write it here.</para>
@@ -101,4 +101,5 @@
       </itemizedlist>
     </refsection>
   </refentry>
+ 
 </section>
