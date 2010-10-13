@@ -25,11 +25,12 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * Abstract class for list renderers
  * 
  * @package Typo3
  * @subpackage pt_extlist
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface  {
 
@@ -39,10 +40,12 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	protected $configurationBuilder;
 	
 	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
 	 */
 	protected $rendererConfiguration;
+	
 	
 	
 	/**
@@ -72,13 +75,6 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 		$this->configurationBuilder = $configurationBuilder;
 		$this->rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
 	}
-	
-	
-	/**
-	 * Init the RendererStrategies for Cells and Captions
-	 */
-	abstract public function initRendererStrategies();
-	
 	
 }
 

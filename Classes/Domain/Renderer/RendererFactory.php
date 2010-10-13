@@ -29,7 +29,8 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 
@@ -43,8 +44,13 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 		
 		$rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
 		$className = $rendererConfiguration->getRendererClassName();
+		
+		tx_pttools_assert::isTrue(class_exists($className), array('message' => 'Configured renderer class ' . $className . ' does not exist! 1286986512'));
 
 		$renderer = new $className();
+		
+		tx_pttools_assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'), array('message' => 'Configured renderer class ' . $className . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
+		
 		$renderer->injectConfigurationBuilder($configurationBuilder);
 		$renderer->initRendererStrategies();
 		return $renderer;
