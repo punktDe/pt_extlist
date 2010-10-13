@@ -31,6 +31,7 @@
  * @subpackage pt_extlist
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 
