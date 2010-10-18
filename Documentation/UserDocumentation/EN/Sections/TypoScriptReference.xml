@@ -44,7 +44,18 @@
     <refsection>
       <title>example</title>
       <informalexample>
-        <programlisting/>
+        <programlisting> fields {
+            
+        name_local {
+table = static_countries
+field = cn_short_local
+isSortable = 1
+}
+
+name_en {
+field = cn_short_en
+table = static_countries
+}</programlisting>
       </informalexample>
     </refsection>
     <refsection>
@@ -61,46 +72,25 @@
       <para>aggregateRows</para>
       <para>filters</para>
     </refsection>
-    <refsection>
-      <title>values</title>
-      <para>If you want to make a note of the values, write them right
-      here.</para>
-    </refsection>
-    <refsection>
-      <title>See also:</title>
-      <itemizedlist>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-      </itemizedlist>
-    </refsection>
   </refentry>
   <refentry>
     <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.setting</refentrytitle>
-      <manvolnum/>
+      <refentrytitle>plugin.tx_ptextlist.settings.listIdentifier.&lt;yourListId&gt;.fields</refentrytitle>
     </refmeta>
     <refnamediv>
       <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>purpose of the property</refpurpose>
+      <refpurpose>configuration for fields in data sources</refpurpose>
     </refnamediv>
     <refsection>
       <title>datatype</title>
-      <para>Describe the property as short as possible.</para>
+      <para>associative array (key as field name, value as field configuration)</para>
     </refsection>
     <refsection>
       <title>description</title>
-      <para>Describe the property as short as possible.</para>
+      <para>Holds the configuration for each column / field.</para>
     </refsection>
     <refsection>
       <title>example</title>
-      <para>Give an example (programcode).</para>
       <informalexample>
         <programlisting/>
       </informalexample>
