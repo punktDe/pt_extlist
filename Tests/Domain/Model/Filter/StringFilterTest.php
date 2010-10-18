@@ -26,8 +26,8 @@
 /**
  * Testcase for String Filter class
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\Filter
  * @author Michael Knoll <knoll@punkt.de>
  */
  class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
@@ -163,6 +163,15 @@
  		$this->assertTrue($filter->getFilterValue() == 'gpVarFilterValue');
  		$filter->reset();
  		$this->assertTrue($filter->getFilterValue() =='defaultValue');
+ 	}
+ 	
+ 	
+ 	
+ 	public function testGetFilterBreadCrumb() {
+ 		$filter = $this->getStringFilterInstance();
+ 		$breadCrumb = $filter->getFilterBreadCrumb();
+ 		$this->assertEquals($breadCrumb->getFilter(), $filter);
+ 		$this->assertEquals($breadCrumb->getMessage(), null);
  	}
  	
  	

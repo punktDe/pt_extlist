@@ -24,33 +24,26 @@
 ***************************************************************/
 
 /**
- * Class implements a string filter
+ * Testcase for breadcrumb collection
  *
- * @package Domain
- * @subpackage Model\Filter
- * @author Daniel Lienert <lienert@punkt.de>
+ * @package Tests
+ * @subpackage Domain\Model\BreadCrumbs
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
-    
-    /**
-     * Creates filter query from filter value and settings
-     * 
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria Criteria for current filter value (null, if empty)
-     */
-    protected function buildFilterCriteria() {
-    	if ($this->filterValue != '') {
-	    	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
-	    	$filterValue = '%'.$this->filterValue.'%';
-	    	
-	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);	
-	    	
-	    	return $criteria;
-    	} else {
-    		return null;
-    	}
-    }
-    	
+class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	public function testSetup() {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection'));		
+	}
+	
+	
+	
+	public function testAddBreadCrumb() {
+		$breadCrumbMock = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array(), array(),'', FALSE);
+		$breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
+		$breadCrumbCollection->addBreadCrumb($breadCrumbMock);
+	}
+	
 }
- 
+
 ?>

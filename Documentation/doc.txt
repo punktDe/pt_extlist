@@ -1,0 +1,44 @@
+Inhaltsübersicht:
+
+Administrator / Integrator
+
+1. Beispielkonfiguration / Tutorial
+2. Vorstellung Komponenten (was tut was)
+3. Zusammenspiel Konfiguration / Darstellung
+4. Export
+
+
+
+TS Configuration
+
+1. TS-Konzept
+1.1 Merging: TS - Prototyp - Flexform
+1.2 Merging: ListConfig vs. Settings
+
+2. TS Config 
+2.1 Data Backend
+2.2 Fields Configuration
+2.3 Columns Configuration
+2.4 Filter Configuration
+2.5 Pager Configuration
+2.6 Export Configuration
+
+
+
+DEVELOPER
+
+1. Architektur
+1.1 Configuration
+1.2 Data-Backend
+1.3 Listen Datenstruktur
+1.4 Komponenten (Filter, Pager etc.)
+1.5 Rendering
+
+2. Erweiterung
+2.1 Implementierung von Filtern
+2.2 Implementierung von DataBackends
+2.3 Implementierung von Renderern
+2.4 Implementierung von Pagern
+
+3. Templating
+3.1 Eigene Templates / Partials
