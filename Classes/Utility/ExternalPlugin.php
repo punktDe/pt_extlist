@@ -41,14 +41,28 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 */
 	public static function getDataBackend($listIdentifier) {
 		
-		$extListTs = self::getExtListTyposcriptSettings();
+		$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 		
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($extListTS);
-		$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+		if($extListBackend == NULL) {
+			$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
+			self::loadLifeCycleManager();
+			
+			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($extListTs);
+			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);	
+		}
 		
 		return $extListBackend;
 	}
 	
+	/**
+	 * Read the Session data into the cache
+	 */
+	protected function loadLifeCycleManager() {
+		$lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
+		$lifecycleManager->register(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		// SET LIFECYCLE TO START -> read session data into cache
+		$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+	}
 	
 	
 	/**
@@ -59,15 +73,16 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * @return array
 	 */
 	protected static function getExtListTyposcriptSettings($listIdentifier) {
-		$extListTS = tx_pttools_div::typoscriptRegistry('plugin.tx_ptextlist.settings');
-		
-		if(!array_key_exists($listIdentifier, $extListTS['listConfig'])) {
-			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page!');
+		$extListTS = tx_pttools_div::getTS('plugin.tx_ptextlist.settings.');
+		$extListTSArray = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
+
+		if(!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {
+			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page! 1284655053');
 		}
 		
-		$extListTS['listIdentifier'] = $listIdentifier;
+		$extListTSArray['listIdentifier'] = $listIdentifier;
 		
-		return $extListTS;
+		return $extListTSArray;
 	}
 	
 }

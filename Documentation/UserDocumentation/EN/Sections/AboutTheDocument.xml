@@ -7,88 +7,74 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
-  <title>draft, description or something els etc. + name of the
-  project</title>
+  <title>About the document</title>
 
-  <section>
-    <title>About this document</title>
+  <para>This is the first part of every documentation followed by "Reading
+  this".</para>
 
-    <para>This is the first part of every documentation followed by "Reading
-    this".</para>
+  <table>
+    <title>Information about the document</title>
 
-    <table>
-      <title>Information about the document</title>
+    <tgroup cols="2">
+      <tbody>
+        <row>
+          <entry>author</entry>
 
-      <tgroup cols="2">
-        <thead>
-          <row>
-            <entry>x</entry>
+          <entry>name</entry>
+        </row>
 
-            <entry>x</entry>
-          </row>
-        </thead>
+        <row>
+          <entry>version</entry>
 
-        <tbody>
-          <row>
-            <entry>author</entry>
+          <entry>1.0</entry>
+        </row>
 
-            <entry>name</entry>
-          </row>
+        <row>
+          <entry>status</entry>
 
-          <row>
-            <entry>version</entry>
+          <entry>draft</entry>
+        </row>
 
-            <entry>1.0</entry>
-          </row>
+        <row>
+          <entry>confidentiality</entry>
 
-          <row>
-            <entry>status</entry>
+          <entry>internal or external</entry>
+        </row>
 
-            <entry>draft</entry>
-          </row>
+        <row>
+          <entry>filename</entry>
 
-          <row>
-            <entry>confidentiality</entry>
+          <entry>abbr_YYYYMMDD_Vxx</entry>
+        </row>
 
-            <entry>internal or external</entry>
-          </row>
+        <row>
+          <entry>document type</entry>
 
-          <row>
-            <entry>filename</entry>
+          <entry>operating instructions, description or something else</entry>
+        </row>
 
-            <entry>abbr_YYYYMMDD_Vxx</entry>
-          </row>
+        <row>
+          <entry>start</entry>
 
-          <row>
-            <entry>document type</entry>
+          <entry>27.08.2010</entry>
+        </row>
 
-            <entry>operating instructions, description or something
-            else</entry>
-          </row>
+        <row>
+          <entry>last editing</entry>
 
-          <row>
-            <entry>start</entry>
+          <entry>01.09.2010</entry>
+        </row>
 
-            <entry>27.08.2010</entry>
-          </row>
+        <row>
+          <entry>last date of printing</entry>
 
-          <row>
-            <entry>last editing</entry>
+          <entry>-</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
 
-            <entry>01.09.2010</entry>
-          </row>
-
-          <row>
-            <entry>last date of printing</entry>
-
-            <entry />
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
-	<para>
-    <emphasis role="bold">disclaimer</emphasis>
-  </para>
+  <para><emphasis role="bold">disclaimer</emphasis></para>
 
   <para>publisher: punkt.de</para>
 
@@ -132,7 +118,4 @@
   expressly reserves itself the right, to change, to supplement or to delete
   parts of the pages or the entire offer or occasionally or finally to stop
   the publication without separate announcement.</para>
-  </section>
-
-  
 </section>

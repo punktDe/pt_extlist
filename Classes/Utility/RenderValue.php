@@ -153,6 +153,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	public static function renderValueByRenderObject(array $data, array $renderObjectConfig, $currentData = NULL) {
 		$renderObjectConfig['renderObj.']['setCurrent'] = $currentData;
+		
 		self::getCobj()->start($data);
 		return self::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
 	}

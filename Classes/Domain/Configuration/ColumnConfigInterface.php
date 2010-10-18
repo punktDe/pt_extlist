@@ -26,8 +26,8 @@
 /**
  * Interface for configuration objects wich hold configuration for list columns
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration
+ * @package Domain
+ * @subpackage Configuration
  * @author Daniel Lienert <lienert@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
@@ -52,6 +52,8 @@ interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtE
 	
 	
 	public function getContainsArrayData();
+	
+	//Todo add cell css
 	
 }
 ?>

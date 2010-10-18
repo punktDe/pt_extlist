@@ -69,6 +69,13 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	protected $columnIndex;
 	
 	
+	/**
+	 * Individual cell class
+	 * 
+	 * @var string
+	 */
+	protected $cssClass;
+	
 	
 	/**
 	 * Constructor for cell object
@@ -168,6 +175,23 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	}
 	
 	
+	/**
+	 * set the individual cell CSS class
+	 * 
+	 * @param string $cellCSSClass
+	 */
+	public function setCSSClass($cssClass) {
+		$this->cssClass = $cssClass;
+	}
+	
+	
+	/**
+	 * get the individual cell CSS class
+	 * @return string 	 
+	 */
+	public function getCSSClass() {
+		return $this->cssClass;
+	}
 	
 	/**
 	 * Returns object value as string

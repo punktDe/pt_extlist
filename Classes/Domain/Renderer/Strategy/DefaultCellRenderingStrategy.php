@@ -29,7 +29,7 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 
@@ -50,6 +50,14 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	
 	
 	/**
+	 * Special renderer userfunciton
+	 * 
+	 * @var string
+	 */
+	protected $renderSpecialCellUserFunc;
+	
+	
+	/**
 	 * Construct the strategy.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
@@ -57,6 +65,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
 		$this->rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
+		
+		$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
 	}
 	
 	
@@ -82,13 +92,40 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		$cell->setRowIndex($rowIndex);
 		$cell->setColumnIndex($columnIndex);
 		
-		// Resolve special cell values
-		$this->renderSpecialValues($cell, $columnConfig);
 		
+		// render cell css class
+		if($columnConfig->getCellCSSClass()) {
+			$cell->setCSSClass($this->renderCellCSSClass($fieldSet, $columnConfig));
+		}
+		
+		// Resolve special cell values
+		if($this->renderSpecialCellUserFunc || $columnConfig->getSpecialCell()) {
+			$this->renderSpecialValues($cell, $columnConfig);	
+		}
 		
 		return $cell;
 	}
 	
+	
+	/**
+	 * render the cells CSS Class
+	 * 
+	 * @param array $cell
+	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
+	 * @return string
+	 */
+	protected function renderCellCSSClass($fieldSet, Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig) {
+		$cellCSSConfig = $columnConfig->getCellCSSClass();
+		
+		if(is_array($cellCSSConfig)) {
+			$renderObj = 			array_key_exists('renderObj', $cellCSSConfig) 			? Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : NULL;
+			$renderUserFunction = 	array_key_exists('renderUserFunction', $cellCSSConfig) 	? $cellCSSConfig['renderUserFunction'] : NULL;
+			
+			return Tx_PtExtlist_Utility_RenderValue::render($fieldSet, $renderObj, $renderUserFunction);
+		} else {
+			return $cellCSSConfig;
+		}
+	}
 	
 	
 	/**
@@ -100,12 +137,8 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 */
 	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell $cell, Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig) {
 
-		// Resolve special cell values
-		if(!is_null($this->rendererConfiguration->getSpecialCell())) {
-			$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
-		}
-		
-	
+		$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
+				
 		if(!is_null($columnConfig->getSpecialCell())) {
 			$rendererUserFunc = $columnConfig->getSpecialCell();
 		}

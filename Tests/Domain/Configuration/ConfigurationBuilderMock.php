@@ -151,7 +151,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'label' => 'Column 3',  
 	                            'isSortable' => '1',
 	                        	'sorting' => 'tstamp asc, title !DeSc',
-	                            'accessGroups' => '1,2,3,4'
+	                            'accessGroups' => '1,2,3,4',
+	                            'cellCSSClass' => 'class',
 	                        ),
 	                        40 => array( 
 	                            'columnIdentifier' => 'column4',

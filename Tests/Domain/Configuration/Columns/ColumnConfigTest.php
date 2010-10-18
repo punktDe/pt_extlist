@@ -26,8 +26,8 @@
 /**
  * Class implementing tests for column config
  *
- * @package pt_extlist
- * @subpackage Tests\Domain\Configuration\Columns
+ * @package Tests
+ * @subpackage Domain\Configuration\Columns
  * @author Daniel Lienert <linert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_Extbase_BaseTestcase {
@@ -144,6 +144,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	
 	public function testGetRenderTemplate() {
 		$this->assertEquals($this->columnSettings['renderTemplate'], $this->columnConfig->getRenderTemplate());
+	}
+	
+	public function testGetCellCSSClass() {
+		$this->assertEquals($this->columnSettings['cellCSSClass'], $this->columnConfig->getCellCSSClass());
 	}
 }
 ?>

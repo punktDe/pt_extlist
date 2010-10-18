@@ -177,6 +177,10 @@ plugin.tx_ptextlist.settings {
 				label = Capital
 				columnIdentifier = capital
 				fieldIdentifier = capital
+				cellCSSClass {
+					renderObj = TEXT
+					renderObj.dataWrap = {field:capital}
+				}
 			}
 	
 			20 {

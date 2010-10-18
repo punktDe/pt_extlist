@@ -83,12 +83,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	
 	
 	/**
-	 * 
 	 * @var string
 	 */
 	protected $specialCell = NULL;
 	
-
+	
+	/**
+	 * @var string
+	 */
+	protected $cellCSSClass = NULL;
+	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
@@ -236,6 +241,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		if(array_key_exists('accessGroups', $columnSettings)) {
 			$this->accessGroups = t3lib_div::trimExplode(',',$columnSettings['accessGroups']);
 		}
+		
+		if(array_key_exists('cellCSSClass', $columnSettings)) {
+			$this->cellCSSClass = $columnSettings['cellCSSClass'];
+		}
 	}
 	
 	
@@ -358,6 +367,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
      */
     public function getRenderTemplate() {
     	return $this->renderTemplate;
+    }
+    
+    /**
+     * @return string;
+     */
+    public function getCellCSSClass() {
+    	return $this->cellCSSClass;
     }
     
 }
