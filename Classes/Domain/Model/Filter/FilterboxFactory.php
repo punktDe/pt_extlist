@@ -27,8 +27,8 @@
  * Class implements factory for filter boxes
  * 
  * @author Michael Knoll <mimi@kaktusteam.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 

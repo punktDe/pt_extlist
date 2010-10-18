@@ -26,8 +26,8 @@
 /**
  * Class implements factory for filter objects
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
