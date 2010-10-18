@@ -40,11 +40,13 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	protected $configurationBuilder;
 	
 	
+	
 	/**
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
 	 */
 	protected $rendererConfiguration;
+	
 	
 	
 	/**
@@ -118,6 +120,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	}
 		
 	
+	
 	/**
 	 * Creates a set of fields which are available. Defined by the 'fields' TS setup.
 	 *
@@ -138,6 +141,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		
 		return $fieldSet;
 	}
+	
 	
 	
 	/**
