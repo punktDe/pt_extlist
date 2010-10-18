@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <title>Setup.txt</title>
-  <para>The setup-file includes typoscripts. The included scripts are demolists with which u can develop pt_extlist further.</para>
+  <para>The setup-file includes typoscripts. The included scripts are demolists with which you can develop pt_extlist further.</para>
   <para> A Demolist from static countries with typo3 backend and some filters.</para>
   <section>
     <title>Demolist_MySql_01</title>
