@@ -48,12 +48,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
      * @param $settings The current settings for this extension.
      * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
      */
-    public static function getInstance($settings = null) {
+    public static function getInstance($settings = null, $overwriteSettings = null) {
     	if ($settings != null) {
     		$configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
     	} else {
     		
-            $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock(array(
+    		$settings = array(
 	            'listIdentifier' => 'test',
             	
 	            'abc' => '1',
@@ -233,7 +233,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 					    )				    
 	                )
 	            )
-	        ));
+	        );
+    		
+	        if(is_array($overwriteSettings)) {
+	        	$settings = t3lib_div::array_merge_recursive_overrule($settings, $overwriteSettings);
+	        }
+	        
+            $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
             $configurationBuilderMock->settings = $configurationBuilderMock->origSettings['listConfig'][$configurationBuilderMock->origSettings['listIdentifier']];
     	}
     	return $configurationBuilderMock;

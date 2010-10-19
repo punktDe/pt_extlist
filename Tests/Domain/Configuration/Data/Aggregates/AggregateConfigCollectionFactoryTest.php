@@ -26,11 +26,11 @@
 /**
  * Testcase for aggregate config collection factory
  *
- * @package pt_extlist
- * @subpackage Tests\Configuration\Data\Aggregates
+ * @package Tests
+ * @subpackage Configuration\Data\Aggregates
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a aggregate config collection object
@@ -43,20 +43,23 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
 	public function setup() {
 		$this->aggregateSettings = array(
 		    'agg1' => array( 
-		    	'fieldIdentifier' => 'fieldName1',
+		    	'fieldIdentifier' => 'field1',
 		    	'method' => 'avg',
 		    ),
 		    'agg2' => array( 
-		   		'fieldIdentifier' => 'fieldName2',
+		   		'fieldIdentifier' => 'field1',
 		   		'method' => 'max',
             )
 		);
+		
+		$settingsTree['listConfig']['test']['aggregateData'] = $this->aggregateSettings;
+		$this->initDefaultConfigurationBuilderMock($settingsTree);
 	}
 	
 	
 	
 	public function testGetAggregateConfigCollection() {
-		$aggregateConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this->aggregateSettings);
+		$aggregateConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this->configurationBuilderMock);
 		$this->assertTrue(is_a($aggregateConfigCollection, 'tx_pttools_objectCollection'));
 		$aggregateConfig1 = $aggregateConfigCollection->getAggregateConfigByIdentifier('agg1');
 		$this->assertEquals($aggregateConfig1->getMethod(), 'avg');

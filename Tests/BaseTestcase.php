@@ -26,8 +26,7 @@
 /**
  * Class implements a base testcase for pt_extlist testcases
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
  * @author Michael Knoll <knoll@punkt.de>
  */
 abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_BaseTestcase {
@@ -109,8 +108,8 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_BaseTestcase {
 	 *
 	 * @return void
 	 */
-	protected function initDefaultConfigurationBuilderMock() {
-        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings);		
+	protected function initDefaultConfigurationBuilderMock($overwriteSettings = NULL) {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings, $overwriteSettings);		
 	}
 	
 	

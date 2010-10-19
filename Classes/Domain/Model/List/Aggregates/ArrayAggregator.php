@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
 	 */
 	public function getAggregateByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
-		$fieldIdentifier = $aggregateConfig->getFieldIdentifier();
+		$fieldIdentifier = $aggregateConfig->getFieldIdentifier()->getIdentifier();
 		
 		if(!is_array($this->fieldData[$fieldIdentifier])) {
 			$this->buildFieldData($fieldIdentifier);

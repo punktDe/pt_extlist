@@ -284,6 +284,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
     
     
+    /**
+     * return aggregate data settings
+     * @return array
+     */
+    public function getAggregateDataSettings() {
+    	return $this->settings['aggregateData'];
+    }
+
     
     /**
      * @return array export settings
@@ -368,7 +376,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function buildAggregateDataConfig() {
     	if(is_null($this->aggregateDataConfig)) {
-    		$this->aggregateDataConfig = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this->settings['aggregateData']);
+    		$this->aggregateDataConfig = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this);
     	}
     	return $this->aggregateDataConfig;
     }

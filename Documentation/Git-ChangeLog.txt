@@ -1,6 +1,7 @@
 # This changelog file is automatically written by git and holds the git commit message history.
 # Do not edit the file manually!
 
+4e4bcba 2010-10-19 15:55:51 +0200 (Daniel Lienert) message: ADD: Git-Changelog
 ce4028b 2010-10-19 15:53:37 +0200 (Daniel Lienert) message: MERGE
 5e9a5ce 2010-10-19 15:49:18 +0200 (Michael Knoll) message: merge
 d495c54 2010-10-19 15:48:08 +0200 (Michael Knoll) message: merge

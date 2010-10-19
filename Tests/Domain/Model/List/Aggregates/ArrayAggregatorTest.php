@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregator_testcase e
 	
 	
 	public function testExceptionIfMethodNotExists() {
-		$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', array('fieldIdentifier' => 'field2', 'method' => 'notExistingMethod'));
+		$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', array('fieldIdentifier' => 'field2', 'method' => 'notExistingMethod'), $this->configurationBuilderMock);
 		
 		$arrayAggregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
 		$arrayAggregator->injectListData($this->testListData);
@@ -74,10 +74,10 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregator_testcase e
 	
 	
 	public function testAggregateMethods() {
-		$aggregateConfigSum = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', array('fieldIdentifier' => 'field2', 'method' => 'sum'));
-		$aggregateConfigAvg = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('avgField2', array('fieldIdentifier' => 'field2', 'method' => 'avg'));
-		$aggregateConfigMax = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('maxField2', array('fieldIdentifier' => 'field2', 'method' => 'max'));
-		$aggregateConfigMin = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('minField2', array('fieldIdentifier' => 'field2', 'method' => 'min'));
+		$aggregateConfigSum = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', array('fieldIdentifier' => 'field2', 'method' => 'sum'), $this->configurationBuilderMock);
+		$aggregateConfigAvg = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('avgField2', array('fieldIdentifier' => 'field2', 'method' => 'avg'), $this->configurationBuilderMock);
+		$aggregateConfigMax = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('maxField2', array('fieldIdentifier' => 'field2', 'method' => 'max'), $this->configurationBuilderMock);
+		$aggregateConfigMin = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('minField2', array('fieldIdentifier' => 'field2', 'method' => 'min'), $this->configurationBuilderMock);
 		
 		
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator');
