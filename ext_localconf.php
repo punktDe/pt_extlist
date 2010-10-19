@@ -17,7 +17,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
 	    'Bookmarks' => 'show,process,edit,update,delete,create,new',
-	    'BreadCrumbs' => 'index',
+	    'BreadCrumbs' => 'index,resetFilter',
 	    'DocBook' => 'createTsDocBook'
 		),
 	array(
@@ -25,7 +25,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
 	    'Bookmarks' => 'show,process,edit,update,delete,create,new',
-        'BreadCrumbs' => 'index',
+        'BreadCrumbs' => 'index,resetFilter',
         'DocBook' => 'createTsDocBook'
 	)
 

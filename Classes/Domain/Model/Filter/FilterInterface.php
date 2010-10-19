@@ -26,8 +26,8 @@
 /**
  * Interface for all filter classes
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
@@ -145,6 +145,24 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
      * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfiguration
      */
     public function getFilterConfig();
+    
+    
+    
+    /**
+     * Returns filter breadcrumb for this filter
+     * 
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     */
+    public function getFilterBreadCrumb();
+    
+    
+    
+    /**
+     * Returns true, if filter is active
+     * 
+     * @return bool True, if filter is active
+     */
+    public function isActive();
 	
 }
 

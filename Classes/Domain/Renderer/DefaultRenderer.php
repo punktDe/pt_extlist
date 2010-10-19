@@ -25,17 +25,18 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * Default renderer for list data
  * 
- * @package Domain
- * @subpackage Renderer
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
 	
 	/**
 	 * 
-	 * TODO - make them configurationable and use factories!
+	 * TODO - make them configurable and use factories!
 	 */
 	public function initRendererStrategies() {
 		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy($this->configurationBuilder);
@@ -104,6 +105,16 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	}
 	
 	
+	
+	/**
+	 * Renders a cell
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $data
+	 * @param int $columnIndex
+	 * @param int $rowIndex
+	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
+	 */
 	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
 		return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
 	}

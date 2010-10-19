@@ -25,20 +25,42 @@
 ***************************************************************/
 
 /**
- * TODO insert comment
+ * Default rendering strategy for rendering column captions
  * 
  * @package Typo3
  * @subpackage pt_extlist
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
 
+	/**
+	 * Holds an instance of cObject
+	 *
+	 * @var tslib_cObj
+	 */
+	protected $cObj;
+	
+	
+	
+	/**
+	 * Constructor for rendering strategy
+	 *
+	 */
 	public function __construct() {
 		// $this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		$this->cObj = $GLOBALS['TSFE']->cObj;
 	}
 	
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader &$listHeader) {
+	
+	
+	/**
+	 * Strategy method for rendering captions
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered row
+	 */
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		
 		tx_pttools_assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
@@ -67,6 +89,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy impl
 		
 		return $row;
 	}
+	
 }
 
 ?>

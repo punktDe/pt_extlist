@@ -38,12 +38,34 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 */
 	protected $filterboxIdentifier;
 	
+	
+	
 	/**
 	 * Holds a pagerCollection.
 	 * 
 	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
 	protected $pagerCollection = NULL;
+	
+	
+	
+	/**
+	 * Holds an instance of filterbox collection for processed list
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+	 */
+	protected $filterboxCollection = NULL;
+	
+	
+	
+	/**
+	 * Holds an instance of filterbox processed by this controller
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+	 */
+	protected $filterbox = NULL;
+    	
+	
 	
 	/**
      * Injects the settings of the extension.
@@ -55,6 +77,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
         parent::injectSettings($settings);
         tx_pttools_assert::isNotEmptyString($settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
         $this->filterboxIdentifier = $settings['filterboxIdentifier'];
+        $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
+        $this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier);
     }
     
     
@@ -66,8 +90,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string The rendered filterbox action
      */
     public function showAction(Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors = null) {
-    	$filterbox = $this->getFilterboxForControllerSettings();
-        $this->view->assign('filterbox', $filterbox);
+        $this->view->assign('filterbox', $this->filterbox);
     }
     
     
@@ -78,8 +101,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return String
      */
     public function submitAction() {
-    	$filterbox = $this->getFilterboxForControllerSettings();
-    	if (!$filterbox->validate()) {
+    	if (!$this->filterbox->validate()) {
             $this->view->assign('filtersDontValidate', true);
         }
         
@@ -96,13 +118,14 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string Rendered reset action
      */
     public function resetAction() {
-    	$filterbox = $this->getFilterboxForControllerSettings();
-    	$filterbox->reset();
+    	$this->filterbox->reset();
     	
     	$this->resetPagers();
     	    	
     	$this->forward('show');
     }
+    
+    
     
     /**
      * Reset all pagers for this list.
@@ -118,16 +141,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     	$this->pagerCollection->reset();
     }
     
-    /**
-     * Returns filterbox configured to be handled by this controller
-     *
-     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
-     */
-    protected function getFilterboxForControllerSettings() {
-    	$filterboxCollection = $this->dataBackend->getFilterboxCollection();
-        $filterbox = $filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier);
-        $filterbox = $filterbox->getAccessableFilterbox();
-        return $filterbox;
-    }
 }
+
 ?>

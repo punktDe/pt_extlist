@@ -27,8 +27,8 @@
  * Abstract filter base class for all filters implementing single value filter
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 
@@ -39,6 +39,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      */
     protected $filterValue = '';
         
+    
     
     /**
      * Returns raw value of filter (NOT FILTER QUERY!!!)
@@ -82,6 +83,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
         $this->filterValue = '';
         $this->resetSessionDataForFilter();
         $this->resetGpVarDataForFilter();
+        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
         $this->init();
     }
     
@@ -152,6 +154,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     protected function setActiveState() {
     	$this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false; 
     }
+    
 	
     
     /**
@@ -160,5 +163,21 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      */
     protected function initFilter() {
     	
+    }
+    
+    
+    
+    /**
+     * Returns filter breadcrumb for this filter.
+     * Most likely to be overwritten in concrete filter class.
+     *
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     */
+    public function getFilterBreadCrumb() {
+    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+    	if ($this->filterValue != '') {
+    	    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . $this->filterValue);
+    	}
+    	return $breadCrumb;
     }
 }

@@ -24,13 +24,13 @@
 ***************************************************************/
 
 /**
- * Class implements an abstract filter for all options filters
+ * Class implements an proxy filter to get data from a filter of an other list
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage Model\Filter
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
+abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
 	/**
      * Holds an array of filter values
@@ -57,7 +57,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	public function reset() {
 		$this->filterValues = array();
 		$this->sessionFilterData = array();
-		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		$this->init();
 	}
 	
@@ -219,6 +218,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	}
 	
 	
+	
+	
+	
+	
 
 	/**
 	 * Returns value of selected option
@@ -231,21 +234,5 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		} else {
 			return current($this->filterValues);
 		}
-	}
-	
-	
-	
-	/**
-	 * Returns filter breadcrumb for this filter.
-	 * Most likely to be overwritten in concrete filter class.
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
-	 */
-	public function getFilterBreadCrumb() {
-		$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-		if (count($this->filterValues) > 0) {
-		    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . implode(', ', $this->filterValues));
-		}
-		return $breadCrumb;
 	}
 }

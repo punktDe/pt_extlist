@@ -40,11 +40,13 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	protected $configurationBuilder;
 	
 	
+	
 	/**
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
 	 */
 	protected $rendererConfiguration;
+	
 	
 	
 	/**
@@ -151,6 +153,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	}
 		
 	
+	
 	/**
 	 * Creates a set of fields which are available. Defined by the 'fields' TS setup.
 	 *
@@ -173,6 +176,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	}
 	
 	
+	
 	/**
 	 * Create an array data fieldset from an array column
 	 * 1. Search for first field with array data
@@ -190,7 +194,7 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 			}
 		}
 		
-		if(!is_array($loopArray)) throw new Exception('Error Column with Flag "containsArrayData" contains no Field with array weighted value! 1283426460');	
+		if(!is_array($loopArray)) throw new Exception('Error Column with Flag "containsArrayData" contains no Field with array-value! 1283426460');	
 		
 		$outDataArray = array();
 
