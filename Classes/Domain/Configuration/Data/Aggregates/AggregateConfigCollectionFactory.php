@@ -28,8 +28,8 @@
 /**
  *  AggregateConfigCollection Factory
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Data\Fields
+ * @package Domain
+ * @subpackage Configuration\Data\Fields
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory {

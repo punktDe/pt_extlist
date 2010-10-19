@@ -26,8 +26,8 @@
 /**
  * Class aggregateField config
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Data\Aggregates 
+ * @package Domain
+ * @subpackage Configuration\Data\Aggregates 
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
@@ -44,6 +44,21 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	 * @var string
 	 */
 	protected $fieldIdentifier;
+	
+	
+	/**
+	 * Either 'page' or 'query'
+	 * 
+	 * @var string
+	 */
+	protected $scope;
+	
+	
+	/**
+	 * Instead of selecting a mode you can give a special sql string 
+	 * @var string
+	 */
+	protected $special;
 	
 	
 	/**
@@ -94,6 +109,22 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	 */
 	public function getMethod() {
 		return $this->method;
+	}
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getScope() {
+		return $this->scope;
+	}
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getSpecial() {
+		return $this->special;
 	}
 }
 ?>

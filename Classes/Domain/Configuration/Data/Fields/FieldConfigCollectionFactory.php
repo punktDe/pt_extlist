@@ -28,8 +28,8 @@
 /**
  *  FieldConfigCollection Factory
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Data\Fields
+ * @package Domain
+ * @subpackage Configuration\Data\Fields
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory {
