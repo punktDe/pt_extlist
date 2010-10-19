@@ -24,13 +24,13 @@
 ***************************************************************/
 
 /**
- * Class implements field aggregator
+ * Class implements backend data aggregator 
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage Model\List\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
+class Tx_PtExtlist_Domain_Model_List_Aggregates_BackendAggregator {
 	
 	/**
 	 * Array of fielddata by column

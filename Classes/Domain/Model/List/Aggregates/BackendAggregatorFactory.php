@@ -24,25 +24,23 @@
 ***************************************************************/
 
 /**
- * Class implements factory for array aggregator
+ * Class implements factory for backend aggregator
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage Model\List\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory {
+class Tx_PtExtlist_Domain_Model_List_Aggregates_BackendAggregatorFactory {
 
 	/**
-	 *  build the arrayAgregator
+	 *  build the backendAgregator
 	 * 
-	 * @param $configurationBuilder Tx_PtExtlist_Domain_Model_List_ListData
-	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_BackendAggregator
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		$arrayAgregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
-		$arrayAgregator->injectListData($listData);	
+	public static function createInstance() {
+		$backendAgregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_BackendAggregator();
 	
-		return $arrayAgregator;
+		return $backendAgregator;
 	}
 }
 ?>
