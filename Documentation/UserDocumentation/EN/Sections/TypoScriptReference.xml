@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Verwenden Sie dieses Template nur für Extension-Dokumentationen.--><!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>TypoScript Reference</title>
-  
+  <info>
+    <title>TypoSript Reference</title>
+  </info>
   <refentry>
     <refmeta>
       <refentrytitle>plugin.tx_ptextlist.settings</refentrytitle>
@@ -217,7 +218,6 @@ AND st_subcontinent.tr_name_en &lt;&gt; &apos;&apos;
     </refsection>
     <refsection>
       <title>example</title>
-      <para>Give an example (programcode).</para>
       <informalexample>
         <programlisting>columns {
     10 {
@@ -343,7 +343,7 @@ AND st_subcontinent.tr_name_en &lt;&gt; &apos;&apos;
         <programlisting>        filters {
         filterbox1 {
         filterConfigs {
-              10 &lt; plugin.tx_ptextlist.prototype.filter.string 
+              10 &lt;  plugin.tx_ptextlist.prototype.filter.string 
               10 {
                   filterIdentifier = filter1
                   label = Local name
@@ -368,10 +368,10 @@ AND st_subcontinent.tr_name_en &lt;&gt; &apos;&apos;
          label = Capital
          fieldIdentifier = capital
          inactiveOption = [ALL]
-         }
-         }
-         }
-        } </programlisting>
+        }
+       }
+      }
+    } </programlisting>
       </informalexample>
     </refsection>
     <refsection>
@@ -396,23 +396,22 @@ AND st_subcontinent.tr_name_en &lt;&gt; &apos;&apos;
       <para>Configuration of pagers associated with your list.</para>
     </refsection>
     <refsection>
-      <title>example</title>
+      <title>example W</title>
       <para>Give an example (programcode).</para>
       <informalexample>
-        <programlisting>
-pager {
-pagerConfigs {
-second {
-enabled = 1
-        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-        templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/second.html
+        <programlisting>pager {
+    pagerConfigs {
+        second {
+            enabled = 1
+            pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+            templatePath =     EXT:pt_extlist/Resources/Private/Templates/Pager/second.html
         
         showNextLink = 1
         showPreviousLink = 1
         showFirstLink = 0
         showLastLink = 0
-}
-}
+        }
+    }
 }</programlisting>
       </informalexample>
     </refsection>
@@ -422,9 +421,6 @@ enabled = 1
     </refsection>
   </refentry>
   <refentry>
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.setting</refentrytitle>
-    </refmeta>
     <refnamediv>
       <refname>plugin.tx_ptextlist.setting</refname>
       <refpurpose>purpose of the property</refpurpose>

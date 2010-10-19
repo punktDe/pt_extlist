@@ -17,14 +17,16 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
 	    'Bookmarks' => 'show,process,edit,update,delete,create,new',
-	    'BreadCrumbs' => 'index,resetFilter'
+	    'BreadCrumbs' => 'index,resetFilter',
+	    'DocBook' => 'createTsDocBook'
 		),
 	array(
 	   	'List' => 'list,sort,export',												// An array of non-cachable controller-action-combinations (they must already be enabled)
 		'Filterbox' => 'show,submit,reset',
 		'Pager' => 'show,submit',
 	    'Bookmarks' => 'show,process,edit,update,delete,create,new',
-        'BreadCrumbs' => 'index,resetFilter'
+        'BreadCrumbs' => 'index,resetFilter',
+        'DocBook' => 'createTsDocBook'
 	)
 
 );
