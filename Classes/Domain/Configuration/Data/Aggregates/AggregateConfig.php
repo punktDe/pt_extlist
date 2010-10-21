@@ -26,8 +26,8 @@
 /**
  * Class aggregateField config
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Data\Aggregates 
+ * @package Domain
+ * @subpackage Configuration\Data\Aggregates 
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
@@ -40,10 +40,25 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	
 	
 	/**
-	 * identifier of the field that will be aggregated
-	 * @var string
+	 * configobject of the field that will be aggregated
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 */
 	protected $fieldIdentifier;
+	
+	
+	/**
+	 * Either 'page' or 'query'
+	 * 
+	 * @var string
+	 */
+	protected $scope;
+	
+	
+	/**
+	 * Instead of selecting a mode you can give a special sql string 
+	 * @var string
+	 */
+	protected $special;
 	
 	
 	/**
@@ -53,8 +68,14 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	protected $method;
 	
 	
-	
-	public function __construct($identifier, $aggregateSettings) {
+	/**
+	 * 
+	 * @param string $identifier aggregate identifier 
+	 * @param array $aggregateSettings
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @throws Exception
+	 */
+	public function __construct($identifier, $aggregateSettings, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		tx_pttools_assert::isNotEmptyString($identifier, array('message' => 'No aggregate identifier specified. 1282891490'));
 		$this->identifier = $identifier;
 		
@@ -62,8 +83,8 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 			throw new Exception('No fieldIdentifier for aggregate given! 1282891630');
 		}
 		
-		$this->fieldIdentifier = $aggregateSettings['fieldIdentifier'];
-		
+		$this->fieldIdentifier = $configurationBuilder->buildFieldsConfiguration()->getFieldConfigByIdentifier($aggregateSettings['fieldIdentifier']);
+	
 		if(!$aggregateSettings['method']) {
 			throw new Exception('No aggregate method given! 1282891831');
 		} else {
@@ -82,7 +103,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	
 	
 	/**
-	 * @return array
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 */
 	public function getFieldIdentifier() {
 		return $this->fieldIdentifier;
@@ -94,6 +115,22 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	 */
 	public function getMethod() {
 		return $this->method;
+	}
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getScope() {
+		return $this->scope;
+	}
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getSpecial() {
+		return $this->special;
 	}
 }
 ?>

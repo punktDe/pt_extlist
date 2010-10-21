@@ -27,8 +27,8 @@
  * Class implements factory the aggregate list builder
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage \Domain\Model\List\Aggregates
+ * @package Domain
+ * @subpackage Model\List\Aggregates
  */
 class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 	

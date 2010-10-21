@@ -161,8 +161,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			$this->listQueryParts['SELECT'] =	$selectPart != '' ? 'SELECT ' 	. $selectPart   . " \n" : '';
 			$this->listQueryParts['FROM'] = 	$fromPart != '' ? 'FROM '   	. $fromPart 	. " \n" : '';
 			$this->listQueryParts['WHERE'] = 	$wherePart != '' ? 'WHERE '  	. $wherePart 	. " \n" : '';
-			$this->listQueryParts['GROUPBY'] = $groupByPart!= '' ? 'GROUP BY ' . $groupByPart 	. " \n" : '';
-			$this->listQueryParts['ORDERBY'] = $orderByPart!= '' ? 'ORDER BY ' . $orderByPart 	. " \n" : '';
+			$this->listQueryParts['GROUPBY'] =  $groupByPart!= '' ? 'GROUP BY ' . $groupByPart 	. " \n" : '';
+			$this->listQueryParts['ORDERBY'] =  $orderByPart!= '' ? 'ORDER BY ' . $orderByPart 	. " \n" : '';
 			$this->listQueryParts['LIMIT'] = 	$limitPart != '' ? 'LIMIT ' 	. $limitPart 	. " \n" : '';
 		}
 		
@@ -386,6 +386,15 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	}
 	
 	
+	/**
+	 * Get the query parts
+	 * @return array query parts
+	 */
+	public function getQueryParts() {
+		$this->buildQuery();
+		return $this->listQueryParts;
+	}
+	
 	
 	/**
 	 * Returns number of records for current settings without pager
@@ -394,7 +403,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function getTotalItemsCount() {
 		
-		if(!is_array($this->listQueryParts)) $this->buildQuery();
+		$this->buildQuery();
 		
 		$query = '';
 		$query .= 'SELECT COUNT(*) AS totalItemCount ';
@@ -426,7 +435,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
     	  	
-    	if(!is_array($this->listQueryParts)) $this->buildQuery();
+        $this->buildQuery();
     	
     	$selectPart  = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
     	$fromPart = $this->listQueryParts['FROM'];
@@ -467,6 +476,25 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $groupDataArray = $this->dataSource->executeQuery($query);
         
         return $groupDataArray;
+    }
+    
+    
+    /**
+     * Aggreagte the list by field and method or special sql
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     */
+    public function getAggregateByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
+    	
+    	$this->buildQuery();
+    	$supportedMethods = array('sum', 'avg', 'min', 'max');
+    	
+    	if($aggregateConfig->getSpecial()) {
+    		
+    	} else {
+    		tx_pttools_assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, array('info' => 'The given aggregate method "'.$aggregateConfig->getMethod().'" is not supported by this DataBackend'));
+    		$aggregate = strtoupper($aggregateConfig->getMethod()) . '('.$aggregateConfig->getFieldIdentifier().')';
+    	}	
     }
     
     

@@ -30,7 +30,7 @@
  * @subpackage pt_extlist
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a aggregate config collection object

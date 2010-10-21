@@ -26,11 +26,11 @@
 /**
  * Testcase for aggregate collection
  *
- * @package pt_extlist
- * @subpackage Tests\Configuration\Data\Aggregates
+ * @package Tests
+ * @subpackage Configuration\Data\Aggregates
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollection_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a aggregate config collection object
@@ -43,14 +43,17 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
 	public function setup() {
 		$this->aggregateSettings = array(
 		    'agg1' => array( 
-		    	'fieldIdentifier' => 'fieldName1',
+		    	'fieldIdentifier' => 'field1',
 		    	'method' => 'avg',
 		    ),
 		    'agg2' => array( 
-		   		'fieldIdentifier' => 'fieldName2',
+		   		'fieldIdentifier' => 'field2',
 		   		'method' => 'max',
             )
 		);
+		
+		$settingsTree['listConfig']['test']['aggregateData'] = $this->aggregateSettings;
+		$this->initDefaultConfigurationBuilderMock($settingsTree);
 	}
 	
 	
@@ -86,9 +89,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
 	
 	
 	public function testAddGetCorrectItems() {
+
+	
 		$aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
-		$aggregateConfigCollection->addAggregateConfig(new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg1', $this->aggregateSettings['agg1']));
-		$aggregateConfigCollection->addAggregateConfig(new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $this->aggregateSettings['agg2']));
+		$aggregateConfigCollection->addAggregateConfig(new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg1', $this->aggregateSettings['agg1'], $this->configurationBuilderMock));
+		$aggregateConfigCollection->addAggregateConfig(new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $this->aggregateSettings['agg2'], $this->configurationBuilderMock));
 		$aggregateConfig1 = $aggregateConfigCollection->getAggregateConfigByIdentifier('agg1');
 		$this->assertEquals($aggregateConfig1->getIdentifier(), 'agg1');
 		$aggregateConfig2 = $aggregateConfigCollection->getAggregateConfigByIdentifier('agg2');

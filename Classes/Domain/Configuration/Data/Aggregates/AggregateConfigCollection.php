@@ -26,8 +26,8 @@
 /**
  * Class implements a collection of aggregate configurations.
  * 
- * @package pt_extlist
- * @subpackage Domain\Configuration\Data\Aggregates
+ * @package Domain
+ * @subpackage Configuration\Data\Aggregates
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection extends tx_pttools_objectCollection {

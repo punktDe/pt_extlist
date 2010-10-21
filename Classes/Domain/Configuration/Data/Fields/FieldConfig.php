@@ -26,8 +26,8 @@
 /**
  * Class Field Config
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Data\Fields 
+ * @package Domain
+ * @subpackage Configuration\Data\Fields 
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {

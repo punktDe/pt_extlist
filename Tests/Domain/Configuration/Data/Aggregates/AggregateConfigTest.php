@@ -30,7 +30,7 @@
  * @subpackage Tests\Configuration\Data\Aggregates
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfig_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a aggregate config object
@@ -49,15 +49,17 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfig_te
 	
 	public function setup() {
 		$this->aggregateSettings = array(
-		    'fieldIdentifier' => 'fieldName',
+		    'fieldIdentifier' => 'field1',
 		    'method' => 'avg',
 		);
-		$this->aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg1', $this->aggregateSettings);
+		
+		$this->initDefaultConfigurationBuilderMock();
+		$this->aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg1', $this->aggregateSettings, $this->configurationBuilderMock);
 	}
 	
 	
 	public function testGetFieldIdentifier() {
-		$this->assertEquals('fieldName', $this->aggregateConfig->getFieldIdentifier());
+		$this->assertEquals('field1', $this->aggregateConfig->getFieldIdentifier()->getIdentifier());
 	}
 	
 	public function testGetIndetifier() {

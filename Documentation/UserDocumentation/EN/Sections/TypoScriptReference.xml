@@ -11,11 +11,21 @@
       <refname>plugin.tx_ptextlist.setting</refname>
       <refpurpose>main settings for pt_extlist</refpurpose>
     </refnamediv>
-    <refsection>
-      <title>description</title>
+    
+	<refsect1>
+      <title>lvl1</title>
       <para>All settings below this section are used as plugin configuration.</para>
-    </refsection>
-    <refsection>
+		  <refsect2>
+			<title>lvl2</title>
+			<para>All settings below this section are used as plugin configuration.</para>
+			<refsect3>
+			  <title>lvl3</title>
+			  <para>All settings below this section are used as plugin configuration.</para>
+			</refsect3>
+		</refsect2>
+    </refsect1>
+    
+	<refsection>
       <title>parent elements</title>
       <para>None.</para>
     </refsection>
@@ -28,6 +38,7 @@
     </refsection>
   </refentry>
   <refentry>
+  
     <refmeta>
       <refentrytitle>plugin.tx_ptextlist.settings.listConfig</refentrytitle>
     </refmeta>
