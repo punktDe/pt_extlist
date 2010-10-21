@@ -29,12 +29,14 @@
  * Testcase for Aggregate list builder
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage \Tests\Domain\List\Aggregates
+ * @package Tests
+ * @subpackage Domain\List\Aggregates
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilder_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $testListData;
+	
+	protected $dataBackendMock;
 	
 	protected $testData;
 	
@@ -42,14 +44,15 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilder_testc
 		$this->testData = array(1,2,3,4,5,6,7,8,9,10);	
 		
 		$this->initDefaultConfigurationBuilderMock();
-		$this->buildTestListData();
+		$this->builddataBackendMock();
 	}
 
 	
 	public function testBuildAggregateDataRow() {
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder');
     	$aggregateListBuilder = new $accessibleClassName($this->configurationBuilderMock);
-    	$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($this->testListData));
+    	$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($this->dataBackendMock));
+    	$aggregateListBuilder->injectDataBackend($this->dataBackendMock);
     	
     	$dataRow = $aggregateListBuilder->_call('buildAggregateDataRow');
     	$this->assertTrue(is_a($dataRow['sumField1'], 'Tx_PtExtlist_Domain_Model_List_Cell'));
@@ -59,9 +62,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilder_testc
 	public function testBuildAggregateList() {
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder');
     	$aggregateListBuilder = new $accessibleClassName($this->configurationBuilderMock);
-        $aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($this->testListData));
+        $aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($this->dataBackendMock));
         $aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->configurationBuilderMock));
-    	$aggregateListBuilder->init();
+    	$aggregateListBuilder->injectDataBackend($this->dataBackendMock);
+    	
+        $aggregateListBuilder->init();
     	    	
     	$list = $aggregateListBuilder->buildAggregateList();
     	$this->assertTrue(is_a($list, 'Tx_PtExtlist_Domain_Model_List_ListData'));
@@ -69,7 +74,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilder_testc
 	
 	
 	
-	protected function buildTestListData() {
+	protected function builddataBackendMock() {
 		
 		$this->testListData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
@@ -80,6 +85,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilder_testc
 			$row->createAndAddCell($data*10, 'field3');
 			$this->testListData->addRow($row);	
 		}
+		
+		$this->dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getListData'), array(), '', FALSE);
+        $this->dataBackendMock->expects($this->any())
+            ->method('getListData')
+            ->will($this->returnValue($this->testListData));
 	}
 	
 	

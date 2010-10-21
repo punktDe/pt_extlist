@@ -36,16 +36,17 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 	 * Get defined aggregate rows as list data structure
 	 * if no aggregate Rows are defined return an empty list structure
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public static function getAggregateListData(Tx_PtExtlist_Domain_Model_List_ListData $listData, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function getAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
 		if($configurationBuilder->getAggregateRowSettings()) {
 			
 			$aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
-			$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($listData));
+			$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
 			$aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($configurationBuilder));
+			$aggregateListBuilder->injectDataBackend($dataBackend);
 			$aggregateListBuilder->init();
 			
 			$aggregateListData = $aggregateListBuilder->buildAggregateList();	

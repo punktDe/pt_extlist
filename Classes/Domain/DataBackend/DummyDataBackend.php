@@ -28,8 +28,8 @@
  * some output for testing and development.
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend
  */
 class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
 	
@@ -116,6 +116,15 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
         // TODO implement me!
     }
 	
+    
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregatesByConfigCollection()
+     */
+    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
+    	// TODO implement me!
+    }
+    
 }
 
 ?>

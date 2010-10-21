@@ -66,6 +66,23 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 		}
 	}
 	
+	
+	/**
+	 * Extract the items with the given scope
+	 * 
+	 * @param string $scope
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+	 */
+	public function extractCollectionByScope($scope) {
+		$collection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection;
+		foreach($this->itemsArr as $itemKey => $item) {
+			if($item->getScope() == $scope) {
+				$collection->addAggregateConfig($item,$itemKey);
+			}
+		}
+		return $collection;
+	}
+	
 }
 
 ?>

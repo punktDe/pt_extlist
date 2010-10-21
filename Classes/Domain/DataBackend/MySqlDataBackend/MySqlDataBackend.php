@@ -26,9 +26,10 @@
 /**
  * Class implements data backend for generic mysql connections
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage DataBackend\MySqlDataBackend
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
 	    
@@ -132,13 +133,25 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return array Array of raw list data
      */
 	public function getListData() {
+		if(!is_array($this->listData)) {
+			$this->listData = $this->buildListData();
+		}
+		
+		return $this->listData;
+	}
+	
+	
+	/**
+	 * Build the list data
+	 * @return array Array of raw list data
+	 */
+	public function buildListData() {
 		$sqlQuery = $this->buildQuery();
 		
 		$rawData = $this->dataSource->executeQuery($sqlQuery);
 		$mappedListData = $this->dataMapper->getMappedListData($rawData);
 		return $mappedListData;
 	}
-	
 	
 	
 	/**
@@ -484,17 +497,30 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * 
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
      */
-    public function getAggregateByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
+    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfig) {
+    	$aggregateSQL = $this->buildAggregateSQL($aggregateConfig);
     	
+    }
+    
+    
+    
+    /**
+     * Build the SQL Query for an aggregate
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     */
+    protected function buildAggregateSQL(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
     	$this->buildQuery();
     	$supportedMethods = array('sum', 'avg', 'min', 'max');
     	
     	if($aggregateConfig->getSpecial()) {
-    		
+    		$aggregateFieldSQL = $aggregateConfig->getSpecial();
     	} else {
     		tx_pttools_assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, array('info' => 'The given aggregate method "'.$aggregateConfig->getMethod().'" is not supported by this DataBackend'));
-    		$aggregate = strtoupper($aggregateConfig->getMethod()) . '('.$aggregateConfig->getFieldIdentifier().')';
-    	}	
+    		$aggregateFieldSQL = strtoupper($aggregateConfig->getMethod()) . '('.$aggregateConfig->getFieldIdentifier().')';
+    	}
+
+    	
     }
     
     

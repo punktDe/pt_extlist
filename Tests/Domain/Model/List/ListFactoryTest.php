@@ -27,12 +27,12 @@
 /**
  * Testcase for list factory
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Test
+ * @subpackage Domain\Model\List
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-class Tx_PtExtlist_Tests_DOmain_Model_List_ListFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
@@ -45,12 +45,11 @@ class Tx_PtExtlist_Tests_DOmain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 	}
 	
 	
-	
 	public function testCreateList() {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
 		$backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getListData'), array($this->configurationBuilderMock));
-		$backendMock->expects($this->once())
+		$backendMock->expects($this->any())
 		    ->method('getListData')
 		    ->will($this->returnValue($listData));
 		

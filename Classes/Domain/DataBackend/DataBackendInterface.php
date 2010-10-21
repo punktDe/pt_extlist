@@ -26,9 +26,10 @@
 /**
  * Interface for all data backends
  *
- * @package TYPO3
- * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage DataBackend
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
@@ -96,6 +97,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return int Total number of items for current data set
      */
     public function getTotalItemsCount();
+    
+    
+    
+    /**
+     * Return an aggregate for a field and with a method defined in the given config
+     *  
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateDataConfig
+     */
+    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection);
     
     
     

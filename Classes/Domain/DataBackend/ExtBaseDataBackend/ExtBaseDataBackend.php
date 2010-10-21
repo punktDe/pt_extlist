@@ -246,6 +246,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	}
 	
 	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregateByConfig()
+	 */
+	public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfig) {
+		// TODO: implement me!
+		Throw new Exception('Aggregates are not yet available in extbase Backend');
+	}
+	
 	
 	/**
 	 * Injector for data source. Expects Tx_Extbase_Persistence_Repository to be given as datasource
