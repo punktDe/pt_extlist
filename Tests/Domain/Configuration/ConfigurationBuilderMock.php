@@ -203,10 +203,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 					    	'sumField1' => array (
 					    		'fieldIdentifier' => 'field1',
 					    		'method' => 'sum',
+	                    		'scope' => 'page',
 					    	),
 					    	'avgField2' => array (
 					    		'fieldIdentifier' => 'field2',
 					    		'method' => 'avg',
+					    		'special' => 'sql',
 					    	),
 					    ),
 					    

@@ -24,10 +24,11 @@
 ***************************************************************/
 
 /**
- * Controller for all list actsions
+ * Controller for all list actions
  * 
  * @package Controller
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController {
 	

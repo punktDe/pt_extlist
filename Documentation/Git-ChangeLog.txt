@@ -1,6 +1,7 @@
 # This changelog file is automatically written by git and holds the git commit message history.
 # Do not edit the file manually!
 
+24971d7 2010-10-21 08:25:58 +0200 (Daniel Lienert) message: TASK: Fixed .gitignore
 c2adcfe 2010-10-19 19:35:56 +0200 (Daniel Lienert) message: CHG: Fieldidentifier in aggregates are now fielConfig objects
 4e4bcba 2010-10-19 15:55:51 +0200 (Daniel Lienert) message: ADD: Git-Changelog
 ce4028b 2010-10-19 15:53:37 +0200 (Daniel Lienert) message: MERGE

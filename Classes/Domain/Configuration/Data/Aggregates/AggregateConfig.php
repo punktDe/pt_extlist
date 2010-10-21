@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	 * 
 	 * @var string
 	 */
-	protected $scope;
+	protected $scope = 'query';
 	
 	
 	/**
@@ -82,14 +82,23 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 		if(!trim($aggregateSettings['fieldIdentifier'])) {
 			throw new Exception('No fieldIdentifier for aggregate given! 1282891630');
 		}
-		
 		$this->fieldIdentifier = $configurationBuilder->buildFieldsConfiguration()->getFieldConfigByIdentifier($aggregateSettings['fieldIdentifier']);
 	
-		if(!$aggregateSettings['method']) {
-			throw new Exception('No aggregate method given! 1282891831');
-		} else {
-			// TODO check if method is valid / implemented
+		if(!array_key_exists('method', $aggregateSettings) && !array_key_exists('special', $aggregateSettings)) {
+			throw new Exception('No aggregate method or special sql given for aggregate '.$this->identifier.'! 1282891831');
+		} 
+		
+		if(array_key_exists('method', $aggregateSettings)) {
 			$this->method = trim($aggregateSettings['method']);
+		}
+		
+		if(array_key_exists('scope', $aggregateSettings)) {
+			$this->scope = $aggregateSettings['scope'];
+		}
+		
+		if(array_key_exists('special', $aggregateSettings)) {
+			$this->special = $aggregateSettings['special'];
+			$this->scope = 'query';
 		}
 	}
 		
