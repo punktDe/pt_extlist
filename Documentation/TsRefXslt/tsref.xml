@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!DOCTYPE TSREF [
+
+    <!ELEMENT TSREF (ENTRY)+>
+    <!ELEMENT ENTRY (DESCRIPTION,DATATYPE*,EXAMPLE*,CHILDREN*, VARIANTS*)>
+    <!ELEMENT DESCRIPTION  (#PCDATA)>
+    <!ELEMENT DATATYPE (#PCDATA)>
+    <!ELEMENT EXAMPLE (#PCDATA)>
+    <!ELEMENT CHILDREN (ENTRY*)>
+    <!ELEMENT VARIANT (ENTRY*)>
+
+    <!ATTLIST ENTRY KEY CDATA #REQUIRED>
+
+]>
+
+<TSREF>
+    <ENTRY KEY="plugin.tx_ptextlist.settings">
+        <DESCRIPTION>Main TS-key for all pt_extlist settings.</DESCRIPTION>
+        <CHILDREN>
+            <ENTRY KEY="listConfig">
+                <DESCRIPTION>Holds configuration for all list identifiers configured by array key.</DESCRIPTION>
+                <DATATYPE>Associative Array (listIdentifier => listConfiguration)</DATATYPE>
+                <EXAMPLE></EXAMPLE>
+                <CHILDREN>
+                    <ENTRY KEY="&lt;yourListId&gt;">
+                        <DESCRIPTION>Holds configuration for a single list identifier</DESCRIPTION>
+                        <EXAMPLE>here comes some sample code</EXAMPLE>
+                    </ENTRY>
+                    
+                    
+                </CHILDREN>
+            </ENTRY>
+        </CHILDREN>
+    </ENTRY>
+</TSREF>
