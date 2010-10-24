@@ -39,6 +39,12 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	
 	
 	/**
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 */
+	protected $dataBackend;
+	
+	
+	/**
 	 * Aggregator for aggregating listData
 	 * 
 	 * @var Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
@@ -91,6 +97,14 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	 */
 	public function injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer) {
 		$this->renderer = $renderer;
+	}
+	
+	
+	/**
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 */
+	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$this->dataBackend = $dataBackend;	
 	}
 	
 	
@@ -161,12 +175,42 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		$dataRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		$aggregateDataConfigCollection = $this->configurationBuilder->buildAggregateDataConfig();
 		
-		foreach($aggregateDataConfigCollection as $aggregateDataConfig) {
-			$dataRow->createAndAddCell($this->arrayAggregator->getAggregateByConfig($aggregateDataConfig), $aggregateDataConfig->getIdentifier());
+		$aggregatesForPage = $this->getAggregatesForPage($aggregateDataConfigCollection->extractCollectionByScope('page'));
+		$aggregatesForQuery = $this->getAggregatesForQuery($aggregateDataConfigCollection->extractCollectionByScope('query'));
+		$aggregates = array_merge($aggregatesForPage, $aggregatesForQuery);
+
+		foreach($aggregates as $key => $value) {
+			$dataRow->createAndAddCell($value, $key);
 		}
 		
 		return $dataRow;
 	}
 	
+	/**
+	 * Get Aggregate data for Page
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+	 */
+	protected function getAggregatesForPage(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
+		
+		$aggregates = array();
+		
+		foreach($aggregateDataConfigCollection as $aggregateDataConfig) {
+			$aggregates[$aggregateDataConfig->getIdentifier()] = $this->arrayAggregator->getAggregateByConfig($aggregateDataConfig);
+		}
+
+		return $aggregates;
+		
+	}
+	
+	
+	/**
+	 * Get aggregate data for the whole query
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+	 */
+	protected function getAggregatesForQuery(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
+		return $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
+	}
 }
 ?>

@@ -41,19 +41,19 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	
 	
 	/**
-	 * Original list data
+	 * Reference to the data Backend
 	 * 
-	 * @var Tx_PtExtlist_Domain_Model_List_ListData
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
 	 */
-	protected $listData;
+	protected $dataBackend;
 	
 	
 	
 	/**
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 */
-	public function injectListData(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		$this->listData = $listData;
+	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$this->dataBackend = $dataBackend;
 	}
 	
 	
@@ -87,9 +87,9 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * @return array
 	 */
 	protected function buildFieldData($fieldIdentifier) {	
-		$this->fieldData[$fieldIdentifier] = array();
+		$fieldData[$fieldIdentifier] = array();
 		
-		foreach($this->listData as $row) {
+		foreach($this->dataBackend->getListData() as $row) {
 			$this->fieldData[$fieldIdentifier][] = $row[$fieldIdentifier]->getValue();
 		}	
 	}

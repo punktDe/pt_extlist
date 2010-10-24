@@ -84,6 +84,13 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	protected $listData;
+	
+	
+	
     /**
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
@@ -304,6 +311,13 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		return $this->listHeader;
 	}
 	
+	
+	/**
+	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
+	 */
+	public function getListData() {
+		return $this->listData;
+	}
 	
 	
 	/**

@@ -35,12 +35,12 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory {
 	/**
 	 *  build the arrayAgregator
 	 * 
-	 * @param $configurationBuilder Tx_PtExtlist_Domain_Model_List_ListData
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+	public static function createInstance(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		$arrayAgregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
-		$arrayAgregator->injectListData($listData);	
+		$arrayAgregator->injectDataBackend($dataBackend);	
 	
 		return $arrayAgregator;
 	}

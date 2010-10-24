@@ -372,7 +372,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     /**
      * Returns a singleton instance of a aggregateData configuration collection for current list configuration
      * 
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
      */
     public function buildAggregateDataConfig() {
     	if(is_null($this->aggregateDataConfig)) {
