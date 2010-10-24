@@ -500,6 +500,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$aggregateSQL = $this->buildAggregateSQL($aggregateConfigCollection);
     	
+    	return array();
     }
     
     
@@ -519,8 +520,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     		tx_pttools_assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, array('info' => 'The given aggregate method "'.$aggregateConfig->getMethod().'" is not supported by this DataBackend'));
     		$aggregateFieldSQL = strtoupper($aggregateConfig->getMethod()) . '('.$aggregateConfig->getFieldIdentifier().')';
     	}
-
-    	
     }
     
     

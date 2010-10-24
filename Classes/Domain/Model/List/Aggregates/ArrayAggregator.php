@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 */
 	protected function buildFieldData($fieldIdentifier) {	
 		$fieldData[$fieldIdentifier] = array();
-		
+	
 		foreach($this->dataBackend->getListData() as $row) {
 			$this->fieldData[$fieldIdentifier][] = $row[$fieldIdentifier]->getValue();
 		}	

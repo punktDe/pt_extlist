@@ -177,8 +177,8 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		
 		$aggregatesForPage = $this->getAggregatesForPage($aggregateDataConfigCollection->extractCollectionByScope('page'));
 		$aggregatesForQuery = $this->getAggregatesForQuery($aggregateDataConfigCollection->extractCollectionByScope('query'));
-		$aggregates = array_merge($aggregatesForPage, $aggregatesForQuery);
-
+		$aggregates = t3lib_div::array_merge_recursive_overrule($aggregatesForQuery, $aggregatesForPage);	
+				
 		foreach($aggregates as $key => $value) {
 			$dataRow->createAndAddCell($value, $key);
 		}
@@ -194,7 +194,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	protected function getAggregatesForPage(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
 		
 		$aggregates = array();
-		
+	
 		foreach($aggregateDataConfigCollection as $aggregateDataConfig) {
 			$aggregates[$aggregateDataConfig->getIdentifier()] = $this->arrayAggregator->getAggregateByConfig($aggregateDataConfig);
 		}
@@ -210,7 +210,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
 	 */
 	protected function getAggregatesForQuery(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
-		return $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
+		$aggregates = $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
+		if(!is_array($aggregates)) $aggregates = array();
+		
+		return $aggregates;
 	}
 }
 ?>

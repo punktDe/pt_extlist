@@ -28,8 +28,7 @@
  * Testcase for header column class
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
  */
 class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
 

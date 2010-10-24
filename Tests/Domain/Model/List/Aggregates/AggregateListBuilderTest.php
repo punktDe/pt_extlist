@@ -86,10 +86,13 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilder_testc
 			$this->testListData->addRow($row);	
 		}
 		
-		$this->dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getListData'), array(), '', FALSE);
+		$this->dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getListData','getAggregatesByConfigCollection'), array(), '', FALSE);
         $this->dataBackendMock->expects($this->any())
             ->method('getListData')
             ->will($this->returnValue($this->testListData));
+        $this->dataBackendMock->expects($this->any())
+            ->method('getAggregatesByConfigCollection')
+            ->will($this->returnValue(array('avgField2' => 5)));
 	}
 	
 	
