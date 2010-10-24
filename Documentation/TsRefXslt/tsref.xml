@@ -5,9 +5,11 @@
 <!DOCTYPE TSREF [
 
     <!ELEMENT TSREF (ENTRY)+>
-    <!ELEMENT ENTRY (DESCRIPTION,DATATYPE*,EXAMPLE*,CHILDREN*, VARIANTS*)>
+    <!ELEMENT ENTRY (DESCRIPTION, STDWRAP*, DATATYPE*, EXAMPLE*, CHILDREN*, VARIANT*, PROTOTYPE*)>
     <!ELEMENT DESCRIPTION  (#PCDATA)>
     <!ELEMENT DATATYPE (#PCDATA)>
+    <!ELEMENT PROTOTYPE (#PCDATA)>
+    <!ELEMENT STDWRAP (#PCDATA)>
     <!ELEMENT EXAMPLE (#PCDATA)>
     <!ELEMENT CHILDREN (ENTRY*)>
     <!ELEMENT VARIANT (ENTRY*)>
@@ -28,9 +30,229 @@
                     <ENTRY KEY="&lt;yourListId&gt;">
                         <DESCRIPTION>Holds configuration for a single list identifier</DESCRIPTION>
                         <EXAMPLE>here comes some sample code</EXAMPLE>
+                        
+                        <CHILDREN>
+	                    <ENTRY KEY="backendConfig">
+	                        <DESCRIPTION>Holds the configuration for the used data backend.</DESCRIPTION>
+	                        
+	                        <VARIANT>
+	                        	
+	                        	<ENTRY KEY="backendConfig.mysql">
+			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.mysql</PROTOTYPE>
+			                    	<CHILDREN>
+			                    		<ENTRY KEY="datasource">
+			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<STDWRAP></STDWRAP>
+			                    			<DATATYPE></DATATYPE>
+			                    			<EXAMPLE></EXAMPLE>
+			                    		</ENTRY>
+			                    		
+			                    		<ENTRY KEY="baseFromClause">
+			                    			<DESCRIPTION>Holds the FROM clause of a mysql query without the FROM keyword.</DESCRIPTION>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<STDWRAP>1</STDWRAP>
+			                    			<DATATYPE>String</DATATYPE>
+			                    			<EXAMPLE>
+			                    				static_countries
+												LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+											</EXAMPLE>
+			                    		</ENTRY>
+			                    		
+			                    		<ENTRY KEY="baseWhereClause">
+			                    			<DESCRIPTION>Holds the WHERE clause of a mysql query without the WHERE keyword.</DESCRIPTION>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<STDWRAP>1</STDWRAP>
+			                    			<DATATYPE>String</DATATYPE>
+			                    			<EXAMPLE>
+			                    				st_continent.tr_name_en &lt;&gt; ''
+			                    			</EXAMPLE>
+			                    		</ENTRY>
+			                    		
+			                    		<ENTRY KEY="baseGroupByClause">
+			                    			<DESCRIPTION>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</DESCRIPTION>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<STDWRAP>1</STDWRAP>
+			                    			<DATATYPE>String</DATATYPE>
+			                    			<EXAMPLE>st_continent</EXAMPLE>
+			                    		</ENTRY>
+			                    	</CHILDREN>
+			                    </ENTRY>
+	                        	
+	                        	<ENTRY KEY="backendConfig.typo3">
+			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.typo3</PROTOTYPE>
+			                    </ENTRY>
+			                    
+			                    <ENTRY KEY="backendConfig.extbase">
+			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.extbase</PROTOTYPE>
+			                    </ENTRY>
+	                        </VARIANT>
+	                    </ENTRY>
+           		 		<ENTRY KEY="fields">
+                   			<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
+                   			<PROTOTYPE></PROTOTYPE>
+                   			<STDWRAP>0</STDWRAP>
+                   			<DATATYPE>Associative array</DATATYPE>
+                   			<EXAMPLE></EXAMPLE>
+                   			<CHILDREN>
+                   				<ENTRY KEY="&lt;yourFieldId&gt;">
+                   					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
+                   					<EXAMPLE>
+	                   					name_local {
+											table = static_countries
+											field = cn_short_local
+											isSortable = 1
+										}
+                   					</EXAMPLE>
+                   					<CHILDREN>
+                   						<ENTRY KEY="table">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="field">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="special">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="isSortable">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="accessGroups">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="expandGroupRows">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+                   					</CHILDREN>
+                   				</ENTRY>
+                   			</CHILDREN>
+                   		</ENTRY>
+               		 	<ENTRY KEY="columns">
+							<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
+							<PROTOTYPE></PROTOTYPE>
+							<STDWRAP>0</STDWRAP>
+							<DATATYPE>Array</DATATYPE>
+							<EXAMPLE></EXAMPLE>
+							<CHILDREN>
+								<ENTRY KEY="10,20,30">
+									<CHILDREN>
+										<ENTRY KEY="fieldIdentifier">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="isSortable">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="label">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="renderUserFunctions">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="renderTemplate">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="renderObj">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="sorting">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="sortingImageAsc">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="sortingImageDesc">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="sortingImageDefault">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="accessGroups">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="cellCSSClass">
+											<DESCRIPTION></DESCRIPTION>
+											<PROTOTYPE></PROTOTYPE>
+											<STDWRAP>0</STDWRAP>
+											<DATATYPE></DATATYPE>
+											<EXAMPLE></EXAMPLE>
+										</ENTRY>
+									</CHILDREN>
+								</ENTRY>
+							</CHILDREN>
+						</ENTRY>
+               		 	</CHILDREN>
                     </ENTRY>
-                    
-                    
                 </CHILDREN>
             </ENTRY>
         </CHILDREN>

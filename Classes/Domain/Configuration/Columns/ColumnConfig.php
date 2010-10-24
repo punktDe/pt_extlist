@@ -27,8 +27,8 @@
  * Column Config Object 
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage Domain\Configuration\Columns
+ * @package Domain
+ * @subpackage Configuration\Columns
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 	
