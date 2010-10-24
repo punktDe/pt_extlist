@@ -26,8 +26,8 @@
 /**
  * Class implements an or criteria
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage QueryObject
  * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {

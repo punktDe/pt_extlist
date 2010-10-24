@@ -26,8 +26,8 @@
 /**
  * AND criteria
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage QueryObject
  * @author Michael Knoll <knoll@punkt.de>
  */
  class Tx_PtExtlist_Domain_QueryObject_AndCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {

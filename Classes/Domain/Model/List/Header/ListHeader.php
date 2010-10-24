@@ -27,8 +27,8 @@
  * Class implements list header collection
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage \Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 

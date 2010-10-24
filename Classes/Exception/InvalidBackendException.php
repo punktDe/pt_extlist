@@ -26,8 +26,7 @@
 /**
  * 
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Exception
  */
 class Tx_PtExtlist_Exception_InvalidBackendException extends Tx_Extbase_Exception {
 	

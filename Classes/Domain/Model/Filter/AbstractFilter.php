@@ -26,11 +26,8 @@
 /**
  * Abstract filter class for filter models
  * 
-<<<<<<< HEAD
- * @author Michael Knoll <knoll@punkt.de>, Daliel Lienert <lienert@punkt.de>
-=======
  * @author Michael Knoll <knoll@punkt.de>
->>>>>>> 1c8ed3fa327d24d192007cee0ed6d192063f760d
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage Model\Filter
  */

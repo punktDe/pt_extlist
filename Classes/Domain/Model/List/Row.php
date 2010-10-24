@@ -30,8 +30,8 @@
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll
  * @author Christoph Ehscheidt
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\List
  */
 class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	

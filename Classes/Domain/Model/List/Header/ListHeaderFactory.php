@@ -27,8 +27,8 @@
  * Class implements factory for complete list header
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage \Domain\Model\List\Header
+ * @package Domain
+ * @subpackage \Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	

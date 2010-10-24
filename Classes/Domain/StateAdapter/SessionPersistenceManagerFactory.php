@@ -26,8 +26,8 @@
 /**
  * Class implements a factory for session persistence manager.
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage StateAdapter
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {

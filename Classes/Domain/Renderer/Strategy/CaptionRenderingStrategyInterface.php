@@ -27,8 +27,8 @@
 /**
  * TODO insert comment!
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Renderer\Strategy
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {

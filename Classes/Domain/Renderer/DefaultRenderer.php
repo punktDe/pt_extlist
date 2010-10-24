@@ -27,8 +27,8 @@
 /**
  * Default renderer for list data
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Renderer
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */

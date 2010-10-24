@@ -30,8 +30,7 @@
  * Remove this viewheper if a appropriate viewhelper is implemented in fluid
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package ViewHelpers
  */
 class Tx_PtExtlist_ViewHelpers_CommentViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 	

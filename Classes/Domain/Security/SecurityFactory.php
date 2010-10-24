@@ -24,6 +24,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * 
+ * TODO: Enter description here !!!
+ *
+ */
 class Tx_PtExtlist_Domain_Security_SecurityFactory {
 
 	protected static $instance = NULL;

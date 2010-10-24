@@ -27,9 +27,10 @@
 /**
  * The default strategy to render a cell.
  * 
- * @package Typo3
- * @subpackage pt_extlist
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage Renderer\Strategy
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 

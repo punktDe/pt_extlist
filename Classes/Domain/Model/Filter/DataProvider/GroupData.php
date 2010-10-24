@@ -27,8 +27,8 @@
  * Implements data provider for grouped list data
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter\DataProvider
  */
 class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
 

@@ -26,8 +26,8 @@
 /**
  * Class implements a factory for GET/POST Var Adapter.
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage StateAdapter
  */
 class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	

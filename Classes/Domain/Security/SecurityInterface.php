@@ -24,6 +24,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * 
+ * TODO: Enter description here !!!
+ *
+ */
 interface Tx_PtExtlist_Domain_Security_SecurityInterface  {
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder);
 }

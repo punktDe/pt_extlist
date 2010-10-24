@@ -27,8 +27,8 @@
  * Implements factory for options filter data provider
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter\DataProvider
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory {
 	

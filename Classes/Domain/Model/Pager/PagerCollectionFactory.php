@@ -27,8 +27,8 @@
 /**
  * Class implements pager collection factory
  *
- * @package pt_extlist
- * @subpackage Domain\Model\Pager
+ * @package Domain
+ * @subpackage Model\Pager
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */

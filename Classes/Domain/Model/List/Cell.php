@@ -27,8 +27,8 @@
 /**
  * Class implements a cell of a row of list data
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\List
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */

@@ -28,8 +28,8 @@
  * A collection to manage a bunch of pagers.
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package pt_extlist
- * @subpackage Pager
+ * @package Domain
+ * @subpackage Model\Pager
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collection 
 			implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {

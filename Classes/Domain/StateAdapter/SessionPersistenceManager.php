@@ -27,9 +27,10 @@
  * Persistence manager to store objects to session and reload objects from session.
  * Uses pt_tools sessionStorageAdapter for accessing T3 session.
  *
- * @package TYPO3
- * @subpackage pt_extlist
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @package Domain
+ * @subpackage StateAdapter
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface {
 	

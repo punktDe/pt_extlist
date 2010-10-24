@@ -29,8 +29,8 @@
  * @author Michael Knoll
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\List
  */
 class Tx_PtExtlist_Domain_Model_List_ListData extends tx_pttools_objectCollection {
 	

@@ -26,7 +26,8 @@
 /**
  * Class implements a filterbox which is a collection of filters
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage Model\Filter
  */

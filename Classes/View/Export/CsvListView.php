@@ -27,8 +27,8 @@
  * Implements a view for rendering CSV values
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package View
+ * @subpackage Export
  */
 class Tx_PtExtlist_View_Export_CsvListView Extends Tx_PtExtlist_View_Export_AbstractExportView {
 

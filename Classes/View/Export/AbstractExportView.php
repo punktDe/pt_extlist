@@ -29,7 +29,8 @@
  *
  * @package View
  * @subpackage Export
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView {
 	

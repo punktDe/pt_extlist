@@ -27,8 +27,8 @@
 /**
  * Default rendering strategy for rendering column captions
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Renderer\Strategy
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */

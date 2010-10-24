@@ -29,8 +29,8 @@
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\List
  */
 class Tx_PtExtlist_Domain_Model_List_ListFactory {
     

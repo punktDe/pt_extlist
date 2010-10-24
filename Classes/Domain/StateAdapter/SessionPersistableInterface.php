@@ -26,8 +26,8 @@
 /**
  * Interface for objects to be persistable in sessions
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage StateAdapter
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {

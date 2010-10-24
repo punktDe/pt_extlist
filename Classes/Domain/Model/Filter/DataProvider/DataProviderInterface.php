@@ -27,8 +27,8 @@
  * Interface for filterData provider
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Filter\DataProvider
  */
 interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
 		

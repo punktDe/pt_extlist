@@ -24,6 +24,12 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+
+/**
+ * 
+ * TODO: Enter description here ...
+ *
+ */
 class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**

@@ -26,7 +26,8 @@
 /**
  * Class contains utility functions concerning database related stuff
  * 
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  * @package Utility
  */
 class Tx_PtExtlist_Utility_DbUtils {

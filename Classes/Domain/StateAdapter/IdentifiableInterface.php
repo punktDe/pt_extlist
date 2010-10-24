@@ -26,8 +26,8 @@
 /**
  * Interface for objects to create a unique namespace for session persistence and addressing GP Vars
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage StateAdapter
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
