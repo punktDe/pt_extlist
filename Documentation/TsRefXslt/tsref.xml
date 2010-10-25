@@ -5,12 +5,14 @@
 <!DOCTYPE TSREF [
 
     <!ELEMENT TSREF (ENTRY)+>
-    <!ELEMENT ENTRY (DESCRIPTION, STDWRAP*, DATATYPE*, EXAMPLE*, CHILDREN*, VARIANT*, PROTOTYPE*)>
+    <!ELEMENT ENTRY (DESCRIPTION, DATATYPE*, POSIBLEVALUES*, DEFAULT*, STDWRAP*, PROTOTYPE*, EXAMPLE*, CHILDREN*, VARIANT* )>
     <!ELEMENT DESCRIPTION  (#PCDATA)>
     <!ELEMENT DATATYPE (#PCDATA)>
     <!ELEMENT PROTOTYPE (#PCDATA)>
     <!ELEMENT STDWRAP (#PCDATA)>
     <!ELEMENT EXAMPLE (#PCDATA)>
+    <!ELEMENT DEFAULT (#PCDATA)>
+    <!ELEMENT POSIBLEVALUES (#PCDATA)>
     <!ELEMENT CHILDREN (ENTRY*)>
     <!ELEMENT VARIANT (ENTRY*)>
 
@@ -43,17 +45,23 @@
 			                    	<CHILDREN>
 			                    		<ENTRY KEY="datasource">
 			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<STDWRAP></STDWRAP>
 			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
 			                    			<EXAMPLE></EXAMPLE>
+			                    			<CHILDREN></CHILDREN>
+			                    			<VARIANT></VARIANT>
 			                    		</ENTRY>
 			                    		
 			                    		<ENTRY KEY="baseFromClause">
 			                    			<DESCRIPTION>Holds the FROM clause of a mysql query without the FROM keyword.</DESCRIPTION>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<STDWRAP>1</STDWRAP>
 			                    			<DATATYPE>String</DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>1</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
 			                    			<EXAMPLE>
 			                    				static_countries
 												LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
@@ -62,12 +70,17 @@
 			                    		
 			                    		<ENTRY KEY="baseWhereClause">
 			                    			<DESCRIPTION>Holds the WHERE clause of a mysql query without the WHERE keyword.</DESCRIPTION>
+			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
 			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<STDWRAP>1</STDWRAP>
-			                    			<DATATYPE>String</DATATYPE>
 			                    			<EXAMPLE>
 			                    				st_continent.tr_name_en &lt;&gt; ''
 			                    			</EXAMPLE>
+
+			                    			<CHILDREN></CHILDREN>
+			                    			<VARIANT></VARIANT>
 			                    		</ENTRY>
 			                    		
 			                    		<ENTRY KEY="baseGroupByClause">
@@ -109,46 +122,58 @@
                    					</EXAMPLE>
                    					<CHILDREN>
                    						<ENTRY KEY="table">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
+			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
 										</ENTRY>
 										<ENTRY KEY="field">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
+			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
 										</ENTRY>
 										<ENTRY KEY="special">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
+			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
 										</ENTRY>
 										<ENTRY KEY="isSortable">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
+					                    	<DESCRIPTION></DESCRIPTION>
+			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
 										</ENTRY>
 										<ENTRY KEY="accessGroups">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
+			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
 										</ENTRY>
 										<ENTRY KEY="expandGroupRows">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
+			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<DATATYPE></DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
 										</ENTRY>
                    					</CHILDREN>
                    				</ENTRY>
@@ -250,6 +275,139 @@
 									</CHILDREN>
 								</ENTRY>
 							</CHILDREN>
+						</ENTRY>
+               		 	<ENTRY KEY="aggregateData">
+               		 		<DESCRIPTION>Defines aggregates of data fields.</DESCRIPTION>
+                   			<PROTOTYPE></PROTOTYPE>
+                   			<STDWRAP>0</STDWRAP>
+                   			<DATATYPE>Associative array</DATATYPE>
+                   			<EXAMPLE></EXAMPLE>
+               		 		<CHILDREN>
+               		 			<ENTRY KEY="&lt;yourAggregateFieldId&gt;">
+                   					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
+                   					<DATATYPE>Associative array</DATATYPE>
+                   					<POSIBLEVALUES></POSIBLEVALUES>
+                   					<DEFAULT></DEFAULT>
+			                    	<STDWRAP>0</STDWRAP>
+                   					<PROTOTYPE></PROTOTYPE>
+		                   			
+                   					<EXAMPLE>
+	                   					sumPhone {
+							        		fieldIdentifier = phone
+							        		method = sum
+							        		scope = query
+							        	}
+                   					</EXAMPLE>
+                   					<CHILDREN>
+                   						<ENTRY KEY="fieldIdentifier">
+			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<DATATYPE>String</DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="method">
+											<DESCRIPTION>Defined aggregate methods.</DESCRIPTION>
+			                    			<DATATYPE>String</DATATYPE>
+			                    			<POSIBLEVALUES>min,max,sum,avg</POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+			                    			<EXAMPLE></EXAMPLE>
+										</ENTRY>
+										<ENTRY KEY="scope">
+											<DESCRIPTION>The scope for the aggregation can be either set to the current page or to the whole query. Aggregates for the current page are calculated internally without an additonal database query.</DESCRIPTION>
+			                    			<DATATYPE>String</DATATYPE>
+			                    			<POSIBLEVALUES>page,query</POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+										</ENTRY>
+										<ENTRY KEY="special">
+											<DESCRIPTION>Insert a individual SQL snippet.</DESCRIPTION>
+			                    			<DATATYPE>String</DATATYPE>
+			                    			<POSIBLEVALUES></POSIBLEVALUES>
+			                    			<DEFAULT></DEFAULT>
+			                    			<STDWRAP>0</STDWRAP>
+			                    			<PROTOTYPE></PROTOTYPE>
+										</ENTRY>
+                   					</CHILDREN>
+                   				</ENTRY>
+               		 		</CHILDREN>
+               		 	</ENTRY>
+               		 	<ENTRY KEY="aggregateRows">
+							<DESCRIPTION>Holds the aggregates columns definitions.</DESCRIPTION>
+							<DATATYPE>Associative array</DATATYPE>
+							<POSIBLEVALUES>All columnIdentifiers</POSIBLEVALUES>
+							<DEFAULT></DEFAULT>
+							<STDWRAP></STDWRAP>
+							<PROTOTYPE></PROTOTYPE>
+							<EXAMPLE></EXAMPLE>
+							<CHILDREN>
+								<ENTRY KEY="&lt;yourColumnId&gt;">
+									<DESCRIPTION></DESCRIPTION>
+									<DATATYPE></DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<STDWRAP></STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="aggregateDataIdentifier">
+											<DESCRIPTION></DESCRIPTION>
+											<DATATYPE>String</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP></STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+									</CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+							</CHILDREN>
+							<VARIANT></VARIANT>
+						</ENTRY>
+               		 	<ENTRY KEY="filters">
+							<DESCRIPTION>Holds all filterbox configurations.</DESCRIPTION>
+							<DATATYPE>Associative array</DATATYPE>
+							<POSIBLEVALUES></POSIBLEVALUES>
+							<DEFAULT></DEFAULT>
+							<STDWRAP></STDWRAP>
+							<PROTOTYPE></PROTOTYPE>
+							<EXAMPLE></EXAMPLE>
+							<CHILDREN>
+								<ENTRY KEY="&lt;yourFilterBoxId&gt;">
+									<DESCRIPTION></DESCRIPTION>
+									<DATATYPE></DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<STDWRAP></STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="filterConfigs">
+											<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
+											<DATATYPE>Array</DATATYPE>
+											<POSIBLEVALUES>10,20,30...</POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP></STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN>
+												
+											</CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+									</CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+							</CHILDREN>
+							<VARIANT></VARIANT>
 						</ENTRY>
                		 	</CHILDREN>
                     </ENTRY>
