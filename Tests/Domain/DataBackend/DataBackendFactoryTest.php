@@ -28,9 +28,10 @@
 /**
  * Testcase for pt_extlist data backend factory 
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Tests
+ * @subpackage Domain\DataBackend
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 

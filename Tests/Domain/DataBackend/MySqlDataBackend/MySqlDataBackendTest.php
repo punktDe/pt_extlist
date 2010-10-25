@@ -28,8 +28,8 @@
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\DataBackend\MySqlDataBackend
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest {
 
@@ -419,6 +419,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$this->markTestIncomplete();
 	}
 	
+	
 	public function testGetGroupByPart() {
 		$dataBackend = $this->getDataBackend();
 		$groupByPart = $dataBackend->buildGroupByPart();
@@ -426,20 +427,86 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	}
 	
 	
+	public function testGetAggregatesByConfigCollection() {
+		$configOverwrite['listConfig']['test']['aggregateData']['sumField1']['scope'] = 'query';
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$dataBackend = $this->getDataBackend($configurationBuilderMock);
+		
+		$this->assertEquals('SUM(field1) AS sumField1', $dataBackend->_call('buildAggregateFieldSQLByConfig', $aggConfigCollection->getAggregateConfigByIdentifier('sumField1')));
+	}
+	
+	
+	public function testGetAggregatesByConfigCollectionWithUnsopportedMethod() {
+		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'method' => 'aNotExistantMethod');
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$dataBackend = $this->getDataBackend($configurationBuilderMock);
+		
+		try {
+			$dataBackend->_call('buildAggregateFieldSQLByConfig', $aggConfigCollection->getAggregateConfigByIdentifier('sumField1'));
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail('No Exception thrown if Method is unsupported');
+	}
+	
+	
+	public function testGetAggregatesByConfigCollectionWithSpecialString() {
+		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'special' => 'special');
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$dataBackend = $this->getDataBackend($configurationBuilderMock);
+		
+		$this->assertEquals('special AS sumField1', $dataBackend->_call('buildAggregateFieldSQLByConfig', $aggConfigCollection->getAggregateConfigByIdentifier('sumField1')));
+	}
+	
+	
+	
+	public function testBuildAggregateSqlByConfigCollection() {
+		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'special' => 'special');
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$dataBackend = $this->getDataBackend($configurationBuilderMock);
+		
+		$sql = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
+
+		$this->assertEquals('SELECT special AS sumField1, AVG(field2) AS avgField2 
+ FROM (SELECT tableName1.fieldName1 AS field1, tableName2.fieldName2 AS field2, (special) AS field3, tableName4.fieldName4 AS field4 
+FROM companies 
+WHERE employees > 0 
+GROUP BY company 
+)  AS AGGREGATEQUERY', $sql);
+	}
+	
+	
 	/**********************************************************************************************************************************************************
 	 * Helper methods 
 	 **********************************************************************************************************************************************************/
 	
-	protected function getDataBackend() {
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($configurationBuilderMock);
+	protected function getDataBackend($configurationBuilderMock = NULL) {
+		
+		if(!is_a($configurationBuilderMock, 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock')) {
+			$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();	
+		}
+		
+		$dataBackendAccessible = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
+		$dataBackend = new $dataBackendAccessible($configurationBuilderMock);
 				
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
 
+        $listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilderMock);
+        $pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($configurationBuilderMock);
+        
         $dataBackend->injectBackendConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
+		$dataBackend->injectFieldConfigurationCollection($configurationBuilderMock->buildFieldsConfiguration());
+		$dataBackend->injectPagerCollection($pagerCollection);        
+		$dataBackend->injectListHeader($listHeader);
+		
 		$dataBackend->init();
 		
 		return $dataBackend;
@@ -525,6 +592,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		
 		return $listHeader;
 	}
+
     	
 }
 

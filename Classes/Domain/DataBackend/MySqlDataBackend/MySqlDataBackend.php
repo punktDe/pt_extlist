@@ -476,13 +476,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     		$filterWherePart =  $this->buildWherePart($excludeFilters);
     		if($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
     	}
-    	
-    	
-    	$query =  $selectPart 		. " \n";
-    	$query .= $fromPart 		. " \n";
-    	$query .= $filterWherePart 	. " \n";  
-    	$query .= $groupPart 		. " \n";
-    	$query .= $sortingPart 		. " \n";
+    		
+    	$query =  implode(" \n", array($selectPart, $fromPart, $filterWherePart, $sortingPart));
     	
     	if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
     	
@@ -492,15 +487,53 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     }
     
     
+    
     /**
      * Aggreagte the list by field and method or special sql
      * 
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
      */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
-    	$aggregateSQL = $this->buildAggregateSQL($aggregateConfigCollection);
+    	$aggregateSQLQuery = $this->buildAggregateSQLByConfigCollection($aggregateConfigCollection);
     	
-    	return array();
+    	$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery);
+    	
+    	return $aggregates[0];
+    }
+    
+    
+    
+    /**
+     * Build the whole SQL Query for all aggregate fields
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+     */
+    protected function buildAggregateSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
+    	$this->buildQuery();
+    	
+    	$selectPart  = 'SELECT ' . $this->buildAggregateFieldsSQLByConfigCollection($aggregateConfigCollection);
+    	$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $this->listQueryParts['WHERE'] . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY';
+    	
+    	$query =  implode(" \n", array($selectPart, $fromPart));
+    
+    	return $query;
+    }
+    
+    
+    
+    /**
+     * Build the fields Sql for all fields
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+     */
+    protected function buildAggregateFieldsSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
+    	$fieldsSQL = array();  
+    	
+    	foreach($aggregateConfigCollection as $aggregateConfig) {
+    		$fieldsSQL[] = $this->buildAggregateFieldSQLByConfig($aggregateConfig);
+    	}
+    	
+    	return implode(', ', $fieldsSQL);
     }
     
     
@@ -510,8 +543,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * 
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
      */
-    protected function buildAggregateSQL(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
-    	$this->buildQuery();
+    protected function buildAggregateFieldSQLByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
     	$supportedMethods = array('sum', 'avg', 'min', 'max');
     	
     	if($aggregateConfig->getSpecial()) {
@@ -520,6 +552,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     		tx_pttools_assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, array('info' => 'The given aggregate method "'.$aggregateConfig->getMethod().'" is not supported by this DataBackend'));
     		$aggregateFieldSQL = strtoupper($aggregateConfig->getMethod()) . '('.$aggregateConfig->getFieldIdentifier().')';
     	}
+    	
+    	$aggregateFieldSQL .= ' AS ' . $aggregateConfig->getIdentifier();
+    	
+    	return $aggregateFieldSQL;
     }
     
     

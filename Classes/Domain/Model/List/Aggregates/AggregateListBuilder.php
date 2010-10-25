@@ -200,7 +200,6 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		}
 
 		return $aggregates;
-		
 	}
 	
 	
@@ -212,7 +211,6 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	protected function getAggregatesForQuery(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
 		$aggregates = $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
 		if(!is_array($aggregates)) $aggregates = array();
-		
 		return $aggregates;
 	}
 }

@@ -28,8 +28,8 @@
  * 
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Test
+ * @subpackage Domain\DataBackend
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 

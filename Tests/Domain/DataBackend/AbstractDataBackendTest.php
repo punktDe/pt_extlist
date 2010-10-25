@@ -27,8 +27,8 @@
 /**
  * Testcase for abstract data backend
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\DataBackend
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */
