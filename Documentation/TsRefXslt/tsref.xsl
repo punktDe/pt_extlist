@@ -12,12 +12,12 @@
     </xd:doc>
 
     <xsl:template match="/">
-        <article version="5.0">
+        <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
             <title>pt_extlist</title>
             <subtitle>TypoSript Reference</subtitle>
             <info/>
             <xsl:apply-templates select="/TSREF/ENTRY" />
-        </article>
+        </section>
     </xsl:template>
     
     <xsl:template match="ENTRY">
@@ -36,19 +36,71 @@
                     <anchor>
                         <xsl:attribute name="xml:id">tsref.<xsl:value-of select="@KEY"/></xsl:attribute>
                     </anchor>
-                    description
+                    Description
                 </title>
                 <para><xsl:value-of select="DESCRIPTION"/></para>
             </refsection>
+			<refsection>
+				 <variablelist>
+					<varlistentry>
+						<term>
+							Datatype
+						</term>
+						<listitem>
+							<xsl:value-of select="DATATYPE"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							Posible Values
+						</term>
+						<listitem>
+							<xsl:value-of select="POSIBLEVALUES"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							Default
+						</term>
+						<listitem>
+							<xsl:value-of select="DEFAULT"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							StdWrap
+						</term>
+						<listitem>
+							<xsl:value-of select="STDWRAP"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							Prototype
+						</term>
+						<listitem>
+							<xsl:value-of select="PROTOTYPE"/>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</refsection>
+			<refsection>
+				<title>
+                    Example
+                </title>
+                <para>
+					<programlisting>
+						<xsl:value-of select="EXAMPLE"/>
+					</programlisting>
+				</para>
+			</refsection>
             <xsl:if test="count(CHILDREN/ENTRY) > 0">
                 <refsection>
-                    <title>child elements</title>
+                    <title>Child elements</title>
                     <xsl:for-each select="CHILDREN/ENTRY/@KEY" >
-                        <para>
-                            <link>
-                                <xsl:attribute name="linkend">tsref.<xsl:value-of select="."/></xsl:attribute><xsl:value-of select="."/>
-                            </link>
-                        </para>
+						<link>
+							<xsl:attribute name="linkend">tsref.<xsl:value-of select="."/></xsl:attribute><xsl:value-of select="."/>
+						</link>,
                     </xsl:for-each>
                 </refsection>
                 <refsection>

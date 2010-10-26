@@ -1,477 +1,720 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!-- Verwenden Sie dieses Template nur für Extension-Dokumentationen.--><!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <info>
-    <title>TypoSript Reference</title>
-  </info>
-  <refentry>
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.settings</refentrytitle>
-    </refmeta>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>main settings for pt_extlist</refpurpose>
-    </refnamediv>
-    
-	<refsect1>
-      <title>lvl1</title>
-      <para>All settings below this section are used as plugin configuration.</para>
-		  <refsect2>
-			<title>lvl2</title>
-			<para>All settings below this section are used as plugin configuration.</para>
-			<refsect3>
-			  <title>lvl3</title>
-			  <para>All settings below this section are used as plugin configuration.</para>
-			</refsect3>
-		</refsect2>
-    </refsect1>
-    
-	<refsection>
-      <title>parent elements</title>
-      <para>None.</para>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para>listConfig</para>
-      <para>bookmarks</para>
-      <para>prototype</para>
-      <para>_LOCAL_LANG</para>
-    </refsection>
-  </refentry>
-  <refentry>
-  
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.settings.listConfig</refentrytitle>
-    </refmeta>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>section for all list configurations</refpurpose>
-    </refnamediv>
-    <refsection>
-      <title>datatype</title>
-      <para>array (list identifier as array key)</para>
-    </refsection>
-    <refsection>
-      <title>description</title>
-      <para>Holds all list configurations for each list identifier.</para>
-    </refsection>
-    <refsection>
-      <title>example</title>
-      <informalexample>
-        <programlisting>fields {
-                
-    name_local {
-        table = static_countries
-        field = cn_short_local
-        isSortable = 1
-    }
+<?xml version="1.0" encoding="UTF-8"?><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0"><title>pt_extlist</title><subtitle>TypoSript Reference</subtitle><info/><refentry><refmeta><refentrytitle>plugin.tx_ptextlist.settings</refentrytitle></refmeta><refnamediv><refname>plugin.tx_ptextlist.settings</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings"/>
+                    Description
+                </title><para>Main TS-key for all pt_extlist settings.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.listConfig">listConfig</link>,
+                    </refsection><refsection><title>Children of plugin.tx_ptextlist.settings:</title>
+            <refentry><refmeta><refentrytitle>listConfig</refentrytitle></refmeta><refnamediv><refname>listConfig</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.listConfig"/>
+                    Description
+                </title><para>Holds configuration for all list identifiers configured by array key.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Associative Array (listIdentifier =&gt; listConfiguration)</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.[yourListId]">[yourListId]</link>,
+                    </refsection><refsection><title>Children of listConfig:</title>
+                    <refentry><refmeta><refentrytitle>[yourListId]</refentrytitle></refmeta><refnamediv><refname>[yourListId]</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.[yourListId]"/>
+                    Description
+                </title><para>Holds configuration for a single list identifier</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting>here comes some sample code</programlisting></para></refsection><refsection><title>Child elements</title><link linkend="tsref.backendConfig">backendConfig</link>,
+                    <link linkend="tsref.fields">fields</link>,
+                    <link linkend="tsref.columns">columns</link>,
+                    <link linkend="tsref.aggregateData">aggregateData</link>,
+                    <link linkend="tsref.aggregateRows">aggregateRows</link>,
+                    <link linkend="tsref.filters">filters</link>,
+                    </refsection><refsection><title>Children of [yourListId]:</title>
+	                    <refentry><refmeta><refentrytitle>backendConfig</refentrytitle></refmeta><refnamediv><refname>backendConfig</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.backendConfig"/>
+                    Description
+                </title><para>Holds the configuration for the used data backend.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+           		 		<refentry><refmeta><refentrytitle>fields</refentrytitle></refmeta><refnamediv><refname>fields</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.fields"/>
+                    Description
+                </title><para>Defines raw datasource fields, wich can than combined and processed in to table fields.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Associative array</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.[yourFieldId]">[yourFieldId]</link>,
+                    </refsection><refsection><title>Children of fields:</title>
+                   				<refentry><refmeta><refentrytitle>[yourFieldId]</refentrytitle></refmeta><refnamediv><refname>[yourFieldId]</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.[yourFieldId]"/>
+                    Description
+                </title><para>Named definition of a single data field.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting>
+name_local {
+	table = static_countries
+	field = cn_short_local
+	isSortable = 1
+}
+                   					</programlisting></para></refsection><refsection><title>Child elements</title><link linkend="tsref.table">table</link>,
+                    <link linkend="tsref.field">field</link>,
+                    <link linkend="tsref.special">special</link>,
+                    <link linkend="tsref.isSortable">isSortable</link>,
+                    <link linkend="tsref.expandGroupRows">expandGroupRows</link>,
+                    </refsection><refsection><title>Children of [yourFieldId]:</title>
+                   						<refentry><refmeta><refentrytitle>table</refentrytitle></refmeta><refnamediv><refname>table</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.table"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>field</refentrytitle></refmeta><refnamediv><refname>field</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.field"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>special</refentrytitle></refmeta><refnamediv><refname>special</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.special"/>
+                    Description
+                </title><para>Insert a individual SQL snippet.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>isSortable</refentrytitle></refmeta><refnamediv><refname>isSortable</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.isSortable"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>expandGroupRows</refentrytitle></refmeta><refnamediv><refname>expandGroupRows</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.expandGroupRows"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+                   					</refsection></refentry>
+                   			</refsection></refentry>
+               		 	<refentry><refmeta><refentrytitle>columns</refentrytitle></refmeta><refnamediv><refname>columns</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.columns"/>
+                    Description
+                </title><para>Holds the tables column definitions.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Array</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.10,20,30">10,20,30</link>,
+                    </refsection><refsection><title>Children of columns:</title>
+								<refentry><refmeta><refentrytitle>10,20,30</refentrytitle></refmeta><refnamediv><refname>10,20,30</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.10,20,30"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.fieldIdentifier">fieldIdentifier</link>,
+                    <link linkend="tsref.label">label</link>,
+                    <link linkend="tsref.renderUserFunctions">renderUserFunctions</link>,
+                    <link linkend="tsref.renderTemplate">renderTemplate</link>,
+                    <link linkend="tsref.renderObj">renderObj</link>,
+                    <link linkend="tsref.sorting">sorting</link>,
+                    <link linkend="tsref.sortingImageAsc">sortingImageAsc</link>,
+                    <link linkend="tsref.sortingImageDesc">sortingImageDesc</link>,
+                    <link linkend="tsref.sortingImageDefault">sortingImageDefault</link>,
+                    <link linkend="tsref.accessGroups">accessGroups</link>,
+                    <link linkend="tsref.cellCSSClass">cellCSSClass</link>,
+                    </refsection><refsection><title>Children of 10,20,30:</title>
+										<refentry><refmeta><refentrytitle>fieldIdentifier</refentrytitle></refmeta><refnamediv><refname>fieldIdentifier</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.fieldIdentifier"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>label</refentrytitle></refmeta><refnamediv><refname>label</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.label"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>renderUserFunctions</refentrytitle></refmeta><refnamediv><refname>renderUserFunctions</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.renderUserFunctions"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>renderTemplate</refentrytitle></refmeta><refnamediv><refname>renderTemplate</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.renderTemplate"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>renderObj</refentrytitle></refmeta><refnamediv><refname>renderObj</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.renderObj"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>sorting</refentrytitle></refmeta><refnamediv><refname>sorting</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.sorting"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>sortingImageAsc</refentrytitle></refmeta><refnamediv><refname>sortingImageAsc</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.sortingImageAsc"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>sortingImageDesc</refentrytitle></refmeta><refnamediv><refname>sortingImageDesc</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.sortingImageDesc"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>sortingImageDefault</refentrytitle></refmeta><refnamediv><refname>sortingImageDefault</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.sortingImageDefault"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>accessGroups</refentrytitle></refmeta><refnamediv><refname>accessGroups</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.accessGroups"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>cellCSSClass</refentrytitle></refmeta><refnamediv><refname>cellCSSClass</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.cellCSSClass"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+									</refsection></refentry>
+							</refsection></refentry>
+               		 	<refentry><refmeta><refentrytitle>aggregateData</refentrytitle></refmeta><refnamediv><refname>aggregateData</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.aggregateData"/>
+                    Description
+                </title><para>Defines aggregates of data fields.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Associative array</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.[yourAggregateFieldId]">[yourAggregateFieldId]</link>,
+                    </refsection><refsection><title>Children of aggregateData:</title>
+               		 			<refentry><refmeta><refentrytitle>[yourAggregateFieldId]</refentrytitle></refmeta><refnamediv><refname>[yourAggregateFieldId]</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.[yourAggregateFieldId]"/>
+                    Description
+                </title><para>Named definition of a single data field.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Associative array</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting>
+sumPhone {
+	fieldIdentifier = phone
+	method = sum
+	scope = query
+}
+                   					</programlisting></para></refsection><refsection><title>Child elements</title><link linkend="tsref.method">method</link>,
+                    <link linkend="tsref.scope">scope</link>,
+                    </refsection><refsection><title>Children of [yourAggregateFieldId]:</title>
+										<refentry><refmeta><refentrytitle>method</refentrytitle></refmeta><refnamediv><refname>method</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.method"/>
+                    Description
+                </title><para>Defined aggregate methods.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>min,max,sum,avg</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>scope</refentrytitle></refmeta><refnamediv><refname>scope</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.scope"/>
+                    Description
+                </title><para>The scope for the aggregation can be either set to the current page or to the whole query. Aggregates for the current page are calculated internally without an additonal database query.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>page,query</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										special
+										fieldIdentifier
+                   					</refsection></refentry>
+               		 		</refsection></refentry>
+               		 	<refentry><refmeta><refentrytitle>aggregateRows</refentrytitle></refmeta><refnamediv><refname>aggregateRows</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.aggregateRows"/>
+                    Description
+                </title><para>Holds the aggregates columns definitions.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Associative array</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>All columnIdentifiers</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.[yourColumnId]">[yourColumnId]</link>,
+                    </refsection><refsection><title>Children of aggregateRows:</title>
+								<refentry><refmeta><refentrytitle>[yourColumnId]</refentrytitle></refmeta><refnamediv><refname>[yourColumnId]</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.[yourColumnId]"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.aggregateDataIdentifier">aggregateDataIdentifier</link>,
+                    </refsection><refsection><title>Children of [yourColumnId]:</title>
+										<refentry><refmeta><refentrytitle>aggregateDataIdentifier</refentrytitle></refmeta><refnamediv><refname>aggregateDataIdentifier</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.aggregateDataIdentifier"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+									</refsection></refentry>
+							</refsection></refentry>
+               		 	<refentry><refmeta><refentrytitle>filters</refentrytitle></refmeta><refnamediv><refname>filters</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.filters"/>
+                    Description
+                </title><para>Holds all filterbox configurations.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Associative array</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.[yourFilterBoxId]">[yourFilterBoxId]</link>,
+                    </refsection><refsection><title>Children of filters:</title>
+								<refentry><refmeta><refentrytitle>[yourFilterBoxId]</refentrytitle></refmeta><refnamediv><refname>[yourFilterBoxId]</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.[yourFilterBoxId]"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem>plugin.tx_ptextlist.prototype.filterBox</listitem></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.showReset">showReset</link>,
+                    <link linkend="tsref.showSubmit">showSubmit</link>,
+                    <link linkend="tsref.filterConfigs">filterConfigs</link>,
+                    </refsection><refsection><title>Children of [yourFilterBoxId]:</title>
+										<refentry><refmeta><refentrytitle>showReset</refentrytitle></refmeta><refnamediv><refname>showReset</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.showReset"/>
+                    Description
+                </title><para>Show a reset link for all filters of this filterBox.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Boolean</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>0,1</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem>1</listitem></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>showSubmit</refentrytitle></refmeta><refnamediv><refname>showSubmit</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.showSubmit"/>
+                    Description
+                </title><para>Show a submit button for this filterBox.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Boolean</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>0,1</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem>1</listitem></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+										<refentry><refmeta><refentrytitle>filterConfigs</refentrytitle></refmeta><refnamediv><refname>filterConfigs</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.filterConfigs"/>
+                    Description
+                </title><para>Holds the configuration of the filters of this filter box.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Array</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>10,20,30...</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.[yourNumericFilterId]">[yourNumericFilterId]</link>,
+                    </refsection><refsection><title>Children of filterConfigs:</title>
+												<refentry><refmeta><refentrytitle>[yourNumericFilterId]</refentrytitle></refmeta><refnamediv><refname>[yourNumericFilterId]</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.[yourNumericFilterId]"/>
+                    Description
+                </title><para/></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem/></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection><refsection><title>Child elements</title><link linkend="tsref.filterIdentifier">filterIdentifier</link>,
+                    <link linkend="tsref.defaultValue">defaultValue</link>,
+                    <link linkend="tsref.filterClassName">filterClassName</link>,
+                    <link linkend="tsref.partialPath">partialPath</link>,
+                    <link linkend="tsref.invert">invert</link>,
+                    <link linkend="tsref.invertable">invertable</link>,
+                    </refsection><refsection><title>Children of [yourNumericFilterId]:</title>
+														<refentry><refmeta><refentrytitle>filterIdentifier</refentrytitle></refmeta><refnamediv><refname>filterIdentifier</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.filterIdentifier"/>
+                    Description
+                </title><para>The unique identifier of this filter.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+														label
+														<refentry><refmeta><refentrytitle>defaultValue</refentrytitle></refmeta><refnamediv><refname>defaultValue</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.defaultValue"/>
+                    Description
+                </title><para>The default value which is shown or selected by default.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>	
+														accessGroups	
+														fieldIdentifier
 
-    name_en {
-        field = cn_short_en
-        table = static_countries
-    }
-
-}</programlisting>
-      </informalexample>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para>listHeaderPartial</para>
-      <para>listBodyPartial</para>
-      <para>listAggregateRowsPartial</para>
-      <para>backendConfig</para>
-      <para>fields</para>
-      <para>pager</para>
-      <para>columns</para>
-      <para>renderer</para>
-      <para>aggregateData</para>
-      <para>aggregateRows</para>
-      <para>filters</para>
-    </refsection>
-  </refentry>
-  <refentry>
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.settings.&lt;yourListId&gt;.backendConfig</refentrytitle>
-    </refmeta>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>configuration for data backend</refpurpose>
-    </refnamediv>
-    <refsection>
-      <title>description</title>
-      <para>Holds configuration for data backend e.g. data backend type, dbusername or dbpassword. </para>
-    </refsection>
-    <refsection>
-      <title>example</title>
-      <informalexample>
-        <programlisting>backendConfig {
-
-dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
-dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
-queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
-useEnableFields = 1
-            
-            datasource {
-                # no configuration required here
-            }
-            
-            
-            tables (
-                static_countries,
-static_territories st_continent,
-static_territories st_subcontinent
-            )
-            
-            
-            baseFromClause (
-            static_countries
-LEFT JOIN static_territories ASst_subcontinentON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-LEFT JOIN static_territories ASst_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
-            )
-            
-            baseWhereClause (
-            st_continent.tr_name_en &lt;&gt; &apos;&apos; 
-AND st_subcontinent.tr_name_en &lt;&gt; &apos;&apos;
-            )
-            
-         
-        }</programlisting>
-      </informalexample>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para>dataBackendClass</para>
-      <para>dataMapperClass</para>
-      <para>queryInterpreterClass</para>
-      <para>useEnableFields</para>
-      <para>dataSource</para>
-      <para>tables</para>
-      <para>baseFromClause</para>
-      <para>baseWhereClause</para>
-    </refsection>
-  </refentry>
-  <refentry>
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.settings.listIdentifier.&lt;yourListId&gt;.fields</refentrytitle>
-    </refmeta>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>configuration for fields in data sources</refpurpose>
-    </refnamediv>
-    <refsection>
-      <title>datatype</title>
-      <para>associative array (key as field name, value as field configuration)</para>
-    </refsection>
-    <refsection>
-      <title>description</title>
-      <para>Holds the configuration for each column / field.</para>
-    </refsection>
-    <refsection>
-      <title>example</title>
-      <informalexample>
-        <programlisting/>
-      </informalexample>
-      <caution>
-        <para>If you have an important information write it here.</para>
-      </caution>
-    </refsection>
-    <refsection>
-      <title>parent elements</title>
-      <para>None.</para>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para>&lt;fieldId1&gt;</para>
-      <para>&lt;fieldId2&gt;</para>
-      <para>&lt;fieldId3&gt;</para>
-      <para>...</para>
-    </refsection>
-    <refsection>
-      <title>See also:</title>
-      <itemizedlist>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-      </itemizedlist>
-    </refsection>
-  </refentry>
-  <refentry>
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.settings.listConfig.&lt;yourListId&gt;.columns</refentrytitle>
-    </refmeta>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>holds configuration for the rendering of your list</refpurpose>
-    </refnamediv>
-    <refsection>
-      <title>datatype</title>
-      <para>array (10, 20, 30,..)</para>
-    </refsection>
-    <refsection>
-      <title>description</title>
-      <para>Each entry of this section (10, 20, 30, ...) defines one column of your list.</para>
-    </refsection>
-    <refsection>
-      <title>example</title>
-      <informalexample>
-        <programlisting>columns {
-    10 {
-    # choose a columnIdentifier
-    columnIdentifier = nameColumn
-
-    # This label will be displayed in the item list (use lll here)
-    label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:column_nameColumn
-
-    # Set the dataDescriptions this columns refers to
-    # the dataDescriptionIdentifier is a single reference to a dataDescription if type is default
-    # or a csl list of referencs if type is &quot;virtual&quot;
-    fieldIdentifier = name_local, name_en, countryuid, uno_member
-
-    # a column is sortable if &quot;isSortable&quot; is set to 1 _and_
-    # all sortingColumns entries this column refers to are   sortable too
-    isSortable = 1
-
-    # sortingDataDescription is a reference to one dataDescription that will be used for sorting
-    # if not set, the first entry in dataDescriptionIdentifier will be used
-    sortingDataDescription = name_local
-
-    renderObj = COA
-    renderObj {
-        5 = IMAGE
-        5.if {
-            value.data = field:uno_member
-            equals = 1
-        }
-        5.file = EXT:pt_list/typoscript/static/demolist/un.gif
-        5.stdWrap.typolink.parameter = http://www.un.org
-        5.stdWrap.typolink.ATagParams = class=&quot;un-link&quot;
-
-        10 = TEXT
-        10.data = field:name_en
-        10.append = TEXT
-        10.append {
-            data = field:name_local
-            if {
-                value.data = field:name_local
-                equals.data = field:name_en
-                negate = 1
-            }
-        }    
-        10.append.noTrimWrap = | (|)|
-        10.wrap3 = |&amp;nbsp;
-
-        20 = TEXT
-        20.value = Details
-        20.typolink.parameter = 1
-        20.typolink.additionalParams.dataWrap = &amp;tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
-           }
-
-    }
-
-    11 {
-        label = Capital
-        columnIdentifier = capital
-        fieldIdentifier = capital
-        cellCSSClass {
-            renderObj = TEXT
-            renderObj.dataWrap = {field:capital}
-        }
-    }    
-
-    20 {
-        label =          LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:column_isoNoColumn
-        columnIdentifier = isoNoColumn
-        fieldIdentifier = iso2
-        isSortable = 1    
-            renderUserFunctions {
-                10 =             EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer-&gt;iso2CodeRenderer
-            }
-        }</programlisting>
-      </informalexample>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para>10</para>
-      <para>20</para>
-      <para>30</para>
-      <para>of type plugin.tx_ptextlist.settings.listConfig.&lt;yourListId&gt;.columns.&lt;10,20,30&gt;</para>
-    </refsection>
-    <refsection>
-      <title>values</title>
-      <para>If you want to make a note of the values, write them right
-      here.</para>
-    </refsection>
-    <refsection>
-      <title>See also:</title>
-      <itemizedlist>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-      </itemizedlist>
-    </refsection>
-  </refentry>
-  <refentry>
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.settings.listConfig.&lt;yourListId&gt;.filters</refentrytitle>
-    </refmeta>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>purpose of the property</refpurpose>
-    </refnamediv>
-    <refsection>
-      <title>datatype</title>
-      <para>associative array (each key defining an identifier for filterbox  each value defining a configuration for filterbox)</para>
-    </refsection>
-    <refsection>
-      <title>description</title>
-      <para>Configuration for all filters associated with list identifier.</para>
-    </refsection>
-    <refsection>
-      <title>example</title>
-      <informalexample>
-        <programlisting>        filters {
-        filterbox1 {
-        filterConfigs {
-              10 &lt;  plugin.tx_ptextlist.prototype.filter.string 
-              10 {
-                  filterIdentifier = filter1
-                  label = Local name
-                  fieldIdentifier = name_local
-              }
-              
-              15 &lt; plugin.tx_ptextlist.prototype.filter.max
-              15 {
-                  filterIdentifier = filter15
-                  label = Max Phone
-                  fieldIdentifier = phone
-  accessGroups = 3
-              }
-
-         }
-         
-         filterbox2 {
-         filterConfigs {
-         10 &lt; plugin.tx_ptextlist.prototype.filter.firstLetter
-         10 {
-         filterIdentifier = filter4
-         label = Capital
-         fieldIdentifier = capital
-         inactiveOption = [ALL]
-        }
-       }
-      }
-    } </programlisting>
-      </informalexample>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para>&lt;filterboxIdentifier1&gt;</para>
-      <para>&lt;filterboxIdentifier2&gt;</para>
-      <para>&lt;filterboxIdentifier3&gt;</para>
-      <para>...</para>
-      <para>of type plugin.tx_ptextlist.settings.listConfig.&lt;yourListId&gt;.filters.&lt;filterboxIdentifier&gt;</para>
-    </refsection>
-  </refentry>
-  <refentry>
-    <refmeta>
-      <refentrytitle>plugin.tx_ptextlist.settings.listConfig.&lt;yourListId&gt;.pager</refentrytitle>
-    </refmeta>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>configuration of pagers associated with your list</refpurpose>
-    </refnamediv>
-    <refsection>
-      <title>description</title>
-      <para>Configuration of pagers associated with your list.</para>
-    </refsection>
-    <refsection>
-      <title>example W</title>
-      <para>Give an example (programcode).</para>
-      <informalexample>
-        <programlisting>pager {
-    pagerConfigs {
-        second {
-            enabled = 1
-            pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-            templatePath =     EXT:pt_extlist/Resources/Private/Templates/Pager/second.html
-        
-        showNextLink = 1
-        showPreviousLink = 1
-        showFirstLink = 0
-        showLastLink = 0
-        }
-    }
-}</programlisting>
-      </informalexample>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para>plugin.tx_ptextlist.settings.listConfig.&lt;yourListId&gt;.pager.pagerConfig</para>
-    </refsection>
-  </refentry>
-  <refentry>
-    <refnamediv>
-      <refname>plugin.tx_ptextlist.setting</refname>
-      <refpurpose>purpose of the property</refpurpose>
-    </refnamediv>
-    <refsection>
-      <title>datatype</title>
-      <para>Name of datatype.</para>
-    </refsection>
-    <refsection>
-      <title>description</title>
-      <para>Describe the property as short as possible.</para>
-    </refsection>
-    <refsection>
-      <title>example</title>
-      <para>Give an example (programcode).</para>
-      <informalexample>
-        <programlisting/>
-      </informalexample>
-    </refsection>
-    <refsection>
-      <title>parent elements</title>
-      <para>None.</para>
-    </refsection>
-    <refsection>
-      <title>child elements</title>
-      <para/>
-      <para/>
-      <para/>
-      <para/>
-      <para/>
-      <para/>
-      <para/>
-    </refsection>
-    <refsection>
-      <title>values</title>
-      <para>If you want to make a note of the values, write them right
-      here.</para>
-    </refsection>
-    <refsection>
-      <title>See also:</title>
-      <itemizedlist>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-        <listitem override="bullet">
-          <para>x</para>
-        </listitem>
-      </itemizedlist>
-    </refsection>
-  </refentry>
-</section>
+														<refentry><refmeta><refentrytitle>filterClassName</refentrytitle></refmeta><refnamediv><refname>filterClassName</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.filterClassName"/>
+                    Description
+                </title><para>Name of the PHP Class of this filter.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting>Tx_PtExtlist_Domain_Model_Filter_StringFilter</programlisting></para></refsection></refentry>
+														<refentry><refmeta><refentrytitle>partialPath</refentrytitle></refmeta><refnamediv><refname>partialPath</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.partialPath"/>
+                    Description
+                </title><para>Path to the fluid partial which renders this filter.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>String</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem/></varlistentry><varlistentry><term>
+							Default
+						</term><listitem/></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting>Filter/String/StringFilter</programlisting></para></refsection></refentry>
+														<refentry><refmeta><refentrytitle>invert</refentrytitle></refmeta><refnamediv><refname>invert</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.invert"/>
+                    Description
+                </title><para>Invert the constraint of this filter.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Boolean</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>0,1</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+														<refentry><refmeta><refentrytitle>invertable</refentrytitle></refmeta><refnamediv><refname>invertable</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.invertable"/>
+                    Description
+                </title><para>Show a controle to invert this filter.</para></refsection><refsection><variablelist><varlistentry><term>
+							Datatype
+						</term><listitem>Boolean</listitem></varlistentry><varlistentry><term>
+							Posible Values
+						</term><listitem>0,1</listitem></varlistentry><varlistentry><term>
+							Default
+						</term><listitem>0</listitem></varlistentry><varlistentry><term>
+							StdWrap
+						</term><listitem/></varlistentry><varlistentry><term>
+							Prototype
+						</term><listitem/></varlistentry></variablelist></refsection><refsection><title>
+                    Example
+                </title><para><programlisting/></para></refsection></refentry>
+													</refsection></refentry>
+											</refsection></refentry>
+									</refsection></refentry>
+							</refsection></refentry>
+               		 	</refsection></refentry>
+                </refsection></refentry>
+        </refsection></refentry></section>

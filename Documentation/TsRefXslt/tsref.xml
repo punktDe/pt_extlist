@@ -30,7 +30,7 @@
                 <DATATYPE>Associative Array (listIdentifier => listConfiguration)</DATATYPE>
                 <EXAMPLE></EXAMPLE>
                 <CHILDREN>
-                    <ENTRY KEY="&lt;yourListId&gt;">
+                    <ENTRY KEY="[yourListId]">
                         <DESCRIPTION>Holds configuration for a single list identifier</DESCRIPTION>
                         <EXAMPLE>here comes some sample code</EXAMPLE>
                         
@@ -77,7 +77,7 @@
 			                    			<STDWRAP>0</STDWRAP>
 			                    			<PROTOTYPE></PROTOTYPE>
 			                    			<EXAMPLE>
-			                    				st_continent.tr_name_en &lt;&gt; ''
+			                    				st_continent.tr_name_en [] ''
 			                    			</EXAMPLE>
 
 			                    			<CHILDREN></CHILDREN>
@@ -100,7 +100,7 @@
 			                    </ENTRY>
 			                    
 			                    <ENTRY KEY="backendConfig.extbase">
-			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+			                        <DESCRIPTION>Extbase Repository Backend.</DESCRIPTION>
 			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.extbase</PROTOTYPE>
 			                    </ENTRY>
 	                        </VARIANT>
@@ -112,14 +112,19 @@
                    			<DATATYPE>Associative array</DATATYPE>
                    			<EXAMPLE></EXAMPLE>
                    			<CHILDREN>
-                   				<ENTRY KEY="&lt;yourFieldId&gt;">
+                   				<ENTRY KEY="[yourFieldId]">
                    					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
+                   					<DATATYPE>String</DATATYPE>
+	                    			<POSIBLEVALUES></POSIBLEVALUES>
+	                    			<DEFAULT></DEFAULT>
+	                    			<STDWRAP></STDWRAP>
+	                    			<PROTOTYPE></PROTOTYPE>
                    					<EXAMPLE>
-	                   					name_local {
-											table = static_countries
-											field = cn_short_local
-											isSortable = 1
-										}
+name_local {
+	table = static_countries
+	field = cn_short_local
+	isSortable = 1
+}
                    					</EXAMPLE>
                    					<CHILDREN>
                    						<ENTRY KEY="table">
@@ -141,7 +146,7 @@
 			                    			<EXAMPLE></EXAMPLE>
 										</ENTRY>
 										<ENTRY KEY="special">
-			                    			<DESCRIPTION></DESCRIPTION>
+			                    			<DESCRIPTION>Insert a individual SQL snippet.</DESCRIPTION>
 			                    			<DATATYPE></DATATYPE>
 			                    			<POSIBLEVALUES></POSIBLEVALUES>
 			                    			<DEFAULT></DEFAULT>
@@ -151,15 +156,6 @@
 										</ENTRY>
 										<ENTRY KEY="isSortable">
 					                    	<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="accessGroups">
-			                    			<DESCRIPTION></DESCRIPTION>
 			                    			<DATATYPE></DATATYPE>
 			                    			<POSIBLEVALUES></POSIBLEVALUES>
 			                    			<DEFAULT></DEFAULT>
@@ -190,13 +186,6 @@
 								<ENTRY KEY="10,20,30">
 									<CHILDREN>
 										<ENTRY KEY="fieldIdentifier">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="isSortable">
 											<DESCRIPTION></DESCRIPTION>
 											<PROTOTYPE></PROTOTYPE>
 											<STDWRAP>0</STDWRAP>
@@ -284,7 +273,7 @@
                    			<DATATYPE>Associative array</DATATYPE>
                    			<EXAMPLE></EXAMPLE>
                		 		<CHILDREN>
-               		 			<ENTRY KEY="&lt;yourAggregateFieldId&gt;">
+               		 			<ENTRY KEY="[yourAggregateFieldId]">
                    					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
                    					<DATATYPE>Associative array</DATATYPE>
                    					<POSIBLEVALUES></POSIBLEVALUES>
@@ -293,22 +282,13 @@
                    					<PROTOTYPE></PROTOTYPE>
 		                   			
                    					<EXAMPLE>
-	                   					sumPhone {
-							        		fieldIdentifier = phone
-							        		method = sum
-							        		scope = query
-							        	}
+sumPhone {
+	fieldIdentifier = phone
+	method = sum
+	scope = query
+}
                    					</EXAMPLE>
                    					<CHILDREN>
-                   						<ENTRY KEY="fieldIdentifier">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
 										<ENTRY KEY="method">
 											<DESCRIPTION>Defined aggregate methods.</DESCRIPTION>
 			                    			<DATATYPE>String</DATATYPE>
@@ -326,14 +306,8 @@
 			                    			<STDWRAP>0</STDWRAP>
 			                    			<PROTOTYPE></PROTOTYPE>
 										</ENTRY>
-										<ENTRY KEY="special">
-											<DESCRIPTION>Insert a individual SQL snippet.</DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-										</ENTRY>
+										<SEE>special</SEE>
+										<SEE>fieldIdentifier</SEE>
                    					</CHILDREN>
                    				</ENTRY>
                		 		</CHILDREN>
@@ -347,7 +321,7 @@
 							<PROTOTYPE></PROTOTYPE>
 							<EXAMPLE></EXAMPLE>
 							<CHILDREN>
-								<ENTRY KEY="&lt;yourColumnId&gt;">
+								<ENTRY KEY="[yourColumnId]">
 									<DESCRIPTION></DESCRIPTION>
 									<DATATYPE></DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
@@ -382,7 +356,7 @@
 							<PROTOTYPE></PROTOTYPE>
 							<EXAMPLE></EXAMPLE>
 							<CHILDREN>
-								<ENTRY KEY="&lt;yourFilterBoxId&gt;">
+								<ENTRY KEY="[yourFilterBoxId]">
 									<DESCRIPTION></DESCRIPTION>
 									<DATATYPE></DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
@@ -422,7 +396,7 @@
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE></EXAMPLE>
 											<CHILDREN>
-												<ENTRY KEY="&lt;yourNumericFilterId&gt;">
+												<ENTRY KEY="[yourNumericFilterId]">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
@@ -442,17 +416,7 @@
 															<CHILDREN></CHILDREN>
 															<VARIANT></VARIANT>
 														</ENTRY>
-														<ENTRY KEY="label">
-															<DESCRIPTION>The label shown aside the filter.</DESCRIPTION>
-															<DATATYPE>String</DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
-															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE></PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
-															<CHILDREN></CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>
+														<SEE>label</SEE>
 														<ENTRY KEY="defaultValue">
 															<DESCRIPTION>The default value which is shown or selected by default.</DESCRIPTION>
 															<DATATYPE>String</DATATYPE>
@@ -464,28 +428,9 @@
 															<CHILDREN></CHILDREN>
 															<VARIANT></VARIANT>
 														</ENTRY>	
-														<ENTRY KEY="accessGroups">
-															<DESCRIPTION>Uid of groups that have access to this filter.</DESCRIPTION>
-															<DATATYPE>Integer / Comma separated list</DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
-															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE></PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
-															<CHILDREN></CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>	
-														<ENTRY KEY="fieldIdentifier">
-															<DESCRIPTION>One identifier of a previously defined data field on which the filter operates.</DESCRIPTION>
-															<DATATYPE>String</DATATYPE>
-															<POSIBLEVALUES>Previously defined field indentifier.</POSIBLEVALUES>
-															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE></PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
-															<CHILDREN></CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>
+														<SEE>accessGroups</SEE>	
+														<SEE>fieldIdentifier</SEE>
+
 														<ENTRY KEY="filterClassName">
 															<DESCRIPTION>Name of the PHP Class of this filter.</DESCRIPTION>
 															<DATATYPE>String</DATATYPE>
@@ -651,7 +596,7 @@
 																	<VARIANT></VARIANT>
 																</ENTRY>
 																<ENTRY KEY="renderObj">
-																	<DESCRIPTION>A cObject definition to render every selct option. With {field:FIELDNAME} you can accedd all display Fields. Additional the implicit defined fields &lt;allDisplayFields&gt; for all defined displayFields and &lt;rowCount&gt; for the count of the entrys with this option  are possible.</DESCRIPTION>
+																	<DESCRIPTION>A cObject definition to render every selct option. With {field:FIELDNAME} you can accedd all display Fields. Additional the implicit defined fields [allDisplayFields] for all defined displayFields and [rowCount] for the count of the entrys with this option  are possible.</DESCRIPTION>
 																	<DATATYPE>String (cObject)</DATATYPE>
 																	<POSIBLEVALUES></POSIBLEVALUES>
 																	<DEFAULT>renderObj {
@@ -676,7 +621,7 @@
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN>
 																<ENTRY KEY="proxyPath">
-																	<DESCRIPTION>Path to a filter from an other list. The path has the format &lt;listId&gt;.&lt;filterBoxId&gt;.&lt;filterId&gt;</DESCRIPTION>
+																	<DESCRIPTION>Path to a filter from an other list. The path has the format [listId].[filterBoxId].[filterId]</DESCRIPTION>
 																	<DATATYPE>String</DATATYPE>
 																	<POSIBLEVALUES></POSIBLEVALUES>
 																	<DEFAULT></DEFAULT>
