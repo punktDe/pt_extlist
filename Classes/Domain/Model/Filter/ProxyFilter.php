@@ -94,4 +94,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist
 		
 		
 	}
+	
+	
+	/**
+	 * @param string $proxyPath
+	 */
+	protected function getProxyFilterConfig($proxyPath) {
+		
+	}
+	
 }

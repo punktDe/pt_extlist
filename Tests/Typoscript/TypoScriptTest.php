@@ -28,8 +28,8 @@
  * Testcase for basic typoscript Settings
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Typoscript
  */
 class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCase {
 	
@@ -60,7 +60,8 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testConfigurationBuilderWithTypo3Backend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('t3BackendTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
 		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
 		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
 	}
@@ -69,7 +70,8 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testConfigurationBuilderWithMysqlBackend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('mysqlBackendTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
 		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
 		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
 	}
@@ -78,7 +80,8 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testBuildColumnsConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
 	
 	}
 	
@@ -86,19 +89,22 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testBuildRendererConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
 		$configurationBuilder->buildRendererConfiguration();
 	}
 	
 	public function testBuildPagerConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
 		$configurationBuilder->buildPagerConfiguration();
 	}
 	
 	public function testBuildFilterBoxConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($settings);
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
 		$configurationBuilder->buildFilterConfiguration();
 	}
 	

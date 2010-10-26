@@ -27,8 +27,8 @@
 /**
  * Factory for Configuration Builder
  * 
- * @package pt_extlist
- * @subpackage Domain\Configuration
+ * @package Domain
+ * @subpackage Configuration
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
@@ -37,9 +37,25 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	 * Each list identifier holds its own configuration builder object
 	 * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
 	 */
-	private static $instances = null;
+	private static $instances = NULL;
 	
 	
+	/**
+	 * Holds an array of all extList settings
+	 * 
+	 * @var array
+	 */
+	private static $settings = NULL;
+	
+	
+	
+	/**
+	 * Inject all settings of the extension 
+	 * @param $settings The current settings for this extension.
+	 */
+	public static function injectSettings(array $settings) {
+		self::$settings = $settings;
+	}
 	
 	
 	/**
@@ -47,33 +63,21 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	 * @param $settings The current settings for this extension.
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder 
 	 */
-	public static function getInstance(array $settings) {
-		if ($settings['listIdentifier'] != '') {
-            if (!array_key_exists($settings['listIdentifier'],self::$instances)) {
-            	self::$instances[$settings['listIdentifier']] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings);
-            }
-        } else {
-            throw new Exception('No list identifier could be found in settings! 1280230579');
-        }
-        return self::$instances[$settings['listIdentifier']];
-	}
-	
-	
-	
-	/**
-	 * Return an alread built Configurationbuilder obejct by listidentifier
-	 * 
-	 * @param string $listIdentifier
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 * @throws Exception
-	 */
-	public static function getInstanceByListIdentifier($listIdentifier) {
-		if(is_a(self::$instances[$listIdentifier], 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')) {
-			return self::$instances[$listIdentifier];
-		} else {
-			throw new Exception('No configurationbuilder Object found by listIdentifier ' . $listIdentifier . '! 1281541740');
+	public static function getInstance($listIdentifier) {
+		
+		if ($listIdentifier == '') {
+			throw new Exception('No list identifier could be found in settings! 1280230579');
 		}
-	}
-	
+		
+		if(!array_key_exists($listIdentifier, self::$settings['listConfig'])) {
+			throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
+		}
+        
+		if (!array_key_exists($listIdentifier,self::$instances)) {
+            self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings);
+        }
+        
+        return self::$instances[$listIdentifier];
+	}	
 }
 ?>

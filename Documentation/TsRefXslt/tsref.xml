@@ -12,8 +12,9 @@
     <!ELEMENT STDWRAP (#PCDATA)>
     <!ELEMENT EXAMPLE (#PCDATA)>
     <!ELEMENT DEFAULT (#PCDATA)>
+    <!ELEMENT SEE (#PCDATA)>
     <!ELEMENT POSIBLEVALUES (#PCDATA)>
-    <!ELEMENT CHILDREN (ENTRY*)>
+    <!ELEMENT CHILDREN (ENTRY*,SEE*)>
     <!ELEMENT VARIANT (ENTRY*)>
 
     <!ATTLIST ENTRY KEY CDATA #REQUIRED>
@@ -540,11 +541,18 @@
 															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.string</PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN>
-																
+																<SEE>filterIdentifier</SEE>
+																<SEE>label</SEE>
+																<SEE>defaultValue</SEE>															
+																<SEE>accessGroups</SEE>															
+																<SEE>fieldIdentifier</SEE>															
+																<SEE>filterClassName</SEE>															
+																<SEE>partialPath</SEE>															
+																<SEE>invert</SEE>															
+																<SEE>invertable</SEE>															
 															</CHILDREN>
 															<VARIANT></VARIANT>
-														</ENTRY>
-														
+														</ENTRY>										
 														<ENTRY KEY="Select">
 															<DESCRIPTION></DESCRIPTION>
 															<DATATYPE></DATATYPE>
@@ -658,7 +666,6 @@
 															</CHILDREN>
 															<VARIANT></VARIANT>
 														</ENTRY>
-														
 														<ENTRY KEY="Proxy">
 															<DESCRIPTION>A proxy filter is not displayed. It uses a filter from an other list defined by the proxy path and sets the result constraint to the given field.</DESCRIPTION>
 															<DATATYPE></DATATYPE>

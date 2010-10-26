@@ -29,6 +29,7 @@
  * Abstract controller for all pt_extlist controllers
  * 
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Controller
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
@@ -36,7 +37,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected $configurationBuilder;
+	protected $configurationBuilder = NULL;
 	
 	
 	
@@ -96,7 +97,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
 		
-		$this->configurationBuilder = $initConfigurationBuilder ? Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings) : null;
+		if($initConfigurationBuilder) {
+			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
+			$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
+		}
+
 		$this->dataBackend = $initDataBackend ? Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder) : null;
 	}
 	
