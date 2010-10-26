@@ -1,0 +1,3 @@
+page.includeCSS {
+	extList = EXT:pt_extlist/Resources/Public/CSS/extlist.css
+}

@@ -387,9 +387,31 @@
 									<POSIBLEVALUES></POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
 									<STDWRAP></STDWRAP>
-									<PROTOTYPE></PROTOTYPE>
+									<PROTOTYPE>plugin.tx_ptextlist.prototype.filterBox</PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
+										<ENTRY KEY="showReset">
+											<DESCRIPTION>Show a reset link for all filters of this filterBox.</DESCRIPTION>
+											<DATATYPE>Boolean</DATATYPE>
+											<POSIBLEVALUES>0,1</POSIBLEVALUES>
+											<DEFAULT>1</DEFAULT>
+											<STDWRAP>0</STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="showSubmit">
+											<DESCRIPTION>Show a submit button for this filterBox.</DESCRIPTION>
+											<DATATYPE>Boolean</DATATYPE>
+											<POSIBLEVALUES>0,1</POSIBLEVALUES>
+											<DEFAULT>1</DEFAULT>
+											<STDWRAP>0</STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
 										<ENTRY KEY="filterConfigs">
 											<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
 											<DATATYPE>Array</DATATYPE>
@@ -399,7 +421,270 @@
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE></EXAMPLE>
 											<CHILDREN>
-												
+												<ENTRY KEY="&lt;yourNumericFilterId&gt;">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP></STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN>
+														<ENTRY KEY="filterIdentifier">
+															<DESCRIPTION>The unique identifier of this filter.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="label">
+															<DESCRIPTION>The label shown aside the filter.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="defaultValue">
+															<DESCRIPTION>The default value which is shown or selected by default.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>	
+														<ENTRY KEY="accessGroups">
+															<DESCRIPTION>Uid of groups that have access to this filter.</DESCRIPTION>
+															<DATATYPE>Integer / Comma separated list</DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>	
+														<ENTRY KEY="fieldIdentifier">
+															<DESCRIPTION>One identifier of a previously defined data field on which the filter operates.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES>Previously defined field indentifier.</POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="filterClassName">
+															<DESCRIPTION>Name of the PHP Class of this filter.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE>Tx_PtExtlist_Domain_Model_Filter_StringFilter</EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="partialPath">
+															<DESCRIPTION>Path to the fluid partial which renders this filter.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE>Filter/String/StringFilter</EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="invert">
+															<DESCRIPTION>Invert the constraint of this filter.</DESCRIPTION>
+															<DATATYPE>Boolean</DATATYPE>
+															<POSIBLEVALUES>0,1</POSIBLEVALUES>
+															<DEFAULT>0</DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="invertable">
+															<DESCRIPTION>Show a controle to invert this filter.</DESCRIPTION>
+															<DATATYPE>Boolean</DATATYPE>
+															<POSIBLEVALUES>0,1</POSIBLEVALUES>
+															<DEFAULT>0</DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+													</CHILDREN>
+													<VARIANT>
+														<ENTRY KEY="String">
+															<DESCRIPTION>Shows a string filter.</DESCRIPTION>
+															<DATATYPE></DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.string</PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN>
+																
+															</CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														
+														<ENTRY KEY="Select">
+															<DESCRIPTION></DESCRIPTION>
+															<DATATYPE></DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN>
+																<ENTRY KEY="displayFields">
+																	<DESCRIPTION>One or multiple identifiers of previously defined data fields.</DESCRIPTION>
+																	<DATATYPE>String / Comma separated list</DATATYPE>
+																	<POSIBLEVALUES>Previously defined field indentifier.</POSIBLEVALUES>
+																	<DEFAULT>If not set, the field defined in fieldIdentifier is used.</DEFAULT>
+																	<STDWRAP>0</STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="multiple">
+																	<DESCRIPTION></DESCRIPTION>
+																	<DATATYPE></DATATYPE>
+																	<POSIBLEVALUES></POSIBLEVALUES>
+																	<DEFAULT></DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="showRowCount">
+																	<DESCRIPTION></DESCRIPTION>
+																	<DATATYPE></DATATYPE>
+																	<POSIBLEVALUES></POSIBLEVALUES>
+																	<DEFAULT></DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="excludeFilters">
+																	<DESCRIPTION>List of filters that are not considered for the group query of this filter.</DESCRIPTION>
+																	<DATATYPE>String / Comma separated list.</DATATYPE>
+																	<POSIBLEVALUES></POSIBLEVALUES>
+																	<DEFAULT></DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="showRowCount">
+																	<DESCRIPTION>Show the rowcount if the select filter is filled with grouped data.</DESCRIPTION>
+																	<DATATYPE>Boolean</DATATYPE>
+																	<POSIBLEVALUES>0,1</POSIBLEVALUES>
+																	<DEFAULT>1</DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="submitOnChange">
+																	<DESCRIPTION>Instant submit filter if a value is selected.</DESCRIPTION>
+																	<DATATYPE>Boolean</DATATYPE>
+																	<POSIBLEVALUES>0,1</POSIBLEVALUES>
+																	<DEFAULT>0</DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="inactiveOption">
+																	<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
+																	<DATATYPE>String</DATATYPE>
+																	<POSIBLEVALUES></POSIBLEVALUES>
+																	<DEFAULT></DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="inactiveValue">
+																	<DESCRIPTION>The submitted value for the inactiveOption described above.</DESCRIPTION>
+																	<DATATYPE>String</DATATYPE>
+																	<POSIBLEVALUES></POSIBLEVALUES>
+																	<DEFAULT></DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+																<ENTRY KEY="renderObj">
+																	<DESCRIPTION>A cObject definition to render every selct option. With {field:FIELDNAME} you can accedd all display Fields. Additional the implicit defined fields &lt;allDisplayFields&gt; for all defined displayFields and &lt;rowCount&gt; for the count of the entrys with this option  are possible.</DESCRIPTION>
+																	<DATATYPE>String (cObject)</DATATYPE>
+																	<POSIBLEVALUES></POSIBLEVALUES>
+																	<DEFAULT>renderObj {
+																		dataWrap = {field:allDisplayFields} ({field:rowCount})
+																	}</DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>	
+															</CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														
+														<ENTRY KEY="Proxy">
+															<DESCRIPTION>A proxy filter is not displayed. It uses a filter from an other list defined by the proxy path and sets the result constraint to the given field.</DESCRIPTION>
+															<DATATYPE></DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.proxy</PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN>
+																<ENTRY KEY="proxyPath">
+																	<DESCRIPTION>Path to a filter from an other list. The path has the format &lt;listId&gt;.&lt;filterBoxId&gt;.&lt;filterId&gt;</DESCRIPTION>
+																	<DATATYPE>String</DATATYPE>
+																	<POSIBLEVALUES></POSIBLEVALUES>
+																	<DEFAULT></DEFAULT>
+																	<STDWRAP></STDWRAP>
+																	<PROTOTYPE></PROTOTYPE>
+																	<EXAMPLE></EXAMPLE>
+																	<CHILDREN></CHILDREN>
+																	<VARIANT></VARIANT>
+																</ENTRY>
+															</CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														
+													</VARIANT>
+												</ENTRY>
 											</CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>

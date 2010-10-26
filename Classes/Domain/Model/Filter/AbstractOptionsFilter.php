@@ -173,7 +173,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$renderedOptions = $dataProvider->getRenderedOptions(); 
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
-		
+
         return $renderedOptions;
 	}
 	
@@ -201,6 +201,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected function addInactiveOption(&$renderedOptions) {
 
 		if($this->filterConfig->getInactiveOption()) {
+			
+			unset($renderedOptions[$this->filterConfig->getInactiveValue()]);
+			
 			if(count($this->filterValues) == 0) {
 				$selected = true;
 			} else {
@@ -208,10 +211,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			}
              
    			$inactiveValue = $this->filterConfig->getInactiveValue();
-            
+
 			$renderedOptionsWithInactive[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
         													     'selected' => $selected);
-			
+
         	$renderedOptionsWithInactive=array_merge($renderedOptionsWithInactive, $renderedOptions);
         	$renderedOptions = $renderedOptionsWithInactive;
         }

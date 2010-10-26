@@ -9,6 +9,11 @@
 ####################################################
 
 #
+# Baseconfigurations for demo Lists
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Base.txt">
+
+#
 # Demolist from static countries with typo3 backend and some filters
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_01.txt">

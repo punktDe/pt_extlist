@@ -132,8 +132,8 @@ plugin.tx_ptextlist.prototype.filter {
 		displayFields = 
 		filterField = 
 		excludeFilters = 
-		showRowCount = 1
-		inactiveOption =
+		showRowCount = 0
+		inactiveOption = [ALL]
 		inactiveValue =
 		invert = 0
 		invertable = 0

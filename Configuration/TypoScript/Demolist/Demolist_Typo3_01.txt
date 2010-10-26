@@ -306,20 +306,74 @@ plugin.tx_ptextlist.settings {
 					  invertable = 0
 					  }
 	              }
+	              
+	              40 < plugin.tx_ptextlist.prototype.filter.proxy
+	              40 {
+	              	filterIdentifier = continentProxy
+	              	proxyPath = demoListProxyFilter.filterbox1.continent
+					fieldIdentifier = continent
+	              }
 	         }
 	         
 	         filterbox2 {
+	         	showSubmit = 0
+	         	showReset = 0 
 	         	filterConfigs {
 		         	10 < plugin.tx_ptextlist.prototype.filter.firstLetter
 		         	10 {
 		         		filterIdentifier = filter4
 		         		label = Capital
 		         		fieldIdentifier = capital
-		         		inactiveOption = [ALL]
 		         	}
 		         }
 	         }
         }  
+    }
+}
+
+
+plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {  
+	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+        backendConfig {     
+	        tables (
+	            static_territories
+	        )
+	        
+	        continent {
+				table = static_territories
+				field = tr_name_en
+			}
+		}
+		
+		fields {
+			continent {
+				table = static_territories
+				field = tr_name_en
+			}
+		}
+		
+		filters {
+	        filterbox1 {
+	        	filterConfigs {
+	        	  10 < plugin.tx_ptextlist.prototype.filter.select 
+	              10 {
+	                  filterIdentifier = continent
+	                  label = Subcontinent
+	                  fieldIdentifier = continent
+	                  filterField = continent
+	                  displayFields = continent
+	                  showRowCount = 0
+	                  multiple = 0
+					  inactiveOption = [ALL]
+					  
+					  renderObj = TEXT
+				      renderObj {
+						dataWrap = {field:allDisplayFields}
+						}
+					}
+	        	}
+	        }
+	    }
     }
 }
 
