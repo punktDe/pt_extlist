@@ -304,10 +304,6 @@ plugin.tx_ptextlist.settings {
 					  inactiveOption = [ALL]
 					  invert = 0
 					  invertable = 0
-					  options {
-					  	x = Hallo Welt
-					  	y = So was .. 
-					  	}
 					  }
 	              }
 	         }

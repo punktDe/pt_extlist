@@ -57,6 +57,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	 * @param string $query SQL query to be executed
 	 */
 	public function executeQuery($query) {
+		
 		try {
 			$res = $this->connection->sql_query($query);
 	        tx_pttools_assert::isMySQLRessource($res, $this->dbObj);

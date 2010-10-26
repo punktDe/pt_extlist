@@ -447,7 +447,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return array Array of group data with given fields as array keys
      */
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
-    	  	
         $this->buildQuery();
     	
     	$selectPart  = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
@@ -477,7 +476,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     		if($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
     	}
     		
-    	$query =  implode(" \n", array($selectPart, $fromPart, $filterWherePart, $sortingPart));
+    	$query =  implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
     	
     	if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
     	

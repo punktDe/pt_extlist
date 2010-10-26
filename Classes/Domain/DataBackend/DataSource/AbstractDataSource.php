@@ -29,7 +29,8 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  * 
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 	

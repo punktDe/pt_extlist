@@ -30,7 +30,7 @@
  * TODO shouldn't there be an instance for each list identifier?
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package pt_extlist
+ * @package Domain
  * @subpackage Lifecycle
  */
 class Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory {
