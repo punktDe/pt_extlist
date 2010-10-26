@@ -136,10 +136,12 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 		$keyList = array();
 		$tsArray = $this->getTSArrayByPath($typoScriptPath);
 		
+		ksort($tsArray);
+		
 		foreach($tsArray as $key => $valueArray) {
 			$keyList[] = array($key, $key);
 		}
-		
+
 		return $keyList;
 	}
 	
