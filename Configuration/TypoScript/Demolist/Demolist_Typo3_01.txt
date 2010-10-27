@@ -30,8 +30,8 @@ plugin.tx_ptextlist.settings {
 
 			baseFromClause (
 				static_countries
-				LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-				LEFT JOIN static_territories AS	st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+				LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+				LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
 			)
 
 			baseWhereClause (
