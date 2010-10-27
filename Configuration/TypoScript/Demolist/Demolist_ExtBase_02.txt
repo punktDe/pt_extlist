@@ -9,8 +9,7 @@
 ####################################################
 
 config.tx_extbase {
-	persistence{
-		
+	persistence {
 		enableAutomaticCacheClearing = 1
 		updateReferenceIndex = 0
 		classes {
@@ -65,8 +64,6 @@ plugin.tx_ptextlist.settings {
 			baseGroupByClause (
 			)
 		}
-		
-
 		
 		fields {
 			

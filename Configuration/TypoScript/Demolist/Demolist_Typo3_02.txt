@@ -166,49 +166,50 @@ plugin.tx_ptextlist.settings {
 		filters {
 			filterbox1 {
 				filterConfigs {
-				10 < plugin.tx_ptextlist.prototype.filter.string 
-				10 {
-					filterIdentifier = filter1
-					label = Local name
-					fieldIdentifier = country_local
-				}
-				
-				15 < plugin.tx_ptextlist.prototype.filter.max
-				15 {
-					filterIdentifier = filter15
-					label = Max Phone
-					fieldIdentifier = phone
-				}
-
-				20 < plugin.tx_ptextlist.prototype.filter.checkbox 
-				20 {
-					filterIdentifier = filter2
-					label = Continent
-					fieldIdentifier = continent
-					filterField = continent
-					displayFields = continent
-					showRowCount = 1
-					submitOnChange = 0
-					invert = 0
-					invertable = 0
+					10 < plugin.tx_ptextlist.prototype.filter.string 
+					10 {
+						filterIdentifier = filter1
+						label = Local name
+						fieldIdentifier = country_local
+					}
 					
-					excludeFilters = filterbox1.filter3
-				}
-				
-				30 < plugin.tx_ptextlist.prototype.filter.select 
-				30 {
-					filterIdentifier = filter3
-					label = Subcontinent
-					fieldIdentifier = subcontinent
-					filterField = subcontinent
-					displayFields = continent, subcontinent
-					multiple = 0
-					showRowCount = 1
-					#excludeFilters = filterbox1.filter1
-					submitOnChange = 0
-					inactiveOption = [ALL]
-					invert = 0
-					invertable = 0
+					15 < plugin.tx_ptextlist.prototype.filter.max
+					15 {
+						filterIdentifier = filter15
+						label = Max Phone
+						fieldIdentifier = phone
+					}
+
+					20 < plugin.tx_ptextlist.prototype.filter.checkbox 
+					20 {
+						filterIdentifier = filter2
+						label = Continent
+						fieldIdentifier = continent
+						filterField = continent
+						displayFields = continent
+						showRowCount = 1
+						submitOnChange = 0
+						invert = 0
+						invertable = 0
+						
+						excludeFilters = filterbox1.filter3
+					}
+					
+					30 < plugin.tx_ptextlist.prototype.filter.select 
+					30 {
+						filterIdentifier = filter3
+						label = Subcontinent
+						fieldIdentifier = subcontinent
+						filterField = subcontinent
+						displayFields = continent, subcontinent
+						multiple = 0
+						showRowCount = 1
+						#excludeFilters = filterbox1.filter1
+						submitOnChange = 0
+						inactiveOption = [ALL]
+						invert = 0
+						invertable = 0
+					}
 				}
 			}
 		}
