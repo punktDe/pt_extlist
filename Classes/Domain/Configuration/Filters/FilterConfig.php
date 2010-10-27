@@ -27,9 +27,10 @@
 /**
  * Class implementing configuration for filter
  * 
- * @package pt_extlist
- * @subpackage Domain\Configuration\Filters
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @package Domain
+ * @subpackage Configuration\Filters
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	
@@ -261,13 +262,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
         $this->filterIdentifier = $filterSettings['filterIdentifier'];
         
-        tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified in config. 1277889552'));
+        tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552'));
         $this->filterClassName = $filterSettings['filterClassName'];
         
         tx_pttools_assert::isNotEmptyString($filterSettings['fieldIdentifier'], array('message' => 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513'));
 		$this->fieldIdentifier =  $filterSettings['fieldIdentifier'];
                
-        tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for this filter (TS key parialPath). 1281013746'));
+        tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key parialPath). 1281013746'));
         $this->partialPath = $filterSettings['partialPath'];
         
         

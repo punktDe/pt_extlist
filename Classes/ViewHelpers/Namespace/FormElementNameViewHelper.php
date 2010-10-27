@@ -28,8 +28,8 @@
  * GPValueViewHelper
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package ViewHelpers
+ * @subpackage NameSpace
  */
 class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 		
