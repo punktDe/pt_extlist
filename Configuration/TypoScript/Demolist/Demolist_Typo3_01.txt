@@ -341,7 +341,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 	filters {
 		filterbox1 {
 			filterConfigs {
-				10 < plugin.tx_ptextlist.prototype.filter.select 
+				10 < plugin.tx_ptextlist.prototype.filter.select
 				10 {
 					filterIdentifier = continent
 					label = Subcontinent

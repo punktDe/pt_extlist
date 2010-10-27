@@ -59,7 +59,7 @@ plugin.tx_ptextlist.settings {
 			)
 			
 			baseWhereClause (
-			) 
+			)
 			
 			baseGroupByClause (
 			)
