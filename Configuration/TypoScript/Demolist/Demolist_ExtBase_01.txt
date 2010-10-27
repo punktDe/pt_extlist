@@ -60,7 +60,7 @@ plugin.tx_ptextlist.settings {
 			)
 			
 			baseWhereClause (
-			) 
+			)
 			
 			baseGroupByClause (
 			)
@@ -77,7 +77,7 @@ plugin.tx_ptextlist.settings {
 			10 {
 				fieldIdentifier = title
 				columnIdentifier = title
-				label = Titel          
+				label = Titel
 			}
 		}
 		

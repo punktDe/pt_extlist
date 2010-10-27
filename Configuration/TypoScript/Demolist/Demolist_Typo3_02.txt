@@ -166,7 +166,7 @@ plugin.tx_ptextlist.settings {
 		filters {
 			filterbox1 {
 				filterConfigs {
-					10 < plugin.tx_ptextlist.prototype.filter.string 
+					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
 						filterIdentifier = filter1
 						label = Local name
@@ -180,7 +180,7 @@ plugin.tx_ptextlist.settings {
 						fieldIdentifier = phone
 					}
 
-					20 < plugin.tx_ptextlist.prototype.filter.checkbox 
+					20 < plugin.tx_ptextlist.prototype.filter.checkbox
 					20 {
 						filterIdentifier = filter2
 						label = Continent
@@ -195,7 +195,7 @@ plugin.tx_ptextlist.settings {
 						excludeFilters = filterbox1.filter3
 					}
 					
-					30 < plugin.tx_ptextlist.prototype.filter.select 
+					30 < plugin.tx_ptextlist.prototype.filter.select
 					30 {
 						filterIdentifier = filter3
 						label = Subcontinent

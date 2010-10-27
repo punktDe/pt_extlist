@@ -15,7 +15,7 @@ plugin.tx_ptextlist.settings {
 		backendConfig {
 			
 			dataSource {
-				username = t3ry21ptldev 
+				username = t3ry21ptldev
 				password = upa8Shooyidom
 				databaseName = t3ry21ptldev
 			}
