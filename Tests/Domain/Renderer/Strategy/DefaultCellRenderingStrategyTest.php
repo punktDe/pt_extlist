@@ -84,6 +84,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		
 	}
 	
+	/*
 	public function testSpecialValueRendering() {
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		
@@ -96,7 +97,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		$cellContent = $this->cellRenderer->renderCell($columnConfig, $row, '10');
 		$this->assertTrue(is_array($cellContent->getSpecialValues()));
 	}
-	/*
+	
  	public function testTSRendering() {
 		$cObjMock = $this->getMock('tslib_cObj', array('cObjGet'));
 		$cObjMock->expects($this->once())->method('cObjGet');

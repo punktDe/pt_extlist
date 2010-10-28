@@ -111,24 +111,32 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	
 	
 	/**
-	 * TODO add comment!
-	 *
-	 * @param string $specialValues
+	 * Add a special value to the list
+	 * @param string $key
+	 * @param mixed $value
 	 */
-	public function setSpecialValues($specialValues) {
-		$this->specialValues = $specialValues;
+	public function addSpecialValue($key, $value) {
+		$this->specialValues[$key] = $value;
 	}
 	
 	
 	
 	/**
-	 * TODO add comment!
-	 *
-	 * @return string
+	 * Get a special value from the list
+	 * @param string $key
 	 */
-	public function getSpecialValues() {
-		return $this->specialValues;
+	public function getSpecialValue($key) {
+		return $this->specialValues[$key];
 	}	
+	
+	
+	/**
+	 * Remove a special value from the list
+	 * @param string $key
+	 */
+	public function removeSpecialValue($key) {
+		unset($this->specialValues[$key]);
+	}
 	
 	
 	
