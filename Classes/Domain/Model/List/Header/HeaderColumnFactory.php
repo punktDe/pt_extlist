@@ -28,7 +28,7 @@
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
- * @subpackage \Model\List\Header
+ * @subpackage Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 	

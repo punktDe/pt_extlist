@@ -28,18 +28,51 @@
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
- * @subpackage \Model\List\Header
+ * @subpackage Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 
+	
+	/**
+	 * ListIdentifier of the current list
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
+	
+	/**
+	 * @param string $listIdentifier
+	 */
+	public function __construct($listIdentifier) {
+		$this->listIdentifier = $listIdentifier;
+	}
+	
+	
 	/**
 	 * Add a header column to the collection
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader
-	 * @param unknown_type $columnIdentifier
+	 * @param integer $columnIdentifier
 	 */
 	public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier) {	
 		$this->addItem($columnHeader, $columnIdentifier);
+	}
+	
+	
+	
+	/**
+	 * Return column Identifier if exists
+	 * 
+	 * @param string $columnIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
+	 * @throws Exception
+	 */
+	public function getHeaderColumn($columnIdentifier) {
+		if(!$this->hasItem($columnIdentifier)) {
+			throw new Exception('The column header with column identifier ' . $columnIdentifier . ' does not exist! 1288303528');
+		}
+		
+		return $this->itemsArr[$columnIdentifier];
 	}
 	
 	

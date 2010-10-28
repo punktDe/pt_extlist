@@ -28,7 +28,7 @@
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
- * @subpackage \Model\List\Header
+ * @subpackage Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 	
@@ -263,13 +263,20 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * return sorting State 
      * 
      * @return integer 1 = ASC, 0 = NONE,  -1 = DESC
-     * @author Daniel Lienert <lienert@punkt.de>
-     * @since 29.07.2010
      */
     public function getSortingState() {
     	return $this->sortingState;
     }
     
+    
+    /**
+     * Set the sorting state
+     * 
+     * @param integer $sortingState
+     */
+    public function setSortingState($sortingState) {
+    	$this->sortingState = $sortingState;
+    }
     
     
     /**

@@ -40,18 +40,30 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
+		$listDefaultConfiguration = $configurationBuilder->buildListDefaultConfig();
 		$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
-		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
+		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
+		
+		$listIsSorted = 0;
 		
 		foreach($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
 			$headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
 			
-			if($headerColumn->getColumnConfig()->isAccessable()) {
-				$listHeader->addHeaderColumn($headerColumn, $columnIdentifier);
+			if($singleColumnConfiguration->isAccessable()) {
+				$listIsSorted += $headerColumn->getSortingState();
+				$listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
 			}
+		}
+
+		if(!$listIsSorted && $listDefaultConfiguration->getSortingColumn()) {
+			$listHeader->getHeaderColumn($listDefaultConfiguration->getSortingColumn())->setSortingState(1);
+			$listHeader->getHeaderColumn($listDefaultConfiguration->getSortingColumn())->init();
 		}
 		
 		return $listHeader;
 	}
+	
+	
+	
 }
 ?>
