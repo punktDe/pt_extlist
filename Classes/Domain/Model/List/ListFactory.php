@@ -42,12 +42,12 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
      * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public static function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
+		//$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
 		$aggregateRows = Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($dataBackend, $configurationBuilder);
 		
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
 		$list->setListData($dataBackend->getListData());
-		$list->setListHeader($listHeader);
+		$list->setListHeader($dataBackend->getListHeader());
 		$list->setAggregateRows($aggregateRows);
 	
 		return $list;
