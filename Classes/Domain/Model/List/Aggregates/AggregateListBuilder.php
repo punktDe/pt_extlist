@@ -124,6 +124,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	 */
 	public function buildAggregateList() {
 		$aggregateRowConfigurations = $this->configurationBuilder->buildAggregateRowConfig();
+				
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
 		foreach($aggregateRowConfigurations as $aggregateRowIndex => $aggregateRowConfiguration) {
@@ -150,16 +151,17 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		foreach($columnConfigCollection as $columnConfiguration) {
 			$columnIdentifier = $columnConfiguration->getColumnIdentifier();
 			
-			if($aggregateRowConfiguration->hasItem($columnIdentifier)) {
-
-				$aggregateColumnConfig = $aggregateRowConfiguration->getAggregateColumnConfigByIdentifier($columnIdentifier);
-				$cellContent = $this->renderer->renderCell($aggregateColumnConfig, $this->aggregatedDataRow, $columnIndex, $aggregateRowIndex);
-				$row->createAndAddCell($cellContent, $columnIdentifier);		
-			
-			} else {
-				$row->createAndAddCell('', $columnIdentifier);
+			if($columnConfiguration->isAccessable()) {
+				if($aggregateRowConfiguration->hasItem($columnIdentifier)) {
+	
+					$aggregateColumnConfig = $aggregateRowConfiguration->getAggregateColumnConfigByIdentifier($columnIdentifier);
+					$cellContent = $this->renderer->renderCell($aggregateColumnConfig, $this->aggregatedDataRow, $columnIndex, $aggregateRowIndex);
+					$row->createAndAddCell($cellContent, $columnIdentifier);		
+				
+				} else {
+					$row->createAndAddCell('', $columnIdentifier);
+				}
 			}
-			
 			$columnIndex++;
 		}
 		
