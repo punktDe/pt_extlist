@@ -200,7 +200,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * Returns array of settings for current list configuration
      *
      * @return array
-     * @author Michael Knoll <knoll@punkt.de>
      */
     public function getSettings($key = NULL) {
     	if(!$key) {
@@ -247,8 +246,19 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
 
     
+    
     /**
-     * Returns configuration array for all filters
+     * Returns settings
+     * @return array 
+     */
+    public function getDefaultSettings() {
+    	return $this->settings['default'];
+    }
+    
+    
+    
+    /**
+     * Returns settings array for all filters
      *
      * @return array Settings for all filters
      */
@@ -256,8 +266,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	return $this->settings['filters'];
     }
     
+    
+    
     /**
-     * Returns configuration array for the renderer
+     * Returns settings array for the renderer
      *
      * @return array Settings for the renderer
      */
@@ -266,8 +278,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
     
     
+    
     /**
-     * Returns the configuration settings for all columns
+     * Returns settings for all columns
      * @return array Settings for all columns
      */
     public function getColumnSettings() {
@@ -503,6 +516,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
         return new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this);	
     }
     
+    
+    /**
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+     */
+    public function buildListDefaultConfig() {
+    	return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory::getInstance($this);
+    }
 }
 
 ?>

@@ -56,8 +56,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     		
     		$settings = array(
 	            'listIdentifier' => 'test',
-            	
-	            'abc' => '1',
+
+    			'abc' => '1',
             	'prototype' => array(
 
 				'backend' => array (
@@ -75,6 +75,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 				),
 	            'listConfig' => array(
 	                 'test' => array(
+				
+						'default' => array (
+    						'sortingColumn' => 'column3', 
+    					),
 						
 						'backendConfig' => array (
 								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
