@@ -50,6 +50,14 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     public function getListData();
     
     
+    /**
+	 * Returns the list header
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+    public function getListHeader();
+    
+    
     
     /**
      * Returns raw data for all filters excluding given filters. 

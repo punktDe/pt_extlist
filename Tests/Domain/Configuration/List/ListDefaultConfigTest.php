@@ -42,7 +42,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfig_testcase ex
 	
 	
 	public function setup() {
-		
 		$this->initDefaultConfigurationBuilderMock();
 		$this->listDefaultConfiguration = $this->configurationBuilderMock->buildListDefaultConfig();
 	}

@@ -100,9 +100,13 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 		}
 		
 		// Resolve special cell values
+		/*
+		 * TODO: make something usefull here ... :)
+		 * 
 		if($this->renderSpecialCellUserFunc || $columnConfig->getSpecialCell()) {
 			$this->renderSpecialValues($cell, $columnConfig);	
-		}
+		 }
+		*/
 		
 		return $cell;
 	}

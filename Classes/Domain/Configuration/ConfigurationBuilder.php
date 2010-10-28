@@ -69,35 +69,35 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * Holds an instance of a databackend configuration and handles it as a singleton instance
 	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
 	 */
-	protected $dataBackendConfiguration = null;
+	protected $dataBackendConfiguration = NULL;
 	
 	
 	/**
 	 * Holds an instance of a fields configuration and handles it as a singleton instance
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
-	protected $fieldsConfiguration = null;
+	protected $fieldsConfiguration = NULL;
 	
 	
 	/**
 	 * Holds an instance of a aggregate data configuration and handles it as a singleton instance
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
 	 */
-	protected $aggregateDataConfig = null;
+	protected $aggregateDataConfig = NULL;
 	
 	
 	/**
 	 * Holds an instance of a aggregate row configurations and handles it as a singleton instance
 	 * @var Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
 	 */
-	protected $aggregateRowConfig = null;
+	protected $aggregateRowConfig = NULL;
 	
 	
 	/**
 	 * Holds an instance of a columns configuration and handles it as a singleton instance
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
-	protected $columnsConfiguration = null;
+	protected $columnsConfiguration = NULL;
 	
 	
 	
@@ -105,7 +105,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * Holds an instance of a renderer configuration and handles it as a singleton instance.
 	 * @var Tx_Ptextlist_Configuration_Renderer_RendererConfiguration
 	 */
-	protected $rendererConfiguration = null;
+	protected $rendererConfiguration = NULL;
 	
 	
 	
@@ -113,14 +113,28 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * Holds an instance of a pager configuration associated to this list
      * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
      */
-	protected $pagerConfiguration = null;
+	protected $pagerConfiguration = NULL;
 	
 	
 	/**
 	 * Holds an instance of the configuration of all filters associated to this list
 	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
 	 */
-	protected $filterConfiguration = null;
+	protected $filterConfiguration = NULL;
+	
+	
+	/**
+	 * Holds an instance of the bookmark configuration
+	 * @var Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+	 */
+	protected $bookmarkConfiguration = NULL;
+	
+	
+	/**
+	 * Holds an instance of the list defaults configuration 
+	 * @var Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+	 */
+	protected $listDefaultConfiguration = NULL;
 	
 	
 	/**
@@ -141,6 +155,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		$this->origSettings = $settings;
 		$this->mergeAndSetGlobalAndLocalConf();
 	}
+	
 	
 	
 	/**
@@ -470,6 +485,31 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
     
     
+   /**
+     * Returns bookmarks configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+     */
+    public function buildBookmarksConfiguration() {
+        if(is_null($this->bookmarkConfiguration)) {
+        	$this->bookmarkConfiguration = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this);
+        }
+    	
+        return $this->bookmarkConfiguration;
+    }
+    
+    
+    /**
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+     */
+    public function buildListDefaultConfig() {
+    	if(is_null($this->listDefaultConfiguration)) {
+    		$this->listDefaultConfiguration =  Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory::getInstance($this);	
+    	}
+    	
+    	return $this->listDefaultConfiguration; 
+    }
+    
     
     /**
      * Returns configuration object for pager
@@ -503,25 +543,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      */
     public function getBookmarksSettings() {
     	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
-    }
-    
-    
-    
-    /**
-     * Returns bookmarks configuration
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
-     */
-    public function buildBookmarksConfiguration() {
-        return new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this);	
-    }
-    
-    
-    /**
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
-     */
-    public function buildListDefaultConfig() {
-    	return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory::getInstance($this);
     }
 }
 

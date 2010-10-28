@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
-		$listDefaultConfiguration = $configurationBuilder->buildListDefaultConfig();
+		$defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
 		$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
 		
@@ -55,9 +55,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 			}
 		}
 
-		if(!$listIsSorted && $listDefaultConfiguration->getSortingColumn()) {
-			$listHeader->getHeaderColumn($listDefaultConfiguration->getSortingColumn())->setSortingState(1);
-			$listHeader->getHeaderColumn($listDefaultConfiguration->getSortingColumn())->init();
+		if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($id)) {
+			$listHeader->getHeaderColumn($defaultSortingColumn)->setSortingState(1);
+			$listHeader->getHeaderColumn($defaultSortingColumn)->init();
 		}
 		
 		return $listHeader;

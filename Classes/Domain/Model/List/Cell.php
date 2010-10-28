@@ -31,6 +31,7 @@
  * @subpackage Model\List
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Model_List_Cell {
 
@@ -44,8 +45,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	
 	
 	/**
-	 * TODO add some comment!
-	 *
+	 * Special values for multiple purpose
 	 * @var string
 	 */
 	protected $specialValues;
@@ -128,6 +128,16 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	public function getSpecialValue($key) {
 		return $this->specialValues[$key];
 	}	
+	
+	
+	
+	/**
+	 * Return the complete value array
+	 */
+	public function getSpecialValues() {
+		return $this->specialValues;
+	}
+	
 	
 	
 	/**

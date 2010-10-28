@@ -129,7 +129,7 @@ plugin.tx_ptextlist.settings {
 
 				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
 				# if not set, the first entry in dataDescriptionIdentifier will be used
-				sortingDataDescription = name_local
+				sortingFields = name_local
 
 				renderObj = COA
 				renderObj {

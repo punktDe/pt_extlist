@@ -26,8 +26,8 @@
 /**
  * Class implements testcase for pagers config collection
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Configuration\Pager
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

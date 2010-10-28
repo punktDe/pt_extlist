@@ -27,7 +27,7 @@
 /**
  * Testcase for list factory
  * 
- * @package Test
+ * @package Tests
  * @subpackage Domain\Model\List
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
@@ -47,12 +47,16 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 	
 	public function testCreateList() {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
 		
-		$backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getListData'), array($this->configurationBuilderMock));
+		$backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getListData','getListHeader'), array($this->configurationBuilderMock));
 		$backendMock->expects($this->any())
 		    ->method('getListData')
 		    ->will($this->returnValue($listData));
-		
+		$backendMock->expects($this->any())
+		    ->method('getListHeader')
+		    ->will($this->returnValue($listHeader));
+		    
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($backendMock, $this->configurationBuilderMock);
 		
 		$this->assertEquals($listData, $list->getListData());

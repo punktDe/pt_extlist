@@ -35,6 +35,14 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	
+	
+	/**
+	 * Special values for multiple purpose
+	 * @var string
+	 */
+	protected $specialValues;
+	
+	
 	/**
 	 * Add a new cell to row identified by a given column name
 	 * 
@@ -68,6 +76,45 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 			Throw new Exception('No Cell with Identifier ' . $columnIdentifier . ' found in Row! 1282978972');
 		}
 		return $this->getItemById($columnIdentifier);
+	}
+	
+	
+/**
+	 * Add a special value to the list
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	public function addSpecialValue($key, $value) {
+		$this->specialValues[$key] = $value;
+	}
+	
+	
+	
+	/**
+	 * Get a special value from the list
+	 * @param string $key
+	 */
+	public function getSpecialValue($key) {
+		return $this->specialValues[$key];
+	}	
+	
+	
+	
+	/**
+	 * Return the complete value array
+	 */
+	public function getSpecialValues() {
+		return $this->specialValues;
+	}
+	
+	
+	
+	/**
+	 * Remove a special value from the list
+	 * @param string $key
+	 */
+	public function removeSpecialValue($key) {
+		unset($this->specialValues[$key]);
 	}
 }
 

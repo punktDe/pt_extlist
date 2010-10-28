@@ -52,16 +52,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
 	protected static function buildColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
+				
 		$columnSettings = $configurationBuilder->getColumnSettings();
 		ksort($columnSettings);
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
+		 
 		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
 		
 		foreach($columnSettings as $columnId => $columnSetting) {
 			$columnSettingMergedWithProtoType = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');
 			$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSettingMergedWithProtoType);
-
+				
 			// Inject security information
 			$accessable = $security->isAccessableColumn($columnConfig);
 			$columnConfig->setAccessable($accessable);

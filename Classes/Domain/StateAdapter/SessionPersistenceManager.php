@@ -117,10 +117,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @param Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface $object   Object to inject session data into
 	 */
 	public function loadFromSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
-		$objectNamespace = $object->getObjectNamespace();
-		tx_pttools_assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
-
-		$objectData = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
+		$objectData = $this->getSessionDataForObjectNamespace($object->getObjectNamespace());
 		
 		if (is_array($objectData)) {
 			$object->injectSessionData($objectData);
@@ -128,6 +125,17 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 
 	}
 	
+	
+	/**
+	 * Get the session data for object 
+	 * @param string $objectNameSpace
+	 * @return array sessiondata
+	 */
+	public function getSessionDataForObjectNamespace($objectNamespace) {
+		tx_pttools_assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
+
+		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
+	}
 	
 	
 	/**
@@ -162,8 +170,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 				break;
 			case Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END:
 				$this->persist();
-				break;
-			
+				break;	
 		}
 	}
 

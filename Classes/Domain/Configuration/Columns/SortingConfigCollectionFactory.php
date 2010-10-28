@@ -24,8 +24,8 @@
 ***************************************************************/
 
 /**
- * @package 		pt_extlist
- * @subpackage 		Domain\Configuration\Columns  
+ * @package 		Domain
+ * @subpackage 		Configuration\Columns  
  * @author         	Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
@@ -43,8 +43,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 		
 		$sortingFields = t3lib_div::trimExplode(',', $sortingSettings);
 		foreach($sortingFields as $sortingField) {
+			
 			$sortingFieldOptions = t3lib_div::trimExplode(' ', $sortingField);
 			$fieldName  = $sortingFieldOptions[0];
+			
 			if($fieldName) {
 				$tempSortingDir = strtolower($sortingFieldOptions[1]);	
 				$sortingDir = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
