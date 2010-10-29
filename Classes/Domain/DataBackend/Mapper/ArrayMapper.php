@@ -75,13 +75,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		foreach ($arrayData as $row) {
 			$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach ($row as $columnName => $value) {
-				
-				//if($this->fieldConfigurationCollection->getFieldConfigByIdentifier($columnName)->getExpandGroupRows()) {	
-				//	$mappedRow->createAndAddCell($this->expandGroupedData($value), $columnName);	
-				//} else {
 					$mappedRow->createAndAddCell($value, $columnName);
-				//}
-				
 			}
 			$listData->addRow($mappedRow);
 		}
