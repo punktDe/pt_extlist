@@ -1,12 +1,14 @@
-table.tx-ptextlist-list {
+﻿table.tx-ptextlist-list {
 	width: 99.9%;
 	margin-left: 1px;
 }
 
+/* can this be deleted? ry27
 table.tx-ptlist-list-standard th {
 	border-bottom: 1px solid #BFBFBF;
 	border-left: 1px solid #BFBFBF;
 }
+*/
 
 table.tx-ptextlist-list-standard th {
 	background: #3E3E3E;
@@ -14,32 +16,25 @@ table.tx-ptextlist-list-standard th {
 }
 
 table.tx-ptextlist-list-standard td {
-	padding: 2px 0px 2px 4px;
-	margin:  0px;
-	border:  1px solid #bfbfbf;
+	border: 1px solid #bfbfbf;
+	margin: 0px;
+	padding: 2px 4px 2px 4px;
 	vertical-align: top;
 }
 
+table.tx-ptextlist-list-standard {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 12px;
+	clear: both;
+}
 
 table.tx-ptextlist-list-standard tr.odd {
 	background-color: #ffffff;
 }
 
 table.tx-ptextlist-list-standard tr.even {
-	background-color:#F5F5F5;
-}
-
-.tx-ptextlist-aggregaterow {
-	background-color: #DDDDDD;
-	font-weight: bold;
-}
-
-
-table.tx-ptextlist-list-standard {
-	border-collapse:collapse;
-	border-spacing:0;
-	font-size:12px;
-	clear:both;
+	background-color: #F5F5F5;
 }
 
 th.tx-ptextlist-list-header {
@@ -48,7 +43,14 @@ th.tx-ptextlist-list-header {
 	background: #3E3E3E;
 }
 
-.tx-ptextlist-filter{
+/* Aggregates */
+.tx-ptextlist-aggregaterow {
+	background-color: #DDDDDD;
+	font-weight: bold;
+}
+
+/* Filters */
+.tx-ptextlist-filter {
 	float: left;
 	padding: 3px;
 	list-style-type: none !important;
@@ -60,14 +62,13 @@ th.tx-ptextlist-list-header {
 
 .tx-ptextlist-filterboxcontrols {
 	float: left;
-	padding:18px 0 0 10px;
+	padding: 18px 0 0 10px;
 }
 
-
 .tx-ptextlist-filterbox{
-	border:1px solid #BFBFBF; 
-	margin-bottom:20px;
-	padding:5px;
+	border: 1px solid #BFBFBF;
+	margin-bottom: 20px;
+	padding: 5px;
 	overflow: hidden;
 }
 
