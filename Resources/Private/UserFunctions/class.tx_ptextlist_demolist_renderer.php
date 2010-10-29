@@ -52,7 +52,7 @@ class tx_ptextlist_demolist_renderer {
 			// check if file exists
 			$flagFileName =  'gfx/flags/' . strtolower($value) . '.gif';
 			if (is_file(PATH_typo3 . $flagFileName)) {
-				$currentContent .= ' <img src="/typo3/'. $flagFileName .'" />';
+				$currentContent .= ' <img src="/typo3/'. $flagFileName .'" alt="" />';
 			}
 		}
 		return $currentContent;
