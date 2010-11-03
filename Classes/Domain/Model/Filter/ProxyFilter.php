@@ -40,9 +40,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist
 	 */
 	protected $fieldIdentifier;
 	
-	protected $proxyList;
+	protected $proxyListIdentifier;
 	
-	protected $proxyFilterBox;
+	protected $proxyFilterBoxIdentifier;
 	
 	protected $proxyFilterIdentifier;
 	
@@ -92,15 +92,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist
 		$filterSettings = $this->filterConfig->getSettings();
 		tx_pttools_assert::isNotEmptyString($filterSettings['proxyPath'], array('message' => 'No proxy path to the proxy filter set. 1288033657'));
 		
+		$this->setProxyConfigFromProxyPath(trim($filterSettings['proxyPath']));
+	}
+	
+	
+	protected function setProxyConfigFromProxyPath($proxyPath) {
+		list($this->proxyListIdentifier, $this->proxyFilterBoxIdentifier, $this->proxyFilterIdentifier) = explode('.', $proxyPath);
 		
+		if(!$this->proxyListIdentifier || !$this->proxyFilterBoxIdentifier || !$this->proxyFilterIdentifier) {
+			throw new Exception("Either proxyListIdentifier, proxyFilterBoxIdentifier or proxyFilterIdentifier not given! 1288352507");
+		}
 	}
 	
 	
 	/**
 	 * @param string $proxyPath
 	 */
-	protected function getProxyFilterConfig($proxyPath) {
-		
+	protected function getRealFilterConfig($proxyPath) {
+		$realFilterConfigBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
 	}
 	
 }
