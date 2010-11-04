@@ -45,7 +45,10 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	th.tx-ptextlist-list-header a {
 		text-decoration: none;
-		color: 
+	}
+	
+	th.tx-ptextlist-list-header a img {
+		border: none;
 	}
 	
 	/* Aggregates */
