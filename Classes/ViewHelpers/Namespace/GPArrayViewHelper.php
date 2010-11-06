@@ -39,7 +39,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * @param string $arguments : list of arguments
 	 * 	either as list of 'key : value' pairs 
-	 *  or as list of properties wich are the recieved from the object
+	 *  or as list of properties wich are then recieved from the object
 	 * @return array GPArray of objects namespace
 	 */
 	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $arguments) {
@@ -53,7 +53,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			 
 			$argumentArray[] = $this->buildObjectValueArray($object, $key, $value);
 		}
-
+$GLOBALS['trace'] = true; trace($argumentArray); $GLOBALS['trace']=off;
 		return count($argumentArray) == 1 ? $argumentArray[0] : $argumentArray;
 	}
 	

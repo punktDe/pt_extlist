@@ -47,6 +47,15 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig {
 	
 	
 	/**
+	 * Configure the list to store the state in sessions or use GEt-Vars only
+	 * 
+	 * @var boolean
+	 */
+	protected $useSessions = true;
+	
+	
+	
+	/**
 	 * @var string 
 	 */
 	protected $headerPartial;
@@ -81,15 +90,19 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig {
 	protected function initPropertiesFromSettings() {
 			
 		if(array_key_exists('headerPartial', $this->settings)) {
-				$this->headerPartial = $this->settings['headerPartial'];
+			$this->headerPartial = $this->settings['headerPartial'];
 		}
 			
 		if(array_key_exists('bodyPartial', $this->settings)) {
-				$this->bodyPartial = $this->settings['bodyPartial'];
+			$this->bodyPartial = $this->settings['bodyPartial'];
 		}
 			
 		if(array_key_exists('agregateRowsPartial', $this->settings)) {
-				$this->agregateRowsPartial = $this->settings['agregateRowsPartial'];
+			$this->agregateRowsPartial = $this->settings['agregateRowsPartial'];
+		}
+		
+		if(array_key_exists('useSessions', $this->settings)) {
+			$this->useSessions = $this->settings['useSessions'];
 		}
 	}
 	
@@ -118,6 +131,15 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig {
 	 */
 	public function getAgregateRowsPartial() {
 		return $this->agregateRowsPartial;
+	}
+	
+	
+	
+	/**
+	 * @return boolean use Sessions
+	 */
+	public function useSessions() {
+		return $this->useSessions;
 	}
 }
 ?>
