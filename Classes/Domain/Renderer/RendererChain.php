@@ -31,7 +31,16 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_Renderer_RendererInterface {
+	
+	/**
+	 * Holds an array of renderers
+	 *
+	 * @var array<Tx_PtExtlist_Domain_Renderer_RendererInterface>
+	 */
+	protected $renderers = array();
 
+	
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
 	 *
@@ -54,6 +63,28 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
 		
 		return $listData;
+	}
+	
+	
+	
+	/**
+	 * Adds a renderer to the list of renderers
+	 *
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer
+	 */
+	public function addRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer) {
+		$this->renderers[] = $renderer;
+	}
+	
+	
+	
+	/**
+	 * Returns all renderers added to this chain
+	 *
+	 * @return array
+	 */
+	public function getRenderers() {
+		return $this->renderers;
 	}
 	 
 }

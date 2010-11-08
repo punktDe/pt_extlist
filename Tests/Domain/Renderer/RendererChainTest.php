@@ -31,14 +31,68 @@
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_Tests_BaseTestcase {
+	
+	/**
+	 * Holds an instance of renderer chain to be tested
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+	 */
+	protected $fixture;
+	
+	
+	
+	/**
+	 * Sets up testcase and fixtures etc.
+	 */
+	public function setUp() {
+		$this->fixture = new Tx_PtExtlist_Domain_Renderer_RendererChain();
+	}
+	
+	
 
 	/** @test */
-	public function setup() {
+	public function setupTest() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChain'));
 		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain();
 		$this->assertTrue(is_a($rendererChain, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
 	}
 	
+	
+	
+	/** @test */
+	public function addRendererAddsRendererToListOfRenderers() {
+		$rendererToBeAdded = new Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer();
+		$this->fixture->addRenderer(new Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer());
+		$this->assertTrue(in_array($rendererToBeAdded, $this->fixture->getRenderers()));
+	}
+	
+	
+}
+
+
+
+require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/RendererInterface.php';
+class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface {
+
+	/**
+	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+	}
+
+
+
+	/**
+	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+	}
 	
 }
 
