@@ -38,7 +38,27 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	 * @var array<Tx_PtExtlist_Domain_Renderer_RendererInterface>
 	 */
 	protected $renderers = array();
+	
+	
+	
+	/**
+	 * Holds an instance of renderer chain configuration
+	 * TODO Daniel: add type
+	 * @var unknown_type
+	 */
+	protected $rendererChainConfiguration;
 
+	
+	
+	/**
+	 * Constructor for rendering chain
+	 * TODO Daniel: add type
+	 * @param unknown_type $rendererChainConfiguration
+	 */
+	public function __construct($rendererChainConfiguration) {
+		$this->rendererChainConfiguration = $rendererChainConfiguration;
+	}
+	
 	
 	
 	/**
@@ -90,7 +110,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	public function getRenderers() {
 		return $this->renderers;
 	}
-	 
+	
 }
  
 ?>
