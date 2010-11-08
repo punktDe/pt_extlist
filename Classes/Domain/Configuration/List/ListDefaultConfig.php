@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->settings = $configurationBuilder->getDefaultSettings();
-		$this->initPropertysFromSettings();
+		$this->initPropertiesFromSettings();
 	}
 	
 	
@@ -68,7 +68,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	/**
 	 * Set the properties
 	 */
-	protected function initPropertysFromSettings() {
+	protected function initPropertiesFromSettings() {
 		if(array_key_exists('sortingColumn', $this->settings)) {
 			$this->sortingColumn = $this->settings['sortingColumn'];
 		}

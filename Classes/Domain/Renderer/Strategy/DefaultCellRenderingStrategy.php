@@ -76,13 +76,13 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * Renders the cell content.
 	 *
 	 * @param string $columnIdentifier The columnIdentifier.
-	 * @param Tx_PtExtlist_Domain_Model_List_Row &$data The table data.
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $data The table data.
 	 * @param int $columnIndex Current column index.
 	 * @param int $rowIndex Current row index.
 	 * 
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
-	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
+	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex) {
 		
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
