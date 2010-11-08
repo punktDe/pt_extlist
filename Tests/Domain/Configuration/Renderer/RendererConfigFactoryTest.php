@@ -34,13 +34,21 @@
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	
+	protected $rendererSettings;
+	
 
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
+		
+		$this->rendererSettings = array(
+			'rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactory_testcase'
+		);
 	}
 	
 	public function testGetRendererConfiguration() {
-		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($rendererSettings);
+	
+		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->rendererSettings);
 		
 		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig);
 	}
