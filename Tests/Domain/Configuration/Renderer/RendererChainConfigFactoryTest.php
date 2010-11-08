@@ -24,22 +24,26 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * @author Daniel Lienet <lienert@punkt.de>
- * @package Domain
- * @subpackage Configuration\Renderer
- */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
-	
-	public static function getRendererConfiguration($rendererSettings) {
-		tx_pttools_assert::isArray($settings, array(message => 'No renderer settings found. 1281087488'));
-		
-		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($rendererSettings);
-		
-		return $config;
+/**
+ * Class testing the renderer chain configuration factory
+ *
+ * @package Tests
+ * @subpackage Domain\Configuration\Renderer
+ * @author Daniel Lienert <lienert@punkt.de>
+ */
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
+	public function testGetRendererConfiguration() {
+		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this->configurationBuilderMock);
+
+		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig);
+	}
 }
 
 ?>
