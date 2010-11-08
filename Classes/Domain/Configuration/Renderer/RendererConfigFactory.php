@@ -25,18 +25,17 @@
 ***************************************************************/
 
 /**
- * @author Christoph Ehscheidt <ehscheidt@punkt.de
- * @package pt_extlist
- * @subpackage Domain\Configuration\Renderer
+ * @author Daniel Lienet <lienert@punkt.de>
+ * @package Domain
+ * @subpackage Configuration\Renderer
  */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
 	
-	public static function getRendererConfiguration(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$settings = $configurationBuilder->getRendererSettings();
+	public static function getRendererConfiguration($rendererSettings) {
 		tx_pttools_assert::isArray($settings, array(message => 'No renderer settings found. 1281087488'));
 		
-		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($settings);
+		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($rendererSettings);
 		
 		return $config;
 	}

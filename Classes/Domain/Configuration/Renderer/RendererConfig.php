@@ -25,24 +25,20 @@
 ***************************************************************/
 
 /**
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage Domain\Configuration\Renderer
+ * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage Configuration\Renderer
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
+
 
 	/**
-	 * TODO add some comment!
-	 *
-	 * @var array
+	 * Renderer settings
+	 * @var array 
 	 */
-	protected $settings = array();
+	protected $settings;
 	
-	protected $specialRow = NULL;
-	
-	protected $specialCell = NULL;
-	
-	protected $rendererClassName;
 	
 	/**
 	 * @var boolean 
@@ -51,32 +47,26 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 
 	
 	/**
-	 * TODO add some comment!
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RenderConfigCollection
+	 */
+	protected $renderConfigCollection;
+	
+	
+	/**
+	 * Build the configuration object
 	 *
 	 * @param array $settings
 	 */
 	public function __construct(array $settings) {
 		$this->settings = $settings;
-		
-		tx_pttools_assert::isNotEmpty($settings['rendererClassName'], array('message' => 'No className for the renderer configured. 1280236277'));
-		tx_pttools_assert::isTrue(class_exists($settings['rendererClassName']),array('message' => 'Class name '.$className.' does not exist. 1280236512'));
-		$this->rendererClassName = $settings['rendererClassName'];
-		
-		$this->addOptionalSettings($settings);
+				
+		$this->initPropertiesFromSettings($settings);
 	}
 	
 	
 	
-	protected function addOptionalSettings($settings) {
-		
-		if(array_key_exists('specialRow', $settings)) {
-			$this->specialRow = $settings['specialRow'];
-		}
-		
-		if(array_key_exists('specialCell', $settings)) {
-			$this->specialCell = $settings['specialCell'];
-		}
-		
+	protected function initPropertiesFromSettings($settings) {
+			
 		if(array_key_exists('enabled', $settings)) {
 			$this->enabled = $settings['enabled'] == 1 ? true : false;
 		}
@@ -88,18 +78,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration {
 		return $this->settings;
 	}
 	
-	
-	
-	public function getSpecialRow() {
-		return $this->specialRow;
-	}
-	
-	
-	
-	public function getSpecialCell() {
-		return $this->specialCell;
-	}
-	
+
 	
 	
 	public function isEnabled() {
