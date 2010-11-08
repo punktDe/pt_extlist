@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 	    $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($settings);
 		
 		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
-		$rendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy');
+		$rendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy');
 		
 		$this->cellRenderer = new $rendererClass($this->configurationBuilderMock);
 		
@@ -139,7 +139,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 					   'field3' => 'test3',
 						);
 		
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy');
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy');
 		$defaultCellRenderer = new $accessibleClassName($this->configurationBuilderMock);
 		
 		$outArray = $defaultCellRenderer->_call('createArrayDataFieldSet', $array);

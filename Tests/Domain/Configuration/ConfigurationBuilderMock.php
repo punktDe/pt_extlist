@@ -167,9 +167,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                        )
 	                    ),
 	                    
-	                    'renderer' => array(
+	                    'rendererChain' => array(
 	                    	'enabled' => 1,
-	                    	 'renderChain' => array(
+	                    	 'rendererConfigs' => array(
 	                    		 100 => array(
 	                    			'renderClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',	 	
 	                    		 )
