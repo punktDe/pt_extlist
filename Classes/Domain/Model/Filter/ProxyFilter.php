@@ -110,9 +110,12 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		}
 	}
 	
+	protected function getConfigurationBuilderForRealList() {
+		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+	}
 	
 	protected function getRealFilterConfig() {
-		$realFilterConfigBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+		$configurationBuilder = $this->getConfigurationBuilderForRealList();
 	}
 	
 }

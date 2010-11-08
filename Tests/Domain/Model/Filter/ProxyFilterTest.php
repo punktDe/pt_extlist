@@ -52,12 +52,13 @@
 		$proxyFilter->_call('initFilterByTsConfig');
 	}
 	
-	
+	/*
 	public function testGetRealFilterConfig() {
 		$proxyFilter = $this->buildAccessibleProxyFilter();
+		$proxyFilter->_call('initFilterByTsConfig');
 		$proxyFilter->_call('getRealFilterConfig');
 	}
-	
+	*/
 	
 	protected function buildAccessibleProxyFilter() {
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_ProxyFilter');
@@ -65,8 +66,10 @@
 		
 		$filterSettings = array('filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_ProxyFilter',
 								'partialPath' => ' ', 
-								'proxyPath' => ' ', 
-								'fieldIdentifier' => 'test.testfilterbox.filter1');
+								'proxyPath' => 'test.testfilterbox.filter1', 
+								'fieldIdentifier' => 'field1',
+								'filterIdentifier' => 'testProxyFilter',
+							);
 		
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'someOtherBox', $filterSettings);
 		$proxyFilter->injectFilterConfig($filterConfig);

@@ -46,6 +46,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactory_tes
 		);
 	}
 	
+	
+	
 	public function testGetRendererConfiguration() {
 	
 		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->rendererSettings);
