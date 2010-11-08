@@ -33,12 +33,20 @@
  */
 class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
+	/**
+	 * Holds an instance of the renderer to be tested
+	 */
+	protected $renderer;
+	
+	
+	
     /**
      * Set up testcase
      */	
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
-		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->configurationBuilderMock);
+		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig(array('rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer'));
+		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
 	}
 	
 	
