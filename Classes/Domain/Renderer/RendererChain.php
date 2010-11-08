@@ -61,7 +61,9 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		
+		foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+			$listData = $renderer->renderList($listData);
+		}
 		return $listData;
 	}
 	
