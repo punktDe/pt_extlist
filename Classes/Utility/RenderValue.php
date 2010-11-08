@@ -33,16 +33,21 @@
 class Tx_PtExtlist_Utility_RenderValue {
 	
 	public static $controllerContext;
+	
+	
+	
 	protected static $cObj;
+	
+	
 	
 	/**
 	 * @var Tx_Fluid_View_TemplateView
 	 */
 	protected static $fluidRenderer;	
 	
+	
+	
 	protected static $renderCache = array();
-	
-	
 	
 	
 	
@@ -73,6 +78,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function renderByConfigObject(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig) {
 		return self::render($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
 	}
+	
 	
 	
 	/**
@@ -159,6 +165,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	}
 	
 	
+	
 	/**
 	 * Render the given data by the defined Fluid Template
 	 * 
@@ -176,6 +183,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 		
 		return $rendered;		
 	}
+	
 	
 	
 	/**
@@ -198,6 +206,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 		return $content;
 	}
 		
+	
 	
 	/**
 	 * return the cObj object 
@@ -234,9 +243,13 @@ class Tx_PtExtlist_Utility_RenderValue {
 		return self::$fluidRenderer;
 	}
 	
+	
+	
 	public static function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
 		self::$controllerContext = $controllerContext;
 	}
+	
+	
 	
 	/**
 	 * If the given value is a plain array, it is converted 

@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -25,25 +24,14 @@
 ***************************************************************/
 
 /**
- * TODO insert comment!
- * 
- * @package Domain
- * @subpackage Renderer\Strategy
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * Class implements a chain of renderers, responsible for renderering list data
+ *
+ * @package pt_extlist
+ * @subpackage Domain\Renderer
+ * @author Michael Knoll <knoll@punkt.de>
  */
-interface Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
-
-	/**
-	 * Renders the cell content.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig 
-	 * @param Tx_PtExtlist_Domain_Model_List_Row &$data The table data.
-	 * @param int $columnIndex Current column index.
-	 * @param int $rowIndex Current row index.
-	 * 
-	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
-	 */
-	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex);
+class Tx_PtExtlist_Domain_Renderer_RendererChain {
+	 
 }
-
+ 
 ?>
