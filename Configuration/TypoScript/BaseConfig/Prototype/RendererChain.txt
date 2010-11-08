@@ -8,12 +8,13 @@
 # @subpackage pt_extlist
 ####################################################
 
-plugin.tx_ptextlist.prototype.renderer {
-
-	default {
-		enabled = 1
-	    showCaptionsInBody = 0
-	    rendererClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
+plugin.tx_ptextlist.prototype.rendererChain {
+	enabled = 1
+	showCaptionsInBody = 0
+	
+	rendererConfigs {
+		100 {
+			renderClassName = Tx_PtExtlist_Domain_Renderer_DefaultRenderer
+		}
 	}
-
 }

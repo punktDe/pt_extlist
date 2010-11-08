@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  Christoph Ehscheidt <ehscheidt@punkt.de
 *  All rights reserved
 *
 *
@@ -24,26 +24,26 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * TODO insert comment!
- * 
- * @package Domain
- * @subpackage Renderer\Strategy
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- */
-interface Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
 
-	/**
-	 * Renders the cell content.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig 
-	 * @param Tx_PtExtlist_Domain_Model_List_Row &$data The table data.
-	 * @param int $columnIndex Current column index.
-	 * @param int $rowIndex Current row index.
-	 * 
-	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
-	 */
-	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex);
+/**
+ * Class testing the renderer chain configuration factory
+ *
+ * @package Tests
+ * @subpackage Domain\Configuration\Renderer
+ * @author Daniel Lienert <lienert@punkt.de>
+ */
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
+	public function testGetRendererConfiguration() {
+		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this->configurationBuilderMock);
+
+		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig);
+	}
 }
 
 ?>

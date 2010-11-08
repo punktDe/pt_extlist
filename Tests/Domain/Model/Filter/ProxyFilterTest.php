@@ -36,10 +36,43 @@
         $this->initDefaultConfigurationBuilderMock();
     }
     
-    public function testSetUp() {
-      $this->assertTrue(true);
-    }
- 	
+	
+    public function testSetProxyConfigFromProxyPath() {
+		$proxyFilter = $this->buildAccessibleProxyFilter();
+    	$proxyFilter->_call('setProxyConfigFromProxyPath','testlist.filterbox1.filter1');
+
+		$this->assertEquals('testlist', $proxyFilter->_get('proxyListIdentifier'));
+		$this->assertEquals('filterbox1', $proxyFilter->_get('proxyFilterBoxIdentifier'));
+		$this->assertEquals('filter1', $proxyFilter->_get('proxyFilterIdentifier'));				
+	}
+
+	
+	public function testInitFilterByTsConfig() {
+		$proxyFilter = $this->buildAccessibleProxyFilter();
+		$proxyFilter->_call('initFilterByTsConfig');
+	}
+	
+	
+	public function testGetRealFilterConfig() {
+		$proxyFilter = $this->buildAccessibleProxyFilter();
+		$proxyFilter->_call('getRealFilterConfig');
+	}
+	
+	
+	protected function buildAccessibleProxyFilter() {
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_ProxyFilter');
+		$proxyFilter = new $accessibleClassName();
+		
+		$filterSettings = array('filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_ProxyFilter',
+								'partialPath' => ' ', 
+								'proxyPath' => ' ', 
+								'fieldIdentifier' => 'test.testfilterbox.filter1');
+		
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'someOtherBox', $filterSettings);
+		$proxyFilter->injectFilterConfig($filterConfig);
+		
+		return $proxyFilter;
+	}
 }
  
 ?>

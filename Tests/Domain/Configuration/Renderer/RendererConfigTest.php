@@ -24,28 +24,29 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $settings = array('rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase', 'enabled'=>'0', 'showCaptionsInBody' => '1');
-	
-	protected $config;
+/**
+ * Class testing the Renderer Configuration
+ *
+ * @package Tests
+ * @subpackage Domain\Configuration\Renderer
+ * @author Daniel Lienert <lienert@punkt.de>
+ */
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
 	
 	public function setup() {
-		$this->config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
+	
 	}
 	
 	public function testGetSettings() {
 		
-		$this->assertTrue(method_exists($this->config, 'getSettings'));
-		
-		$settings = $this->config->getSettings();
-		$this->assertEquals($this->settings, $settings);
-		
+			
 	}
 
 	
 	public function testIsEnabled() {
-		$this->assertFalse($this->config->isEnabled());
+	
 	}
 }
 
