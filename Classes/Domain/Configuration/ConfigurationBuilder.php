@@ -102,10 +102,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
-	 * Holds an instance of a renderer configuration and handles it as a singleton instance.
-	 * @var Tx_Ptextlist_Configuration_Renderer_RendererConfiguration
+	 * Holds an instance og the renderer chain configuration and handles it as a singleton instance.
+	 * @var Tx_Ptextlist_Configuration_Renderer_RendererChainConfig
 	 */
-	protected $rendererConfiguration = NULL;
+	protected $rendererChainConfiguration = NULL;
 	
 	
 	
@@ -469,19 +469,19 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
     
     /**
-     * Returns a singleton instance of the renderer configuration object.
+     * Returns a singleton instance of the renderer chain configuration object.
      * 
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
      */
-    public function buildRendererConfiguration() {
-    	if(is_null($this->rendererConfiguration)) {
+    public function buildRendererChainConfiguration() {
+    	if(is_null($this->rendererChainConfiguration)) {
 
-    		tx_pttools_assert::isArray($this->getRendererSettings(), array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
-    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this);
+    		tx_pttools_assert::isArray($this->getRendererSettings(), array('message' => 'No renderer chain configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
+    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this);
 
     	}
     	
-    	return $this->rendererConfiguration;
+    	return $this->rendererChainConfiguration;
     }
     
     

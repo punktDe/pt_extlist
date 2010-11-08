@@ -37,7 +37,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	 * Renderer settings
 	 * @var array 
 	 */
-	protected $settings;
+	protected $rendererSettings;
 	
 	
 	/**
@@ -45,6 +45,13 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	 */
 	protected $enabled;
 
+	
+	/**
+	 * Name of the renderer Class name
+	 * @var string
+	 */
+	protected $rendererClassName;
+	
 	
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RenderConfigCollection
@@ -57,36 +64,49 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	 *
 	 * @param array $settings
 	 */
-	public function __construct(array $settings) {
-		$this->settings = $settings;
-				
-		$this->initPropertiesFromSettings($settings);
+	public function __construct(array $rendererSettings) {
+		$this->rendererSettings = $rendererSettings;
+
+		tx_pttools_assert::isNotEmptyString($rendererSettings['rendererClassName'],array('message' => 'No class name given for renderer. 1280408323'));
+		tx_pttools_assert::isTrue(class_exists($rendererSettings['rendererClassName']), array('message' => 'Given pager class ' . $rendererSettings['rendererClassName'] . ' does not exist or is not loaded! 1279541306'));
+		
+		$this->initPropertiesFromSettings($rendererSettings);
 	}
 	
 	
-	
-	protected function initPropertiesFromSettings($settings) {
+	/**
+	 * Init additional (optional) properties
+	 * @param array $settings
+	 */
+	protected function initPropertiesFromSettings($rendererSettings) {
 			
-		if(array_key_exists('enabled', $settings)) {
+		if(array_key_exists('enabled', $rendererSettings)) {
 			$this->enabled = $settings['enabled'] == 1 ? true : false;
 		}
 	}
 	
 	
-
+	/**
+	 * @return array settings
+	 */
 	public function getSettings() {
-		return $this->settings;
+		return $this->rendererSettings;
 	}
 	
 
 	
-	
+	/**
+	 * @return boolean enables
+	 */
 	public function isEnabled() {
 		return $this->enabled;
 	}
 	
 	
 	
+	/**
+	 * @return string rendererClassName
+	 */
 	public function getRendererClassName() {
 		return $this->rendererClassName;
 	}
