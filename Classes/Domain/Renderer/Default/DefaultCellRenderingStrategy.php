@@ -63,11 +63,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy {
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
-		
-		$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+		$this->rendererConfiguration = $rendererConfiguration;
+		#$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
 	}
 	
 	

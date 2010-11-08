@@ -33,13 +33,25 @@
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
-	
+
 	/**
-	 * 
-	 * TODO - make them configurable and use factories!
+	 * Injector for configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+	 */
+	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+        parent::injectConfiguration($rendererConfiguration);
+        $this->initRendererStrategies();
+    }
+    
+    
+    
+	/**
+	 * Initializes the rendering strategies
+	 *
 	 */
 	public function initRendererStrategies() {
-		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->configurationBuilder);
+		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration);
 		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
 	}
 	

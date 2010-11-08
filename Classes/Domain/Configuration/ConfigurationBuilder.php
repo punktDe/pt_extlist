@@ -480,7 +480,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     		$this->rendererChainConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this);
 
     	}
-    	
     	return $this->rendererChainConfiguration;
     }
     

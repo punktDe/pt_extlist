@@ -38,7 +38,6 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
 	 */
 	public static function getRendererChainConfiguration(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$rendererChainSettings = $configurationBuilder->getRendererChainSettings();
-		
 		$rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder);
 		
 		ksort($rendererChainSettings);

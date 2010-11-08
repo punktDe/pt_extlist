@@ -42,10 +42,18 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
 	
 	
 	/**
+	 * Holds an instance of a renderer chain configuration
+	 */
+	protected $rendererChainConfigurationMock;
+	
+	
+	
+	/**
 	 * Sets up testcase and fixtures etc.
 	 */
 	public function setUp() {
-		$this->fixture = new Tx_PtExtlist_Domain_Renderer_RendererChain();
+		$this->rendererChainConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig', array(), array(), '', FALSE);
+		$this->fixture = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
 	}
 	
 	
@@ -53,7 +61,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
 	/** @test */
 	public function setupTest() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChain'));
-		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain();
+		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
 		$this->assertTrue(is_a($rendererChain, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
 	}
 	
@@ -76,7 +84,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
 		$secondRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderList'), array(), '', FALSE);
         $secondRendererMock->expects($this->once())->method('renderList')->with($listDataDummy)->will($this->returnValue($listDataDummy));
         
-        $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain();
+        $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
         $rendererChain->addRenderer($firstRendererMock);
         $rendererChain->addRenderer($secondRendererMock);
         
@@ -93,45 +101,13 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
         $secondRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderCaptions'), array(), '', FALSE);
         $secondRendererMock->expects($this->once())->method('renderCaptions')->with($captionsDummy)->will($this->returnValue($captionsDummy));
         
-        $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain();
+        $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
         $rendererChain->addRenderer($firstRendererMock);
         $rendererChain->addRenderer($secondRendererMock);
         
         $rendererChain->renderCaptions($captionsDummy);
 	}
 	
-	
-}
-
-
-
-/**
- * Dummy class implementing a renderer
- */
-require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/RendererInterface.php';
-class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface {
-
-	/**
-	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-	 * @return Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		return $listHeader;
-	}
-
-
-
-	/**
-	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		return $listData;
-	}
 	
 }
 

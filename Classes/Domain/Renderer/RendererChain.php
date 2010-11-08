@@ -52,10 +52,9 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	
 	/**
 	 * Constructor for rendering chain
-	 * TODO Daniel: add type
-	 * @param unknown_type $rendererChainConfiguration
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration
 	 */
-	public function __construct($rendererChainConfiguration) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
 		$this->rendererChainConfiguration = $rendererChainConfiguration;
 	}
 	

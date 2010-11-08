@@ -171,7 +171,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                    	'enabled' => 1,
 	                    	 'rendererConfigs' => array(
 	                    		 100 => array(
-	                    			'rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',	 	
+	                    			'rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer',	 	
 	                    		 )
 	                    	  )
 	                    ),

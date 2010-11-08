@@ -37,7 +37,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	 * Renderer settings
 	 * @var array 
 	 */
-	protected $rendererSettings;
+	protected $settings;
 	
 	
 	/**
@@ -65,12 +65,8 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	 * @param array $settings
 	 */
 	public function __construct(array $rendererSettings) {
-		$this->rendererSettings = $rendererSettings;
-
-		tx_pttools_assert::isNotEmptyString($rendererSettings['rendererClassName'],array('message' => 'No class name given for renderer. 1280408323'));
-		tx_pttools_assert::isTrue(class_exists($rendererSettings['rendererClassName']), array('message' => 'Given pager class ' . $rendererSettings['rendererClassName'] . ' does not exist or is not loaded! 1279541306'));
-		
-		$this->initPropertiesFromSettings($rendererSettings);
+		$this->settings = $rendererSettings;
+		$this->initPropertiesFromSettings();
 	}
 	
 	
@@ -80,9 +76,14 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	 */
 	protected function initPropertiesFromSettings($rendererSettings) {
 			
-		if(array_key_exists('enabled', $rendererSettings)) {
-			$this->enabled = $settings['enabled'] == 1 ? true : false;
+		if(array_key_exists('enabled', $this->settings)) {
+			$this->enabled = $this->settings['enabled'] == 1 ? true : false;
 		}
+		
+		tx_pttools_assert::isNotEmptyString($this->settings['rendererClassName'],array('message' => 'No class name given for renderer. 1280408323'));
+		tx_pttools_assert::isTrue(class_exists($this->settings['rendererClassName']), array('message' => 'Given renderer class ' . $this->settings['rendererClassName'] . ' does not exist or is not loaded! 1279541306'));
+        
+		$this->rendererClassName = $this->settings['rendererClassName'];
 	}
 	
 	
@@ -90,7 +91,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	 * @return array settings
 	 */
 	public function getSettings() {
-		return $this->rendererSettings;
+		return $this->settings;
 	}
 	
 
