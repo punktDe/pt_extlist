@@ -138,10 +138,17 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
+	 * Holds an instance of the list configuration 
+	 * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
+	 */
+	protected $listConfiguration = NULL;
+	
+	
+	/**
 	 * Holds an instance of the export configuration
 	 * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
 	 */
-	protected $exportConfiguration;
+	protected $exportConfiguration = NULL;
 	
 		
 	/**
@@ -284,6 +291,17 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
+     * 
+     * 
+     * @return array list settings
+     */
+    public function getListSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings, 'list');
+    }
+    
+    
+    
+    /**
      * Returns settings array for the renderer
      *
      * @return array Settings for the renderer
@@ -330,6 +348,28 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
+     * Returns an array with pager configuration 
+     *
+     * @return array Pager configuration
+     */
+    public function getPagerSettings() {
+       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager');
+    }
+    
+    
+    
+    /**
+     * Returns an array with bookmarks settings
+     *
+     * @return array Bookmarks settings
+     */
+    public function getBookmarksSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
+    }
+    
+    
+    
+    /**
      * return a slice from the prototype arrray for the given objectPath
      * 
      * @param string $objectPath
@@ -347,6 +387,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
         
     
+    
 	/**
 	 * Return the list specific settings merged with prototype settings
 	 * 
@@ -357,8 +398,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectPath) {
 		// TODO cache this!
 		if(!is_array($listSepcificConfig)) $listSepcificConfig = array();
-		
-		$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
             $this->getPrototypeSettingsForObject($objectPath),
 			$listSepcificConfig
         );
@@ -366,6 +406,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
         return $mergedSettings;
 	}
     
+	
 	
 	/**
 	 * Returns a singleton instance of databackend configuration 
@@ -378,8 +419,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		
 		return $this->dataBackendConfiguration;
 	}
-	
-	
 	
 	
 	
@@ -522,27 +561,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	}
     	return $this->pagerConfiguration;
     }
-    
-    
-    
-    /**
-     * Returns an array with pager configuration 
-     *
-     * @return array Pager configuration
-     */
-    public function getPagerSettings() {
-       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager');
-    }
-    
-    
+
     
     /**
-     * Returns an array with bookmarks settings
-     *
-     * @return array Bookmarks settings
+     * Returns a list configuration object
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfiguration
      */
-    public function getBookmarksSettings() {
-    	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
+    public function buildListConfiguration() {
+    	if (is_null($this->listConfiguration)) {
+    		$this->listConfiguration = Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory::getInstance($this);
+    	}
+    	return $this->listConfiguration;
     }
 }
 

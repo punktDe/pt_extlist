@@ -6,10 +6,10 @@
 # @subpackage pt_extlist
 ####################################################
 
-plugin.tx_ptextlist.prototype.listConfig {
-	default {
-		listHeaderPartial = List/ListHeader
-		listBodyPartial = List/ListBody
-		listAgregateRowsPartial = List/AggregateRows
-	}
+plugin.tx_ptextlist.prototype.list {
+
+	headerPartial = List/ListHeader
+	bodyPartial = List/ListBody
+	agregateRowsPartial = List/AggregateRows
+
 }

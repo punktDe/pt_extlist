@@ -80,6 +80,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     						'sortingColumn' => 'column3', 
     					),
 						
+    					
+    					'headerPartial' => 'List/ListHeader',
+						'bodyPartial' 	=> 'List/ListBody',
+						'agregateRowsPartial' => 'List/AggregateRows',
+    					
+    					
 						'backendConfig' => array (
 								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
 								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
