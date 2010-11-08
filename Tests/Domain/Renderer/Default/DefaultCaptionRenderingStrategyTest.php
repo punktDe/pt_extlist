@@ -24,17 +24,24 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Renderer_Default_DefaultCaptionRenderingStrategy_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $listHeader;
+	
+	
+	
 	protected $captionRenderer;
+	
+	
 	
 	public function setUp() {
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	
 		$this->listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilderMock);
-		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy();
+		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
 	}
+	
+	
 	
 	public function testRenderCaption() {
 		// see ConfigurationBuilderMock for column definitions
@@ -43,6 +50,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		
 		$this->assertEquals('Column 1', $captions->getItemByIndex(0)->getValue());
 	}
+	
+	
 	
 	public function testLabelLocalization() {
 		$methods = array('getLabel', 'getColumnIdentifier');
@@ -69,6 +78,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		
 		$this->assertEquals('TEST', $captions->getItemByIndex(0)->getValue());
 	}
+	
+	
 	
 	public function testSimpleTSLabel() {
 
@@ -99,12 +110,14 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCaptionRenderingStrateg
 		$listHeader->addHeaderColumn($headerColumn, 'bla');
 		
 		
-		$captionRendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy');
+		$captionRendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy');
 		$captionRenderer = new $captionRendererClass();
 		$captionRenderer->_set('cObj', $cObjMock);
 		
 		$captions = $captionRenderer->renderCaptions($listHeader);
 	}
+	
+	
 	
 	protected function getConfiguredMock($className, array $methods, array $returnMethods) {
 		

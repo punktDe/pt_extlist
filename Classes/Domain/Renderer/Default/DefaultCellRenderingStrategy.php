@@ -32,7 +32,7 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
+class Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy {
 
 	/**
 	 * Reference to the ConfigurationBuilder

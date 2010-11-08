@@ -167,7 +167,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                        )
 	                    ),
 	                    'renderer' => array(
-	                    	'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
+	                    	'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer',
 	                    	'enabled' => 1,
 	                    	'showCaptionsInBody' => 0,
 	                    	'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialcell->processCell'

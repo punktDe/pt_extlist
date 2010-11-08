@@ -32,7 +32,7 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCaptionRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
+class Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy {
 
 	/**
 	 * Holds an instance of cObject
