@@ -33,7 +33,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
 	
 	public static function getRendererConfiguration($rendererSettings) {
-		tx_pttools_assert::isArray($settings, array(message => 'No renderer settings found. 1281087488'));
+		tx_pttools_assert::isArray($rendererSettings, array(message => 'No renderer settings found. 1281087488'));
 		
 		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($rendererSettings);
 		

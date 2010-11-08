@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends tx_
 	 * Classname for this collection object type
 	 * @var string
 	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration';
+	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig';
 	
 	
 	
@@ -58,10 +58,10 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends tx_
 	/**
 	 * Add renderConfig to list
 	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $rendererConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfig
 	 * @param string $rendererConfigIdentifier
 	 */
-	public function addRendererConfig(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $rendererConfig, $rendererConfigIdentifier) {
+	public function addRendererConfig(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfig, $rendererConfigIdentifier) {
 		$this->addItem($rendererConfig, $rendererConfigIdentifier);
 	}	
 }
