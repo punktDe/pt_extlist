@@ -476,8 +476,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     public function buildRendererChainConfiguration() {
     	if(is_null($this->rendererChainConfiguration)) {
 
-    		tx_pttools_assert::isArray($this->getRendererSettings(), array('message' => 'No renderer chain configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
-    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this);
+    		tx_pttools_assert::isArray($this->getRendererChainSettings(), array('message' => 'No renderer chain configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
+    		$this->rendererChainConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this);
 
     	}
     	
