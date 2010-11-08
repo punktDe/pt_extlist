@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	/**
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
 	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader &$listHeader) {
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		return $this->captionRenderer->renderCaptions($listHeader);
 	}
 	
@@ -57,10 +57,10 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	/**
 	 * Renders list data
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData &$listData
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData &$listData) {
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
 		if(!$this->rendererConfiguration->isEnabled()) return $listData;
 		
 		tx_pttools_assert::isNotNull($listData, array(message => 'No list data found in list. 1280405145'));
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Renderer_DefaultRenderer extends Tx_PtExtlist_Domain_R
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
-	public function renderRow(Tx_PtExtlist_Domain_Model_List_Row &$row, $rowIndex) {
+	public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
 		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 		$columnCollection = $this->configurationBuilder->buildColumnsConfiguration();
 	

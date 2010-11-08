@@ -42,7 +42,7 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData &$listData);
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData);
 	
 	
 	
@@ -51,7 +51,7 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
 	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader &$listHeader);
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
 	
 	
 	
