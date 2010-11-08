@@ -30,7 +30,31 @@
  * @subpackage Domain\Renderer
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Renderer_RendererChain {
+class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_Renderer_RendererInterface {
+
+	/**
+	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		
+		return $listHeader;
+	}
+
+
+
+	/**
+	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+		
+		return $listData;
+	}
 	 
 }
  
