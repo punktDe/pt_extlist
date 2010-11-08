@@ -48,7 +48,9 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		
+		foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+		    $listHeader = $renderer->renderCaptions($listHeader);	
+		}
 		return $listHeader;
 	}
 

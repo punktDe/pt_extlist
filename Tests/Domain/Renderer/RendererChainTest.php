@@ -84,6 +84,23 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
 	}
 	
 	
+	
+	/** @test */
+	public function renderCaptionsCallsRenderCaptionsInAddedRenderers() {
+		$captionsDummy = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_ListHeader',array(),array(),'', FALSE);
+        $firstRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderCaptions'), array(), '', FALSE);
+        $firstRendererMock->expects($this->once())->method('renderCaptions')->with($captionsDummy)->will($this->returnValue($captionsDummy));
+        $secondRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderCaptions'), array(), '', FALSE);
+        $secondRendererMock->expects($this->once())->method('renderCaptions')->with($captionsDummy)->will($this->returnValue($captionsDummy));
+        
+        $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain();
+        $rendererChain->addRenderer($firstRendererMock);
+        $rendererChain->addRenderer($secondRendererMock);
+        
+        $rendererChain->renderCaptions($captionsDummy);
+	}
+	
+	
 }
 
 
