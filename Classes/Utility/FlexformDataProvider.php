@@ -75,6 +75,10 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 * @return array $config
 	 */
 	public function getDefinedExportConfigs(array $config) {
+		
+		$exportConfigs = array();
+		if(!is_array($config['items'])) $config['items'] = array();
+		
 		$this->initTsDataProvider($config);
 		
 		$tsArray = $this->getTSArrayByPath('settings.export.exportConfigs');
@@ -155,6 +159,8 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	protected function getTSArrayByPath($typoScriptPath) {
 		$pathArray = explode('.', $typoScriptPath);
 		$outTSArray = Tx_Extbase_Utility_Arrays::getValueByPath($this->extListTypoScript, $pathArray);
+		
+		if(!is_array($outTSArray)) $outTSArray = array();
 		
 		return $outTSArray;
 	}
