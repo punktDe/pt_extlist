@@ -71,21 +71,27 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		// TODO remove this after refactoring!
         parent::injectConfiguration($rendererConfiguration);
         $this->initRowRenderer();
+        $this->initCaptionRenderer();
     }
     
     
     
 	/**
-	 * Initializes the rendering strategies
-	 *
+	 * Initializes the row renderer
 	 */
-	public function initRowRenderer() {
+	protected function initRowRenderer() {
 		$this->rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
 		$this->rowRenderer->injectRendererConfiguration($this->rendererConfiguration);
-		// TODO change this to cell renderer type
 		$this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($this->rendererConfiguration));
-		
-		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
+	}
+	
+	
+
+	/**
+	 * Initializes the caption renderer
+	 */
+	protected function initCaptionRenderer() {
+		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer();
 	}
 	
 
@@ -114,9 +120,6 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 
 		foreach($listData as $rowIndex => $row) {
 			$renderedList->addRow($this->rowRenderer->renderRow($row, $rowIndex));
-			
-			
-			#$renderedList->addRow($this->renderRow($row, $rowIndex));
 		}
 		
 		return $renderedList;
