@@ -26,8 +26,8 @@
 /**
  * Class implementing factory for filter configuration
  * 
- * @package pt_extlist
- * @subpackage Domain\Configuration\Filters
+ * @package Domain
+ * @subpackage Configuration\Filters
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {

@@ -26,8 +26,8 @@
 /**
  * Class implementing factory for collection of filterbox configurations
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Filters
+ * @package Domain
+ * @subpackage Configuration\Filters
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory {
 	

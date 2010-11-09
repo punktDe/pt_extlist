@@ -26,8 +26,8 @@
 /**
  * Class Filterbox Config 
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Filters
+ * @package Domain
+ * @subpackage Configuration\Filters
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttools_objectCollection {
 
@@ -65,6 +65,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	protected $showSubmit = true;
 	
 	
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param string $filterboxIdentifier
+	 * @param array $filterBoxSettings
+	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings) {
 		
 		tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty! 1277889451'));
@@ -74,6 +79,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 		
 		$this->setOptionalSettings($filterBoxSettings);
 	}
+	
 	
 	
 	/**
@@ -94,6 +100,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	} 
 	
 	
+	
 	/**
 	 * @return string filterboxIdentifier
 	 */
@@ -103,7 +110,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	
 	
 	
-	/*
+	/**
 	 * @return string listIdentifier
 	 */
 	public function getListIdentifier() {
@@ -127,8 +134,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	 */
 	public function getShowSubmit() {
 		return $this->showSubmit;
-	}
-	
+	}	
 }
-
 ?>
