@@ -103,4 +103,8 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	.pt-extlist-pager li {
 		display: inline;
 	}
+	
+	.pt-extlist-pager-item-display {
+		color: #777;
+	}
 )

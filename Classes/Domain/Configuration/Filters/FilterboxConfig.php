@@ -25,12 +25,22 @@
 
 /**
  * Class Filterbox Config 
- *
+ * 
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage Configuration\Filters
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttools_objectCollection {
 
+	
+	/**
+	 * Hash map between filter identifier and numeric filter index
+	 * 
+	 * @var array
+	 */
+	protected $filterIdentifierToFilterIndex;
+	
+	
 	/**
 	 * Identifier of current list
 	 * @var string
@@ -78,6 +88,30 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 		$this->filterboxIdentifier = $filterboxIdentifier;
 		
 		$this->setOptionalSettings($filterBoxSettings);
+	}
+	
+	
+	/**
+	 * Add FilterConfig to the FilterboxConfig
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @param string $filterIdentifier
+	 */
+	public function addFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, $filterIndex)  {
+		$this->addItem($filterConfig, $filterIndex);
+		$this->filterIdentifierToFilterIndex[$filterConfig->getFilterIdentifier()] = $filterIndex;
+	}
+	
+	
+	
+	/**
+	 * Get the filterconfig by filterIdentifier
+	 * 
+	 * @param sting $filterIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+	 */
+	public function getFilterConfigByFilterIdentifier($filterIdentifier) {
+		return $this->getItemById($this->filterIdentifierToFilterIndex[$filterIdentifier]);
 	}
 	
 	

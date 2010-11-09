@@ -47,12 +47,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 	/**
 	 * Add a filterbox config
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox
-	 * @param unknown_type $filterBoxIdentifier
+	 * @param string $filterBoxIdentifier
 	 */
 	public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier) {
 		$this->addItem($filterBox, $filterBoxIdentifier);
 	}
-	
 }
 
 ?>
