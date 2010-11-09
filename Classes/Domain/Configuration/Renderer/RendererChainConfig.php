@@ -24,34 +24,26 @@
 ***************************************************************/
 
 /**
- * Class implements configuration for list defaults
+ * Class implements renderer chain configuration as a collection of renderer
  *
  * @package Domain
- * @subpackage Configuration\List
+ * @subpackage Configuration\Renderer
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
-
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends tx_pttools_objectCollection {
+	
 	/**
-	 * Holds list identifier of current list
-	 *
+	 * List Identifier
 	 * @var string
 	 */
 	protected $listIdentifier;
 	
-	
 	/**
-	 * @var array
-	 */
-	protected $settings;
-	
-	
-	/**
-	 * ListIdentifier of the default sorting column
-	 *
+	 * Classname for this collection object type
 	 * @var string
 	 */
-	protected $sortingColumn;
+	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig';
+	
 	
 	
 	/**
@@ -59,30 +51,18 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->settings = $configurationBuilder->getDefaultSettings();
-		$this->initPropertiesFromSettings();
 	}
 	
 	
 	
 	/**
-	 * Set the properties
+	 * Add renderConfig to list
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfig
+	 * @param string $rendererConfigIdentifier
 	 */
-	protected function initPropertiesFromSettings() {
-		if(array_key_exists('sortingColumn', $this->settings)) {
-			$this->sortingColumn = $this->settings['sortingColumn'];
-		}
-	}
-	
-	
-	
-	/**
-	 * @return string defaultSortingColumn
-	 */
-	public function getSortingColumn() {
-		return $this->sortingColumn;
-	}
-	
+	public function addRendererConfig(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfig, $rendererConfigIdentifier) {
+		$this->addItem($rendererConfig, $rendererConfigIdentifier);
+	}	
 }
- 
 ?>

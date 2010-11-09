@@ -32,15 +32,8 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */
-abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_RendererInterface  {
+abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface {
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */	
-	protected $configurationBuilder;
-	
-	
-	
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
 	 */
@@ -69,11 +62,10 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	/**
 	 * Inject the Configuration Builder
 	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
+	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+		$this->rendererConfiguration = $rendererConfiguration;
 	}
 	
 }

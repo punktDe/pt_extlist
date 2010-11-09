@@ -24,65 +24,32 @@
 ***************************************************************/
 
 /**
- * Class implements configuration for list defaults
- *
- * @package Domain
- * @subpackage Configuration\List
+ * Class implementing factory for for the renderer chain configuration
+ * 
  * @author Daniel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage Configuration\Renderer
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
-
-	/**
-	 * Holds list identifier of current list
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	/**
-	 * @var array
-	 */
-	protected $settings;
-	
-	
-	/**
-	 * ListIdentifier of the default sorting column
-	 *
-	 * @var string
-	 */
-	protected $sortingColumn;
-	
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
 	
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->settings = $configurationBuilder->getDefaultSettings();
-		$this->initPropertiesFromSettings();
-	}
-	
-	
-	
-	/**
-	 * Set the properties
-	 */
-	protected function initPropertiesFromSettings() {
-		if(array_key_exists('sortingColumn', $this->settings)) {
-			$this->sortingColumn = $this->settings['sortingColumn'];
+	public static function getRendererChainConfiguration(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$rendererChainSettings = $configurationBuilder->getRendererChainSettings();
+		$rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder);
+		
+		ksort($rendererChainSettings);
+		
+		foreach($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
+			
+			$rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($rendererSettings);
+			
+			$rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
 		}
+		
+		return $rendererChainConfiguration;
 	}
-	
-	
-	
-	/**
-	 * @return string defaultSortingColumn
-	 */
-	public function getSortingColumn() {
-		return $this->sortingColumn;
-	}
-	
 }
- 
 ?>

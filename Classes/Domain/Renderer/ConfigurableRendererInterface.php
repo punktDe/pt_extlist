@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -25,14 +24,23 @@
 ***************************************************************/
 
 /**
- * TODO insert comment!
- * 
- * @package Domain
- * @subpackage Renderer\Strategy
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * Interface for configurable renderer class. Extends "normal" renderer. This is required
+ * for having an interface for both renderer and renderer chain and a different interface for
+ * renderers alone.
+ *
+ * @package pt_extlist
+ * @subpackage Domain\Renderer
+ * @author Michael Knoll <knoll@punkt.de>
  */
-interface Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface {
-	// TODO insert interfacemethods !!
+interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_PtExtlist_Domain_Renderer_RendererInterface {  
+    
+    /**
+     * Injecotr for render configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+     */
+    public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration);
+ 
 }
-
+ 
 ?>

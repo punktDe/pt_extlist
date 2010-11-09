@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -25,21 +24,23 @@
 ***************************************************************/
 
 /**
- * @author Daniel Lienet <lienert@punkt.de>
+ * Factory to create configs for list defaults
+ *
  * @package Domain
- * @subpackage Configuration\Renderer
+ * @subpackage Configuration\List
+ * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
+class Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory {
 	
-	public static function getRendererConfiguration($rendererSettings) {
-		tx_pttools_assert::isArray($rendererSettings, array(message => 'No renderer settings found. 1281087488'));
-		
-		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($rendererSettings);
-		
-		return $config;
+	/**
+	 * Returns a instance of the list configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
+	 */
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return new Tx_PtExtlist_Domain_Configuration_List_ListConfig($configurationBuilder);
 	}
-	
 }
-
 ?>

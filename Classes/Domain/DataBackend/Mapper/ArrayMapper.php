@@ -39,9 +39,12 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	protected $fieldConfigurationCollection;
 	
 	
+	
 	public function init() {
 		$this->fieldConfigurationCollection = $this->configurationBuilder->buildFieldsConfiguration();
 	}
+	
+	
 	
     /**
 	 * Maps given array data to list data structure.

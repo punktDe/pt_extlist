@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -24,36 +23,47 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
- * Class testing the Renderer Configuration Factory
+ * Class implements testcase for list configuration
  *
  * @package Tests
- * @subpackage Domain\Configuration\Renderer
+ * @subpackage Domain\Configuration\List
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	/**
+	 * Holds an instance of list configuration
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
+	 */
+	protected $listConfiguration;
 	
-	protected $rendererSettings;
 	
-
+	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
+		$this->listConfiguration = $this->configurationBuilderMock->buildListConfiguration();
+	}
 		
-		$this->rendererSettings = array(
-			'rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactory_testcase'
-		);
+	
+	
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_List_ListConfig'));
 	}
 	
-	
-	
-	public function testGetRendererConfiguration() {
-	
-		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->rendererSettings);
-		
-		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig);
+	public function testGetHeaderPartial() {
+		$this->assertEquals($this->listConfiguration->getHeaderPartial(), 'List/ListHeader');
 	}
-}
 
+	public function testGetBodyPartial() {
+		$this->assertEquals($this->listConfiguration->getBodyPartial(), 'List/ListBody');
+	}
+	
+	public function testGetAgregateRowsPartial() {
+		$this->assertEquals($this->listConfiguration->getAgregateRowsPartial(), 'List/AggregateRows');
+	}
+	
+}
+ 
 ?>

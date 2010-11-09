@@ -257,5 +257,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$bookmarkConfig = $configurationBuilder->buildBookmarksConfiguration();
 		$this->assertTrue(is_a($bookmarkConfig, 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig'));
 	}
+	
+	
+	public function testBuildRendererChainConfiguration() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
+		$rendererChainConfig = $configurationBuilder->buildRendererChainConfiguration();
+		$this->assertTrue(is_a($rendererChainConfig, 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig'));
+	}
+	
 }
 ?>

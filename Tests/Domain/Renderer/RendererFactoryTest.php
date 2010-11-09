@@ -24,26 +24,24 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * Testscase for renderer factory
+ * 
+ * @author Michael Knoll <knoll@punkt.de>
+ * @package pt_extlist
+ * @subpackage Tests\Domain\Renderer
+ *
+ */
 class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $rendererConfig;
 	
-	public function setUp() {
-
-		$this->initDefaultConfigurationBuilderMock();
-		
-		$this->rendererConfig = $this->configurationBuilderMock->buildRendererConfiguration();
-	}
-	
-	public function testGetRenderer() {
-		
-		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->configurationBuilderMock);
+	/** @test */
+	public function getRendererReturnsRendererForConfiguration() {
+		$rendererConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(), '', FALSE);
+		$rendererConfiguration->expects($this->any())->method('getRendererClassName')->will($this->returnValue('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer'));
+		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
 		
 		$this->assertTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
-//		$this->assertTrue(method_exists($renderer, 'render'));
-//		$this->assertTrue(method_exists($renderer, 'renderCaptions'));
 	}
-	
 	
 }
 

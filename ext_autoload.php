@@ -17,6 +17,7 @@ return array(
     'tx_ptextlist_tests_domain_configuration_filters_stubs_filterboxconfigurationmock' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Configuration/Filters/Stubs/FilterboxConfigurationMock.php',
     'tx_ptextlist_tests_domain_databackend_abstractdatabackendbasetest' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/DataBackend/AbstractDataBackendBaseTest.php',
     'tx_ptextlist_tests_domain_model_filter_stubs_filterstub' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Stubs/FilterStub.php',
+    'tx_ptextlist_tests_domain_renderer_dummyrenderer' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Renderer/DummyRenderer.php',
     'tx_ptextlist_view_export_abstractexportview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/Export/AbstractExportView.php',
     'tx_ptextlist_view_baseview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/BaseView.php',
     'user_tx_ptextlist_utility_flexformdataprovider' => t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php',

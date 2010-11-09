@@ -24,23 +24,38 @@
 ***************************************************************/
 
 /**
- * Factory to create configs for list defaults
+ * Testcase for renderer chain factory
  *
- * @package Domain
- * @subpackage Configuration\List
- * @author Daniel Lienert <lienert@punkt.de>
+ * @package pt_extlist
+ * @subpackage Tests\Domain\Renderer
+ * @author Michael Knoll <knoll@punkt.de>
  */
-
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory {
-	
+class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+    
 	/**
-	 * Returns a instance of a list default configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+	 * Sets up testcase
 	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig($configurationBuilder);
+	public function setUp() {
+		$this->initDefaultConfigurationBuilderMock();
 	}
+	
+	
+	
+	/** @test */
+	public function testSetup() {
+		$this->isTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
+	}
+	
+	
+	
+	/** @test */
+	public function getRendererChainReturnsRendererChainForConfiguration() {
+		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
+		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
+		var_dump($rendererChain);
+		$renderers = $rendererChain->getRenderers();
+		$this->assertEquals(get_class($renderers[0]), 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer');
+	}
+	
 }
 ?>

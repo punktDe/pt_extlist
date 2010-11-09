@@ -6,7 +6,7 @@ if (!defined ('TYPO3_MODE')) die ('Access denied.');
  */
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '[pt_extlist] Basic settings');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Export', '[pt_extlist] Export settings');
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_extlist] Static Countries Demolist');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_extlist] Demolist Package');
 
 
 

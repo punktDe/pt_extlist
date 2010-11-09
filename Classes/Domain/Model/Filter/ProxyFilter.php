@@ -30,7 +30,7 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
+class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
 	
 	/**
@@ -83,6 +83,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist
 	protected function initFilterBySession() {}
 	
 	
+	public function reset() {}
+	
+	public function getFilterBreadCrumb() {}
+	
+	public function persistToSession() {}
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
@@ -104,12 +110,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist
 		}
 	}
 	
+	protected function getConfigurationBuilderForRealList() {
+		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+	}
 	
-	/**
-	 * @param string $proxyPath
-	 */
-	protected function getRealFilterConfig($proxyPath) {
-		$realFilterConfigBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+	protected function getRealFilterConfig() {
+		$configurationBuilder = $this->getConfigurationBuilderForRealList();
 	}
 	
 }

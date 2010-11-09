@@ -24,28 +24,25 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	protected $settings = array('rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfiguration_testcase', 'enabled'=>'0', 'showCaptionsInBody' => '1');
-	
-	protected $config;
-	
+/**
+ * Class testing the renderer chain configuration factory
+ *
+ * @package Tests
+ * @subpackage Domain\Configuration\Renderer
+ * @author Daniel Lienert <lienert@punkt.de>
+ */
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+
 	public function setup() {
-		$this->config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration($this->settings);
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
-	public function testGetSettings() {
-		
-		$this->assertTrue(method_exists($this->config, 'getSettings'));
-		
-		$settings = $this->config->getSettings();
-		$this->assertEquals($this->settings, $settings);
-		
-	}
+	public function testGetRendererConfiguration() {
+		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this->configurationBuilderMock);
 
-	
-	public function testIsEnabled() {
-		$this->assertFalse($this->config->isEnabled());
+		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig);
 	}
 }
 

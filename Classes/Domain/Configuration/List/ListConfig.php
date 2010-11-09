@@ -30,7 +30,7 @@
  * @subpackage Configuration\List
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
+class Tx_PtExtlist_Domain_Configuration_List_ListConfig {
 
 	/**
 	 * Holds list identifier of current list
@@ -47,11 +47,21 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	
 	
 	/**
-	 * ListIdentifier of the default sorting column
-	 *
+	 * @var string 
+	 */
+	protected $headerPartial;
+	
+	
+	/**
 	 * @var string
 	 */
-	protected $sortingColumn;
+	protected $bodyPartial;
+	
+	
+	/**
+	 * @var string headerPartial
+	 */
+	protected $agregateRowsPartial;
 	
 	
 	/**
@@ -59,7 +69,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->settings = $configurationBuilder->getDefaultSettings();
+		$this->settings = $configurationBuilder->getListSettings();
 		$this->initPropertiesFromSettings();
 	}
 	
@@ -69,20 +79,45 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	 * Set the properties
 	 */
 	protected function initPropertiesFromSettings() {
-		if(array_key_exists('sortingColumn', $this->settings)) {
-			$this->sortingColumn = $this->settings['sortingColumn'];
+			
+		if(array_key_exists('headerPartial', $this->settings)) {
+				$this->headerPartial = $this->settings['headerPartial'];
 		}
+			
+		if(array_key_exists('bodyPartial', $this->settings)) {
+				$this->bodyPartial = $this->settings['bodyPartial'];
+		}
+			
+		if(array_key_exists('agregateRowsPartial', $this->settings)) {
+				$this->agregateRowsPartial = $this->settings['agregateRowsPartial'];
+		}
+	}
+	
+	
+
+	/**
+	 * @return string
+	 */
+	public function getHeaderPartial() {
+		return $this->headerPartial;
 	}
 	
 	
 	
 	/**
-	 * @return string defaultSortingColumn
+	 * @return string
 	 */
-	public function getSortingColumn() {
-		return $this->sortingColumn;
+	public function getBodyPartial() {
+		return $this->bodyPartial;		
 	}
 	
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getAgregateRowsPartial() {
+		return $this->agregateRowsPartial;
+	}
 }
- 
 ?>

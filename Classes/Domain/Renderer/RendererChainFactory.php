@@ -24,23 +24,29 @@
 ***************************************************************/
 
 /**
- * Factory to create configs for list defaults
+ * Class implements factory for renderer chain. 
  *
- * @package Domain
- * @subpackage Configuration\List
- * @author Daniel Lienert <lienert@punkt.de>
+ * @package pt_extlist
+ * @subpackage Domain\Renderer
+ * @author Michael Knoll <knoll@punkt.de>
  */
+class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
 
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory {
-	
 	/**
-	 * Returns a instance of a list default configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+	 * Creates an instance of renderer chain object for given renderer chain configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration
+	 * @return Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig($configurationBuilder);
+	public static function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
+		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
+		foreach ($rendererChainConfiguration as $rendererConfiguration) {
+			$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
+			$rendererChain->addRenderer($renderer);
+		}
+		return $rendererChain;
 	}
+	
 }
+ 
 ?>

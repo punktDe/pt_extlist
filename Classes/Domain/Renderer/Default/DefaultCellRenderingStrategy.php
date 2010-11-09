@@ -32,7 +32,7 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy implements Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface {
+class Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy {
 
 	/**
 	 * Reference to the ConfigurationBuilder
@@ -63,11 +63,9 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
-		
-		$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+		$this->rendererConfiguration = $rendererConfiguration;
+		#$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
 	}
 	
 	
@@ -76,13 +74,13 @@ class Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy impleme
 	 * Renders the cell content.
 	 *
 	 * @param string $columnIdentifier The columnIdentifier.
-	 * @param Tx_PtExtlist_Domain_Model_List_Row &$data The table data.
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $data The table data.
 	 * @param int $columnIndex Current column index.
 	 * @param int $rowIndex Current row index.
 	 * 
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
-	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
+	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex) {
 		
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);

@@ -41,19 +41,14 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory {
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      * @return Tx_PtExtlist_Domain_Renderer_RendererInterface
      */	
-	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
-		$rendererConfiguration = $configurationBuilder->buildRendererConfiguration();
-		$className = $rendererConfiguration->getRendererClassName();
-		
-		tx_pttools_assert::isTrue(class_exists($className), array('message' => 'Configured renderer class ' . $className . ' does not exist! 1286986512'));
+	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+		$rendererClassName = $rendererConfiguration->getRendererClassName();
+		tx_pttools_assert::isTrue(class_exists($rendererClassName), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
 
-		$renderer = new $className();
+		$renderer = new $rendererClassName();
+		tx_pttools_assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $className . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
 		
-		tx_pttools_assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'), array('message' => 'Configured renderer class ' . $className . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
-		
-		$renderer->injectConfigurationBuilder($configurationBuilder);
-		$renderer->initRendererStrategies();
+		$renderer->injectConfiguration($rendererConfiguration);
 		return $renderer;
 	}
 	

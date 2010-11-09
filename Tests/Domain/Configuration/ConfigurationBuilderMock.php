@@ -80,6 +80,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     						'sortingColumn' => 'column3', 
     					),
 						
+    					
+    					'headerPartial' => 'List/ListHeader',
+						'bodyPartial' 	=> 'List/ListBody',
+						'agregateRowsPartial' => 'List/AggregateRows',
+    					
+    					
 						'backendConfig' => array (
 								'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
 								'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
@@ -166,12 +172,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                        	//'renderTemplate' => 'typo3conf/ext/pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html',
 	                        )
 	                    ),
-	                    'renderer' => array(
-	                    	'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
+	                    
+	                    'rendererChain' => array(
 	                    	'enabled' => 1,
-	                    	'showCaptionsInBody' => 0,
-	                    	'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialcell->processCell'
+	                    	 'rendererConfigs' => array(
+	                    		 100 => array(
+	                    			'rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer',	 	
+	                    		 )
+	                    	  )
 	                    ),
+	                    
 	                    'filters' => array(
 	                         'testfilterbox' => array(
 	                            'filterConfigs' => array( 

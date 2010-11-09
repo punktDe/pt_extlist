@@ -102,10 +102,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
-	 * Holds an instance of a renderer configuration and handles it as a singleton instance.
-	 * @var Tx_Ptextlist_Configuration_Renderer_RendererConfiguration
+	 * Holds an instance og the renderer chain configuration and handles it as a singleton instance.
+	 * @var Tx_Ptextlist_Configuration_Renderer_RendererChainConfig
 	 */
-	protected $rendererConfiguration = NULL;
+	protected $rendererChainConfiguration = NULL;
 	
 	
 	
@@ -138,10 +138,17 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
 	
 	/**
+	 * Holds an instance of the list configuration 
+	 * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
+	 */
+	protected $listConfiguration = NULL;
+	
+	
+	/**
 	 * Holds an instance of the export configuration
 	 * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
 	 */
-	protected $exportConfiguration;
+	protected $exportConfiguration = NULL;
 	
 		
 	/**
@@ -284,12 +291,23 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
+     * 
+     * 
+     * @return array list settings
+     */
+    public function getListSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings, 'list');
+    }
+    
+    
+    
+    /**
      * Returns settings array for the renderer
      *
      * @return array Settings for the renderer
      */
-    public function getRendererSettings() {
-    	return $this->getMergedSettingsWithPrototype($this->settings['renderer'], 'renderer.default');
+    public function getRendererChainSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings['rendererChain'], 'rendererChain');
     }
     
     
@@ -330,6 +348,28 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     
     
     /**
+     * Returns an array with pager configuration 
+     *
+     * @return array Pager configuration
+     */
+    public function getPagerSettings() {
+       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager');
+    }
+    
+    
+    
+    /**
+     * Returns an array with bookmarks settings
+     *
+     * @return array Bookmarks settings
+     */
+    public function getBookmarksSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
+    }
+    
+    
+    
+    /**
      * return a slice from the prototype arrray for the given objectPath
      * 
      * @param string $objectPath
@@ -347,6 +387,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     }
         
     
+    
 	/**
 	 * Return the list specific settings merged with prototype settings
 	 * 
@@ -357,8 +398,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectPath) {
 		// TODO cache this!
 		if(!is_array($listSepcificConfig)) $listSepcificConfig = array();
-		
-		$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
             $this->getPrototypeSettingsForObject($objectPath),
 			$listSepcificConfig
         );
@@ -366,6 +406,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
         return $mergedSettings;
 	}
     
+	
 	
 	/**
 	 * Returns a singleton instance of databackend configuration 
@@ -378,8 +419,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 		
 		return $this->dataBackendConfiguration;
 	}
-	
-	
 	
 	
 	
@@ -469,19 +508,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
     
     /**
-     * Returns a singleton instance of the renderer configuration object.
+     * Returns a singleton instance of the renderer chain configuration object.
      * 
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
      */
-    public function buildRendererConfiguration() {
-    	if(is_null($this->rendererConfiguration)) {
+    public function buildRendererChainConfiguration() {
+    	if(is_null($this->rendererChainConfiguration)) {
 
-    		tx_pttools_assert::isArray($this->getRendererSettings(), array('message' => 'No renderer configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
-    		$this->rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this);
+    		tx_pttools_assert::isArray($this->getRendererChainSettings(), array('message' => 'No renderer chain configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
+    		$this->rendererChainConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this);
 
     	}
-    	
-    	return $this->rendererConfiguration;
+    	return $this->rendererChainConfiguration;
     }
     
     
@@ -522,27 +560,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
     	}
     	return $this->pagerConfiguration;
     }
-    
-    
-    
-    /**
-     * Returns an array with pager configuration 
-     *
-     * @return array Pager configuration
-     */
-    public function getPagerSettings() {
-       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager');
-    }
-    
-    
+
     
     /**
-     * Returns an array with bookmarks settings
-     *
-     * @return array Bookmarks settings
+     * Returns a list configuration object
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfiguration
      */
-    public function getBookmarksSettings() {
-    	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
+    public function buildListConfiguration() {
+    	if (is_null($this->listConfiguration)) {
+    		$this->listConfiguration = Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory::getInstance($this);
+    	}
+    	return $this->listConfiguration;
     }
 }
 
