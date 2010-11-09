@@ -2,7 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, 
+*  	   Christoph Ehscheidt <ehscheidt@punkt.de>
 *  All rights reserved
 *
 *
@@ -32,10 +33,7 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_Pager_DefaultPager 
-    implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface, 
-               Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
-               Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface  {
+class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
                	
     /**
      * The pager identifier.
@@ -43,9 +41,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
      */
     protected $pagerIdentifier;
 	
-    
-               	
-               	
+             	
 	/**
 	 * The current page.
 	 * Basis of all calculations.
@@ -53,7 +49,6 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 * @var int
 	 */
 	protected $currentPage = 1;
-	
 	
 	
 	/**
@@ -64,14 +59,12 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	protected $settings = array();
 	
 	
-	
 	/**
 	 * Amount of items to display per page.
 	 *
 	 * @var int
 	 */
 	protected $itemsPerPage;
-	
 	
 	
 	/**
@@ -82,14 +75,12 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	protected $totalItemCount;
 		
 	
-	
 	/**
 	 * Holds pager configuration for this pager
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
 	 */
 	protected $pagerConfiguration;
-	
 	
 	
 	/**
@@ -99,13 +90,13 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	 */
 	protected $enabled;
 	
+	
 	/**
 	 * The listIdentifier for which this pager is active.
 	 * 
 	 * @var string
 	 */
 	protected $listIdentifier;
-	
 	
 	
 	/**
@@ -122,6 +113,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 		$this->listIdentifier = $pagerConfiguration->getListIdentifier();
 	}
 	
+	
+	
 	/**
 	 * Returns the list identifier.
 	 * 
@@ -131,6 +124,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 		return $this->listIdentifier;
 	}
 	
+	
+	
     /**
      * 
      * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPagerIdentifier()
@@ -139,6 +134,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
    		return $this->pagerIdentifier;
    	}
 	
+   	
+   	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getCurrentPage()
 	 */
@@ -190,6 +187,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 		return $pages;
 	}
 	
+	
+	
 	/**
 	 * Returns pager configuration
 	 * 
@@ -198,6 +197,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	public function getPagerConfiguration() {
 		return $this->pagerConfiguration;
 	}
+	
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
@@ -214,22 +215,6 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	public function getLastItemIndex() {
 		return (($this->currentPage - 1) * $this->itemsPerPage) + $this->itemsPerPage;
 	}
-	
-	
-	
-	/**
-	 * @see Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface::injectGPVars()
-	 */
-	public function injectGPVars($GPVars) {
-		$page = $GPVars['page'];
-		
-		// TODO: Check if $page is in a valid range
-		// Problem: We don't know the totalItemCount yet
-		
-		$this->currentPage = (!$page ? 1 : (int)$page);
-			
-	}
-	
 	
 	
 	/**
@@ -265,33 +250,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	public function getObjectNamespace() {
 		return 'tx_ptextlist_pi1.'.$this->listIdentifier.'.pager';
 	}
-	
-	
-	
-	/**
-	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::loadFromSession()
-	 */
-	public function injectSessionData(array $sessionData) {
 
-		if(array_key_exists('currentPage', $sessionData)) {
-			$this->currentPage = $sessionData['currentPage'];
-		}
-		if(array_key_exists('totalItemCount', $sessionData)) {
-			$this->totalItemCount = $sessionData['totalItemCount'];
-		}
-	}
-	
-	
-	
-	/**
-	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::persistToSession()
-	 */
-	public function persistToSession() {
-
-		return array('currentPage'    => $this->currentPage,
-				     'totalItemCount' => $this->totalItemCount);
-	}
-	
 	
 	
 	/**
@@ -381,6 +340,4 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager
 	}
 
 }
- 
- 
 ?>
