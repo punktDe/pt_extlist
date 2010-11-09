@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * 
 	 * @var int
 	 */
-	protected $currentPage;
+	protected $currentPage = 1;
 	
 	
 	/**
@@ -100,7 +100,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @param int $pageIndex
 	 */
 	public function setCurrentPage($pageIndex) {
-		$this->currentPage = $pageIndex;
+		$this->currentPage = (int)$pageIndex;
 		
 		foreach($this->itemsArr as $id => $pager) {
 			$pager->setCurrentPage($pageIndex);
@@ -114,11 +114,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * 
 	 */
 	public function reset() {
-		$this->currentPage = 1;
-		
-		foreach($this as $pager) {
-			$pager->setCurrentPage(1);
-		}
+		$this->setCurrentPage(1);
 	} 
 	
 	
