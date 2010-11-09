@@ -52,6 +52,15 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     protected $captionRenderer;
     
     
+    
+    /**
+     * Holds an instance of a row renderer
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
+     */
+    protected $rowRenderer;
+    
+    
 
 	/**
 	 * Injector for configuration
@@ -62,17 +71,27 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		// TODO remove this after refactoring!
         parent::injectConfiguration($rendererConfiguration);
         $this->initRowRenderer();
+        $this->initCaptionRenderer();
     }
     
     
     
 	/**
-	 * Initializes the rendering strategies
-	 *
+	 * Initializes the row renderer
 	 */
-	public function initRowRenderer() {
-		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration);
-		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
+	protected function initRowRenderer() {
+		$this->rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
+		$this->rowRenderer->injectRendererConfiguration($this->rendererConfiguration);
+		$this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($this->rendererConfiguration));
+	}
+	
+	
+
+	/**
+	 * Initializes the caption renderer
+	 */
+	protected function initCaptionRenderer() {
+		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer();
 	}
 	
 
@@ -100,54 +119,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
 
 		foreach($listData as $rowIndex => $row) {
-			$renderedList->addRow($this->renderRow($row, $rowIndex));
+			$renderedList->addRow($this->rowRenderer->renderRow($row, $rowIndex));
 		}
 		
 		return $renderedList;
-	}
-	
-	
-	
-	/**
-	 * Renders a row
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
-	 * @return Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
-		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-		$columnCollection = $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
-	
-		$columnIndex=0;
-		foreach($columnCollection as $columnId => $columnConfig) {
-			$columnIdentifier = $columnConfig->getColumnIdentifier();
-			
-			// Only render if FE-User is allowed to see the column
-			if($columnConfig->isAccessable()) {
-				// Use strategy to render cells
-				$cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
-				$renderedRow->addCell($cell, $columnIdentifier);
-			} 
-			
-			$columnIndex++;
-		}
-		
-		return $renderedRow;
-	}
-	
-	
-	
-	/**
-	 * Renders a cell
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $data
-	 * @param int $columnIndex
-	 * @param int $rowIndex
-	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
-	 */
-	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
-		return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
 	}
 	
 }

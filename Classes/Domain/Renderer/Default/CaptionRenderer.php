@@ -32,7 +32,7 @@
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy {
+class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 
 	/**
 	 * Holds an instance of cObject

@@ -25,14 +25,14 @@
 ***************************************************************/
 
 /**
- * The default strategy to render a cell.
+ * Default renderer for a cell in a row in list data
  * 
  * @package Domain
- * @subpackage Renderer\Strategy
+ * @subpackage Renderer\Default
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy {
+class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 
 	/**
 	 * Reference to the ConfigurationBuilder
@@ -56,6 +56,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy {
 	 * @var string
 	 */
 	protected $renderSpecialCellUserFunc;
+	
 	
 	
 	/**
@@ -110,6 +111,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy {
 	}
 	
 	
+	
 	/**
 	 * render the cells CSS Class
 	 * 
@@ -129,6 +131,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy {
 			return $cellCSSConfig;
 		}
 	}
+	
 	
 	
 	/**
