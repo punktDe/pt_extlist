@@ -35,6 +35,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
 	
 	/**
 	 * Holds an instance of the renderer to be tested
+	 * 
+	 * @var Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
 	 */
 	protected $renderer;
 	
@@ -45,7 +47,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
      */	
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
-		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig(array('rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer'));
+		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig(array('rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer', 'enabled' => '1'));
+		$rendererConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
 		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
 	}
 	
@@ -53,6 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
 	
 	/** @test */
 	public function renderListReturnsRenderedListForGivenConfiguration() {
+		
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		$row->createAndAddCell('val1', 'field1');
@@ -62,7 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
 		$listData->addRow($row);
 		
 		$renderedList = $this->renderer->renderList($listData);
-
+		
 		$this->assertTrue(is_a($renderedList, 'Tx_PtExtlist_Domain_Model_List_ListData'));
 		
 		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getCell('column1'),'val1');

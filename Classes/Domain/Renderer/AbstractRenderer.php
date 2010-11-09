@@ -35,7 +35,7 @@
 abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface {
 
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
 	 */
 	protected $rendererConfiguration;
 	

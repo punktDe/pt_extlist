@@ -52,7 +52,6 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtE
 	public function getRendererChainReturnsRendererChainForConfiguration() {
 		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
 		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
-		var_dump($rendererChain);
 		$renderers = $rendererChain->getRenderers();
 		$this->assertEquals(get_class($renderers[0]), 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer');
 	}

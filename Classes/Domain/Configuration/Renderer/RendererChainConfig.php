@@ -38,6 +38,8 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends tx_
 	 */
 	protected $listIdentifier;
 	
+	
+	
 	/**
 	 * Classname for this collection object type
 	 * @var string
@@ -47,9 +49,19 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends tx_
 	
 	
 	/**
+	 * Holds an instance of configuration builder
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected $configurationBuilder;
+	
+	
+	
+	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 	}
 	
@@ -64,5 +76,17 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends tx_
 	public function addRendererConfig(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfig, $rendererConfigIdentifier) {
 		$this->addItem($rendererConfig, $rendererConfigIdentifier);
 	}	
+	
+	
+	
+	/**
+	 * Getter for configuration builder
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder() {
+		return $this->configurationBuilder;
+	}
+	
 }
 ?>

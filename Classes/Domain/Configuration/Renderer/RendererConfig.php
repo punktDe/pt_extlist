@@ -32,6 +32,14 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 
+	/**
+	 * Holds an instance of configuration builder
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected $configurationBuilder;
+	
+	
 
 	/**
 	 * Renderer settings
@@ -40,11 +48,13 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	protected $settings;
 	
 	
+	
 	/**
 	 * @var boolean 
 	 */
 	protected $enabled;
 
+	
 	
 	/**
 	 * Name of the renderer Class name
@@ -53,10 +63,12 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	protected $rendererClassName;
 	
 	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RenderConfigCollection
 	 */
 	protected $renderConfigCollection;
+	
 	
 	
 	/**
@@ -68,6 +80,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 		$this->settings = $rendererSettings;
 		$this->initPropertiesFromSettings();
 	}
+	
 	
 	
 	/**
@@ -85,6 +98,29 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
         
 		$this->rendererClassName = $this->settings['rendererClassName'];
 	}
+	
+	
+	
+	/**
+	 * Injector for configuration builder
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+	}
+	
+	
+	
+	/**
+	 * Returns configuration builder
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder() {
+		return $this->configurationBuilder;
+	}
+	
 	
 	
 	/**

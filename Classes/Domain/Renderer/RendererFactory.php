@@ -39,16 +39,17 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory {
      * Build and return the renderer
      *
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Renderer_RendererInterface
+     * @return Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
      */	
 	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$rendererClassName = $rendererConfiguration->getRendererClassName();
 		tx_pttools_assert::isTrue(class_exists($rendererClassName), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
 
-		$renderer = new $rendererClassName();
+		$renderer = new $rendererClassName(); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
 		tx_pttools_assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $className . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
 		
 		$renderer->injectConfiguration($rendererConfiguration);
+		
 		return $renderer;
 	}
 	

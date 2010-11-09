@@ -43,9 +43,8 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
 		ksort($rendererChainSettings);
 		
 		foreach($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
-			
 			$rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($rendererSettings);
-			
+            $rendererConfiguration->injectConfigurationBuilder($configurationBuilder);			
 			$rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
 		}
 		

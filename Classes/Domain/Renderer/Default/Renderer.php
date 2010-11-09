@@ -40,6 +40,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
 	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+		// TODO remove this after refactoring!
         parent::injectConfiguration($rendererConfiguration);
         $this->initRendererStrategies();
     }
@@ -77,7 +78,6 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		
 		tx_pttools_assert::isNotNull($listData, array(message => 'No list data found in list. 1280405145'));
 		
-		
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
 
 		foreach($listData as $rowIndex => $row) {
@@ -97,10 +97,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 */
 	public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
 		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-		$columnCollection = $this->configurationBuilder->buildColumnsConfiguration();
+		$columnCollection = $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
 	
 		$columnIndex=0;
-		foreach($columnCollection as $culumnId => $columnConfig) {
+		foreach($columnCollection as $columnId => $columnConfig) {
 			$columnIdentifier = $columnConfig->getColumnIdentifier();
 			
 			// Only render if FE-User is allowed to see the column
