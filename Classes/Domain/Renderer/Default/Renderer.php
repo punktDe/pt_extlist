@@ -52,6 +52,15 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     protected $captionRenderer;
     
     
+    
+    /**
+     * Holds an instance of a row renderer
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
+     */
+    protected $rowRenderer;
+    
+    
 
 	/**
 	 * Injector for configuration
@@ -71,8 +80,13 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 *
 	 */
 	public function initRowRenderer() {
-		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration);
-		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
+		$this->rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
+		$this->rowRenderer->injectRendererConfiguration($this->rendererConfiguration);
+		// TODO change this to cell renderer type
+		$this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration));
+		
+		#$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration);
+		#$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
 	}
 	
 
@@ -100,7 +114,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
 
 		foreach($listData as $rowIndex => $row) {
-			$renderedList->addRow($this->renderRow($row, $rowIndex));
+			$renderedList->addRow($this->rowRenderer->renderRow($row, $rowIndex));
+			
+			
+			#$renderedList->addRow($this->renderRow($row, $rowIndex));
 		}
 		
 		return $renderedList;
@@ -108,32 +125,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	
 	
 	
-	/**
-	 * Renders a row
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
-	 * @return Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
-		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-		$columnCollection = $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
 	
-		$columnIndex=0;
-		foreach($columnCollection as $columnId => $columnConfig) {
-			$columnIdentifier = $columnConfig->getColumnIdentifier();
-			
-			// Only render if FE-User is allowed to see the column
-			if($columnConfig->isAccessable()) {
-				// Use strategy to render cells
-				$cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
-				$renderedRow->addCell($cell, $columnIdentifier);
-			} 
-			
-			$columnIndex++;
-		}
-		
-		return $renderedRow;
-	}
 	
 	
 	
