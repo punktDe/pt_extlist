@@ -36,6 +36,16 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
     public function testSetup() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_Default_RowRenderer'));
     }
+    
+    
+    
+    /** @test */
+    public function getRendererConfigurationReturnsConfigurationAfterInjection() {
+    	$rendererConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(),'', FALSE);
+    	$rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
+    	$rowRenderer->injectRendererConfiguration($rendererConfigurationMock);
+    	$this->assertEquals($rendererConfigurationMock, $rowRenderer->getRendererConfiguration());
+    }
 	
 }
 

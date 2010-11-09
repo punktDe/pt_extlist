@@ -32,6 +32,33 @@
  */
 class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 
+	/**
+	 * Holds an instance of renderer configuration
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+	 */
+	protected $rendererConfiguration;
 	
+	
+	
+	/**
+	 * Injector for renderer configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+	 */
+	public function injectRendererConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+		$this->rendererConfiguration = $rendererConfiguration;
+	}
+	
+	
+	
+	/**
+	 * Returns rendering configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+	 */
+	public function getRendererConfiguration() {
+		return $this->rendererConfiguration;
+	}
 	
 }
