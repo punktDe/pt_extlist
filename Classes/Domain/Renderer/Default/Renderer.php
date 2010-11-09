@@ -85,8 +85,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		// TODO change this to cell renderer type
 		$this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration));
 		
-		#$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration);
-		#$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
+		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
 	}
 	
 
@@ -121,25 +120,6 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		}
 		
 		return $renderedList;
-	}
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * Renders a cell
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $data
-	 * @param int $columnIndex
-	 * @param int $rowIndex
-	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
-	 */
-	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
-		return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
 	}
 	
 }
