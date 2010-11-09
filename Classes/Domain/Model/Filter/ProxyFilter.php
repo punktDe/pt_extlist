@@ -110,12 +110,35 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		}
 	}
 	
+	
+	/**
+	 * Get the Configurationbuilder for the real list
+	 * 
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
 	protected function getConfigurationBuilderForRealList() {
 		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
 	}
 	
+	protected function getRealFilterObject() {
+		$realFilterConfig = $this->getRealFilterConfig();
+		$realFilter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($realFilterConfig);
+		$GLOBALS['trace'] = 1;	trace($realFilter ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+	}
+	
+	
+	/**
+	 * 
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+	 */
 	protected function getRealFilterConfig() {
 		$configurationBuilder = $this->getConfigurationBuilderForRealList();
+		$realFilterConfig = $configurationBuilder->buildFilterConfiguration()
+												 ->getItemById($this->proxyFilterBoxIdentifier)
+												 ->getFilterConfigByFilterIdentifier($this->proxyFilterIdentifier);
+		return $realFilterConfig;
 	}
+	
+	
 	
 }

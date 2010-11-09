@@ -52,17 +52,27 @@
 		$proxyFilter->_call('initFilterByTsConfig');
 	}
 	
-	/*
+	
 	public function testGetRealFilterConfig() {
 		$proxyFilter = $this->buildAccessibleProxyFilter();
 		$proxyFilter->_call('initFilterByTsConfig');
-		$proxyFilter->_call('getRealFilterConfig');
+		$config = $proxyFilter->_call('getRealFilterConfig');
+		$this->assertTrue(is_a($config, 'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig'));
 	}
-	*/
+	
+ 	public function testGetRealFilterObject() {
+		$proxyFilter = $this->buildAccessibleProxyFilter();
+		$proxyFilter->_call('initFilterByTsConfig');
+		//$filterObject = $proxyFilter->_call('getRealFilterObject');
+	}
+	
 	
 	protected function buildAccessibleProxyFilter() {
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_ProxyFilter');
-		$proxyFilter = new $accessibleClassName();
+		
+		$proxyFilterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_ProxyFilter', array('getConfigurationBuilderForRealList'), array());
+		$proxyFilterMock->expects($this->any())
+		    ->method('getConfigurationBuilderForRealList')
+		    ->will($this->returnValue($this->configurationBuilderMock));
 		
 		$filterSettings = array('filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_ProxyFilter',
 								'partialPath' => ' ', 
@@ -72,9 +82,9 @@
 							);
 		
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'someOtherBox', $filterSettings);
-		$proxyFilter->injectFilterConfig($filterConfig);
+		$proxyFilterMock->injectFilterConfig($filterConfig);
 		
-		return $proxyFilter;
+		return $proxyFilterMock;
 	}
 }
  

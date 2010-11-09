@@ -9,9 +9,9 @@
 plugin.tx_ptextlist.prototype.pager {
 
 	itemsPerPage = 10
-
-	pagerConfigs {
+	enabled = 1
 	
+	pagerConfigs {
 		default {
 		    enabled = 1
 	        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
