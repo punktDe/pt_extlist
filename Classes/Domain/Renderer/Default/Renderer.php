@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		// TODO remove this after refactoring!
         parent::injectConfiguration($rendererConfiguration);
-        $this->initRendererStrategies();
+        $this->initRowRenderer();
     }
     
     
@@ -70,7 +70,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 * Initializes the rendering strategies
 	 *
 	 */
-	public function initRendererStrategies() {
+	public function initRowRenderer() {
 		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration);
 		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
 	}
