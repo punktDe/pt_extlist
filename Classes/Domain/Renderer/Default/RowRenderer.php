@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -25,16 +24,17 @@
 ***************************************************************/
 
 /**
- * Abstract class for list renderers
+ * Class implements a renderer for rows in list data
  * 
- * @package Domain
- * @subpackage Renderer
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
+ * @package Domain
+ * @subpackage Renderer\Default
  */
-abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface {
+class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 
 	/**
+	 * Holds an instance of renderer configuration
+	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
 	 */
 	protected $rendererConfiguration;
@@ -42,14 +42,23 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	
 	
 	/**
-	 * Inject the Configuration Builder
-	 * 
+	 * Injector for renderer configuration
+	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	public function injectRendererConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$this->rendererConfiguration = $rendererConfiguration;
 	}
 	
+	
+	
+	/**
+	 * Returns rendering configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+	 */
+	public function getRendererConfiguration() {
+		return $this->rendererConfiguration;
+	}
+	
 }
-
-?>

@@ -2,8 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *
@@ -25,30 +24,28 @@
 ***************************************************************/
 
 /**
- * Abstract class for list renderers
- * 
- * @package Domain
- * @subpackage Renderer
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * Testcase for default row renderer
+ *
+ * @package Tests
+ * @subpackage Domain\Renderer\Default
  * @author Michael Knoll <knoll@punkt.de>
  */
-abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
-	 */
-	protected $rendererConfiguration;
+class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
-	
-	
-	/**
-	 * Inject the Configuration Builder
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
-	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
-		$this->rendererConfiguration = $rendererConfiguration;
-	}
+	/** @test */
+    public function testSetup() {
+    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_Default_RowRenderer'));
+    }
+    
+    
+    
+    /** @test */
+    public function getRendererConfigurationReturnsConfigurationAfterInjection() {
+    	$rendererConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(),'', FALSE);
+    	$rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
+    	$rowRenderer->injectRendererConfiguration($rendererConfigurationMock);
+    	$this->assertEquals($rendererConfigurationMock, $rowRenderer->getRendererConfiguration());
+    }
 	
 }
 

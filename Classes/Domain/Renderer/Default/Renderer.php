@@ -31,8 +31,27 @@
  * @subpackage Renderer
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
+    
+    /**
+     * The Strategy for rendering cells.
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
+     */
+    protected $cellRenderer;
+    
+    
+    
+    /**
+     * The strategy for rendering captions.
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface
+     */
+    protected $captionRenderer;
+    
+    
 
 	/**
 	 * Injector for configuration
@@ -42,7 +61,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		// TODO remove this after refactoring!
         parent::injectConfiguration($rendererConfiguration);
-        $this->initRendererStrategies();
+        $this->initRowRenderer();
     }
     
     
@@ -51,7 +70,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 * Initializes the rendering strategies
 	 *
 	 */
-	public function initRendererStrategies() {
+	public function initRowRenderer() {
 		$this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration);
 		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
 	}
