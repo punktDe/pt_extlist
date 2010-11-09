@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		$this->rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
 		$this->rowRenderer->injectRendererConfiguration($this->rendererConfiguration);
 		// TODO change this to cell renderer type
-		$this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy($this->rendererConfiguration));
+		$this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($this->rendererConfiguration));
 		
 		$this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_DefaultCaptionRenderingStrategy();
 	}

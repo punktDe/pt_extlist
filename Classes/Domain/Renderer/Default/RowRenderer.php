@@ -43,8 +43,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	
 	/**
 	 * Holds an instance of cell renderer
-	 * TODO Change this type to actual type after refactoring!
-	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
+	 * 
+	 * @var Tx_PtExtlist_Domain_Renderer_Default_CellRenderer
 	 */
 	protected $cellRenderer;
 	
@@ -64,10 +64,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	
 	/**
 	 * Injector for cell renderer
-	 * TODO change this to actual type
+	 * 
 	 * @param Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy $cellRenderer
 	 */
-	public function injectCellRenderer(Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy $cellRenderer) {
+	public function injectCellRenderer(Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer) {
 		$this->cellRenderer = $cellRenderer;
 	}
 	
