@@ -307,7 +307,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return array Settings for the renderer
      */
     public function getRendererChainSettings() {
-    	return $this->getMergedSettingsWithPrototype($this->settings['rendererChain'], 'rendererChain');
+    	$mergedSettings = $this->getMergedSettingsWithPrototype($this->settings['rendererChain'], 'rendererChain');
+    	return $mergedSettings;
     }
     
     

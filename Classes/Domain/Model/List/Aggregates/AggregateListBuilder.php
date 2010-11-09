@@ -38,10 +38,12 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	protected $configurationBuilder;
 	
 	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
 	 */
 	protected $dataBackend;
+	
 	
 	
 	/**
@@ -52,11 +54,13 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	protected $arrayAggregator;
 	
 	
+	
 	/**
 	 * Holds the aggregated data
 	 * @var Tx_PtExtlist_Domain_Model_List_Row
 	 */
 	protected $aggregatedDataRow;
+	
 	
 	
 	/**
@@ -65,6 +69,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	 * @var Tx_PtExtlist_Domain_Renderer_RendererInterface
 	 */
 	protected $renderer;
+	
 	
 	
 	/**
@@ -92,12 +97,14 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	}
 
 	
+	
 	/**
 	 * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer
 	 */
 	public function injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer) {
 		$this->renderer = $renderer;
 	}
+	
 	
 	
 	/**
@@ -108,6 +115,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	}
 	
 	
+	
 	/**
 	 * Init the aggregates to fill in the columns
 	 */
@@ -115,6 +123,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		$this->aggregatedDataRow = $this->buildAggregateDataRow();
 	}
 
+	
 	
 	/**
 	 * Build the aggregate list
@@ -169,6 +178,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	}
 	
 	
+	
 	/**
 	 * Build the aggregate data by configuration
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
@@ -188,6 +198,8 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		return $dataRow;
 	}
 	
+	
+	
 	/**
 	 * Get Aggregate data for Page
 	 * 
@@ -205,6 +217,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	}
 	
 	
+	
 	/**
 	 * Get aggregate data for the whole query
 	 * 
@@ -215,5 +228,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		if(!is_array($aggregates)) $aggregates = array();
 		return $aggregates;
 	}
+	
 }
+
 ?>

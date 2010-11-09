@@ -112,8 +112,6 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		if(!$this->rendererConfiguration->isEnabled()) return $listData;
-		
 		tx_pttools_assert::isNotNull($listData, array(message => 'No list data found in list. 1280405145'));
 		
 		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();

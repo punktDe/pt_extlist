@@ -42,10 +42,9 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 	public static function getAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
 		if($configurationBuilder->getAggregateRowSettings()) {
-			
 			$aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
 			$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
-			$aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($configurationBuilder));
+			$aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
 			$aggregateListBuilder->injectDataBackend($dataBackend);
 			$aggregateListBuilder->init();
 			
@@ -56,5 +55,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 		
 		return $aggregateListData;
 	}
+	
 }
+
 ?>

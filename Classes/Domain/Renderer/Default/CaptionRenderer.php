@@ -48,45 +48,38 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 	 *
 	 */
 	public function __construct() {
-		// $this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		$this->cObj = $GLOBALS['TSFE']->cObj;
 	}
 	
 	
 	
 	/**
-	 * Strategy method for rendering captions
+	 * Renders captions
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered row
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		
 		tx_pttools_assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
-		
 		foreach($listHeader as $headerColumn) {
-			// Do not add a column wich is not accessable by the current FE-User!
-			if(!$headerColumn->getColumnConfig()->isAccessable()) continue;
-			
-			$label = $headerColumn->getLabel();
-			
-			// TODO: use Tx_PtExtlist_Utility_RenderValue and configuration for rendering!
-			
-			// Use TS for rendering
-			if(is_array($label)) {
-				$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
-				$label = $this->cObj->cObjGet($conf);
-			} elseif(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
-				// Localization
-				$label = Tx_Extbase_Utility_Localization::translate($label);
+			if($headerColumn->getColumnConfig()->isAccessable()) {
+				$label = $headerColumn->getLabel();
+				
+				// TODO: use Tx_PtExtlist_Utility_RenderValue and configuration for rendering!
+				
+				// Use TS for rendering
+				if(is_array($label)) {
+					$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
+					$label = $this->cObj->cObjGet($conf);
+				} elseif(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
+					// Localization
+					$label = Tx_Extbase_Utility_Localization::translate($label);
+				}
+			    $row->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 			}
-
-			
-			$row->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 		}
-		
 		return $row;
 	}
 	
