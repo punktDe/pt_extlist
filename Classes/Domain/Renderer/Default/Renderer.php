@@ -31,8 +31,27 @@
  * @subpackage Renderer
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
+    
+    /**
+     * The Strategy for rendering cells.
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
+     */
+    protected $cellRenderer;
+    
+    
+    
+    /**
+     * The strategy for rendering captions.
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface
+     */
+    protected $captionRenderer;
+    
+    
 
 	/**
 	 * Injector for configuration

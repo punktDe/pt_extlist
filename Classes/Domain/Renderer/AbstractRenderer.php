@@ -42,24 +42,6 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	
 	
 	/**
-	 * The Strategy for rendering cells.
-	 *
-	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
-	 */
-	protected $cellRenderer;
-	
-	
-	
-	/**
-	 * The strategy for rendering captions.
-	 *
-	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface
-	 */
-	protected $captionRenderer;
-	
-	
-	
-	/**
 	 * Inject the Configuration Builder
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
