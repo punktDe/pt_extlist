@@ -26,8 +26,8 @@
 /**
  * Testcase for abstract groupDataFilter class
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\Filter
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
@@ -156,7 +156,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     
 	public function testInitOnCorrectConfiguration() {
     	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
-        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
            array(
                'filterIdentifier' => 'field1', 
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
@@ -164,7 +164,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
                'fieldIdentifier' => 'field1',
                'displayFields' => 'field1,field2',
                'filterField' => 'field1'
-        ));
+        ),'test');
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
@@ -182,13 +182,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
     	
     	try {
-	    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+	    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 	    	   array(
 	    	       'filterIdentifier' => 'field1', 
 	    	       'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
 	    	       'partialPath' => 'Filter/SelectFilter',
 	               'optionsSourceField' => 'field1,field2',
-	    	));
+	    	),'test');
     	
             $selectFilter->init();
     	} catch(Exception $e) {
@@ -201,14 +201,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     
     public function testOnMissingFilterFieldConfiguration() {
     	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
-        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
            array(
                'filterIdentifier' => 'field1', 
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                'partialPath' => 'Filter/SelectFilter',
                'fieldIdentifier' => 'field1',
                'displayField' => 'field2'
-        ));
+        ), 'test');
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
@@ -257,7 +257,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     	$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
     	$abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
         
-    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $this->defaultFilterSettings);
+    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->defaultFilterSettings,'test');
+    	$filterConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);

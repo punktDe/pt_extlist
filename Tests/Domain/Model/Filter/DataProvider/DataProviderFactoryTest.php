@@ -26,9 +26,9 @@
 /**
  * Testcase for abstract groupDataFilter class
  *
- * @package TYPO3
- * @subpackage pt_extlist
- * @author Daniel Lienert <lienert@punkt.de>>
+ * @package Tests
+ * @subpackage Domain\Model\Filter\DataProvider
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
@@ -58,7 +58,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
        	 );
     	
    		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', $filterSettings);
+    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( $filterSettings,'test');
+    	$filterConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
     	
     	$dataProviderInstance = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($filterConfiguration);
     	

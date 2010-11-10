@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testInjectFilterConfig() {
         $filter = $this->getExtendingFilterMock();    	
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'));
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'), 'test');
         $filter->injectFilterConfig($filterConfig);
     }
     
@@ -61,13 +61,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testGetters() {
     	$filter = $this->getExtendingFilterMock();     
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'));
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'),	'test');
+        $filterConfig->injectConfigurationBuilder($this->configurationBuilderMock);
         $filter->injectFilterConfig($filterConfig);
         
-        $this->assertTrue($filter->getFilterIdentifier() == 'test');
-        $this->assertTrue($filter->getFilterBoxIdentifier() == 'test');
-        $this->assertTrue($filter->getListIdentifier() == 'test');
-        $this->assertTrue($filter->getObjectNamespace() == 'tx_ptextlist_pi1.test.filters.test.test', 'Object namespace was expected to be tx_ptextlist_pi1.test.filters.test.test but was ' . $filter->getObjectNamespace());
+        $this->assertEquals($filter->getFilterIdentifier(), 'test');
+        $this->assertEquals($filter->getFilterBoxIdentifier(), 'test');
+        $this->assertEquals($filter->getListIdentifier(),'test');
+        $this->assertEquals($filter->getObjectNamespace(), 'tx_ptextlist_pi1.test.filters.test.test', 'Object namespace was expected to be tx_ptextlist_pi1.test.filters.test.test but was ' . $filter->getObjectNamespace());
     }
     
     

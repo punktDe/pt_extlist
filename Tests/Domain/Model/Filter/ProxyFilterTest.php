@@ -75,13 +75,15 @@
 		    ->will($this->returnValue($this->configurationBuilderMock));
 		
 		$filterSettings = array('filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_ProxyFilter',
-								'partialPath' => ' ', 
+								'partialPath' => 'partialPath', 
 								'proxyPath' => 'test.testfilterbox.filter1', 
 								'fieldIdentifier' => 'field1',
 								'filterIdentifier' => 'testProxyFilter',
 							);
 		
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'someOtherBox', $filterSettings);
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($filterSettings, 'someOtherBox');
+		$filterConfig->injectConfigurationBuilder($this->configurationBuilderMock);
+		
 		$proxyFilterMock->injectFilterConfig($filterConfig);
 		
 		return $proxyFilterMock;

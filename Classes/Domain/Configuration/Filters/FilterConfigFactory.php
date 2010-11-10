@@ -32,9 +32,10 @@
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder, $filterboxIdentifier, array $filterSettings) {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($configBuilder, $filterboxIdentifier, $filterSettings);
-		$filterConfig = self::setAccessableFlag($filterConfig, $configBuilder);
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings) {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($filterSettings,$filterboxIdentifier);
+		$filterConfig->injectConfigurationBuilder($configurationBuilder);
+		$filterConfig = self::setAccessableFlag($filterConfig, $configurationBuilder);
 		return $filterConfig;
 	}
 	
@@ -47,10 +48,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
-	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
+	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
-		$accessable = $security->isAccessableFilter($filterConfig, $configBuilder);
-		$filterConfig->injectAccessable($accessable);
+		$accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
+		$filterConfig->setAccessable($accessable);
 		
 		return $filterConfig;
 	}
