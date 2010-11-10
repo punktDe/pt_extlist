@@ -81,13 +81,15 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	 * @param array $arguments Arguments passed to called method
 	 */
 	public function __call($name, $arguments) {
-		if (t3lib_div::isFirstPartOfStr($name, 'build')) {
-			$matches = array();
-			preg_match('/build(.+)/', $name, $matches);
-			return $this->buildConfigurationGeneric($matches[1]);
+		$functionName = strtolower($functionName);
+		
+		$matches = array();
+		preg_match('(get|build)(.+)configuration', $functionName, $matches);
+		
+		if ($matches[2]) {
+			return $this->buildConfigurationGeneric($matches[2]);
 		}
 	}
-	
 	
 	
 	/**
