@@ -26,8 +26,8 @@
 /**
  * Class implementing tests for aggregate column config
  *
- * @package pt_extlist
- * @subpackage \Tests\Domain\Configuration\Aggregates
+ * @package Tests
+ * @subpackage Domain\Configuration\Aggregates
  * @author Daniel Lienert <linert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

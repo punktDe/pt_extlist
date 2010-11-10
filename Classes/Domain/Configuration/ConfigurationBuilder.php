@@ -34,14 +34,20 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
-	
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	
 	/**
-	 * Merged settings of global and local configuration
+	 * Holds settings for building configurations
+	 *
 	 * @var array
+	 * @mimi tsKey hier fraglich
 	 */
-	protected $settings;
+	protected $configurationObjectSettings = array(
+	    'aggregateData' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
+	    'aggregateRow' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
+	);
 	
 	
 	/**
@@ -64,7 +70,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 */
 	protected $listIdentifier;
 	
-	
+		
 	/**
 	 * Holds an instance of a databackend configuration and handles it as a singleton instance
 	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
@@ -77,13 +83,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldsConfiguration = NULL;
-	
-	
-	/**
-	 * Holds an instance of a aggregate data configuration and handles it as a singleton instance
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
-	 */
-	protected $aggregateDataConfig = NULL;
 	
 	
 	/**
@@ -443,10 +442,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
      */
     public function buildAggregateDataConfig() {
-    	if(is_null($this->aggregateDataConfig)) {
-    		$this->aggregateDataConfig = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($this);
-    	}
-    	return $this->aggregateDataConfig;
+    	return $this->buildConfigurationGeneric('aggregateData');
     }
     
     
@@ -457,11 +453,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
      * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
      */
     public function buildAggregateRowConfig() {
-    	if(is_null($this->aggregateRowConfig)) {
-    		$this->aggregateRowConfig = Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory::getColumnConfigCollection($this);
-    	}
-    	
-    	return $this->aggregateRowConfig;
+    	return $this->buildConfigurationGeneric('aggregateRow');
     }
     
     

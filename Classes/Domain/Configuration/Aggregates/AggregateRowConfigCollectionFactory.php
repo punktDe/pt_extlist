@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionF
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $columnSettings typoscript array of column Collection
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
-	public static function getColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		return self::buildAggregateRowConfigCollection($configurationBuilder);	
 	}
 	
