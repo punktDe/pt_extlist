@@ -46,8 +46,10 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	 * Holds definition of configuration object instances
 	 * 
 	 * objectName
-	 * 	=> factory = 
-	 * 
+	 * 	=> factory = Classname of the factory
+	 *  => tsKey typoscript key if diferent from objectName
+	 *  => prototype = path to the prototype settings
+	 *  
 	 * @var array
 	 */
 	protected $configurationObjectSettings = array();
@@ -108,25 +110,66 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 		
 		return $this->configurationObjectInstances[$configurationName];
 	}
+
 	
+	/**
+	 * 
+	 * 
+	 * @param unknown_type $configurationName
+	 */
+	public function getSettingsForConfigObject($configurationName) {
+		
+		if(!array_key_exists($configurationName, $this->configurationObjectSettings)) {
+			throw new Exception('No Configuration Object with name ' . $configurationName . ' defined in ConfigurationBuilder 1289397150');
+		}
+		
+		$tsKey = array_key_exists('tsKey', $this->configurationObjectSettings[$configurationName]) ? $this->configurationObjectSettings[$configurationName]['tsKey'] : $configurationName;
+		$settings = $this->settings[$tsKey];
+		
+		if(array_key_exists('prototype', $this->configurationObjectSettings[$configurationName]['prototype'])) {
+			$settings = $this->getMergedSettingsWithPrototype($settings, $this->configurationObjectSettings[$configurationName]['prototype']);
+		}
+		
+		return $settings;
+	}
 	
 	
 	/**
-	 * Returns array with settings for given ts key. 
-	 * Returns empty array if no settings are available for this key.
-	 *
-	 * @param string $tsKey Configuration key in TypoScript notation
-	 * @return array 
+	 * Return the list specific settings merged with prototype settings
+	 * 
+	 * @param array $listSepcificConfig
+	 * @param string $objectName
+	 * @return array
 	 */
-	protected function getSettingsByTsKey($tsKey) {
-		$value = Tx_Yag_Utility_Utility::getArrayContentByTsKey($this->settings, $tsKey);
-		if (is_array($value)) {
-			return $value;
-		} else {
-			return array();
-		}
+	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectPath) {
+		// TODO cache this!
+		if(!is_array($listSepcificConfig)) $listSepcificConfig = array();
+			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+            $this->getPrototypeSettingsForObject($objectPath),
+			$listSepcificConfig
+        );
+
+        return $mergedSettings;
 	}
 	
+	
+	
+    /**
+     * return a slice from the prototype arrray for the given objectPath
+     * 
+     * @param string $objectPath
+     * @return array prototypesettings
+     */
+    public function getPrototypeSettingsForObject($objectPath) {
+
+    	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->protoTypeSettings, $objectPath);
+    	
+    	if(!is_array($protoTypeSettings)) {
+    		$protoTypeSettings = array();
+    	} 
+    	
+    	return $protoTypeSettings;
+    }
 }
  
 ?>

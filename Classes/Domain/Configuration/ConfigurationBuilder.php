@@ -45,8 +45,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	protected $configurationObjectSettings = array(
 	    'aggregateData' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
-	    'aggregateRow' => 
+	    'aggregateRows' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
+	    'dataBackend' =>
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory'),
+	    'fields' =>
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
+	    
 	);
 	
 	
@@ -69,20 +74,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 * @var string
 	 */
 	protected $listIdentifier;
-	
-		
-	/**
-	 * Holds an instance of a databackend configuration and handles it as a singleton instance
-	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
-	 */
-	protected $dataBackendConfiguration = NULL;
-	
-	
-	/**
-	 * Holds an instance of a fields configuration and handles it as a singleton instance
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	protected $fieldsConfiguration = NULL;
+
 	
 	
 	/**
@@ -347,6 +339,15 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
+
+        
+    
+    
+
+    
+	
+	
     /**
      * Returns an array with pager configuration 
      *
@@ -366,58 +367,15 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function getBookmarksSettings() {
     	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
     }
-    
-    
-    
-    /**
-     * return a slice from the prototype arrray for the given objectPath
-     * 
-     * @param string $objectPath
-     * @return array prototypesettings
-     */
-    public function getPrototypeSettingsForObject($objectPath) {
-
-    	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->protoTypeSettings, $objectPath);
-    	
-    	if(!is_array($protoTypeSettings)) {
-    		$protoTypeSettings = array();
-    	} 
-    	
-    	return $protoTypeSettings;
-    }
-        
-    
-    
-	/**
-	 * Return the list specific settings merged with prototype settings
-	 * 
-	 * @param array $listSepcificConfig
-	 * @param string $objectName
-	 * @return array
-	 */
-	public function getMergedSettingsWithPrototype($listSepcificConfig, $objectPath) {
-		// TODO cache this!
-		if(!is_array($listSepcificConfig)) $listSepcificConfig = array();
-			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
-            $this->getPrototypeSettingsForObject($objectPath),
-			$listSepcificConfig
-        );
-
-        return $mergedSettings;
-	}
-    
 	
+    
 	
 	/**
 	 * Returns a singleton instance of databackend configuration 
 	 * @returns Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
 	 */
 	public function buildDataBackendConfiguration() {
-		if(is_null($this->dataBackendConfiguration)) {
-			$this->dataBackendConfiguration = Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory::getInstance($this);
-		}
-		
-		return $this->dataBackendConfiguration;
+		return $this->buildConfigurationGeneric('dataBackend');
 	}
 	
 	
@@ -428,10 +386,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
     public function buildFieldsConfiguration() {
-    	if (is_null($this->fieldsConfiguration)) {
-    		$this->fieldsConfiguration = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->settings['fields']);
-    	}
-    	return $this->fieldsConfiguration;
+    	return $this->buildConfigurationGeneric('fields');
     }
 
 
@@ -452,8 +407,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      * 
      * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
      */
-    public function buildAggregateRowConfig() {
-    	return $this->buildConfigurationGeneric('aggregateRow');
+    public function buildAggregateRowsConfig() {
+    	return $this->buildConfigurationGeneric('aggregateRows');
     }
     
     

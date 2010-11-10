@@ -173,9 +173,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	}
 	
 	
-	public function testBuildAggregateRowConfiguration() {
+	public function testBuildAggregateRowsConfiguration() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
-		$aggregateRowConfigCollection = $configurationBuilder->buildAggregateRowConfig();
+		$aggregateRowConfigCollection = $configurationBuilder->buildAggregateRowsConfig();
 		$this->assertTrue(is_a($aggregateRowConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection'));
 	}
 	
