@@ -77,7 +77,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 	}

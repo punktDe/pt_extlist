@@ -80,15 +80,17 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	 * @param string $name Name of method called
 	 * @param array $arguments Arguments passed to called method
 	 */
-	public function __call($name, $arguments) {
+	public function __call($functionName, $arguments) {
 		$functionName = strtolower($functionName);
-		
 		$matches = array();
-		preg_match('(get|build)(.+)configuration', $functionName, $matches);
+		$pattern = '/(get|build)(.+)configuration/is'; 
+		preg_match($pattern, $functionName, $matches);
 		
 		if ($matches[2]) {
 			return $this->buildConfigurationGeneric($matches[2]);
 		}
+		
+		Throw new Exception('The method configurationBuilder::' . $functionName . ' could not be found or handled by magic function. 1289407912');
 	}
 	
 	
