@@ -78,13 +78,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	
 	
 	/**
-	 * Holds an instance of a aggregate row configurations and handles it as a singleton instance
-	 * @var Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
-	 */
-	protected $aggregateRowConfig = NULL;
-	
-	
-	/**
 	 * Holds an instance of a columns configuration and handles it as a singleton instance
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */

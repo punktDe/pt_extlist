@@ -115,7 +115,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	/**
 	 * 
 	 * 
-	 * @param unknown_type $configurationName
+	 * @param string $configurationName
 	 */
 	public function getSettingsForConfigObject($configurationName) {
 		

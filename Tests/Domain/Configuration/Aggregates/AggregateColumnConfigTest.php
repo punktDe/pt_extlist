@@ -52,7 +52,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_t
 		$aggregateRowSettings = $this->configurationBuilderMock->getAggregateRowSettings();
 		$columnIdentifier = key(current($aggregateRowSettings));
 		$this->aggregateColumnSettings = current(current($aggregateRowSettings));
-		$this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->configurationBuilderMock, $columnIdentifier, $this->aggregateColumnSettings);
+		$this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->aggregateColumnSettings, $columnIdentifier);
+		$this->aggregateColumnConfig->injectConfigurationBuilder($this->configurationBuilderMock);
 	}
 	
 	

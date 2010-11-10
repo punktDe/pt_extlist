@@ -30,15 +30,8 @@
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
-	
-	/**
-	 * Identifier of list to which this column belongs to
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtlist_Domain_Configuration_AbstractConfiguration 
+																	     implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 	
 	/** 
 	 * @var string
@@ -77,50 +70,37 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig impleme
 	 * @param array $aggregateColumnSettings array of coumn settings
 	 * @return void
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $columnIdentifier,  array $aggregateColumnSettings) {
-		tx_pttools_assert::isNotEmptyString($columnIdentifier, array(message => 'Column identifier for aggregate not given 1282916617'));
-		tx_pttools_assert::isNotEmptyString($aggregateColumnSettings['aggregateDataIdentifier'], array(message => 'Aggregate data identifier not given for aggregate column "'.$columnIdentifier.'" 1282916619'));
-		
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->columnIdentifier = $columnIdentifier;
-		$this->aggregateDataIdentifier = t3lib_div::trimExplode(',', $aggregateColumnSettings['aggregateDataIdentifier']);
-				
-		$this->setOptionalSettings($aggregateColumnSettings);
+	public function __construct(array $settings, $columnIdentifier) {
+		$settings['columnIdentifier'] = $columnIdentifier;
+		parent::__construct($settings);
 	}	
 	
 	
-	
+																	     	
 	/**
-	 * Set optional definable columnsettings
-	 * 
-	 * @param $columnSettings
-	 * @return void
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
 	 */
-	protected function setOptionalSettings($aggregateColumnSettings) {
+	protected function init() {
+		// required
+		$this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
+		
+		tx_pttools_assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array(message => 'Aggregate data identifier not given for aggregate column "'.$columnIdentifier.'" 1282916619'));
+		$this->aggregateDataIdentifier = t3lib_div::trimExplode(',', $this->settings['aggregateDataIdentifier']);
+		
+		// optional
+		$this->setValueIfExistsAndNotNothing('renderTemplate');
 
-		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($aggregateColumnSettings['renderUserFunctions'])) {
-			asort($aggregateColumnSettings['renderUserFunctions']);
-			$this->renderUserFunctions = $aggregateColumnSettings['renderUserFunctions'];
+		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($this->settings['renderUserFunctions'])) {
+			asort($this->settings['renderUserFunctions']);
+			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
 		}
 				
-		if(array_key_exists('renderObj', $aggregateColumnSettings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $aggregateColumnSettings['renderObj']));
+		if(array_key_exists('renderObj', $this->settings)) {
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
         }
-        
-		if(array_key_exists('renderTemplate', $aggregateColumnSettings)) {
-			$this->renderTemplate = $aggregateColumnSettings['renderTemplate'];
-		}
 	}
-	
-	
-	
-	/**
-	 * @return string listIdentifier
-	 */
-	public function getListIdentifier() {
-		return $this->listIdentifier;
-	}
-	
+
 	
 	
 	/**
