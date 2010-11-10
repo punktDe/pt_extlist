@@ -63,9 +63,9 @@
  	public function testGetRealFilterObject() {
 		$proxyFilter = $this->buildAccessibleProxyFilter();
 		$proxyFilter->_call('initFilterByTsConfig');
-		//$filterObject = $proxyFilter->_call('getRealFilterObject');
+		$filterObject = $proxyFilter->_call('getRealFilterObject');			
 	}
-	
+
 	
 	protected function buildAccessibleProxyFilter() {
 		

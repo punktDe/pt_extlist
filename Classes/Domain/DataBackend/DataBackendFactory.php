@@ -69,16 +69,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
 	 */
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-			
 		$listIdentifier = $configurationBuilder->getListIdentifier();
 		
 		if (!array_key_exists($listIdentifier, self::$instances)) {
 	        $dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
-	      	        
 	        $dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
 	        $dataBackend = new $dataBackendClassName($configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
-	        self::$instances[$listIdentifier] = $dataBackend;
-	        
+
 	        // Check whether backend class implements backend interface
 	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
 	        
@@ -94,6 +91,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        	$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
 	        }
 	        $dataBackend->init();
+	        
+	      	self::$instances[$listIdentifier] = $dataBackend;
 		}
 		
 		return self::$instances[$listIdentifier];
