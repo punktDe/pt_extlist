@@ -37,10 +37,9 @@
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	
 	/**
-	 * Holds settings for building configurations
+	 * Holds settings to build configuration objects
 	 *
 	 * @var array
-	 * @mimi tsKey hier fraglich
 	 */
 	protected $configurationObjectSettings = array(
 	    'aggregateData' => 
@@ -51,6 +50,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory'),
 	    'fields' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
+	    'list' =>
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory'),
 	    
 	);
 	
@@ -119,13 +120,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 * @var Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
 	 */
 	protected $listDefaultConfiguration = NULL;
-	
-	
-	/**
-	 * Holds an instance of the list configuration 
-	 * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
-	 */
-	protected $listConfiguration = NULL;
 	
 	
 	/**
@@ -509,10 +503,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      * @return Tx_PtExtlist_Domain_Configuration_List_ListConfiguration
      */
     public function buildListConfiguration() {
-    	if (is_null($this->listConfiguration)) {
-    		$this->listConfiguration = Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory::getInstance($this);
-    	}
-    	return $this->listConfiguration;
+    	$this->buildConfigurationGeneric('list');
     }
 }
 

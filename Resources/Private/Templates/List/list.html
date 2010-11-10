@@ -5,6 +5,7 @@ Template for rendering a list.
 
 Here is a list of objects / variables that can be accessed in this template:
 
+Tx_PtExtlist_Domain_Model_List_Header_ListHeader	config			A instance of the configurationbuilder
 Tx_PtExtlist_Domain_Model_List_Header_ListHeader	listHeader		A instance with header information.
 Tx_PtExtlist_Domain_Model_List_Row					listCaptions 	A row with captions for every column.
 Tx_PtExtlist_Domain_Model_List_ListData				listData		A collection of rows.
@@ -19,7 +20,7 @@ Tx_PtExtlist_Domain_Model_List_ListData				aggregateRows	A collection of aggrega
  
 
 <table class="tx-ptextlist-list tx-ptextlist-list-standard">
-	<f:render partial="List/ListHeader" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
-	<f:render partial="List/ListBody" arguments="{listData:listData}" />
-	<f:render partial="List/AggregateRows" arguments="{aggregateRows:aggregateRows}" />
+	<f:render partial="{config.listConfiguration.headerPartial}" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
+	<f:render partial="{config.listConfiguration.bodyPartial}" arguments="{listData:listData}" />
+	<f:render partial="{config.listConfiguration.aggregateRowsPartial}" arguments="{aggregateRows:aggregateRows}" />
 </table>
