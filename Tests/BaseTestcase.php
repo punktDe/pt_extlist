@@ -135,7 +135,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_BaseTestcase {
      * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
      */
     public function getRendererConfiguration() {
-    	$rendererChainConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this->configurationBuilderMock);
+    	$rendererChainConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getInstance($this->configurationBuilderMock);
         $rendererConfiguration = $rendererChainConfig->getItemById('100');
         return $rendererConfiguration;
     }

@@ -86,7 +86,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 
 	
 	
-
 	/**
 	 * Loads session data into given object
 	 *

@@ -70,7 +70,7 @@ class Tx_PtExtlist_Utility_NameSpaceArray {
 	/**
 	 * Save a value on an array position identfied by namespace
 	 * 
-	 * @param string $nameSpace
+	 * @param string $nameSpace (Namespace identifier - dot separated)
 	 * @param array $array array to save the data
 	 * @param mixed $data
 	 * @return array
@@ -78,6 +78,7 @@ class Tx_PtExtlist_Utility_NameSpaceArray {
 	public static function saveDataInNamespaceTree($nameSpace, array $array, $data) {
 		
 		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);		
+		
 		$key = array_pop($nameSpaceChunks);
 		$pointer = &$array;
 		

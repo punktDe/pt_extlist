@@ -52,6 +52,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
 	    'list' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory'),
+	    'rendererChain' =>
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory'),
 	    
 	);
 	
@@ -83,14 +85,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
 	protected $columnsConfiguration = NULL;
-	
-	
-	
-	/**
-	 * Holds an instance og the renderer chain configuration and handles it as a singleton instance.
-	 * @var Tx_Ptextlist_Configuration_Renderer_RendererChainConfig
-	 */
-	protected $rendererChainConfiguration = NULL;
 	
 	
 	
@@ -448,13 +442,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
      */
     public function buildRendererChainConfiguration() {
-    	if(is_null($this->rendererChainConfiguration)) {
-
-    		tx_pttools_assert::isArray($this->getRendererChainSettings(), array('message' => 'No renderer chain configuration can be found for list identifier ' . $this->settings['listIdentifier'] . ' 1280234810'));
-    		$this->rendererChainConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this);
-
-    	}
-    	return $this->rendererChainConfiguration;
+    	return $this->buildConfigurationGeneric('rendererChain');
     }
     
     
@@ -503,7 +491,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      * @return Tx_PtExtlist_Domain_Configuration_List_ListConfiguration
      */
     public function buildListConfiguration() {
-    	$this->buildConfigurationGeneric('list');
+    	return $this->buildConfigurationGeneric('list');
     }
 }
 

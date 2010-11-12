@@ -26,8 +26,8 @@
 /**
  * Class implements a chain of renderers, responsible for renderering list data
  *
- * @package pt_extlist
- * @subpackage Domain\Renderer
+ * @package Domain
+ * @subpackage Renderer
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_Renderer_RendererInterface {
@@ -43,8 +43,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	
 	/**
 	 * Holds an instance of renderer chain configuration
-	 * TODO Daniel: add type
-	 * @var unknown_type
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
 	 */
 	protected $rendererChainConfiguration;
 

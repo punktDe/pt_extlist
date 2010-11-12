@@ -29,8 +29,8 @@
  * Testcase for filterbox factory
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\Filter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends T
 		Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
 	}
 	
-	public function testCreateInstanceByfilterboxConfiguration() {
+	public function testCreateInstanceByFilterboxConfiguration() {
 		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
 		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         

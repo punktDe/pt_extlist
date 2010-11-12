@@ -65,7 +65,6 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
 	 */
 	protected static function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$bookmarksConfiguration = $configurationBuilder->buildBookmarksConfiguration();
-$GLOBALS['trace'] = true; trace('Total stranger Fehler in der BookmarkManagerFactory Zeilt 69'); $GLOBALS['trace']=off;
 		$bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'); /* @var $bookmarksRepository Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository */
 		$bookmarksRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());
 		
