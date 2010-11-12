@@ -81,33 +81,9 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
         	$this->sessionData = array();
         }
         
-        // TODO adding keys to namespace array should go into utility class!
-        $this->sessionData = $this->addKeysToArray($sessionNamespace, $this->sessionData);
-		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
+        $this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
 	}
-	
-	
-	
-	/**
-	 * Adds keys to an array given by namespace string (dot-seperated)
-	 * 
-	 * TODO this method should go into namespace array utility class
-	 *
-	 * @param string $keyString
-	 * @param array $array
-	 * @return array
-	 */
-	protected function addKeysToArray($keyString, $array) {
-		$keysArray = explode('.', $keyString);
-		$pointer = &$array;
-		foreach($keysArray as $key) {
-			if (!array_key_exists($key, $pointer)) {
-			    $pointer[$key] = array();
-			}
-			$pointer = &$pointer[$key];
-		}
-		return $array;
-	}
+
 	
 	
 
@@ -207,7 +183,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	public function processBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
 		$bookmarkContentArray = unserialize($bookmark->getContent());
 		$namespace = 'tx_ptextlist_pi1.' . $bookmark->getListId() . '.filters';
-		$this->sessionData = $this->addKeysToArray($namespace, $this->sessionData);
 		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
 	}
 	
