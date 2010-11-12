@@ -109,7 +109,8 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 			}
 			
 			$factoryClass = $this->configurationObjectSettings[$configurationName]['factory'];
-			$this->configurationObjectInstances[$configurationName] = $factoryClass::getInstance($this);
+			//$this->configurationObjectInstances[$configurationName] = $factoryClass::getInstance($this);
+			$this->configurationObjectInstances[$configurationName] = call_user_func("{$factoryClass}::getInstance", $this);
 		}
 		
 		return $this->configurationObjectInstances[$configurationName];
