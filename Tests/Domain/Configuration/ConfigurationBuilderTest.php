@@ -120,7 +120,29 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 			        			'aggregateDataIdentifier' => 'avgField2',
 							)
 						)
-				    )
+				    ),
+				    
+                    'controller' => array (
+						'List' => array (
+							'export' => array(
+								'view' => 'export.exportConfigs.test'
+							)
+						)
+					),
+				    
+				    'export' => array (
+					    	'exportConfigs' => array (
+					    		'test' => array (
+						    		'downloadType' => 'D',
+						    		'fileName' => 'testfile',
+						    		'fileExtension' => 'ext',
+						    		'addDateToFilename' => 1,
+						    		'pager' => array('enabled' => 0),
+					    			'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
+					    		)
+					    	)
+					    )				    
+				    
 			    )
 		    )
 		);
@@ -164,6 +186,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$fieldConfigCollection = $configurationBuilder->buildFieldsConfiguration();
 		$this->assertTrue(is_a($fieldConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
 	}
+
+	
+	public function testBuildExportConfiguration() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
+		$exportConfig = $configurationBuilder->buildExportConfiguration();
+		$this->assertTrue(is_a($exportConfig, 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfig'));
+	}
 	
 	
 	public function testBuildAggregateDataConfiguration() {
@@ -197,7 +226,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	public function testGetPagerSettings() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
-        $pagerSettings = $configurationBuilder->getPagerSettings();
+        $pagerSettings = $configurationBuilder->getSettingsForConfigObject('pager');
         $pagerClassName = $pagerSettings['pagerClassName'];
         $this->assertEquals($pagerClassName,'Tx_PtExtlist_Domain_Model_Pager_DefaultPager', 'Expected pagerClassName was "Tx_PtExtlist_Domain_Model_Pager_DefaultPager" got "' . $pagerClassName . '" instead!'); 
 	}
@@ -216,7 +245,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	public function testGetFilterSettings() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
-		$this->assertEquals($configurationBuilder->getFilterSettings(), $this->settings['listConfig']['test']['filters']);
+		$this->assertEquals($configurationBuilder->getSettingsForConfigObject('filter'), $this->settings['listConfig']['test']['filters']);
 	}
 	
 	
@@ -246,7 +275,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	
 	public function testGetBookmarksSettings() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
-		$bookmarkSettings = $configurationBuilder->getBookmarksSettings();
+		$bookmarkSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
 		$this->assertEquals($this->settings['listConfig']['test']['bookmarks'], $bookmarkSettings);
 	}
 	

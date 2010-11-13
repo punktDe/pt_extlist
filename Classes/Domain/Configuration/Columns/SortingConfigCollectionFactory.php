@@ -40,7 +40,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 		
 		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
-		
 		$sortingFields = t3lib_div::trimExplode(',', $sortingSettings);
 		foreach($sortingFields as $sortingField) {
 			
@@ -63,7 +62,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 				$sortingConfigCollection->addSortingField($sortingConfig, $fieldName);
 			}
 		}
-
+$GLOBALS['trace'] = true; trace($sortingConfigCollection); $GLOBALS['trace']=off;
 		return $sortingConfigCollection;
 	}
 	

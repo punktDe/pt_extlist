@@ -43,5 +43,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigFactory_testcas
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'));
 	}
 	
+	
+	public function testGetInstance() {
+		$exportConfigInstance = Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory::getInstance($this->configurationBuilderMock);
+		$this->assertTrue(is_a($exportConfigInstance, 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfig'));
+	}
+	
 }	
 ?>

@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->dataBackendSettings = $configurationBuilder->getDatabackendSettings();
+		$this->dataBackendSettings = $configurationBuilder->getSettingsForConfigObject('dataBackend');
 
 		$this->checkAndSetDataBackendClass($this->dataBackendSettings['dataBackendClass']);
 		$this->checkAndSetDataMapperClass($this->dataBackendSettings['dataMapperClass']);

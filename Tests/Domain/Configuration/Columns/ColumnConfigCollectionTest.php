@@ -60,7 +60,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollection_tes
 	
 	public function testAddGetCorrectItems() {
 		
-		$columnSettings = $this->configurationBuilderMock->getColumnSettings();
+		$columnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
 		
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
 		$columnConfigCollection->addColumnConfig(10,new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[10]));

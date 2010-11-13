@@ -109,10 +109,10 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 			}
 			
 			$factoryClass = $this->configurationObjectSettings[$configurationName]['factory'];
-			//$this->configurationObjectInstances[$configurationName] = $factoryClass::getInstance($this);
+			//$this->configurationObjectInstances[$configurationName] = $factoryClass::getInstance($this); // PHP 5.3 only ;)
 			$this->configurationObjectInstances[$configurationName] = call_user_func("{$factoryClass}::getInstance", $this);
+
 		}
-		
 		return $this->configurationObjectInstances[$configurationName];
 	}
 
@@ -123,18 +123,21 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	 * @param string $configurationName
 	 */
 	public function getSettingsForConfigObject($configurationName) {
-		
 		if(!array_key_exists($configurationName, $this->configurationObjectSettings)) {
 			throw new Exception('No Configuration Object with name ' . $configurationName . ' defined in ConfigurationBuilder 1289397150');
 		}
 		
 		$tsKey = array_key_exists('tsKey', $this->configurationObjectSettings[$configurationName]) ? $this->configurationObjectSettings[$configurationName]['tsKey'] : $configurationName;
-		$settings = $this->settings[$tsKey];
-		
-		if(array_key_exists('prototype', $this->configurationObjectSettings[$configurationName]['prototype'])) {
-			$settings = $this->getMergedSettingsWithPrototype($settings, $this->configurationObjectSettings[$configurationName]['prototype']);
+		if($tsKey) {
+			$settings = array_key_exists($tsKey, $this->settings) ? $this->settings[$tsKey] : array();
+		} else {
+			$settings = $this->settings;
 		}
 		
+		if(array_key_exists('prototype', $this->configurationObjectSettings[$configurationName])) {
+			$settings = $this->getMergedSettingsWithPrototype($settings, $this->configurationObjectSettings[$configurationName]['prototype']);
+		}
+	
 		return $settings;
 	}
 	
@@ -175,6 +178,41 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
     	
     	return $protoTypeSettings;
     }
+    
+    
+    /**
+     * Returns array of settings for current list configuration
+     *
+     * @return array
+     */
+    public function getSettings($key = NULL) {
+    	if(!$key) {
+        	return $this->settings;	
+        } else {
+        	if(array_key_exists($key, $this->settings)) {
+        		return $this->settings[$key];
+        	}
+        }
+    }
+	
+	
+	/**
+	 * Merges configuration of settings in namespace of list identifiert
+	 * with settings from plugin.
+	 * 
+	 * @param void
+	 * @return void
+	 */
+	protected function mergeAndSetGlobalAndLocalConf() {
+		$settingsToBeMerged = $this->origSettings;
+		unset($settingsToBeMerged['listConfig']);
+		if (is_array($this->origSettings['listConfig'][$this->listIdentifier])) {
+			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+	            $settingsToBeMerged,
+	            $this->origSettings['listConfig'][$this->listIdentifier]
+	        );
+	        $this->settings = $mergedSettings;
+		}
+	}
 }
- 
 ?>

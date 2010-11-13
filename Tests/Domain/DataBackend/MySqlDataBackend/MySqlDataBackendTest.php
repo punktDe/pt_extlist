@@ -514,7 +514,7 @@ GROUP BY company
 	}
 	
 	protected function getFieldConfigMockForTableAndFieldAndIdentifier($table, $field, $identifier) {
-		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('table' => $table, 'field' => $field)));
+		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($this->configurationBuilder,$identifier, array('table' => $table, 'field' => $field)));
         $fieldConfigurationMock->expects($this->any())
             ->method('getTable')
             ->will($this->returnValue($table));
@@ -526,7 +526,7 @@ GROUP BY company
 	
 	
 	protected function getFieldConfigMockForSpecialAndIdentifier($special, $identifier) {
-		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('special' => $special)));
+		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($this->configurationBuilder,$identifier, array('special' => $special)));
         $fieldConfigurationMock->expects($this->any())
             ->method('getSpecial')
             ->will($this->returnValue($special));

@@ -124,5 +124,4 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	}
 	
 }
-
 ?>

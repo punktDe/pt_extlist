@@ -118,7 +118,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx
 	
         
 	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
+		$this->initDefaultConfigurationBuilderMock($this->settings);
 	}
 	
 	
@@ -126,10 +126,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx
 	public function testGetInstance() {
 		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilderMock);
 		
+		$this->assertTrue(is_a($pagerCollection, 'Tx_PtExtlist_Domain_Model_Pager_PagerCollection'));
+		
 		$this->assertEquals(1, $pagerCollection->count());
 		
 		$pager = $pagerCollection->getItemById('default');
-//		print_r($pager);
 		$this->assertNotNull($pager);
 	}
 	

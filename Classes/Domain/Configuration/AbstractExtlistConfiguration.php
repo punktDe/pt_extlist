@@ -24,18 +24,40 @@
 ***************************************************************/
 
 /**
- * Factory class for databaceknd config objects
+ * Class implements an abstract configuration object
  *
  * @package Domain
- * @subpackage Configuration\DataBackend
+ * @subpackage Configuration
+ * @author Michael Knoll <knoll@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory {
+abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration($configurationBuilder);
-
-		return $dataBackendConfig;
+	/**
+	 * The listidentifier this config object belings to
+	 * 
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
+	
+	/**
+	 * Injects configurationbuilder
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+		$this->listIdentifier = $configurationBuilder->getListIdentifier();
+	}
+	
+	
+	
+	/**
+	 * @return string listIdentifier
+	 */
+	public function getListIdentifier() {
+		return $this->listIdentifier;
 	}
 }
 ?>

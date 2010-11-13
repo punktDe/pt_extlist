@@ -30,21 +30,7 @@
  * @subpackage Configuration\List
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig {
-
-	/**
-	 * Holds list identifier of current list
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	/**
-	 * @var array
-	 */
-	protected $settings;
-	
+class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
 	/**
 	 * @var string 
@@ -62,35 +48,15 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig {
 	 * @var string headerPartial
 	 */
 	protected $agregateRowsPartial;
-	
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->settings = $configurationBuilder->getListSettings();
-		$this->initPropertiesFromSettings();
-	}
-	
-	
+
 	
 	/**
 	 * Set the properties
 	 */
-	protected function initPropertiesFromSettings() {
-			
-		if(array_key_exists('headerPartial', $this->settings)) {
-				$this->headerPartial = $this->settings['headerPartial'];
-		}
-			
-		if(array_key_exists('bodyPartial', $this->settings)) {
-				$this->bodyPartial = $this->settings['bodyPartial'];
-		}
-			
-		if(array_key_exists('agregateRowsPartial', $this->settings)) {
-				$this->agregateRowsPartial = $this->settings['agregateRowsPartial'];
-		}
+	protected function init() {
+		$this->setValueIfExistsAndNotNothing('headerPartial');
+		$this->setValueIfExistsAndNotNothing('bodyPartial');
+		$this->setValueIfExistsAndNotNothing('agregateRowsPartial');
 	}
 	
 	

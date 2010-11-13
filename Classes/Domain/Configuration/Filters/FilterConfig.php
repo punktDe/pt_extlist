@@ -32,18 +32,9 @@
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractConfiguration
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
 															 implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
-	
-	/**
-	 * Identifier of list to which this filter belongs to
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	
+
 	/**
 	 * Identifier of filterbox to which this filter belongs to
 	 *
@@ -246,9 +237,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @param array $settings
 	 * @param string $filterBoxIdentifier
 	 */
-	public function __construct($settings, $filterboxIdentifier) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder, $settings, $filterboxIdentifier) {
 		$settings['filterboxIdentifier'] = $filterboxIdentifier;
-		parent::__construct($settings);
+		parent::__construct($configurationBuilder, $settings);
 	}
 	
 	

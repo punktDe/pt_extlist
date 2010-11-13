@@ -55,8 +55,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigFactory {
 		$aggregateRowConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig();
 		
 		foreach($aggregateRowSettings as $columnIdentifier => $aggregateColumnSettings) {
-			$aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($aggregateColumnSettings, $columnIdentifier);
-			$aggregateColumnConfig->injectConfigurationBuilder($configurationBuilder);
+			$aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($configurationBuilder, $aggregateColumnSettings, $columnIdentifier);
 			$aggregateRowConfig->addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier);
 		}
 		

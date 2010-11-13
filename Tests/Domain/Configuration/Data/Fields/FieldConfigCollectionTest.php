@@ -26,9 +26,9 @@
 /**
  * Testcase for field config collection
  *
- * @package Typo3
- * @subpackage pt_extlist
- * @author Daniel Lienert <linert@punkt.de>
+ * @package Tests
+ * @subpackage Domain\Configuration\Data\Fields
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
@@ -61,6 +61,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
                 'access' => '1,2,3,4'
             )
 		);
+		
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	
@@ -97,8 +99,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
 	
 	public function testAddGetCorrectItems() {
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', $this->aggregateSettings['field1']));
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', $this->aggregateSettings['field2']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
 		$fieldConfig1 = $fieldConfigCollection->getFieldConfigByIdentifier('field1');
 		$this->assertEquals($fieldConfig1->getIdentifier(), 'field1');
 		$fieldConfig2 = $fieldConfigCollection->getFieldConfigByIdentifier('field2');
@@ -108,9 +110,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
 	
 	public function testAxtractCollectionByIdentifierList() {
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', $this->aggregateSettings['field1']));
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', $this->aggregateSettings['field2']));
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field3', $this->aggregateSettings['field3']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field3', $this->aggregateSettings['field3']));
 		
 		$extractFieldConfigCollection = $fieldConfigCollection->extractCollectionByIdentifierList(array('field1', 'field3'));
 		$this->assertEquals(count($extractFieldConfigCollection), 2);

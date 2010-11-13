@@ -66,13 +66,14 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param string $columnIdentifier 
 	 * @param array $aggregateColumnSettings array of coumn settings
 	 * @return void
 	 */
-	public function __construct(array $settings, $columnIdentifier) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings, $columnIdentifier) {
 		$settings['columnIdentifier'] = $columnIdentifier;
-		parent::__construct($settings);
+		parent::__construct($configurationBuilder, $settings);
 	}	
 	
 	

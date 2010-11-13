@@ -102,8 +102,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DummyConfigurationObject extends T
 
 class Tx_PtExtlist_Tests_Domain_Configuration_AbstractConfigurationBuilder_DummyConfigurationObjectfactory {
 	public function getInstance(Tx_PtExtlist_Tests_Domain_Configuration_AbstractConfigurationBuilder_Stub $configurationBuilder) {
-		$configObject = new Tx_PtExtlist_Tests_Domain_Configuration_DummyConfigurationObject(array('key1' => 'value1'));
-		$configObject->injectConfigurationBuilder($configurationBuilder);
+		$configObject = new Tx_PtExtlist_Tests_Domain_Configuration_DummyConfigurationObject($configurationBuilder, array('key1' => 'value1'));
 		return $configObject;
 	}
 }

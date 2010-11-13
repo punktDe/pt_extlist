@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 	 */
 	protected static function buildAggregateConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
-		$aggregateSettingsArray = $configurationBuilder->getAggregateDataSettings();
+		$aggregateSettingsArray = $configurationBuilder->getSettingsForConfigObject('aggregateData');
 		
 		foreach($aggregateSettingsArray as $aggregateIdentifier => $aggregateSettings) {
 			$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig($aggregateIdentifier, $aggregateSettings, $configurationBuilder);

@@ -28,9 +28,10 @@
  *
  * @package Domain
  * @subpackage Configuration\Data\Fields 
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
+class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
 	/**
 	 * Field Identifier
@@ -85,29 +86,36 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	
 	
 	
-	public function __construct($identifier, $fieldSettings) {
-		tx_pttools_assert::isNotEmptyString($identifier, array('message' => 'No identifier specified. 1277889450'));
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 */
+	protected function init() {
+		$this->setRequiredValue('identifier', 'No field identifier specified. 1277889450');
 		
-		if(!trim($fieldSettings['special']) && (!trim($fieldSettings['table']) || !trim($fieldSettings['field']))) {
+		
+		if(!trim($this->settings['special']) && (!trim($this->settings['table']) || !trim($this->settings['field']))) {
 			throw new Exception('Either a table and a field or a special string has to be given! 1281353522');
 		}
 		
-		$this->identifier = $identifier;
-		$this->table = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['table']);
-		$this->field = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['field']);
-		$this->special = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($fieldSettings['special']);
+		$this->table = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['table']);
+		$this->field = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['field']);
+		$this->special = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['special']);
 		
-		if (array_key_exists('isSortable', $fieldSettings)) {
-			$this->isSortable = $fieldSettings['isSortable'] == 1 ? true : false;
-		}
+		$this->setBooleanIfExistsAndNotNothing('isSortable');
+		$this->setBooleanIfExistsAndNotNothing('expandGroupRows');
 		
-		if (array_key_exists('accessGroups', $fieldSettings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',', $fieldSettings['accessGroups']);
+		if(array_key_exists('accessGroups', $this->settings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
 		}
+	}
+	
+	
+	
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $identifier, $settings) {
 		
-		if (array_key_exists('expandGroupRows', $fieldSettings)) {
-			$this->expandGroupRows = $fieldSettings['expandGroupRows'] == 1 ? true : false;
-		}
+		$settings['identifier'] = $identifier;
+		parent::__construct($configurationBuilder, $settings);
 	}
 
 	
@@ -167,6 +175,4 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig {
 	}
 	
 }
-
-
 ?>

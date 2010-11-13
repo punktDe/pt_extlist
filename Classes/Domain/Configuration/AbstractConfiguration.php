@@ -62,24 +62,15 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	
 	/**
 	 * Constructor for configuration object
-	 *
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder
 	 * @param array $settings
 	 */
-	public function __construct(array $settings = array()) {
-		$this->settings = $settings;
-		$this->init();
-	}
-	
-	
-	
-	/**
-	 * Injects configurationbuilder
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder, array $settings = array()) {
 		$this->configurationBuilder = $configurationBuilder;
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
+		$this->settings = $settings;
+		$this->init();
 	}
 	
 	
@@ -159,11 +150,13 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	 */
 	protected function setBooleanIfExistsAndNotNothing($tsKey, $internalPropertyName = NULL) {
 		$property = $internalPropertyName ? $internalPropertyName : $tsKey;
-		if (array_key_exists($tsKey, $this->settings) && trim($this->settings[$tsKey])) {
-			$this->$property = true;
-		} else {
-			$this->$property = false;
-		}
+		if (array_key_exists($tsKey, $this->settings)) {
+			if(trim($this->settings[$tsKey]) != '1') {
+				$this->$property = false;
+			} else {
+				$this->$property = true;
+			}
+		}	
 	}
 	
 	

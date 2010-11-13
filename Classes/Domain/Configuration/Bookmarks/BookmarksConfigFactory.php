@@ -24,30 +24,25 @@
 ***************************************************************/
 
 /**
- * Class implementing factory for for the renderer chain configuration
- * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * Class implements factory for export configuration
+ *
  * @package Domain
- * @subpackage Configuration\Renderer
+ * @subpackage Configuration\Export
+ * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
+
+class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory {
 	
 	/**
+	 * Returns a instance of a bookmark configuration.
+	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$rendererChainSettings = $configurationBuilder->getSettingsForConfigObject('rendererChain');
-		$rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder, $rendererChainSettings);
-		
-		ksort($rendererChainSettings);
-		
-		foreach($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
-			$rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($configurationBuilder,  $rendererSettings);	
-			$rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
-		}
-		
-		return $rendererChainConfiguration;
+		$bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
+		$bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($configurationBuilder, $bookmarksSettings);
+		return $bookmarkConfig;
 	}
 }
 ?>
