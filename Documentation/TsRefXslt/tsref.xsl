@@ -53,6 +53,18 @@
 						<seg>
 							<xsl:value-of select="DATATYPE"/>
 						</seg>
+						<seg>
+							<xsl:value-of select="POSIBLEVALUES"/>
+						</seg>
+						<seg>
+							<xsl:value-of select="DEFAULT"/>
+						</seg>
+						<seg>
+							<xsl:value-of select="STDWRAP"/>
+						</seg>
+						<seg>
+							<xsl:value-of select="PROTOTYPE"/>
+						</seg>
 					</seglistitem>
 					<seglistitem>
 						
