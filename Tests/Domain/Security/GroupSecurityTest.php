@@ -70,7 +70,6 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 	public function testGroups() {
 		$collection = $this->configurationBuilderMock->buildFieldsConfiguration();
 		$groups = $collection->getItemById('field1')->getAccessGroups();
-		$GLOBALS['trace'] = true; trace($groups); $GLOBALS['trace']=off;
 		$this->assertEquals('foo', $groups[0]);
 		$this->assertEquals('bar', $groups[1]);
 	}

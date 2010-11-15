@@ -1,0 +1,1184 @@
+# This changelog file is automatically written by git and holds the git commit message history.
+# Do not edit the file manually!
+
+e799bb0 2010-11-13 13:55:05 +0100 (Daniel Lienert) message: RFT: Configurationbuilder Refactoring ADD: AbstractConfigBuilder and AbstractConfiguration RFT: Objects and Tests
+7ddf4f7 2010-11-12 11:12:52 +0100 (Daniel Lienert) message: FIX: Made pt_extlist PHP 5.2.x compatible
+44d2bd5 2010-11-12 10:27:25 +0100 (Daniel Lienert) message: FIX: Reecursion in DatabackenCreation
+4a2ffba 2010-11-12 09:16:37 +0100 (Daniel Lienert) message: RMV: addKeysToArray from SessionPersistanceManager. It seesm that the methos has no functunality any more...
+afa154d 2010-11-10 21:28:11 +0100 (Daniel Lienert) message: Changed FilterFactory to use the DataBackend Constructor with configBuilder. Version is broken on my machine .. because of an unmodified extbase version?!
+5a565ca 2010-11-10 18:43:10 +0100 (Daniel Lienert) message: ADD: Config(urationbuilder) object to list template and made partials configurable
+9a25239 2010-11-10 18:07:06 +0100 (Daniel Lienert) message: ADD: Test for AbstractConfigurationBuilder
+3bd46d7 2010-11-10 17:37:38 +0100 (Daniel Lienert) message: CHG: Magic Function for config getter/builder
+f20bb6a 2010-11-10 17:07:40 +0100 (Daniel Lienert) message: RFT: AggregateColumnConfig
+4642332 2010-11-10 16:12:30 +0100 (Daniel Lienert) message: ADD: Generic settings getter to Configurationbuilder FIX: Factories and tests
+a20909c 2010-11-10 15:07:05 +0100 (Daniel Lienert) message: ADD: Abstract config builder RFT: Builderfunctions for aggregate config objects
+4cba47a 2010-11-10 13:48:12 +0100 (Daniel Lienert) message: CHG: AbstractConfigurationObject RFT: FilterConfig RFT: FilterConfig tests
+8144a02 2010-11-09 17:41:13 +0100 (Michael Knoll) message: FIX: Fixed test for rendering chain
+8b4ec44 2010-11-09 17:33:31 +0100 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+b5eed41 2010-11-09 17:33:20 +0100 (Michael Knoll) message: FIX: Fixed enable setting in renderer chain
+7c98af1 2010-11-09 17:32:30 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+2657d8e 2010-11-09 17:32:23 +0100 (Daniel Lienert) message: CHG: ProxyFilter
+b845194 2010-11-09 16:42:34 +0100 (Michael Knoll) message: RFT: Renamed caption renderer. Finished refactoring of rendering
+499f0d9 2010-11-09 16:22:46 +0100 (Michael Knoll) message: RFT: Renamed cell rendering strategies
+37886ee 2010-11-09 16:11:48 +0100 (Michael Knoll) message: FIX Fixed renderer, not finished yet
+59d76c6 2010-11-09 16:09:04 +0100 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+c1775ee 2010-11-09 16:08:51 +0100 (Michael Knoll) message: ADD: Row renderer is now working with old cell rendering strategy. Not finished yet
+f9d01bf 2010-11-09 15:13:12 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+93f5149 2010-11-09 15:13:05 +0100 (Daniel Lienert) message: FIX: Pager. Pager was not correct initialized when no session data was present
+fa62f96 2010-11-09 15:12:35 +0100 (Michael Knoll) message: ADD: Added injector and getter for renderer configuration in row renderer
+5848511 2010-11-09 15:04:32 +0100 (Michael Knoll) message: ADD: Added row renderer and testcase
+f288e5e 2010-11-09 14:39:54 +0100 (Michael Knoll) message: RFT: Removed cell and caption rendering from abstract renderer
+2f28435 2010-11-09 14:11:13 +0100 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e39d875 2010-11-09 14:10:58 +0100 (Michael Knoll) message: RFT: Refactored rendering stuff. Not yet finished
+3144ccc 2010-11-09 14:10:46 +0100 (Daniel Lienert) message: CHG: Formating and Comments
+d9eeb2b 2010-11-09 12:41:32 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+057eb89 2010-11-09 12:41:13 +0100 (Daniel Lienert) message: FIX: Classes/Utility/FlexformDataProvider.php
+ce18240 2010-11-09 12:41:02 +0100 (Lwam Berhane) message: ADD: new stylesheet
+e4e3165 2010-11-09 11:45:29 +0100 (Lwam Berhane) message: ADD:example for ts reference
+48fae2e 2010-11-09 11:20:38 +0100 (Lwam Berhane) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+d9e5a26 2010-11-09 11:20:29 +0100 (Lwam Berhane) message: CHG:changed stylesheet
+89b5e8a 2010-11-08 17:52:22 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+86031ce 2010-11-08 17:52:19 +0100 (Daniel Lienert) message: ADD: List Configuration & Tests
+225e3f5 2010-11-08 17:26:57 +0100 (Michael Knoll) message: RFT: Lots of refactoring on all rendering stuff. Not yet finished
+c63af12 2010-11-08 15:54:08 +0100 (Daniel Lienert) message: FIX: Configbuidler add Test for renderChaninConfig
+39ec430 2010-11-08 15:23:14 +0100 (Daniel Lienert) message: FIX: ProxyFilter tests
+44e94a7 2010-11-08 15:02:38 +0100 (Daniel Lienert) message: FIX: RendererConfigFactoryTest
+76ffec2 2010-11-08 14:56:00 +0100 (Daniel Lienert) message: FIX: RendererChainConfigFactory Test
+3466892 2010-11-08 14:42:45 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+c6b4106 2010-11-08 15:34:18 +0100 (Michael Knoll) message: TASK: Merged a conflict
+316ab60 2010-11-08 15:32:25 +0100 (Michael Knoll) message: RFT: Refactored file structure of renderer
+483145b 2010-11-08 15:09:13 +0100 (Michael Knoll) message: ADD: Added constructor for rendererchain
+3805cd7 2010-11-08 14:57:02 +0100 (Michael Knoll) message: ADD: Added rendering of captions in rendering chain
+8760303 2010-11-08 14:53:41 +0100 (Michael Knoll) message: ADD: Added method to call all renderers in a chain, when rendering is started
+26b7fb7 2010-11-08 14:42:39 +0100 (Daniel Lienert) message: RFT: RendererSettings
+8a65e1a 2010-11-08 14:28:35 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+5b0f638 2010-11-08 14:28:32 +0100 (Daniel Lienert) message: RFT: Renderer Configuration
+422520a 2010-11-08 14:27:51 +0100 (Daniel Lienert) message: RFT: Renderer Configuration
+0fd6c99 2010-11-08 14:26:07 +0100 (Michael Knoll) message: ADD: Added add and getter for renderers in renderer chain
+c4102e1 2010-11-08 14:08:32 +0100 (Michael Knoll) message: ADD: Renderer chain now implements renderer interface
+bfedbbf 2010-11-08 13:56:44 +0100 (Michael Knoll) message: RFT: Removed some unused references
+afcfd83 2010-11-08 13:44:34 +0100 (Michael Knoll) message: ADD: Added renderer chain and testcase
+4a8dddd 2010-11-08 12:47:36 +0100 (Michael Knoll) message: RFT: Some minor formatting changes
+f3c8b9d 2010-11-04 13:25:54 +0100 (Simon Schaufelberger) message: ADD: no border around sorting image
+1250250 2010-11-03 18:30:11 +0100 (Daniel Lienert) message: RFT CSS styles
+63b43b2 2010-11-03 09:01:48 +0100 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+f0b9261 2010-11-03 08:59:39 +0100 (Daniel Lienert) message: CHG: ProxyFilter (not functional)
+2463f03 2010-10-29 16:25:17 +0200 (Simon Schaufelberger) message: ADD: alt attribute to image tag
+1429e0d 2010-10-29 16:09:23 +0200 (Simon Schaufelberger) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+d9f548e 2010-10-29 16:09:07 +0200 (Simon Schaufelberger) message: TASK: changed end of line to unix
+1baf3d2 2010-10-29 13:42:56 +0200 (Daniel Lienert) message: RMV: unneeded lines from mapper
+e0a0ea6 2010-10-29 09:48:11 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+1388f84 2010-10-29 01:28:26 +0200 (Daniel Lienert) message: RFT: Header and other things ...
+b14e031 2010-10-29 01:27:39 +0200 (Daniel Lienert) message: ADD: Viewhelper and partial for left-to-right structured lists#
+6c44ca2 2010-10-29 00:22:28 +0200 (Daniel Lienert) message: ADD: Default sorting state to listHeader Factory
+69bc7d0 2010-10-29 00:00:25 +0200 (Daniel Lienert) message: FIX: List Header was built twice
+14cae92 2010-10-28 23:10:03 +0200 (Daniel Lienert) message: FIX: Aggregates are not respecting column access
+a0ab99b 2010-10-28 22:42:16 +0200 (Daniel Lienert) message: ADD: Configuration object for list defaults - added default sorting column
+9c28753 2010-10-28 15:22:40 +0200 (Daniel Lienert) message: CHG: Changed the "specialValues" value store in cell to add more than one value there, as the name says :)
+c5e54ae 2010-10-27 17:22:39 +0200 (Simon Schaufelberger) message: TASK: changed line endings to unix and convert file to utf-8; CHG: changed right border of cell to 4px for default padding if text is aligned right
+ef9f889 2010-10-27 03:18:05 +0200 (Daniel Lienert) message: CHG: Comments
+0b73bb5 2010-10-26 23:46:32 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+50f753e 2010-10-27 13:01:20 +0200 (Simon Schaufelberger) message: CHG: changed template path from relative path to EXT path
+6fe7f04 2010-10-27 12:41:17 +0200 (Simon Schaufelberger) message: CHG: removed all spaces at end of line
+ebbbe52 2010-10-27 12:38:30 +0200 (Simon Schaufelberger) message: CHG: removed all spaces at end of line
+2cd99a8 2010-10-27 12:34:52 +0200 (Simon Schaufelberger) message: FIXL: added missing bracket
+1d6d647 2010-10-27 12:31:12 +0200 (Simon Schaufelberger) message: CHG: converted spaces into tabs, FIX: removed bracked that caused a bug
+dfc729f 2010-10-27 12:21:09 +0200 (Simon Schaufelberger) message: CHG: changed tab to space
+544b6ec 2010-10-27 12:01:18 +0200 (Simon Schaufelberger) message: FIX: typoscript bugfix with brackets
+5cdc6ff 2010-10-26 23:46:24 +0200 (Daniel Lienert) message: CHG: xslt for typoscript reference
+3596d78 2010-10-26 21:08:18 +0200 (Daniel Lienert) message: FIX: Remove leading AND from enableFields when no other where clause is given
+afd9a04 2010-10-26 19:38:06 +0200 (Daniel Lienert) message: RFT: ConfigurationbuilderFactory. Former the getInstance method of the factory received the settings array. Now the settings are set statically by the injectSettings method. The getinstance method now receives only the listIdentifier.
+31cd2bd 2010-10-26 15:53:34 +0200 (Daniel Lienert) message: Firstletter filter & tsRef
+0310cfb 2010-10-26 13:34:53 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://elendil-extlist/var/git/punkt.de/pt_extlist
+9ee88fb 2010-10-26 13:13:24 +0200 (Daniel Lienert) message: Add: standard css class for demolists Fix: Inactive Values in filters
+942680a 2010-10-26 11:36:56 +0200 (Daniel Lienert) message: RMV: Campo-Master CSS Files
+b7c6aa1 2010-10-26 11:19:57 +0200 (Daniel Lienert) message: FIX: GroupdataFilter
+ed9abe6 2010-10-26 10:04:29 +0200 (Daniel Lienert) message: FIX: Keys now sorted in select box
+a13535a 2010-10-26 09:46:56 +0200 (Daniel Lienert) message: Moved Configuration/FlexForms/flexform_list.xml to Configuration/FlexForms/flexform.xml to get the backend config functional again? Is this a change of 4.4.4??.
+3c93f68 2010-10-25 23:58:57 +0200 (Michael Knoll) message: TASK: Renamed flexform xml
+9eb584c 2010-10-25 18:04:06 +0200 (Daniel Lienert) message: ADD: More entrys to the tsRef xml
+e51f44f 2010-10-25 17:20:17 +0200 (Daniel Lienert) message: ADD: Aggregates for the whole query and tests
+4bf14e0 2010-10-24 15:57:34 +0200 (Daniel Lienert) message: FIX: Tests after refactoring
+ecfd887 2010-10-24 13:05:59 +0200 (Daniel Lienert) message: ADD: Some entrys to the TSRef Xml file
+8324011 2010-10-24 11:42:16 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://hugo20/home/ry25/public_html/ry25.ptlistdev.play.punkt.de/htdocs/typo3conf/ext/pt_extlist
+6ba92ff 2010-10-24 11:25:07 +0200 (Daniel Lienert) message: RFT: Change HeaderComments: Package/Subpacke
+a13cff0 2010-10-21 17:17:31 +0200 (Daniel Lienert) message: CHG: Configuration, DataBackendInterface, Databackends and AggregateListBuilder to work with query aggregates
+5fab353 2010-10-21 15:21:10 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+23862df 2010-10-21 15:20:55 +0200 (Michael Knoll) message: ADD: Added test controller for generating docbook from typoscript
+6254f29 2010-10-21 12:34:39 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+3798ec8 2010-10-21 12:33:18 +0200 (Daniel Lienert) message: ADD: Tests for aggregate config
+6dc85aa 2010-10-21 12:32:39 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e895612 2010-10-21 12:32:11 +0200 (Michael Knoll) message: ADD: Added XSLT and demo XML for rendering TSReference with DocBook
+24971d7 2010-10-21 08:25:58 +0200 (Daniel Lienert) message: TASK: Fixed .gitignore
+c2adcfe 2010-10-19 19:35:56 +0200 (Daniel Lienert) message: CHG: Fieldidentifier in aggregates are now fielConfig objects
+4e4bcba 2010-10-19 15:55:51 +0200 (Daniel Lienert) message: ADD: Git-Changelog
+ce4028b 2010-10-19 15:53:37 +0200 (Daniel Lienert) message: MERGE
+5e9a5ce 2010-10-19 15:49:18 +0200 (Michael Knoll) message: merge
+d495c54 2010-10-19 15:48:08 +0200 (Michael Knoll) message: merge
+4e5a494 2010-10-19 15:43:39 +0200 (Lwam Berhane) message: CHG: section
+be7d1c2 2010-10-19 14:35:44 +0200 (Daniel Lienert) message: CHG: Some comments CHG: Parameters in aggregate config
+b985d3d 2010-10-19 11:49:51 +0200 (Lwam Berhane) message: ADD: gitignore
+5a71f39 2010-10-19 11:41:11 +0200 (Lwam Berhane) message: CHG:index and sections
+782e5eb 2010-10-19 11:08:25 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+2bcb884 2010-10-19 11:08:21 +0200 (Daniel Lienert) message: ADD: Backend Aggregator (Not completed)
+bbb22d1 2010-10-19 11:07:40 +0200 (Lwam Berhane) message: CHG:index.xml
+d4542bc 2010-10-19 08:36:27 +0200 (Lwam Berhane) message: CHG:section
+fc1b217 2010-10-18 15:54:03 +0200 (Lwam Berhane) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+64eabe2 2010-10-18 15:53:46 +0200 (Lwam Berhane) message: DEL:Index.xml
+efa4b83 2010-10-18 15:53:07 +0200 (Lwam Berhane) message: CHG: section
+1c8ed3f 2010-10-18 14:50:59 +0200 (Lwam Berhane) message: DEL:Index.xml
+2076611 2010-10-18 14:50:14 +0200 (Lwam Berhane) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+534ae06 2010-10-18 15:47:30 +0200 (Michael Knoll) message: TASK: Resolved conflicts
+e6b1b50 2010-10-18 15:46:18 +0200 (Michael Knoll) message: RFT: Some refactorings
+fffbf07 2010-10-18 14:50:05 +0200 (Lwam Berhane) message: CHG:sections
+5212ab6 2010-10-18 13:45:32 +0200 (Lwam Berhane) message: CHG: sections
+e7bbd0c 2010-10-18 13:42:02 +0200 (Lwam Berhane) message: CHG:section
+9d5a85c 2010-10-13 18:31:48 +0200 (Michael Knoll) message: RFT: Refactored some rendering stuff
+0f9bc90 2010-10-13 18:21:23 +0200 (Michael Knoll) message: RFT: Refactored some rendering stuff
+7fb8f39 2010-10-13 18:07:33 +0200 (Michael Knoll) message: ADD: Added doc template / todo
+4495e43 2010-10-12 12:00:10 +0200 (Lwam Berhane) message: CHG: section update
+3ceeacc 2010-10-12 10:06:47 +0200 (Lwam Berhane) message: CHG: section update
+fa111d2 2010-10-09 06:43:33 +0200 (Daniel Lienert) message: MERGE
+d1b5d1d 2010-10-07 15:31:54 +0200 (Lwam Berhane) message: CHG: section
+de7130b 2010-10-07 11:20:23 +0200 (Lwam Berhane) message: CHG: index.xml update
+95bd717 2010-10-07 11:17:23 +0200 (Lwam Berhane) message: CHG: index.xml update
+15f28f0 2010-10-02 15:36:59 +0200 (Daniel Lienert) message: Merge branch 'master' of /home/htdocs/t3con/typo3conf/ext/pt_extlist
+1af373c 2010-10-02 15:33:49 +0200 (Daniel Lienert) message: CHG: Package / Subpackage
+762fceb 2010-09-27 14:32:17 +0200 (Lwam Berhane) message: CHG:update
+2449bd3 2010-09-27 13:06:20 +0200 (Lwam Berhane) message: CHG:update
+56cb84b 2010-09-24 16:15:37 +0200 (Lwam Berhane) message: CHG:update
+fcdf8d8 2010-09-24 16:01:42 +0200 (Daniel Lienert) message: FIX: Utility/ExternalPlugin is now using the LifecycleManager to get the Session Data
+0e7cb0d 2010-09-24 16:00:03 +0200 (Daniel Lienert) message: DEL: Temp files in Documentation
+3811f5a 2010-09-22 13:45:29 +0200 (Lwam Berhane) message: CHG:file deleted
+16e4a83 2010-09-22 13:43:34 +0200 (Lwam Berhane) message: CHG:section update
+1943c4a 2010-09-22 09:49:24 +0200 (Lwam Berhane) message: CHG: section update
+388bdfc 2010-09-19 06:21:39 +0200 (Daniel Lienert) message: RMV: Traces
+0edca08 2010-09-19 06:20:51 +0200 (Daniel Lienert) message: ADD: Column Configuration cellCSSClass to configure a individual CSS Config Class for each line
+779aa99 2010-09-19 02:33:30 +0200 (Daniel Lienert) message: FIX: GroupdataQuery with specials
+88e0101 2010-09-21 09:44:27 +0200 (Lwam Berhane) message: ADD: new section
+44157b6 2010-09-21 09:40:15 +0200 (Lwam Berhane) message: ADD: new section
+7164285 2010-09-20 17:51:25 +0200 (Lwam Berhane) message: CHG:sections
+bf6dbba 2010-09-20 16:31:09 +0200 (Lwam Berhane) message: CHG:changed sections
+f6fac72 2010-09-20 15:53:37 +0200 (Lwam Berhane) message: CHG: old files deleted
+3f58ae7 2010-09-20 13:56:40 +0200 (Lwam Berhane) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+8af2e9d 2010-09-20 13:34:26 +0200 (Lwam Berhane) message: CHG: section update
+a2ef105 2010-09-18 03:26:31 +0200 (Michael Knoll) message: RFT: Refactored factory for breadcrumbs, controller and tests
+891715a 2010-09-17 18:11:34 +0200 (Michael Knoll) message: ADD: Added tests for breadcrumbs controller actions (not working yet)
+96d7324 2010-09-17 17:54:12 +0200 (Michael Knoll) message: ADD: Implemented reset of filters via breadcrumbs
+b8dd20f 2010-09-17 16:43:55 +0200 (Michael Knoll) message: ADD: Added isActive method to filter interface and abstract filter classes
+633e5e0 2010-09-17 16:43:08 +0200 (Michael Knoll) message: ADD: Added resetFilter action to breadcrumb controller configuration
+9446825 2010-09-17 16:42:42 +0200 (Michael Knoll) message: ADD: Added factory for breadcrumbs collection factory
+f3c808e 2010-09-17 11:04:17 +0200 (Michael Knoll) message: ADD: Added method to add breadcrumbs to breadcrumb collection
+8a8719b 2010-09-17 10:59:13 +0200 (Michael Knoll) message: ADD: Added class for breadcrumb collection and testcase
+ac84bdd 2010-09-17 10:52:31 +0200 (Michael Knoll) message: ADD: Added breadcrumbs configuration to flexform
+bbb4889 2010-09-17 10:41:49 +0200 (Michael Knoll) message: ADD: Added test for getBreadCrumb on String Filter
+7e5d42d 2010-09-17 10:37:46 +0200 (Michael Knoll) message: ADD: Added interface method for getting filter breadcrumb from filters
+e2ab424 2010-09-17 10:26:59 +0200 (Michael Knoll) message: ADD: Added domain methods to breadcrumb object. Added tests
+de9ee8c 2010-09-17 10:13:16 +0200 (Michael Knoll) message: ADD: Added class for filter breadcrumb
+182ff75 2010-09-17 09:59:52 +0200 (Michael Knoll) message: FIX: Fixed reconstitution of default value for filters after reset. CHG: Empty string filter does not generate empty LIKE criteria now
+b1c8d3b 2010-09-17 09:44:57 +0200 (Michael Knoll) message: FIX: Fixed reset bug on filters
+64c41b0 2010-09-17 09:20:18 +0200 (Michael Knoll) message: RFT: Refactored filterbox controller
+56792ab 2010-09-17 09:20:04 +0200 (Michael Knoll) message: FIX: Added flexform data provider class to autoload
+76202f8 2010-09-16 19:16:21 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+466ffab 2010-09-16 19:16:12 +0200 (Michael Knoll) message: ADD: Added new methods in bookmark controller
+7c704dc 2010-09-16 18:42:13 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern/var/git/typo3/extensions/generic/pt_extlist
+3d894d7 2010-09-16 18:42:02 +0200 (Daniel Lienert) message: FIX: ExternalPlugin
+3a5cdf1 2010-09-16 18:39:42 +0200 (Michael Knoll) message: FIX: Fixed resolve template path and filename
+c137117 2010-09-16 18:32:02 +0200 (Michael Knoll) message: FIX: Changed resolving template path and filename
+f52b0ca 2010-09-16 17:53:12 +0200 (Daniel Lienert) message: ADD: Utility ExternalPlugin with access methods for external plugins
+3f0a4fb 2010-09-16 17:18:48 +0200 (Michael Knoll) message: ADD: Bookmark controller now checks whether user is allowed to create public bookmark
+921d9ce 2010-09-16 16:06:47 +0200 (Michael Knoll) message: ADD: Added configuration for bookmarks for users and groups who are allowed to edit public bookmarks
+ad9dc3f 2010-09-16 16:02:57 +0200 (Lwam Berhane) message: Template Updates
+9363ca8 2010-09-16 15:59:29 +0200 (Michael Knoll) message: RFT: Changed key for editing public bookmarks
+1abdd42 2010-09-16 15:55:39 +0200 (Michael Knoll) message: ADD: Added configuration for bookmarks flexform
+70f99cf 2010-09-16 15:30:01 +0200 (Michael Knoll) message: RFT: Changed package names
+c68cc83 2010-09-16 15:26:20 +0200 (Michael Knoll) message: RFT: Changed package and subpackage comments in classes
+9d58dbb 2010-09-16 15:18:00 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+1d0135c 2010-09-16 15:17:52 +0200 (Michael Knoll) message: FIX: Fixed everything belonging to creation of bookmakrs. ATTENTION: Fixed ExtBase Core to make this work
+5ac60f8 2010-09-16 14:00:50 +0200 (Daniel Lienert) message: CHG: Sorting in FlexFormDataProvider
+75e7409 2010-09-16 10:12:28 +0200 (Daniel Lienert) message: Fix: FluidView now working!
+1ece962 2010-09-16 10:01:50 +0200 (Daniel Lienert) message: FIX: Various Bugs in Flexform and Export - CSVView now working
+febff91 2010-09-16 09:30:52 +0200 (Daniel Lienert) message: RFT: Codemonkeywork: Changed Class Header Comment to new naming scheme
+bc9bd98 2010-09-16 09:25:18 +0200 (Daniel Lienert) message: Fix: Fixed export Tests
+f563947 2010-09-16 09:21:38 +0200 (Daniel Lienert) message: RFT: Refactored export to use a configuration object. All tests and assertios moved to configuration object
+b405699 2010-09-15 19:56:52 +0200 (Daniel Lienert) message: CHG: It is now posible to define multiple exportConfigurations and select one of them via flexform ADD: 1-Level Typoscript key redirect in resolve view configuration. Now it is posible to configure the view together with other plugin configuration
+ae8f0c8 2010-09-15 17:19:02 +0200 (Daniel Lienert) message: ADD: Configuration Classes and tests for export
+ad8669f 2010-09-15 16:46:20 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+47cad61 2010-09-15 16:02:01 +0200 (Daniel Lienert) message: ADD: pt_tools require_once
+2f1f0e8 2010-09-15 15:56:28 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+c1a910e 2010-09-15 15:56:25 +0200 (Christoph Ehscheidt) message: FIX: hudson
+95c738c 2010-09-15 15:15:32 +0200 (Lwam Berhane) message: DEL: double files
+f406d8e 2010-09-15 15:12:58 +0200 (Lwam Berhane) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+3eb555a 2010-09-15 15:12:53 +0200 (Lwam Berhane) message: FIX: Renaming
+96ac85f 2010-09-15 15:10:11 +0200 (Lwam Berhane) message: FIX: renaming desaster
+bcb529a 2010-09-15 15:00:28 +0200 (Daniel Lienert) message: ADD: Test for FlexFormProvider
+88d2fee 2010-09-15 14:46:42 +0200 (Lwam Berhane) message: englische version für pt_extlist verfügbar
+b4f3507 2010-09-15 13:51:46 +0200 (Daniel Lienert) message: CHG: Renamed Documentation Folder
+d78729b 2010-09-15 13:49:27 +0200 (Daniel Lienert) message: ADD: FlexformDataProvider for providing select options in flexform CHG: Flexform to use dataproviders for listidentifiers and exportTypes
+d90d506 2010-09-15 09:36:03 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+f678c02 2010-09-15 09:34:02 +0200 (Christoph Ehscheidt) message: ADD: make template changeable
+258ecd1 2010-09-13 16:12:59 +0200 (Christoph Ehscheidt) message: CHG: SubControllerFactory ControllerType fixed
+42918da 2010-09-13 14:40:36 +0200 (Christoph Ehscheidt) message: ADD: listIdentifier is automatically set in the subcontrollerFactory
+dd7e9e7 2010-09-13 13:54:39 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+7120706 2010-09-13 12:16:40 +0200 (Lwam Berhane) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+a37f370 2010-09-13 12:15:29 +0200 (Lwam Berhane) message: ADD: documentation
+598bf97 2010-09-12 22:56:04 +0200 (Daniel Lienert) message: RFT: Moved Export Views to Export Folder
+0e885bf 2010-09-12 22:54:17 +0200 (Daniel Lienert) message: RFT: Moved Export Views to Export Folder
+9ff8166 2010-09-12 22:53:58 +0200 (Daniel Lienert) message: ADD: Export fluid list view
+e1bfdb1 2010-09-12 21:16:40 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+b21f966 2010-09-13 10:55:54 +0200 (Michael Knoll) message: RFT: Refactored way, bookmarks are processed
+39ce593 2010-09-13 08:44:24 +0200 (Michael Knoll) message: ADD: Added bookmark repository to bookmark manager via factory
+cb0832b 2010-09-13 08:19:42 +0200 (Michael Knoll) message: ADD: Bookmark manager now has bookmark repository and injector
+e5dd622 2010-09-13 08:15:34 +0200 (Michael Knoll) message: ADD: Bookmark manager is now added to data backend
+6791c31 2010-09-13 07:03:30 +0200 (Michael Knoll) message: ADD: Add builder for bookmark config to configuration builder. RFT: Refactored bookmark configuration
+49698df 2010-09-13 06:35:33 +0200 (Michael Knoll) message: RFT: Made bookmark controller use bookmarkmanager factory
+59b9090 2010-09-13 06:05:15 +0200 (Michael Knoll) message: ADD: Added tests for bookmark manager afactory
+dbfe71f 2010-09-13 05:28:02 +0200 (Michael Knoll) message: ADD: Added factory for bookmark manager and testcase
+cb33394 2010-09-13 05:27:48 +0200 (Michael Knoll) message: RFT: Fixed naming of testcase
+36631e4 2010-09-13 05:10:02 +0200 (Michael Knoll) message: ADD: Added all tests for bookmarks configuration
+f393ea7 2010-09-13 04:45:25 +0200 (Michael Knoll) message: ADD: Added configuration class for bookmarks and testcase
+08bace1 2010-09-13 04:20:30 +0200 (Michael Knoll) message: FIX: Removed print_r. Last commit before bookmarks refactoring
+cd8e522 2010-09-13 02:40:18 +0200 (Michael Knoll) message: FIX: Fixed test for bookmark manager
+e750b82 2010-09-13 02:37:16 +0200 (Michael Knoll) message: FIX: Fixed test for bookmark controller
+dd9ed42 2010-09-13 02:26:58 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://elendil/var/git/punkt.de/pt_extlist
+cdfe2ad 2010-09-13 02:26:35 +0200 (Michael Knoll) message: ADD: Added missing helper methods to bookmark controller
+0208cf5 2010-09-13 01:26:26 +0200 (Michael Knoll) message: ADD: Added test for confirmed deletion of bookmark
+04189bf 2010-09-13 01:17:09 +0200 (Michael Knoll) message: ADD: Added delete action for bookmarks and test
+860e0b9 2010-09-13 00:52:03 +0200 (Michael Knoll) message: ADD: Added test for bookmark controller create action
+4a529e7 2010-09-13 00:32:23 +0200 (Michael Knoll) message: ADD: Added test for bookmark controller new action
+d2567d9 2010-09-13 00:15:08 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://elendil/var/git/punkt.de/pt_extlist
+a5e65ae 2010-09-13 00:14:49 +0200 (Michael Knoll) message: FIX: Fixed tests for bookmarks controller
+1e0ea9e 2010-09-12 19:58:42 +0200 (Daniel Lienert) message: FIX: Implement abstract Methode setIsActive
+0a4a804 2010-09-12 19:58:22 +0200 (Daniel Lienert) message: FIX: Select inactiveOption when no values are given
+302868a 2010-09-12 19:35:27 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://elendil-extlist/var/git/punkt.de/pt_extlist
+08a949e 2010-09-12 15:01:36 +0200 (Daniel Lienert) message: CHG: Changed the usage of isActive in filter. This value is now set in the init method. isActive is set to false if filterValue == inactveValue
+5603a87 2010-09-12 14:19:06 +0200 (Daniel Lienert) message: ADD: InvalidValue to filterConfiguration to select the invalid value explicit
+9d51de7 2010-09-12 12:44:37 +0200 (Daniel Lienert) message:  FIX: Corrected filterCriteriaCreation when a filter points to a field with special clause
+57f6962 2010-09-12 00:07:29 +0200 (Michael Knoll) message: ADD: Bookmark is re-written to session now, but it is too late as filters are alreade created...
+62c5b5f 2010-09-11 23:49:33 +0200 (Michael Knoll) message: ADD: Added tests for bookmark manager
+80c44bb 2010-09-11 23:17:43 +0200 (Michael Knoll) message: DEL: Removed var_dump
+282c6eb 2010-09-11 23:13:52 +0200 (Michael Knoll) message: FIX: Fixed session management to use object namespaces now
+9c96176 2010-09-11 21:45:32 +0200 (Michael Knoll) message: ADD: Added injector for session persistence manager into bookmar manager
+4999bf3 2010-09-11 21:42:39 +0200 (Michael Knoll) message: RFT: Removed unused function from session persistence manager
+ddfb21b 2010-09-11 21:41:06 +0200 (Michael Knoll) message: RFT: Removed unused filterbox stuff from bookmarkmanager
+09f6c07 2010-09-11 21:38:55 +0200 (Michael Knoll) message: RFT: Refactored session persistence manager to use namespace array
+01c49ff 2010-09-11 21:08:47 +0200 (Michael Knoll) message: ADD: Added functionality to store bookmarks (not finished yet)
+46c206a 2010-09-11 01:29:18 +0200 (Daniel Lienert) message: FIX: array_key_exists is not fucntional in $templateVariableContainer
+5e7ca00 2010-09-11 01:11:41 +0200 (Daniel Lienert) message: FIX (?): csv export In the version 1.3.0 alpha (FORGE: 10.09.2010) the template variables are given by $this->baseRenderingContext->getTemplateVariableContainer(); - not by this->values
+4bd17b4 2010-09-10 23:46:30 +0200 (Daniel Lienert) message: ADD Explicit data provider for filters and test
+bfae662 2010-09-10 11:41:08 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://elendil-extlist/var/git/punkt.de/pt_extlist
+3fc31ec 2010-09-10 11:10:49 +0200 (Daniel Lienert) message: FIX: AbstractFilter
+dcbeda5 2010-09-10 11:06:19 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+29655e3 2010-09-10 11:06:04 +0200 (Daniel Lienert) message: CHG: Removed Array hint from injectSessionData to avoid an error if no sesseion data is aviable for a filter
+71673e1 2010-09-09 15:57:56 +0200 (Michael Knoll) message: ADD: Added getter and setter to bookmark manager
+29a17fb 2010-09-09 15:52:19 +0200 (Michael Knoll) message: ADD: Added factory method to bookmark manager
+7e36e6e 2010-09-08 15:04:59 +0200 (Michael Knoll) message: ADD: Added tests for views
+a50a37c 2010-09-08 14:56:56 +0200 (Daniel Lienert) message: FIX: Some Bugs in Templates
+8b7bd0d 2010-09-08 14:56:05 +0200 (Michael Knoll) message: ADD: Added abstract view for export views
+3399876 2010-09-08 13:01:45 +0200 (Michael Knoll) message: ADD: Added template for export settings, added flexform configuration values for export
+e8213c7 2010-09-08 04:17:37 +0200 (Michael Knoll) message: RFT: Refactored export configuration (not finished yet)
+b1038bf 2010-09-08 03:56:06 +0200 (Michael Knoll) message: ADD: Added export action to all configs
+a0cf17a 2010-09-08 03:06:32 +0200 (Michael Knoll) message: ADD: Added testcase for export action on list controller
+9e2e804 2010-09-08 03:06:08 +0200 (Michael Knoll) message: RFT: Refactored CSV view
+4d25e16 2010-09-08 01:03:10 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://elendil/var/git/punkt.de/pt_extlist
+d4d65bb 2010-09-07 12:28:25 +0200 (Daniel Lienert) message: RMV: HTML Formating in ListBody. With Formating on, it is not possible to use a renderTemplate. Make it configurable in TS?
+5d17bf7 2010-09-07 11:46:50 +0200 (Daniel Lienert) message: FIX: AbstractOptionsFilter.php
+7701492 2010-09-07 11:28:55 +0200 (Daniel Lienert) message: CHG: Templates CHG: AbstractOptionsFilter - inactiveOption is now prepented to list
+2e7264a 2010-09-07 10:12:53 +0200 (Daniel Lienert) message: CHG: Some Changes on FilterTemplates
+1049e1c 2010-09-07 09:41:23 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern/var/git/typo3/extensions/generic/pt_extlist
+bc3e872 2010-09-07 09:41:16 +0200 (Daniel Lienert) message: CHG: Updated TS Conf
+cc6e78a 2010-09-07 09:38:15 +0200 (Daniel Lienert) message: ADD: Option showSubmit to FilterboxConfig
+c3f2491 2010-09-06 16:02:46 +0200 (Daniel Lienert) message: CHG: ListBody Template
+0c75599 2010-09-06 14:01:30 +0200 (Daniel Lienert) message: ADD: classMarkers to filterboxes
+ccd93e2 2010-09-06 13:20:32 +0200 (Daniel Lienert) message: CHG: Render Header name inside link tag
+947b8df 2010-09-06 12:33:22 +0200 (Daniel Lienert) message: ADD: CSS class to table header
+6e887bf 2010-09-06 11:56:30 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+95d442a 2010-09-06 11:56:27 +0200 (Christoph Ehscheidt) message: CHG: Merge
+0580310 2010-09-06 11:51:04 +0200 (Daniel Lienert) message: ADD: CSS Classes for rows and columns
+4c8edcd 2010-09-06 11:08:16 +0200 (Daniel Lienert) message: RMV: Basic CSS from TS
+38b3227 2010-09-05 16:15:03 +0200 (Daniel Lienert) message: ADD: DataProvider for FirstLetterData
+ccfe034 2010-09-04 15:57:15 +0200 (Daniel Lienert) message: RFT: Groupfilter: - Renamed Groupfilter to Optionsfilter - Transfered methods for recieving data to dataProviders (this was necessary to make other dataSources like typoscript defined posible) - implemented dataprovider for groupData - altered tests
+23373e8 2010-09-03 10:48:43 +0200 (Daniel Lienert) message: FIX: GroupdataQuery Creation in MySql Backend
+39915f1 2010-09-03 10:07:57 +0200 (Daniel Lienert) message: FIX "Second" pager
+73413de 2010-09-03 09:51:53 +0200 (Daniel Lienert) message: CHG: Wrapped all comments in templates and partials with extlist comment viewhelper TODO: Transfer this viewhelper to "pt_viewhelpers"
+c73d5cf 2010-09-03 09:29:32 +0200 (Daniel Lienert) message: CHG: Template for hierarchicalStructure demo list
+f5e67ad 2010-09-03 09:24:26 +0200 (Daniel Lienert) message: ADD: Viewhelper for Comments
+4e74c92 2010-09-02 23:06:36 +0200 (Daniel Lienert) message: ADD: renderTemplate as render option
+c39a21e 2010-09-02 14:46:35 +0200 (Daniel Lienert) message: ADD: Test for ColumnConfig
+cf095b6 2010-09-02 14:28:45 +0200 (Daniel Lienert) message: Add: Configuration for Rendertemplate
+c91505d 2010-09-02 13:57:07 +0200 (Daniel Lienert) message: ADD: expanded fields in groupdata are rendered as structured data
+72a8250 2010-09-02 12:57:34 +0200 (Daniel Lienert) message: RFT: ColumnConfigs fieldIdentifiers are a fieldConfigCollection now
+cebb24c 2010-09-02 11:28:56 +0200 (Daniel Lienert) message: CHG: Config
+0112077 2010-09-02 11:27:30 +0200 (Daniel Lienert) message: RFT: Tests to reflect the changes
+3d5c8f3 2010-09-02 11:26:42 +0200 (Daniel Lienert) message: RFT: DbUtils
+cf3b0ef 2010-09-02 11:26:21 +0200 (Daniel Lienert) message: CHG: FieldConfigCollection add method to extract parts of Collection as new collection
+1ad8525 2010-09-02 11:25:30 +0200 (Daniel Lienert) message: CHG: Mapper, add init method and methods to handle grouped data
+93acbda 2010-09-02 09:04:09 +0200 (Daniel Lienert) message: ADD: Config for expandGroupRwos in Fields
+19b5347 2010-09-02 08:54:40 +0200 (Daniel Lienert) message: ADD: Test Stubs for PagerConfig
+b533883 2010-09-02 07:38:15 +0200 (Michael Knoll) message: ADD: Added class and test for bookmark manager
+ff13709 2010-09-02 07:29:36 +0200 (Michael Knoll) message: ADD: Testcase for process action
+a23d581 2010-09-02 06:39:04 +0200 (Michael Knoll) message: ADD: Added process action to bookmarks controller
+e6a2a25 2010-09-02 03:29:16 +0200 (Michael Knoll) message: ADD: Added configuration and template for breadcrumb controller
+a5511af 2010-09-02 03:14:40 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://elendil/var/git/punkt.de/pt_extlist
+0075ec8 2010-09-02 03:14:23 +0200 (Michael Knoll) message: ADD: Added breadcrumb controller and testcase
+d25ef47 2010-09-02 01:44:33 +0200 (Daniel Lienert) message: TASK: renamed Test
+1ff9977 2010-09-02 01:43:30 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://elendil-extlist/var/git/punkt.de/pt_extlist
+c58fb71 2010-09-02 01:43:02 +0200 (Daniel Lienert) message: RFT: Pager - get them to work
+8bd2092 2010-09-02 00:57:51 +0200 (Daniel Lienert) message: FIX Sorting ... AGAIN
+2bc69f2 2010-09-02 00:43:06 +0200 (Daniel Lienert) message: RFT Refactored PagerConfiguratrion and Tests
+63fc2cc 2010-09-01 23:45:42 +0200 (Daniel Lienert) message: RFT: Pager Configuration ADD: PagerConfigurationCollection
+1926da2 2010-09-01 19:46:28 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+d42bb3d 2010-09-01 19:46:25 +0200 (Daniel Lienert) message: FIX: Datagackend:getTotalCount in Case of baseGroupByClause set
+4aa06f0 2010-09-01 19:30:21 +0200 (Michael Knoll) message: ADD: All Bookmarks are assigned to view now
+19577bb 2010-09-01 19:04:04 +0200 (Michael Knoll) message: RFT: Refactored some classes
+635b719 2010-09-01 18:00:53 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+407c3d9 2010-09-01 18:00:39 +0200 (Michael Knoll) message: ADD: subcontroller wrapper generates output now
+fed08bf 2010-09-01 17:54:36 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+013853b 2010-09-01 17:45:41 +0200 (Michael Knoll) message: ADD: Added testcase for dispatching subcontroller call
+10f0896 2010-09-01 17:44:12 +0200 (Daniel Lienert) message: FIX: Changed explode to trimExplode in GroupSecurity
+d47016d 2010-09-01 17:13:06 +0200 (Michael Knoll) message: ADD: Added testcases for injectors for subcontrollerwrapper
+9e1ac73 2010-09-01 17:07:35 +0200 (Michael Knoll) message: ADD: Subcontroller factory now injects request and response
+97bd437 2010-09-01 17:05:33 +0200 (Michael Knoll) message: ADD: Added process action method to subcontroller wrapper
+024759f 2010-09-01 16:50:01 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+448871c 2010-09-01 16:49:55 +0200 (Michael Knoll) message: ADD: Added magic __call and tests for subcontrollerWrapper
+6f216dc 2010-09-01 16:38:33 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e9ab4dd 2010-09-01 16:38:24 +0200 (Daniel Lienert) message: CHG: FilterBoxConfig: Configurations of Filters moved to filters.<filterBoxName>.filterConfigs.10
+ca9d54c 2010-09-01 16:26:26 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+c13c375 2010-09-01 16:26:13 +0200 (Michael Knoll) message: FIX: Fixed pager collection factory testcase
+872eeee 2010-09-01 16:24:44 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+f6dfa8d 2010-09-01 16:24:41 +0200 (Christoph Ehscheidt) message: FIX: PagerCollectionFactoryTest.php Sideeffect
+f69bde7 2010-09-01 16:14:21 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+707b9e9 2010-09-01 16:13:59 +0200 (Daniel Lienert) message: ADD: Translation for FilterboxConfig
+df75f6e 2010-09-01 16:01:53 +0200 (Michael Knoll) message: FIX: Fixed test for pager collection factory
+f62f4b5 2010-09-01 15:58:11 +0200 (Daniel Lienert) message: ADD: showReset Switch in FilterBoxConfig
+f996815 2010-09-01 15:54:50 +0200 (Michael Knoll) message: FIX: Fixed testcases to run on console
+3760a25 2010-09-01 15:29:56 +0200 (Michael Knoll) message: FIX: Fixed subcontroller factory to run on CLI environment
+b96d552 2010-09-01 15:03:02 +0200 (Michael Knoll) message: ADD: Added test for factory method for subcontroller factory. Refactored factory
+da40932 2010-09-01 14:08:52 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+6334252 2010-09-01 14:08:35 +0200 (Michael Knoll) message: ADD: Added injector for subcontrollerfactory to subcontrollerwrapper. Changed factory method of subcontroller factory to return wrapper instance
+fdcd2e8 2010-09-01 13:40:39 +0200 (Daniel Lienert) message: RMV: Header from ListTempleate
+9cd09d7 2010-09-01 13:35:29 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e9da505 2010-09-01 13:35:23 +0200 (Daniel Lienert) message: CHG: Error Message in ColumnConfig
+78ccaa2 2010-09-01 13:32:26 +0200 (Michael Knoll) message: RFT: Refactored testcases to handle dispatcher dependence of diverse testcases
+6f3a135 2010-09-01 13:21:17 +0200 (Michael Knoll) message: ADD: Added injector for subcontroller into subcontroller wrapper
+c4fbf4f 2010-09-01 13:14:47 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+2292141 2010-09-01 13:14:35 +0200 (Michael Knoll) message: ADD: Added subcontroller wrapper and testcase
+37e7a69 2010-08-31 17:51:37 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+b408e4b 2010-08-31 17:46:37 +0200 (Daniel Lienert) message: ADD Standard CSS Files
+8bfb006 2010-08-31 17:46:15 +0200 (Daniel Lienert) message: ADD: Test for MySqlDataBackend
+3fcea9d 2010-08-31 16:55:43 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+9ed2a00 2010-08-31 16:55:33 +0200 (Michael Knoll) message: ADD: Added subcontroller functionality for list controllers. Not finished yet
+c158c18 2010-08-31 16:02:37 +0200 (Christoph Ehscheidt) message: ADD: MinFilter
+4300e82 2010-08-31 15:56:59 +0200 (Christoph Ehscheidt) message: CHG: Criteria test
+5a9fd6f 2010-08-31 14:20:53 +0200 (Christoph Ehscheidt) message: ADD: MaxFilter
+671e719 2010-08-31 13:53:50 +0200 (Michael Knoll) message: ADD: Test for singletons in subcontroller factory
+d6d7275 2010-08-31 13:45:46 +0200 (Michael Knoll) message: ADD: Added factory for subcontrollers and testcase
+8300498 2010-08-31 12:35:48 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+25d839e 2010-08-31 12:35:37 +0200 (Daniel Lienert) message: CHG: GroupFilter with BaseGroupByClause posible
+41b97f4 2010-08-31 10:42:54 +0200 (Martin Alker) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+a0b4c1b 2010-08-30 19:01:37 +0200 (Michael Knoll) message: ADD: Added storage pid to bookmarks controller and repository and flexform
+423ea8e 2010-08-30 18:22:31 +0200 (Martin Alker) message: CHG: HTML structure and CSS styling
+eefd732 2010-08-30 17:46:04 +0200 (Michael Knoll) message: RFT: Renamed testcase for bookmarks repository
+5e15e8f 2010-08-30 17:35:23 +0200 (Michael Knoll) message: ADD: Added functionality to show action for bookmark controller
+fd40093 2010-08-30 17:29:30 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+26b37d3 2010-08-30 17:29:22 +0200 (Michael Knoll) message: FIX: Fixed configuration for bookmarks in TCA
+461fd1e 2010-08-30 17:26:25 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+758ce5a 2010-08-30 17:25:52 +0200 (Daniel Lienert) message: CHG: Write Queries to DEVLOG
+fd588bd 2010-08-30 16:59:05 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+9dc4c17 2010-08-30 16:59:03 +0200 (Christoph Ehscheidt) message: FIX: Broken Tests
+4b66ff4 2010-08-30 16:31:32 +0200 (Daniel Lienert) message: FIX: Changed Query order (Order By <-> Group By)
+e7fddc5 2010-08-30 16:06:12 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+1e30bf0 2010-08-30 16:05:56 +0200 (Michael Knoll) message: ADD: Added method for finding bookmarks by usergroups and fe user
+b0ada6d 2010-08-30 16:03:21 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+8d56a8c 2010-08-30 16:03:19 +0200 (Christoph Ehscheidt) message: RFT: ListRenderering hides not accessable columns
+3c435e4 2010-08-30 15:53:34 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+89c8ee5 2010-08-30 15:53:20 +0200 (Daniel Lienert) message: CHG: Removed LayoutFields from flexform
+40df6f0 2010-08-30 15:43:36 +0200 (Michael Knoll) message: ADD: Implemented methods for finding bookmarks on repository. Added tests for it
+6bcd56c 2010-08-30 15:23:39 +0200 (Michael Knoll) message: ADD: Added testcase for finding public bookmarks
+bc6302b 2010-08-30 15:19:59 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+2d8f361 2010-08-30 15:19:46 +0200 (Michael Knoll) message: ADD: Added test for finding public bookmarks without list identifier
+d987a59 2010-08-30 15:19:34 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+ed2d8f7 2010-08-30 15:19:31 +0200 (Christoph Ehscheidt) message: RFT: ColumnConfig with tests
+a554b99 2010-08-30 15:17:42 +0200 (Michael Knoll) message: ADD: Added method for finding public bookmarks to repostitory
+3004510 2010-08-30 15:08:36 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+a005d77 2010-08-30 15:08:24 +0200 (Michael Knoll) message: ADD: Added incomplete tests for list controller
+88df00f 2010-08-30 14:50:19 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+9c09138 2010-08-30 14:50:09 +0200 (Daniel Lienert) message: Fix: Sorting Bug
+6698ce1 2010-08-30 14:44:17 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+3b425c3 2010-08-30 14:44:13 +0200 (Christoph Ehscheidt) message: CHG: More tests for ColumnAccessGroups
+eafe91e 2010-08-30 14:37:16 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+85868af 2010-08-30 14:37:00 +0200 (Michael Knoll) message: ADD: Added new properties to bookmark domain object
+58bdfb5 2010-08-30 14:36:40 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+52a6456 2010-08-30 14:36:37 +0200 (Christoph Ehscheidt) message: ADD: ColumnAccessGroups Testcases
+48824b8 2010-08-30 14:24:09 +0200 (Michael Knoll) message: ADD: Added additional fields to bookmarks table
+714bec9 2010-08-30 13:51:05 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+f147d27 2010-08-30 13:50:50 +0200 (Michael Knoll) message: ADD: Added flexform configuration for bookmarks
+310c32b 2010-08-30 13:48:06 +0200 (Christoph Ehscheidt) message: CHG: FilterboxController does not show not accessable filters.
+c6c1fac 2010-08-30 13:37:49 +0200 (Michael Knoll) message: ADD: Added CRUD actions to bookmarks controller, tests and extension configuration
+49f255f 2010-08-30 12:56:42 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+8c3fb05 2010-08-30 12:56:34 +0200 (Christoph Ehscheidt) message: CHG: FilterboxFactory build Filterbox with only accessable filters.
+df666dc 2010-08-30 09:43:41 +0200 (Daniel Lienert) message: FIX´: Wrong error message
+b9b4492 2010-08-30 09:39:12 +0200 (Daniel Lienert) message: RFT: HeaderColumn, moved calculation of sorting state from getter to builderMethod
+62d444e 2010-08-29 23:58:19 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://elendil-extlist/var/git/punkt.de/pt_extlist
+5f413da 2010-08-30 00:10:11 +0200 (Michael Knoll) message: ADD: Added flexform config and localconf for bookmarks show action
+6571afa 2010-08-29 23:59:29 +0200 (Michael Knoll) message: ADD: Added HTML template for bookmarks -> show
+fba286a 2010-08-29 23:57:03 +0200 (Michael Knoll) message: ADD: Added show action and test for bookmarks controller
+c33e8d9 2010-08-29 23:31:39 +0200 (Michael Knoll) message: ADD: Added tests for bookmarks repository
+6e34b56 2010-08-29 23:30:19 +0200 (Michael Knoll) message: RFT: Renamed testcase for bookmarks repository testcase
+27ff7eb 2010-08-29 23:07:48 +0200 (Michael Knoll) message: FIX: Fixed name of testcase for bookmarks repository
+bf874b6 2010-08-29 23:01:49 +0200 (Michael Knoll) message: ADD: Added repository and testcase for bookmarks
+dae5671 2010-08-29 22:29:27 +0200 (Michael Knoll) message: ADD: Added testcase and class for bookmarks controller
+27132bf 2010-08-29 22:25:11 +0200 (Michael Knoll) message: ADD: Added tests for bookmark domain object
+53fbb53 2010-08-29 22:18:20 +0200 (Michael Knoll) message: FIX: Fixed path name to language file for localization of bookmark record
+e6552be 2010-08-28 14:08:53 +0200 (Daniel Lienert) message: CHG: Add Tests
+97b17c7 2010-08-28 13:36:31 +0200 (Daniel Lienert) message: CHG: Finished Agggregator
+78166dd 2010-08-28 09:44:28 +0200 (Daniel Lienert) message: RFT: Objects using the Renderer Architecture and the Cell / Row Objects
+7e75591 2010-08-28 09:43:46 +0200 (Daniel Lienert) message: RFT: Renderer, RenderStrategies, RenderConfig
+9a2ec2f 2010-08-27 19:23:19 +0200 (Michael Knoll) message: ADD: Added tca configuration for bookmarks
+0fdd96f 2010-08-27 19:23:01 +0200 (Michael Knoll) message: ADD: Added ext_tables SQL file for bookmarks
+f738ebb 2010-08-27 19:08:00 +0200 (Michael Knoll) message: ADD: Added domain model and test for bookmarks
+3afdce9 2010-08-27 17:43:18 +0200 (Daniel Lienert) message: ADD: Configurationobejcts for Aggregate Rows and child objects
+304b63c 2010-08-27 16:07:51 +0200 (Michael Knoll) message: TASK
+310d88a 2010-08-27 15:46:30 +0200 (Michael Knoll) message: ADD: Extbase backend generates group data now
+fe52861 2010-08-27 14:04:22 +0200 (Daniel Lienert) message: TASK: Rev for mimi
+8960b2f 2010-08-27 09:52:02 +0200 (Daniel Lienert) message: ADD: builder method for aggregateData to configBuilder. ADD: TEST No 400!!!
+a1dc24e 2010-08-27 09:35:47 +0200 (Daniel Lienert) message: ADD: Configuration for aggregate data and test
+24da728 2010-08-27 08:43:36 +0200 (Daniel Lienert) message: CHG: Typo
+2214a31 2010-08-26 15:55:40 +0200 (Christoph Ehscheidt) message: ADD: Security: checks for filter accessGroups.
+4b81b5b 2010-08-26 14:36:09 +0200 (Christoph Ehscheidt) message: ADD: SecurityFactory Tests
+249b8bb 2010-08-26 14:28:14 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+dd9fde9 2010-08-26 14:28:06 +0200 (Christoph Ehscheidt) message: ADD: Security Features for Filters
+5166dba 2010-08-25 17:19:55 +0200 (Daniel Lienert) message: ADD: firstLetterFilter (incomplete)
+34b2ea5 2010-08-25 14:03:21 +0200 (Daniel Lienert) message: FIX: deactivate filter when no value is given
+a670045 2010-08-25 11:12:58 +0200 (Daniel Lienert) message: ADD stdWarp for column Labels
+92f4a90 2010-08-25 11:07:27 +0200 (Daniel Lienert) message: ADD: stdWrap to Fields
+1474ff0 2010-08-25 11:02:33 +0200 (Daniel Lienert) message: ADD: Test for baseWhere over table priority
+8167325 2010-08-25 10:49:45 +0200 (Daniel Lienert) message: FIX: baseFromClause has priority over tables in getfromClause
+a8f1994 2010-08-25 10:45:24 +0200 (Daniel Lienert) message: FIX: MySqlDataBackend
+b13ff79 2010-08-25 10:21:11 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+d87ecf4 2010-08-25 10:21:00 +0200 (Daniel Lienert) message: ADD: stdWrap to BackendConfigurartion
+32de968 2010-08-25 10:15:31 +0200 (Christoph Ehscheidt) message: FIX: LifecycleHookManager Error when called outside a extbase context.
+7446649 2010-08-24 16:16:06 +0200 (Christoph Ehscheidt) message: CHG: Renaming Package Names for Documentation
+a871798 2010-08-24 16:07:13 +0200 (Christoph Ehscheidt) message: CHG: Renaming Package Names for Documentation
+83f79a1 2010-08-24 15:56:09 +0200 (Christoph Ehscheidt) message: CHG: Renaming Package Names for Documentation
+1d8810c 2010-08-24 15:54:34 +0200 (Christoph Ehscheidt) message: CHG: Renaming Package Names for Documentation
+8f8df02 2010-08-24 15:48:10 +0200 (Christoph Ehscheidt) message: ADD: LifecycleManagerTest
+bf53781 2010-08-24 15:38:21 +0200 (Christoph Ehscheidt) message: ADD: LifecycleManagerFactoryTest
+54666bd 2010-08-24 14:55:47 +0200 (Christoph Ehscheidt) message: RFT: SessionPersistenceManager caches data now
+7fa5315 2010-08-24 13:51:31 +0200 (Christoph Ehscheidt) message: ADD: LifecycleManager for triggering session actions
+a26866a 2010-08-24 12:15:36 +0200 (Christoph Ehscheidt) message: FIX: Pager templates forward and backward links.
+9535da8d 2010-08-24 11:36:52 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+05eb2a5 2010-08-24 11:36:38 +0200 (Christoph Ehscheidt) message: ADD: Resetting pagers on a filterbox reset event.
+2664a73 2010-08-22 12:33:25 +0200 (Daniel Lienert) message: CHG: Completed firstLetterFilter RFT: Some Changes on AbstractGroupdataFilter at addinactiveOption
+5ae0a0f 2010-08-22 10:18:07 +0200 (Daniel Lienert) message: RFT: Filter API- ä
+32ce1e2 2010-08-22 02:32:07 +0200 (Daniel Lienert) message: RFT: AbstractGroupDataFilter and concrete filters - optionDefault is now array(selected => boolean, value => "value")
+be6a5d9 2010-08-22 01:52:44 +0200 (Daniel Lienert) message: RFT: AbstractGroupDataFilter
+5b4279f 2010-08-19 21:02:24 +0200 (Michael Knoll) message: RFT: Some code formatting & comments
+abbad9d 2010-08-19 20:58:01 +0200 (Michael Knoll) message: CHG: Changed possibility to set view from controller
+884fc23 2010-08-19 18:38:43 +0200 (Daniel Lienert) message: CHG Demolist_Typo3_01
+42acb41 2010-08-19 18:20:19 +0200 (Daniel Lienert) message: FIX: GroupDataFilter
+a0c9af8 2010-08-19 17:31:06 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+99fbd65 2010-08-19 17:30:56 +0200 (Daniel Lienert) message: ADD: AccessGroups Settings to Config
+90cbb0a 2010-08-19 17:07:02 +0200 (Christoph Ehscheidt) message: FIX: test for pager controller
+507e410 2010-08-19 16:57:26 +0200 (Christoph Ehscheidt) message: RFT: user pager template from TS config
+363d024 2010-08-19 16:53:40 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+463c519 2010-08-19 16:53:14 +0200 (Christoph Ehscheidt) message: ADD: DefaultPager::getPagerCOnfiguration
+a4d71b5 2010-08-19 16:49:22 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+5220bc5 2010-08-19 16:49:13 +0200 (Daniel Lienert) message: ADD: GroupFilter
+c29005c 2010-08-19 16:41:14 +0200 (Michael Knoll) message: ADD: possibility to change template used by view
+72153d1 2010-08-19 16:25:19 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+2dd77e8 2010-08-19 16:25:17 +0200 (Christoph Ehscheidt) message: ADD: getTemplatePath for pager configuration
+386cc21 2010-08-19 16:03:01 +0200 (Michael Knoll) message: FIX: CSV view uses pt_extlist base view as base class now
+93c3adb 2010-08-19 15:58:38 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+2b7d913 2010-08-19 15:58:23 +0200 (Michael Knoll) message: ADD: Added possibility to change partials for filters etc using EXT: convention in TS
+6255222 2010-08-19 15:20:14 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+bacf57b 2010-08-19 15:20:07 +0200 (Christoph Ehscheidt) message: FIX: removed echo of pagercollection count
+1e186df 2010-08-19 15:14:34 +0200 (Michael Knoll) message: ADD: Added TS configuration for select filter for extbase backend. Not yet working
+a3544a7 2010-08-19 15:05:16 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+104edc1 2010-08-19 15:05:01 +0200 (Michael Knoll) message: FIX: Fixed typo in filterbox
+1e9c81e 2010-08-19 14:56:30 +0200 (Christoph Ehscheidt) message: ADD: PagerConfiguration Test
+de15a47 2010-08-19 14:50:20 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+cdfd4c1 2010-08-19 14:50:09 +0200 (Christoph Ehscheidt) message: RFT: PagerController displays pager defined by flexform
+648f656 2010-08-19 14:49:33 +0200 (Christoph Ehscheidt) message: RFT: PagerFactory creates a instance for each pagerIdentifier in list
+7a49273 2010-08-19 13:28:50 +0200 (Christoph Ehscheidt) message: RFT: Allow to configure pager in flexform.
+4b0d6bc 2010-08-19 13:04:21 +0200 (Michael Knoll) message: ÂTASK: commit before pull
+229cd95 2010-08-19 13:03:41 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+0a2c334 2010-08-19 13:03:33 +0200 (Michael Knoll) message: ÂTASK: commit before pull
+029876b 2010-08-19 14:34:02 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+ea05fea 2010-08-19 13:01:47 +0200 (Daniel Lienert) message: FIX: Configuration
+98ab9e0 2010-08-19 12:23:40 +0200 (Christoph Ehscheidt) message: ADD: pager controller asigns more than one pager to view
+70c09fe 2010-08-19 12:04:44 +0200 (Daniel Lienert) message: ADD: Access to FilterConfig
+d5b1295 2010-08-19 12:01:23 +0200 (Christoph Ehscheidt) message: RFT: pager controller to work with pager submits
+15ac8e3 2010-08-19 01:36:06 +0200 (Michael Knoll) message: RFT: Refactored domain object mapper
+862073d 2010-08-19 01:23:22 +0200 (Michael Knoll) message: RFT: Refactored domain object mapper
+d0e27c2 2010-08-19 01:14:04 +0200 (Michael Knoll) message: RFT: Code formatting
+829b545 2010-08-19 01:10:35 +0200 (Michael Knoll) message: ADD: Added possibility to use deeper object structures for rendering extbase domain objects
+6d4578a 2010-08-18 23:25:23 +0200 (Michael Knoll) message: RFT: Code formatting
+dc60cd4 2010-08-18 18:42:02 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+39f6fbf 2010-08-18 18:41:56 +0200 (Daniel Lienert) message: ADD: Default Values for Group Filter#
+c8f76fb 2010-08-18 18:21:58 +0200 (Michael Knoll) message: TASK: Skipped some tests for work at home
+2e90325 2010-08-18 18:16:45 +0200 (Michael Knoll) message: TASK: Resolved conflict
+2549446 2010-08-18 18:15:13 +0200 (Michael Knoll) message: TASK: Checkin to work at home. Not yet finished
+73a5c14 2010-08-18 18:03:09 +0200 (Daniel Lienert) message: Removed test
+0978c6c 2010-08-18 18:01:42 +0200 (Daniel Lienert) message: FIX: Test Success
+ef56928 2010-08-18 18:00:31 +0200 (Daniel Lienert) message: FIX: Test is only functional in backend
+4b70a18 2010-08-18 17:56:06 +0200 (Daniel Lienert) message: ADD: test for RenderValue
+9ee5774 2010-08-18 17:24:46 +0200 (Christoph Ehscheidt) message: RFT: PagerController uses the pagerCollection
+949e66b 2010-08-18 17:19:11 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+b5b71c4 2010-08-18 17:18:53 +0200 (Daniel Lienert) message: RFT: Cell Rendering & Config
+600671a 2010-08-18 16:52:36 +0200 (Christoph Ehscheidt) message: FIX: isEnabled typo in PagerCollection
+2eaa2fb 2010-08-18 16:52:05 +0200 (Christoph Ehscheidt) message: RFT: pager collection git st
+fe3a9e3 2010-08-18 15:37:04 +0200 (Christoph Ehscheidt) message: RFT: DataBackendFactory injects a pagerCollection instead of a single pager
+9576b22 2010-08-18 15:01:14 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+d8ba786 2010-08-18 15:01:08 +0200 (Michael Knoll) message: ADD: Added todo for rowcount
+346a324 2010-08-18 15:00:33 +0200 (Michael Knoll) message: ADD: Added prototype for extbase databackend Typoscript
+6282fd2 2010-08-18 14:53:56 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+bc53127 2010-08-18 14:53:22 +0200 (Daniel Lienert) message: FIX!!
+203271f 2010-08-18 14:53:02 +0200 (Christoph Ehscheidt) message: Merge: AbstractDataBackendBaseTest. RFT: pager collection
+7c62aa2 2010-08-18 14:48:07 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+9cd41f3 2010-08-18 14:48:00 +0200 (Daniel Lienert) message: CHG: FormElementNameViewHelper.php - add multiple values ADD: checkBoxFilter
+f6b3819 2010-08-18 14:30:34 +0200 (Christoph Ehscheidt) message: RFT: first step to build a pager collection
+e226d78 2010-08-18 14:25:07 +0200 (Michael Knoll) message: ADD: Added testcase for using AND for multiple constraints in extbase
+a606f87 2010-08-18 13:48:55 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+88c842e 2010-08-18 13:48:42 +0200 (Michael Knoll) message: FIX: Extbase interpreter now uses AND for multiple constraints. Adapted tests
+e47317d 2010-08-18 15:13:19 +0200 (Michael Knoll) message: FIX: Removed datasource testcase due to missing PDO on devel server
+ccce23f 2010-08-18 15:04:39 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+d9ab888 2010-08-18 13:24:10 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+7461ad5 2010-08-18 13:24:02 +0200 (Daniel Lienert) message: CHG: getGroupData respects typo3 enableFields and baseWhereClause
+36dc63e 2010-08-18 10:44:05 +0200 (Christoph Ehscheidt) message: FIX: phpunit mocking interfaces
+442f0c5 2010-08-18 10:40:34 +0200 (Christoph Ehscheidt) message: FIX:
+83c3c05 2010-08-18 10:39:48 +0200 (Christoph Ehscheidt) message: CHG: PagerCollection and Test
+194e954 2010-08-18 10:24:13 +0200 (Christoph Ehscheidt) message: ADD: pager collection and test
+7d45136 2010-08-18 02:13:58 +0200 (Michael Knoll) message: ADD: Added testcase for mysql datasource factory method
+bcf026b 2010-08-18 01:47:12 +0200 (Michael Knoll) message: ADD: Finished test for get group data on mysql backend
+236244b 2010-08-18 01:38:38 +0200 (Michael Knoll) message: FIX: Moved test from mysql interpreter to extbase interpreter
+e8bd06b 2010-08-18 01:36:19 +0200 (Michael Knoll) message: ADD: Added testcase for InterpretQueryByRepository for extbase backend
+0f27437 2010-08-17 17:52:17 +0200 (Christoph Ehscheidt) message: ADD: translation for pager template
+0600a14 2010-08-17 17:37:43 +0200 (Michael Knoll) message: ADD: Added getGroupData for extbase backend. Added tests for it
+5325588 2010-08-17 17:00:50 +0200 (Michael Knoll) message: ADD: test for SetAllCriteriasOnExtBaseQueryByQuery for extbase interpreter
+f9026e8 2010-08-17 16:44:08 +0200 (Michael Knoll) message: ADD: Added test for SetCriteriaOnExtBaseQueryByCriteria on extbase interpreter
+f44aec0 2010-08-17 16:40:33 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+adf954c 2010-08-17 16:40:18 +0200 (Michael Knoll) message: RFT: Make interpreter use translator class for extbase query translation
+8a8278f 2010-08-17 16:18:22 +0200 (Christoph Ehscheidt) message: ADD: TS localization override example.
+90d8c9f 2010-08-17 15:54:38 +0200 (Christoph Ehscheidt) message: ADD: do not display pager when nothing to page
+4800358 2010-08-17 14:49:25 +0200 (Christoph Ehscheidt) message: ADD: empty list handling. Show a localized message.
+f18fb5c 2010-08-17 14:27:36 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+93c72ec 2010-08-17 14:27:24 +0200 (Christoph Ehscheidt) message: FIX: documentation was displayed in FE
+37dd2a0 2010-08-17 14:25:05 +0200 (Michael Knoll) message: ADD: Added test for set limit on extbase query for extbase backend interpreter
+e334be0 2010-08-17 14:21:51 +0200 (Christoph Ehscheidt) message: CHG: template documentation
+ebc17aa 2010-08-17 14:18:31 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+68290d9 2010-08-17 14:18:20 +0200 (Michael Knoll) message: RFT: Refactored Extbase interpreter
+0bb62a6 2010-08-17 14:12:06 +0200 (Christoph Ehscheidt) message: ADD: documentation for the list template
+cb93a8d 2010-08-17 14:11:26 +0200 (Christoph Ehscheidt) message: CHG: partial documentation
+ae27e22 2010-08-17 14:10:54 +0200 (Christoph Ehscheidt) message: CHG: Documentation
+16aa5b1 2010-08-17 14:05:59 +0200 (Christoph Ehscheidt) message: CHG: Documentation of listBody partial
+3d2a85b 2010-08-17 13:25:29 +0200 (Christoph Ehscheidt) message: CHG: better implementation for demolist renderer
+9cf63f5 2010-08-17 13:20:34 +0200 (Christoph Ehscheidt) message: FIX: demolist renderer userfunc
+538a977 2010-08-17 13:17:30 +0200 (Christoph Ehscheidt) message: FIX: pager template
+37f37d4 2010-08-17 13:12:14 +0200 (Christoph Ehscheidt) message: FIX: column renderUserFunc
+f712176 2010-08-17 12:48:50 +0200 (Michael Knoll) message: ADD: Added item index for pager
+857e80c 2010-08-17 14:41:43 +0200 (Michael Knoll) message: TASK: Resolved conflict on pager template
+671c3d1 2010-08-17 14:39:39 +0200 (Michael Knoll) message: ADD: Added classes for or translator for extbase backend
+aab9e61 2010-08-17 12:06:19 +0200 (Christoph Ehscheidt) message: FIX: label localization TS typo
+de32629 2010-08-17 11:47:25 +0200 (Christoph Ehscheidt) message: ADD: pager.itemCount to pager template. #1807
+9eab6bf 2010-08-15 11:36:13 +0200 (Daniel Lienert) message: RFT: Changed local renderfucntions to Utility in Filter
+86d45ba 2010-08-15 11:35:38 +0200 (Daniel Lienert) message: Utility Class for rendering Values by cObject (and userfunctions - not implemented yet)
+f3128c4 2010-08-15 11:34:46 +0200 (Daniel Lienert) message: ADD: Interface for Configobjects that return renderConfig
+1839fd8 2010-08-13 19:47:37 +0200 (Daniel Lienert) message: ADD: Filter with cObject ... not functional by now :(
+cc33db4 2010-08-13 17:40:24 +0200 (Daniel Lienert) message: FIX: Failed Integration Test :(
+7db9cbe 2010-08-13 17:34:18 +0200 (Daniel Lienert) message: RFT: Some Changes in DemoListConfigä-
+2a532b7 2010-08-13 17:33:41 +0200 (Daniel Lienert) message: RFT: All fields used in filters are now fieldIdentifiers
+2f42c0a 2010-08-13 17:32:20 +0200 (Daniel Lienert) message: RFT: Removed strange and unused utility methods and moved method from MYsqlBackend to utility
+2fb68cc 2010-08-13 16:00:59 +0200 (Daniel Lienert) message: CHG: Support for enablefields in Typo3Backend
+995a158 2010-08-13 12:23:54 +0200 (Michael Knoll) message: ADD: Added testcase for trying to translate wrong criteria type to extbase simple criteria translator
+c37ebbb 2010-08-13 12:17:44 +0200 (Michael Knoll) message: ADD: Implemented translation of simple criteria in extbase
+8580e8f 2010-08-13 10:52:27 +0200 (Michael Knoll) message: RFT: Extbase backend translators are using their own interface now
+f79a0ad 2010-08-13 10:42:46 +0200 (Michael Knoll) message: ADD: Added base classes and tests for extbase translators
+5dfb96f 2010-08-13 10:17:35 +0200 (Michael Knoll) message: FIX: Fixed translation for limit clause in mysql interpreter
+5e975f2 2010-08-13 10:04:36 +0200 (Michael Knoll) message: ADD: Added not yet implemented exception on non implemented method for extbase data backend
+1979d46 2010-08-13 10:01:28 +0200 (Michael Knoll) message: ADD: Added not implemented test for get group data on extbase data backend
+7c8d0b6 2010-08-13 09:58:51 +0200 (Michael Knoll) message: ADD: Added testcase for extbase databackend getTotalItemsCount
+ef08f42 2010-08-13 09:35:35 +0200 (Michael Knoll) message: RFT: Refactored extbase backend test
+cdac82d 2010-08-13 09:18:26 +0200 (Michael Knoll) message: ADD: Pager shows paging information now
+325917c 2010-08-13 08:44:22 +0200 (Michael Knoll) message: ADD: Extbase databackend can now be paged
+6588717 2010-08-13 08:16:52 +0200 (Michael Knoll) message: RFT: Some comments and code formatting
+d98d6a4 2010-08-13 08:15:05 +0200 (Michael Knoll) message: ADD: Added error number to pager limit error
+911a83a 2010-08-12 21:11:01 +0200 (Michael Knoll) message: FIX: Fixed TS setup for extbase demolist for fe_groups rendering with domainobjects
+5054636 2010-08-12 21:06:48 +0200 (Michael Knoll) message: RFT: ExtBase Databackend now uses data mapper to return list data
+dea24b0 2010-08-12 20:50:28 +0200 (Michael Knoll) message: ADD: Added injector for list header to backend interface
+a74644e 2010-08-12 20:49:27 +0200 (Michael Knoll) message: ADD: Added some interface methods to extbase data backend
+5634fdd 2010-08-12 20:43:27 +0200 (Michael Knoll) message: ADD: Added injector for field config collection to data backend interface
+a4456e9 2010-08-12 20:22:33 +0200 (Michael Knoll) message: ADD: Finished getMappedData method on domain object renderer. Added test for functionality
+7fd52b3 2010-08-12 19:54:38 +0200 (Michael Knoll) message: ADD: Added exception on non-existing mapper configuration
+ed418ef 2010-08-12 17:51:28 +0200 (Michael Knoll) message: ADD: Added testcase and method for getMappedListData in domain object mapper
+1943a19 2010-08-12 17:45:09 +0200 (Michael Knoll) message: RFT: Refactored array mapper, now using abstract mapper class
+458bb19 2010-08-12 17:43:07 +0200 (Michael Knoll) message: ADD: Added class for domain object mapper
+49e3313 2010-08-12 17:40:04 +0200 (Michael Knoll) message: ADD: Added testcase for domain object mapper
+4596279 2010-08-12 17:34:49 +0200 (Michael Knoll) message: ADD: Added TS config templates for extbase data backend
+4ee6b99 2010-08-12 17:20:15 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+cec7ca8 2010-08-12 17:20:01 +0200 (Michael Knoll) message: ADD: prototype getData() method implemented on extbase data backend
+4eb1fee 2010-08-12 16:41:57 +0200 (Daniel Lienert) message: ADD: onSubmit to Selectfilter
+c142f1a 2010-08-12 15:18:38 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+868f542 2010-08-12 15:18:28 +0200 (Daniel Lienert) message: ADD: inactiveOption
+e976dd4 2010-08-12 14:59:25 +0200 (Michael Knoll) message: ADD: Added testcase for extbase backend createDataSource
+f393fca 2010-08-12 13:40:10 +0200 (Daniel Lienert) message: ADD: inert and invrtable as settings to filter
+a8155ee 2010-08-12 12:37:11 +0200 (Daniel Lienert) message: CHG: Add own filter to exludefilters
+944c56b 2010-08-12 12:25:47 +0200 (Daniel Lienert) message: ADD: Invert To GroupFilter & Tests
+0405b6e 2010-08-12 11:38:57 +0200 (Daniel Lienert) message: REVERTED: Last commit ..
+49d60e0 2010-08-12 11:32:04 +0200 (Daniel Lienert) message: ADD: Invert to simple criteria
+b43d5dc 2010-08-11 19:53:20 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+45a5f7d 2010-08-11 19:53:10 +0200 (Daniel Lienert) message: RFT: Filter - fieldDescriptionIdentifier is now fieldIdentifier and in Filter an object of fieldConfig
+569ebae 2010-08-11 18:52:19 +0200 (Michael Knoll) message: ADD: Added injector for data source for extbase databackend
+4a8b6f3 2010-08-11 18:37:02 +0200 (Michael Knoll) message: RFT: Renamed extbase data backend. ADD: Added empty interpreter class for extbase data backend
+6cb30d1 2010-08-11 17:59:59 +0200 (Michael Knoll) message: ADD: Added empty extbase backend class and testcase
+47c5cb3 2010-08-11 17:43:14 +0200 (Michael Knoll) message: FIX: Removed print_r from testcase
+2c2f3f0 2010-08-11 17:42:11 +0200 (Michael Knoll) message: FIX: Merge of settings does no longer duplicate list config
+6cf8337 2010-08-11 17:23:31 +0200 (Michael Knoll) message: RFT: Some code formatting and comments
+16bf3f7 2010-08-11 17:18:29 +0200 (Michael Knoll) message: RFT: Made pager use pager configuration object instead of pager settings
+1010d7c 2010-08-11 16:16:52 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+1bfdf57 2010-08-11 16:16:36 +0200 (Michael Knoll) message: ADD: Pager can be enabled and disabled now
+a979309 2010-08-11 16:15:03 +0200 (Daniel Lienert) message: ADD: grouBy to MySqlInterpreter & QueryObject
+85aa958 2010-08-11 15:46:36 +0200 (Daniel Lienert) message: ADD: GroupBy to QueryObject
+90b4525 2010-08-11 15:19:01 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+d174ff6 2010-08-11 15:18:57 +0200 (Daniel Lienert) message: RFT: GroupDataFilter
+5054b15 2010-08-11 15:03:14 +0200 (Michael Knoll) message: RFT: Formatted some source code
+8fbe7e7 2010-08-11 14:09:12 +0200 (Michael Knoll) message: RFT: Code formatting mysqlbackend
+f51df10 2010-08-11 13:46:16 +0200 (Michael Knoll) message: RFT: Refactored list factory. Class is static now
+41559f7 2010-08-11 11:26:37 +0200 (Michael Knoll) message: ADD: Extbase data backend can be influenced by filters now
+0bc9b26 2010-08-10 04:09:46 +0200 (Michael Knoll) message: DEL: Deleted unused actions from list controller
+6cce4ba 2010-08-10 03:53:08 +0200 (Michael Knoll) message: RFT: Refactored string filter and abstract single value filter
+5fdc511 2010-08-09 19:24:40 +0200 (Michael Knoll) message: ADD: Added some comment to Mysql databackend create data source test
+10c45c2 2010-08-09 19:19:14 +0200 (Michael Knoll) message: ADD: Added testcase for selectFilter::getMultiple()
+8b3a1b8 2010-08-09 19:15:39 +0200 (Michael Knoll) message: ADD: Added testcase for mapper factory get instance
+8adf7b4 2010-08-09 19:12:46 +0200 (Michael Knoll) message: ADD: Added testcase for error handling in MySql data source
+4793493 2010-08-09 19:00:01 +0200 (Michael Knoll) message: FIX: Removed trace from DL
+dac768b 2010-08-09 18:44:08 +0200 (Michael Knoll) message: FIX: Removed trace from DL
+6f564cc 2010-08-09 18:42:55 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+9a312b7 2010-08-09 18:42:42 +0200 (Michael Knoll) message: ADD: Added test for simple_criteria::isEqual
+1055117 2010-08-09 18:40:32 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+c554068 2010-08-09 18:40:25 +0200 (Daniel Lienert) message: FIX: Select Filter
+c60ac5b 2010-08-09 18:28:08 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+efb4cf6 2010-08-09 18:27:55 +0200 (Michael Knoll) message: FIX: Removed some traces
+3e01424 2010-08-09 18:24:11 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e604f6b 2010-08-09 18:24:04 +0200 (Daniel Lienert) message: DEL: Traces
+cc5d097 2010-08-09 18:23:28 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+3089c9f 2010-08-09 18:23:21 +0200 (Michael Knoll) message: RFT: Tidied up some code
+1b4be9c 2010-08-09 18:23:13 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+914f809 2010-08-09 18:23:03 +0200 (Daniel Lienert) message: CHG: selectFilter (AAAAARGHH)
+c0286b9 2010-08-09 18:03:10 +0200 (Michael Knoll) message: ADD: Added error number to abstract controller if view class does not exist
+2fbc455 2010-08-09 17:43:15 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+db3c7d9 2010-08-09 17:43:01 +0200 (Michael Knoll) message: ADD: Added possibility to change view via TS settings. Implemented view for rendering CSV lists
+74aa11d 2010-08-09 16:38:01 +0200 (Daniel Lienert) message: FIX: Select Filter / Multiple
+d376e80 2010-08-09 15:43:18 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+0373bbc 2010-08-09 15:43:08 +0200 (Daniel Lienert) message: ADD: baseGroupByClause to MysqlBackend
+bc03a32 2010-08-09 15:03:52 +0200 (Michael Knoll) message: ADD: Added abstract class for group data filters
+0823bc4 2010-08-09 15:00:44 +0200 (Michael Knoll) message: ADD: Added abstract class for single value filters
+f56b53f 2010-08-09 14:54:51 +0200 (Michael Knoll) message: RFT: Renamed group filter to select filter
+859aed8 2010-08-09 14:41:15 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+765ecc9 2010-08-09 14:41:02 +0200 (Michael Knoll) message: RFT: Refactored group filter
+d87f97c 2010-08-09 14:40:11 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+d14fd9a 2010-08-09 14:40:04 +0200 (Daniel Lienert) message: ADD: SpecialString in Databackend and Test
+2363a84 2010-08-09 14:33:54 +0200 (Christoph Ehscheidt) message: CHG: caption rendering with global cObj
+f5fc3d2 2010-08-09 14:30:39 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+5b02c98 2010-08-09 14:30:33 +0200 (Christoph Ehscheidt) message: ADD: override specialCell rendering by column config
+b75f716 2010-08-09 14:22:46 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+5706629 2010-08-09 14:22:39 +0200 (Daniel Lienert) message: CHG: Test for FieldConfig
+5a7c1e8 2010-08-09 14:17:03 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+5c702e9 2010-08-09 14:16:55 +0200 (Christoph Ehscheidt) message: RFT: user global cObj for rendering.
+59298ab 2010-08-09 14:12:35 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+ea61461 2010-08-09 14:12:31 +0200 (Daniel Lienert) message: ADD: Special to FieldConfig
+efcd554 2010-08-09 13:54:11 +0200 (Christoph Ehscheidt) message: ADD: partial template for list body.
+e6188a6 2010-08-09 13:48:37 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+ca4e597 2010-08-09 13:48:34 +0200 (Christoph Ehscheidt) message: RFT: optimized renderer by passing references.
+56dfa42 2010-08-09 13:45:32 +0200 (Michael Knoll) message: CHG: Databackend uses field ID as alias. Array mapper returns data with field ID as keyÂ
+bc6c28a 2010-08-09 13:39:16 +0200 (Daniel Lienert) message: ADD: special to fieldconfig
+6aaacd7 2010-08-09 13:19:46 +0200 (Christoph Ehscheidt) message: CHG: Renderer: comma seperated fieldIdentifiers working
+dd24561 2010-08-09 13:19:22 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+0cfdc1b 2010-08-09 13:19:09 +0200 (Michael Knoll) message: ADD: Added utility class for database utilities. Added tests for this class
+ee1f1f0 2010-08-09 13:09:15 +0200 (Daniel Lienert) message: RFT: Renamed Testcase
+848699a 2010-08-09 11:07:25 +0200 (Christoph Ehscheidt) message: Fix: TS config merge
+db23ae6 2010-08-09 11:05:36 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+6af8bad 2010-08-09 11:00:57 +0200 (Christoph Ehscheidt) message: ADD: cell special value renderer. display list with rainbow background
+c2c1197 2010-08-08 10:13:10 +0200 (Daniel Lienert) message: CHG: Extended MYSQL Demolist and discovered some bugs ...
+9098397 2010-08-08 09:21:36 +0200 (Daniel Lienert) message: RFT: Comments and Error Messages
+72f65f8 2010-08-08 09:02:05 +0200 (Daniel Lienert) message: ADD: Configuration an Tests for MySql Backend
+3c8a486 2010-08-07 20:10:25 +0200 (Daniel Lienert) message: ADD: Include File for multile demolists ADD: Demolist for Mysql Backend
+65f5505 2010-08-07 16:21:48 +0200 (Daniel Lienert) message: ADD: DataBackendConfiguration as Object to Configurationbuilder RFT: Moved validators of Databackendclasses to Configuration FIX: DataBackendTests
+0aced5d 2010-08-07 13:15:43 +0200 (Daniel Lienert) message: CHG: Skip Test if integration server is not reachable
+118f12c 2010-08-07 11:48:20 +0200 (Daniel Lienert) message: RMV: Classes/Domain/Configuration/MapperConfiguration.php
+0ee21d5 2010-08-07 11:46:37 +0200 (Daniel Lienert) message: RMV: Unused Class Classes/Domain/Configuration/RendererConfiguration.php
+5d0630e 2010-08-07 11:44:21 +0200 (Daniel Lienert) message: RMV: Deprecated and unused Classes ExtensionConfigurationAdapter SessionAdapter
+04cc696 2010-08-06 18:21:04 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+8fc2fe4 2010-08-06 18:20:56 +0200 (Daniel Lienert) message: RFT: Filterconfig & Stringfilter & Tests
+743bd10 2010-08-06 17:50:06 +0200 (Michael Knoll) message: ADD: Marked some tests as incomplete
+195e071 2010-08-06 17:42:30 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+79ec75a 2010-08-06 17:42:05 +0200 (Michael Knoll) message: ADD: Group filter now can interact with other filter
+95fa452 2010-08-06 17:41:08 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+3d6232d 2010-08-06 17:41:01 +0200 (Daniel Lienert) message: CHG: Building of Filter Configuration. Add TS Tests
+524e3af 2010-08-06 16:55:37 +0200 (Christoph Ehscheidt) message: RFT: added a cell object
+dd4f922 2010-08-06 16:12:58 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+942842a 2010-08-06 16:12:51 +0200 (Michael Knoll) message: ADD: Added method to create exclude filter array to GroupFilter
+83b8c5d 2010-08-06 16:06:59 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+9ba6505 2010-08-06 16:06:51 +0200 (Daniel Lienert) message: ADD: Typoscript and Prototype Test
+c9e2130 2010-08-06 15:35:25 +0200 (Michael Knoll) message: RFT: Used forward for pager submit action
+f2c0952 2010-08-06 15:33:42 +0200 (Michael Knoll) message: ADD: Added some comment to list controller
+8b9dc21 2010-08-06 15:25:36 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+f822a18 2010-08-06 15:25:23 +0200 (Michael Knoll) message: FIX: Group filter is doing correct reset now
+1830f51 2010-08-06 15:23:13 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+bf3d12a 2010-08-06 15:23:04 +0200 (Christoph Ehscheidt) message: ADD: renderUserFunctions possibility for columÅ„s rendering
+f31e277 2010-08-06 15:17:06 +0200 (Michael Knoll) message: RFT: Use forward instead of redirect when resetting filters
+9fa7ef8 2010-08-06 15:15:31 +0200 (Michael Knoll) message: RFT: Use forward instead of redirect when resetting filters
+4643fff 2010-08-06 15:14:47 +0200 (Michael Knoll) message: RFT: Use forward instead of redirect when resetting filters
+bda2c19 2010-08-06 15:04:59 +0200 (Michael Knoll) message: TASK resolved conflict
+1d68871 2010-08-06 15:03:23 +0200 (Michael Knoll) message: ADD: Group filter is working now but needs to be refactored. GetGroupData doesnt respect other filters at the moment
+cb2dfd5 2010-08-06 14:59:57 +0200 (Michael Knoll) message: ADD: Simple criteria translater now wraps array values
+c836d31 2010-08-06 14:43:47 +0200 (Christoph Ehscheidt) message: CI game test
+fe32492 2010-08-06 14:09:55 +0200 (Daniel Lienert) message: ADD: TS Prototype for Renderer
+42625b9 2010-08-06 14:07:28 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+69478b7 2010-08-06 14:05:45 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+a2be778 2010-08-06 14:03:34 +0200 (Daniel Lienert) message: ADD: Prototype for Columns
+37a90b7 2010-08-06 13:54:38 +0200 (Christoph Ehscheidt) message: RFT: RendererConfigurationFactory
+d01f6bd 2010-08-06 13:24:27 +0200 (Daniel Lienert) message: CHG Tests/IntegrationTest.php
+4497ddf 2010-08-06 13:19:47 +0200 (Daniel Lienert) message: ADD: Integration-Unit-Test :)
+5130723 2010-08-06 12:52:46 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+5272a99 2010-08-06 12:52:40 +0200 (Daniel Lienert) message: FIX: Pager Config
+017d760 2010-08-06 12:41:11 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+2513c39 2010-08-06 12:40:53 +0200 (Michael Knoll) message: ADD: Added configuration for group filter to TS setup
+afa126f 2010-08-06 12:40:04 +0200 (Daniel Lienert) message: CHG: Mysqlinterpreter Back to Version 12e5efed37d7eb4b506fd9c7fa13047e013dc6b3
+288f827 2010-08-06 12:28:41 +0200 (Daniel Lienert) message: TASK: Merging
+eec8617 2010-08-06 12:27:18 +0200 (Daniel Lienert) message: ADD: Typoscript-Setting Prototypes and merging for pager and renderer RFT: NameSpaceArrayUtility moved from State to Utility
+593fc3d 2010-08-05 18:41:01 +0200 (Michael Knoll) message: ADD: Group Filter shows options. Cant be submitted yet
+1cee7d2 2010-08-05 17:26:07 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+fc3bb4c 2010-08-05 17:06:16 +0200 (Daniel Lienert) message: ADD: factory for Pager Configuration
+8d7e7db 2010-08-05 17:05:13 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+39919bb 2010-08-05 16:55:44 +0200 (Daniel Lienert) message: ADD: Method for ProtoypeSettings & Test
+b1071d7 2010-08-05 16:31:59 +0200 (Daniel Lienert) message: CHG: Renamed PagerConfig to Pager and updated tests
+baadb9c 2010-08-05 16:18:51 +0200 (Michael Knoll) message: ADD: Added method for group data to databackend interface and added method stubs to implementing classes
+3b2b886 2010-08-05 16:09:04 +0200 (Daniel Lienert) message: Task Merge
+c20d488 2010-08-05 16:06:49 +0200 (Daniel Lienert) message: Renamed PagerConfig to Pager
+d177c59 2010-08-05 16:03:50 +0200 (Daniel Lienert) message: FIX: PagerCocnfig
+8f4233a 2010-08-05 15:59:56 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+4def027 2010-08-05 15:59:53 +0200 (Christoph Ehscheidt) message: FIX: rendering tests
+b4b3dd9 2010-08-05 15:59:43 +0200 (Michael Knoll) message: ADD: Added partial for group filter
+f572107 2010-08-05 15:54:32 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+b215b96 2010-08-05 15:54:29 +0200 (Christoph Ehscheidt) message: ADD: TS rendering
+4d476c3 2010-08-05 15:39:16 +0200 (Michael Knoll) message: TASK: Resolved conflict in setup.txt
+f885a03 2010-08-05 15:37:05 +0200 (Michael Knoll) message: FIX: Filter partial is now taken from filter configuration and no longer hard-coded in template
+e15845b 2010-08-05 15:36:58 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+409b8bc 2010-08-05 15:36:55 +0200 (Daniel Lienert) message: CHG: Moved default configuration from demolist to prototype files
+71e6c71 2010-08-05 15:15:21 +0200 (Christoph Ehscheidt) message: FIX: test for cObj call
+83bc8c8 2010-08-05 14:53:17 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+7378c8f 2010-08-05 14:53:08 +0200 (Michael Knoll) message: ADD: Added group filter base class and tests
+f795610 2010-08-05 14:47:42 +0200 (Christoph Ehscheidt) message: FIX: workaroud for cObject tests
+6889594 2010-08-05 13:28:51 +0200 (Christoph Ehscheidt) message: ADD: simple test for typoscript column label rendering
+8e151a4 2010-08-05 13:13:54 +0200 (Christoph Ehscheidt) message: ADD: test caption label localization
+441c26b 2010-08-05 12:41:02 +0200 (Michael Knoll) message: ADD: Added filter validation for filterbox controller. Wrote tests for all that stuff
+e5e86d2 2010-08-05 12:33:57 +0200 (Christoph Ehscheidt) message: ADD: column label localization
+dc8d923 2010-08-05 09:57:07 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+2582985 2010-08-05 09:57:01 +0200 (Christoph Ehscheidt) message: DEL: BackendObserver Interface
+00ba6b5 2010-08-04 20:03:31 +0200 (Daniel Lienert) message: ADD: BaseWherClause and BaseFromClause
+bf53d25 2010-08-04 19:16:32 +0200 (Daniel Lienert) message: CHG: FilterboxController - forward instead of redirect
+12e1d6c 2010-08-04 19:00:59 +0200 (Daniel Lienert) message: RFT: HeaderColumn FIX: Sorting
+53255aa 2010-08-04 17:54:52 +0200 (Daniel Lienert) message: TASK: Hudson show!
+8d3ff61 2010-08-04 17:04:34 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+dc15860 2010-08-04 17:04:27 +0200 (Daniel Lienert) message: CHG: Action List to Sort
+3828b4f 2010-08-04 17:03:26 +0200 (Daniel Lienert) message: RFT: SortingViewHelper
+78b3c74 2010-08-04 17:00:45 +0200 (Martin Alker) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+012d793 2010-08-04 16:55:19 +0200 (Christoph Ehscheidt) message: RFT: moved sorting image default config to column config object
+945b587 2010-08-04 16:54:58 +0200 (Martin Alker) message: CHG: HTML and CSS classes
+dc1876c 2010-08-04 16:45:10 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+656c55a 2010-08-04 16:44:59 +0200 (Michael Knoll) message: ADD: Added validation in filterbox template
+74a0aa7 2010-08-04 16:42:05 +0200 (Christoph Ehscheidt) message: FIX: filterbox show.html
+01ca46f 2010-08-04 16:37:01 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+95a414e 2010-08-04 16:36:54 +0200 (Michael Knoll) message: FIX: Fixed tests to work with message classes.
+c61e813 2010-08-04 16:32:14 +0200 (Daniel Lienert) message: ADD: NameSpaceArrayUtility::saveDataInNamespaceTree
+d84eb1f 2010-08-04 16:26:00 +0200 (Daniel Lienert) message: FIX: Testcase
+f0102fb 2010-08-04 16:24:19 +0200 (Daniel Lienert) message: RFT: renamed GPArrayViewHelper.php
+392e7eb 2010-08-04 16:19:01 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+40906bd 2010-08-04 16:18:54 +0200 (Daniel Lienert) message: ADD: GPArrayViewHelper and Test
+ff56894 2010-08-04 16:17:11 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+34d680f 2010-08-04 16:16:59 +0200 (Michael Knoll) message: ADD: Added messaging classes. Added tests for filterbox using message classes
+b478769 2010-08-04 15:55:17 +0200 (Christoph Ehscheidt) message: FIX: lava lamp off
+fb77a52 2010-08-04 15:48:37 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+99aa678 2010-08-04 15:48:34 +0200 (Christoph Ehscheidt) message: TEST LAVA LAMP
+b90cf31 2010-08-04 14:46:55 +0200 (Daniel Lienert) message: RFT: GPValueViewHelper.php to FormElementNameViewHelper.php
+3c0e02c 2010-08-04 14:19:25 +0200 (Michael Knoll) message: ADD: Added validation for filterbox. Added tests for validation
+2e5d562 2010-08-04 13:48:44 +0200 (Michael Knoll) message: FIX: Made test for filterboxcontroller::submit work again
+57b1c2e 2010-08-04 13:42:00 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+02e4187 2010-08-04 13:41:47 +0200 (Michael Knoll) message: ADD: Added reset link to filterbox template. Not yet working, viewhelper needs to be adapted
+0c02feb 2010-08-04 12:31:43 +0200 (Daniel Lienert) message: ADD: Typoscript Settings
+b344032 2010-08-04 11:32:15 +0200 (Michael Knoll) message: ADD: Filters can be resetted now
+8537fda 2010-08-04 09:55:12 +0200 (Daniel Lienert) message: RFT: PostVarAdapter & Tests
+26a8086 2010-08-03 19:19:15 +0200 (Michael Knoll) message: ADD: Added reset method to filter interface and concrete implementations
+0c79fef 2010-08-03 19:10:39 +0200 (Michael Knoll) message: ADD: Added reset action to filterbox controller. Added test for it. Added method for getting filterbox collection to data backend interface
+2021711 2010-08-03 18:54:31 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+429ab3f 2010-08-03 18:54:22 +0200 (Michael Knoll) message: ADD: Added method for getting filterbox by filterbox identifier from filterbox collection. Added tests for this method
+111d54e 2010-08-03 18:45:50 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+7eeee06 2010-08-03 18:45:42 +0200 (Daniel Lienert) message: RFT: renamed getParametersByObject to injectParametersInObject
+867d3b6 2010-08-03 17:55:49 +0200 (Michael Knoll) message: ADD: Added testcase for pagerController::submitAction
+ab6608b 2010-08-03 17:45:34 +0200 (Michael Knoll) message: ADD: Default pager is working now
+a06da00 2010-08-03 17:32:43 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+6f51ba3 2010-08-03 17:32:41 +0200 (Daniel Lienert) message: CHG: MySqlDataBackend
+a93fcab 2010-08-03 17:31:53 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+6889496 2010-08-03 17:31:35 +0200 (Michael Knoll) message: FIX: Fixed problem with division in pager
+e2a9540 2010-08-03 17:20:06 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+12e5efe 2010-08-03 17:20:02 +0200 (Daniel Lienert) message: CHG: demolist setup.txt
+e3fb77d 2010-08-03 17:18:23 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+6492cc5 2010-08-03 17:18:15 +0200 (Michael Knoll) message: ADD: Added testcase for pager controllerÂ
+6002c44 2010-08-03 16:38:50 +0200 (Christoph Ehscheidt) message: CHG: hudson test
+2a74a48 2010-08-03 16:22:00 +0200 (Christoph Ehscheidt) message: FIX: Hudson Test
+d246b46 2010-08-03 16:17:23 +0200 (Christoph Ehscheidt) message: ADD: Hudson Fail Test.
+4e56331 2010-08-03 15:54:16 +0200 (Michael Knoll) message: RFT: Changed all classes that made use of pager as an observer
+909cc5d 2010-08-03 15:39:40 +0200 (Christoph Ehscheidt) message: RFT: DemoList is sortable now!
+3b0dccd 2010-08-03 15:37:02 +0200 (Christoph Ehscheidt) message: FIX: getIsSortable returning bool value
+eca4e98 2010-08-03 15:32:44 +0200 (Michael Knoll) message: RFT: Databackend factory has less TODOs now
+abd77eb 2010-08-03 15:30:41 +0200 (Michael Knoll) message: RFT: Factory for data backend uses less lines now
+923e9f9 2010-08-03 15:29:07 +0200 (Christoph Ehscheidt) message: FIX: isSortable()
+647dec4 2010-08-03 15:26:50 +0200 (Michael Knoll) message: ADD: Added assertion for pager configuration
+4d228cf 2010-08-03 15:12:41 +0200 (Michael Knoll) message: RFT: Pager interface is no longer extending other interfaces. Pager now implements them
+b8b1b57 2010-08-03 14:52:28 +0200 (Christoph Ehscheidt) message: CHG: test for header column
+f048489 2010-08-03 14:35:11 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+3ca15d3 2010-08-03 14:24:40 +0200 (Daniel Lienert) message: ADD: Test testGetWhereClauseFromFilterbox
+9a9f6a4 2010-08-03 14:20:19 +0200 (Christoph Ehscheidt) message: CHG: link parameter calculation
+abcb263 2010-08-03 14:16:40 +0200 (Daniel Lienert) message: ADD: isActive and an initFilter method to abstract and stringfilter
+edf408c 2010-08-03 14:15:42 +0200 (Daniel Lienert) message: CHG: MySqlInterpreter to get correct querys with empty QueryObjects
+874225c 2010-08-03 13:49:15 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+4dff9a9 2010-08-03 13:49:08 +0200 (Daniel Lienert) message: CHG: Inject Session State in String Filter
+415f7e1 2010-08-03 13:42:49 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+807e49e 2010-08-03 13:42:46 +0200 (Christoph Ehscheidt) message: CHG: List templates
+ba4a747 2010-08-03 13:42:23 +0200 (Christoph Ehscheidt) message: RFT: Column rendering with own view helpers
+9a8f288 2010-08-03 13:40:46 +0200 (Daniel Lienert) message: CHG: GPValueViewHelper to return path without pt_extlist_pi1, which is added by fluid viewhelpers!
+a5ca3c4 2010-08-03 12:27:34 +0200 (Daniel Lienert) message: FIX: viewhelper in stringfilter partial
+8749ad7 2010-08-03 12:15:02 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+7780de0 2010-08-03 12:12:51 +0200 (Daniel Lienert) message: RFT: Tests for mysql interpreter
+5c9d44a 2010-08-03 12:05:52 +0200 (Daniel Lienert) message: RFT: GPValueViewHelper and Tests
+49609be 2010-08-03 11:50:10 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+ddf1162 2010-08-03 11:48:23 +0200 (Christoph Ehscheidt) message: CHG: some more getters needed for viewhelpers
+5d25474 2010-08-03 11:47:44 +0200 (Christoph Ehscheidt) message: ADD: partial template for list header rendering
+ac6a8b5 2010-08-03 11:33:57 +0200 (Daniel Lienert) message: CHG: Removed Backticks in SimpleCriteriaTranslator.php
+dd28d18 2010-08-02 19:17:55 +0200 (Daniel Lienert) message: CHG: GetPostPropertyViewHelper
+fd939a5 2010-08-02 19:05:56 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+b579df8 2010-08-02 19:05:49 +0200 (Michael Knoll) message: FIX: Filter uses fieldname and tablename for fieldDescriptionIdentifier
+bca9dee 2010-08-02 18:48:22 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e6569e2 2010-08-02 18:48:14 +0200 (Daniel Lienert) message: ADD: GetPostPropertyViewHelper and Tests#
+e05688a 2010-08-02 18:09:50 +0200 (Michael Knoll) message: RFT: Refactored abstract data backend and creation of query interpreter
+72b8fd5 2010-08-02 17:18:22 +0200 (Michael Knoll) message: RFT: Changed some formatting stuff
+14c82f8 2010-08-02 17:16:01 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+0637418 2010-08-02 17:15:53 +0200 (Michael Knoll) message: ADD: Added tests for string filter
+4cd215a 2010-08-02 16:59:56 +0200 (Daniel Lienert) message: ADD: OrderByClause to MysqlDataBackend
+0a1d765 2010-08-02 16:33:50 +0200 (Daniel Lienert) message: ADD: get orderby from listheader and tests
+29471d1 2010-08-02 15:30:06 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+38e4fa0 2010-08-02 15:30:03 +0200 (Daniel Lienert) message: ADD: GetSortingQuery and Tests
+c43551a 2010-08-02 15:05:04 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+dc6152c 2010-08-02 15:04:51 +0200 (Michael Knoll) message: ADD: Finished testcase for abstract filter. Added comments for filter interface
+830b964 2010-08-02 14:46:21 +0200 (Michael Knoll) message: RFT: Refactored filter stuff
+97aeff3 2010-08-02 14:29:18 +0200 (Christoph Ehscheidt) message: CHG: HeaderViewHelper with images
+3b00939 2010-08-02 14:02:44 +0200 (Michael Knoll) message: ADD: Added testcase for abstract class
+575d39f 2010-08-02 14:02:16 +0200 (Michael Knoll) message: RFT: Changed class name of filter stub
+e490b26 2010-08-02 13:25:16 +0200 (Christoph Ehscheidt) message: RFT: List Controller to serve new Header View Helper
+76a276b 2010-08-02 13:24:19 +0200 (Christoph Ehscheidt) message: ADD: ViewHelper for displaying sorted headers
+d8e6b75 2010-08-02 12:54:23 +0200 (Michael Knoll) message: ADD: Added some comment to filterbox configuration collection mock
+dd5a91a 2010-08-02 12:53:36 +0200 (Michael Knoll) message: FIX: Fixed Filterbox configuration collection mock
+9f267f7 2010-08-02 12:42:33 +0200 (Christoph Ehscheidt) message: ADD: testcase for ListFactory
+93a3854 2010-07-30 14:22:45 +0200 (Christoph Ehscheidt) message: CHG: renamed all tests to *Test.php. Needed for cli test execution.
+963fe3c 2010-07-30 14:19:47 +0200 (Christoph Ehscheidt) message: CHG: renamed all tests back
+a5eca1d 2010-07-30 11:23:02 +0200 (root) message: CHG: added comments
+a78cc3d 2010-07-29 16:27:06 +0200 (Christoph Ehscheidt) message: FIX: syntax error caused by merge
+219a05e 2010-07-29 16:25:35 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+3a918cd 2010-07-29 16:25:31 +0200 (Christoph Ehscheidt) message: ADD: tests for abstract data backend
+107f833 2010-07-29 16:21:58 +0200 (Michael Knoll) message: TASK: Resolved some conflicts
+efc6bec 2010-07-29 16:08:31 +0200 (Michael Knoll) message: RFT: Added lot of comments, code formatting etc
+10bc2a7 2010-07-29 16:00:56 +0200 (Christoph Ehscheidt) message: DEL: DataSourceObserver and Testcase
+f56a885 2010-07-29 15:55:57 +0200 (Christoph Ehscheidt) message: RFT: removed datasource observer and added a backendobserver.
+9ecb456 2010-07-29 15:29:22 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+3088dca 2010-07-29 15:29:18 +0200 (Christoph Ehscheidt) message: RFT: using a list factory for putting the list wrapper together.
+e6a7d97 2010-07-29 15:20:38 +0200 (Daniel Lienert) message: ADD: Comments
+22eebce 2010-07-29 15:20:01 +0200 (Michael Knoll) message: DEL: Deleted non-required classes
+48ed6e9 2010-07-29 15:16:25 +0200 (Daniel Lienert) message: FIX: SortingCollectionFactory_testcase
+322df3b 2010-07-29 15:13:43 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+bf3a4a5 2010-07-29 15:13:39 +0200 (Daniel Lienert) message: ADD: Tests for HeaderColumn
+6c92e56 2010-07-29 15:12:02 +0200 (Christoph Ehscheidt) message: FIX: merging error
+725ad8c 2010-07-29 15:09:57 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+d66e58c 2010-07-29 15:09:55 +0200 (Michael Knoll) message: RFT: Refactored some backend tests. Added test for typo3 data backend createDataSource
+7929ef3 2010-07-29 15:09:45 +0200 (Christoph Ehscheidt) message: RFT: rendering can parse typoscript
+d7e25ad 2010-07-29 15:08:50 +0200 (Christoph Ehscheidt) message: FIX: test is working again.
+6808a1d 2010-07-29 15:08:19 +0200 (Christoph Ehscheidt) message: RFT: use strategies for rendering
+670798a 2010-07-29 15:07:44 +0200 (Christoph Ehscheidt) message: ADD: tests for rendering strategies
+ee069ae 2010-07-29 15:05:36 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+fff7dda 2010-07-29 15:05:32 +0200 (Daniel Lienert) message: ADD: Test for getSorting()
+b47d8d5 2010-07-29 14:58:12 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+124033b 2010-07-29 14:58:04 +0200 (Michael Knoll) message: ADD: Made mysql data backend run with demolist configuration. Fixed a lot of stuff. Formatted source code. Added comments. Made all tests green again.
+34ce1f5 2010-07-29 14:52:51 +0200 (Daniel Lienert) message: FIX: getColumnIdentifier
+0741acc 2010-07-29 14:52:03 +0200 (Daniel Lienert) message: ADD: GetSorting()
+b719c57 2010-07-29 14:23:22 +0200 (Daniel Lienert) message: FIX: div ...
+af1b0cd 2010-07-29 14:22:21 +0200 (Daniel Lienert) message: FIX:  Classes/Domain/Model/List/Header/* to work with GPVars Factory
+334c293 2010-07-29 14:09:00 +0200 (Daniel Lienert) message: FIX: TestCase
+167b15c 2010-07-29 14:04:20 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+5ec3ad8 2010-07-29 14:04:14 +0200 (Daniel Lienert) message: RFT: Sorting with constants - defined in Classes/Domain/QueryObject/Query.php
+3d6e6ca 2010-07-29 13:37:22 +0200 (Michael Knoll) message: ADD: Added comments and fixed code formatting in pager configuration class
+e52fe23 2010-07-29 12:57:45 +0200 (Michael Knoll) message: RFT: some code formatting and TODOs
+4e05da9 2010-07-29 12:51:04 +0200 (Michael Knoll) message: RFT: Refactored data backend so that it creates data source itself
+85cb9d7 2010-07-29 11:56:31 +0200 (Michael Knoll) message: TASK: Fixed conflicts due to merge
+053bd55 2010-07-29 11:54:37 +0200 (Michael Knoll) message: RFT: Renamed all test classes that did not match conventions
+7b4b5cc 2010-07-29 11:43:13 +0200 (Michael Knoll) message: ADD: Added some error numbers to assertions
+b131441 2010-07-29 11:41:29 +0200 (Michael Knoll) message: ADD: Added some error numbers to assertions
+b240016 2010-07-29 11:40:12 +0200 (Daniel Lienert) message: RFT GetPostVarAdapter / ADD: GetPostVarAdapterFactory
+5bea768 2010-07-29 11:35:52 +0200 (Michael Knoll) message: FIX: Fixed class for t3 data backend
+8753fb2 2010-07-29 11:10:13 +0200 (Daniel Lienert) message: ADD: Method to get instance by field config and tests
+6479bbd 2010-07-29 10:37:59 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+74b300c 2010-07-29 10:37:54 +0200 (Daniel Lienert) message: ADD: Tests for Sorting Collection Factory
+ebefa15 2010-07-29 10:12:15 +0200 (Christoph Ehscheidt) message: ADD: dummy data backend returning a wrapped list now
+8f4bb4d 2010-07-29 09:58:02 +0200 (Christoph Ehscheidt) message: FIX: tests working again
+0b32386 2010-07-29 09:54:54 +0200 (Christoph Ehscheidt) message: CHG: the list has a reference to list header.
+6895e52 2010-07-29 09:54:21 +0200 (Christoph Ehscheidt) message: CHG: default renderer has a reference to the strategies
+b20f998 2010-07-29 09:45:02 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+0e37ff9 2010-07-29 09:44:49 +0200 (Christoph Ehscheidt) message: CHG: default renderer
+3cc2eae 2010-07-29 09:44:31 +0200 (Christoph Ehscheidt) message: ADD: caption rendering strategy
+6437313 2010-07-28 17:34:36 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+2aafd50 2010-07-28 17:34:29 +0200 (Daniel Lienert) message: RFT: HeaderColumn*
+6071972 2010-07-28 17:33:43 +0200 (Daniel Lienert) message: ADD: Classes to hold teh sorting config
+d379def 2010-07-28 17:33:13 +0200 (Daniel Lienert) message: ADD: New Column Settings
+7c41586 2010-07-28 17:03:01 +0200 (Michael Knoll) message: ADD: Added testcase for typo3 data sourceÂ
+69a2b18 2010-07-28 16:14:27 +0200 (Michael Knoll) message: ADD: Added classes for t3tables data backend
+53bf1b3 2010-07-28 15:57:35 +0200 (Michael Knoll) message: RFT: Changed tests to work with moved files
+7b8d1c5 2010-07-28 15:55:25 +0200 (Michael Knoll) message: RFT: Moved some files
+1b273bd 2010-07-28 15:54:28 +0200 (Michael Knoll) message: RFT: Moved some files
+cafa8aa 2010-07-28 15:52:05 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+b7d0792 2010-07-28 15:51:57 +0200 (Michael Knoll) message: ADD: Added mysql data source and tests
+1102e27 2010-07-28 15:29:58 +0200 (Christoph Ehscheidt) message: FIX: use corrent cell to render the content.
+6bec9a5 2010-07-28 15:20:09 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+0c96c12 2010-07-28 15:20:02 +0200 (Christoph Ehscheidt) message: RFT: renderer uses strategies
+71a1ccc 2010-07-28 14:49:34 +0200 (Daniel Lienert) message: ADD: More parameter for Columns
+2a91182 2010-07-28 14:32:47 +0200 (Daniel Lienert) message: RFT ColumnConfig - add defaults
+3327bab 2010-07-28 14:11:56 +0200 (Daniel Lienert) message: CHG: Codemonkeywork on FilterBoxFactory
+50a07d7 2010-07-28 13:36:42 +0200 (Michael Knoll) message: RFT: Moved database configuration class
+fb9e86a 2010-07-28 13:32:05 +0200 (Daniel Lienert) message: RFT/FIX: DefaultRenderer_testcase
+6cf72af 2010-07-28 13:26:28 +0200 (Michael Knoll) message: DEL: Removed old class (QueryConfiguration)
+17e73f7 2010-07-28 13:15:00 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+a847be4 2010-07-28 13:14:18 +0200 (Christoph Ehscheidt) message: CHG: column default configuration. added some typoscript to show the renderer functionality.
+cf41d2e 2010-07-28 13:13:31 +0200 (Christoph Ehscheidt) message: CHG: defaultRenderer: check that columnConfiguration is set.
+5824122 2010-07-28 13:12:28 +0200 (Christoph Ehscheidt) message: ADD: tests for renderer factory and default renderer.
+6872a24 2010-07-28 13:10:31 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+c9a3581 2010-07-28 13:10:15 +0200 (Michael Knoll) message: FIX: Removed useless require_once
+bb37db2 2010-07-28 12:49:25 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+33a98f4 2010-07-28 12:49:18 +0200 (Daniel Lienert) message: RFT: ConfigurationBuilder for changes in ColumnConfigs
+3ee143b 2010-07-28 12:48:31 +0200 (Daniel Lienert) message: RFT: Tests for ColumnConfig* to reflect the Changes in ColumnConfig*
+f4b2bf0 2010-07-28 12:47:31 +0200 (Daniel Lienert) message: RFT: Refactored ColumnConfig* to act like FilterConfiguration* and hold the ListIdentifier
+6bc2524 2010-07-28 11:14:19 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+2cccc76 2010-07-28 11:14:16 +0200 (Christoph Ehscheidt) message: CHG: default list fluid template
+c05320e 2010-07-28 11:13:59 +0200 (Christoph Ehscheidt) message: CHG: default TS configuration
+88b368c 2010-07-28 11:13:35 +0200 (Christoph Ehscheidt) message: CHG: renderer default implementation and configuration.
+7ec4634 2010-07-28 10:25:16 +0200 (Daniel Lienert) message: FIX: OrCriteria_testcase to reflect changes in orCriteria
+737ba3b 2010-07-28 10:22:05 +0200 (Daniel Lienert) message: CHG: MySqlInterpreterCriteria_testcase: added tests for AND, OR and NOT
+8087cb3 2010-07-27 17:45:40 +0200 (Christoph Ehscheidt) message: FIX: changed a absolute require-path to a relative.
+198a2eb 2010-07-27 17:18:12 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e646fd4 2010-07-27 17:17:55 +0200 (Michael Knoll) message: ADD: Added creation of select part to mysql data backend
+686a8a8 2010-07-27 17:16:27 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+e5cc0d8 2010-07-27 17:16:22 +0200 (Christoph Ehscheidt) message: CHG: simple prototype implementation of a renderer
+94218a3 2010-07-27 16:20:39 +0200 (Michael Knoll) message: ADD: Added limit of pager to mysql backend
+f3ce0d6 2010-07-27 16:02:12 +0200 (Michael Knoll) message: ADD: Added tests for mysql backend
+ea6e11e 2010-07-27 15:39:43 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+abc3fb5 2010-07-27 15:39:35 +0200 (Michael Knoll) message: ADD: Added a lot of stuff to mysql backend
+2d55f20 2010-07-27 15:30:06 +0200 (Christoph Ehscheidt) message: FIX: AbstractRenderer constructor
+b676847 2010-07-27 15:27:37 +0200 (Christoph Ehscheidt) message: CHG: RendererFactory
+ed96194 2010-07-27 15:27:02 +0200 (Christoph Ehscheidt) message: ADD: RendererInterface
+d41f80a 2010-07-27 14:58:23 +0200 (Christoph Ehscheidt) message: FIX: added assertions checking the returned class
+0f8bf7b 2010-07-27 14:52:30 +0200 (Christoph Ehscheidt) message: FIX: return columnConfigCollection instead of fieldConfigCollection in buildColumnConfiguration.
+bfeff94 2010-07-27 14:42:49 +0200 (Christoph Ehscheidt) message: CHG: implementation of RendererConfiguration and tests
+5d89956 2010-07-27 13:47:56 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e83d1a1 2010-07-27 13:47:45 +0200 (Michael Knoll) message: ADD: Added some dummy methods to mysql data backend
+c8868dd 2010-07-27 13:17:15 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
+59b7cd8 2010-07-27 13:17:04 +0200 (Christoph Ehscheidt) message: CHG: buildRendererConfiguration in ConfigurationBuilder
+2273ee4 2010-07-27 13:16:22 +0200 (Christoph Ehscheidt) message: ADD: RendererFactory
+d3efa93 2010-07-27 13:15:49 +0200 (Christoph Ehscheidt) message: ADD: testcase for RendererConfiguration
+27a3db7 2010-07-27 13:07:37 +0200 (Christoph Ehscheidt) message: ADD: tests for RendererConfigFactory
+f097b14 2010-07-27 12:40:55 +0200 (Christoph Ehscheidt) message: CHG: new method buildRendererConfiguration
+3f9c707 2010-07-27 12:29:49 +0200 (Christoph Ehscheidt) message: ADD: renderer classes
+f20d905 2010-07-27 11:48:12 +0200 (Christoph Ehscheidt) message: CHG: tests for dummy backend and abstract data source.
+3f5cb27 2010-07-27 11:41:18 +0200 (Christoph Ehscheidt) message: CHG: dummy data backend testcase.
+6b90336 2010-07-27 11:40:13 +0200 (Christoph Ehscheidt) message: ADD: testcases for the abstract data source
+036f53b 2010-07-27 11:21:40 +0200 (Christoph Ehscheidt) message: RFT: implemented the datasource observer update
+fab2b82 2010-07-27 11:19:38 +0200 (Christoph Ehscheidt) message: ADD: data source observer interface and abstract data source class.
+ce3acc2 2010-07-26 16:50:54 +0200 (Michael Knoll) message: FIX: Fixed some issues in Mysql interpreter
+a9ccd88 2010-07-26 16:27:37 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+8aa7550 2010-07-26 16:26:25 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+7e5aced 2010-07-26 16:26:17 +0200 (Daniel Lienert) message: FIX: removed rquire interface in MySqlInterpreter classes
+64e7588 2010-07-26 16:08:35 +0200 (Michael Knoll) message: ADD: Added tests for mysql interpreter
+88a9e89 2010-07-26 15:59:11 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e0a6515 2010-07-26 15:58:50 +0200 (Michael Knoll) message: ADD: Added some translation functionality to Mysql Query translator
+f1610c9 2010-07-26 15:55:09 +0200 (Daniel Lienert) message: CHG: add translator methods criteria translator classes
+6341dfc 2010-07-26 15:33:50 +0200 (Michael Knoll) message: ADD: Added base classes for query translator for mysql
+44128b9 2010-07-26 14:37:17 +0200 (Michael Knoll) message: DEL: Deleted testcases for old query object
+35f4e5c 2010-07-26 14:36:13 +0200 (Michael Knoll) message: DEL: DeÃleted old folder structure
+be7ff17 2010-07-26 13:52:59 +0200 (Michael Knoll) message: ADD: Added interface, tests and folder structure for mysql interpreter
+39d9a02 2010-07-26 13:38:18 +0200 (Michael Knoll) message: RFT: Changed folder structure for data backend in tests
+be71a88 2010-07-26 13:34:27 +0200 (Michael Knoll) message: RFT: Changed folder structure for data backend
+e54618b 2010-07-26 13:33:00 +0200 (Michael Knoll) message: RFT: Changed folder structure for data backend
+e913f22 2010-07-26 15:02:26 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+b3b7e0f 2010-07-25 05:42:15 +0200 (Michael Knoll) message: ADD: Finished query object and added tests for it
+f217eab 2010-07-24 19:11:50 +0200 (Michael Knoll) message: ADD: Added test to query testcase
+3206457 2010-07-23 19:27:34 +0200 (Michael Knoll) message: ADD: Added testcase for and criteria
+d0b492a 2010-07-23 19:21:00 +0200 (Michael Knoll) message: Added testcase for or criteria
+185b800 2010-07-23 19:12:47 +0200 (Michael Knoll) message: ADD: Added testcase for notCriteria
+014baba 2010-07-23 19:06:49 +0200 (Michael Knoll) message: ADD: Added some comments for notCriteria
+838ad51 2010-07-23 19:04:36 +0200 (Michael Knoll) message: ADD: Added some comments to criteria class
+f92cd53 2010-07-23 18:55:18 +0200 (Michael Knoll) message: ADD: Added tests for simple criteria
+d7c45dd 2010-07-23 18:49:18 +0200 (Michael Knoll) message: ADD: Added some comments to simple criteria
+11c03eb 2010-07-23 18:38:42 +0200 (Michael Knoll) message: ÂADD: Added some criterias for query object
+3d4057c 2010-07-23 14:45:36 +0200 (Michael Knoll) message: ADD: Added folders and class and tests for query object
+88c4b72 2010-07-21 16:57:52 +0200 (Christoph Ehscheidt) message: CHG: changed the pager update
+ed304ec 2010-07-21 10:02:39 +0200 (Christoph Ehscheidt) message: ADD: doc comments
+159bdd4 2010-07-21 09:40:43 +0200 (Christoph Ehscheidt) message: RFT: Pager Model
+9239988 2010-07-20 16:48:19 +0200 (Christoph Ehscheidt) message: FIX: resolved hardcoded details in pagebrowser
+717ba35 2010-07-20 15:52:18 +0200 (Christoph Ehscheidt) message: CHG: made the pagebrowser work
+159cc53 2010-07-20 14:14:50 +0200 (Christoph Ehscheidt) message: ADD: Implemented the getParametersByObject method.
+80a0a40 2010-07-20 12:10:07 +0200 (Christoph Ehscheidt) message: FIX: All tests working again.
+21c5cf7 2010-07-20 11:39:09 +0200 (Christoph Ehscheidt) message: CHG: test default pager.
+9b06cd5 2010-07-20 11:17:30 +0200 (Christoph Ehscheidt) message: CHG: Test the pager update in the DummyDataBackend.
+c7391b7 2010-07-20 10:19:50 +0200 (Christoph Ehscheidt) message: CHG: extended PagerConfiguration testcase
+ec2877c 2010-07-19 17:54:07 +0200 (Christoph Ehscheidt) message: ADD: abstract dataBackend method for updating the pager.
+f9f7eb0 2010-07-19 16:52:26 +0200 (Christoph Ehscheidt) message: CHG: page browser shows valid links
+f576e3c 2010-07-19 14:49:12 +0200 (Christoph Ehscheidt) message: ADD: pager template
+70c4608 2010-07-19 14:42:17 +0200 (Christoph Ehscheidt) message: ADD: Pager controller definitions.
+aef6f10 2010-07-19 14:33:54 +0200 (Christoph Ehscheidt) message: ADD: getPagerSettings method to the PagerConfiguration.
+d8f2584 2010-07-19 14:23:25 +0200 (Christoph Ehscheidt) message: ADD: FilterFactory Implementation.
+196c377 2010-07-06 19:32:02 +0200 (Michael Knoll) message: ADD: Added get post var adapter and wrote tests for it
+31cc133 2010-07-06 18:29:05 +0200 (Michael Knoll) message: RFT: Changed folder name of tests from session addapter to state adapter
+e6caf96 2010-07-06 18:25:21 +0200 (Michael Knoll) message: RFT: Changed session persistence folder to state adapter. Fixed all tests
+1d6876b 2010-07-06 15:58:09 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+b5a36bb 2010-07-06 15:57:48 +0200 (Daniel Lienert) message: FIX: Made Submit Actions functional
+a6d44f9 2010-07-06 14:11:16 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+466e6c8 2010-07-06 14:11:09 +0200 (Michael Knoll) message: ADD: Added assertion for empty list configuration
+70622a7 2010-07-06 13:50:43 +0200 (Daniel Lienert) message: ADD: Form in Filterbox Template
+27cbc63 2010-07-06 13:41:36 +0200 (Daniel Lienert) message: CHG: Templates for Filter and Filterbox
+c8f86e3 2010-07-06 13:09:36 +0200 (Michael Knoll) message: FIX: Fixed bug in filter class. ADD: Added partial for string filter
+d2e5f34 2010-07-06 12:42:48 +0200 (Michael Knoll) message: ADD: Added partial directory and partial for string filter
+94e2ffa 2010-07-06 12:36:52 +0200 (Michael Knoll) message: DEL: Deleted filter controller as no longer neccessary
+2177e90 2010-07-06 12:22:41 +0200 (Daniel Lienert) message: FIX: AbstractFilter
+55caf6c 2010-07-03 17:09:41 +0200 (Michael Knoll) message: ADD: Added tests for pager configuration
+e6a4cc5 2010-07-03 15:46:12 +0200 (Michael Knoll) message: ADD: Added interface and concrete implementation for pager. ADD: Added testcase for pager class
+8860a97 2010-07-01 13:47:59 +0200 (Michael Knoll) message: RFT: Made all tests work again with changed filter constructors
+b2dbb17 2010-07-01 13:36:23 +0200 (Michael Knoll) message: ADD: Filterbox config contains config for all filters now
+a0ddddf 2010-06-30 19:04:53 +0200 (Michael Knoll) message: Last changes in filterbox controller
+789a5a8 2010-06-30 18:42:14 +0200 (Michael Knoll) message: ADD: Added some TS config for filterboxes. ADD: Databackend has getter for filterboxcollection now
+a7fc9f5 2010-06-30 18:17:41 +0200 (Michael Knoll) message: FIX: Fixed session persistence to return array as expected by interface
+622467c 2010-06-30 18:02:59 +0200 (Michael Knoll) message: RFT: Did some refactoring on filter factory
+5b706ac 2010-06-30 17:58:08 +0200 (Michael Knoll) message: ADD: Added testcase for string filter. Made string filter session persistable
+2ec53b3 2010-06-30 15:41:54 +0200 (Michael Knoll) message: CHG: Added some comments
+1762313 2010-06-30 15:26:04 +0200 (Michael Knoll) message: ADD: Added interface for pager. Added injector for pager in data backend class. RFT: Changed data backend interface for injectors
+a49bfa4 2010-06-30 14:23:45 +0200 (Michael Knoll) message: ÂRFT: Made Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase work again
+6fcc51a 2010-06-30 14:20:44 +0200 (Michael Knoll) message: RFT: Made Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase run again
+36aecd1 2010-06-30 13:46:22 +0200 (Michael Knoll) message: RFT: Moved some stubs into right directory
+558ce8b 2010-06-30 13:38:28 +0200 (Michael Knoll) message: RFT: Made Filterbox testcase run again
+fc8c34f 2010-06-30 13:03:52 +0200 (Michael Knoll) message: RFT: Made filterbox configuration testcase work again
+13bde02 2010-06-30 12:32:03 +0200 (Michael Knoll) message: RFT: Made FilterboxCollection_testcase work again
+83beafb 2010-06-30 12:28:07 +0200 (Michael Knoll) message: RFT: Made DataBackendFactory work again after refactoring
+4042239 2010-06-30 12:20:59 +0200 (Michael Knoll) message: ADD: Added timestamps to all assertions
+20e9556 2010-06-29 19:12:55 +0200 (Michael Knoll) message: CHG: Lot of renaming, refactoring all configuration --NON WORKING STATE--
+57b33e4 2010-06-29 18:23:59 +0200 (Michael Knoll) message: ADD: Added method to get filter settings
+2d16e2f 2010-06-29 17:24:22 +0200 (Michael Knoll) message: FIX: Fixed some merge problems. CHG: Changed mapper factory for the sake of simplicity
+7eacd7f 2010-06-29 16:59:45 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+d6081dd 2010-06-29 16:59:06 +0200 (Daniel Lienert) message: TASK: Merge
+a2434c6 2010-06-29 16:54:03 +0200 (Daniel Lienert) message: CHG: Databackend
+1ea5f9e 2010-06-29 16:46:48 +0200 (Michael Knoll) message: ADD: Configuration Builder offers filterbox configuration now. Wrote tests for that
+f8fe4f3 2010-06-29 16:12:57 +0200 (Michael Knoll) message: ADD: Added template for filterbox controller
+b793a5e 2010-06-29 16:05:25 +0200 (Michael Knoll) message: CHG: Changed flexform config so that filterbox configuration can be used as settings
+811a579 2010-06-29 15:09:41 +0200 (Michael Knoll) message: CHG: Changed FlexForm to hold several tabs for settings - not yet working
+1fbcb67 2010-06-29 13:44:31 +0200 (Michael Knoll) message: ADD: Added testcase for pager controller
+14215e5 2010-06-29 13:42:51 +0200 (Michael Knoll) message: ADD: Added testcase for list controller
+dc263e0 2010-06-29 13:37:28 +0200 (Michael Knoll) message: ADD: Added testcase for FilterboxConfigCollectionFactory. FIX: Fixed some assertions and made use of pt_extlist BaseTestcase
+d58d21e 2010-06-29 13:33:25 +0200 (Michael Knoll) message: FIX: Fixed testcases to use Tx_PtExtlist_Tests_BaseTestcase as base class. Fixed assertions
+3632248 2010-06-29 13:27:26 +0200 (Michael Knoll) message: ADD: Added filterbox config testcase
+482e4e4 2010-06-29 13:08:35 +0200 (Michael Knoll) message: ADD: Added factory for filter config. Added testcases for filter configuration factories
+5da2b95 2010-06-29 12:59:43 +0200 (Michael Knoll) message: CHG: Changed controller class name
+72d5e16 2010-06-29 12:58:36 +0200 (Michael Knoll) message: CHG: Changed tests to work with moved classes again
+8a6de4d 2010-06-29 12:57:27 +0200 (Michael Knoll) message: CHG: Changed all occurences of FilterBox to Filterbox. ADD: Added Factory for FilterboxConfiguration
+879a1ca 2010-06-29 12:43:47 +0200 (Michael Knoll) message: ADD: Added controller for filterbox. Added testcase for controller for filterbox
+091123f 2010-06-29 12:10:47 +0200 (Michael Knoll) message: ADD: Added setup test for filter controller
+2cc5c57 2010-06-29 11:52:27 +0200 (Michael Knoll) message: ADD: Added testcase for filter controller
+9757335 2010-06-23 18:00:59 +0200 (Daniel Lienert) message: CHG: Tx_PtExtlist_Domain_DataBackend_DataBackendFactory:createDataBackend and inject methods
+a8d022f 2010-06-23 15:46:07 +0200 (Michael Knoll) message: CHG: DataBackendFactory now offers singleton instances for each list identifier
+9b089be 2010-06-23 15:21:14 +0200 (Michael Knoll) message: ADD: Testcase for DataBackendFactory FIX: DataBackendFactory ADD: Mock for ConfigurationBuilder. TASK: Merged AbstracFilter
+b595b22 2010-06-23 15:18:17 +0200 (Michael Knoll) message: ADD: Testcase for DataBackendFactory FIX: DataBackendFactory ADD: Mock for ConfigurationBuilder
+41ed6d8 2010-06-23 15:16:07 +0200 (Daniel Lienert) message: ADD: Assertion Messages
+d75c486 2010-06-18 14:18:39 +0200 (Michael Knoll) message: CHG: Changed some comments
+4bd4bf7 2010-06-18 13:50:13 +0200 (Michael Knoll) message: CHG: Added list identifier to all filter classes and wrote test for that
+82e52b4 2010-06-17 18:41:05 +0200 (Michael Knoll) message: ADD: Session persistance classes and testcases
+ba1abda 2010-06-17 18:40:11 +0200 (Michael Knoll) message: ADD: Session persistance classes and testcases
+661aa0e 2010-06-17 14:53:04 +0200 (Michael Knoll) message: ADD: Added session persistence manager, factory and testcase
+4bab3ed 2010-04-14 18:35:29 +0200 (Daniel Lienert) message: CHG: Moved Test-FilterStub to Test Section & lot of MonkeyWork
+91063b0 2010-04-14 18:14:37 +0200 (Daniel Lienert) message: ADD: CopyrightHeader (CodeMonkey@Work)
+6e77aed 2010-04-13 21:02:29 +0200 (Michael Knoll) message: ADD: Added lots of factories, tests and classes for filters
+f1f6ac9 2010-04-13 19:34:53 +0200 (Michael Knoll) message: ADD: Added factory for filter objects
+5077299 2010-04-13 18:21:39 +0200 (Michael Knoll) message: ADD: Added empty classes and test for filter models
+99c0685 2010-04-13 15:47:08 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+7006bcf 2010-04-13 15:46:38 +0200 (Michael Knoll) message: TASK: Added changes of Mimis weekend session
+2689d40 2010-04-13 15:44:41 +0200 (Michael Knoll) message: TASK: Added changes of Mimis weekend session
+d827137 2010-04-13 15:44:07 +0200 (Michael Knoll) message: TASK: Added changes of Mimis weekend session
+3524f95 2010-04-13 15:42:13 +0200 (Michael Knoll) message: TASK: Added changes of Mimis weekend session
+9886dc6 2010-04-13 15:41:06 +0200 (Michael Knoll) message: TASK: Added changes of Mimis weekend session
+c2fa50c 2010-04-13 15:37:41 +0200 (Michael Knoll) message: TASK: Added new BackendFiles from Mimis weekend session
+edbdd32 2010-04-13 15:36:36 +0200 (Michael Knoll) message: TASK: Removed unused files, renamed directories
+1c50591 2010-04-09 00:36:51 +0200 (Daniel Lienert) message: ADD: Icon
+2b7d4d4 2010-04-08 19:36:07 +0200 (Michael Knoll) message: CHG: Removed old TS syntax
+f3ba47b 2010-04-08 19:35:25 +0200 (Michael Knoll) message: CHG: Made data backend configurable via settings.listConfig.LIST_NAME.backendConfig.dataBackendClass
+3e69ec9 2010-04-08 19:18:00 +0200 (Michael Knoll) message: ADD: Added dummy data backend for testing
+267deb9 2010-04-08 19:07:45 +0200 (Michael Knoll) message: ADD: Added column configuration to configuration builder and added according test
+d54b359 2010-04-08 18:29:14 +0200 (Michael Knoll) message: ADD: Added Filterbox config and Filterbox config collection
+72fc689 2010-04-08 18:26:00 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+2ea1772 2010-04-08 18:25:43 +0200 (Michael Knoll) message: ADD: Added draft of filter config and according testcase
+4cb854d 2010-04-08 17:36:04 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+1d1239f 2010-04-08 17:35:51 +0200 (Daniel Lienert) message: ADD: ColumnConfig & Tests
+b8d8605 2010-04-08 16:44:33 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+62cb5db 2010-04-08 16:44:14 +0200 (Michael Knoll) message: ADD: Added building of fields configuration into ConfigBuilder including tests
+9781fbf 2010-04-08 16:35:00 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+c3a2783 2010-04-08 16:34:42 +0200 (Daniel Lienert) message: ADD: ColumnConfig & TestCase
+f4cffd5 2010-04-08 16:31:41 +0200 (Michael Knoll) message: ADD: Added configuration objects for field configuration including tests
+be0cf0a 2010-04-08 16:29:00 +0200 (Michael Knoll) message: ADD: autoload config
+2b6af15 2010-04-08 15:48:25 +0200 (Michael Knoll) message: ADD: Added testcase for field configuration
+9834dc3 2010-04-08 15:47:23 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+76d6b1d 2010-04-08 15:47:02 +0200 (Michael Knoll) message: ADD: Added configuration for field
+df10795 2010-04-08 15:15:46 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+c218cab 2010-04-08 15:15:28 +0200 (Michael Knoll) message: ADD: Added directory structure for config objects
+10d0a93 2010-04-08 15:14:49 +0200 (Daniel Lienert) message: ADD: AbstractQuery.php, Query/Where.php
+f234112 2010-04-08 14:34:37 +0200 (Michael Knoll) message: ADD: Added first draft of configuration builder with all tests
+b01b799 2010-04-08 13:46:58 +0200 (Michael Knoll) message: ADD: Added testcase for configuration builder
+a10b567 2010-04-08 13:19:25 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+ef76f3e 2010-04-08 13:17:10 +0200 (Michael Knoll) message: CHG: Removed some unused code from configuration builder
+5c18201 2010-04-08 13:09:48 +0200 (Daniel Lienert) message: ADD: Copyright Notice
+26ca4b6 2010-04-08 13:08:39 +0200 (Daniel Lienert) message: DEL: Not longer used Classes
+d7ac540 2010-04-08 12:52:05 +0200 (Michael Knoll) message: ADD: List identifier is taken from flexform / ts configuration now
+0c4c21d 2010-04-08 11:55:23 +0200 (Michael Knoll) message: ADD: Added flexform to backend configuration
+ce0ff38 2010-04-08 11:49:45 +0200 (Michael Knoll) message: ADD: Added flexform configuration for list identifier
+fb45bc9 2010-04-08 11:47:19 +0200 (Michael Knoll) message: ADD: Added empty flexform file
+2f9bbfa 2010-04-08 11:25:55 +0200 (Michael Knoll) message: ADD: Added some information to ext_emconf
+d2545da 2010-04-08 11:22:30 +0200 (Michael Knoll) message: Raised version to 0.0.1 dev
+f4bd893 2010-04-08 11:20:01 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+1e8b91b 2010-04-07 17:40:52 +0200 (Michael Knoll) message: Added class definition file for list object
+64c240e 2010-04-07 17:25:31 +0200 (Daniel Lienert) message: DEL: Query Object and Tests
+73e425d 2010-04-07 17:22:19 +0200 (Michael Knoll) message: Tests for listData and row added
+3cb292b 2010-04-07 17:10:29 +0200 (Michael Knoll) message: added lot of stuff
+2d3ca3c 2010-04-07 15:37:27 +0200 (Michael Knoll) message: Added list data structure and list row
+d512059 2010-03-30 14:22:42 +0200 (Christoph Ehscheidt) message: ADD: Assertion test assertion
+2a9a62e 2010-03-29 13:36:49 +0200 (Christoph Ehscheidt) message: ADD: Where query configuration tests and implementation
+7487807 2010-03-26 13:09:02 +0100 (Christoph Ehscheidt) message: ADD: join query configuration tests
+cd42f9c 2010-03-25 15:43:39 +0100 (Christoph Ehscheidt) message: ADD: tests for where
+9e7771a 2010-03-23 18:03:43 +0100 (Christoph Ehscheidt) message: CHG: all tests working in the test suite
+3fb5d80 2010-03-23 17:45:49 +0100 (Christoph Ehscheidt) message: ADD: configuration mocked test
+9ffa37a 2010-03-23 16:48:56 +0100 (Christoph Ehscheidt) message: ADD: query configuration condition tree (where)
+6b958de 2010-03-23 16:48:14 +0100 (Christoph Ehscheidt) message: CHG: tests refactoring
+ac1a76f 2010-03-23 15:57:28 +0100 (Christoph Ehscheidt) message: CHG: Refactoring of ConfigurationBuilder
+b0b9d4c 2010-03-22 15:19:23 +0100 (Christoph Ehscheidt) message: ADD: implementation and tests for query join configuration
+f8f03f1 2010-03-22 12:51:23 +0100 (Christoph Ehscheidt) message: CHG: implementation to pass all tests. data and query configurations.
+e92f637 2010-03-22 12:50:38 +0100 (Christoph Ehscheidt) message: ADD: tests for the query configuration
+8ea81db 2010-03-22 11:18:41 +0100 (Christoph Ehscheidt) message: CHG: test and implementation for data and query configuration
+19ec4f8 2010-03-22 11:18:12 +0100 (Christoph Ehscheidt) message: ADD: query configuration parts: select, from
+58b7085 2010-03-22 10:39:56 +0100 (Christoph Ehscheidt) message: ADD: first 3 tests for the data configuration
+1e48093 2010-03-22 09:14:55 +0100 (Christoph Ehscheidt) message: ADD: Testcase for data configuration reader
+2212d22 2010-03-22 09:14:16 +0100 (Christoph Ehscheidt) message: ADD: new data configuration setup and parser
+19539a5 2010-03-17 15:31:48 +0100 (Christoph Ehscheidt) message: ADD: SqlQuery.
+a1c6e12 2010-03-17 15:14:07 +0100 (Christoph Ehscheidt) message: ADD: QueryInterface.
+f528d2b 2010-03-17 14:42:41 +0100 (Christoph Ehscheidt) message: CHG: Database Connection moved into DataSource
+f7ddc52 2010-03-17 14:36:47 +0100 (Christoph Ehscheidt) message: Cleanup
+7d75f1d 2010-03-11 15:46:02 +0100 (Christoph Ehscheidt) message: ADD: A view dummy files and some implementation for a start.
+0278ae1 2010-03-09 18:22:35 +0100 (Michael Knoll) message: TASK: Initial Commit

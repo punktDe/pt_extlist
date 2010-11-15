@@ -113,7 +113,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	public function testDefaultGetIsSortable() {
 		$newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('table' => '1', 'field' => '2'));
-		$GLOBALS['trace'] = true; trace($newFieldConfig); $GLOBALS['trace']=off;
 		$this->assertEquals($newFieldConfig->getIsSortable(), true);
 	}
 	

@@ -62,7 +62,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 				$sortingConfigCollection->addSortingField($sortingConfig, $fieldName);
 			}
 		}
-$GLOBALS['trace'] = true; trace($sortingConfigCollection); $GLOBALS['trace']=off;
+
 		return $sortingConfigCollection;
 	}
 	
