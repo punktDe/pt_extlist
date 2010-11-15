@@ -40,12 +40,10 @@
                 </title>
                 <para><xsl:value-of select="DESCRIPTION"/></para>
             </refsection>
-			<refsection>
-			
-				 <segmentedlist>
+			<refsection> <segmentedlist>
 				 <?dbfo list-presentation="list"?>   
 				 <segtitle>Datatype</segtitle>
-				 <segtitle>Possible values</segtitle>
+				 <segtitle>Posible values</segtitle>
 				 <segtitle>Default</segtitle>
 				 <segtitle>StdWrap</segtitle>
 				 <segtitle>Prototype</segtitle>
@@ -59,7 +57,7 @@
 					<seglistitem>
 						
 						<seg>
-							<xsl:value-of select="POSSIBLEVALUES"/>
+							<xsl:value-of select="POSIBLEVALUES"/>
 						</seg>
 					</seglistitem>
 					<seglistitem>
@@ -110,3 +108,75 @@
     </xsl:template>
     
 </xsl:stylesheet>
+			 
+				<!-- <variablelist>
+					<varlistentry>
+						<term>
+							Datatype
+						</term>
+						<listitem>
+							<xsl:value-of select="DATATYPE"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							Posible Values
+						</term>
+						<listitem>
+							<xsl:value-of select="POSIBLEVALUES"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							Default
+						</term>
+						<listitem>
+							<xsl:value-of select="DEFAULT"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							StdWrap
+						</term>
+						<listitem>
+							<xsl:value-of select="STDWRAP"/>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							Prototype
+						</term>
+						<listitem>
+							<xsl:value-of select="PROTOTYPE"/>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</refsection>
+			<refsection>
+				<title>
+                    Example
+                </title>
+                <para>
+					<programlisting>
+						<xsl:value-of select="EXAMPLE"/>
+					</programlisting>
+				</para>
+			</refsection>
+            <xsl:if test="count(CHILDREN/ENTRY) > 0">
+                <refsection>
+                    <title>Child elements</title>
+                    <xsl:for-each select="CHILDREN/ENTRY/@KEY" >
+						<link>
+							<xsl:attribute name="linkend">tsref.<xsl:value-of select="."/></xsl:attribute><xsl:value-of select="."/>
+						</link>,
+                    </xsl:for-each>
+                </refsection>
+                <refsection>
+                        <title>Children of <xsl:value-of select="@KEY"/>:</title>
+                        <xsl:apply-templates select="CHILDREN" />
+                </refsection>
+            </xsl:if>
+        </refentry>
+    </xsl:template>
+    
+</xsl:stylesheet>-->
