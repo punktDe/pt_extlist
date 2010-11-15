@@ -27,8 +27,8 @@
  * Class implementing factory for collection of filterbox configurations
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage Domain\Configuration\Pager
+ * @package Domain
+ * @subpackage Configuration\Pager
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory {
 	
@@ -36,19 +36,19 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection
 	 */
-	public static function getPagerConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$pagerCollectionSettings = $configurationBuilder->getPagerSettings();
-		
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$pagerCollectionSettings = $configurationBuilder->getSettingsForConfigObject('pager');
+
 		$pagerConfigCollection = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection($configurationBuilder);
 		
 		foreach($pagerCollectionSettings['pagerConfigs'] as $pagerIdentifier => $pagerSettings) {
 			
 			$pagerSettings['itemsPerPage'] = $pagerCollectionSettings['itemsPerPage'];
 			$pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($configurationBuilder, $pagerIdentifier, $pagerSettings);
-			
+
 			$pagerConfigCollection->addPagerConfig($pagerConfiguration, $pagerIdentifier);
 		}
-		
+
 		return $pagerConfigCollection;
 	}
 }

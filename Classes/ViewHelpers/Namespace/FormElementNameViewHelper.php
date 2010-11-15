@@ -38,8 +38,6 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * @param string $property, single property or propertypath separated by '.'
 	 * @return string
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 02.08.2010
 	 */
 	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property) {
 			
@@ -72,8 +70,6 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 	 * 
 	 * @param $object Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
 	 * @return string namespacepart
-	 * @author Daniel Lienert <lienert@punkt.de>
-	 * @since 02.08.2010
 	 */
 	public function renderNamespacePart(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $addExtPrefix) {
 		$nameSpace = $object->getObjectNamespace();

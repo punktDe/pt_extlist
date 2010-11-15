@@ -43,6 +43,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	protected $specialValues;
 	
 	
+	
 	/**
 	 * Add a new cell to row identified by a given column name
 	 * 
@@ -55,6 +56,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	}
 	
 	
+	
 	/**
 	 * Create a new Cell with the Content and add it
 	 * 
@@ -64,6 +66,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	public function createAndAddCell($cellContent, $columnIdentifier) {
 		$this->addItem(new Tx_PtExtlist_Domain_Model_List_Cell($cellContent), $columnIdentifier);
 	}
+	
 	
 	
 	/**
@@ -79,7 +82,8 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	}
 	
 	
-/**
+	
+    /**
 	 * Add a special value to the list
 	 * @param string $key
 	 * @param mixed $value
@@ -116,6 +120,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
 	public function removeSpecialValue($key) {
 		unset($this->specialValues[$key]);
 	}
+	
 }
 
 ?>

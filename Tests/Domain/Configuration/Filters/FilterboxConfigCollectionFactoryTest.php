@@ -26,8 +26,8 @@
 /**
  * Class implementing testcase for filterbox configuration factory
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Configuration\Filters
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
@@ -38,7 +38,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionF
 	
     public function testCreateInstance() {
     	$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-    	$filterboxConfigurationCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getFilterBoxConfigCollection($configurationBuilderMock);
+    	$filterboxConfigurationCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getInstance($configurationBuilderMock);
     	$filterBoxConfiguration = $filterboxConfigurationCollection['testfilterbox'];
     	$this->assertEquals($filterBoxConfiguration->getFilterboxIdentifier(), 'testfilterbox');
     }

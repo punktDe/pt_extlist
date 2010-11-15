@@ -26,9 +26,10 @@
 /**
  * Factory for filterbox configuration
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage Domain\Configuration\Filters
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage Configuration\Filters
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
 
@@ -38,8 +39,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
 		foreach($filterBoxSettings['filterConfigs'] as $arrayIndex => $filterSettings) {
 			tx_pttools_assert::isArray($filterSettings, array('message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788'));
 			$filterConfig = Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterSettings);
-			$filterboxConfiguration->addItem($filterConfig, $arrayIndex);
+			$filterboxConfiguration->addFilterConfig($filterConfig, $arrayIndex);
 		}
+		
 		return $filterboxConfiguration;
 	}
 }

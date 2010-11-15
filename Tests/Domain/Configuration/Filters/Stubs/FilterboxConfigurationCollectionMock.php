@@ -64,6 +64,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
             'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
             array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier', 'getFilterboxIdentifier', 'isAccessable'),array(),'',FALSE,FALSE,FALSE);
         
+        $mockFilterConfiguration1->injectConfigurationBuilder(Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance());    
+            
         $mockFilterConfiguration1->expects($this->any())
             ->method('getFilterIdentifier')
             ->will($this->returnValue($filterIdentifier));

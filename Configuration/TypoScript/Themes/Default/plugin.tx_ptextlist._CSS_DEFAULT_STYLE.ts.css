@@ -97,9 +97,14 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	/* Pager */
 	.pt-extlist-pager {
 		margin-left: 0 !important;
+		text-align: center;
 	}
 	
 	.pt-extlist-pager li {
 		display: inline;
+	}
+	
+	.pt-extlist-pager-item-display {
+		color: #777;
 	}
 )

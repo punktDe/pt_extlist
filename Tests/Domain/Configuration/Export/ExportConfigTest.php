@@ -57,7 +57,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfig_testcase exten
 	}
 	
 	public function testGetAddDateToFilename() {
-		$this->assertEquals(1, $this->exportConfiguration->getAddDateToFilename());
+		$this->assertEquals(true, $this->exportConfiguration->getAddDateToFilename());
 	}
 	
 	public function testGetViewClassName() {

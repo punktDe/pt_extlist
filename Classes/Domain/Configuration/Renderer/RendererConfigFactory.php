@@ -25,18 +25,24 @@
 ***************************************************************/
 
 /**
+ * Class implements a factory for renderer configurations
+ * 
  * @author Daniel Lienet <lienert@punkt.de>
  * @package Domain
  * @subpackage Configuration\Renderer
  */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
-	
-	public static function getRendererConfiguration($rendererSettings) {
+	/**
+	 * Returns a renderer configuration for given renderer settings
+	 *
+	 * @param array $rendererSettings
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+	 */
+	public static function getRendererConfiguration(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $rendererSettings) {
 		tx_pttools_assert::isArray($rendererSettings, array(message => 'No renderer settings found. 1281087488'));
-		
-		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($rendererSettings);
-		
+		$config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($configurationBuilder, $rendererSettings);
 		return $config;
 	}
 	

@@ -30,15 +30,9 @@
  * @package Domain
  * @subpackage Configuration\Columns
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
-	
-	/**
-	 * Identifier of list to which this column belongs to
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
+class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+															 implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
+
 	/** 
 	 * @var string
 	 */
@@ -145,18 +139,15 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	
 	
 	/**
-	 * @param $columnSettings array of coumn settings
-	 * @return void
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $columnSettings) {
-		tx_pttools_assert::isNotEmptyString($columnSettings['columnIdentifier'], array(message => 'Column identifier not given 1277889446'));
-		tx_pttools_assert::isNotEmptyString($columnSettings['fieldIdentifier'], array(message => 'Field identifier for Column "'.$columnSettings['columnIdentifier'].'" not given 1277889447'));
+	protected function init() {
+		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
+		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "'.$this->columnIdentifier.'" not given 1277889447');
 		
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->columnIdentifier = $columnSettings['columnIdentifier'];
-		
-		$fieldIdentifierList = t3lib_div::trimExplode(',', $columnSettings['fieldIdentifier']);
-		$this->fieldIdentifier = $configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
+		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 		
 		foreach($this->fieldIdentifier as $fieldConfig) {
 			if($fieldConfig->getExpandGroupRows()) {
@@ -167,9 +158,39 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 		
 		$this->label = $this->columnIdentifier;
 
+		$this->setBooleanIfExistsAndNotNothing('isSortable');
+		$this->setValueIfExistsAndNotNothing('renderTemplate');
+		$this->setValueIfExistsAndNotNothing('sortingImageAsc');
+		$this->setValueIfExistsAndNotNothing('sortingImageDesc');
+		$this->setValueIfExistsAndNotNothing('sortingImageDefault');
+		$this->setValueIfExistsAndNotNothing('specialCell');
+		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		
-		$this->setOptionalSettings($columnSettings);
+		
+		if(array_key_exists('label', $this->settings)) {
+			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
+		}
+		
+		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
+			asort($this->settings['renderUserFunctions']);
+			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
+		}
+	
+		if(array_key_exists('renderObj', $this->settings)) {
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+        }
+
+		if(array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
+			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
+		}else{
+			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
+		}
+
+		if(array_key_exists('accessGroups', $this->settings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',',$this->settings['accessGroups']);
+		}
 	}	
+	
 	
 	
 	/**
@@ -183,77 +204,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig implements Tx_PtExt
 	
 	public function isAccessable() {
 		return $this->accessable;
-	}
-	
-	
-	
-	/**
-	 * Set optional definable columnsettings
-	 * 
-	 * @param $columnSettings
-	 * @return void
-	 */
-	protected function setOptionalSettings($columnSettings) {
-		
-		if(array_key_exists('isSortable', $columnSettings)) {
-			$this->isSortable = $columnSettings['isSortable'];
-		}
-		
-		if(array_key_exists('label', $columnSettings)) {
-			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($columnSettings['label']);
-		}
-		
-		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($columnSettings['renderUserFunctions'])) {
-			asort($columnSettings['renderUserFunctions']);
-			$this->renderUserFunctions = $columnSettings['renderUserFunctions'];
-		}
-		
-		if(array_key_exists('renderTemplate', $columnSettings)) {
-			$this->renderTemplate = $columnSettings['renderTemplate'];
-		}
-				
-		if(array_key_exists('renderObj', $columnSettings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $columnSettings['renderObj']));
-        }
-
-		if(array_key_exists('sorting', $columnSettings) && trim($columnSettings['sorting'])) {
-			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($columnSettings['sorting']);
-		}else{
-			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
-		}
-		
-		if(array_key_exists('sortingImageAsc', $columnSettings)) {
-			$this->sortingImageAsc = $columnSettings['sortingImageAsc'];
-		}
-		
-		if(array_key_exists('sortingImageDesc', $columnSettings)) {
-			$this->sortingImageDesc = $columnSettings['sortingImageDesc'];
-		}
-		
-		if(array_key_exists('sortingImageDefault', $columnSettings)) {
-			$this->sortingImageDefault = $columnSettings['sortingImageDefault'];
-		}
-		
-		if(array_key_exists('specialCell', $columnSettings)) {
-			$this->specialCell = $columnSettings['specialCell'];
-		}
-		
-		if(array_key_exists('accessGroups', $columnSettings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',',$columnSettings['accessGroups']);
-		}
-		
-		if(array_key_exists('cellCSSClass', $columnSettings)) {
-			$this->cellCSSClass = $columnSettings['cellCSSClass'];
-		}
-	}
-	
-	
-	
-	/**
-	 * @return string listIdentifier
-	 */
-	public function getListIdentifier() {
-		return $this->listIdentifier;
 	}
 	
 	

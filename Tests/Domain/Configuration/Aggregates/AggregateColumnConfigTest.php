@@ -26,8 +26,8 @@
 /**
  * Class implementing tests for aggregate column config
  *
- * @package pt_extlist
- * @subpackage \Tests\Domain\Configuration\Aggregates
+ * @package Tests
+ * @subpackage Domain\Configuration\Aggregates
  * @author Daniel Lienert <linert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
@@ -49,10 +49,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_t
 	public function setup() {
 		
 		$this->initDefaultConfigurationBuilderMock();
-		$aggregateRowSettings = $this->configurationBuilderMock->getAggregateRowSettings();
+		$aggregateRowSettings = $this->configurationBuilderMock->getSettingsForConfigObject('aggregateRows');
 		$columnIdentifier = key(current($aggregateRowSettings));
 		$this->aggregateColumnSettings = current(current($aggregateRowSettings));
-		$this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->configurationBuilderMock, $columnIdentifier, $this->aggregateColumnSettings);
+		$this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->configurationBuilderMock, $this->aggregateColumnSettings, $columnIdentifier);
 	}
 	
 	

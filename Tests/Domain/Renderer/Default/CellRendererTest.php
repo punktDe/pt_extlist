@@ -24,15 +24,33 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+/**
+ * Testcase for default cell renderer
+ * 
+ * @package Tests
+ * @subpackage Domain\Renderer\Default
+ * @author Michael Knoll
+ */
+class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
+	/**
+	 * Holds an instance of cell renderer to be tested
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy
+	 */
 	protected $cellRenderer;
 	
+	
+	
+	/**
+	 * Sets up the testcase
+	 */
 	public function setUp() {
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		 
 		$settings = $this->configurationBuilderMock->getSettings();
-		
+		/**
+		 * Change some settings
+		 */
 		$settings['prototype'] = array();
 		$settings['listIdentifier'] = 'testCellRenderer';
 		$settings['listConfig']['testCellRenderer']['columns'][40] = array( 
@@ -59,18 +77,14 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 								)	
 							)
 	                    );
-	                    
 	    $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($settings);
-		
-		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
-		$rendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy');
-		
-		$this->cellRenderer = new $rendererClass($this->configurationBuilderMock);
-		
+        $this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($this->getRendererConfiguration());
 	}
 	
-	public function testRenderCell() {
-		
+	
+	
+	/** @test */
+	public function renderCellReturnsRenderedCell() {
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		
 		$row->createAndAddCell('val1', 'field1');
@@ -84,63 +98,17 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Strategy_DefaultCellRenderingStrategy_t
 		
 	}
 	
-	/*
-	public function testSpecialValueRendering() {
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
-		
-		$row->createAndAddCell('val1', 'field1');
-		$row->createAndAddCell('val2', 'field2');
-		$row->createAndAddCell('val3', 'field3');
-		
-		// see ConfigurationBuilderMock for column definition
-		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'column1', 'fieldIdentifier' => 'field1'));
-		$cellContent = $this->cellRenderer->renderCell($columnConfig, $row, '10');
-		$this->assertTrue(is_array($cellContent->getSpecialValues()));
-	}
-	
- 	public function testTSRendering() {
-		$cObjMock = $this->getMock('tslib_cObj', array('cObjGet'));
-		$cObjMock->expects($this->once())->method('cObjGet');
-		
-		$this->cellRenderer->_set('cObj', $cObjMock);
-
-		
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
-		$row->addCell('field1', 'val1');
-		$row->addCell('field2', 'val2');
-		$row->addCell('field3', 'val3');
-		$row->addCell('field4', 'val4');
-		
-		$cellContent = $this->cellRenderer->renderCell('field3', '40', $row);
-		
-	}
-	
-	public function testUserFuncRendering() {
-		$rendererConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($this->configurationBuilderMock);
-		$rendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Strategy_DefaultCellRenderingStrategy');
-		
-		$this->cellRenderer = $this->getMock($rendererClass,array('renderWithUserFunc'),array($rendererConfig));
-		$this->cellRenderer->expects($this->once())->method('renderWithUserFunc');
-		
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
-		$row->addCell('field1', 'val1');
-		$row->addCell('field2', 'val2');
-		$row->addCell('field3', 'val3');
-		$row->addCell('field4', 'val4');
-		
-		$cellContent = $this->cellRenderer->renderCell('field3', '50', $row);
-	}
-	*/
 	
 	
-	public function testCreateArrayDataFieldSet() {
+	/** @test */
+	public function createArrayDataFieldSetReturnsCorrectFieldset() {
 		$array = array('field1' => 'test1',
 					   'field2' => array ('value1', 'value2', 'value3'),
 					   'field3' => 'test3',
 						);
-		
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy');
-		$defaultCellRenderer = new $accessibleClassName($this->configurationBuilderMock);
+						
+	    $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer');
+		$defaultCellRenderer = new $accessibleClassName($this->getRendererConfiguration());
 		
 		$outArray = $defaultCellRenderer->_call('createArrayDataFieldSet', $array);
 		$this->assertEquals($outArray[1]['field2'], 'value2');

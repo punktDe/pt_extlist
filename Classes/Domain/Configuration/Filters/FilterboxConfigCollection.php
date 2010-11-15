@@ -27,8 +27,8 @@
  * Class FilterboxConfig Collection
  *
  * @author Daniel Lienert <lienert@punkt.de>
- * @package pt_extlist
- * @subpackage Domain\Configuration\Filters
+ * @package Domain
+ * @subpackage Configuration\Filters
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extends tx_pttools_objectCollection {
 	
@@ -44,11 +44,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 	}
 	
 	
-	
+	/**
+	 * Add a filterbox config
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox
+	 * @param string $filterBoxIdentifier
+	 */
 	public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier) {
 		$this->addItem($filterBox, $filterBoxIdentifier);
 	}
-	
 }
 
 ?>

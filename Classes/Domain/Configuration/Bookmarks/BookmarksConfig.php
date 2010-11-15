@@ -30,16 +30,7 @@
  * @subpackage Configuration\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
-
-	/**
-	 * Holds list identifier of current list
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
+class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
 	/**
 	 * Holds comma seperated list of pids to search for bookmarks
@@ -119,55 +110,25 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
      * @var string
      */
     protected $groupIdsToShowBookmarksFor;
-    
-    
-    
-    /**
-     * Holds an instance of configuration builder for current list
-     *
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     */
-    protected $configurationBuilder;
-    
-    
-    
-    /**
-     * Holds array of settings for this bookmark configuration
-     *
-     * @var array
-     */
-    protected $settingsArray;
-
-    
-    
-    /**
-     * Constructor for bookmarks configuration.
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$this->configurationBuilder = $configurationBuilder;
-    	$this->settingsArray = $configurationBuilder->getBookmarksSettings();
-    	$this->listIdentifier = $this->configurationBuilder->getListIdentifier();
-    	$this->initPropertiesFromSettings();
-    }
-    
+   
     
     
     /**
      * Initializes properties from given settings
      *
      */
-    protected function initPropertiesFromSettings() {
-    	$this->bookmarksPid = array_key_exists('bookmarksPid', $this->settingsArray) ? $this->settingsArray['bookmarksPid'] : '';
-        $this->showUserBookmarks = $this->settingsArray['showUserBookmarks'] == '1' ? true : false;
-        $this->showGroupBookmarks = $this->settingsArray['showGroupBookmarks'] == '1' ? true : false;
-        $this->showPublicBookmarks = $this->settingsArray['showPublicBookmarks'] == '1' ? true : false;
-        $this->feUsersAllowedToEdit = array_key_exists('feUsersAllowedToEdit', $this->settingsArray) ? $this->settingsArray['feUsersAllowedToEdit'] : '';
-        $this->feGroupsAllowedToEdit = array_key_exists('feGroupsAllowedToEdit', $this->settingsArray) ? $this->settingsArray['feGroupsAllowedToEdit'] : '';
-        $this->feUsersAllowedToEditPublic = array_key_exists('feUsersAllowedToEditPublic', $this->settingsArray) ? $this->settingsArray['feUsersAllowedToEditPublic'] : '';
-        $this->feGroupsAllowedToEditPublic = array_key_exists('feGroupsAllowedToEditPublic', $this->settingsArray) ? $this->settingsArray['feGroupsAllowedToEditPublic'] : '';
-        $this->groupIdsToShowBookmarksFor = array_key_exists('groupIdsToShowBookmarksFor', $this->settingsArray) ? $this->settingsArray['groupIdsToShowBookmarksFor'] : '';
+    protected function init() {
+    	
+    	$this->setValueIfExistsAndNotNothing('bookmarksPid');
+    	$this->setValueIfExistsAndNotNothing('feUsersAllowedToEdit');
+    	$this->setValueIfExistsAndNotNothing('feGroupsAllowedToEdit');
+    	$this->setValueIfExistsAndNotNothing('feUsersAllowedToEditPublic');
+    	$this->setValueIfExistsAndNotNothing('feGroupsAllowedToEditPublic');
+    	$this->setValueIfExistsAndNotNothing('groupIdsToShowBookmarksFor');
+    	
+    	$this->setBooleanIfExistsAndNotNothing('showUserBookmarks');
+    	$this->setBooleanIfExistsAndNotNothing('showGroupBookmarks');
+    	$this->setBooleanIfExistsAndNotNothing('showPublicBookmarks');
     }
     
     
@@ -235,29 +196,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
 	public function getGroupIdsToShowBookmarksFor() {
 		return $this->groupIdsToShowBookmarksFor;
 	}
-	
-	
-	
-	/**
-	 * Returns list identifier
-	 * 
-	 * @return string
-	 */
-	public function getListIdentifier() {
-		return $this->listIdentifier;
-	}
-	
-	
-	
-	/**
-	 * Returns raw settings array for bookmarks
-	 * 
-	 * @return array
-	 */
-	public function getSettingsArray() {
-		return $this->settingsArray;
-	}
-	
+
 	
 	
 	/**
@@ -292,5 +231,4 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig {
 	}
 
 }
- 
 ?>

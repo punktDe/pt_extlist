@@ -26,7 +26,7 @@
 /**
  * Testcase for group filter
  *
- * @package TYPO3
+ * @package Tests
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
@@ -48,7 +48,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
     
     public function testGetMultiple() {
     	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
-        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, 'test', 
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+        $this->configurationBuilderMock, 
            array(
                'filterIdentifier' => 'test', 
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
@@ -58,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
                'displayFields' => 'field1',
                'excludeFilters' => 'filterbox1.filter1',
                'multiple' => 1
-        ));
+        ),'test');
         $selectFilter->injectFilterConfig($filterConfiguration);
         $sessionManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array(), array(), '', FALSE);
         

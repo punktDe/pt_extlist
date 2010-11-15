@@ -26,8 +26,8 @@
 /**
  * Class implements factory for renderer chain. 
  *
- * @package pt_extlist
- * @subpackage Domain\Renderer
+ * @package Domain
+ * @subpackage Renderer
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {

@@ -204,11 +204,6 @@ plugin.tx_ptextlist.settings {
 			}
 		}
 		
-		renderer {
-			# User function for generating 'special' cell variables
-			specialCell = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialCell->processCell
-		}
-		
 		aggregateData {
 			# methods: sum, min, max, avg
 			sumPhone {

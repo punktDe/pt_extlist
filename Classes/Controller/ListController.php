@@ -35,9 +35,9 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	/**
 	 * Holds an instance of list renderer
 	 *
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererInterface
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
-	protected $renderer;
+	protected $rendererChain;
 	
 	
 	
@@ -46,7 +46,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function initializeAction() {
 		parent::initializeAction();
-		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($this->configurationBuilder);
+		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 	
 	
@@ -63,13 +63,10 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		// TODO do not use forward here!!!
 		if($list->getListData()->count() <= 0) $this->forward('emptyList');
 		
+		$renderedListData = $this->rendererChain->renderList($list->getListData());
+		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		
-		
-		
-		
-		$renderedListData = $this->renderer->renderList($list->getListData());
-		$renderedCaptions = $this->renderer->renderCaptions($list->getListHeader());
-
+		$this->view->assign('config', $this->configurationBuilder);
 		
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);

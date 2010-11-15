@@ -53,6 +53,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
 	 */
 	public function setUp() {
 		$this->rendererChainConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig', array(), array(), '', FALSE);
+		$this->rendererChainConfigurationMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
 		$this->fixture = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
 	}
 	

@@ -26,11 +26,11 @@
 /**
  * Testcase for field config collection factory
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Configuration\Data\Fields
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a field config collection object
@@ -41,6 +41,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionF
 	
 	
 	public function setup() {
+		
 		$this->fieldSettings = array(
 		    'field1' => array( 
 		        'table' => 'tableName1',
@@ -55,12 +56,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionF
                 'access' => '1,2,3,4'
             )
 		);
+		
+		$fieldsSettings['listConfig']['test']['fields'] = $this->fieldSettings;
+		$this->initDefaultConfigurationBuilderMock($fieldsSettings);
 	}
 	
 	
 	
 	public function testGetFieldConfigCollection() {
-		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->fieldSettings);
+		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getInstance($this->configurationBuilderMock);
 		$this->assertTrue(is_a($fieldConfigCollection, 'tx_pttools_objectCollection'));
 		$fieldConfig1 = $fieldConfigCollection->getFieldConfigByIdentifier('field1');
 		$this->assertEquals($fieldConfig1->getTable(), 'tableName1');

@@ -28,8 +28,8 @@
  * for having an interface for both renderer and renderer chain and a different interface for
  * renderers alone.
  *
- * @package pt_extlist
- * @subpackage Domain\Renderer
+ * @package Domain
+ * @subpackage Renderer
  * @author Michael Knoll <knoll@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_PtExtlist_Domain_Renderer_RendererInterface {  
@@ -40,7 +40,7 @@ interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_
      * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
      */
     public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration);
- 
+
 }
  
 ?>
