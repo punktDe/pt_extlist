@@ -28,7 +28,7 @@
  * Default renderer for list data
  * 
  * @package Domain
- * @subpackage Renderer
+ * @subpackage Renderer\Default
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
