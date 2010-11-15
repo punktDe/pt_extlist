@@ -41,48 +41,46 @@
                 <para><xsl:value-of select="DESCRIPTION"/></para>
             </refsection>
 			<refsection>
-				 <variablelist>
-					<varlistentry>
-						<term>
-							Datatype
-						</term>
-						<listitem>
+			
+				 <segmentedlist>
+				 <?dbfo list-presentation="list"?>   
+				 <segtitle>Datatype</segtitle>
+				 <segtitle>Possible values</segtitle>
+				 <segtitle>Default</segtitle>
+				 <segtitle>StdWrap</segtitle>
+				 <segtitle>Prototype</segtitle>
+				 
+					<seglistitem>
+						
+						<seg>
 							<xsl:value-of select="DATATYPE"/>
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term>
-							Posible Values
-						</term>
-						<listitem>
-							<xsl:value-of select="POSIBLEVALUES"/>
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term>
-							Default
-						</term>
-						<listitem>
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						
+						<seg>
+							<xsl:value-of select="POSSIBLEVALUES"/>
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						
+						<seg>
 							<xsl:value-of select="DEFAULT"/>
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term>
-							StdWrap
-						</term>
-						<listitem>
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						
+						<seg>
 							<xsl:value-of select="STDWRAP"/>
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term>
-							Prototype
-						</term>
-						<listitem>
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						
+						<seg>
 							<xsl:value-of select="PROTOTYPE"/>
-						</listitem>
-					</varlistentry>
-				</variablelist>
+						</seg>
+					</seglistitem>
+				</segmentedlist>
 			</refsection>
 			<refsection>
 				<title>
@@ -98,7 +96,7 @@
                 <refsection>
                     <title>Child elements</title>
                     <xsl:for-each select="CHILDREN/ENTRY/@KEY" >
-						<link>
+						<link text-decoration="underline" color="blue">
 							<xsl:attribute name="linkend">tsref.<xsl:value-of select="."/></xsl:attribute><xsl:value-of select="."/>
 						</link>,
                     </xsl:for-each>
