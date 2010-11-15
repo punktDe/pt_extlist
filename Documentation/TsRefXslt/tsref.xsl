@@ -66,30 +66,7 @@
 							<xsl:value-of select="PROTOTYPE"/>
 						</seg>
 					</seglistitem>
-					<seglistitem>
-						
-						<seg>
-							<xsl:value-of select="POSIBLEVALUES"/>
-						</seg>
-					</seglistitem>
-					<seglistitem>
-						
-						<seg>
-							<xsl:value-of select="DEFAULT"/>
-						</seg>
-					</seglistitem>
-					<seglistitem>
-						
-						<seg>
-							<xsl:value-of select="STDWRAP"/>
-						</seg>
-					</seglistitem>
-					<seglistitem>
-						
-						<seg>
-							<xsl:value-of select="PROTOTYPE"/>
-						</seg>
-					</seglistitem>
+			
 				</segmentedlist>
 			</refsection>
 			<refsection>
