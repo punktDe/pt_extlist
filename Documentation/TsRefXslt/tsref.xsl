@@ -84,7 +84,7 @@
                 <refsection>
                     <title>Child elements</title>
                     <xsl:for-each select="CHILDREN/ENTRY/@KEY" >
-						<link text-decoration="underline" color="blue">
+						<link>
 							<xsl:attribute name="linkend">tsref.<xsl:value-of select="."/></xsl:attribute><xsl:value-of select="."/>
 						</link>,
                     </xsl:for-each>
