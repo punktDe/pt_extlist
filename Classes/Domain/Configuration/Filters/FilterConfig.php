@@ -80,6 +80,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $defaultValue;
 	
 	
+	
 	/**
 	 * Label to be shown for this filter
 	 *
@@ -96,11 +97,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $inactiveOption = '';
 	
 	
+	
 	/**
 	 * If set, the filter sets itself inactive when this value is submitted
 	 * @var string
 	 */
 	protected $inactiveValue = '';
+	
 	
 	
 	/**
@@ -174,12 +177,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $invert = false;
 	
 	
+	
 	/**
 	 * If this is set to true, the filter has the ability to be inverted
 	 *
 	 * @var truefalse
 	 */
 	protected $invertable = false;
+	
 	
 	
 	/**
@@ -225,11 +230,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $renderUserFunctions = NULL;
 	
 	
+	
 	/**
 	 * Path to fluid template
 	 * @var string
 	 */
 	protected $renderTemplate;
+	
 	
 	
 	/**
@@ -238,6 +245,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var bool
 	 */
 	protected $accessable = FALSE;
+	
 	
 	
 	/**
@@ -250,6 +258,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$settings['filterboxIdentifier'] = $filterboxIdentifier;
 		parent::__construct($settings);
 	}
+	
 	
 	
 	/**
@@ -284,6 +293,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	}
     
     
+	
     /**
      * Returns partial path for filter template
      *
@@ -305,6 +315,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     }
     
 	
+    
     /**
      * Returns class name of class implementing this filter
      *
@@ -415,6 +426,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     }
     
     
+    
 	/**
 	 * cObj configuration
      * @return array
@@ -422,6 +434,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     public function getRenderObj() {
         return $this->renderObj;
     }
+    
     
     
     /**
@@ -438,6 +451,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     public function getResetListSortingStateOnSubmit() {
         return $this->resetListSortingStateOnSubmit;
     }
+    
 
     
 	/**
@@ -493,5 +507,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function isAccessable() {
 		return $this->accessable;
 	}
+	
 }
 ?>

@@ -151,6 +151,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	}
 	
 	
+	
 	/**
 	 * Set the internal property from the given tsKey if the key exists, and is not nothing
 	 * 
@@ -165,6 +166,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 			$this->$property = false;
 		}
 	}
+	
 	
 	
 	/**

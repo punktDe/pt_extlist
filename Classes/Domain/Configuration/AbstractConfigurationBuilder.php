@@ -42,6 +42,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	protected $settings;
 	
 	
+	
 	/**
 	 * Holds definition of configuration object instances
 	 * 
@@ -55,12 +56,14 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	protected $configurationObjectSettings = array();
 	
 	
+	
 	/**
 	 * Chache for all configuration Objects
 	 * 
 	 * @var unknown_type TODO: define a interface
 	 */
 	protected $configurationObjectInstances = array();
+	
 	
 	
 	/**
@@ -94,6 +97,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	}
 	
 	
+	
 	/**
 	 * Generic factory method for configuration objects
 	 *
@@ -117,6 +121,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	}
 
 	
+	
 	/**
 	 * 
 	 * 
@@ -137,6 +142,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 		
 		return $settings;
 	}
+	
 	
 	
 	/**
@@ -175,6 +181,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
     	
     	return $protoTypeSettings;
     }
+    
 }
  
 ?>
