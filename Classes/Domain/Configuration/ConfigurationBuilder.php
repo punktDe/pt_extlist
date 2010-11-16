@@ -77,11 +77,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	);
 	
 	
+	
 	/**
 	 * Non-merged settings of plugin
 	 * @var array
 	 */
 	protected $origSettings;
+	
 	
 	
 	/**
@@ -91,13 +93,63 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	protected $protoTypeSettings;
 	
 	
+	
 	/**
 	 * Holds list identifier of current list
 	 * @var string
 	 */
 	protected $listIdentifier;
+
+	
+	
+	/**
+	 * Holds an instance of a columns configuration and handles it as a singleton instance
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 */
+	protected $columnsConfiguration = NULL;
+	
+	
+	
+    /**
+     * Holds an instance of a pager configuration associated to this list
+     * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+     */
+	protected $pagerConfiguration = NULL;
+	
+	
+	
+	/**
+	 * Holds an instance of the configuration of all filters associated to this list
+	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
+	 */
+	protected $filterConfiguration = NULL;
+	
+	
+	
+	/**
+	 * Holds an instance of the bookmark configuration
+	 * @var Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+	 */
+	protected $bookmarkConfiguration = NULL;
+	
+	
+	
+	/**
+	 * Holds an instance of the list defaults configuration 
+	 * @var Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+	 */
+	protected $listDefaultConfiguration = NULL;
+	
+	
+	
+	/**
+	 * Holds an instance of the export configuration
+	 * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+	 */
+	protected $exportConfiguration = NULL;
 	
 		
+	
 	/**
 	 * Constructor is private, use getInstance instead!
 	 * 
@@ -166,6 +218,88 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
+    /**
+     * 
+     * 
+     * @return array list settings
+     */
+    public function getListSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings, 'list');
+    }
+    
+    
+    
+    /**
+     * Returns settings array for the renderer
+     *
+     * @return array Settings for the renderer
+     */
+    public function getRendererChainSettings() {
+    	$mergedSettings = $this->getMergedSettingsWithPrototype($this->settings['rendererChain'], 'rendererChain');
+    	return $mergedSettings;
+    }
+    
+    
+    
+    /**
+     * Returns settings for all columns
+     * @return array Settings for all columns
+     */
+    public function getColumnSettings() {
+    	return $this->settings['columns'];
+    }
+    
+    
+    
+    /**
+     * @return array aggregate row settings
+     */
+    public function getAggregateRowSettings() {
+    	return $this->settings['aggregateRows'];
+    }
+    
+    
+    /**
+     * return aggregate data settings
+     * @return array
+     */
+    public function getAggregateDataSettings() {
+    	return $this->settings['aggregateData'];
+    }
+
+    
+    /**
+     * @return array export settings
+     */
+    public function getExportSettings() {
+    	return $this->settings['export'];
+    }
+    
+    
+    
+    /**
+     * Returns an array with pager configuration 
+     *
+     * @return array Pager configuration
+     */
+    public function getPagerSettings() {
+       	return $this->getMergedSettingsWithPrototype($this->settings['pager'], 'pager');
+    }
+    
+    
+    
+    /**
+     * Returns an array with bookmarks settings
+     *
+     * @return array Bookmarks settings
+     */
+    public function getBookmarksSettings() {
+    	return $this->getMergedSettingsWithPrototype($this->settings['bookmarks'], 'bookmarks');
+    }
+	
+    
+	
    /**
 	 * Returns a singleton instance of databackend configuration 
 	 * @returns Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
@@ -251,6 +385,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
    /**
      * Returns bookmarks configuration
      *
@@ -261,12 +396,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
     /**
      * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
      */
     public function buildListDefaultConfig() {
     	return $this->buildConfigurationGeneric('listDefault');
     }
+    
     
     
     /**
@@ -277,6 +414,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function buildPagerConfiguration() {
     	return $this->buildConfigurationGeneric('pager');
     }
+    
 
     
     /**
@@ -287,6 +425,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function buildListConfiguration() {
     	return $this->buildConfigurationGeneric('list');
     }
+    
 }
 
 ?>

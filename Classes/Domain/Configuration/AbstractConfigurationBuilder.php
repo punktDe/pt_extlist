@@ -42,6 +42,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	protected $settings;
 	
 	
+	
 	/**
 	 * Holds definition of configuration object instances
 	 * 
@@ -55,12 +56,14 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	protected $configurationObjectSettings = array();
 	
 	
+	
 	/**
 	 * Chache for all configuration Objects
 	 * 
 	 * @var unknown_type TODO: define a interface
 	 */
 	protected $configurationObjectInstances = array();
+	
 	
 	
 	/**
@@ -94,6 +97,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	}
 	
 	
+	
 	/**
 	 * Generic factory method for configuration objects
 	 *
@@ -116,6 +120,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 		return $this->configurationObjectInstances[$configurationName];
 	}
 
+	
 	
 	/**
 	 * 
@@ -140,6 +145,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	
 		return $settings;
 	}
+	
 	
 	
 	/**
@@ -179,6 +185,8 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
     	return $protoTypeSettings;
     }
     
+<<<<<<< HEAD
+=======
     
     /**
      * Returns array of settings for current list configuration
@@ -214,5 +222,6 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	        $this->settings = $mergedSettings;
 		}
 	}
+>>>>>>> 22640d81f5d07fca570966c03f0a484b1709b077
 }
 ?>

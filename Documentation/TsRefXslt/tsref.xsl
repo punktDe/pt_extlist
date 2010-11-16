@@ -51,7 +51,8 @@
 					<seglistitem>
 						
 						<seg>
-							<xsl:value-of select="DATATYPE"/>
+					
+						<xsl:value-of select="DATATYPE"/>
 						</seg>
 						<seg>
 							<xsl:value-of select="POSIBLEVALUES"/>
