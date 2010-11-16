@@ -132,9 +132,11 @@
 			<DESCRIPTION>A cObject definition to render every selct option. With {field:FIELDNAME} you can accedd all display Fields. Additional the implicit defined fields [allDisplayFields] for all defined displayFields and [rowCount] for the count of the entrys with this option  are possible.</DESCRIPTION>
 			<DATATYPE>String (cObject)</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
-			<DEFAULT>renderObj {
-				dataWrap = {field:allDisplayFields} ({field:rowCount})
-			}</DEFAULT>
+			<DEFAULT>
+renderObj {
+	dataWrap = {field:allDisplayFields} ({field:rowCount})
+}
+			</DEFAULT>
 			<STDWRAP></STDWRAP>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
@@ -218,8 +220,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>	
-	</CHILDREN>		
-	</DATATYPES>
+</DATATYPES>
 
 
 
@@ -288,8 +289,8 @@
 													<STDWRAP>1</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
-														static_countries
-														LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+static_countries
+LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
 													</EXAMPLE>
 												</ENTRY>
 												
@@ -736,16 +737,97 @@ sumPhone {
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
 																	<TYPEREF>filter.filterIdentifier</TYPEREF>
+																	<TYPEREF>filter.fieldIdentifier</TYPEREF>
 																	<TYPEREF>filter.label</TYPEREF>
-																	<TYPEREF>filter.defaultValue</TYPEREF>															
-																	<TYPEREF>filter.accessGroups</TYPEREF>															
-																	<TYPEREF>filter.fieldIdentifier</TYPEREF>															
+																	<TYPEREF>filter.partialPath</TYPEREF>
 																	<TYPEREF>filter.filterClassName</TYPEREF>															
-																	<TYPEREF>filter.partialPath</TYPEREF>															
+																	<TYPEREF>filter.defaultValue</TYPEREF>															
+																	<TYPEREF>filter.accessGroups</TYPEREF>
 																	<TYPEREF>filter.invert</TYPEREF>															
 																	<TYPEREF>filter.invertable</TYPEREF>																	
 																	<TYPEREF>filter.displayFields</TYPEREF>																
 																	<TYPEREF>filter.multiple</TYPEREF>																
+																	<TYPEREF>filter.excludeFilters</TYPEREF>																
+																	<TYPEREF>filter.showRowCount</TYPEREF>																
+																	<TYPEREF>filter.submitOnChange</TYPEREF>																
+																	<TYPEREF>filter.inactiveOption</TYPEREF>																
+																	<TYPEREF>filter.inactiveValue</TYPEREF>																
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="Checkbox">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF>filter.filterIdentifier</TYPEREF>
+																	<TYPEREF>filter.fieldIdentifier</TYPEREF>
+																	<TYPEREF>filter.label</TYPEREF>
+																	<TYPEREF>filter.partialPath</TYPEREF>
+																	<TYPEREF>filter.filterClassName</TYPEREF>															
+																	<TYPEREF>filter.defaultValue</TYPEREF>															
+																	<TYPEREF>filter.accessGroups</TYPEREF>
+																	<TYPEREF>filter.invert</TYPEREF>															
+																	<TYPEREF>filter.invertable</TYPEREF>																	
+																	<TYPEREF>filter.displayFields</TYPEREF>																															
+																	<TYPEREF>filter.excludeFilters</TYPEREF>																
+																	<TYPEREF>filter.showRowCount</TYPEREF>																
+																	<TYPEREF>filter.submitOnChange</TYPEREF>																
+																	<TYPEREF>filter.inactiveOption</TYPEREF>																
+																	<TYPEREF>filter.inactiveValue</TYPEREF>																
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="radiobutton">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF>filter.filterIdentifier</TYPEREF>
+																	<TYPEREF>filter.fieldIdentifier</TYPEREF>
+																	<TYPEREF>filter.label</TYPEREF>
+																	<TYPEREF>filter.partialPath</TYPEREF>
+																	<TYPEREF>filter.filterClassName</TYPEREF>															
+																	<TYPEREF>filter.defaultValue</TYPEREF>															
+																	<TYPEREF>filter.accessGroups</TYPEREF>
+																	<TYPEREF>filter.invert</TYPEREF>															
+																	<TYPEREF>filter.invertable</TYPEREF>																	
+																	<TYPEREF>filter.displayFields</TYPEREF>																														
+																	<TYPEREF>filter.excludeFilters</TYPEREF>																
+																	<TYPEREF>filter.showRowCount</TYPEREF>																
+																	<TYPEREF>filter.submitOnChange</TYPEREF>																
+																	<TYPEREF>filter.inactiveOption</TYPEREF>																
+																	<TYPEREF>filter.inactiveValue</TYPEREF>																
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="firstletter">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.firstletter</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF>filter.filterIdentifier</TYPEREF>
+																	<TYPEREF>filter.fieldIdentifier</TYPEREF>
+																	<TYPEREF>filter.label</TYPEREF>
+																	<TYPEREF>filter.partialPath</TYPEREF>
+																	<TYPEREF>filter.filterClassName</TYPEREF>															
+																	<TYPEREF>filter.defaultValue</TYPEREF>															
+																	<TYPEREF>filter.accessGroups</TYPEREF>
+																	<TYPEREF>filter.invert</TYPEREF>															
+																	<TYPEREF>filter.invertable</TYPEREF>																	
+																	<TYPEREF>filter.displayFields</TYPEREF>																														
 																	<TYPEREF>filter.excludeFilters</TYPEREF>																
 																	<TYPEREF>filter.showRowCount</TYPEREF>																
 																	<TYPEREF>filter.submitOnChange</TYPEREF>																
