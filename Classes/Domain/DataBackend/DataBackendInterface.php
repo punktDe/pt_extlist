@@ -149,7 +149,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection
      */
-    public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection);
+    public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection);
     
     
     

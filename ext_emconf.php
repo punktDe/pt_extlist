@@ -13,7 +13,7 @@
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'pt_extlist',
 	'description' => 'List generator for Typo3 based on ExtBase',
-	'category' => '',
+	'category' => 'misc',
 	'author' => 'Daniel Lienert, Christoph Ehscheidt, Michael Knoll',
 	'author_email' => 't3extensions@punkt.de',
 	'author_company' => 'http://www.punkt.de',
