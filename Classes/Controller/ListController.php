@@ -77,6 +77,28 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	
 	
 	/**
+	 * Export action for exporting list data
+	 *
+	 * @return mixed Whatever format-specific view returns
+	 */
+	public function exportAction() {
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+
+        $renderedListData = $this->rendererChain->renderList($list->getListData());
+        $renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
+        
+        $this->view->assign('config', $this->configurationBuilder);
+        
+        $this->view->assign('listHeader', $list->getListHeader());
+        $this->view->assign('listCaptions', $renderedCaptions);
+        $this->view->assign('listData', $renderedListData);
+        $this->view->assign('aggregateRows', $list->getAggregateRows());
+		return $this->view->render();
+	}
+	
+	
+	
+	/**
 	 * Shows a message that the list is empty.
 	 * 
 	 * @return string A message saying that the list is empty.
@@ -97,29 +119,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$headerList->reset(); 
 		
 		$this->forward('list');
-	}
-	
-	
-	
-	/**
-	 * Export action for exporting list data
-	 *
-	 * @return mixed Whatever format-specific view returns
-	 */
-	public function exportAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-
-        $renderedListData = $this->renderer->renderList($list->getListData());
-        $renderedCaptions = $this->renderer->renderCaptions($list->getListHeader());
-        
-        $this->view->assign('listHeader', $list->getListHeader());
-        $this->view->assign('listCaptions', $renderedCaptions);
-        $this->view->assign('listData', $renderedListData);
-        $this->view->assign('aggregateRows', $list->getAggregateRows());
-		return $this->view->render();
-	}
-	
-	
+	}	
 }
-
 ?>
