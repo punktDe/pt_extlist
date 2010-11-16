@@ -106,8 +106,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
             
             
     public function setup() {
-    	$this->initDefaultConfigurationBuilderMock();
-    	$this->bookmarkConfigToBeTested = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this->configurationBuilderMock);
+    	$this->initDefaultConfigurationBuilderMock($this->settings);
+    	$this->bookmarkConfigToBeTested = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this->configurationBuilderMock, $this->configurationBuilderMock->getSettingsForConfigObject('bookmarks'));
     }
 	
             
@@ -119,7 +119,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
 	
 	
 	public function testConstruct() {
-		$bookmarksConfiguration = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this->configurationBuilderMock);
+		$bookmarksConfiguration = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this->configurationBuilderMock, $this->configurationBuilderMock->getSettingsForConfigObject('bookmarks'));
 		$this->assertTrue(is_a($bookmarksConfiguration, 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig'));
 	}
 	
@@ -169,7 +169,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
     
     public function testGetSettingsArray() {
     	$settingsArray = $this->settings['listConfig']['Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase']['bookmarks'];
-        $this->assertEquals($this->bookmarkConfigToBeTested->getSettingsArray(), $settingsArray);
+        $this->assertEquals($this->bookmarkConfigToBeTested->getSettings(), $settingsArray);
     }
     
     

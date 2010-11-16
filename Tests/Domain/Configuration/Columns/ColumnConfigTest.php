@@ -30,7 +30,7 @@
  * @subpackage Domain\Configuration\Columns
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	
 	/**
@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	public function setup() {
 		
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$allColumnSettings = $this->configurationBuilderMock->getColumnSettings();
+		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
 		$this->columnSettings = $allColumnSettings[30];
 		
 		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
@@ -133,7 +133,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$pluginSettings['listConfig']['test']['fields']['field4']['expandGroupRows'] = 1;
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($pluginSettings);
 		
-		$allColumnSettings = $configurationBuilderMock->getColumnSettings();
+		$allColumnSettings = $configurationBuilderMock->getSettingsForConfigObject('columns');
 		
 		$columnSettings = $allColumnSettings[40];
 		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilderMock, $columnSettings);

@@ -33,321 +33,401 @@
                     <ENTRY KEY="[yourListId]">
                         <DESCRIPTION>Holds configuration for a single list identifier</DESCRIPTION>
                         <EXAMPLE>here comes some sample code</EXAMPLE>
-                        
                         <CHILDREN>
-	                    <ENTRY KEY="backendConfig">
-	                        <DESCRIPTION>Holds the configuration for the used data backend.</DESCRIPTION>
-	                        
-	                        <VARIANT>
-	                        	
-	                        	<ENTRY KEY="backendConfig.mysql">
-			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
-			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.mysql</PROTOTYPE>
-			                    	<CHILDREN>
-			                    		<ENTRY KEY="datasource">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-			                    			<CHILDREN></CHILDREN>
-			                    			<VARIANT></VARIANT>
-			                    		</ENTRY>
-			                    		
-			                    		<ENTRY KEY="baseFromClause">
-			                    			<DESCRIPTION>Holds the FROM clause of a mysql query without the FROM keyword.</DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>1</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE>
-			                    				static_countries
-												LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-											</EXAMPLE>
-			                    		</ENTRY>
-			                    		
-			                    		<ENTRY KEY="baseWhereClause">
-			                    			<DESCRIPTION>Holds the WHERE clause of a mysql query without the WHERE keyword.</DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE>
-			                    				st_continent.tr_name_en [] ''
-			                    			</EXAMPLE>
+							<ENTRY KEY="default">
+								<DESCRIPTION>List default values.</DESCRIPTION>
+								<DATATYPE></DATATYPE>
+								<POSIBLEVALUES></POSIBLEVALUES>
+								<DEFAULT></DEFAULT>
+								<STDWRAP></STDWRAP>
+								<PROTOTYPE></PROTOTYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN>
+									<ENTRY KEY="sortingColumn">
+										<DESCRIPTION>The default sorting column while no other sortng ist set.</DESCRIPTION>
+										<DATATYPE>String</DATATYPE>
+										<POSIBLEVALUES>Any column identifier</POSIBLEVALUES>
+										<DEFAULT></DEFAULT>
+										<STDWRAP></STDWRAP>
+										<PROTOTYPE></PROTOTYPE>
+										<EXAMPLE></EXAMPLE>
+										<CHILDREN></CHILDREN>
+										<VARIANT></VARIANT>
+									</ENTRY>
+								</CHILDREN>
+								<VARIANT></VARIANT>
+							</ENTRY>
+							<ENTRY KEY="backendConfig">
+								<DESCRIPTION>Holds the configuration for the used data backend.</DESCRIPTION>
+								
+								<VARIANT>
+									
+									<ENTRY KEY="backendConfig.mysql">
+										<DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+										<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.mysql</PROTOTYPE>
+										<CHILDREN>
+											<ENTRY KEY="datasource">
+												<DESCRIPTION></DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+												<CHILDREN></CHILDREN>
+												<VARIANT></VARIANT>
+											</ENTRY>
+											
+											<ENTRY KEY="baseFromClause">
+												<DESCRIPTION>Holds the FROM clause of a mysql query without the FROM keyword.</DESCRIPTION>
+												<DATATYPE>String</DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>1</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE>
+													static_countries
+													LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+												</EXAMPLE>
+											</ENTRY>
+											
+											<ENTRY KEY="baseWhereClause">
+												<DESCRIPTION>Holds the WHERE clause of a mysql query without the WHERE keyword.</DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE>
+													st_continent.tr_name_en [] ''
+												</EXAMPLE>
 
-			                    			<CHILDREN></CHILDREN>
-			                    			<VARIANT></VARIANT>
-			                    		</ENTRY>
-			                    		
-			                    		<ENTRY KEY="baseGroupByClause">
-			                    			<DESCRIPTION>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</DESCRIPTION>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<STDWRAP>1</STDWRAP>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<EXAMPLE>st_continent</EXAMPLE>
-			                    		</ENTRY>
-			                    	</CHILDREN>
-			                    </ENTRY>
-	                        	
-	                        	<ENTRY KEY="backendConfig.typo3">
-			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
-			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.typo3</PROTOTYPE>
-			                    </ENTRY>
-			                    
-			                    <ENTRY KEY="backendConfig.extbase">
-			                        <DESCRIPTION>Extbase Repository Backend.</DESCRIPTION>
-			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.extbase</PROTOTYPE>
-			                    </ENTRY>
-	                        </VARIANT>
-	                    </ENTRY>
-           		 		<ENTRY KEY="fields">
-                   			<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
-                   			<PROTOTYPE></PROTOTYPE>
-                   			<STDWRAP>0</STDWRAP>
-                   			<DATATYPE>Associative array</DATATYPE>
-                   			<EXAMPLE></EXAMPLE>
-                   			<CHILDREN>
-                   				<ENTRY KEY="[yourFieldId]">
-                   					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
-                   					<DATATYPE>String</DATATYPE>
-	                    			<POSIBLEVALUES></POSIBLEVALUES>
-	                    			<DEFAULT></DEFAULT>
-	                    			<STDWRAP></STDWRAP>
-	                    			<PROTOTYPE></PROTOTYPE>
-                   					<EXAMPLE>
-name_local {
-	table = static_countries
-	field = cn_short_local
-	isSortable = 1
-}
-                   					</EXAMPLE>
-                   					<CHILDREN>
-                   						<ENTRY KEY="table">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
+												<CHILDREN></CHILDREN>
+												<VARIANT></VARIANT>
+											</ENTRY>
+											
+											<ENTRY KEY="baseGroupByClause">
+												<DESCRIPTION>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>1</STDWRAP>
+												<DATATYPE>String</DATATYPE>
+												<EXAMPLE>st_continent</EXAMPLE>
+											</ENTRY>
+										</CHILDREN>
+									</ENTRY>
+									
+									<ENTRY KEY="backendConfig.typo3">
+										<DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+										<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.typo3</PROTOTYPE>
+									</ENTRY>
+									
+									<ENTRY KEY="backendConfig.extbase">
+										<DESCRIPTION>Extbase Repository Backend.</DESCRIPTION>
+										<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.extbase</PROTOTYPE>
+									</ENTRY>
+								</VARIANT>
+							</ENTRY>
+							<ENTRY KEY="fields">
+								<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
+								<PROTOTYPE></PROTOTYPE>
+								<STDWRAP>0</STDWRAP>
+								<DATATYPE>Associative array</DATATYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN>
+									<ENTRY KEY="[yourFieldId]">
+										<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
+										<DATATYPE>String</DATATYPE>
+										<POSIBLEVALUES></POSIBLEVALUES>
+										<DEFAULT></DEFAULT>
+										<STDWRAP></STDWRAP>
+										<PROTOTYPE></PROTOTYPE>
+										<EXAMPLE>
+	name_local {
+		table = static_countries
+		field = cn_short_local
+		isSortable = 1
+	}
+										</EXAMPLE>
+										<CHILDREN>
+											<ENTRY KEY="table">
+												<DESCRIPTION></DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="field">
+												<DESCRIPTION></DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="special">
+												<DESCRIPTION>Insert a individual SQL snippet.</DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="isSortable">
+												<DESCRIPTION></DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="expandGroupRows">
+												<DESCRIPTION></DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+										</CHILDREN>
+									</ENTRY>
+								</CHILDREN>
+							</ENTRY>
+							<ENTRY KEY="columns">
+								<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
+								<PROTOTYPE></PROTOTYPE>
+								<STDWRAP>0</STDWRAP>
+								<DATATYPE>Array</DATATYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN>
+									<ENTRY KEY="10,20,30">
+										<CHILDREN>
+											<ENTRY KEY="fieldIdentifier">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="label">
+												<DESCRIPTION>A label for this element.</DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>1</STDWRAP>
+												<DATATYPE>String</DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="renderUserFunctions">
+												<DESCRIPTION>A list of userfunctions to render the field value.</DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="renderTemplate">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="renderObj">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="sorting">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="sortingImageAsc">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="sortingImageDesc">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="sortingImageDefault">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="accessGroups">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="cellCSSClass">
+												<DESCRIPTION></DESCRIPTION>
+												<PROTOTYPE></PROTOTYPE>
+												<STDWRAP>0</STDWRAP>
+												<DATATYPE></DATATYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+										</CHILDREN>
+									</ENTRY>
+								</CHILDREN>
+							</ENTRY>
+							<ENTRY KEY="rendererChain">
+								<DESCRIPTION>Holds the renderer configuration.</DESCRIPTION>
+								<DATATYPE></DATATYPE>
+								<POSIBLEVALUES></POSIBLEVALUES>
+								<DEFAULT></DEFAULT>
+								<STDWRAP></STDWRAP>
+								<PROTOTYPE>plugin.tx_ptextlist.prototype.rendererChain</PROTOTYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN>
+									<ENTRY KEY="enabled">
+										<DESCRIPTION></DESCRIPTION>
+										<DATATYPE>Boolean</DATATYPE>
+										<POSIBLEVALUES>0,1</POSIBLEVALUES>
+										<DEFAULT>1</DEFAULT>
+										<STDWRAP></STDWRAP>
+										<PROTOTYPE></PROTOTYPE>
+										<EXAMPLE></EXAMPLE>
+										<CHILDREN></CHILDREN>
+										<VARIANT></VARIANT>
+									</ENTRY>
+									<ENTRY KEY="rendererConfigs">
+										<DESCRIPTION>A list of chained renderer classes that work on list data structures. The default renderer class uses the column configuration, to render the list of field data in a list of rows and columns. By default this renderer iscalled at position 100. All defined renderer before 100 work on a field data list, while renderer after 100 work on a column list data structure.</DESCRIPTION>
+										<DATATYPE>Array (10,20,30)</DATATYPE>
+										<POSIBLEVALUES></POSIBLEVALUES>
+										<DEFAULT></DEFAULT>
+										<STDWRAP></STDWRAP>
+										<PROTOTYPE></PROTOTYPE>
+										<EXAMPLE></EXAMPLE>
+										<CHILDREN>
+											<ENTRY KEY="[yourNumericRendererId]">
+												<DESCRIPTION>Configuration of a single renderer.</DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES>10,20,30</POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP></STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+												<CHILDREN>
+													<ENTRY KEY="renderClassName">
+														<DESCRIPTION>The class name of the renderers php class.</DESCRIPTION>
+														<DATATYPE>String</DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<STDWRAP></STDWRAP>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN></CHILDREN>
+														<VARIANT></VARIANT>
+													</ENTRY>
+												</CHILDREN>
+												<VARIANT></VARIANT>
 										</ENTRY>
-										<ENTRY KEY="field">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="special">
-			                    			<DESCRIPTION>Insert a individual SQL snippet.</DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="isSortable">
-					                    	<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="expandGroupRows">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-                   					</CHILDREN>
-                   				</ENTRY>
-                   			</CHILDREN>
-                   		</ENTRY>
-               		 	<ENTRY KEY="columns">
-							<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
-							<PROTOTYPE></PROTOTYPE>
-							<STDWRAP>0</STDWRAP>
-							<DATATYPE>Array</DATATYPE>
-							<EXAMPLE></EXAMPLE>
-							<CHILDREN>
-								<ENTRY KEY="10,20,30">
-									<CHILDREN>
-										<ENTRY KEY="fieldIdentifier">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="label">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="renderUserFunctions">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="renderTemplate">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="renderObj">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sorting">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sortingImageAsc">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sortingImageDesc">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sortingImageDefault">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="accessGroups">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="cellCSSClass">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-									</CHILDREN>
-								</ENTRY>
-							</CHILDREN>
-						</ENTRY>
-               		 	<ENTRY KEY="aggregateData">
-               		 		<DESCRIPTION>Defines aggregates of data fields.</DESCRIPTION>
-                   			<PROTOTYPE></PROTOTYPE>
-                   			<STDWRAP>0</STDWRAP>
-                   			<DATATYPE>Associative array</DATATYPE>
-                   			<EXAMPLE></EXAMPLE>
-               		 		<CHILDREN>
-               		 			<ENTRY KEY="[yourAggregateFieldId]">
-                   					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
-                   					<DATATYPE>Associative array</DATATYPE>
-                   					<POSIBLEVALUES></POSIBLEVALUES>
-                   					<DEFAULT></DEFAULT>
-			                    	<STDWRAP>0</STDWRAP>
-                   					<PROTOTYPE></PROTOTYPE>
-		                   			
-                   					<EXAMPLE>
-sumPhone {
-	fieldIdentifier = phone
-	method = sum
-	scope = query
-}
-                   					</EXAMPLE>
-                   					<CHILDREN>
-										<ENTRY KEY="method">
-											<DESCRIPTION>Defined aggregate methods.</DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES>min,max,sum,avg</POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="scope">
-											<DESCRIPTION>The scope for the aggregation can be either set to the current page or to the whole query. Aggregates for the current page are calculated internally without an additonal database query.</DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES>page,query</POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-										</ENTRY>
-										<SEE>special</SEE>
-										<SEE>fieldIdentifier</SEE>
-                   					</CHILDREN>
-                   				</ENTRY>
-               		 		</CHILDREN>
-               		 	</ENTRY>
-               		 	<ENTRY KEY="aggregateRows">
-							<DESCRIPTION>Holds the aggregates columns definitions.</DESCRIPTION>
-							<DATATYPE>Associative array</DATATYPE>
-							<POSIBLEVALUES>All columnIdentifiers</POSIBLEVALUES>
-							<DEFAULT></DEFAULT>
-							<STDWRAP></STDWRAP>
-							<PROTOTYPE></PROTOTYPE>
-							<EXAMPLE></EXAMPLE>
-							<CHILDREN>
-								<ENTRY KEY="[yourColumnId]">
-									<DESCRIPTION></DESCRIPTION>
-									<DATATYPE></DATATYPE>
-									<POSIBLEVALUES></POSIBLEVALUES>
-									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
-									<PROTOTYPE></PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
-									<CHILDREN>
-										<ENTRY KEY="aggregateDataIdentifier">
-											<DESCRIPTION></DESCRIPTION>
-											<DATATYPE>String</DATATYPE>
-											<POSIBLEVALUES></POSIBLEVALUES>
-											<DEFAULT></DEFAULT>
-											<STDWRAP></STDWRAP>
-											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE></EXAMPLE>
-											<CHILDREN></CHILDREN>
-											<VARIANT></VARIANT>
-										</ENTRY>
-									</CHILDREN>
-									<VARIANT></VARIANT>
-								</ENTRY>
-							</CHILDREN>
-							<VARIANT></VARIANT>
-						</ENTRY>
-               		 	<ENTRY KEY="filters">
+										</CHILDREN>
+										<VARIANT></VARIANT>
+									</ENTRY>
+								</CHILDREN>
+								<VARIANT></VARIANT>
+							</ENTRY>
+							<ENTRY KEY="aggregateData">
+								<DESCRIPTION>Defines aggregates of data fields.</DESCRIPTION>
+								<PROTOTYPE></PROTOTYPE>
+								<STDWRAP>0</STDWRAP>
+								<DATATYPE>Associative array</DATATYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN>
+									<ENTRY KEY="[yourAggregateFieldId]">
+										<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
+										<DATATYPE>Associative array</DATATYPE>
+										<POSIBLEVALUES></POSIBLEVALUES>
+										<DEFAULT></DEFAULT>
+										<STDWRAP>0</STDWRAP>
+										<PROTOTYPE></PROTOTYPE>
+										
+										<EXAMPLE>
+	sumPhone {
+		fieldIdentifier = phone
+		method = sum
+		scope = query
+	}
+										</EXAMPLE>
+										<CHILDREN>
+											<ENTRY KEY="method">
+												<DESCRIPTION>Defined aggregate methods.</DESCRIPTION>
+												<DATATYPE>String</DATATYPE>
+												<POSIBLEVALUES>min,max,sum,avg</POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+											</ENTRY>
+											<ENTRY KEY="scope">
+												<DESCRIPTION>The scope for the aggregation can be either set to the current page or to the whole query. Aggregates for the current page are calculated internally without an additonal database query.</DESCRIPTION>
+												<DATATYPE>String</DATATYPE>
+												<POSIBLEVALUES>page,query</POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+											</ENTRY>
+											<SEE>special</SEE>
+											<SEE>fieldIdentifier</SEE>
+										</CHILDREN>
+									</ENTRY>
+								</CHILDREN>
+							</ENTRY>
+							<ENTRY KEY="aggregateRows">
+								<DESCRIPTION>Holds the aggregates columns definitions.</DESCRIPTION>
+								<DATATYPE>Associative array</DATATYPE>
+								<POSIBLEVALUES>All columnIdentifiers</POSIBLEVALUES>
+								<DEFAULT></DEFAULT>
+								<STDWRAP></STDWRAP>
+								<PROTOTYPE></PROTOTYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN>
+									<ENTRY KEY="[yourColumnId]">
+										<DESCRIPTION></DESCRIPTION>
+										<DATATYPE></DATATYPE>
+										<POSIBLEVALUES></POSIBLEVALUES>
+										<DEFAULT></DEFAULT>
+										<STDWRAP></STDWRAP>
+										<PROTOTYPE></PROTOTYPE>
+										<EXAMPLE></EXAMPLE>
+										<CHILDREN>
+											<ENTRY KEY="aggregateDataIdentifier">
+												<DESCRIPTION></DESCRIPTION>
+												<DATATYPE>String</DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP></STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+												<CHILDREN></CHILDREN>
+												<VARIANT></VARIANT>
+											</ENTRY>
+										</CHILDREN>
+										<VARIANT></VARIANT>
+									</ENTRY>
+								</CHILDREN>
+								<VARIANT></VARIANT>
+							</ENTRY>
+							<ENTRY KEY="filters">
 							<DESCRIPTION>Holds all filterbox configurations.</DESCRIPTION>
 							<DATATYPE>Associative array</DATATYPE>
 							<POSIBLEVALUES></POSIBLEVALUES>
@@ -484,7 +564,14 @@ sumPhone {
 															<DEFAULT></DEFAULT>
 															<STDWRAP></STDWRAP>
 															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.string</PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
+															<EXAMPLE>
+10 	&lt; plugin.tx_ptextlist.prototype.filter.string
+10 {
+	filterIdentifier = firstNameSearch
+	label = Firstname
+	fieldIdentifier = firstName
+}															
+															</EXAMPLE>
 															<CHILDREN>
 																<SEE>filterIdentifier</SEE>
 																<SEE>label</SEE>
@@ -646,7 +733,40 @@ sumPhone {
 							</CHILDREN>
 							<VARIANT></VARIANT>
 						</ENTRY>
-               		 	</CHILDREN>
+							<ENTRY KEY="headerPartial">
+								<DESCRIPTION>Path to the header partial.</DESCRIPTION>
+								<DATATYPE>String</DATATYPE>
+								<POSIBLEVALUES></POSIBLEVALUES>
+								<DEFAULT></DEFAULT>
+								<STDWRAP></STDWRAP>
+								<PROTOTYPE></PROTOTYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN></CHILDREN>
+								<VARIANT></VARIANT>
+							</ENTRY>
+							<ENTRY KEY="bodyPartial">
+								<DESCRIPTION>Path to the body partial.</DESCRIPTION>
+								<DATATYPE>String</DATATYPE>
+								<POSIBLEVALUES></POSIBLEVALUES>
+								<DEFAULT></DEFAULT>
+								<STDWRAP></STDWRAP>
+								<PROTOTYPE></PROTOTYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN></CHILDREN>
+								<VARIANT></VARIANT>
+							</ENTRY>
+							<ENTRY KEY="agregateRowsPartial">
+								<DESCRIPTION>Path to the aggregate row partial.</DESCRIPTION>
+								<DATATYPE>String</DATATYPE>
+								<POSIBLEVALUES></POSIBLEVALUES>
+								<DEFAULT></DEFAULT>
+								<STDWRAP></STDWRAP>
+								<PROTOTYPE></PROTOTYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN></CHILDREN>
+								<VARIANT></VARIANT>
+							</ENTRY>
+						</CHILDREN>
                     </ENTRY>
                 </CHILDREN>
             </ENTRY>

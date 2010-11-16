@@ -30,22 +30,8 @@
  * @subpackage Configuration\List
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
+class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
-	/**
-	 * Holds list identifier of current list
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	/**
-	 * @var array
-	 */
-	protected $settings;
-	
-	
 	/**
 	 * ListIdentifier of the default sorting column
 	 *
@@ -54,24 +40,12 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	protected $sortingColumn;
 	
 	
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->settings = $configurationBuilder->getDefaultSettings();
-		$this->initPropertiesFromSettings();
-	}
-	
-	
 	
 	/**
 	 * Set the properties
 	 */
-	protected function initPropertiesFromSettings() {
-		if(array_key_exists('sortingColumn', $this->settings)) {
-			$this->sortingColumn = $this->settings['sortingColumn'];
-		}
+	protected function init() {
+		$this->setValueIfExistsAndNotNothing('sortingColumn');
 	}
 	
 	
@@ -81,8 +55,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig {
 	 */
 	public function getSortingColumn() {
 		return $this->sortingColumn;
-	}
-	
+	}	
 }
- 
 ?>

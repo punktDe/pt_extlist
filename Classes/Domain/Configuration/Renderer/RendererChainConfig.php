@@ -78,10 +78,10 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends tx_
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $rendererChainSettings) {
 		$this->configurationBuilder = $configurationBuilder;
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->settings = $configurationBuilder->getRendererChainSettings();
+		$this->settings = $rendererChainSettings;
 		$this->init();
 	}
 	

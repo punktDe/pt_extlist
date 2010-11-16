@@ -40,8 +40,66 @@
                 </title>
                 <para><xsl:value-of select="DESCRIPTION"/></para>
             </refsection>
+			<refsection> <segmentedlist>
+				 <?dbfo list-presentation="list"?>   
+				 <segtitle>Datatype</segtitle>
+				 <segtitle>Posible values</segtitle>
+				 <segtitle>Default</segtitle>
+				 <segtitle>StdWrap</segtitle>
+				 <segtitle>Prototype</segtitle>
+				 
+					<seglistitem>
+						
+						<seg>
+					
+						<xsl:value-of select="DATATYPE"/>
+						</seg>
+						<seg>
+							<xsl:value-of select="POSIBLEVALUES"/>
+						</seg>
+						<seg>
+							<xsl:value-of select="DEFAULT"/>
+						</seg>
+						<seg>
+							<xsl:value-of select="STDWRAP"/>
+						</seg>
+						<seg>
+							<xsl:value-of select="PROTOTYPE"/>
+						</seg>
+					</seglistitem>
+			
+				</segmentedlist>
+			</refsection>
 			<refsection>
-				 <variablelist>
+				<title>
+                    Example
+                </title>
+                <para>
+					<programlisting>
+						<xsl:value-of select="EXAMPLE"/>
+					</programlisting>
+				</para>
+			</refsection>
+            <xsl:if test="count(CHILDREN/ENTRY) > 0">
+                <refsection>
+                    <title>Child elements</title>
+                    <xsl:for-each select="CHILDREN/ENTRY/@KEY" >
+						<link text-decoration="underline" color="blue">
+							<xsl:attribute name="linkend">tsref.<xsl:value-of select="."/></xsl:attribute><xsl:value-of select="."/>
+						</link>,
+                    </xsl:for-each>
+                </refsection>
+                <refsection>
+                        <title>Children of <xsl:value-of select="@KEY"/>:</title>
+                        <xsl:apply-templates select="CHILDREN" />
+                </refsection>
+            </xsl:if>
+        </refentry>
+    </xsl:template>
+    
+</xsl:stylesheet>
+			 
+				<!-- <variablelist>
 					<varlistentry>
 						<term>
 							Datatype
@@ -111,4 +169,4 @@
         </refentry>
     </xsl:template>
     
-</xsl:stylesheet>
+</xsl:stylesheet>-->

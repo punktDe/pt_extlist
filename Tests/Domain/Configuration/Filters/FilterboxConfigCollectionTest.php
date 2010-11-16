@@ -26,8 +26,8 @@
 /**
  * Class implementing testcase for filterbox configuration factory
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\configuration\Filters
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

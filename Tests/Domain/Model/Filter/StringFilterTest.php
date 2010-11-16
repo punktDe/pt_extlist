@@ -56,6 +56,7 @@
  	public function testGetFilterValueAfterTsConfigInjection() {
  		$filter = $this->getStringFilterInstance();
  		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( 
+ 		$this->configurationBuilderMock,
  		   array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
  		$filter->init();
  	    $this->assertTrue($filter->getFilterValue() == 'defaultValue');
@@ -67,6 +68,7 @@
  		$filter = $this->getStringFilterInstance();
  		$filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
  		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( 
+ 		$this->configurationBuilderMock,
            array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->init();
         $this->assertTrue($filter->getFilterValue() == 'sessionFilterValue');
@@ -80,6 +82,7 @@
  		/* First test: GP vars holds value for filter --> gp var value should be returned */
         $filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
         $filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( 
+        $this->configurationBuilderMock,
            array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->injectGPVars(array('filterValue' => 'gpVarsValue'));
         $filter->init();
@@ -107,6 +110,7 @@
  	public function testSetAndGetFieldIdentifier() {
  		$filter = $this->getStringFilterInstance();
         $filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+        $this->configurationBuilderMock,
             array('fieldIdentifier' => 'field1','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->init();
         
@@ -119,6 +123,7 @@
  		$filter = $this->getStringFilterInstance();
  		 try {
  			$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+ 			$this->configurationBuilderMock,
             array('fieldIdentifier' => 'field1','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => '', 'partialPath' => 'Filter/StringFilter'), 'test'));
        
             $filter->init();
@@ -134,6 +139,7 @@
  	public function testCreateQuery() {
  		$filter = $this->getStringFilterInstance();
  		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+ 		$this->configurationBuilderMock,
  		    array('fieldIdentifier' => 'field1','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->injectGPVars(array('filterValue' => 'testValue'));
         $filter->init();
@@ -156,6 +162,7 @@
  	public function testReset() {
  		$filter = $this->getStringFilterInstance();
  		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+ 		$this->configurationBuilderMock,
  		    array('fieldIdentifier' => 'field1','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
  		$filter->injectGPVars(array('filterValue' => 'gpVarFilterValue'));
@@ -184,9 +191,10 @@
  	protected function getStringFilterInstance() {
  		$filter = new Tx_PtExtlist_Domain_Model_Filter_StringFilter();
  		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+ 		$this->configurationBuilderMock,
  		    array('filterIdentifier' => 'stringFilter1', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
 
- 		$fieldConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array('getTable', 'getField'), array('testfield', array('field' => 'testfield', 'table' => 'testtable')));
+ 		$fieldConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array('getTable', 'getField'), array($this->configurationBuilderMock,'testfield', array('field' => 'testfield', 'table' => 'testtable')));
         $fieldConfigMock->expects($this->any())
             ->method('getTable')
             ->will($this->returnValue('testtable'));

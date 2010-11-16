@@ -28,8 +28,8 @@
  * Testcase for default renderer
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package pt_extlist
- * @subpackage Tests\Domain\Renderer\Default
+ * @package Tests
+ * @subpackage Domain\Renderer\Default
  */
 class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -47,8 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
      */	
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
-		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig(array('rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer', 'enabled' => '1'));
-		$rendererConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
+		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, array('rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer', 'enabled' => '1'));
 		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
 	}
 	

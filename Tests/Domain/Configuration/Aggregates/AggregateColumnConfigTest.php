@@ -49,11 +49,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_t
 	public function setup() {
 		
 		$this->initDefaultConfigurationBuilderMock();
-		$aggregateRowSettings = $this->configurationBuilderMock->getAggregateRowSettings();
+		$aggregateRowSettings = $this->configurationBuilderMock->getSettingsForConfigObject('aggregateRows');
 		$columnIdentifier = key(current($aggregateRowSettings));
 		$this->aggregateColumnSettings = current(current($aggregateRowSettings));
-		$this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->aggregateColumnSettings, $columnIdentifier);
-		$this->aggregateColumnConfig->injectConfigurationBuilder($this->configurationBuilderMock);
+		$this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->configurationBuilderMock, $this->aggregateColumnSettings, $columnIdentifier);
 	}
 	
 	

@@ -26,20 +26,23 @@
 /**
  * Testcase for database utility class
  *
- * @package TYPO3
+ * @package Tests
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Utility_DbUtils_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	 
+	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
     
     public function testGetAliasedSelectPartByFieldConfigTableAndField() {
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test', array('field' => 'field', 'table' => 'table'));
+        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test', array('field' => 'field', 'table' => 'table'));
     	$this->assertEquals('table.field AS test', Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
     }
     
 	public function testGetAliasedSelectPartByFieldConfigSpecialString() {
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
+        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
     	$this->assertEquals('(special) AS test', Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
     }
 }

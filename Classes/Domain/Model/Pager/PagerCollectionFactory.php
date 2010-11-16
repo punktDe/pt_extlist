@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 	 */
 	protected static function buildPagerCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $listIdentifier) {
 			$pagerConfigurationCollection = $configurationBuilder->buildPagerConfiguration();	
-		
+
 			$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($configurationBuilder);
 			
 			$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();

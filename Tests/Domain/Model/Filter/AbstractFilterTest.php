@@ -26,7 +26,7 @@
 /**
  * Testcase for abstract filter class
  *
- * @package TYPO3
+ * @package Tests
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testInjectFilterConfig() {
         $filter = $this->getExtendingFilterMock();    	
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'), 'test');
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'), 'test');
         $filter->injectFilterConfig($filterConfig);
     }
     
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testGetters() {
     	$filter = $this->getExtendingFilterMock();     
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'),	'test');
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'test','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'),	'test');
         $filterConfig->injectConfigurationBuilder($this->configurationBuilderMock);
         $filter->injectFilterConfig($filterConfig);
         

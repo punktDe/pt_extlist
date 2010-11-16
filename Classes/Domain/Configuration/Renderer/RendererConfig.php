@@ -30,25 +30,8 @@
  * @package Domain
  * @subpackage Configuration\Renderer
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
-	/**
-	 * Holds an instance of configuration builder
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilder;
-	
-	
-
-	/**
-	 * Renderer settings
-	 * @var array 
-	 */
-	protected $settings;
-	
-	
-	
 	/**
 	 * @var boolean 
 	 */
@@ -72,65 +55,18 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 	
 	
 	/**
-	 * Build the configuration object
-	 *
-	 * @param array $settings
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
 	 */
-	public function __construct(array $rendererSettings) {
-		$this->settings = $rendererSettings;
-		$this->initPropertiesFromSettings();
-	}
-	
-	
-	
-	/**
-	 * Init additional (optional) properties
-	 * @param array $settings
-	 */
-	protected function initPropertiesFromSettings($rendererSettings) {
-			
-		if(array_key_exists('enabled', $this->settings)) {
-			$this->enabled = $this->settings['enabled'] == 1 ? true : false;
-		}
-		
-		tx_pttools_assert::isNotEmptyString($this->settings['rendererClassName'],array('message' => 'No class name given for renderer. 1280408323'));
-		tx_pttools_assert::isTrue(class_exists($this->settings['rendererClassName']), array('message' => 'Given renderer class ' . $this->settings['rendererClassName'] . ' does not exist or is not loaded! 1279541306'));
-        
-		$this->rendererClassName = $this->settings['rendererClassName'];
-	}
-	
-	
-	
-	/**
-	 * Injector for configuration builder
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-	}
-	
-	
-	
-	/**
-	 * Returns configuration builder
-	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	public function getConfigurationBuilder() {
-		return $this->configurationBuilder;
-	}
-	
-	
-	
-	/**
-	 * @return array settings
-	 */
-	public function getSettings() {
-		return $this->settings;
-	}
-	
+	protected function init() {
 
+		$this->setBooleanIfExistsAndNotNothing('enabled');
+		
+		$this->setRequiredValue('rendererClassName', 'No class name given for renderer. 1280408323');
+		tx_pttools_assert::isTrue(class_exists($this->rendererClassName), array('message' => 'Given renderer class ' . $this->rendererClassName . ' does not exist or is not loaded! 1279541306'));
+	}
+
+	
 	
 	/**
 	 * @return boolean enables
@@ -148,5 +84,4 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig {
 		return $this->rendererClassName;
 	}
 }
-
 ?>

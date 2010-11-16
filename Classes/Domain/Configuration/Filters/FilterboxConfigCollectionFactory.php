@@ -36,8 +36,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
 	 * @param $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
 	 */
-	public static function getFilterBoxConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$filterboxCollectionSettings = $configurationBuilder->getFilterSettings();
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$filterboxCollectionSettings = $configurationBuilder->getSettingsForConfigObject('filter');
 		
 		$filterBoxConfigCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection($configurationBuilder);
 		foreach($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
