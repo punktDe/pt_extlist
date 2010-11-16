@@ -4,6 +4,8 @@
 
 <!DOCTYPE TSREF [
 
+    <!ELEMENT DOC (DATATYPES,TSREF)> 
+    <!ELEMENT DATATYPES (ENTRY*)>
     <!ELEMENT TSREF (ENTRY)+>
     <!ELEMENT ENTRY (DESCRIPTION, DATATYPE*, POSIBLEVALUES*, DEFAULT*, STDWRAP*, PROTOTYPE*, EXAMPLE*, CHILDREN*, VARIANT* )>
     <!ELEMENT DESCRIPTION  (#PCDATA)>
@@ -12,15 +14,20 @@
     <!ELEMENT STDWRAP (#PCDATA)>
     <!ELEMENT EXAMPLE (#PCDATA)>
     <!ELEMENT DEFAULT (#PCDATA)>
-    <!ELEMENT SEE (#PCDATA)>
     <!ELEMENT POSIBLEVALUES (#PCDATA)>
-    <!ELEMENT CHILDREN (ENTRY*,SEE*)>
+    <!ELEMENT CHILDREN (ENTRY*,TYPEREF*)>
+    <!ELEMENT TYPEREF (#PCDATA)>
     <!ELEMENT VARIANT (ENTRY*)>
 
     <!ATTLIST ENTRY KEY CDATA #REQUIRED>
-
+    <!ATTLIST TYPEREF KEY CDATA #REQUIRED>
+    
 ]>
 
+<DOC>
+<DATATYPES>
+    
+</DATATYPES>
 <TSREF>
     <ENTRY KEY="plugin.tx_ptextlist.settings">
         <DESCRIPTION>Main TS-key for all pt_extlist settings.</DESCRIPTION>
@@ -386,8 +393,8 @@
 												<STDWRAP>0</STDWRAP>
 												<PROTOTYPE></PROTOTYPE>
 											</ENTRY>
-											<SEE>special</SEE>
-											<SEE>fieldIdentifier</SEE>
+											<TYPEREF>special</TYPEREF>
+											<TYPEREF>fieldIdentifier</TYPEREF>
 										</CHILDREN>
 									</ENTRY>
 								</CHILDREN>
@@ -496,7 +503,7 @@
 															<CHILDREN></CHILDREN>
 															<VARIANT></VARIANT>
 														</ENTRY>
-														<SEE>label</SEE>
+														<TYPEREF>label</TYPEREF>
 														<ENTRY KEY="defaultValue">
 															<DESCRIPTION>The default value which is shown or selected by default.</DESCRIPTION>
 															<DATATYPE>String</DATATYPE>
@@ -508,8 +515,8 @@
 															<CHILDREN></CHILDREN>
 															<VARIANT></VARIANT>
 														</ENTRY>	
-														<SEE>accessGroups</SEE>	
-														<SEE>fieldIdentifier</SEE>
+														<TYPEREF>accessGroups</TYPEREF>	
+														<TYPEREF>fieldIdentifier</TYPEREF>
 
 														<ENTRY KEY="filterClassName">
 															<DESCRIPTION>Name of the PHP Class of this filter.</DESCRIPTION>
@@ -573,15 +580,15 @@
 }															
 															</EXAMPLE>
 															<CHILDREN>
-																<SEE>filterIdentifier</SEE>
-																<SEE>label</SEE>
-																<SEE>defaultValue</SEE>															
-																<SEE>accessGroups</SEE>															
-																<SEE>fieldIdentifier</SEE>															
-																<SEE>filterClassName</SEE>															
-																<SEE>partialPath</SEE>															
-																<SEE>invert</SEE>															
-																<SEE>invertable</SEE>															
+																<TYPEREF>filterIdentifier</TYPEREF>
+																<TYPEREF>label</TYPEREF>
+																<TYPEREF>defaultValue</TYPEREF>															
+																<TYPEREF>accessGroups</TYPEREF>															
+																<TYPEREF>fieldIdentifier</TYPEREF>															
+																<TYPEREF>filterClassName</TYPEREF>															
+																<TYPEREF>partialPath</TYPEREF>															
+																<TYPEREF>invert</TYPEREF>															
+																<TYPEREF>invertable</TYPEREF>															
 															</CHILDREN>
 															<VARIANT></VARIANT>
 														</ENTRY>										
@@ -773,3 +780,4 @@
         </CHILDREN>
     </ENTRY>
 </TSREF>
+</DOC>
