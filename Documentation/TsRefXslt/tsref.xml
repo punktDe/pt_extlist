@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE TSREF [
+<!DOCTYPE DOC [
 
     <!ELEMENT DOC (DATATYPES,TSREF)> 
     <!ELEMENT DATATYPES (ENTRY*)>
@@ -20,7 +20,9 @@
     <!ELEMENT VARIANT (ENTRY*)>
 
     <!ATTLIST ENTRY KEY CDATA #REQUIRED>
+    <!ATTLIST ENTRY REF CDATA #IMPLIED>
     <!ATTLIST TYPEREF KEY CDATA #REQUIRED>
+    <!ATTLIST TYPEREF REF CDATA #REQUIRED>
     
 ]>
 
@@ -29,7 +31,7 @@
 
 	<DATATYPES>
 
-		<ENTRY KEY="filter.filterIdentifier">
+		<ENTRY REF="filter.filterIdentifier" KEY="filterIdentifier">
 			<DESCRIPTION>The unique identifier of this filter.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -40,7 +42,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.label">
+		<ENTRY REF="filter.label" KEY="filterIdentifier">
 			<DESCRIPTION>The label wich is displayed beside the filter.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -51,7 +53,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.defaultValue">
+		<ENTRY REF="filter.defaultValue" KEY="defaultValue">
 			<DESCRIPTION>The default value which is shown or selected by default.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -62,7 +64,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>	
-		<ENTRY KEY="filter.accessGroups">
+		<ENTRY REF="filter.accessGroups" KEY="accessGroups">
 			<DESCRIPTION>Comma separated list of user groups wich have access to this filter.</DESCRIPTION>
 			<DATATYPE>Comma eparated list.</DATATYPE>
 			<POSIBLEVALUES>Typo3 Group Ids</POSIBLEVALUES>
@@ -73,7 +75,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.fieldIdentifier">
+		<ENTRY REF="filter.fieldIdentifier" KEY="fieldIdentifier">
 			<DESCRIPTION>Identifier of a defined data field. The filter affects on this data field.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -84,7 +86,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.filterClassName">
+		<ENTRY REF="filter.filterClassName" KEY="filterClassName">
 			<DESCRIPTION>Name of the PHP Class of this filter.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -95,7 +97,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.partialPath">
+		<ENTRY REF="filter.partialPath" KEY="partialPath">
 			<DESCRIPTION></DESCRIPTION>
 			<DATATYPE></DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -106,7 +108,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="invert">
+		<ENTRY REF="filter.invert" KEY="invert">
 			<DESCRIPTION>Invert the constraint of this filter.</DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
@@ -117,7 +119,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="invertable">
+		<ENTRY REF="filter.invertable" KEY="invertable">
 			<DESCRIPTION>Show a controle to invert this filter.</DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
@@ -128,20 +130,22 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.renderObj">
+		<ENTRY REF="filter.renderObj" KEY="renderObj">
 			<DESCRIPTION>A cObject definition to render every selct option. With {field:FIELDNAME} you can accedd all display Fields. Additional the implicit defined fields [allDisplayFields] for all defined displayFields and [rowCount] for the count of the entrys with this option  are possible.</DESCRIPTION>
 			<DATATYPE>String (cObject)</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
-			<DEFAULT>renderObj {
-				dataWrap = {field:allDisplayFields} ({field:rowCount})
-			}</DEFAULT>
+			<DEFAULT>
+renderObj {
+	dataWrap = {field:allDisplayFields} ({field:rowCount})
+}
+			</DEFAULT>
 			<STDWRAP></STDWRAP>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.displayFields">
+		<ENTRY REF="filter.displayFields" KEY="displayFields">
 			<DESCRIPTION>One or multiple identifiers of previously defined data fields.</DESCRIPTION>
 			<DATATYPE>String / Comma separated list</DATATYPE>
 			<POSIBLEVALUES>Previously defined field indentifier.</POSIBLEVALUES>
@@ -152,7 +156,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.multiple">
+		<ENTRY REF="filter.multiple" KEY="multiple">
 			<DESCRIPTION></DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
@@ -163,7 +167,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.excludeFilters">
+		<ENTRY REF="filter.excludeFilters" KEY="excludeFilters">
 			<DESCRIPTION>List of filters that are not considered for the group query of this filter.</DESCRIPTION>
 			<DATATYPE>String / Comma separated list of filterIdentifiers.</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -174,7 +178,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.showRowCount">
+		<ENTRY REF="filter.showRowCount" KEY="showRowCount">
 			<DESCRIPTION>Show the rowcount if the select filter is filled with grouped data.</DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
@@ -185,7 +189,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.submitOnChange">
+		<ENTRY REF="filter.submitOnChange" KEY="submitOnChange">
 			<DESCRIPTION>Instant submit filter if a value is selected.</DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
@@ -196,7 +200,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.inactiveOption">
+		<ENTRY REF="filter.inactiveOption" KEY="inactiveOption">
 			<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -207,7 +211,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY KEY="filter.inactiveValue">
+		<ENTRY REF="filter.inactiveValue" KEY="inactiveValue">
 			<DESCRIPTION>The submitted value for the inactiveOption described above.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -218,8 +222,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>	
-	</CHILDREN>		
-	</DATATYPES>
+</DATATYPES>
 
 
 
@@ -288,8 +291,8 @@
 													<STDWRAP>1</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
-														static_countries
-														LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+static_countries
+LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
 													</EXAMPLE>
 												</ENTRY>
 												
@@ -310,9 +313,9 @@
 												
 												<ENTRY KEY="baseGroupByClause">
 													<DESCRIPTION>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>1</STDWRAP>
 													<DATATYPE>String</DATATYPE>
+													<STDWRAP>1</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>st_continent</EXAMPLE>
 												</ENTRY>
 											</CHILDREN>
@@ -331,9 +334,9 @@
 								</ENTRY>
 								<ENTRY KEY="fields">
 									<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
-									<PROTOTYPE></PROTOTYPE>
-									<STDWRAP>0</STDWRAP>
 									<DATATYPE>Associative array</DATATYPE>
+									<STDWRAP>0</STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="[yourFieldId]">
@@ -402,88 +405,88 @@ name_local {
 								</ENTRY>
 								<ENTRY KEY="columns">
 									<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
-									<PROTOTYPE></PROTOTYPE>
-									<STDWRAP>0</STDWRAP>
 									<DATATYPE>Array</DATATYPE>
+									<STDWRAP>0</STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="10,20,30">
 											<CHILDREN>
 												<ENTRY KEY="fieldIdentifier">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="label">
 													<DESCRIPTION>A label for this element.</DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>1</STDWRAP>
 													<DATATYPE>String</DATATYPE>
+													<STDWRAP>1</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="renderUserFunctions">
 													<DESCRIPTION>A list of userfunctions to render the field value.</DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="renderTemplate">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="renderObj">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sorting">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageDesc">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageDefault">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="accessGroups">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="cellCSSClass">
 													<DESCRIPTION></DESCRIPTION>
-													<PROTOTYPE></PROTOTYPE>
-													<STDWRAP>0</STDWRAP>
 													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 											</CHILDREN>
@@ -550,9 +553,9 @@ name_local {
 								</ENTRY>
 								<ENTRY KEY="aggregateData">
 									<DESCRIPTION>Defines aggregates of data fields.</DESCRIPTION>
-									<PROTOTYPE></PROTOTYPE>
-									<STDWRAP>0</STDWRAP>
 									<DATATYPE>Associative array</DATATYPE>
+									<STDWRAP>0</STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="[yourAggregateFieldId]">
@@ -588,8 +591,6 @@ sumPhone {
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 												</ENTRY>
-												<TYPEREF>special</TYPEREF>
-												<TYPEREF>fieldIdentifier</TYPEREF>
 											</CHILDREN>
 										</ENTRY>
 									</CHILDREN>
@@ -687,15 +688,14 @@ sumPhone {
 														<PROTOTYPE></PROTOTYPE>
 														<EXAMPLE></EXAMPLE>
 														<CHILDREN>
-															<TYPEREF>filter.filterIdentifier</TYPEREF>
-															<TYPEREF>filter.defaultValue</TYPEREF>
-															<TYPEREF>filter.label</TYPEREF>
-															<TYPEREF>filter.accessGroups</TYPEREF>	
-															<TYPEREF>filter.fieldIdentifier</TYPEREF>
-															<TYPEREF>filter.filterClassName</TYPEREF>
-															<TYPEREF>filter.partialPath</TYPEREF>
-															<TYPEREF>filter.invert</TYPEREF>
-															<TYPEREF>filter.invertable</TYPEREF>
+															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+															<TYPEREF REF="filter.label" KEY="label" />
+															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+															<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+															<TYPEREF REF="filter.invert" KEY="invert" />
 														</CHILDREN>
 														<VARIANT>
 															<ENTRY KEY="String">
@@ -714,15 +714,15 @@ sumPhone {
 }															
 																</EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF>filter.filterIdentifier</TYPEREF>
-																	<TYPEREF>filter.label</TYPEREF>
-																	<TYPEREF>filter.defaultValue</TYPEREF>															
-																	<TYPEREF>filter.accessGroups</TYPEREF>															
-																	<TYPEREF>filter.fieldIdentifier</TYPEREF>															
-																	<TYPEREF>filter.filterClassName</TYPEREF>															
-																	<TYPEREF>filter.partialPath</TYPEREF>															
-																	<TYPEREF>filter.invert</TYPEREF>															
-																	<TYPEREF>filter.invertable</TYPEREF>															
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>										
@@ -735,22 +735,106 @@ sumPhone {
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF>filter.filterIdentifier</TYPEREF>
-																	<TYPEREF>filter.label</TYPEREF>
-																	<TYPEREF>filter.defaultValue</TYPEREF>															
-																	<TYPEREF>filter.accessGroups</TYPEREF>															
-																	<TYPEREF>filter.fieldIdentifier</TYPEREF>															
-																	<TYPEREF>filter.filterClassName</TYPEREF>															
-																	<TYPEREF>filter.partialPath</TYPEREF>															
-																	<TYPEREF>filter.invert</TYPEREF>															
-																	<TYPEREF>filter.invertable</TYPEREF>																	
-																	<TYPEREF>filter.displayFields</TYPEREF>																
-																	<TYPEREF>filter.multiple</TYPEREF>																
-																	<TYPEREF>filter.excludeFilters</TYPEREF>																
-																	<TYPEREF>filter.showRowCount</TYPEREF>																
-																	<TYPEREF>filter.submitOnChange</TYPEREF>																
-																	<TYPEREF>filter.inactiveOption</TYPEREF>																
-																	<TYPEREF>filter.inactiveValue</TYPEREF>																
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="Checkbox">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="radiobutton">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="firstletter">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.firstletter</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
