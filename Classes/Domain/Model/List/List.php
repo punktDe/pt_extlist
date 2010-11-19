@@ -74,7 +74,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	 * @param Tx_PtExtlist_Domain_Model_List_ListData  $listData   List data object holding aggregate rows
 	 */
 	public function setAggregateRows(Tx_PtExtlist_Domain_Model_List_ListData $aggregates) {
-		$this->aggreagteRows = $aggregates;
+		$this->aggregateRows = $aggregates;
 	}
 	
 	

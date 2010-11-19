@@ -52,6 +52,16 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
 	
+	
+	
+	/**
+     * Returns a rendered aggregate list for a given row of aggregates
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow
+     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
+     */
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow);
+	
 }
 
 ?>

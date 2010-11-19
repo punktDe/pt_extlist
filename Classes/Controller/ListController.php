@@ -71,8 +71,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
-		print_r($list->getAggregateRows());
-		die('dreck');
 		$this->view->assign('aggregateRows', $list->getAggregateRows());
 	}
 	

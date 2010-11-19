@@ -44,7 +44,6 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	 */
 	public static function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$aggregateRows = Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($dataBackend, $configurationBuilder);
-		
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
 		$list->setListData($dataBackend->getListData());
 		$list->setListHeader($dataBackend->getListHeader());
