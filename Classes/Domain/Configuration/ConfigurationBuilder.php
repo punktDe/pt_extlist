@@ -168,7 +168,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     
    /**
 	 * Returns a singleton instance of databackend configuration 
-	 * @returns Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
 	 */
 	public function buildDataBackendConfiguration() {
 		return $this->buildConfigurationGeneric('dataBackend');
