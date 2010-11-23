@@ -91,6 +91,25 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	
 	
 	/**
+	 * Renders aggregated list data
+	 * 
+	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow Row to be rendered
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregated list data
+	 */
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow) {
+		foreach($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+			// TODO fix this: only first renderer is used for aggregate list data
+			$listData = $renderer->renderAggregateList($aggregatedRow);
+			break;
+		}
+		return $listData;
+ 	}
+	
+	
+	
+	/**
 	 * Adds a renderer to the list of renderers
 	 *
 	 * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer

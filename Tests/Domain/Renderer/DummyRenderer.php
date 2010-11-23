@@ -34,7 +34,17 @@
 #require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/ConfigurableRendererInterface.php';
 #require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/AbstractRenderer.php';
 class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
-
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_Renderer_AbstractRenderer::injectConfiguration()
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+	 */
+	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	}
+	
+	
+	
     /**
      * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      *
@@ -55,6 +65,18 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Doma
      */
     public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
         return $listData;
+    }
+    
+    
+    
+    /**
+     * Returns a rendered aggregate list for a given row of aggregates
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow
+     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
+     */
+    public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow) {
+    	return new Tx_PtExtlist_Domain_Model_List_ListData();
     }
     
 }
