@@ -26,8 +26,8 @@
 /**
  * Interface for configuration objects wich hold configuration for value rendering
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration
+ * @package Domain
+ * @subpackage Configuration
  * @author Daniel Lienert <lienert@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {

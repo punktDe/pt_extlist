@@ -26,8 +26,8 @@
 /**
  * Testcase for render chain
  *
- * @package pt_extlist
- * @subpackage Tests\Domain\Renderer
+ * @package Tests
+ * @subpackage Domain\Renderer
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_Tests_BaseTestcase {
