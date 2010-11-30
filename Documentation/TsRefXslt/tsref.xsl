@@ -64,7 +64,7 @@
                 <title>
                     <anchor> <!-- Creating anchor for jump links to current ENTRY -->
                     	<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
-                    	<xsl:attribute name="xml:id"><xsl:value-of select="translate(translate($currentKey,'[', 'l'), ']', 'r')" /></xsl:attribute>
+                    	<xsl:attribute name="xml:id"><xsl:value-of select="translate(translate(translate($currentKey,'[', 'l'), ']', 'r'), ',', '-')" /></xsl:attribute>
                     </anchor>
                     Description
                 </title>
@@ -117,7 +117,7 @@
 	        		<xsl:for-each select="VARIANT/*/@KEY" >
 	        			<link text-decoration="underline" color="blue">
 	        				<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
-	        				<xsl:attribute name="linkend"><xsl:value-of select="translate(translate($currentKey,'[', 'l'), ']', 'r')" />.<xsl:value-of select="translate(translate(.,'[', 'l'), ']', 'r')"/></xsl:attribute><xsl:value-of select="."/>
+	        				<xsl:attribute name="linkend"><xsl:value-of select="translate(translate(translate($currentKey,'[', 'l'), ']', 'r'), ',', '-')" />.<xsl:value-of select="translate(translate(translate(.,'[', 'l'), ']', 'r'), ',', '-')"/></xsl:attribute><xsl:value-of select="."/>
 	        			</link>,
 	        		</xsl:for-each>
 	        		<refsection>
@@ -138,7 +138,9 @@
                 	<xsl:for-each select="CHILDREN/*/@KEY" >
                 		<link text-decoration="underline" color="blue">
                 			<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
-                			<xsl:attribute name="linkend"><xsl:value-of select="translate(translate($currentKey,'[', 'l'), ']', 'r')" />.<xsl:value-of select="translate(translate(.,'[', 'l'), ']', 'r')"/></xsl:attribute><xsl:value-of select="."/>
+                			<xsl:attribute name="linkend">
+                				<xsl:value-of select="translate(translate(translate($currentKey,'[', 'l'), ']', 'r'), ',', '-')" />.<xsl:value-of select="translate(translate(translate(.,'[', 'l'), ']', 'r'), ',', '-')"/>
+                			</xsl:attribute><xsl:value-of select="."/>
                 		</link>,
                 	</xsl:for-each>
                 </refsection>
