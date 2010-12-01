@@ -352,7 +352,7 @@ backendConfig {
 											<CHILDREN>
 												<ENTRY KEY="tables">
 													<DESCRIPTION>'Enable fields where clauses' are applied to all tables given.</DESCRIPTION>
-													<DATATYPE>Boolean</DATATYPE>
+													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
 													<STDWRAP>0</STDWRAP>
@@ -449,7 +449,7 @@ name_local {
 									<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
 									<DATATYPE>Array</DATATYPE>
 									<STDWRAP>0</STDWRAP>
-									<PROTOTYPE></PROTOTYPE>
+									<PROTOTYPE>plugin.tx_ptextlist.prototype.column.default</PROTOTYPE>
 									<EXAMPLE>
 10 {
 	label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_short_localColumn
@@ -508,22 +508,25 @@ renderUserFunctions {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png</DEFAULT>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageDesc">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Image for descending ordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png</DEFAULT>													
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageDefault">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Image for unordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png</DEFAULT>														
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
