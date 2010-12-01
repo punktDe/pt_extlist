@@ -148,7 +148,7 @@ Description
                 	</xsl:for-each>
                 </refsection>
                 <refsection>
-                        <title>Children of <xsl:value-of select="@KEY"/>:</title>
+                        <!-- <title>Children of <xsl:value-of select="@KEY"/>:</title> -->
                         <xsl:apply-templates select="CHILDREN/*" >
                         	<xsl:with-param name="parentKey" select="$currentKey" />
                         </xsl:apply-templates>
