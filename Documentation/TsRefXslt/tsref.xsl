@@ -86,7 +86,12 @@
 						<xsl:if test="DATATYPE != ''"><seg><xsl:value-of select="DATATYPE"/></seg></xsl:if>
 						<xsl:if test="POSIBLEVALUES != ''"><seg><xsl:value-of select="POSIBLEVALUES"/></seg></xsl:if>
 						<xsl:if test="DEFAULT != ''"><seg><xsl:value-of select="DEFAULT"/></seg></xsl:if>
-						<xsl:if test="STDWRAP != ''"><seg><xsl:value-of select="STDWRAP"/></seg></xsl:if>
+						
+						<xsl:choose>
+							<xsl:when test="STDWRAP='1'">YES</xsl:when>
+							<xsl:otherwise>NO</xsl:otherwise>
+						</xsl:choose>
+					
 						<xsl:if test="PROTOTYPE != ''"><seg><xsl:value-of select="PROTOTYPE"/></seg></xsl:if>
 					</seglistitem>
 				</segmentedlist>
