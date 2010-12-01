@@ -66,7 +66,7 @@
                     	<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
                     	<xsl:attribute name="xml:id"><xsl:value-of select="translate(translate(translate($currentKey,'[', 'l'), ']', 'r'), ',', '-')" /></xsl:attribute>
                     </anchor>
-                    Description
+Description
                 </title>
                 <para><xsl:value-of select="DESCRIPTION"/></para>
             </refsection>
@@ -80,18 +80,16 @@
 					<xsl:if test="DATATYPE != ''"><segtitle>Datatype</segtitle></xsl:if>
 					<xsl:if test="POSIBLEVALUES != ''"><segtitle>Posible values</segtitle></xsl:if>
 					<xsl:if test="DEFAULT != ''"><segtitle>Default</segtitle></xsl:if>
-					<xsl:if test="STDWRAP != ''"><segtitle>StdWrap</segtitle></xsl:if>
+					<segtitle>StdWrap</segtitle>
 					<xsl:if test="PROTOTYPE != ''"><segtitle>Prototype</segtitle></xsl:if>
 					<seglistitem>
 						<xsl:if test="DATATYPE != ''"><seg><xsl:value-of select="DATATYPE"/></seg></xsl:if>
 						<xsl:if test="POSIBLEVALUES != ''"><seg><xsl:value-of select="POSIBLEVALUES"/></seg></xsl:if>
 						<xsl:if test="DEFAULT != ''"><seg><xsl:value-of select="DEFAULT"/></seg></xsl:if>
-						
 						<xsl:choose>
 							<xsl:when test="STDWRAP='1'">YES</xsl:when>
 							<xsl:otherwise>NO</xsl:otherwise>
 						</xsl:choose>
-					
 						<xsl:if test="PROTOTYPE != ''"><seg><xsl:value-of select="PROTOTYPE"/></seg></xsl:if>
 					</seglistitem>
 				</segmentedlist>
