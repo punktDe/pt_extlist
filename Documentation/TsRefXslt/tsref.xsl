@@ -87,8 +87,8 @@ Description
 						<xsl:if test="POSIBLEVALUES != ''"><seg><xsl:value-of select="POSIBLEVALUES"/></seg></xsl:if>
 						<xsl:if test="DEFAULT != ''"><seg><xsl:value-of select="DEFAULT"/></seg></xsl:if>
 						<xsl:choose>
-							<xsl:when test="STDWRAP='1'">YES</xsl:when>
-							<xsl:otherwise>NO</xsl:otherwise>
+							<xsl:when test="STDWRAP='1'"><seg>YES</seg></xsl:when>
+							<xsl:otherwise><seg>NO</seg></xsl:otherwise>
 						</xsl:choose>
 						<xsl:if test="PROTOTYPE != ''"><seg><xsl:value-of select="PROTOTYPE"/></seg></xsl:if>
 					</seglistitem>

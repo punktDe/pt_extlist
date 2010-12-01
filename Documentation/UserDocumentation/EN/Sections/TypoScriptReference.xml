@@ -58,7 +58,7 @@ Description
 Description
                 </title><para>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>"
+	                </title><para><programlisting>
 backendConfig &lt; plugin.tx_ptextlist.prototype.backend.typo3
 backendConfig {
 	tables (
@@ -78,7 +78,7 @@ backendConfig {
 		AND st_subcontinent.tr_name_en &lt;&gt; ''
 	)
 }											
-											"</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables">tables</link>,
+											</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables">tables</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>tables</refentrytitle></refmeta><refnamediv><refname>tables</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables"/>
 Description
                 </title><para>'Enable fields where clauses' are applied to all tables given.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>Posible values</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Boolean</seg><seg>0,1</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>

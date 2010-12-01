@@ -328,7 +328,7 @@ st_continent.tr_name_en [] ''
 											<DEFAULT></DEFAULT>
 											<STDWRAP>0</STDWRAP>
 											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE><![CDATA["
+											<EXAMPLE><![CDATA[
 backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 backendConfig {
 	tables (
@@ -348,12 +348,12 @@ backendConfig {
 		AND st_subcontinent.tr_name_en <> ''
 	)
 }											
-											"]]></EXAMPLE>
+											]]></EXAMPLE>
 											<CHILDREN>
 												<ENTRY KEY="tables">
 													<DESCRIPTION>'Enable fields where clauses' are applied to all tables given.</DESCRIPTION>
 													<DATATYPE>Boolean</DATATYPE>
-													<POSIBLEVALUES>0,1</POSIBLEVALUES>
+													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
