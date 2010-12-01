@@ -49,14 +49,44 @@ Description
                 </title><para>Holds the WHERE clause of a mysql query without the WHERE keyword.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
 	                </title><para><programlisting>
-														st_continent.tr_name_en [] ''
+st_continent.tr_name_en [] ''
 													</programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>baseGroupByClause</refentrytitle></refmeta><refnamediv><refname>baseGroupByClause</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.mysql.baseGroupByClause"/>
 Description
                 </title><para>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>String</seg>YES</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
 	                </title><para><programlisting>st_continent</programlisting></para></refsection></refentry></refsection></refentry><refentry><refmeta><refentrytitle>backendConfig.typo3</refentrytitle></refmeta><refnamediv><refname>backendConfig.typo3</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3"/>
 Description
-                </title><para>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><segtitle>Prototype</segtitle><seglistitem>NO<seg>plugin.tx_ptextlist.prototype.backend.typo3</seg></seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>backendConfig.extbase</refentrytitle></refmeta><refnamediv><refname>backendConfig.extbase</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.extbase"/>
+                </title><para>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>
+	                    Example
+	                </title><para><programlisting>"
+backendConfig &lt; plugin.tx_ptextlist.prototype.backend.typo3
+backendConfig {
+	tables (
+		static_countries,
+		static_territories st_continent,
+		static_territories st_subcontinent
+	)
+
+	baseFromClause (
+		static_countries
+		LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+		LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+	)
+
+	baseWhereClause (
+		st_continent.tr_name_en &lt;&gt; '' 
+		AND st_subcontinent.tr_name_en &lt;&gt; ''
+	)
+}											
+											"</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables">tables</link>,
+                	</refsection><refsection><refentry><refmeta><refentrytitle>tables</refentrytitle></refmeta><refnamediv><refname>tables</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables"/>
+Description
+                </title><para>'Enable fields where clauses' are applied to all tables given.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>Posible values</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Boolean</seg><seg>0,1</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>
+	                    Example
+	                </title><para><programlisting>
+static_countries,
+static_territories st_continent
+													</programlisting></para></refsection></refentry></refsection></refentry><refentry><refmeta><refentrytitle>backendConfig.extbase</refentrytitle></refmeta><refnamediv><refname>backendConfig.extbase</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.extbase"/>
 Description
                 </title><para>Extbase Repository Backend.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><segtitle>Prototype</segtitle><seglistitem>NO<seg>plugin.tx_ptextlist.prototype.backend.extbase</seg></seglistitem></segmentedlist></refsection></refentry></refsection></refsection></refentry><refentry><refmeta><refentrytitle>fields</refentrytitle></refmeta><refnamediv><refname>fields</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields"/>
 Description
@@ -78,9 +108,9 @@ name_local {
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.expandGroupRows">expandGroupRows</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>table</refentrytitle></refmeta><refnamediv><refname>table</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.table"/>
 Description
-                </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>field</refentrytitle></refmeta><refnamediv><refname>field</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.field"/>
+                </title><para>The table, this field belongs to.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>String</seg>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>field</refentrytitle></refmeta><refnamediv><refname>field</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.field"/>
 Description
-                </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>special</refentrytitle></refmeta><refnamediv><refname>special</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.special"/>
+                </title><para>Name of the tables field.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>special</refentrytitle></refmeta><refnamediv><refname>special</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.special"/>
 Description
                 </title><para>Insert a individual SQL snippet.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>isSortable</refentrytitle></refmeta><refnamediv><refname>isSortable</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.isSortable"/>
 Description
@@ -88,7 +118,16 @@ Description
 Description
                 </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry></refsection></refentry></refsection></refentry><refentry><refmeta><refentrytitle>columns</refentrytitle></refmeta><refnamediv><refname>columns</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns"/>
 Description
-                </title><para>Holds the tables column definitions.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Array</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30">10,20,30</link>,
+                </title><para>Holds the tables column definitions.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Array</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>
+	                    Example
+	                </title><para><programlisting>
+10 {
+	label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_short_localColumn
+	columnIdentifier =  cn_short_localColumn
+	fieldIdentifier =  cn_short_local
+	isSortable = 1
+}
+									</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30">10,20,30</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>10,20,30</refentrytitle></refmeta><refnamediv><refname>10,20,30</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30"/>
 Description
                 </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.fieldIdentifier">fieldIdentifier</link>,
@@ -104,11 +143,17 @@ Description
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.cellCSSClass">cellCSSClass</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>fieldIdentifier</refentrytitle></refmeta><refnamediv><refname>fieldIdentifier</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.fieldIdentifier"/>
 Description
-                </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>label</refentrytitle></refmeta><refnamediv><refname>label</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.label"/>
+                </title><para>Identifier of a defined field.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>label</refentrytitle></refmeta><refnamediv><refname>label</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.label"/>
 Description
                 </title><para>A label for this element.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>String</seg>YES</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>renderUserFunctions</refentrytitle></refmeta><refnamediv><refname>renderUserFunctions</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.renderUserFunctions"/>
 Description
-                </title><para>A list of userfunctions to render the field value.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>renderTemplate</refentrytitle></refmeta><refnamediv><refname>renderTemplate</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.renderTemplate"/>
+                </title><para>A list of userfunctions to render the field value.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>
+	                    Example
+	                </title><para><programlisting>
+renderUserFunctions {
+	10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer-&gt;iso2CodeRenderer
+}
+													</programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>renderTemplate</refentrytitle></refmeta><refnamediv><refname>renderTemplate</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.renderTemplate"/>
 Description
                 </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>renderObj</refentrytitle></refmeta><refnamediv><refname>renderObj</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.renderObj"/>
 Description
