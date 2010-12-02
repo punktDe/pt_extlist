@@ -38,24 +38,18 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 	 * 
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public static function getAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
-		if($configurationBuilder->getSettingsForConfigObject('aggregateRows')) {
-			$aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
-			$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
-			$aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
-			$aggregateListBuilder->injectDataBackend($dataBackend);
-			$aggregateListBuilder->init();
-			
-			$aggregateListData = $aggregateListBuilder->buildAggregateList();	
-		} else {
-			$aggregateListData = new Tx_PtExtlist_Domain_Model_List_ListData();
-		}
+		$aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
+		$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
+		//$aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
+		$aggregateListBuilder->injectDataBackend($dataBackend);
 		
+		$aggregateListData = $aggregateListBuilder->buildAggregateListData();	
+
 		return $aggregateListData;
 	}
-	
 }
-
 ?>
