@@ -81,7 +81,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     					
     					'headerPartial' => 'List/ListHeader',
 						'bodyPartial' 	=> 'List/ListBody',
-						'agregateRowsPartial' => 'List/AggregateRows',
+						'aggregateRowsPartial' => 'List/AggregateRows',
     					
     					
 						'backendConfig' => array (

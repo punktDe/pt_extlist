@@ -60,8 +60,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfig_testcase extends T
 		$this->assertEquals($this->listConfiguration->getBodyPartial(), 'List/ListBody');
 	}
 	
-	public function testGetAgregateRowsPartial() {
-		$this->assertEquals($this->listConfiguration->getAgregateRowsPartial(), 'List/AggregateRows');
+	public function testGetAggregateRowsPartial() {
+		$this->assertEquals($this->listConfiguration->getAggregateRowsPartial(), 'List/AggregateRows');
 	}
 	
 }
