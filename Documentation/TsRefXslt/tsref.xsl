@@ -134,9 +134,9 @@
                 <refsection>
                     <title>Child elements</title>
                 	<xsl:for-each select="CHILDREN/*/@KEY" >
-                		<link text-decoration="underline" color="blue">
+                		<!--<link text-decoration="underline" color="blue">
                 			<xsl:attribute name="linkend"><xsl:value-of select="$currentKey" />.<xsl:value-of select="."/></xsl:attribute><xsl:value-of select="."/>
-                		</link>,
+                		</link>,-->
                 	</xsl:for-each>
                 </refsection>
                 <refsection>

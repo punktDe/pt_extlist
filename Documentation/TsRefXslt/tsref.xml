@@ -42,7 +42,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY REF="filter.label" KEY="filterIdentifier">
+		<ENTRY REF="filter.label" KEY="label">
 			<DESCRIPTION>The label wich is displayed beside the filter.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -692,7 +692,6 @@ sumPhone {
 															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 															<TYPEREF REF="filter.label" KEY="label" />
 															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-															<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 															<TYPEREF REF="filter.invert" KEY="invert" />
@@ -718,7 +717,6 @@ sumPhone {
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
