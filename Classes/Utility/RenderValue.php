@@ -192,15 +192,18 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param array $data dataFields
 	 * @param array $renderUserFunctionConfig array of renderUserFunctions
 	 */
-	public static function renderValueByRenderUserFunctionArray(array $data, array $renderUserFunctionConfig) {
+	public static function renderValueByRenderUserFunctionArray(array $data, array $renderUserFunctionConfigArray) {
 		$params['values'] = $data; 
 		$content = '';
 		$dummRef = ''; 
 
-		foreach ($renderUserFunctionConfig as $key => $rendererUserFunc) {
+		foreach ($renderUserFunctionConfigArray as $key => $rendererUserFuncConfig) {
 			$params['currentContent'] = $content;
-			$params['conf'] = $userFunctions[$key]; 
-			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef);
+			
+			$params['conf'] = $rendererUserFuncConfig;
+			$rendererUserFunc = array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig; 
+
+			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef, NULL);
 		}
 		
 		return $content;
