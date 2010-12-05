@@ -47,11 +47,24 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 		
 		$list->setListData($dataBackend->getListData());
 		$list->setListHeader($dataBackend->getListHeader());
-		$list->setAggregateListData($dataBackend->getAggregateListData());
+		$list->setAggregateListData(self::buildAggregateListData($configurationBuilder));	
 		
 		return $list;
 	}
 	
+	
+	/**
+	 * Build the aggregate list data if any aggregates are defined
+	 * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public static function buildAggregateListData(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		if($configurationBuilder->buildAggregateDataConfig()->count() > 0) {
+			return $dataBackend->getAggregateListData();	
+		} else {
+			return new Tx_PtExtlist_Domain_Model_List_ListData();
+		}
+	}
 }
-
 ?>

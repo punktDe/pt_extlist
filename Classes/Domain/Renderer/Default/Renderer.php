@@ -132,6 +132,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
 	 */
 	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
+		
+		if($aggregateListData->count() == 0) return $aggregateListData;
+		
 		$renderedAggregateList = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
 		$aggregateRowsConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildAggregateRowsConfig();
@@ -143,6 +146,5 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		
 		return $renderedAggregateList;
 	}
-	
 }
 ?>
