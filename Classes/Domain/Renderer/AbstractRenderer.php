@@ -31,6 +31,7 @@
  * @subpackage Renderer
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface {
 
@@ -49,6 +50,36 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$this->rendererConfiguration = $rendererConfiguration;
 	}
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
+	 */
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+		return $listData;
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
+	 */
+	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		return $listHeader;
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
+	 */
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
+		return $aggregateListData;
+	}
+	
 	
 }
 

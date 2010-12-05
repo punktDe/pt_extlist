@@ -57,12 +57,12 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 	 * Renders captions
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered row
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		tx_pttools_assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+		$renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
 		foreach($listHeader as $headerColumn) {
 			if($headerColumn->getColumnConfig()->isAccessable()) {
 				$label = $headerColumn->getLabel();
@@ -77,10 +77,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 					// Localization
 					$label = Tx_Extbase_Utility_Localization::translate($label);
 				}
-			    $row->createAndAddCell($label, $headerColumn->getColumnIdentifier());
+			    $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 			}
 		}
-		return $row;
+		return $renderedListHeader;
 	}
 	
 }

@@ -49,7 +49,8 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	/**
 	 * Renders the column captions out of the TS definition
 	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered captions
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader 
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
 	
@@ -64,5 +65,4 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData);
 	
 }
-
 ?>

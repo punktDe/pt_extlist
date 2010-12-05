@@ -30,7 +30,7 @@
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_objectCollection implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Domain_Model_List_Row implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 
 	
 	/**
@@ -97,9 +97,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends tx_pttools_object
 		foreach($this->itemsArr as $headerColumn) {
 			$headerColumn->reset();
 		}
-	}
-	
+	}	
 }
-
-
 ?>
