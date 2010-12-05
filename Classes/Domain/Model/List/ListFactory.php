@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 		
 		$list->setListData($dataBackend->getListData());
 		$list->setListHeader($dataBackend->getListHeader());
-		$list->setAggregateListData(self::buildAggregateListData($configurationBuilder));	
+		$list->setAggregateListData(self::buildAggregateListData($dataBackend, $configurationBuilder));	
 		
 		return $list;
 	}
@@ -55,11 +55,12 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	
 	/**
 	 * Build the aggregate list data if any aggregates are defined
-	 * 
+
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public static function buildAggregateListData(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function buildAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		if($configurationBuilder->buildAggregateDataConfig()->count() > 0) {
 			return $dataBackend->getAggregateListData();	
 		} else {
