@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
  <project name="test" basedir="." default="app">
     <property name="builddir" value="${ws}/build" />
-
+	<property name="instance" value="${htdocs}" />
+	<property name="extPath" value="${htdocs}/typo3conf/ext/${ext}/Tests" />
+	
     <target name="clean">
         <echo msg="Clean..." />
         <delete dir="${builddir}" />
@@ -13,12 +15,6 @@
         <mkdir dir="${builddir}/logs" />
         <mkdir dir="${builddir}/logs/coverage" />
         <mkdir dir="${builddir}/docs" />
-        <mkdir dir="${builddir}/app" />
-    </target>
-
-    <!-- Deploy app -->
-    <target name="app">
-        <echo msg="We do nothing yet!" />
     </target>
 
     <!-- PHP API Documentation -->
@@ -52,10 +48,16 @@
         <echo msg="PHP CodeSniffer..." />
         <exec command="phpcs --standard=ZEND --report=checkstyle ${ws}/ > ${builddir}/logs/checkstyle.xml" escape="false" />
     </target>
+    
+    <!-- PHP CodeSniffer -->
+    <target name="pmd">
+        <echo msg="PHP Mess Detection..." />
+        <exec command="phpmd --reportfile=${builddir}/logs/pmd.xml --ignore=Tests ${ws} xml codesize,unusedcode,naming" escape="false" />
+    </target>
 
     <!-- Unit Tests & coverage analysis -->
     <target name="phpunit">
         <echo msg="PHP Unit..." />
-        <exec command="phpunit --log-junit ${builddir}/logs/phpunit.xml --log-pmd ${builddir}/logs/phpunit.pmd.xml --coverage-clover ${builddir}/logs/coverage/clover.xml --coverage-html ${builddir}/logs/coverage/ ${ws}/Tests"/>
+        <exec command="php ${instance}/typo3/cli_dispatch.phpsh phpunit --log-junit ${builddir}/logs/phpunit.xml --coverage-clover ${builddir}/logs/coverage/clover.xml ${extPath}"/>
     </target>
 </project>
