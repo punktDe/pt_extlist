@@ -52,7 +52,7 @@
     <!-- PHP CodeSniffer -->
     <target name="pmd">
         <echo msg="PHP Mess Detection..." />
-        <exec command="phpmd --reportfile=${builddir}/logs/pmd.xml --ignore=Tests ${ws} xml codesize,unusedcode,naming" escape="false" />
+        <exec command="phpmd --reportfile=${builddir}/logs/pmd.xml --ignore=Tests,typo3/ ${ws} xml codesize,unusedcode,naming" escape="false" />
     </target>
 
     <!-- Unit Tests & coverage analysis -->
