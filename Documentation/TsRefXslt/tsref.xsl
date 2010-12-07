@@ -64,9 +64,9 @@
                 <title>
                     <anchor> <!-- Creating anchor for jump links to current ENTRY -->
                     	<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
-                    	<xsl:attribute name="xml:id"><xsl:value-of select="translate(translate($currentKey,'[', 'l'), ']', 'r')" /></xsl:attribute>
+                    	<xsl:attribute name="xml:id"><xsl:value-of select="translate(translate(translate($currentKey,'[', 'l'), ']', 'r'), ',', '-')" /></xsl:attribute>
                     </anchor>
-                    Description
+Description
                 </title>
                 <para><xsl:value-of select="DESCRIPTION"/></para>
             </refsection>
@@ -80,13 +80,16 @@
 					<xsl:if test="DATATYPE != ''"><segtitle>Datatype</segtitle></xsl:if>
 					<xsl:if test="POSIBLEVALUES != ''"><segtitle>Posible values</segtitle></xsl:if>
 					<xsl:if test="DEFAULT != ''"><segtitle>Default</segtitle></xsl:if>
-					<xsl:if test="STDWRAP != ''"><segtitle>StdWrap</segtitle></xsl:if>
+					<segtitle>StdWrap</segtitle>
 					<xsl:if test="PROTOTYPE != ''"><segtitle>Prototype</segtitle></xsl:if>
 					<seglistitem>
 						<xsl:if test="DATATYPE != ''"><seg><xsl:value-of select="DATATYPE"/></seg></xsl:if>
 						<xsl:if test="POSIBLEVALUES != ''"><seg><xsl:value-of select="POSIBLEVALUES"/></seg></xsl:if>
 						<xsl:if test="DEFAULT != ''"><seg><xsl:value-of select="DEFAULT"/></seg></xsl:if>
-						<xsl:if test="STDWRAP != ''"><seg><xsl:value-of select="STDWRAP"/></seg></xsl:if>
+						<xsl:choose>
+							<xsl:when test="STDWRAP='1'"><seg>YES</seg></xsl:when>
+							<xsl:otherwise><seg>NO</seg></xsl:otherwise>
+						</xsl:choose>
 						<xsl:if test="PROTOTYPE != ''"><seg><xsl:value-of select="PROTOTYPE"/></seg></xsl:if>
 					</seglistitem>
 				</segmentedlist>
@@ -117,7 +120,7 @@
 	        		<xsl:for-each select="VARIANT/*/@KEY" >
 	        			<link text-decoration="underline" color="blue">
 	        				<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
-	        				<xsl:attribute name="linkend"><xsl:value-of select="translate(translate($currentKey,'[', 'l'), ']', 'r')" />.<xsl:value-of select="translate(translate(.,'[', 'l'), ']', 'r')"/></xsl:attribute><xsl:value-of select="."/>
+	        				<xsl:attribute name="linkend"><xsl:value-of select="translate(translate(translate($currentKey,'[', 'l'), ']', 'r'), ',', '-')" />.<xsl:value-of select="translate(translate(translate(.,'[', 'l'), ']', 'r'), ',', '-')"/></xsl:attribute><xsl:value-of select="."/>
 	        			</link>,
 	        		</xsl:for-each>
 	        		<refsection>
@@ -138,12 +141,14 @@
                 	<xsl:for-each select="CHILDREN/*/@KEY" >
                 		<link text-decoration="underline" color="blue">
                 			<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
-                			<xsl:attribute name="linkend"><xsl:value-of select="translate(translate($currentKey,'[', 'l'), ']', 'r')" />.<xsl:value-of select="translate(translate(.,'[', 'l'), ']', 'r')"/></xsl:attribute><xsl:value-of select="."/>
+                			<xsl:attribute name="linkend">
+                				<xsl:value-of select="translate(translate(translate($currentKey,'[', 'l'), ']', 'r'), ',', '-')" />.<xsl:value-of select="translate(translate(translate(.,'[', 'l'), ']', 'r'), ',', '-')"/>
+                			</xsl:attribute><xsl:value-of select="."/>
                 		</link>,
                 	</xsl:for-each>
                 </refsection>
                 <refsection>
-                        <title>Children of <xsl:value-of select="@KEY"/>:</title>
+                        <!-- <title>Children of <xsl:value-of select="@KEY"/>:</title> -->
                         <xsl:apply-templates select="CHILDREN/*" >
                         	<xsl:with-param name="parentKey" select="$currentKey" />
                         </xsl:apply-templates>
