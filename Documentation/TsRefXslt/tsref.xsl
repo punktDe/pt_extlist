@@ -49,7 +49,7 @@
         	<!-- Rendering title of ENTRY-->
             <refmeta>
                 <refentrytitle>
-                    <xsl:value-of select="@KEY"/>
+                    <xsl:value-of select="@KEY"/>Franz
                 </refentrytitle>
             </refmeta>
         	
@@ -57,7 +57,7 @@
         	
         	<!-- Rendering description -->
             <refnamediv>
-                <refname><xsl:value-of select="@KEY"/></refname>
+                <refname><xsl:value-of select="@KEY"/>Horst</refname>
                 <refpurpose><xsl:value-of select="ENTRY/DESCRIPTION"/></refpurpose>
             </refnamediv>
             <refsection>
