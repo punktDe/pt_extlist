@@ -48,8 +48,12 @@
         	
         	<!-- Rendering title of ENTRY-->
             <refmeta>
+				<indexterm>
+					<primary>elements</primary>
+					<secondary>Franz</secondary>
+				</indexterm>
                 <refentrytitle>
-                    <xsl:value-of select="@KEY"/>Franz
+                    <xsl:value-of select="@KEY"/>Hugo
                 </refentrytitle>
             </refmeta>
         	
