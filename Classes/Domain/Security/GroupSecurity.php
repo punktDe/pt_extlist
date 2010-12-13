@@ -35,8 +35,8 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	protected $usergroups;
 	
 	public function __construct() {
-		$this->usergroups = $GLOBALS['TSFE']->fe_user->user['groupData'];
-		
+		//$this->usergroups = $GLOBALS['TSFE']->fe_user->user['groupData'];
+		$this->usergroups = $GLOBALS['TSFE']->fe_user->user['usergroup'];
 	}
 	
 	/**
@@ -139,9 +139,11 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 			$group = trim($group);
 			if(empty($group)) return true;
 			
-			foreach($this->usergroups as $groupData) {
+			$groupArray = t3lib_div::trimExplode(',', $this->usergroups);
+			
+			foreach($groupArray as $groupData) {
 				
-				if($group == $groupData['uid']) return true;
+				if($group == $groupData) return true;
 			}
 		}
 		
