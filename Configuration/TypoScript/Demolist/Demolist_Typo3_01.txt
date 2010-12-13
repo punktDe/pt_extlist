@@ -245,7 +245,7 @@ plugin.tx_ptextlist.settings {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
 						filterIdentifier = filter1
-						label = Local name
+						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
 						fieldIdentifier = name_local
 					}
 

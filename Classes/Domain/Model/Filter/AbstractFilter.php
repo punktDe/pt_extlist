@@ -283,7 +283,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return string Label of filter as configured in TS
 	 */
 	public function getLabel() {
-		return $this->filterConfig->getSettings('label');
+		return $this->filterConfig->getLabel();
 	}
 	
 	

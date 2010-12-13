@@ -66,17 +66,6 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 		foreach($listHeader as $headerColumn) {
 			if($headerColumn->getColumnConfig()->isAccessable()) {
 				$label = $headerColumn->getLabel();
-				
-				// TODO: use Tx_PtExtlist_Utility_RenderValue and configuration for rendering!
-				
-				// Use TS for rendering
-				if(is_array($label)) {
-					$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
-					$label = $this->cObj->cObjGet($conf);
-				} elseif(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
-					// Localization
-					$label = Tx_Extbase_Utility_Localization::translate($label);
-				}
 			    $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 			}
 		}
