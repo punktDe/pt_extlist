@@ -23,7 +23,6 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 		border-collapse: collapse;
 		border-spacing: 0;
 		font-size: 12px;
-		clear: both;
 	}
 	
 	table.tx-ptextlist-list-standard tr.odd {
@@ -63,11 +62,11 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	.tx-ptextlist-filter {
 		float: left;
 		padding: 3px;
-		list-style-type: none !important;
+		list-style-type: none;
 	}
 	
 	.tx-ptextlist-filters {
-		list-style-type: none !important;
+		list-style-type: none;
 	}
 	
 	.tx-ptextlist-filterboxcontrols {
@@ -85,7 +84,7 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	.tx-ptextlist-filter-firstLetter{
 		float: left;
 		padding: 3px;
-		list-style-type: none !important;
+		list-style-type: none;
 	}
 
 	.type-button .reset {
@@ -96,7 +95,7 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	/* Pager */
 	.pt-extlist-pager {
-		margin-left: 0 !important;
+		margin-left: 0;
 		text-align: center;
 	}
 	
