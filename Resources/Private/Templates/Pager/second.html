@@ -16,13 +16,14 @@ Tx_PtExtlist_Domain_Model_Pager				The pager object
 </extlist:comment> 
 
 <div class="pt-extlist-pager-item-display">
-    <f:if condition="{pager.firstItemIndex}">
-        <f:translate key="pager.showItems" default="Show items from" /> {pager.firstItemIndex} <f:translate key="pager.to" default="to" />
-        <f:if condition="{pager.itemCount} < {pager.lastItemIndex}"> 
-            <f:then>{pager.itemCount}</f:then>
-            <f:else>{pager.lastItemIndex}</f:else>
-            </f:if> <f:translate key="pager.of" default="of" /> {pager.itemCount}
-    </f:if>
+	<f:if condition="{pager.firstItemIndex}">
+		<f:translate key="pager.showItems" default="Show items from" /> {pager.firstItemIndex} <f:translate key="pager.to" default="to" />
+		<f:if condition="{pager.itemCount} < {pager.lastItemIndex}"> 
+			<f:then>{pager.itemCount}</f:then>
+			<f:else>{pager.lastItemIndex}</f:else>
+		</f:if>
+		<f:translate key="pager.of" default="of" /> {pager.itemCount}
+	</f:if>
 </div>
 <ul class="pt-extlist-pager">
 	<f:if condition="{pager.showFirstLink}">
