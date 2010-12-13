@@ -203,7 +203,7 @@ plugin.tx_ptextlist.settings {
 				accessGroups = 3
 			}
 		}
-		
+	
 		aggregateData {
 			# methods: sum, min, max, avg
 			sumPhone {

@@ -131,22 +131,24 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
         
         foreach($columnConfiguration as $columnIdentifier => $columnConfiguration) {
        	
-        	if($aggregateRowConfig->hasItem($columnConfiguration->getColumnIdentifier())) {
-        		
-        		$cell = $this->renderCell($aggregateRowConfig->getItemById($columnConfiguration->getColumnIdentifier()), 
-        									$aggregateDataRow, 
-        									$columnIdentifier, 
-        									$rowIndex);
-        									
-        	} else {
-        		$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+        	if($columnConfiguration->isAccessable()) {
+        	
+	        	if($aggregateRowConfig->hasItem($columnConfiguration->getColumnIdentifier())) {
+	        		
+	        		$cell = $this->renderCell($aggregateRowConfig->getItemById($columnConfiguration->getColumnIdentifier()), 
+	        									$aggregateDataRow, 
+	        									$columnIdentifier, 
+	        									$rowIndex);
+	        									
+	        	} else {
+	        		$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+	        	}
+	        	
+	        	$renderedRow->addCell($cell, $columnIdentifier);
         	}
-
-        	$renderedRow->addCell($cell, $columnIdentifier);
         }
         
         return $renderedRow;
-    	
     }
     
     
