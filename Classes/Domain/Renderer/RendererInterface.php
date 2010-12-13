@@ -31,6 +31,7 @@
  * @subpackage Renderer
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	
@@ -57,10 +58,10 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	/**
      * Returns a rendered aggregate list for a given row of aggregates
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow
+     * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
      * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
      */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow);
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData);
 	
 }
 

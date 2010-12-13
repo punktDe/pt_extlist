@@ -119,21 +119,19 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	/**
 	 * Init the aggregates to fill in the columns
 	 */
-	public function init() {
-		$this->aggregatedDataRow = $this->buildAggregateDataRow();
+	public function init() { 
 	}
 
 	
 	
 	/**
 	 * Build the aggregate list
-	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function buildAggregateList() {
-		$listData = $this->renderer->renderAggregateList($this->aggregatedDataRow);
-		return $listData;
+	public function buildAggregateListData() {
+		$aggreagteListData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$aggreagteListData->addRow($this->buildAggregateDataRow());
+		return $aggreagteListData;
 	}
 	
 	

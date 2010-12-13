@@ -60,6 +60,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     
     
     /**
+     * Returns th aggregate data
+     * 
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    public function getAggregateListData();
+    
+    
+    
+    /**
      * Returns raw data for all filters excluding given filters. 
      * 
      * Result is given as associative array with fields given in query object.

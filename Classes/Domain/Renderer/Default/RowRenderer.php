@@ -120,22 +120,29 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
      * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow Row to be rendered
      * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
      * @param int $rowIndex Index of rendered row
-     * @return Tx_PtExtlist_Domain_Model_List_Row Rendered aggregate row
+     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregate row
      */
-    public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow, 
+    public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow, 
             Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig,
-            $rowIndex) {
-        
+            $rowIndex) {    	
+            	
         $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-        $columnIndex = 0;
+        $columnConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
         
-        foreach ($aggregateRowConfig as $columnId => $columnConfig) { /* @var $columnConfig Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig */
-        	$columnIdentifier = $columnConfig->getColumnIdentifier();
+        foreach($columnConfiguration as $columnIdentifier => $columnConfiguration) {
+       	
+        	if($aggregateRowConfig->hasItem($columnConfiguration->getColumnIdentifier())) {
+        		
+        		$cell = $this->renderCell($aggregateRowConfig->getItemById($columnConfiguration->getColumnIdentifier()), 
+        									$aggregateDataRow, 
+        									$columnIdentifier, 
+        									$rowIndex);
+        									
+        	} else {
+        		$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+        	}
 
-        	// TODO add isAccessable flag to aggregate column config
-        	$cell = $this->renderCell($columnConfig, $aggregatedRow, $columnIndex, $rowIndex);
         	$renderedRow->addCell($cell, $columnIdentifier);
-        	$columnIndex++;
         }
         
         return $renderedRow;

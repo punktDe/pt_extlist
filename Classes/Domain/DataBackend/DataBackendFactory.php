@@ -162,7 +162,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     }
     
     
-    
     /**
      * Creates an instance of a query interpreter as configured in configuration builder
      *
