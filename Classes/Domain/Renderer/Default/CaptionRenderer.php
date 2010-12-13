@@ -31,28 +31,10 @@
  * @subpackage Renderer\Strategy
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 
-	/**
-	 * Holds an instance of cObject
-	 *
-	 * @var tslib_cObj
-	 */
-	protected $cObj;
-	
-	
-	
-	/**
-	 * Constructor for rendering strategy
-	 *
-	 */
-	public function __construct() {
-		$this->cObj = $GLOBALS['TSFE']->cObj;
-	}
-	
-	
-	
 	/**
 	 * Renders captions
 	 *
@@ -73,5 +55,4 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 	}
 	
 }
-
 ?>
