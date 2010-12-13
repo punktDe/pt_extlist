@@ -165,15 +165,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('sortingImageDefault');
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
-		
-		
-		if(array_key_exists('label', $this->settings)) {
-			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
-			if(t3lib_div::isFirstPartOfStr($this->label, 'LLL:')) {
-				$this->label = Tx_Extbase_Utility_Localization::translate($this->label);	
-			}
-		}
-		
+		$this->setValueIfExistsAndNotNothing('label');
+	
 		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);

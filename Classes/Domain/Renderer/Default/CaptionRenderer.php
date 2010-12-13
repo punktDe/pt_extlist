@@ -48,6 +48,12 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 		foreach($listHeader as $headerColumn) {
 			if($headerColumn->getColumnConfig()->isAccessable()) {
 				$label = $headerColumn->getLabel();
+				
+				$label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
+				if(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
+					$label = Tx_Extbase_Utility_Localization::translate($label);	
+				}
+				
 			    $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 			}
 		}
