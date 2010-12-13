@@ -29,6 +29,7 @@
  * @package Domain
  * @subpackage Renderer
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	
@@ -95,16 +96,14 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	 * 
 	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow Row to be rendered
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData Row to be rendered
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregated list data
 	 */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow) {
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData) {
 		foreach($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
-			// TODO fix this: only first renderer is used for aggregate list data
-			$listData = $renderer->renderAggregateList($aggregatedRow);
-			break;
+			$aggregatedListData = $renderer->renderAggregateList($aggregatedListData);
 		}
-		return $listData;
+		return $aggregatedListData;
  	}
 	
 	

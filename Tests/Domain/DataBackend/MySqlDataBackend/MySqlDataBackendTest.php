@@ -58,7 +58,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
         								 array('executeQuery'), 
-        								 array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration())
+        								 array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings())
         								 	)
         								 );
 		$dataBackend->injectDataSource($dataSourceMock);
@@ -278,7 +278,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
         									array('executeQuery'), 
-        									array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration())));
+        									array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration()->getDataBackendSettings())));
         $dataSourceMock->expects($this->once())
             ->method('executeQuery')
             ->will($this->returnValue($dataSourceReturnArray));

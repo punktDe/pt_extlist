@@ -164,8 +164,11 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * return array datasource settings
 	 */
 	public function getDataSourceSettings() {
-		return $this->dataBackendSettings['dataSource'];
+		if(is_array($this->dataBackendSettings['dataSource'])) {
+			return $this->dataBackendSettings['dataSource'];	
+		} else {
+			return array();
+		}
 	}
-	
 }
 ?>

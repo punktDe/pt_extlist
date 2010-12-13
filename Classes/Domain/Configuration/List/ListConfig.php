@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	/**
 	 * @var string headerPartial
 	 */
-	protected $agregateRowsPartial;
+	protected $aggregateRowsPartial;
 
 	
 	/**
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	protected function init() {
 		$this->setValueIfExistsAndNotNothing('headerPartial');
 		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('agregateRowsPartial');
+		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
 	}
 	
 	
@@ -82,8 +82,8 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	/**
 	 * @return string
 	 */
-	public function getAgregateRowsPartial() {
-		return $this->agregateRowsPartial;
+	public function getAggregateRowsPartial() {
+		return $this->aggregateRowsPartial;
 	}
 }
 ?>

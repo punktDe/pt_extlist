@@ -91,6 +91,11 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $listData;
 	
 	
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	protected $aggregateListData;
+	
 	
     /**
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
@@ -313,12 +318,25 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 	
 	
+	
 	/**
 	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
 	 */
 	public function getListData() {
 		return $this->listData;
 	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregateListData()
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function getAggregateListData() {
+		return Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
+	}
+	
 	
 	
 	/**

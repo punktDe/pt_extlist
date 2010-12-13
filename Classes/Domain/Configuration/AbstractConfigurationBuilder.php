@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * Class implements abstract configuration builder 
+ * Class implements abstract configuration builder
  *
  * @package Domain
  * @subpackage Configuration
@@ -32,48 +32,48 @@
  * @author Daniel Lienert <lienert@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
-	
-	
+
+
 	/**
 	 * Holds configuration for plugin / extension
 	 *
 	 * @var array
 	 */
 	protected $settings;
-	
-	
+
+
 	/**
 	 * Holds definition of configuration object instances
-	 * 
+	 *
 	 * objectName
 	 * 	=> factory = Classname of the factory
 	 *  => tsKey typoscript key if diferent from objectName
 	 *  => prototype = path to the prototype settings
-	 *  
+	 *
 	 * @var array
 	 */
 	protected $configurationObjectSettings = array();
-	
-	
+
+
 	/**
 	 * Chache for all configuration Objects
-	 * 
+	 *
 	 * @var unknown_type TODO: define a interface
 	 */
 	protected $configurationObjectInstances = array();
-	
-	
+
+
 	/**
-	 * Constructor for configuration builder. 
+	 * Constructor for configuration builder.
 	 *
 	 * @param array $settings Configuration settings
 	 */
 	public function __construct(array $settings = array()) {
 		$this->settings = $settings;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Magic functions
 	 *
@@ -83,17 +83,22 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	public function __call($functionName, $arguments) {
 		#$functionName = strtolower($functionName);
 		$matches = array();
-		$pattern = '/(get|build)(.+)Config(uration)?/is'; 
+		$pattern = '/(get|build)(.+)Config(uration)?/is';
 		preg_match($pattern, $functionName, $matches);
-		
+
 		if ($matches[2]) {
-			return $this->buildConfigurationGeneric(lcfirst($matches[2]));
+			if (false === function_exists('lcfirst')) {
+				$matches[2][0] = strtolower($matches[2][0]);
+			} else {
+				$matches[2] = lcfirst($matches[2]); // PHP 5.3 only ;)
+			}
+			return $this->buildConfigurationGeneric($matches[2]);
 		}
-		
+
 		Throw new Exception('The method configurationBuilder::' . $functionName . ' could not be found or handled by magic function. 1289407912');
 	}
-	
-	
+
+
 	/**
 	 * Generic factory method for configuration objects
 	 *
@@ -101,13 +106,13 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	 * @return mixed
 	 */
 	protected function buildConfigurationGeneric($configurationName) {
-		
+
 		if(!$this->configurationObjectInstances[$configurationName]) {
-			
+
 			if(!array_key_exists($configurationName, $this->configurationObjectSettings)) {
 				throw new Exception('No Configuration Object with name ' . $configurationName . ' defined in ConfigurationBuilder 1289397150');
 			}
-			
+
 			$factoryClass = $this->configurationObjectSettings[$configurationName]['factory'];
 			//$this->configurationObjectInstances[$configurationName] = $factoryClass::getInstance($this); // PHP 5.3 only ;)
 			$this->configurationObjectInstances[$configurationName] = call_user_func(array($factoryClass, 'getInstance'), $this); // Avoid :: notation in PHP < 5.3
@@ -116,35 +121,35 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 		return $this->configurationObjectInstances[$configurationName];
 	}
 
-	
+
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param string $configurationName
 	 */
 	public function getSettingsForConfigObject($configurationName) {
 		if(!array_key_exists($configurationName, $this->configurationObjectSettings)) {
 			throw new Exception('No Configuration Object with name ' . $configurationName . ' defined in ConfigurationBuilder 1289397150');
 		}
-		
+
 		$tsKey = array_key_exists('tsKey', $this->configurationObjectSettings[$configurationName]) ? $this->configurationObjectSettings[$configurationName]['tsKey'] : $configurationName;
 		if($tsKey) {
 			$settings = array_key_exists($tsKey, $this->settings) ? $this->settings[$tsKey] : array();
 		} else {
 			$settings = $this->settings;
 		}
-		
+
 		if(array_key_exists('prototype', $this->configurationObjectSettings[$configurationName])) {
 			$settings = $this->getMergedSettingsWithPrototype($settings, $this->configurationObjectSettings[$configurationName]['prototype']);
 		}
-	
+
 		return $settings;
 	}
-	
-	
+
+
 	/**
 	 * Return the list specific settings merged with prototype settings
-	 * 
+	 *
 	 * @param array $listSepcificConfig
 	 * @param string $objectName
 	 * @return array
@@ -159,27 +164,27 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 
         return $mergedSettings;
 	}
-	
-	
-	
+
+
+
     /**
      * return a slice from the prototype arrray for the given objectPath
-     * 
+     *
      * @param string $objectPath
      * @return array prototypesettings
      */
     public function getPrototypeSettingsForObject($objectPath) {
 
     	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->protoTypeSettings, $objectPath);
-    	
+
     	if(!is_array($protoTypeSettings)) {
     		$protoTypeSettings = array();
-    	} 
-    	
+    	}
+
     	return $protoTypeSettings;
     }
-    
-    
+
+
     /**
      * Returns array of settings for current list configuration
      *
@@ -187,19 +192,19 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
      */
     public function getSettings($key = NULL) {
     	if(!$key) {
-        	return $this->settings;	
+        	return $this->settings;
         } else {
         	if(array_key_exists($key, $this->settings)) {
         		return $this->settings[$key];
         	}
         }
     }
-	
-	
+
+
 	/**
 	 * Merges configuration of settings in namespace of list identifiert
 	 * with settings from plugin.
-	 * 
+	 *
 	 * @param void
 	 * @return void
 	 */

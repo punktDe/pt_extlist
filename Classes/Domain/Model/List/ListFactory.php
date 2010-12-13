@@ -43,14 +43,12 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
      * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public static function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$aggregateRows = Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($dataBackend, $configurationBuilder);
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
+		
 		$list->setListData($dataBackend->getListData());
 		$list->setListHeader($dataBackend->getListHeader());
+		$list->setAggregateListData($dataBackend->getAggregateListData());
 		
-		// TODO fix me!
-		$list->setAggregateRows($aggregateRows);
-	
 		return $list;
 	}
 	

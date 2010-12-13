@@ -42,7 +42,7 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-		<ENTRY REF="filter.label" KEY="filterIdentifier">
+		<ENTRY REF="filter.label" KEY="label">
 			<DESCRIPTION>The label wich is displayed beside the filter.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
@@ -304,7 +304,7 @@ LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_t
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
-														st_continent.tr_name_en [] ''
+st_continent.tr_name_en [] ''
 													</EXAMPLE>
 
 													<CHILDREN></CHILDREN>
@@ -323,7 +323,49 @@ LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_t
 										
 										<ENTRY KEY="backendConfig.typo3">
 											<DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
-											<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.typo3</PROTOTYPE>
+											<DATATYPE></DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP>0</STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE><![CDATA[
+backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+backendConfig {
+	tables (
+		static_countries,
+		static_territories st_continent,
+		static_territories st_subcontinent
+	)
+
+	baseFromClause (
+		static_countries
+		LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+		LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+	)
+
+	baseWhereClause (
+		st_continent.tr_name_en <> '' 
+		AND st_subcontinent.tr_name_en <> ''
+	)
+}											
+											]]></EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="tables">
+													<DESCRIPTION>'Enable fields where clauses' are applied to all tables given.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
+static_countries,
+static_territories st_continent
+													</EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+											</CHILDREN>
+											<VARIANT></VARIANT>
 										</ENTRY>
 										
 										<ENTRY KEY="backendConfig.extbase">
@@ -355,8 +397,8 @@ name_local {
 											</EXAMPLE>
 											<CHILDREN>
 												<ENTRY KEY="table">
-													<DESCRIPTION></DESCRIPTION>
-													<DATATYPE></DATATYPE>
+													<DESCRIPTION>The table, this field belongs to.</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
 													<STDWRAP>0</STDWRAP>
@@ -364,7 +406,7 @@ name_local {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="field">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Name of the tables field.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
@@ -407,13 +449,20 @@ name_local {
 									<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
 									<DATATYPE>Array</DATATYPE>
 									<STDWRAP>0</STDWRAP>
-									<PROTOTYPE></PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
+									<PROTOTYPE>plugin.tx_ptextlist.prototype.column.default</PROTOTYPE>
+									<EXAMPLE>
+10 {
+	label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_short_localColumn
+	columnIdentifier =  cn_short_localColumn
+	fieldIdentifier =  cn_short_local
+	isSortable = 1
+}
+									</EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="10,20,30">
 											<CHILDREN>
 												<ENTRY KEY="fieldIdentifier">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Identifier of a defined field.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
@@ -431,7 +480,11 @@ name_local {
 													<DATATYPE></DATATYPE>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
-													<EXAMPLE></EXAMPLE>
+													<EXAMPLE>
+renderUserFunctions {
+	10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
+}
+													</EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="renderTemplate">
 													<DESCRIPTION></DESCRIPTION>
@@ -455,22 +508,25 @@ name_local {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png</DEFAULT>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageDesc">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Image for descending ordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png</DEFAULT>													
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageDefault">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Image for unordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png</DEFAULT>														
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
@@ -692,7 +748,6 @@ sumPhone {
 															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 															<TYPEREF REF="filter.label" KEY="label" />
 															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-															<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 															<TYPEREF REF="filter.invert" KEY="invert" />
@@ -718,7 +773,6 @@ sumPhone {
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
