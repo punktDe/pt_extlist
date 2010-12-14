@@ -607,18 +607,33 @@ name_local {
 											<DESCRIPTION></DESCRIPTION>
 											<CHILDREN>
 												<ENTRY KEY="fieldIdentifier">
-													<DESCRIPTION>Identifier of a defined field.</DESCRIPTION>
-													<DATATYPE></DATATYPE>
+													<DESCRIPTION>Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
+													<DATATYPE>fieldIdentifier or *</DATATYPE>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
-													<EXAMPLE></EXAMPLE>
+													<EXAMPLE>
+// use a single field
+fieldIdentifier = cn_short_local
+
+// use a list of fields
+fieldIdentifier = cn_short_local, name_local
+
+// use every defined field
+fieldIdentifier = *
+													</EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="label">
 													<DESCRIPTION>A label for this element.</DESCRIPTION>
 													<DATATYPE>String</DATATYPE>
 													<STDWRAP>1</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
-													<EXAMPLE></EXAMPLE>
+													<EXAMPLE>
+// as string
+label = country
+
+// as referenc to language file entry
+label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_short_localColumn
+													</EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="renderUserFunctions">
 													<DESCRIPTION>A list of userfunctions to render the field value.</DESCRIPTION>
@@ -711,7 +726,18 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 									<DEFAULT></DEFAULT>
 									<STDWRAP></STDWRAP>
 									<PROTOTYPE>plugin.tx_ptextlist.prototype.rendererChain</PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
+									<EXAMPLE><![CDATA[
+rendererChain {
+	rendererConfigs {
+		110 < plugin.tx_ptextlist.prototype.renderer.columnGroup
+		110 {
+			columnIdentifier = ContinentColumn
+			showRowCount = 1
+		}
+	}
+}
+]]
+									</EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="enabled">
 											<DESCRIPTION></DESCRIPTION>
@@ -731,7 +757,8 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 											<DEFAULT></DEFAULT>
 											<STDWRAP></STDWRAP>
 											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE></EXAMPLE>
+											<EXAMPLE>
+											</EXAMPLE>
 											<CHILDREN>
 												<ENTRY KEY="[yourNumericRendererId]">
 													<DESCRIPTION>Configuration of a single renderer.</DESCRIPTION>
@@ -767,7 +794,14 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 									<DATATYPE>Associative array</DATATYPE>
 									<STDWRAP>0</STDWRAP>
 									<PROTOTYPE></PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
+									<EXAMPLE>
+aggregateData {
+	sumPhone {
+		fieldIdentifier = phone
+		method = sum
+	}
+}
+									</EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="[yourAggregateFieldId]">
 											<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
@@ -776,7 +810,6 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 											<DEFAULT></DEFAULT>
 											<STDWRAP>0</STDWRAP>
 											<PROTOTYPE></PROTOTYPE>
-											
 											<EXAMPLE>
 sumPhone {
 	fieldIdentifier = phone
@@ -813,7 +846,20 @@ sumPhone {
 									<DEFAULT></DEFAULT>
 									<STDWRAP></STDWRAP>
 									<PROTOTYPE></PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
+									<EXAMPLE><![CDATA[
+aggregateRows {
+	10 {
+		phoneColumn {
+			aggregateDataIdentifier = sumPhone
+			renderObj = TEXT
+			renderObj.dataWrap (
+				 &sum;: <b>{field:sumPhone}</b>
+			)
+		}
+	}
+}
+]]
+									</EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="[yourColumnId]">
 											<DESCRIPTION></DESCRIPTION>
@@ -1089,7 +1135,14 @@ sumPhone {
 									<DEFAULT></DEFAULT>
 									<STDWRAP></STDWRAP>
 									<PROTOTYPE></PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
+									<EXAMPLE>
+// Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
+// points to pt_extlist/Resources/Private/Partials/List/SpecialPartial.html
+headerPartial = List/SpecialPartial
+
+// Extension relative path
+headerPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial.html										
+									</EXAMPLE>
 									<CHILDREN></CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
@@ -1100,7 +1153,14 @@ sumPhone {
 									<DEFAULT></DEFAULT>
 									<STDWRAP></STDWRAP>
 									<PROTOTYPE></PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
+									<EXAMPLE>
+// Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
+// points to pt_extlist/Resources/Private/Partials/List/SpecialPartial.html
+bodyPartial = List/SpecialPartial
+
+// Extension relative path
+bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial.html									
+									</EXAMPLE>
 									<CHILDREN></CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
@@ -1111,7 +1171,14 @@ sumPhone {
 									<DEFAULT></DEFAULT>
 									<STDWRAP></STDWRAP>
 									<PROTOTYPE></PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
+									<EXAMPLE>
+// Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
+// points to pt_extlist/Resources/Private/Partials/List/SpecialPartial.html
+agregateRowsPartial = List/SpecialPartial
+
+// Extension relative path
+agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial.html										
+									</EXAMPLE>
 									<CHILDREN></CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
