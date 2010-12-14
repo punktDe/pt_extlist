@@ -5,9 +5,10 @@
   <section>
     <title>RenderChain</title>
     <figure>
+      <title/>
       <mediaobject>
-        <imageobject>
-          <imagedata fileref="../images/RendererChain.pdf" format="pdf" contentdepth="400" contentwidth="400"/>
+        <imageobject role="fo-fop">
+          <imagedata fileref="../images/RendererChain.pdf" format="pdf"/>
         </imageobject>
       </mediaobject>
     </figure>
