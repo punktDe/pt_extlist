@@ -28,8 +28,8 @@
  * objects implementing the according interface
 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage StateAdapter
  */
 class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		

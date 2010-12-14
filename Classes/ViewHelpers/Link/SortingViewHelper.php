@@ -24,6 +24,14 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+
+/**
+ * 
+ * TODO: Enter description here ...
+ * @package ViewHelpers
+ * @subpackage Link
+ *
+ */
 class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
 	/**

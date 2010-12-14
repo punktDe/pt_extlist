@@ -27,7 +27,7 @@
 /**
  * TODO what is this class doing? Write some comments!
  * 
- * @package pt_extlist
+ * @package Domain
  * @subpackage Lifecycle
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
