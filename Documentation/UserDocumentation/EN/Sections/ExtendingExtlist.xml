@@ -9,10 +9,10 @@
       <title>RenderChain</title>
       <mediaobject>
        <imageobject role="fo">
-          <imagedata align="center" fileref="../images/RendererChain.pdf" width="100%" scalefit="1" format="PDF"/>
+          <imagedata align="center" fileref="../images/RendererChain.svg" width="100%" scalefit="1" format="SVG"/>
         </imageobject>
         <imageobject role="html">
-          <imagedata align="center" fileref="../images/RendererChain.png" width="6in" format="PNG"/>
+          <imagedata align="center" fileref="../images/RendererChain.svg" width="6in" format="SVG"/>
         </imageobject></mediaobject>
     </figure>
   </section>
