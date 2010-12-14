@@ -4,12 +4,5 @@
   <para>This chapter is mainly for developing and extending pt_extlist.</para>
   <section>
     <title>RenderChain</title>
-    <figure>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="../images/RendererChain.pdf" format="pdf" contentdepth="400" contentwidth="400"/>
-        </imageobject>
-      </mediaobject>
-    </figure>
   </section>
 </section>
