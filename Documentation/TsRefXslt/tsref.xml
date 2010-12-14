@@ -736,7 +736,7 @@ rendererChain {
 		}
 	}
 }
-]]
+]]>
 									</EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="enabled">
@@ -858,7 +858,7 @@ aggregateRows {
 		}
 	}
 }
-]]
+]]>
 									</EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="[yourColumnId]">
