@@ -25,7 +25,7 @@ Tx_PtExtlist_Domain_Model_Pager				The pager object
 		<f:translate key="pager.of" default="of" /> {pager.itemCount}
 	</f:if>
 </div>
-<ul class="pt-extlist-pager">
+<ul class="pt-extlist-pager" id="pt-extlist-pager-{pager.pagerIdentifier}">
 	<f:if condition="{pager.showFirstLink}">
 		<li class="first">
 			<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.firstPage}')}">&lt;&lt;</f:link.action>
