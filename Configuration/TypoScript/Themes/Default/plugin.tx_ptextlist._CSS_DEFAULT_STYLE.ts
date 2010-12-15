@@ -2,51 +2,51 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* List */
-	table.tx-ptextlist-list {
+	.tx-ptextlist-list {
 		width: 99.9%;
 		margin-left: 1px;
 	}
 	
-	table.tx-ptextlist-list-standard th {
+	.tx-ptextlist-list-standard th {
 		background: #AAA;
 		border:  1px solid #bfbfbf;
 	}
 	
-	table.tx-ptextlist-list-standard td {
+	.tx-ptextlist-list-standard td {
 		border: 1px solid #bfbfbf;
 		margin: 0px;
 		padding: 2px 4px 2px 4px;
 		vertical-align: top;
 	}
 	
-	table.tx-ptextlist-list-standard {
+	.tx-ptextlist-list-standard {
 		border-collapse: collapse;
 		border-spacing: 0;
 		font-size: 12px;
 	}
 	
-	table.tx-ptextlist-list-standard tr.odd {
+	.tx-ptextlist-list-standard tr.odd {
 		background-color: #ffffff;
 	}
 	
-	table.tx-ptextlist-list-standard tr.even {
+	.tx-ptextlist-list-standard tr.even {
 		background-color: #F5F5F5;
 	}
 	
 	
 	/* Listheader */
-	table.tx-ptextlist-list-standard th {
+	.tx-ptextlist-list-standard th {
 		padding: 4px;
 		background: #AAA;
 		border:  1px solid #bfbfbf;
 	}
 	
 	
-	th.tx-ptextlist-list-header a {
+	.tx-ptextlist-list-header a {
 		text-decoration: none;
 	}
 	
-	th.tx-ptextlist-list-header a img {
+	.tx-ptextlist-list-header a img {
 		border: none;
 	}
 	
