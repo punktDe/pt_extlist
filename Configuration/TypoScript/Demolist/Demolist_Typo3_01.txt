@@ -7,10 +7,9 @@
 # @subpackage pt_extlist
 ####################################################
 
-
 plugin.tx_ptextlist.settings {
 
-	_LOCAL_LANG.default.emptyList = blabla
+	_LOCAL_LANG.default.emptyList = blabla	
 
 	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist {
@@ -129,7 +128,7 @@ plugin.tx_ptextlist.settings {
 
 				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
 				# if not set, the first entry in dataDescriptionIdentifier will be used
-				sortingFields = name_local
+				sorting = name_local
 
 				renderObj = COA
 				renderObj {

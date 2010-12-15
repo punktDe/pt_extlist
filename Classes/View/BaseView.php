@@ -47,6 +47,13 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	
 	
 	/**
+	 * Pattern to be resolved for @templateRoot in the other patterns.
+	 * @var string
+	 */
+	protected $templateRootPathPattern = '@packageResourcesPath/Private/Templates';
+	
+	
+	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected $configurationBuilder;
@@ -104,6 +111,53 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	}
 	
 	
+	/**
+	 * Resolve the template path and filename for the given action. If $actionName
+	 * is NULL, looks into the current request.
+	 *
+	 * @param string $actionName Name of the action. If NULL, will be taken from request.
+	 * @return string Full path to template
+	 * @throws Tx_Fluid_View_Exception_InvalidTemplateResourceException
+	 * @author Sebastian Kurfürst <sebastian@typo3.org>
+	 */
+	protected function getTemplateSource($actionName = NULL) {
+		if ($this->templatePathAndFilename !== NULL) {
+			$templatePathAndFilename = $this->templatePathAndFilename;
+		} else {
+			$actionName = ($actionName !== NULL ? $actionName : $this->controllerContext->getRequest()->getControllerActionName());
+			$actionName = ucfirst($actionName);
+
+			$paths = $this->expandGenericPathPattern($this->templatePathAndFilenamePattern, FALSE, FALSE);
+			$paths[] = $this->resolveTemplatePathAndFilename($actionName);
+			
+			$found = FALSE;
+			foreach ($paths as &$templatePathAndFilename) {
+				// These tokens are replaced by the Backporter for the graceful fallback in version 4.
+				$fallbackPath = str_replace('@action', strtolower($actionName), $templatePathAndFilename);
+				$templatePathAndFilename = str_replace('@action', $actionName, $templatePathAndFilename);
+				if (file_exists($templatePathAndFilename)) {
+					$found = TRUE;
+					break;
+				}  elseif (file_exists($fallbackPath)) {
+					$found = TRUE;
+					$templatePathAndFilename = $fallbackPath;
+					t3lib_div::deprecationLog('the template filename "' . $fallbackPath . '" is lowercase. This is deprecated since TYPO3 4.4. Please rename the template to "' . basename($templatePathAndFilename) . '"');
+					break;
+				}
+			}
+			if (!$found) {
+				throw new Tx_Fluid_View_Exception_InvalidTemplateResourceException('Template could not be loaded. I tried "' . implode('", "', $paths) . '"', 1225709595);
+			}
+		}
+$GLOBALS['trace'] = 1;	trace($templatePathAndFilename ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+		$templateSource = file_get_contents($templatePathAndFilename);
+		if ($templateSource === FALSE) {
+			throw new Tx_Fluid_View_Exception_InvalidTemplateResourceException('"' . $templatePathAndFilename . '" is not a valid template resource URI.', 1257246929);
+		}
+		return $templateSource;
+	}
+	
+	
 	
 	/**	  
 	 * 
@@ -147,7 +201,7 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 				return t3lib_div::getFileAbsFileName($this->templatePathAndFilename);
 			}
 		} else {
-			return parent::resolveTemplatePathAndFilename($actionName);
+			return $actionName;
 		}
 	}
 	
