@@ -149,7 +149,7 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 				throw new Tx_Fluid_View_Exception_InvalidTemplateResourceException('Template could not be loaded. I tried "' . implode('", "', $paths) . '"', 1225709595);
 			}
 		}
-$GLOBALS['trace'] = 1;	trace($templatePathAndFilename ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+
 		$templateSource = file_get_contents($templatePathAndFilename);
 		if ($templateSource === FALSE) {
 			throw new Tx_Fluid_View_Exception_InvalidTemplateResourceException('"' . $templatePathAndFilename . '" is not a valid template resource URI.', 1257246929);
