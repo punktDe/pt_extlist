@@ -233,11 +233,67 @@ renderObj {
 				<ENTRY KEY="listConfig">
 					<DESCRIPTION>Holds configuration for all list identifiers configured by array key.</DESCRIPTION>
 					<DATATYPE>Associative Array (listIdentifier => listConfiguration)</DATATYPE>
-					<EXAMPLE></EXAMPLE>
+					<EXAMPLE>plugin.tx_ptextlist.settings {
+						
+	listConfig {
+						
+		listIdentifier1 {
+		
+			# Here goes the configuration for your first list
+			...
+			
+		}
+		
+		listIdentifier2 {
+		
+			# Here goes the configuration for your second list
+			...
+		
+		}
+		
+		# Feel free to add more lists...
+		...
+		
+	}
+						
+}</EXAMPLE>
 					<CHILDREN>
 						<ENTRY KEY="[yourListId]">
-							<DESCRIPTION>Holds configuration for a single list identifier</DESCRIPTION>
-							<EXAMPLE>here comes some sample code</EXAMPLE>
+							<DESCRIPTION>Holds configuration for a single list identifier. This is where the main part of your list configuration has to be set up.</DESCRIPTION>
+							<EXAMPLE><![CDATA[
+								plugin.tx_ptextlist.settings {
+								
+									listConfig {
+								
+										demolist_mysql_01 {
+								
+										backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
+										backendConfig {
+											...
+										
+										}
+										
+										
+										
+										fields {
+											...
+										}
+										
+										columns {
+											...
+										}
+										
+										filters {
+											...
+										}
+										
+										pager {
+											...
+										}
+									}
+								}
+							}
+							]]></EXAMPLE>
 							<CHILDREN>
 								<ENTRY KEY="default">
 									<DESCRIPTION>List default values.</DESCRIPTION>
@@ -263,23 +319,111 @@ renderObj {
 									<VARIANT></VARIANT>
 								</ENTRY>
 								<ENTRY KEY="backendConfig">
-									<DESCRIPTION>Holds the configuration for the used data backend.</DESCRIPTION>
+									<DESCRIPTION>Holds the configuration for the data backend to be used with this configuration. Configurable values depend on 
+									individual backend, e.g. Typo3-Backend, MySQL-Backen, ExtBase-Backend etc.</DESCRIPTION>
 									
 									<VARIANT>
 										
 										<ENTRY KEY="backendConfig.mysql">
-											<DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+											<DESCRIPTION>Backend configuration for connecting to native MySQL databases. DSN needs to be configured.</DESCRIPTION>
 											<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.mysql</PROTOTYPE>
+											<EXAMPLE>backendConfig {
+
+	dataSource {
+		username = t3ry21ptldev
+		password = xxxxxx
+		databaseName = t3ry21ptldev
+	}
+	
+	tables (
+		City,
+		Country
+	)
+	
+	baseFromClause (
+		Country
+		INNER JOIN City ON City.CountryCode = Country.Code
+		INNER JOIN CountryLanguage ON CountryLanguage.CountryCode = Country.Code
+	)
+	
+	baseWhereClause (
+	)
+	
+	baseGroupByClause (
+		Country.Code, City.ID
+	)
+}</EXAMPLE>
 											<CHILDREN>
 												<ENTRY KEY="datasource">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Defines datasource for (MySQL) data backend.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
-													<EXAMPLE></EXAMPLE>
-													<CHILDREN></CHILDREN>
+													<EXAMPLE>dataSource {
+	host = mysql.db.hoster.tld														
+	username = funnyrabbit
+	password = xxxxxxx
+	databaseName = rabbitsdatabase
+}</EXAMPLE>
+													<CHILDREN>
+														<ENTRY KEY="host">
+															<DESCRIPTION>Defines hostname of mysql database server.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES>All valid addresses for servers (IP-Addresses and URLs)</POSIBLEVALUES>
+															<DEFAULT>localhost</DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="port">
+															<DESCRIPTION>Port number on which MySQL database server is listening.</DESCRIPTION>
+															<DATATYPE>Int</DATATYPE>
+															<POSIBLEVALUES>Any valid port number</POSIBLEVALUES>
+															<DEFAULT>3306</DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="databaseName">
+															<DESCRIPTION>Name of database to be used for connection.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES>Any valid database name</POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="username">
+															<DESCRIPTION>Username to be used for database connection.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES>Valid username for MySQL connection.</POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="password">
+															<DESCRIPTION>Password to be used for database connection.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES>Any valid password.</POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+													</CHILDREN>
 													<VARIANT></VARIANT>
 												</ENTRY>
 												
@@ -351,8 +495,8 @@ backendConfig {
 											]]></EXAMPLE>
 											<CHILDREN>
 												<ENTRY KEY="tables">
-													<DESCRIPTION>'Enable fields where clauses' are applied to all tables given.</DESCRIPTION>
-													<DATATYPE></DATATYPE>
+													<DESCRIPTION>Define tables to be used with enable fields. Typo3 special fields (deleted, hidden) are automatically applied to query.</DESCRIPTION>
+													<DATATYPE>Comma seperated list of table names and aliases (optional).</DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
 													<STDWRAP>0</STDWRAP>
@@ -460,6 +604,7 @@ name_local {
 									</EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="10,20,30">
+											<DESCRIPTION></DESCRIPTION>
 											<CHILDREN>
 												<ENTRY KEY="fieldIdentifier">
 													<DESCRIPTION>Identifier of a defined field.</DESCRIPTION>
@@ -501,11 +646,21 @@ renderUserFunctions {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sorting">
-													<DESCRIPTION></DESCRIPTION>
-													<DATATYPE></DATATYPE>
+													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction.
+														
+													</DESCRIPTION>
+													<DATATYPE>Seperated list of fieldIdentifiers.</DATATYPE>
 													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
-													<EXAMPLE></EXAMPLE>
+													<EXAMPLE>// Order by name_local ASC, name_en ASC
+sorting = name_local, name_en 
+
+// Order by name_local DESC, name_en ASC
+sorting = name_local DESC, name_en 
+
+// Order by name_local DESC, name_en ASC
+// Sorting by name_local is fixed to DESC with the "!" and does not toggle 
+sorting = name_local !DESC, name_en</EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
 													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
