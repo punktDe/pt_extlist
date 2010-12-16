@@ -74,6 +74,9 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection;
 	 */
 	public function extractCollectionByIdentifierList(array $fieldIdentifierList) {
+		
+		if(current($fieldIdentifierList) == '*') return $this;
+		
 		$collection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
 		foreach($fieldIdentifierList as $fieldIdentifier) {
 			$collection->addFieldConfig($this->getFieldConfigByIdentifier($fieldIdentifier));
