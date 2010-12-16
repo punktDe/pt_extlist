@@ -248,7 +248,14 @@ plugin.tx_ptextlist.settings {
 						fieldIdentifier = name_local
 					}
 
-					15 < plugin.tx_ptextlist.prototype.filter.max
+					11 < plugin.tx_ptextlist.prototype.filter.string
+					11 {
+						filterIdentifier = allFields
+						label = All defined Fields
+						fieldIdentifier = *
+					}
+
+					15 < plugin.tx_ptextlist.prototype.filter.string
 					15 {
 						filterIdentifier = filter15
 						label = Max Phone

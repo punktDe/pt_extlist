@@ -129,9 +129,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
      * Identifier of field on which this filter is operating (database field to be filtered)
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
-    protected $fieldIdentifier;
+    protected $fieldIdentifierCollection;
 	
 	
 	
@@ -387,7 +387,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function initGenericFilterByTSConfig() {
-		$this->fieldIdentifier = $this->resolveFieldConfig($this->filterConfig->getFieldIdentifier());
+		$this->fieldIdentifierCollection = $this->filterConfig->getFieldIdentifier();
 		$this->invert = $this->filterConfig->getInvert();
 	}
 	
@@ -473,12 +473,34 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	
 	/**
-	 * Template function to create filter criterias
+	 * Build the filterCriteria for filter 
 	 * 
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
 	 */
-	abstract protected function buildFilterCriteria();
+	protected function buildFilterCriteria() {
+		
+		$criteria = NULL;
+		
+		foreach($this->fieldIdentifierCollection as $fieldIdentifier) {	
+			$singleCriteria = $this->buildFilterCriteriaForField($fieldIdentifier);
+			
+			if($criteria) {
+				$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria, $singleCriteria);
+			} else {
+				$criteria = $singleCriteria;
+			}
+		}
+		
+		return $criteria;
+	}
 	
+	
+	/**
+	 * Build the filterCriteria for a single field
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+	 */
+	abstract protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
 	
 
 	/**
@@ -541,19 +563,5 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectSessionData(array $sessionData) {
 		$this->sessionFilterData = $sessionData;
 	}
-	
-	
-	
-	/**
-	 * Returns a field configuration for a given identifier
-	 *
-	 * @param string $fieldIdentifier
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig Field configuration for given identifier
-	 */
-	protected function resolveFieldConfig($fieldIdentifier) {	
-		return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
-	}
-	
 }
-
 ?>

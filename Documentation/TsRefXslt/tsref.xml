@@ -76,13 +76,23 @@
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.fieldIdentifier" KEY="fieldIdentifier">
-			<DESCRIPTION>Identifier of a defined data field. The filter affects on this data field.</DESCRIPTION>
-			<DATATYPE>String</DATATYPE>
+			<DESCRIPTION>Identifier of a defined data field. The filter affects on this data field. If more than on fieldIdentifier is given, the resulting query is linked with or.</DESCRIPTION>
+			<DATATYPE>fieldIdentifier or *</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
 			<STDWRAP></STDWRAP>
+			<DESCRIPTION>Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
 			<PROTOTYPE></PROTOTYPE>
-			<EXAMPLE></EXAMPLE>
+			<EXAMPLE>
+// use a single field
+fieldIdentifier = cn_short_local
+
+// use a list of fields
+fieldIdentifier = cn_short_local, name_local
+
+// use every defined field
+fieldIdentifier = *
+			</EXAMPLE>
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>

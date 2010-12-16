@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		    'filterClassName' => 'test',
 		    'partialPath' => 'partialPath',
 		    'defaultValue' => 'default',
-			'fieldIdentifier' => 'fieldName',
+			'fieldIdentifier' => 'field1',
 			'invert' => '1',
 			'invertable' => '1',
 			'inactiveOption' => '[All]',

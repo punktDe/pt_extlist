@@ -46,9 +46,9 @@ class Tx_PtExtlist_Domain_Model_Filter_MinFilter extends Tx_PtExtlist_Domain_Mod
     /**
      * Creates filter query from filter value and settings
      */
-    protected function buildFilterCriteria() {
-    	if($this->isActive) {
-    		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+     protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+     	if($this->isActive) {
+    		$columnName = $fieldIdentifier->getTableFieldCombined();
     		$filterValue = intval($this->filterValue);
 	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($columnName, $filterValue);	
     	}
