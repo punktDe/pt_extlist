@@ -89,22 +89,6 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
     	return true;
     }
     
-    
-    
-    /**
-     * Returns a filter breadcrumb for min/max filter
-     * 
-     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb Filter bread crumb for this filter
-     */
-    public function getFilterBreadCrumb() {
-    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-    	if ($this->filterValue != '') {
-    		// TODO make message configurable via TS
-    		$breadCrumb->setMessage($this->filterConfig->getLabel() . ' is below ' . $this->filterValue);
-    	}
-    	return $breadCrumb;
-    }
-    
 }
 
 ?>

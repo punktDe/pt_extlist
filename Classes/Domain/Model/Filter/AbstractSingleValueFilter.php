@@ -176,7 +176,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     public function getFilterBreadCrumb() {
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
     	if ($this->filterValue != '') {
-    	    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . $this->filterValue);
+	    	$breadCrumbMessageString = $this->filterConfig->getBreadCrumbString();
+	    	// Replacement has to be done here, as value of filter is not publicly accessable
+	    	$breadCrumbMessage = preg_replace('/%l/', $this->filterConfig->getLabel(), $breadCrumbMessageString);
+	    	$breadCrumbMessage = preg_replace('/%v/', $this->filterValue, $breadCrumbMessage);
+    	    $breadCrumb->setMessage($breadCrumbMessage);
     	}
     	return $breadCrumb;
     }
