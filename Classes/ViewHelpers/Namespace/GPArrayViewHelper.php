@@ -53,7 +53,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			 
 			$argumentArray[] = $this->buildObjectValueArray($object, $key, $value);
 		}
-$GLOBALS['trace'] = true; trace($argumentArray); $GLOBALS['trace']=off;
+
 		return count($argumentArray) == 1 ? $argumentArray[0] : $argumentArray;
 	}
 	
