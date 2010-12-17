@@ -27,8 +27,8 @@
  * Data backend for typo3 database
  * 
  * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\Typo3DataBackend
  *
  * TODO implement T3 db object methods for query (hidden fields, deleted rows etc...)
  *  
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource Data source object for this data backend
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration());
+		$dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
 		$dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($dataSourceConfiguration);
 		return $dataSource;
 	}

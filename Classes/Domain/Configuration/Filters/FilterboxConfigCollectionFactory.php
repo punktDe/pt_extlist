@@ -35,11 +35,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
 	 * 
 	 * @param $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
-	 * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-	 * @since 28.07.2010
 	 */
-	public static function getFilterBoxConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$filterboxCollectionSettings = $configurationBuilder->getFilterSettings();
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$filterboxCollectionSettings = $configurationBuilder->getSettingsForConfigObject('filter');
+		
 		$filterBoxConfigCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection($configurationBuilder);
 		foreach($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
 			$filterboxConfiguration = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);

@@ -115,6 +115,45 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
     
     
     /**
+     * Renders an aggregate row for given aggregate row configuration and given row index
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow Row to be rendered
+     * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
+     * @param int $rowIndex Index of rendered row
+     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregate row
+     */
+    public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow, 
+            Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig,
+            $rowIndex) {    	
+            	
+        $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+        $columnConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
+        
+        foreach($columnConfiguration as $columnIdentifier => $columnConfiguration) {
+       	
+        	if($columnConfiguration->isAccessable()) {
+        	
+	        	if($aggregateRowConfig->hasItem($columnConfiguration->getColumnIdentifier())) {
+	        		
+	        		$cell = $this->renderCell($aggregateRowConfig->getItemById($columnConfiguration->getColumnIdentifier()), 
+	        									$aggregateDataRow, 
+	        									$columnIdentifier, 
+	        									$rowIndex);
+	        									
+	        	} else {
+	        		$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+	        	}
+	        	
+	        	$renderedRow->addCell($cell, $columnIdentifier);
+        	}
+        }
+        
+        return $renderedRow;
+    }
+    
+    
+    
+    /**
      * Renders a cell
      *
      * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig

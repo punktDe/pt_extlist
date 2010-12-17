@@ -26,11 +26,11 @@
 /**
  * Testcase for column config collection factory
  * 
- * @package Typo3
+ * @package Tests
  * @subpackage pt_extlist
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_ColumnConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_ColumnConfigCollection
 	
 	
 	public function testGetColumnConfigCollection() {
-		$columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getColumnConfigCollection($this->configurationBuilderMock);
+		$columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getInstance($this->configurationBuilderMock);
 		$this->assertTrue(is_a($columnConfigCollection, 'tx_pttools_objectCollection'));
 		
 		

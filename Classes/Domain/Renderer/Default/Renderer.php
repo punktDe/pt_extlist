@@ -28,7 +28,7 @@
  * Default renderer for list data
  * 
  * @package Domain
- * @subpackage Renderer
+ * @subpackage Renderer\Default
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
@@ -123,6 +123,28 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		return $renderedList;
 	}
 	
+	
+	
+	/**
+	 * Returns a rendered aggregate list for a given row of aggregates
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
+	 */
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
+		
+		if($aggregateListData->count() == 0) return $aggregateListData;
+		
+		$renderedAggregateList = new Tx_PtExtlist_Domain_Model_List_ListData();
+		
+		$aggregateRowsConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildAggregateRowsConfig();
+		$aggregateDataRow = $aggregateListData->getItemByIndex(0); 
+		
+		foreach($aggregateRowsConfiguration as $aggregateRowIndex => $aggregateRowConfiguration) {
+        	$renderedAggregateList->addRow($this->rowRenderer->renderAggregateRow($aggregateDataRow, $aggregateRowConfiguration, $aggregateRowIndex));
+        }
+		
+		return $renderedAggregateList;
+	}
 }
-
 ?>

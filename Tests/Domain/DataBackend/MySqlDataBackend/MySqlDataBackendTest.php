@@ -58,7 +58,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
         								 array('executeQuery'), 
-        								 array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration())
+        								 array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings())
         								 	)
         								 );
 		$dataBackend->injectDataSource($dataSourceMock);
@@ -278,7 +278,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
         									array('executeQuery'), 
-        									array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration())));
+        									array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration()->getDataBackendSettings())));
         $dataSourceMock->expects($this->once())
             ->method('executeQuery')
             ->will($this->returnValue($dataSourceReturnArray));
@@ -431,7 +431,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	public function testGetAggregatesByConfigCollection() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1']['scope'] = 'query';
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
-		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($configurationBuilderMock);
 		$dataBackend = $this->getDataBackend($configurationBuilderMock);
 		
 		$this->assertEquals('SUM(field1) AS sumField1', $dataBackend->_call('buildAggregateFieldSQLByConfig', $aggConfigCollection->getAggregateConfigByIdentifier('sumField1')));
@@ -441,7 +441,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	public function testGetAggregatesByConfigCollectionWithUnsopportedMethod() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'method' => 'aNotExistantMethod');
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
-		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($configurationBuilderMock);
 		$dataBackend = $this->getDataBackend($configurationBuilderMock);
 		
 		try {
@@ -457,7 +457,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	public function testGetAggregatesByConfigCollectionWithSpecialString() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'special' => 'special');
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
-		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($configurationBuilderMock);
 		$dataBackend = $this->getDataBackend($configurationBuilderMock);
 		
 		$this->assertEquals('special AS sumField1', $dataBackend->_call('buildAggregateFieldSQLByConfig', $aggConfigCollection->getAggregateConfigByIdentifier('sumField1')));
@@ -468,7 +468,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	public function testBuildAggregateSqlByConfigCollection() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'special' => 'special');
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
-		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getAggregateConfigCollection($configurationBuilderMock);
+		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($configurationBuilderMock);
 		$dataBackend = $this->getDataBackend($configurationBuilderMock);
 		
 		$sql = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
@@ -514,7 +514,7 @@ GROUP BY company
 	}
 	
 	protected function getFieldConfigMockForTableAndFieldAndIdentifier($table, $field, $identifier) {
-		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('table' => $table, 'field' => $field)));
+		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($this->configurationBuilder,$identifier, array('table' => $table, 'field' => $field)));
         $fieldConfigurationMock->expects($this->any())
             ->method('getTable')
             ->will($this->returnValue($table));
@@ -526,7 +526,7 @@ GROUP BY company
 	
 	
 	protected function getFieldConfigMockForSpecialAndIdentifier($special, $identifier) {
-		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($identifier, array('special' => $special)));
+		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($this->configurationBuilder,$identifier, array('special' => $special)));
         $fieldConfigurationMock->expects($this->any())
             ->method('getSpecial')
             ->will($this->returnValue($special));

@@ -172,7 +172,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 			$fieldIdentifier = (string) $fieldConfig;
 			$fieldSet[$fieldIdentifier] = $row->getCell($fieldIdentifier)->getValue();	
 		}	
-		
+
 		if($columnConfig->getContainsArrayData()) {
 			$fieldSet = $this->createArrayDataFieldSet($fieldSet);				
 		}

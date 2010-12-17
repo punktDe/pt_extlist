@@ -30,22 +30,8 @@
  * @subpackage Configuration\Export
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
-	
-	/**
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	/**
-	 * Array of all exoort settings
-	 * 
-	 * @var array
-	 */
-	protected $exportSettings;
-	
-	
+class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
+
 	/**
 	 * Add current date to filename
 	 * @var boolean
@@ -112,52 +98,20 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 	const OPEN_IN_BROWSER = 'I';
 
 	
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param unknown_type $exportSettings
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $exportSettings) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		$this->exportSettings = $exportSettings;
-		$this->setPropertiesFromSettings($exportSettings);
-	}
-	
-	
-	
-	/**
-	 * Set the optional export Settings
-	 * 
-	 * @param array $exportSettings
-	 */
-	protected function setPropertiesFromSettings(array $exportSettings) {
+	protected function init() {
 		
-		tx_pttools_assert::isNotEmptyString($exportSettings['fileName'], array('message' => 'No filename given for export file! 1284563488'));
-		$this->fileName = $exportSettings['fileName'];
+		$this->setRequiredValue('fileName', 'No fileName given for export file! 1284563488');
+		$this->setRequiredValue('fileExtension', 'No file extension given for export file! 1284620580');
 		
-		tx_pttools_assert::isNotEmptyString($exportSettings['viewClassName'], array('message' => 'No viewClassName given for export file! 1284563488'));
-		tx_pttools_assert::isTrue(class_exists($exportSettings['viewClassName']), array('message' => 'The classname "' . $exportSettings['viewClassName'] . '" for export view does not exist! 1284563683'));
-		$this->viewClassName = $exportSettings['viewClassName'];
-		
-		tx_pttools_assert::isNotEmptyString($exportSettings['fileExtension'], array('message' => 'No file extension given for export file! 1284620580'));
-		$this->fileExtension = $exportSettings['fileExtension'];	
+		$this->setRequiredValue('viewClassName', 'No viewClassName given for export file '.$this->fileName.' ! 1284563488');
+		tx_pttools_assert::isTrue(class_exists($this->viewClassName), array('message' => 'The classname "' . $this->viewClassName . '" for export view does not exist! 1284563683'));
+				
+		$this->setBooleanIfExistsAndNotNothing('addDateToFilename');
+		$this->setValueIfExistsAndNotNothing('dateFormat');
+		$this->setValueIfExistsAndNotNothing('contentType');
 		
 		if(array_key_exists('downloadtype', $exportSettings)) {
 			$this->downloadType = $exportSettings['downloadtype'] == 'D' ? self::FORCE_DOWNLOAD : self::OPEN_IN_BROWSER;	
-		}
-		
-		if(array_key_exists('addDateToFilename', $exportSettings)) {
-			$this->addDateToFilename = $exportSettings['addDateToFilename'];	
-		}	
-
-		if(array_key_exists('dateFormat', $exportSettings)) {
-			$this->dateFormat = $exportSettings['dateFormat'];	
-		}
-		
-		if(array_key_exists('contentType', $exportSettings)) {
-			$this->contentType = $exportSettings['contentType'];	
 		}
 	}
 	
@@ -221,23 +175,6 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig {
 	 */
 	public function getContentType() {
 		return $this->contentType;
-	}
-	
-	
-	/**
-	 * Get additional settings
-	 * 
-	 * @param string $key
-	 * @retun mixed
-	 */
-	public function getSettings($key = NULL) {
-		if($key == NULL) {
-			return $this->exportSettings;
-		} else  {
-			if(array_key_exists($key, $this->exportSettings)) {
-				return $this->exportSettings[$key];	
-			}
-		}
 	}
 }
 ?>

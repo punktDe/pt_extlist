@@ -27,8 +27,8 @@
  * Controller for generating docbook documentation for this extension
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ *
+ * @package Controller
  */
 class Tx_PtExtlist_Controller_DocBookController extends Tx_PtExtlist_Controller_AbstractController {
 

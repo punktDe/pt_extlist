@@ -1,6 +1,114 @@
 # This changelog file is automatically written by git and holds the git commit message history.
 # Do not edit the file manually!
 
+e799bb0 2010-11-13 13:55:05 +0100 (Daniel Lienert) message: RFT: Configurationbuilder Refactoring ADD: AbstractConfigBuilder and AbstractConfiguration RFT: Objects and Tests
+7ddf4f7 2010-11-12 11:12:52 +0100 (Daniel Lienert) message: FIX: Made pt_extlist PHP 5.2.x compatible
+44d2bd5 2010-11-12 10:27:25 +0100 (Daniel Lienert) message: FIX: Reecursion in DatabackenCreation
+4a2ffba 2010-11-12 09:16:37 +0100 (Daniel Lienert) message: RMV: addKeysToArray from SessionPersistanceManager. It seesm that the methos has no functunality any more...
+afa154d 2010-11-10 21:28:11 +0100 (Daniel Lienert) message: Changed FilterFactory to use the DataBackend Constructor with configBuilder. Version is broken on my machine .. because of an unmodified extbase version?!
+5a565ca 2010-11-10 18:43:10 +0100 (Daniel Lienert) message: ADD: Config(urationbuilder) object to list template and made partials configurable
+9a25239 2010-11-10 18:07:06 +0100 (Daniel Lienert) message: ADD: Test for AbstractConfigurationBuilder
+3bd46d7 2010-11-10 17:37:38 +0100 (Daniel Lienert) message: CHG: Magic Function for config getter/builder
+f20bb6a 2010-11-10 17:07:40 +0100 (Daniel Lienert) message: RFT: AggregateColumnConfig
+4642332 2010-11-10 16:12:30 +0100 (Daniel Lienert) message: ADD: Generic settings getter to Configurationbuilder FIX: Factories and tests
+a20909c 2010-11-10 15:07:05 +0100 (Daniel Lienert) message: ADD: Abstract config builder RFT: Builderfunctions for aggregate config objects
+4cba47a 2010-11-10 13:48:12 +0100 (Daniel Lienert) message: CHG: AbstractConfigurationObject RFT: FilterConfig RFT: FilterConfig tests
+8144a02 2010-11-09 17:41:13 +0100 (Michael Knoll) message: FIX: Fixed test for rendering chain
+8b4ec44 2010-11-09 17:33:31 +0100 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+b5eed41 2010-11-09 17:33:20 +0100 (Michael Knoll) message: FIX: Fixed enable setting in renderer chain
+7c98af1 2010-11-09 17:32:30 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+2657d8e 2010-11-09 17:32:23 +0100 (Daniel Lienert) message: CHG: ProxyFilter
+b845194 2010-11-09 16:42:34 +0100 (Michael Knoll) message: RFT: Renamed caption renderer. Finished refactoring of rendering
+499f0d9 2010-11-09 16:22:46 +0100 (Michael Knoll) message: RFT: Renamed cell rendering strategies
+37886ee 2010-11-09 16:11:48 +0100 (Michael Knoll) message: FIX Fixed renderer, not finished yet
+59d76c6 2010-11-09 16:09:04 +0100 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+c1775ee 2010-11-09 16:08:51 +0100 (Michael Knoll) message: ADD: Row renderer is now working with old cell rendering strategy. Not finished yet
+f9d01bf 2010-11-09 15:13:12 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+93f5149 2010-11-09 15:13:05 +0100 (Daniel Lienert) message: FIX: Pager. Pager was not correct initialized when no session data was present
+fa62f96 2010-11-09 15:12:35 +0100 (Michael Knoll) message: ADD: Added injector and getter for renderer configuration in row renderer
+5848511 2010-11-09 15:04:32 +0100 (Michael Knoll) message: ADD: Added row renderer and testcase
+f288e5e 2010-11-09 14:39:54 +0100 (Michael Knoll) message: RFT: Removed cell and caption rendering from abstract renderer
+2f28435 2010-11-09 14:11:13 +0100 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e39d875 2010-11-09 14:10:58 +0100 (Michael Knoll) message: RFT: Refactored rendering stuff. Not yet finished
+3144ccc 2010-11-09 14:10:46 +0100 (Daniel Lienert) message: CHG: Formating and Comments
+d9eeb2b 2010-11-09 12:41:32 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+057eb89 2010-11-09 12:41:13 +0100 (Daniel Lienert) message: FIX: Classes/Utility/FlexformDataProvider.php
+ce18240 2010-11-09 12:41:02 +0100 (Lwam Berhane) message: ADD: new stylesheet
+e4e3165 2010-11-09 11:45:29 +0100 (Lwam Berhane) message: ADD:example for ts reference
+48fae2e 2010-11-09 11:20:38 +0100 (Lwam Berhane) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+d9e5a26 2010-11-09 11:20:29 +0100 (Lwam Berhane) message: CHG:changed stylesheet
+89b5e8a 2010-11-08 17:52:22 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+86031ce 2010-11-08 17:52:19 +0100 (Daniel Lienert) message: ADD: List Configuration & Tests
+225e3f5 2010-11-08 17:26:57 +0100 (Michael Knoll) message: RFT: Lots of refactoring on all rendering stuff. Not yet finished
+c63af12 2010-11-08 15:54:08 +0100 (Daniel Lienert) message: FIX: Configbuidler add Test for renderChaninConfig
+39ec430 2010-11-08 15:23:14 +0100 (Daniel Lienert) message: FIX: ProxyFilter tests
+44e94a7 2010-11-08 15:02:38 +0100 (Daniel Lienert) message: FIX: RendererConfigFactoryTest
+76ffec2 2010-11-08 14:56:00 +0100 (Daniel Lienert) message: FIX: RendererChainConfigFactory Test
+3466892 2010-11-08 14:42:45 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+c6b4106 2010-11-08 15:34:18 +0100 (Michael Knoll) message: TASK: Merged a conflict
+316ab60 2010-11-08 15:32:25 +0100 (Michael Knoll) message: RFT: Refactored file structure of renderer
+483145b 2010-11-08 15:09:13 +0100 (Michael Knoll) message: ADD: Added constructor for rendererchain
+3805cd7 2010-11-08 14:57:02 +0100 (Michael Knoll) message: ADD: Added rendering of captions in rendering chain
+8760303 2010-11-08 14:53:41 +0100 (Michael Knoll) message: ADD: Added method to call all renderers in a chain, when rendering is started
+26b7fb7 2010-11-08 14:42:39 +0100 (Daniel Lienert) message: RFT: RendererSettings
+8a65e1a 2010-11-08 14:28:35 +0100 (Daniel Lienert) message: Merge branch 'master' of /var/git/typo3/extensions/generic/pt_extlist
+5b0f638 2010-11-08 14:28:32 +0100 (Daniel Lienert) message: RFT: Renderer Configuration
+422520a 2010-11-08 14:27:51 +0100 (Daniel Lienert) message: RFT: Renderer Configuration
+0fd6c99 2010-11-08 14:26:07 +0100 (Michael Knoll) message: ADD: Added add and getter for renderers in renderer chain
+c4102e1 2010-11-08 14:08:32 +0100 (Michael Knoll) message: ADD: Renderer chain now implements renderer interface
+bfedbbf 2010-11-08 13:56:44 +0100 (Michael Knoll) message: RFT: Removed some unused references
+afcfd83 2010-11-08 13:44:34 +0100 (Michael Knoll) message: ADD: Added renderer chain and testcase
+4a8dddd 2010-11-08 12:47:36 +0100 (Michael Knoll) message: RFT: Some minor formatting changes
+f3c8b9d 2010-11-04 13:25:54 +0100 (Simon Schaufelberger) message: ADD: no border around sorting image
+1250250 2010-11-03 18:30:11 +0100 (Daniel Lienert) message: RFT CSS styles
+63b43b2 2010-11-03 09:01:48 +0100 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+f0b9261 2010-11-03 08:59:39 +0100 (Daniel Lienert) message: CHG: ProxyFilter (not functional)
+2463f03 2010-10-29 16:25:17 +0200 (Simon Schaufelberger) message: ADD: alt attribute to image tag
+1429e0d 2010-10-29 16:09:23 +0200 (Simon Schaufelberger) message: Merge branch 'master' of file:///var/git/typo3/extensions/generic/pt_extlist
+d9f548e 2010-10-29 16:09:07 +0200 (Simon Schaufelberger) message: TASK: changed end of line to unix
+1baf3d2 2010-10-29 13:42:56 +0200 (Daniel Lienert) message: RMV: unneeded lines from mapper
+e0a0ea6 2010-10-29 09:48:11 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+1388f84 2010-10-29 01:28:26 +0200 (Daniel Lienert) message: RFT: Header and other things ...
+b14e031 2010-10-29 01:27:39 +0200 (Daniel Lienert) message: ADD: Viewhelper and partial for left-to-right structured lists#
+6c44ca2 2010-10-29 00:22:28 +0200 (Daniel Lienert) message: ADD: Default sorting state to listHeader Factory
+69bc7d0 2010-10-29 00:00:25 +0200 (Daniel Lienert) message: FIX: List Header was built twice
+14cae92 2010-10-28 23:10:03 +0200 (Daniel Lienert) message: FIX: Aggregates are not respecting column access
+a0ab99b 2010-10-28 22:42:16 +0200 (Daniel Lienert) message: ADD: Configuration object for list defaults - added default sorting column
+9c28753 2010-10-28 15:22:40 +0200 (Daniel Lienert) message: CHG: Changed the "specialValues" value store in cell to add more than one value there, as the name says :)
+c5e54ae 2010-10-27 17:22:39 +0200 (Simon Schaufelberger) message: TASK: changed line endings to unix and convert file to utf-8; CHG: changed right border of cell to 4px for default padding if text is aligned right
+ef9f889 2010-10-27 03:18:05 +0200 (Daniel Lienert) message: CHG: Comments
+0b73bb5 2010-10-26 23:46:32 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://217.29.46.241/var/git/typo3/extensions/generic/pt_extlist
+50f753e 2010-10-27 13:01:20 +0200 (Simon Schaufelberger) message: CHG: changed template path from relative path to EXT path
+6fe7f04 2010-10-27 12:41:17 +0200 (Simon Schaufelberger) message: CHG: removed all spaces at end of line
+ebbbe52 2010-10-27 12:38:30 +0200 (Simon Schaufelberger) message: CHG: removed all spaces at end of line
+2cd99a8 2010-10-27 12:34:52 +0200 (Simon Schaufelberger) message: FIXL: added missing bracket
+1d6d647 2010-10-27 12:31:12 +0200 (Simon Schaufelberger) message: CHG: converted spaces into tabs, FIX: removed bracked that caused a bug
+dfc729f 2010-10-27 12:21:09 +0200 (Simon Schaufelberger) message: CHG: changed tab to space
+544b6ec 2010-10-27 12:01:18 +0200 (Simon Schaufelberger) message: FIX: typoscript bugfix with brackets
+5cdc6ff 2010-10-26 23:46:24 +0200 (Daniel Lienert) message: CHG: xslt for typoscript reference
+3596d78 2010-10-26 21:08:18 +0200 (Daniel Lienert) message: FIX: Remove leading AND from enableFields when no other where clause is given
+afd9a04 2010-10-26 19:38:06 +0200 (Daniel Lienert) message: RFT: ConfigurationbuilderFactory. Former the getInstance method of the factory received the settings array. Now the settings are set statically by the injectSettings method. The getinstance method now receives only the listIdentifier.
+31cd2bd 2010-10-26 15:53:34 +0200 (Daniel Lienert) message: Firstletter filter & tsRef
+0310cfb 2010-10-26 13:34:53 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://elendil-extlist/var/git/punkt.de/pt_extlist
+9ee88fb 2010-10-26 13:13:24 +0200 (Daniel Lienert) message: Add: standard css class for demolists Fix: Inactive Values in filters
+942680a 2010-10-26 11:36:56 +0200 (Daniel Lienert) message: RMV: Campo-Master CSS Files
+b7c6aa1 2010-10-26 11:19:57 +0200 (Daniel Lienert) message: FIX: GroupdataFilter
+ed9abe6 2010-10-26 10:04:29 +0200 (Daniel Lienert) message: FIX: Keys now sorted in select box
+a13535a 2010-10-26 09:46:56 +0200 (Daniel Lienert) message: Moved Configuration/FlexForms/flexform_list.xml to Configuration/FlexForms/flexform.xml to get the backend config functional again? Is this a change of 4.4.4??.
+3c93f68 2010-10-25 23:58:57 +0200 (Michael Knoll) message: TASK: Renamed flexform xml
+9eb584c 2010-10-25 18:04:06 +0200 (Daniel Lienert) message: ADD: More entrys to the tsRef xml
+e51f44f 2010-10-25 17:20:17 +0200 (Daniel Lienert) message: ADD: Aggregates for the whole query and tests
+4bf14e0 2010-10-24 15:57:34 +0200 (Daniel Lienert) message: FIX: Tests after refactoring
+ecfd887 2010-10-24 13:05:59 +0200 (Daniel Lienert) message: ADD: Some entrys to the TSRef Xml file
+8324011 2010-10-24 11:42:16 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://hugo20/home/ry25/public_html/ry25.ptlistdev.play.punkt.de/htdocs/typo3conf/ext/pt_extlist
+6ba92ff 2010-10-24 11:25:07 +0200 (Daniel Lienert) message: RFT: Change HeaderComments: Package/Subpacke
+a13cff0 2010-10-21 17:17:31 +0200 (Daniel Lienert) message: CHG: Configuration, DataBackendInterface, Databackends and AggregateListBuilder to work with query aggregates
+5fab353 2010-10-21 15:21:10 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+23862df 2010-10-21 15:20:55 +0200 (Michael Knoll) message: ADD: Added test controller for generating docbook from typoscript
+6254f29 2010-10-21 12:34:39 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+3798ec8 2010-10-21 12:33:18 +0200 (Daniel Lienert) message: ADD: Tests for aggregate config
+6dc85aa 2010-10-21 12:32:39 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
+e895612 2010-10-21 12:32:11 +0200 (Michael Knoll) message: ADD: Added XSLT and demo XML for rendering TSReference with DocBook
 24971d7 2010-10-21 08:25:58 +0200 (Daniel Lienert) message: TASK: Fixed .gitignore
 c2adcfe 2010-10-19 19:35:56 +0200 (Daniel Lienert) message: CHG: Fieldidentifier in aggregates are now fielConfig objects
 4e4bcba 2010-10-19 15:55:51 +0200 (Daniel Lienert) message: ADD: Git-Changelog

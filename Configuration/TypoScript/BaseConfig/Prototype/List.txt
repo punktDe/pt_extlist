@@ -10,6 +10,5 @@ plugin.tx_ptextlist.prototype.list {
 
 	headerPartial = List/ListHeader
 	bodyPartial = List/ListBody
-	agregateRowsPartial = List/AggregateRows
-
+	aggregateRowsPartial = List/AggregateRows
 }

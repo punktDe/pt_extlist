@@ -26,7 +26,7 @@
 /**
  * Testcase for mapper mapping domain object data on list data
  *
- * @package TYPO3
+ * @package Tests
  * @subpackage pt_extlist
  * @author Michael Knoll <knoll@punkt.de>
  */
@@ -111,8 +111,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapper_testcase e
     
     protected function createMapperConfiguration() {
     	$mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-    	$field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field1', array('table' => '__self__', 'field' => 'title'));
-    	$field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('field2', array('table' => '__self__', 'field' => 'title'));
+    	$field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'field1', array('table' => '__self__', 'field' => 'title'));
+    	$field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'field2', array('table' => '__self__', 'field' => 'title'));
     	$mapperConfiguration->addFieldConfig($field1Configuration);
     	$mapperConfiguration->addFieldConfig($field2Configuration);
     	return $mapperConfiguration;

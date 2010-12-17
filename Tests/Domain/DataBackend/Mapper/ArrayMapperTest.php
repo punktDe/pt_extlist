@@ -51,10 +51,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_PtEx
 		$this->initDefaultConfigurationBuilderMock();
 		
 		$this->arrayData = array(
-            array('field1' => 'v1_1', 't1_f2' => 'v1_2', 't1_f3' => 'v1_3','field2' => 'v1_4', 't2_f2' => 'v1_5'),
-            array('field1' => 'v2_1', 't1_f2' => 'v2_2', 't1_f3' => 'v2_3','field2' => 'v2_4', 't2_f2' => 'v2_5'),
-            array('field1' => 'v3_1', 't1_f2' => 'v3_2', 't1_f3' => 'v3_3','field2' => 'v3_4', 't2_f2' => 'v3_5'),
-            array('field1' => 'v4_1', 't1_f2' => 'v4_2', 't1_f3' => 'v4_3','field2' => 'v4_4', 't2_f2' => 'v4_5')
+            array('field1' => 'v1_1', 't1_f2' => 'v1_2', 't1_f3' => 'v1_3','field2' => 'v1_4', 'field3' => 'v1_5', 'field4' => 'v1_6'),
+            array('field1' => 'v2_1', 't1_f2' => 'v2_2', 't1_f3' => 'v2_3','field2' => 'v2_4', 'field3' => 'v2_5', 'field4' => 'v1_6'),
+            array('field1' => 'v3_1', 't1_f2' => 'v3_2', 't1_f3' => 'v3_3','field2' => 'v3_4', 'field3' => 'v3_5', 'field4' => 'v1_6'),
+            array('field1' => 'v4_1', 't1_f2' => 'v4_2', 't1_f3' => 'v4_3','field2' => 'v4_4', 'field3' => 'v4_5', 'field4' => 'v1_6')
         );
         
         $this->fieldSettings = array(
@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_PtEx
             'field2' => array( 
                 'table' => 't2',
                 'field' => 'f1'
-            )
+            ),
         );
         
         $this->wrongFieldSettings = array(
@@ -100,6 +100,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_PtEx
 	
 	
 	public function testGetMappedListDataWithoutConfiguration() {
+		$this->initDefaultConfigurationBuilderMock();
 		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 		$arrayMapper->init();
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
@@ -111,12 +112,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_PtEx
 	/**
 	 * TODO For some curious reason, this test fails, if the testcase is run alone 
 	 */
-	public function testGetMappedListDataWithMappingConfiguration() {
+	public function testGetMappedListDataWithMappingConfiguration() {	
 		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 		/**
 		 * TODO think about better way to test this without need of dependent object!
 		 */
-		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->fieldSettings);
+		$fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getInstance($this->configurationBuilderMock);
 		$arrayMapper->injectMapperConfiguration($fieldConfigCollection);
 		$arrayMapper->init();
 		$mappedListData = $arrayMapper->getMappedListData($this->arrayData);
@@ -131,12 +132,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapper_testcase extends Tx_PtEx
      */
 	public function testThrowExceptionOnNonExistingFieldName() {
 		$arrayMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
-        $fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getFieldConfigCollection($this->wrongFieldSettings);
+        $fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getInstance($this->configurationBuilderMock);
         $arrayMapper->injectMapperConfiguration($fieldConfigCollection);
         $arrayMapper->init();
         
+        $wrongdata = $this->arrayData;
+        unset($wrongdata[0]['field4']);
+        
         try {
-            $mappedListData = $arrayMapper->getMappedListData($this->arrayData);
+            $mappedListData = $arrayMapper->getMappedListData($wrongdata);
         } catch(Exception $e) {
         	return;
         }

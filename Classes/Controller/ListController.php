@@ -65,11 +65,35 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		
 		$renderedListData = $this->rendererChain->renderList($list->getListData());
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		
+		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
+		$this->view->assign('config', $this->configurationBuilder);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
-		$this->view->assign('aggregateRows', $list->getAggregateRows());
+		$this->view->assign('aggregateRows', $renderedAggregateRows);
+	}
+	
+	
+	
+	/**
+	 * Export action for exporting list data
+	 *
+	 * @return mixed Whatever format-specific view returns
+	 */
+	public function exportAction() {
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+
+        $renderedListData = $this->rendererChain->renderList($list->getListData());
+        $renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
+        $renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
+        
+        $this->view->assign('config', $this->configurationBuilder);
+        
+        $this->view->assign('listHeader', $list->getListHeader());
+        $this->view->assign('listCaptions', $renderedCaptions);
+        $this->view->assign('listData', $renderedListData);
+        $this->view->assign('aggregateRows', $renderedAggregateRows);
+		return $this->view->render();
 	}
 	
 	
@@ -95,29 +119,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$headerList->reset(); 
 		
 		$this->forward('list');
-	}
-	
-	
-	
-	/**
-	 * Export action for exporting list data
-	 *
-	 * @return mixed Whatever format-specific view returns
-	 */
-	public function exportAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-
-        $renderedListData = $this->renderer->renderList($list->getListData());
-        $renderedCaptions = $this->renderer->renderCaptions($list->getListHeader());
-        
-        $this->view->assign('listHeader', $list->getListHeader());
-        $this->view->assign('listCaptions', $renderedCaptions);
-        $this->view->assign('listData', $renderedListData);
-        $this->view->assign('aggregateRows', $list->getAggregateRows());
-		return $this->view->render();
-	}
-	
-	
+	}	
 }
-
 ?>

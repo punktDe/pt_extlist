@@ -54,9 +54,8 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$testConfig = $configurationBuilder->getSettings();
 		
-		$allExportSettings = $configurationBuilder->getExportSettings();
+		$allExportSettings = $configurationBuilder->getSettingsForConfigObject('export');
 		$controllerSettings = $configurationBuilder->getSettings('controller');
 		$selectedViewSettingsKey = $controllerSettings['List']['export']['view'];
 

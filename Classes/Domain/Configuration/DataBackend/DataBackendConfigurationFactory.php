@@ -26,8 +26,8 @@
 /**
  * Factory class for databaceknd config objects
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\DataBackend
+ * @package Domain
+ * @subpackage Configuration\DataBackend
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory {

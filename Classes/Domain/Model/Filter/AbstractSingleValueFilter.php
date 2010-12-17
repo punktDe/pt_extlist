@@ -58,7 +58,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      * @return string Field description Identifier
      */
     public function getFieldIdentifier() {
-        return $this->fieldIdentifier;
+        return $this->fieldIdentifierCollection;
     }
     
     

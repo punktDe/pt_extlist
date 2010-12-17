@@ -26,11 +26,11 @@
 /**
  * Testcase for field configuration
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Configuration\Data\Fields
  * @author Daniel Lienert <linert@punkt.de>
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a field config object
@@ -55,13 +55,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 		    'accessGroups' => '1,2,3,4',
 			'expandGroupRows' => 1
 		);
-		$this->fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', $this->fieldSettings);
+		
+		$this->initDefaultConfigurationBuilderMock();
+		
+		$this->fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', $this->fieldSettings);
 	}
 	
 	
 	
 	public function testSetup() {
-		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', $this->fieldSettings);
+		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', $this->fieldSettings);
 	}
 	
 	
@@ -93,7 +96,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	
 	public function testGetIsSortable() {
-		$this->assertEquals($this->fieldConfig->getIsSortable(), ($this->fieldSettings['isSortable'] == 1 ? true : false));
+		$this->assertTrue(!$this->fieldConfig->getIsSortable());
 	}
 	
 	
@@ -102,14 +105,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 		$fieldSettings = array(
 		    'special' => 'specialtestString',
 		);
-		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test', $fieldSettings);
+		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test', $fieldSettings);
 		$this->assertEquals($fieldConfig->getSpecial(), $fieldSettings['special']);
 	}
 	
 	
 	
 	public function testDefaultGetIsSortable() {
-		$newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test1', array('table' => '1', 'field' => '2'));
+		$newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('table' => '1', 'field' => '2'));
 		$this->assertEquals($newFieldConfig->getIsSortable(), true);
 	}
 	
@@ -127,7 +130,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
 	public function testNoTableNameGivenException() {
 		try {
-			new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test', array('field' => '2'));
+			new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test', array('field' => '2'));
 		} catch(Exception $e) {
 			return;
 		}
@@ -138,7 +141,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
 	
     public function testNoFieldNameGivenException() {
         try {
-            new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('test',array('table' => '2'));
+            new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test',array('table' => '2'));
         } catch(Exception $e) {
             return;
         }

@@ -26,8 +26,8 @@
 /**
  * Class implements pager configuration collection
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Pager
+ * @package Domain
+ * @subpackage Configuration\Pager
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends tx_pttools_objectCollection {

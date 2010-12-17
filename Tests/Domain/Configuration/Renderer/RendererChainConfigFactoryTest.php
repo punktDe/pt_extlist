@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactor
 	}
 	
 	public function testGetRendererConfiguration() {
-		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getRendererChainConfiguration($this->configurationBuilderMock);
+		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getInstance($this->configurationBuilderMock);
 
 		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig);
 	}

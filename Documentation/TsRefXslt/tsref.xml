@@ -2,8 +2,10 @@
 
 
 
-<!DOCTYPE TSREF [
+<!DOCTYPE DOC [
 
+    <!ELEMENT DOC (DATATYPES,TSREF)> 
+    <!ELEMENT DATATYPES (ENTRY*)>
     <!ELEMENT TSREF (ENTRY)+>
     <!ELEMENT ENTRY (DESCRIPTION, DATATYPE*, POSIBLEVALUES*, DEFAULT*, STDWRAP*, PROTOTYPE*, EXAMPLE*, CHILDREN*, VARIANT* )>
     <!ELEMENT DESCRIPTION  (#PCDATA)>
@@ -12,317 +14,299 @@
     <!ELEMENT STDWRAP (#PCDATA)>
     <!ELEMENT EXAMPLE (#PCDATA)>
     <!ELEMENT DEFAULT (#PCDATA)>
-    <!ELEMENT SEE (#PCDATA)>
     <!ELEMENT POSIBLEVALUES (#PCDATA)>
-    <!ELEMENT CHILDREN (ENTRY*,SEE*)>
+    <!ELEMENT CHILDREN (ENTRY*,TYPEREF*)>
+    <!ELEMENT TYPEREF (#PCDATA)>
     <!ELEMENT VARIANT (ENTRY*)>
 
     <!ATTLIST ENTRY KEY CDATA #REQUIRED>
-
+    <!ATTLIST ENTRY REF CDATA #IMPLIED>
+    <!ATTLIST TYPEREF KEY CDATA #REQUIRED>
+    <!ATTLIST TYPEREF REF CDATA #REQUIRED>
+    
 ]>
 
-<TSREF>
-    <ENTRY KEY="plugin.tx_ptextlist.settings">
-        <DESCRIPTION>Main TS-key for all pt_extlist settings.</DESCRIPTION>
-        <CHILDREN>
-            <ENTRY KEY="listConfig">
-                <DESCRIPTION>Holds configuration for all list identifiers configured by array key.</DESCRIPTION>
-                <DATATYPE>Associative Array (listIdentifier => listConfiguration)</DATATYPE>
-                <EXAMPLE></EXAMPLE>
-                <CHILDREN>
-                    <ENTRY KEY="[yourListId]">
-                        <DESCRIPTION>Holds configuration for a single list identifier</DESCRIPTION>
-                        <EXAMPLE>here comes some sample code</EXAMPLE>
-                        
-                        <CHILDREN>
-	                    <ENTRY KEY="backendConfig">
-	                        <DESCRIPTION>Holds the configuration for the used data backend.</DESCRIPTION>
-	                        
-	                        <VARIANT>
-	                        	
-	                        	<ENTRY KEY="backendConfig.mysql">
-			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
-			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.mysql</PROTOTYPE>
-			                    	<CHILDREN>
-			                    		<ENTRY KEY="datasource">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-			                    			<CHILDREN></CHILDREN>
-			                    			<VARIANT></VARIANT>
-			                    		</ENTRY>
-			                    		
-			                    		<ENTRY KEY="baseFromClause">
-			                    			<DESCRIPTION>Holds the FROM clause of a mysql query without the FROM keyword.</DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>1</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE>
-			                    				static_countries
-												LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-											</EXAMPLE>
-			                    		</ENTRY>
-			                    		
-			                    		<ENTRY KEY="baseWhereClause">
-			                    			<DESCRIPTION>Holds the WHERE clause of a mysql query without the WHERE keyword.</DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE>
-			                    				st_continent.tr_name_en [] ''
-			                    			</EXAMPLE>
+<DOC>
 
-			                    			<CHILDREN></CHILDREN>
-			                    			<VARIANT></VARIANT>
-			                    		</ENTRY>
-			                    		
-			                    		<ENTRY KEY="baseGroupByClause">
-			                    			<DESCRIPTION>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</DESCRIPTION>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<STDWRAP>1</STDWRAP>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<EXAMPLE>st_continent</EXAMPLE>
-			                    		</ENTRY>
-			                    	</CHILDREN>
-			                    </ENTRY>
-	                        	
-	                        	<ENTRY KEY="backendConfig.typo3">
-			                        <DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
-			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.typo3</PROTOTYPE>
-			                    </ENTRY>
-			                    
-			                    <ENTRY KEY="backendConfig.extbase">
-			                        <DESCRIPTION>Extbase Repository Backend.</DESCRIPTION>
-			                    	<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.extbase</PROTOTYPE>
-			                    </ENTRY>
-	                        </VARIANT>
-	                    </ENTRY>
-           		 		<ENTRY KEY="fields">
-                   			<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
-                   			<PROTOTYPE></PROTOTYPE>
-                   			<STDWRAP>0</STDWRAP>
-                   			<DATATYPE>Associative array</DATATYPE>
-                   			<EXAMPLE></EXAMPLE>
-                   			<CHILDREN>
-                   				<ENTRY KEY="[yourFieldId]">
-                   					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
-                   					<DATATYPE>String</DATATYPE>
-	                    			<POSIBLEVALUES></POSIBLEVALUES>
-	                    			<DEFAULT></DEFAULT>
-	                    			<STDWRAP></STDWRAP>
-	                    			<PROTOTYPE></PROTOTYPE>
-                   					<EXAMPLE>
-name_local {
-	table = static_countries
-	field = cn_short_local
-	isSortable = 1
+
+	<DATATYPES>
+
+		<ENTRY REF="filter.filterIdentifier" KEY="filterIdentifier">
+			<DESCRIPTION>The unique identifier of this filter.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.label" KEY="label">
+			<DESCRIPTION>The label wich is displayed beside the filter.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.defaultValue" KEY="defaultValue">
+			<DESCRIPTION>The default value which is shown or selected by default.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>	
+		<ENTRY REF="filter.accessGroups" KEY="accessGroups">
+			<DESCRIPTION>Comma separated list of user groups wich have access to this filter.</DESCRIPTION>
+			<DATATYPE>Comma eparated list.</DATATYPE>
+			<POSIBLEVALUES>Typo3 Group Ids</POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.fieldIdentifier" KEY="fieldIdentifier">
+			<DESCRIPTION>Identifier of a defined data field. The filter affects on this data field. If more than on fieldIdentifier is given, the resulting query is linked with or.</DESCRIPTION>
+			<DATATYPE>fieldIdentifier or *</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<DESCRIPTION>Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE>
+// use a single field
+fieldIdentifier = cn_short_local
+
+// use a list of fields
+fieldIdentifier = cn_short_local, name_local
+
+// use every defined field
+fieldIdentifier = *
+			</EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.filterClassName" KEY="filterClassName">
+			<DESCRIPTION>Name of the PHP Class of this filter.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE>Tx_PtExtlist_Domain_Model_Filter_StringFilter</EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.partialPath" KEY="partialPath">
+			<DESCRIPTION></DESCRIPTION>
+			<DATATYPE></DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.invert" KEY="invert">
+			<DESCRIPTION>Invert the constraint of this filter.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>0</DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.invertable" KEY="invertable">
+			<DESCRIPTION>Show a controle to invert this filter.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>0</DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.renderObj" KEY="renderObj">
+			<DESCRIPTION>A cObject definition to render every selct option. With {field:FIELDNAME} you can accedd all display Fields. Additional the implicit defined fields [allDisplayFields] for all defined displayFields and [rowCount] for the count of the entrys with this option  are possible.</DESCRIPTION>
+			<DATATYPE>String (cObject)</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT>
+renderObj {
+	dataWrap = {field:allDisplayFields} ({field:rowCount})
 }
-                   					</EXAMPLE>
-                   					<CHILDREN>
-                   						<ENTRY KEY="table">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="field">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="special">
-			                    			<DESCRIPTION>Insert a individual SQL snippet.</DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="isSortable">
-					                    	<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="expandGroupRows">
-			                    			<DESCRIPTION></DESCRIPTION>
-			                    			<DATATYPE></DATATYPE>
-			                    			<POSIBLEVALUES></POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-                   					</CHILDREN>
-                   				</ENTRY>
-                   			</CHILDREN>
-                   		</ENTRY>
-               		 	<ENTRY KEY="columns">
-							<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
-							<PROTOTYPE></PROTOTYPE>
-							<STDWRAP>0</STDWRAP>
-							<DATATYPE>Array</DATATYPE>
-							<EXAMPLE></EXAMPLE>
+			</DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.displayFields" KEY="displayFields">
+			<DESCRIPTION>One or multiple identifiers of previously defined data fields.</DESCRIPTION>
+			<DATATYPE>String / Comma separated list</DATATYPE>
+			<POSIBLEVALUES>Previously defined field indentifier.</POSIBLEVALUES>
+			<DEFAULT>If not set, the field defined in fieldIdentifier is used.</DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.multiple" KEY="multiple">
+			<DESCRIPTION></DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>0</DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.excludeFilters" KEY="excludeFilters">
+			<DESCRIPTION>List of filters that are not considered for the group query of this filter.</DESCRIPTION>
+			<DATATYPE>String / Comma separated list of filterIdentifiers.</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.showRowCount" KEY="showRowCount">
+			<DESCRIPTION>Show the rowcount if the select filter is filled with grouped data.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>1</DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.submitOnChange" KEY="submitOnChange">
+			<DESCRIPTION>Instant submit filter if a value is selected.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>0</DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.inactiveOption" KEY="inactiveOption">
+			<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.inactiveValue" KEY="inactiveValue">
+			<DESCRIPTION>The submitted value for the inactiveOption described above.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>	
+</DATATYPES>
+
+
+
+	<TSREF>
+		<ENTRY KEY="plugin.tx_ptextlist.settings">
+			<DESCRIPTION>Main TS-key for all pt_extlist settings.</DESCRIPTION>
+			<CHILDREN>
+				<ENTRY KEY="listConfig">
+					<DESCRIPTION>Holds configuration for all list identifiers configured by array key.</DESCRIPTION>
+					<DATATYPE>Associative Array (listIdentifier => listConfiguration)</DATATYPE>
+					<EXAMPLE>plugin.tx_ptextlist.settings {
+						
+	listConfig {
+						
+		listIdentifier1 {
+		
+			# Here goes the configuration for your first list
+			...
+			
+		}
+		
+		listIdentifier2 {
+		
+			# Here goes the configuration for your second list
+			...
+		
+		}
+		
+		# Feel free to add more lists...
+		...
+		
+	}
+						
+}</EXAMPLE>
+					<CHILDREN>
+						<ENTRY KEY="[yourListId]">
+							<DESCRIPTION>Holds configuration for a single list identifier. This is where the main part of your list configuration has to be set up.</DESCRIPTION>
+							<EXAMPLE><![CDATA[
+								plugin.tx_ptextlist.settings {
+								
+									listConfig {
+								
+										demolist_mysql_01 {
+								
+										backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
+										backendConfig {
+											...
+										
+										}
+										
+										
+										
+										fields {
+											...
+										}
+										
+										columns {
+											...
+										}
+										
+										filters {
+											...
+										}
+										
+										pager {
+											...
+										}
+									}
+								}
+							}
+							]]></EXAMPLE>
 							<CHILDREN>
-								<ENTRY KEY="10,20,30">
-									<CHILDREN>
-										<ENTRY KEY="fieldIdentifier">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="label">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="renderUserFunctions">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="renderTemplate">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="renderObj">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sorting">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sortingImageAsc">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sortingImageDesc">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="sortingImageDefault">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="accessGroups">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="cellCSSClass">
-											<DESCRIPTION></DESCRIPTION>
-											<PROTOTYPE></PROTOTYPE>
-											<STDWRAP>0</STDWRAP>
-											<DATATYPE></DATATYPE>
-											<EXAMPLE></EXAMPLE>
-										</ENTRY>
-									</CHILDREN>
-								</ENTRY>
-							</CHILDREN>
-						</ENTRY>
-               		 	<ENTRY KEY="aggregateData">
-               		 		<DESCRIPTION>Defines aggregates of data fields.</DESCRIPTION>
-                   			<PROTOTYPE></PROTOTYPE>
-                   			<STDWRAP>0</STDWRAP>
-                   			<DATATYPE>Associative array</DATATYPE>
-                   			<EXAMPLE></EXAMPLE>
-               		 		<CHILDREN>
-               		 			<ENTRY KEY="[yourAggregateFieldId]">
-                   					<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
-                   					<DATATYPE>Associative array</DATATYPE>
-                   					<POSIBLEVALUES></POSIBLEVALUES>
-                   					<DEFAULT></DEFAULT>
-			                    	<STDWRAP>0</STDWRAP>
-                   					<PROTOTYPE></PROTOTYPE>
-		                   			
-                   					<EXAMPLE>
-sumPhone {
-	fieldIdentifier = phone
-	method = sum
-	scope = query
-}
-                   					</EXAMPLE>
-                   					<CHILDREN>
-										<ENTRY KEY="method">
-											<DESCRIPTION>Defined aggregate methods.</DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES>min,max,sum,avg</POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-			                    			<EXAMPLE></EXAMPLE>
-										</ENTRY>
-										<ENTRY KEY="scope">
-											<DESCRIPTION>The scope for the aggregation can be either set to the current page or to the whole query. Aggregates for the current page are calculated internally without an additonal database query.</DESCRIPTION>
-			                    			<DATATYPE>String</DATATYPE>
-			                    			<POSIBLEVALUES>page,query</POSIBLEVALUES>
-			                    			<DEFAULT></DEFAULT>
-			                    			<STDWRAP>0</STDWRAP>
-			                    			<PROTOTYPE></PROTOTYPE>
-										</ENTRY>
-										<SEE>special</SEE>
-										<SEE>fieldIdentifier</SEE>
-                   					</CHILDREN>
-                   				</ENTRY>
-               		 		</CHILDREN>
-               		 	</ENTRY>
-               		 	<ENTRY KEY="aggregateRows">
-							<DESCRIPTION>Holds the aggregates columns definitions.</DESCRIPTION>
-							<DATATYPE>Associative array</DATATYPE>
-							<POSIBLEVALUES>All columnIdentifiers</POSIBLEVALUES>
-							<DEFAULT></DEFAULT>
-							<STDWRAP></STDWRAP>
-							<PROTOTYPE></PROTOTYPE>
-							<EXAMPLE></EXAMPLE>
-							<CHILDREN>
-								<ENTRY KEY="[yourColumnId]">
-									<DESCRIPTION></DESCRIPTION>
+								<ENTRY KEY="default">
+									<DESCRIPTION>List default values.</DESCRIPTION>
 									<DATATYPE></DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
@@ -330,10 +314,10 @@ sumPhone {
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
-										<ENTRY KEY="aggregateDataIdentifier">
-											<DESCRIPTION></DESCRIPTION>
+										<ENTRY KEY="sortingColumn">
+											<DESCRIPTION>The default sorting column while no other sortng ist set.</DESCRIPTION>
 											<DATATYPE>String</DATATYPE>
-											<POSIBLEVALUES></POSIBLEVALUES>
+											<POSIBLEVALUES>Any column identifier</POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
 											<STDWRAP></STDWRAP>
 											<PROTOTYPE></PROTOTYPE>
@@ -344,71 +328,82 @@ sumPhone {
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
-							</CHILDREN>
-							<VARIANT></VARIANT>
-						</ENTRY>
-               		 	<ENTRY KEY="filters">
-							<DESCRIPTION>Holds all filterbox configurations.</DESCRIPTION>
-							<DATATYPE>Associative array</DATATYPE>
-							<POSIBLEVALUES></POSIBLEVALUES>
-							<DEFAULT></DEFAULT>
-							<STDWRAP></STDWRAP>
-							<PROTOTYPE></PROTOTYPE>
-							<EXAMPLE></EXAMPLE>
-							<CHILDREN>
-								<ENTRY KEY="[yourFilterBoxId]">
-									<DESCRIPTION></DESCRIPTION>
-									<DATATYPE></DATATYPE>
-									<POSIBLEVALUES></POSIBLEVALUES>
-									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
-									<PROTOTYPE>plugin.tx_ptextlist.prototype.filterBox</PROTOTYPE>
-									<EXAMPLE></EXAMPLE>
-									<CHILDREN>
-										<ENTRY KEY="showReset">
-											<DESCRIPTION>Show a reset link for all filters of this filterBox.</DESCRIPTION>
-											<DATATYPE>Boolean</DATATYPE>
-											<POSIBLEVALUES>0,1</POSIBLEVALUES>
-											<DEFAULT>1</DEFAULT>
-											<STDWRAP>0</STDWRAP>
-											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE></EXAMPLE>
-											<CHILDREN></CHILDREN>
-											<VARIANT></VARIANT>
-										</ENTRY>
-										<ENTRY KEY="showSubmit">
-											<DESCRIPTION>Show a submit button for this filterBox.</DESCRIPTION>
-											<DATATYPE>Boolean</DATATYPE>
-											<POSIBLEVALUES>0,1</POSIBLEVALUES>
-											<DEFAULT>1</DEFAULT>
-											<STDWRAP>0</STDWRAP>
-											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE></EXAMPLE>
-											<CHILDREN></CHILDREN>
-											<VARIANT></VARIANT>
-										</ENTRY>
-										<ENTRY KEY="filterConfigs">
-											<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
-											<DATATYPE>Array</DATATYPE>
-											<POSIBLEVALUES>10,20,30...</POSIBLEVALUES>
-											<DEFAULT></DEFAULT>
-											<STDWRAP></STDWRAP>
-											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE></EXAMPLE>
+								<ENTRY KEY="backendConfig">
+									<DESCRIPTION>Holds the configuration for the data backend to be used with this configuration. Configurable values depend on 
+									individual backend, e.g. Typo3-Backend, MySQL-Backen, ExtBase-Backend etc.</DESCRIPTION>
+									
+									<VARIANT>
+										
+										<ENTRY KEY="backendConfig.mysql">
+											<DESCRIPTION>Backend configuration for connecting to native MySQL databases. DSN needs to be configured.</DESCRIPTION>
+											<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.mysql</PROTOTYPE>
+											<EXAMPLE>backendConfig {
+
+	dataSource {
+		username = t3ry21ptldev
+		password = xxxxxx
+		databaseName = t3ry21ptldev
+	}
+	
+	tables (
+		City,
+		Country
+	)
+	
+	baseFromClause (
+		Country
+		INNER JOIN City ON City.CountryCode = Country.Code
+		INNER JOIN CountryLanguage ON CountryLanguage.CountryCode = Country.Code
+	)
+	
+	baseWhereClause (
+	)
+	
+	baseGroupByClause (
+		Country.Code, City.ID
+	)
+}</EXAMPLE>
 											<CHILDREN>
-												<ENTRY KEY="[yourNumericFilterId]">
-													<DESCRIPTION></DESCRIPTION>
+												<ENTRY KEY="datasource">
+													<DESCRIPTION>Defines datasource for (MySQL) data backend.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP></STDWRAP>
+													<STDWRAP>0</STDWRAP>
 													<PROTOTYPE></PROTOTYPE>
-													<EXAMPLE></EXAMPLE>
+													<EXAMPLE>dataSource {
+	host = mysql.db.hoster.tld														
+	username = funnyrabbit
+	password = xxxxxxx
+	databaseName = rabbitsdatabase
+}</EXAMPLE>
 													<CHILDREN>
-														<ENTRY KEY="filterIdentifier">
-															<DESCRIPTION>The unique identifier of this filter.</DESCRIPTION>
+														<ENTRY KEY="host">
+															<DESCRIPTION>Defines hostname of mysql database server.</DESCRIPTION>
 															<DATATYPE>String</DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
+															<POSIBLEVALUES>All valid addresses for servers (IP-Addresses and URLs)</POSIBLEVALUES>
+															<DEFAULT>localhost</DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="port">
+															<DESCRIPTION>Port number on which MySQL database server is listening.</DESCRIPTION>
+															<DATATYPE>Int</DATATYPE>
+															<POSIBLEVALUES>Any valid port number</POSIBLEVALUES>
+															<DEFAULT>3306</DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+														<ENTRY KEY="databaseName">
+															<DESCRIPTION>Name of database to be used for connection.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES>Any valid database name</POSIBLEVALUES>
 															<DEFAULT></DEFAULT>
 															<STDWRAP></STDWRAP>
 															<PROTOTYPE></PROTOTYPE>
@@ -416,59 +411,22 @@ sumPhone {
 															<CHILDREN></CHILDREN>
 															<VARIANT></VARIANT>
 														</ENTRY>
-														<SEE>label</SEE>
-														<ENTRY KEY="defaultValue">
-															<DESCRIPTION>The default value which is shown or selected by default.</DESCRIPTION>
+														<ENTRY KEY="username">
+															<DESCRIPTION>Username to be used for database connection.</DESCRIPTION>
 															<DATATYPE>String</DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
+															<POSIBLEVALUES>Valid username for MySQL connection.</POSIBLEVALUES>
 															<DEFAULT></DEFAULT>
 															<STDWRAP></STDWRAP>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN></CHILDREN>
 															<VARIANT></VARIANT>
-														</ENTRY>	
-														<SEE>accessGroups</SEE>	
-														<SEE>fieldIdentifier</SEE>
-
-														<ENTRY KEY="filterClassName">
-															<DESCRIPTION>Name of the PHP Class of this filter.</DESCRIPTION>
+														</ENTRY>
+														<ENTRY KEY="password">
+															<DESCRIPTION>Password to be used for database connection.</DESCRIPTION>
 															<DATATYPE>String</DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
+															<POSIBLEVALUES>Any valid password.</POSIBLEVALUES>
 															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE></PROTOTYPE>
-															<EXAMPLE>Tx_PtExtlist_Domain_Model_Filter_StringFilter</EXAMPLE>
-															<CHILDREN></CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>
-														<ENTRY KEY="partialPath">
-															<DESCRIPTION>Path to the fluid partial which renders this filter.</DESCRIPTION>
-															<DATATYPE>String</DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
-															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE></PROTOTYPE>
-															<EXAMPLE>Filter/String/StringFilter</EXAMPLE>
-															<CHILDREN></CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>
-														<ENTRY KEY="invert">
-															<DESCRIPTION>Invert the constraint of this filter.</DESCRIPTION>
-															<DATATYPE>Boolean</DATATYPE>
-															<POSIBLEVALUES>0,1</POSIBLEVALUES>
-															<DEFAULT>0</DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE></PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
-															<CHILDREN></CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>
-														<ENTRY KEY="invertable">
-															<DESCRIPTION>Show a controle to invert this filter.</DESCRIPTION>
-															<DATATYPE>Boolean</DATATYPE>
-															<POSIBLEVALUES>0,1</POSIBLEVALUES>
-															<DEFAULT>0</DEFAULT>
 															<STDWRAP></STDWRAP>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
@@ -476,166 +434,462 @@ sumPhone {
 															<VARIANT></VARIANT>
 														</ENTRY>
 													</CHILDREN>
-													<VARIANT>
-														<ENTRY KEY="String">
-															<DESCRIPTION>Shows a string filter.</DESCRIPTION>
-															<DATATYPE></DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
-															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.string</PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
-															<CHILDREN>
-																<SEE>filterIdentifier</SEE>
-																<SEE>label</SEE>
-																<SEE>defaultValue</SEE>															
-																<SEE>accessGroups</SEE>															
-																<SEE>fieldIdentifier</SEE>															
-																<SEE>filterClassName</SEE>															
-																<SEE>partialPath</SEE>															
-																<SEE>invert</SEE>															
-																<SEE>invertable</SEE>															
-															</CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>										
-														<ENTRY KEY="Select">
-															<DESCRIPTION></DESCRIPTION>
-															<DATATYPE></DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
-															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
-															<CHILDREN>
-																<ENTRY KEY="displayFields">
-																	<DESCRIPTION>One or multiple identifiers of previously defined data fields.</DESCRIPTION>
-																	<DATATYPE>String / Comma separated list</DATATYPE>
-																	<POSIBLEVALUES>Previously defined field indentifier.</POSIBLEVALUES>
-																	<DEFAULT>If not set, the field defined in fieldIdentifier is used.</DEFAULT>
-																	<STDWRAP>0</STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="multiple">
-																	<DESCRIPTION></DESCRIPTION>
-																	<DATATYPE></DATATYPE>
-																	<POSIBLEVALUES></POSIBLEVALUES>
-																	<DEFAULT></DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="showRowCount">
-																	<DESCRIPTION></DESCRIPTION>
-																	<DATATYPE></DATATYPE>
-																	<POSIBLEVALUES></POSIBLEVALUES>
-																	<DEFAULT></DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="excludeFilters">
-																	<DESCRIPTION>List of filters that are not considered for the group query of this filter.</DESCRIPTION>
-																	<DATATYPE>String / Comma separated list.</DATATYPE>
-																	<POSIBLEVALUES></POSIBLEVALUES>
-																	<DEFAULT></DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="showRowCount">
-																	<DESCRIPTION>Show the rowcount if the select filter is filled with grouped data.</DESCRIPTION>
-																	<DATATYPE>Boolean</DATATYPE>
-																	<POSIBLEVALUES>0,1</POSIBLEVALUES>
-																	<DEFAULT>1</DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="submitOnChange">
-																	<DESCRIPTION>Instant submit filter if a value is selected.</DESCRIPTION>
-																	<DATATYPE>Boolean</DATATYPE>
-																	<POSIBLEVALUES>0,1</POSIBLEVALUES>
-																	<DEFAULT>0</DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="inactiveOption">
-																	<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
-																	<DATATYPE>String</DATATYPE>
-																	<POSIBLEVALUES></POSIBLEVALUES>
-																	<DEFAULT></DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="inactiveValue">
-																	<DESCRIPTION>The submitted value for the inactiveOption described above.</DESCRIPTION>
-																	<DATATYPE>String</DATATYPE>
-																	<POSIBLEVALUES></POSIBLEVALUES>
-																	<DEFAULT></DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-																<ENTRY KEY="renderObj">
-																	<DESCRIPTION>A cObject definition to render every selct option. With {field:FIELDNAME} you can accedd all display Fields. Additional the implicit defined fields [allDisplayFields] for all defined displayFields and [rowCount] for the count of the entrys with this option  are possible.</DESCRIPTION>
-																	<DATATYPE>String (cObject)</DATATYPE>
-																	<POSIBLEVALUES></POSIBLEVALUES>
-																	<DEFAULT>renderObj {
-																		dataWrap = {field:allDisplayFields} ({field:rowCount})
-																	}</DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>	
-															</CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>
-														<ENTRY KEY="Proxy">
-															<DESCRIPTION>A proxy filter is not displayed. It uses a filter from an other list defined by the proxy path and sets the result constraint to the given field.</DESCRIPTION>
-															<DATATYPE></DATATYPE>
-															<POSIBLEVALUES></POSIBLEVALUES>
-															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
-															<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.proxy</PROTOTYPE>
-															<EXAMPLE></EXAMPLE>
-															<CHILDREN>
-																<ENTRY KEY="proxyPath">
-																	<DESCRIPTION>Path to a filter from an other list. The path has the format [listId].[filterBoxId].[filterId]</DESCRIPTION>
-																	<DATATYPE>String</DATATYPE>
-																	<POSIBLEVALUES></POSIBLEVALUES>
-																	<DEFAULT></DEFAULT>
-																	<STDWRAP></STDWRAP>
-																	<PROTOTYPE></PROTOTYPE>
-																	<EXAMPLE></EXAMPLE>
-																	<CHILDREN></CHILDREN>
-																	<VARIANT></VARIANT>
-																</ENTRY>
-															</CHILDREN>
-															<VARIANT></VARIANT>
-														</ENTRY>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												
+												<ENTRY KEY="baseFromClause">
+													<DESCRIPTION>Holds the FROM clause of a mysql query without the FROM keyword.</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>1</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
+static_countries
+LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+													</EXAMPLE>
+												</ENTRY>
+												
+												<ENTRY KEY="baseWhereClause">
+													<DESCRIPTION>Holds the WHERE clause of a mysql query without the WHERE keyword.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
+st_continent.tr_name_en [] ''
+													</EXAMPLE>
+
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												
+												<ENTRY KEY="baseGroupByClause">
+													<DESCRIPTION>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<STDWRAP>1</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>st_continent</EXAMPLE>
+												</ENTRY>
+											</CHILDREN>
+										</ENTRY>
+										
+										<ENTRY KEY="backendConfig.typo3">
+											<DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+											<DATATYPE></DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP>0</STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE><![CDATA[
+backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+backendConfig {
+	tables (
+		static_countries,
+		static_territories st_continent,
+		static_territories st_subcontinent
+	)
+
+	baseFromClause (
+		static_countries
+		LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+		LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+	)
+
+	baseWhereClause (
+		st_continent.tr_name_en <> '' 
+		AND st_subcontinent.tr_name_en <> ''
+	)
+}											
+											]]></EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="tables">
+													<DESCRIPTION>Define tables to be used with enable fields. Typo3 special fields (deleted, hidden) are automatically applied to query.</DESCRIPTION>
+													<DATATYPE>Comma seperated list of table names and aliases (optional).</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
+static_countries,
+static_territories st_continent
+													</EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+											</CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										
+										<ENTRY KEY="backendConfig.extbase">
+											<DESCRIPTION>Extbase Repository Backend.</DESCRIPTION>
+											<PROTOTYPE>plugin.tx_ptextlist.prototype.backend.extbase</PROTOTYPE>
+										</ENTRY>
+									</VARIANT>
+								</ENTRY>
+								<ENTRY KEY="fields">
+									<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
+									<DATATYPE>Associative array</DATATYPE>
+									<STDWRAP>0</STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="[yourFieldId]">
+											<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
+											<DATATYPE>String</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP></STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE>
+name_local {
+	table = static_countries
+	field = cn_short_local
+	isSortable = 1
+}
+											</EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="table">
+													<DESCRIPTION>The table, this field belongs to.</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="field">
+													<DESCRIPTION>Name of the tables field.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="special">
+													<DESCRIPTION>Insert a individual SQL snippet.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="isSortable">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="expandGroupRows">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+											</CHILDREN>
+										</ENTRY>
+									</CHILDREN>
+								</ENTRY>
+								<ENTRY KEY="columns">
+									<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
+									<DATATYPE>Array</DATATYPE>
+									<STDWRAP>0</STDWRAP>
+									<PROTOTYPE>plugin.tx_ptextlist.prototype.column.default</PROTOTYPE>
+									<EXAMPLE>
+10 {
+	label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_short_localColumn
+	columnIdentifier =  cn_short_localColumn
+	fieldIdentifier =  cn_short_local
+	isSortable = 1
+}
+									</EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="10,20,30">
+											<DESCRIPTION></DESCRIPTION>
+											<CHILDREN>
+												<ENTRY KEY="fieldIdentifier">
+													<DESCRIPTION>Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
+													<DATATYPE>fieldIdentifier or *</DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
+// use a single field
+fieldIdentifier = cn_short_local
+
+// use a list of fields
+fieldIdentifier = cn_short_local, name_local
+
+// use every defined field
+fieldIdentifier = *
+													</EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="label">
+													<DESCRIPTION>A label for this element.</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<STDWRAP>1</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
+// as string
+label = country
+
+// as referenc to language file entry
+label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_short_localColumn
+													</EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="renderUserFunctions">
+													<DESCRIPTION>A list of userfunctions to render the field value.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
+renderUserFunctions {
+	10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
+}
+													</EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="renderTemplate">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="renderObj">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="sorting">
+													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction.
 														
-													</VARIANT>
+													</DESCRIPTION>
+													<DATATYPE>Seperated list of fieldIdentifiers.</DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>// Order by name_local ASC, name_en ASC
+sorting = name_local, name_en 
+
+// Order by name_local DESC, name_en ASC
+sorting = name_local DESC, name_en 
+
+// Order by name_local DESC, name_en ASC
+// Sorting by name_local is fixed to DESC with the "!" and does not toggle 
+sorting = name_local !DESC, name_en</EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="sortingImageAsc">
+													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png</DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="sortingImageDesc">
+													<DESCRIPTION>Image for descending ordered column header.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png</DEFAULT>													
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="sortingImageDefault">
+													<DESCRIPTION>Image for unordered column header.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png</DEFAULT>														
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="accessGroups">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="cellCSSClass">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+											</CHILDREN>
+										</ENTRY>
+									</CHILDREN>
+								</ENTRY>
+								<ENTRY KEY="rendererChain">
+									<DESCRIPTION>Holds the renderer configuration.</DESCRIPTION>
+									<DATATYPE></DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<STDWRAP></STDWRAP>
+									<PROTOTYPE>plugin.tx_ptextlist.prototype.rendererChain</PROTOTYPE>
+									<EXAMPLE><![CDATA[
+rendererChain {
+	rendererConfigs {
+		110 < plugin.tx_ptextlist.prototype.renderer.columnGroup
+		110 {
+			columnIdentifier = ContinentColumn
+			showRowCount = 1
+		}
+	}
+}
+]]>
+									</EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="enabled">
+											<DESCRIPTION></DESCRIPTION>
+											<DATATYPE>Boolean</DATATYPE>
+											<POSIBLEVALUES>0,1</POSIBLEVALUES>
+											<DEFAULT>1</DEFAULT>
+											<STDWRAP></STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="rendererConfigs">
+											<DESCRIPTION>A list of chained renderer classes that work on list data structures. The default renderer class uses the column configuration, to render the list of field data in a list of rows and columns. By default this renderer iscalled at position 100. All defined renderer before 100 work on a field data list, while renderer after 100 work on a column list data structure.</DESCRIPTION>
+											<DATATYPE>Array (10,20,30)</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP></STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE>
+											</EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="[yourNumericRendererId]">
+													<DESCRIPTION>Configuration of a single renderer.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES>10,20,30</POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP></STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN>
+														<ENTRY KEY="renderClassName">
+															<DESCRIPTION>The class name of the renderers php class.</DESCRIPTION>
+															<DATATYPE>String</DATATYPE>
+															<POSIBLEVALUES></POSIBLEVALUES>
+															<DEFAULT></DEFAULT>
+															<STDWRAP></STDWRAP>
+															<PROTOTYPE></PROTOTYPE>
+															<EXAMPLE></EXAMPLE>
+															<CHILDREN></CHILDREN>
+															<VARIANT></VARIANT>
+														</ENTRY>
+													</CHILDREN>
+													<VARIANT></VARIANT>
+											</ENTRY>
+											</CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+									</CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+								<ENTRY KEY="aggregateData">
+									<DESCRIPTION>Defines aggregates of data fields.</DESCRIPTION>
+									<DATATYPE>Associative array</DATATYPE>
+									<STDWRAP>0</STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE>
+aggregateData {
+	sumPhone {
+		fieldIdentifier = phone
+		method = sum
+	}
+}
+									</EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="[yourAggregateFieldId]">
+											<DESCRIPTION>Named definition of a single data field.</DESCRIPTION>
+											<DATATYPE>Associative array</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP>0</STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE>
+sumPhone {
+	fieldIdentifier = phone
+	method = sum
+	scope = query
+}
+											</EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="method">
+													<DESCRIPTION>Defined aggregate methods.</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<POSIBLEVALUES>min,max,sum,avg</POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+												<ENTRY KEY="scope">
+													<DESCRIPTION>The scope for the aggregation can be either set to the current page or to the whole query. Aggregates for the current page are calculated internally without an additonal database query.</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<POSIBLEVALUES>page,query</POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+												</ENTRY>
+											</CHILDREN>
+										</ENTRY>
+									</CHILDREN>
+								</ENTRY>
+								<ENTRY KEY="aggregateRows">
+									<DESCRIPTION>Holds the aggregates columns definitions.</DESCRIPTION>
+									<DATATYPE>Associative array</DATATYPE>
+									<POSIBLEVALUES>All columnIdentifiers</POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<STDWRAP></STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE><![CDATA[
+aggregateRows {
+	10 {
+		phoneColumn {
+			aggregateDataIdentifier = sumPhone
+			renderObj = TEXT
+			renderObj.dataWrap (
+				 &sum;: <b>{field:sumPhone}</b>
+			)
+		}
+	}
+}
+]]>
+									</EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="[yourColumnId]">
+											<DESCRIPTION></DESCRIPTION>
+											<DATATYPE></DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<STDWRAP></STDWRAP>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="aggregateDataIdentifier">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<STDWRAP></STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
 												</ENTRY>
 											</CHILDREN>
 											<VARIANT></VARIANT>
@@ -643,13 +897,306 @@ sumPhone {
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
+								<ENTRY KEY="filters">
+								<DESCRIPTION>Holds all filterbox configurations.</DESCRIPTION>
+								<DATATYPE>Associative array</DATATYPE>
+								<POSIBLEVALUES></POSIBLEVALUES>
+								<DEFAULT></DEFAULT>
+								<STDWRAP></STDWRAP>
+								<PROTOTYPE></PROTOTYPE>
+								<EXAMPLE></EXAMPLE>
+								<CHILDREN>
+									<ENTRY KEY="[yourFilterBoxId]">
+										<DESCRIPTION></DESCRIPTION>
+										<DATATYPE></DATATYPE>
+										<POSIBLEVALUES></POSIBLEVALUES>
+										<DEFAULT></DEFAULT>
+										<STDWRAP></STDWRAP>
+										<PROTOTYPE>plugin.tx_ptextlist.prototype.filterBox</PROTOTYPE>
+										<EXAMPLE></EXAMPLE>
+										<CHILDREN>
+											<ENTRY KEY="showReset">
+												<DESCRIPTION>Show a reset link for all filters of this filterBox.</DESCRIPTION>
+												<DATATYPE>Boolean</DATATYPE>
+												<POSIBLEVALUES>0,1</POSIBLEVALUES>
+												<DEFAULT>1</DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+												<CHILDREN></CHILDREN>
+												<VARIANT></VARIANT>
+											</ENTRY>
+											<ENTRY KEY="showSubmit">
+												<DESCRIPTION>Show a submit button for this filterBox.</DESCRIPTION>
+												<DATATYPE>Boolean</DATATYPE>
+												<POSIBLEVALUES>0,1</POSIBLEVALUES>
+												<DEFAULT>1</DEFAULT>
+												<STDWRAP>0</STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+												<CHILDREN></CHILDREN>
+												<VARIANT></VARIANT>
+											</ENTRY>
+											<ENTRY KEY="filterConfigs">
+												<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
+												<DATATYPE>Array</DATATYPE>
+												<POSIBLEVALUES>10,20,30...</POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<STDWRAP></STDWRAP>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE></EXAMPLE>
+												<CHILDREN>
+													<ENTRY KEY="[yourNumericFilterId]">
+														<DESCRIPTION></DESCRIPTION>
+														<DATATYPE></DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<STDWRAP></STDWRAP>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN>
+															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+															<TYPEREF REF="filter.label" KEY="label" />
+															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+															<TYPEREF REF="filter.invert" KEY="invert" />
+														</CHILDREN>
+														<VARIANT>
+															<ENTRY KEY="String">
+																<DESCRIPTION>Shows a string filter.</DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.string</PROTOTYPE>
+																<EXAMPLE>
+10 	&lt; plugin.tx_ptextlist.prototype.filter.string
+10 {
+	filterIdentifier = firstNameSearch
+	label = Firstname
+	fieldIdentifier = firstName
+}															
+																</EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>										
+															<ENTRY KEY="Select">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="Checkbox">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="radiobutton">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="firstletter">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.firstletter</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.multiple" KEY="multiple" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="Proxy">
+																<DESCRIPTION>A proxy filter is not displayed. It uses a filter from an other list defined by the proxy path and sets the result constraint to the given field.</DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<STDWRAP></STDWRAP>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.proxy</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<ENTRY KEY="proxyPath">
+																		<DESCRIPTION>Path to a filter from an other list. The path has the format [listId].[filterBoxId].[filterId]</DESCRIPTION>
+																		<DATATYPE>String</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<STDWRAP></STDWRAP>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															
+														</VARIANT>
+													</ENTRY>
+												</CHILDREN>
+												<VARIANT></VARIANT>
+											</ENTRY>
+										</CHILDREN>
+										<VARIANT></VARIANT>
+									</ENTRY>
+								</CHILDREN>
+								<VARIANT></VARIANT>
+							</ENTRY>
+								<ENTRY KEY="headerPartial">
+									<DESCRIPTION>Path to the header partial.</DESCRIPTION>
+									<DATATYPE>String</DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<STDWRAP></STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE>
+// Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
+// points to pt_extlist/Resources/Private/Partials/List/SpecialPartial.html
+headerPartial = List/SpecialPartial
+
+// Extension relative path
+headerPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial.html										
+									</EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+								<ENTRY KEY="bodyPartial">
+									<DESCRIPTION>Path to the body partial.</DESCRIPTION>
+									<DATATYPE>String</DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<STDWRAP></STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE>
+// Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
+// points to pt_extlist/Resources/Private/Partials/List/SpecialPartial.html
+bodyPartial = List/SpecialPartial
+
+// Extension relative path
+bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial.html									
+									</EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+								<ENTRY KEY="agregateRowsPartial">
+									<DESCRIPTION>Path to the aggregate row partial.</DESCRIPTION>
+									<DATATYPE>String</DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<STDWRAP></STDWRAP>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE>
+// Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
+// points to pt_extlist/Resources/Private/Partials/List/SpecialPartial.html
+agregateRowsPartial = List/SpecialPartial
+
+// Extension relative path
+agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial.html										
+									</EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
 							</CHILDREN>
-							<VARIANT></VARIANT>
 						</ENTRY>
-               		 	</CHILDREN>
-                    </ENTRY>
-                </CHILDREN>
-            </ENTRY>
-        </CHILDREN>
-    </ENTRY>
-</TSREF>
+					</CHILDREN>
+				</ENTRY>
+			</CHILDREN>
+		</ENTRY>
+	</TSREF>
+</DOC>

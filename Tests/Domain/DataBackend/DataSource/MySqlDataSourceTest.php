@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
 	
 	public function testInjectDataSource() {
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
+		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
 		$mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
 		$pdo = new PDO();
 		$mysqlDataSource->injectDbObject($pdo);
@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
 	
 	public function testExecuteQuery() {
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
+		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
         
         $fakedReturnArray = array('test' => 'test');
@@ -75,7 +75,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
 	
 	public function testErrorOnDbError() {
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
         
         $pdoMock = $this->getMock('TestPDO', array('prepare'));

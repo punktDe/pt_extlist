@@ -26,8 +26,8 @@
 /**
  * Interpreter for MySql queries
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll <knoll@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */

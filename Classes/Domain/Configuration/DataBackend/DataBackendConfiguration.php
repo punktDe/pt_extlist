@@ -26,8 +26,8 @@
 /**
  * Databackend configuration class. Holds configuration parameters for the dataBackend
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\DataBackend
+ * @package Domain
+ * @subpackage Configuration\DataBackend
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->dataBackendSettings = $configurationBuilder->getDatabackendSettings();
+		$this->dataBackendSettings = $configurationBuilder->getSettingsForConfigObject('dataBackend');
 
 		$this->checkAndSetDataBackendClass($this->dataBackendSettings['dataBackendClass']);
 		$this->checkAndSetDataMapperClass($this->dataBackendSettings['dataMapperClass']);
@@ -164,8 +164,11 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * return array datasource settings
 	 */
 	public function getDataSourceSettings() {
-		return $this->dataBackendSettings['dataSource'];
+		if(is_array($this->dataBackendSettings['dataSource'])) {
+			return $this->dataBackendSettings['dataSource'];	
+		} else {
+			return array();
+		}
 	}
-	
 }
 ?>

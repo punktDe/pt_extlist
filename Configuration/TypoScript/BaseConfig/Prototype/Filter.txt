@@ -73,7 +73,6 @@ plugin.tx_ptextlist.prototype.filter {
 		fieldIdentifier =
 		displayFields = 
 		filterField = 
-		multiple = 0
 		excludeFilters = 
 		showRowCount = 1
 		submitOnChange = 0
@@ -103,7 +102,6 @@ plugin.tx_ptextlist.prototype.filter {
 		fieldIdentifier =
 		displayFields = 
 		filterField = 
-		multiple = 0
 		excludeFilters = 
 		showRowCount = 1
 		submitOnChange = 0

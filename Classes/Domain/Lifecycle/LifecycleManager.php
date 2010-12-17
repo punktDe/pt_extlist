@@ -29,7 +29,7 @@
  * by different lifecycle envents.
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package pt_extlist
+ * @package Domain 
  * @subpackage Lifecycle
  */
 class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
@@ -54,7 +54,7 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	 * 
 	 * @var array
 	 */
-	protected $observers;
+	protected $observers = array();
 	
 	
 	

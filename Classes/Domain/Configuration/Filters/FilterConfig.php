@@ -32,17 +32,9 @@
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
-	
-	/**
-	 * Identifier of list to which this filter belongs to
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+															 implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
+
 	/**
 	 * Identifier of filterbox to which this filter belongs to
 	 *
@@ -79,6 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	protected $defaultValue;
 	
 	
+	
 	/**
 	 * Label to be shown for this filter
 	 *
@@ -92,7 +85,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	 * If set, it is the label for an inactive option added to the filter
 	 * @var string
 	 */
-	protected $inactiveOption;
+	protected $inactiveOption = '';
+	
 	
 	
 	/**
@@ -102,10 +96,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	protected $inactiveValue = '';
 	
 	
-	/**
-	 * Identifier of field to which this filter belongs to
-	 * // TODO ry21 could be the actual fieldDescription object instead of its name?
-	 * @var string
+	
+	/** 
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
 	
@@ -173,12 +166,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	protected $invert = false;
 	
 	
+	
 	/**
 	 * If this is set to true, the filter has the ability to be inverted
 	 *
 	 * @var truefalse
 	 */
 	protected $invertable = false;
+	
 	
 	
 	/**
@@ -224,11 +219,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	protected $renderUserFunctions = NULL;
 	
 	
+	
 	/**
 	 * Path to fluid template
 	 * @var string
 	 */
 	protected $renderTemplate;
+	
 	
 	
 	/**
@@ -239,99 +236,63 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	protected $accessable = FALSE;
 	
 	
+	
 	/**
-	 * Constructor for filter config
-	 *
-	 * @param array $filterSettings    Settings for filter
+	 * Build the filterconfig object
+	 * 
+	 * @param array $settings
+	 * @param string $filterBoxIdentifier
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-        tx_pttools_assert::isNotEmptyString($filterboxIdentifier,array('message' => 'Filterbox identifier must not be empty. 1277889652'));
-        $this->filterboxIdentifier = $filterboxIdentifier;
-		$this->setPropertiesFromSettings($filterSettings);
+	public function __construct(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder, $settings, $filterboxIdentifier) {
+		$settings['filterboxIdentifier'] = $filterboxIdentifier;
+		parent::__construct($configurationBuilder, $settings);
 	}
 	
 	
 	
 	/**
-	 * Initializes properties from given settings array
-	 *
-	 * @param array $filterSettings
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
 	 */
-	protected function setPropertiesFromSettings(array $filterSettings) {	
-		tx_pttools_assert::isNotEmptyString($filterSettings['filterIdentifier'],array('message' => 'No filterIdentifier specified in config. 1277889452'));
-        $this->filterIdentifier = $filterSettings['filterIdentifier'];
-        
-        tx_pttools_assert::isNotEmptyString($filterSettings['filterClassName'],array('message' => 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552'));
-        $this->filterClassName = $filterSettings['filterClassName'];
-        
-        tx_pttools_assert::isNotEmptyString($filterSettings['fieldIdentifier'], array('message' => 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513'));
-		$this->fieldIdentifier =  $filterSettings['fieldIdentifier'];
-               
-        tx_pttools_assert::isNotEmptyString($filterSettings['partialPath'], array('message' => 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key parialPath). 1281013746'));
-        $this->partialPath = $filterSettings['partialPath'];
-        
-        
-        if(array_key_exists('invert', $filterSettings)) {
-        	$this->invert = $filterSettings['invert'] ? true : false;
-        }
-        
-		if(array_key_exists('invertable', $filterSettings)) {
-        	$this->invertable = $filterSettings['invertable'] ? true : false;
-        }
-        
-		if(array_key_exists('inactiveOption', $filterSettings)) {
-        	$this->inactiveOption = trim($filterSettings['inactiveOption']);
-        }
-        
-		if(array_key_exists('inactiveValue', $filterSettings)) {
-        	$this->inactiveValue = trim($filterSettings['inactiveValue']);
-        }
-        
-		if(array_key_exists('submitOnChange', $filterSettings)) {
-        	$this->submitOnChange = $filterSettings['submitOnChange'] ? true : false;
-        }
-        
-		if(array_key_exists('renderObj', $filterSettings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $filterSettings['renderObj']));
-        	
-        }
-        
-		if(array_key_exists('renderUserFunctions', $filterSettings)) {
-			$this->renderUserFunctions = $filterSettings['renderUserFunctions'];
-		}
-        
+	public function init() {
+		// required
+		$this->setRequiredValue('filterboxIdentifier', 'Filterbox identifier must not be empty. 1277889652');
+		$this->setRequiredValue('filterIdentifier', 'No filterIdentifier specified in config. 1277889452');
+		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552');
+		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key parialPath). 1281013746');
 		
-		if(array_key_exists('renderTemplate', $filterSettings)) {
-			$this->renderTemplate = $filterSettings['renderTemplate'];
+		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
+		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+		
+		// optional
+		$this->setBooleanIfExistsAndNotNothing('invert');
+		$this->setBooleanIfExistsAndNotNothing('invertable');
+		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
+		$this->setValueIfExists('defaultValue');
+		$this->setValueIfExists('inactiveOption');
+		$this->setValueIfExists('inactiveValue');
+		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
+		$this->setValueIfExistsAndNotNothing('renderTemplate');
+		
+		if($this->configValueExiststAndNotNothing('label')) {
+			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
+			if(t3lib_div::isFirstPartOfStr($this->label, 'LLL:')) {
+				$this->label = Tx_Extbase_Utility_Localization::translate($this->label);	
+			}
 		}
 		
+		if(array_key_exists('renderObj', $this->settings)) {
+        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+        }
         
-		$this->defaultValue = array_key_exists('defaultValue', $filterSettings) ? $filterSettings['defaultValue'] : '';
-        
-		if(array_key_exists('accessGroups', $filterSettings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',', $filterSettings['accessGroups']);
+		if(array_key_exists('accessGroups', $this->settings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
 		}
-       
-		
-        // TODO ry21 add all properties here
-		// TODO check which values need to be set here and add assertions!
-        $this->settings = $filterSettings;
 	}
-
-	
-	
-	/**
-	 * Returns identifier of list to which this filter belongs to
-	 *
-	 * @return string  Identifier of list to which this filter belongs to
-	 */
-    public function getListIdentifier() {
-    	return $this->listIdentifier;	
-    }
-	
     
     
+	
     /**
      * Returns partial path for filter template
      *
@@ -353,6 +314,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     }
     
 	
+    
     /**
      * Returns class name of class implementing this filter
      *
@@ -383,7 +345,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     
     
     /**
-     * @return unknown
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
     public function getFieldIdentifier() {
         return $this->fieldIdentifier;
@@ -463,6 +425,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     }
     
     
+    
 	/**
 	 * cObj configuration
      * @return array
@@ -470,6 +433,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
     public function getRenderObj() {
         return $this->renderObj;
     }
+    
     
     
     /**
@@ -487,25 +451,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
         return $this->resetListSortingStateOnSubmit;
     }
     
-    
-    
-    /**
-     * @param string $key Key of settings array to be returned
-     * @return mixed
-     */
-    public function getSettings($key = '') {
-    	if ($key != '' ) {
-    	   if (array_key_exists($key, $this->settings)) {
-    		  return $this->settings[$key];
-    	   } else {
-    	   		return NULL;
-    	   }
-    	} else {
-            return $this->settings;
-    	}
-    }
-    
-      
+
     
 	/**
      * @return string
@@ -541,14 +487,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 		return $this->renderUserFunctions;
 	}
 	
+	
+	
 	/**
-	 * Sets the accessable flag.
-	 * 
 	 * @param bool $accessable
 	 */
-	public function injectAccessable($accessable) {
-		$this->accessable = (bool)$accessable;
+	public function setAccessable($accessable) {
+		$this->accessable = (bool) $accessable;
 	}
+
 	
 	
 	/**
@@ -561,6 +508,4 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig implements Tx_PtExt
 	}
 	
 }
-
-
 ?>

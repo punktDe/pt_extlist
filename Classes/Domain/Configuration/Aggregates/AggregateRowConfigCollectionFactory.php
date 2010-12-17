@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionF
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $columnSettings typoscript array of column Collection
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
-	public static function getColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		return self::buildAggregateRowConfigCollection($configurationBuilder);	
 	}
 	
@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionF
 	 */
 	protected static function buildAggregateRowConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
-		$aggregateRowSettings = $configurationBuilder->getAggregateRowSettings();
+		$aggregateRowSettings = $configurationBuilder->getSettingsForConfigObject('aggregateRows');
 		ksort($aggregateRowSettings);
 		
 		$aggregateRowConfigCollection = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection();

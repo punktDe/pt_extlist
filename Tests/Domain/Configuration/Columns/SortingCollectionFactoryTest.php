@@ -23,11 +23,10 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_SortingCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_SortingCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function setup() {
-		
-		
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	public function testSingleSortingDefinitionNotForced() {
@@ -102,7 +101,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_SortingCollectionFactory_t
 	
 	public function testGetInstanceByFieldConfigurationSingle() {
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('name', array('special' => 'test')));
+		$fieldConfigCollection->addFieldConfig( new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'name', array('special' => 'test')));
 		
 		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfigCollection);
 		$this->assertEquals($sortingCollection->count(), 1);
@@ -118,8 +117,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_SortingCollectionFactory_t
 	public function testGetInstanceByFieldConfigurationMulti() {
 		
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('name', array('special' => 'test')));
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig('company', array('special' => 'test')));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'name', array('special' => 'test')));
+		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'company', array('special' => 'test')));
 		
 		$sortingCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($fieldConfigCollection);
 		

@@ -26,9 +26,10 @@
 /**
  * Class implements a chain of renderers, responsible for renderering list data
  *
- * @package pt_extlist
- * @subpackage Domain\Renderer
+ * @package Domain
+ * @subpackage Renderer
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	
@@ -43,8 +44,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	
 	/**
 	 * Holds an instance of renderer chain configuration
-	 * TODO Daniel: add type
-	 * @var unknown_type
+	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
 	 */
 	protected $rendererChainConfiguration;
 
@@ -88,6 +88,23 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 		}
 		return $listData;
 	}
+	
+	
+	
+	/**
+	 * Renders aggregated list data
+	 * 
+	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData Row to be rendered
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregated list data
+	 */
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData) {
+		foreach($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+			$aggregatedListData = $renderer->renderAggregateList($aggregatedListData);
+		}
+		return $aggregatedListData;
+ 	}
 	
 	
 	

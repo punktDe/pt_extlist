@@ -28,7 +28,8 @@
  * 
  * @package Domain
  * @subpackage DataBackend
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
@@ -89,6 +90,11 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	protected $listData;
 	
+	
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	protected $aggregateListData;
 	
 	
     /**
@@ -312,12 +318,25 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 	
 	
+	
 	/**
 	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
 	 */
 	public function getListData() {
 		return $this->listData;
 	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregateListData()
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function getAggregateListData() {
+		return Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
+	}
+	
 	
 	
 	/**

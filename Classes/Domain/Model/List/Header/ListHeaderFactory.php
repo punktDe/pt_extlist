@@ -28,7 +28,7 @@
  * 
  * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
- * @subpackage \Model\List\Header
+ * @subpackage Model\List\Header
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	
@@ -43,7 +43,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 		$defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
 		$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
-		
 		$listIsSorted = 0;
 		
 		foreach($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
@@ -55,15 +54,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 			}
 		}
 
-		if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($id)) {
+		if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
 			$listHeader->getHeaderColumn($defaultSortingColumn)->setSortingState(1);
 			$listHeader->getHeaderColumn($defaultSortingColumn)->init();
 		}
-		
 		return $listHeader;
 	}
-	
-	
-	
 }
 ?>

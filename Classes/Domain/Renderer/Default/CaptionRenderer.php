@@ -31,58 +31,34 @@
  * @subpackage Renderer\Strategy
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 
 	/**
-	 * Holds an instance of cObject
-	 *
-	 * @var tslib_cObj
-	 */
-	protected $cObj;
-	
-	
-	
-	/**
-	 * Constructor for rendering strategy
-	 *
-	 */
-	public function __construct() {
-		$this->cObj = $GLOBALS['TSFE']->cObj;
-	}
-	
-	
-	
-	/**
 	 * Renders captions
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-	 * @return Tx_PtExtlist_Domain_Model_List_Row Rendered row
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		tx_pttools_assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+		$renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
 		foreach($listHeader as $headerColumn) {
 			if($headerColumn->getColumnConfig()->isAccessable()) {
 				$label = $headerColumn->getLabel();
 				
-				// TODO: use Tx_PtExtlist_Utility_RenderValue and configuration for rendering!
-				
-				// Use TS for rendering
-				if(is_array($label)) {
-					$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray( $label );
-					$label = $this->cObj->cObjGet($conf);
-				} elseif(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
-					// Localization
-					$label = Tx_Extbase_Utility_Localization::translate($label);
+				$label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
+				if(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
+					$label = Tx_Extbase_Utility_Localization::translate($label);	
 				}
-			    $row->createAndAddCell($label, $headerColumn->getColumnIdentifier());
+				
+			    $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 			}
 		}
-		return $row;
+		return $renderedListHeader;
 	}
 	
 }
-
 ?>

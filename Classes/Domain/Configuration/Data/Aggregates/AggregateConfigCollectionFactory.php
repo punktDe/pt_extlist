@@ -29,7 +29,7 @@
  *  AggregateConfigCollection Factory
  *
  * @package Domain
- * @subpackage Configuration\Data\Fields
+ * @subpackage Configuration\Data\Aggregates
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory {
@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
 	 */
-	public static function getAggregateConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$aggregateConfigCollection = self::buildAggregateConfigCollection($configurationBuilder);
 	    return $aggregateConfigCollection;	
 	}
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 	 */
 	protected static function buildAggregateConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
-		$aggregateSettingsArray = $configurationBuilder->getAggregateDataSettings();
+		$aggregateSettingsArray = $configurationBuilder->getSettingsForConfigObject('aggregateData');
 		
 		foreach($aggregateSettingsArray as $aggregateIdentifier => $aggregateSettings) {
 			$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig($aggregateIdentifier, $aggregateSettings, $configurationBuilder);

@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfig_testcase extends
 	public function setup() {
 		
 		$this->initDefaultConfigurationBuilderMock();
-		$pagerSettings = $this->configurationBuilderMock->getPagerSettings();
+		$pagerSettings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
 		$pagerSettings = $pagerSettings['pagerConfigs']['default'];
 		$pagerSettings['itemsPerPage'] = 10;
 		$this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($this->configurationBuilderMock, 'default', $pagerSettings);
@@ -79,10 +79,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfig_testcase extends
 	
 	public function testGetItemsPerPage() {
 		$this->assertEquals(10, $this->pagerConfiguration->getItemsPerPage());
-	}
-	
-	
-	
+	}	
 }
- 
 ?>

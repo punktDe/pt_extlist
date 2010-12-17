@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig($configurationBuilder);
+		return new Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('listDefault'));
 	}
 }
 ?>

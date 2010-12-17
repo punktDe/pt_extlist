@@ -67,11 +67,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	
 	
 	/**
-	 * Holds an array of fields to be used as displayed values for the filter (the options that can be selected)
+	 * Holds an collection of fieldconfigs to be used as displayed values for the filter (the options that can be selected)
 	 *
-	 * @var array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
-	protected $displayFields = array();
+	protected $displayFields = NULL;
 		
 	
 	
@@ -101,12 +101,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 		
 	 	if($displayFieldSettings) {
         	$displayFields = t3lib_div::trimExplode(',', $displayFieldSettings);
-        	foreach($displayFields as $displayField) {
-        		$fieldConfig = $this->resolveFieldConfig($displayField);
-        		$this->displayFields[$fieldConfig->getIdentifier()] = $fieldConfig;
-        	}
+        	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($displayFields);
         } else {
-        	$this->displayFields = array($this->filterField->getIdentifier() => $this->filterField);
+        	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection();
         }	
         
 	}
@@ -201,18 +198,20 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	
 	
 	/**
-	 * Returns an array of <table>.<field> strings required by filter
 	 *
-	 * @return string
+	 * @return array
 	 */
 	protected function getFieldsRequiredToBeSelected() {
 
-		$mergedFields = $this->displayFields;
-		$mergedFields[$this->filterField->getIdentifier()] = $this->filterField;
-        
-        return $mergedFields;
+		if($this->filterField) {
+			$mergedFields = clone $this->displayFields;
+			$mergedFields->addFieldConfig($this->filterField);
+	        
+	        return $mergedFields;	
+		} else {
+			return $this->displayFields;
+		}
 	}
-	
 	
 	
 	/**
@@ -252,8 +251,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	protected function initDataProviderByTsConfig($filterSettings) {
 		
 		$filterField = trim($filterSettings['filterField']);
-		if(!$filterField) $filterField = $this->filterConfig->getFieldIdentifier();
-		$this->filterField = $this->resolveFieldConfig($filterField);
+		if($filterField) {
+			$this->filterField = $this->resolveFieldConfig($filterField);
+		} else {
+			$filterField = $this->filterConfig->getFieldIdentifier()->getItemByIndex(0);
+		}
         
         $this->setDisplayFieldsByTSConfig(trim($filterSettings['displayFields']));
                

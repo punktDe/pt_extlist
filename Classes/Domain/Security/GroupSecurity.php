@@ -35,8 +35,8 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	protected $usergroups;
 	
 	public function __construct() {
-		$this->usergroups = $GLOBALS['TSFE']->fe_user->user['groupData'];
-		
+		//$this->usergroups = $GLOBALS['TSFE']->fe_user->user['groupData'];
+		$this->usergroups = $GLOBALS['TSFE']->fe_user->user['usergroup'];
 	}
 	
 	/**
@@ -79,11 +79,7 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 */
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
 		
-		// TODO when fiterConfig returns a a real FieldDescription object remove this
-		
-		$fieldIdentifier = $filterConfig->getFieldIdentifier();
-		$fieldIds = t3lib_div::trimExplode(',', $fieldIdentifier);
-		$fieldConfigCollection = $fieldConfigCollection = $configBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIds);
+		$fieldConfigCollection =  $filterConfig->getFieldIdentifier();
 		
 		// FAIL if one of this tests are failing.
 		if(!$this->checkFields($fieldConfigCollection)) {
@@ -139,9 +135,11 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 			$group = trim($group);
 			if(empty($group)) return true;
 			
-			foreach($this->usergroups as $groupData) {
+			$groupArray = t3lib_div::trimExplode(',', $this->usergroups);
+			
+			foreach($groupArray as $groupData) {
 				
-				if($group == $groupData['uid']) return true;
+				if($group == $groupData) return true;
 			}
 		}
 		

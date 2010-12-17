@@ -24,6 +24,14 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+
+/**
+ * 
+ * TODO: Enter description here ...
+ * @package ViewHelpers
+ * @subpackage Image
+ *
+ */
 class Tx_PtExtlist_ViewHelpers_Image_SortingViewHelper extends Tx_Fluid_ViewHelpers_ImageViewHelper {
 
 	/**
@@ -31,7 +39,6 @@ class Tx_PtExtlist_ViewHelpers_Image_SortingViewHelper extends Tx_Fluid_ViewHelp
 	 * @param $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
-		
 		return parent::render($header->getSortingImage());
 	}
 	

@@ -26,9 +26,10 @@
 /**
  * Database Datasource configuration class. Holds configuration parameters for database data sources as MySql
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\DataBackend\DataSource
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @package Domain
+ * @subpackage Configuration\DataBackend\DataSource
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration {
 
@@ -80,10 +81,9 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
 	/**
 	 * Constructor for data source configuration
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $dataSourceConfiguration
+	 * @param array $dataSourceSettings dataBaseDataSourceSettings 
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $dataBackendConfiguration) {
-		$dataSourceSettings = $dataBackendConfiguration->getDataSourceSettings();
+	public function __construct(array $dataSourceSettings) {
 		$this->host = $dataSourceSettings['host'];
 		$this->username = $dataSourceSettings['username'];
 		$this->password = $dataSourceSettings['password'];
