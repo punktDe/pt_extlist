@@ -54,7 +54,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 	 * @return string defaultSortingColumn
 	 */
 	public function getSortingColumn() {
-		return $this->sortingColumn;
+		return trim($this->sortingColumn);
 	}	
 }
 ?>

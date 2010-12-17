@@ -24,8 +24,8 @@
 ***************************************************************/
 
 /**
- * @package 		pt_extlist
- * @subpackage 		Domain\Configuration\Columns  
+ * @package 		Domain
+ * @subpackage 		Configuration\Columns  
  * @author         	Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends tx_pttools_objectCollection {

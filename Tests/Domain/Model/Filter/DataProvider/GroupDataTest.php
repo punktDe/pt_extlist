@@ -45,12 +45,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
     public function testGetFieldsRequiredToBeSelected() {
     	$groupDataProvider = $this->buildAccessibleGroupDataProvider();
     	$fields = $groupDataProvider->_call('getFieldsRequiredToBeSelected');
-       	
-    	$this->assertEquals(count($fields), 3);
+    	$this->assertEquals($fields->count(), 3);
     	
-    	$this->assertTrue(array_key_exists($this->defaultFilterSettings['filterField'], $fields));
-    	$this->assertTrue(array_key_exists('field1', $fields));
-    	$this->assertTrue(array_key_exists('field2', $fields));
+    	$this->assertTrue($fields->hasItem($this->defaultFilterSettings['filterField']));
+    	$this->assertTrue($fields->hasItem('field1'));
+    	$this->assertTrue($fields->hasItem('field2'));
     	
     }
 	

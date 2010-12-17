@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_collection {
+class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_objectCollection {
 	
 	
 	/**

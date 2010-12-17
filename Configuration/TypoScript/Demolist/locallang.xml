@@ -8,6 +8,7 @@
 		<languageKey index="default" type="array">
             <label index="column_isoNoColumn">ISO</label>
             <label index="column_nameColumn">Country name (local country name)</label>
+            <label index="filter_nameField">Country Name</label>
 		</languageKey>
 	</data>
 </T3locallang>

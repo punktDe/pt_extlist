@@ -25,6 +25,7 @@
 
 /**
  * Tx pt_tools div methods - used for loading TS
+ * @package Utility
  */
 require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_div.php';
 

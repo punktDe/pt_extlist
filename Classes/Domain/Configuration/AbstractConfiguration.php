@@ -135,12 +135,21 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	 * @param string $internalPropertyName optional property name if it is deiferent from the tsKey
 	 */
 	protected function setValueIfExistsAndNotNothing($tsKey, $internalPropertyName = NULL) {
-		if (array_key_exists($tsKey, $this->settings) && (is_array($this->settings[$tsKey]) || trim($this->settings[$tsKey]))) {
+		if ($this->configValueExiststAndNotNothing($tsKey)) {
 			$property = $internalPropertyName ? $internalPropertyName : $tsKey;
 			$this->$property = $this->settings[$tsKey];
 		}
 	}
 	
+
+	/**
+	 * Checks if config value exists and not nothing
+	 * 
+	 * @param unknown_type $tsKey
+	 */
+	protected function configValueExiststAndNotNothing($tsKey) {
+		return array_key_exists($tsKey, $this->settings) && (is_array($this->settings[$tsKey]) || trim($this->settings[$tsKey]));
+	}
 	
 	
 	/**

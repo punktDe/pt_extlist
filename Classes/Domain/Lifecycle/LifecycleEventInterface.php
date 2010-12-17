@@ -28,7 +28,7 @@
  * The interface for classes which needs to be updated on a lifecycle event.
  * 
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @package pt_extlist
+ * @package Domain
  * @subpackage Lifecycle
  */
 interface Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface {

@@ -79,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field2'));
+			->will($this->returnValue($this->buildFieldCollection('field2')));
 			
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		
@@ -90,15 +90,15 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 		
 
 			
-		$this->securityMock->_set('usergroups',array((array('uid' => 'foo'))));
+		$this->securityMock->_set('usergroups','foo');
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
  		
-		$this->securityMock->_set('usergroups',array((array('uid' => 'bar'))));
+		$this->securityMock->_set('usergroups','bar');
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
 		
@@ -108,10 +108,10 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1,field3'));
+			->will($this->returnValue($this->buildFieldCollection('field1,field3')));
 
 		
-		$this->securityMock->_set('usergroups',array(array('uid' => 'foobar'), array('uid'=>'bar')));
+		$this->securityMock->_set('usergroups','foobar, bar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -121,9 +121,9 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 		
-		$this->securityMock->_set('usergroups',array((array('uid' => 'whatever'))));	
+		$this->securityMock->_set('usergroups','whatever');	
 			
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -133,10 +133,10 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1,field3'));
+			->will($this->returnValue($this->buildFieldCollection('field1,field3')));
 
 		
-		$this->securityMock->_set('usergroups',array(array('uid' => 'foobar'), array('uid'=>'whatever')));
+		$this->securityMock->_set('usergroups','foobar,whatever');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -147,14 +147,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field2'));
+			->will($this->returnValue($this->buildFieldCollection('field2')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foobar')));
 		
-		$this->securityMock->_set('usergroups',array((array('uid' => 'foobar'))));
+		$this->securityMock->_set('usergroups','foobar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -165,14 +165,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field2'));
+			->will($this->returnValue($this->buildFieldCollection('field2')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foobar')));
 		
-		$this->securityMock->_set('usergroups',array((array('uid' => 'noaccess'))));
+		$this->securityMock->_set('usergroups','noaccess');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -183,14 +183,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foo')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid' => 'foo')));
+		$this->securityMock->_set('usergroups','foo');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -201,14 +201,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foobar')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid' => 'foo'), array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foo,foobar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -219,14 +219,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foo')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid' => 'foobar')));
+		$this->securityMock->_set('usergroups','foobar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -237,14 +237,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foobar')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid' => 'foo')));
+		$this->securityMock->_set('usergroups','foo');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -255,14 +255,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('bar')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid' => 'foo'), array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foo,foobar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -272,14 +272,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foo')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foobar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -289,14 +289,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field5'));
+			->will($this->returnValue($this->buildFieldCollection('field5')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array(' ')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foobar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -306,14 +306,14 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field5'));
+			->will($this->returnValue($this->buildFieldCollection('field5')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getAccessGroups')
 			->will($this->returnValue(array(' ')));
 		
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foobar');
 		
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -333,7 +333,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foo')));
 			
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foo')));
+		$this->securityMock->_set('usergroups','foo');
 		
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -353,7 +353,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foo')));
 			
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foobar');
 		
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -374,7 +374,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foo')));
 			
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foo')));
+		$this->securityMock->_set('usergroups','foo');
 		
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -395,7 +395,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foobar')));
 			
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foo')));
+		$this->securityMock->_set('usergroups','foo');
 		
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
@@ -416,7 +416,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 			->method('getAccessGroups')
 			->will($this->returnValue(array('foobar','whatever')));
 			
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foo'),array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foo,foobar');
 		
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertTrue($access);
@@ -438,10 +438,15 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 			->method('getAccessGroups');
 			
 			
-		$this->securityMock->_set('usergroups',array(array('uid'=>'foobar')));
+		$this->securityMock->_set('usergroups','foobar');
 		
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
+	}
+	
+	protected function buildFieldCollection($fields) {
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $fields);
+		return  $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 	}
 	
 }

@@ -111,9 +111,6 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 					'_typoScriptNodeValue' => 'COA'
 					);
 		
-		$cObjMock = $this->getMock('tslib_cObj', array('cObjGet'));
-		$cObjMock->expects($this->once())->method('cObjGet')->with(Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($ts));
-		
 		$methods = array('getLabel', 'getColumnIdentifier');
 		$returnMethods['getLabel'] = $ts;
 		$returnMethods['getColumnIdentifier'] = 'bla';
@@ -133,7 +130,6 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 		
 		$captionRendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
 		$captionRenderer = new $captionRendererClass();
-		$captionRenderer->_set('cObj', $cObjMock);
 		
 		$captions = $captionRenderer->renderCaptions($listHeader);
 	}

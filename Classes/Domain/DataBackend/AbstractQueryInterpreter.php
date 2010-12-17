@@ -28,8 +28,8 @@
  * 
  * Interface for query interpreters
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend
  * @author Michael Knoll <knoll@punkt.de>
  * @author Daniel Lienert <lienert@punkt.de>
  */

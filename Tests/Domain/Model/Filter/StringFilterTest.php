@@ -113,8 +113,8 @@
         $this->configurationBuilderMock,
             array('fieldIdentifier' => 'field1','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->init();
-        
-        $this->assertTrue(is_a($filter->getFieldIdentifier(),'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+
+        $this->assertTrue(is_a($filter->getFieldIdentifier(),'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
  	}
  	
  	
@@ -146,8 +146,9 @@
         
 
         $query = $filter->getFilterQuery();
-        $this->assertTrue(is_a($query, 'Tx_PtExtlist_Domain_QueryObject_Query'));
-        $this->assertTrue($this->queryHasCriteria($query, new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testtable.testfield', '%testValue%', 'LIKE')));
+        
+        $this->assertTrue(is_a($query, 'Tx_PtExtlist_Domain_QueryObject_Query'), 'Expected: Tx_PtExtlist_Domain_QueryObject_Query');
+        $this->assertTrue($this->queryHasCriteria($query, new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('tableName1.fieldName1', '%testValue%', 'LIKE')));
  	}
  	
  	

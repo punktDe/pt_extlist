@@ -97,10 +97,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	
 	
 	
-	/**
-	 * Identifier of field to which this filter belongs to
-	 * // TODO ry21 could be the actual fieldDescription object instead of its name?
-	 * @var string
+	/** 
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
 	
@@ -273,7 +271,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552');
 		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
 		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key partialPath). 1281013746');
-		
+		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
+		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 		
 		// optional
 		$this->setBooleanIfExistsAndNotNothing('invert');
@@ -286,6 +286,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setValueIfExists('label');
 		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
+		
+		if($this->configValueExiststAndNotNothing('label')) {
+			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
+			if(t3lib_div::isFirstPartOfStr($this->label, 'LLL:')) {
+				$this->label = Tx_Extbase_Utility_Localization::translate($this->label);	
+			}
+		}
 		
 		if(array_key_exists('renderObj', $this->settings)) {
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
@@ -350,7 +357,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     
     
     /**
-     * @return unknown
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
     public function getFieldIdentifier() {
         return $this->fieldIdentifier;

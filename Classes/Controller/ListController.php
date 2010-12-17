@@ -65,13 +65,12 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		
 		$renderedListData = $this->rendererChain->renderList($list->getListData());
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		
+		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
 		$this->view->assign('config', $this->configurationBuilder);
-		
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
-		$this->view->assign('aggregateRows', $list->getAggregateRows());
+		$this->view->assign('aggregateRows', $renderedAggregateRows);
 	}
 	
 	
@@ -86,13 +85,14 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
         $renderedListData = $this->rendererChain->renderList($list->getListData());
         $renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
+        $renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
         
         $this->view->assign('config', $this->configurationBuilder);
         
         $this->view->assign('listHeader', $list->getListHeader());
         $this->view->assign('listCaptions', $renderedCaptions);
         $this->view->assign('listData', $renderedListData);
-        $this->view->assign('aggregateRows', $list->getAggregateRows());
+        $this->view->assign('aggregateRows', $renderedAggregateRows);
 		return $this->view->render();
 	}
 	
