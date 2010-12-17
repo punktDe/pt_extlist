@@ -58,26 +58,53 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
     
     
     
+    /**
+     * Validates filter 
+     *
+     * @return bool True, if filter validates
+     */
     public function validate() {
     	$validation = $this->filterConfig->getSettings('validation');
     	
-    	if(!$this->isActive) return 1;
+    	if(!$this->isActive) return true;
 
+    	// Check whether given value is above max value set in TS
     	if(array_key_exists('maxValue', $validation) 
     		&& intval($this->filterValue) > $validation['maxValue']) {
     			
+    			// TODO localize this string!
     			$this->errorMessage = 'Value is not allowed to be bigger than '.$validation['maxValue'];
-    			return 0;
+    			return false;
     	}
     	
+    	// Check whether min value is below min value set in TS
     	if(array_key_exists('minValue', $validation) 
     		&& intval($this->filterValue) < $validation['minValue']) {
+    			
+    			// TODO localize this string!
     			$this->errorMessage = 'Value is not allowed to be smaller than '.$validation['minValue'];
-    			return 0;
+    			return false;
     	}
     	
-    	return 1;
+    	return true;
     }
+    
+    
+    
+    /**
+     * Returns a filter breadcrumb for min/max filter
+     * 
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb Filter bread crumb for this filter
+     */
+    public function getFilterBreadCrumb() {
+    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+    	if ($this->filterValue != '') {
+    		// TODO make message configurable via TS
+    		$breadCrumb->setMessage($this->filterConfig->getLabel() . ' is below ' . $this->filterValue);
+    	}
+    	return $breadCrumb;
+    }
+    
 }
 
 ?>

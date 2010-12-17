@@ -262,7 +262,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setRequiredValue('filterIdentifier', 'No filterIdentifier specified in config. 1277889452');
 		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552');
 		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
-		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key parialPath). 1281013746');
+		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key partialPath). 1281013746');
+		$this->setRequiredValue('label', 'No label is configured for ' . $this->filterIdentifier . ' (TS key label). 1281013747');
+		
 		
 		// optional
 		$this->setBooleanIfExistsAndNotNothing('invert');
