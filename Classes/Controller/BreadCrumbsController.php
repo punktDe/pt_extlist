@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * Controller for showing filter breadcrumbs
+ * Controller for filter breadcrumbs widget
  *
  * @package Controller
  * @author Michael Knoll <knoll@punkt.de>
@@ -38,10 +38,11 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 */
 	protected $filterboxCollection;
 	
+	
+	
 	/**
 	 * Overwrites initAction for setting properties
-	 * and enable easy testing
-	 *
+	 * and enabling easy testing
 	 */
 	protected function initializeAction() {
 		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();

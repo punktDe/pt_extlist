@@ -104,9 +104,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     	if (!$this->filterbox->validate()) {
             $this->view->assign('filtersDontValidate', true);
         }
-        
         $this->resetPagers();
-        
     	$this->forward('show');
     }   
 
@@ -119,9 +117,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      */
     public function resetAction() {
     	$this->filterbox->reset();
-    	
     	$this->resetPagers();
-    	    	
     	$this->forward('show');
     }
     

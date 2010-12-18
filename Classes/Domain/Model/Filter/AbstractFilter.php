@@ -359,7 +359,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * 4. Create filter query
 		 * 
 		 * I you want to change the way, a filter initializes itsel, you have
-		 * to override init() in you own filter implementation!
+		 * to override init() in your own filter implementation!
 		 */
 
 		$this->initGenericFilterByTSConfig();
@@ -524,13 +524,27 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     public function getValidate() {
     	return $this->validate();
     }
+    
+    
+    
+    /**
+     * Returns a field configuration for a given identifier
+     *
+     * @param string $fieldIdentifier
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig Field configuration for given identifier
+     */
+    protected function resolveFieldConfig($fieldIdentifier) {   
+        return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
+    }
 	
+    
+    
 	/****************************************************************************************************************
      * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"
      *****************************************************************************************************************/
 	
 	/**
-	 * Injector for get & post vars
+	 * Injector for GET & POST vars
 	 *
 	 * @param array $gpVars
 	 */
@@ -563,5 +577,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectSessionData(array $sessionData) {
 		$this->sessionFilterData = $sessionData;
 	}
+	
 }
 ?>
