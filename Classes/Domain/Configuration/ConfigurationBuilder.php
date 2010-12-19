@@ -56,6 +56,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    	      'tsKey' => 'backendConfig'),
 	    'export' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'),
+	    'extension' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Extension_ExtensionConfigFactory'),
 	    'fields' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
 	    'filter' =>
