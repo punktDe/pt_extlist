@@ -90,7 +90,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	public function injectSettings(array $settings, $initConfigurationBuilder = TRUE, $initDataBackend = TRUE) {
 		parent::injectSettings($settings);
-		
+
 		if ($this->settings['listIdentifier'] != '') {
 		    $this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
@@ -211,6 +211,14 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         }
 	}
 	
+	
+	protected function initializeAction() {
+		
+		parent::initializeAction();
+		
+		$GLOBALS['trace'] = 1;	trace(Tx_Extbase_Dispatcher::getConfigurationManager() ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+		
+	}
 	
     
     /**

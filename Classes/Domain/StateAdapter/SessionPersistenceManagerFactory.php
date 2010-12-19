@@ -63,7 +63,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 */
 	private static function getStorageAdapter() {
 		
-		return tx_pttools_sessionStorageAdapter::getInstance();
+		//return tx_pttools_sessionStorageAdapter::getInstance();
+		return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();
 	}
 	
 }

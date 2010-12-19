@@ -41,6 +41,14 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	
 	
 	/**
+	 * Indicates if the list is in cached mode
+	 * 
+	 * @var boolean 
+	 */
+	protected $cachedMode = false;
+	
+	
+	/**
 	 * @var string 
 	 */
 	protected $headerPartial;
@@ -104,6 +112,14 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 */
 	public function useSessions() {
 		return $this->useSessions;
+	}
+	
+	
+	/**
+	 * @return boolean
+	 */
+	public function isCached() {
+		return $this->cachedMode;
 	}
 }
 ?>

@@ -30,7 +30,7 @@
  * @package Domain
  * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_dbStorageAdapterFactory {
+class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 	
 	/**
 	 *
@@ -52,6 +52,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_dbStorageAdapterFactory {
 			$stateRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_State_StateRepository');
 			self::$instance->injectStateRepository($stateRepository);
 			self::$instance->setStateHash(self::getStateHash());
+			self::$instance->init();
 		}
 		
 		return self::$instance;

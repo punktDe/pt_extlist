@@ -30,7 +30,7 @@
  * @package Domain
  * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter {
+class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pttools_iStorageAdapter {
 
 	
 	/**
@@ -121,6 +121,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter {
 		
 		if(!$state) {
 			$state = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Model_State_State'); 
+			$this->stateRepository->add($state);
 		}
 		
 		return $state;
@@ -150,6 +151,10 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter {
 		$stateData = $this->state->getStateDataAsArray();
 		$stateData[$key] = $value;
 		$this->state->setStateDataByArray($stateData);
+		$this->stateRepository->update($this->state);
+		
+		$persistenceManager = Tx_Extbase_Dispatcher::getPersistenceManager();
+		$persistenceManager->persistAll();
 	}
 	
 	
