@@ -37,7 +37,6 @@ foreach ($pluginModes as $ident => $label) {
 	 * Register flexform
 	 */
 	t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform.xml');
-	
 }
 
 

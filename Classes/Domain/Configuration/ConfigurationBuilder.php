@@ -97,6 +97,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 */
 	protected $listIdentifier;
 	
+	
 		
 	/**
 	 * Constructor is private, use getInstance instead!

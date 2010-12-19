@@ -1,0 +1,4 @@
+plugin.tx_ptextlist.settings {
+	pluginType = cached
+	horsthorst = franz
+}

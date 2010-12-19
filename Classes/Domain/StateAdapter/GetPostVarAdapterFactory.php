@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	public static function getInstance() {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
-			
+
 			self::$instance->injectGetVars($_GET);
 			self::$instance->injectPostVars($_POST);
 		}
