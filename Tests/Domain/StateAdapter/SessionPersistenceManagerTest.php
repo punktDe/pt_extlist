@@ -26,9 +26,10 @@
 /**
  * Testcase for session persistence manager
  *
- * @package pt_extlist
- * @subpackage Tests
+ * @package Tests
+ * @subpackage Domain\StateAtadapter
  * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -88,6 +89,17 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 		$bookmark->setListId('test');
 		$sessionPersistenceManager->processBookmark($bookmark);
 		$this->assertEquals($sessionPersistenceManager->getSessionDataByNamespace('tx_ptextlist_pi1.test.filters.test'), 'value');
+	}
+	
+	
+	
+	/** @test */
+	public function getSessionDataHash() {
+		$sessionPersistenceManager = $this->getAccessibleMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('dummyMethod'), array(),'',FALSE);
+		$sessionPersistenceManager->_set('sessionData', array('test'));
+		$hash = $sessionPersistenceManager->getSessionDataHash();
+		
+		$this->assertEquals(md5(serialize(array('test'))), $hash);
 	}
 	
 }

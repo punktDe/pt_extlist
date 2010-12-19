@@ -2,8 +2,9 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c)  TODO - INSERT COPYRIGHT
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
+*
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
@@ -23,12 +24,20 @@
 ***************************************************************/
 
 /**
- * Repository for Tx_PtExtlist_Domain_Model_State
+ * Testcase for state repository
  *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @package Tests
+ * @subpackage Domain\Repository\State
+ * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Repository_State_StateRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_StateRepository_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	public function setup() {
+		
+	}
+
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Repository_State_StateRepository'));
+	}	
 }
 ?>

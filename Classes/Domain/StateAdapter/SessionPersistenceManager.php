@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * 
 	 * @var array
 	 */
-	private $sessionData = array();
+	protected $sessionData = array();
 	
 	
 	
@@ -183,6 +183,17 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$bookmarkContentArray = unserialize($bookmark->getContent());
 		$namespace = 'tx_ptextlist_pi1.' . $bookmark->getListId() . '.filters';
 		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
+	}
+	
+	
+	
+	/**
+	 * Return the hash of the currently set sessiondata
+	 * 
+	 * @return string hash
+	 */
+	public function getSessionDataHash() {
+		return md5(serialize($this->sessionData));
 	}
 	
 }
