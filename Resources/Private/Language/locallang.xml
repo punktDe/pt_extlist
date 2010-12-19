@@ -27,10 +27,10 @@
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Group</label>
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.is_public">Public Bookmark</label>
             
-            <label index="tx_ptextlist_domain_model_state">Table to store the current list state when using it without session.</label>
-			<label index="tx_ptextlist_domain_model_state.hash">hash</label>
-			<label index="tx_ptextlist_domain_model_state.shortcode">shortcode</label>
-			<label index="tx_ptextlist_domain_model_state.statedata">statedata</label>
+            <label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
+			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
+			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
+			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
 		</languageKey>
 		
 		<languageKey index="de" type="array">
@@ -51,10 +51,10 @@
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Gruppe</label>
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.is_public">Öffentlicher Bookmark</label>
             
-            <label index="tx_ptextlist_domain_model_state">Table to store the current list state when using it without session.</label>
-			<label index="tx_ptextlist_domain_model_state.hash">hash</label>
-			<label index="tx_ptextlist_domain_model_state.shortcode">shortcode</label>
-			<label index="tx_ptextlist_domain_model_state.statedata">statedata</label>
+            <label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
+			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
+			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
+			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
 		</languageKey>
 	</data>
 </T3locallang>

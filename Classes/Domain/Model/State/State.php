@@ -28,10 +28,10 @@
  * DB Model to store the current list state when using it without session.
  *
  * @package Domain
- * @subpackage Model\StateStorage
+ * @subpackage Model\State
  * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_StateStorage_State extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_PtExtlist_Domain_Model_State_State extends Tx_Extbase_DomainObject_AbstractEntity {
 	
 	/**
 	 * hash
@@ -95,13 +95,28 @@ class Tx_PtExtlist_Domain_Model_StateStorage_State extends Tx_Extbase_DomainObje
 	/**
 	 * Setter for statedata
 	 *
-	 * @param string $statedata statedata
+	 * @param mixed $statedata statedata
 	 * @return void
 	 */
 	public function setStatedata($statedata) {
+		$this->hash = $this->calculateStateHash($statedata);
 		$this->statedata = $statedata;
 	}
+	
+	
+	
+	/**
+	 * Calculate the state hash by given dataString 
+	 * 
+	 * @param string $stateData
+	 * @return string hash
+	 */
+	public function calculateStateHash($stateData) {
+		return md5($stateData);
+	}
+	
 
+	
 	/**
 	 * Getter for statedata
 	 *
@@ -111,5 +126,28 @@ class Tx_PtExtlist_Domain_Model_StateStorage_State extends Tx_Extbase_DomainObje
 		return $this->statedata;
 	}
 	
+	
+	/**
+	 * Set the stateData  
+	 *
+	 * @param array $stateData
+	 */
+	public function setStateDataByArray(array $stateData) {
+		$this->setStatedata(serialize($stateData));
+	}
+	
+	
+	/**
+	 * return the statedata as array
+	 * 
+	 * @return array stateData
+	 */
+	public function getStateDataAsArray() {
+		if(is_array($this->statedata)) {
+			return unserialize($this->statedata);	
+		} else {
+			return array();
+		}
+	}
 }
 ?>

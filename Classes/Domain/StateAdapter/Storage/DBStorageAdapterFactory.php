@@ -45,8 +45,13 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_dbStorageAdapterFactory {
 	 * @return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter
 	 */
 	public static function getInstance() {
+		
 		if(self::$instance == NULL) {
-			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter(self::getStateHash());
+			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter();
+			
+			$stateRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_State_StateRepository');
+			self::$instance->injectStateRepository($stateRepository);
+			self::$instance->setStateHash(self::getStateHash());
 		}
 		
 		return self::$instance;
@@ -55,14 +60,14 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_dbStorageAdapterFactory {
 	
 	
 	/**
-	 * Get the state hash from the gpVars
+	 * Get the statehash from GPVars
 	 * 
-	 * @return string;
+	 * @return string hash 
 	 */
 	protected static function getStateHash() {
 		$getPostVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
 		$stateHash = $getPostVarAdapter->getParametersByNamespace('state');
-		return $stateHash;		
+		return $stateHash;	
 	}
 }
 ?>

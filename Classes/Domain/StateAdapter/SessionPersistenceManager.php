@@ -197,5 +197,4 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	}
 	
 }
-
 ?>

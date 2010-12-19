@@ -23,12 +23,43 @@
 ***************************************************************/
 
 /**
- * Repository for Tx_PtExtlist_Domain_Model_State
+ * Class implements state repository
  *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @package Domain
+ * @subpackage Repository\State
+ * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Repository_State_StateRepository extends Tx_Extbase_Persistence_Repository {
+	
+	/**
+	 * Overwrites createQuery method to overwrite storage pid
+	 */
+	public function createQuery() {
+	   $query = parent::createQuery();
+       $query->getQuerySettings()->setRespectStoragePage(FALSE);
+
+	   return $query;
+    }
+    
+    
+    
+	/**
+	 * Find State by statehash
+	 *
+	 * @param string $listIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_State_State
+	 */
+	public function findOneByHash($stateHash) {
+		$query = $this->createQuery();
+		$result = $query->matching($query->equals('hash', $stateHash))
+						->setLimit(1)
+						->execute();
+
+		$object = NULL;
+		if (count($result) > 0) {
+			$object = current($result);
+		}
+		return $object;
+	}
 }
 ?>

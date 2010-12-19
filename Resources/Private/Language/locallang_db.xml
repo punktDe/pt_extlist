@@ -6,10 +6,10 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_ptextlist_domain_model_state">State</label>
-			<label index="tx_ptextlist_domain_model_state.hash">Hash</label>
-			<label index="tx_ptextlist_domain_model_state.shortcode">Shortcode</label>
-			<label index="tx_ptextlist_domain_model_state.statedata">Statedata</label>
+			<label index="tx_ptextlist_domain_model_state_state">State</label>
+			<label index="tx_ptextlist_domain_model_state_state.hash">Hash</label>
+			<label index="tx_ptextlist_domain_model_state_state.shortcode">Shortcode</label>
+			<label index="tx_ptextlist_domain_model_state_state.statedata">Statedata</label>
 		</languageKey>
 	</data>
 </T3locallang>

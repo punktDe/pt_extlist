@@ -64,11 +64,11 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array (
     )
 );
 
-t3lib_extMgm::addLLrefForTCAdescr('Tx_PtExtlist_Domain_Model_StateStorage_State', 'EXT:pt_extlist/Resources/Private/Language/locallang_csh_tx_ptextlist_domain_model_state.xml');
-t3lib_extMgm::allowTableOnStandardPages('Tx_PtExtlist_Domain_Model_StateStorage_State');
-$TCA['tx_ptextlist_domain_model_state'] = array (
+t3lib_extMgm::addLLrefForTCAdescr('Tx_PtExtlist_Domain_Model_State_State', 'EXT:pt_extlist/Resources/Private/Language/locallang_csh_tx_ptextlist_domain_model_state_state.xml');
+t3lib_extMgm::allowTableOnStandardPages('Tx_PtExtlist_Domain_Model_State_State');
+$TCA['tx_ptextlist_domain_model_state_state'] = array (
 	'ctrl' => array (
-		'title'             => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang_db.xml:tx_ptextlist_domain_model_statestorage_state',
+		'title'             => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang_db.xml:tx_ptextlist_domain_model_state_state',
 		'label' 			=> 'hash',
 		'tstamp' 			=> 'tstamp',
 		'crdate' 			=> 'crdate',
@@ -83,7 +83,7 @@ $TCA['tx_ptextlist_domain_model_state'] = array (
 			'disabled' => 'hidden'
 			),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/State.php',
-		'iconfile' 			=> t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_ptextlist_domain_model_statestorage_state'
+		'iconfile' 			=> t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_ptextlist_domain_model_state_state'
 	)
 );
 

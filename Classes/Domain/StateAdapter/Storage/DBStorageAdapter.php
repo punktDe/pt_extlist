@@ -34,28 +34,135 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter {
 
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Repository_StateRepository
+	 * @var Tx_PtExtlist_Domain_Repository_State_StateRepository
 	 */
 	protected $stateRepository;
 	
 	
+	/**
+	 * @var Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager
+	 */
+	protected $sessionPersistanceManager;
 	
-	public function injectStateRepository(Tx_PtExtlist_Domain_Repository_StateRepository $stateRepository) {
-		
+	
+	
+	/**
+	 * MD5 sum identifying the state to load from database 
+	 * 
+	 * @var string
+	 */
+	protected $stateHash;
+	
+	
+	
+	/**
+	 * The object holding the current state
+	 * 
+	 * @var Tx_PtExtlist_Domain_Model_State_State
+	 */
+	protected $state;
+	
+	
+	
+	/**
+	 * Inject the state repository
+	 * 
+	 * @param Tx_PtExtlist_Domain_Repository_State_StateRepository $stateRepository
+	 */
+	public function injectStateRepository(Tx_PtExtlist_Domain_Repository_State_StateRepository $stateRepository) {
+		$this->stateRepository = $stateRepository;
 	}
 	
 	
-	public function read() {
-		
+	
+	/**
+	 * Inject the sessionPersistanceManager
+	 * 
+	 * @param Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager $sessionPersistanaceManager
+	 */
+	public function injectSessionPersistanceManager(Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager $sessionPersistanaceManager) {
+		$this->sessionPersistanceManager = $sessionPersistanaceManager;
 	}
 	
-	public function write() {
-		
+	
+	
+	/**
+	 * Set the statehash 
+	 * 
+	 * @param string $stateHash
+	 */
+	public function setStateHash($stateHash) {
+		$this->stateHash = $stateHash;
 	}
 	
-	public function delete() {
-		
+	
+	
+	/**
+	 * Init method.
+	 */
+	public function init() {
+		$this->state = $this->loadStateObject($this->stateHash);
 	}
 	
+	
+	
+	/**
+	 * Load a stateobject from db or create a new one
+	 * 
+	 * @param string $stateHash
+	 * @return Tx_PtExtlist_Domain_Model_State_State
+	 */
+	protected function loadStateObject($stateHash) {
+		$state = NULL;
+		
+		if($stateHash) {
+			$state = $this->stateRepository->findOneByHash($stateHash);	
+		}
+		
+		if(!$state) {
+			$state = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Model_State_State'); 
+		}
+		
+		return $state;
+	}
+	
+	
+	
+	/**
+	 * Retrieve a state dataObject from the repository and return the requested value
+	 * 
+	 * @param string $key
+	 */
+	public function read($key) {
+		$stateData = $this->state->getStateDataAsArray();
+		return $stateData[$key];
+	}
+	
+	
+	
+	/**
+	 * Save a value to state data
+	 * 
+	 * @param string $key
+	 * @param string $value
+	 */
+	public function store($key, $value) {
+		$stateData = $this->state->getStateDataAsArray();
+		$stateData[$key] = $value;
+		$this->state->setStateDataByArray($stateData);
+	}
+	
+	
+	
+	/**
+	 * Remove a value from state data
+	 * 
+	 * @param string $key
+	 */
+	public function delete($key) {
+		$stateData = $this->state->getStateDataAsArray();
+		unset($stateData[$key]);
+		$this->state->setStateDataByArray($stateData);
+	}
 }
 ?>

@@ -39,7 +39,7 @@ CREATE TABLE tx_ptextlist_domain_model_bookmarks_bookmark (
 ) ENGINE=InnoDB;
 
 
-CREATE TABLE tx_ptextlist_domain_model_state (
+CREATE TABLE tx_ptextlist_domain_model_state_state (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 	
