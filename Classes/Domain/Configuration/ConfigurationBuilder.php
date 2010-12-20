@@ -56,8 +56,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    	      'tsKey' => 'backendConfig'),
 	    'export' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'),
-	    'extension' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Extension_ExtensionConfigFactory'),
 	    'fields' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
 	    'filter' =>
@@ -218,16 +216,6 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      */
     public function buildExportConfiguration() {
     	return $this->buildConfigurationGeneric('export');
-    }
-    
-    
-    
-	/**
-     * return a singleton instance of extension configuratrion
-     * @return Tx_PtExtlist_Domain_Configuration_Extension_ExtensionConfig
-     */
-    public function buildExtensionConfiguration() {
-    	return $this->buildConfigurationGeneric('extension');
     }
     
     
