@@ -67,7 +67,8 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 	 */
 	protected static function getStateHash() {
 		$getPostVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-		$stateHash = $getPostVarAdapter->getParametersByNamespace('state');
+		$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
+		$stateHash = $getPostVarAdapter->getParametersByNamespace($listIdentifier.'.state');
 		return $stateHash;	
 	}
 }

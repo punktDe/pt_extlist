@@ -99,7 +99,6 @@ class Tx_PtExtlist_Domain_Model_State_State extends Tx_Extbase_DomainObject_Abst
 	 * @return void
 	 */
 	public function setStatedata($statedata) {
-		$this->hash = $this->calculateStateHash($statedata);
 		$this->statedata = $statedata;
 	}
 	

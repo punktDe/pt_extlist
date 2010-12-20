@@ -31,7 +31,7 @@
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-		
+	
 	/**
 	 * @var string 
 	 */
@@ -51,12 +51,20 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 
 	
 	/**
+	 * @var boolean
+	 */
+	protected $useSession = true;
+	
+	
+	/**
 	 * Set the properties
 	 */
 	protected function init() {
 		$this->setValueIfExistsAndNotNothing('headerPartial');
 		$this->setValueIfExistsAndNotNothing('bodyPartial');
 		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
+		
+		$this->setBooleanIfExistsAndNotNothing('useSession');
 	}
 
 
@@ -88,18 +96,10 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	
 	
 	/**
-	 * @return boolean use Sessions
+	 * @return boolean use Session
 	 */
-	public function useSessions() {
-		return $this->useSessions;
-	}
-	
-	
-	/**
-	 * @return boolean
-	 */
-	public function isCached() {
-		return $this->cachedMode;
+	public function useSession() {
+		return $this->useSession;
 	}
 }
 ?>

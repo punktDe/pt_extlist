@@ -54,8 +54,30 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			$argumentArray[] = $this->buildObjectValueArray($object, $key, $value);
 		}
 
-		return count($argumentArray) == 1 ? $argumentArray[0] : $argumentArray;
+		if(count($argumentArray) == 1) $argumentArray = $argumentArray[0];
+		$this->addStateHash($argumentArray);
+		
+		return $argumentArray;
 	}
+	
+	
+	
+	/**
+	 * Add the stateHash to the argumentArray, used to identifiy the current state if the
+	 * list operates in no-session-mode
+	 * 
+	 * TODO: add stateHash if list is configured sessionFree!
+	 * 
+	 * @param array $argumentArray
+	 */
+	protected function addStateHash(&$argumentArray) {
+		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+			$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
+			$argumentArray[$listIdentifier]['state'] = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
+		}
+	}
+	
+	
 	
 	/**
 	 * Use the objects getter to get the value
@@ -95,12 +117,23 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		return $argumentArray;
 	}
 	
+	
+	
+	/**
+	 * Get the valueArray with the right objectNamespace
+	 * 
+	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param string $key
+	 * @param string $value
+	 */
 	public function buildObjectValueArray(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $key, $value) {
 		$nameSpace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 		
 		return $this->buildNamespaceValueArray($nameSpace, $key, $value);
 	}
+	
+	
 	
 	/**
 	 * Building a namespace array filled with an value.

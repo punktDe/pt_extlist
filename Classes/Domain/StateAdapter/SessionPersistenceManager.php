@@ -53,6 +53,15 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	
 	/**
+	 * HashKey identifies sessionData
+	 * 
+	 * @var string
+	 */
+	protected $sessionHash = NULL;
+	
+	
+	
+	/**
 	 * Injector for session adapter
 	 *
 	 * @param tx_pttools_sessionStorageAdapter $sessionAdapter
@@ -70,6 +79,9 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function persistToSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
 		$sessionNamespace = $object->getObjectNamespace();
+		
+		if($this->sessionHash != NULL) throw new Exception('Session Hash already calculated!! '. $sessionNamespace);
+		
 		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
 	    
@@ -193,8 +205,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @return string hash
 	 */
 	public function getSessionDataHash() {
-		return md5(serialize($this->sessionData));
+		if($this->sessionHash == NULL) {
+			$this->sessionHash = md5(serialize($this->sessionData));
+		}
+		return $this->sessionHash;
 	}
-	
 }
 ?>

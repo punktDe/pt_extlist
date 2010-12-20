@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	 */
 	public static function getInstance() {
 		if (self::$instance == NULL) {
-			$extensionNameSpace = self::getExtensionNameSpace();
+			$extensionNameSpace = Tx_PtExtlist_Utility_Extension::getExtensionNameSpace();
 			
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
 			self::$instance->injectGetVars(self::extractExtensionVariables($_GET, $extensionNameSpace));
@@ -73,16 +73,6 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 		}
 		
 		return $extractedVars;
-	}
-	
-	
-	
-	/**
-	 * Get the extension namespace from framewor Konfiguration 
-	 */
-	protected static function getExtensionNameSpace() {
-		$frameWorkKonfiguration = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
-		return  strtolower('tx_' .$frameWorkKonfiguration['extensionName'].'_'.$frameWorkKonfiguration['pluginName']);
 	}
 }
 ?>

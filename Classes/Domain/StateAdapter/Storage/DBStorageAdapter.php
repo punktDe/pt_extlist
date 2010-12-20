@@ -148,9 +148,14 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 	 * @param string $value
 	 */
 	public function store($key, $value) {
-		$stateData = $this->state->getStateDataAsArray();
+		/* TODO: the extlist save only one value to the session when the lifecycle ends (the internal session cache)
+		 * because of that, the session hash is used in links before the session is written to database. that means, in this
+		 * mode only one value can be written to the session (Daniel)
+		 */
+		//$stateData = $this->state->getStateDataAsArray();
 		$stateData[$key] = $value;
 		$this->state->setStateDataByArray($stateData);
+		$this->state->setHash(md5(serialize($value)));
 		$this->stateRepository->update($this->state);
 		
 		$persistenceManager = Tx_Extbase_Dispatcher::getPersistenceManager();
