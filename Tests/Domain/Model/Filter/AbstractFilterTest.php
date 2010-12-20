@@ -68,7 +68,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
         $this->assertEquals($filter->getFilterIdentifier(), 'test');
         $this->assertEquals($filter->getFilterBoxIdentifier(), 'test');
         $this->assertEquals($filter->getListIdentifier(),'test');
-        $this->assertEquals($filter->getObjectNamespace(), 'tx_ptextlist_pi1.test.filters.test.test', 'Object namespace was expected to be tx_ptextlist_pi1.test.filters.test.test but was ' . $filter->getObjectNamespace());
+        $this->assertEquals($filter->getObjectNamespace(), 'test.filters.test.test', 'Object namespace was expected to be tx_ptextlist_pi1.test.filters.test.test but was ' . $filter->getObjectNamespace());
     }
     
     

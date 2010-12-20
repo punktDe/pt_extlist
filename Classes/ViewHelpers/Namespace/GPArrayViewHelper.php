@@ -115,8 +115,6 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		$returnArray = array();
 		$pointer = &$returnArray;
 		
-		array_shift($nameSpaceChunks);
-		
 		// Build array
 		foreach($nameSpaceChunks as $chunk) {
 			$pointer = &$pointer[$chunk];

@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Doma
 	 * @return string Namespace to identify this object
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.headerColumns';
+		return $this->listIdentifier . '.headerColumns';
 	}
 	
 	

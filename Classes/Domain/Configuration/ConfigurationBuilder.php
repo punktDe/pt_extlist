@@ -222,6 +222,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     
     
     
+	/**
+     * return a singleton instance of extension configuratrion
+     * @return Tx_PtExtlist_Domain_Configuration_Extension_ExtensionConfig
+     */
+    public function buildExtensionConfiguration() {
+    	return $this->buildConfigurationGeneric('extension');
+    }
+    
+    
+    
     /**
      * Returns a singleton instance of columns configuration collection for current list configuration
      *

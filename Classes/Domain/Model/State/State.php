@@ -143,7 +143,7 @@ class Tx_PtExtlist_Domain_Model_State_State extends Tx_Extbase_DomainObject_Abst
 	 * @return array stateData
 	 */
 	public function getStateDataAsArray() {
-		if(is_array($this->statedata)) {
+		if($this->statedata) {
 			return unserialize($this->statedata);	
 		} else {
 			return array();

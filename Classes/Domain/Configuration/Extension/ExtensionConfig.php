@@ -81,7 +81,8 @@ class Tx_PtExtlist_Domain_Configuration_Extension_ExtensionConfig extends Tx_PtE
 	 * 
 	 */
 	protected function determinePluginName() {
-		return 'Cached';
+		$frameWorkKonfiguration = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
+		return $frameWorkKonfiguration['pluginName'];
 	}
 	
 

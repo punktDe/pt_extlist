@@ -31,23 +31,7 @@
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	/**
-	 * Configure the list to store the state in sessions or use GEt-Vars only
-	 * 
-	 * @var boolean
-	 */
-	protected $useSession = true;
-	
-	
-	/**
-	 * Indicates if the list is in cached mode
-	 * 
-	 * @var boolean 
-	 */
-	protected $cachedMode = false;
-	
-	
+		
 	/**
 	 * @var string 
 	 */
@@ -69,16 +53,12 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	/**
 	 * Set the properties
 	 */
-
 	protected function init() {
 		$this->setValueIfExistsAndNotNothing('headerPartial');
 		$this->setValueIfExistsAndNotNothing('bodyPartial');
 		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-		
-		$this->setBooleanIfExistsAndNotNothing('useSession');
 	}
-	
-	
+
 
 	/**
 	 * @return string
