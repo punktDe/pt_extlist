@@ -68,7 +68,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject implements 
 	 * @return String Namespace as key to store session data with
 	 */
     public function getObjectNamespace() {
-    	return 'tx_ptexlist.tests.stateadapter.stubs.persistableobject';
+    	return 'tests.stateadapter.stubs.persistableobject';
     }
     
     

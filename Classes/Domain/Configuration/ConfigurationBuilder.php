@@ -97,13 +97,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 */
 	protected $listIdentifier;
 	
+	
 		
 	/**
 	 * Constructor is private, use getInstance instead!
 	 * 
 	 * @param array $settings  Settings of extension
 	 */
-	public function __construct(array $settings) {
+	public function __construct(array $settings) {	
 		$this->setProtoTypeSettings($settings);
 		$this->setListIdentifier($settings);
 		$this->origSettings = $settings;
@@ -120,7 +121,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 		tx_pttools_assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
 		$this->protoTypeSettings = $settings['prototype'];
 	}
-	
+
 	
 	
 	/**

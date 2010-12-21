@@ -47,13 +47,32 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	 */
 	public static function getInstance() {
 		if (self::$instance == NULL) {
-			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
+			$extensionNameSpace = Tx_PtExtlist_Utility_Extension::getExtensionNameSpace();
 			
-			self::$instance->injectGetVars($_GET);
-			self::$instance->injectPostVars($_POST);
+			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
+			self::$instance->injectGetVars(self::extractExtensionVariables($_GET, $extensionNameSpace));
+			self::$instance->injectPostVars(self::extractExtensionVariables($_POST, $extensionNameSpace));
+			self::$instance->setExtensionNamespace($extensionNameSpace);
+		}
+	
+		return self::$instance;
+	}
+	
+	
+	
+	/**
+	 * Remove the extension name from the variables
+	 * 
+	 * @param string $vars
+	 * @param string $nameSpace
+	 */
+	protected function extractExtensionVariables($vars, $extensionNameSpace) {
+		$extractedVars = $vars[$extensionNameSpace];
+		if(!is_array($extractedVars)) {
+			$extractedVars = array();
 		}
 		
-		return self::$instance;
+		return $extractedVars;
 	}
 }
 ?>

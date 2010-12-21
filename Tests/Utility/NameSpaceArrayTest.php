@@ -63,6 +63,11 @@ class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Te
 	}
 	
 	
+	public function testGetArrayContentByArrayAndNamespaceWithEmptyNameSpace() {
+		$extractedValue = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->varArray,'');
+		$this->assertEquals($extractedValue,$this->varArray, 'The method should return teh complete var array');
+	}
+	
 	
 	public function testSaveDataInNamespaceTree() {
 		$testArray['key1']['key2']['key3'] = 'test';

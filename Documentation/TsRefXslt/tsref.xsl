@@ -15,7 +15,13 @@
 
 	<!-- Template for ROOT -->
     <xsl:template match="/">
-        <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+        <section xmlns="http://docbook.org/ns/docbook" 
+        		 xmlns:xlink="http://www.w3.org/1999/xlink" 
+        		 xmlns:xi="http://www.w3.org/2001/XInclude" 
+        		 xmlns:svg="http://www.w3.org/2000/svg" 
+        		 xmlns:m="http://www.w3.org/1998/Math/MathML" 
+        		 xmlns:html="http://www.w3.org/1999/xhtml" 
+        		 xmlns:db="http://docbook.org/ns/docbook" version="5.0">
             <title>pt_extlist</title>
             <subtitle>TypoSript Reference</subtitle>
             <info/>
