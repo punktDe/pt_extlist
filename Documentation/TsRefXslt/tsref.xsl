@@ -44,7 +44,7 @@
 		<xsl:variable name="currentKey" select="concat($parentKey, '.', @KEY)" />
         <refentry>
         	
-        	
+       	
         	
         	<!-- Rendering title of ENTRY-->
             <refmeta>
