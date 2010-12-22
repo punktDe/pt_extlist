@@ -166,9 +166,30 @@ class Tx_PtExtlist_Utility_RenderValue {
 	
 	
 	
-	public static function renderByCoaArray($data, $coaArray) {
+	/**
+	 * Renders given data by a given configuration array
+	 * 
+	 * Configuration for rendering has to be in the following form:
+	 * 
+	 * array {
+     *    "dataWrap"=> "{field:label} equals {field:value}",
+     *    "_typoScriptNodeValue"=>"TEXT"
+     * }
+	 * 
+	 * Which is the result of the following TS:
+	 * 
+	 * whateverKey = TEXT
+	 * whateverKey {
+	 *     dataWrap = {field:label} equals {field:value}
+	 * }
+	 *
+	 * @param array $data Data to be rendered
+	 * @param array $configArray Configuration to render data with
+	 * @return string The rendered data
+	 */
+	public static function renderDataByConfigArray($data, $configArray) {
 		self::getCobj()->start($data);
-		return self::getCobj()->cObjGetSingle($coaArray['_typoScriptNodeValue'], $coaArray);
+		return self::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
 	}
 
 

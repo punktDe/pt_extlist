@@ -536,15 +536,34 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     public function getFilterBreadCrumb() {
         $breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
         
-        if ($this->filterValue != '') {
-            $breadCrumbMessageString = $this->filterConfig->getBreadCrumbString();
-            $breadCrumbRenderArray = $breadCrumbMessageString;
-            // Replacement has to be done here, as value of filter is not public
-            $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderByCoaArray(array('label' => $this->filterConfig->getLabel(), 'value' => $this->getFilterValueForBreadCrumb()), $breadCrumbRenderArray);
+        if ($this->getFilterValueForBreadCrumb() != '') {
+            $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
+            var_dump($this->getFieldsForBreadcrumb());
+            $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
+                $this->getFieldsForBreadcrumb(), 
+                $breadCrumbRenderArray);
             $breadCrumb->setMessage($breadCrumbMessage);
+            $breadCrumb->setIsResettable(true);
         }
-        $breadCrumb->setIsResettable(true);
+        
         return $breadCrumb;
+    }
+    
+    
+    
+    /**
+     * Returns an array of fields to be used for rendering breadcrumb message.
+     * 
+     * Per default, this is the label of the filter and its value. Feel free to add
+     * further values in your own filter classes 
+     *
+     * @return array
+     */
+    protected function getFieldsForBreadcrumb() {
+    	return array(
+    	   'label' => $this->filterConfig->getLabel(), 
+    	   'value' => $this->getFilterValueForBreadCrumb()
+    	);
     }
     
     

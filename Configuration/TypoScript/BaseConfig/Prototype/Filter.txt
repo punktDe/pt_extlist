@@ -16,6 +16,7 @@ plugin.tx_ptextlist.prototype.filter {
 		
 		breadCrumbString = TEXT
 		breadCrumbString {
+		    # Fields that can be used are 'label' and 'value'
 		    dataWrap = {field:label} equals {field:value}
 	    }
 	}
@@ -30,7 +31,8 @@ plugin.tx_ptextlist.prototype.filter {
         
         breadCrumbString = TEXT
         breadCrumbString {
-            dataWrap = {field:label} equals {field:value}
+            # Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+            dataWrap = {field:label} is less than {field:value}
         }
 	}
 	
@@ -44,7 +46,8 @@ plugin.tx_ptextlist.prototype.filter {
         
         breadCrumbString = TEXT
         breadCrumbString {
-            dataWrap = {field:label} equals {field:value}
+            # Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+            dataWrap = {field:label} is bigger than {field:value}
         }
 	}
 	
@@ -75,6 +78,7 @@ plugin.tx_ptextlist.prototype.filter {
         
         breadCrumbString = TEXT
         breadCrumbString {
+            # Fields that can be used are 'label' and 'value'
             dataWrap = {field:label} contains {field:value}
         }
 	}
@@ -108,6 +112,7 @@ plugin.tx_ptextlist.prototype.filter {
         
         breadCrumbString = TEXT
         breadCrumbString {
+            # Fields that can be used are 'label' and 'value'
             dataWrap = {field:label} contains {field:value}
         }
 	}
@@ -137,6 +142,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 		renderObj = TEXT
 		renderObj {
+		    # Fields that can be used are 'label' and 'value'
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
         
@@ -173,6 +179,7 @@ plugin.tx_ptextlist.prototype.filter {
         
         breadCrumbString = TEXT
         breadCrumbString {
+            # Fields that can be used are 'label' and 'value'
             dataWrap = {field:label} starts with '{field:value}'
         }
 	}

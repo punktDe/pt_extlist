@@ -253,7 +253,7 @@ plugin.tx_ptextlist.settings {
 						fieldIdentifier = *
 					}
 
-					15 < plugin.tx_ptextlist.prototype.filter.string
+					15 < plugin.tx_ptextlist.prototype.filter.max
 					15 {
 						filterIdentifier = filter15
 						label = Max Phone

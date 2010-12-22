@@ -78,6 +78,30 @@ class Tx_PtExtlist_Domain_Model_Filter_MinFilter extends Tx_PtExtlist_Domain_Mod
     	
     	return 1;
     }
+    
+    
+    
+    /**
+     * Adds some fields for rendering breadcrumbs. Values of those 
+     * fields can be set in TS for filter via
+     * 
+     * validation.minValue
+     * validation.maxValue
+     *
+     * @return array
+     */
+    protected function getFieldsForBreadcrumb() {
+        $validation = $this->filterConfig->getSettings('validation');
+        $parentArray = parent::getFieldsForBreadCrumb();
+        if (array_key_exists('minValue', $validation)) {
+           $parentArray['minValue'] = $validation['minValue'];
+        }
+        if (array_key_exists('maxValue', $validation)) {
+            $parentArray['maxValue'] = $validation['max']; 
+        }
+        return $parentArray;
+    }
+    
 }
 
 ?>
