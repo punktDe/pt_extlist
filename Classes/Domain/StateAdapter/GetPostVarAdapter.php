@@ -176,12 +176,10 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 */
 	protected function getMergedPgVars() {
 		if(!is_array($this->postGetVars)) {
-
 			$this->postGetVars = $this->postVars;	
 			if (is_array($this->getVars) && is_array($this->postVars)) {
 				$this->postGetVars = t3lib_div::array_merge_recursive_overrule($this->getVars, $this->postVars);
 			}
-				
 		}
 		
 		return $this->postGetVars;

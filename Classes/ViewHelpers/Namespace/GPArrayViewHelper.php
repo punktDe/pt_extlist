@@ -70,7 +70,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * 
 	 * @param array $argumentArray
 	 */
-	protected function addStateHash(&$argumentArray) {
+	public function addStateHash(&$argumentArray) {
 		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
 			$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
 			$argumentArray[$listIdentifier]['state'] = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();

@@ -65,6 +65,13 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
 		
 		$this->setBooleanIfExistsAndNotNothing('useSession');
+
+		/**
+		 * Force useSession to fale if the extension is in cache mode
+		 */
+		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+			$this->useSession = false;
+		}
 	}
 
 
@@ -98,7 +105,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	/**
 	 * @return boolean use Session
 	 */
-	public function useSession() {
+	public function getUseSession() {
 		return $this->useSession;
 	}
 }
