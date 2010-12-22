@@ -163,6 +163,13 @@ class Tx_PtExtlist_Utility_RenderValue {
 		self::getCobj()->start($data);
 		return self::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
 	}
+	
+	
+	
+	public static function renderByCoaArray($data, $coaArray) {
+		self::getCobj()->start($data);
+		return self::getCobj()->cObjGetSingle($coaArray['_typoScriptNodeValue'], $coaArray);
+	}
 
 
 

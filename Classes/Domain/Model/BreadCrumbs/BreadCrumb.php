@@ -30,7 +30,7 @@
  * @subpackage Model\BreadCrumbs
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 	
 	/**
 	 * Associated filter object
@@ -57,8 +57,6 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
 	 */
 	protected $isResettable = true;
 	
-	
-	
 	/**
 	 * Constructor for breadcrumb. Takes filter object to show breadcrumb for as parameter
 	 *
@@ -66,6 +64,18 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter) {
 		$this->filter = $filter;
+	}
+
+	
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
+	 *
+	 * @return String
+	 */
+	public function getObjectNamespace() {
+	// TODO list identifier required!
+	   return 'demolist.breadcrumb';
 	}
 	
 	

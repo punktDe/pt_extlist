@@ -231,20 +231,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	
 	
 	/**
-	 * Returns filter breadcrumb for this filter.
-	 * Most likely to be overwritten in concrete filter class.
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 * Return filter value string for breadcrumb
+	 * 
+	 * @return string
 	 */
-	public function getFilterBreadCrumb() {
-		$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-		if (count($this->filterValues) > 0) {
-		    $breadCrumbMessageString = $this->filterConfig->getBreadCrumbString();
-            // Replacement has to be done here, as value of filter is not publicly accessable
-            $breadCrumbMessage = preg_replace('/%l/', $this->filterConfig->getLabel(), $breadCrumbMessageString);
-            $breadCrumbMessage = preg_replace('/%v/', implode(', ', $this->filterValues), $breadCrumbMessage);
-            $breadCrumb->setMessage($breadCrumbMessage);
-		}
-		return $breadCrumb;
+	protected function getFilterValueForBreadCrumb() {
+	   return implode(', ', $this->filterValues);	
 	}
+	
 }

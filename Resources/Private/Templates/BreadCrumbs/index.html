@@ -19,12 +19,11 @@ Here is a list of objects / variables that can be accessed in this template
 <f:for each="{breadcrumbs}" as="breadcrumb">
     <f:if condition="{breadcrumb.message}">
 	    <li>
-	    {breadcrumb.message} 
-	    <f:if condition="{settings.breadCrumbs.showResetLinks}">
+	    {breadcrumb.message}  
 	        <f:if condition="{breadcrumb.isResettable}">
+	            <!-- &nbsp;<f:link.action action="resetFilter" arguments="{extlist:namespace.GPArray(object:'{breadcrumb}' arguments:'filterIdentifier : {breadcrumb.filter.filterIdentifier}, filterboxIdentifier : {breadcrumb.filter.filterboxIdentifier}')}">reset</f:link.action>  --> 
 	            &nbsp;<f:link.action action="resetFilter" arguments="{filterIdentifier : breadcrumb.filter.filterIdentifier filterboxIdentifier : breadcrumb.filter.filterboxIdentifier}">reset</f:link.action>
 	        </f:if>
-	    </f:if>
 	    </li>
     </f:if>
 </f:for>

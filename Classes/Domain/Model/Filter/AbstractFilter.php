@@ -528,6 +528,37 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     
     
     /**
+     * Returns filter breadcrumb for this filter.
+     * Most likely to be overwritten in concrete filter class.
+     *
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     */
+    public function getFilterBreadCrumb() {
+        $breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+        
+        if ($this->filterValue != '') {
+            $breadCrumbMessageString = $this->filterConfig->getBreadCrumbString();
+            $breadCrumbRenderArray = $breadCrumbMessageString;
+            // Replacement has to be done here, as value of filter is not public
+            $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderByCoaArray(array('label' => $this->filterConfig->getLabel(), 'value' => $this->getFilterValueForBreadCrumb()), $breadCrumbRenderArray);
+            $breadCrumb->setMessage($breadCrumbMessage);
+        }
+        $breadCrumb->setIsResettable(true);
+        return $breadCrumb;
+    }
+    
+    
+    
+    /**
+     * Returns a string to be shown as filter value in breadcrumb
+     * 
+     * @return string
+     */
+    abstract protected function getFilterValueForBreadCrumb();
+    
+    
+    
+    /**
      * Returns a field configuration for a given identifier
      *
      * @param string $fieldIdentifier
