@@ -58,7 +58,6 @@ class Tx_PtExtlist_Domain_Model_State_State_testcase extends Tx_PtExtlist_Tests_
 		$state->setStatedata('stateData');
 		
 		$this->assertEquals('stateData', $state->getStatedata());
-		$this->assertEquals($state->calculateStateHash('stateData'), $state->getHash());
 	}
 
 	
@@ -70,7 +69,6 @@ class Tx_PtExtlist_Domain_Model_State_State_testcase extends Tx_PtExtlist_Tests_
 		$state->setStateDataByArray($stateData);
 		
 		$this->assertEquals($stateData, $state->getStateDataAsArray());
-		$this->assertEquals($state->calculateStateHash(serialize($stateData)), $state->getHash());
 	}
 }
 ?>

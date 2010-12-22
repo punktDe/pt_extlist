@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 		$mockView = $this->getMock(
     		'Tx_Fluid_Core_View_TemplateView',
 	       	array('assign'), array(), '', FALSE);
-	    $mockView->expects($this->once())->method('assign')->with('filterbox', $mockFilterbox);
+	    //$mockView->expects($this->once())->method('assign')->with('filterbox', $mockFilterbox);
 	
         $mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
