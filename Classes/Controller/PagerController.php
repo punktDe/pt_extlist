@@ -53,7 +53,6 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * Injects the settings of the extension.
 	 *
 	 * @param array $settings Settings container of the current extension
-	 * @return void
 	 */
 	public function injectSettings(array $settings) {
 		parent::injectSettings($settings);

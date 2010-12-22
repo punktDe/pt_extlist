@@ -69,6 +69,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 *
 	 * @param string $filterIdentifier Identifier of filter to be resetted
 	 * @param string $filterboxIdentifier Identifier of filterbox of filter to be resetted
+	 * @return string The rendered reset filter action
 	 */
 	public function resetFilterAction($filterIdentifier, $filterboxIdentifier) {
 		$filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
