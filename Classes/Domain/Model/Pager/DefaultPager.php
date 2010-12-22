@@ -248,7 +248,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface::getSessionNamespace()
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.'.$this->listIdentifier.'.pager';
+		return $this->listIdentifier.'.pager';
 	}
 
 	

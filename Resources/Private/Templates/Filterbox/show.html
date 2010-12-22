@@ -5,6 +5,7 @@ Template for filterbox plugin
 
 Here is a list of objects / variables that can be accessed in this template
 
+Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder				config						A instance of the configurationbuilder
 Tx_PtExtlist_Domain_Model_Filter_Filterbox                          filterbox                   Holds an instance for the filterbox object
 bool                                                                filtersDontValidate         True, if filters do not validate
 
@@ -14,9 +15,8 @@ bool                                                                filtersDontV
 @author Daniel Lienert <lienert@punkt.de>
 -->
 </extlist:comment>
-
-<div class="tx-ptextlist-filterbox tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
-	<f:form controller="Filterbox" action="submit" method="post">
+<div class="tx-ptextlist-filterbox" id="tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
+	<extlist:form controller="Filterbox" action="submit" method="{f:if(condition: '{config.listConfig.useSession}', then: 'POST', else: 'GET')}">
 		
 		<f:if condition="{filtersDontValidate}">
 			<div class="error">
@@ -48,5 +48,5 @@ bool                                                                filtersDontV
 				</div>
 			</div>
 		</div>
-	</f:form>
-</div> 
+	</extlist:form>
+</div>

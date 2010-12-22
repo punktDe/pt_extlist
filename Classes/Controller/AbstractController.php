@@ -90,7 +90,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	public function injectSettings(array $settings, $initConfigurationBuilder = TRUE, $initDataBackend = TRUE) {
 		parent::injectSettings($settings);
-		
+
 		if ($this->settings['listIdentifier'] != '') {
 		    $this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
@@ -211,6 +211,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         }
 	}
 	
+	
+	protected function initializeAction() {
+		
+		parent::initializeAction();
+		
+	}
 	
     
     /**

@@ -28,6 +28,7 @@
 /**
  * 
  * TODO: Enter description here ...
+ * @package ViewHelpers
  *
  */
 class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
@@ -41,6 +42,7 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 	 * @param $captionKey string
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption") {
+		
 		$output = '';
 		if ($headers === NULL || $captions === NULL) {
 			return '';

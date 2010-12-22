@@ -41,7 +41,11 @@ class Tx_PtExtlist_Utility_NameSpaceArray {
 	 * @return array
 	 */
 	public static function getArrayContentByArrayAndNamespace($array, $namespace) {
+		
+		if(!$namespace) return $array;
+		
 		$namespaceArray = self::getNamespaceArrayByNamespaceString($namespace);
+		
 		$returnArray = $array;
 		foreach($namespaceArray as $namespaceChunk) {
 			if (array_key_exists($namespaceChunk, $returnArray)) {

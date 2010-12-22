@@ -26,8 +26,8 @@
 /**
  * Databackend configuration class. Holds configuration parameters for the dataBackend
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\DataBackend
+ * @package Domain
+ * @subpackage Configuration\DataBackend
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {

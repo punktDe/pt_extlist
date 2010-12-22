@@ -28,8 +28,8 @@
  * 
  * TODO this testcase will not run standalone as it requires Extbase Dispatcher to be set up (compare testcase for ExtBase DataBackend!)
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Repository\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

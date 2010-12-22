@@ -48,7 +48,16 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * 
 	 * @var array
 	 */
-	private $sessionData = array();
+	protected $sessionData = array();
+	
+	
+	
+	/**
+	 * HashKey identifies sessionData
+	 * 
+	 * @var string
+	 */
+	protected $sessionHash = NULL;
 	
 	
 	
@@ -57,7 +66,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 *
 	 * @param tx_pttools_sessionStorageAdapter $sessionAdapter
 	 */
-	public function injectSessionAdapter(tx_pttools_sessionStorageAdapter $sessionAdapter) {
+	public function injectSessionAdapter(tx_pttools_iStorageAdapter $sessionAdapter) {
 		$this->sessionAdapter = $sessionAdapter;
 	}
 	
@@ -70,6 +79,11 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function persistToSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
 		$sessionNamespace = $object->getObjectNamespace();
+		
+		if($this->sessionHash != NULL &&  $this->sessionHash != md5(serialize($this->sessionData))) {
+			throw new Exception('Session Hash already calculated and current sessiondata changed!! 1293004344'. $sessionNamespace . ': Calc:' . $this->sessionHash . ' NEW: ' . md5(serialize($this->sessionData)));
+		}
+		
 		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
 	    
@@ -185,6 +199,19 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
 	}
 	
+	
+	
+	/**
+	 * Return the hash of the currently set sessiondata
+	 * After this method is called, it is not allowed to manipulate the session data
+	 * 
+	 * @return string hash
+	 */
+	public function getSessionDataHash() {
+		if($this->sessionHash == NULL) {
+			$this->sessionHash = md5(serialize($this->sessionData));
+		}
+		return $this->sessionHash;
+	}
 }
-
 ?>

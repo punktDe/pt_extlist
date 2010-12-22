@@ -27,8 +27,8 @@
  * Data backend for typo3 database
  * 
  * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage DataBackend\Typo3DataBackend
  *
  * TODO implement T3 db object methods for query (hidden fields, deleted rows etc...)
  *  

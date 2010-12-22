@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterCriteria()
 	 */
-	protected function buildFilterCriteria() {}
+	protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
 	
 	
 	/**

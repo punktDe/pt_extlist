@@ -16,14 +16,22 @@ $controllerActions = array(															// An array holding the controller-act
 		'Pager' => 'show,submit',
 	    'Bookmarks' => 'show,process,edit,update,delete,create,new',
 	    'BreadCrumbs' => 'index,resetFilter',
-	    'DocBook' => 'createTsDocBook'
 		);
 
+		
+		
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
 	'Pi1',																			// A unique name of the plugin in UpperCamelCase
 	$controllerActions,
 	$controllerActions
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
+	'Cached',																		// A unique name of the plugin in UpperCamelCase
+	$controllerActions,
+	array()
 );
 
 

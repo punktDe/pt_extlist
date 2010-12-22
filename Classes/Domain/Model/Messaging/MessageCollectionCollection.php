@@ -27,8 +27,8 @@
  * Class implements a collection of a collection of messages
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Messaging
  */
 class Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection extends tx_pttools_objectCollection {
 

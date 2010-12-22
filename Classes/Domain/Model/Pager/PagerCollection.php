@@ -158,7 +158,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->configurationBuilder->getListIdentifier() . '.pagerCollection';
+		return $this->configurationBuilder->getListIdentifier() . '.pagerCollection';
 	}
 	
 	

@@ -26,8 +26,8 @@
 
 /**
  * 
- * TODO: Enter description here !!!
- *
+ * @package Domain
+ * @subpackage Security
  */
 class Tx_PtExtlist_Domain_Security_SecurityFactory {
 

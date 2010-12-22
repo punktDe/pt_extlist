@@ -79,11 +79,7 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 */
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
 		
-		// TODO when fiterConfig returns a a real FieldDescription object remove this
-		
-		$fieldIdentifier = $filterConfig->getFieldIdentifier();
-		$fieldIds = t3lib_div::trimExplode(',', $fieldIdentifier);
-		$fieldConfigCollection = $fieldConfigCollection = $configBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIds);
+		$fieldConfigCollection =  $filterConfig->getFieldIdentifier();
 		
 		// FAIL if one of this tests are failing.
 		if(!$this->checkFields($fieldConfigCollection)) {

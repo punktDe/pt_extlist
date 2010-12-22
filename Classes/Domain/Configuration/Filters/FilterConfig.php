@@ -97,10 +97,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	
 	
 	
-	/**
-	 * Identifier of field to which this filter belongs to
-	 * // TODO ry21 could be the actual fieldDescription object instead of its name?
-	 * @var string
+	/** 
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
 	
@@ -240,6 +238,16 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	
 	
 	/**
+	 * Holds string to be shown as bread
+	 * crumb message for this filter
+	 *
+	 * @var string
+	 */
+	protected $breadCrumbString;
+	
+	
+	
+	/**
 	 * Build the filterconfig object
 	 * 
 	 * @param array $settings
@@ -262,7 +270,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setRequiredValue('filterIdentifier', 'No filterIdentifier specified in config. 1277889452');
 		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552');
 		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
-		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key parialPath). 1281013746');
+		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key partialPath). 1281013746');
+		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
+		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 		
 		// optional
 		$this->setBooleanIfExistsAndNotNothing('invert');
@@ -271,6 +282,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setValueIfExists('defaultValue');
 		$this->setValueIfExists('inactiveOption');
 		$this->setValueIfExists('inactiveValue');
+		$this->setValueIfExists('breadCrumbString');
+		$this->setValueIfExists('label');
 		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		
@@ -344,7 +357,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     
     
     /**
-     * @return unknown
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
     public function getFieldIdentifier() {
         return $this->fieldIdentifier;
@@ -484,6 +497,18 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 */
 	public function getRenderUserFunctions() {
 		return $this->renderUserFunctions;
+	}
+
+	
+	
+	/**
+	 * Returns bread crumb string to be shown as 
+	 * message for this filter
+	 *
+	 * @return string
+	 */
+	public function getBreadCrumbString() {
+		return $this->breadCrumbString;
 	}
 	
 	

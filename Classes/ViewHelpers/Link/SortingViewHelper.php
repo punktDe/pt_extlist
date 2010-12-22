@@ -24,6 +24,14 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+
+/**
+ * 
+ * TODO: Enter description here ...
+ * @package ViewHelpers
+ * @subpackage Link
+ *
+ */
 class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
 	/**
@@ -34,10 +42,10 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort') {
 		$value = $this->invertSortingState($header->getSortingState());		
 		
-		$gpVarViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$param = $gpVarViewHelper->buildObjectValueArray($header, 'sortingState', $value);
-	
-		return parent::render($action,$param);
+		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingState', $value);
+		$gpArrayViewHelper->addStateHash($argumentArray);
+		return parent::render($action,$argumentArray);
 	}
 	
 	/**

@@ -10,6 +10,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+		breadCrumbString = %l equals '%v'
 		partialPath = Filter/String/StringFilter
 		defaultValue = 
 		accessGroups =
@@ -17,6 +18,7 @@ plugin.tx_ptextlist.prototype.filter {
 	
 	max {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MaxFilter
+		breadCrumbString = %l is below %v
 		partialPath = Filter/Range/MaxFilter
 		defaultValue = 
 		accessGroups =
@@ -26,6 +28,7 @@ plugin.tx_ptextlist.prototype.filter {
 	
 	min {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MinFilter
+		breadCrumbString = %l is above %v
 		partialPath = Filter/Range/MinFilter
 		defaultValue = 
 		accessGroups =
@@ -37,7 +40,7 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		#dataProviderClassName = 
-				
+	    breadCrumbString = %l contains %v
 		defaultValue =
 		filterIdentifier =
 		label = 
@@ -64,6 +67,7 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Options/CheckBoxFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
 		#dataProviderClassName = 
+		breadCrumbString = %l contains %v
 				
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
@@ -93,6 +97,7 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Options/RadioButtonFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
 		#dataProviderClassName = 
+		breadCrumbString = %l equals %v
 				
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
@@ -121,6 +126,7 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Options/FirstLetterFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
 		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
+		breadCrumbString = %l starts with '%v'
 		
 		defaultValue =
 		

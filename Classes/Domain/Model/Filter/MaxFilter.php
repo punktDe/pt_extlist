@@ -43,12 +43,13 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
     
     
     
-    /**
-     * Creates filter query from filter value and settings
-     */
-    protected function buildFilterCriteria() {
+   	/**
+   	 * (non-PHPdoc)
+   	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteriaForField()
+   	 */
+    protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
     	if($this->isActive) {
-    		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+    		$columnName = $fieldIdentifier->getTableFieldCombined();
     		$filterValue = intval($this->filterValue);
 	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($columnName, $filterValue);	
     	}
@@ -58,26 +59,37 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
     
     
     
+    /**
+     * Validates filter 
+     *
+     * @return bool True, if filter validates
+     */
     public function validate() {
     	$validation = $this->filterConfig->getSettings('validation');
     	
-    	if(!$this->isActive) return 1;
+    	if(!$this->isActive) return true;
 
+    	// Check whether given value is above max value set in TS
     	if(array_key_exists('maxValue', $validation) 
     		&& intval($this->filterValue) > $validation['maxValue']) {
     			
+    			// TODO localize this string!
     			$this->errorMessage = 'Value is not allowed to be bigger than '.$validation['maxValue'];
-    			return 0;
+    			return false;
     	}
     	
+    	// Check whether min value is below min value set in TS
     	if(array_key_exists('minValue', $validation) 
     		&& intval($this->filterValue) < $validation['minValue']) {
+    			
+    			// TODO localize this string!
     			$this->errorMessage = 'Value is not allowed to be smaller than '.$validation['minValue'];
-    			return 0;
+    			return false;
     	}
     	
-    	return 1;
+    	return true;
     }
+    
 }
 
 ?>

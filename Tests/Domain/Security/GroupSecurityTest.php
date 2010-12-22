@@ -79,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field2'));
+			->will($this->returnValue($this->buildFieldCollection('field2')));
 			
 		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 		
@@ -90,7 +90,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 		
 
 			
@@ -108,7 +108,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1,field3'));
+			->will($this->returnValue($this->buildFieldCollection('field1,field3')));
 
 		
 		$this->securityMock->_set('usergroups','foobar, bar');
@@ -121,7 +121,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->once())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 		
 		$this->securityMock->_set('usergroups','whatever');	
 			
@@ -133,7 +133,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1,field3'));
+			->will($this->returnValue($this->buildFieldCollection('field1,field3')));
 
 		
 		$this->securityMock->_set('usergroups','foobar,whatever');
@@ -147,7 +147,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field2'));
+			->will($this->returnValue($this->buildFieldCollection('field2')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -165,7 +165,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field2'));
+			->will($this->returnValue($this->buildFieldCollection('field2')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -183,7 +183,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -201,7 +201,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -219,7 +219,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -237,7 +237,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -255,7 +255,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -272,7 +272,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field1'));
+			->will($this->returnValue($this->buildFieldCollection('field1')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -289,7 +289,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field5'));
+			->will($this->returnValue($this->buildFieldCollection('field5')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -306,7 +306,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		$this->filterConfigMock
 			->expects($this->any())
 			->method('getFieldIdentifier')
-			->will($this->returnValue('field5'));
+			->will($this->returnValue($this->buildFieldCollection('field5')));
 			
 		$this->filterConfigMock
 			->expects($this->any())
@@ -442,6 +442,11 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 		
 		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
 		$this->assertFalse($access);
+	}
+	
+	protected function buildFieldCollection($fields) {
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $fields);
+		return  $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 	}
 	
 }

@@ -26,8 +26,8 @@
 /**
  * Factory to create configs for pager
  *
- * @package pt_extlist
- * @subpackage Domain\Configuration\Pager
+ * @package Domain
+ * @subpackage Configuration\Pager
  * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  */
