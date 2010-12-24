@@ -57,6 +57,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 */
 	public function indexAction() {
 		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+			$this->configurationBuilder,
 		    $this->filterboxCollection
 		);
 		$this->view->assign('breadcrumbs', $breadcrumbs);
@@ -70,6 +71,13 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 * @return string The rendered reset filter action
 	 */
 	public function resetFilterAction() {
+		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+		    $this->configurationBuilder,
+			$this->filterboxCollection
+		);
+		
+		$breadcrumbs->resetFilters();
+		 
 		//$filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
 		//$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
 		//$filter->reset();
