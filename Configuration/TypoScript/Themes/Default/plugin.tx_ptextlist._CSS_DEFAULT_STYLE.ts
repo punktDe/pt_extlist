@@ -1,57 +1,57 @@
-plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
+plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* List */
-	.pt-extlist-list {
+	.tx-ptextlist-list {
 		width: 99.9%;
 		margin-left: 1px;
 	}
 	
-	.pt-extlist-list-standard th {
+	.tx-ptextlist-list-standard th {
 		background: #AAA;
 		border:  1px solid #bfbfbf;
 	}
 	
-	.pt-extlist-list-standard td {
+	.tx-ptextlist-list-standard td {
 		border: 1px solid #bfbfbf;
 		margin: 0px;
 		padding: 2px 4px 2px 4px;
 		vertical-align: top;
 	}
 	
-	.pt-extlist-list-standard {
+	.tx-ptextlist-list-standard {
 		border-collapse: collapse;
 		border-spacing: 0;
 		font-size: 12px;
 	}
 	
-	.pt-extlist-list-standard tr.odd {
+	.tx-ptextlist-list-standard tr.odd {
 		background-color: #ffffff;
 	}
 	
-	.pt-extlist-list-standard tr.even {
+	.tx-ptextlist-list-standard tr.even {
 		background-color: #F5F5F5;
 	}
 	
 	
 	/* Listheader */
-	.pt-extlist-list-standard th {
+	.tx-ptextlist-list-standard th {
 		padding: 4px;
 		background: #AAA;
 		border:  1px solid #bfbfbf;
 	}
 	
 	
-	.pt-extlist-list-header a {
+	.tx-ptextlist-list-header a {
 		text-decoration: none;
 	}
 	
-	.pt-extlist-list-header a img {
+	.tx-ptextlist-list-header a img {
 		border: none;
 	}
 	
 	/* Aggregates */
-	.pt-extlist-aggregaterow {
+	.tx-ptextlist-aggregaterow {
 		background-color: #DDDDDD;
 		font-weight: bold;
 	}
@@ -59,29 +59,31 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* Filters */
-	.pt-extlist-filter {
+	.tx-ptextlist-filter {
 		float: left;
 		padding: 3px;
 		list-style-type: none;
 	}
 	
-	.pt-extlist-filters {
+	.tx-ptextlist-filters {
 		list-style-type: none;
 	}
 	
-	.pt-extlist-filterboxcontrols {
+	.tx-ptextlist-filterboxcontrols {
 		float: left;
 		padding: 18px 0 0 10px;
 	}
 	
-	.pt-extlist-filterbox{
+	.tx-ptextlist-filterbox{
 		border: 1px solid #BFBFBF;
 		margin-bottom: 20px;
 		padding: 5px;
 		overflow: hidden;
 	}
-	
-	.pt-extlist-filter-firstLetter{
+
+
+	/* Filters | Firstletter */	
+	.tx-ptextlist-filter-firstLetter{
 		float: left;
 		padding: 3px;
 		list-style-type: none;
@@ -94,16 +96,16 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* Pager */
-	.pt-extlist-pager {
+	.tx-ptextlist-pager {
 		margin-left: 0;
 		text-align: center;
 	}
 	
-	.pt-extlist-pager li {
+	.tx-ptextlist-pager li {
 		display: inline;
 	}
 	
-	.pt-extlist-pager-item-display {
+	.tx-ptextlist-pager-item-display {
 		color: #777;
 	}
 )
