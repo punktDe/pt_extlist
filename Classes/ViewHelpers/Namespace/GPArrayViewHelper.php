@@ -45,16 +45,16 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $arguments) {
 		$GetPostValueArray = array();
 		$argumentStringArray = $this->getArgumentArray($arguments);
-
+		$argumentArray = array();
+		
 		foreach($argumentStringArray as $key => $value) {
 			if($value === false) {
 				$value = $this->getObjectValue($object, $key);
 			}
 			 
-			$argumentArray[] = $this->buildObjectValueArray($object, $key, $value);
+			$argumentArray = array_merge_recursive($argumentArray, $this->buildObjectValueArray($object, $key, $value));
 		}
 
-		if(count($argumentArray) == 1) $argumentArray = $argumentArray[0];
 		$this->addStateHash($argumentArray);
 		
 		return $argumentArray;
@@ -155,7 +155,6 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 
 		// Add value
 		$pointer[$key] = $value;
-		
 		return $returnArray;
 	}
 	

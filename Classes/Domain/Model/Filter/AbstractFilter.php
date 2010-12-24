@@ -534,14 +534,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
      */
     public function getFilterBreadCrumb() {
-        $breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+        
+    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
         
         if ($this->getFilterValueForBreadCrumb() != '') {
             $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
-            var_dump($this->getFieldsForBreadcrumb());
+            
             $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
                 $this->getFieldsForBreadcrumb(), 
                 $breadCrumbRenderArray);
+            
             $breadCrumb->setMessage($breadCrumbMessage);
             $breadCrumb->setIsResettable(true);
         }

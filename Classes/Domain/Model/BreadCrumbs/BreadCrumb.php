@@ -33,12 +33,19 @@
 class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 	
 	/**
+	 * The listIdentifier for which this pager is active.
+	 * 
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
+	
+	/**
 	 * Associated filter object
 	 *
 	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	protected $filter;
-	
 	
 	
 	/**
@@ -49,13 +56,13 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	protected $message;
 	
 	
-	
 	/**
 	 * True, if filter can be resetted via breadcrumb
 	 *
 	 * @var bool
 	 */
 	protected $isResettable = true;
+	
 	
 	/**
 	 * Constructor for breadcrumb. Takes filter object to show breadcrumb for as parameter
@@ -64,6 +71,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter) {
 		$this->filter = $filter;
+		$this->listIdentifier = $filter->getListIdentifier();
 	}
 
 	
@@ -74,8 +82,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	 * @return String
 	 */
 	public function getObjectNamespace() {
-	// TODO list identifier required!
-	   return 'demolist.breadcrumb';
+	   return $this->listIdentifier . '.demolist.breadcrumb';
 	}
 	
 	
