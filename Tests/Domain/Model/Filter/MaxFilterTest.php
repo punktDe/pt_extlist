@@ -75,7 +75,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
 	public function testCriteria() {
 		$filterMock = $this->getFilterMock(5,10,1);
 		
-		$criteria = $filterMock->_callRef('buildFilterCriteria');
+		$fieldConfig = $this->buildFieldCollection('field1')->getFieldConfigByIdentifier('field1');
+		
+		$criteria = $filterMock->_callRef('buildFilterCriteria',$fieldConfig);
 		$this->assertTrue(is_a($criteria,'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
 		
 		$this->assertEquals('<=',$criteria->getOperator());

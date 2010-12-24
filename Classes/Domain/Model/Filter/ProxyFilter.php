@@ -87,6 +87,8 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	
 	public function getFilterBreadCrumb() {}
 	
+	public function getFilterValueForBreadCrumb() {}
+	
 	public function persistToSession() {}
 	
 	

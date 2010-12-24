@@ -77,10 +77,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 		);
 		
 		$breadcrumbs->resetFilters();
-		 
-		//$filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
-		//$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
-		//$filter->reset();
+
 		$this->forward('index');
 	}
 	
