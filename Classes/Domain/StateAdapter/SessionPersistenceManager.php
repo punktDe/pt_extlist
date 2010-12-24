@@ -194,9 +194,14 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
 	 */
 	public function processBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+		/*
+		 * Bookmarks are currently not working! 
+		 * TODO: Fix them with new Session namespace
+		 * 
 		$bookmarkContentArray = unserialize($bookmark->getContent());
 		$namespace = 'tx_ptextlist_pi1.' . $bookmark->getListId() . '.filters';
 		$this->sessionData = Tx_PtExtlist_Utility_NameSpaceArray::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
+		*/
 	}
 	
 	

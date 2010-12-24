@@ -63,10 +63,11 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 */
 	private static function getStorageAdapter() {
 		
-		//return tx_pttools_sessionStorageAdapter::getInstance();
-		return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();
+		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+			return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
+		} else {
+			return tx_pttools_sessionStorageAdapter::getInstance();	
+		}
 	}
-	
 }
-
 ?>
