@@ -452,7 +452,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function buildFilterQuery() {
-		if($this->isActive) $criteria = $this->buildFilterCriteria();
+		if($this->isActive) $criteria = $this->buildFilterCriteriaForAllFields();
 			
 		if($criteria) {
 			if($this->invert) {
@@ -471,18 +471,26 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	abstract protected function setActiveState();
 	
 	
+
+	/**
+	 * Build the filterCriteria for a single field
+	 * 
+	 * @api
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+	 */
+	abstract protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
+	
 	
 	/**
 	 * Build the filterCriteria for filter 
 	 * 
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
 	 */
-	protected function buildFilterCriteria() {
-		
+	protected function buildFilterCriteriaForAllFields() {
 		$criteria = NULL;
 		
 		foreach($this->fieldIdentifierCollection as $fieldIdentifier) {	
-			$singleCriteria = $this->buildFilterCriteriaForField($fieldIdentifier);
+			$singleCriteria = $this->buildFilterCriteria($fieldIdentifier);
 			
 			if($criteria) {
 				$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria, $singleCriteria);
@@ -493,14 +501,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		
 		return $criteria;
 	}
-	
-	
-	/**
-	 * Build the filterCriteria for a single field
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-	 */
-	abstract protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
 	
 
 	/**

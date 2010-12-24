@@ -45,9 +45,9 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
     
    	/**
    	 * (non-PHPdoc)
-   	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteriaForField()
+   	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteria()
    	 */
-    protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
     	if($this->isActive) {
     		$columnName = $fieldIdentifier->getTableFieldCombined();
     		$filterValue = intval($this->filterValue);
