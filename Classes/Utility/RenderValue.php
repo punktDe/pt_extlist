@@ -129,25 +129,76 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * Render data in default mode, eg implode with ','
 	 *
 	 * @param array $data
-	 * @return string rendered data
+	 * @return mixed rendered data
 	 */
-	public static function renderDefault(array $data) {
-		if(!is_array(current($data))) {
-			return implode(', ', $data);
-
-		} else {
-			$defaultRenderString = '';
-			foreach($data as $row) {
-				foreach($row as $label => $field) {
-					$defaultRenderString .= $label . ' : ' . $field . ', ';
-				}
+	public static function renderDefault($data) {
+		$renderedFields = array();
+		
+		foreach($data as $fieldIdentifier => $field) {
+			
+			// If $data is an object - print all accessible attributes
+			if(is_object($field)) {
+				$renderedFields[] = self::renderDefaultObject($field);
+			
+			// If $data is an array of key/values write a key/value list
+			} elseif(is_array($field)) {
+				$renderedFields[] = self::renderDefaultArray($field);
+	
+			} else {
+				$renderedFields[] = $field;
 			}
-
-			return $defaultRenderString;
 		}
+		
+		return implode(', ', $renderedFields);
 	}
 
+	
+	
+	/**
+	 * Print the given array as key-value list
+	 * 
+	 * @param array $array
+	 * @return string
+	 */
+	protected static function renderDefaultArray(array $array) {
+		$defaultRenderString = '';
+		
+		foreach($data as $row) {
+			foreach($row as $label => $field) {
+				$defaultRenderString .= $label . ' : ' . $field . "<br>\n";
+			}
+		}
+	
+		return $defaultRenderString;
+	}
+	
+	
+	
+	/**
+	 * Render a key value list of the given object
+	 * 
+	 * @param object $object
+	 * @return string
+	 */
+	protected static function renderDefaultObject($object) {
+		$defaultRenderString = '';
+		
+		$objectMethods = get_class_methods(get_class($object));
+		
+		foreach($objectMethods as $objectMethod) {
+			if(substr($objectMethod,0,3) == 'get') {
+				$key = substr($objectMethod,3);
+				$value = $object->$objectMethod();
+				
+				if(is_object($value)) $value = $key . ' (OBJECT)';
+				$defaultRenderString .= $key . ' : ' . $value . "<br>\n";
+			}
+		}
+		
+		return $defaultRenderString;
+	}
 
+	
 
 	/**
 	 * Render the given dataValues with cObj

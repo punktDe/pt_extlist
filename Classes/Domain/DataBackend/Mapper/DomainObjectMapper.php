@@ -47,7 +47,13 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
-				$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
+				
+				if($property == '__object__') {
+					$value = $domainObject;
+				} else {
+					$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
+				}
+				
 				$listDataRow->createAndAddCell($value, $fieldConfiguration->getIdentifier());
 			}
 			$listData->addRow($listDataRow);
@@ -115,6 +121,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	protected function getPropertyValueSafely($object, $property) {
 		$getterMethodName = 'get' . ucfirst($property);
+		
 		if (method_exists($object, $getterMethodName)) {
 			return $object->$getterMethodName();
 		} else {

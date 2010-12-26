@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	public function getListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
-		#print_r($data);
+		
 		$mappedListData = $this->dataMapper->getMappedListData($data);
 		return $mappedListData;
 	}
@@ -184,6 +184,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
         $query->setLimit($limitPart);
         
         $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+        
+        $extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+        
         return $extbaseQuery;
 	}
 	
@@ -207,7 +210,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
 	 */
 	protected function buildGenericQueryExcludingFilters(array $excludeFilters = array()) {
-	    $query = new Tx_PtExtlist_Domain_QueryObject_Query();
+	    
+		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+	    
 	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 		    	if (!in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
@@ -218,6 +223,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
                 }
             }
         }
+        
         return $query;
 	}
 	
