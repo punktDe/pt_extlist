@@ -148,7 +148,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 				$renderedFields[] = $field;
 			}
 		}
-		
+
 		return implode(', ', $renderedFields);
 	}
 
@@ -161,15 +161,13 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @return string
 	 */
 	protected static function renderDefaultArray(array $array) {
-		$defaultRenderString = '';
+		$renderedFields = array();
 		
-		foreach($data as $row) {
-			foreach($row as $label => $field) {
-				$defaultRenderString .= $label . ' : ' . $field . "<br>\n";
-			}
+		foreach($array as $label => $field) {
+			$renderedFields[] = $label . ' : ' . $field;
 		}
-	
-		return $defaultRenderString;
+
+		return implode(', ', $renderedFields);
 	}
 	
 	
@@ -181,7 +179,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @return string
 	 */
 	protected static function renderDefaultObject($object) {
-		$defaultRenderString = '';
+		$renderedFields = array();
 		
 		$objectMethods = get_class_methods(get_class($object));
 		
@@ -191,11 +189,11 @@ class Tx_PtExtlist_Utility_RenderValue {
 				$value = $object->$objectMethod();
 				
 				if(is_object($value)) $value = $key . ' (OBJECT)';
-				$defaultRenderString .= $key . ' : ' . $value . "<br>\n";
+				$renderedFields[] = $key . ' : ' . $value;
 			}
 		}
 		
-		return $defaultRenderString;
+		return implode(', ', $renderedFields);
 	}
 
 	
