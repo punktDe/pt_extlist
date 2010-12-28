@@ -173,7 +173,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 */
 	protected function buildExtBaseQuery() {
 		$query = $this->buildGenericQueryWithoutPager();
-        
+		
         // Collect pager limit
         if ($this->pagerCollection->isEnabled()) {
             $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
@@ -248,7 +248,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
-		return $extbaseQuery = $this->buildExtBaseQueryWithoutPager()->count();
+		return $this->buildExtBaseQueryWithoutPager()->count();
 	}
 	
 	
