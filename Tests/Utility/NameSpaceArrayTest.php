@@ -26,8 +26,8 @@
 /**
  * Class implements a testcase for namespace utility class
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Utility
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

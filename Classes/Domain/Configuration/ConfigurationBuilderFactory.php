@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	
 	/**
 	 * Returns a singleton instance of a configurationBuilder class
-	 * @param $settings The current settings for this extension.
+	 * @param $listIdentifier the listidentifier of the list
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder 
 	 */
 	public static function getInstance($listIdentifier = NULL) {

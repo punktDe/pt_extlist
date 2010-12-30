@@ -27,7 +27,7 @@
  * Testcase for database utility class
  *
  * @package Tests
- * @subpackage pt_extlist
+ * @subpackage Utility
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Utility_DbUtils_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

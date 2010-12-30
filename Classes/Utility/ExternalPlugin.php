@@ -37,7 +37,8 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * Initialize and return a DataBackend with the given listIndentifier
 	 *  
 	 * @param string $listIdentifier
-	 * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 * @param array $customTs If this 
+	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
 	 */
 	public static function getDataBackend($listIdentifier) {
 		
@@ -47,12 +48,47 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 			$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
 			self::loadLifeCycleManager();
 			
-			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($extListTs);
+			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);	
 		}
 		
 		return $extListBackend;
 	}
+	
+	
+	
+	/**
+	 * Get the databackend by a custom list configuration ts array
+	 * The Typoscript is identified by the given listIdentifier and merged with the extlist configuration 
+	 * 
+	 * @param array $customTSArray Custom typoscript list configuration in extBase format
+	 * @param string $listIdentifier a listIdentifier to identify the custom list 
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 */
+	public static function getDataBackendByCustomConfiguration(array $customTSArray, $listIdentifier) {
+		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
+		self::loadLifeCycleManager();
+		
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+		
+		return  Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);	
+	}
+	
+	
+	
+	/**
+	 * Return the list object by listIdentifier
+	 * 
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 */
+	public static function getListByDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {	
+		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($dataBackend, $dataBackend->getConfigurationBuilder());
+	}
+	
+
 	
 	/**
 	 * Read the Session data into the cache
@@ -65,17 +101,23 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	}
 	
 	
+	
 	/**
 	 * Get Typoscript for defined listIdentifier
 	 * 
 	 * @param string $listIdentifier
+	 * @param array $customTSArray custom ts array
 	 * @throws Exception
 	 * @return array
 	 */
-	protected static function getExtListTyposcriptSettings($listIdentifier) {
+	protected static function getExtListTyposcriptSettings($listIdentifier, $customTSArray = NULL) {
 		$extListTS = tx_pttools_div::getTS('plugin.tx_ptextlist.settings.');
 		$extListTSArray = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
-
+		
+		if(is_array($customTSArray)) {
+			$extListTSArray['listConfig'] = t3lib_div::array_merge_recursive_overrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
+		}
+	
 		if(!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {
 			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page! 1284655053');
 		}

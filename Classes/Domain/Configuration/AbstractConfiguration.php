@@ -161,8 +161,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	 * @throws Exception
 	 */
 	protected function setRequiredValue($tsKey, $errorMessageIfNotExists, $internalPropertyName = NULL) {
-		if (!array_key_exists($tsKey, $this->settings) || !trim($this->settings[$tsKey])) {
-	
+		if (!array_key_exists($tsKey, $this->settings) || (!trim($this->settings[$tsKey]) && !is_array($this->settings[$tsKey]))) {
 			Throw new Exception($errorMessageIfNotExists);
 		}
 		
