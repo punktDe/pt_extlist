@@ -54,7 +54,7 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 * @var Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder
 	 */
 	protected $configurationBuilder;
 	
@@ -64,7 +64,7 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
 	}
 	
