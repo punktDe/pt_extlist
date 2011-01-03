@@ -256,6 +256,22 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 
 	
 	/**
+	 * Return pager by Identifier
+	 * 
+	 * @param string $pagerIdentifier
+	 * @throws Exception
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+	 */
+	public function getPagerByIdentifier($pagerIdentifier) {
+		if(!$this->hasItem($pagerIdentifier)) {
+			throw  new Exception('No pager configuration with id '.$pagerIdentifier.' found. 1282216891');
+		}
+		
+		return $this->getItemById($pagerIdentifier);
+	}
+	
+	
+	/**
 	 * Returns the last page index
 	 * @return int Index of last page
 	 */

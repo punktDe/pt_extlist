@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
 	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
-		$this->setRequiredValue('pagerIdentifier');
+		$this->setRequiredValue('pagerIdentifier', 'No Pager Identifier given');
 
 		$this->setRequiredValue('pagerClassName', 'No class name given for pager "' . $this->pagerIdentifier . '" 1280408323');
 		tx_pttools_assert::isTrue(class_exists($this->pagerClassName), array('message' => 'Given pager class ' . $pagerSettings['pagerClassName'] . ' does not exist or is not loaded! 1279541306'));

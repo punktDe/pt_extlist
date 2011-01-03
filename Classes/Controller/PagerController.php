@@ -46,16 +46,13 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * @var string
 	 */
 	protected $pagerIdentifier;
-	
-	
+
 	
 	/**
-	 * Injects the settings of the extension.
-	 *
-	 * @param array $settings Settings container of the current extension
+	 * (non-PHPdoc)
+	 * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::initializeAction()
 	 */
-	public function injectSettings(array $settings) {
-		parent::injectSettings($settings);
+	public function initializeAction() {
 		$this->pagerCollection = $this->getPagerCollectionInstance();
 		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
 	}
@@ -71,11 +68,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		// Do not show pager when nothing to page.
 		if($this->pagerCollection->getItemCount() <= 0) return '';
 
+		$pager = $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier);
 		
-		tx_pttools_assert::isTrue($this->pagerCollection->hasItem($this->pagerIdentifier), array(message => 'No pager configuration with id '.$this->pagerIdentifier.' found. 1282216891'));
-		$pager = $this->pagerCollection->getItemById($this->pagerIdentifier);
-		
-		// TODO use correct TS setting here!
 		// TODO change testcase to accept this call
 		// TODO think about using initializeView method call for all this
 		#$this->setTemplatePathAndFilename('EXT:pt_extlist/Resources/Private/Templates/Pager/second.html');
@@ -86,31 +80,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		
 		$this->view->assign('pagerCollection', $this->pagerCollection);
 		$this->view->assign('pager', $pager);
-		
 	}
-	
-	
-	
-	/**
-	 * Updates the pager model.
-	 * 
-	 * @author Christoph Ehscheidt <ehscheidt@punkt.de>
-	 * @return string Rendered pager action HTML source
-	 */
-	public function submitAction() {
-		
-		// Only update pager if the listIdentifier equals this list.
-		if ($this->listIdentifier != $list) {
-			$this->forward('show');
-			return;
-		}
-		
-		
-		$this->pagerCollection->setCurrentPage($page);
-		
-		$this->forward('show');
-	}
-	
+
 	
 	
 	/**
@@ -124,7 +95,5 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		
         return $pagerCollection;
 	}
-	
 }
-
 ?>
