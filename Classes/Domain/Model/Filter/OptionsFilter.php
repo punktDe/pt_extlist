@@ -26,7 +26,8 @@
 /**
  * Class implements a generic options filter
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
  * @package Domain
  * @subpackage Model\Filter
  */

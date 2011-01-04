@@ -148,8 +148,12 @@ class Tx_PtExtlist_Utility_RenderValue {
 				$renderedFields[] = $field;
 			}
 		}
-
-		return implode(', ', $renderedFields);
+		
+		if(count($renderedFields) > 1) {
+			return implode(', ', $renderedFields);
+		} else {
+			return current($renderedFields);
+		}
 	}
 
 	
@@ -179,6 +183,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @return string
 	 */
 	protected static function renderDefaultObject($object) {
+		return $object;
 		$renderedFields = array();
 		
 		$objectMethods = get_class_methods(get_class($object));

@@ -26,7 +26,8 @@
 /**
  * Data backend for typo3 database
  * 
- * @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  * @package Domain
  * @subpackage DataBackend\Typo3DataBackend
  *
