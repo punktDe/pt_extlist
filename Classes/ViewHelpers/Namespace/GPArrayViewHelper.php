@@ -40,9 +40,10 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * @param string $arguments : list of arguments
 	 * 	either as list of 'key : value' pairs 
 	 *  or as list of properties wich are then recieved from the object
+	 * @param string $nameSpace
 	 * @return array GPArray of objects namespace
 	 */
-	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $arguments) {
+	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $arguments, $nameSpace = '') {
 		$GetPostValueArray = array();
 		$argumentStringArray = $this->getArgumentArray($arguments);
 		$argumentArray = array();
@@ -51,12 +52,15 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			if($value === false) {
 				$value = $this->getObjectValue($object, $key);
 			}
-			 
-			$argumentArray = array_merge_recursive($argumentArray, $this->buildObjectValueArray($object, $key, $value));
+			
+			if(!$nameSpace) {
+				$argumentArray = $this->buildObjectValueArray($object, $key, $value);
+			} else {
+				$argumentArray = $this->buildNamespaceValueArray($nameSpace, $key, $value);
+			}
 		}
 
 		$this->addStateHash($argumentArray);
-		
 		return $argumentArray;
 	}
 	
