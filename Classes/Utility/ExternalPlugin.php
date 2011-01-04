@@ -114,6 +114,8 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 		$extListTS = tx_pttools_div::getTS('plugin.tx_ptextlist.settings.');
 		$extListTSArray = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
 		
+		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
+		
 		if(is_array($customTSArray)) {
 			$extListTSArray['listConfig'] = t3lib_div::array_merge_recursive_overrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
 		}
