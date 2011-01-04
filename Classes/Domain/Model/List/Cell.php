@@ -226,7 +226,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 			return implode(',', $this->value);
 		}
 
-		throw new Exception('Type of cellValue unknown! If you want to get an object use the getValue() method 1294152251');
+		return 'Unknown Value';
 	}
 }
 ?>
