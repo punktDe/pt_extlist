@@ -78,7 +78,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		foreach ($arrayData as $row) {
 			$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach ($row as $columnName => $value) {
-					$mappedRow->createAndAddCell($value, $columnName);
+				$mappedRow->createAndAddCell($value, $columnName);
 			}
 			$listData->addRow($mappedRow);
 		}
@@ -153,8 +153,5 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	protected function expandGroupedData($value) {
 		return explode(',', $value);
 	}
-	
-	
 }
-
 ?>
