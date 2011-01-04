@@ -27,7 +27,7 @@
 class Tx_PtExtlist_Tests_Domain_Model_Filter_MinFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setup(){
-		
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	public function testSetup() {
@@ -75,7 +75,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MinFilterTest extends Tx_PtExtlist_
 	public function testCriteria() {
 		$filterMock = $this->getFilterMock(5,10,1,false);
 		
-		$criteria = $filterMock->_callRef('buildFilterCriteria');
+		$fieldConfig = $this->buildFieldCollection('field1')->getFieldConfigByIdentifier('field1');
+		
+		$criteria = $filterMock->_callRef('buildFilterCriteria',$fieldConfig);
 		
 		$this->assertTrue(is_a($criteria,'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
 		
@@ -111,9 +113,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MinFilterTest extends Tx_PtExtlist_
 		if($injectConfigMock) $filterMock->_set('filterConfig', $configMock);
 		$filterMock->_set('isActive', $active);
 		$filterMock->_set('filterValue',$filterValue);
-		$filterMock->_set('fieldIdentifier', $fieldMock);
+		$filterMock->_set('fieldIdentifierCollection', $this->buildFieldCollection('field1'));
 		
 		return $filterMock;
+	}
+	
+	protected function buildFieldCollection($fields) {
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $fields);
+		return  $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 	}
 	
 }

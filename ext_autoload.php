@@ -27,8 +27,8 @@ return array(
     'tx_pttools_collection'             => t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_collection.php',
     'tx_pttools_assert'                 => t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_assert.php',
     'tx_pttools_sessionstorageadapter'  => t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_sessionStorageAdapter.php',
-    'tx_pttools_div'                    => t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_div.php'
+    'tx_pttools_div'                    => t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_div.php',
+    'tx_pttools_iStorageAdapter'        => t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_iStorageAdapter.php',
 
 );
-
 ?>

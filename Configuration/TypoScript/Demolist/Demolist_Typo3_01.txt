@@ -7,10 +7,9 @@
 # @subpackage pt_extlist
 ####################################################
 
-
 plugin.tx_ptextlist.settings {
 
-	_LOCAL_LANG.default.emptyList = blabla
+	_LOCAL_LANG.default.emptyList = blabla	
 
 	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist {
@@ -129,7 +128,7 @@ plugin.tx_ptextlist.settings {
 
 				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
 				# if not set, the first entry in dataDescriptionIdentifier will be used
-				sortingFields = name_local
+				sorting = name_local
 
 				renderObj = COA
 				renderObj {
@@ -178,9 +177,7 @@ plugin.tx_ptextlist.settings {
 				columnIdentifier = isoNoColumn
 				fieldIdentifier = iso2
 				isSortable = 1
-				renderUserFunctions {
-					10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
-				}
+
 			}
 
 			30 {
@@ -247,6 +244,13 @@ plugin.tx_ptextlist.settings {
 						filterIdentifier = filter1
 						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
 						fieldIdentifier = name_local
+					}
+
+					11 < plugin.tx_ptextlist.prototype.filter.string
+					11 {
+						filterIdentifier = allFields
+						label = All defined Fields
+						fieldIdentifier = *
 					}
 
 					15 < plugin.tx_ptextlist.prototype.filter.max

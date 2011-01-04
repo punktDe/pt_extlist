@@ -58,10 +58,11 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-		
+
 		// Do not show the list if it is empty.
 		// TODO do not use forward here!!!
 		if($list->getListData()->count() <= 0) $this->forward('emptyList');
+	
 		
 		$renderedListData = $this->rendererChain->renderList($list->getListData());
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
@@ -117,7 +118,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	public function sortAction() {
 		$headerList = $this->dataBackend->getListHeader();
 		$headerList->reset(); 
-		
 		$this->forward('list');
 	}	
 }

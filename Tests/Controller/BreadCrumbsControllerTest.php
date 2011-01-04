@@ -57,7 +57,8 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
 		$filterboxCollection->addFilterBox($filterbox);
 		
 		$breadCrumbCollection = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
-		    $filterboxCollection
+		    $this->configurationBuilderMock,
+			$filterboxCollection
 		);
 		
 		$mockView = $this->getMock(
@@ -69,6 +70,7 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
         $mockController = $this->getMock(
               $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BreadCrumbsController'),
               array('dummy'),array(), '', FALSE);
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('filterboxCollection', $filterboxCollection);
         $mockController->_set('view', $mockView);
         
@@ -82,7 +84,6 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
         
         $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
         $filterMock->expects($this->any())->method('getFilterBreadCrumb')->will($this->returnValue($breadCrumb));
-        $filterMock->expects($this->once())->method('reset');
         
         $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
         $filterbox->addFilter($filterMock, 'test');
@@ -94,9 +95,10 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
               $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BreadCrumbsController'),
               array('forward'),array(), '', FALSE);
         $mockController->expects($this->once())->method('forward')->with('index');
+        $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('filterboxCollection', $filterboxCollection);
         
-        $mockController->resetFilterAction('test', 'test');
+        $mockController->resetFilterAction();
 	}
 	
 }

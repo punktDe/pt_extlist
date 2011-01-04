@@ -30,7 +30,15 @@
  * @subpackage Model\BreadCrumbs
  * @author Michael Knoll <knoll@punkt.de>
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+	
+	/**
+	 * The listIdentifier for which this pager is active.
+	 * 
+	 * @var string
+	 */
+	protected $listIdentifier;
+	
 	
 	/**
 	 * Associated filter object
@@ -38,7 +46,6 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
 	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	protected $filter;
-	
 	
 	
 	/**
@@ -49,14 +56,12 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
 	protected $message;
 	
 	
-	
 	/**
 	 * True, if filter can be resetted via breadcrumb
 	 *
 	 * @var bool
 	 */
 	protected $isResettable = true;
-	
 	
 	
 	/**
@@ -66,6 +71,18 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter) {
 		$this->filter = $filter;
+		$this->listIdentifier = $filter->getListIdentifier();
+	}
+
+	
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
+	 *
+	 * @return String
+	 */
+	public function getObjectNamespace() {
+	   return $this->listIdentifier . '.demolist.breadcrumb';
 	}
 	
 	

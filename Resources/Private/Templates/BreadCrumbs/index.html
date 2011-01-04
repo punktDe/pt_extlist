@@ -5,6 +5,7 @@ Template for breadcrumbs plugin
 
 Here is a list of objects / variables that can be accessed in this template
 
+breadcrumbs - Collection of filter breadcrumbs (Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb)
 
 @package Typo3
 @subpackage pt_extlist
@@ -12,19 +13,14 @@ Here is a list of objects / variables that can be accessed in this template
 @author Daniel Lienert <lienert@punkt.de>
 -->
 </extlist:comment>
-
-<h2>Breadcrumbs</h2>
-
 <ul>
 <f:for each="{breadcrumbs}" as="breadcrumb">
     <f:if condition="{breadcrumb.message}">
 	    <li>
-	    {breadcrumb.message} 
-	    <f:if condition="{settings.breadCrumbs.showResetLinks}">
+	    {breadcrumb.message}  
 	        <f:if condition="{breadcrumb.isResettable}">
-	            &nbsp;<f:link.action action="resetFilter" arguments="{filterIdentifier : breadcrumb.filter.filterIdentifier filterboxIdentifier : breadcrumb.filter.filterboxIdentifier}">reset</f:link.action>
+	            &nbsp;<f:link.action action="resetFilter" arguments="{extlist:namespace.GPArray(object:'{breadcrumbs}' arguments:'filterIdentifier : {breadcrumb.filter.filterIdentifier}, filterboxIdentifier : {breadcrumb.filter.filterboxIdentifier}')}">reset</f:link.action>
 	        </f:if>
-	    </f:if>
 	    </li>
     </f:if>
 </f:for>

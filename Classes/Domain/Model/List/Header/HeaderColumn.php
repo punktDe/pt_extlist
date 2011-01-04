@@ -373,7 +373,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * @return string Namespace to identify this object
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.headerColumns.' . $this->columnIdentifier;
+		return  $this->listIdentifier . '.headerColumns.' . $this->columnIdentifier;
 	}
 	
 	

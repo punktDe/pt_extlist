@@ -1,4 +1,4 @@
-plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
+plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* List */
@@ -80,7 +80,9 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 		padding: 5px;
 		overflow: hidden;
 	}
-	
+
+
+	/* Filters | Firstletter */	
 	.tx-ptextlist-filter-firstLetter{
 		float: left;
 		padding: 3px;
@@ -94,16 +96,16 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* Pager */
-	.pt-extlist-pager {
+	.tx-ptextlist-pager {
 		margin-left: 0;
 		text-align: center;
 	}
 	
-	.pt-extlist-pager li {
+	.tx-ptextlist-pager li {
 		display: inline;
 	}
 	
-	.pt-extlist-pager-item-display {
+	.tx-ptextlist-pager-item-display {
 		color: #777;
 	}
 )

@@ -13,6 +13,12 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/String/StringFilter
 		defaultValue = 
 		accessGroups =
+		
+		breadCrumbString = TEXT
+		breadCrumbString {
+		    # Fields that can be used are 'label' and 'value'
+		    dataWrap = {field:label} equals {field:value}
+	    }
 	}
 	
 	max {
@@ -22,6 +28,12 @@ plugin.tx_ptextlist.prototype.filter {
 		accessGroups =
 		#validation.maxValue = 500
 		#validation.minValue = 0
+        
+        breadCrumbString = TEXT
+        breadCrumbString {
+            # Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+            dataWrap = {field:label} is less than {field:value}
+        }
 	}
 	
 	min {
@@ -31,13 +43,18 @@ plugin.tx_ptextlist.prototype.filter {
 		accessGroups =
 		#validation.maxValue = 500
 		#validation.minValue = 0
+        
+        breadCrumbString = TEXT
+        breadCrumbString {
+            # Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+            dataWrap = {field:label} is bigger than {field:value}
+        }
 	}
 	
 	select {
 		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		#dataProviderClassName = 
-				
 		defaultValue =
 		filterIdentifier =
 		label = 
@@ -58,6 +75,12 @@ plugin.tx_ptextlist.prototype.filter {
 	    renderObj {
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
+        
+        breadCrumbString = TEXT
+        breadCrumbString {
+            # Fields that can be used are 'label' and 'value'
+            dataWrap = {field:label} contains {field:value}
+        }
 	}
 	
 	checkbox {
@@ -86,6 +109,12 @@ plugin.tx_ptextlist.prototype.filter {
 		renderObj {
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
+        
+        breadCrumbString = TEXT
+        breadCrumbString {
+            # Fields that can be used are 'label' and 'value'
+            dataWrap = {field:label} contains {field:value}
+        }
 	}
 
 	
@@ -113,8 +142,14 @@ plugin.tx_ptextlist.prototype.filter {
 
 		renderObj = TEXT
 		renderObj {
+		    # Fields that can be used are 'label' and 'value'
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
+        
+        breadCrumbString = TEXT
+        breadCrumbString {
+            dataWrap = {field:label} equals {field:value}
+        }
 	}
 	
 	firstLetter {
@@ -141,6 +176,12 @@ plugin.tx_ptextlist.prototype.filter {
 		renderObj {
 			dataWrap = {field:firstLetter}
 		}
+        
+        breadCrumbString = TEXT
+        breadCrumbString {
+            # Fields that can be used are 'label' and 'value'
+            dataWrap = {field:label} starts with '{field:value}'
+        }
 	}
 	
 	proxy {

@@ -28,8 +28,8 @@
  * objects implementing the according interface
 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage StateAdapter
  */
 class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		
@@ -65,6 +65,14 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @var array
 	 */
 	protected $getPostVars = NULL;
+	
+	
+	/**
+	 * Holds the extension namespace
+	 * 
+	 * @var string
+	 */
+	protected $extensionNameSpace ; 
 	
 	
 	
@@ -168,12 +176,10 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 */
 	protected function getMergedPgVars() {
 		if(!is_array($this->postGetVars)) {
-			
 			$this->postGetVars = $this->postVars;	
 			if (is_array($this->getVars) && is_array($this->postVars)) {
 				$this->postGetVars = t3lib_div::array_merge_recursive_overrule($this->getVars, $this->postVars);
 			}
-				
 		}
 		
 		return $this->postGetVars;
@@ -200,6 +206,24 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 		return $this->getPostVars;
 	}
 	
+	
+	
+	/**
+	 * Extension Namespace for get/post vars
+	 * 
+	 * @param string $extensionNameSpace
+	 */
+	public function setExtensionNamespace($extensionNameSpace) {
+		$this->extensionNameSpace = $extensionNameSpace;
+	}
+	
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getExtensionNameSpace() {
+		return $this->extensionNameSpace;
+	}	
 }
-
 ?>

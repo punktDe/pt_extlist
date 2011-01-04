@@ -40,8 +40,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends  Tx_PtEx
 	protected function buildGroupDataQuery($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		
-		reset($this->displayFields);
-		$displayField = current($this->displayFields);	
+		$displayField = $this->displayFields->getItemByIndex(0);	
 				
         if ($this->additionalTables != '') {
            $groupDataQuery->addFrom($this->additionalTables);

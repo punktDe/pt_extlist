@@ -71,16 +71,11 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 	 * @param $object Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
 	 * @return string namespacepart
 	 */
-	public function renderNamespacePart(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $addExtPrefix) {
+	public function renderNamespacePart(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object) {
 		$nameSpace = $object->getObjectNamespace();
 		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 		
 		$identChunks =  t3lib_div::trimExplode('.', $nameSpace);
-		
-		if(!$addExtPrefix) {
-			array_shift($identChunks);
-		}
-		
 		$nameSpacePart  = array_shift($identChunks);
 		
 		foreach($identChunks as $chunk) {

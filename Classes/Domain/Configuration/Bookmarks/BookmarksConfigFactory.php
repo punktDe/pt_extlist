@@ -27,7 +27,7 @@
  * Class implements factory for export configuration
  *
  * @package Domain
- * @subpackage Configuration\Export
+ * @subpackage Configuration\Bookmarks
  * @author Daniel Lienert <lienert@punkt.de>
  */
 

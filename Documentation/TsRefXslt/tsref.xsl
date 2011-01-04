@@ -15,12 +15,19 @@
 
 	<!-- Template for ROOT -->
     <xsl:template match="/">
-        <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+        <section xmlns="http://docbook.org/ns/docbook" 
+        		 xmlns:xlink="http://www.w3.org/1999/xlink" 
+        		 xmlns:xi="http://www.w3.org/2001/XInclude" 
+        		 xmlns:svg="http://www.w3.org/2000/svg" 
+        		 xmlns:m="http://www.w3.org/1998/Math/MathML" 
+        		 xmlns:html="http://www.w3.org/1999/xhtml" 
+        		 xmlns:db="http://docbook.org/ns/docbook" version="5.0">
             <title>pt_extlist</title>
             <subtitle>TypoSript Reference</subtitle>
             <info/>
             <xsl:apply-templates select="/DOC/TSREF/ENTRY" >
             	<xsl:with-param name="parentKey" select="'tsref'" />
+            	<!-- <xsl:with-param name="parentKey" select="'plugin'" /> -->
             </xsl:apply-templates>
         </section>
     </xsl:template>
@@ -55,11 +62,28 @@
         	
         	
         	
+        	<!-- Rendering Title -->
+        	<refnamediv>
+        		<refname><xsl:value-of select="@KEY"/></refname>
+        		<refpurpose><xsl:value-of select="ENTRY/DESCRIPTION"/></refpurpose>
+        	</refnamediv>
+        	
+        	 
+        	
+        	<!-- Rendering TS Key -->
+        	<refsection>
+        		<title>TS-Key:</title>
+        		<para>
+        			<xsl:call-template name="parent-key-navigation">
+        				<xsl:with-param name="parentKey" select="$currentKey" />
+        				<xsl:with-param name="previous" select="''" />
+        			</xsl:call-template>
+        		</para>
+        	</refsection>
+        	
+        	
+        	
         	<!-- Rendering description -->
-            <refnamediv>
-                <refname><xsl:value-of select="@KEY"/></refname>
-                <refpurpose><xsl:value-of select="ENTRY/DESCRIPTION"/></refpurpose>
-            </refnamediv>
             <refsection>
                 <title>
                     <anchor> <!-- Creating anchor for jump links to current ENTRY -->
@@ -157,7 +181,68 @@ Description
         	
         	
         </refentry>
-    </xsl:template>
+	</xsl:template>
+	
+	
+	
+	<!-- Create navigation for parent TS-Keys by splitting TS-Key on '.' and creating links to corresponding anchors 
+		For a reference on how I did this see: http://www.abbeyworkshop.com/howto/xslt/xslt-split-values/index.html -->
+	<xsl:template name="parent-key-navigation">
+		<xsl:param name="parentKey" />
+		<xsl:param name="previous" />
+		<xsl:variable name="current" select="substring-before($parentKey, '.')" />
+		<xsl:variable name="remaining" select="substring-after($parentKey, '.')" />
+		
+		<!-- Rendering link for current key -->
+		<xsl:if test="$current != 'tsref'">
+			<xsl:choose>
+				<xsl:when test="$current">
+					<link text-decoration="underline" color="blue">
+						<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
+						<xsl:attribute name="linkend">
+							<xsl:choose>
+								<xsl:when test="$previous">
+									<xsl:value-of select="translate(translate(translate(concat($previous, '.', $current),'[', 'l'), ']', 'r'), ',', '-')" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="translate(translate(translate($current,'[', 'l'), ']', 'r'), ',', '-')" />
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<xsl:value-of select="$current"/><xsl:if test="$remaining"><!-- Mind this dot :-) -->.</xsl:if>
+					</link>
+				</xsl:when>
+				<xsl:otherwise>
+					<link text-decoration="underline" color="blue">
+						<!-- since '[' and ']' are no valid characters for an identifier, they are replaced with 'l' and 'r' -->
+						<xsl:attribute name="linkend">
+							<xsl:value-of select="translate(translate(translate(concat($previous, '.', $parentKey),'[', 'l'), ']', 'r'), ',', '-')" />
+						</xsl:attribute>
+						<xsl:value-of select="$parentKey"/>
+					</link>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+		
+		<!-- doing recursive call, if there are more parent keys to process -->
+		<xsl:if test="$remaining">
+			<xsl:choose>
+				<xsl:when test="$previous">
+					<xsl:variable name="newPrevious" select="concat($previous, '.', $current)" />
+					<xsl:call-template name="parent-key-navigation">
+						<xsl:with-param name="parentKey" select="$remaining" />
+						<xsl:with-param name="previous" select="$newPrevious" />
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="parent-key-navigation">
+						<xsl:with-param name="parentKey" select="$remaining" />
+						<xsl:with-param name="previous" select="$current" />
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+	</xsl:template>
     
 </xsl:stylesheet>
 			 

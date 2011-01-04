@@ -27,8 +27,8 @@
  * Class implements a message for errors, warnings, infos etc.
  * 
  * @author Michael Knoll <knoll@punkt.de>
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Domain
+ * @subpackage Model\Messaging
  */
 class Tx_PtExtlist_Domain_Model_Messaging_Message {
 	

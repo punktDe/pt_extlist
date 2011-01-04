@@ -41,11 +41,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function setup() {
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$this->filterSettings = array(
+		    'breadCrumbString' => 'breadCrumbString',
+		    'label' => 'testLabel',
 		    'filterIdentifier' => 'filterName1',
 		    'filterClassName' => 'test',
 		    'partialPath' => 'partialPath',
 		    'defaultValue' => 'default',
-			'fieldIdentifier' => 'fieldName',
+			'fieldIdentifier' => 'field1',
 			'invert' => '1',
 			'invertable' => '1',
 			'inactiveOption' => '[All]',
@@ -147,6 +149,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertEquals(array(1,2,3), $filterConfig->getAccessGroups());
 	}	
+	
+	public function testGetBreadCrumbString() {
+	    $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+	    $this->assertEquals($filterConfig->getBreadCrumbString(), $this->filterSettings['breadCrumbString']);
+	}
+	
+	public function testGetLabel() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+		$this->assertEquals($filterConfig->getLabel(), $this->filterSettings['label']);
+	}
 	
 }
 ?>

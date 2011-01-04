@@ -129,9 +129,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
      * Identifier of field on which this filter is operating (database field to be filtered)
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
-    protected $fieldIdentifier;
+    protected $fieldIdentifierCollection;
 	
 	
 	
@@ -359,7 +359,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * 4. Create filter query
 		 * 
 		 * I you want to change the way, a filter initializes itsel, you have
-		 * to override init() in you own filter implementation!
+		 * to override init() in your own filter implementation!
 		 */
 
 		$this->initGenericFilterByTSConfig();
@@ -387,7 +387,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function initGenericFilterByTSConfig() {
-		$this->fieldIdentifier = $this->resolveFieldConfig($this->filterConfig->getFieldIdentifier());
+		$this->fieldIdentifierCollection = $this->filterConfig->getFieldIdentifier();
 		$this->invert = $this->filterConfig->getInvert();
 	}
 	
@@ -452,7 +452,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function buildFilterQuery() {
-		if($this->isActive) $criteria = $this->buildFilterCriteria();
+		if($this->isActive) $criteria = $this->buildFilterCriteriaForAllFields();
 			
 		if($criteria) {
 			if($this->invert) {
@@ -471,14 +471,36 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	abstract protected function setActiveState();
 	
 	
+
+	/**
+	 * Build the filterCriteria for a single field
+	 * 
+	 * @api
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+	 */
+	abstract protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
+	
 	
 	/**
-	 * Template function to create filter criterias
+	 * Build the filterCriteria for filter 
 	 * 
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
 	 */
-	abstract protected function buildFilterCriteria();
-	
+	protected function buildFilterCriteriaForAllFields() {
+		$criteria = NULL;
+		
+		foreach($this->fieldIdentifierCollection as $fieldIdentifier) {	
+			$singleCriteria = $this->buildFilterCriteria($fieldIdentifier);
+			
+			if($criteria) {
+				$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria, $singleCriteria);
+			} else {
+				$criteria = $singleCriteria;
+			}
+		}
+		
+		return $criteria;
+	}
 	
 
 	/**
@@ -502,13 +524,79 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     public function getValidate() {
     	return $this->validate();
     }
+    
+    
+    
+    /**
+     * Returns filter breadcrumb for this filter.
+     * Most likely to be overwritten in concrete filter class.
+     *
+     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     */
+    public function getFilterBreadCrumb() {
+        
+    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+        
+        if ($this->getFilterValueForBreadCrumb() != '') {
+            $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
+            
+            $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
+                $this->getFieldsForBreadcrumb(), 
+                $breadCrumbRenderArray);
+            
+            $breadCrumb->setMessage($breadCrumbMessage);
+            $breadCrumb->setIsResettable(true);
+        }
+        
+        return $breadCrumb;
+    }
+    
+    
+    
+    /**
+     * Returns an array of fields to be used for rendering breadcrumb message.
+     * 
+     * Per default, this is the label of the filter and its value. Feel free to add
+     * further values in your own filter classes 
+     *
+     * @return array
+     */
+    protected function getFieldsForBreadcrumb() {
+    	return array(
+    	   'label' => $this->filterConfig->getLabel(), 
+    	   'value' => $this->getFilterValueForBreadCrumb()
+    	);
+    }
+    
+    
+    
+    /**
+     * Returns a string to be shown as filter value in breadcrumb
+     * 
+     * @return string
+     */
+    abstract protected function getFilterValueForBreadCrumb();
+    
+    
+    
+    /**
+     * Returns a field configuration for a given identifier
+     *
+     * @param string $fieldIdentifier
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig Field configuration for given identifier
+     */
+    protected function resolveFieldConfig($fieldIdentifier) {   
+        return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
+    }
 	
+    
+    
 	/****************************************************************************************************************
      * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"
      *****************************************************************************************************************/
 	
 	/**
-	 * Injector for get & post vars
+	 * Injector for GET & POST vars
 	 *
 	 * @param array $gpVars
 	 */
@@ -528,7 +616,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return string Namespace to identify this object
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier;
+		return  $this->listIdentifier . '.filters.' . $this->filterBoxIdentifier . '.' . $this->filterIdentifier;
 	}
 	
 	
@@ -542,18 +630,5 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->sessionFilterData = $sessionData;
 	}
 	
-	
-	
-	/**
-	 * Returns a field configuration for a given identifier
-	 *
-	 * @param string $fieldIdentifier
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig Field configuration for given identifier
-	 */
-	protected function resolveFieldConfig($fieldIdentifier) {	
-		return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
-	}
-	
 }
-
 ?>

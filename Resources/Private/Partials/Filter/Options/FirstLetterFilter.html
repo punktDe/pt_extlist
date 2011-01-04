@@ -28,7 +28,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 	<div class="outer-field-wrapper">
 		<ul>
 			<f:for each="{filter.options}" key="optionValue" as="option">
-				<li class="tx-ptextlist-filter-firstLetter">		
+				<li class="tx-ptextlist-filter-firstLetter">
 					<div class="field-wrapper type-content">
 						<f:if condition="{option.selected}"><span class="selected"></f:if>
 						<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>

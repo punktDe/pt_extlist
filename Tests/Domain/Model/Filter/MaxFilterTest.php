@@ -27,7 +27,7 @@
 class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setup(){
-		
+		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	public function testSetup() {
@@ -73,10 +73,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
 	}
 	
 	public function testCriteria() {
-		$filterMock = $this->getFilterMock(5,10,1,false);
+		$filterMock = $this->getFilterMock(5,10,1);
 		
-		$criteria = $filterMock->_callRef('buildFilterCriteria');
+		$fieldConfig = $this->buildFieldCollection('field1')->getFieldConfigByIdentifier('field1');
 		
+		$criteria = $filterMock->_callRef('buildFilterCriteria',$fieldConfig);
 		$this->assertTrue(is_a($criteria,'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
 		
 		$this->assertEquals('<=',$criteria->getOperator());
@@ -88,14 +89,20 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
 		if($injectConfigMock) {
 			
 			$configMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', 
-				array('getSettings'), array(),'',FALSE);			
+				array('getSettings', 'getFieldIdentifier'), array(),'',FALSE);			
 				
 			$settings = array('maxValue'=>$max, 'minValue'=>$min);
 			$configMock
 				->expects($this->any())
 				->method('getSettings')
-				->with('validation')
 				->will($this->returnValue($settings));
+
+			$fieldIdentifierCollection = $this->buildFieldCollection('field1');
+			
+			$configMock
+				->expects($this->any())
+				->method('getFieldIdentifier')
+				->will($this->returnValue($fieldIdentifierCollection));
 		}
 			
 		$fieldMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig',
@@ -111,9 +118,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
 		if($injectConfigMock) $filterMock->_set('filterConfig', $configMock);
 		$filterMock->_set('isActive', $active);
 		$filterMock->_set('filterValue',$filterValue);
-		$filterMock->_set('fieldIdentifier', $fieldMock);
+		$filterMock->_set('fieldIdentifierCollection', $fieldIdentifierCollection);
 		
 		return $filterMock;
+	}
+	
+	protected function buildFieldCollection($fields) {
+		$fieldIdentifierList = t3lib_div::trimExplode(',', $fields);
+		return  $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 	}
 	
 }

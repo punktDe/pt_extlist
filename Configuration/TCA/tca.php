@@ -160,6 +160,4 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         )
     )
 );
-
-
 ?>

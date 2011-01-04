@@ -33,12 +33,13 @@
 class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
 
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterQuery()
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::buildFilterCriteria()
 	 */
-	protected function buildFilterCriteria() {
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
 		
 		$criteria = NULL;
-		$columnName = $this->fieldIdentifier->getTableFieldCombined();
+		$columnName = $fieldIdentifier->getTableFieldCombined();
 		$filterValues = array_filter($this->filterValues);
 		
 		if(count($filterValues)) {

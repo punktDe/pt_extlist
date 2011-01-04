@@ -30,7 +30,6 @@
  * 
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
- * @subpackage Domain\ExtBaseDataBackend\ExtBaseInterpreter
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter  {
 

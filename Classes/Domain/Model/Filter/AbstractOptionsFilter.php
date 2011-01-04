@@ -43,15 +43,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	
 	
 	/**
-	 * Holds identifier of field that should be filtered
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
-	 */
-	protected $fieldIdentifier;
-	
-	
-	
-	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_FilterInterface::reset()
 	 *
 	 */
@@ -80,21 +71,23 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterCriteria()
+	 * Build the criteria for a single field
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
 	 */
-	protected function buildFilterCriteria() {
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+		$singleCriteria = NULL;
 		
-		$criteria = NULL;
-		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($this->fieldIdentifier);
-	
 		if (is_array($this->filterValues) && count($this->filterValues) == 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues));
+			$singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues));
 		} elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
+			$singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
 		}
-
-		return $criteria;
+		
+		return $singleCriteria;
 	}
+	
 	
 	
 	/**
@@ -135,9 +128,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
 	 *
 	 */
-	protected function initFilterByTsConfig() {
-		$filterSettings = $this->filterConfig->getSettings();
-              
+	protected function initFilterByTsConfig() {        
         if($this->filterConfig->getDefaultValue()) {
         	$this->setDefaultValuesFromTSConfig($this->filterConfig->getDefaultValue());
         }
@@ -240,16 +231,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	
 	
 	/**
-	 * Returns filter breadcrumb for this filter.
-	 * Most likely to be overwritten in concrete filter class.
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 * Return filter value string for breadcrumb
+	 * 
+	 * @return string
 	 */
-	public function getFilterBreadCrumb() {
-		$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-		if (count($this->filterValues) > 0) {
-		    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . implode(', ', $this->filterValues));
-		}
-		return $breadCrumb;
+	protected function getFilterValueForBreadCrumb() {
+	   return implode(', ', $this->filterValues);	
 	}
+	
 }

@@ -29,7 +29,7 @@
  *  AggregateConfigCollection Factory
  *
  * @package Domain
- * @subpackage Configuration\Data\Fields
+ * @subpackage Configuration\Data\Aggregates
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory {
