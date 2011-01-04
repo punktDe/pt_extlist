@@ -36,14 +36,14 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	/**
 	 * render build key/value GET/POST-array within the namespace of the given object
 	 * 
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * @param string $arguments : list of arguments
+	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * 	either as list of 'key : value' pairs 
 	 *  or as list of properties wich are then recieved from the object
 	 * @param string $nameSpace
 	 * @return array GPArray of objects namespace
 	 */
-	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $arguments, $nameSpace = '') {
+	public function render($arguments, $object = NULL, $nameSpace = '') {
 		$GetPostValueArray = array();
 		$argumentStringArray = $this->getArgumentArray($arguments);
 		$argumentArray = array();
