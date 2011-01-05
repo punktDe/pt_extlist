@@ -173,6 +173,15 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	
 	
 	/**
+	 * Set the ItemsPerPage
+	 * @param int $itemsPerPage
+	 */
+	public function setItemsPerPage($itemsPerPage) {
+		$this->itemsPerPage = $itemsPerPage;
+	}
+	
+	
+	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPages()
 	 */
 	public function getPages() {

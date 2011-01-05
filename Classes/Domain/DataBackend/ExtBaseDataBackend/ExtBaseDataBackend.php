@@ -215,10 +215,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	    
 	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-		    	if (!in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
+            	if (!in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
                     $criterias = $filter->getFilterQuery()->getCriterias();
                     foreach($criterias as $criteria) {
-                        $query->addCriteria($criteria);
+                    	$query->addCriteria($criteria);
                     }
                 }
             }

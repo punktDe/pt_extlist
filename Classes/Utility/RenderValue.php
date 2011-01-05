@@ -139,7 +139,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 			// If $data is an object - print all accessible attributes
 			if(is_object($field)) {
 				$renderedFields[] = self::renderDefaultObject($field);
-			
+				
 			// If $data is an array of key/values write a key/value list
 			} elseif(is_array($field)) {
 				$renderedFields[] = self::renderDefaultArray($field);
@@ -150,6 +150,10 @@ class Tx_PtExtlist_Utility_RenderValue {
 		}
 		
 		if(count($renderedFields) > 1) {
+			foreach($renderedFields as $key => $renderField) {
+				if(is_object($renderField)) $renderedFields[$key] = get_class($renderField);
+			}
+			
 			return implode(', ', $renderedFields);
 		} else {
 			return current($renderedFields);

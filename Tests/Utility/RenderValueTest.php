@@ -62,15 +62,17 @@ class Tx_PtExtlist_Tests_Utility_RenderValue_testcase extends Tx_PtExtlist_Tests
 	public function testRenderDefaultWithObjects() {
 		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass();
 		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('field' => $testObject));
-		$this->assertEquals($renderedOutput, 'TestValue : testContent');
+		$this->assertTrue(is_a($renderedOutput,'Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass'));
 	}
-		
+
+	
 	public function testRenderDefaultMixed() {
 		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass();
 		
 		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('field1' => $testObject, 'field2' => array('x' => 'y'), 'field3' => 'field3Value'));
-		$this->assertEquals($renderedOutput, 'TestValue : testContent, x : y, field3Value');
+		$this->assertEquals($renderedOutput, 'Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass, x : y, field3Value');
 	}
+	
 	
 	public function testRenderValueByRenderUserFunctionArray() {
 		$this->markTestIncomplete();

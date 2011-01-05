@@ -27,6 +27,7 @@
 /**
  * A collection to manage a bunch of pagers.
  * 
+ * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @package Domain
  * @subpackage Model\Pager
@@ -242,6 +243,31 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 */
 	public function getItemsPerPage() {
 		return $this->getItemByIndex(0)->getItemsPerPage();
+	}
+	
+	
+	
+	/**
+	 * Set itmesPerPage
+	 * 
+	 * @param int $itemsPerPage
+	 */
+	public function setItemsPerPage($itemsPerPage) {
+		foreach($this->itemsArr as $pager) {
+			$pager->setItemsPerPage($itemsPerPage);
+		}
+	}
+	
+	
+	
+	/**
+	 * Set the page by row index
+	 * 
+	 * @param int $rowIndex
+	 */
+	public function setPageByItemIndex($rowIndex) {
+		$pageIndex = floor($rowIndex / $this->getItemsPerPage());
+		$this->setCurrentPage($pageIndex);
 	}
 	
 	
