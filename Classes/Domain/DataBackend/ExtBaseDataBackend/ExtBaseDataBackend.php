@@ -237,6 +237,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildExtBaseQueryWithoutPager() {
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
 		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		
+		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		    
 		return $extbaseQuery;
 	}
 	
