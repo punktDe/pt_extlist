@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
 	 * Returns a new 'in' criteria for given field and value
 	 *
 	 * @param string $needle Field to be compared with
-	 * @param string $haystack Values to compare content of field with
+	 * @param array $haystack Values to compare content of field with
 	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
 	 */
 	public static function in($needle, $haystack) {

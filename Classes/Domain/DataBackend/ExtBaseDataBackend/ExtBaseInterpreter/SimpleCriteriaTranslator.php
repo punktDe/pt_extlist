@@ -80,8 +80,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
       		break;
       		
       		case 'IN' :
-      			// TODO check mailinglist for solution!
-      		   	throw new Exception('IN operator is currently not supported by extbase! 1281727495');
+      			self::addConstraint($extbaseQuery, $extbaseQuery->in($propertyName, $criteria->getValue()));
       	    break;
       		
       		default:
