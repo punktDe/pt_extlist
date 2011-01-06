@@ -26,6 +26,7 @@
 /**
  * Class implements a collection of filterboxes
  * 
+ * @author Daniel Lienert
  * @author Michael Knoll <knoll@punkt.de>
  * @package Domain
  * @subpackage Model\Filter
@@ -61,6 +62,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     	}
     }
     
+    
+    
     /**
      * Sets the listIdentifier
      * 
@@ -69,6 +72,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     public function setListIdentifier($listIdentifier) {
     	$this->listIdentifier = $listIdentifier;
     }
+    
+    
     
     /**
      * Add Filterbox to Collection
@@ -98,9 +103,13 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     	}
     }
     
-    public function getAccessableFilterboxCollection() {
     
+    
+    public function getAccessableFilterboxCollection() {
+     # @todo 
     }
+    
+    
     
     /**
      * Returns list identifier of list to which filterbox belongs to
@@ -110,6 +119,18 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
     public function getListIdentifier() {
     	return $this->listIdentifier;
     }
+    
+    
+    
+    /**
+     * Cascade through all filterboxes and reset their filters
+     */
+    public function reset() {
+    	foreach($this->itemsArr as $filterBox) {
+    		$filterBox->reset();
+    	}
+    }
+    
 	
 }
 ?>
