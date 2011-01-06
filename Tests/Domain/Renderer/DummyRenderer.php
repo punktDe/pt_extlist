@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,8 +28,8 @@
  *
  * @package Tests
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
  */
 #require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/RendererInterface.php';
 #require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/ConfigurableRendererInterface.php';

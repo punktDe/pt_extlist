@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,8 +28,8 @@
  * 
  * Class type for base view can be changed by changing pt_extlist AbstractController::resolveView()
  * 
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
  * @package View
  */
 class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {

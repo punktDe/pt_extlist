@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -30,7 +30,7 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the translation of a simple criteria
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */
 	public function testSimpleCriteriaTranslator() {
@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the AND translation of two simple criterias
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */
 	public function testAndCriteriaTranslatorSimpleSimple() {	
@@ -92,7 +92,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the AND translation of simple and complex criterias
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */
 	public function testAndCriteriaTranslatorSimpleComplex() {
@@ -108,7 +108,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the OR translation of two simple criterias
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */
 	public function testOrCriteriaTranslatorSimpleSimple() {	
@@ -125,7 +125,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the NOT criteria translator
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */
 	public function testNOTCriteriaTranslator() {

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends t
 	 * @param $columnConfig int
 	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 * @return void 
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 */
 	public function addColumnConfig($columnNumber, $columnConfig) {
 		$this->addItem($columnConfig, $columnNumber);
@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends t
 	/** 
 	 * @param $identifier int
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 */
 	public function getColumnConfigByIdentifier($identifier) {
 		if($this->hasItem($identifier)) {

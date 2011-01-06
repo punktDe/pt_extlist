@@ -29,7 +29,7 @@
  *
  * @package Tests
  * @subpackage Domain\Model\State
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_Model_State_State_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	

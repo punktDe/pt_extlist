@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,7 +28,7 @@
  *
  * @package Tests
  * @subpackage Domain\Model\Filter
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  */
  class Tx_PtExtlist_Tests_Domain_Model_Filter_ProxyFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
  	

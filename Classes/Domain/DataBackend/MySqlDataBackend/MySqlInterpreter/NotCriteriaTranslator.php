@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,7 +28,7 @@
  * 
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
 	
@@ -37,7 +37,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCrite
 	 * 
 	 * @param $criteria Tx_PtExtlist_Domain_QueryObject_NotCriteria
 	 * @return string
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria  $criteria) {

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Christoph Ehscheidt 
 *  All rights reserved
 *
 *

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -26,9 +26,9 @@
 /**
  * Class implementing container for all list elements, e.g. listData, filters, column descriptions...
  * 
- * @author Michael Knoll <knoll@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Christoph Ehscheidt 
+ * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List
  */

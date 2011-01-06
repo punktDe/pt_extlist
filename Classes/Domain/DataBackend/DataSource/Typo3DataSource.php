@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -26,7 +26,7 @@
 /**
  * Class implements data source for typo3 databases
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
  */

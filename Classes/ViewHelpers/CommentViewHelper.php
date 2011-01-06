@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
 *  
 *  All rights reserved
 *
@@ -29,7 +29,7 @@
  * Displays nothing by default or the comment, if the variable "show" is set to true
  * Remove this viewheper if a appropriate viewhelper is implemented in fluid
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package ViewHelpers
  */
 class Tx_PtExtlist_ViewHelpers_CommentViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {

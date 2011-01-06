@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -26,8 +26,8 @@
 /**
  * Factory for creating instances of pt_extlist controllers to be used as subcontrollers
  * 
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
  * @package Controller
  */
 class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher {

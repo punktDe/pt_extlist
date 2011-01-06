@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -27,7 +27,7 @@
  * Class implements a collection of filterboxes
  * 
  * @author Daniel Lienert
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  * @package Domain
  * @subpackage Model\Filter
  */
@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends tx_pttools_ob
      *  
      * @param $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox
      * @param $filterBoxIdentifier string
-     * @author Daniel Lienert <lienert@punkt.de>
+     * @author Daniel Lienert 
      */
     public function addFilterBox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterBox, $filterBoxIdentifier) {
     	$this->addItem($filterBox, $filterBoxIdentifier);

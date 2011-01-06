@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -26,8 +26,8 @@
 /**
  * Testcase for pt_list dummy data backend object. 
  * 
- * @author Michael Knoll <knoll@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll 
+ * @author Christoph Ehscheidt 
  * @package Test
  * @subpackage Domain\DataBackend
  */

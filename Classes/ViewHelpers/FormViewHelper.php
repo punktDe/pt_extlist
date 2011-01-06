@@ -25,7 +25,7 @@
  * This viewhelper patches the original viewhelper which does not work with method GET.
  * Bug filed on 2010-12-22
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package ViewHelpers
  */
 class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormViewHelper {

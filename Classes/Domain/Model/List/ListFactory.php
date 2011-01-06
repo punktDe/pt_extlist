@@ -2,8 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
+*  Christoph Ehscheidt 
 *  All rights reserved
 *
 *
@@ -27,9 +27,9 @@
 /**
  * Factory to put all parts of a list together.
  * 
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Christoph Ehscheidt 
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List
  */

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -27,7 +27,7 @@
  * Class implements a row for a list data structure. Row contains
  * cells addressed by a identifier (column name).
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @author Michael Knoll
  * @author Christoph Ehscheidt
  * @package Domain

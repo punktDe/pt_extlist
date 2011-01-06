@@ -2,8 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
+*  Christoph Ehscheidt 
 *  All rights reserved
 *
 *
@@ -25,7 +25,7 @@
 ***************************************************************/
 
 /**
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Christoph Ehscheidt 
  * @package Tests
  * @subpackage Security
  */

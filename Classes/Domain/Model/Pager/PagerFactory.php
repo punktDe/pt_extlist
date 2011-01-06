@@ -31,8 +31,8 @@
  *
  * @package Domain
  * @subpackage Model\Pager
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
 	

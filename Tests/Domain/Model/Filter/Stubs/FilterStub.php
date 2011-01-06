@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,7 +28,7 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/
 /**
  * Class implements fake implementation of abstract filter (for testing only!)
  *
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  * @package Tests
  * @subpackage Domain\Model\Filter
  */

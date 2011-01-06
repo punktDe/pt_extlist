@@ -30,7 +30,7 @@
  * Class contains utility functions to access extlist objects
  * form external dependent plugins
  *
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package Utility
  */
 class Tx_PtExtlist_Utility_ExternalPlugin {

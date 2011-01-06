@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -27,7 +27,7 @@
  * Wrapper class for subcontroller. Handles requests for subcontrollers
  * and emulates dispatching functionality like forwarding etc.
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  * @package Controller
  */
 class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controller_AbstractController {

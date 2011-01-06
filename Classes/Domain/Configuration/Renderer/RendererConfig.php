@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
 *  Christoph Ehscheidt <ehscheidt@punkt.de
 *  All rights reserved
 *
@@ -25,8 +25,8 @@
 ***************************************************************/
 
 /**
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Christoph Ehscheidt 
+ * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Renderer
  */

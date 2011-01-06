@@ -29,7 +29,7 @@
  *
  * @package Domain
  * @subpackage Model\State
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_Model_State_State extends Tx_Extbase_DomainObject_AbstractEntity {
 	

@@ -31,7 +31,7 @@
  * 
  * @package Domain
  * @subpackage Model\Filter
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	

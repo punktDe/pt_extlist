@@ -2,8 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
+*  Christoph Ehscheidt 
 *  All rights reserved
 *
 *
@@ -29,8 +29,8 @@
  * 
  * @package Tests
  * @subpackage Domain\Model\List
- * @author Michael Knoll <knoll@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll 
+ * @author Christoph Ehscheidt 
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	

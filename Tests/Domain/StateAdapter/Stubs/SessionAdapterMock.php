@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,7 +28,7 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  */
 class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_SessionAdapterMock extends tx_pttools_sessionStorageAdapter {
     

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -26,8 +26,8 @@
 /**
  * Class implements a generic options filter
  * 
- * @author Daniel Lienert <lienert@punkt.de>
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert 
+ * @author Michael Knoll 
  * @package Domain
  * @subpackage Model\Filter
  */

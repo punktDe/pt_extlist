@@ -27,7 +27,7 @@
  *
  * @package Domain
  * @subpackage Repository\State
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_Repository_State_StateRepository extends Tx_Extbase_Persistence_Repository {
 	

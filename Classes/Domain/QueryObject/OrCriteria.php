@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,7 +28,7 @@
  *
  * @package Domain
  * @subpackage QueryObject
- * @author Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert , Michael Knoll 
  */
 class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 
@@ -54,7 +54,7 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	 * @param $firstCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
 	 * @param $secondCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
 	 * @return void
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */
 	public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria) {
@@ -86,7 +86,7 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	
 	/**
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */
 	public function getFirstCriteria() {
@@ -97,7 +97,7 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	
 	/**
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 28.07.2010
 	 */	
 	public function getSecondCriteria() {

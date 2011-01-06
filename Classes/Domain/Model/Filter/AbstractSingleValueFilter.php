@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -26,7 +26,7 @@
 /**
  * Abstract filter base class for all filters implementing single value filter
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  * @package Domain
  * @subpackage Model\Filter
  */

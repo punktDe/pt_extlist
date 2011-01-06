@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,8 +28,8 @@
  *
  * @package Domain
  * @subpackage Configuration\Data\Fields 
- * @author Daniel Lienert <lienert@punkt.de>
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert 
+ * @author Michael Knoll 
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 - Michael Knoll <knoll@punkt.de>
+*  (c) 2010 - Michael Knoll 
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,7 @@
   * 
   * @package Typo3
   * @subpackage pt_extlist
-  * @author Michael Knoll <knoll@punkt.de>
+  * @author Michael Knoll 
   */
 class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock extends Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig  {
 

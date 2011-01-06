@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,8 +28,8 @@
  *
  * @package Domain                                                   
  * @subpackage Model\BreadCrumbs
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends tx_pttools_objectCollection 
 	implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface,

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,9 +28,9 @@
  *
  * @package Domain
  * @subpackage Configuration\Pager
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
+ * @author Christoph Ehscheidt 
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 

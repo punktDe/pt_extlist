@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
 *  
 *  All rights reserved
 *
@@ -27,7 +27,7 @@
 /**
  * GPValueViewHelper
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package ViewHelpers
  * @subpackage NameSpace
  */

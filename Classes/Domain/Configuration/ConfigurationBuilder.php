@@ -2,8 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
+*  Christoph Ehscheidt 
 *  All rights reserved
 *
 *
@@ -30,9 +30,9 @@
  * @package Domain
  * @subpackage Configuration
  * 
- * @author Daniel Lienert <lienert@punkt.de>
- * @author Michael Knoll <knoll@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
+ * @author Daniel Lienert 
+ * @author Michael Knoll 
+ * @author Christoph Ehscheidt 
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	

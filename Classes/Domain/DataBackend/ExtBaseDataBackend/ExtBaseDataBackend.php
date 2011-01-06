@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -28,7 +28,7 @@
  * 
  * TODO at the moment 2 queries are send to the database: 1) gather data 2) count rows in data --> cache data and count rows there
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend
  */

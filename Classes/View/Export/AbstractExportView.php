@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -29,8 +29,8 @@
  *
  * @package View
  * @subpackage Export
- * @author Daniel Lienert <lienert@punkt.de>
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert 
+ * @author Michael Knoll 
  */
 abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView {
 	

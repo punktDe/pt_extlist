@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -26,7 +26,7 @@
 /**
  * Class implements list header collection
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List\Header
  */
@@ -205,7 +205,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * Return an array with sorting definitions for this column
      *  
      * @return array of sortings
-     * @author Daniel Lienert <lienert@punkt.de>
+     * @author Daniel Lienert 
      */
     public function getSorting() {
     	return $this->sorting;
@@ -250,7 +250,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * Get a query with sorting definition set
      * 
      * @return Tx_PtExtlist_Domain_QueryObject_Query
-     * @author Daniel Lienert <lienert@punkt.de>
+     * @author Daniel Lienert 
      * @since 02.08.2010
      */
     public function getSortingQuery() {
@@ -352,7 +352,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     /**
      * reset session state
      * 
-     * @author Daniel Lienert <lienert@punkt.de>
+     * @author Daniel Lienert 
      * @since 04.08.2010
      */
    	public function reset() {

@@ -2,8 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll ,
+*  Christoph Ehscheidt 
 *  All rights reserved
 *
 *
@@ -27,7 +27,7 @@
 /**
  * Testcase for header column class
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package Tests
  */
 class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
@@ -49,7 +49,7 @@ class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
 	 * checks if the page randers without exception
 	 * YES - in know that this is no unit test ;)
 	 * 
-	 * @author Daniel Lienert <lienert@punkt.de>
+	 * @author Daniel Lienert 
 	 * @since 06.08.2010
 	 */
 	public function testPageRenderingWithoutException() {

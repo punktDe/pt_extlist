@@ -29,7 +29,7 @@
 /**
  * GPValueViewHelper
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package ViewHelpers
  * @subpackage NameSpace
  */

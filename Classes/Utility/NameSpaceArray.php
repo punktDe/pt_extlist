@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
+*  (c) 2010 Daniel Lienert , Michael Knoll 
 *  All rights reserved
 *
 *
@@ -27,9 +27,9 @@
  * Utility to manage NameSpaceStrings and resulting arrays
  *
  * @package Utility
- * @author Daniel Lienert <lienert@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert 
+ * @author Christoph Ehscheidt 
+ * @author Michael Knoll 
  */
 class Tx_PtExtlist_Utility_NameSpaceArray {
 	

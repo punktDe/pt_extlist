@@ -31,9 +31,9 @@
  *
  * @package Domain
  * @subpackage Model\Pager
- * @author Michael Knoll <knoll@punkt.de>
- * @author Christoph Ehscheidt <ehscheidt@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Christoph Ehscheidt 
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
                	
