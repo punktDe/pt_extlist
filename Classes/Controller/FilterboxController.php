@@ -133,8 +133,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     protected function resetPagers(){
     	// Reset pagers
     	if($this->pagerCollection === NULL) {
-    		// Only get pagerCollection if it's not set already. Important for testing.
-    		// TODO: How can we mock Factories? 		
+    		// Only get pagerCollection if it's not set already. Important for testing.	
 	    	$this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
     	}
     	$this->pagerCollection->reset();
