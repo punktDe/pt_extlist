@@ -68,12 +68,17 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
 	 */
 	public static function getDataBackendByCustomConfiguration(array $customTSArray, $listIdentifier) {
-		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
-		self::loadLifeCycleManager();
 		
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-		
+		try {
+			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+		} catch (Exception $e) {
+			$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
+			self::loadLifeCycleManager();
+			
+			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+		}
+			
 		return  Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);	
 	}
 	
