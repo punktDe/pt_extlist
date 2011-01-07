@@ -37,7 +37,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * Each list identifier holds its own data backend object
      * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
      */
-	private static $instances = null;
+	private static $instances = NULL;
 	
 	
 	
@@ -55,7 +55,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 			if ($throwExceptionOnNonExistingListIdentifier) {
 				throw new Exception('No data backend found for list identifier ' . $listIdentifier . ' 1280770617');
 			} else {
-				return null;
+				return NULL;
 			}
 		}
 	}

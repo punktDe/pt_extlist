@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,79 +27,100 @@
  ***************************************************************/
 
 /**
- * Class contains utility functions to access extlist objects
- * form external dependent plugins
- * 
- * OBSOLETE
- * 
+ * Class implements factory for ExtListContext
+ *
+ * @package ExtlistContext
  * @author Daniel Lienert 
- * @package Utility
- * @obsolete
  */
-class Tx_PtExtlist_Utility_ExternalPlugin {
-
+class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
+	
+	/**
+	 * Array of listContext Instances
+	 * @var Tx_PtExtlist_Domain_ListContext_ListContext
+	 */
+	protected static $instances = array();
+	
+	
 	
 	/**
 	 * Initialize and return a DataBackend with the given listIndentifier
 	 *
 	 * @param string $listIdentifier
-	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getDataBackend($listIdentifier) {
+	public static function getContextByListIdentifier($listIdentifier) {
+		
+		if(!array_key_exists($listIdentifier, self::$instances)) {
+			
+			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
+	
+			if($extListBackend === NULL) {
+				$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
+				self::loadLifeCycleManager();
+	
+				Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+	
+				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+			}
 
-		$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
-
-		if($extListBackend == NULL) {
-			$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
-			self::loadLifeCycleManager();
-
-			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-
-			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
+			
 		}
-
-		return $extListBackend;
+		
+		return self::$instances[$listIdentifier];
 	}
-
-
-
+	
+	
+	
 	/**
 	 * Get the databackend by a custom list configuration ts array
 	 * The Typoscript is identified by the given listIdentifier and merged with the extlist configuration
 	 *
 	 * @param array $customTSArray Custom typoscript list configuration in extBase format
 	 * @param string $listIdentifier a listIdentifier to identify the custom list
-	 * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getDataBackendByCustomConfiguration(array $customTSArray, $listIdentifier) {
-
-		try {
-			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-		} catch (Exception $e) {
-			$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
-			self::loadLifeCycleManager();
-
-			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier) {
+		
+		if(!array_key_exists($listIdentifier, self::$instances)) {
+				
+			try {
+				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			} catch (Exception $e) {
+				$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
+				self::loadLifeCycleManager();
+	
+				Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			}
+	
+			$extListBackend =   Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
 		}
-
-		return  Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+		
+		return self::$instances[$listIdentifier];
 	}
-
-
-
+	
+	
+	
 	/**
-	 * Return the list object by listIdentifier
-	 *
+	 * Build the extlistContext
+	 * 
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extlistContext
 	 */
-	public static function getListByDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($dataBackend, $dataBackend->getConfigurationBuilder());
+	protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$extlistContext = new Tx_PtExtlist_ExtlistContext_ExtlistContext();
+		
+		$extlistContext->injectDataBackend($dataBackend);
+		$extlistContext->init();
+		
+		return $extlistContext;
 	}
-
-
-
+	
+	
+	
 	/**
 	 * Read the Session data into the cache
 	 */
@@ -109,9 +130,9 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 		// SET LIFECYCLE TO START -> read session data into cache
 		$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
 	}
-
-
-
+	
+	
+	
 	/**
 	 * Get Typoscript for defined listIdentifier
 	 *
@@ -137,6 +158,6 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 		$extListTSArray['listIdentifier'] = $listIdentifier;
 
 		return $extListTSArray;
-	}
-
+	}	
 }
+?>
