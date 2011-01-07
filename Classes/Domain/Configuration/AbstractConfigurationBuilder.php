@@ -180,7 +180,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
      */
     public function getPrototypeSettingsForObject($objectPath) {
 
-    	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->protoTypeSettings, $objectPath);
+    	$protoTypeSettings = Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->protoTypeSettings, $objectPath);
 
     	if(!is_array($protoTypeSettings)) {
     		$protoTypeSettings = array();

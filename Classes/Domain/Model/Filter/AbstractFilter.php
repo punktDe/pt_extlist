@@ -374,8 +374,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->setActiveState();
 		$this->initFilter();
 		
-		$this->sessionPersistenceManager->persistToSession($this);
-		
 		$this->buildFilterQuery();
 		
 	}

@@ -48,6 +48,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 		return $filterbox;
 	}
 	
+	
+	
 	/**
 	 * Factory method for filter boxes. Returns only accessable filters from a given filterbox.
 	 * 
@@ -61,16 +63,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 		foreach($collection as $filter) {
 			if($filter->getFilterConfig()->isAccessable()) {
 				$accessableCollection->addFilter($filter, $filter->getFilterIdentifier());
-				
-			} 
-			
+			} 		
 		}
-		
 		return $accessableCollection;
-	}
-	
+	}	
 }
-
-
-
 ?>
