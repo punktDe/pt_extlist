@@ -266,6 +266,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @param int $rowIndex
 	 */
 	public function setPageByRowIndex($rowIndex) {
+		$rowIndex++; // rowindex = 0 means item 1
 		$pageIndex = ceil($rowIndex / $this->getItemsPerPage());
 		$this->setCurrentPage($pageIndex);
 	}

@@ -46,14 +46,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
 		
 		$collection->setItemsPerPage(5);
 		
-		$collection->setPageByRowIndex(1);
-		$this->assertEquals(0,$collection->getCurrentPage());
+		$collection->setPageByRowIndex(0);
+		$this->assertEquals(1,$collection->getCurrentPage());
 		
 		$collection->setPageByRowIndex(4);
-		$this->assertEquals(0,$collection->getCurrentPage());
+		$this->assertEquals(1,$collection->getCurrentPage());
 		
 		$collection->setPageByRowIndex(5);
-		$this->assertEquals(1,$collection->getCurrentPage());
+		$this->assertEquals(2,$collection->getCurrentPage());
 	}	
 }
 ?>
