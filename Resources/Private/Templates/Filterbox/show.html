@@ -15,7 +15,7 @@ bool                                                                filtersDontV
 -->
 </extlist:comment>
 
-<div class="tx-ptextlist-filterbox" id="tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
+<div class="pt-extlist-filterbox" id="pt-extlist-filterbox-{filterbox.filterBoxIdentifier}">
 	<f:form controller="Filterbox" action="submit" method="post">
 		
 		<f:if condition="{filtersDontValidate}">
@@ -24,9 +24,9 @@ bool                                                                filtersDontV
 			</div>
 		</f:if>
 		
-		<ul class="tx-ptextlist-filters">
+		<ul class="pt-extlist-filters">
 			<f:for each="{filterbox}" as="filter">
-				<li class="tx-ptextlist-filter tx-ptextlist-filter-{filter.filterIdentifier}">
+				<li class="pt-extlist-filter pt-extlist-filter-{filter.filterIdentifier}">
 					<f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
 				</li>
 			</f:for>
