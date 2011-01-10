@@ -26,8 +26,8 @@
 /**
  * Testcase for bookmarks configuration
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Configuration\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

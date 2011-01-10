@@ -231,6 +231,17 @@ renderObj {
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.breadCrumbString" KEY="breadCrumbString">
+			<DESCRIPTION>Defines the string that is shown as breadcrumb for the filter. You can use '%v' for the filter's value and '%l' for the filter's label.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<STDWRAP></STDWRAP>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE>breadCrumbString = %l equals '%v'</EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
 		</ENTRY>	
 </DATATYPES>
 
@@ -962,6 +973,7 @@ aggregateRows {
 															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 															<TYPEREF REF="filter.invert" KEY="invert" />
+															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
 														</CHILDREN>
 														<VARIANT>
 															<ENTRY KEY="String">

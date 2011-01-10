@@ -52,15 +52,6 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	
 	
 	/**
-	 * The listidentifier this config object belings to
-	 * 
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	
-	/**
 	 * Constructor for configuration object
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder
@@ -68,7 +59,6 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder, array $settings = array()) {
 		$this->configurationBuilder = $configurationBuilder;
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->settings = $settings;
 		$this->init();
 	}
@@ -101,18 +91,9 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	public function getConfigurationBuilder() {
 		return $this->configurationBuilder;
 	}
-	
-	
-	
-	/**
-	 * @return string listIdentifier
-	 */
-	public function getListIdentifier() {
-		return $this->listIdentifier;
-	}
-	
-	
 
+	
+	
 	/**
 	 * Set the internal property from the given tsKey if the key exists
 	 * 
@@ -180,8 +161,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	 * @throws Exception
 	 */
 	protected function setRequiredValue($tsKey, $errorMessageIfNotExists, $internalPropertyName = NULL) {
-		if (!array_key_exists($tsKey, $this->settings) || !trim($this->settings[$tsKey])) {
-	
+		if (!array_key_exists($tsKey, $this->settings) || (!trim($this->settings[$tsKey]) && !is_array($this->settings[$tsKey]))) {
 			Throw new Exception($errorMessageIfNotExists);
 		}
 		

@@ -60,20 +60,25 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	
 	/**
 	 * Returns a singleton instance of a configurationBuilder class
-	 * @param $settings The current settings for this extension.
+	 * @param $listIdentifier the listidentifier of the list
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder 
 	 */
-	public static function getInstance($listIdentifier) {
+	public static function getInstance($listIdentifier = NULL) {
 		
+		if($listIdentifier == NULL) {
+			$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
+		}
+
 		if ($listIdentifier == '') {
 			throw new Exception('No list identifier could be found in settings! 1280230579');
 		}
 		
-		if(!array_key_exists($listIdentifier, self::$settings['listConfig'])) {
-			throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
-		}
-        
 		if (!array_key_exists($listIdentifier,self::$instances)) {
+			
+			if(!array_key_exists($listIdentifier, self::$settings['listConfig'])) {
+				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
+			}
+        
             self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings);
         }
         

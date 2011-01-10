@@ -168,16 +168,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     
     
     /**
-     * Returns filter breadcrumb for this filter.
-     * Most likely to be overwritten in concrete filter class.
-     *
-     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     * Returns filter value for breadcrumb
+     * 
+     * @return string
      */
-    public function getFilterBreadCrumb() {
-    	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-    	if ($this->filterValue != '') {
-    	    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . $this->filterValue);
-    	}
-    	return $breadCrumb;
+    protected function getFilterValueForBreadCrumb() {
+    	return $this->filterValue;
     }
+    
 }

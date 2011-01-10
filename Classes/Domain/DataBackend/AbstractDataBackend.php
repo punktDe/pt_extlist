@@ -285,6 +285,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     	$this->bookmarkManager = $bookmarkManager;
     }
 	
+    
+    
+    /**
+     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder;
+     */
+    public function getConfigurationBuilder() {
+    	return $this->configurationBuilder;
+    }
+    
 	
 	
 	/**

@@ -26,8 +26,8 @@
 /**
  * Class implements a testcase for namespace utility class
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Utility
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
@@ -62,6 +62,11 @@ class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Te
 		$this->assertEquals($extractedValue, array(), 'The method should return an empty array');
 	}
 	
+	
+	public function testGetArrayContentByArrayAndNamespaceWithEmptyNameSpace() {
+		$extractedValue = Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->varArray,'');
+		$this->assertEquals($extractedValue,$this->varArray, 'The method should return teh complete var array');
+	}
 	
 	
 	public function testSaveDataInNamespaceTree() {

@@ -11,4 +11,8 @@ plugin.tx_ptextlist.prototype.list {
 	headerPartial = List/ListHeader
 	bodyPartial = List/ListBody
 	aggregateRowsPartial = List/AggregateRows
+	
+	useSession = 1
+	
+	pagerIdentifier = default
 }

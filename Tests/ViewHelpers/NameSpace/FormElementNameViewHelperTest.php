@@ -28,8 +28,8 @@
  * Testcase for getPostPropertyViewHelper
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\ViewHelpers\NameSpace
  */
 class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -48,7 +48,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcas
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
-            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
+            ->will($this->returnValue('listName.objectType.objectName'));
 		
 		$nameSpacepart = $linkViewHelper->renderNamespacePart($object);
 		
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcas
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
-            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
+            ->will($this->returnValue('listName.objectType.objectName'));
             
         $link = $linkViewHelper->render($object,'label');
         
@@ -74,7 +74,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcas
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
-            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
+            ->will($this->returnValue('listName.objectType.objectName'));
             
         $link = $linkViewHelper->render($object,'label.label1');
         

@@ -90,7 +90,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return string The rendered filterbox action
      */
     public function showAction(Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors = null) {
-        $this->view->assign('filterbox', $this->filterbox);
+		$this->view->assign('filterbox', $this->filterbox);
+    	$this->view->assign('config', $this->configurationBuilder);
     }
     
     
@@ -101,12 +102,12 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return String
      */
     public function submitAction() {
+
     	if (!$this->filterbox->validate()) {
             $this->view->assign('filtersDontValidate', true);
         }
         
         $this->resetPagers();
-        
     	$this->forward('show');
     }   
 
@@ -119,9 +120,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      */
     public function resetAction() {
     	$this->filterbox->reset();
-    	
     	$this->resetPagers();
-    	    	
     	$this->forward('show');
     }
     

@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	public function getListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
-		#print_r($data);
+		
 		$mappedListData = $this->dataMapper->getMappedListData($data);
 		return $mappedListData;
 	}
@@ -173,7 +173,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 */
 	protected function buildExtBaseQuery() {
 		$query = $this->buildGenericQueryWithoutPager();
-        
+		
         // Collect pager limit
         if ($this->pagerCollection->isEnabled()) {
             $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
@@ -184,6 +184,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
         $query->setLimit($limitPart);
         
         $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+        
+        $extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+        
         return $extbaseQuery;
 	}
 	
@@ -207,17 +210,20 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
 	 */
 	protected function buildGenericQueryExcludingFilters(array $excludeFilters = array()) {
-	    $query = new Tx_PtExtlist_Domain_QueryObject_Query();
+	    
+		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+	    
 	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-		    	if (!in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
+            	if (!in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
                     $criterias = $filter->getFilterQuery()->getCriterias();
                     foreach($criterias as $criteria) {
-                        $query->addCriteria($criteria);
+                    	$query->addCriteria($criteria);
                     }
                 }
             }
         }
+        
         return $query;
 	}
 	
@@ -231,6 +237,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildExtBaseQueryWithoutPager() {
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
 		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		
+		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		    
 		return $extbaseQuery;
 	}
 	
@@ -242,7 +251,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
-		return $extbaseQuery = $this->buildExtBaseQueryWithoutPager()->count();
+		return $this->buildExtBaseQueryWithoutPager()->count();
 	}
 	
 	

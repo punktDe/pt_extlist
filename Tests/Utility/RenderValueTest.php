@@ -26,8 +26,8 @@
 /**
  * Testcase for database utility class
  *
- * @package TYPO3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Utility
  * @author Daniel Lienert <lienert@punkt.de>
  */
 class Tx_PtExtlist_Tests_Utility_RenderValue_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
@@ -48,12 +48,32 @@ class Tx_PtExtlist_Tests_Utility_RenderValue_testcase extends Tx_PtExtlist_Tests
 	}
 	
 	
-	public function testRenderDefault() {
+	public function testRenderDefaultWithSingleFields() {
 		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('x', 'y'));
 		$this->assertEquals($renderedOutput, 'x, y');
 	}
 	
+	public function testRenderDefaultWithArrays() {
+		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array(array('x' => 'z'), array('x' => 'y')));
 		
+		$this->assertEquals($renderedOutput, 'x : z, x : y');
+	}
+
+	public function testRenderDefaultWithObjects() {
+		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass();
+		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('field' => $testObject));
+		$this->assertTrue(is_a($renderedOutput,'Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass'));
+	}
+
+	
+	public function testRenderDefaultMixed() {
+		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass();
+		
+		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('field1' => $testObject, 'field2' => array('x' => 'y'), 'field3' => 'field3Value'));
+		$this->assertEquals($renderedOutput, 'Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass, x : y, field3Value');
+	}
+	
+	
 	public function testRenderValueByRenderUserFunctionArray() {
 		$this->markTestIncomplete();
 	}
@@ -63,6 +83,17 @@ class Tx_PtExtlist_Tests_Utility_RenderValue_testcase extends Tx_PtExtlist_Tests
 		return arrray_pop($params);
 	} 
 	
+}
+
+
+/**
+ * Helper class for object rendering tests
+ */
+
+class Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass {
+	public function getTestValue() {
+		return 'testContent';
+	}
 }
 
 ?>

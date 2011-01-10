@@ -56,9 +56,9 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::createFilterCriteria()
+	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteria()
 	 */
-	protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
 	
 	
 	/**
@@ -86,6 +86,8 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	public function reset() {}
 	
 	public function getFilterBreadCrumb() {}
+	
+	public function getFilterValueForBreadCrumb() {}
 	
 	public function persistToSession() {}
 	

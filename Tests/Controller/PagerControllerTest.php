@@ -78,41 +78,6 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
     	$pagerControllerMock->_set('pagerIdentifier', 'default');
     	
     	$pagerControllerMock->showAction();
-    }
-    
-      
-    
-    public function testSubmitAction() {
-    	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('forward'), array(), '', FALSE);
-    	$pagerControllerMock->expects($this->once())
-    	   ->method('forward')
-    	   ->with('show');
-    	
-    	$pagerControllerMock->_set('listIdentifier','list');
-    	
-    	$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setCurrentPage'), array(),'',FALSE);
-    		
-    	$pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
-    	    		
-        $pagerControllerMock->submitAction();
-    }
-    
-    public function testSubmitActionWithWrongList() {
-    	$pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('forward'), array(), '', FALSE);
-    	$pagerControllerMock->expects($this->once())
-    	   ->method('forward')
-    	   ->with('show');
-	
-    	$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setCurrentPage'), array(),'',FALSE);
-    	$pagerCollectionMock->expects($this->never())
-    		->method('setCurrentPage');
-    		
-    	$pagerControllerMock->_set('listIdentifier','list');
-    	$pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
-    	    		
-        $pagerControllerMock->submitAction(42,'wronglist');
-    }
-    
+    }   
 }
-
 ?>

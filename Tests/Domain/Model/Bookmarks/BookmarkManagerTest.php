@@ -26,8 +26,8 @@
 /**
  * Testcase for bookmark manager
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\Bookmarks
  * @author Michael Knoll <knoll@punkt.de>
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {

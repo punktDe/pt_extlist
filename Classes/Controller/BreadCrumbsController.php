@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
- * Controller for showing filter breadcrumbs
+ * Controller for filter breadcrumbs widget
  *
  * @package Controller
  * @author Michael Knoll <knoll@punkt.de>
@@ -38,10 +38,11 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 */
 	protected $filterboxCollection;
 	
+	
+	
 	/**
 	 * Overwrites initAction for setting properties
-	 * and enable easy testing
-	 *
+	 * and enabling easy testing
 	 */
 	protected function initializeAction() {
 		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
@@ -56,6 +57,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 */
 	public function indexAction() {
 		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+			$this->configurationBuilder,
 		    $this->filterboxCollection
 		);
 		$this->view->assign('breadcrumbs', $breadcrumbs);
@@ -66,13 +68,16 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	/**
 	 * Resets given filter and forwards to index action
 	 *
-	 * @param string $filterIdentifier Identifier of filter to be resetted
-	 * @param string $filterboxIdentifier Identifier of filterbox of filter to be resetted
+	 * @return string The rendered reset filter action
 	 */
-	public function resetFilterAction($filterIdentifier, $filterboxIdentifier) {
-		$filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
-		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
-		$filter->reset();
+	public function resetFilterAction() {
+		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+		    $this->configurationBuilder,
+			$this->filterboxCollection
+		);
+		
+		$breadcrumbs->resetFilters();
+
 		$this->forward('index');
 	}
 	

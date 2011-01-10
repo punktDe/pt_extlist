@@ -51,6 +51,23 @@ class Tx_PtExtlist_Domain_Model_List_ListData extends tx_pttools_objectCollectio
 	 */
 	public function addRow(Tx_PtExtlist_Domain_Model_List_Row $row) {
 		$this->addItem($row);
-	}	
+	}
+	
+	
+	/**
+	 * @param int $id
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+	 */
+	public function getRow($id) {
+		return $this->getItemById($id);
+	}
+	
+	
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+	 */
+	public function getFirstRow() {
+		return $this->itemsArr[0];
+	}
 }
 ?>

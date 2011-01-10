@@ -82,6 +82,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 	 */
 	public function __call($functionName, $arguments) {
 		#$functionName = strtolower($functionName);
+		
 		$matches = array();
 		$pattern = '/(get|build)(.+)Config(uration)?/is';
 		preg_match($pattern, $functionName, $matches);
@@ -94,7 +95,6 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 			}
 			return $this->buildConfigurationGeneric($matches[2]);
 		}
-
 		Throw new Exception('The method configurationBuilder::' . $functionName . ' could not be found or handled by magic function. 1289407912');
 	}
 
@@ -114,6 +114,11 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
 			}
 
 			$factoryClass = $this->configurationObjectSettings[$configurationName]['factory'];
+
+			if(!class_exists($factoryClass)) {
+				Throw new Exception('Factory class for configuration ' . $configurationName . ': ' . $factoryClass .  'not found! 1293416866');
+			}
+			
 			//$this->configurationObjectInstances[$configurationName] = $factoryClass::getInstance($this); // PHP 5.3 only ;)
 			$this->configurationObjectInstances[$configurationName] = call_user_func(array($factoryClass, 'getInstance'), $this); // Avoid :: notation in PHP < 5.3
 

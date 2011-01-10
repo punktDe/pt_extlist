@@ -196,6 +196,14 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      */
     public function getFilterboxCollection();
 
+    
+    
+    /**
+     * Returns associated pager collection
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     */
+    public function getPagerCollection();
 }
 
 ?>

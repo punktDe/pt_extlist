@@ -177,9 +177,7 @@ plugin.tx_ptextlist.settings {
 				columnIdentifier = isoNoColumn
 				fieldIdentifier = iso2
 				isSortable = 1
-				renderUserFunctions {
-					10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
-				}
+
 			}
 
 			30 {
@@ -255,7 +253,7 @@ plugin.tx_ptextlist.settings {
 						fieldIdentifier = *
 					}
 
-					15 < plugin.tx_ptextlist.prototype.filter.string
+					15 < plugin.tx_ptextlist.prototype.filter.max
 					15 {
 						filterIdentifier = filter15
 						label = Max Phone

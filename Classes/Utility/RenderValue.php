@@ -129,25 +129,83 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * Render data in default mode, eg implode with ','
 	 *
 	 * @param array $data
-	 * @return string rendered data
+	 * @return mixed rendered data
 	 */
-	public static function renderDefault(array $data) {
-		if(!is_array(current($data))) {
-			return implode(', ', $data);
-
-		} else {
-			$defaultRenderString = '';
-			foreach($data as $row) {
-				foreach($row as $label => $field) {
-					$defaultRenderString .= $label . ' : ' . $field . ', ';
-				}
+	public static function renderDefault($data) {
+		$renderedFields = array();
+		
+		foreach($data as $fieldIdentifier => $field) {
+			
+			// If $data is an object - print all accessible attributes
+			if(is_object($field)) {
+				$renderedFields[] = self::renderDefaultObject($field);
+				
+			// If $data is an array of key/values write a key/value list
+			} elseif(is_array($field)) {
+				$renderedFields[] = self::renderDefaultArray($field);
+	
+			} else {
+				$renderedFields[] = $field;
 			}
-
-			return $defaultRenderString;
+		}
+		
+		if(count($renderedFields) > 1) {
+			foreach($renderedFields as $key => $renderField) {
+				if(is_object($renderField)) $renderedFields[$key] = get_class($renderField);
+			}
+			
+			return implode(', ', $renderedFields);
+		} else {
+			return current($renderedFields);
 		}
 	}
 
+	
+	
+	/**
+	 * Print the given array as key-value list
+	 * 
+	 * @param array $array
+	 * @return string
+	 */
+	protected static function renderDefaultArray(array $array) {
+		$renderedFields = array();
+		
+		foreach($array as $label => $field) {
+			$renderedFields[] = $label . ' : ' . $field;
+		}
 
+		return implode(', ', $renderedFields);
+	}
+	
+	
+	
+	/**
+	 * Render a key value list of the given object
+	 * 
+	 * @param object $object
+	 * @return string
+	 */
+	protected static function renderDefaultObject($object) {
+		return $object;
+		$renderedFields = array();
+		
+		$objectMethods = get_class_methods(get_class($object));
+		
+		foreach($objectMethods as $objectMethod) {
+			if(substr($objectMethod,0,3) == 'get') {
+				$key = substr($objectMethod,3);
+				$value = $object->$objectMethod();
+				
+				if(is_object($value)) $value = $key . ' (OBJECT)';
+				$renderedFields[] = $key . ' : ' . $value;
+			}
+		}
+		
+		return implode(', ', $renderedFields);
+	}
+
+	
 
 	/**
 	 * Render the given dataValues with cObj
@@ -162,6 +220,34 @@ class Tx_PtExtlist_Utility_RenderValue {
 
 		self::getCobj()->start($data);
 		return self::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
+	}
+	
+	
+	
+	/**
+	 * Renders given data by a given configuration array
+	 * 
+	 * Configuration for rendering has to be in the following form:
+	 * 
+	 * array {
+     *    "dataWrap"=> "{field:label} equals {field:value}",
+     *    "_typoScriptNodeValue"=>"TEXT"
+     * }
+	 * 
+	 * Which is the result of the following TS:
+	 * 
+	 * whateverKey = TEXT
+	 * whateverKey {
+	 *     dataWrap = {field:label} equals {field:value}
+	 * }
+	 *
+	 * @param array $data Data to be rendered
+	 * @param array $configArray Configuration to render data with
+	 * @return string The rendered data
+	 */
+	public static function renderDataByConfigArray($data, $configArray) {
+		self::getCobj()->start($data);
+		return self::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
 	}
 
 

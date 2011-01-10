@@ -75,7 +75,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
 	 */
-	protected function buildFilterCriteriaForField(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 		$singleCriteria = NULL;
 		
@@ -231,16 +231,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	
 	
 	/**
-	 * Returns filter breadcrumb for this filter.
-	 * Most likely to be overwritten in concrete filter class.
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 * Return filter value string for breadcrumb
+	 * 
+	 * @return string
 	 */
-	public function getFilterBreadCrumb() {
-		$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
-		if (count($this->filterValues) > 0) {
-		    $breadCrumb->setMessage($this->filterIdentifier . ' = ' . implode(', ', $this->filterValues));
-		}
-		return $breadCrumb;
+	protected function getFilterValueForBreadCrumb() {
+	   return implode(', ', $this->filterValues);	
 	}
+	
 }

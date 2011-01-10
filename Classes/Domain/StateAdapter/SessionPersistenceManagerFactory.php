@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	public static function getInstance() {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
-			self::initializeInstance();
+			self::$instance->injectSessionAdapter(self::getStorageAdapter());
 		}
 		return self::$instance;
 	}
@@ -57,15 +57,17 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	
 	
 	/**
-	 * Initializes session persistence manager object
+	 * Initialize the sessionAdapter
 	 *
-	 * @return void
+	 * @return tx_pttools_iStorageAdapter storageAdapter
 	 */
-	private static function initializeInstance() {
-		// TODO think about the fact that here a static property is manipulated... pass by reference?!?
-		self::$instance->injectSessionAdapter(tx_pttools_sessionStorageAdapter::getInstance());
+	private static function getStorageAdapter() {
+		
+		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+			return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
+		} else {
+			return tx_pttools_sessionStorageAdapter::getInstance();	
+		}
 	}
-	
 }
-
 ?>

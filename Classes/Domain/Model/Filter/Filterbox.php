@@ -160,7 +160,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollec
 	 * @return string Namespace of filterbox
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
+		return  $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
 	}
 	
 	

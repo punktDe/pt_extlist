@@ -28,8 +28,8 @@
  * Testcase for getPostPropertyViewHelper
  * 
  * @author Daniel Lienert <lienert@punkt.de>
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\ViewHelpers\NameSpace
  */
 class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -73,13 +73,13 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace','getLabel'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
-            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
+            ->will($this->returnValue('listName.objectType.objectName'));
 		$object->expects($this->once())
             ->method('getLabel')
             ->will($this->returnValue('test'));
             
             
-		$gpArray = $linkViewHelper->render($object,'label');
+		$gpArray = $linkViewHelper->render('label',$object);
 		
 		$refArray['listName']['objectType']['objectName']['label'] = 'test';
 		$this->assertEquals($gpArray, $refArray);
@@ -91,10 +91,10 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
-            ->will($this->returnValue('tx_ptextlist_pi1.listName.objectType.objectName'));
+            ->will($this->returnValue('listName.objectType.objectName'));
             
             
-		$gpArray = $linkViewHelper->render($object,'label:test');
+		$gpArray = $linkViewHelper->render('label:test', $object);
 		
 		$refArray['listName']['objectType']['objectName']['label'] = 'test';
 		$this->assertEquals($gpArray, $refArray);

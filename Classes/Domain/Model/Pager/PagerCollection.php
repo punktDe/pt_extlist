@@ -27,6 +27,7 @@
 /**
  * A collection to manage a bunch of pagers.
  * 
+ * @author Daniel Lienert <lienert@punkt.de>
  * @author Christoph Ehscheidt <ehscheidt@punkt.de>
  * @package Domain
  * @subpackage Model\Pager
@@ -158,7 +159,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
 	 */
 	public function getObjectNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->configurationBuilder->getListIdentifier() . '.pagerCollection';
+		return $this->configurationBuilder->getListIdentifier() . '.pagerCollection';
 	}
 	
 	
@@ -247,6 +248,31 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	
 	
 	/**
+	 * Set itmesPerPage
+	 * 
+	 * @param int $itemsPerPage
+	 */
+	public function setItemsPerPage($itemsPerPage) {
+		foreach($this->itemsArr as $pager) {
+			$pager->setItemsPerPage($itemsPerPage);
+		}
+	}
+	
+	
+	
+	/**
+	 * Set the page by row index
+	 * 
+	 * @param int $rowIndex
+	 */
+	public function setPageByItemIndex($rowIndex) {
+		$pageIndex = floor($rowIndex / $this->getItemsPerPage());
+		$this->setCurrentPage($pageIndex);
+	}
+	
+	
+	
+	/**
 	 * Returns an array with the index=>pageNumber pairs
 	 * @return array PageNumbers
 	 */
@@ -254,6 +280,22 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		return $this->getItemByIndex(0)->getPages();
 	}
 
+	
+	/**
+	 * Return pager by Identifier
+	 * 
+	 * @param string $pagerIdentifier
+	 * @throws Exception
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+	 */
+	public function getPagerByIdentifier($pagerIdentifier) {
+		if(!$this->hasItem($pagerIdentifier)) {
+			throw  new Exception('No pager configuration with id '.$pagerIdentifier.' found. 1282216891');
+		}
+		
+		return $this->getItemById($pagerIdentifier);
+	}
+	
 	
 	/**
 	 * Returns the last page index

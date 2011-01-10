@@ -216,8 +216,12 @@ plugin.tx_ptextlist.settings {
 	}
 }
 
+
+
+################################
 # Localization Override
 ################################
+
 plugin.tx_ptextlist._LOCAL_LANG{
 	default {
 		emptyList = List is empty.
