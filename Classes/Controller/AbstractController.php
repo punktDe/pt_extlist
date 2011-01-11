@@ -67,7 +67,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	
 	/**
 	 * Constructor for all plugin controllers
-	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function __construct() {
 		$this->lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
