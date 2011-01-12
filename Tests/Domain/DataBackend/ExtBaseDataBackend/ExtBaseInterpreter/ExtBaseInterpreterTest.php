@@ -87,6 +87,24 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     
     
     
+    public function testSetSortingOnExtBaseQueryByQueryObject() {
+    	$repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository',  array(), array(), '', FALSE);
+    	$queryObjectMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', array(), array(), '', FALSE);
+    	$queryObjectMock->expects($this->any())
+            ->method('getSortings')
+            ->will($this->returnValue(
+                array('fieldName1' => '1','fieldName2' => '-1')
+            )
+        );
+        $extbaseQueryMock = new Tx_Extbase_Persistence_Query();#$this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
+        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setSortingOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
+        var_dump($extbaseQueryMock);
+        $extBaseOrderings = $extbaseQueryMock->getOrderings();
+        $this->assertEquals($extbaseQueryMock->getOrderings(),array('fieldName1' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING, 'fieldName2' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));
+    }
+    
+    
+    
     public function testSetLimitOnExtBaseQueryByQueryObject() {
     	$repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository',  array(), array(), '', FALSE);
         $queryObjectMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', array(), array(), '', FALSE);
