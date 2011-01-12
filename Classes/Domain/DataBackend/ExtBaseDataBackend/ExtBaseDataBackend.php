@@ -188,7 +188,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
         if ($this->backendConfiguration->getDataBackendSettings('sorting') != '') {
 	        $sortingConfiguration = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
 	        $sorting = array();
-	        $sorting[$sortingConfiguration[0]] = $sortingConfiguration[1] == 'DESC' ? 'DESC' : 'ASC';
+	        $sorting[$sortingConfiguration[0]] = $sortingConfiguration[1] == 'DESC' ? 
+	            Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC : Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
 	        $query->addSortingArray($sorting);
         }
         

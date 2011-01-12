@@ -259,6 +259,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 */
 	public function addSortingArray(array $sortingArray) {
 		tx_pttools_assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
+		// TODO assert that content of array is correct! 
 		$this->sortings =  t3lib_div::array_merge_recursive_overrule($this->sortings, $sortingArray);
 	}
 	

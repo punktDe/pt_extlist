@@ -93,14 +93,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     	$queryObjectMock->expects($this->any())
             ->method('getSortings')
             ->will($this->returnValue(
-                array('fieldName1' => '1','fieldName2' => '-1')
+                array(
+                    'fieldName1' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC,
+                    'fieldName2' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC
+                )
             )
         );
         $extbaseQueryMock = new Tx_Extbase_Persistence_Query();#$this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setSortingOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
         var_dump($extbaseQueryMock);
         $extBaseOrderings = $extbaseQueryMock->getOrderings();
-        $this->assertEquals($extbaseQueryMock->getOrderings(),array('fieldName1' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING, 'fieldName2' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));
+        $this->assertEquals($extbaseQueryMock->getOrderings(),array('fieldName1' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING, 'fieldName2' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));
     }
     
     
