@@ -183,11 +183,14 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
         }
         $query->setLimit($limitPart);
         
+        // TODO refactor this!
         // Set sorting from backend configuration TODO  respect sorting headers here!
-        $sortingConfiguration = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
-        $sorting = array();
-        $sorting[$sortingConfiguration[0]] = $sortingConfiguration[1] == 'DESC' ? 'DESC' : 'ASC';
-        $query->addSortingArray($sorting);
+        if ($this->backendConfiguration->getDataBackendSettings('sorting') != '') {
+	        $sortingConfiguration = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
+	        $sorting = array();
+	        $sorting[$sortingConfiguration[0]] = $sortingConfiguration[1] == 'DESC' ? 'DESC' : 'ASC';
+	        $query->addSortingArray($sorting);
+        }
         
         $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
         
