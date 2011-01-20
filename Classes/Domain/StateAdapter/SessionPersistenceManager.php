@@ -136,11 +136,13 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	}
 	
 	
+	
 	/**
 	 * Persist the cached session data.
 	 * 
 	 */
 	public function persist() {
+		$this->persistObjectsToSession();
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
 	}
 	

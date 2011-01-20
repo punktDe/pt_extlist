@@ -2,9 +2,11 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>, 
-*  	   Christoph Ehscheidt <ehscheidt@punkt.de>
+*  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+*  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
 *  All rights reserved
+*
+*  For further information: http://extlist.punkt.de <extlist@punkt.de>
 *
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,7 +24,7 @@
 *  GNU General Public License for more details.
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+***************************************************************/ 
 
 /**
  * Class implements default pager for pt_extlist

@@ -57,8 +57,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	
 		return self::$instance;
 	}
-	
-	
+		
 	
 	/**
 	 * Remove the extension name from the variables
