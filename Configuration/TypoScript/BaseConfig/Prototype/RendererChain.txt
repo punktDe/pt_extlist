@@ -1,0 +1,20 @@
+####################################################
+# Definition of renderer prototypes for use 
+# in listconfiguration 
+#
+# @author Daniel Lienert <lienert@punkt.de> 
+# @author Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.prototype.rendererChain {
+	enabled = 1
+	showCaptionsInBody = 0
+	
+	rendererConfigs {
+		100 {
+			rendererClassName = Tx_PtExtlist_Domain_Renderer_Default_Renderer
+		}
+	}
+}

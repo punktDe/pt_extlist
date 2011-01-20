@@ -1,21 +1,60 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <T3locallang>
 	<meta type="array">
-		<type>module</type>
-		<description>Language labels for the pt_extlist extension</description>
+		<type>database</type>
+		<description>Language labels for the countries demo in the pt_extlist extension</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="localName">Country Name (local)</label>
-			<label index="capital">Capital</label>
-			<label index="isoCode2">ISO</label>
-			<label index="phone">Phone</label>
+            
+            <label index="emptyList">Sorry, no list items available.</label>
+            
+            <label index="pager.of">of</label>
+            <label index="pager.to">to</label>
+            <label index="pager.showItems">Show item</label>
+            
+            <label index="filterBox.resetFilters">Reset Filters</label>
+            <label index="filterBox.submitFilters">Submit Filters</label>
+            <label index="filterBox.errorInFilter">The filters contain errors.</label>
+            
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Description</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.content">Content</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.create_date">Date</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user">FE User</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Group</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.is_public">Public Bookmark</label>
+            
+            <label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
+			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
+			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
+			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
 		</languageKey>
+		
 		<languageKey index="de" type="array">
-			<label index="localName">Ländername</label>
-			<label index="capital">Hauptstadt</label>
-			<label index="isoCode2">ISO</label>
-			<label index="phone">Vorwahl</label>
+            <label index="emptyList">Leider keine Daten in der Liste.</label>
+            <label index="pager.of">von</label>
+            <label index="pager.to">bis</label>
+            <label index="pager.showItems">Zeige Element</label>
+            
+            <label index="filterBox.resetFilters">Filter zurücksetzen</label>
+            <label index="filterBox.errorInFilter">Die Eingaben der Filter enthalten Fehler.</label>
+            
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Beschreibung</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.content">Inhalt</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.create_date">Datum</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user">FE Benutzer</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Gruppe</label>
+            <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.is_public">Öffentlicher Bookmark</label>
+            
+            <label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
+			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
+			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
+			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
 		</languageKey>
 	</data>
 </T3locallang>

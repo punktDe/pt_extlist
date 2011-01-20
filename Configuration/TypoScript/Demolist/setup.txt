@@ -1,0 +1,44 @@
+####################################################
+# This file shows a summary of the various demolists 
+# provided with this package
+#
+# @author Michael Knoll <knoll@punkt.de>
+# @author Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+#
+# Baseconfigurations for demo Lists
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Base.txt">
+
+#
+# Demolist from static countries with typo3 backend and some filters
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_01.txt">
+
+#
+# Demolist from static countries with typo3 backend, and grouped data
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.txt">
+
+#
+# Demolist with mysql backend and external mysql data
+# As demo data we use the "World data" http://dev.mysql.com/doc/index-other.html
+# Host: localhost
+# Database: pt_extlist_test
+# User: typo3
+# Pass: typo3
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Mysql_01.txt">
+
+#
+# Demolist from fe_groups with extbase backend and some filters
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_ExtBase_01.txt">
+
+#
+# Demolist from fe_groups with extbase backend and some filters
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_ExtBase_02.txt">

@@ -1,0 +1,64 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering a radio filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                      Holds an instance for the group filter object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+
+<div class="outer-wrapper">
+
+	<f:if condition="{filter.validate} == 0">
+		<div class="error">
+			Validation Error: {filter.errorMessage}
+		</div>
+	</f:if>
+
+	<p class="label" for="{filter.filterIdentifier}">
+		{filter.label}
+	</p>
+	<div class="outer-field-wrapper">
+	
+		<f:if condition="{filter.filterConfig.submitOnChange}">
+			<f:then>
+				<f:for each="{filter.options}" key="optionValue" as="option">
+					<div class="field-wrapper type-radio">
+						<f:form.radio name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" value="{optionValue}" checked="{option.selected}" additionalAttributes="{onchange : 'submit()'}"/>
+						<label>
+							{option.value}
+						</label>
+					</div>
+				</f:for>
+			</f:then>
+			<f:else>
+				<f:for each="{filter.options}" key="optionValue" as="option">
+					<div class="field-wrapper type-radio">
+						<f:form.radio name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" value="{optionValue}" checked="{option.selected}"/>
+						<label>
+							{option.value}
+						</label>
+					</div>
+				</f:for>
+			</f:else>
+		</f:if>
+	
+		<f:if condition="{filter.filterConfig.invertable}">
+			<div class="field-wrapper type-checkbox">
+				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<label>
+					Invert
+				</label>
+			</div>
+		</f:if>
+		
+	</div>
+</div>

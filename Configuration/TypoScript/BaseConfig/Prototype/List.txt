@@ -1,0 +1,18 @@
+####################################################
+# Definition of list prototypes for use in listconfiguration 
+#
+# @author Christoph Ehscheidt <ehscheidt@punkt.de> 
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.prototype.list {
+
+	headerPartial = List/ListHeader
+	bodyPartial = List/ListBody
+	aggregateRowsPartial = List/AggregateRows
+	
+	useSession = 1
+	
+	pagerIdentifier = default
+}

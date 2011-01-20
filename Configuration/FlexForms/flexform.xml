@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+  <sheets>
+  
+    <!--##########################-->
+    <!-- Tab for general settings -->
+    <!--##########################-->
+    <sDefault>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>General Options</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+
+          <settings.listIdentifier>
+            <TCEforms>
+              <label>List Identifier</label>
+              <config>
+                <type>select</type>
+                	<items>
+						<numIndex index="0" type="array">
+							<numIndex index="0">[Please select a defined listConfig]</numIndex>
+							<numIndex index="1"></numIndex>
+						</numIndex>
+					</items>
+					<default></default>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedListConfigs</itemsProcFunc>
+              </config>
+            </TCEforms>
+          </settings.listIdentifier>
+          
+          
+          <switchableControllerActions>
+            <TCEforms>
+              <label>Plugin type</label>
+              <config>
+                <type>select</type>
+                <items type="array">
+                  <numIndex index="1" type="array">
+                    <numIndex index="0">List</numIndex>
+                    <numIndex index="1">List->list;List->sort</numIndex>
+                  </numIndex>
+                  <numIndex index="2" type="array">
+                    <numIndex index="0">Export</numIndex>
+                    <numIndex index="1">List->export</numIndex>
+                  </numIndex>
+                  <numIndex index="3" type="array">
+                    <numIndex index="0">Filterbox</numIndex>
+                    <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset</numIndex>
+                  </numIndex>
+                  <numIndex index="4" type="array">
+                    <numIndex index="0">Pager</numIndex>
+                    <numIndex index="1">Pager->show;Pager->submit</numIndex>
+                  </numIndex>
+                  <numIndex index="5" type="array">
+                    <numIndex index="0">Bookmarks</numIndex>
+                    <numIndex index="1">Bookmarks->show;Bookmarks->delete;Bookmarks->new;Bookmarks->edit;Bookmarks->update;Bookmarks->process;Bookmarks->create</numIndex>
+                  </numIndex>
+                  <numIndex index="6" type="array">
+                    <numIndex index="0">Breadcrumbs</numIndex>
+                    <numIndex index="1">BreadCrumbs->index;BreadCrumbs->resetFilter</numIndex>
+                  </numIndex>
+                  <numIndex index="7" type="array">
+                    <numIndex index="0">DocBook</numIndex>
+                    <numIndex index="1">DocBook->createTsDocBook</numIndex>
+                  </numIndex>
+                </items>
+              </config>
+            </TCEforms>
+          </switchableControllerActions>
+
+
+        </el>
+      </ROOT>
+    </sDefault>
+    
+    
+    
+    
+    <!--##########################-->
+    <!-- Tab for list settings    -->
+    <!--##########################-->
+    <list>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>List settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          
+
+        </el>
+      </ROOT>
+    </list>
+    
+    
+    
+    <!--##########################-->
+    <!-- Tab for export settings  -->
+    <!--##########################-->
+    <list>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Export settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          <settings.controller.List.export.view>
+            <TCEforms>
+              <label>Export Type</label>
+              <config>
+                <type>select</type>
+                	<items>
+						<numIndex index="0" type="array">
+							<numIndex index="0">[Please select the export type]</numIndex>
+							<numIndex index="1"></numIndex>
+						</numIndex>
+					</items>
+					<default></default>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedExportConfigs</itemsProcFunc>
+              </config>
+            </TCEforms>
+          </settings.controller.List.export.view>
+          
+          <settings.prototype.export.downloadType>
+            <TCEforms>
+              <label>Download Type</label>
+              <config>
+                <type>select</type>
+                  <items type="array">
+                    <numIndex index="1" type="array">
+                      <numIndex index="0">(Try to) show in Browser</numIndex>
+                      <numIndex index="1">I</numIndex>
+                    </numIndex>
+                    <numIndex index="2" type="array">
+                      <numIndex index="0">Force Download</numIndex>
+                      <numIndex index="1">D</numIndex>
+                    </numIndex>
+                  </items>
+              </config>
+            </TCEforms>
+          </settings.prototype.export.downloadType>
+
+          <settings.prototype.export.fileName>
+            <TCEforms>
+              <label>Filename (Prefix)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.prototype.export.fileName>
+          
+          <settings.prototype.export.fileExtension>
+            <TCEforms>
+              <label>File Extension (Suffix without ".")</label>
+              <config>
+                <type>input</type>
+                <size>4</size>
+                <eval>trim</eval>
+              </config>
+            </TCEforms>
+          </settings.prototype.export.fileExtension>
+          
+          <settings.prototype.export.addDateToFilename>
+            <TCEforms>
+              <label>Add Date to Filname</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.prototype.export.addDateToFilename>
+
+        </el>
+      </ROOT>
+    </list>
+    
+    
+    
+    <!--###############################-->
+    <!-- Tab for bookmarks settings    -->
+    <!--###############################-->
+    <bookmarks>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Bookmarks settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+        
+          <settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
+            <TCEforms>
+              <label>Bookmarks PID</label>
+              <config>
+                <type>input</type>
+                <size>4</size>
+                <eval>int</eval>
+              </config>
+            </TCEforms>
+          </settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
+
+          <settings.bookmarks.showUserBookmarks>
+            <TCEforms>
+              <label>Show User's Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showUserBookmarks>
+          
+          <settings.bookmarks.showGroupBookmarks>
+            <TCEforms>
+              <label>Show Group's Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showGroupBookmarks>
+          
+          <settings.bookmarks.showPublicBookmarks>
+            <TCEforms>
+              <label>Show public Bookmarks</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.showPublicBookmarks>
+          
+          <settings.bookmarks.feUsersAllowedToEditPublic>
+            <TCEforms>
+              <label>FE User IDs that are allowed to create public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feUsersAllowedToEditPublic>
+          
+          <settings.bookmarks.feGroupsAllowedToEditPublic>
+            <TCEforms>
+              <label>FE Group IDs that are allowed to create public bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feGroupsAllowedToEditPublic>
+          
+          <settings.bookmarks.feUsersAllowedToEdit>
+            <TCEforms>
+              <label>FE User IDs that are allowed to edit bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feUsersAllowedToEdit>
+          
+          <settings.bookmarks.feGroupsAllowedToEdit>
+            <TCEforms>
+              <label>FE Group IDs that are allowed to edit bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.feGroupsAllowedToEdit>
+
+          <settings.bookmarks.groupIdsToShowBookmarksFor>
+            <TCEforms>
+              <label>Group IDs for which to show bookmarks (comma-seperated)</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.bookmarks.groupIdsToShowBookmarksFor>
+
+        </el>
+      </ROOT>
+    </bookmarks>
+    
+    
+    
+    <!--############################-->
+    <!-- Tab for filterbox settings -->
+    <!--############################-->
+    <filterbox>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Filterbox settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          <settings.filterboxIdentifier>
+            <TCEforms>
+              <label>Filterbox Identifier</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.filterboxIdentifier>
+
+        </el>
+      </ROOT>
+    </filterbox>
+    
+    
+    
+    <!--##########################-->
+    <!-- Tab for pager settings   -->
+    <!--##########################-->
+    <pager>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Pager settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+           <settings.pagerIdentifier>
+            <TCEforms>
+              <label>Pager Identifier</label>
+              <config>
+                <type>input</type>
+                <size>30</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.pagerIdentifier>
+        </el>
+      </ROOT>
+    </pager>
+    
+    
+    
+    <!--#################################-->
+    <!-- Tab for breadcrumbs settings    -->
+    <!--#################################-->
+    <breadcrumbs>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Breadcrumbs settings</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+
+          <settings.breadCrumbs.showResetLinks>
+            <TCEforms>
+              <label>Show reset links</label>
+              <config>
+                <type>check</type>
+              </config>
+            </TCEforms>
+          </settings.breadCrumbs.showResetLinks>
+
+        </el>
+      </ROOT>
+    </breadcrumbs>
+    
+    
+    
+  </sheets>
+</T3DataStructure>

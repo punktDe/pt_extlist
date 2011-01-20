@@ -1,0 +1,53 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Template for filterbox plugin
+
+Here is a list of objects / variables that can be accessed in this template
+
+Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder				config						A instance of the configurationbuilder
+Tx_PtExtlist_Domain_Model_Filter_Filterbox                          filterbox                   Holds an instance for the filterbox object
+bool                                                                filtersDontValidate         True, if filters do not validate
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<div class="tx-ptextlist-filterbox" id="tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
+	<extlist:form controller="Filterbox" action="submit" method="{f:if(condition: '{config.listConfig.useSession}', then: 'POST', else: 'GET')}">
+		
+		<f:if condition="{filtersDontValidate}">
+			<div class="error">
+				<f:translate key="filterBox.errorInFilter" default="Errors in Filter" />
+			</div>
+		</f:if>
+		
+		<ul class="tx-ptextlist-filters">
+			<f:for each="{filterbox}" as="filter">
+				<li class="tx-ptextlist-filter pt-extlist-filter-{filter.filterIdentifier}">
+					<f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
+				</li>
+			</f:for>
+		</ul>
+		
+		<div class="outer-wrapper tx-ptextlist-filterboxcontrols">
+			<div class="outer-field-wrapper">
+				<div class="field-wrapper type-button">
+					<f:if condition="{filterbox.filterboxConfiguration.showSubmit}">
+						<f:form.submit value="{f:translate(key:'filterBox.submitFilters', default:'Submit Filters')}"/>
+					</f:if>
+					<f:if condition="{filterbox.filterboxConfiguration.showReset}">
+						<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
+							<span>
+								<f:translate key="filterBox.resetFilters" default="Reset filters" />
+							</span>
+						</f:link.action>
+					</f:if>
+				</div>
+			</div>
+		</div>
+	</extlist:form>
+</div>

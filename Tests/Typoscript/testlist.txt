@@ -1,0 +1,46 @@
+
+plugin.tx_ptextlist.settings.prototype < plugin.tx_ptextlist.prototype
+
+plugin.tx_ptextlist.settings {
+    listConfig.tsTestList {
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+    	
+    	fields {
+    		test {
+    			table = x
+    			field = y
+    		}		
+    	}
+    	
+    	columns {
+            10 {
+            	columnIdentifier = test
+            	fieldIdentifier = test
+            }
+        }
+        
+        
+        filters {
+	        filterbox1 {
+	              10 < plugin.tx_ptextlist.prototype.filter.string
+	              10 {
+	              	filterIdentifier = test
+	              	fieldIdentifier = test
+	              }
+	              20 < plugin.tx_ptextlist.prototype.filter.select
+	              20 {
+	              	filterIdentifier = test2
+	              	fieldIdentifier = test
+	              } 
+	         }
+        }  
+    }
+
+    listConfig.t3BackendTestList {
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+    }
+
+    listConfig.mysqlBackendTestList {
+    	backendConfig < plugin.tx_ptextlist.prototype.backend.mysql
+    }
+}

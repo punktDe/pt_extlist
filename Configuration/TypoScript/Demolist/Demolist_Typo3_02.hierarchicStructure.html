@@ -1,0 +1,10 @@
+<ul>
+	<f:for each="{data}" as="dataRow">
+	<li><b><f:format.html>{dataRow.country_en}</f:format.html></b>
+		<ul>
+			<li>City: {dataRow.capital}</li>
+			<li>TLD: {dataRow.tld}</li>
+		</ul>
+	</li>
+	</f:for>
+</ul>

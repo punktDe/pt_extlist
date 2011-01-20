@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <title>Setup.txt</title>
+  <para>The setup-file includes typoscripts. The included scripts are demolists with which you can develop pt_extlist further.</para>
+  <para> A Demolist from static countries with typo3 backend and some filters.</para>
+  <section>
+    <title>Demolist_MySql_01</title>
+    <para>This template configures a demolist for use with pt_extlist.</para>
+  </section>
+  <section>
+    <title>Demolist_Typo3_01</title>
+    <para>This template configures a demolist for use with pt_extlist.</para>
+  </section>
+  <section>
+    <title>Demolist_Typo3_02</title>
+    <para>This template configures a demolist for use with pt_extlist.</para>
+  </section>
+  <section>
+    <title>Demolist_Extbase_01</title>
+    <para>This template configures a demolist for use with pt_extlist for rendering ExtBase Domain objects.</para>
+  </section>
+  <section>
+    <title>Demolist_Extbase_02</title>
+    <para>This template configures a demolist for use with pt_extlist for rendering ExtBase Domain objects.</para>
+  </section>
+</section>

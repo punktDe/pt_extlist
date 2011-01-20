@@ -1,0 +1,19 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Template for bookmarks plugin for deleting bookmarks
+
+Here is a list of objects / variables that can be accessed in this template
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<h2>Delete Bookmark</h2>
+
+Do you really want to delete this bookmark: {bookmark.name}?
+<f:link.action controller="Bookmarks" action="delete" arguments="{bookmark: bookmark reallyDelete: 1}">Delete</f:link.action>

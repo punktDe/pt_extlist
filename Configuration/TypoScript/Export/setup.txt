@@ -1,0 +1,32 @@
+####################################################
+# This template configures export handling
+# with pt_extlist
+#
+# Using this template requires a configured list
+# on the same page or a parent page. Only
+# settings for export are given here!
+#
+# @author Michael Knoll <knoll@punkt.de>
+# @author Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.settings.export {
+	
+	exportConfigs {
+		
+		csvExport < plugin.tx_ptextlist.prototype.export 
+		csvExport {
+			viewClassName = Tx_PtExtlist_View_Export_CsvListView
+			fileExtension =	csv
+		}
+		
+		fluidTemplateExport < plugin.tx_ptextlist.prototype.export
+		fluidTemplateExport {
+			viewClassName = Tx_PtExtlist_View_Export_FluidListView
+			fileExtension = txt
+			templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/export.html
+		}
+	}    
+}

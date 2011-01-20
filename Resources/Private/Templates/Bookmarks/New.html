@@ -1,0 +1,29 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Template for bookmarks plugin
+
+Here is a list of objects / variables that can be accessed in this template
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<h2>New Bookmark</h2>
+<f:form controller="Bookmarks" action="create" method="post" name="bookmark" object="{bookmark}">
+    <f:form.hidden value="{settings.listIdentifier}" property="listId" />
+    Name:<br /> <f:form.textbox property="name" /><br />
+    Description:<br /> <f:form.textbox property="description" /></br>
+    <f:if condition="{allowedToStorePublicBookmark}">
+        Is Public: <f:form.checkbox name="isPublic" value="1" /></br>
+    </f:if>
+    <f:if condition="{groups}">
+        Group to create bookmark for:<br /> <f:form.select name="feGroup" options="{groups}" /><br />
+    </f:if>
+    <br />
+    <f:form.submit value="Create" />
+</f:form>

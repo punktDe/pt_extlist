@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description></description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+            <label index="column_isoNoColumn">ISO</label>
+            <label index="column_nameColumn">Country name (local country name)</label>
+            <label index="filter_nameField">Country Name</label>
+		</languageKey>
+	</data>
+</T3locallang>

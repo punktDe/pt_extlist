@@ -2,8 +2,9 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c)  TODO - INSERT COPYRIGHT
+*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
 *  All rights reserved
+*
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
@@ -23,56 +24,102 @@
 ***************************************************************/
 
 /**
- * The list controller
- *
- * @version $Id:$
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License, version 2
+ * Controller for all list actions
+ * 
+ * @package Controller
+ * @author Michael Knoll <knoll@punkt.de>
+ * @author Daniel Lienert <lienert@punkt.de>
  */
-class Tx_PtExtlist_Controller_ListController extends Tx_Extbase_MVC_Controller_ActionController {
-
+class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController {
+	
 	/**
-	 * @var  Tx_PtExtlist_Domain_Repository_ListItemRepository
-	 */
-	protected $listItemRepository;
-
-	/**
-	 * Initializes the current action
+	 * Holds an instance of list renderer
 	 *
-	 * @return void
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+	 */
+	protected $rendererChain;
+	
+	
+	
+	/**
+	 * Initializes controller
 	 */
 	public function initializeAction() {
-		$this->listItemRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_ListItemRepository');
-		$this->listItemRepository->setSettings($this->settings);
-	}
-
-	/**
-	 * Index action for this controller. Displays a list.
-	 *
-	 * @param array The ordering as key => value pair of an array
-	 * @return string The rendered view
-	 */
-	public function indexAction($ordering = NULL) {
-		$currentOrder = ($ordering === NULL) ? 'default' : strtolower(current($ordering));
-		$list = new Tx_PtExtlist_Domain_Model_List($this->listItemRepository->findListItemsFor('Tx_PtExtlist_Domain_Model_Countries', $ordering, $this->settings['limit'], $this->settings['offset']));
-		$list->setTitle('A List of Countries');
-		$this->view->assign('list', $list);
-		$this->view->assign('sorting', array('property' => key($ordering), 'currentOrder' => $currentOrder));
-	}
-
-	/**
-	 * This action switches the sorting direction and forwards to the index action
-	 *
-	 * @param array $sorting The sorting 
-	 * @return string The rendered view
-	 */
-	public function switchOrderingAction($sorting = NULL) {
-		if ($sorting['currentOrder'] === 'asc') {
-			$ordering[$sorting['property']] = Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING;
-		} else {
-			$ordering[$sorting['property']] = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;
-		}
-		$this->forward('index', NULL, NULL, array('ordering' => $ordering));
+		parent::initializeAction();
+		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 	
+	
+	
+	/**
+	 * List action rendering list
+	 *
+	 * @return string  Rendered list for given list identifier
+	 */
+	public function listAction() {
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+
+		
+		// Do not show the list if it is empty.
+		// TODO do not use forward here!!!
+		if($list->getListData()->count() <= 0) $this->forward('emptyList');
+	
+		
+		$renderedListData = $this->rendererChain->renderList($list->getListData());
+		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
+		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
+		$this->view->assign('config', $this->configurationBuilder);
+		$this->view->assign('listHeader', $list->getListHeader());
+		$this->view->assign('listCaptions', $renderedCaptions);
+		$this->view->assign('listData', $renderedListData);
+		$this->view->assign('aggregateRows', $renderedAggregateRows);
+	}
+	
+	
+	
+	/**
+	 * Export action for exporting list data
+	 *
+	 * @return mixed Whatever format-specific view returns
+	 */
+	public function exportAction() {
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+
+        $renderedListData = $this->rendererChain->renderList($list->getListData());
+        $renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
+        $renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
+        
+        $this->view->assign('config', $this->configurationBuilder);
+        
+        $this->view->assign('listHeader', $list->getListHeader());
+        $this->view->assign('listCaptions', $renderedCaptions);
+        $this->view->assign('listData', $renderedListData);
+        $this->view->assign('aggregateRows', $renderedAggregateRows);
+		return $this->view->render();
+	}
+	
+	
+	
+	/**
+	 * Shows a message that the list is empty.
+	 * 
+	 * @return string A message saying that the list is empty.
+	 */
+	public function emptyListAction() {
+		// template handles translation...
+	}
+	
+	
+	
+	/**
+	 * Sorting action used to change sorting of a list
+	 *
+	 * @return string Rendered sorting action
+	 */
+	public function sortAction() {
+		$headerList = $this->dataBackend->getListHeader();
+		$headerList->reset(); 
+		$this->forward('list');
+	}	
 }
 ?>
