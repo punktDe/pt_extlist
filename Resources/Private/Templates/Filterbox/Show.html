@@ -16,18 +16,18 @@ bool                                                                filtersDontV
 -->
 </extlist:comment>
 
-<div class="pt-extlist-filterbox" id="pt-extlist-filterbox-{filterbox.filterBoxIdentifier}">
+<div class="tx-ptextlist-filterbox" id="tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
 	<extlist:form controller="Filterbox" action="submit" method="{f:if(condition: '{config.listConfig.useSession}', then: 'POST', else: 'GET')}">
 		
 		<f:if condition="{filtersDontValidate}">
 			<div class="error">
-				<f:translate key="filterBox.errorInFilter" default="Errors in Filter." />
+				<f:translate key="filterBox.errorInFilter" default="Errors in Filter" />
 			</div>
 		</f:if>
 		
-		<ul class="pt-extlist-filters">
+		<ul class="tx-ptextlist-filters">
 			<f:for each="{filterbox}" as="filter">
-				<li class="pt-extlist-filter pt-extlist-filter-{filter.filterIdentifier}">
+				<li class="tx-ptextlist-filter pt-extlist-filter-{filter.filterIdentifier}">
 					<f:render partial="{filter.filterConfig.partialPath}" arguments="{filter : filter}" />
 				</li>
 			</f:for>
