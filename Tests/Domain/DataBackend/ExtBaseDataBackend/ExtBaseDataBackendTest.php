@@ -201,9 +201,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     public function testGetTotalItemsCount() {
     	$extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
     	
+    	// create fake query settings
+    	$querySettingsMock = $this->getMock('Tx_Extbase_Persistence_Typo3QuerySettings', array('setRespectStoragePage'), array(), '', FALSE);
+    	$querySettingsMock->expects($this->any())->method('setRespectStoragePage');
+    	
     	// overwrite datasource to return fake query object
     	$queryObjectMock = $this->getMock('Tx_Extbase_Persistence_Query', array('count'), array(), '', FALSE);
     	$queryObjectMock->expects($this->any())->method('count')->will($this->returnValue(10));
+    	$queryObjectMock->expects($this->any())->method('getQuerySettings')->will($this->returnValue($querySettingsMock));
+    	$queryObjectMock->setQuerySettings($querySettingsMock); // Set this here, as getQuerySettings() will check on query settings to be existing!
     	
     	$repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array('createQuery'), '', FALSE);
     	$repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($queryObjectMock));
