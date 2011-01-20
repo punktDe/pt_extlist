@@ -62,6 +62,15 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	
 	/**
+	 * Holds an array of objects that should be persisted when lifecycle ends
+	 *
+	 * @var array<Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface>
+	 */
+	protected $objectsToPersist = array();
+	
+	
+	
+	/**
 	 * Injector for session adapter
 	 *
 	 * @param tx_pttools_sessionStorageAdapter $sessionAdapter
@@ -218,5 +227,44 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		}
 		return $this->sessionHash;
 	}
+	
+	
+	
+    /**
+     * Loads and registers an object on session manager
+     *
+     * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object
+     */
+    public function registerObjectAndLoadFromSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
+    	$this->loadFromSession($object);
+    	$this->registerObjectForSessionPersistence($object);
+    }
+	
+    
+    
+    /**
+     * Registers an object to be persisted to session when lifecycle ends
+     *
+     * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object
+     */
+    public function registerObjectForSessionPersistence(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
+    	if (!in_array($object, $this->objectsToPersist)) {
+    		$this->objectsToPersist[] = $object;
+    	}
+    }
+    
+    
+	
+	/**
+     * Persists all objects registered for session persistence
+     * 
+     */
+    protected function persistObjectsToSession() {
+    	foreach ($this->objectsToPersist as $objectToPersist) { /* @var $objectToPersist Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface */
+    		if (!is_null($objectToPersist)) { // object reference could be null in the meantime
+                $this->persistToSession($objectToPersist);
+    		}   
+       	}
+    }
 }
 ?>
