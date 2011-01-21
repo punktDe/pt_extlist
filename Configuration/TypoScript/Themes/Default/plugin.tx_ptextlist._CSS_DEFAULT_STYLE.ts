@@ -2,15 +2,11 @@ plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* List */
-	.tx-ptextlist-list {
-		width: 99.9%;
-		margin-left: 1px;
-	}
-	
 	.tx-ptextlist-list-standard {
 		border-collapse: collapse;
 		border-spacing: 0;
 		font-size: 12px;
+		width: 100%;
 	}
 	
 	.tx-ptextlist-list-standard th {
