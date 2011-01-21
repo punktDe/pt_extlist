@@ -119,11 +119,9 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function loadFromSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
 		$objectData = $this->getSessionDataForObjectNamespace($object->getObjectNamespace());
-		
 		if (is_array($objectData)) {
 			$object->injectSessionData($objectData);
 		}
-
 	}
 	
 	
