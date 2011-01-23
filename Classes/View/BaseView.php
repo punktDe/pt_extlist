@@ -65,7 +65,8 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	/**
 	 * Inject the configurationBuilder
 	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder
+	 * @noDI
 	 */
 	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
@@ -182,30 +183,5 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 		} else {
 			return $partialName;
 		}
-	}
-	
-	
-	/**
-     * Resolve the template path and filename for the given action. If $actionName
-     * is NULL, looks into the current request.
-     * 
-     * Tries to read template path and filename from current settings.
-     * Path can be set there by $controller->setTemplatePathAndFilename(Path to template)
-     *
-     * @param string $actionName Name of the action. If NULL, will be taken from request.
-     * @return string Full path to template
-     * @throws Tx_Fluid_View_Exception_InvalidTemplateResourceException
-     */
-	protected function resolveTemplatePathAndFilename($actionName = NULL) {
-		if ($this->templatePathAndFilename != '') {
-			if (file_exists($this->templatePathAndFilename)) {
-			    return $this->configurationBuilder->getSettings('__templatePathAndFileName');
-			} elseif (file_exists(t3lib_div::getFileAbsFileName($this->templatePathAndFilename))) { 
-				return t3lib_div::getFileAbsFileName($this->templatePathAndFilename);
-			}
-		} else {
-			return $actionName;
-		}
-	}
-	
+	}	
 }
