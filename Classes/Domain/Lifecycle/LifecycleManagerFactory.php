@@ -29,8 +29,6 @@
 /**
  * Builds a Lifecycle Manager 
  * 
- * TODO shouldn't there be an instance for each list identifier?
- * 
  * @author Christoph Ehscheidt 
  * @package Domain
  * @subpackage Lifecycle
@@ -54,7 +52,9 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory {
 	 */
 	public static function getInstance() {
 		if(self::$instance === NULL) {
-			self::$instance = new Tx_PtExtlist_Domain_Lifecycle_LifecycleManager();
+			$lifecycleManager = new Tx_PtExtlist_Domain_Lifecycle_LifecycleManager();
+			$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+			self::$instance = $lifecycleManager;
 		}
 		
 		return self::$instance;

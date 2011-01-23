@@ -114,6 +114,19 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	
 	
 	/**
+	 * Registers a lifecycle observer and updates state on registered object
+	 *
+	 * @param Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface $observer
+     * @param bool $static Override existing observer of same class.
+	 */
+	public function registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface $observer, $static = TRUE) {
+		$this->register($observer, $static);
+		$observer->lifecycleUpdate($this->getState());
+	}
+	
+	
+	
+	/**
 	 * Notifies observers about state being updated
 	 *
 	 */
