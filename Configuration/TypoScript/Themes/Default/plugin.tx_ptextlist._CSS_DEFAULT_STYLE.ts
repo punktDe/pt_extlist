@@ -1,4 +1,4 @@
-plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
+plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* List */
