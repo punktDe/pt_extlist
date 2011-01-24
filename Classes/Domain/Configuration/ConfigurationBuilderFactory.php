@@ -55,8 +55,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	 * Inject all settings of the extension 
 	 * @param $settings The current settings for this extension.
 	 */
-	public static function injectSettings(array $settings) {
-		self::$settings = $settings;
+	public static function injectSettings(array &$settings) {
+		self::$settings = &$settings;
 	}
 	
 	

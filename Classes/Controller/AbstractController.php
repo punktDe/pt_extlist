@@ -79,28 +79,22 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	
 	
 	/**
-	 * Injects the settings of the extension.
-	 *
-	 * @param array $settings Settings container of the current extension
-	 * @param bool $initConfigurationBuilder If set to true, a configuration builder is set in controller
-	 * @param bool $initDataBackend If set to true, a data backend is set in controller
-	 * @return void
+	 * (non-PHPdoc)
+	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::injectConfigurationManager()
 	 */
-	public function injectSettings(array $settings, $initConfigurationBuilder = TRUE, $initDataBackend = TRUE) {
-		parent::injectSettings($settings);
-
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) { // , $initConfigurationBuilder = TRUE, $initDataBackend = TRUE
+		parent::injectConfigurationManager($configurationManager);
+		
 		if ($this->settings['listIdentifier'] != '') {
 		    $this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
 		
-		if($initConfigurationBuilder) {
-			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
-			$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
-		}
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
+		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
 
-		$this->dataBackend = $initDataBackend ? Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder) : null;
+		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
     
     
