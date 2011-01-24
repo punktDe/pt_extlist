@@ -32,6 +32,7 @@
  *
  * @package Controller
  * @author Michael Knoll 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controller_AbstractController {
 
@@ -72,15 +73,14 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	
 	
 	/**
-     * Injects the settings of the extension.
+     * Initialize the Controller
      *
      * @param array $settings Settings container of the current extension
      * @return void
      */
-    public function injectSettings(array $settings) {
-        parent::injectSettings($settings);
-        tx_pttools_assert::isNotEmptyString($settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
-        $this->filterboxIdentifier = $settings['filterboxIdentifier'];
+    public function initializeAction() {
+        tx_pttools_assert::isNotEmptyString($this->settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
+        $this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
         $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
         $this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
     }
