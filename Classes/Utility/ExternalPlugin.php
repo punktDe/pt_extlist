@@ -30,11 +30,11 @@
  * Class contains utility functions to access extlist objects
  * form external dependent plugins
  * 
- * OBSOLETE
+ * DEPRECTED
  * 
  * @author Daniel Lienert 
  * @package Utility
- * @obsolete
+ * @deprecated
  */
 class Tx_PtExtlist_Utility_ExternalPlugin {
 
