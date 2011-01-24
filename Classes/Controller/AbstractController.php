@@ -180,7 +180,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		
 	    
         if (method_exists($view, 'injectConfigurationBuilder')) {
-            $view->injectConfigurationBuilder($this->configurationBuilder);
+            $view->setConfigurationBuilder($this->configurationBuilder);
         }
   		
         $this->setCustomPathsInView($view);  
