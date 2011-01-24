@@ -33,6 +33,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  * @package Controller
+ * @deprecated
  */
 class Tx_PtExtlist_Controller_SubcontrollerFactory extends Tx_Extbase_Dispatcher {
 

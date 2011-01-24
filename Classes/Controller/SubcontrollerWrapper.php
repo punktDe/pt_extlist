@@ -33,6 +33,7 @@
  * 
  * @author Michael Knoll 
  * @package Controller
+ * @deprecated
  */
 class Tx_PtExtlist_Controller_SubcontrollerWrapper extends Tx_PtExtlist_Controller_AbstractController {
 
