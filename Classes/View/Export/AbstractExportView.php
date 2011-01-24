@@ -63,8 +63,8 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
      * (non-PHPdoc)
      * @see Classes/View/Tx_PtExtlist_View_BaseView::injectConfigurationBuilder()
      */
-    public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	parent::injectConfigurationBuilder($configurationBuilder);
+    public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+    	parent::setConfigurationBuilder($configurationBuilder);
     	$this->exportConfiguration = $configurationBuilder->buildExportConfiguration();
     	$this->initConfiguration();
     }

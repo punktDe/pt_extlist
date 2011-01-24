@@ -45,10 +45,10 @@ class Tx_PtExtlist_Tests_View_Export_AbstractExportView_testcase extends Tx_PtEx
 	
 	
 	
-	public function testInjectConfigurationBuilder() {
+	public function testSetConfigurationBuilder() {
 		$viewMock = new Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView();
 
-		$viewMock->injectConfigurationBuilder($this->configurationBuilderMock);
+		$viewMock->setConfigurationBuilder($this->configurationBuilderMock);
 		$this->markTestIncomplete('Check for Settings after init process');
 	}
 	
