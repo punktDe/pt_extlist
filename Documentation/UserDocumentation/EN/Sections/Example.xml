@@ -1,10 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>example</title>
+  <title>Examples</title>
   <example>
-    <title>Name of example</title>
-<!--attribute linkend="" for the target e.g.operating instrcutions-->    <para>If you want to illustrate a subject, use this section. 
-This section can be preceded by an instruction or description. Figures are permitted.</para>
+    <title>Setting up a demo list</title>
+<!--attribute linkend="" for the target e.g.operating instrcutions-->    <para>In this section, some examples will be provided to describe the functionality of pt_extlist. Before you can start, make sure, that pt_extlist is installed and loaded using Extension Manager. You will learn how to use pt_extlist by setting up a demo page using static tables provided in all TYPO3 installations.</para>
+    <para>Create a new page inside your page tree and open the template module. Include the following static templates that are provided with pt_extlist:</para>
+    <para>TODO: insert picture of inserted templates</para>
+    <para>Open the page module and insert a new content element of type plugin.</para>
+    <para>TODO: insert picture of inserted content element</para>
+    <para>Open up the &quot;plugin&quot; tab of your content element form and select &quot;list&quot; as plugin type.</para>
+    <para>TODO: insert picture of plugin type</para>
+    <para>Chose a list identifier from the list of identifiers. If no identifiers show up here, you should go back to the previous step and check that the required static templates are included.</para>
+    <para>TODO: insert picture of flexform</para>
+    <para>Save your content element.</para>
     <programlisting>Write here your code. </programlisting>
   </example>
 </section>
