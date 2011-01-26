@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	 * Each list identifier holds its own configuration builder object
 	 * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
 	 */
-	private static $instances = NULL;
+	private static $instances = array();
 	
 	
 	/**
@@ -77,7 +77,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 		
 		if (!array_key_exists($listIdentifier,self::$instances)) {
 			
-			if(!array_key_exists($listIdentifier, self::$settings['listConfig'])) {
+			if(!is_array(self::$settings['listConfig']) || !array_key_exists($listIdentifier, self::$settings['listConfig'])) {
 				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
 			}
         

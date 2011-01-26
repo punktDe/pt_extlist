@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * Each list identifier holds its own data backend object
      * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
      */
-	private static $instances = NULL;
+	private static $instances = array();
 	
 	
 	
