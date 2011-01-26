@@ -57,6 +57,7 @@ class Tx_PtExtlist_Utility_NameSpace {
 				return array();
 			}
 		}
+		
 		return $returnArray;
 	}
 	
