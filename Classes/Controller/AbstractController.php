@@ -178,6 +178,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         }
   		
         $this->setCustomPathsInView($view);  
+        
+        $this->view->assign('config', $this->configurationBuilder);
 	}
 
 	
@@ -199,22 +201,5 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 			}
         }		
 	}
-	
-	
-    
-    /**
-     * Sets template to be used by current action.
-     * 
-     * BaseView reads this parameter for resolving template path and filename
-     * 
-     * Can be given absolute, in Extbase way or as templatePath = EXT:pt_extlist/Resources/Private/Templates/Filter/StringFilter.html
-     *
-     * @param string $templatePathAndFilename
-     */
-    public function setTemplatePathAndFilename($templatePathAndFilename) {
-    	$this->view->setTemplatePathAndFilename($templatePathAndFilename);
-    }
-	
 }
-
 ?>

@@ -135,6 +135,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	
 	
 	/**
+	 * Returns the filterboxCollection
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+	 */
+	public function getFilterBoxCollection() {
+		return $this->dataBackend->getFilterboxCollection();
+	}
+	
+	
+	/**
 	 * Returns rendered list data of current list context
 	 *
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData

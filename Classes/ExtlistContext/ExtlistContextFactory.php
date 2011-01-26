@@ -142,9 +142,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @return array
 	 */
 	protected static function getExtListTyposcriptSettings($listIdentifier, $customTSArray = NULL) {
-		$extListTS = tx_pttools_div::getTS('plugin.tx_ptextlist.settings.');
-		$extListTSArray = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
-
+				
+		$extListTSArray = self::getCurrentTyposcript(); 
+		
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
 
 		if(is_array($customTSArray)) {
@@ -158,6 +158,46 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		$extListTSArray['listIdentifier'] = $listIdentifier;
 
 		return $extListTSArray;
-	}	
+	}
+	
+	
+	
+	/**
+	 * Get current typoscript settings for pt_extlist plugin
+	 * 
+	 */
+	protected static function getCurrentTyposcript() {
+		if(TYPO3_MODE === 'BE') {
+			return self::getTyposcriptOfCurrentBackendPID();
+		} else {
+			return self::getTyposcriptOfCurrentFrontendPID();
+		}
+	}
+	
+	
+	
+	/**
+	 * Retrieve Typoscript Configuration from selected backend pid
+	 * 
+	 * @return array typoscript array
+	 */
+	protected static function getTyposcriptOfCurrentBackendPID() {
+		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager');
+		$completeTS = $configurationManager->getTypoScriptSetup();
+		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+	}
+	
+	
+	
+	/**
+	 * Retrieve Typoscript Configuration from selected frontend pid
+	 * 
+	 * @return array typoscript array
+	 */
+	protected static function getTyposcriptOfCurrentFrontendPID() {
+		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager');
+		$completeTS = $configurationManager->getTypoScriptSetup();
+		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+	}
 }
 ?>
