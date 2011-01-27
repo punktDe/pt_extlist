@@ -114,21 +114,6 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_BaseTestcase {
 	protected function initDefaultConfigurationBuilderMock($overwriteSettings = NULL) {
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings, $overwriteSettings);		
 	}
-	
-	
-	
-	/**
-	 * Sets up a extbase dispatcher that is required for some test to run
-	 *
-	 */
-    protected function setupDispatcher() {
-        $dispatcher = new Tx_Extbase_Dispatcher();
-        try {
-            $dispatcher->dispatch('content', $this->extBaseSettings);
-        } catch (Exception $e) {
-            
-        }
-    }
     
     
     

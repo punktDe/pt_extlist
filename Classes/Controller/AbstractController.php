@@ -66,7 +66,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	protected $listIdentifier;
 	
 	
-	
 	/**
 	 * Constructor for all plugin controllers
 	 */
