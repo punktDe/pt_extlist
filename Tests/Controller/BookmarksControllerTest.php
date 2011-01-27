@@ -34,7 +34,7 @@
  * @author Michael Knoll 
  */
 class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtExtlist_Tests_BaseTestcase {
-
+/*
 	protected $settings = array(
 	            
                         // this is really ugly but required to make controller work
@@ -206,7 +206,6 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
     public function setup() {
     	parent::setup();
     	$this->initDefaultConfigurationBuilderMock();
-    	$this->setupDispatcher();
     }
             
 	
@@ -389,7 +388,7 @@ class Tx_PtExtlist_Tests_Controller_BookmarksController_testcase  extends Tx_PtE
         
         $mockController->deleteAction($bookmarkMock);
 	}
-	
+*/
 	
 	
 	public function testUpdateAction() {
