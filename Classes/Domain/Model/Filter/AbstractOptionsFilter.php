@@ -28,23 +28,23 @@
 
 /**
  * Class implements an abstract filter for all options filters
- * 
- * @author Michael Knoll 
- * @author Daniel Lienert 
+ *
+ * @author Michael Knoll
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
-	
+
 	/**
-     * Holds an array of filter values
-     *
-     * @var array
-     */
+	 * Holds an array of filter values
+	 *
+	 * @var array
+	 */
 	protected $filterValues = array();
-	
-	
-	
+
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_FilterInterface::reset()
 	 *
@@ -55,8 +55,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
 		$this->init();
 	}
-	
-	
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
 	 *
@@ -64,35 +64,35 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	public function persistToSession() {
 		return array('filterValues' => $this->filterValues, 'invert' => $this->invert);
 	}
-	
-	
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
 	protected function initFilter() {}
 
-	
-	
+
+
 	/**
 	 * Build the criteria for a single field
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
 	 */
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 		$singleCriteria = NULL;
-		
+
 		if (is_array($this->filterValues) && count($this->filterValues) == 1) {
 			$singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues));
 		} elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
 			$singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
 		}
-		
+
 		return $singleCriteria;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
@@ -100,8 +100,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected function setActiveState() {
 		$this->isActive = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? false : true;
 	}
-	
-	
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByGpVars()
 	 *
@@ -112,9 +112,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			$this->filterValues = is_array($filterValues) ? array_filter($filterValues) : array($filterValues => $filterValues);
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterBySession()
 	 *
@@ -124,38 +124,38 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			$this->filterValues = $this->sessionFilterData['filterValues'];
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
 	 *
 	 */
-	protected function initFilterByTsConfig() {        
-        if($this->filterConfig->getDefaultValue()) {
-        	$this->setDefaultValuesFromTSConfig($this->filterConfig->getDefaultValue());
-        }
+	protected function initFilterByTsConfig() {
+		if($this->filterConfig->getDefaultValue()) {
+			$this->setDefaultValuesFromTSConfig($this->filterConfig->getDefaultValue());
+		}
 	}
 
-	
-	
+
+
 	/**
 	 * Set the groupfilters default value
-	 * 
+	 *
 	 * @param mixed $defaultValue single value or array of preselected values
 	 */
-	protected function setDefaultValuesFromTSConfig($defaultValue) {	
+	protected function setDefaultValuesFromTSConfig($defaultValue) {
 		if(is_array($defaultValue)) {
 			unset($defaultValue['_typoScriptNodeValue']);
 			foreach($defaultValue as $value) {
-				$this->filterValues[$value] = $value;
+				$this->filterValues[$value] = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($defaultValue);
 			}
 		} else {
 			$this->filterValues[$defaultValue] = $defaultValue;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Returns an associative array of options as possible filter values
 	 *
@@ -163,60 +163,60 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 */
 	public function getOptions() {
 		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
-		
-		$renderedOptions = $dataProvider->getRenderedOptions(); 
+
+		$renderedOptions = $dataProvider->getRenderedOptions();
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
 
-        return $renderedOptions;
+		return $renderedOptions;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Set the the selected state in rendered Values
-	 * 
+	 *
 	 * @param array $renderedOptions
 	 */
 	protected function setSelectedOptions(&$renderedOptions) {
-		
+
 		foreach($this->filterValues as $filterValue) {
 			$renderedOptions[$filterValue]['selected'] = true;
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Add inactiveFilterOpotion to rendered options
-	 * 
+	 *
 	 * @param array $renderedOptions
 	 */
 	protected function addInactiveOption(&$renderedOptions) {
 
 		if($this->filterConfig->getInactiveOption()) {
-			
+
 			unset($renderedOptions[$this->filterConfig->getInactiveValue()]);
-			
+
 			if(count($this->filterValues) == 0) {
 				$selected = true;
 			} else {
-				$selected = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? true : false;	
+				$selected = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? true : false;
 			}
-             
-   			$inactiveValue = $this->filterConfig->getInactiveValue();
+
+			$inactiveValue = $this->filterConfig->getInactiveValue();
 
 			$renderedOptionsWithInactive[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
         													     'selected' => $selected);
 
-        	$renderedOptionsWithInactive=array_merge($renderedOptionsWithInactive, $renderedOptions);
-        	$renderedOptions = $renderedOptionsWithInactive;
-        }
- 
-        return $renderedOptions;
+			$renderedOptionsWithInactive=array_merge($renderedOptionsWithInactive, $renderedOptions);
+			$renderedOptions = $renderedOptionsWithInactive;
+		}
+
+		return $renderedOptions;
 	}
-	
-	
+
+
 
 	/**
 	 * Returns value of selected option
@@ -230,16 +230,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			return current($this->filterValues);
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Return filter value string for breadcrumb
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getFilterValueForBreadCrumb() {
-	   return implode(', ', $this->filterValues);	
+		return implode(', ', $this->filterValues);
 	}
-	
+
 }
