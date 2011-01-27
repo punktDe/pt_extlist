@@ -1,4 +1,4 @@
-<?php
+ <?php
 /***************************************************************
  *  Copyright notice
  *
@@ -62,7 +62,8 @@ class Tx_PtExtlist_Utility_Extension {
 	 * @return string currentListIdentifier
 	 */
 	public static function getCurrentListIdentifier() {
-		$frameWorkKonfiguration = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
-		return $frameWorkKonfiguration['settings']['listIdentifier'];
+		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager');
+        $completeTS = $configurationManager->getTypoScriptSetup();
+        return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']['settings.']['listIdentifier']);
 	}
 }
