@@ -160,7 +160,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 
 	public function testNoListConfigException() {
 		try {  
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance(NULL);
+		    $configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance(NULL);
 		} catch(Exception $e) {
 			return;
 		}
