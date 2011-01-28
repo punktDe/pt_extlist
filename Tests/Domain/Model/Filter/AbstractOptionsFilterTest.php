@@ -242,6 +242,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
    }
    
    
+   /** @test */
+   public function defaultValuesAndDBOptionsAreCorrectlyMergedWithNumericKeys() {
+   	
+   }
+   
+   
     /**
      * Utility Methods
      */

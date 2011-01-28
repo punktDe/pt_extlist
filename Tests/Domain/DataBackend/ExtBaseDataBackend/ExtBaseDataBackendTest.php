@@ -175,18 +175,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     
     
-    public function testCreateDataSource() {
-    	$dispatcher = new Tx_Extbase_Dispatcher();
-    	$dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
-    	$this->assertTrue(is_a($dataSource, 'Tx_Extbase_Persistence_Repository'));
-    }
-    
-    
-    
     public function testGetListData() {
     	$extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
         
-        #print_r(Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration());
         $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper', array('getMappedListData'), array(), '', FALSE);
         $mapperMock->expects($this->any())
             ->method('getMappedListData')
@@ -258,7 +249,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
      * @return Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
      */
     protected function getPreparedExtbaseDataBackend() {
-    	$this->setupDispatcher();
         $dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
         $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         $extBaseDataBackend->injectDataSource($dataSource);

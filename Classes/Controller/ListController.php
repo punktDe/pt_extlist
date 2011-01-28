@@ -49,7 +49,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * Initializes controller
 	 */
 	public function initializeAction() {
-		parent::initializeAction();
 		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 	

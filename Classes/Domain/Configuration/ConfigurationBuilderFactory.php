@@ -68,7 +68,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	public static function getInstance($listIdentifier = NULL) {
 		
 		if($listIdentifier == NULL) {
-			$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
+			$listIdentifier = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+										->get('Tx_PtExtlist_Extbase_ExtbaseContext')
+										->getCurrentListIdentifier();
 		}
 
 		if ($listIdentifier == '') {

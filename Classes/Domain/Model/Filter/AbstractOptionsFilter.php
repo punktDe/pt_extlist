@@ -148,7 +148,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		if(is_array($defaultValue)) {
 			unset($defaultValue['_typoScriptNodeValue']);
 			foreach($defaultValue as $value) {
-				$this->filterValues[$value] = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($defaultValue);
+				$this->filterValues[$value] = $value;
 			}
 		} else {
 			$this->filterValues[$defaultValue] = $defaultValue;
@@ -156,6 +156,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	}
 
 
+	
 	/**
 	 * Returns an associative array of options as possible filter values
 	 *
