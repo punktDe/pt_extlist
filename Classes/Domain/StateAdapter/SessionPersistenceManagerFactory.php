@@ -66,7 +66,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 */
 	private static function getStorageAdapter() {
 		
-		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
 			return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
 		} else {
 			return tx_pttools_sessionStorageAdapter::getInstance();	

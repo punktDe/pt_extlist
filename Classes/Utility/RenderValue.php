@@ -34,13 +34,8 @@
  * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Utility_RenderValue {
-
-	public static $controllerContext;
-
-
-
+	
 	protected static $cObj;
-
 
 
 	/**
@@ -49,7 +44,9 @@ class Tx_PtExtlist_Utility_RenderValue {
 	protected static $fluidRenderer;
 
 
-
+	/**
+	 * @var array
+	 */
 	protected static $renderCache = array();
 
 
@@ -329,16 +326,14 @@ class Tx_PtExtlist_Utility_RenderValue {
 		if(!self::$fluidRenderer) {
 			self::$fluidRenderer = t3lib_div::makeInstance('Tx_Fluid_View_TemplateView');
 
-			self::$fluidRenderer->setControllerContext(self::$controllerContext);
+			$controllerContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+									->getObject('Tx_PtExtlist_Extbase_ExtbaseContext')
+									->getControllerContext();
+									
+			self::$fluidRenderer->setControllerContext($controllerContext);
 		}
 
 		return self::$fluidRenderer;
-	}
-
-
-
-	public static function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
-		self::$controllerContext = $controllerContext;
 	}
 
 

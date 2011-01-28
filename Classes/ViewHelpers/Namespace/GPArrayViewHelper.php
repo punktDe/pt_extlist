@@ -75,7 +75,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * @param array $argumentArray
 	 */
 	public function addStateHash(&$argumentArray) {
-		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
 			$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
 			$argumentArray[$listIdentifier]['state'] = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
 		}

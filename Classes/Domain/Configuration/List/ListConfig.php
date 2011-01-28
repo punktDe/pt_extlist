@@ -72,7 +72,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 		/**
 		 * Force useSession to fale if the extension is in cache mode
 		 */
-		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
 			$this->useSession = false;
 		}
 	}

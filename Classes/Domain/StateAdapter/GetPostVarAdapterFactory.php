@@ -50,7 +50,9 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	 */
 	public static function getInstance() {
 		if (self::$instance == NULL) {
-			$extensionNameSpace = Tx_PtExtlist_Utility_Extension::getExtensionNameSpace();
+			$extensionNameSpace = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+										->get('Tx_PtExtlist_Extbase_ExtbaseContext')
+										->getExtensionNameSpace();
 			
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
 			self::$instance->injectGetVars(self::extractExtensionVariables($_GET, $extensionNameSpace));
