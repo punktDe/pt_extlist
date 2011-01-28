@@ -354,18 +354,5 @@ class Tx_PtExtlist_Utility_RenderValue {
 
 		return $content;
 	}
-	
-	
-	
-	/**
-	 * Sets the controller context to current extbase context
-	 * 
-	 * TODO check whether this does what it is supposed to do!
-	 *
-	 * @param Tx_Extbase_MVC_Controller_ControllerContext $controllerContext
-	 */
-	public static function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
-		t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($controllerContext);
-	}
 
 }
