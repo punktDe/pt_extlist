@@ -57,6 +57,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
 			self::$instance->injectGetVars(self::extractExtensionVariables($_GET, $extensionNameSpace));
 			self::$instance->injectPostVars(self::extractExtensionVariables($_POST, $extensionNameSpace));
+			self::$instance->injectFilesVars(self::extractExtensionVariables($_FILES, $extensionNameSpace));
 			self::$instance->setExtensionNamespace($extensionNameSpace);
 		}
 	
