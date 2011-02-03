@@ -4,7 +4,7 @@
   <para>In this section, some examples will be provided to describe the functionality of pt_extlist. Before you can start, make sure, that pt_extlist is installed and loaded using Extension Manager.</para>
   <example>
     <title>Setting up a demo list based on static_countries table</title>
-<!--attribute linkend="" for the target e.g.operating instrcutions-->    <para>In this example, you will learn how to create a list by using a TYPO3 table as data source. We will use static_countries table as it is available on all TYPO3 installations.</para>
+    <para>In this example, you will learn how to create a list by using a TYPO3 table as data source. We will use static_countries table as it is available on all TYPO3 installations.</para>
     <para>We will set up a page showing filters, list and pager for static countries.</para>
     <orderedlist>
       <listitem>
