@@ -1,8 +1,52 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>Setup.txt</title>
-  <para>The setup-file includes typoscripts. The included scripts are demolists with which you can develop pt_extlist further.</para>
-  <para> A Demolist from static countries with typo3 backend and some filters.</para>
+  <title>What does it do?</title>
+  <para>This extension is intended to generate all sorts of lists. The data sources for the list can be a database or an extbase repository or anything you write a data-backend for (SOAP, CSV, XML, ...). </para>
+  <para>There are different steps you have to do if you want to set up a list. For a detailed example see section &quot;Instruction&quot; ###TODO insert link here###.</para>
+  <para>Here are some screenshots to give you an impression of how it looks like.</para>
+  <para> <figure>
+      <title>List rendered from static_countries table</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/what_does_it_do_1.png" align="center" contentwidth="350" format="jpg"/>
+        </imageobject>
+      </mediaobject>
+    </figure></para>
+  <para>Besides the list itself, there are some more widgets that can be created by pt_extlist:</para>
+  <para><figure>
+      <title>Filters for static_countries table</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/what_does_it_do_2.png" align="center" contentwidth="350" format="jpg"/>
+        </imageobject>
+      </mediaobject>
+    </figure></para>
+  <para><figure>
+      <title>Pager for static_countries table</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/what_does_it_do_3.png" align="center" contentwidth="350" format="jpg"/>
+        </imageobject>
+      </mediaobject>
+    </figure></para>
+  <para>The plugin&apos;s flexform lets you insert a pt_extlist plugin as a content element where you can configure your plugin&apos;s appearance:</para>
+  <para><figure>
+      <title>Flexform for inserting plugin</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/what_does_it_do_4.png" align="center" contentwidth="550" format="jpg"/>
+        </imageobject>
+      </mediaobject>
+    </figure></para>
+  <para>You can put several content elements on a page for setting up the layout and appearance of your widgets:</para>
+  <para><figure>
+      <title>Content elements for pt_extlist</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/what_does_it_do_5.png" align="center" contentwidth="350" format="jpg"/>
+        </imageobject>
+      </mediaobject>
+    </figure></para>
   <section>
     <title>Demolist_MySql_01</title>
     <para>This template configures a demolist for use with pt_extlist.</para>
