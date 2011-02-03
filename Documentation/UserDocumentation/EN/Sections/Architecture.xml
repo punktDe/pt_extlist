@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <title>Architecture</title>
+  <para>This section gives you an overview of the architecture of pt_exlist. It shows its design principles and gives you a hint on where to make your hands dirty if you want to extend pt_extlist or use it in third party extensions.</para>
+  <section>
+    <title>Who should read this?</title>
+    <para>If you are just interested in how pt_extlist works and want to see how things are put together, the following chapter could be a nice thing to read. If you are a developer and want to extend pt_extlist or want to use it as an API inside your extension, it&apos;s necessary to read this!</para>
+  </section>
+  <section>
+    <title>Overview</title>
+    <para>Take a look at the following figure to get a first impression of pt_extlist&apos;s architecture:</para>
+    <para><figure>
+        <title>Basic Architecture of pt_extlist</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../images/architecture_01.png" align="center" contentwidth="350" format="jpg"/>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+    <para>The red elements stand for data-related stuff. DataSource gets our data from whatever source we use. Sources can be TYPO3 databases as well as arbitrary MySQL databases and Extbase repositories.</para>
+    <para>The green elements are configuration-specific which means that they pull our configuration from TypoScript or Flexforms and do various merging on them to generate some nice-to-handle objects that are used for all configuration inside pt_extlist.</para>
+    <para>The blue elements are what we would like to call our Domain Models as they handle things like lists, filters, pagers etc. which is the core domain of our extension.</para>
+    <para>Finally the yellow elements stand for all objects that handle the rendering of our list data. As we will see, this can get quite complex.</para>
+    <para>Our extension architecture is surrounded by some out-of-the box framework stuff provided mainly by Extbase and TYPO3.</para>
+  </section>
+  <section>
+    <title>Configuration</title>
+    <para>Regarding our extension in a bottom-up fashion, we can easily start with configuration as its the basic thing to have before we can set up anything else. As you might have suggested, most of our configuration is using in TypoScript. Besides there are some settings coming from Flexform or surrounding extensions. We covered this problem inside pt_extlist using what we call a configurationBuilder. Roughly speaking, it is an object that handles the creation of all configuration stuff we need. As we did not like fiddling around with arrays, we started to implement so called configuration objects for all the configuration that we needed. The main ascpects of those objects is to make sure that the required settings are there and correct. Configuration objects are passed to all other objects that require some kind of configuration.</para>
+    <para>Take a look at this diagram to get an idea of how everything works together:</para>
+    <para><figure>
+        <title>Configuration Builder scheme</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../images/architecture_02.png" align="center" contentwidth="350" format="jpg"/>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+  </section>
+</section>

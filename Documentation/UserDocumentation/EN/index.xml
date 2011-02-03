@@ -6,8 +6,9 @@
   <xi:include href="Sections/AboutTheDocument.xml"/>
    <xi:include href="Sections/ReadingThisPtExtlist.xml"/>
    <xi:include href="Sections/DescriptionPtExtlist.xml"/>
-   <xi:include href="Sections/Instruction.xml"/>
    <xi:include href="Sections/Example.xml"/>
+   <xi:include href="Sections/Instruction.xml"/>
+   <xi:include href="Sections/Architecture.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/>
    <xi:include href="Sections/Glossary.xml"/>

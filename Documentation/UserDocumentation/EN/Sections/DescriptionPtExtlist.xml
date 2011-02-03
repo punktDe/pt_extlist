@@ -47,24 +47,4 @@
         </imageobject>
       </mediaobject>
     </figure></para>
-  <section>
-    <title>Demolist_MySql_01</title>
-    <para>This template configures a demolist for use with pt_extlist.</para>
-  </section>
-  <section>
-    <title>Demolist_Typo3_01</title>
-    <para>This template configures a demolist for use with pt_extlist.</para>
-  </section>
-  <section>
-    <title>Demolist_Typo3_02</title>
-    <para>This template configures a demolist for use with pt_extlist.</para>
-  </section>
-  <section>
-    <title>Demolist_Extbase_01</title>
-    <para>This template configures a demolist for use with pt_extlist for rendering ExtBase Domain objects.</para>
-  </section>
-  <section>
-    <title>Demolist_Extbase_02</title>
-    <para>This template configures a demolist for use with pt_extlist for rendering ExtBase Domain objects.</para>
-  </section>
 </section>
