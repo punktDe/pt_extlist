@@ -1,18 +1,156 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <title>Examples</title>
+  <para>In this section, some examples will be provided to describe the functionality of pt_extlist. Before you can start, make sure, that pt_extlist is installed and loaded using Extension Manager.</para>
   <example>
-    <title>Setting up a demo list</title>
-<!--attribute linkend="" for the target e.g.operating instrcutions-->    <para>In this section, some examples will be provided to describe the functionality of pt_extlist. Before you can start, make sure, that pt_extlist is installed and loaded using Extension Manager. You will learn how to use pt_extlist by setting up a demo page using static tables provided in all TYPO3 installations.</para>
-    <para>Create a new page inside your page tree and open the template module. Include the following static templates that are provided with pt_extlist:</para>
-    <para>TODO: insert picture of inserted templates</para>
-    <para>Open the page module and insert a new content element of type plugin.</para>
-    <para>TODO: insert picture of inserted content element</para>
-    <para>Open up the &quot;plugin&quot; tab of your content element form and select &quot;list&quot; as plugin type.</para>
-    <para>TODO: insert picture of plugin type</para>
-    <para>Chose a list identifier from the list of identifiers. If no identifiers show up here, you should go back to the previous step and check that the required static templates are included.</para>
-    <para>TODO: insert picture of flexform</para>
-    <para>Save your content element.</para>
-    <programlisting>Write here your code. </programlisting>
+    <title>Setting up a demo list based on static_countries table</title>
+<!--attribute linkend="" for the target e.g.operating instrcutions-->    <para>In this example, you will learn how to create a list by using a TYPO3 table as data source. We will use static_countries table as it is available on all TYPO3 installations.</para>
+    <para>We will set up a page showing filters, list and pager for static countries.</para>
+    <orderedlist>
+      <listitem>
+        <para>Create a new page inside your page tree and open the template module. Open Template module and create new extension template:</para>
+        <para><figure>
+            <title>Create new extension template ###TODO### insert 1,2,3 for showing what to do in image</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_01.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Give your extension template a proper name:</para>
+        <para><figure>
+            <title>Give your extension template a proper name</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_03.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Switch to the &quot;Includes&quot; Tab and select the following templates:</para>
+        <para><figure>
+            <title>Select Basic settings and demolist package as static templates</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_04.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Save your template and switch to the page module.</para>
+      </listitem>
+      <listitem>
+        <para>Select the page you just created and insert a new content element of type &quot;plugin&quot;:</para>
+        <para><figure>
+            <title>Insert plugin as content element</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_05.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Select ExtList from the page content&apos;s &quot;Selected Plugin&quot; list:</para>
+        <para><figure>
+            <title>Select ExtList as content type</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_06.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>In the flexform for ExtList select &quot;demolist&quot;</para>
+        <para><figure>
+            <title>Select &quot;demolist&quot; as list identifier</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_07.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>As plugin type select &quot;Filterbox&quot;:</para>
+        <para><figure>
+            <title>Select &quot;Filterbox&quot; as Plugin Type</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_08.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Switch to the &quot;Filterbox settings&quot; Tab and input &quot;filterbox1&quot; as Filterbox Identifier:</para>
+        <para><figure>
+            <title>Setting the filterbox identifier</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_11.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure> </para>
+      </listitem>
+      <listitem>
+        <para>Save your content element and create another one just below. Select &quot;Plugin&quot; as content type and &quot;ExtList&quot; as plugin type just as you did before. Again select &quot;demolist&quot; as list identifier (steps 5 - 7 above), but this time select &quot;list&quot; as plugin type:</para>
+        <para><figure>
+            <title>Select &quot;List&quot; as Plugin Type</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_09.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Save and create a third content element. Repeat steps 5 - 7 from above, the select &quot;demolist&quot; as List Identifier and select &quot;Pager&quot; as Plugin Type:</para>
+        <para><figure>
+            <title>Select &quot;Pager&quot; as Plugin Type</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_10.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Save content element and take a look at the page in the Frontend. Depending on your CSS Styles, it should look somehow like that:</para>
+        <para><figure>
+            <title>Frontend view of ExtList widgets</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_12.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+      <listitem>
+        <para>Now let&apos;s do a little more advanced stuff and change the number of records shown per page. Therefore switch to the Template module and select the page where you added the content elements above. Write the following line of code into your setup field:</para>
+        <para><programlisting>plugin.tx_ptextlist.settings.listConfig.demolist.pager.itemsPerPage = 4</programlisting></para>
+        <para>Now reload your page in the Frontend and look what&apos;s happening - there should be only 4 records per page anymore:</para>
+        <para><figure>
+            <title>List after changing items per page</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="../images/examples_1_1_13.png" align="center" contentwidth="350" format="jpg"/>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </listitem>
+    </orderedlist>
+    <para>So that&apos;s it - you just set up your first list! Feel free to test the other configurations shipping with pt_extlist to see some more features.</para>
   </example>
+  <section>
+    <title/>
+  </section>
+  <section>
+    <title/>
+  </section>
 </section>
