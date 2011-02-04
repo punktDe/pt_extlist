@@ -43,12 +43,25 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 	protected $sortingColumn;
 	
 	
+	/**
+	 * The sorting direction of default sorting column
+	 * 
+	 * @var integer
+	 */
+	protected $sortingDirection;
+	
 	
 	/**
 	 * Set the properties
 	 */
 	protected function init() {
+		
 		$this->setValueIfExistsAndNotNothing('sortingColumn');
+		if($this->sortingColumn) {
+			list($this->sortingColumn, $direction) = explode(' ', $this->sortingColumn);
+			
+			$this->sortingDirection = strtoupper($direction) == 'DESC' ? -1 : 1;
+		}
 	}
 	
 	
@@ -58,6 +71,15 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 	 */
 	public function getSortingColumn() {
 		return trim($this->sortingColumn);
-	}	
+	}
+	
+	
+	
+	/**
+	 * @return integer
+	 */
+	public function getSortingDirection() {
+		return $this->sortingDirection;
+	}
 }
 ?>

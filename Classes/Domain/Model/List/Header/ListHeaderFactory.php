@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 		}
 
 		if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
-			$listHeader->getHeaderColumn($defaultSortingColumn)->setSortingState(1);
+			$listHeader->getHeaderColumn($defaultSortingColumn)->setSortingState($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
 			$listHeader->getHeaderColumn($defaultSortingColumn)->init();
 		}
 		return $listHeader;

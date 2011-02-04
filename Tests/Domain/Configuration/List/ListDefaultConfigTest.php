@@ -60,6 +60,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfig_testcase ex
 	public function testGetSortingColumn() {
 		$this->assertEquals($this->listDefaultConfiguration->getSortingColumn(), 'column3');
 	}
+	
+	
+	public function testGetSortingColumnDirectionASC() {
+		$this->assertEquals($this->listDefaultConfiguration->getSortingDirection(), 1);
+	}
+	
+	public function testGetSortingColumnDirectionDESC() {
+		
+		$overwriteSettings['listConfig']['test']['default']['sortingColumn'] = 'column3 DESC';
+		
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL,$overwriteSettings);
+		
+		$listDefaultConfiguration = $configurationBuilderMock->buildListDefaultConfig();
+		$this->assertEquals($listDefaultConfiguration->getSortingDirection(), -1);
+		$this->assertEquals($listDefaultConfiguration->getSortingColumn(), 'column3');
+	}
 }
  
 ?>
