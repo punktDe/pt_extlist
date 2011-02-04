@@ -124,6 +124,15 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_objectCollection {
 		unset($this->specialValues[$key]);
 	}
 	
+	
+	
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_Cell $cell
+	 */
+	public function getFirstCell() {
+		return $this->itemsArr[0];
+	}
+	
 }
 
 ?>

@@ -117,6 +117,8 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			            baseWhereClause (
 			            ) 
 			            
+			            useEnableFields = 1
+			            
 			        }
 			        
 			        fields {

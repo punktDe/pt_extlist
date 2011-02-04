@@ -181,6 +181,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 
 	
 	
+	public function processRequest(Tx_Extbase_MVC_RequestInterface $request, Tx_Extbase_MVC_ResponseInterface $response) {
+		parent::processRequest($request, $response);
+		
+		if(TYPO3_MODE === 'BE') {
+			// if we are in BE mode, this ist the last line called
+			$GLOBALS['trace'] = 1;	trace('called' ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+			Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance()->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
+		}
+	}
+	
+	
 	/**
 	 * Set the TS defined custom paths in view
 	 * 

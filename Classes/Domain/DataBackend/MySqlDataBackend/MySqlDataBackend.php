@@ -183,8 +183,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		}
 		
 		$query = implode('', $this->listQueryParts);
+		
 		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
-	
+		
 		return $query;
 	}
 	

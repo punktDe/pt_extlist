@@ -32,8 +32,8 @@
  * Testcase for list data class
  * 
  * @author Daniel Lienert 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Model\List\Header
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderfactory_testcase extends Tx_Extbase_BaseTestcase {
 	

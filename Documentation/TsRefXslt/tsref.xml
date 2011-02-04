@@ -326,13 +326,20 @@ renderObj {
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="sortingColumn">
-											<DESCRIPTION>The default sorting column while no other sortng ist set.</DESCRIPTION>
+											<DESCRIPTION>The default sorting column while no other sortng ist set. Direction can be set with DESC or ASC after the column identifier.</DESCRIPTION>
 											<DATATYPE>String</DATATYPE>
 											<POSIBLEVALUES>Any column identifier</POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
 											<STDWRAP></STDWRAP>
 											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE></EXAMPLE>
+											<EXAMPLE>
+// use capital as default sorting column in ascending order
+sortingColumn = capital											
+
+// use capital as default sorting column in descending order
+sortingColumn = capital	DESC
+
+											</EXAMPLE>
 											<CHILDREN></CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
@@ -525,6 +532,18 @@ backendConfig {
 													<EXAMPLE>
 static_countries,
 static_territories st_continent
+													</EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="useEnableFields">
+													<DESCRIPTION>Use enableFields for alle tables that are defined with key tables.</DESCRIPTION>
+													<DATATYPE>Boolean</DATATYPE>
+													<POSIBLEVALUES>0,1</POSIBLEVALUES>
+													<DEFAULT>1</DEFAULT>
+													<STDWRAP>0</STDWRAP>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
 													</EXAMPLE>
 													<CHILDREN></CHILDREN>
 													<VARIANT></VARIANT>

@@ -72,7 +72,9 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	public function initializeObject() {
 		$frameWorkKonfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		
-		$this->extensionNameSpace = strtolower('tx_' . $frameWorkKonfiguration['extensionName'].'_'.$frameWorkKonfiguration['pluginName']);
+		$this->extensionNameSpace = Tx_Extbase_Utility_Extension::getPluginNamespace($frameWorkKonfiguration['extensionName'], 
+																						$frameWorkKonfiguration['pluginName']); 
+		
 		$this->inCachedMode = $frameWorkKonfiguration['pluginName'] == 'Cached' ? true : false;
 		$this->currentListIdentifier = $frameWorkKonfiguration['settings']['listIdentifier'];
 		

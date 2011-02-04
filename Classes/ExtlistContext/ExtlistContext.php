@@ -111,6 +111,18 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 	
 	
+	
+	/**
+	 * Get a pager object - if pagerIdentifier is null, get default pager
+	 * 
+	 * @param unknown_type $pagerIdentifier
+	 */
+	public function getPager($pagerIdentifier = '') {
+		$pagerIdentifier = $pagerIdentifier ? $pagerIdentifier : 'default';
+		return $this->dataBackend->getPagerCollection()->getPagerByIdentifier($pagerIdentifier);
+	}
+	
+	
 
 	/**
 	 * Returns list object of this list context
