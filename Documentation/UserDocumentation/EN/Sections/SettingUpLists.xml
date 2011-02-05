@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <title>Setting up Lists</title>
+  <para>In this section you will learn how to set up lists using pt_extlist. We will guide you step by step through the TypoScript configuration and show you how to use pt_extlist&apos;s widgets as page content.</para>
+  <section>
+    <title>Widgets overview</title>
+    <section>
+      <title>List widget</title>
+    </section>
+    <section>
+      <title>Filter widgets</title>
+    </section>
+    <section>
+      <title>Pager widget</title>
+    </section>
+    <section>
+      <title>Breadcrumbs widget</title>
+    </section>
+    <section>
+      <title>Bookmarks widget</title>
+    </section>
+  </section>
+  <section>
+    <title>TypoScript configuration</title>
+    <section>
+      <title>List Identifier and TypoScript namespace</title>
+    </section>
+    <section>
+      <title>backendConfig section</title>
+    </section>
+    <section>
+      <title>fields section</title>
+    </section>
+    <section>
+      <title>columns section</title>
+    </section>
+    <section>
+      <title>filters section</title>
+    </section>
+    <section>
+      <title>pager section</title>
+    </section>
+    <section>
+      <title>aggregateData section</title>
+    </section>
+    <section>
+      <title>aggregateRow section</title>
+    </section>
+    <section>
+      <title>Localization override</title>
+    </section>
+  </section>
+  <section>
+    <title>Setting up widgets as content elements</title>
+  </section>
+</section>
