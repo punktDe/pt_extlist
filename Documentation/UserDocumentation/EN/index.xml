@@ -10,6 +10,7 @@
    <xi:include href="Sections/SettingUpLists.xml"/>
    <xi:include href="Sections/Architecture.xml"/>
    <xi:include href="Sections/API.xml"/>
+   <xi:include href="Sections/Cookbook.xml"/>   
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/>
    <xi:include href="Sections/Glossary.xml"/>
