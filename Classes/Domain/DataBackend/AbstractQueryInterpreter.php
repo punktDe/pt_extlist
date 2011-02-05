@@ -28,6 +28,7 @@
 
 /**
  * TODO why is this an abstract class and not an interface?
+ * TODO this should be an interface!
  * 
  * Interface for query interpreters
  * 
