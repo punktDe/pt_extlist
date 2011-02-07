@@ -39,7 +39,7 @@
             <label index="pager.to">bis</label>
             <label index="pager.showItems">Zeige Element</label>
             
-            <label index="filterBox.resetFilters">Filter zurücksetzen.</label>
+            <label index="filterBox.resetFilters">Filter zurücksetzen</label>
             <label index="filterBox.errorInFilter">Die Eingaben der Filter enthalten Fehler.</label>
             
             <label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>

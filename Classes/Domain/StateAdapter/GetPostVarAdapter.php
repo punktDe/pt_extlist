@@ -1,33 +1,36 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * Class implements adapter for GET and POST vars to be used by 
  * objects implementing the according interface
 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package Domain
  * @subpackage StateAdapter
  */
@@ -49,6 +52,15 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @var array
 	 */
 	protected $getVars;
+	
+	
+	
+	/**
+	 * Holds an array of $_FILES vars
+	 *
+	 * @var array
+	 */
+	protected $filesVars;
 	
 	
 	
@@ -97,6 +109,17 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	}
 	
 	
+	
+	/**
+	 * Injects array as files vars ($_FILES)
+	 *
+	 * @param array $filesVars
+	 */
+	public function injectFilesVars(array $filesVars = array()) {
+		$this->filesVars = $filesVars;
+	}
+	
+	
 		
 	/**
 	 * Fills a given object with parameters that correspond to namespace identified by object
@@ -128,7 +151,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @return array
 	 */
 	public function getGetVarsByNamespace($nameSpace) {
-		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->getVars, $nameSpace);
+		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->getVars, $nameSpace);
 	}
 	
 	
@@ -140,7 +163,19 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @return array
 	 */
 	public function getPostVarsByNamespace($nameSpace) {
-		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->postVars, $nameSpace);
+		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->postVars, $nameSpace);
+	}
+	
+	
+	
+	/**
+	 * returns filesVars ($_FILES) by Namespace
+	 *
+	 * @param string $nameSpace
+	 * @return array
+	 */
+	public function getFilesVarsByNamespace($nameSpace) {
+		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->filesVars, $nameSpace);
 	}
 	
 	
@@ -152,7 +187,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	 * @return array Merged get and post vars for given namespace
 	 */
 	public function extractGpVarsByNamespace($namespace) {	
-		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->getMergedGpVars(), $namespace); 
+		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->getMergedGpVars(), $namespace); 
 	}
 
 	
@@ -164,7 +199,7 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
      * @return array Merged get and post vars for given namespace
 	 */
 	public function extractPgVarsByNamespace($namespace) {	
-		return Tx_PtExtlist_Utility_NameSpaceArray::getArrayContentByArrayAndNamespace($this->getMergedPgVars(), $namespace); 	
+		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->getMergedPgVars(), $namespace); 	
 	}
 	
 	

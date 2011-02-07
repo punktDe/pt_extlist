@@ -1,43 +1,41 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * Utility to render values by renderObject or renderUserFunction
  * Caching for rendered Values is implemented here
  *
  * @package Utility
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Utility_RenderValue {
-
-	public static $controllerContext;
-
-
-
+	
 	protected static $cObj;
-
 
 
 	/**
@@ -46,7 +44,9 @@ class Tx_PtExtlist_Utility_RenderValue {
 	protected static $fluidRenderer;
 
 
-
+	/**
+	 * @var array
+	 */
 	protected static $renderCache = array();
 
 
@@ -129,25 +129,83 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * Render data in default mode, eg implode with ','
 	 *
 	 * @param array $data
-	 * @return string rendered data
+	 * @return mixed rendered data
 	 */
-	public static function renderDefault(array $data) {
-		if(!is_array(current($data))) {
-			return implode(', ', $data);
-
-		} else {
-			$defaultRenderString = '';
-			foreach($data as $row) {
-				foreach($row as $label => $field) {
-					$defaultRenderString .= $label . ' : ' . $field . ', ';
-				}
+	public static function renderDefault($data) {
+		$renderedFields = array();
+		
+		foreach($data as $fieldIdentifier => $field) {
+			
+			// If $data is an object - print all accessible attributes
+			if(is_object($field)) {
+				$renderedFields[] = self::renderDefaultObject($field);
+				
+			// If $data is an array of key/values write a key/value list
+			} elseif(is_array($field)) {
+				$renderedFields[] = self::renderDefaultArray($field);
+	
+			} else {
+				$renderedFields[] = $field;
 			}
-
-			return $defaultRenderString;
+		}
+		
+		if(count($renderedFields) > 1) {
+			foreach($renderedFields as $key => $renderField) {
+				if(is_object($renderField)) $renderedFields[$key] = get_class($renderField);
+			}
+			
+			return implode(', ', $renderedFields);
+		} else {
+			return current($renderedFields);
 		}
 	}
 
+	
+	
+	/**
+	 * Print the given array as key-value list
+	 * 
+	 * @param array $array
+	 * @return string
+	 */
+	protected static function renderDefaultArray(array $array) {
+		$renderedFields = array();
+		
+		foreach($array as $label => $field) {
+			$renderedFields[] = $label . ' : ' . $field;
+		}
 
+		return implode(', ', $renderedFields);
+	}
+	
+	
+	
+	/**
+	 * Render a key value list of the given object
+	 * 
+	 * @param object $object
+	 * @return string
+	 */
+	protected static function renderDefaultObject($object) {
+		return $object;
+		$renderedFields = array();
+		
+		$objectMethods = get_class_methods(get_class($object));
+		
+		foreach($objectMethods as $objectMethod) {
+			if(substr($objectMethod,0,3) == 'get') {
+				$key = substr($objectMethod,3);
+				$value = $object->$objectMethod();
+				
+				if(is_object($value)) $value = $key . ' (OBJECT)';
+				$renderedFields[] = $key . ' : ' . $value;
+			}
+		}
+		
+		return implode(', ', $renderedFields);
+	}
+
+	
 
 	/**
 	 * Render the given dataValues with cObj
@@ -268,16 +326,14 @@ class Tx_PtExtlist_Utility_RenderValue {
 		if(!self::$fluidRenderer) {
 			self::$fluidRenderer = t3lib_div::makeInstance('Tx_Fluid_View_TemplateView');
 
-			self::$fluidRenderer->setControllerContext(self::$controllerContext);
+			$controllerContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+									->getObject('Tx_PtExtlist_Extbase_ExtbaseContext')
+									->getControllerContext();
+									
+			self::$fluidRenderer->setControllerContext($controllerContext);
 		}
 
 		return self::$fluidRenderer;
-	}
-
-
-
-	public static function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
-		self::$controllerContext = $controllerContext;
 	}
 
 

@@ -1,15 +1,19 @@
-plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
+plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* List */
-	.tx-ptextlist-list {
-		width: 99.9%;
-		margin-left: 1px;
+	.tx-ptextlist-list-standard {
+		border-collapse: collapse;
+		border-spacing: 0;
+		font-size: 12px;
+		width: 100%;
 	}
 	
 	.tx-ptextlist-list-standard th {
 		background: #AAA;
-		border:  1px solid #bfbfbf;
+		border: 1px solid #bfbfbf;
+		padding: 4px;
+		white-space: nowrap;
 	}
 	
 	.tx-ptextlist-list-standard td {
@@ -17,12 +21,6 @@ plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
 		margin: 0px;
 		padding: 2px 4px 2px 4px;
 		vertical-align: top;
-	}
-	
-	.tx-ptextlist-list-standard {
-		border-collapse: collapse;
-		border-spacing: 0;
-		font-size: 12px;
 	}
 	
 	.tx-ptextlist-list-standard tr.odd {
@@ -35,20 +33,14 @@ plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* Listheader */
-	.tx-ptextlist-list-standard th {
-		padding: 4px;
-		background: #AAA;
-		border:  1px solid #bfbfbf;
-	}
-	
-	
 	.tx-ptextlist-list-header a {
 		text-decoration: none;
 	}
 	
-	.tx-ptextlist-list-header a img {
+	.tx-ptextlist-list-header img {
 		border: none;
 	}
+	
 	
 	/* Aggregates */
 	.tx-ptextlist-aggregaterow {
@@ -59,27 +51,28 @@ plugin.tx-ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* Filters */
-	.tx-ptextlist-filter {
-		float: left;
-		padding: 3px;
-		list-style-type: none;
-	}
-	
-	.tx-ptextlist-filters {
-		list-style-type: none;
-	}
-	
-	.tx-ptextlist-filterboxcontrols {
-		float: left;
-		padding: 18px 0 0 10px;
-	}
-	
 	.tx-ptextlist-filterbox{
 		border: 1px solid #BFBFBF;
 		margin-bottom: 20px;
 		padding: 5px;
 		overflow: hidden;
 	}
+	
+	.tx-ptextlist-filterboxcontrols {
+		float: left;
+		padding: 18px 0 0 10px;
+	}
+
+	.tx-ptextlist-filters {
+		list-style-type: none;
+	}
+	
+	.tx-ptextlist-filter {
+		float: left;
+		padding: 3px;
+		list-style-type: none;
+	}
+
 
 
 	/* Filters | Firstletter */	

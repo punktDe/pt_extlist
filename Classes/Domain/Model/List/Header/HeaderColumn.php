@@ -1,32 +1,35 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * Class implements list header collection
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List\Header
  */
@@ -205,7 +208,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * Return an array with sorting definitions for this column
      *  
      * @return array of sortings
-     * @author Daniel Lienert <lienert@punkt.de>
+     * @author Daniel Lienert 
      */
     public function getSorting() {
     	return $this->sorting;
@@ -250,7 +253,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * Get a query with sorting definition set
      * 
      * @return Tx_PtExtlist_Domain_QueryObject_Query
-     * @author Daniel Lienert <lienert@punkt.de>
+     * @author Daniel Lienert 
      * @since 02.08.2010
      */
     public function getSortingQuery() {
@@ -352,7 +355,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
     /**
      * reset session state
      * 
-     * @author Daniel Lienert <lienert@punkt.de>
+     * @author Daniel Lienert 
      * @since 04.08.2010
      */
    	public function reset() {

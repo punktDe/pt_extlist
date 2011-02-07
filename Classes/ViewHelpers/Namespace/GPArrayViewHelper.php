@@ -1,33 +1,35 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>,
-*  
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * GPValueViewHelper
  * 
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Daniel Lienert 
  * @package ViewHelpers
  * @subpackage NameSpace
  */
@@ -36,13 +38,14 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	/**
 	 * render build key/value GET/POST-array within the namespace of the given object
 	 * 
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * @param string $arguments : list of arguments
+	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
 	 * 	either as list of 'key : value' pairs 
 	 *  or as list of properties wich are then recieved from the object
+	 * @param string $nameSpace
 	 * @return array GPArray of objects namespace
 	 */
-	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $arguments) {
+	public function render($arguments, $object = NULL, $nameSpace = '') {
 		$GetPostValueArray = array();
 		$argumentStringArray = $this->getArgumentArray($arguments);
 		$argumentArray = array();
@@ -51,12 +54,15 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			if($value === false) {
 				$value = $this->getObjectValue($object, $key);
 			}
-			 
-			$argumentArray = array_merge_recursive($argumentArray, $this->buildObjectValueArray($object, $key, $value));
+			
+			if(!$nameSpace) {
+				$argumentArray = $this->buildObjectValueArray($object, $key, $value);
+			} else {
+				$argumentArray = $this->buildNamespaceValueArray($nameSpace, $key, $value);
+			}
 		}
 
 		$this->addStateHash($argumentArray);
-		
 		return $argumentArray;
 	}
 	
@@ -66,12 +72,10 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * Add the stateHash to the argumentArray, used to identifiy the current state if the
 	 * list operates in no-session-mode
 	 * 
-	 * TODO: add stateHash if list is configured sessionFree!
-	 * 
 	 * @param array $argumentArray
 	 */
 	public function addStateHash(&$argumentArray) {
-		if(Tx_PtExtlist_Utility_Extension::isInCachedMode()) {
+		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
 			$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
 			$argumentArray[$listIdentifier]['state'] = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
 		}
@@ -92,6 +96,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		
 		return $object->$getterMethod();
 	}
+	
 	
 	
 	/**
@@ -157,5 +162,5 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		$pointer[$key] = $value;
 		return $returnArray;
 	}
-	
 }
+?>

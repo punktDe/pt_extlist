@@ -1,35 +1,37 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
-
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 
 /**
  * Abstract controller for all pt_extlist controllers
  * 
- * @author Michael Knoll <knoll@punkt.de>
- * @author Daniel Lienert <lienert@punkt.de>
+ * @author Michael Knoll 
+ * @author Daniel Lienert 
  * @package Controller
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
@@ -64,16 +66,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	protected $listIdentifier;
 	
 	
-	
 	/**
 	 * Constructor for all plugin controllers
-	 * @author Michael Knoll <knoll@punkt.de>
 	 */
 	public function __construct() {
 		$this->lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
-		$this->lifecycleManager->register(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
-		// SET LIFECYCLE TO START -> read session data into cache
-		$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
 		
 		parent::__construct();
 	}
@@ -81,111 +79,80 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	
 	
 	/**
-	 * Injects the settings of the extension.
-	 *
-	 * @param array $settings Settings container of the current extension
-	 * @param bool $initConfigurationBuilder If set to true, a configuration builder is set in controller
-	 * @param bool $initDataBackend If set to true, a data backend is set in controller
-	 * @return void
+	 * (non-PHPdoc)
+	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::injectConfigurationManager()
 	 */
-	public function injectSettings(array $settings, $initConfigurationBuilder = TRUE, $initDataBackend = TRUE) {
-		parent::injectSettings($settings);
-
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) { // , $initConfigurationBuilder = TRUE, $initDataBackend = TRUE
+		parent::injectConfigurationManager($configurationManager);	
+		
 		if ($this->settings['listIdentifier'] != '') {
 		    $this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
 		
-		if($initConfigurationBuilder) {
-			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
-			$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
-		}
-
-		$this->dataBackend = $initDataBackend ? Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder) : null;
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
+		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
+		
+		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
+    
 	
-	
-	
+    
     /**
-     * Prepares a view for the current action and stores it in $this->view.
-     * By default, this method tries to locate a view with a name matching
-     * the current action.
-     *
-     * Configuration for view in TS:
+     * Resolve the viewObjectname in the following order
      * 
-     * controller.<ControllerName>.<controllerActionName>.view = <viewClassName>
+     * 1. TS-defined
+     * 2. Determined by Controller/Action/Format
+     * 3. Extlist BaseView 
      * 
-     * @return void
+     * @throws Exception
+     * @return string
      */
-    protected function resolveView() {
-    	$view = $this->resolveViewObject();
-        
-        $controllerContext = $this->buildControllerContext();
-        $view->setControllerContext($controllerContext);
-
-		// Setting the controllerContext for the FLUID template renderer         
-        Tx_PtExtlist_Utility_RenderValue::setControllerContext($controllerContext);
-        
-        // Template Path Override
-        $extbaseFrameworkConfiguration = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
-        if (isset($extbaseFrameworkConfiguration['view']['templateRootPath']) && strlen($extbaseFrameworkConfiguration['view']['templateRootPath']) > 0) {
-            $view->setTemplateRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']));
-        }
-        if (isset($extbaseFrameworkConfiguration['view']['layoutRootPath']) && strlen($extbaseFrameworkConfiguration['view']['layoutRootPath']) > 0) {
-            $view->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']));
-        }
-        if (isset($extbaseFrameworkConfiguration['view']['partialRootPath']) && strlen($extbaseFrameworkConfiguration['view']['partialRootPath']) > 0) {
-            $view->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']));
-        }
-
-        if ($view->hasTemplate() === FALSE) {
-            $viewObjectName = $this->resolveViewObjectName();
-            if (class_exists($viewObjectName) === FALSE) $viewObjectName = 'Tx_Extbase_MVC_View_EmptyView';
-            $view = $this->objectManager->getObject($viewObjectName);
-            $view->setControllerContext($controllerContext);
-        }
-        if (method_exists($view, 'injectConfigurationBuilder')) {
-            $view->injectConfigurationBuilder($this->configurationBuilder);
-        }
-        $view->initializeView(); // In FLOW3, solved through Object Lifecycle methods, we need to call it explicitely
-        $view->assign('settings', $this->settings); // same with settings injection.
-        
-        return $view;
+    protected function resolveViewObjectName() {
+   	
+    	$viewClassName = $this->resolveTsDefinedViewClassName();
+    	if($viewClassName) {
+			return $viewClassName;
+		} 
+		
+		$viewClassName = parent::resolveViewObjectName();
+  		if($viewClassName) {
+			return $viewClassName;
+		}
+		
+		else {
+			return 'Tx_PtExtlist_View_BaseView';
+		}
     }
     
     
     
     /**
-     * These lines have been added by Michael Knoll to make view configurable via TS
-     * Added TS-Key redirect by Daniel Lienert. If the tsPath points to a TS Configuration with child key viewClassName, it uses this as view class
+     * Resolve the viewClassname defined via typoscript
      * 
-     * @throws Exception
+     * @return string
      */
-    protected function resolveViewObject() {
-   
-        $viewClassName = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+    protected function resolveTsDefinedViewClassName() {
+    	
+    	$viewClassName = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
 
-        if ($viewClassName != '') {
-
-        	if (class_exists($viewClassName)) {
-        		return $this->objectManager->getObject($viewClassName);
-        	} 
-
-        	$viewClassName .= '.viewClassName';
-        	$tsRedirectPath = explode('.', $viewClassName);
-        	$viewClassName = Tx_Extbase_Utility_Arrays::getValueByPath($this->settings, $tsRedirectPath);
-        	
-        	if (class_exists($viewClassName)) {
-        		return $this->objectManager->getObject($viewClassName);
-        	}
-        	
-        	throw new Exception('View class does not exist! ' . $viewClassName . ' 1281369758');
-        } else {
-        	
-        	// We replace Tx_Fluid_View_TemplateView by Tx_PtExtlist_View_BaseView here to use our own view base class
-        	return $this->objectManager->getObject('Tx_PtExtlist_View_BaseView');	
-        }
+    	if($viewClassName != '') {
+    		if (!class_exists($viewClassName)) {
+		    	
+	    		// Use the viewClassName as redirect path to a typoscript value holding the viewClassName
+		    	$viewClassName .= '.viewClassName';
+		    	$tsRedirectPath = explode('.', $viewClassName);
+		    	$viewClassName = Tx_Extbase_Utility_Arrays::getValueByPath($this->settings, $tsRedirectPath);
+		    	
+    		}	
+    	}
+    	
+    	if($viewClassName && !class_exists($viewClassName)) {
+    		throw new Exception('View class does not exist! ' . $viewClassName . ' 1281369758');
+    	}
+    	
+		return $viewClassName;
     }
     
     
@@ -201,37 +168,35 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @api
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
-        $templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+        $this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
+		
+        if (method_exists($view, 'injectConfigurationBuilder')) {
+            $view->setConfigurationBuilder($this->configurationBuilder);
+        }
+  		
+        $this->setCustomPathsInView($view);  
+        
+        $this->view->assign('config', $this->configurationBuilder);
+	}
+
+	
+	
+	/**
+	 * Set the TS defined custom paths in view
+	 * 
+	 * @param Tx_Extbase_MVC_View_ViewInterface $view
+	 * @throws Exception
+	 */
+	protected function setCustomPathsInView(Tx_Extbase_MVC_View_ViewInterface $view) {
+		
+		$templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
 		if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
 			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { 
                 $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
 			} else {
 				throw new Exception('Given template path and filename could not be found or resolved: ' . $templatePathAndFilename . ' 1284655109');
 			}
-        }
+        }		
 	}
-	
-	
-	protected function initializeAction() {
-		
-		parent::initializeAction();
-		
-	}
-	
-    
-    /**
-     * Sets template to be used by current action.
-     * 
-     * BaseView reads this parameter for resolving template path and filename
-     * 
-     * Can be given absolute, in Extbase way or as templatePath = EXT:pt_extlist/Resources/Private/Templates/Filter/StringFilter.html
-     *
-     * @param string $templatePathAndFilename
-     */
-    public function setTemplatePathAndFilename($templatePathAndFilename) {
-    	$this->view->setTemplatePathAndFilename($templatePathAndFilename);
-    }
-	
 }
-
 ?>

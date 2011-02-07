@@ -1,34 +1,37 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * Factory for data backend objects
  * 
  * @package Domain
  * @subpackage DataBackend
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  */
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	
@@ -37,7 +40,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
      * Each list identifier holds its own data backend object
      * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
      */
-	private static $instances = null;
+	private static $instances = array();
 	
 	
 	
@@ -55,7 +58,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 			if ($throwExceptionOnNonExistingListIdentifier) {
 				throw new Exception('No data backend found for list identifier ' . $listIdentifier . ' 1280770617');
 			} else {
-				return null;
+				return NULL;
 			}
 		}
 	}

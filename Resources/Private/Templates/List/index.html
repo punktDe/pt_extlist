@@ -1,0 +1,14 @@
+<h2>{list.title}</h2>
+
+<table class="tx-ptextlist-list tx-ptextlist-list-standard">
+	<f:render partial="header" arguments="{list: list, sorting: sorting}"/></dd>
+	<f:for each="{list.listItems}" as="listItem">
+	<f:cycle values="{0: 'odd', 1: 'even'}" as="zebraClass">
+	<tr class="{zebraClass}">
+		<f:for each="{listItem.listItems}" as="simpleListItem">
+		<td class="tx-ptlist-field-{simpleListItem.name}">{simpleListItem}</td>
+		</f:for>
+	</tr>
+	</f:cycle>
+	</f:for>
+</table>

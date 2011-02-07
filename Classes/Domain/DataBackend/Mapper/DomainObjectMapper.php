@@ -1,34 +1,37 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * Mapper for domain object data
  * 
  * @package Domain
  * @subpackage DataBackend\Mapper
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
 
@@ -47,7 +50,13 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
-				$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
+				
+				if($property == '__object__') {
+					$value = $domainObject;
+				} else {
+					$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
+				}
+				
 				$listDataRow->createAndAddCell($value, $fieldConfiguration->getIdentifier());
 			}
 			$listData->addRow($listDataRow);
@@ -115,6 +124,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	protected function getPropertyValueSafely($object, $property) {
 		$getterMethodName = 'get' . ucfirst($property);
+		
 		if (method_exists($object, $getterMethodName)) {
 			return $object->$getterMethodName();
 		} else {

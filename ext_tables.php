@@ -36,7 +36,7 @@ foreach ($pluginModes as $ident => $label) {
 	/**
 	 * Register flexform
 	 */
-	t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform.xml');
+	t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Flexform.xml');
 }
 
 
@@ -58,7 +58,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array (
         'enablecolumns'     => array(
             'disabled' => 'hidden'
             ),
-        'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/tca.php', 
+        'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Tca.php', 
         'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmars_bookmark.gif'
     )
 );

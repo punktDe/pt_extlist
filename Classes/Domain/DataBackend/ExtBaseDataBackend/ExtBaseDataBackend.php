@@ -1,34 +1,37 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Daniel Lienert <lienert@punkt.de>, Michael Knoll <knoll@punkt.de>
-*  All rights reserved
-*
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * Backend for using pt_extlist with ExtBase Domain objects
  * 
  * TODO at the moment 2 queries are send to the database: 1) gather data 2) count rows in data --> cache data and count rows there
  * 
- * @author Michael Knoll <knoll@punkt.de>
+ * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend
  */
@@ -69,7 +72,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	public function getListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
-		#print_r($data);
+		
 		$mappedListData = $this->dataMapper->getMappedListData($data);
 		return $mappedListData;
 	}
@@ -173,7 +176,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 */
 	protected function buildExtBaseQuery() {
 		$query = $this->buildGenericQueryWithoutPager();
-        
+		
         // Collect pager limit
         if ($this->pagerCollection->isEnabled()) {
             $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
@@ -183,7 +186,20 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
         }
         $query->setLimit($limitPart);
         
+        // TODO refactor this!
+        // Set sorting from backend configuration TODO  respect sorting headers here!
+        if ($this->backendConfiguration->getDataBackendSettings('sorting') != '') {
+	        $sortingConfiguration = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
+	        $sorting = array();
+	        $sorting[$sortingConfiguration[0]] = $sortingConfiguration[1] == 'DESC' ? 
+	            Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC : Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
+	        $query->addSortingArray($sorting);
+        }
+        
         $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+        
+        $extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+        
         return $extbaseQuery;
 	}
 	
@@ -207,17 +223,20 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
 	 */
 	protected function buildGenericQueryExcludingFilters(array $excludeFilters = array()) {
-	    $query = new Tx_PtExtlist_Domain_QueryObject_Query();
+	    
+		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+	    
 	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-		    	if (!in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
+            	if (!is_array($excludeFilters[$filterbox->getfilterboxIdentifier()]) || !in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
                     $criterias = $filter->getFilterQuery()->getCriterias();
                     foreach($criterias as $criteria) {
-                        $query->addCriteria($criteria);
+                    	$query->addCriteria($criteria);
                     }
                 }
             }
         }
+        
         return $query;
 	}
 	
@@ -231,6 +250,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildExtBaseQueryWithoutPager() {
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
 		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		    
+		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		    
 		return $extbaseQuery;
 	}
 	
@@ -242,7 +264,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
-		return $extbaseQuery = $this->buildExtBaseQueryWithoutPager()->count();
+		return $this->buildExtBaseQueryWithoutPager()->count();
 	}
 	
 	

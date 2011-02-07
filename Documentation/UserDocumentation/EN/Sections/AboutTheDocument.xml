@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <title>About the document</title>
-  <para>This is the first part of every documentation followed by &quot;Reading
-  this&quot;.</para>
   <table>
     <title>Information about the document</title>
     <tgroup cols="2">
@@ -24,12 +22,8 @@
           <entry>internal </entry>
         </row>
         <row>
-          <entry>filename</entry>
-          <entry>abbr_YYYYMMDD_Vxx</entry>
-        </row>
-        <row>
           <entry>document type</entry>
-          <entry>description </entry>
+          <entry>extension documentation </entry>
         </row>
         <row>
           <entry>start</entry>
@@ -39,7 +33,7 @@
         </row>
         <row>
           <entry>last date of editing</entry>
-          <entry>19.10.2010</entry>
+          <entry>03.02.2011</entry>
         </row>
         <row>
           <entry>last date of printing</entry>
@@ -52,7 +46,7 @@
   <para>publisher: punkt.de</para>
   <para>publication: 2010</para>
   <para>print-out: 1</para>
-  <para>person responsible: Lwam Berhane</para>
+  <para>person responsible: Daniel Lienert, Michael Knoll</para>
   <para>Copyright, brands and trademarks : The author will make every endeavor
   to consider in all publications copyrights of the used illustrations,
   sounds, video sequences and texts, to use illustrations, sounds, video
