@@ -97,9 +97,53 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	}
 	
 	
-	public function testGetDefaultValue() {
+	public function testGetDefaultValueSingle() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertEquals($filterConfig->getdefaultValue(), 'default');
+	}
+	
+	public function testGetDefaultValueSingleStdWrap() {
+		$filterSettings = $this->filterSettings;
+				
+		$filterSettings['defaultValue'] = array(
+			'dataWrap' => 'together',
+			'_typoScriptNodeValue' => 'TEXT',
+		);
+
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+		
+		$this->assertEquals($filterConfig->getdefaultValue(), 'together');
+	}
+	
+	
+	public function testGetDefaultValueMultiple() {
+		
+		$filterSettings = $this->filterSettings;
+		$filterSettings['defaultValue'] = array(
+				10 => 'one',
+				20 => 'two',
+			'_typoScriptNodeValue' => '',
+		);
+		
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+		$this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'two'));
+	}
+	
+	
+	public function testGetDefaultValueMultipleStdWrap() {
+		
+		$filterSettings = $this->filterSettings;
+		$filterSettings['defaultValue'] = array(
+			10 => 'one',
+			20 => array(
+					'dataWrap' => 'together',
+					'_typoScriptNodeValue' => 'TEXT',
+				),
+			'_typoScriptNodeValue' => '',
+		);
+		
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+		$this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'together'));
 	}
 	
 	

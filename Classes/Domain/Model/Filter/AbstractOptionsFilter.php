@@ -146,7 +146,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 */
 	protected function setDefaultValuesFromTSConfig($defaultValue) {
 		if(is_array($defaultValue)) {
-			unset($defaultValue['_typoScriptNodeValue']);
 			foreach($defaultValue as $value) {
 				$this->filterValues[$value] = $value;
 			}
@@ -195,6 +194,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 */
 	protected function addInactiveOption(&$renderedOptions) {
 
+		if($renderedOptions == NULL) $renderedOptions = array();
+		
 		if($this->filterConfig->getInactiveOption()) {
 
 			unset($renderedOptions[$this->filterConfig->getInactiveValue()]);

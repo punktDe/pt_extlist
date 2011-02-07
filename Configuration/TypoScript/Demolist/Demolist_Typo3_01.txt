@@ -244,6 +244,15 @@ plugin.tx_ptextlist.settings {
 						filterIdentifier = filter1
 						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
 						fieldIdentifier = name_local
+						#defaultValue = TEXT
+						
+						#defaultValue.data = TSFE:fe_user|user|username
+						#defaultValue = test
+						
+						defaultValue = TEXT
+						defaultValue.10 = erster Teil
+						defaultValue.20 = zweiter Teil
+						
 					}
 
 					11 < plugin.tx_ptextlist.prototype.filter.string

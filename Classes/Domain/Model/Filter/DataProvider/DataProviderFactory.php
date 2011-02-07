@@ -39,6 +39,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 	 * Create a dataprovider for options filter data
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$dataProviderClassName = self::determineDataProviderClass($filterConfig);
