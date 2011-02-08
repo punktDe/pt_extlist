@@ -103,11 +103,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	}
 	
 	public function testGetDefaultValueSingleStdWrap() {
+		$this->simulateFrontendEnvironment();
+		
 		$filterSettings = $this->filterSettings;
 				
 		$filterSettings['defaultValue'] = array(
-			'dataWrap' => 'together',
-			'_typoScriptNodeValue' => 'TEXT',
+			'cObject' => array(
+				'value' => 'together',
+				'_typoScriptNodeValue' => 'TEXT'
+			)
 		);
 
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
@@ -136,8 +140,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$filterSettings['defaultValue'] = array(
 			10 => 'one',
 			20 => array(
-					'dataWrap' => 'together',
-					'_typoScriptNodeValue' => 'TEXT',
+					'cObject' => array(
+						'value' => 'together',
+						'_typoScriptNodeValue' => 'TEXT',
+					)
 				),
 			'_typoScriptNodeValue' => '',
 		);
@@ -207,5 +213,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->assertEquals($filterConfig->getLabel(), $this->filterSettings['label']);
 	}
 	
+	
+	protected function simulateFrontendEnvironment() {
+		$GLOBALS['TSFE'] = new stdClass();
+		$GLOBALS['TSFE']->cObjectDepthCounter = 100;
+	}
 }
 ?>

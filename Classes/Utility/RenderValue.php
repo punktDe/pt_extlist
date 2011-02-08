@@ -208,7 +208,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	
 
 	/**
-	 * Render the given dataValues with cObj
+	 * Render the given dataValues with cObj and data
 	 *
 	 * @param array $data data values
 	 * @param array $renderObjectConfig Array with two values in first level 'renderObj' => 'TEXT|COA|IMAGE|...', 'renderObj.' => array(...)
@@ -354,5 +354,22 @@ class Tx_PtExtlist_Utility_RenderValue {
 
 		return $content;
 	}
+	
+	
+	
+	/**
+	 * Render the given dataValues with cObj
+	 *
+	 * @param array $tsConfigValue Array with two values in first level 'renderObj' => 'TEXT|COA|IMAGE|...', 'renderObj.' => array(...)
+	 * @return string renderedData
+	 */
+	public static function renderCObjectWithPlainArray($tsConfigValue) {
+		if(!is_array($tsConfigValue) && array_key_exists('cObject', $tsConfigValue)) return $tsConfigValue;
+		
+		$tsArray = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($tsConfigValue);
+
+		return self::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
+	}
+	
 
 }
