@@ -327,7 +327,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 			self::$fluidRenderer = t3lib_div::makeInstance('Tx_Fluid_View_TemplateView');
 
 			$controllerContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
-									->getObject('Tx_PtExtlist_Extbase_ExtbaseContext')
+									->get('Tx_PtExtlist_Extbase_ExtbaseContext')
 									->getControllerContext();
 									
 			self::$fluidRenderer->setControllerContext($controllerContext);
