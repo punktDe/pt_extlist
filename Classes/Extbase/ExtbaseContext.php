@@ -45,10 +45,17 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	
 	
 	/**
+	 * Namepsace of current Extension
+	 * 
+	 * @var string
+	 */
+	protected $extensionName;
+	
+	
+	/**
 	 * @var string
 	 */
 	protected $extensionNameSpace;
-	
 	
 	
 	/**
@@ -65,6 +72,8 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	
 	
 	
+	
+	
 	/**
 	 * Initialize the object (called by objectManager)
 	 * 
@@ -72,6 +81,7 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	public function initializeObject() {
 		$frameWorkKonfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		
+		$this->extensionName = $frameWorkKonfiguration['extensionName'];
 		$this->extensionNameSpace = Tx_Extbase_Utility_Extension::getPluginNamespace($frameWorkKonfiguration['extensionName'], 
 																						$frameWorkKonfiguration['pluginName']); 
 		
@@ -136,6 +146,15 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	 */
 	public function getCurrentListIdentifier() {
 		return $this->currentListIdentifier;
+	}
+	
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getExtensionName() {
+		return $this->extensionName;
 	}
 	
 }

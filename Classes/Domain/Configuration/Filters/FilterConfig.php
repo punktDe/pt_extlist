@@ -296,7 +296,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		if($this->configValueExiststAndNotNothing('label')) {
 			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
 			if(t3lib_div::isFirstPartOfStr($this->label, 'LLL:')) {
-				$this->label = Tx_Extbase_Utility_Localization::translate($this->label);	
+				$this->label = Tx_Extbase_Utility_Localization::translate($this->label, '');	
 			}
 		}
 		
