@@ -95,7 +95,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		// optional
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 
-		if(array_key_exists('renderUserFunctions', $columnSettings) && is_array($this->settings['renderUserFunctions'])) {
+		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
 			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
 		}

@@ -104,14 +104,14 @@ Description
 					<xsl:if test="DATATYPE != ''"><segtitle>Datatype</segtitle></xsl:if>
 					<xsl:if test="POSIBLEVALUES != ''"><segtitle>Posible values</segtitle></xsl:if>
 					<xsl:if test="DEFAULT != ''"><segtitle>Default</segtitle></xsl:if>
-					<segtitle>StdWrap</segtitle>
+					<segtitle>CObject</segtitle>
 					<xsl:if test="PROTOTYPE != ''"><segtitle>Prototype</segtitle></xsl:if>
 					<seglistitem>
 						<xsl:if test="DATATYPE != ''"><seg><xsl:value-of select="DATATYPE"/></seg></xsl:if>
 						<xsl:if test="POSIBLEVALUES != ''"><seg><xsl:value-of select="POSIBLEVALUES"/></seg></xsl:if>
 						<xsl:if test="DEFAULT != ''"><seg><xsl:value-of select="DEFAULT"/></seg></xsl:if>
 						<xsl:choose>
-							<xsl:when test="STDWRAP='1'"><seg>YES</seg></xsl:when>
+							<xsl:when test="COBJ='1'"><seg>YES</seg></xsl:when>
 							<xsl:otherwise><seg>NO</seg></xsl:otherwise>
 						</xsl:choose>
 						<xsl:if test="PROTOTYPE != ''"><seg><xsl:value-of select="PROTOTYPE"/></seg></xsl:if>

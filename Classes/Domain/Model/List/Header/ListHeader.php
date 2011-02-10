@@ -100,6 +100,15 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Doma
 		foreach($this->itemsArr as $headerColumn) {
 			$headerColumn->reset();
 		}
-	}	
+	}
+	
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getListIdentifier() {
+		return $this->listIdentifier;
+	}
 }
 ?>

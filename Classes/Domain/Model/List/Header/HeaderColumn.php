@@ -168,6 +168,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * Template method for initializing filter by session data
 	 */
 	protected function initHeaderBySession() {
+		
 		if(array_key_exists('sortingState', $this->headerSessionData)) {
 			$this->sortingState = (int) $this->headerSessionData['sortingState'];
     	}
@@ -179,6 +180,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 * Template method for initializing filter by get / post vars
 	 */
 	protected function initHeaderByGpVars() {
+		
 		if(array_key_exists('sortingState', $this->headerGPVarData)) {
     		$this->sortingState = (int) $this->headerGPVarData['sortingState'];
     	}

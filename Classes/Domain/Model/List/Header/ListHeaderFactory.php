@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 		$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
 		$listIsSorted = 0;
-		
+
 		foreach($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
 			$headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
 			
