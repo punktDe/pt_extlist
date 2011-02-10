@@ -72,7 +72,9 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 			$wherePart = $baseWhereClause.$whereClauseFromFilterBoxes;			
 		}
 	 
-		$wherePart .= $wherePart ? $this->getTypo3SpecialFieldsWhereClause() : substr($this->getTypo3SpecialFieldsWhereClause(),5);
+		if($this->backendConfiguration->getDataBackendSettings('useEnableFields')) {
+			$wherePart .= $wherePart ? $this->getTypo3SpecialFieldsWhereClause() : substr($this->getTypo3SpecialFieldsWhereClause(),5);	
+		}
 		
 		return $wherePart;
 	}

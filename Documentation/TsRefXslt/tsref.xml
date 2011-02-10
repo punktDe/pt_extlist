@@ -7,11 +7,11 @@
     <!ELEMENT DOC (DATATYPES,TSREF)> 
     <!ELEMENT DATATYPES (ENTRY*)>
     <!ELEMENT TSREF (ENTRY)+>
-    <!ELEMENT ENTRY (DESCRIPTION, DATATYPE*, POSIBLEVALUES*, DEFAULT*, STDWRAP*, PROTOTYPE*, EXAMPLE*, CHILDREN*, VARIANT* )>
+    <!ELEMENT ENTRY (DESCRIPTION, DATATYPE*, POSIBLEVALUES*, DEFAULT*, COBJ*, PROTOTYPE*, EXAMPLE*, CHILDREN*, VARIANT* )>
     <!ELEMENT DESCRIPTION  (#PCDATA)>
     <!ELEMENT DATATYPE (#PCDATA)>
     <!ELEMENT PROTOTYPE (#PCDATA)>
-    <!ELEMENT STDWRAP (#PCDATA)>
+    <!ELEMENT COBJ (#PCDATA)>
     <!ELEMENT EXAMPLE (#PCDATA)>
     <!ELEMENT DEFAULT (#PCDATA)>
     <!ELEMENT POSIBLEVALUES (#PCDATA)>
@@ -36,7 +36,7 @@
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -47,7 +47,7 @@
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -58,9 +58,25 @@
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
-			<EXAMPLE></EXAMPLE>
+			<EXAMPLE>
+// Selects key 3 as default Value
+defaultValue = 3
+
+
+// Selects multiple values in a multi value	filter (3 and 18)
+defaultValue {
+	10 = 3
+	20 = 18
+}
+
+
+// Selects current user as default in an user select list
+defaultValue.cObject = TEXT
+defaultValue.cObject.data = TSFE:fe_user|user|username
+
+			</EXAMPLE>
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>	
@@ -69,7 +85,7 @@
 			<DATATYPE>Comma eparated list.</DATATYPE>
 			<POSIBLEVALUES>Typo3 Group Ids</POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -80,7 +96,7 @@
 			<DATATYPE>fieldIdentifier or *</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<DESCRIPTION>Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE>
@@ -101,7 +117,7 @@ fieldIdentifier = *
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE>Tx_PtExtlist_Domain_Model_Filter_StringFilter</EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -112,7 +128,7 @@ fieldIdentifier = *
 			<DATATYPE></DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -123,7 +139,7 @@ fieldIdentifier = *
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>0</DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -134,7 +150,7 @@ fieldIdentifier = *
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>0</DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -149,7 +165,7 @@ renderObj {
 	dataWrap = {field:allDisplayFields} ({field:rowCount})
 }
 			</DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -160,7 +176,7 @@ renderObj {
 			<DATATYPE>String / Comma separated list</DATATYPE>
 			<POSIBLEVALUES>Previously defined field indentifier.</POSIBLEVALUES>
 			<DEFAULT>If not set, the field defined in fieldIdentifier is used.</DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -171,7 +187,7 @@ renderObj {
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>0</DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -182,7 +198,7 @@ renderObj {
 			<DATATYPE>String / Comma separated list of filterIdentifiers.</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -193,7 +209,7 @@ renderObj {
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>1</DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -204,7 +220,7 @@ renderObj {
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>0</DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -215,7 +231,7 @@ renderObj {
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -226,7 +242,7 @@ renderObj {
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE></EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -237,7 +253,7 @@ renderObj {
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
-			<STDWRAP></STDWRAP>
+			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE>breadCrumbString = %l equals '%v'</EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -321,18 +337,25 @@ renderObj {
 									<DATATYPE></DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
+									<COBJ></COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="sortingColumn">
-											<DESCRIPTION>The default sorting column while no other sortng ist set.</DESCRIPTION>
+											<DESCRIPTION>The default sorting column while no other sortng ist set. Direction can be set with DESC or ASC after the column identifier.</DESCRIPTION>
 											<DATATYPE>String</DATATYPE>
 											<POSIBLEVALUES>Any column identifier</POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
-											<STDWRAP></STDWRAP>
+											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE></EXAMPLE>
+											<EXAMPLE>
+// use capital as default sorting column in ascending order
+sortingColumn = capital											
+
+// use capital as default sorting column in descending order
+sortingColumn = capital	DESC
+
+											</EXAMPLE>
 											<CHILDREN></CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
@@ -380,7 +403,7 @@ renderObj {
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>dataSource {
 	host = mysql.db.hoster.tld														
@@ -394,7 +417,7 @@ renderObj {
 															<DATATYPE>String</DATATYPE>
 															<POSIBLEVALUES>All valid addresses for servers (IP-Addresses and URLs)</POSIBLEVALUES>
 															<DEFAULT>localhost</DEFAULT>
-															<STDWRAP></STDWRAP>
+															<COBJ></COBJ>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN></CHILDREN>
@@ -405,7 +428,7 @@ renderObj {
 															<DATATYPE>Int</DATATYPE>
 															<POSIBLEVALUES>Any valid port number</POSIBLEVALUES>
 															<DEFAULT>3306</DEFAULT>
-															<STDWRAP></STDWRAP>
+															<COBJ></COBJ>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN></CHILDREN>
@@ -416,7 +439,7 @@ renderObj {
 															<DATATYPE>String</DATATYPE>
 															<POSIBLEVALUES>Any valid database name</POSIBLEVALUES>
 															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
+															<COBJ></COBJ>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN></CHILDREN>
@@ -427,7 +450,7 @@ renderObj {
 															<DATATYPE>String</DATATYPE>
 															<POSIBLEVALUES>Valid username for MySQL connection.</POSIBLEVALUES>
 															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
+															<COBJ></COBJ>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN></CHILDREN>
@@ -438,7 +461,7 @@ renderObj {
 															<DATATYPE>String</DATATYPE>
 															<POSIBLEVALUES>Any valid password.</POSIBLEVALUES>
 															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
+															<COBJ></COBJ>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN></CHILDREN>
@@ -453,7 +476,7 @@ renderObj {
 													<DATATYPE>String</DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>1</STDWRAP>
+													<COBJ>1</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
 static_countries
@@ -466,7 +489,7 @@ LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_t
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
 st_continent.tr_name_en [] ''
@@ -479,7 +502,7 @@ st_continent.tr_name_en [] ''
 												<ENTRY KEY="baseGroupByClause">
 													<DESCRIPTION>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</DESCRIPTION>
 													<DATATYPE>String</DATATYPE>
-													<STDWRAP>1</STDWRAP>
+													<COBJ>1</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>st_continent</EXAMPLE>
 												</ENTRY>
@@ -491,7 +514,7 @@ st_continent.tr_name_en [] ''
 											<DATATYPE></DATATYPE>
 											<POSIBLEVALUES></POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
-											<STDWRAP>0</STDWRAP>
+											<COBJ>0</COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE><![CDATA[
 backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
@@ -520,11 +543,23 @@ backendConfig {
 													<DATATYPE>Comma seperated list of table names and aliases (optional).</DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
 static_countries,
 static_territories st_continent
+													</EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="useEnableFields">
+													<DESCRIPTION>Use enableFields for alle tables that are defined with key tables.</DESCRIPTION>
+													<DATATYPE>Boolean</DATATYPE>
+													<POSIBLEVALUES>0,1</POSIBLEVALUES>
+													<DEFAULT>1</DEFAULT>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE>
 													</EXAMPLE>
 													<CHILDREN></CHILDREN>
 													<VARIANT></VARIANT>
@@ -542,7 +577,7 @@ static_territories st_continent
 								<ENTRY KEY="fields">
 									<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
 									<DATATYPE>Associative array</DATATYPE>
-									<STDWRAP>0</STDWRAP>
+									<COBJ>0</COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
@@ -551,7 +586,7 @@ static_territories st_continent
 											<DATATYPE>String</DATATYPE>
 											<POSIBLEVALUES></POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
-											<STDWRAP></STDWRAP>
+											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE>
 name_local {
@@ -566,7 +601,7 @@ name_local {
 													<DATATYPE>String</DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -575,7 +610,7 @@ name_local {
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -584,7 +619,7 @@ name_local {
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -593,7 +628,7 @@ name_local {
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -602,7 +637,7 @@ name_local {
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -613,7 +648,7 @@ name_local {
 								<ENTRY KEY="columns">
 									<DESCRIPTION>Holds the tables column definitions.</DESCRIPTION>
 									<DATATYPE>Array</DATATYPE>
-									<STDWRAP>0</STDWRAP>
+									<COBJ>0</COBJ>
 									<PROTOTYPE>plugin.tx_ptextlist.prototype.column.default</PROTOTYPE>
 									<EXAMPLE>
 10 {
@@ -630,7 +665,7 @@ name_local {
 												<ENTRY KEY="fieldIdentifier">
 													<DESCRIPTION>Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
 													<DATATYPE>fieldIdentifier or *</DATATYPE>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
 // use a single field
@@ -646,7 +681,7 @@ fieldIdentifier = *
 												<ENTRY KEY="label">
 													<DESCRIPTION>A label for this element.</DESCRIPTION>
 													<DATATYPE>String</DATATYPE>
-													<STDWRAP>1</STDWRAP>
+													<COBJ>1</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
 // as string
@@ -659,7 +694,7 @@ label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_sh
 												<ENTRY KEY="renderUserFunctions">
 													<DESCRIPTION>A list of userfunctions to render the field value.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>
 renderUserFunctions {
@@ -670,14 +705,14 @@ renderUserFunctions {
 												<ENTRY KEY="renderTemplate">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="renderObj">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -686,7 +721,7 @@ renderUserFunctions {
 														
 													</DESCRIPTION>
 													<DATATYPE>Seperated list of fieldIdentifiers.</DATATYPE>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE>// Order by name_local ASC, name_en ASC
 sorting = name_local, name_en 
@@ -702,7 +737,7 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png</DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -710,7 +745,7 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 													<DESCRIPTION>Image for descending ordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png</DEFAULT>													
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -718,21 +753,21 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 													<DESCRIPTION>Image for unordered column header.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<DEFAULT>EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png</DEFAULT>														
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="accessGroups">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="cellCSSClass">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -745,7 +780,7 @@ sorting = name_local !DESC, name_en</EXAMPLE>
 									<DATATYPE></DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
+									<COBJ></COBJ>
 									<PROTOTYPE>plugin.tx_ptextlist.prototype.rendererChain</PROTOTYPE>
 									<EXAMPLE><![CDATA[
 rendererChain {
@@ -765,7 +800,7 @@ rendererChain {
 											<DATATYPE>Boolean</DATATYPE>
 											<POSIBLEVALUES>0,1</POSIBLEVALUES>
 											<DEFAULT>1</DEFAULT>
-											<STDWRAP></STDWRAP>
+											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE></EXAMPLE>
 											<CHILDREN></CHILDREN>
@@ -776,7 +811,7 @@ rendererChain {
 											<DATATYPE>Array (10,20,30)</DATATYPE>
 											<POSIBLEVALUES></POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
-											<STDWRAP></STDWRAP>
+											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE>
 											</EXAMPLE>
@@ -786,7 +821,7 @@ rendererChain {
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES>10,20,30</POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP></STDWRAP>
+													<COBJ></COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 													<CHILDREN>
@@ -795,7 +830,7 @@ rendererChain {
 															<DATATYPE>String</DATATYPE>
 															<POSIBLEVALUES></POSIBLEVALUES>
 															<DEFAULT></DEFAULT>
-															<STDWRAP></STDWRAP>
+															<COBJ></COBJ>
 															<PROTOTYPE></PROTOTYPE>
 															<EXAMPLE></EXAMPLE>
 															<CHILDREN></CHILDREN>
@@ -813,7 +848,7 @@ rendererChain {
 								<ENTRY KEY="aggregateData">
 									<DESCRIPTION>Defines aggregates of data fields.</DESCRIPTION>
 									<DATATYPE>Associative array</DATATYPE>
-									<STDWRAP>0</STDWRAP>
+									<COBJ>0</COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE>
 aggregateData {
@@ -829,7 +864,7 @@ aggregateData {
 											<DATATYPE>Associative array</DATATYPE>
 											<POSIBLEVALUES></POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
-											<STDWRAP>0</STDWRAP>
+											<COBJ>0</COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE>
 sumPhone {
@@ -844,7 +879,7 @@ sumPhone {
 													<DATATYPE>String</DATATYPE>
 													<POSIBLEVALUES>min,max,sum,avg</POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
@@ -853,7 +888,7 @@ sumPhone {
 													<DATATYPE>String</DATATYPE>
 													<POSIBLEVALUES>page,query</POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP>0</STDWRAP>
+													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 												</ENTRY>
 											</CHILDREN>
@@ -865,7 +900,7 @@ sumPhone {
 									<DATATYPE>Associative array</DATATYPE>
 									<POSIBLEVALUES>All columnIdentifiers</POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
+									<COBJ></COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE><![CDATA[
 aggregateRows {
@@ -887,7 +922,7 @@ aggregateRows {
 											<DATATYPE></DATATYPE>
 											<POSIBLEVALUES></POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
-											<STDWRAP></STDWRAP>
+											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE></EXAMPLE>
 											<CHILDREN>
@@ -896,7 +931,7 @@ aggregateRows {
 													<DATATYPE>String</DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<STDWRAP></STDWRAP>
+													<COBJ></COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 													<CHILDREN></CHILDREN>
@@ -913,7 +948,7 @@ aggregateRows {
 								<DATATYPE>Associative array</DATATYPE>
 								<POSIBLEVALUES></POSIBLEVALUES>
 								<DEFAULT></DEFAULT>
-								<STDWRAP></STDWRAP>
+								<COBJ></COBJ>
 								<PROTOTYPE></PROTOTYPE>
 								<EXAMPLE></EXAMPLE>
 								<CHILDREN>
@@ -922,7 +957,7 @@ aggregateRows {
 										<DATATYPE></DATATYPE>
 										<POSIBLEVALUES></POSIBLEVALUES>
 										<DEFAULT></DEFAULT>
-										<STDWRAP></STDWRAP>
+										<COBJ></COBJ>
 										<PROTOTYPE>plugin.tx_ptextlist.prototype.filterBox</PROTOTYPE>
 										<EXAMPLE></EXAMPLE>
 										<CHILDREN>
@@ -931,7 +966,7 @@ aggregateRows {
 												<DATATYPE>Boolean</DATATYPE>
 												<POSIBLEVALUES>0,1</POSIBLEVALUES>
 												<DEFAULT>1</DEFAULT>
-												<STDWRAP>0</STDWRAP>
+												<COBJ>0</COBJ>
 												<PROTOTYPE></PROTOTYPE>
 												<EXAMPLE></EXAMPLE>
 												<CHILDREN></CHILDREN>
@@ -942,7 +977,7 @@ aggregateRows {
 												<DATATYPE>Boolean</DATATYPE>
 												<POSIBLEVALUES>0,1</POSIBLEVALUES>
 												<DEFAULT>1</DEFAULT>
-												<STDWRAP>0</STDWRAP>
+												<COBJ>0</COBJ>
 												<PROTOTYPE></PROTOTYPE>
 												<EXAMPLE></EXAMPLE>
 												<CHILDREN></CHILDREN>
@@ -953,7 +988,7 @@ aggregateRows {
 												<DATATYPE>Array</DATATYPE>
 												<POSIBLEVALUES>10,20,30...</POSIBLEVALUES>
 												<DEFAULT></DEFAULT>
-												<STDWRAP></STDWRAP>
+												<COBJ></COBJ>
 												<PROTOTYPE></PROTOTYPE>
 												<EXAMPLE></EXAMPLE>
 												<CHILDREN>
@@ -962,7 +997,7 @@ aggregateRows {
 														<DATATYPE></DATATYPE>
 														<POSIBLEVALUES></POSIBLEVALUES>
 														<DEFAULT></DEFAULT>
-														<STDWRAP></STDWRAP>
+														<COBJ></COBJ>
 														<PROTOTYPE></PROTOTYPE>
 														<EXAMPLE></EXAMPLE>
 														<CHILDREN>
@@ -981,7 +1016,7 @@ aggregateRows {
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
-																<STDWRAP></STDWRAP>
+																<COBJ></COBJ>
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.string</PROTOTYPE>
 																<EXAMPLE>
 10 	&lt; plugin.tx_ptextlist.prototype.filter.string
@@ -1008,7 +1043,7 @@ aggregateRows {
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
-																<STDWRAP></STDWRAP>
+																<COBJ></COBJ>
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
@@ -1036,7 +1071,7 @@ aggregateRows {
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
-																<STDWRAP></STDWRAP>
+																<COBJ></COBJ>
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
@@ -1064,7 +1099,7 @@ aggregateRows {
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
-																<STDWRAP></STDWRAP>
+																<COBJ></COBJ>
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.checkbox</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
@@ -1092,7 +1127,7 @@ aggregateRows {
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
-																<STDWRAP></STDWRAP>
+																<COBJ></COBJ>
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.firstletter</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
@@ -1120,7 +1155,7 @@ aggregateRows {
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
-																<STDWRAP></STDWRAP>
+																<COBJ></COBJ>
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.proxy</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
@@ -1129,7 +1164,7 @@ aggregateRows {
 																		<DATATYPE>String</DATATYPE>
 																		<POSIBLEVALUES></POSIBLEVALUES>
 																		<DEFAULT></DEFAULT>
-																		<STDWRAP></STDWRAP>
+																		<COBJ></COBJ>
 																		<PROTOTYPE></PROTOTYPE>
 																		<EXAMPLE></EXAMPLE>
 																		<CHILDREN></CHILDREN>
@@ -1155,7 +1190,7 @@ aggregateRows {
 									<DATATYPE>String</DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
+									<COBJ></COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE>
 // Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
@@ -1173,7 +1208,7 @@ headerPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial
 									<DATATYPE>String</DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
+									<COBJ></COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE>
 // Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 
@@ -1191,7 +1226,7 @@ bodyPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialPartial.h
 									<DATATYPE>String</DATATYPE>
 									<POSIBLEVALUES></POSIBLEVALUES>
 									<DEFAULT></DEFAULT>
-									<STDWRAP></STDWRAP>
+									<COBJ></COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE>
 // Fluid style. Relative to pt_extlist/Resources/Private/Partials/ 

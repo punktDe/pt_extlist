@@ -282,11 +282,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('invert');
 		$this->setBooleanIfExistsAndNotNothing('invertable');
 		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
-		$this->setValueIfExists('defaultValue');
 		$this->setValueIfExists('inactiveOption');
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
 		$this->setValueIfExists('label');
+		
+		$this->setValueIfExistsAndNotNothing('defaultValue');
+		if($this->defaultValue) $this->renderDefaultValue();
+		
 		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		
@@ -306,7 +309,36 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		}
 	}
     
+	
+	
+	/**
+	 * Render defaultValue with stdWrap
+	 */
+	protected function renderDefaultValue() {	
+		
+		// no array - nothing to do
+		if(!is_array($this->defaultValue)) return;
+		
+		// array but no cOBJ - defines multivalue default 
+		if(!$this->defaultValue['cObject']) {
+			
+			foreach($this->defaultValue as $key => $defaultValue) {
+				if(is_array($defaultValue)) {
+					$this->defaultValue[$key] = Tx_PtExtlist_Utility_RenderValue::renderCObjectWithPlainArray($defaultValue);
+				}
+			}
+			
+			if(array_key_exists('_typoScriptNodeValue', $this->defaultValue)) unset($this->defaultValue['_typoScriptNodeValue']);
+			
+			return;	
+		}
+
+
+		// array and cObject - render
+		$this->defaultValue = Tx_PtExtlist_Utility_RenderValue::renderCObjectWithPlainArray($this->defaultValue);	
+	}
     
+	
 	
     /**
      * Returns partial path for filter template

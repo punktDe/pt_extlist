@@ -52,7 +52,7 @@
                   </numIndex>
                   <numIndex index="4" type="array">
                     <numIndex index="0">Pager</numIndex>
-                    <numIndex index="1">Pager->show;Pager->submit</numIndex>
+                    <numIndex index="1">Pager->show</numIndex>
                   </numIndex>
                   <numIndex index="5" type="array">
                     <numIndex index="0">Bookmarks</numIndex>
@@ -61,10 +61,6 @@
                   <numIndex index="6" type="array">
                     <numIndex index="0">Breadcrumbs</numIndex>
                     <numIndex index="1">BreadCrumbs->index;BreadCrumbs->resetFilter</numIndex>
-                  </numIndex>
-                  <numIndex index="7" type="array">
-                    <numIndex index="0">DocBook</numIndex>
-                    <numIndex index="1">DocBook->createTsDocBook</numIndex>
                   </numIndex>
                 </items>
               </config>

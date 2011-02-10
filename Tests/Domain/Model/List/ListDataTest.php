@@ -32,8 +32,8 @@
  * Testcase for list data class
  * 
  * @author Michael Knoll 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Model\List
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_BaseTestcase {
 	
