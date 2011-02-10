@@ -30,18 +30,18 @@
  * Class implements factory for ExtListContext
  *
  * @package ExtlistContext
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
-	
+
 	/**
 	 * Array of listContext Instances
 	 * @var Tx_PtExtlist_Domain_ListContext_ListContext
 	 */
 	protected static $instances = array();
-	
-	
-	
+
+
+
 	/**
 	 * Initialize and return a DataBackend with the given listIndentifier
 	 *
@@ -49,30 +49,30 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
 	public static function getContextByListIdentifier($listIdentifier) {
-		
+
 		if(!array_key_exists($listIdentifier, self::$instances)) {
-			
+
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
-	
+
 			if($extListBackend === NULL) {
 				$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
 				self::loadLifeCycleManager();
-	
+
 				Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
 				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-	
+
 				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 			}
 
 			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
-			
+
 		}
-		
+
 		return self::$instances[$listIdentifier];
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Get the databackend by a custom list configuration ts array
 	 * The Typoscript is identified by the given listIdentifier and merged with the extlist configuration
@@ -82,45 +82,45 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
 	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier) {
-		
+
 		if(!array_key_exists($listIdentifier, self::$instances)) {
-				
+
 			try {
 				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
 			} catch (Exception $e) {
 				$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
 				self::loadLifeCycleManager();
-	
+
 				Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
 				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
 			}
-	
+
 			$extListBackend =   Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
 		}
-		
+
 		return self::$instances[$listIdentifier];
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Build the extlistContext
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extlistContext
 	 */
 	protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		$extlistContext = new Tx_PtExtlist_ExtlistContext_ExtlistContext();
-		
+
 		$extlistContext->injectDataBackend($dataBackend);
 		$extlistContext->init();
-		
+
 		return $extlistContext;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Read the Session data into the cache
 	 */
@@ -130,9 +130,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		// SET LIFECYCLE TO START -> read session data into cache
 		$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Get Typoscript for defined listIdentifier
 	 *
@@ -142,9 +142,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @return array
 	 */
 	protected static function getExtListTyposcriptSettings($listIdentifier, $customTSArray = NULL) {
-				
-		$extListTSArray = self::getCurrentTyposcript(); 
-		
+
+		$extListTSArray = self::getCurrentTyposcript();
+		$extListTSArray = $extListTSArray['settings'];
+
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
 
 		if(is_array($customTSArray)) {
@@ -159,12 +160,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 
 		return $extListTSArray;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Get current typoscript settings for pt_extlist plugin
-	 * 
+	 *
 	 */
 	protected static function getCurrentTyposcript() {
 		if(TYPO3_MODE === 'BE') {
@@ -173,12 +174,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 			return self::getTyposcriptOfCurrentFrontendPID();
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Retrieve Typoscript Configuration from selected backend pid
-	 * 
+	 *
 	 * @return array typoscript array
 	 */
 	protected static function getTyposcriptOfCurrentBackendPID() {
@@ -186,15 +187,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		$completeTS = $configurationManager->getTypoScriptSetup();
 		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Retrieve Typoscript Configuration from selected frontend pid
-	 * 
+	 *
 	 * @return array typoscript array
 	 */
 	protected static function getTyposcriptOfCurrentFrontendPID() {
+
 		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager');
 		$completeTS = $configurationManager->getTypoScriptSetup();
 		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
