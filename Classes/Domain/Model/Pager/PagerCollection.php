@@ -28,75 +28,75 @@
 
 /**
  * A collection to manage a bunch of pagers.
- * 
- * @author Daniel Lienert 
- * @author Christoph Ehscheidt 
+ *
+ * @author Daniel Lienert
+ * @author Christoph Ehscheidt
  * @package Domain
  * @subpackage Model\Pager
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collection 
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collection
 			implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 
-	
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */			
+	 */
 	protected $configurationBuilder;
 
-	
+
 	/**
 	 * Holds the current page index.
 	 * New pagers need to know the current page.
-	 * 
+	 *
 	 * @var int
 	 */
 	protected $currentPage = 1;
-	
-	
+
+
 	/**
 	 * Shows if one of the pagers is enabled.
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected $enabled = false;
-	
-	
+
+
 	/**
 	 * Holds a instance of the persitence manager.
-	 * 
+	 *
 	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager;
-	
-	
-	
+
+
+
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
 	}
-	
-	
+
+
 	/**
 	 * Adds a pager to the collection.
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
-	
+
 		$pager->setCurrentPage($this->currentPage);
-		
+
 		// As if one pager is enabled, the collection is marked a enabled.
 		if($pager->isEnabled()) {
 			$this->enabled = true;
 		}
-		
+
 		$this->addItem($pager, $pager->getPagerIdentifier());
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Sets the current page index to all pagers.
 	 *
@@ -104,24 +104,24 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 */
 	public function setCurrentPage($pageIndex) {
 		$this->currentPage = (int)$pageIndex;
-		
+
 		foreach($this->itemsArr as $id => $pager) {
 			$pager->setCurrentPage($pageIndex);
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Resets every pager to start page.
-	 * 
+	 *
 	 */
 	public function reset() {
 		$this->setCurrentPage(1);
-	} 
-	
-	
-	
+	}
+
+
+
 	/**
 	 * Returns the current page which is valid for all pagers.
 	 *
@@ -130,9 +130,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getCurrentPage() {
 		return $this->currentPage;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns true if any of the pages is enabled.
 	 * @return boolean
@@ -140,13 +140,22 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function isEnabled() {
 		return $this->enabled;
 	}
-	
-	
-	
+
+
+
+	/**
+	 * @param bool $enabled
+	 */
+	public function setEnabled($enabled) {
+		$this->enabled = $enabled;
+	}
+
+
+
 	/**
 	 * Sets the total item count for each pager in the collection.
 	 * Could be used by a list to inject the amount of rows.
-	 * 
+	 *
 	 * @param int $itemCount The amount of items.
 	 */
 	public function setItemCount($itemCount) {
@@ -154,8 +163,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 			$pager->setItemCount($itemCount);
 		}
 	}
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
@@ -163,9 +172,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getObjectNamespace() {
 		return $this->configurationBuilder->getListIdentifier() . '.pagerCollection';
 	}
-	
-	
-	
+
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface::injectGPVars()
@@ -175,9 +184,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 			$this->currentPage = (int)$GPVars['page'];
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::injectSessionData()
@@ -187,9 +196,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 			$this->currentPage = (int)$sessionData['page'];
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
@@ -197,16 +206,16 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function persistToSession() {
 		return array('page' => $this->currentPage);
 	}
-	
-	
-	
+
+
+
 	/**********************************************************
-	 * 
-	 * Implementing parts of the pager interface. 
+	 *
+	 * Implementing parts of the pager interface.
 	 * Delegate to the first pager in this collection.
-	 * 
+	 *
 	 **********************************************************/
-		
+
 	/**
 	 * Returns the index of the first page.
 	 * @return int Index of first page
@@ -214,9 +223,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getFirstItemIndex() {
 		return $this->getItemByIndex(0)->getFirstItemIndex();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns the index of the last page.
 	 * @return int Index of last page
@@ -224,11 +233,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getLastItemIndex() {
 		return $this->getItemByIndex(0)->getLastItemIndex();
 	}
-		
 
-	
-	
-	
+
+
+
+
 	/**
 	 * Returns the total item count.
 	 * @return int The total item count.
@@ -236,9 +245,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getItemCount() {
 		return $this->getItemByIndex(0)->getItemCount();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns the items per page.
 	 * @return int Amount of items per page.
@@ -246,12 +255,12 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getItemsPerPage() {
 		return $this->getItemByIndex(0)->getItemsPerPage();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Set itmesPerPage
-	 * 
+	 *
 	 * @param int $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage) {
@@ -259,12 +268,12 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 			$pager->setItemsPerPage($itemsPerPage);
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Set the page by row index
-	 * 
+	 *
 	 * @param int $rowIndex
 	 */
 	public function setPageByRowIndex($rowIndex) {
@@ -272,9 +281,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		$pageIndex = ceil($rowIndex / $this->getItemsPerPage());
 		$this->setCurrentPage($pageIndex);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns an array with the index=>pageNumber pairs
 	 * @return array PageNumbers
@@ -283,10 +292,10 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		return $this->getItemByIndex(0)->getPages();
 	}
 
-	
+
 	/**
 	 * Return pager by Identifier
-	 * 
+	 *
 	 * @param string $pagerIdentifier
 	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
@@ -295,11 +304,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		if(!$this->hasItem($pagerIdentifier)) {
 			throw  new Exception('No pager configuration with id '.$pagerIdentifier.' found. 1282216891');
 		}
-		
+
 		return $this->getItemById($pagerIdentifier);
 	}
-	
-	
+
+
 	/**
 	 * Returns the last page index
 	 * @return int Index of last page
@@ -307,9 +316,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getLastPage() {
 		return $this->getItemByIndex(0)->getLastPage();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns the first page index
 	 * @return int Index of first page
@@ -317,9 +326,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getFirstPage() {
 		return $this->getItemByIndex(0)->getFirstPage();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns the previous page index
 	 * @return int Index of previous page
@@ -327,9 +336,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	public function getPreviousPage() {
 		return $this->getItemByIndex(0)->getPreviousPage();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns the last next index
 	 * @return int Index of next page
