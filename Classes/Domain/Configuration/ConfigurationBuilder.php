@@ -275,7 +275,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     /**
      * Returns configuration object for pager
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration Configuration object for pager
+     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection Configuration object for pager
      */
     public function buildPagerConfiguration() {
     	return $this->buildConfigurationGeneric('pager');

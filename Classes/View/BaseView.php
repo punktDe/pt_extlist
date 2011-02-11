@@ -124,6 +124,7 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	 * @author Sebastian Kurfürst <sebastian@typo3.org>
 	 */
 	protected function getTemplateSource($actionName = NULL) {
+		
 		if ($this->templatePathAndFilename !== NULL) {
 			$templatePathAndFilename = $this->templatePathAndFilename;
 		} else {
