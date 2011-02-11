@@ -31,6 +31,31 @@
 
 	<DATATYPES>
 
+		<ENTRY REF="pager.pagerClassName" KEY="pagerClassName">
+			<DESCRIPTION>Name of the PHP Class of this pager.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE>pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager</EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="pager.templatePath" KEY="templatePath">
+			<DESCRIPTION></DESCRIPTION>
+			<DATATYPE></DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE>templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/Default.html</EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+
+
+
 		<ENTRY REF="filter.filterIdentifier" KEY="filterIdentifier">
 			<DESCRIPTION>The unique identifier of this filter.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
@@ -943,6 +968,57 @@ aggregateRows {
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
+								
+								<ENTRY KEY="pager">
+									<DESCRIPTION>Holds all pager configuration</DESCRIPTION>
+									<DATATYPE>Associative array</DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<COBJ></COBJ>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="itemsPerPage">
+											<DESCRIPTION>Sets the items per page. A value of 0 means to show all entrys.</DESCRIPTION>
+											<DATATYPE>Integer</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="pagerConfigs">
+											<DESCRIPTION>Holds an array of all defined pagers</DESCRIPTION>
+											<DATATYPE>Associative array</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="[yourPagerIdentifier]">
+													<DESCRIPTION>Identifier of a pager</DESCRIPTION>
+													<DATATYPE>String</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN>
+														<TYPEREF REF="pager.pagerClassName" KEY="pagerClassName" />
+														<TYPEREF REF="pager.templatePath" KEY="templatePath" />
+													</CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+											</CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+									</CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+								
 								<ENTRY KEY="filters">
 								<DESCRIPTION>Holds all filterbox configurations.</DESCRIPTION>
 								<DATATYPE>Associative array</DATATYPE>
