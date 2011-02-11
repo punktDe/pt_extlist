@@ -23,14 +23,79 @@
 * This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+
 /**
-* 
-*
-* @package Domain
-* @subpackage Import
-* @author Daniel Lienert
-*/
+ * Class implements default pager for pt_extlist
+ *
+ * @package Domain
+ * @subpackage Model\Pager
+ * @author Daniel Lienert 
+ */
+class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Model_Pager_DefaultPager {
+	
+	/**
+	 * @var int
+	 */
+	protected $delta;
+	
+	
+	public function __construct($pagerConfiguration) {
+		parent::__construct($pagerConfiguration);
+		
+		$this->delta = (int) $this->pagerConfiguration->getSettings('delta');
+	}
+	
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPages()
+	 */
+	public function getPages() {
 
+		$pageCount = $this->getPageCount();
+		
+		if($this->delta == 0 || $this->delta >= $pageCount) return parent::getPageCount();
+		
+		$pages = array();
+		
+		for($i=1; $i <= $pageCount; $i++) {
+			
+			if($i == $pageCount && $this->getUseBackFill()) {
+				$pages['bfi'] = $this->pagerConfiguration->getSettings('fillItem');
+			}
+			
+			if($i==1 || $i == $pageCount|| abs($i - $this->currentPage) <= $this->delta) {
+				$pages[$i] = $i;			
+			}
+			
+			if($i == 1 && $this->getUseFrontFill()) {
+				$pages['ffi'] = $this->pagerConfiguration->getSettings('fillItem');
+			}
+			
+		}
 
+		return $pages;
+	}
+	
+	
+	
+	/**
+	 * Indicates if the fill string is inserted before delta
+	 * @return bool
+	 */
+	public function getUseFrontFill() {
+		return $this->currentPage - $this->delta > 2;
+	}
+	
+	
+	
+	/**
+	 * Indicates if the fill string is inserted after delta
+	 * @return bool
+	 */
+	public function getUseBackFill() {
+		return $this->currentPage + $this->delta < $this->getPageCount() - 1;
+	}
+	
+}
 
 ?>

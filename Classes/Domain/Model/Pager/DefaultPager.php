@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	/**
 	 * Holds pager configuration for this pager
 	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+	 * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
 	 */
 	protected $pagerConfiguration;
 	
@@ -188,10 +188,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	public function getPages() {
 		$pages = array();
-
-		$pageCount = ceil(intval($this->totalItemCount) / intval($this->itemsPerPage));
 		
-		for($i=1; $i <= $pageCount; $i++) {
+		for($i=1; $i <= $this->getPageCount(); $i++) {
 			$pages[$i] = $i;
 		}
 
@@ -251,6 +249,16 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	public function getItemCount() {
 		return $this->totalItemCount;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @return int $pageCount
+	 */
+	public function getPageCount() {
+		return ceil(intval($this->totalItemCount) / intval($this->itemsPerPage));
 	}
 	
 	
