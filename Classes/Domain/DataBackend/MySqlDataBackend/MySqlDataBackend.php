@@ -129,31 +129,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     }
 
 
-
-    /**
-     * Returns raw list data
-     *
-     * @return array Array of raw list data
-     */
-	public function getListData() {
-		if(!is_array($this->listData)) {
-			$this->listData = $this->buildListData();
-		}
-
-		return $this->listData;
-	}
-
-
-
-	/**
-	 * ResetlisData and query
-	 */
-	public function resetListDataCache() {
-		unset($this->listData);
-		unset($this->listQueryParts);
-	}
-
-
+	
 	/**
 	 * Build the list data
 	 * @return array Array of raw list data

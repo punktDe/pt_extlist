@@ -331,11 +331,35 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	
-	/**
-	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
-	 */
+    /**
+     * Returns raw list data
+     *
+     * @return array Array of raw list data
+     */
 	public function getListData() {
+		if(!is_array($this->listData)) {
+			$this->listData = $this->buildListData();
+		}
+
 		return $this->listData;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * Build the listData and cache it in $this->listData
+	 */
+	abstract protected function buildListData();
+	
+	
+
+	/**
+	 * ResetlisData and query
+	 */
+	public function resetListDataCache() {
+		unset($this->listData);
+		unset($this->listQueryParts);
 	}
 	
 	

@@ -65,16 +65,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getListData()
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend::buildListData()
 	 */
-	public function getListData() {
+	protected function buildListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
 		
 		$mappedListData = $this->dataMapper->getMappedListData($data);
-		return $mappedListData;
+		$this->listData = $mappedListData;
 	}
 	
 	
