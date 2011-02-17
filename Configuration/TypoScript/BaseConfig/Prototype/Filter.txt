@@ -50,6 +50,19 @@ plugin.tx_ptextlist.prototype.filter {
             dataWrap = {field:label} is bigger than {field:value}
         }
 	}
+    
+    dateRange {
+        filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
+        partialPath = Filter/Range/DateRangeFilter
+        defaultValue = 
+        accessGroups =
+        
+        breadCrumbString = TEXT
+        breadCrumbString {
+            # Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+            dataWrap = {field:label} is between {field:fromValue} and {field:toValue}
+        }
+    }
 	
 	select {
 		partialPath = Filter/Options/SelectFilter

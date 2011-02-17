@@ -291,9 +291,16 @@ plugin.tx_ptextlist.settings {
 						invert = 0
 						invertable = 0
 					}
+					
+					40 < plugin.tx_ptextlist.prototype.filter.dateRange
+                    40 {
+                        filterIdentifier = filter4
+                        label = ISO-Range
+                        fieldIdentifier = isoNo
+                    }
 
-					#40 < plugin.tx_ptextlist.prototype.filter.proxy
-					#40 {
+					#50 < plugin.tx_ptextlist.prototype.filter.proxy
+					#50 {
 					#	filterIdentifier = continentProxy
 					#	proxyPath = demoListProxyFilter.filterbox1.continent
 					#	fieldIdentifier = continent
