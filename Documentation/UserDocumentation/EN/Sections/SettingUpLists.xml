@@ -169,7 +169,7 @@ plugin.tx_ptextlist.settings {
 						}
 					}
 					10.append.noTrimWrap = | (|)|
-					10.wrap3 = |&amp;nbsp;
+					10.wrap3 = |&nbsp;
 
 					20 = TEXT
 					20.value = Details
