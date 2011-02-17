@@ -1171,7 +1171,7 @@ aggregateRows {
 																<COBJ></COBJ>
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.string</PROTOTYPE>
 																<EXAMPLE><![CDATA[
-10 	&lt; plugin.tx_ptextlist.prototype.filter.string
+10 < plugin.tx_ptextlist.prototype.filter.string
 10 {
 	filterIdentifier = firstNameSearch
 	label = Firstname
