@@ -53,7 +53,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 
 		$pageCount = $this->getPageCount();
 		
-		if($this->delta == 0 || $this->delta >= $pageCount) return parent::getPageCount();
+		if($this->delta == 0 || $this->delta >= $pageCount) return parent::getPages();
 		
 		$pages = array();
 		
