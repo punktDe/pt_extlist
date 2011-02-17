@@ -37,12 +37,12 @@
       <para>The following listing shows a sample configuration as it ships with pt_extlist.<programlisting><![CDATA[
 plugin.tx_ptextlist.settings {
 
-	_LOCAL_LANG.default.emptyList = blabla
+	_LOCAL_LANG.default.emptyList = empty list
 
-	listConfig.demolist &lt; plugin.tx_ptextlist.prototype.listConfig.default
+	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist {
 
-		backendConfig &lt; plugin.tx_ptextlist.prototype.backend.typo3
+		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
 			datasource {
@@ -62,8 +62,8 @@ plugin.tx_ptextlist.settings {
 			)
 
 			baseWhereClause (
-				st_continent.tr_name_en &lt;&gt; &apos;&apos; 
-				AND st_subcontinent.tr_name_en &lt;&gt; &apos;&apos;
+				st_continent.tr_name_en <> ""
+				AND st_subcontinent.tr_name_en <> ""
 			)
 		}
 
@@ -155,7 +155,7 @@ plugin.tx_ptextlist.settings {
 					}
 					5.file = EXT:pt_list/typoscript/static/demolist/un.gif
 					5.stdWrap.typolink.parameter = http://www.un.org
-					5.stdWrap.typolink.ATagParams = class=&quot;un-link&quot;
+					5.stdWrap.typolink.ATagParams = class="un-link"
 
 					10 = TEXT
 					10.data = field:name_en
@@ -174,7 +174,7 @@ plugin.tx_ptextlist.settings {
 					20 = TEXT
 					20.value = Details
 					20.typolink.parameter = 1
-					20.typolink.additionalParams.dataWrap = &amp;tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
+					20.typolink.additionalParams.dataWrap = &tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
 				}
 			}
 
@@ -240,10 +240,10 @@ plugin.tx_ptextlist.settings {
 					aggregateDataIdentifier = sumPhone, avgPhone, maxPhone, minPhone
 					renderObj = TEXT
 					renderObj.dataWrap (
-						Min.: &lt;b&gt;{field:minPhone}&lt;/b&gt;&lt;br /&gt; 
-						&amp;empty;: &lt;b&gt;{field:avgPhone}&lt;/b&gt;&lt;br /&gt;
-						Max.: &lt;b&gt;{field:maxPhone}&lt;/b&gt;&lt;br /&gt;
-						&amp;sum;: &lt;b&gt;{field:sumPhone}&lt;/b&gt;&lt;br /&gt;
+						Min.: <b>{field:minPhone}</b><br /> 
+						&empty;: <b>{field:avgPhone}</b><br />
+						Max.: <b>{field:maxPhone}</b><br />
+						&sum;: <b>{field:sumPhone}</b><br />
 					)
 				}
 			}
@@ -252,21 +252,21 @@ plugin.tx_ptextlist.settings {
 		filters {
 			filterbox1 {
 				filterConfigs {
-					10 &lt; plugin.tx_ptextlist.prototype.filter.string
+					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
 						filterIdentifier = filter1
 						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
 						fieldIdentifier = name_local
 					}
 
-					11 &lt; plugin.tx_ptextlist.prototype.filter.string
+					11 < plugin.tx_ptextlist.prototype.filter.string
 					11 {
 						filterIdentifier = allFields
 						label = All defined Fields
 						fieldIdentifier = *
 					}
 
-					15 &lt; plugin.tx_ptextlist.prototype.filter.max
+					15 < plugin.tx_ptextlist.prototype.filter.max
 					15 {
 						filterIdentifier = filter15
 						label = Max Phone
@@ -274,7 +274,7 @@ plugin.tx_ptextlist.settings {
 						accessGroups = 3
 					}
 
-					20 &lt; plugin.tx_ptextlist.prototype.filter.checkbox
+					20 < plugin.tx_ptextlist.prototype.filter.checkbox
 					20 {
 						filterIdentifier = filter2
 						label = Continent
@@ -289,7 +289,7 @@ plugin.tx_ptextlist.settings {
 						excludeFilters = filterbox1.filter3
 					}
 
-					30 &lt; plugin.tx_ptextlist.prototype.filter.select
+					30 < plugin.tx_ptextlist.prototype.filter.select
 					30 {
 						filterIdentifier = filter3
 						label = Subcontinent
@@ -311,7 +311,7 @@ plugin.tx_ptextlist.settings {
 				showSubmit = 0
 				showReset = 0
 				filterConfigs {
-					10 &lt; plugin.tx_ptextlist.prototype.filter.firstLetter
+					10 < plugin.tx_ptextlist.prototype.filter.firstLetter
 					10 {
 						filterIdentifier = filter4
 						label = Capital
@@ -325,7 +325,7 @@ plugin.tx_ptextlist.settings {
 
 
 plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
-	backendConfig &lt; plugin.tx_ptextlist.prototype.backend.typo3
+	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 	backendConfig {
 		tables (
 			static_territories
@@ -347,7 +347,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 	filters {
 		filterbox1 {
 			filterConfigs {
-				10 &lt; plugin.tx_ptextlist.prototype.filter.select
+				10 < plugin.tx_ptextlist.prototype.filter.select
 				10 {
 					filterIdentifier = continent
 					label = Subcontinent
