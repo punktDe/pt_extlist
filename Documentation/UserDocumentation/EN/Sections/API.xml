@@ -51,16 +51,16 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 */
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
 
-	if ($this->filterValue == '') {
-		return NULL;
-	}
+		if ($this->filterValue == '') {
+			return NULL;
+		}
 
-	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
-	$filterValue = '%'.$this->filterValue.'%';
+		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+		$filterValue = '%'.$this->filterValue.'%';
 
-	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);
 
-	return $criteria;
+		return $criteria;
 	}
 }]]></programlisting></para>
         <para>The most important function is <emphasis role="italic">buildFilterCriteria()</emphasis> where the filter creates a constraint on how the data filtered by this filter should look like. We use our generic query criteria <emphasis role="italic">Tx_PtExtlist_Domain_QueryObject_SimpleCriteria</emphasis> with an operator <emphasis role="italic">like</emphasis> here to implement a string filter that uses a LIKE-comparison in its built criteria. <emphasis role="italic">Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue)</emphasis> is nothing more but a factory method that returns a criteria object.</para>
