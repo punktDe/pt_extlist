@@ -155,7 +155,7 @@ defaultValue.cObject.data = TSFE:fe_user|user|username
 		<ENTRY REF="filter.accessGroups" KEY="accessGroups">
 			<DESCRIPTION>Comma separated list of user groups wich have access to this filter.</DESCRIPTION>
 			<DATATYPE>Comma eparated list.</DATATYPE>
-			<POSIBLEVALUES>Typo3 Group Ids</POSIBLEVALUES>
+			<POSIBLEVALUES>TYPO3 Group Ids</POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
 			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
@@ -427,7 +427,7 @@ sortingColumn = capital	DESC
 								</ENTRY>
 								<ENTRY KEY="backendConfig">
 									<DESCRIPTION>Holds the configuration for the data backend to be used with this configuration. Configurable values depend on
-									individual backend, e.g. Typo3-Backend, MySQL-Backen, ExtBase-Backend etc.</DESCRIPTION>
+									individual backend, e.g. TYPO3-Backend, MySQL-Backen, ExtBase-Backend etc.</DESCRIPTION>
 
 									<VARIANT>
 
@@ -577,7 +577,7 @@ st_continent.tr_name_en [] ''
 										</ENTRY>
 
 										<ENTRY KEY="backendConfig.typo3">
-											<DESCRIPTION>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
+											<DESCRIPTION>TYPO3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The TYPO3 Backend handles enableFields automatically in where clauses.</DESCRIPTION>
 											<DATATYPE></DATATYPE>
 											<POSIBLEVALUES></POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
@@ -606,7 +606,7 @@ backendConfig {
 											]]></EXAMPLE>
 											<CHILDREN>
 												<ENTRY KEY="tables">
-													<DESCRIPTION>Define tables to be used with enable fields. Typo3 special fields (deleted, hidden) are automatically applied to query.</DESCRIPTION>
+													<DESCRIPTION>Define tables to be used with enable fields. TYPO3 special fields (deleted, hidden) are automatically applied to query.</DESCRIPTION>
 													<DATATYPE>Comma seperated list of table names and aliases (optional).</DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
