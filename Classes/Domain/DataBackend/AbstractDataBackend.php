@@ -54,7 +54,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	/**
 	 * 
-	 * @var Tx_PtExtlist_Domain_DataBackend_MapperInterface
+	 * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
 	 */
 	protected $dataMapper;
 	
@@ -337,8 +337,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      * @return array Array of raw list data
      */
 	public function getListData() {
-		if(!is_array($this->listData)) {
-			$this->listData = $this->buildListData();
+		if(!$this->listData) {
+			$this->buildListData();
 		}
 
 		return $this->listData;
