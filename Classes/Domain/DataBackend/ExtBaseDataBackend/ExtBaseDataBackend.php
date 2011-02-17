@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
-		$this->listData = $this->dataMapper->getMappedListData($data);
+		return $this->dataMapper->getMappedListData($data);
 	}
 	
 	
