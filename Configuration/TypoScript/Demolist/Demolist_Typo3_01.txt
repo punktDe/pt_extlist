@@ -13,7 +13,7 @@ plugin.tx_ptextlist.settings {
 
 	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist {
-
+		
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
@@ -90,21 +90,6 @@ plugin.tx_ptextlist.settings {
 			countryuid {
 				table = static_countries
 				field = uid
-			}
-		}
-
-		pager {
-			pagerConfigs {
-				second {
-					enabled = 1
-					pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-					templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/second.html
-					
-					showNextLink = 1
-					showPreviousLink = 1
-					showFirstLink = 0
-					showLastLink = 0
-				}
 			}
 		}
 

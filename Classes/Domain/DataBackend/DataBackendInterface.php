@@ -207,6 +207,13 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
     public function getPagerCollection();
+    
+    
+    
+    /**
+     * 
+     * Reset the List Data Cache
+     */
+    public function resetListDataCache();
 }
-
 ?>

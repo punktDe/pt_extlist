@@ -66,6 +66,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	protected $listIdentifier;
 	
 	
+	
+	/**
+	 * Custom template Path and Filename
+	 * Has to be set before resolveView is called!
+	 * 
+	 * @var string
+	 */
+	protected $templatePathAndFileName;
+	
+	
+	
 	/**
 	 * Constructor for all plugin controllers
 	 */
@@ -97,6 +108,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
     
+	
+	
+	/**
+	 * @param Tx_Extbase_MVC_View_ViewInterface $view
+	 * @return void
+	 */
+	protected function setViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+		parent::setViewConfiguration($view);
+		$this->setCustomPathsInView($view);  
+	}
+	
 	
     
     /**
@@ -173,23 +195,25 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
         if (method_exists($view, 'injectConfigurationBuilder')) {
             $view->setConfigurationBuilder($this->configurationBuilder);
         }
-  		
-        $this->setCustomPathsInView($view);  
-        
+  	        
         $this->view->assign('config', $this->configurationBuilder);
 	}
 
 	
 	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_ActionController::processRequest()
+	 */
 	public function processRequest(Tx_Extbase_MVC_RequestInterface $request, Tx_Extbase_MVC_ResponseInterface $response) {
 		parent::processRequest($request, $response);
 		
 		if(TYPO3_MODE === 'BE') {
 			// if we are in BE mode, this ist the last line called
-			$GLOBALS['trace'] = 1;	trace('called' ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 			Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance()->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
 		}
 	}
+	
 	
 	
 	/**
@@ -201,7 +225,13 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	protected function setCustomPathsInView(Tx_Extbase_MVC_View_ViewInterface $view) {
 		
 		$templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+		
+		if(!$templatePathAndFilename) {
+			$templatePathAndFilename = $this->templatePathAndFileName;
+		}
+		
 		if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
+			
 			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { 
                 $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
 			} else {

@@ -321,6 +321,33 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	}
 	
 	
+	public function testListDataCacheWorks() {
+		$dataBackend = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('buildListData'), array($this->configurationBuilder));
+		$dataBackend->expects($this->once())
+            ->method('buildListData');
+            
+        $dataBackend->getListData();
+        $dataBackend->_set('listData', array());
+        
+        $dataBackend->getListData();
+	}
+	
+	
+	public function testListDataCanBeResetted() {
+		$dataBackend = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('buildListData'), array($this->configurationBuilder));
+		$dataBackend->expects($this->exactly(2))
+            ->method('buildListData');
+            
+        $dataBackend->getListData();
+        $dataBackend->_set('listData', array());
+        $dataBackend->_set('listQueryParts', array());
+        
+        $dataBackend->resetListDataCache();
+		$this->assertEquals($dataBackend->_get('listQueryParts'), NULL);
+        
+		$dataBackend->getListData();
+	}
+	
 	
 	public function testGetOrderByFromListHeader() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
