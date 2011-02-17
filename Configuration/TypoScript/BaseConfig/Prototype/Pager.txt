@@ -31,7 +31,7 @@ plugin.tx_ptextlist.prototype.pager {
 		delta {
 			pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DeltaPager
 			templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/Delta.html
-			delta = 1
+			delta = 3
 			fillItem = ...
 		}
 		

@@ -226,11 +226,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		
 		$templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
 		
-		if(!$templatePathAndFileName) {
+		if(!$templatePathAndFilename) {
 			$templatePathAndFilename = $this->templatePathAndFileName;
 		}
 		
 		if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
+			
 			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { 
                 $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
 			} else {

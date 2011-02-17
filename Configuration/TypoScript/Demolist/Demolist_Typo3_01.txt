@@ -13,7 +13,7 @@ plugin.tx_ptextlist.settings {
 
 	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist {
-
+		
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 

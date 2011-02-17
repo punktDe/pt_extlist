@@ -43,8 +43,8 @@
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="pager.templatePath" KEY="templatePath">
-			<DESCRIPTION></DESCRIPTION>
-			<DATATYPE></DATATYPE>
+			<DESCRIPTION>Name of the template class for this pager.</DESCRIPTION>
+			<DATATYPE>String Path</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
 			<COBJ></COBJ>
@@ -53,8 +53,61 @@
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-
-
+		<ENTRY REF="pager.enabled" KEY="enabled">
+			<DESCRIPTION>Indicates if this pager is enabled.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="pager.showFirstLink" KEY="showFirstLink">
+			<DESCRIPTION>Indicates if the firstLink is shown.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>		
+		<ENTRY REF="pager.showPreviousFilter" KEY="showPreviousFilter">
+			<DESCRIPTION>Indicates if the previousLink is shown.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="pager.showLastLink" KEY="showLastLink">
+			<DESCRIPTION>Indicates if the firstLink is shown.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="pager.showNextLink" KEY="showNextLink">
+			<DESCRIPTION>Indicates if the nextLink is shown.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>				
 
 		<ENTRY REF="filter.filterIdentifier" KEY="filterIdentifier">
 			<DESCRIPTION>The unique identifier of this filter.</DESCRIPTION>
@@ -1010,7 +1063,41 @@ aggregateRows {
 														<TYPEREF REF="pager.pagerClassName" KEY="pagerClassName" />
 														<TYPEREF REF="pager.templatePath" KEY="templatePath" />
 													</CHILDREN>
-													<VARIANT></VARIANT>
+													<VARIANT>
+													<ENTRY KEY="default">
+														<DESCRIPTION>Configuration for default pager</DESCRIPTION>
+														<DATATYPE></DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<COBJ></COBJ>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN></CHILDREN>
+														<VARIANT></VARIANT>
+													</ENTRY>
+													<ENTRY KEY="delta">
+														<DESCRIPTION>Configuration for delta pager. Shows only a configured amount of pagenumbers around the current page.</DESCRIPTION>
+														<DATATYPE></DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<COBJ></COBJ>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN></CHILDREN>
+														<VARIANT></VARIANT>
+													</ENTRY>													
+													<ENTRY KEY="minimal">
+														<DESCRIPTION>Configuration for minimal pager. Shows only Forward and backward links without the page numbers.</DESCRIPTION>
+														<DATATYPE></DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<COBJ></COBJ>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN></CHILDREN>
+														<VARIANT></VARIANT>
+													</ENTRY>
+													</VARIANT>
 												</ENTRY>
 											</CHILDREN>
 											<VARIANT></VARIANT>
