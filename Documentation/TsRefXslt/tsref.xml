@@ -164,12 +164,11 @@ defaultValue.cObject.data = TSFE:fe_user|user|username
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.fieldIdentifier" KEY="fieldIdentifier">
-			<DESCRIPTION>Identifier of a defined data field. The filter affects on this data field. If more than on fieldIdentifier is given, the resulting query is linked with or.</DESCRIPTION>
+			<DESCRIPTION>WARNING: Which one to choose??? Identifier of a defined data field. The filter affects on this data field. If more than on fieldIdentifier is given, the resulting query is linked with or. Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
 			<DATATYPE>fieldIdentifier or *</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
 			<COBJ></COBJ>
-			<DESCRIPTION>Either a single identifier of a defined field, a comma separated list of identifiers or '*' to use all defined fields.</DESCRIPTION>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE><![CDATA[
 // use a single field
