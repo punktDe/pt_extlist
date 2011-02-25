@@ -28,8 +28,8 @@
 
 /**
  * Implements a view for rendering a export with fluid
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package View
  * @subpackage Export
  */
@@ -37,43 +37,43 @@ class Tx_PtExtlist_View_Export_FluidListView Extends Tx_PtExtlist_View_Export_Ab
 
 	/**
 	 * Path to fluid template
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $templatePath;
-	
-	
-    /**
-     * Initialize additional class properties
-     *
-     */
-    protected function initConfiguration() {
-    	
-    	$this->templatePath = $this->exportConfiguration->getSettings('templatePath');
-    	tx_pttools_assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export! 1284621481'));
+
+
+	/**
+	 * Initialize additional class properties
+	 *
+	 */
+	protected function initConfiguration() {
+
+		$this->templatePath = $this->exportConfiguration->getSettings('templatePath');
+		tx_pttools_assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export! 1284621481'));
 		$this->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($this->templatePath));
-    }
-	
-	
-	
-    /**
-     * Overwriting the render method to generate a downloadable output
-     *
-     * @return  void (never returns)
-     */
-    public function render() {
-    	
-    	ob_clean();
+	}
 
-    	$outputData = parent::render();
-    	
-        $this->sendHeader($this->getFilenameFromTs());
-        $out = fopen('php://output', 'w');
-		
-        fwrite($out, $outputData);
-        
-        fclose($out);
 
-        exit();
-    }
+
+	/**
+	 * Overwriting the render method to generate a downloadable output
+	 *
+	 * @return  void (never returns)
+	 */
+	public function render() {
+
+		ob_clean();
+
+		$outputData = parent::render();
+
+		$this->sendHeader($this->getFilenameFromTs());
+		$out = fopen('php://output', 'w');
+
+		fwrite($out, $outputData);
+
+		fclose($out);
+
+		exit();
+	}
 }
