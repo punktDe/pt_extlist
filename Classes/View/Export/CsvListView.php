@@ -33,7 +33,7 @@
  * @package View
  * @subpackage Export
  */
-class Tx_PtExtlist_View_Export_CsvListView Extends Tx_PtExtlist_View_Export_AbstractExportView {
+class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_AbstractExportView {
 
 	/**
 	 * Overwriting the render method to generate a CSV output
