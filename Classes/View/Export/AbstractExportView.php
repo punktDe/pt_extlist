@@ -44,7 +44,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 	 */
 	protected $exportConfiguration;
 
-	 
+
 	/**
 	 * Returns true, if view has a template
 	 *
@@ -78,6 +78,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 	}
 
 
+
 	/**
 	 * Helper method for generating file name from TS config
 	 *
@@ -109,14 +110,14 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 	 */
 	protected function sendHeader($filename) {
 		switch($this->exportConfiguration->getDownloadType()) {
-			 
+
 			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::OPEN_IN_BROWSER:
 
-				if($this->exportConfiguration->getContentType()) {
+				if ($this->exportConfiguration->getContentType()) {
 					header('Content-Type: ' . $this->exportConfiguration->getContentType());
 				}
 
-				if(headers_sent()) {
+				if (headers_sent()) {
 					throw new Exception('Some data has already been output to browser, can\'t send Export file 1283945901');
 				}
 
@@ -124,8 +125,8 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 				break;
 
 			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
-				 
-				if(isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
+
+				if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
 					header('Content-Type: application/force-download');
 				} else {
 					header('Content-Type: application/octet-stream');
