@@ -32,113 +32,111 @@
  *
  * @package View
  * @subpackage Export
- * @author Daniel Lienert 
- * @author Michael Knoll 
+ * @author Daniel Lienert
+ * @author Michael Knoll
  */
 abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView {
-	
+
 	/**
 	 * Export configuration objekt
-	 * 
+	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
 	 */
 	protected $exportConfiguration;
-		
-   
-    /**
-     * Returns true, if view has a template
-     * 
-     * TODO We return true here, because otherwise, another view class is
-     * instantiated in controller.
-     *
-     * @return bool
-     */
-    public function hasTemplate() {
-        return TRUE;
-    }
+
+	 
+	/**
+	 * Returns true, if view has a template
+	 *
+	 * TODO We return true here, because otherwise, another view class is
+	 * instantiated in controller.
+	 *
+	 * @return bool
+	 */
+	public function hasTemplate() {
+		return TRUE;
+	}
+
+
+
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/View/Tx_PtExtlist_View_BaseView::injectConfigurationBuilder()
+	 */
+	public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		parent::setConfigurationBuilder($configurationBuilder);
+		$this->exportConfiguration = $configurationBuilder->buildExportConfiguration();
+	}
+
 	
-    
-    
-    /**
-     * (non-PHPdoc)
-     * @see Classes/View/Tx_PtExtlist_View_BaseView::injectConfigurationBuilder()
-     */
-    public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	parent::setConfigurationBuilder($configurationBuilder);
-    	$this->exportConfiguration = $configurationBuilder->buildExportConfiguration();
-    	$this->initConfiguration();
-    }
-    
-    
-    
-    /**
-     * Initialize additional class properties
-     *
-     */
-    protected function initConfiguration() {
-    }
-    
-    
-    
-    /**
-     * Helper method for generating file name from TS config
-     * 
-     * @return  string      File name of Export File
-     */
-    protected function getFilenameFromTs() {
-        $fullFilename = '';
-        
-        $fullFilename .= $this->exportConfiguration->getFileName();
-        
-    	if ($this->exportConfiguration->getAddDateToFilename()) {
-        	$fullFilename .= date($this->exportConfiguration->getDateFormat(), time());
-        }
-        
-        $fullFilename .= '.' . $this->exportConfiguration->getFileExtension();
-        
-        return $fullFilename;
-    }
-    
-    
-    
-    /**
-     * Generate header depending on download handling setting in TS
-     * 
-     * Functionality is taken from FPDF!
-     * 
-     * @param   string  name of the file to send to the browser
-     * @return  void
-     */
-    protected function sendHeader($filename) {
-        switch($this->exportConfiguration->getDownloadType()) {
-        	
-                case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::OPEN_IN_BROWSER:
-                        
-                		if($this->exportConfiguration->getContentType()) {
-                			header('Content-Type: ' . $this->exportConfiguration->getContentType());	
-                		}
-                		
-                        if(headers_sent()) {
-                            throw new Exception('Some data has already been output to browser, can\'t send Export file 1283945901');
-                        }
-                        
-                        header('Content-disposition: inline; filename="'.$this->getFilenameFromTs().'"');
-                        break;
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/View/Tx_Fluid_View_TemplateView::canRender()
+	 */
+	public function canRender(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
+		return true;
+	}
 
-                case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
-                	
-                		if(isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
-                            header('Content-Type: application/force-download');
-                        } else {
-                            header('Content-Type: application/octet-stream');
-                        }
-                        
-                        header('Content-disposition: attachment; filename="'. $this->getFilenameFromTs() .'"');
-                        break;
 
-                default:
-                        throw new Exception('No valid download handling set for Export file! 1283945902');
-        }
-    }  
+	/**
+	 * Helper method for generating file name from TS config
+	 *
+	 * @return  string      File name of Export File
+	 */
+	protected function getFilenameFromTs() {
+		$fullFilename = '';
+
+		$fullFilename .= $this->exportConfiguration->getFileName();
+
+		if ($this->exportConfiguration->getAddDateToFilename()) {
+			$fullFilename .= date($this->exportConfiguration->getDateFormat(), time());
+		}
+
+		$fullFilename .= '.' . $this->exportConfiguration->getFileExtension();
+
+		return $fullFilename;
+	}
+
+
+
+	/**
+	 * Generate header depending on download handling setting in TS
+	 *
+	 * Functionality is taken from FPDF!
+	 *
+	 * @param   string  name of the file to send to the browser
+	 * @return  void
+	 */
+	protected function sendHeader($filename) {
+		switch($this->exportConfiguration->getDownloadType()) {
+			 
+			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::OPEN_IN_BROWSER:
+
+				if($this->exportConfiguration->getContentType()) {
+					header('Content-Type: ' . $this->exportConfiguration->getContentType());
+				}
+
+				if(headers_sent()) {
+					throw new Exception('Some data has already been output to browser, can\'t send Export file 1283945901');
+				}
+
+				header('Content-disposition: inline; filename="'.$this->getFilenameFromTs().'"');
+				break;
+
+			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
+				 
+				if(isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
+					header('Content-Type: application/force-download');
+				} else {
+					header('Content-Type: application/octet-stream');
+				}
+
+				header('Content-disposition: attachment; filename="'. $this->getFilenameFromTs() .'"');
+				break;
+
+			default:
+				throw new Exception('No valid download handling set for Export file! 1283945902');
+		}
+	}
 }
 ?>
