@@ -135,7 +135,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
    	
     	$viewClassName = $this->resolveTsDefinedViewClassName();
     	if($viewClassName) {
-			return $viewClassName;
+    		return $viewClassName;
 		} 
 		
 		$viewClassName = parent::resolveViewObjectName();
@@ -191,8 +191,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
         $this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
-		
-        if (method_exists($view, 'injectConfigurationBuilder')) {
+        if (method_exists($view, 'setConfigurationBuilder')) {
             $view->setConfigurationBuilder($this->configurationBuilder);
         }
   	        
