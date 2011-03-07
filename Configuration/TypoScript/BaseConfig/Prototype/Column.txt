@@ -1,5 +1,5 @@
 ####################################################
-# Definition of column prototypes for use in listconfiguration 
+# Definition of column prototypes for use in listconfiguration
 #
 # @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
 # @package Typo3
@@ -7,23 +7,22 @@
 ####################################################
 
 plugin.tx_ptextlist.prototype.column {
-	
+
 	default {
 		sortingImageDefault = EXT:pt_extlist/Resources/Public/List/icon_table_sort_default.png
 		sortingImageAsc = EXT:pt_extlist/Resources/Public/List/icon_table_sort_asc.png
 		sortingImageDesc = EXT:pt_extlist/Resources/Public/List/icon_table_sort_desc.png
-		
+
 		isSortable = 1
-		columnIdentifier = 
-        fieldIdentifier = 
-        label = 
-        sorting =
-        #renderUserFunction =
-        #renderObj = 
-        #renderTemplate =
-        
-        // additional class for each cell, can be rendered with renderObj and renderUserFunction
-        #CellCSSClass =
+		columnIdentifier =
+		fieldIdentifier =
+		label =
+		sorting =
+		#renderUserFunction =
+		#renderObj =
+		#renderTemplate =
+
+		// additional class for each cell, can be rendered with renderObj and renderUserFunction
+		#CellCSSClass =
 	}
-		
 }

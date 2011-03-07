@@ -165,7 +165,7 @@
           
           <settings.prototype.export.addDateToFilename>
             <TCEforms>
-              <label>Add Date to Filname</label>
+              <label>Add Date to Filename</label>
               <config>
                 <type>check</type>
               </config>
