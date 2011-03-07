@@ -15,14 +15,14 @@ plugin.tx_ptextlist.prototype.pager {
 		
 		// Default Pager
 		default {
-		    enabled = 1
-	        pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
-	        templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/Default.html
-	        	        
-	        showNextLink = 1
-	        showPreviousLink = 1
-	        showFirstLink = 1
-	        showLastLink = 1
+			enabled = 1
+			pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+			templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/Default.html
+			
+			showNextLink = 1
+			showPreviousLink = 1
+			showFirstLink = 1
+			showLastLink = 1
 		}
 		
 		

@@ -129,7 +129,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     }
 
 
-	
+
 	/**
 	 * Build the list data
 	 * @return array Array of raw list data
