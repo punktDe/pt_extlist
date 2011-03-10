@@ -30,6 +30,7 @@
  * Implements a view for rendering CSV values
  *
  * @author Michael Knoll
+ * @author Daniel Lienert
  * @package View
  * @subpackage Export
  */
@@ -50,10 +51,10 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 		$out = fopen('php://output', 'w');
 
 		// Headers
-		if ($templateVariableContainer->exists('listHeader')) {
+		if ($templateVariableContainer->exists('listCaptions')) {
 			$row = array();
-			foreach ($templateVariableContainer['listHeader'] as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
-				$row[] = $header->getLabel();
+			foreach ($templateVariableContainer['listCaptions'] as $caption) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+				$row[] = $caption;
 			}
 			fputcsv($out, $row, ";"); // todo - delimiter configurabe by ts
 		}

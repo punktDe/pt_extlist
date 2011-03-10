@@ -169,7 +169,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
-	
 		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
