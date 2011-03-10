@@ -58,34 +58,34 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testInjectDataSource() {
-        $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
-        								 array('executeQuery'), 
-        								 array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings())
-        								 	)
-        								 );
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		$dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
+		 								 array('executeQuery'), 
+										 array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings())
+										 	)
+										 );
 		$dataBackend->injectDataSource($dataSourceMock);
 	}
 	
 	
 	
 	public function testInjectFilterboxCollection() {
-        $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $filterBoxCollectionMock = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilder);
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		$filterBoxCollectionMock = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilder);
 		$dataBackend->injectfilterboxCollection($filterBoxCollectionMock);
 	}
 	
 	
 	
 	public function testInjectPager() {
-        $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        
+		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array(),'',FALSE);
-        $pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
-        $pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
-        $pagerCollectionMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
-        
+
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array(),'',FALSE);
+		$pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
+		$pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
+		$pagerCollectionMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
+
 
 		$dataBackend->injectPagerCollection($pagerCollectionMock);
 	}
@@ -183,24 +183,24 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	public function testGetWhereClauseFromFilterboxCollection() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-		
+		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+
 		$filter1Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 10, '>'));
-        $filter2Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 10, '<'));
-        $filter3Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 20, '>'));
-        $filter4Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 20, '<'));
-        
-        $filterbox1 = $this->getFilterboxByArrayOfFilters(array($filter1Mock, $filter2Mock));
-        $filterbox2 = $this->getFilterboxByArrayOfFilters(array($filter3Mock, $filter4Mock));
-        
-        $filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilder);
-        $filterboxCollection->addItem($filterbox1);
-        $filterboxCollection->addItem($filterbox2);
-        
-        $dataBackend->injectfilterboxCollection($filterboxCollection);
-        $whereClauseForFilterboxCollection = $dataBackend->getWhereClauseFromFilterboxes();
-        $this->assertTrue($whereClauseForFilterboxCollection == '((test > "10") AND (test < "10")) AND ((test > "20") AND (test < "20"))', 'Where clause for filterbox collection should have been "((test > 10) AND (test < 10)) AND ((test > 20) AND (test < 20))" but was ' . $whereClauseForFilterboxCollection);
-        
+		$filter2Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 10, '<'));
+		$filter3Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 20, '>'));
+		$filter4Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 20, '<'));
+
+		$filterbox1 = $this->getFilterboxByArrayOfFilters(array($filter1Mock, $filter2Mock));
+		$filterbox2 = $this->getFilterboxByArrayOfFilters(array($filter3Mock, $filter4Mock));
+
+		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilder);
+		$filterboxCollection->addItem($filterbox1);
+		$filterboxCollection->addItem($filterbox2);
+
+		$dataBackend->injectfilterboxCollection($filterboxCollection);
+		$whereClauseForFilterboxCollection = $dataBackend->getWhereClauseFromFilterboxes();
+		$this->assertTrue($whereClauseForFilterboxCollection == '((test > "10") AND (test < "10")) AND ((test > "20") AND (test < "20"))', 'Where clause for filterbox collection should have been "((test > 10) AND (test < 10)) AND ((test > 20) AND (test < 20))" but was ' . $whereClauseForFilterboxCollection);
+
 	}
 	
 	
@@ -322,29 +322,30 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testListDataCacheWorks() {
+		/* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend */
 		$dataBackend = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('buildListData'), array($this->configurationBuilder));
 		$dataBackend->expects($this->once())
-            ->method('buildListData');
-            
-        $dataBackend->getListData();
-        $dataBackend->_set('listData', array());
-        
-        $dataBackend->getListData();
+					->method('buildListData');
+
+		$dataBackend->getListData();
+		$dataBackend->_set('listData', array('x' => 'y'));
+
+		$dataBackend->getListData();
 	}
 	
 	
 	public function testListDataCanBeResetted() {
 		$dataBackend = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('buildListData'), array($this->configurationBuilder));
 		$dataBackend->expects($this->exactly(2))
-            ->method('buildListData');
-            
-        $dataBackend->getListData();
-        $dataBackend->_set('listData', array());
-        $dataBackend->_set('listQueryParts', array());
-        
-        $dataBackend->resetListDataCache();
+			->method('buildListData');
+
+		$dataBackend->getListData();
+		$dataBackend->_set('listData', array());
+		$dataBackend->_set('listQueryParts', array());
+
+		$dataBackend->resetListDataCache();
 		$this->assertEquals($dataBackend->_get('listQueryParts'), NULL);
-        
+
 		$dataBackend->getListData();
 	}
 	
