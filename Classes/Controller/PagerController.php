@@ -87,8 +87,6 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 
 		$pager = $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier);
 		
-		// TODO change testcase to accept this call
-		
 		$this->view->assign('pagerCollection', $this->pagerCollection);
 		$this->view->assign('pager', $pager);
 	}
@@ -104,7 +102,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
 		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
 		
-        return $pagerCollection;
+		return $pagerCollection;
 	}
 }
 ?>
