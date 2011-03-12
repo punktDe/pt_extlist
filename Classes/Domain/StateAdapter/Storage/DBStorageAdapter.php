@@ -116,6 +116,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 	 * @return Tx_PtExtlist_Domain_Model_State_State
 	 */
 	protected function loadStateObject($stateHash) {
+		error_log('loading ' . $stateHash);
 		$this->state = NULL;
 		
 		if($stateHash) {
