@@ -1,6 +1,26 @@
 <?php
 if (!defined ('TYPO3_MODE')) die ('Access denied.');
 
+
+if (TYPO3_MODE == 'BE') {
+
+	// register the cache in BE so it will be cleared with "clear all caches"
+	try {
+		t3lib_cache::initializeCachingFramework();
+			// State cache
+		$GLOBALS['typo3CacheFactory']->create(
+			'tx_ptextlist_cache_state',
+			$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_ptextlist']['frontend'],
+			$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_ptextlist']['backend'],
+			$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_ptextlist']['options']
+		);
+		
+	} catch(t3lib_cache_exception_NoSuchCache $exception) {
+
+	}
+}
+
+
 /**
  * Load static templates for Typoscript settings
  */
