@@ -27,13 +27,13 @@
  ***************************************************************/
 
 /**
- * ActionViewhelper for Action Links
+ * ActionViewHelper, adds state hash to every link
  * 
  * @author Daniel Lienert 
  * @package ViewHelpers
- * @subpackage Link
+ * @subpackage Uri
  */
-class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
+class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
 	 * @param string $action Target action
@@ -49,22 +49,38 @@ class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends Tx_Fluid_ViewHelpe
 	 * @param string $format The requested format, e.g. ".html"
 	 * @param boolean $linkAccessRestrictedPages If set, links pointing to access restricted pages will still link to the page even though the page cannot be accessed.
 	 * @param array $additionalParams additional query parameters that won't be prefixed like $arguments (overrule $arguments)
-	 * @param boolean $absolute If set, the URI of the rendered link is absolute
+	 * @param boolean $absolute If set, an absolute URI is rendered
 	 * @param boolean $addQueryString If set, the current query parameters will be kept in the URI
 	 * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
 	 * @return string Rendered link
+	 * @author Sebastian KurfÃ¼rst <sebastian@typo3.org>
+	 * @author Bastian Waidelich <bastian@typo3.org>
 	 */
-    public function render($action = NULL, array $arguments = array(), $controller = NULL, $extensionName = NULL, $pluginName = NULL, $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
-
-    	$extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+	public function render($action = NULL, array $arguments = array(), $controller = NULL, $extensionName = NULL, $pluginName = NULL, $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
+		
+	    $extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
 		
 		if($extBaseContext->isInCachedMode()) {
 			$arguments['state'] = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
 		}
 		
-        return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
-    }	
-	
-}
+		$uriBuilder = $this->controllerContext->getUriBuilder();
+		$uri = $uriBuilder
+			->reset()
+			->setTargetPageUid($pageUid)
+			->setTargetPageType($pageType)
+			->setNoCache($noCache)
+			->setUseCacheHash(!$noCacheHash)
+			->setSection($section)
+			->setFormat($format)
+			->setLinkAccessRestrictedPages($linkAccessRestrictedPages)
+			->setArguments($additionalParams)
+			->setCreateAbsoluteUri($absolute)
+			->setAddQueryString($addQueryString)
+			->setArgumentsToBeExcludedFromQueryString($argumentsToBeExcludedFromQueryString)
+			->uriFor($action, $arguments, $controller, $extensionName, $pluginName);
 
+		return $uri;
+	}
+}
 ?>
