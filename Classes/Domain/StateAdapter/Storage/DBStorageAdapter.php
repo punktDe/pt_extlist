@@ -116,7 +116,6 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 	 * @return Tx_PtExtlist_Domain_Model_State_State
 	 */
 	protected function loadStateObject($stateHash) {
-		error_log('loading ' . $stateHash);
 		$this->state = NULL;
 		
 		if($stateHash) {
@@ -124,7 +123,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 		}
 		
 		if(!$this->state) {
-			$this->state = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Model_State_State'); 
+			$this->state = new Tx_PtExtlist_Domain_Model_State_State(); 
 		}
 
 		return $this->state;
@@ -160,14 +159,13 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 		
 		$stateHash = md5(serialize($value));
 		
-		error_log('Persist HASH:' . $stateHash  . '    ' . print_r($value,1));
-		
 		if($this->state->getHash() != $stateHash) {
-			$this->state = new Tx_PtExtlist_Domain_Model_State_State();
+			$this->loadStateObject($stateHash);
 		}
 		
 		$this->state->setStateDataByArray($stateData);
 		$this->state->setHash($stateHash);
+		
 		$this->stateRepository->add($this->state);
 		
 		$persistenceManager = Tx_Extbase_Dispatcher::getPersistenceManager();
