@@ -54,6 +54,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 
 			self::$instance->injectStateCache(self::buildStateCache());
 			self::$instance->setStateHash(self::getStateHash());
+			self::$instance->init();
 		}
 		
 		return self::$instance;

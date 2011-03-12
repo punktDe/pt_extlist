@@ -59,6 +59,25 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 	
 	
 	/**
+	 * Tag the cache entrys with current extension name
+	 * 
+	 * @var string
+	 */
+	protected $cacheTag = 'untagged'; 
+	
+	
+	
+	/**
+	 * Init the cache storage adapter
+	 * 
+	 */
+	public function init() {
+		$this->cacheTag = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getExtensionName();
+	}
+	
+	
+	
+	/**
 	 * Inject the state cache
 	 * 
 	 * @param $stateCache
@@ -126,7 +145,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 		
 		$stateHash = md5(serialize($value));
 
-		$this->stateCache->set($stateHash, serialize($stateData), array(), 0);
+		$this->stateCache->set($stateHash, serialize($stateData), array($this->cacheTag), 0);
 	}
 	
 	
@@ -143,7 +162,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 		}
 		
 		unset($stateData[$key]);
-		$this->stateCache->set($stateHash, serialize($stateData), NULL, 0);
+		$this->stateCache->set($stateHash, serialize($stateData), array($this->cacheTag), 0);
 	}
 }
 ?>
