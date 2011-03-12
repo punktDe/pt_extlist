@@ -46,9 +46,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		
 		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
-        $sessesionPersistanceManager->expects($this->once())
-            ->method('persistToSession');
-		
 		
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
