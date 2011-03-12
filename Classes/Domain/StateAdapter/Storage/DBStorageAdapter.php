@@ -104,7 +104,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 	 * Init method.
 	 */
 	public function init() {
-		$this->state = $this->loadStateObject($this->stateHash);
+		$this->loadStateObject($this->stateHash);
 	}
 	
 	
@@ -116,18 +116,17 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 	 * @return Tx_PtExtlist_Domain_Model_State_State
 	 */
 	protected function loadStateObject($stateHash) {
-		$state = NULL;
+		$this->state = NULL;
 		
 		if($stateHash) {
-			$state = $this->stateRepository->findOneByHash($stateHash);	
+			$this->state = $this->stateRepository->findOneByHash($stateHash);	
 		}
 		
-		if(!$state) {
-			$state = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Model_State_State'); 
-			$this->stateRepository->add($state);
+		if(!$this->state) {
+			$this->state = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Model_State_State'); 
 		}
-		
-		return $state;
+
+		return $this->state;
 	}
 	
 	
@@ -157,9 +156,18 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pt
 		 */
 		//$stateData = $this->state->getStateDataAsArray();
 		$stateData[$key] = $value;
+		
+		$stateHash = md5(serialize($value));
+		
+		error_log('Persist HASH:' . $stateHash  . '    ' . print_r($value,1));
+		
+		if($this->state->getHash() != $stateHash) {
+			$this->state = new Tx_PtExtlist_Domain_Model_State_State();
+		}
+		
 		$this->state->setStateDataByArray($stateData);
-		$this->state->setHash(md5(serialize($value)));
-		$this->stateRepository->update($this->state);
+		$this->state->setHash($stateHash);
+		$this->stateRepository->add($this->state);
 		
 		$persistenceManager = Tx_Extbase_Dispatcher::getPersistenceManager();
 		$persistenceManager->persistAll();

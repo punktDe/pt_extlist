@@ -158,8 +158,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		
 		$this->buildSorting();
 		$this->buildSortingQuery();
-		
-		$this->sessionPersistenceManager->persistToSession($this);
 	}
 	
 	

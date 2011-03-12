@@ -60,8 +60,8 @@ class Tx_PtExtlist_Domain_Repository_State_StateRepository extends Tx_Extbase_Pe
 						->execute();
 
 		$object = NULL;
-		if (count($result) > 0) {
-			$object = current($result);
+		if ($result->current() != NULL) {
+			$object = $result->current();
 		}
 		return $object;
 	}

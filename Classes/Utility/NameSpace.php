@@ -95,7 +95,7 @@ class Tx_PtExtlist_Utility_NameSpace {
 		}
 
 		$pointer[$key] = $data;
-		return $array;
+		return array_filter($array);
 	}
 }
 ?>

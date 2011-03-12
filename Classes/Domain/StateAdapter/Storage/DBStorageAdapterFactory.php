@@ -70,7 +70,9 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 	 */
 	protected static function getStateHash() {
 		$getPostVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-		$listIdentifier = Tx_PtExtlist_Utility_Extension::getCurrentListIdentifier();
+		$listIdentifier = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+									->get('Tx_PtExtlist_Extbase_ExtbaseContext')
+									->getCurrentListIdentifier();
 		$stateHash = $getPostVarAdapter->getParametersByNamespace($listIdentifier.'.state');
 		return $stateHash;	
 	}
