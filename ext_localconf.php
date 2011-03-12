@@ -35,8 +35,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
-// State Cache
-// If cache is not already defined, define it
+
+// Define state cache, if not already defined
 if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'])) {
 	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'] = array(
 		'frontend' => 't3lib_cache_frontend_VariableFrontend',
