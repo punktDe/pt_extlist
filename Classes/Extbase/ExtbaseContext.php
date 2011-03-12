@@ -133,6 +133,18 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	
 	
 	/**
+	 * Set the cached mode for the complete extension.
+	 * This is autmatically set when extlsit is used as standalone extension
+	 * 
+	 * @param bool $inCachedMode
+	 */
+	public function setinCachedMode($inCachedMode) {
+		$this->inCachedMode = $inCachedMode;
+	}
+	
+	
+	
+	/**
 	 * @return string
 	 */
 	public function getExtensionNamespace() {
