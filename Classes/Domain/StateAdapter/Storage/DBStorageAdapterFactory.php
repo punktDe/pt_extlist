@@ -51,14 +51,43 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 		
 		if(self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter();
-			
-			$stateRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_State_StateRepository');
-			self::$instance->injectStateRepository($stateRepository);
+
+			self::$instance->injectStateCache(self::buildStateCache());
 			self::$instance->setStateHash(self::getStateHash());
-			self::$instance->init();
 		}
 		
 		return self::$instance;
+	}
+	
+	
+	
+	/**
+	 * Build TYPO3 Caching Framework Cache
+	 * @return t3lib_cache_frontend_Cache
+	 */
+	protected function buildStateCache() {
+		
+			// Create the cache
+			try {
+				$GLOBALS['typo3CacheFactory']->create(
+					'tx_ptextlist',
+					't3lib_cache_frontend_VariableFrontend',
+					$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_ptextlist']['backend'],
+					$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_ptextlist']['options']
+				);
+			} catch(t3lib_cache_exception_DuplicateIdentifier $e) {
+				// do nothing, the cache already exists
+			}
+			
+			// Initialize the cache
+			try {
+				$cache = $GLOBALS['typo3CacheManager']->getCache('tx_ptextlist');
+			} catch(t3lib_cache_exception_NoSuchCache $e) {
+				throw new Exception('Unable to load Cache! 1299942198');
+			}
+		
+		
+		return $cache;
 	}
 	
 	
