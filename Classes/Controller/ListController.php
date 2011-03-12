@@ -120,8 +120,10 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @return string Rendered sorting action
 	 */
 	public function sortAction() {
+		$this->dataBackend->resetListDataCache();
 		$headerList = $this->dataBackend->getListHeader();
 		$headerList->reset();
+		
 		$this->forward('list');
 	}
 }
