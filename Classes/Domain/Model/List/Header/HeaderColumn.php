@@ -158,8 +158,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 		
 		$this->buildSorting();
 		$this->buildSortingQuery();
-		
-		$this->sessionPersistenceManager->persistToSession($this);
 	}
 	
 	
@@ -222,20 +220,18 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
      * @return void
      */
     protected function buildSorting() {
-    	$sorting = array();    	
+    	$this->sorting = array();    	
 
     	if($this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC || $this->sortingState == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
     		
     		foreach($this->sortingFieldConfig as $fieldConfig) {
     			if($fieldConfig->getForceDirection()){
-    				$sorting[$fieldConfig->getField()] = $fieldConfig->getDirection();
+    				$this->sorting[$fieldConfig->getField()] = $fieldConfig->getDirection();
     			} else {
-    				$sorting[$fieldConfig->getField()] = $this->sortingState;
+    				$this->sorting[$fieldConfig->getField()] = $this->sortingState;
     			}
     		}
     	}
-
-		$this->sorting = $sorting;
     }
     
     

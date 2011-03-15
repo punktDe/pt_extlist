@@ -79,7 +79,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * @return void
      */
     public function initializeAction() {
-    	   	
         tx_pttools_assert::isNotEmptyString($this->settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
         $this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
         $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();

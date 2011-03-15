@@ -35,6 +35,19 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
+
+// Define state cache, if not already defined
+if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'])) {
+	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'] = array(
+		'frontend' => 't3lib_cache_frontend_VariableFrontend',
+		'backend' => 't3lib_cache_backend_DbBackend',
+		'options' => array(
+			'cacheTable' => 'tx_ptextlist_cache_state',
+			'tagsTable' => 'tx_ptextlist_cache_state_tags',
+		)
+	);
+}
+
 require_once t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php';
 
 

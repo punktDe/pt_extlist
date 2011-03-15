@@ -79,6 +79,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormV
 	 * @todo filter out referrer information that is equal to the target (e.g. same packageKey)
 	 */
 	protected function renderHiddenReferrerFields() {
+		
 		$request = $this->controllerContext->getRequest();
 		$extensionName = $request->getControllerExtensionName();
 		$controllerName = $request->getControllerName();
@@ -97,10 +98,20 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormV
 			}
 		}
 		
+		
+		$extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+		
+		if($extBaseContext->isInCachedMode()) {
+			$listIdentifier = $extBaseContext->getCurrentListIdentifier();
+			$stateHash = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
+			
+			$result .=  '<input type="hidden" name="' . $this->prefixFieldName($listIdentifier.'[state]') . '" value="' . $stateHash . '" />' . chr(10);
+		}
+		
+		
 		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[extensionName]') . '" value="' . $extensionName . '" />' . chr(10);
 		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[controllerName]') . '" value="' . $controllerName . '" />' . chr(10);
-		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[actionName]') . '" value="' . $actionName . '" />' . chr(10);
-			
+		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[actionName]') . '" value="' . $actionName . '" />' . chr(10);	
 		return $result;
 	}
 }

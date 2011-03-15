@@ -104,6 +104,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 	/** @test */
 	public function getSessionDataHash() {
 		$sessionPersistenceManager = $this->getAccessibleMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('dummyMethod'), array(),'',FALSE);
+		$sessionPersistenceManager->injectSessionAdapter(tx_pttools_sessionStorageAdapter::getInstance());
 		$sessionPersistenceManager->_set('sessionData', array('test'));
 		$hash = $sessionPersistenceManager->getSessionDataHash();
 		

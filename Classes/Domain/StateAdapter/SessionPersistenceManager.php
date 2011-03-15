@@ -37,6 +37,13 @@
  */
 class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface {
 	
+	
+	/**
+	 * 
+	 */
+	private $internalSessionState = Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::UNDEFINED;
+	
+	
 	/**
 	 * Holds an instance for a session adapter to store data to session
 	 * 
@@ -61,7 +68,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @var string
 	 */
 	protected $sessionHash = NULL;
-	
 	
 	
 	/**
@@ -99,15 +105,13 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
 	    
-		if ($objectData == null) {
-            $objectData = array();
-        }
-        
         if ($this->sessionData == null) {
         	$this->sessionData = array();
         }
         
-        $this->sessionData = Tx_PtExtlist_Utility_NameSpace::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
+        if ($objectData != null && count(array_filter($objectData))) {
+			$this->sessionData = Tx_PtExtlist_Utility_NameSpace::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
+        }
 	}
 
 	
@@ -165,6 +169,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @param int $state
 	 */
 	public function lifecycleUpdate($state) {
+		
+		if($state <= $this->internalSessionState) return;
+		$this->internalSessionState = $state;
+		
 		switch($state) {
 			case Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START:
 				$this->read();
@@ -226,6 +234,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function getSessionDataHash() {
 		if($this->sessionHash == NULL) {
+			$this->lifecycleUpdate(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
 			$this->sessionHash = md5(serialize($this->sessionData));
 		}
 		return $this->sessionHash;
