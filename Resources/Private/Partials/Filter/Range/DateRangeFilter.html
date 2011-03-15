@@ -1,7 +1,7 @@
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
 <extlist:comment>
-<!--  
-Partial for rendering a min filter
+<!--
+Partial for rendering a date range filter
 
 Here is a list of objects / variables that can be accessed in this partial
 
@@ -19,7 +19,7 @@ Here is a list of objects / variables that can be accessed in this partial
 		</div>
 	</f:if>
 	
-	<label for="{filter.filterIdentifier}">
+	<label for="{filter.filterIdentifier}" class="filter-label">
 		{filter.label}
 	</label>
 	<div class="outer-field-wrapper">
