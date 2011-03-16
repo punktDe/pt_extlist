@@ -179,6 +179,18 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 			'filterValueTo' => $this->filterValueTo
 		);
 	}
+	
+	
+	
+	
+	/**
+	 * Reset this filter
+	 */
+	public function reset() {
+		$this->filterValueFrom = null;
+		$this->filterValueTo = null;
+		parent::reset();
+	}
 
 }
 
