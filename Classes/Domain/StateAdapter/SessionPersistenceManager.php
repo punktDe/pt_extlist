@@ -35,7 +35,7 @@
  * @author Daniel Lienert 
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface {
+class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_PtExtbase_Lifecycle_EventInterface {
 	
 	
 	/**
