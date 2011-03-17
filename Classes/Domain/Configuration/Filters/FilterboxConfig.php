@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Configuration\Filters
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExtbase_Collection_ObjectCollection {
 
 	
 	/**

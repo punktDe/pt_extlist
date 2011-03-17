@@ -34,7 +34,7 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends tx_pttools_objectCollection
+class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection_ObjectCollection
     implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
 
 	/**

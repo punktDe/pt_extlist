@@ -31,7 +31,7 @@
  * @subpackage 		Configuration\Columns  
  * @author         	Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 	
 	public function addSortingField($sortingField, $fieldIdentifier) {
 		

@@ -34,7 +34,7 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends tx_pttools_objectCollection
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtExtbase_Collection_ObjectCollection 
 	implements  Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface,
 	            Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 
