@@ -18,7 +18,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 't3extensions@punkt.de',
 	'author_company' => 'http://www.punkt.de',
 	'shy' => '',
-	'dependencies' => 'cms,extbase,fluid,pt_tools',
+	'dependencies' => 'cms,extbase,fluid,pt_tools,pt_extbase',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -36,6 +36,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'extbase' => '1.3.0',
 			'fluid' => '1.3.0',
 			'pt_tools' => '1.0.1',
+            'pt_extbase' => '0.0.1'
 		),
 		'conflicts' => array(
 		),
