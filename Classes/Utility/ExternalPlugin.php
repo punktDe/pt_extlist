@@ -104,10 +104,10 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * Read the Session data into the cache
 	 */
 	protected static function loadLifeCycleManager() {
-		$lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
+		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
 		$lifecycleManager->register(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
 		// SET LIFECYCLE TO START -> read session data into cache
-		$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+		$lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::START);
 	}
 
 

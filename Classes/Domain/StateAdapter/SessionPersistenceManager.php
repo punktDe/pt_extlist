@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	/**
 	 * 
 	 */
-	private $internalSessionState = Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::UNDEFINED;
+	private $internalSessionState = Tx_PtExtbase_Lifecycle_Manager::UNDEFINED;
 	
 	
 	/**
@@ -174,10 +174,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$this->internalSessionState = $state;
 		
 		switch($state) {
-			case Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START:
+			case Tx_PtExtbase_Lifecycle_Manager::START:
 				$this->read();
 				break;
-			case Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END:
+			case Tx_PtExtbase_Lifecycle_Manager::END:
 				$this->persist();
 				break;	
 		}
@@ -234,7 +234,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function getSessionDataHash() {
 		if($this->sessionHash == NULL) {
-			$this->lifecycleUpdate(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
+			$this->lifecycleUpdate(Tx_PtExtbase_Lifecycle_Manager::END);
 			$this->sessionHash = md5(serialize($this->sessionData));
 		}
 		return $this->sessionHash;
