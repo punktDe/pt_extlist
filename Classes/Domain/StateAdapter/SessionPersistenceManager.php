@@ -28,7 +28,6 @@
 
 /**
  * Persistence manager to store objects to session and reload objects from session.
- * Uses pt_tools sessionStorageAdapter for accessing T3 session.
  *
  * @package Domain
  * @subpackage StateAdapter
