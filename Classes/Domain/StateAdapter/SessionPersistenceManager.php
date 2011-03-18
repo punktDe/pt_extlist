@@ -82,9 +82,9 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	/**
 	 * Injector for session adapter
 	 *
-	 * @param tx_pttools_sessionStorageAdapter $sessionAdapter
+	 * @param Tx_PtExtbase_StorageAdapter_StorageAdapterInterface $sessionAdapter
 	 */
-	public function injectSessionAdapter(tx_pttools_iStorageAdapter $sessionAdapter) {
+	public function injectSessionAdapter(Tx_PtExtbase_StorageAdapter_StorageAdapterInterface $sessionAdapter) {
 		$this->sessionAdapter = $sessionAdapter;
 	}
 	

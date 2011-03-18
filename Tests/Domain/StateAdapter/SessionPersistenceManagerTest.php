@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 	
 	
 	public function testInjectSessionAdapter() {
-		$sessionAdapter = tx_pttools_sessionStorageAdapter::getInstance();
+		$sessionAdapter = Tx_PtExtbase_StorageAdapter_StorageAdapter::getInstance();
 		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
 		$sessionPersistenceManager->injectSessionAdapter($sessionAdapter);
 	}
@@ -104,7 +104,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 	/** @test */
 	public function getSessionDataHash() {
 		$sessionPersistenceManager = $this->getAccessibleMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('dummyMethod'), array(),'',FALSE);
-		$sessionPersistenceManager->injectSessionAdapter(tx_pttools_sessionStorageAdapter::getInstance());
+		$sessionPersistenceManager->injectSessionAdapter(Tx_PtExtbase_StorageAdapter_StorageAdapter::getInstance());
 		$sessionPersistenceManager->_set('sessionData', array('test'));
 		$hash = $sessionPersistenceManager->getSessionDataHash();
 		

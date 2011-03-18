@@ -33,7 +33,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_SessionAdapterMock extends tx_pttools_sessionStorageAdapter {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_SessionAdapterMock extends Tx_PtExtbase_StorageAdapter_StorageAdapter {
     
 	public function __construct() {
 	}

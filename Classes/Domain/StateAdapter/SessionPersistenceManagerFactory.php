@@ -62,14 +62,14 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	/**
 	 * Initialize the sessionAdapter
 	 *
-	 * @return tx_pttools_iStorageAdapter storageAdapter
+	 * @return Tx_PtExtbase_StorageAdapter_StorageAdapterInterface storageAdapter
 	 */
 	private static function getStorageAdapter() {
 		
 		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
 			return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
 		} else {
-			return tx_pttools_sessionStorageAdapter::getInstance();	
+			return Tx_PtExtbase_StorageAdapter_StorageAdapter::getInstance();	
 		}
 	}
 }
