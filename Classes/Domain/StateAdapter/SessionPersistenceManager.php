@@ -102,7 +102,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 			throw new Exception('Session Hash already calculated and current sessiondata changed!! 1293004344'. $sessionNamespace . ': Calc:' . $this->sessionHash . ' NEW: ' . md5(serialize($this->sessionData)));
 		}
 		
-		tx_pttools_assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($sessionNamespace, array('message' => 'Object namespace must not be empty! 1278436822'));
 		$objectData = $object->persistToSession();
 	    
         if ($this->sessionData == null) {
@@ -135,7 +135,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @return array sessiondata
 	 */
 	public function getSessionDataForObjectNamespace($objectNamespace) {
-		tx_pttools_assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
 
 		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
 	}

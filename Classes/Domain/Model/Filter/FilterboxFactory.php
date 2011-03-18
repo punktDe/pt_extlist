@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
-	   	tx_pttools_assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), array('message' => 'List identifier must not be empty 1277889458'));
+	   	Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), array('message' => 'List identifier must not be empty 1277889458'));
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($filterboxConfiguration);
 		foreach ($filterboxConfiguration as $filterConfiguration) {
 			$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);

@@ -23,7 +23,6 @@ return array(
     'user_tx_ptextlist_utility_flexformdataprovider' => t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php',
 
     /* External Extensions */
-    'tx_pttools_assert'                 => t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_assert.php',
     'tx_pttools_div'                    => t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_div.php',
 
 );

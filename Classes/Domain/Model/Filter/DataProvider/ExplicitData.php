@@ -95,7 +95,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData implements Tx_P
 	protected function initDataProviderByTsConfig($filterSettings) {
 		
 		$this->tsOptions = $this->filterConfig->getSettings('options');
-		tx_pttools_assert::isArray($this->tsOptions, array('message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006'));
+		Tx_PtExtbase_Assertions_Assert::isArray($this->tsOptions, array('message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006'));
 		
 	}
 	

@@ -79,7 +79,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	 * @throws Exception
 	 */
 	public function __construct($identifier, $aggregateSettings, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		tx_pttools_assert::isNotEmptyString($identifier, array('message' => 'No aggregate identifier specified. 1282891490'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($identifier, array('message' => 'No aggregate identifier specified. 1282891490'));
 		$this->identifier = $identifier;
 		
 		if(!trim($aggregateSettings['fieldIdentifier'])) {

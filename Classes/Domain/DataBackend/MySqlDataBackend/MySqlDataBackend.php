@@ -207,7 +207,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			$fromPart = $this->tables;
 		}
 
-		tx_pttools_assert::isNotEmptyString($fromPart, array('message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($fromPart, array('message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420'));
 
 		return $fromPart;
 	}
@@ -535,7 +535,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     	if($aggregateConfig->getSpecial()) {
     		$aggregateFieldSQL = $aggregateConfig->getSpecial();
     	} else {
-    		tx_pttools_assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, array('info' => 'The given aggregate method "'.$aggregateConfig->getMethod().'" is not supported by this DataBackend'));
+    		Tx_PtExtbase_Assertions_Assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, array('info' => 'The given aggregate method "'.$aggregateConfig->getMethod().'" is not supported by this DataBackend'));
     		$aggregateFieldSQL = strtoupper($aggregateConfig->getMethod()) . '('.$aggregateConfig->getFieldIdentifier().')';
     	}
 

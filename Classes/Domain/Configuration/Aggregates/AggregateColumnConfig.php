@@ -89,7 +89,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		// required
 		$this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
 		
-		tx_pttools_assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array(message => 'Aggregate data identifier not given for aggregate column "'.$columnIdentifier.'" 1282916619'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array(message => 'Aggregate data identifier not given for aggregate column "'.$columnIdentifier.'" 1282916619'));
 		$this->aggregateDataIdentifier = t3lib_div::trimExplode(',', $this->settings['aggregateDataIdentifier']);
 		
 		// optional

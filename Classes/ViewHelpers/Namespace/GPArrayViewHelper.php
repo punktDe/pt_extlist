@@ -93,7 +93,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 */
 	protected function getObjectValue(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property) {
 		$getterMethod = 'get'.ucfirst($property);
-		tx_pttools_assert::isTrue(method_exists($object, $getterMethod), array('message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630'));
+		Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), array('message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630'));
 		
 		return $object->$getterMethod();
 	}
@@ -134,7 +134,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 */
 	public function buildObjectValueArray(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $key, $value) {
 		$nameSpace = $object->getObjectNamespace();
-		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 		
 		return $this->buildNamespaceValueArray($nameSpace, $key, $value);
 	}

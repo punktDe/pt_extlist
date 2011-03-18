@@ -75,7 +75,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 	 */
 	public function renderNamespacePart(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object) {
 		$nameSpace = $object->getObjectNamespace();
-		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 		
 		$identChunks =  t3lib_div::trimExplode('.', $nameSpace);
 		$nameSpacePart  = array_shift($identChunks);

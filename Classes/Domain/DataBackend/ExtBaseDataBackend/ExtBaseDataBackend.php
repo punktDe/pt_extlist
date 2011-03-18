@@ -56,8 +56,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
-		tx_pttools_assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
-		tx_pttools_assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
+		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
 		$repository = t3lib_div::makeInstance($dataBackendSettings['repositoryClassName']);
 		return $repository;
 	}
@@ -104,10 +104,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		if (count($groupDataQuery->getFrom()) >= 1) {  // use different repository for group data query
 			$fromArray = $groupDataQuery->getFrom();
 			$repositoryClassName = $fromArray[0];
-			tx_pttools_assert::isTrue(class_exists($repositoryClassName), 
+			Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), 
 			    array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
 		    $repository = t3lib_div::makeInstance($repositoryClassName);
-			tx_pttools_assert::isTrue(is_a($repository, 'Tx_Extbase_Persistence_Repository'), 
+			Tx_PtExtbase_Assertions_Assert::isTrue(is_a($repository, 'Tx_Extbase_Persistence_Repository'), 
 			    array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));   
 		} else {
 			$repository = $this->repository;
@@ -160,7 +160,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
 	public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
-		tx_pttools_assert::isTrue(get_class($queryInterpreter) == 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter');
+		Tx_PtExtbase_Assertions_Assert::isTrue(get_class($queryInterpreter) == 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter');
 		parent::injectQueryInterpreter($queryInterpreter); 
 	}
 	
@@ -281,7 +281,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param mixed $dataSource
 	 */
 	public function injectDataSource($dataSource) {
-		tx_pttools_assert::isInstanceOf($dataSource, 'Tx_Extbase_Persistence_Repository', array('message' => 'Given data source must implement Tx_Extbase_Persistence_Repository but did not! 1281545172'));
+		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, 'Tx_Extbase_Persistence_Repository', array('message' => 'Given data source must implement Tx_Extbase_Persistence_Repository but did not! 1281545172'));
 		$this->repository = $dataSource;
 	}
 
