@@ -35,7 +35,7 @@
  * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtExtbase_Collection_ObjectCollection 
-	implements  Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface,
+	implements  Tx_PtExtbase_State_IdentifiableInterface,
 	            Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 
 	/**
@@ -94,7 +94,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtEx
 
 
 	/**
-	 * @see Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
+	 * @see Tx_PtExtbase_State_IdentifiableInterface
 	 */
 	public function getObjectNamespace() {
 		return $this->configurationBuilder->getListIdentifier() . '.' . 'breadcrumbs';

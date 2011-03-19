@@ -33,7 +33,7 @@
  * @subpackage StateAdapter
  * @author Michael Knoll 
  */
-interface Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+interface Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface extends Tx_PtExtbase_State_IdentifiableInterface {
 	
 	/**
 	 * Called by any mechanism to persist an object's state to session

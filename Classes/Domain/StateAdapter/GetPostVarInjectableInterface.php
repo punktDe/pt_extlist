@@ -34,7 +34,7 @@
  * @author Michael Knoll 
  */
 interface Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface 
-			extends Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+			extends Tx_PtExtbase_State_IdentifiableInterface {
 				
     
 	/**
