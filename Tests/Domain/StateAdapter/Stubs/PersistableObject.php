@@ -32,7 +32,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject implements Tx_PtExtbase_State_Session_SessionPersistableInterface {
 	
 	/**
 	 * Some dummy data to be stored in session

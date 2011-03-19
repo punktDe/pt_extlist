@@ -35,7 +35,7 @@
  * @subpackage Model\Pager
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Collection_Collection 
-			implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
+			implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
 
 
 	/**
@@ -189,7 +189,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::injectSessionData()
+	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::injectSessionData()
 	 */
 	public function injectSessionData(array $sessionData) {
 		if(array_key_exists('page', $sessionData)) {
@@ -201,7 +201,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
+	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
 		return array('page' => $this->currentPage);
