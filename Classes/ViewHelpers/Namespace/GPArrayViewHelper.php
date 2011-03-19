@@ -39,7 +39,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * render build key/value GET/POST-array within the namespace of the given object
 	 * 
 	 * @param string $arguments : list of arguments
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * 	either as list of 'key : value' pairs 
 	 *  or as list of properties wich are then recieved from the object
 	 * @param string $nameSpace
@@ -87,7 +87,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	/**
 	 * Use the objects getter to get the value
 	 * 
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * @param string $property
 	 * @return mixed value
 	 */

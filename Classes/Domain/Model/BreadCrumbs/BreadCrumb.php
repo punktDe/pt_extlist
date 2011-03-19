@@ -33,7 +33,7 @@
  * @subpackage Model\BreadCrumbs
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_State_IdentifiableInterface {
 
 	/**
 	 * The listIdentifier for which this pager is active.
@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 
 
 	/**
-	 * @see Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
+	 * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
 	 *
 	 * @return String
 	 */
