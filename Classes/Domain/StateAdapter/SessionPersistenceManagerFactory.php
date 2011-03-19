@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
 			return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
 		} else {
-			return Tx_PtExtbase_StorageAdapter_StorageAdapter::getInstance();	
+			return Tx_PtExtbase_State_Session_StorageAdapter::getInstance();	
 		}
 	}
 }
