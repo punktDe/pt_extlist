@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
+class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 	
 	
 	/**
@@ -413,7 +413,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtbase
     
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface#injectGPVars()
+	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::injectGPVars()
 	 */
     public function injectGPVars($GPVars) {
     	$this->headerGPVarData = $GPVars;

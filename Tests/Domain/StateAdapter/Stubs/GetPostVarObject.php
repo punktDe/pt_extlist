@@ -32,7 +32,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */   
-class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject implements Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 	
 	protected $values;
 	protected $namespace;

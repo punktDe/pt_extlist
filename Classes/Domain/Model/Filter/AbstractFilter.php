@@ -37,7 +37,7 @@
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
     implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, 
                Tx_PtExtbase_State_Session_SessionPersistableInterface,
-               Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
+               Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
     	
     /**
      * Identifier of list to which this filter belongs to
@@ -593,7 +593,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     
     
 	/****************************************************************************************************************
-     * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"
+     * Methods implementing "Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface"
      *****************************************************************************************************************/
 	
 	/**

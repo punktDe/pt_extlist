@@ -124,9 +124,9 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter {
 	/**
 	 * Fills a given object with parameters that correspond to namespace identified by object
 	 *
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object
+	 * @param Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface $object
 	 */
-	public function injectParametersInObject(Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface $object) {
+	public function injectParametersInObject(Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface $object) {
 		$object->injectGPVars($this->extractPgVarsByNamespace($object->getObjectNamespace()));
 	}
 
