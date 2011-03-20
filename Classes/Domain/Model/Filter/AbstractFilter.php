@@ -114,7 +114,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Session persistence manager
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager = null;
 	
@@ -206,9 +206,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Injector for session persistence manager
 	 *
-	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
 	 */
-	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
 		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
 	

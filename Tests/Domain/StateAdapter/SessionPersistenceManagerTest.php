@@ -37,14 +37,14 @@
 class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function testSetup() {
-		$sessionPersistenceManager = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
+		$sessionPersistenceManager = new Tx_PtExtbase_State_Session_SessionPersistenceManager();
 	}
 	
 	
 	
 	public function testPersistToSession() {
 		$persistableObjectStub = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject();
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
 		$sessionPersistenceManager->persistToSession($persistableObjectStub);
 	}
 	
@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 	
 	public function testReloadFromSession() {
 		$persistableObjectStub = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_PersistableObject();
-        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
         $persistableObjectStub->initSomeData();
         $sessionPersistenceManager->persistToSession($persistableObjectStub);
         
@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 	
 	public function testInjectSessionAdapter() {
 		$sessionAdapter = Tx_PtExtbase_State_Session_StorageAdapter::getInstance();
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
 		$sessionPersistenceManager->injectSessionAdapter($sessionAdapter);
 	}
 	
@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 		
 		$sessionAdapterMock = new Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_SessionAdapterMock();
 		
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
         $sessionPersistenceManager->injectSessionAdapter($sessionAdapterMock);
         $sessionPersistenceManager->read();
         
@@ -90,7 +90,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 		 * Bookmarks are currently not working! 
 		 * TODO: Fix them with new Session namespace
 		 * 
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
 		$bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
 		$bookmark->setContent(serialize(array('filters' => array('test' => 'value'))));
 		$bookmark->setListId('test');
@@ -103,7 +103,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManager_testcase 
 	
 	/** @test */
 	public function getSessionDataHash() {
-		$sessionPersistenceManager = $this->getAccessibleMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('dummyMethod'), array(),'',FALSE);
+		$sessionPersistenceManager = $this->getAccessibleMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('dummyMethod'), array(),'',FALSE);
 		$sessionPersistenceManager->injectSessionAdapter(Tx_PtExtbase_State_Session_StorageAdapter::getInstance());
 		$sessionPersistenceManager->_set('sessionData', array('test'));
 		$hash = $sessionPersistenceManager->getSessionDataHash();

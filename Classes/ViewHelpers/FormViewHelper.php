@@ -103,7 +103,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormV
 		
 		if($extBaseContext->isInCachedMode()) {
 			$listIdentifier = $extBaseContext->getCurrentListIdentifier();
-			$stateHash = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
+			$stateHash = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
 			
 			$result .=  '<input type="hidden" name="' . $this->prefixFieldName($listIdentifier.'[state]') . '" value="' . $stateHash . '" />' . chr(10);
 		}

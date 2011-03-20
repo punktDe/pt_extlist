@@ -65,7 +65,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
 	
 	

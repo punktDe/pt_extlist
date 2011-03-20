@@ -72,7 +72,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
 		$bookmarksRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());
 		
 		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($configurationBuilder->getListIdentifier());
-		$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 		$bookmarkManager->injectBookmarkRepository(t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'));
 
 		return $bookmarkManager;

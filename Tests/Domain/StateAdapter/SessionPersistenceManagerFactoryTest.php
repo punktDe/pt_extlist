@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManagerFactory_te
 	 * Test for existence of class
 	 */
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory'));
+		$this->assertTrue(class_exists('Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory'));
 	}
 
 	
@@ -48,8 +48,8 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_SessionPersistenceManagerFactory_te
 	 * Test whether returned instance is singleton
 	 */
 	public function testSingletonInstance() {
-		$firstInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-		$secondInstance = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$firstInstance = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+		$secondInstance = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
 		$this->assertTrue($firstInstance == $secondInstance);
 	}
 }

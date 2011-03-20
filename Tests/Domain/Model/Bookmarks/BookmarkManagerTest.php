@@ -93,7 +93,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	public function testGetSetCurrentBookmark() {
-		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager');
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager');
 		
 		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
 		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
@@ -108,7 +108,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	public function testAddContentToBookmark() {	
         $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
 
-        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager',array('getSessionDataByNamespace'), array(), '', FALSE);
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager',array('getSessionDataByNamespace'), array(), '', FALSE);
         $returnArray = array('test');
 		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('tx_ptextlist_pi1.Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase.filters')->will($this->returnValue($returnArray));
         
@@ -123,7 +123,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	public function testInjectSessionPersistenceManager() {
-		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager');
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager');
 		
 		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
 		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);

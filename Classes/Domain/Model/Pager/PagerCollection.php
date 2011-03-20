@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Holds a instance of the persitence manager.
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager;
 

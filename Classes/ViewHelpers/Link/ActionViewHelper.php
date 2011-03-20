@@ -59,7 +59,7 @@ class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends Tx_Fluid_ViewHelpe
     	$extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
 		
 		if($extBaseContext->isInCachedMode()) {
-			$arguments['state'] = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
+			$arguments['state'] = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
 		}
 		
         return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
