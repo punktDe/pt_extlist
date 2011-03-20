@@ -36,7 +36,7 @@
  * @author Michael Knoll 
  * @author Christoph Ehscheidt 
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbase_Configuration_AbstractConfigurationBuilder {
 	
 	/**
 	 * Holds settings to build configuration objects
@@ -79,6 +79,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	);
 	
 	
+	
 	/**
 	 * Non-merged settings of plugin
 	 * @var array
@@ -86,11 +87,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	protected $origSettings;
 	
 	
+	
 	/**
 	 * Prototype settings for ts-configurable objects
 	 * @var array
 	 */
 	protected $protoTypeSettings;
+	
 	
 	
 	/**
@@ -167,6 +170,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     	Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
     	return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
+    
     
     
    /**
@@ -264,12 +268,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
     /**
      * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
      */
     public function buildListDefaultConfig() {
     	return $this->buildConfigurationGeneric('listDefault');
     }
+    
     
     
     /**
@@ -290,6 +296,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function buildListConfiguration() {
     	return $this->buildConfigurationGeneric('list');
     }
+    
 }
 
 ?>

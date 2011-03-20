@@ -71,18 +71,25 @@ class Tx_PtExtlist_Tests_Domain_Configuration_AbstractConfigurationBuilderTest e
 
 
 
+require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Configuration/ConfigurationBuilder.php';
+require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Configuration/AbstractConfigurationBuilder.php';
 /**
- * Concrete implementation of abstract configuration builder for testing
+ * Stub implementation of configuration builder for testing
  */
-require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Configuration/AbstractConfigurationBuilder.php';
-class Tx_PtExtlist_Tests_Domain_Configuration_AbstractConfigurationBuilder_Stub extends Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
+class Tx_PtExtlist_Tests_Domain_Configuration_AbstractConfigurationBuilder_Stub extends Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder {
 	
     protected $configurationObjectSettings = array(
         'dummy' => array(
             'factory' => 'Tx_PtExtlist_Tests_Domain_Configuration_AbstractConfigurationBuilder_DummyConfigurationObjectFactory',   
         )
     );
+    
+    
+    
+    public function __construct() {}
 
+    
+    
     public function getListIdentifier() {
     	return 'test';
     }

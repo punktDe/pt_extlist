@@ -256,7 +256,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @param array $settings
 	 * @param string $filterBoxIdentifier
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder, $settings, $filterboxIdentifier) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $settings, $filterboxIdentifier) {
 		$settings['filterboxIdentifier'] = $filterboxIdentifier;
 		parent::__construct($configurationBuilder, $settings);
 	}

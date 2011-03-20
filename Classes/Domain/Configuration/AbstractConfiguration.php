@@ -57,10 +57,10 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
 	/**
 	 * Constructor for configuration object
 	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param array $settings
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder, array $settings = array()) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings = array()) {
 		$this->configurationBuilder = $configurationBuilder;
 		$this->settings = $settings;
 		$this->init();
