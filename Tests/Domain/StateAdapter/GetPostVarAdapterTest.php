@@ -42,7 +42,7 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_GetPostVarAdapter_testcase extends 
 	/**
 	 * Instance of getPostVar Adapger
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
+	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
 	 */
 	protected $gpVarAdapter;
 	
@@ -67,14 +67,14 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_GetPostVarAdapter_testcase extends 
         )
         );
 	
-        $this->gpVarAdapter = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
+        $this->gpVarAdapter = new Tx_PtExtbase_State_GpVars_GpVarsAdapter();
 	    $this->gpVarAdapter->injectGetVars($this->getVars);
 	    $this->gpVarAdapter->injectPostVars($this->postVars);
 	}
 	
 	
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter'));
+		$this->assertTrue(class_exists('Tx_PtExtbase_State_GpVars_GpVarsAdapter'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Tests_Domain_StateAdapter_Stubs_GetPostVarObject'));
 	}
 	

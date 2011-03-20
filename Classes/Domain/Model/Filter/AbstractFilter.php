@@ -96,7 +96,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Get/Post vars adapter
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
+	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
 	 */
 	protected $gpVarAdapter = null;
 	
@@ -195,9 +195,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Injector for Get/Post Vars adapter
 	 *
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter Get/Post vars adapter to be injected
+	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter Get/Post vars adapter to be injected
 	 */
-	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter) {
+	public function injectGpVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter) {
 		$this->gpVarAdapter = $gpVarAdapter;
 	}
 	
