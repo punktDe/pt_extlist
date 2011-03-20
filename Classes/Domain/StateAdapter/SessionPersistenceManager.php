@@ -109,7 +109,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
         }
         
         if ($objectData != null && count(array_filter($objectData))) {
-			$this->sessionData = Tx_PtExtlist_Utility_NameSpace::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
+			$this->sessionData = Tx_PtExtbase_Utility_NameSpace::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
         }
 	}
 
@@ -136,7 +136,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	public function getSessionDataForObjectNamespace($objectNamespace) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($objectNamespace, array('message' => 'object namespace must not be empty! 1278436823'));
 
-		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
+		return Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
 	}
 	
 	
@@ -191,7 +191,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 * @return array
 	 */
 	public function getSessionDataByNamespace($objectNamespace) {
-		return Tx_PtExtlist_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
+		return Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->sessionData, $objectNamespace);
 	}
 	
 	
@@ -219,7 +219,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		 * 
 		$bookmarkContentArray = unserialize($bookmark->getContent());
 		$namespace = 'tx_ptextlist_pi1.' . $bookmark->getListId() . '.filters';
-		$this->sessionData = Tx_PtExtlist_Utility_NameSpace::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
+		$this->sessionData = Tx_PtExtbase_Utility_NameSpace::saveDataInNamespaceTree($namespace, $this->sessionData, $bookmarkContentArray['filters']);
 		*/
 	}
 	
