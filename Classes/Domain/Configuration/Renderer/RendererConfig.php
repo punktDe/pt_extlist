@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig extends Tx_PtExt
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
 

@@ -33,7 +33,13 @@
  * @subpackage pt_extlist
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+	
+	public function setUp() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
+	
 	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_FilterFactory'));
@@ -43,7 +49,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_E
 	
 	public function testCreateInstanceByConfiguration() {
 		$filterConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
-		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfigurationMock->getFilterConfigurationMock('filter1'));
+		$filterConfigurationMock->setup();
+		$filterConfiguration = $filterConfigurationMock->getFilterConfigurationMock('filter1', 'test');
+		$className = $filterConfiguration->getConfigurationBuilder();
+		var_dump($className);
+		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
 		$this->assertEquals($filter->getFilterIdentifier(), 'filter1');
 	    $this->assertEquals($filter->getListIdentifier(), 'test');	
 	}

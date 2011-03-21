@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtlist_Domain_Configuration_AbstractConfiguration 
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration 
 																	     implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 	
 	/** 
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 																	     	
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
 		// required

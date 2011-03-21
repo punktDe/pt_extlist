@@ -34,7 +34,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
+abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtbase_Configuration_AbstractConfiguration {
 
 	/**
 	 * The listidentifier this config object belings to
@@ -42,17 +42,6 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
 	 * @var string
 	 */
 	protected $listIdentifier;
-	
-	
-	/**
-	 * Injects configurationbuilder
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-	}
 	
 	
 	
@@ -66,6 +55,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		parent::__construct($configurationBuilder, $settings);
 	}
+	
 	
 	
 	/**

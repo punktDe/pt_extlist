@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
 		

@@ -62,7 +62,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
     	
    		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
     	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings,'test');
-    	$filterConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
     	
     	$dataProviderInstance = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($filterConfiguration);
     	
