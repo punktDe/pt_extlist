@@ -88,18 +88,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
-    
-    
-    
-    /**
-     * Template method for setting fallback view class in extending Contorllers
-     *
-     * @return string Class name of view, that should be taken by default
-     */
-    protected function getFallbackViewClassName() {
-        return 'Tx_PtExtbase_View_BaseView';
-    }
-    
+
     
     
 	/**
