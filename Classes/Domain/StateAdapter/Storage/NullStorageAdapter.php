@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_NULLStorageAdapter implements tx_pttools_iStorageAdapter {
+class Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter implements tx_pttools_iStorageAdapter {
 
 	/**
 	 * Retrieve nothing

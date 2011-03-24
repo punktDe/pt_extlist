@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 			if(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance()->buildListConfiguration()->getUseStateCache()) {
 				return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
 			} else {
-				return new Tx_PtExtlist_Domain_StateAdapter_Storage_NULLStorageAdapter();	
+				return new Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter();	
 			}
 		} else {
 			return tx_pttools_sessionStorageAdapter::getInstance();	

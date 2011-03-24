@@ -82,7 +82,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	public function __construct() {
 		$this->lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
 		
 		parent::__construct();
 	}
@@ -104,6 +103,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
+		
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
 		
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
