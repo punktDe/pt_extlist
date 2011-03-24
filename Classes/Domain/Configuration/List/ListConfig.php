@@ -79,7 +79,8 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 		/**
 		 * Force useSession to false if the extension is in cache mode
 		 */
-		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
+		$extlistContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext'); /* @var $extlistContext Tx_PtExtlist_Extbase_ExtbaseContext */
+		if($extlistContext->getSessionStorageMode() == Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_SESSION) {
 			$this->useSession = false;
 		}
 	}
