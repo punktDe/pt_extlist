@@ -44,6 +44,15 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	protected $inCachedMode;
 	
 	
+	
+	/**
+	 * In in cached mode - use state cache or add all variables to the URL
+	 * @var bool
+	 */
+	protected $useStateCache;
+	
+	
+	
 	/**
 	 * Namepsace of current Extension
 	 * 
@@ -71,9 +80,6 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	protected $configurationManager;
 	
 	
-	
-	
-	
 	/**
 	 * Initialize the object (called by objectManager)
 	 * 
@@ -86,6 +92,8 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 																						$frameWorkKonfiguration['pluginName']); 
 		
 		$this->inCachedMode = $frameWorkKonfiguration['pluginName'] == 'Cached' ? true : false;
+		$this->useStateCache = true; // TODO make this configurable
+		
 		$this->currentListIdentifier = $frameWorkKonfiguration['settings']['listIdentifier'];
 		
 		unset($frameWorkKonfiguration);
@@ -140,6 +148,15 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	 */
 	public function setInCachedMode($inCachedMode) {
 		$this->inCachedMode = $inCachedMode;
+	}
+	
+	
+	
+	/**
+	 * @return bool
+	 */
+	public function useStateCache() {
+		return $this->useStateCache;
 	}
 	
 	

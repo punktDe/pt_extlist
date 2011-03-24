@@ -47,13 +47,17 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	/**
 	 * Factory method for session persistence manager 
 	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder
 	 * @return Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager Singleton instance of session persistence manager 
 	 */
-	public static function getInstance() {
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder = NULL) {
+		
 		if (self::$instance == NULL) {
+			if($configurationBuilder == NULL) throw new Exception('No configurationBuilder given to instantiate the sessionPersistanceManager 1300992619');
+			
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
-			self::$instance->injectSessionAdapter(self::getStorageAdapter());
-			self::$instance->injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance());
+			self::$instance->injectSessionAdapter(self::getStorageAdapter($configurationBuilder));
+			self::$instance->injectConfigurationBuilder($configurationBuilder);
 		}
 		return self::$instance;
 	}
@@ -63,12 +67,13 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	/**
 	 * Initialize the sessionAdapter
 	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder
 	 * @return tx_pttools_iStorageAdapter storageAdapter
 	 */
-	private static function getStorageAdapter() {
+	private static function getStorageAdapter(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder) {
 		
 		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
-			if(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance()->buildListConfiguration()->getUseStateCache()) {
+			if($configurationBuilder->buildListConfiguration()->getUseStateCache()) {
 				return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
 			} else {
 				return new Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter();	
