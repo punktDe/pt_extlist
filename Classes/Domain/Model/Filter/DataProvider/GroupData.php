@@ -257,7 +257,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 		if($filterField) {
 			$this->filterField = $this->resolveFieldConfig($filterField);
 		} else {
-			$filterField = $this->filterConfig->getFieldIdentifier()->getItemByIndex(0);
+			$this->filterField = $this->filterConfig->getFieldIdentifier()->getItemByIndex(0);
 		}
         
         $this->setDisplayFieldsByTSConfig(trim($filterSettings['displayFields']));
@@ -276,9 +276,16 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	}
 	
 	
+	
+	/**
+	 * Get the field config object by fieldIdentifier string
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+	 */
 	protected function resolveFieldConfig($fieldIdentifier) {	
 		return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
 	}
+	
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface"
