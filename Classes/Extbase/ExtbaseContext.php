@@ -153,7 +153,7 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	/**
 	 * @param bool $isInCachedMode
 	 */
-	public function setIsInCachedMode($isInCachedMode) {
+	public function setInCachedMode($isInCachedMode) {
 		$this->isInCachedMode = $isInCachedMode;
 	}
 	
