@@ -62,24 +62,9 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			}
 		}
 
-		$this->addStateHash($argumentArray);
-		return $argumentArray;
-	}
-	
-	
-	
-	/**
-	 * Add the stateHash to the argumentArray, used to identifiy the current state if the
-	 * list operates in no-session-mode
-	 * 
-	 * @param array $argumentArray
-	 */
-	public function addStateHash(&$argumentArray) {
-		$extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+		Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
 		
-		if($extBaseContext->isInCachedMode()) {
-			$argumentArray['state'] = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
-		}
+		return $argumentArray;
 	}
 	
 	

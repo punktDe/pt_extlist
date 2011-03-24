@@ -46,7 +46,9 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 		
 		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingState', $value);
-		$gpArrayViewHelper->addStateHash($argumentArray);
+		
+		Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
+		
 		return parent::render($action,$argumentArray);
 	}
 	

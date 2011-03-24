@@ -13,6 +13,7 @@ plugin.tx_ptextlist.prototype.list {
 	aggregateRowsPartial = List/AggregateRows
 	
 	useSession = 1
+	useStateCache = 0
 	
 	pagerIdentifier = default
 }

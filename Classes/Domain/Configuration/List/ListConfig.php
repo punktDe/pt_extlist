@@ -59,6 +59,12 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	protected $useSession = true;
 	
 	
+	/** 
+	 * @var boolean
+	 */
+	protected $useStateCache = false;
+	
+	
 	/**
 	 * Set the properties
 	 */
@@ -68,9 +74,10 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
 		
 		$this->setBooleanIfExistsAndNotNothing('useSession');
-
+		$this->setBooleanIfExistsAndNotNothing('useStateCache');
+		
 		/**
-		 * Force useSession to fale if the extension is in cache mode
+		 * Force useSession to false if the extension is in cache mode
 		 */
 		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
 			$this->useSession = false;
@@ -110,6 +117,15 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 */
 	public function getUseSession() {
 		return $this->useSession;
+	}
+	
+	
+	
+	/**
+	 * @return boolean 
+	 */
+	public function getUseStateCache() {
+		return $this->useStateCache;
 	}
 }
 ?>

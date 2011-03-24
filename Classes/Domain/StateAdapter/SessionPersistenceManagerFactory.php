@@ -38,7 +38,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	/**
 	 * Singleton instance of session persistence manager object
 	 *
-	 * @var Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager
+	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
 	 */
 	private static $instance;
 	
@@ -53,6 +53,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
 			self::$instance->injectSessionAdapter(self::getStorageAdapter());
+			self::$instance->injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance());
 		}
 		return self::$instance;
 	}
@@ -67,7 +68,11 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	private static function getStorageAdapter() {
 		
 		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
-			return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
+			if(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance()->buildListConfiguration()->getUseStateCache()) {
+				return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
+			} else {
+				return new Tx_PtExtlist_Domain_StateAdapter_Storage_NULLStorageAdapter();	
+			}
 		} else {
 			return tx_pttools_sessionStorageAdapter::getInstance();	
 		}

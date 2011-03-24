@@ -39,9 +39,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	
 	/**
-	 * 
+	 * @var int internal session state
 	 */
 	private $internalSessionState = Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::UNDEFINED;
+	
 	
 	
 	/**
@@ -80,12 +81,28 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	
 	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected $configurationBuilder;
+	
+	
+	
+	/**
 	 * Injector for session adapter
 	 *
 	 * @param tx_pttools_sessionStorageAdapter $sessionAdapter
 	 */
 	public function injectSessionAdapter(tx_pttools_iStorageAdapter $sessionAdapter) {
 		$this->sessionAdapter = $sessionAdapter;
+	}
+	
+	
+	
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder
+	 */
+	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
 	}
 	
 	
@@ -159,6 +176,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function read() {
 		$this->sessionData = $this->sessionAdapter->read('pt_extlist.cached.session');
+		
+		if(!is_array($this->sessionData)) $this->sessionData = array();
 	}
 	
 	
@@ -240,6 +259,26 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		return $this->sessionHash;
 	}
 	
+	
+	
+	/**
+	 * Add arguments to url if the session is not usable
+	 * 
+	 * @param array $argumentArray
+	 */
+	public function addSessionRelatedArguments(&$argumentArray) {
+		if(!is_array($argumentArray)) $argumentArray = array();
+		
+		$extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+		
+		if($extBaseContext->isInCachedMode()) {
+			if($this->configurationBuilder->buildListConfiguration()->getUseStateCache()){
+				$argumentArray['state'] = $this->getSessionDataHash(); 
+			} else {
+				$argumentArray = t3lib_div::array_merge_recursive_overrule($this->sessionData, $argumentArray);
+			}
+		}
+	}	
 	
 	
     /**

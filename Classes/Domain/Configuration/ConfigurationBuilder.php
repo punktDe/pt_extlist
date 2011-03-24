@@ -285,7 +285,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     /**
      * Returns a list configuration object
      * 
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfiguration
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
      */
     public function buildListConfiguration() {
     	return $this->buildConfigurationGeneric('list');
