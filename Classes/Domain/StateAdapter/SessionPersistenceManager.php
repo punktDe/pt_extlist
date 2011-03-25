@@ -280,12 +280,12 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function addSessionRelatedArguments(&$argumentArray) {
 		if(!is_array($argumentArray)) $argumentArray = array();
-		
 		if($this->sessionStorageMode == self::STORAGE_ADAPTER_DB) {
 			$argumentArray['state'] = $this->getSessionDataHash(); 
 		} elseif($this->sessionStorageMode == self::STORAGE_ADAPTER_NULL) {
+			$this->lifecycleUpdate(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
 			$argumentArray = t3lib_div::array_merge_recursive_overrule($this->sessionData, $argumentArray);
-		}
+		}		
 	}	
 	
 	
