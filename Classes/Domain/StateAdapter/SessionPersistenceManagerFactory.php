@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 * 
 	 * @return Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager Singleton instance of session persistence manager 
 	 */
-	public static function getInstance($sessionStorageMode) {
+	public static function getInstance($sessionStorageMode = NULL) {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
 			self::$instance->injectSessionAdapter(self::getStorageAdapter($sessionStorageMode));
