@@ -48,6 +48,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
 	    'aggregateRows' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
+	    'base' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'),
 	    'bookmarks' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory',
 	    		  'prototype' => 'bookmarks'),
@@ -251,6 +253,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      */
     public function buildRendererChainConfiguration() {
     	return $this->buildConfigurationGeneric('rendererChain');
+    }
+    
+    
+   /**
+     * Returns base configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+     */
+    public function buildBaseConfiguration() {
+        return $this->buildConfigurationGeneric('base');
     }
     
     
