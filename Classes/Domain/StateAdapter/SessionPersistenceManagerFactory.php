@@ -55,8 +55,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	public static function getInstance($storageAdapterClass = NULL) {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
-			self::$instance->injectSessionAdapter(self::getStorageAdapter($sessionStorageAdapter));
-			self::$instance->setSessionStorageAdapter($sessionStorageAdapter);
+			self::$instance->injectSessionAdapter(self::getStorageAdapter($storageAdapterClass));
 		}
 		return self::$instance;
 	}
@@ -69,8 +68,6 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 * @return tx_pttools_iStorageAdapter storageAdapter
 	 */
 	private static function getStorageAdapter($storageAdapterClass) {
-		
-		if(!$storageAdapterClass) $storageAdapterClass == Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
 		
 		switch($storageAdapterClass) {
 			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION:

@@ -51,18 +51,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 * @var string headerPartial
 	 */
 	protected $aggregateRowsPartial;
-
-	
-	/**
-	 * @var boolean
-	 */
-	protected $useSession = true;
-	
-	
-	/** 
-	 * @var boolean
-	 */
-	protected $useStateCache = false;
 	
 	
 	/**
@@ -72,17 +60,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 		$this->setValueIfExistsAndNotNothing('headerPartial');
 		$this->setValueIfExistsAndNotNothing('bodyPartial');
 		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-		
-		$this->setBooleanIfExistsAndNotNothing('useSession');
-		$this->setBooleanIfExistsAndNotNothing('useStateCache');
-		
-		/**
-		 * Force useSession to false if the extension is in cache mode
-		 */
-		$extlistContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext'); /* @var $extlistContext Tx_PtExtlist_Extbase_ExtbaseContext */
-		if($extlistContext->getSessionStorageMode() == Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_SESSION) {
-			$this->useSession = false;
-		}
 	}
 
 
@@ -109,24 +86,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 */
 	public function getAggregateRowsPartial() {
 		return $this->aggregateRowsPartial;
-	}
-	
-	
-	
-	/**
-	 * @return boolean use Session
-	 */
-	public function getUseSession() {
-		return $this->useSession;
-	}
-	
-	
-	
-	/**
-	 * @return boolean 
-	 */
-	public function getUseStateCache() {
-		return $this->useStateCache;
 	}
 }
 ?>
