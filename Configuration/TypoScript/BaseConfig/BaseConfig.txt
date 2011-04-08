@@ -6,7 +6,7 @@
 # @subpackage pt_extlist
 ####################################################
 
-plugin.tx_ptextlist.settings.baseConfig {
+plugin.tx_ptextlist.settings.base {
 	
 	/*
 	* Defined class es are:
