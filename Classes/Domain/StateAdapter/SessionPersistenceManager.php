@@ -105,7 +105,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function injectSessionAdapter(tx_pttools_iStorageAdapter $sessionAdapter) {
 		$this->sessionAdapter = $sessionAdapter;
-		$this->sessionAdapaterClass == get_class($sessionAdapter);
+		$this->sessionAdapaterClass = get_class($sessionAdapter);
 	}
 	
 	
@@ -271,7 +271,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function addSessionRelatedArguments(&$argumentArray) {
 		if(!is_array($argumentArray)) $argumentArray = array();
-		
+
 		if($this->sessionAdapaterClass == self::STORAGE_ADAPTER_DB) {
 			$argumentArray['state'] = $this->getSessionDataHash(); 
 			
