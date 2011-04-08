@@ -52,11 +52,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 * 
 	 * @return Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager Singleton instance of session persistence manager 
 	 */
-	public static function getInstance($sessionStorageMode = NULL) {
+	public static function getInstance($storageAdapterClass = NULL) {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
-			self::$instance->injectSessionAdapter(self::getStorageAdapter($sessionStorageMode));
-			self::$instance->setSessionStorageMode($sessionStorageMode);
+			self::$instance->injectSessionAdapter(self::getStorageAdapter($storageAdapterClass));
 		}
 		return self::$instance;
 	}
@@ -68,11 +67,14 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 *
 	 * @return tx_pttools_iStorageAdapter storageAdapter
 	 */
-	private static function getStorageAdapter($storageMode) {
+	private static function getStorageAdapter($storageAdapterClass) {
 		
-		switch($storageMode) {
-			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_SESSION:
+		switch($storageAdapterClass) {
+			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION:
 				return tx_pttools_sessionStorageAdapter::getInstance();
+				break;
+			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_FEUSER_SESSION:
+				return tx_pttools_feUsersessionStorageAdapter::getInstance();
 				break;
 			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_DB:
 				return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();
@@ -81,7 +83,9 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 				return new Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter();	
 				break;
 			default:
-				return tx_pttools_sessionStorageAdapter::getInstance();
+				$storageAdapter = t3lib_div::makeInstance($storageAdapterClass);
+				if(!is_a($storageAdapter, 'tx_pttools_iStorageAdapter')) throw new Exception('The defined storage adapter ' .$storageAdapterClass. ' is not of type tx_pttools_iStorageAdapter !1302254019');
+				return $storageAdapter;
 		}
 	}
 }

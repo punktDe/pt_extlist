@@ -59,9 +59,6 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	protected $observers = array();
 	
 	
-	protected $execTime;
-	
-	
 	/**
 	 * Constructor for lifecycle manager
 	 *
@@ -91,12 +88,6 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	 */
 	public function updateState($state) {
 		if($state <= $this->state) return;
-		
-		if($state === self::START) $this->execTime = microtime(true);
-		if($state === self::END) {
-			$execTime = microtime(true) - $this->execTime;
-			error_log('executionTime: ' . $execTime);
-		}
 		
 //		echo "NEW LIFECYCLE STATE: ".$this->state." -> ".$state;
 		$this->state = $state;

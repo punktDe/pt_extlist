@@ -41,9 +41,11 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	/**
 	 * Definition of SessionStorageAdapter
 	 */
-	const STORAGE_ADAPTER_DB 		= 'Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter';
-	const STORAGE_ADAPTER_SESSION 	= 'tx_pttools_sessionStorageAdapter';
-	const STORAGE_ADAPTER_NULL 		= 'Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter';
+	const STORAGE_ADAPTER_NULL 				= 'Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter';
+	const STORAGE_ADAPTER_DB 				= 'Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter';
+	const STORAGE_ADAPTER_FEUSER_SESSION 	= 'tx_pttools_feUsersessionStorageAdapter';
+	const STORAGE_ADAPTER_BROWSER_SESSION 	= 'tx_pttools_sessionStorageAdapter';
+	
 	
 	
 	/**
@@ -89,10 +91,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	
 	/**
-	 * Identifies the session storage mode
+	 * Identifies the session storage adapter
 	 * @var string
 	 */
-	protected $sessionStorageMode;
+	protected $sessionAdapaterClass;
 	
 	
 	
@@ -103,19 +105,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function injectSessionAdapter(tx_pttools_iStorageAdapter $sessionAdapter) {
 		$this->sessionAdapter = $sessionAdapter;
+		$this->sessionAdapaterClass = get_class($sessionAdapter);
 	}
-	
-	
-	
-	/**
-	 * Set the session storage mode
-	 * 
-	 * @param string $sessionStorageMode
-	 */
-	public function setSessionStorageMode($sessionStorageMode) {
-		$this->sessionStorageMode = $sessionStorageMode;
-	}
-	
 	
 	
 	/**
@@ -126,7 +117,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	public function persistToSession(Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface $object) {
 		$sessionNamespace = $object->getObjectNamespace();
 		
-		if($this->sessionStorageMode == self::STORAGE_ADAPTER_DB 
+		if($this->sessionAdapaterClass == self::STORAGE_ADAPTER_DB 
 			&& $this->sessionHash != NULL &&  $this->sessionHash != md5(serialize($this->sessionData))) {
 			throw new Exception('Session Hash already calculated and current sessiondata changed!! 1293004344'. $sessionNamespace . ': Calc:' . $this->sessionHash . ' NEW: ' . md5(serialize($this->sessionData)));
 		}
@@ -280,9 +271,11 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function addSessionRelatedArguments(&$argumentArray) {
 		if(!is_array($argumentArray)) $argumentArray = array();
-		if($this->sessionStorageMode == self::STORAGE_ADAPTER_DB) {
+
+		if($this->sessionAdapaterClass == self::STORAGE_ADAPTER_DB) {
 			$argumentArray['state'] = $this->getSessionDataHash(); 
-		} elseif($this->sessionStorageMode == self::STORAGE_ADAPTER_NULL) {
+			
+		} elseif($this->sessionAdapaterClass == self::STORAGE_ADAPTER_NULL) {
 			$this->lifecycleUpdate(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
 			$argumentArray = t3lib_div::array_merge_recursive_overrule($this->sessionData, $argumentArray);
 		}		
