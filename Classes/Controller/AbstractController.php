@@ -103,9 +103,14 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
 		
-		$sessionStorageClass = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() 
-							? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
-							: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();					
+		if(TYPO3_MODE === 'FE') { 
+			$sessionStorageClass = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() 
+								? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
+								: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
+		} else {
+			$sessionStorageClass = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+		}		
+		
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
 		
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
