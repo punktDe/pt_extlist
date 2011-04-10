@@ -97,7 +97,7 @@
     <!--##########################-->
     <!-- Tab for export settings  -->
     <!--##########################-->
-    <list>
+    <export>
       <ROOT>
         <TCEforms>
           <sheetTitle>Export settings</sheetTitle>
@@ -174,7 +174,7 @@
 
         </el>
       </ROOT>
-    </list>
+    </export>
     
     
     
