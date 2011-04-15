@@ -64,7 +64,6 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	protected function buildFilterQuery() {
 		$realFilterObject = $this->getRealFilterObject();
 		$this->filterQuery = $this->buildProxyQuery($realFilterObject->getFilterQuery());
-		$GLOBALS['trace'] = 1;	trace($this->filterQuery  ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 	}
 	
 	
