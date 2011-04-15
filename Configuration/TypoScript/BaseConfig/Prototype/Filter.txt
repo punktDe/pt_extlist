@@ -199,8 +199,8 @@ plugin.tx_ptextlist.prototype.filter {
 
 	proxy {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_ProxyFilter
-		partialPath =
-		proxyPath =
+		partialPath = Filter/Special/ProxyFilter
+		proxyPath = 
 		fieldIdentifier =
 	}
 }

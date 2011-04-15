@@ -512,7 +512,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return bool True, if filter validates, false, if filter does not validate
 	 */
 	public function validate() {
-		return 1;
+		return true;
 	}
 	
 	

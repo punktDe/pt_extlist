@@ -55,20 +55,53 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
 	protected function initFilter() {}
-
+	
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteria()
+	 * Copy the filter query from realFilter 
 	 */
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
+	protected function buildFilterQuery() {
+		$realFilterObject = $this->getRealFilterObject();
+		$this->filterQuery = $this->buildProxyQuery($realFilterObject->getFilterQuery());
+		$GLOBALS['trace'] = 1;	trace($this->filterQuery  ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+	}
 	
 	
+	
+	/**
+	 * Set the fieldIdentifier of the proxy filter as fieldIdentifier in the filterQuery
+	 * 
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $filterQuery
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query $proxyQuery
+	 */
+	protected function buildProxyQuery(Tx_PtExtlist_Domain_QueryObject_Query $filterQuery) {
+		$proxyQuery = new Tx_PtExtlist_Domain_QueryObject_Query(); 
+		$criterias = $filterQuery->getCriterias();
+		
+		foreach($criterias as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+			if(get_class($criteria) != 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria') {
+				throw new Exception('Only simple criterias are supported at the moment in proxy filters. 1302864386');
+			}
+			
+			$proxyQuery->addCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($this->filterConfig->getFieldIdentifier()->getItemByIndex(0)->getTableFieldCombined(), 
+																						$criteria->getValue(), 
+																						$criteria->getOperator()));
+		}
+		
+		return $proxyQuery;
+	}
+
+	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
 	 */
-	protected function setActiveState() {}
+	protected function setActiveState() {
+		$this->isActive = true;
+	}
+	
 	
 	
 	/**
@@ -94,6 +127,8 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	
 	public function persistToSession() {}
 	
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
@@ -107,6 +142,8 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	}
 	
 	
+	
+	
 	protected function setProxyConfigFromProxyPath($proxyPath) {
 		list($this->proxyListIdentifier, $this->proxyFilterBoxIdentifier, $this->proxyFilterIdentifier) = explode('.', $proxyPath);
 		
@@ -114,6 +151,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 			throw new Exception("Either proxyListIdentifier, proxyFilterBoxIdentifier or proxyFilterIdentifier not given! 1288352507");
 		}
 	}
+	
 	
 	
 	/**
@@ -125,10 +163,25 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
 	}
 	
+	
+	
+	/**
+	 * Get the real filter object from realList
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface $realFilterObject
+	 * @throws Exception
+	 */
 	protected function getRealFilterObject() {
 		$realFilterConfig = $this->getRealFilterConfig();
-		$realFilter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($realFilterConfig);
+		$realFilterObject = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($realFilterConfig);
+		
+		if(!is_a($realFilterObject, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface')) {
+			throw new Exception('The real filter object of type "'.get_class($realFilterObject).'" is not a filter. 1302854030');
+		}
+		
+		return $realFilterObject;
 	}
+	
 	
 	
 	/**
