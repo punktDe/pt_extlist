@@ -43,13 +43,30 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 */
 	protected $fieldIdentifier;
 	
+
+	/**
+	 * @var string
+	 */
 	protected $proxyListIdentifier;
+
 	
+	/**
+	 * @var string
+	 */
 	protected $proxyFilterBoxIdentifier;
 	
+
+	/**
+	 * @var string
+	 */
 	protected $proxyFilterIdentifier;
 	
+	
+	/**
+	 * @var string
+	 */
 	protected $proxyFilterClass;
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
