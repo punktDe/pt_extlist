@@ -108,9 +108,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 * 
 	 * @param array $settings  Settings of extension
 	 */
-	public function __construct(array $settings) {	
+	public function __construct(array $settings, $listIdentifier = NULL) {	
 		$this->setProtoTypeSettings($settings);
-		$this->setListIdentifier($settings);
+		$this->setListIdentifier($settings, $listIdentifier);
 		$this->origSettings = $settings;
 		$this->mergeAndSetGlobalAndLocalConf();
 	}
@@ -133,19 +133,23 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 *
 	 * @param array $settings
 	 */
-	protected function setListIdentifier($settings) {
+	protected function setListIdentifier($settings, $listIdentifier = NULL) {
 		
-		if(!array_key_exists($settings['listIdentifier'], $settings['listConfig'])) {
+		if(!$listIdentifier) {
+			$listIdentifier = $settings['listIdentifier'];
+		}
+		
+		if(!array_key_exists($listIdentifier, $settings['listConfig'])) {
 			if(count($settings['listConfig']) > 0) {
 				$helpListIdentifier = 'Available list configurations on this page are: ' . implode(', ', array_keys($settings['listConfig'])) . '.';
 			} else {
 				$helpListIdentifier = 'No list configurations available on this page.';
 			}
-			throw new Exception('No list configuration can be found for list identifier "' . $settings['listIdentifier'] . '" 1278419536' . '<br>' . $helpListIdentifier);
+			throw new Exception('No list configuration can be found for list identifier "' . $listIdentifier . '" 1278419536' . '<br>' . $helpListIdentifier);
 		}
 
-        $this->listIdentifier = $settings['listIdentifier'];    
-	}	
+        $this->listIdentifier = $listIdentifier;    
+	}		
 
     
     
