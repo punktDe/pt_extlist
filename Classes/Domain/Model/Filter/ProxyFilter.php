@@ -176,7 +176,13 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected function getConfigurationBuilderForRealList() {
-		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+		
+		if($configurationBuilder->getListIdentifier() != $this->proxyListIdentifier) {
+			throw new Exception('Tried to get configurationBuilder for listIdentifier ' . $this->proxyListIdentifier . ', but got ' . $configurationBuilder->getListIdentifier());
+		}
+		
+		return $configurationBuilder;
 	}
 	
 	
