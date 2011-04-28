@@ -95,10 +95,28 @@ class Tx_PtExtlist_Utility_NameSpace {
 		}
 
 		$pointer[$key] = $data;
-		return array_filter($array);
+		
+		return self::arrayFilterRecursive($array);
 		
 	}
 	
+	
+	
+	/**
+	 * Recursively removes null-values from array
+	 *
+	 * @param array $input
+	 * @return array
+	 */
+	protected static function arrayFilterRecursive($input) {
+	    foreach ($input as &$value) {
+	        if (is_array($value)) {
+	            $value = self::arrayFilterRecursive($value);
+	        }
+	    }
+	    return array_filter($input, function($element) {return (!empty($element) || $element === 0);});
+    } 
+
 }
 
 ?>
