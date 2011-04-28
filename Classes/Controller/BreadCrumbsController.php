@@ -64,7 +64,16 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 			$this->configurationBuilder,
 			$this->filterboxCollection
 		);
-		$this->view->assign('breadcrumbs', $breadcrumbs);
+		
+		// Ugly hack, to check whether there really exists a breadcrumb 
+		$breadcrumbsHaveMessage = false;
+		foreach ($breadcrumbs as $breadcrumb) {
+			if ($breadcrumb->getMessage() != '') $breadcrumbsHaveMessage = true;
+		}
+		
+		if ($breadcrumbsHaveMessage) {
+		    $this->view->assign('breadcrumbs', $breadcrumbs);
+		}
 	}
 
 
