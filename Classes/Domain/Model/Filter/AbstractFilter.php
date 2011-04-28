@@ -482,6 +482,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	abstract protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
 	
 	
+	
 	/**
 	 * Build the filterCriteria for filter 
 	 * 
@@ -502,6 +503,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		
 		return $criteria;
 	}
+	
 	
 
 	/**
@@ -543,12 +545,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
             
             $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
                 $this->getFieldsForBreadcrumb(), 
-                $breadCrumbRenderArray);
+                $breadCrumbRenderArray
+            );
             
             $breadCrumb->setMessage($breadCrumbMessage);
             $breadCrumb->setIsResettable(true);
         }
-        
         return $breadCrumb;
     }
     

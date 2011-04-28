@@ -84,7 +84,7 @@ class Tx_PtExtlist_Utility_NameSpace {
 	 * @return array
 	 */
 	public static function saveDataInNamespaceTree($nameSpace, array $array, $data) {
-		
+		#print_r('saving '); echo "<pre>"; print_r($data); echo "</pre>"; print_r(" in $nameSpace");
 		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);		
 		
 		$key = array_pop($nameSpaceChunks);
@@ -95,7 +95,28 @@ class Tx_PtExtlist_Utility_NameSpace {
 		}
 
 		$pointer[$key] = $data;
-		return array_filter($array);
+		
+		return self::arrayFilterRecursive($array);
+		
 	}
+	
+	
+	
+	/**
+	 * Recursively removes null-values from array
+	 *
+	 * @param array $input
+	 * @return array
+	 */
+	protected static function arrayFilterRecursive($input) {
+	    foreach ($input as &$value) {
+	        if (is_array($value)) {
+	            $value = self::arrayFilterRecursive($value);
+	        }
+	    }
+	    return array_filter($input, function($element) {return (!empty($element) || $element === 0);});
+    } 
+
 }
+
 ?>

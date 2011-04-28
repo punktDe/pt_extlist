@@ -137,8 +137,6 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	
 	public function reset() {}
 	
-	public function getFilterBreadCrumb() {}
-	
 	public function getFilterValueForBreadCrumb() {}
 	
 	public function persistToSession() {}
@@ -202,6 +200,17 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		}
 		
 		return $realFilterObject;
+	}
+	
+	
+	
+	/**
+	 * Returns filter breadcrumb of proxied filter
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 */
+	public function getFilterBreadCrumb() {
+		return $this->getRealFilterObject()->getFilterBreadCrumb();
 	}
 	
 	
