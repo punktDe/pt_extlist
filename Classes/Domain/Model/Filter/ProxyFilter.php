@@ -210,7 +210,6 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
 	 */
 	public function getFilterBreadCrumb() {
-		
 		return $this->getRealFilterObject()->getFilterBreadCrumb();
 	}
 	

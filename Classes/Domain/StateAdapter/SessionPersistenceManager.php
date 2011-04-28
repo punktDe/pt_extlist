@@ -129,7 +129,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
         	$this->sessionData = array();
         }
         
-        if ($objectData != null && count(array_filter($objectData))) {
+        #if ($objectData != null && count(array_filter($objectData))) {
+        if ($objectData != null) {	
 			$this->sessionData = Tx_PtExtlist_Utility_NameSpace::saveDataInNamespaceTree($sessionNamespace, $this->sessionData, $objectData);
         }
 	}
@@ -168,6 +169,7 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	 */
 	public function persist() {
 		$this->persistObjectsToSession();
+		#echo "<pre>"; print_r($this->sessionData); echo "</pre>";
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
 	}
 	
