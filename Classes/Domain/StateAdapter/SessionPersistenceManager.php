@@ -50,6 +50,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	/**
 	 * @var int internal session state
+	 * With every new object that is added to lifecycleManager via registerAndUpdateStateOnRegisteredObject(), lifecycleupdate
+	 * is called on this object (with state END), but the session should be written only once, wo we need an internal state here.
 	 */
 	private $internalSessionState = Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::UNDEFINED;
 	
@@ -171,6 +173,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 		$this->persistObjectsToSession();
 		#echo "<pre>"; print_r($this->sessionData); echo "</pre>";
 		$this->sessionAdapter->store('pt_extlist.cached.session', $this->sessionData);
+		$GLOBALS['trace'] = 1;	trace('persist' ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+		$GLOBALS['trace'] = 1;	trace($this->sessionData ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
 	}
 	
 	

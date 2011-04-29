@@ -87,9 +87,9 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	 * @param int $state
 	 */
 	public function updateState($state) {
+		
 		if($state <= $this->state) return;
 		
-//		echo "NEW LIFECYCLE STATE: ".$this->state." -> ".$state;
 		$this->state = $state;
 		$this->fireUpdate();
 	}
