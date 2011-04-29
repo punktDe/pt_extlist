@@ -248,7 +248,7 @@ plugin.tx_ptextlist.settings {
 
 					20 < plugin.tx_ptextlist.prototype.filter.checkbox
 					20 {
-						filterIdentifier = ContinentCheckboxFilter
+						filterIdentifier = continentCheckboxFilter
 						label = Continent
 						fieldIdentifier = continent
 						filterField = continent
@@ -299,7 +299,7 @@ plugin.tx_ptextlist.settings {
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.firstLetter
 					10 {
-						filterIdentifier = filter4
+						filterIdentifier = firstLetterFilter
 						label = Capital
 						fieldIdentifier = capital
 					}
@@ -335,7 +335,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 			filterConfigs {
 				10 < plugin.tx_ptextlist.prototype.filter.select
 				10 {
-					filterIdentifier = continent
+					filterIdentifier = continentProxyFilter
 					label = Subcontinent
 					fieldIdentifier = continent
 					filterField = continent

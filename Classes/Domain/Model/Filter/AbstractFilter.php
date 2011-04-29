@@ -592,6 +592,40 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
     
     
+	/**
+     * Resets filter to its default values
+     * 
+     * @return void
+     */
+    public function reset() {
+        $this->filterValue = '';
+        $this->invert = false;
+        $this->resetSessionDataForFilter();
+        $this->resetGpVarDataForFilter();
+        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $this->init();
+    }
+    
+    
+    
+    /**
+     * Resets session data for this filter
+     */
+    protected function resetSessionDataForFilter() {
+        $this->sessionFilterData = array();
+    }
+    
+    
+    
+    /**
+     * Resets get/post var data for this filter
+     */
+    protected function resetGpVarDataForFilter() {
+        $this->gpVarFilterData = array();
+    }
+    
+    
+    
 	/****************************************************************************************************************
      * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"
      *****************************************************************************************************************/

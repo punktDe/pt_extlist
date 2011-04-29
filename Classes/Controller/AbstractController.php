@@ -256,16 +256,5 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
     	$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
         parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
     }
-    
-    
-    
-    /**
-     * (non-PHPdoc)
-     * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::forward()
-     */
-    public function forward($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL) {
-    	$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
-    	parent::forward($actionName, $controllerName, $extensionName, $arguments);
-    }
 }
 ?>
