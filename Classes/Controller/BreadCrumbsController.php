@@ -41,6 +41,15 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 * @var Tx_PtExtlist_Domain_Model_Filters_FilterboxCollection
 	 */
 	protected $filterboxCollection;
+	
+	
+	
+	/**
+     * Holds a pagerCollection.
+     * 
+     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     */
+	protected $pagerCollection = NULL;
 
 
 
@@ -90,9 +99,25 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 		);
 
 		$breadcrumbs->resetFilters();
+		$this->resetPagers();
 
 		$this->forward('index');
 	}
+	
+	
+	
+    /**
+     * Reset all pagers for this list.
+     * 
+     */
+    protected function resetPagers(){
+        // Reset pagers
+        if($this->pagerCollection === NULL) {
+            // Only get pagerCollection if it's not set already. Important for testing. 
+            $this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+        }
+        $this->pagerCollection->reset();
+    }
 
 }
 
