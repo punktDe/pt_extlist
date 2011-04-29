@@ -78,7 +78,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    'rendererChain' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
 	    		  'prototype' => 'rendererChain'),
+	    'breadCrumbs' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
+	    	      'tsKey' => 'breadCrumbs')
 	);
+	
 	
 	
 	/**
@@ -88,11 +92,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	protected $origSettings;
 	
 	
+	
 	/**
 	 * Prototype settings for ts-configurable objects
 	 * @var array
 	 */
 	protected $protoTypeSettings;
+	
 	
 	
 	/**
@@ -173,6 +179,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
     	return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
+    
     
     
    /**
@@ -270,6 +277,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
    /**
      * Returns bookmarks configuration
      *
@@ -278,6 +286,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function buildBookmarksConfiguration() {
         return $this->buildConfigurationGeneric('bookmarks');
     }
+    
     
     
     /**
@@ -306,6 +315,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function buildListConfiguration() {
     	return $this->buildConfigurationGeneric('list');
     }
+    
+    
+    
+    /**
+     * Returns a breadcrumbs configuration object
+     *
+     * @return unknown
+     */
+    public function buildBreadCrumbsConfiguration() {
+    	return $this->buildConfigurationGeneric('breadCrumbs');
+    }
+    
 }
 
 ?>

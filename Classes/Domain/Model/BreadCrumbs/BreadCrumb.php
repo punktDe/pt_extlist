@@ -42,6 +42,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	 */
 	protected $listIdentifier;
 
+	
 
 	/**
 	 * Associated filter object
@@ -50,6 +51,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	 */
 	protected $filter;
 
+	
 
 	/**
 	 * Message to be shown as breadcrumb
@@ -59,12 +61,23 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	protected $message;
 
 
+	
 	/**
 	 * True, if filter can be resetted via breadcrumb
 	 *
 	 * @var bool
 	 */
 	protected $isResettable = true;
+	
+	
+	
+	/**
+	 * Holds an instance of breadcrumbs configuration
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
+	 */
+	protected $breadCrumbsConfiguration;
+	
 
 
 	/**
@@ -75,6 +88,17 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter) {
 		$this->filter = $filter;
 		$this->listIdentifier = $filter->getListIdentifier();
+	}
+	
+	
+	
+	/**
+	 * Injects breadcrumb configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig
+	 */
+	public function injectBreadCrumbsConfiguration(Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig) {
+		$this->breadCrumbsConfiguration = $breadCrumbsConfig;
 	}
 
 
@@ -141,6 +165,17 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtlist_D
 	 */
 	public function getIsResettable() {
 		return $this->isResettable;
+	}
+	
+	
+	
+	/**
+	 * Returns true, if reset links should be shown
+	 *
+	 * @return bool
+	 */
+	public function getShowResetLinks() {
+		return $this->breadCrumbsConfiguration->getShowResetLinks();
 	}
 
 }
