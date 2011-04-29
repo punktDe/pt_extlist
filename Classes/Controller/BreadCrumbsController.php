@@ -101,7 +101,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 		$breadcrumbs->resetFilters();
 		$this->resetPagers();
 
-		$this->forward('index');
+		$this->redirect('index');
 	}
 	
 	

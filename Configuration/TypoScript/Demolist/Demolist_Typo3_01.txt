@@ -284,12 +284,12 @@ plugin.tx_ptextlist.settings {
                         fieldIdentifier = isoNo
                     }
 
-					50 < plugin.tx_ptextlist.prototype.filter.proxy
-					50 {
-						filterIdentifier = continentProxy
-						proxyPath = demoListProxyFilter.filterbox1.continent
-						fieldIdentifier = continent
-					}
+					#50 < plugin.tx_ptextlist.prototype.filter.proxy
+					#50 {
+					#	filterIdentifier = continentProxy
+					#	proxyPath = demoListProxyFilter.filterbox1.continent
+					#	fieldIdentifier = continent
+					#}
 				}
 			}	
 			
