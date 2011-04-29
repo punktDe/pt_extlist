@@ -226,7 +226,7 @@ plugin.tx_ptextlist.settings {
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
-						filterIdentifier = filter1
+						filterIdentifier = contryNameFilter
 						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
 						fieldIdentifier = name_local			
 					}
@@ -240,7 +240,7 @@ plugin.tx_ptextlist.settings {
 
 					15 < plugin.tx_ptextlist.prototype.filter.max
 					15 {
-						filterIdentifier = filter15
+						filterIdentifier = maxPhoneFilter
 						label = Max Phone
 						fieldIdentifier = phone
 						accessGroups = 3
@@ -248,7 +248,7 @@ plugin.tx_ptextlist.settings {
 
 					20 < plugin.tx_ptextlist.prototype.filter.checkbox
 					20 {
-						filterIdentifier = filter2
+						filterIdentifier = continentCheckboxFilter
 						label = Continent
 						fieldIdentifier = continent
 						filterField = continent
@@ -263,7 +263,7 @@ plugin.tx_ptextlist.settings {
 
 					30 < plugin.tx_ptextlist.prototype.filter.select
 					30 {
-						filterIdentifier = filter3
+						filterIdentifier = subContinentSelectFilter
 						label = Subcontinent
 						fieldIdentifier = subcontinent
 						filterField = subcontinent
@@ -279,17 +279,17 @@ plugin.tx_ptextlist.settings {
 					
 					40 < plugin.tx_ptextlist.prototype.filter.dateRange
                     40 {
-                        filterIdentifier = filter4
+                        filterIdentifier = isoRangeFilter
                         label = ISO-Range
                         fieldIdentifier = isoNo
                     }
 
-					50 < plugin.tx_ptextlist.prototype.filter.proxy
-					50 {
-						filterIdentifier = continentProxy
-						proxyPath = demoListProxyFilter.filterbox1.continent
-						fieldIdentifier = continent
-					}
+					#50 < plugin.tx_ptextlist.prototype.filter.proxy
+					#50 {
+					#	filterIdentifier = continentProxy
+					#	proxyPath = demoListProxyFilter.filterbox1.continent
+					#	fieldIdentifier = continent
+					#}
 				}
 			}	
 			
@@ -299,7 +299,7 @@ plugin.tx_ptextlist.settings {
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.firstLetter
 					10 {
-						filterIdentifier = filter4
+						filterIdentifier = firstLetterFilter
 						label = Capital
 						fieldIdentifier = capital
 					}
@@ -335,7 +335,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 			filterConfigs {
 				10 < plugin.tx_ptextlist.prototype.filter.select
 				10 {
-					filterIdentifier = continent
+					filterIdentifier = continentProxyFilter
 					label = Subcontinent
 					fieldIdentifier = continent
 					filterField = continent

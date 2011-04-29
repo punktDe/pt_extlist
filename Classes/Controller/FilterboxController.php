@@ -125,6 +125,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     public function resetAction() {
     	$this->filterbox->reset();
     	$this->resetPagers();
+    	$GLOBALS['trace'] = 1;	trace(Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance()->getState() ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
     	$this->forward('show');
     }
     

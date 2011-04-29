@@ -50,6 +50,8 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	
 	/**
 	 * @var int internal session state
+	 * With every new object that is added to lifecycleManager via registerAndUpdateStateOnRegisteredObject(), lifecycleupdate
+	 * is called on this object (with state END), but the session should be written only once, wo we need an internal state here.
 	 */
 	private $internalSessionState = Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::UNDEFINED;
 	
