@@ -56,14 +56,13 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			}
 			
 			if(!$nameSpace) {
-				$argumentArray = $this->buildObjectValueArray($object, $key, $value);
+				$argumentArray = array_merge_recursive($argumentArray, $this->buildObjectValueArray($object, $key, $value));
 			} else {
-				$argumentArray = $this->buildNamespaceValueArray($nameSpace, $key, $value);
+				$argumentArray = array_merge_recursive($argumentArray, $this->buildNamespaceValueArray($nameSpace, $key, $value));
 			}
 		}
 
 		Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
-		
 		return $argumentArray;
 	}
 	
