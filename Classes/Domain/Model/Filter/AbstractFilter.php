@@ -537,8 +537,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
      */
     public function getFilterBreadCrumb() {
-        
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+    	$breadCrumb->injectBreadCrumbsConfiguration($this->filterConfig->getConfigurationBuilder()->buildBreadCrumbsConfiguration());
         
         if ($this->getFilterValueForBreadCrumb() != '') {
             $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
