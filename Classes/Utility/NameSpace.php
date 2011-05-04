@@ -30,12 +30,12 @@
  * Utility for namespace related static functions
  *
  * @package Utility
- * @author Daniel Lienert
- * @author Christoph Ehscheidt
- * @author Michael Knoll
+ * @author Daniel Lienert 
+ * @author Christoph Ehscheidt 
+ * @author Michael Knoll 
  */
 class Tx_PtExtlist_Utility_NameSpace {
-
+	
 	/**
 	 * Returns part of an array according to given namespace
 	 *
@@ -44,25 +44,25 @@ class Tx_PtExtlist_Utility_NameSpace {
 	 * @return array
 	 */
 	public static function getArrayContentByArrayAndNamespace($returnArray, $namespace) {
-
+		
 		if(!$namespace) return $returnArray;
 		if(!is_array($returnArray)) $returnArray = array();
-
+		
 		$namespaceArray = self::getNamespaceArrayByNamespaceString($namespace);
-
+		
 		foreach($namespaceArray as $namespaceChunk) {
 			if (array_key_exists($namespaceChunk, $returnArray)) {
-				$returnArray = $returnArray[$namespaceChunk];
+			    $returnArray = $returnArray[$namespaceChunk];
 			} else {
 				return array();
 			}
 		}
-
+		
 		return $returnArray;
 	}
-
-
-
+	
+	
+	
 	/**
 	 * Converts a namespace string into a array of namespace chunks
 	 *
@@ -72,12 +72,12 @@ class Tx_PtExtlist_Utility_NameSpace {
 	protected static function getNamespaceArrayByNamespaceString($namespaceString) {
 		return t3lib_div::trimExplode('.', $namespaceString);
 	}
-
-
-
+	
+	
+	
 	/**
 	 * Save a value on an array position identfied by namespace
-	 *
+	 * 
 	 * @param string $nameSpace (Namespace identifier - dot separated)
 	 * @param array $array array to save the data
 	 * @param mixed $data
@@ -85,23 +85,23 @@ class Tx_PtExtlist_Utility_NameSpace {
 	 */
 	public static function saveDataInNamespaceTree($nameSpace, array $array, $data) {
 		#print_r('saving '); echo "<pre>"; print_r($data); echo "</pre>"; print_r(" in $nameSpace");
-		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);
-
+		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);		
+		
 		$key = array_pop($nameSpaceChunks);
 		$pointer = &$array;
-
-		foreach($nameSpaceChunks as $chunk) {
+		
+		foreach($nameSpaceChunks as $chunk) {		
 			$pointer = &$pointer[$chunk];
 		}
 
 		$pointer[$key] = $data;
-
+		
 		return self::arrayFilterRecursive($array);
-
+		
 	}
-
-
-
+	
+	
+	
 	/**
 	 * Recursively removes null-values from array
 	 *
@@ -109,13 +109,13 @@ class Tx_PtExtlist_Utility_NameSpace {
 	 * @return array
 	 */
 	protected static function arrayFilterRecursive($input) {
-		foreach ($input as &$value) {
-			if (is_array($value)) {
-				$value = self::arrayFilterRecursive($value);
-			}
-		}
-		return array_filter($input, 'function($element) {return (!empty($element) || $element === 0);}');
-	}
+	    foreach ($input as &$value) {
+	        if (is_array($value)) {
+	            $value = self::arrayFilterRecursive($value);
+	        }
+	    }
+	    return array_filter($input, function($element) {return (!empty($element) || $element === 0);});
+    } 
 
 }
 
