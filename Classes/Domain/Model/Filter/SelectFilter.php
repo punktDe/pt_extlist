@@ -29,7 +29,7 @@
 /**
  * Class implements a select filter
  * 
- * @author Michael Knoll , Daniel Lienert 
+ * @author Michael Knoll, Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter
  */
@@ -57,6 +57,10 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	}
 	
 	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
+	 */
 	public function getOptions() {
 		$options = parent::getOptions();
 
@@ -67,6 +71,18 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 		
 		return $selectOptions;
 	}
+	
+	
+	
+	/**
+	 * Returns value of selected option, return an array always
+	 *
+	 * @return array
+	 */
+	public function getValue() {
+		return $this->filterValues;
+	}
+	
 	
 	
 	/**
