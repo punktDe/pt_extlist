@@ -114,7 +114,7 @@ class Tx_PtExtlist_Utility_NameSpace {
 	            $value = self::arrayFilterRecursive($value);
 	        }
 	    }
-		return array_filter($input, Tx_PtExtlist_Utility_NameSpace::valueIsGiven($element));
+		return array_filter($input, 'Tx_PtExtlist_Utility_NameSpace::valueIsGiven');
     }
 
     
