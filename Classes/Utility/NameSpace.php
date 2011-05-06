@@ -114,8 +114,19 @@ class Tx_PtExtlist_Utility_NameSpace {
 	            $value = self::arrayFilterRecursive($value);
 	        }
 	    }
-	    return array_filter($input, function($element) {return (!empty($element) || $element === 0);});
-    } 
+		return array_filter($input, Tx_PtExtlist_Utility_NameSpace::valueIsGiven($element));
+    }
+
+    
+    
+    /**
+     * Returns true in case the values is present or is the integer Value 0
+     * 
+     * @param unknown_type $element
+     */
+    protected static function valueIsGiven($element) {
+    	return (!empty($element) || $element === 0);
+    }
 
 }
 
