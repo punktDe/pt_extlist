@@ -51,12 +51,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 * @var string headerPartial
 	 */
 	protected $aggregateRowsPartial;
-
-	
-	/**
-	 * @var boolean
-	 */
-	protected $useSession = true;
 	
 	
 	/**
@@ -66,15 +60,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 		$this->setValueIfExistsAndNotNothing('headerPartial');
 		$this->setValueIfExistsAndNotNothing('bodyPartial');
 		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-		
-		$this->setBooleanIfExistsAndNotNothing('useSession');
-
-		/**
-		 * Force useSession to fale if the extension is in cache mode
-		 */
-		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
-			$this->useSession = false;
-		}
 	}
 
 
@@ -101,15 +86,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 */
 	public function getAggregateRowsPartial() {
 		return $this->aggregateRowsPartial;
-	}
-	
-	
-	
-	/**
-	 * @return boolean use Session
-	 */
-	public function getUseSession() {
-		return $this->useSession;
 	}
 }
 ?>

@@ -1,5 +1,5 @@
 ####################################################
-# Definition of filter prototypes for use in listconfiguration 
+# Definition of filter prototypes for use in listconfiguration
 #
 # @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
 # @package Typo3
@@ -11,58 +11,71 @@ plugin.tx_ptextlist.prototype.filter {
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
 		partialPath = Filter/String/StringFilter
-		defaultValue = 
+		defaultValue =
 		accessGroups =
-		
+
 		breadCrumbString = TEXT
 		breadCrumbString {
-		    # Fields that can be used are 'label' and 'value'
-		    dataWrap = {field:label} equals {field:value}
-	    }
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} equals {field:value}
+		}
 	}
-	
+
 	max {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MaxFilter
 		partialPath = Filter/Range/MaxFilter
-		defaultValue = 
+		defaultValue =
 		accessGroups =
 		#validation.maxValue = 500
 		#validation.minValue = 0
-        
-        breadCrumbString = TEXT
-        breadCrumbString {
-            # Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
-            dataWrap = {field:label} is less than {field:value}
-        }
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+			dataWrap = {field:label} is less than {field:value}
+		}
 	}
-	
+
 	min {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MinFilter
 		partialPath = Filter/Range/MinFilter
-		defaultValue = 
+		defaultValue =
 		accessGroups =
 		#validation.maxValue = 500
 		#validation.minValue = 0
-        
-        breadCrumbString = TEXT
-        breadCrumbString {
-            # Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
-            dataWrap = {field:label} is bigger than {field:value}
-        }
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+			dataWrap = {field:label} is bigger than {field:value}
+		}
 	}
-	
+
+	dateRange {
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
+		partialPath = Filter/Range/DateRangeFilter
+		defaultValue =
+		accessGroups =
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+			dataWrap = {field:label} is between {field:fromValue} and {field:toValue}
+		}
+	}
+
 	select {
 		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
-		#dataProviderClassName = 
+		#dataProviderClassName =
 		defaultValue =
 		filterIdentifier =
-		label = 
+		label =
 		fieldIdentifier =
-		displayFields = 
-		filterField = 
+		displayFields =
+		filterField =
 		multiple = 0
-		excludeFilters = 
+		excludeFilters =
 		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
@@ -70,33 +83,33 @@ plugin.tx_ptextlist.prototype.filter {
 		invert = 0
 		invertable = 0
 		accessGroups =
-		
+
 		renderObj = TEXT
-	    renderObj {
+		renderObj {
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
-        
-        breadCrumbString = TEXT
-        breadCrumbString {
-            # Fields that can be used are 'label' and 'value'
-            dataWrap = {field:label} contains {field:value}
-        }
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} contains {field:value}
+		}
 	}
-	
+
 	checkbox {
 		partialPath = Filter/Options/CheckBoxFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
-		#dataProviderClassName = 
-				
+		#dataProviderClassName =
+
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
-		
+
 		filterIdentifier =
-		label = 
+		label =
 		fieldIdentifier =
-		displayFields = 
-		filterField = 
-		excludeFilters = 
+		displayFields =
+		filterField =
+		excludeFilters =
 		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
@@ -104,34 +117,34 @@ plugin.tx_ptextlist.prototype.filter {
 		invert = 0
 		invertable = 0
 		accessGroups =
-		
+
 		renderObj = TEXT
 		renderObj {
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
-        
-        breadCrumbString = TEXT
-        breadCrumbString {
-            # Fields that can be used are 'label' and 'value'
-            dataWrap = {field:label} contains {field:value}
-        }
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} contains {field:value}
+		}
 	}
 
-	
+
 	radiobutton {
 		partialPath = Filter/Options/RadioButtonFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
-		#dataProviderClassName = 
-				
+		#dataProviderClassName =
+
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
-		
+
 		filterIdentifier =
-		label = 
+		label =
 		fieldIdentifier =
-		displayFields = 
-		filterField = 
-		excludeFilters = 
+		displayFields =
+		filterField =
+		excludeFilters =
 		showRowCount = 1
 		submitOnChange = 0
 		inactiveOption =
@@ -142,52 +155,52 @@ plugin.tx_ptextlist.prototype.filter {
 
 		renderObj = TEXT
 		renderObj {
-		    # Fields that can be used are 'label' and 'value'
+			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
 		}
-        
-        breadCrumbString = TEXT
-        breadCrumbString {
-            dataWrap = {field:label} equals {field:value}
-        }
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			dataWrap = {field:label} equals {field:value}
+		}
 	}
-	
+
 	firstLetter {
 		partialPath = Filter/Options/FirstLetterFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
 		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
-		
+
 		defaultValue =
-		
+
 		filterIdentifier =
-		label = 
+		label =
 		fieldIdentifier =
-		displayFields = 
-		filterField = 
-		excludeFilters = 
+		displayFields =
+		filterField =
+		excludeFilters =
 		showRowCount = 0
 		inactiveOption = [ALL]
 		inactiveValue =
 		invert = 0
 		invertable = 0
 		accessGroups =
-		
+
 		renderObj = TEXT
 		renderObj {
 			dataWrap = {field:firstLetter}
 		}
-        
-        breadCrumbString = TEXT
-        breadCrumbString {
-            # Fields that can be used are 'label' and 'value'
-            dataWrap = {field:label} starts with '{field:value}'
-        }
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} starts with '{field:value}'
+		}
 	}
-	
+
 	proxy {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_ProxyFilter
-		partialPath = 
-		proxyPath = 
-		fieldIdentifier = 
+		partialPath =
+		proxyPath =
+		fieldIdentifier =
 	}
 }

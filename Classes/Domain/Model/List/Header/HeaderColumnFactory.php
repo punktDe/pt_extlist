@@ -43,12 +43,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
-		
 		$headerColumn->injectColumnConfig($columnConfiguration);
 		
 		// Inject settings from session.
         $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
-        $sessionPersistenceManager->loadFromSession($headerColumn);
+        $sessionPersistenceManager->registerObjectAndLoadFromSession($headerColumn);
         
         // Inject settings from gp-vars.
         $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();

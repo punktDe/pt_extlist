@@ -130,7 +130,8 @@ class Tx_PtExtlist_Domain_Model_List_Row extends tx_pttools_objectCollection {
 	 * @return Tx_PtExtlist_Domain_Model_List_Cell $cell
 	 */
 	public function getFirstCell() {
-		return $this->itemsArr[0];
+		reset($this->itemsArr);
+		return current($this->itemsArr);
 	}
 	
 }

@@ -27,83 +27,98 @@
  ***************************************************************/
 
 /**
- * 
- * @author Christoph Ehscheidt 
+ *
+ * @author Christoph Ehscheidt
  * @package Domain
  * @subpackage Model\Filter
  */
 class Tx_PtExtlist_Domain_Model_Filter_MinFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
- 	
- 	/**
-     * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter#initFilter()
-     */
-    protected function initFilter() {
-    	
-    	$this->isActive = !empty($this->filterValue) ? true : false;     	
-    }
-    
-    
-    
-    /**
-     * Creates filter query from filter value and settings
-     */
-     protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
-     	if($this->isActive) {
-    		$columnName = $fieldIdentifier->getTableFieldCombined();
-    		$filterValue = intval($this->filterValue);
-	    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($columnName, $filterValue);	
-    	}
-    	
-    	return $criteria;
-    }	
-    
-    
-    
-    public function validate() {
-    	$validation = $this->filterConfig->getSettings('validation');
-    	
-    	if(!$this->isActive) return 1;
 
-    	if(array_key_exists('maxValue', $validation) 
-    		&& intval($this->filterValue) > $validation['maxValue']) {
-    			
-    			$this->errorMessage = 'Value is not allowed to be bigger than '.$validation['maxValue'];
-    			return 0;
-    	}
-    	
-    	if(array_key_exists('minValue', $validation) 
-    		&& intval($this->filterValue) < $validation['minValue']) {
-    			$this->errorMessage = 'Value is not allowed to be smaller than '.$validation['minValue'];
-    			return 0;
-    	}
-    	
-    	return 1;
-    }
-    
-    
-    
-    /**
-     * Adds some fields for rendering breadcrumbs. Values of those 
-     * fields can be set in TS for filter via
-     * 
-     * validation.minValue
-     * validation.maxValue
-     *
-     * @return array
-     */
-    protected function getFieldsForBreadcrumb() {
-        $validation = $this->filterConfig->getSettings('validation');
-        $parentArray = parent::getFieldsForBreadCrumb();
-        if (array_key_exists('minValue', $validation)) {
-           $parentArray['minValue'] = $validation['minValue'];
-        }
-        if (array_key_exists('maxValue', $validation)) {
-            $parentArray['maxValue'] = $validation['max']; 
-        }
-        return $parentArray;
-    }
-    
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter#initFilter()
+	 */
+	protected function initFilter() {
+
+		$this->isActive = !empty($this->filterValue) ? TRUE : FALSE;
+	}
+
+
+
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteria()
+	 */
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+		$criteria = NULL;
+
+		if ($this->isActive) {
+			$columnName = $fieldIdentifier->getTableFieldCombined();
+			$filterValue = intval($this->filterValue);
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($columnName, $filterValue);
+		}
+
+		return $criteria;
+	}
+
+
+
+	/**
+	 * Validates filter
+	 *
+	 * @return bool True, if filter validates
+	 */
+	public function validate() {
+		$validation = $this->filterConfig->getSettings('validation');
+
+		if (!$this->isActive) {
+			return TRUE;
+		}
+
+		// Check whether given value is above max value set in TS
+		if (array_key_exists('maxValue', $validation)
+			&& intval($this->filterValue) > $validation['maxValue']) {
+
+			// TODO localize this string!
+			$this->errorMessage = 'Value is not allowed to be bigger than '.$validation['maxValue'];
+			return FALSE;
+		}
+
+		// Check whether min value is below min value set in TS
+		if (array_key_exists('minValue', $validation)
+			&& intval($this->filterValue) < $validation['minValue']) {
+
+			// TODO localize this string!
+			$this->errorMessage = 'Value is not allowed to be smaller than '.$validation['minValue'];
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
+
+
+	/**
+	 * Adds some fields for rendering breadcrumbs. Values of those
+	 * fields can be set in TS for filter via
+	 *
+	 * validation.minValue
+	 * validation.maxValue
+	 *
+	 * @return array
+	 */
+	protected function getFieldsForBreadcrumb() {
+		$validation = $this->filterConfig->getSettings('validation');
+		$parentArray = parent::getFieldsForBreadCrumb();
+		if (array_key_exists('minValue', $validation)) {
+			$parentArray['minValue'] = $validation['minValue'];
+		}
+		if (array_key_exists('maxValue', $validation)) {
+			$parentArray['maxValue'] = $validation['max'];
+		}
+		return $parentArray;
+	}
+
 }
 
 ?>

@@ -32,13 +32,16 @@
  * @package Domain
  * @subpackage StateAdapter
  * @author Michael Knoll 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
+	
+
 	
 	/**
 	 * Singleton instance of session persistence manager object
 	 *
-	 * @var Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager
+	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
 	 */
 	private static $instance;
 	
@@ -49,10 +52,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 * 
 	 * @return Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager Singleton instance of session persistence manager 
 	 */
-	public static function getInstance() {
+	public static function getInstance($storageAdapterClass = NULL) {
 		if (self::$instance == NULL) {
 			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager();
-			self::$instance->injectSessionAdapter(self::getStorageAdapter());
+			self::$instance->injectSessionAdapter(self::getStorageAdapter($storageAdapterClass));
 		}
 		return self::$instance;
 	}
@@ -64,12 +67,25 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory {
 	 *
 	 * @return tx_pttools_iStorageAdapter storageAdapter
 	 */
-	private static function getStorageAdapter() {
+	private static function getStorageAdapter($storageAdapterClass) {
 		
-		if(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()) {
-			return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();	
-		} else {
-			return tx_pttools_sessionStorageAdapter::getInstance();	
+		switch($storageAdapterClass) {
+			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION:
+				return tx_pttools_sessionStorageAdapter::getInstance();
+				break;
+			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_FEUSER_SESSION:
+				return tx_pttools_feUsersessionStorageAdapter::getInstance();
+				break;
+			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_DB:
+				return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory::getInstance();
+				break;
+			case Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_NULL:
+				return new Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter();	
+				break;
+			default:
+				$storageAdapter = t3lib_div::makeInstance($storageAdapterClass);
+				if(!is_a($storageAdapter, 'tx_pttools_iStorageAdapter')) throw new Exception('The defined storage adapter ' .$storageAdapterClass. ' is not of type tx_pttools_iStorageAdapter !1302254019');
+				return $storageAdapter;
 		}
 	}
 }

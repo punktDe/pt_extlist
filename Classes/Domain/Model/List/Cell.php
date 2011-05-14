@@ -84,7 +84,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	 *
 	 * @param string $value
 	 */
-	public function __construct($value) {
+	public function __construct($value = '') {
 		$this->value = $value;
 	}
 	

@@ -27,43 +27,42 @@
  ***************************************************************/
 
 /**
- * Class implements state repository
- *
- * @package Domain
- * @subpackage Repository\State
+ * Class implements adapter not store any session data when in cached mode and working with full URLS
+ * 
  * @author Daniel Lienert 
+ * @package Domain
+ * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_Repository_State_StateRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter implements tx_pttools_iStorageAdapter {
+
+	/**
+	 * Retrieve nothing
+	 * 
+	 * @param string $key
+	 */
+	public function read($key) {
+		return array();
+	}
+	
+	
 	
 	/**
-	 * Overwrites createQuery method to overwrite storage pid
+	 * Do not save any data
+	 * 
+	 * @param string $key
+	 * @param string $value
 	 */
-	public function createQuery() {
-	   $query = parent::createQuery();
-       $query->getQuerySettings()->setRespectStoragePage(FALSE);
-
-	   return $query;
-    }
-    
-    
-    
+	public function store($key, $value) {
+	}
+	
+	
+	
 	/**
-	 * Find State by statehash
-	 *
-	 * @param string $listIdentifier
-	 * @return Tx_PtExtlist_Domain_Model_State_State
+	 * Do not delete any data
+	 * 
+	 * @param string $key
 	 */
-	public function findOneByHash($stateHash) {
-		$query = $this->createQuery();
-		$result = $query->matching($query->equals('hash', $stateHash))
-						->setLimit(1)
-						->execute();
-
-		$object = NULL;
-		if (count($result) > 0) {
-			$object = current($result);
-		}
-		return $object;
+	public function delete($key) {
 	}
 }
 ?>

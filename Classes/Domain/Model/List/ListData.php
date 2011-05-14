@@ -72,5 +72,18 @@ class Tx_PtExtlist_Domain_Model_List_ListData extends tx_pttools_objectCollectio
 	public function getFirstRow() {
 		return $this->itemsArr[0];
 	}
+	
+	
+	
+	/**
+	 * Getter for count of items in list data
+	 * 
+	 * (Fluid-compatible getter for count() method in collection)
+	 *
+	 * @return int Count of objects in list data
+	 */
+	public function getCount() {
+		return $this->count();
+	}
 }
 ?>

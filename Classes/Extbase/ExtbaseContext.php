@@ -39,16 +39,23 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	
 	
 	/**
-	 * @var bool;
+	 * @var bool isInCachedMode
 	 */
-	protected $inCachedMode;
+	protected $isInCachedMode = false;
+	
+	
+	/**
+	 * Namepsace of current Extension
+	 * 
+	 * @var string
+	 */
+	protected $extensionName;
 	
 	
 	/**
 	 * @var string
 	 */
 	protected $extensionNameSpace;
-	
 	
 	
 	/**
@@ -64,7 +71,6 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	protected $configurationManager;
 	
 	
-	
 	/**
 	 * Initialize the object (called by objectManager)
 	 * 
@@ -72,15 +78,16 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	public function initializeObject() {
 		$frameWorkKonfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		
+		$this->extensionName = $frameWorkKonfiguration['extensionName'];
 		$this->extensionNameSpace = Tx_Extbase_Utility_Extension::getPluginNamespace($frameWorkKonfiguration['extensionName'], 
-																						$frameWorkKonfiguration['pluginName']); 
+																						$frameWorkKonfiguration['pluginName']);
 		
-		$this->inCachedMode = $frameWorkKonfiguration['pluginName'] == 'Cached' ? true : false;
+		$this->isInCachedMode = $frameWorkKonfiguration['pluginName'] == 'Cached' ? true : false;
+		
 		$this->currentListIdentifier = $frameWorkKonfiguration['settings']['listIdentifier'];
 		
 		unset($frameWorkKonfiguration);
 	}
-	
 	
 	
 	/**
@@ -114,12 +121,29 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	
 	
 	/**
+	 * @return string constant
+	 */
+	public function getSessionStorageMode() {
+		return $this->sessionStorageMode;
+	}
+	
+	
+	/**
 	 * @return bool
 	 */
 	public function isInCachedMode() {
-		return $this->inCachedMode;
+		return $this->isInCachedMode;
 	}
 	
+	
+	
+	/**
+	 * @param bool $isInCachedMode
+	 */
+	public function setInCachedMode($isInCachedMode) {
+		$this->isInCachedMode = $isInCachedMode;
+	}
+
 	
 	
 	/**
@@ -138,5 +162,13 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 		return $this->currentListIdentifier;
 	}
 	
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getExtensionName() {
+		return $this->extensionName;
+	}
 }
 ?>

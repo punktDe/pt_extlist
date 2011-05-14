@@ -1,5 +1,5 @@
 ####################################################
-# Definition of backend prototypes for use in listconfiguration 
+# Definition of backend prototypes for use in listconfiguration
 #
 # @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
 # @package Typo3
@@ -7,33 +7,33 @@
 ####################################################
 
 plugin.tx_ptextlist.prototype.backend {
-	
+
 	mysql {
 		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
 		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
-		
+
 		dataSource {
 			host = localhost
 			port = 3306
-			username = 
+			username =
 			password =
-			databaseName =       	
-        }
+			databaseName =
+		}
 	}
-	
+
 	typo3 {
 		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
 		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 		useEnableFields = 1
 	}
-	
+
 	extbase {
-	    dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
-        dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
-        queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
-        repositoryClassName = 
+		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
+		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
+		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
+		repositoryClassName =
 	}
 
 }

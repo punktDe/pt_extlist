@@ -1,5 +1,24 @@
-#page.includeCSS {
-#	reset = EXT:pt_extlist/Resources/Public/CSS/reset.css
-#	content = EXT:pt_extlist/Resources/Public/CSS/content.css
-#	framework = EXT:pt_extlist/Resources/Public/CSS/framework.css
-#}
+####################################################
+# Definition basic pt_extlist settings
+#
+# @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.settings.base {
+	
+	/*
+	* Defined class es are:
+	* tx_pttools_sessionStorageAdapter			Use the TYPO3 browser session
+	* tx_pttools_feUsersessionStorageAdapter 	use the TYPO3 fe_user specific session
+	*/
+	uncachedSessionStorageAdapter = tx_pttools_sessionStorageAdapter
+	
+	/* 
+	* Defined class es are:
+	* Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter			Save the session data into the databae and add an identifier to the get parameter
+	* Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter		Add all session parameters to the get parameter
+	*/
+	cachedSessionStorageAdapter = Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter
+}

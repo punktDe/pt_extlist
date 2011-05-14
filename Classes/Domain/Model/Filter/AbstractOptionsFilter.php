@@ -57,6 +57,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	}
 
 
+	
 	/**
 	 * @see Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
 	 *
@@ -65,6 +66,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		return array('filterValues' => $this->filterValues, 'invert' => $this->invert);
 	}
 
+	
 
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
@@ -107,10 +109,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 *
 	 */
 	protected function initFilterByGpVars() {
+		
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
 			$filterValues= $this->gpVarFilterData['filterValues'];
-			$this->filterValues = is_array($filterValues) ? array_filter($filterValues) : array($filterValues => $filterValues);
+			
+			if(is_array($filterValues)) {
+				$this->filterValues = array_filter($filterValues);
+			} else {
+				$this->filterValues = trim($filterValues) ? array($filterValues => $filterValues) : array();
+			}
 		}
+		
 	}
 
 

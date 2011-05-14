@@ -1,6 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0"><title>pt_extlist</title><subtitle>TypoSript Reference</subtitle><info/><refentry><refmeta><refentrytitle>plugin.tx_ptextlist.settings</refentrytitle></refmeta><refnamediv><refname>plugin.tx_ptextlist.settings</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+	<title>pt_extlist</title>
+	<subtitle>TypoSript Reference</subtitle>
+	<info/>
+	<refentry>
+		<refmeta>
+			<refentrytitle>plugin.tx_ptextlist.settings</refentrytitle>
+		</refmeta>
+		<refnamediv>
+			<refname>plugin.tx_ptextlist.settings</refname>
+			<refpurpose/>
+		</refnamediv>
+		<refsection>
+			<title>
+				<anchor xml:id="tsref.plugin.tx_ptextlist.settings"/>
 Description
-                </title><para>Main TS-key for all pt_extlist settings.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig">listConfig</link>,
+			</title>
+			<para>Main TS-key for all pt_extlist settings.</para>
+		</refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig">listConfig</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>listConfig</refentrytitle></refmeta><refnamediv><refname>listConfig</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig"/>
 Description
                 </title><para>Holds configuration for all list identifiers configured by array key.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Associative Array (listIdentifier =&gt; listConfiguration)</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr">[yourListId]</link>,
@@ -41,16 +58,16 @@ Description
 Description
                 </title><para>Holds the FROM clause of a mysql query without the FROM keyword.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>String</seg>YES</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
+	                </title><para><programlisting><![CDATA[
 static_countries
-LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-													</programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>baseWhereClause</refentrytitle></refmeta><refnamediv><refname>baseWhereClause</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.mysql.baseWhereClause"/>
+LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+]]></programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>baseWhereClause</refentrytitle></refmeta><refnamediv><refname>baseWhereClause</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.mysql.baseWhereClause"/>
 Description
                 </title><para>Holds the WHERE clause of a mysql query without the WHERE keyword.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
-st_continent.tr_name_en [] ''
-													</programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>baseGroupByClause</refentrytitle></refmeta><refnamediv><refname>baseGroupByClause</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.mysql.baseGroupByClause"/>
+	                </title><para><programlisting><![CDATA[
+st_continent.tr_name_en <> ''
+]]></programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>baseGroupByClause</refentrytitle></refmeta><refnamediv><refname>baseGroupByClause</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.mysql.baseGroupByClause"/>
 Description
                 </title><para>Holds the GROUP BY clause of a mysql query without the GROUP BY keyword.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>String</seg>YES</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
@@ -58,8 +75,8 @@ Description
 Description
                 </title><para>Typo3 Backend. Inherits the Features from the MySql Backend but the datasource is already configured. The Typo3 Backend handles enableFields automatically in where clauses.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
-backendConfig &lt; plugin.tx_ptextlist.prototype.backend.typo3
+	                </title><para><programlisting><![CDATA[
+backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 backendConfig {
 	tables (
 		static_countries,
@@ -70,23 +87,23 @@ backendConfig {
 	baseFromClause (
 		static_countries
 		LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-		LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+		LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr)
 	)
 
 	baseWhereClause (
-		st_continent.tr_name_en &lt;&gt; '' 
-		AND st_subcontinent.tr_name_en &lt;&gt; ''
+		st_continent.tr_name_en <> ''
+		AND st_subcontinent.tr_name_en <> ''
 	)
-}											
-											</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables">tables</link>,
+}
+]]></programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables">tables</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>tables</refentrytitle></refmeta><refnamediv><refname>tables</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.typo3.tables"/>
 Description
                 </title><para>'Enable fields where clauses' are applied to all tables given.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>Posible values</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Boolean</seg><seg>0,1</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
+	                </title><para><programlisting><![CDATA[
 static_countries,
 static_territories st_continent
-													</programlisting></para></refsection></refentry></refsection></refentry><refentry><refmeta><refentrytitle>backendConfig.extbase</refentrytitle></refmeta><refnamediv><refname>backendConfig.extbase</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.extbase"/>
+]]></programlisting></para></refsection></refentry></refsection></refentry><refentry><refmeta><refentrytitle>backendConfig.extbase</refentrytitle></refmeta><refnamediv><refname>backendConfig.extbase</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.backendConfig.backendConfig.extbase"/>
 Description
                 </title><para>Extbase Repository Backend.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><segtitle>Prototype</segtitle><seglistitem>NO<seg>plugin.tx_ptextlist.prototype.backend.extbase</seg></seglistitem></segmentedlist></refsection></refentry></refsection></refsection></refentry><refentry><refmeta><refentrytitle>fields</refentrytitle></refmeta><refnamediv><refname>fields</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields"/>
 Description
@@ -95,13 +112,13 @@ Description
 Description
                 </title><para>Named definition of a single data field.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>String</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
+	                </title><para><programlisting><![CDATA[
 name_local {
 	table = static_countries
 	field = cn_short_local
 	isSortable = 1
 }
-											</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.table">table</link>,
+]]></programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.table">table</link>,
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.field">field</link>,
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.special">special</link>,
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.fields.lyourFieldIdr.isSortable">isSortable</link>,
@@ -120,14 +137,14 @@ Description
 Description
                 </title><para>Holds the tables column definitions.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Array</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
+	                </title><para><programlisting><![CDATA[
 10 {
 	label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:cn_short_localColumn
 	columnIdentifier =  cn_short_localColumn
 	fieldIdentifier =  cn_short_local
 	isSortable = 1
 }
-									</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30">10,20,30</link>,
+]]></programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30">10,20,30</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>10,20,30</refentrytitle></refmeta><refnamediv><refname>10,20,30</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30"/>
 Description
                 </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.fieldIdentifier">fieldIdentifier</link>,
@@ -149,11 +166,11 @@ Description
 Description
                 </title><para>A list of userfunctions to render the field value.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
+	                </title><para><programlisting><![CDATA[
 renderUserFunctions {
-	10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer-&gt;iso2CodeRenderer
+	10 = EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer
 }
-													</programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>renderTemplate</refentrytitle></refmeta><refnamediv><refname>renderTemplate</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.renderTemplate"/>
+]]></programlisting></para></refsection></refentry><refentry><refmeta><refentrytitle>renderTemplate</refentrytitle></refmeta><refnamediv><refname>renderTemplate</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.renderTemplate"/>
 Description
                 </title><para/></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><seglistitem>NO</seglistitem></segmentedlist></refsection></refentry><refentry><refmeta><refentrytitle>renderObj</refentrytitle></refmeta><refnamediv><refname>renderObj</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.columns.10-20-30.renderObj"/>
 Description
@@ -190,13 +207,13 @@ Description
 Description
                 </title><para>Named definition of a single data field.</para></refsection><refsection><segmentedlist><segtitle>Datatype</segtitle><segtitle>StdWrap</segtitle><seglistitem><seg>Associative array</seg>NO</seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
+	                </title><para><programlisting><![CDATA[
 sumPhone {
 	fieldIdentifier = phone
 	method = sum
 	scope = query
 }
-											</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.aggregateData.lyourAggregateFieldIdr.method">method</link>,
+]]></programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.aggregateData.lyourAggregateFieldIdr.method">method</link>,
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.aggregateData.lyourAggregateFieldIdr.scope">scope</link>,
                 	</refsection><refsection><refentry><refmeta><refentrytitle>method</refentrytitle></refmeta><refnamediv><refname>method</refname><refpurpose/></refnamediv><refsection><title><anchor xml:id="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.aggregateData.lyourAggregateFieldIdr.method"/>
 Description
@@ -237,14 +254,14 @@ Description
 Description
                 </title><para>Shows a string filter.</para></refsection><refsection><segmentedlist><segtitle>StdWrap</segtitle><segtitle>Prototype</segtitle><seglistitem>NO<seg>plugin.tx_ptextlist.prototype.filter.string</seg></seglistitem></segmentedlist></refsection><refsection><title>
 	                    Example
-	                </title><para><programlisting>
-10 	&lt; plugin.tx_ptextlist.prototype.filter.string
+	                </title><para><programlisting><![CDATA[
+10 < plugin.tx_ptextlist.prototype.filter.string
 10 {
 	filterIdentifier = firstNameSearch
 	label = Firstname
 	fieldIdentifier = firstName
-}															
-																</programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.filters.lyourFilterBoxIdr.filterConfigs.lyourNumericFilterIdr.String.filterIdentifier">filterIdentifier</link>,
+}
+]]></programlisting></para></refsection><refsection><title>Child elements</title><link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.filters.lyourFilterBoxIdr.filterConfigs.lyourNumericFilterIdr.String.filterIdentifier">filterIdentifier</link>,
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.filters.lyourFilterBoxIdr.filterConfigs.lyourNumericFilterIdr.String.label">label</link>,
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.filters.lyourFilterBoxIdr.filterConfigs.lyourNumericFilterIdr.String.defaultValue">defaultValue</link>,
                 	<link text-decoration="underline" color="blue" linkend="tsref.plugin.tx_ptextlist.settings.listConfig.lyourListIdr.filters.lyourFilterBoxIdr.filterConfigs.lyourNumericFilterIdr.String.accessGroups">accessGroups</link>,

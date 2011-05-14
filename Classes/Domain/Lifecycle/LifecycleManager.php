@@ -59,7 +59,6 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	protected $observers = array();
 	
 	
-	
 	/**
 	 * Constructor for lifecycle manager
 	 *

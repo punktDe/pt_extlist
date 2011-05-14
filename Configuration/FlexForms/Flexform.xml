@@ -97,7 +97,7 @@
     <!--##########################-->
     <!-- Tab for export settings  -->
     <!--##########################-->
-    <list>
+    <export>
       <ROOT>
         <TCEforms>
           <sheetTitle>Export settings</sheetTitle>
@@ -165,7 +165,7 @@
           
           <settings.prototype.export.addDateToFilename>
             <TCEforms>
-              <label>Add Date to Filname</label>
+              <label>Add Date to Filename</label>
               <config>
                 <type>check</type>
               </config>
@@ -174,7 +174,7 @@
 
         </el>
       </ROOT>
-    </list>
+    </export>
     
     
     

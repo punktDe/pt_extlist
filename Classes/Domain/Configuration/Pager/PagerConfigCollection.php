@@ -59,5 +59,15 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends tx_p
 		$this->addItem($pagerConfig, $pagerIdentifier);
 	}
 	
+	
+	
+	/**
+	 * @param string $pagerIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+	 */
+	public function getPagerConfig($pagerIdentifier) {
+		return $this->getItemById($pagerIdentifier);
+	}
+	
 }
 ?>

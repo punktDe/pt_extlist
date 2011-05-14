@@ -48,6 +48,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
 	    'aggregateRows' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
+	    'base' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'),
 	    'bookmarks' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory',
 	    		  'prototype' => 'bookmarks'),
@@ -255,6 +257,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     
     
    /**
+     * Returns base configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+     */
+    public function buildBaseConfiguration() {
+        return $this->buildConfigurationGeneric('base');
+    }
+    
+    
+   /**
      * Returns bookmarks configuration
      *
      * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
@@ -275,7 +287,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     /**
      * Returns configuration object for pager
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration Configuration object for pager
+     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection Configuration object for pager
      */
     public function buildPagerConfiguration() {
     	return $this->buildConfigurationGeneric('pager');
@@ -285,7 +297,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     /**
      * Returns a list configuration object
      * 
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfiguration
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
      */
     public function buildListConfiguration() {
     	return $this->buildConfigurationGeneric('list');

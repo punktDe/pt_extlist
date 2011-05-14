@@ -26,52 +26,53 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
- * Test for stateobject
+ * Class implements basic configuration parameters
  *
- * @package Tests
- * @subpackage Domain\Model\State
+ * @package Domain
+ * @subpackage Configuration\Base
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Model_State_State_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	
-	/** @test */
-	public function setGetHash() {
-		
-		$state = new Tx_PtExtlist_Domain_Model_State_State();
-		$state->setHash('hash');
-		$this->assertEquals('hash', $state->getHash());
-		
-	}
-	
-	/** @test */
-	public function setGetShortcode() {
-		$state = new Tx_PtExtlist_Domain_Model_State_State();
-		$state->setShortcode('shortcode');
-		$this->assertEquals('shortcode', $state->getShortcode());
-	}
+class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
+	/**
+	 * Session storage adapter for a uncached plugin
+	 * @var string
+	 */
+	protected $uncachedSessionStorageAdapter;
 	
-	/** @test */
-	public function setGetStateData() {
+	
+	/**
+	 * Session storage adapter for a cached plugin
+	 * 
+	 * @var string
+	 */
+	protected $cachedSessionStorageAdapter;
+	
+	
+	protected function init() {
 		
-		$state = new Tx_PtExtlist_Domain_Model_State_State();
-		$state->setStatedata('stateData');
+		$this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
+		$this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
 		
-		$this->assertEquals('stateData', $state->getStatedata());
 	}
-
 	
-	/** @test */
-	public function setGetStateDataByArray() {
-		$stateData = array('key' => 'value');
-		$state = new Tx_PtExtlist_Domain_Model_State_State();
-		
-		$state->setStateDataByArray($stateData);
-		
-		$this->assertEquals($stateData, $state->getStateDataAsArray());
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getCachedSessionStorageAdapter() {
+		return $this->cachedSessionStorageAdapter;
+	}
+	
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getUncachedSessionStorageAdapter() {
+		return $this->uncachedSessionStorageAdapter;	
 	}
 }
 ?>

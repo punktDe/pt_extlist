@@ -54,14 +54,26 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	
 	/**
 	 * (non-PHPdoc)
+	 * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::injectConfigurationManager()
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
+		parent::injectConfigurationManager($configurationManager);
+		
+		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
+		
+		$this->templatePathAndFileName = $this->configurationBuilder->buildPagerConfiguration()->getPagerConfig($this->pagerIdentifier)->getTemplatePath();
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
 	 * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::initializeAction()
 	 */
 	public function initializeAction() {
-		
 		$this->pagerCollection = $this->getPagerCollectionInstance();
-		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
 	}
-	
+		
 	
 	
 	/**
@@ -74,14 +86,6 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		if($this->pagerCollection->getItemCount() <= 0) return '';
 
 		$pager = $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier);
-		
-		// TODO change testcase to accept this call
-		// TODO think about using initializeView method call for all this
-		#$this->setTemplatePathAndFilename('EXT:pt_extlist/Resources/Private/Templates/Pager/second.html');
-		$templatePath = $pager->getPagerConfiguration()->getTemplatePath();
-		if(!empty($templatePath)) {
-			$this->view->setTemplatePathAndFilename($templatePath);			
-		}
 		
 		$this->view->assign('pagerCollection', $this->pagerCollection);
 		$this->view->assign('pager', $pager);
@@ -98,7 +102,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
 		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
 		
-        return $pagerCollection;
+		return $pagerCollection;
 	}
 }
 ?>

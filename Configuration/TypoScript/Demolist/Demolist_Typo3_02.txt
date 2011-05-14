@@ -9,7 +9,7 @@
 
 
 plugin.tx_ptextlist.settings {
-
+	
 	listConfig.demolist_typo3_02 {
 	
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
@@ -199,14 +199,17 @@ plugin.tx_ptextlist.settings {
 					30 {
 						filterIdentifier = filter3
 						label = Subcontinent
+						
 						fieldIdentifier = subcontinent
 						filterField = subcontinent
 						displayFields = continent, subcontinent
+						
 						multiple = 0
 						showRowCount = 1
 						#excludeFilters = filterbox1.filter1
 						submitOnChange = 0
 						inactiveOption = [ALL]
+						inactiveValue = 
 						invert = 0
 						invertable = 0
 					}

@@ -28,15 +28,15 @@
 
 /**
  * Class implements data source for mysql databases
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory  {
-	
+class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory {
+
 	/**
-	 * 
+	 *
 	 * Create instance of mysql data source
 	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
 	 */
@@ -45,31 +45,29 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory  {
 		$dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
 		return $dataSource;
 	}
-	
+
 	/**
 	 * Create Database Object
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
 	 * @throws Exception
 	 */
 	protected static function createDataObject(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-		
+
 		$dsn = sprintf('mysql:dbname=%s;host=%s;port=%s',
-							$dataSourceConfiguration->getDatabaseName(),
-							$dbHost,
-							$dbPort);
-							
+				$dataSourceConfiguration->getDatabaseName(),
+				$dataSourceConfiguration->getHost(),
+				$dataSourceConfiguration->getPort());
+
 		try {
-			$pdo = new PDO($dsn, 
-					$dataSourceConfiguration->getUsername(), 
-					$dataSourceConfiguration->getPassword());	
+			$pdo = new PDO($dsn,
+					$dataSourceConfiguration->getUsername(),
+					$dataSourceConfiguration->getPassword());
 		} catch (Exception $e) {
 			throw new Exception('Unable to establish MYSQL Databse Connection: ' . $e->getMessage() . ' 1281215132');
 		}
-		
-		
-						
+
 		return $pdo;
-	}	
+	}
 }
 ?>

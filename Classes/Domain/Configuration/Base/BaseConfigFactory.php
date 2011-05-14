@@ -27,20 +27,27 @@
  ***************************************************************/
 
 /**
- * Testcase for state repository
+ * Class implements factory for basic configuration
  *
- * @package Tests
- * @subpackage Domain\Repository\State
+ * @package Domain
+ * @subpackage Configuration\Base
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_StateRepository_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function setup() {
+class Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory {
+	
+	/**
+	 * Returns a instance of a base configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+	 */
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
+		$baseSettings = $configurationBuilder->getSettingsForConfigObject('base');
+		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($configurationBuilder, $baseSettings);
+		
+		return $baseConfig;
 	}
-
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Repository_State_StateRepository'));
-	}	
 }
 ?>
