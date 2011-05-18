@@ -268,7 +268,9 @@ plugin.tx_ptextlist.settings {
 						fieldIdentifier = subcontinent
 						filterField = subcontinent
 						displayFields = continent, subcontinent
-						multiple = 0
+						multiple = 1
+						resetToDefaultValue = 1
+						defaultValue = 1
 						showRowCount = 1
 						#excludeFilters = filterbox1.filter1
 						submitOnChange = 0
@@ -284,12 +286,12 @@ plugin.tx_ptextlist.settings {
                         fieldIdentifier = isoNo
                     }
 
-					50 < plugin.tx_ptextlist.prototype.filter.proxy
-					50 {
-						filterIdentifier = continentProxy
-						proxyPath = demoListProxyFilter.filterbox1.continent
-						fieldIdentifier = continent
-					}
+					#50 < plugin.tx_ptextlist.prototype.filter.proxy
+					#50 {
+					#	filterIdentifier = continentProxy
+					#	proxyPath = demoListProxyFilter.filterbox1.continentCheckboxFilter
+					#	fieldIdentifier = continent
+					#}
 				}
 			}	
 			

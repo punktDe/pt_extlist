@@ -60,7 +60,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
 	 */
 	public function reset() {
-		unset($this->filterValues); 
+		$this->filterValues = array();  // We need an empty array here, to overwrite a TS default value after reset
 		parent::reset();
 	}
 	
@@ -100,6 +100,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected function setActiveState() {
 		$this->isActive = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? false : true;
 	}
+	
 
 
 	/**
@@ -251,3 +252,5 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	}
 
 }
+
+?>
