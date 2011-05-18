@@ -227,6 +227,8 @@ plugin.tx_ptextlist.settings {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
 						filterIdentifier = contryNameFilter
+						defaultValue = a
+						resetFilterToDefault = 0
 						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
 						fieldIdentifier = name_local			
 					}
@@ -270,7 +272,7 @@ plugin.tx_ptextlist.settings {
 						displayFields = continent, subcontinent
 						multiple = 1
 						resetToDefaultValue = 1
-						defaultValue = 1
+						defaultValue = Caribbean
 						showRowCount = 1
 						#excludeFilters = filterbox1.filter1
 						submitOnChange = 0
