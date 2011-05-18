@@ -251,6 +251,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	
 	
 	/**
+	 * If set to true, filter will set default value given in TS after resetting
+	 *
+	 * @var bool
+	 */
+	protected $resetToDefaultValue = false;
+	
+	
+	
+	/**
 	 * Build the filterconfig object
 	 * 
 	 * @param array $settings
@@ -281,6 +290,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('invert');
 		$this->setBooleanIfExistsAndNotNothing('invertable');
 		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
+		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
 		$this->setValueIfExists('inactiveOption');
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
@@ -543,6 +553,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 */
 	public function getBreadCrumbString() {
 		return $this->breadCrumbString;
+	}
+	
+	
+	
+	/**
+	 * Returns true, if filter should reset to default TS value after resetting
+	 *
+	 * @return bool
+	 */
+	public function getResetToDefaultValue() {
+		return $this->resetToDefaultValue;
 	}
 	
 	
