@@ -173,7 +173,7 @@
  		$filter->init();
  		$this->assertTrue($filter->getFilterValue() == 'gpVarFilterValue');
  		$filter->reset();
- 		$this->assertTrue($filter->getFilterValue() =='defaultValue');
+ 		$this->assertTrue($filter->getFilterValue() =='');
  	}
  	
  	

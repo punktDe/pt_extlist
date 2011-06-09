@@ -40,10 +40,11 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory_te
 	}
 	
 	
-	
 	public function testGetSingletonInstancesByConfigurationBuilder() {
+		
 		$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array(), array(), '', FALSE);
 		$configurationBuilderMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue('test'));
+
 		$instance1 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock);
 		$instance2 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock);
 
