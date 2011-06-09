@@ -120,7 +120,7 @@ plugin.tx_ptextlist.settings {
 						value.data = field:uno_member
 						equals = 1
 					}
-					5.file = EXT:pt_list/typoscript/static/demolist/un.gif
+					5.file = EXT:pt_extlist/Configuration/TypoScript/Demolist/un.gif
 					5.stdWrap.typolink.parameter = http://www.un.org
 					5.stdWrap.typolink.ATagParams = class="un-link"
 
