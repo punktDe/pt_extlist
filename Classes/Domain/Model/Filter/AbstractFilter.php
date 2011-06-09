@@ -482,6 +482,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	abstract protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
 	
 	
+	
 	/**
 	 * Build the filterCriteria for filter 
 	 * 
@@ -503,6 +504,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		return $criteria;
 	}
 	
+	
 
 	/**
 	 * Template method for validating filter data.
@@ -512,7 +514,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return bool True, if filter validates, false, if filter does not validate
 	 */
 	public function validate() {
-		return 1;
+		return true;
 	}
 	
 	
@@ -535,20 +537,20 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
      */
     public function getFilterBreadCrumb() {
-        
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+    	$breadCrumb->injectBreadCrumbsConfiguration($this->filterConfig->getConfigurationBuilder()->buildBreadCrumbsConfiguration());
         
         if ($this->getFilterValueForBreadCrumb() != '') {
             $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
             
             $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
                 $this->getFieldsForBreadcrumb(), 
-                $breadCrumbRenderArray);
+                $breadCrumbRenderArray
+            );
             
             $breadCrumb->setMessage($breadCrumbMessage);
             $breadCrumb->setIsResettable(true);
         }
-        
         return $breadCrumb;
     }
     
@@ -590,6 +592,40 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
         return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
     }
 	
+    
+    
+	/**
+     * Resets filter to its default values
+     * 
+     * @return void
+     */
+    public function reset() {
+        $this->filterValue = '';
+        $this->invert = false;
+        $this->resetSessionDataForFilter();
+        $this->resetGpVarDataForFilter();
+        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $this->init();
+    }
+    
+    
+    
+    /**
+     * Resets session data for this filter
+     */
+    protected function resetSessionDataForFilter() {
+        $this->sessionFilterData = array();
+    }
+    
+    
+    
+    /**
+     * Resets get/post var data for this filter
+     */
+    protected function resetGpVarDataForFilter() {
+        $this->gpVarFilterData = array();
+    }
+    
     
     
 	/****************************************************************************************************************

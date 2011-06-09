@@ -9,8 +9,6 @@
 
 plugin.tx_ptextlist.settings {
 
-	_LOCAL_LANG.default.emptyList = blabla	
-
 	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist {
 		
@@ -34,7 +32,7 @@ plugin.tx_ptextlist.settings {
 			)
 
 			baseWhereClause (
-				st_continent.tr_name_en <> '' 
+				st_continent.tr_name_en <> ''
 				AND st_subcontinent.tr_name_en <> ''
 			)
 		}
@@ -212,10 +210,10 @@ plugin.tx_ptextlist.settings {
 					aggregateDataIdentifier = sumPhone, avgPhone, maxPhone, minPhone
 					renderObj = TEXT
 					renderObj.dataWrap (
-						 Min.: <b>{field:minPhone}</b><br /> 
-						 &empty;: <b>{field:avgPhone}</b><br />
-						 Max.: <b>{field:maxPhone}</b><br />
-						 &sum;: <b>{field:sumPhone}</b><br />
+						Min.: <b>{field:minPhone}</b><br />
+						&empty;: <b>{field:avgPhone}</b><br />
+						Max.: <b>{field:maxPhone}</b><br />
+						&sum;: <b>{field:sumPhone}</b><br />
 					)
 				}
 			}
@@ -226,9 +224,9 @@ plugin.tx_ptextlist.settings {
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
-						filterIdentifier = filter1
+						filterIdentifier = contryNameFilter
 						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
-						fieldIdentifier = name_local			
+						fieldIdentifier = name_local
 					}
 
 					11 < plugin.tx_ptextlist.prototype.filter.string
@@ -240,7 +238,7 @@ plugin.tx_ptextlist.settings {
 
 					15 < plugin.tx_ptextlist.prototype.filter.max
 					15 {
-						filterIdentifier = filter15
+						filterIdentifier = maxPhoneFilter
 						label = Max Phone
 						fieldIdentifier = phone
 						accessGroups = 3
@@ -248,7 +246,7 @@ plugin.tx_ptextlist.settings {
 
 					20 < plugin.tx_ptextlist.prototype.filter.checkbox
 					20 {
-						filterIdentifier = filter2
+						filterIdentifier = continentCheckboxFilter
 						label = Continent
 						fieldIdentifier = continent
 						filterField = continent
@@ -263,7 +261,7 @@ plugin.tx_ptextlist.settings {
 
 					30 < plugin.tx_ptextlist.prototype.filter.select
 					30 {
-						filterIdentifier = filter3
+						filterIdentifier = subContinentSelectFilter
 						label = Subcontinent
 						fieldIdentifier = subcontinent
 						filterField = subcontinent
@@ -279,17 +277,17 @@ plugin.tx_ptextlist.settings {
 					
 					40 < plugin.tx_ptextlist.prototype.filter.dateRange
                     40 {
-                        filterIdentifier = filter4
+                        filterIdentifier = isoRangeFilter
                         label = ISO-Range
                         fieldIdentifier = isoNo
                     }
 
-					#50 < plugin.tx_ptextlist.prototype.filter.proxy
-					#50 {
-					#	filterIdentifier = continentProxy
-					#	proxyPath = demoListProxyFilter.filterbox1.continent
-					#	fieldIdentifier = continent
-					#}
+					50 < plugin.tx_ptextlist.prototype.filter.proxy
+					50 {
+						filterIdentifier = continentProxy
+						proxyPath = demoListProxyFilter.filterbox1.continent
+						fieldIdentifier = continent
+					}
 				}
 			}	
 			
@@ -299,7 +297,7 @@ plugin.tx_ptextlist.settings {
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.firstLetter
 					10 {
-						filterIdentifier = filter4
+						filterIdentifier = firstLetterFilter
 						label = Capital
 						fieldIdentifier = capital
 					}
@@ -310,7 +308,7 @@ plugin.tx_ptextlist.settings {
 }
 
 
-plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {  
+plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 	backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 	backendConfig {
 		tables (
@@ -335,7 +333,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 			filterConfigs {
 				10 < plugin.tx_ptextlist.prototype.filter.select
 				10 {
-					filterIdentifier = continent
+					filterIdentifier = continentProxyFilter
 					label = Subcontinent
 					fieldIdentifier = continent
 					filterField = continent
@@ -357,7 +355,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 ################################
 # Localization Override
 ################################
-plugin.tx_ptextlist._LOCAL_LANG{
+plugin.tx_ptextlist._LOCAL_LANG {
 	default {
 		emptyList = List is empty.
 	}

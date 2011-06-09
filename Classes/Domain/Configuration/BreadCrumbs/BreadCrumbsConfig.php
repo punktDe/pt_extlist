@@ -26,66 +26,45 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
 /**
- * Class implements configuration for list defaults
- *
+ * Class implementing configuration for breadcrumb
+ * 
  * @package Domain
- * @subpackage Configuration\List
- * @author Daniel Lienert 
+ * @subpackage Configuration\BreadCrumbs
+ * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	/**
-	 * @var string 
-	 */
-	protected $headerPartial;
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $bodyPartial;
-	
-	
-	/**
-	 * @var string headerPartial
-	 */
-	protected $aggregateRowsPartial;
-	
-	
-	/**
-	 * Set the properties
-	 */
-	protected function init() {
-		$this->setValueIfExistsAndNotNothing('headerPartial');
-		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-	}
-
+class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
 	/**
-	 * @return string
+	 * Holds configuration for showing reset links
+	 *
+	 * @var bool
 	 */
-	public function getHeaderPartial() {
-		return $this->headerPartial;
+	protected $showResetLinks;
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 */
+	public function init() {		
+		// optional
+		$this->setBooleanIfExistsAndNotNothing('showResetLinks');
 	}
 	
 	
 	
 	/**
-	 * @return string
+	 * Getter for 'showResetLinks' configuration
+	 *
+	 * @return bool
 	 */
-	public function getBodyPartial() {
-		return $this->bodyPartial;		
+	public function getShowResetLinks() {
+		return $this->showResetLinks;
 	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getAggregateRowsPartial() {
-		return $this->aggregateRowsPartial;
-	}
+    	
 }
+
 ?>

@@ -27,65 +27,48 @@
  ***************************************************************/
 
 /**
- * Class implements configuration for list defaults
+ * Testcase for base configuration
  *
- * @package Domain
- * @subpackage Configuration\List
- * @author Daniel Lienert 
+ * @package Tests
+ * @subpackage Domain\Configuration\Base
+ * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	/**
-	 * @var string 
-	 */
-	protected $headerPartial;
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $bodyPartial;
-	
-	
-	/**
-	 * @var string headerPartial
-	 */
-	protected $aggregateRowsPartial;
-	
-	
-	/**
-	 * Set the properties
-	 */
-	protected function init() {
-		$this->setValueIfExistsAndNotNothing('headerPartial');
-		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-	}
+class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-
+	
 	/**
-	 * @return string
+	 * @var Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
 	 */
-	public function getHeaderPartial() {
-		return $this->headerPartial;
+	protected $baseConfig;
+	
+	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+		
+		$configArray = array('uncachedSessionStorageAdapter' => 'uncachedSessionStorageAdapter',
+							'cachedSessionStorageAdapter' => 'cachedSessionStorageAdapter'
+							);
+		
+		$this->baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $configArray);
+	}
+	
+	
+	/**
+	 * @test
+	 */
+	public function getCachedSessionStorageAdapter() {
+		$this->assertEquals($this->baseConfig->getCachedSessionStorageAdapter(), 'cachedSessionStorageAdapter');
 	}
 	
 	
 	
 	/**
-	 * @return string
+	 * @test
 	 */
-	public function getBodyPartial() {
-		return $this->bodyPartial;		
+	public function getUncachedSessionStorageAdapter() {
+		$this->assertEquals($this->baseConfig->getUncachedSessionStorageAdapter(), 'uncachedSessionStorageAdapter');
 	}
 	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getAggregateRowsPartial() {
-		return $this->aggregateRowsPartial;
-	}
 }
+
 ?>

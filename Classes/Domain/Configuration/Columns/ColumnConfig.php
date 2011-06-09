@@ -234,6 +234,18 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	
 	
 	
+	/**
+	 * @param string $label
+	 */
+	public function setLabel($label) {
+		$this->label = $label;
+	}
+	
+	
+	
+	/**
+	 * @return bool
+	 */
 	public function getIsSortable() {
 		return (bool)$this->isSortable;
 	}
