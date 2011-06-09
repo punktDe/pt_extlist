@@ -88,6 +88,7 @@ class Tx_PtExtlist_Domain_Lifecycle_LifecycleManager {
 	 */
 	public function updateState($state) {
 		
+		# TODO this does not work, if we are in redirect! Fix me!
 		if($state <= $this->state) return;
 		
 		$this->state = $state;
