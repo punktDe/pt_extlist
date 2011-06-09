@@ -122,10 +122,10 @@ class Tx_PtExtlist_Utility_NameSpace {
     /**
      * Returns true in case the values is present or is the integer Value 0
      * 
-     * @param unknown_type $element
+     * @param mixed $element
      */
     protected static function valueIsGiven($element) {
-    	return (!empty($element) || $element === 0);
+    	return (is_array($element) || !empty($element) || $element === 0 || $element === '');
     }
 
 }

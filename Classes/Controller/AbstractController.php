@@ -253,6 +253,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::redirect()
 	 */
     protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303) {
+    	// TODO WTF: The line below should call this line, but it seems as it doesn't!
+    	Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->persist();
     	$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
         parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
     }
