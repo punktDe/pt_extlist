@@ -341,7 +341,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 * @return void
 	 */
-	public function init() {
+	public function init($initAfterReset = false) {
 		
 		/**
 		 * What happens during initialization:
@@ -365,8 +365,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * to override init() in your own filter implementation!
 		 */
 
-		$this->initGenericFilterByTSConfig();
-		$this->initFilterByTsConfig();
+	    $this->initGenericFilterByTSConfig();
+	    
+	    // We only want to reset a filter to its TS default value, if TS configuration says so
+		if (!$initAfterReset || ($initAfterReset && $this->filterConfig->getResetToDefaultValue())) {
+		    $this->initFilterByTsConfig();
+		}
 		
 		$this->initGenericFilterBySession();
 		$this->initFilterBySession();
@@ -605,7 +609,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
         $this->resetSessionDataForFilter();
         $this->resetGpVarDataForFilter();
         $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-        $this->init();
+        $this->init(true);
     }
     
     
@@ -668,4 +672,5 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 }
+
 ?>

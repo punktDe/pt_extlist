@@ -297,6 +297,17 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
+        <ENTRY REF="filter.resetToDefaultValue" KEY="resetToDefaultValue">
+            <DESCRIPTION>If a default value for a filter is set in TypoScript, the filter will be set to this value if it is resetted. If this is set to 0, the filter will be resetted to an empty value.</DESCRIPTION>
+            <DATATYPE>Boolean</DATATYPE>
+            <POSIBLEVALUES>0,1</POSIBLEVALUES>
+            <DEFAULT>0</DEFAULT>
+            <COBJ></COBJ>
+            <PROTOTYPE></PROTOTYPE>
+            <EXAMPLE></EXAMPLE>
+            <CHILDREN></CHILDREN>
+            <VARIANT></VARIANT>
+        </ENTRY>
 		<ENTRY REF="filter.inactiveOption" KEY="inactiveOption">
 			<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
