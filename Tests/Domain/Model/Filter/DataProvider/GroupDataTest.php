@@ -107,10 +107,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
 		
 		$this->assertEquals($displayFields->count(),1);
 		$this->assertEquals($displayFields->getItemByIndex(0)->getIdentifier(),'field1');
-				
-		foreach ($displayFields as $field) {
-			$GLOBALS['trace'] = 1;	trace($field->getIdentifier() ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
-		}
    }
 
    
