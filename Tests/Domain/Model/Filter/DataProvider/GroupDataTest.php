@@ -36,7 +36,15 @@
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
 	
-	protected $defaultFilterSettings;
+	protected $defaultFilterSettings = array(
+               'filterIdentifier' => 'test', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+               'partialPath' => 'Filter/SelectFilter',
+               'fieldIdentifier' => 'field1',
+               'displayFields' => 'field1,field2',
+               'filterField' => 'field3',
+               'invert' => '0'
+       		 );
 	
 	
 	
@@ -87,6 +95,59 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
    }  
    
    
+   /**
+    * @test
+    */
+   public function displayFieldsEqualsFieldIdentifierIfNotSet() {
+   		$settings = $this->defaultFilterSettings;
+   		unset($settings['displayFields']);
+		
+   		$groupDataProvider = $this->buildAccessibleGroupDataProvider($settings);
+		$displayFields = $groupDataProvider->_GET('displayFields');
+		
+		$this->assertEquals($displayFields->count(),1);
+		$this->assertEquals($displayFields->getItemByIndex(0)->getIdentifier(),'field1');
+   }
+
+   
+    /**
+    * @test
+    */
+   public function displayFieldSetExplicitly() {
+		$groupDataProvider = $this->buildAccessibleGroupDataProvider();
+		$displayFields = $groupDataProvider->_GET('displayFields');
+		
+		$this->assertEquals($displayFields->count(),2);
+		$this->assertEquals($displayFields->getItemByIndex(1)->getIdentifier(),'field2');
+   }
+
+   
+   
+   /**
+    * @test
+    */
+   public function filterFieldsEqualFirstFieldIdentifierIfNotSet() {
+		$settings = $this->defaultFilterSettings;
+   		unset($settings['filterField']);
+		
+   		$groupDataProvider = $this->buildAccessibleGroupDataProvider($settings);
+		$filterField = $groupDataProvider->_GET('filterField');
+		
+		$this->assertEquals($filterField->getIdentifier(),'field1');
+   }
+   
+   
+   
+   /**
+    * @test
+    */
+   public function filterFieldSetExplicitly() {
+   		$groupDataProvider = $this->buildAccessibleGroupDataProvider();
+		$filterField = $groupDataProvider->_GET('filterField');
+		
+		$this->assertEquals($filterField->getIdentifier(),'field3');
+   }
+   
    
    protected function buildAccessibleGroupDataProvider($filterSettings) {
    		
@@ -115,6 +176,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
    		$accesibleGroupDataProvider->init();
    		
    		return $accesibleGroupDataProvider;
-   }
+   }  
 }
 ?>
