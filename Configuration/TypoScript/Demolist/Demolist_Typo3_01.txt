@@ -279,6 +279,15 @@ plugin.tx_ptextlist.settings {
 						invertable = 0
 					}
 					
+					35 < plugin.tx_ptextlist.prototype.filter.select
+					35 {
+						filterIdentifier = capitalFilter
+						label = Capital
+						fieldIdentifier = capital
+						inactiveOption = [ALL]
+						showRowCount = 0
+					}
+					
 					40 < plugin.tx_ptextlist.prototype.filter.dateRange
                     40 {
                         filterIdentifier = isoRangeFilter
