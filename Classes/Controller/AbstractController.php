@@ -64,7 +64,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * Constructor for all plugin controllers
 	 */
 	public function __construct() {
-		$this->lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
+		$this->lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
 		parent::__construct();
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
@@ -92,10 +92,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 								? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
 								: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
 		} else {
-			$sessionStorageClass = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+			$sessionStorageClass = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
 		}		
 		
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
 		
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
@@ -196,7 +196,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		
 		if(TYPO3_MODE === 'BE') {
 			// if we are in BE mode, this ist the last line called
-			Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance()->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
+			Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance()->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
 		}
 	}
 	
@@ -234,8 +234,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
     protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303) {
     	// TODO WTF: The line below should call this line, but it seems as it doesn't!
-    	Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->persist();
-    	$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
+    	Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->persist();
+    	$this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
         parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
     }
     
