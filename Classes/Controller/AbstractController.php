@@ -99,7 +99,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
-    
+
+	
 		
 	/**
 	 * @param Tx_Extbase_MVC_View_ViewInterface $view
