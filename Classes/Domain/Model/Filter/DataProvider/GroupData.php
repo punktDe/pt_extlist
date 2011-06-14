@@ -106,9 +106,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
         	$displayFields = t3lib_div::trimExplode(',', $displayFieldSettings);
         	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($displayFields);
         } else {
-        	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection();
+        	$fieldIdentifierList = t3lib_div::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
+        	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($fieldIdentifierList);
         }	
-        
 	}
 
 	
