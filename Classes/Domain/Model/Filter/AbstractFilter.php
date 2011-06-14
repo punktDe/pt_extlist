@@ -366,8 +366,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * I you want to change the way, a filter initializes itsel, you have
 		 * to override init() in your own filter implementation!
 		 */
-
 	    $this->initGenericFilterByTSConfig();
+
 	    
 	    // We only want to reset a filter to its TS default value, if TS configuration says so
 		if (!$initAfterReset || ($initAfterReset && $this->filterConfig->getResetToDefaultValue())) {
