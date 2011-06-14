@@ -1,4 +1,10 @@
 plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
+
+
+    * {
+        font-family: verdana;
+        font-size: 12px;
+    }
 	
 	
 	/* List */
@@ -56,10 +62,12 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 		margin-bottom: 20px;
 		padding: 5px;
 		overflow: hidden;
+		background-color: #eee;
 	}
 	
 	.tx-ptextlist-filterboxcontrols {
-		float: left;
+		/* float: left; */
+		clear: both;
 		padding: 18px 0 0 10px;
 	}
 
@@ -69,8 +77,11 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	.tx-ptextlist-filter {
 		float: left;
-		padding: 3px;
+		margin: 20px;
+		padding: 10px;
 		list-style-type: none;
+		background-color: #ccc;
+		border: 1px solid #AFAFAF;
 	}
 
 
@@ -89,6 +100,14 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	
 	/* Pager */
+	.tx-ptextlist-pager-wrapper {
+	    border: 1px solid #BFBFBF;
+        margin-top: 20px;
+        padding: 5px;
+        overflow: hidden;
+        background-color: #eee;
+	}
+	
 	.tx-ptextlist-pager {
 		margin-left: 0;
 		text-align: center;
