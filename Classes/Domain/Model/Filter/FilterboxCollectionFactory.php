@@ -58,9 +58,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 			
 			foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterboxConfiguration */
 				$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
-	
 				$filterboxCollection->addFilterBox($filterbox, $filterbox->getfilterboxIdentifier());
 			}
+			
 			self::$instances[$configurationBuilder->getListIdentifier()] = $filterboxCollection;
 		}
 		return self::$instances[$configurationBuilder->getListIdentifier()];
