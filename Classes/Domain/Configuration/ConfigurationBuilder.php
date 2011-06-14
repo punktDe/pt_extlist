@@ -48,6 +48,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
 	    'aggregateRows' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
+	    'base' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'),
 	    'bookmarks' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory',
 	    		  'prototype' => 'bookmarks'),
@@ -76,6 +78,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	    'rendererChain' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
 	    		  'prototype' => 'rendererChain'),
+	    'breadCrumbs' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
+	    	      'tsKey' => 'breadCrumbs')
 	);
 	
 	
@@ -109,9 +114,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 * 
 	 * @param array $settings  Settings of extension
 	 */
-	public function __construct(array $settings) {	
+	public function __construct(array $settings, $listIdentifier = NULL) {	
 		$this->setProtoTypeSettings($settings);
-		$this->setListIdentifier($settings);
+		$this->setListIdentifier($settings, $listIdentifier);
 		$this->origSettings = $settings;
 		$this->mergeAndSetGlobalAndLocalConf();
 	}
@@ -134,19 +139,23 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 *
 	 * @param array $settings
 	 */
-	protected function setListIdentifier($settings) {
+	protected function setListIdentifier($settings, $listIdentifier = NULL) {
 		
-		if(!array_key_exists($settings['listIdentifier'], $settings['listConfig'])) {
+		if(!$listIdentifier) {
+			$listIdentifier = $settings['listIdentifier'];
+		}
+		
+		if(!array_key_exists($listIdentifier, $settings['listConfig'])) {
 			if(count($settings['listConfig']) > 0) {
 				$helpListIdentifier = 'Available list configurations on this page are: ' . implode(', ', array_keys($settings['listConfig'])) . '.';
 			} else {
 				$helpListIdentifier = 'No list configurations available on this page.';
 			}
-			throw new Exception('No list configuration can be found for list identifier "' . $settings['listIdentifier'] . '" 1278419536' . '<br>' . $helpListIdentifier);
+			throw new Exception('No list configuration can be found for list identifier "' . $listIdentifier . '" 1278419536' . '<br>' . $helpListIdentifier);
 		}
 
-        $this->listIdentifier = $settings['listIdentifier'];    
-	}	
+        $this->listIdentifier = $listIdentifier;    
+	}		
 
     
     
@@ -259,6 +268,17 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
     
     
    /**
+     * Returns base configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+     */
+    public function buildBaseConfiguration() {
+        return $this->buildConfigurationGeneric('base');
+    }
+    
+    
+    
+   /**
      * Returns bookmarks configuration
      *
      * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
@@ -291,10 +311,21 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
     /**
      * Returns a list configuration object
      * 
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfiguration
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
      */
     public function buildListConfiguration() {
     	return $this->buildConfigurationGeneric('list');
+    }
+    
+    
+    
+    /**
+     * Returns a breadcrumbs configuration object
+     *
+     * @return unknown
+     */
+    public function buildBreadCrumbsConfiguration() {
+    	return $this->buildConfigurationGeneric('breadCrumbs');
     }
     
 }

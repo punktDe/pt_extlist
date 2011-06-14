@@ -204,7 +204,10 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
-		return array('page' => $this->currentPage);
+		// TODO why is first page not stored to session?
+		#if($this->currentPage != 1) {
+			return array('page' => $this->currentPage);	
+		#}
 	}
 
 

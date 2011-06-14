@@ -56,30 +56,14 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			}
 			
 			if(!$nameSpace) {
-				$argumentArray = $this->buildObjectValueArray($object, $key, $value);
+				$argumentArray = array_merge_recursive($argumentArray, $this->buildObjectValueArray($object, $key, $value));
 			} else {
-				$argumentArray = $this->buildNamespaceValueArray($nameSpace, $key, $value);
+				$argumentArray = array_merge_recursive($argumentArray, $this->buildNamespaceValueArray($nameSpace, $key, $value));
 			}
 		}
 
-		$this->addStateHash($argumentArray);
+		Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
 		return $argumentArray;
-	}
-	
-	
-	
-	/**
-	 * Add the stateHash to the argumentArray, used to identifiy the current state if the
-	 * list operates in no-session-mode
-	 * 
-	 * @param array $argumentArray
-	 */
-	public function addStateHash(&$argumentArray) {
-		$extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
-		
-		if($extBaseContext->isInCachedMode()) {
-			$argumentArray['state'] = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
-		}
 	}
 	
 	

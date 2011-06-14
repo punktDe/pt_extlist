@@ -64,6 +64,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * Constructor for all plugin controllers
 	 */
 	public function __construct() {
+		$this->lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
 		parent::__construct();
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
@@ -86,8 +87,57 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
 		
+		if(TYPO3_MODE === 'FE') { 
+			$sessionStorageClass = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() 
+								? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
+								: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
+		} else {
+			$sessionStorageClass = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+		}		
+		
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
+		
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
+    
+		
+	/**
+	 * @param Tx_Extbase_MVC_View_ViewInterface $view
+	 * @return void
+	 */
+	protected function setViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+		parent::setViewConfiguration($view);
+		$this->setCustomPathsInView($view);  
+	}
+	
+	
+    
+    /**
+     * Resolve the viewObjectname in the following order
+     * 
+     * 1. TS-defined
+     * 2. Determined by Controller/Action/Format
+     * 3. Extlist BaseView 
+     * 
+     * @throws Exception
+     * @return string
+     */
+    protected function resolveViewObjectName() {
+   	
+    	$viewClassName = $this->resolveTsDefinedViewClassName();
+    	if($viewClassName) {
+    		return $viewClassName;
+		} 
+		
+		$viewClassName = parent::resolveViewObjectName();
+  		if($viewClassName) {
+			return $viewClassName;
+		}
+		
+		else {
+			return 'Tx_PtExtlist_View_BaseView';
+		}
+    }
     
     
     
@@ -135,5 +185,60 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
         return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
     }
 
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_ActionController::processRequest()
+	 */
+	public function processRequest(Tx_Extbase_MVC_RequestInterface $request, Tx_Extbase_MVC_ResponseInterface $response) {
+		parent::processRequest($request, $response);
+		
+		if(TYPO3_MODE === 'BE') {
+			// if we are in BE mode, this ist the last line called
+			Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance()->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
+		}
+	}
+	
+	
+	
+	/**
+	 * Set the TS defined custom paths in view
+	 * 
+	 * @param Tx_Extbase_MVC_View_ViewInterface $view
+	 * @throws Exception
+	 */
+	protected function setCustomPathsInView(Tx_Extbase_MVC_View_ViewInterface $view) {
+		
+		$templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+		
+		if(!$templatePathAndFilename) {
+			$templatePathAndFilename = $this->templatePathAndFileName;
+		}
+		
+		if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
+			
+			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { 
+                $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
+			} else {
+				throw new Exception('Given template path and filename could not be found or resolved: ' . $templatePathAndFilename . ' 1284655109');
+			}
+        }		
+	}
+	
+	
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::redirect()
+	 */
+    protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303) {
+    	// TODO WTF: The line below should call this line, but it seems as it doesn't!
+    	Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->persist();
+    	$this->lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::END);
+        parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
+    }
+    
 }
+
 ?>

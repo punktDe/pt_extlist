@@ -83,7 +83,11 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory {
 			foreach($filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
 				foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 					if ($filter->isActive()) {
-						$breadCrumbCollection->addBreadCrumb($filter->getFilterBreadCrumb());
+						$breadcrumb = $filter->getFilterBreadCrumb();
+						if ($breadcrumb !== null) {
+							// TODO at the moment, proxy filters generate a null breadcrumb. Fix this!
+						    $breadCrumbCollection->addBreadCrumb($breadcrumb);
+						}
 					}
 				}
 			}

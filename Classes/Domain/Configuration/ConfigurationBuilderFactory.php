@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
 			}
         
-            self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings);
+            self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings, $listIdentifier);
         }
         
         return self::$instances[$listIdentifier];

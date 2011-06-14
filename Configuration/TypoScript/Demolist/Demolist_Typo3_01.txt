@@ -105,7 +105,7 @@ plugin.tx_ptextlist.settings {
 				# Set the dataDescriptions this columns refers to
 				# the dataDescriptionIdentifier is a single reference to a dataDescription if type is default
 				# or a csl list of referencs if type is "virtual"
-				fieldIdentifier = name_local, name_en, countryuid, uno_member
+				fieldIdentifier = name_en, countryuid, uno_member
 
 				# a column is sortable if "isSortable" is set to 1 _and_
 				# all sortingColumns entries this column refers to are sortable too
@@ -113,7 +113,7 @@ plugin.tx_ptextlist.settings {
 
 				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
 				# if not set, the first entry in dataDescriptionIdentifier will be used
-				sorting = name_local
+				sorting = name_en
 
 				renderObj = COA
 				renderObj {
@@ -122,21 +122,14 @@ plugin.tx_ptextlist.settings {
 						value.data = field:uno_member
 						equals = 1
 					}
-					5.file = EXT:pt_list/typoscript/static/demolist/un.gif
+					5.file = EXT:pt_extlist/Resources/Public/Images/un.gif
 					5.stdWrap.typolink.parameter = http://www.un.org
 					5.stdWrap.typolink.ATagParams = class="un-link"
 
 					10 = TEXT
 					10.data = field:name_en
-					10.append = TEXT
-					10.append {
-						data = field:name_local
-						if {
-							value.data = field:name_local
-							equals.data = field:name_en
-							negate = 1
-						}
-					}
+					
+					/*
 					10.append.noTrimWrap = | (|)|
 					10.wrap3 = |&nbsp;
 
@@ -144,6 +137,7 @@ plugin.tx_ptextlist.settings {
 					20.value = Details
 					20.typolink.parameter = 1
 					20.typolink.additionalParams.dataWrap = &tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
+					*/ 
 				}
 			}
 
@@ -226,7 +220,9 @@ plugin.tx_ptextlist.settings {
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
-						filterIdentifier = filter1
+						filterIdentifier = contryNameFilter
+						defaultValue = a
+						resetFilterToDefault = 0
 						label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
 						fieldIdentifier = name_local			
 					}
@@ -240,7 +236,7 @@ plugin.tx_ptextlist.settings {
 
 					15 < plugin.tx_ptextlist.prototype.filter.max
 					15 {
-						filterIdentifier = filter15
+						filterIdentifier = maxPhoneFilter
 						label = Max Phone
 						fieldIdentifier = phone
 						accessGroups = 3
@@ -248,7 +244,7 @@ plugin.tx_ptextlist.settings {
 
 					20 < plugin.tx_ptextlist.prototype.filter.checkbox
 					20 {
-						filterIdentifier = filter2
+						filterIdentifier = continentCheckboxFilter
 						label = Continent
 						fieldIdentifier = continent
 						filterField = continent
@@ -263,12 +259,14 @@ plugin.tx_ptextlist.settings {
 
 					30 < plugin.tx_ptextlist.prototype.filter.select
 					30 {
-						filterIdentifier = filter3
+						filterIdentifier = subContinentSelectFilter
 						label = Subcontinent
 						fieldIdentifier = subcontinent
 						filterField = subcontinent
 						displayFields = continent, subcontinent
-						multiple = 0
+						multiple = 1
+						resetToDefaultValue = 1
+						defaultValue = Caribbean
 						showRowCount = 1
 						#excludeFilters = filterbox1.filter1
 						submitOnChange = 0
@@ -279,7 +277,7 @@ plugin.tx_ptextlist.settings {
 					
 					40 < plugin.tx_ptextlist.prototype.filter.dateRange
                     40 {
-                        filterIdentifier = filter4
+                        filterIdentifier = isoRangeFilter
                         label = ISO-Range
                         fieldIdentifier = isoNo
                     }
@@ -287,7 +285,7 @@ plugin.tx_ptextlist.settings {
 					#50 < plugin.tx_ptextlist.prototype.filter.proxy
 					#50 {
 					#	filterIdentifier = continentProxy
-					#	proxyPath = demoListProxyFilter.filterbox1.continent
+					#	proxyPath = demoListProxyFilter.filterbox1.continentCheckboxFilter
 					#	fieldIdentifier = continent
 					#}
 				}
@@ -299,7 +297,7 @@ plugin.tx_ptextlist.settings {
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.firstLetter
 					10 {
-						filterIdentifier = filter4
+						filterIdentifier = firstLetterFilter
 						label = Capital
 						fieldIdentifier = capital
 					}
@@ -335,7 +333,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 			filterConfigs {
 				10 < plugin.tx_ptextlist.prototype.filter.select
 				10 {
-					filterIdentifier = continent
+					filterIdentifier = continentProxyFilter
 					label = Subcontinent
 					fieldIdentifier = continent
 					filterField = continent

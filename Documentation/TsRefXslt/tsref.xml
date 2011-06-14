@@ -297,6 +297,17 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
+        <ENTRY REF="filter.resetToDefaultValue" KEY="resetToDefaultValue">
+            <DESCRIPTION>If a default value for a filter is set in TypoScript, the filter will be set to this value if it is resetted. If this is set to 0, the filter will be resetted to an empty value.</DESCRIPTION>
+            <DATATYPE>Boolean</DATATYPE>
+            <POSIBLEVALUES>0,1</POSIBLEVALUES>
+            <DEFAULT>0</DEFAULT>
+            <COBJ></COBJ>
+            <PROTOTYPE></PROTOTYPE>
+            <EXAMPLE></EXAMPLE>
+            <CHILDREN></CHILDREN>
+            <VARIANT></VARIANT>
+        </ENTRY>
 		<ENTRY REF="filter.inactiveOption" KEY="inactiveOption">
 			<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
@@ -362,6 +373,47 @@ plugin.tx_ptextlist.settings {
 	}
 }]]></EXAMPLE>
 					<CHILDREN>
+						<ENTRY KEY="base">
+							<DESCRIPTION>Basic settings for pt_extlist</DESCRIPTION>
+							<DATATYPE></DATATYPE>
+							<POSIBLEVALUES></POSIBLEVALUES>
+							<DEFAULT></DEFAULT>
+							<COBJ></COBJ>
+							<PROTOTYPE></PROTOTYPE>
+							<EXAMPLE></EXAMPLE>
+							<CHILDREN>
+								<ENTRY KEY="uncachedSessionStorageAdapter">
+									<DESCRIPTION>Define the session storage adapter that should be used in uncached mode. Posible values are the classes described below or any other class that implements the interface tx_pttools_iStorageAdapter.</DESCRIPTION>
+									<DATATYPE>String</DATATYPE>
+									<POSIBLEVALUES><![CDATA[
+tx_pttools_sessionStorageAdapter: Default browser session storage adapter.
+tx_pttools_feUsersessionStorageAdapter: TYPO3 fe_user bases session storage.
+]]></POSIBLEVALUES>
+									<DEFAULT>tx_pttools_sessionStorageAdapter</DEFAULT>
+									<COBJ></COBJ>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+								<ENTRY KEY="cachedSessionStorageAdapter">
+									<DESCRIPTION>Define the session storage adapter that should be used in cached mode. Posible values are the classes described below or any other class that implements the interface tx_pttools_iStorageAdapter.</DESCRIPTION>
+									<DATATYPE>String</DATATYPE>
+									<POSIBLEVALUES><![CDATA[
+Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter: Hold every session variable as GET parameters in the URL. Use this adapter if you want to use realURL.
+Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter: Save the session variables into the database and add an identifier for this db-entry to the GET variables. Use this adapter if you want to handle many parameters and keep the URL length constant.
+]]></POSIBLEVALUES>
+									<DEFAULT>Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter</DEFAULT>
+									<COBJ></COBJ>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+							</CHILDREN>
+							<VARIANT></VARIANT>
+						</ENTRY>
+						
 						<ENTRY KEY="[yourListId]">
 							<DESCRIPTION>Holds configuration for a single list identifier. This is where the main part of your list configuration has to be set up.</DESCRIPTION>
 							<EXAMPLE><![CDATA[

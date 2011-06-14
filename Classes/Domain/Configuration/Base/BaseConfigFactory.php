@@ -27,65 +27,27 @@
  ***************************************************************/
 
 /**
- * Class implements configuration for list defaults
+ * Class implements factory for basic configuration
  *
  * @package Domain
- * @subpackage Configuration\List
+ * @subpackage Configuration\Base
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	/**
-	 * @var string 
-	 */
-	protected $headerPartial;
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $bodyPartial;
-	
-	
-	/**
-	 * @var string headerPartial
-	 */
-	protected $aggregateRowsPartial;
-	
-	
-	/**
-	 * Set the properties
-	 */
-	protected function init() {
-		$this->setValueIfExistsAndNotNothing('headerPartial');
-		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-	}
 
-
-	/**
-	 * @return string
-	 */
-	public function getHeaderPartial() {
-		return $this->headerPartial;
-	}
-	
-	
+class Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory {
 	
 	/**
-	 * @return string
+	 * Returns a instance of a base configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
 	 */
-	public function getBodyPartial() {
-		return $this->bodyPartial;		
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getAggregateRowsPartial() {
-		return $this->aggregateRowsPartial;
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		
+		$baseSettings = $configurationBuilder->getSettingsForConfigObject('base');
+		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($configurationBuilder, $baseSettings);
+		
+		return $baseConfig;
 	}
 }
 ?>

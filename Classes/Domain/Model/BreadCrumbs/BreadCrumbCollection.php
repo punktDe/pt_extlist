@@ -103,7 +103,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtEx
 
 
 	/**
-	 *
+	 * 
 	 *
 	 */
 	public function resetFilters() {

@@ -58,11 +58,7 @@ class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends Tx_Fluid_Core_ViewHe
 	 */
 	public function render($action = NULL, array $arguments = array(), $controller = NULL, $extensionName = NULL, $pluginName = NULL, $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
 		
-	    $extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
-		
-		if($extBaseContext->isInCachedMode()) {
-			$arguments['state'] = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
-		}
+	    Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
 		
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		$uri = $uriBuilder

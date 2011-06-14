@@ -33,6 +33,26 @@
 			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
 			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
 			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
+
+			<label index="tx_ptextlist_flexform_controllerAction.Filterbox_show">Filterbox</label>
+			<label index="tx_ptextlist_flexform_controllerAction.List_list">List</label>
+			<label index="tx_ptextlist_flexform_controllerAction.Pager_show">Pager</label>
+			<label index="tx_ptextlist_flexform_controllerAction.List_export">Export</label>
+			<label index="tx_ptextlist_flexform_controllerAction.BreadCrumbs_index">Breadcrumbs</label>
+			<label index="tx_ptextlist_flexform_controllerAction.Bookmarks_show">Bookmarks</label>
+			
+			<label index="tx_ptextlist_flexform_listIdentifier">List Identifier</label>
+			<label index="tx_ptextlist_flexform_controllerAction">Plugin Mode</label>
+			<label index="tx_ptextlist_flexform_filterBox">Filter Box</label>
+			
+			<label index="tx_ptextlist_flexform_export.type">Export Type</label>
+			<label index="tx_ptextlist_flexform_export.filename">Export Filename</label>
+			<label index="tx_ptextlist_flexform_export.downloadtype">Export Download Type</label>
+
+			<label index="tx_ptextlist_flexform_export.downloadtype.D">Force download</label>
+			<label index="tx_ptextlist_flexform_export.downloadtype.I">Try to show in browser</label>
+			
+			
 		</languageKey>
 		
 		<languageKey index="de" type="array">

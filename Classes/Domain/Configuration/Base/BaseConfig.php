@@ -27,47 +27,41 @@
  ***************************************************************/
 
 /**
- * Class implements configuration for list defaults
+ * Class implements basic configuration parameters
  *
  * @package Domain
- * @subpackage Configuration\List
+ * @subpackage Configuration\Base
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
+class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
+
 	/**
-	 * @var string 
-	 */
-	protected $headerPartial;
-	
-	
-	/**
+	 * Session storage adapter for a uncached plugin
 	 * @var string
 	 */
-	protected $bodyPartial;
+	protected $uncachedSessionStorageAdapter;
 	
 	
 	/**
-	 * @var string headerPartial
+	 * Session storage adapter for a cached plugin
+	 * 
+	 * @var string
 	 */
-	protected $aggregateRowsPartial;
+	protected $cachedSessionStorageAdapter;
+	
 	
 	
 	/**
-	 * Set the properties
+	 * @var bool
 	 */
+	protected $useSession;
+	
+	
 	protected function init() {
-		$this->setValueIfExistsAndNotNothing('headerPartial');
-		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getHeaderPartial() {
-		return $this->headerPartial;
+		
+		$this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
+		$this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
+		$this->useSession = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() ? false : true;
 	}
 	
 	
@@ -75,8 +69,8 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	/**
 	 * @return string
 	 */
-	public function getBodyPartial() {
-		return $this->bodyPartial;		
+	public function getCachedSessionStorageAdapter() {
+		return $this->cachedSessionStorageAdapter;
 	}
 	
 	
@@ -84,8 +78,17 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	/**
 	 * @return string
 	 */
-	public function getAggregateRowsPartial() {
-		return $this->aggregateRowsPartial;
+	public function getUncachedSessionStorageAdapter() {
+		return $this->uncachedSessionStorageAdapter;	
+	}
+	
+	
+	
+	/**
+	 * @return bool
+	 */
+	public function getUseSession() {
+		return $this->useSession;
 	}
 }
 ?>

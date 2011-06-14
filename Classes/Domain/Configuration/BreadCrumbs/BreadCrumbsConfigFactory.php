@@ -27,65 +27,25 @@
  ***************************************************************/
 
 /**
- * Class implements configuration for list defaults
+ * Factory to create configs for list defaults
  *
  * @package Domain
- * @subpackage Configuration\List
- * @author Daniel Lienert 
+ * @subpackage Configuration\BreadCrumbs
+ * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	/**
-	 * @var string 
-	 */
-	protected $headerPartial;
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $bodyPartial;
-	
-	
-	/**
-	 * @var string headerPartial
-	 */
-	protected $aggregateRowsPartial;
-	
-	
-	/**
-	 * Set the properties
-	 */
-	protected function init() {
-		$this->setValueIfExistsAndNotNothing('headerPartial');
-		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-	}
 
-
-	/**
-	 * @return string
-	 */
-	public function getHeaderPartial() {
-		return $this->headerPartial;
-	}
-	
-	
+class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory {
 	
 	/**
-	 * @return string
+	 * Returns a instance of the breadcrumbs configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
 	 */
-	public function getBodyPartial() {
-		return $this->bodyPartial;		
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return new Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
 	}
 	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getAggregateRowsPartial() {
-		return $this->aggregateRowsPartial;
-	}
 }
+
 ?>

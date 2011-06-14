@@ -43,32 +43,81 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 */
 	protected $fieldIdentifier;
 	
+
+	/**
+	 * @var string
+	 */
 	protected $proxyListIdentifier;
+
 	
+	/**
+	 * @var string
+	 */
 	protected $proxyFilterBoxIdentifier;
 	
+
+	/**
+	 * @var string
+	 */
 	protected $proxyFilterIdentifier;
 	
+	
+	/**
+	 * @var string
+	 */
 	protected $proxyFilterClass;
+	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
 	protected function initFilter() {}
-
+	
 	
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteria()
+	 * Copy the filter query from realFilter 
 	 */
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
+	protected function buildFilterQuery() {
+		$realFilterObject = $this->getRealFilterObject();
+		$this->filterQuery = $this->buildProxyQuery($realFilterObject->getFilterQuery());
+	}
 	
 	
+	
+	/**
+	 * Set the fieldIdentifier of the proxy filter as fieldIdentifier in the filterQuery
+	 * 
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $filterQuery
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query $proxyQuery
+	 */
+	protected function buildProxyQuery(Tx_PtExtlist_Domain_QueryObject_Query $filterQuery) {
+		$proxyQuery = new Tx_PtExtlist_Domain_QueryObject_Query(); 
+		$criterias = $filterQuery->getCriterias();
+		
+		foreach($criterias as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+			if(get_class($criteria) != 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria') {
+				throw new Exception('Only simple criterias are supported at the moment in proxy filters. 1302864386');
+			}
+			
+			$proxyQuery->addCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($this->filterConfig->getFieldIdentifier()->getItemByIndex(0)->getTableFieldCombined(), 
+																						$criteria->getValue(), 
+																						$criteria->getOperator()));
+		}
+		
+		return $proxyQuery;
+	}
+
+	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
 	 */
-	protected function setActiveState() {}
+	protected function setActiveState() {
+		$this->isActive = true;
+	}
+	
 	
 	
 	/**
@@ -88,11 +137,11 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	
 	public function reset() {}
 	
-	public function getFilterBreadCrumb() {}
-	
 	public function getFilterValueForBreadCrumb() {}
 	
 	public function persistToSession() {}
+	
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
 	
 	
 	/**
@@ -107,6 +156,8 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	}
 	
 	
+	
+	
 	protected function setProxyConfigFromProxyPath($proxyPath) {
 		list($this->proxyListIdentifier, $this->proxyFilterBoxIdentifier, $this->proxyFilterIdentifier) = explode('.', $proxyPath);
 		
@@ -116,19 +167,52 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	}
 	
 	
+	
 	/**
 	 * Get the Configurationbuilder for the real list
 	 * 
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected function getConfigurationBuilderForRealList() {
-		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
+		
+		if($configurationBuilder->getListIdentifier() != $this->proxyListIdentifier) {
+			throw new Exception('Tried to get configurationBuilder for listIdentifier ' . $this->proxyListIdentifier . ', but got ' . $configurationBuilder->getListIdentifier());
+		}
+		
+		return $configurationBuilder;
 	}
 	
+	
+	
+	/**
+	 * Get the real filter object from realList
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface $realFilterObject
+	 * @throws Exception
+	 */
 	protected function getRealFilterObject() {
 		$realFilterConfig = $this->getRealFilterConfig();
-		$realFilter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($realFilterConfig);
+		$realFilterObject = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($realFilterConfig);
+		
+		if(!is_a($realFilterObject, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface')) {
+			throw new Exception('The real filter object of type "'.get_class($realFilterObject).'" is not a filter. 1302854030');
+		}
+		
+		return $realFilterObject;
 	}
+	
+	
+	
+	/**
+	 * Returns filter breadcrumb of proxied filter
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 */
+	public function getFilterBreadCrumb() {
+		return $this->getRealFilterObject()->getFilterBreadCrumb();
+	}
+	
 	
 	
 	/**

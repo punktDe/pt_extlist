@@ -74,42 +74,19 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     public function persistToSession() {
         return array('filterValue' => $this->filterValue, 'invert' => $this->invert);
     }
-    
-    
-    
-    /**
-     * Resets filter to its default values
-     * 
-     * @return void
-     */
-    public function reset() {
-        $this->filterValue = '';
-        $this->resetSessionDataForFilter();
-        $this->resetGpVarDataForFilter();
-        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-        $this->init();
-    }
-    
+
     
     
     /**
-     * Resets session data for this filter
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
      */
-    protected function resetSessionDataForFilter() {
-        $this->sessionFilterData = array();
-    }
-    
-    
-    
-    /**
-     * Resets get/post var data for this filter
-     */
-    protected function resetGpVarDataForFilter() {
-        $this->gpVarFilterData = array();
-    }
-    
-    
-    
+	public function reset() {
+		$this->filterValue = '';
+		parent::reset();
+	}
+	
+      
     /**
      * Returns an error message for this filter
      *

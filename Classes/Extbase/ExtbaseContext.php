@@ -39,9 +39,9 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	
 	
 	/**
-	 * @var bool;
+	 * @var bool isInCachedMode
 	 */
-	protected $inCachedMode;
+	protected $isInCachedMode = false;
 	
 	
 	/**
@@ -71,9 +71,6 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	protected $configurationManager;
 	
 	
-	
-	
-	
 	/**
 	 * Initialize the object (called by objectManager)
 	 * 
@@ -83,14 +80,14 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 		
 		$this->extensionName = $frameWorkKonfiguration['extensionName'];
 		$this->extensionNameSpace = Tx_Extbase_Utility_Extension::getPluginNamespace($frameWorkKonfiguration['extensionName'], 
-																						$frameWorkKonfiguration['pluginName']); 
+																						$frameWorkKonfiguration['pluginName']);
 		
-		$this->inCachedMode = $frameWorkKonfiguration['pluginName'] == 'Cached' ? true : false;
+		$this->isInCachedMode = $frameWorkKonfiguration['pluginName'] == 'Cached' ? true : false;
+		
 		$this->currentListIdentifier = $frameWorkKonfiguration['settings']['listIdentifier'];
 		
 		unset($frameWorkKonfiguration);
 	}
-	
 	
 	
 	/**
@@ -124,24 +121,29 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	
 	
 	/**
+	 * @return string constant
+	 */
+	public function getSessionStorageMode() {
+		return $this->sessionStorageMode;
+	}
+	
+	
+	/**
 	 * @return bool
 	 */
 	public function isInCachedMode() {
-		return $this->inCachedMode;
+		return $this->isInCachedMode;
 	}
 	
 	
 	
 	/**
-	 * Set the cached mode for the complete extension.
-	 * This is autmatically set when extlsit is used as standalone extension
-	 * 
-	 * @param bool $inCachedMode
+	 * @param bool $isInCachedMode
 	 */
-	public function setInCachedMode($inCachedMode) {
-		$this->inCachedMode = $inCachedMode;
+	public function setInCachedMode($isInCachedMode) {
+		$this->isInCachedMode = $isInCachedMode;
 	}
-	
+
 	
 	
 	/**
@@ -168,6 +170,5 @@ class Tx_PtExtlist_Extbase_ExtbaseContext implements t3lib_Singleton {
 	public function getExtensionName() {
 		return $this->extensionName;
 	}
-	
 }
 ?>

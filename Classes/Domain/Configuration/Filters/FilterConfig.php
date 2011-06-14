@@ -251,6 +251,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	
 	
 	/**
+	 * If set to true, filter will set default value given in TS after resetting
+	 *
+	 * @var bool
+	 */
+	protected $resetToDefaultValue = false;
+	
+	
+	
+	/**
 	 * Build the filterconfig object
 	 * 
 	 * @param array $settings
@@ -271,10 +280,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		// required
 		$this->setRequiredValue('filterboxIdentifier', 'Filterbox identifier must not be empty. 1277889652');
 		$this->setRequiredValue('filterIdentifier', 'No filterIdentifier specified in config. 1277889452');
-		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552');
-		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
+		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterClassName . '. 1277889552');
+		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->fieldIdentifier . ' 1280762513');
 		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key partialPath). 1281013746');
-		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->filterIdentifier . ' 1280762513');
 		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
 		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 		
@@ -282,6 +290,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('invert');
 		$this->setBooleanIfExistsAndNotNothing('invertable');
 		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
+		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
 		$this->setValueIfExists('inactiveOption');
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
@@ -544,6 +553,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 */
 	public function getBreadCrumbString() {
 		return $this->breadCrumbString;
+	}
+	
+	
+	
+	/**
+	 * Returns true, if filter should reset to default TS value after resetting
+	 *
+	 * @return bool
+	 */
+	public function getResetToDefaultValue() {
+		return $this->resetToDefaultValue;
 	}
 	
 	
