@@ -85,7 +85,7 @@
  		/* First test: GP vars holds value for filter --> gp var value should be returned */
         $filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
         $filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( 
-        $this->configurationBuilderMock,
+           $this->configurationBuilderMock,
            array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->injectGPVars(array('filterValue' => 'gpVarsValue'));
         $filter->init();
