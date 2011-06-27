@@ -93,6 +93,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	public function testGetSetCurrentBookmark() {
+		
+		$this->markTestIncomplete();
+		
 		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager');
 		
 		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
