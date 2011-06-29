@@ -197,6 +197,23 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
+	tagCloud {
+		partialPath = Filter/Options/TagCloud
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter
+		
+		label = 
+		fieldIdentifier =
+		
+		maxItems = 20
+		
+		minColor = #b8cffa
+		maxColor = #1c448d
+		
+		# minSize / maxSize as fontSize in pixel 
+		minSize = 9
+		maxSize = 24
+	}
+	
 	proxy {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_ProxyFilter
 		partialPath = Filter/Special/ProxyFilter
