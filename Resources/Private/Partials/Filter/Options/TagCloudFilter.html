@@ -1,0 +1,50 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering a firstLetter filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      Holds an instance for the group filter object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<div class="outer-wrapper">
+	
+	<f:if condition="{filter.validate} == 0">
+		<div class="error">
+			Validation Error: {filter.errorMessage}
+		</div>
+	</f:if>
+	
+	<label for="{filter.filterIdentifier}" class="filter-label">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+		<ul>
+			<f:for each="{filter.options}" key="optionValue" as="option">
+				<li class="tx-ptextlist-filter-firstLetter">
+					<div class="field-wrapper type-content">
+						<f:if condition="{option.selected}"><span class="selected"></f:if>
+						<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
+						<f:if condition="{option.selected}"></span></f:if>
+					</div>
+				</li>
+			</f:for>
+		</ul>
+		<f:if condition="{filter.filterConfig.invertable}">
+			<div class="field-wrapper type-checkbox">
+				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<label>
+					Invert
+				</label>
+			</div>
+		</f:if>
+		
+	</div>
+</div>

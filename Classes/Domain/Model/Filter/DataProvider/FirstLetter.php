@@ -95,7 +95,5 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends  Tx_PtEx
 		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
 		return $option;
 	}
-	
-	
 }
 ?>

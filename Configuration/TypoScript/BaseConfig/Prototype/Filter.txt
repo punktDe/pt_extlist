@@ -198,11 +198,13 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 
 	tagCloud {
-		partialPath = Filter/Options/TagCloud
+		partialPath = Filter/Options/TagCloudFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter
 		
+		filterIdentifier =
 		label = 
 		fieldIdentifier =
+		countFieldIdentifier = 
 		
 		maxItems = 20
 		
@@ -212,6 +214,11 @@ plugin.tx_ptextlist.prototype.filter {
 		# minSize / maxSize as fontSize in pixel 
 		minSize = 9
 		maxSize = 24
+		
+		renderObj = TEXT
+		renderObj {
+			dataWrap = {field:allDisplayFields}
+		}
 	}
 	
 	proxy {

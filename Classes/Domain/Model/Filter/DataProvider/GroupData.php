@@ -191,6 +191,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 		foreach($this->displayFields as $displayField) {
         	$values[] = $optionData[$displayField->getIdentifier()];
         }
+        
 		$optionData['allDisplayFields'] = implode(' ', $values);
 		
 		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
