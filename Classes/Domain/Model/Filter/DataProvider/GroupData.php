@@ -125,8 +125,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 		
         foreach($options as $optionData) {
         	$optionKey = $optionData[$this->filterField->getIdentifier()];
-        	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
-        										 'selected' => false);
+        	
+        	$renderedOptions[$optionKey] = $optionData;
+        	$renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
+        	$renderedOptions[$optionKey]['selected'] = false;
         }
        
         return $renderedOptions;
