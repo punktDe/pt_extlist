@@ -200,7 +200,8 @@ plugin.tx_ptextlist.prototype.filter {
 	tagCloud {
 		partialPath = Filter/Options/TagCloudFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter
-		
+		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud
+				
 		filterIdentifier =
 		label = 
 		fieldIdentifier =

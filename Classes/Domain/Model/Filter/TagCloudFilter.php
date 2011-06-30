@@ -36,19 +36,87 @@
 class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
 
 	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::buildFilterCriteria()
+	 * Maximum of elements to display 
+	 * @var int
 	 */
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+	protected $maxItems;
+	
+	
+	/**
+	 * Minimum font Size 
+	 * @var int
+	 */	
+	protected $minSize;
+	
+	
+	/**
+	 * Maximum font Size 
+	 * @var int
+	 */	
+	protected $maxSize;
+	
+	
+	/**
+	 * Minimum color as integer 
+	 * @var int
+	 */
+	protected $minColor;
+	
+	
+	/**
+	 * Maximum color as integer 
+	 * @var int
+	 */
+	protected $maxColor;
+	
+	
+	/**
+	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+	 */
+	protected function initFilter() {
+		$this->maxItems = (int) $this->filterConfig->getSettings('maxItems');
 		
-		$criteria = NULL;
-		$columnName = $fieldIdentifier->getTableFieldCombined();
-		$filterValues = array_filter($this->filterValues);
+		$this->minSize = (int) $this->filterConfig->getSettings('minSize');
+		$this->maxSize = (int) $this->filterConfig->getSettings('maxSize');
 		
-		if(count($filterValues)) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($columnName, current($filterValues).'%');
-		}
-		
-		return $criteria;
+		$this->minColor = (int) hexdec($this->filterConfig->getSettings('minColor'));
+		$this->maxColor = (int) hexdec($this->filterConfig->getSettings('maxColor'));
 	}
+	
+	
+	/**
+	 * Returns an associative array of options as possible filter values
+	 *
+	 * @return array
+	 */
+	public function getOptions() {
+		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
+
+		$renderedOptions = $dataProvider->getRenderedOptions();
+		
+		$this->addTagCloudMetaDataToOptions($renderedOptions);
+		$this->addInactiveOption($renderedOptions);
+		$this->setSelectedOptions($renderedOptions);
+
+		$GLOBALS['trace'] = 1;	trace($renderedOptions ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
+		
+		return $renderedOptions;
+	}
+
+	
+	protected function addTagCloudMetaDataToOptions(&$renderedOptions) {
+		$renderedOptions = array_slice($renderedOptions, 0, $this->maxItems, true);
+		
+		$sizeStep = ($this->maxSize - $this->minSize) / count($renderedOptions);
+		$colorStep = ($this->maxColor - $this->minColor) / count($renderedOptions);
+		 
+		$iterator = 0;
+		
+		foreach($renderedOptions as $key => $option) {
+			$renderedOptions[$key]['fontSize'] = (int) ($this->maxSize - $iterator * $sizeStep);
+			$renderedOptions[$key]['color'] = dechex((int) ($this->maxColor - $iterator * $colorStep));
+			$iterator++; 
+		}
+	}
+	
 }

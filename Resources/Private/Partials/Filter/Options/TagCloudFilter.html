@@ -31,7 +31,7 @@ Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      
 				<li class="tx-ptextlist-filter-firstLetter">
 					<div class="field-wrapper type-content">
 						<f:if condition="{option.selected}"><span class="selected"></f:if>
-						<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
+						<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}" style="font-size:{option.fontSize}px; color: #{option.color}">{option.value}</f:link.action>
 						<f:if condition="{option.selected}"></span></f:if>
 					</div>
 				</li>

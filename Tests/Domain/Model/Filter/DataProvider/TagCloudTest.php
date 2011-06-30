@@ -56,15 +56,22 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends T
  	/**
     * @test
     */
-    public function initDataProviderByTsConfig() {
+    public function initDataProviderByTsConfigElementCountField() {
+    	$filterSettings = $this->defaultFilterSettings;
+    	$tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
+    	$this->assertEquals($tagCloudDataProvider->_get('elementCountField'), NULL);
     	
+    	$filterSettings['countFieldIdentifier'] = 'field2';
+    	$tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
+    	$this->assertEquals($tagCloudDataProvider->_get('elementCountField')->getField(), 'fieldName2');
     }
+
     
     
      protected function buildAccessibleTagCloudDataProvider($filterSettings) {
    		
    		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud');
-   		$accesibleGroupDataProvider = new $accessibleClassName;
+   		$accesibleTagCloudDataProvider = new $accessibleClassName;
    		
     	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings,'test');
     	$filterConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
