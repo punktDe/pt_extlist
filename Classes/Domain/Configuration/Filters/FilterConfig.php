@@ -291,7 +291,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('invertable');
 		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
 		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
-		$this->setValueIfExists('inactiveOption');
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
 		$this->setValueIfExists('label');
@@ -301,6 +300,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		
 		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
+		
+		if($this->configValueExiststAndNotNothing('inactiveOption')) {
+			$this->inactiveOption = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
+			if(t3lib_div::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
+				$this->inactiveOption = Tx_Extbase_Utility_Localization::translate($this->inactiveOption, '');	
+			}
+		}
 		
 		if($this->configValueExiststAndNotNothing('label')) {
 			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
