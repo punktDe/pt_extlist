@@ -1,11 +1,4 @@
 plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
-
-
-    * {
-        font-family: verdana;
-        font-size: 12px;
-    }
-	
 	
 	/* List */
 	.tx-ptextlist-list-standard {
