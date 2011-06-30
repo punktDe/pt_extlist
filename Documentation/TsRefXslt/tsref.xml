@@ -383,13 +383,13 @@ plugin.tx_ptextlist.settings {
 							<EXAMPLE></EXAMPLE>
 							<CHILDREN>
 								<ENTRY KEY="uncachedSessionStorageAdapter">
-									<DESCRIPTION>Define the session storage adapter that should be used in uncached mode. Posible values are the classes described below or any other class that implements the interface tx_pttools_iStorageAdapter.</DESCRIPTION>
+									<DESCRIPTION>Define the session storage adapter that should be used in uncached mode. Posible values are the classes described below or any other class that implements the interface Tx_PtExtbase_State_Session_Storage_AdapterInterface.</DESCRIPTION>
 									<DATATYPE>String</DATATYPE>
 									<POSIBLEVALUES><![CDATA[
-tx_pttools_sessionStorageAdapter: Default browser session storage adapter.
-tx_pttools_feUsersessionStorageAdapter: TYPO3 fe_user bases session storage.
+Tx_PtExtbase_State_Session_Storage_SessionAdapter: Default browser session storage adapter.
+Tx_PtExtbase_State_Session_Storage_FeUserSessionAdapter: TYPO3 fe_user bases session storage.
 ]]></POSIBLEVALUES>
-									<DEFAULT>tx_pttools_sessionStorageAdapter</DEFAULT>
+									<DEFAULT>Tx_PtExtbase_State_Session_Storage_SessionAdapter</DEFAULT>
 									<COBJ></COBJ>
 									<PROTOTYPE></PROTOTYPE>
 									<EXAMPLE></EXAMPLE>
@@ -397,7 +397,7 @@ tx_pttools_feUsersessionStorageAdapter: TYPO3 fe_user bases session storage.
 									<VARIANT></VARIANT>
 								</ENTRY>
 								<ENTRY KEY="cachedSessionStorageAdapter">
-									<DESCRIPTION>Define the session storage adapter that should be used in cached mode. Posible values are the classes described below or any other class that implements the interface tx_pttools_iStorageAdapter.</DESCRIPTION>
+									<DESCRIPTION>Define the session storage adapter that should be used in cached mode. Posible values are the classes described below or any other class that implements the interface Tx_PtExtbase_State_Session_Storage_AdapterInterface.</DESCRIPTION>
 									<DATATYPE>String</DATATYPE>
 									<POSIBLEVALUES><![CDATA[
 Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter: Hold every session variable as GET parameters in the URL. Use this adapter if you want to use realURL.

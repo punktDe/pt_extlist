@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements tx_pttools_iStorageAdapter {
+class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_PtExtbase_State_Session_Storage_AdapterInterface  {
 
 	
 	/**

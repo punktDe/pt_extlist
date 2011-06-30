@@ -10,10 +10,10 @@ plugin.tx_ptextlist.settings.base {
 	
 	/*
 	* Defined class es are:
-	* tx_pttools_sessionStorageAdapter			Use the TYPO3 browser session
-	* tx_pttools_feUsersessionStorageAdapter 	use the TYPO3 fe_user specific session
+	* Tx_PtExtbase_State_Session_Storage_SessionAdapter			Use the TYPO3 browser session
+	* Tx_PtExtbase_State_Session_Storage_FeUserSessionAdapter 	use the TYPO3 fe_user specific session
 	*/
-	uncachedSessionStorageAdapter = tx_pttools_sessionStorageAdapter
+	uncachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter
 	
 	/* 
 	* Defined class es are:

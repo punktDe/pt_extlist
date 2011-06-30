@@ -121,7 +121,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * @return array
 	 */
 	protected static function getExtListTyposcriptSettings($listIdentifier, $customTSArray = NULL) {
-		$extListTS = tx_pttools_div::getTS('plugin.tx_ptextlist.settings.');
+		$extListTS = Tx_PtExtbase_Div::getTS('plugin.tx_ptextlist.settings.');
 		$extListTSArray = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
 
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
