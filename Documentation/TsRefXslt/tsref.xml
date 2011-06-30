@@ -1213,6 +1213,28 @@ aggregateRows {
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 															<TYPEREF REF="filter.invert" KEY="invert" />
 															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
+															<ENTRY KEY="size">
+																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
+																<DATATYPE>int</DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ>0</COBJ>
+																<PROTOTYPE></PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN></CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="maxLength">
+																<DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
+																<DATATYPE>int</DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ>0</COBJ>
+																<PROTOTYPE></PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN></CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
 														</CHILDREN>
 														<VARIANT>
 															<ENTRY KEY="String">
