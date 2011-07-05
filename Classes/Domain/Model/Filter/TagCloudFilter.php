@@ -102,7 +102,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	/**
 	 * Init the Color range
 	 */
-	public function initColors() {
+	protected function initColors() {
 		$minColorHex = $this->filterConfig->getSettings('minColor');
 		if(substr($minColorHex,0,1) == '#') $minColorHex = substr($minColorHex, 1);
 		
@@ -133,24 +133,44 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	}
 
 	
+	
 	protected function addTagCloudMetaDataToOptions(&$renderedOptions) {
 		$renderedOptions = array_slice($renderedOptions, 0, $this->maxItems, true);
 		
-		$sizeStep = ($this->maxSize - $this->minSize) / count($renderedOptions);
-		$colorStep = ($this->maxColor - $this->minColor) / count($renderedOptions);
+		$tagCount =  count($renderedOptions);
+		$sizeStep = ($this->maxSize - $this->minSize) / $tagCount;
 		 
 		$iterator = 0;
 		
 		foreach($renderedOptions as $key => $option) {
 			$renderedOptions[$key]['fontSize'] = (int) ($this->maxSize - $iterator * $sizeStep);
-			$renderedOptions[$key]['color'] = dechex((int) ($this->maxColor - $iterator * $colorStep));
+			$renderedOptions[$key]['color'] = $this->getColor($tagCount, $iterator);
 			$iterator++; 
 		}
 	}
 	
 	
-	protected function getColor() {
+	
+	/**
+	 * Calculate color
+	 * 
+	 * @param int $colorStep
+	 * @param int $iterator
+	 */
+	protected function getColor($tagCount, $iterator) {
 		
+		$color = '#';
+		
+		for($i = 0; $i<3; $i++) {
+			$delta = ($this->maxColor[$i] - $this->minColor[$i]) / $tagCount;
+			
+			$newColor = round($this->minColor[$i] + $iterator * $delta);
+			if ($newColor < 0) $newColor = 0;
+			if ($newColor > 255) $newColor = 255;
+			$color .= str_pad(dechex($newColor),'0',STR_PAD_LEFT);
+		}
+		
+		return $color;
 	}
 	
 }

@@ -58,8 +58,7 @@
  	 */
     public function setTagCloudColorsFromSettings() {
     	$tagCloudFilter = $this->buildAccessibleTagCloudFilter($this->filterSettings);
-    	$tagCloudFilter->_call('initColors()');
-    	$tagCloudFilter->initColors();
+    	$tagCloudFilter->_call('initColors');
 
     	$minColor = $tagCloudFilter->_get('minColor');
     	$this->assertTrue(is_array($minColor), 'MinColor is no array!');
