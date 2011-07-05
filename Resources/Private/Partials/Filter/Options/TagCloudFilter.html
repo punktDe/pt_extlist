@@ -26,12 +26,12 @@ Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      
 		{filter.label}
 	</label>
 	<div class="outer-field-wrapper">
-		<ul>
+		<ul class="tx-ptextlist-filter-tagCloud-list">
 			<f:for each="{filter.options}" key="optionValue" as="option">
-				<li class="tx-ptextlist-filter-firstLetter">
-					<div class="field-wrapper type-content">
+				<li class="tx-ptextlist-filter-tagCloud-item">
+					<div class="field-wrapper">
 						<f:if condition="{option.selected}"><span class="selected"></f:if>
-						<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}" style="font-size:{option.fontSize}px; color: {option.color}">{option.value}</f:link.action>
+						<f:link.action title="{option.elementCount} Items" action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}" style="font-size:{option.fontSize}px; color: {option.color}">{option.value}</f:link.action>
 						<f:if condition="{option.selected}"></span></f:if>
 					</div>
 				</li>

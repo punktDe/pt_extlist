@@ -209,8 +209,8 @@ plugin.tx_ptextlist.prototype.filter {
 		
 		maxItems = 20
 		
-		minColor = #b8cffa
-		maxColor = #1c448d
+		minColor = #1c448d
+		maxColor = #b8cffa
 		
 		# minSize / maxSize as fontSize in pixel 
 		minSize = 9

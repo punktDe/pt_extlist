@@ -138,17 +138,30 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 		$renderedOptions = array_slice($renderedOptions, 0, $this->maxItems, true);
 		
 		$tagCount =  count($renderedOptions);
-		$sizeStep = ($this->maxSize - $this->minSize) / $tagCount;
+		
+		$firstItem = current($renderedOptions);
+		$maxItemCount = $firstItem['elementCount'];
+		
+		$lastItem = end($renderedOptions);
+		$minItemCount = $lastItem['elementCount'];
+
 		 
 		$iterator = 0;
-		
 		foreach($renderedOptions as $key => $option) {
-			$renderedOptions[$key]['fontSize'] = (int) ($this->maxSize - $iterator * $sizeStep);
-			$renderedOptions[$key]['color'] = $this->getColor($tagCount, $iterator);
+			$renderedOptions[$key]['fontSize'] = $this->calculateSize($minItemCount, $maxItemCount, $option['elementCount']);
+			$renderedOptions[$key]['color'] = $this->calculateColor($tagCount, $iterator);
 			$iterator++; 
 		}
 	}
 	
+
+	protected function calculateSize($minItemCount, $maxItemCount, $itemCount) {
+		$sizeRange = $this->maxSize - $this->minSize;
+		$countRange = $maxItemCount - $minItemCount;
+		
+		$sizePerCount = $sizeRange / $countRange;
+		return $this->minSize + (int) ($itemCount * $sizePerCount);
+	}
 	
 	
 	/**
@@ -157,7 +170,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	 * @param int $colorStep
 	 * @param int $iterator
 	 */
-	protected function getColor($tagCount, $iterator) {
+	protected function calculateColor($tagCount, $iterator) {
 		
 		$color = '#';
 		
