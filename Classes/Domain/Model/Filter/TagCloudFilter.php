@@ -58,30 +58,61 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	
 	/**
 	 * Minimum color as integer 
-	 * @var int
+	 * @var array
 	 */
-	protected $minColor;
+	protected $minColor = array();
 	
 	
 	/**
 	 * Maximum color as integer 
-	 * @var int
+	 * @var array
 	 */
-	protected $maxColor;
+	protected $maxColor = array();
 	
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
 	protected function initFilter() {
+
+		
+				$c1 = str_replace('#', '', $c1);
+		$c2 = str_replace('#', '', $c2);
+		if (!preg_match('/^[a-f0-9]{6}$/i', $c1) || !preg_match('/^[a-f0-9]{6}$/i', $c2)) {
+			return FALSE;
+		}
+		$_c1 = array(hexdec(substr($c1,0,2)), hexdec(substr($c1,2,2)), hexdec(substr($c1,4,2)));
+		$_c2 = array(hexdec(substr($c2,0,2)), hexdec(substr($c2,2,2)), hexdec(substr($c2,4,2)));
+	}
+	
+	
+	protected function initFilterByTsConfig() {
+		parent::initFilterByTsConfig();
+		
 		$this->maxItems = (int) $this->filterConfig->getSettings('maxItems');
 		
 		$this->minSize = (int) $this->filterConfig->getSettings('minSize');
 		$this->maxSize = (int) $this->filterConfig->getSettings('maxSize');
 		
-		$this->minColor = (int) hexdec($this->filterConfig->getSettings('minColor'));
-		$this->maxColor = (int) hexdec($this->filterConfig->getSettings('maxColor'));
+		$this->initColors();
 	}
+	
+	
+	
+	/**
+	 * Init the Color range
+	 */
+	public function initColors() {
+		$minColorHex = $this->filterConfig->getSettings('minColor');
+		if(substr($minColorHex,0,1) == '#') $minColorHex = substr($minColorHex, 1);
+		
+		$maxColorHex = $this->filterConfig->getSettings('maxColor');
+		if(substr($maxColorHex,0,1) == '#') $maxColorHex = substr($maxColorHex, 1);
+		
+		$this->minColor = array(hexdec(substr($minColorHex,0,2)), hexdec(substr($minColorHex,2,2)), hexdec(substr($minColorHex,4,2)));
+		$this->maxColor  = array(hexdec(substr($maxColorHex,0,2)), hexdec(substr($maxColorHex,2,2)), hexdec(substr($maxColorHex,4,2)));
+	}
+	
 	
 	
 	/**
@@ -98,8 +129,6 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
 
-		$GLOBALS['trace'] = 1;	trace($renderedOptions ,0,'Quick Trace in file ' . basename( __FILE__) . ' : ' . __CLASS__ . '->' . __FUNCTION__ . ' @ Line : ' . __LINE__ . ' @ Date : '   . date('H:i:s'));	$GLOBALS['trace'] = 0; // RY25 TODO Remove me
-		
 		return $renderedOptions;
 	}
 
@@ -117,6 +146,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 			$renderedOptions[$key]['color'] = dechex((int) ($this->maxColor - $iterator * $colorStep));
 			$iterator++; 
 		}
+	}
+	
+	
+	protected function getColor() {
+		
 	}
 	
 }
