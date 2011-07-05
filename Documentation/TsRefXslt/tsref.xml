@@ -1367,12 +1367,90 @@ aggregateRows {
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
 																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
-																	<TYPEREF REF="filter.multiple" KEY="multiple" />
 																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
 																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
-																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="tagcloud">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.tagcloud</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<ENTRY KEY="maxItems">
+																		<DESCRIPTION>Maximum of items tos show.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="minColor">
+																		<DESCRIPTION>Minimum Color</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>minColor = #1c448d</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="maxColor">
+																		<DESCRIPTION>Maximum Color</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>maxColor = #b8cffa</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="minSize">
+																		<DESCRIPTION>Minimum size of tags in pixel.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="maxSize">
+																		<DESCRIPTION>Maximum size of tags in pixel</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
