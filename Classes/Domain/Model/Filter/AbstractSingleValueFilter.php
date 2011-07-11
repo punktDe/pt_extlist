@@ -54,6 +54,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     }   
     
     
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_FilterInterface::getValue()
+     */
+    public function getValue() {
+    	return $this->filterValue;
+    }
+    
     
     /**
      * Returns field description identifier on which this filter operates
