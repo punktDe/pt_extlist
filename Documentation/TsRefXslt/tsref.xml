@@ -1320,6 +1320,33 @@ aggregateRows {
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
+															<ENTRY KEY="Button">
+																<DESCRIPTION>Renders a filter with buttons.</DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.button</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
 															<ENTRY KEY="radiobutton">
 																<DESCRIPTION></DESCRIPTION>
 																<DATATYPE></DATATYPE>
