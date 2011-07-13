@@ -125,9 +125,8 @@ class Tx_PtExtlist_Utility_NameSpace {
      * @param mixed $element
      */
     protected static function valueIsGiven($element) {
-    	return (is_array($element) || !empty($element) || $element === 0 || $element === '');
+		return (is_array($element) || (!empty($element) && $element !== 0 && $element !== ''));
     }
-
 }
 
 ?>
