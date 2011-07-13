@@ -84,7 +84,6 @@ class Tx_PtExtlist_Utility_NameSpace {
 	 * @return array
 	 */
 	public static function saveDataInNamespaceTree($nameSpace, array $array, $data) {
-		#print_r('saving '); echo "<pre>"; print_r($data); echo "</pre>"; print_r(" in $nameSpace");
 		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);		
 		
 		$key = array_pop($nameSpaceChunks);
@@ -96,8 +95,8 @@ class Tx_PtExtlist_Utility_NameSpace {
 
 		$pointer[$key] = $data;
 		
-		return self::arrayFilterRecursive($array);
-		
+		//return self::arrayFilterRecursive($array);
+		return $array;
 	}
 	
 	

@@ -204,10 +204,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
-		// TODO why is first page not stored to session?
-		#if($this->currentPage != 1) {
+		if($this->currentPage > 1) { // Page 1 is default therefore we dont need it in the sesssion
 			return array('page' => $this->currentPage);	
-		#}
+		}
 	}
 
 
