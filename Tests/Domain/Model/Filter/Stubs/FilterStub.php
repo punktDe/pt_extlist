@@ -53,6 +53,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtli
     public function getFilterBreadCrumb() {return null;}
     public function getFilterValueForBreadCrumb() { return null;}
     public function isActive() {return false;}
+    public function getValue() {}
 	
 }
 
