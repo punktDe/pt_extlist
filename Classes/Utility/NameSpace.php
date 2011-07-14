@@ -79,12 +79,12 @@ class Tx_PtExtlist_Utility_NameSpace {
 	 * Save a value on an array position identfied by namespace
 	 * 
 	 * @param string $nameSpace (Namespace identifier - dot separated)
-	 * @param array $array array to save the data
+	 * @param array $array array to save the data in
 	 * @param mixed $data
 	 * @return array
 	 */
-	public static function saveDataInNamespaceTree($nameSpace, array $array, $data) {
-		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);		
+	public static function saveDataInNamespaceTree($namespaceString, array $array, $data) {
+		$nameSpaceChunks = self::getNamespaceArrayByNamespaceString($namespaceString);		
 		
 		$key = array_pop($nameSpaceChunks);
 		$pointer = &$array;
@@ -96,6 +96,29 @@ class Tx_PtExtlist_Utility_NameSpace {
 		$pointer[$key] = $data;
 		
 		//return self::arrayFilterRecursive($array);
+		return $array;
+	}
+	
+	
+	
+	/**
+	 * Remove a part from a data array described by namespace string
+	 * 
+	 * @param string $namespaceString namespace path to the key to remove
+	 * @param aray $array data array
+	 */
+	public static function removeDataFromNamespaceTree($namespaceString, &$array) {
+		$nameSpaceChunks =  self::getNamespaceArrayByNamespaceString($namespaceString);
+
+		$key = array_pop($nameSpaceChunks);
+		$pointer = &$array;
+		
+		foreach($nameSpaceChunks as $chunk) {		
+			$pointer = &$pointer[$chunk];
+		}
+
+		unset($pointer[$key]);
+
 		return $array;
 	}
 	

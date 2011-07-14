@@ -226,10 +226,10 @@ class Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager implements Tx_P
 	/**
 	 * Remove session data by given namespace
 	 * 
-	 * @param $objectNamespace string
+	 * @param $namespaceString string
 	 */
-	public function removeSessionDataByNamespace($objectNamespace) {
-		$this->sessionAdapter->delete($objectNamespace);
+	public function removeSessionDataByNamespace($namespaceString) {
+		Tx_PtExtlist_Utility_NameSpace::removeDataFromNamespaceTree($namespaceString, $this->sessionData);
 	}
 	
 	
