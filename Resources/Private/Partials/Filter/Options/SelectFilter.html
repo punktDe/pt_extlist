@@ -31,12 +31,12 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 		<f:if condition="{filter.filterConfig.submitOnChange}">
 			<f:then>
 				<div class="field-wrapper type-select">
-					<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{onchange : 'submit()'}" />
+					<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{onchange : 'submit()'}" />
 				</div>
 			</f:then>
 			<f:else>
 				<div class="field-wrapper type-select">
-					<f:form.select multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}"/>
+					<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}"/>
 				</div>
 			</f:else>
 		</f:if>
