@@ -341,6 +341,22 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
+		<ENTRY REF="filter.options" KEY="options">
+			<DESCRIPTION>Defines explicit options to display in an data filter. If options are set, no data is fetched from the database.</DESCRIPTION>
+			<DATATYPE>array</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE>
+options {
+	checkedin = Someone Checked in 
+	noonecheckedin = Noone Checked In
+}
+			</EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
 </DATATYPES>
 
 
@@ -1289,6 +1305,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1317,6 +1334,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1344,6 +1362,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1372,6 +1391,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
