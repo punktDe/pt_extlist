@@ -63,7 +63,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		$argumentArray = array();
 		
 		foreach($argumentStringArray as $key => $value) {
-			if($value === false) {
+			if($object !== NULL && $value === false) {
 				$value = $this->getObjectValue($object, $key);
 			}
 			
