@@ -60,8 +60,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @return string  Rendered list for given list identifier
 	 */
 	public function listAction() {
-		$time = explode(' ', microtime());$time = $time[1] + $time[0]; $begintime = $time;
-		
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 
 		// Do not show the list if it is empty.
@@ -74,9 +72,6 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
 
-		$time = explode(" ", microtime());$time = $time[1] + $time[0];$endtime = $time; $totaltime = ($endtime - $begintime);
-		error_log('pt_extlist_calc ' . $totaltime.' seconds');
-		
 		$this->view->assign('config', $this->configurationBuilder);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);

@@ -62,12 +62,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	public function executeQuery($query) {
 		
 		try {
-			
-			$time = explode(' ', microtime());$time = $time[1] + $time[0]; $begintime = $time;
-			
 			$res = $this->connection->sql_query($query);
-	       
-			
+
 			tx_pttools_assert::isMySQLRessource($res, $this->dbObj);
 	        
 	        $rows = array();
@@ -78,9 +74,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	        
 	        $this->connection->sql_free_result($res);
 	        
-	        $time = explode(" ", microtime());$time = $time[1] + $time[0];$endtime = $time; $totaltime = ($endtime - $begintime);
-			$GLOBALS['dlperf']['allExtlistMySQLQuerys'] += $totaltime;
-				        
 	        return $rows;
 	        
 		} catch(Exception $e) {
@@ -90,7 +83,5 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 							     </strong><hr>' . nl2br($query) . '<hr><strong>');
 		}
 	}
-	
 }
-
 ?>
