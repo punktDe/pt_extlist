@@ -69,80 +69,74 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
 	protected $filterbox = NULL;
-    	
-	
-	
+
+
 	/**
-     * Initialize the Controller
-     *
-     * @param array $settings Settings container of the current extension
-     * @return void
-     */
-    public function initializeAction() {
-        tx_pttools_assert::isNotEmptyString($this->settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
-        $this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
-        $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
-        $this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
-    }
-    
-    
-    
-    /**
-     * Renders a filterbox
-     * 
-     * @param Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors
-     * @return string The rendered filterbox action
-     */
-    public function showAction(Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors = null) {
+	 * Initialize the Controller
+	 *
+	 * @param array $settings Settings container of the current extension
+	 * @return void
+	 */
+	public function initializeAction() {
+		tx_pttools_assert::isNotEmptyString($this->settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
+		$this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
+		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
+		$this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
+	}
+
+
+	/**
+	 * Renders a filterbox
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors
+	 * @return string The rendered filterbox action
+	 */
+	public function showAction(Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors = null) {
 		$this->view->assign('filterbox', $this->filterbox);
-    	$this->view->assign('config', $this->configurationBuilder);
-    }
-    
-    
-    
-    /**
-     * Renders submit action
-     * 
-     * @return String
-     */
-    public function submitAction() {
+		$this->view->assign('config', $this->configurationBuilder);
+	}
 
-    	if (!$this->filterbox->validate()) {
-            $this->view->assign('filtersDontValidate', true);
-        }
-        
-        $this->resetPagers();
-    	$this->forward('show');
-    }   
 
-    
-    
-    /**
-     * Resets all filters of filterbox
-     * 
-     * @return string Rendered reset action
-     */
-    public function resetAction() {
-    	$this->filterbox->reset();
-    	$this->resetPagers();
-    	$this->redirect('show');
-    }
-    
-    
-    
-    /**
-     * Reset all pagers for this list.
-     * 
-     */
-    protected function resetPagers(){
-    	// Reset pagers
-    	if($this->pagerCollection === NULL) {
-    		// Only get pagerCollection if it's not set already. Important for testing.	
-	    	$this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
-    	}
-    	$this->pagerCollection->reset();
-    }
+	/**
+	 * Renders submit action
+	 *
+	 * @return String
+	 */
+	public function submitAction() {
+
+		if (!$this->filterbox->validate()) {
+			$this->view->assign('filtersDontValidate', true);
+		}
+
+		$this->resetPagers();
+		$this->forward('show'); // maybe a redirect is needed here?!?
+	}
+
+
+	/**
+	 * Resets all filters of filterbox
+	 *
+	 * @return string Rendered reset action
+	 */
+	public function resetAction() {
+		$this->filterbox->reset();
+		$this->resetPagers();
+		$this->redirect('show');
+	}
+
+
+	/**
+	 * Reset all pagers for this list.
+	 *
+	 */
+	protected function resetPagers() {
+		// Reset pagers
+		if ($this->pagerCollection === NULL) {
+			// Only get pagerCollection if it's not set already. Important for testing.
+			$this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+		}
+		$this->pagerCollection->reset();
+	}
     
 }
-
 ?>
