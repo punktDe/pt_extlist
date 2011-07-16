@@ -112,7 +112,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
         }
         
         $this->resetPagers();
-    	$this->redirect('show');
+    	$this->forward('show');
     }   
 
     

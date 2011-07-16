@@ -74,9 +74,9 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
      */
     public function getSettings($key = '') {
     	if ($key != '' ) {
-    	   if (array_key_exists($key, $this->settings)) {
-    		  return $this->settings[$key];
-    	   } else {
+    		if (array_key_exists($key, $this->settings)) {
+				return $this->settings[$key];
+    	    } else {
     	   		return NULL;
     	   }
     	} else {
