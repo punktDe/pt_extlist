@@ -113,6 +113,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	/**
 	 * Session persistence manager
+	 * 
+	 * TODO this reference is no longer required!
 	 *
 	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
 	 */

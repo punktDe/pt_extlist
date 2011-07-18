@@ -280,7 +280,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		// required
 		$this->setRequiredValue('filterboxIdentifier', 'Filterbox identifier must not be empty. 1277889652');
 		$this->setRequiredValue('filterIdentifier', 'No filterIdentifier specified in config. 1277889452');
-		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterClassName . '. 1277889552');
+		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552');
 		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->fieldIdentifier . ' 1280762513');
 		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key partialPath). 1281013746');
 		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
@@ -291,7 +291,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('invertable');
 		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
 		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
-		$this->setValueIfExists('inactiveOption');
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
 		$this->setValueIfExists('label');
@@ -301,6 +300,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		
 		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
+		
+		if($this->configValueExiststAndNotNothing('inactiveOption')) {
+			$this->inactiveOption = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
+			if(t3lib_div::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
+				$this->inactiveOption = Tx_Extbase_Utility_Localization::translate($this->inactiveOption, '');	
+			}
+		}
 		
 		if($this->configValueExiststAndNotNothing('label')) {
 			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);

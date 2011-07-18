@@ -77,6 +77,16 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		$this->configurationBuilder = $configurationBuilder;
 	}
 
+	
+	
+	/**
+	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistanceManager
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+		$this->sessionPersistenceManager = $sessionPersistenceManager;		
+	}
+	
+	
 
 	/**
 	 * Adds a pager to the collection.
@@ -204,10 +214,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
-		// TODO why is first page not stored to session?
-		#if($this->currentPage != 1) {
+		if($this->currentPage > 1) { 
 			return array('page' => $this->currentPage);	
-		#}
+		} else { // Page 1 is default therefore we dont need it in the sesssion
+			$this->sessionPersistenceManager->removeSessionDataByNamespace($this->getObjectNamespace());
+		}
 	}
 
 

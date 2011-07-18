@@ -287,7 +287,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 			$params['currentContent'] = $content;
 
 			$params['conf'] = $rendererUserFuncConfig;
-			$rendererUserFunc = array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig;
+			
+			$rendererUserFunc = is_array($rendererUserFuncConfig) && array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig;
 
 			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef, NULL);
 		}

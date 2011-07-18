@@ -94,6 +94,26 @@ class Tx_PtExtlist_Tests_Utility_NameSpaceArray_testcase extends Tx_PtExtlist_Te
 		$this->assertEquals($testArray, $refArray);
 	}
 	
+	
+	
+	/** @test */
+	public function removeDataFromNamespaceTree() {
+		$sampleArray = array('key1' => array(
+								'key2' => array(
+									'key3' => 'testData1',
+									'key4' => 'testData2'
+								),
+								'key5' => 'testData3'
+							)
+						);
+		
+		$testArray = $sampleArray;
+		unset($testArray['key1']['key2']['key3']);				
+						
+		$nameSpaceString = 'key1.key2.key3';
+		$alteredArray = Tx_PtExtlist_Utility_NameSpace::removeDataFromNamespaceTree($nameSpaceString, $sampleArray);
+		
+		$this->assertEquals($alteredArray, $testArray);		
+	}
 }
-
 ?>

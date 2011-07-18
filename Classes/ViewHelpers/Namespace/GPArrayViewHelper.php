@@ -29,6 +29,18 @@
 /**
  * GPValueViewHelper
  * 
+ * USAGE:
+ * 
+ * 
+ * 
+ * Set namespace and arguments as string: 
+ * {extlist:namespace.GPArray(nameSpace:'<generalNamespaceString>' 
+ * 							  arguments:'<argument.specific.nameSpacePart>:{<valueAsString>},<second.namespacepart>:{<secondValue>}')}
+ * 
+ * Set namespace from object:
+ * {extlist:namespace.GPArray(object:'{filter}' arguments:'invert')}
+ * 
+ * 
  * @author Daniel Lienert 
  * @package ViewHelpers
  * @subpackage NameSpace
@@ -51,7 +63,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		$argumentArray = array();
 		
 		foreach($argumentStringArray as $key => $value) {
-			if($value === false) {
+			if($object !== NULL && $value === false) {
 				$value = $this->getObjectValue($object, $key);
 			}
 			
@@ -97,7 +109,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		foreach($argumentChunks as $argument) {
 			if(strstr($argument, ':')) {
 				list($key, $value) = t3lib_div::trimExplode(':', $argument);
-				$argumentArray[$key] = $value;	
+				$argumentArray = Tx_PtExtlist_Utility_NameSpace::saveDataInNamespaceTree($key, $argumentArray, $value);	
 			} else {
 				$key = $argument;
 				$argumentArray[$key] = false;

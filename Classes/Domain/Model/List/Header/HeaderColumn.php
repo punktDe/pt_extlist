@@ -395,7 +395,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn implements Tx_PtExtlist
 	 *
 	 */
     public function persistToSession() {
-		return array('sortingState' => $this->sortingState);
+		if($this->sortingState != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
+    		return array('sortingState' => $this->sortingState);			
+		}
     }
     
     

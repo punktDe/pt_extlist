@@ -76,6 +76,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 			
 			$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
 			$sessionPersistenceManager->registerObjectAndLoadFromSession($pagerCollection);
+			$pagerCollection->injectSessionPersistenceManager($sessionPersistenceManager);
 			
 			Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->injectParametersInObject($pagerCollection);
 			
