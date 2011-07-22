@@ -109,7 +109,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		foreach($argumentChunks as $argument) {
 			if(strstr($argument, ':')) {
 				list($key, $value) = t3lib_div::trimExplode(':', $argument);
-				$argumentArray = Tx_PtExtlist_Utility_NameSpace::saveDataInNamespaceTree($key, $argumentArray, $value);	
+				$argumentArray = Tx_PtExtbase_Utility_NameSpace::saveDataInNamespaceTree($key, $argumentArray, $value);	
 			} else {
 				$key = $argument;
 				$argumentArray[$key] = false;
