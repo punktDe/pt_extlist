@@ -42,9 +42,24 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
+
+		$this->defaultFilterSettings = array(
+			'filterIdentifier' => 'test',
+			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+			'partialPath' => 'Filter/SelectFilter',
+			'fieldIdentifier' => 'field1',
+			'displayFields' => 'field1,field2',
+			'filterField' => 'field3',
+			'invert' => '0',
+			'options' => array('x' => 'test',
+									 'y' => 'hallo'
+			)
+		);
 	}
-	
-	public function testGetRenderedOptions() {
+
+
+
+	public function testGetRenderedOptionsSimple() {
 		
 		$explicitDataProvider = $this->buildAccessibleExplicitDataProvider();
 		$options = $explicitDataProvider->getRenderedOptions();
@@ -52,7 +67,22 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
 		$this->assertEquals(2, count($options));
 		$this->assertEquals(array('value' => 'test', 'selected' => false), $options['x']);
 	}
+
 	
+	/** @test */
+	public function getRenderedOptionsComplex() {
+
+		$filterSettings = $this->defaultFilterSettings;
+		unset($filterSettings['options']);
+		$filterSettings['options'][10]['key'] = 'theKey';
+		$filterSettings['options'][10]['value'] = 'theLabel';
+
+		$explicitDataProvider = $this->buildAccessibleExplicitDataProvider($filterSettings);
+		$options = $explicitDataProvider->getRenderedOptions();
+		$this->assertEquals(array('value' => 'theLabel', 'selected' => false), $options['theKey']);
+	}
+
+
 
 	/**
 	 * Build the dataprovider
@@ -60,36 +90,22 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
 	 * @param array $filterSettings
 	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
 	 */
-	protected function buildAccessibleExplicitDataProvider($filterSettings) {
+	protected function buildAccessibleExplicitDataProvider($filterSettings = NULL) {
    		
-   		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData');
-   		$accesibleExplicitDataProvider = new $accessibleClassName;
-   		
- 	  	$this->defaultFilterSettings = $filterSettings;
-    	if(!$this->defaultFilterSettings) {
-    		$this->defaultFilterSettings = array(
-               'filterIdentifier' => 'test', 
-               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-               'partialPath' => 'Filter/SelectFilter',
-               'fieldIdentifier' => 'field1',
-               'displayFields' => 'field1,field2',
-               'filterField' => 'field3',
-               'invert' => '0',
-    			'options' => array('x' => 'test',
-           				'y' => 'hallo')  
-       		 );
-    	}
-   		
-    	 $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings,'test');
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData');
+		$accesibleExplicitDataProvider = new $accessibleClassName;
+
+		if(!$filterSettings) $filterSettings = $this->defaultFilterSettings;
+
+    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings,'test');
     	$filterConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
     	
     	$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
     	
-   		$accesibleExplicitDataProvider->injectFilterConfig($filterConfiguration);
-   		$accesibleExplicitDataProvider->init();
+		$accesibleExplicitDataProvider->injectFilterConfig($filterConfiguration);
+		$accesibleExplicitDataProvider->init();
    		
-   		return $accesibleExplicitDataProvider;
+		return $accesibleExplicitDataProvider;
    }
-   
 }
 ?>

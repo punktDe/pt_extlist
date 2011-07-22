@@ -351,7 +351,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 		if(!is_array($tsConfigValue)) return $tsConfigValue;
 
 		$tsArray = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
-		$content = self::getCobj()->stdWrap($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
+		$content = self::getCobj()->cObjGetSingle($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
 
 		return $content;
 	}

@@ -342,16 +342,29 @@ renderObj {
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.options" KEY="options">
-			<DESCRIPTION>Defines explicit options to display in an data filter. If options are set, no data is fetched from the database.</DESCRIPTION>
+			<DESCRIPTION>Defines explicit options to display in a data filter. If options are set, no data is fetched from the database. There are to variants to define the data. See the example for details.</DESCRIPTION>
 			<DATATYPE>array</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
 			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE>
+# There are two variants to define the data
+
+# Variant 1: Simple key / value
 options {
 	checkedin = Someone Checked in 
 	noonecheckedin = Noone Checked In
+}
+
+# Variant 2: Use integer keys to define option order and subKeys key / value to define the options
+10 {
+    key = 1
+    value = LLL:EXT:my_ext/locallang.xml:theLabelOfTheOption
+}
+                
+20 {
+    ...
 }
 			</EXAMPLE>
 			<CHILDREN></CHILDREN>

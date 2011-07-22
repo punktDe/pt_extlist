@@ -277,6 +277,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
 	 */
 	public function init() {
+
 		// required
 		$this->setRequiredValue('filterboxIdentifier', 'Filterbox identifier must not be empty. 1277889652');
 		$this->setRequiredValue('filterIdentifier', 'No filterIdentifier specified in config. 1277889452');

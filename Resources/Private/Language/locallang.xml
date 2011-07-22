@@ -86,11 +86,11 @@
 		<languageKey index="pl" type="array">
 			<label index="emptyList">Sorry, no list items available.</label>
 			
-			<label index="pager.of">of</label>
-			<label index="pager.to">to</label>
-			<label index="pager.showItems">Show item</label>
+			<label index="pager.of">z</label>
+			<label index="pager.to">-</label>
+			<label index="pager.showItems">Widoczne pozycje</label>
 			
-			<label index="filterBox.resetFilters">Reset Filters</label>
+			<label index="filterBox.resetFilters">Zresetować</label>
 			<label index="filterBox.submitFilters">Zatwierdź</label>
 			<label index="filterBox.errorInFilter">The filters contain errors.</label>
 			
