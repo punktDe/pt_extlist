@@ -1,11 +1,4 @@
 plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
-
-
-    * {
-        font-family: verdana;
-        font-size: 12px;
-    }
-	
 	
 	/* List */
 	.tx-ptextlist-list-standard {
@@ -97,7 +90,18 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 		margin-left: 1em;
 	}
 	
+	/* Filters | TagClud */
+	.tx-ptextlist-filter-tagCloud-list li {
+		float: left;
+		list-style: none outside none;
+		margin-right: 6px;
+		margin-top: 3px;
+
+	}
 	
+	.tx-ptextlist-filter-tagCloud-list li a:hover {
+		text-decoration: underline;
+	}
 	
 	/* Pager */
 	.tx-ptextlist-pager-wrapper {

@@ -167,6 +167,14 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
      */
     public function isActive();
 	
+    
+    
+    /**
+     * Returns the current filtervalues of this filter
+     * 
+     * @return variant
+     */
+    public function getValue();
 }
 
 ?>

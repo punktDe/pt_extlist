@@ -216,6 +216,16 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	
 	
 	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_FilterInterface::getValue()
+	 */
+	public function getValue() {
+		return $this->getRealFilterObject()->getValue();
+	}
+	
+	
+	
+	/**
 	 * 
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */

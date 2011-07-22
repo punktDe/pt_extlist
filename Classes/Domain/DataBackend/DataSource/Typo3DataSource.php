@@ -72,6 +72,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	        }
 	        
 	        $this->connection->sql_free_result($res);
+	        
 	        return $rows;
 	        
 		} catch(Exception $e) {
@@ -81,7 +82,5 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 							     </strong><hr>' . nl2br($query) . '<hr><strong>');
 		}
 	}
-	
 }
-
 ?>

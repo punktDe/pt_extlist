@@ -67,11 +67,23 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData implements Tx_P
 	public function getRenderedOptions() {
 		$renderedOptions = array();
 		
-		foreach ($this->tsOptions as $optionKey => $option) {
-			
-			$optionData['allDisplayFields'] = trim($option);
+		foreach ($this->tsOptions as $key => $option) {
+			if(is_array($option)) {
+
+				if(t3lib_div::isFirstPartOfStr($option['value'], 'LLL:')) {
+					$optionData['allDisplayFields'] = Tx_Extbase_Utility_Localization::translate($option['value'], '');
+				} else {
+					$optionData['allDisplayFields'] = $option['value'];
+				}
+				
+				$optionKey = $option['key'];
+			} else {
+				$optionKey = $key;
+				$optionData['allDisplayFields'] = trim($option);
+			}
+
 			$renderedOptions[$optionKey] = array('value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
-        										 'selected' => false);
+													 'selected' => false);
 		}
 		
 		return $renderedOptions;

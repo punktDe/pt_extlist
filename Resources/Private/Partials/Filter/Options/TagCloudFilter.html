@@ -1,0 +1,50 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering a firstLetter filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      Holds an instance for the group filter object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<div class="outer-wrapper">
+	
+	<f:if condition="{filter.validate} == 0">
+		<div class="error">
+			Validation Error: {filter.errorMessage}
+		</div>
+	</f:if>
+	
+	<label for="{filter.filterIdentifier}" class="filter-label">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+		<ul class="tx-ptextlist-filter-tagCloud-list">
+			<f:for each="{filter.options}" key="optionValue" as="option">
+				<li class="tx-ptextlist-filter-tagCloud-item">
+					<div class="field-wrapper">
+						<f:if condition="{option.selected}"><span class="selected"></f:if>
+						<f:link.action title="{option.elementCount} Items" action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}" style="font-size:{option.fontSize}px; color: {option.color}">{option.value}</f:link.action>
+						<f:if condition="{option.selected}"></span></f:if>
+					</div>
+				</li>
+			</f:for>
+		</ul>
+		<f:if condition="{filter.filterConfig.invertable}">
+			<div class="field-wrapper type-checkbox">
+				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<label>
+					Invert
+				</label>
+			</div>
+		</f:if>
+		
+	</div>
+</div>
