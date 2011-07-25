@@ -29,6 +29,18 @@
 /**
  * GPValueViewHelper
  * 
+ * USAGE:
+ * 
+ * 
+ * 
+ * Set namespace and arguments as string: 
+ * {extlist:namespace.GPArray(nameSpace:'<generalNamespaceString>' 
+ * 							  arguments:'<argument.specific.nameSpacePart>:{<valueAsString>},<second.namespacepart>:{<secondValue>}')}
+ * 
+ * Set namespace from object:
+ * {extlist:namespace.GPArray(object:'{filter}' arguments:'invert')}
+ * 
+ * 
  * @author Daniel Lienert 
  * @package ViewHelpers
  * @subpackage NameSpace
@@ -39,7 +51,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * render build key/value GET/POST-array within the namespace of the given object
 	 * 
 	 * @param string $arguments : list of arguments
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * 	either as list of 'key : value' pairs 
 	 *  or as list of properties wich are then recieved from the object
 	 * @param string $nameSpace
@@ -51,19 +63,18 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		$argumentArray = array();
 		
 		foreach($argumentStringArray as $key => $value) {
-			if($value === false) {
+			if($object !== NULL && $value === false) {
 				$value = $this->getObjectValue($object, $key);
 			}
 			
 			if(!$nameSpace) {
-				$argumentArray = $this->buildObjectValueArray($object, $key, $value);
+				$argumentArray = array_merge_recursive($argumentArray, $this->buildObjectValueArray($object, $key, $value));
 			} else {
-				$argumentArray = $this->buildNamespaceValueArray($nameSpace, $key, $value);
+				$argumentArray = array_merge_recursive($argumentArray, $this->buildNamespaceValueArray($nameSpace, $key, $value));
 			}
 		}
 
-		Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
-		
+		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
 		return $argumentArray;
 	}
 	
@@ -72,13 +83,13 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	/**
 	 * Use the objects getter to get the value
 	 * 
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * @param string $property
 	 * @return mixed value
 	 */
-	protected function getObjectValue(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property) {
+	protected function getObjectValue(Tx_PtExtbase_State_IdentifiableInterface $object, $property) {
 		$getterMethod = 'get'.ucfirst($property);
-		tx_pttools_assert::isTrue(method_exists($object, $getterMethod), array('message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630'));
+		Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), array('message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630'));
 		
 		return $object->$getterMethod();
 	}
@@ -98,7 +109,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		foreach($argumentChunks as $argument) {
 			if(strstr($argument, ':')) {
 				list($key, $value) = t3lib_div::trimExplode(':', $argument);
-				$argumentArray[$key] = $value;	
+				$argumentArray = Tx_PtExtbase_Utility_NameSpace::saveDataInNamespaceTree($key, $argumentArray, $value);	
 			} else {
 				$key = $argument;
 				$argumentArray[$key] = false;
@@ -113,13 +124,13 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	/**
 	 * Get the valueArray with the right objectNamespace
 	 * 
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * @param string $key
 	 * @param string $value
 	 */
-	public function buildObjectValueArray(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $key, $value) {
+	public function buildObjectValueArray(Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value) {
 		$nameSpace = $object->getObjectNamespace();
-		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 		
 		return $this->buildNamespaceValueArray($nameSpace, $key, $value);
 	}

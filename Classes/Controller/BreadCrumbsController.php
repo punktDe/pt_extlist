@@ -41,6 +41,15 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 * @var Tx_PtExtlist_Domain_Model_Filters_FilterboxCollection
 	 */
 	protected $filterboxCollection;
+	
+	
+	
+	/**
+     * Holds a pagerCollection.
+     * 
+     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     */
+	protected $pagerCollection = NULL;
 
 
 
@@ -64,7 +73,16 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 			$this->configurationBuilder,
 			$this->filterboxCollection
 		);
-		$this->view->assign('breadcrumbs', $breadcrumbs);
+		
+		// Ugly hack, to check whether there really exists a breadcrumb 
+		$breadcrumbsHaveMessage = false;
+		foreach ($breadcrumbs as $breadcrumb) {
+			if ($breadcrumb->getMessage() != '') $breadcrumbsHaveMessage = true;
+		}
+		
+		if ($breadcrumbsHaveMessage) {
+		    $this->view->assign('breadcrumbs', $breadcrumbs);
+		}
 	}
 
 
@@ -81,9 +99,25 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 		);
 
 		$breadcrumbs->resetFilters();
+		$this->resetPagers();
 
-		$this->forward('index');
+		$this->redirect('index');
 	}
+	
+	
+	
+    /**
+     * Reset all pagers for this list.
+     * 
+     */
+    protected function resetPagers(){
+        // Reset pagers
+        if($this->pagerCollection === NULL) {
+            // Only get pagerCollection if it's not set already. Important for testing. 
+            $this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+        }
+        $this->pagerCollection->reset();
+    }
 
 }
 

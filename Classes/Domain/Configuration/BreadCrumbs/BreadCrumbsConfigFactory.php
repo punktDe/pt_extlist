@@ -27,37 +27,23 @@
  ***************************************************************/
 
 /**
- * Builds a Lifecycle Manager 
- * 
- * @author Christoph Ehscheidt 
+ * Factory to create configs for list defaults
+ *
  * @package Domain
- * @subpackage Lifecycle
+ * @subpackage Configuration\BreadCrumbs
+ * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory {
 
+class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory {
+	
 	/**
-	 * Holds the single instance of a lifecycle manager.
+	 * Returns a instance of the breadcrumbs configuration.
 	 * 
-	 * @var Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
 	 */
-	protected static $instance = NULL;
-	
-	
-	
-	/**
-	 * Factory method for lifecycle manager instances. Returns singleton instance 
-	 * of lifecycle manager.
-	 *
-	 * @return Tx_PtExtlist_Domain_Lifecycle_LifecycleManager
-	 */
-	public static function getInstance() {
-		if(self::$instance === NULL) {
-			$lifecycleManager = new Tx_PtExtlist_Domain_Lifecycle_LifecycleManager();
-			$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
-			self::$instance = $lifecycleManager;
-		}
-		
-		return self::$instance;
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return new Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
 	}
 	
 }

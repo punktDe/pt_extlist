@@ -85,7 +85,7 @@
  		/* First test: GP vars holds value for filter --> gp var value should be returned */
         $filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
         $filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig( 
-        $this->configurationBuilderMock,
+           $this->configurationBuilderMock,
            array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
         $filter->injectGPVars(array('filterValue' => 'gpVarsValue'));
         $filter->init();
@@ -173,7 +173,7 @@
  		$filter->init();
  		$this->assertTrue($filter->getFilterValue() == 'gpVarFilterValue');
  		$filter->reset();
- 		$this->assertTrue($filter->getFilterValue() =='defaultValue');
+ 		$this->assertTrue($filter->getFilterValue() =='');
  	}
  	
  	
@@ -216,7 +216,7 @@
             ->method('getFieldConfigurationCollection')
             ->will($this->returnValue($fieldConfigCollectionMock));
             
-        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('loadFromSession', 'persistToSession'), array(), '', FALSE);
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('loadFromSession', 'persistToSession'), array(), '', FALSE);
             
         $filter->injectDataBackend($dataBackendMock);
         $filter->injectSessionPersistenceManager($sessionPersistenceManagerMock);

@@ -54,6 +54,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
     }   
     
     
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_FilterInterface::getValue()
+     */
+    public function getValue() {
+    	return $this->filterValue;
+    }
+    
     
     /**
      * Returns field description identifier on which this filter operates
@@ -72,44 +80,22 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      * @return array Array of filter data to persist to session
      */
     public function persistToSession() {
-        return array('filterValue' => $this->filterValue, 'invert' => $this->invert);
+    	$sessionArray = array('filterValue' => $this->filterValue, 'invert' => $this->invert);
+        return $sessionArray;
     }
-    
+
     
     
     /**
-     * Resets filter to its default values
-     * 
-     * @return void
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
      */
-    public function reset() {
-        $this->filterValue = '';
-        $this->resetSessionDataForFilter();
-        $this->resetGpVarDataForFilter();
-        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-        $this->init();
-    }
-    
-    
-    
-    /**
-     * Resets session data for this filter
-     */
-    protected function resetSessionDataForFilter() {
-        $this->sessionFilterData = array();
-    }
-    
-    
-    
-    /**
-     * Resets get/post var data for this filter
-     */
-    protected function resetGpVarDataForFilter() {
-        $this->gpVarFilterData = array();
-    }
-    
-    
-    
+	public function reset() {
+		$this->filterValue = '';
+		parent::reset();
+	}
+	
+      
     /**
      * Returns an error message for this filter
      *

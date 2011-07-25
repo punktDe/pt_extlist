@@ -89,7 +89,6 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
      */
     protected function getRowRenderer() {
     	$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, array('rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer'));
-    	$rendererConfiguration->injectConfigurationBuilder($this->configurationBuilderMock);
     	$renderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
     	$renderer->injectRendererConfiguration($rendererConfiguration);
     	return $renderer;

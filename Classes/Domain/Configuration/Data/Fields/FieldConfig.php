@@ -91,19 +91,18 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
 		$this->setRequiredValue('identifier', 'No field identifier specified. 1277889450');
 		
-		
-		if(!trim($this->settings['special']) && (!trim($this->settings['table']) || !trim($this->settings['field']))) {
-			throw new Exception('Either a table and a field or a special string has to be given! 1281353522');
-		}
-		
 		$this->table = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['table']);
 		$this->field = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['field']);
 		$this->special = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['special']);
+		
+		if(!trim($this->special) && (!trim($this->table) || !trim($this->field))) {
+			throw new Exception('Configuration error for field: "'.$this->identifier.'" Either a table and a field or a special string has to be given! 1281353522');
+		}
 		
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
 		$this->setBooleanIfExistsAndNotNothing('expandGroupRows');

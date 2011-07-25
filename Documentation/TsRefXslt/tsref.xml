@@ -297,6 +297,17 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
+        <ENTRY REF="filter.resetToDefaultValue" KEY="resetToDefaultValue">
+            <DESCRIPTION>If a default value for a filter is set in TypoScript, the filter will be set to this value if it is resetted. If this is set to 0, the filter will be resetted to an empty value.</DESCRIPTION>
+            <DATATYPE>Boolean</DATATYPE>
+            <POSIBLEVALUES>0,1</POSIBLEVALUES>
+            <DEFAULT>0</DEFAULT>
+            <COBJ></COBJ>
+            <PROTOTYPE></PROTOTYPE>
+            <EXAMPLE></EXAMPLE>
+            <CHILDREN></CHILDREN>
+            <VARIANT></VARIANT>
+        </ENTRY>
 		<ENTRY REF="filter.inactiveOption" KEY="inactiveOption">
 			<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
@@ -327,6 +338,35 @@ renderObj {
 			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
 			<EXAMPLE>breadCrumbString = %l equals '%v'</EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.options" KEY="options">
+			<DESCRIPTION>Defines explicit options to display in a data filter. If options are set, no data is fetched from the database. There are to variants to define the data. See the example for details.</DESCRIPTION>
+			<DATATYPE>array</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE>
+# There are two variants to define the data
+
+# Variant 1: Simple key / value
+options {
+	checkedin = Someone Checked in 
+	noonecheckedin = Noone Checked In
+}
+
+# Variant 2: Use integer keys to define option order and subKeys key / value to define the options
+10 {
+    key = 1
+    value = LLL:EXT:my_ext/locallang.xml:theLabelOfTheOption
+}
+                
+20 {
+    ...
+}
+			</EXAMPLE>
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
@@ -362,6 +402,47 @@ plugin.tx_ptextlist.settings {
 	}
 }]]></EXAMPLE>
 					<CHILDREN>
+						<ENTRY KEY="base">
+							<DESCRIPTION>Basic settings for pt_extlist</DESCRIPTION>
+							<DATATYPE></DATATYPE>
+							<POSIBLEVALUES></POSIBLEVALUES>
+							<DEFAULT></DEFAULT>
+							<COBJ></COBJ>
+							<PROTOTYPE></PROTOTYPE>
+							<EXAMPLE></EXAMPLE>
+							<CHILDREN>
+								<ENTRY KEY="uncachedSessionStorageAdapter">
+									<DESCRIPTION>Define the session storage adapter that should be used in uncached mode. Posible values are the classes described below or any other class that implements the interface Tx_PtExtbase_State_Session_Storage_AdapterInterface.</DESCRIPTION>
+									<DATATYPE>String</DATATYPE>
+									<POSIBLEVALUES><![CDATA[
+Tx_PtExtbase_State_Session_Storage_SessionAdapter: Default browser session storage adapter.
+Tx_PtExtbase_State_Session_Storage_FeUserSessionAdapter: TYPO3 fe_user bases session storage.
+]]></POSIBLEVALUES>
+									<DEFAULT>Tx_PtExtbase_State_Session_Storage_SessionAdapter</DEFAULT>
+									<COBJ></COBJ>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+								<ENTRY KEY="cachedSessionStorageAdapter">
+									<DESCRIPTION>Define the session storage adapter that should be used in cached mode. Posible values are the classes described below or any other class that implements the interface Tx_PtExtbase_State_Session_Storage_AdapterInterface.</DESCRIPTION>
+									<DATATYPE>String</DATATYPE>
+									<POSIBLEVALUES><![CDATA[
+Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter: Hold every session variable as GET parameters in the URL. Use this adapter if you want to use realURL.
+Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter: Save the session variables into the database and add an identifier for this db-entry to the GET variables. Use this adapter if you want to handle many parameters and keep the URL length constant.
+]]></POSIBLEVALUES>
+									<DEFAULT>Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter</DEFAULT>
+									<COBJ></COBJ>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT></VARIANT>
+								</ENTRY>
+							</CHILDREN>
+							<VARIANT></VARIANT>
+						</ENTRY>
+						
 						<ENTRY KEY="[yourListId]">
 							<DESCRIPTION>Holds configuration for a single list identifier. This is where the main part of your list configuration has to be set up.</DESCRIPTION>
 							<EXAMPLE><![CDATA[
@@ -1161,6 +1242,28 @@ aggregateRows {
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 															<TYPEREF REF="filter.invert" KEY="invert" />
 															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
+															<ENTRY KEY="size">
+																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
+																<DATATYPE>int</DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ>0</COBJ>
+																<PROTOTYPE></PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN></CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="maxLength">
+																<DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
+																<DATATYPE>int</DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ>0</COBJ>
+																<PROTOTYPE></PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN></CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
 														</CHILDREN>
 														<VARIANT>
 															<ENTRY KEY="String">
@@ -1215,6 +1318,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1243,6 +1347,35 @@ aggregateRows {
 																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="Button">
+																<DESCRIPTION>Renders a filter with buttons.</DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.button</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1271,6 +1404,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF REF="filter.options" KEY="options" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1293,12 +1427,90 @@ aggregateRows {
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
 																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
-																	<TYPEREF REF="filter.multiple" KEY="multiple" />
 																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
 																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
-																	<TYPEREF REF="filter.submitOnChange" KEY="submitOnChange" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="tagcloud">
+																<DESCRIPTION></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.tagcloud</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<ENTRY KEY="maxItems">
+																		<DESCRIPTION>Maximum of items tos show.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="minColor">
+																		<DESCRIPTION>Minimum Color</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>minColor = #1c448d</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="maxColor">
+																		<DESCRIPTION>Maximum Color</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>maxColor = #b8cffa</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="minSize">
+																		<DESCRIPTION>Minimum size of tags in pixel.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="maxSize">
+																		<DESCRIPTION>Maximum size of tags in pixel</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>

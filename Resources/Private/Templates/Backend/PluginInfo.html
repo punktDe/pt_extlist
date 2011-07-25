@@ -1,0 +1,33 @@
+<br/>
+<table>
+	<tr>
+		<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_listIdentifier" />:</td>
+		<td><strong>{listIdentifier}</strong></td>
+	</tr>
+	<tr>
+		<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_controllerAction" />:</td>
+		<td><span><strong><f:translate key="{caLabel}" /></strong></span></td>
+	</tr>
+	
+	<f:if condition="{Filterbox_show}">
+		<tr>
+			<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_filterBox" />:</td>
+			<td><strong>{filterBoxIdentifier}</strong></td>
+		</tr>
+	</f:if>
+	
+		<f:if condition="{List_export}">
+		<tr>
+			<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_export.type" />:</td>
+			<td><strong>{exportType}</strong></td>
+		</tr>
+		<tr>
+			<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_export.filename" />:</td>
+			<td><strong>{exportFileName}</strong></td>
+		</tr>
+		<tr>
+			<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_export.downloadtype" />:</td>
+			<td><strong><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:{exportDownloadType}" /></strong></td>
+		</tr>
+	</f:if>
+</table>

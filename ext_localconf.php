@@ -48,11 +48,16 @@ if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptex
 	);
 }
 
+if(TYPO3_MODE == 'BE') {
+	// Hooks
+	$TYPO3_CONF_VARS['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['ptextlist_pi1']['pt_extlist'] = 'EXT:pt_extlist/Classes/Hooks/CMSLayoutHook.php:user_Tx_PtExtlist_Hooks_CMSLayoutHook->getExtensionSummary';
+}
+
 require_once t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php';
 
 
 /**
  * Register LifeCycle Manager
  */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_eofe'][] = 'EXT:pt_extlist/Classes/Domain/Lifecycle/LifecycleHookManager.php:tx_PtExtlist_Domain_Lifecycle_LifecycleHookManager->updateEnd';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_eofe'][] = 'EXT:pt_extbase/Classes/Lifecycle/HookManager.php:tx_PtExtbase_Lifecycle_HookManager->updateEnd';
 ?>

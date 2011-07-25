@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 		$filter = self::createFilterObject($filterConfig->getFilterClassName()); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 		$filter->injectFilterConfig($filterConfig);
         
-		$sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
         $filter->injectSessionPersistenceManager($sessionPersistenceManager);
         $sessionPersistenceManager->registerObjectAndLoadFromSession($filter);
         
@@ -68,10 +68,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	private static function createFilterObject($filterClassName) {
-		tx_pttools_assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check TS configuration! 1277889459'));
-		tx_pttools_assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check TS configuration! 1277889459'));
+		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460'));
         $filter = new $filterClassName();
-        tx_pttools_assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
         return $filter;
 	}
 	

@@ -17,7 +17,7 @@ bool                                                                filtersDontV
 </extlist:comment>
 
 <div class="tx-ptextlist-filterbox" id="tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
-	<extlist:form controller="Filterbox" action="submit" method="{f:if(condition: '{config.listConfig.useSession}', then: 'POST', else: 'GET')}">
+	<extlist:form controller="Filterbox" action="submit" method="{f:if(condition: '{config.baseConfig.useSession}', then: 'POST', else: 'GET')}">
 		
 		<f:if condition="{filtersDontValidate}">
 			<div class="error">

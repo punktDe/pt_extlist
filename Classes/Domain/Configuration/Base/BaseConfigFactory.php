@@ -27,42 +27,27 @@
  ***************************************************************/
 
 /**
- * Class implements adapter not store any session data when in cached mode and working with full URLS
- * 
- * @author Daniel Lienert 
+ * Class implements factory for basic configuration
+ *
  * @package Domain
- * @subpackage StateAdapter\Storage
+ * @subpackage Configuration\Base
+ * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter implements tx_pttools_iStorageAdapter {
 
-	/**
-	 * Retrieve nothing
-	 * 
-	 * @param string $key
-	 */
-	public function read($key) {
-		return array();
-	}
-	
-	
+class Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory {
 	
 	/**
-	 * Do not save any data
+	 * Returns a instance of a base configuration.
 	 * 
-	 * @param string $key
-	 * @param string $value
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
 	 */
-	public function store($key, $value) {
-	}
-	
-	
-	
-	/**
-	 * Do not delete any data
-	 * 
-	 * @param string $key
-	 */
-	public function delete($key) {
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		
+		$baseSettings = $configurationBuilder->getSettingsForConfigObject('base');
+		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($configurationBuilder, $baseSettings);
+		
+		return $baseConfig;
 	}
 }
 ?>

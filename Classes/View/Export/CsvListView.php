@@ -65,7 +65,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 			foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 				$row[] = $listCell->getValue();
 			}
-			$row = tx_pttools_div::iconvArray($row, 'UTF-8', 'ISO-8859-1');     // TODO: make encoding configurable via TS
+			$row = Tx_PtExtbase_Div::iconvArray($row, 'UTF-8', 'ISO-8859-1');     // TODO: make encoding configurable via TS
 			fputcsv($out, $row, ";");
 		}
 

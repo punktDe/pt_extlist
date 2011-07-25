@@ -106,9 +106,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
         	$displayFields = t3lib_div::trimExplode(',', $displayFieldSettings);
         	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($displayFields);
         } else {
-        	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection();
+        	$fieldIdentifierList = t3lib_div::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
+        	$this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($fieldIdentifierList);
         }	
-        
 	}
 
 	
@@ -125,8 +125,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 		
         foreach($options as $optionData) {
         	$optionKey = $optionData[$this->filterField->getIdentifier()];
-        	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
-        										 'selected' => false);
+        	
+        	$renderedOptions[$optionKey] = $optionData;
+        	$renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
+        	$renderedOptions[$optionKey]['selected'] = false;
         }
        
         return $renderedOptions;
@@ -191,6 +193,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 		foreach($this->displayFields as $displayField) {
         	$values[] = $optionData[$displayField->getIdentifier()];
         }
+        
 		$optionData['allDisplayFields'] = implode(' ', $values);
 		
 		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);

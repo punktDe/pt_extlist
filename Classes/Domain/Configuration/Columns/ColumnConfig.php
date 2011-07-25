@@ -143,7 +143,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
 		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
@@ -234,6 +234,18 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	
 	
 	
+	/**
+	 * @param string $label
+	 */
+	public function setLabel($label) {
+		$this->label = $label;
+	}
+	
+	
+	
+	/**
+	 * @return bool
+	 */
 	public function getIsSortable() {
 		return (bool)$this->isSortable;
 	}

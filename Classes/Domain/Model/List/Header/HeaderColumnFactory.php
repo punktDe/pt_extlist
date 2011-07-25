@@ -46,7 +46,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 		$headerColumn->injectColumnConfig($columnConfiguration);
 		
 		// Inject settings from session.
-        $sessionPersistenceManager = Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
         $sessionPersistenceManager->registerObjectAndLoadFromSession($headerColumn);
         
         // Inject settings from gp-vars.

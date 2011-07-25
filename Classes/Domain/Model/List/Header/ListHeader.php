@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Domain_Model_List_Row implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Domain_Model_List_Row implements Tx_PtExtbase_State_IdentifiableInterface {
 
 	
 	/**

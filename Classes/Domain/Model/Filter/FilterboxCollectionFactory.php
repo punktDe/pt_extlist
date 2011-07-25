@@ -36,6 +36,14 @@
 class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 	
 	/**
+	 * Holds singleton instances of FilterboxCollections for each list identifier
+	 *
+	 * @var array<Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection>
+	 */
+	private static $instances = array();
+	
+	
+	/**
 	 * Factory method for creating filterbox collection for a given filterbox config collection
 	 * and a given list identifier
 	 *
@@ -44,16 +52,20 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$filterboxConfigCollection = $configurationBuilder->buildFilterConfiguration(); 
-		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($configurationBuilder);
-		
-		foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterboxConfiguration */
-			$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
-
-			$filterboxCollection->addFilterBox($filterbox, $filterbox->getfilterboxIdentifier());
+		if (self::$instances[$configurationBuilder->getListIdentifier()] === null) {
+			$filterboxConfigCollection = $configurationBuilder->buildFilterConfiguration(); 
+			$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($configurationBuilder);
+			
+			foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterboxConfiguration */
+				$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
+				$filterboxCollection->addFilterBox($filterbox, $filterbox->getfilterboxIdentifier());
+			}
+			
+			self::$instances[$configurationBuilder->getListIdentifier()] = $filterboxCollection;
 		}
-
-		return $filterboxCollection;
-	}	
+		return self::$instances[$configurationBuilder->getListIdentifier()];
+	}
+		
 }
+
 ?>

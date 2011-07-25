@@ -34,8 +34,8 @@
  * @package Domain
  * @subpackage Model\Pager
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collection
-			implements Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface, Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Collection_Collection 
+			implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 
 
 	/**
@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 	/**
 	 * Holds a instance of the persitence manager.
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager;
 
@@ -77,6 +77,16 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 		$this->configurationBuilder = $configurationBuilder;
 	}
 
+	
+	
+	/**
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistanceManager
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
+		$this->sessionPersistenceManager = $sessionPersistenceManager;		
+	}
+	
+	
 
 	/**
 	 * Adds a pager to the collection.
@@ -167,7 +177,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
+	 * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
 	 */
 	public function getObjectNamespace() {
 		return $this->configurationBuilder->getListIdentifier() . '.pagerCollection';
@@ -177,7 +187,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface::injectGPVars()
+	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::injectGPVars()
 	 */
 	public function injectGPVars($GPVars) {
 		if(array_key_exists('page', $GPVars)) {
@@ -189,7 +199,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::injectSessionData()
+	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::injectSessionData()
 	 */
 	public function injectSessionData(array $sessionData) {
 		if(array_key_exists('page', $sessionData)) {
@@ -201,10 +211,14 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends tx_pttools_collect
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/StateAdapter/Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
+	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
-		return array('page' => $this->currentPage);
+		if($this->currentPage > 1) { 
+			return array('page' => $this->currentPage);	
+		} else { // Page 1 is default therefore we dont need it in the sesssion
+			$this->sessionPersistenceManager->removeSessionDataByNamespace($this->getObjectNamespace());
+		}
 	}
 
 

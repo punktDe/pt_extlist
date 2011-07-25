@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     
     public function testInjectGpVarAdapter() {
     	$filter = $this->getExtendingFilterMock();
-    	$gpVarAdapter = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
+    	$gpVarAdapter = new Tx_PtExtbase_State_GpVars_GpVarsAdapter();
     	$filter->injectGpVarAdapter($gpVarAdapter);
     }
     
@@ -65,7 +65,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     public function testGetters() {
     	$filter = $this->getExtendingFilterMock();     
         $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'field1','filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'),	'test');
-        $filterConfig->injectConfigurationBuilder($this->configurationBuilderMock);
         $filter->injectFilterConfig($filterConfig);
         
         $this->assertEquals($filter->getFilterIdentifier(), 'test');
