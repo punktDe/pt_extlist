@@ -80,7 +80,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      * @return array Array of filter data to persist to session
      */
     public function persistToSession() {
-        return array('filterValue' => $this->filterValue, 'invert' => $this->invert);
+    	$sessionArray = array('filterValue' => $this->filterValue, 'invert' => $this->invert);
+        return $sessionArray;
     }
 
     

@@ -33,7 +33,7 @@
  * @subpackage Configuration\Data\Fields
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 	
 	/**
 	 * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig

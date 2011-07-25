@@ -83,7 +83,6 @@
 		$tagCloudFilterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter', array('dummy'), array());
 		
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'someOtherBox');
-		$filterConfig->injectConfigurationBuilder($this->configurationBuilderMock);
 		
 		$tagCloudFilterMock->injectFilterConfig($filterConfig);
 		

@@ -18,7 +18,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 't3extensions@punkt.de',
 	'author_company' => 'http://www.punkt.de',
 	'shy' => '',
-	'dependencies' => 'cms,extbase,fluid,pt_tools',
+	'dependencies' => 'cms,extbase,fluid,pt_extbase',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -29,13 +29,13 @@ $EM_CONF[$_EXTKEY] = array(
 	'modify_tables' => '',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
-	'version' => '0.2.5',
+	'version' => '0.3.0-dev',
 	'constraints' => array(
 		'depends' => array(
 			'cms' => '',
 			'extbase' => '1.3.0',
 			'fluid' => '1.3.0',
-			'pt_tools' => '1.0.1',
+            'pt_extbase' => '0.0.1-dev'
 		),
 		'conflicts' => array(
 		),

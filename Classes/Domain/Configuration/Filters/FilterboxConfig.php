@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Configuration\Filters
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExtbase_Collection_ObjectCollection {
 
 	
 	/**
@@ -44,6 +44,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	protected $filterIdentifierToFilterIndex;
 	
 	
+	
 	/**
 	 * Identifier of current list
 	 * @var string
@@ -51,10 +52,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	protected $listIdentifier;
 	
 	
+	
 	/**
 	 * @var string
 	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig';
+	
 	
 	
 	/**
@@ -64,6 +67,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	protected $filterboxIdentifier;
 
 	
+	
 	/**
 	 * Show a reset link / button
 	 * @var boolean
@@ -71,11 +75,22 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	protected $showReset = true;
 
 	
+	
 	/**
 	 * Show a submit link / button
 	 * @var boolean
 	 */
 	protected $showSubmit = true;
+	
+	
+	
+	/**
+	 * Holds an instance of configuration builder
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected $configurationBuilder;
+	
 	
 	
 	/**
@@ -85,13 +100,26 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends tx_pttoo
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings) {
 		
-		tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty! 1277889451'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty! 1277889451'));
 		
+		$this->configurationBuilder = $configurationBuilder;
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxIdentifier;
 		
 		$this->setOptionalSettings($filterBoxSettings);
 	}
+	
+	
+	
+	/**
+	 * Getter for configuration builder
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder() {
+		return $this->configurationBuilder;
+	}
+	
 	
 	
 	/**

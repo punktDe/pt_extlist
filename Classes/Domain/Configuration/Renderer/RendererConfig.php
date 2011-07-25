@@ -58,14 +58,14 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig extends Tx_PtExt
 	
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
 
 		$this->setBooleanIfExistsAndNotNothing('enabled');
 		
 		$this->setRequiredValue('rendererClassName', 'No class name given for renderer. 1280408323');
-		tx_pttools_assert::isTrue(class_exists($this->rendererClassName), array('message' => 'Given renderer class ' . $this->rendererClassName . ' does not exist or is not loaded! 1279541306'));
+		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->rendererClassName), array('message' => 'Given renderer class ' . $this->rendererClassName . ' does not exist or is not loaded! 1279541306'));
 	}
 
 	

@@ -36,7 +36,7 @@
  * @author Michael Knoll 
  * @author Christoph Ehscheidt 
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbase_Configuration_AbstractConfigurationBuilder {
 	
 	/**
 	 * Holds settings to build configuration objects
@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 * @param array $settings
 	 */
 	protected function setProtoTypeSettings($settings) {
-		tx_pttools_assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
+		Tx_PtExtbase_Assertions_Assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
 		$this->protoTypeSettings = $settings['prototype'];
 	}
 
@@ -176,7 +176,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      * @param array $filterboxIdentifier
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
-    	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
+    	Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
     	return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
     
@@ -295,6 +295,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function buildListDefaultConfig() {
     	return $this->buildConfigurationGeneric('listDefault');
     }
+    
     
     
     /**
