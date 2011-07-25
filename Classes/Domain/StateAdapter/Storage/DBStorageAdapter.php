@@ -42,6 +42,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
 	protected $stateCache;
 	
 	
+	
 	/**
 	 * @var Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager
 	 */
@@ -164,5 +165,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
 		unset($stateData[$key]);
 		$this->stateCache->set($stateHash, serialize($stateData), array($this->cacheTag), 0);
 	}
+	
 }
+
 ?>
