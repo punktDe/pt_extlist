@@ -63,8 +63,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 		
 		try {
 			$res = $this->connection->sql_query($query);
-
-			tx_pttools_assert::isMySQLRessource($res, $this->dbObj);
+	        Tx_PtExtbase_Assertions_Assert::isMySQLRessource($res, $this->dbObj);
 	        
 	        $rows = array();
 	        

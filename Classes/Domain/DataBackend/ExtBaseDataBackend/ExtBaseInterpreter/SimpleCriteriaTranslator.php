@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
             Tx_Extbase_Persistence_Query $extbaseQuery,
             Tx_Extbase_Persistence_Repository $extbaseRepository) {
 
-        tx_pttools_assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
       	    array('message' => 'Criteria is not a simple criteria! 1281724991'));
       	/* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
       	    

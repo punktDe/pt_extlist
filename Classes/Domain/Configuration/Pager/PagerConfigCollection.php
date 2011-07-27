@@ -33,7 +33,7 @@
  * @subpackage Configuration\Pager
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 	
 	protected $listIdentifier;
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig';

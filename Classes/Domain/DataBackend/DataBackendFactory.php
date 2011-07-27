@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        self::$instances[$listIdentifier] = $dataBackend; /* The reference has to be set here bercause otherwise every filter will create the databackend again -> recursion! */
 			
 	        // Check whether backend class implements backend interface
-	        tx_pttools_assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
+	        Tx_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
 	        
 	        $dataBackend->injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
 	        //$dataBackend->injectBookmarkManager(self::getBookmarkManagerAndProcessBookmark($configurationBuilder));
@@ -176,7 +176,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 		$queryInterpreterClassName = $backendConfiguration->getQueryInterpreterClass();
 	    $queryInterpreter = new $queryInterpreterClassName;
 	    
-	    tx_pttools_assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
+	    Tx_PtExtbase_Assertions_Assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
 	    return $queryInterpreter;
     }
     

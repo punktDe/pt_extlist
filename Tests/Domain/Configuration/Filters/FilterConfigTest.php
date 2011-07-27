@@ -71,7 +71,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	
 	public function testSetup() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'testFilterbox');
-		$filterConfig->injectConfigurationBuilder($this->configurationBuilderMock);
 	}
 	
 	

@@ -28,56 +28,27 @@
 
 /**
  * Class implements a factory for GET/POST Var Adapter.
+ * 
+ * Class is an adapter for pt_extbase's gpvarsAdapter. Sets extension namespace of pt_extlist on generic factory method.
  *
  * @package Domain
  * @subpackage StateAdapter
  */
 class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
-	
-	/**
-	 * Singleton instance of GET/POST Var Adapter.
-	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
-	 */
-	private static $instance;
-	
-	
-	
-	/**
+    
+    /**
 	 * Factory method for GET/POST Var Adapter.
 	 * 
-	 * @return Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter Singleton instance of GET/POST Var Adapter.
+	 * @return Tx_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
 	 */
 	public static function getInstance() {
-		if (self::$instance == NULL) {
-			$extensionNameSpace = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
-										->get('Tx_PtExtlist_Extbase_ExtbaseContext')
-										->getExtensionNameSpace();
-			
-			self::$instance = new Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter();
-			self::$instance->injectGetVars(self::extractExtensionVariables($_GET, $extensionNameSpace));
-			self::$instance->injectPostVars(self::extractExtensionVariables($_POST, $extensionNameSpace));
-			self::$instance->injectFilesVars(self::extractExtensionVariables($_FILES, $extensionNameSpace));
-			self::$instance->setExtensionNamespace($extensionNameSpace);
-		}
-	
-		return self::$instance;
+    	$extensionNameSpace = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+									->get('Tx_PtExtlist_Extbase_ExtbaseContext')
+									->getExtensionNameSpace();
+        $instance = Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory::getInstance($extensionNameSpace);	
+		return $instance;
 	}
-		
-	
-	/**
-	 * Remove the extension name from the variables
-	 * 
-	 * @param string $vars
-	 * @param string $nameSpace
-	 */
-	protected function extractExtensionVariables($vars, $extensionNameSpace) {
-		$extractedVars = $vars[$extensionNameSpace];
-		if(!is_array($extractedVars)) {
-			$extractedVars = array();
-		}
-		
-		return $extractedVars;
-	}
+
 }
+
 ?>

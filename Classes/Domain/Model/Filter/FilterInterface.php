@@ -47,18 +47,18 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	/**
 	 * Injector for get / post vars adapter
 	 *
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter
+	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter
 	 */
-	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter);
+	public function injectGpVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter);
 	
 	
 	
 	/**
      * Injector for session persistence manager
      *
-     * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+     * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
      */
-    public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager);
+    public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager);
 	
 	
 	

@@ -33,7 +33,12 @@
  * @subpackage pt_extlist
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock extends Tx_PtExtlist_Tests_BaseTestcase {
+	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+	}
+	
 	
 	public function getFilterboxConfigurationCollectionMock() {
 		$filterBoxConfigurationCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection();
@@ -65,13 +70,17 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
 	public function getFilterConfigurationMock($filterIdentifier, $filterboxIdentifer) {
 		$mockFilterConfiguration1 = $this->getMock(
             'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
-            array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier', 'getFilterboxIdentifier', 'isAccessable'),array(),'',FALSE,FALSE,FALSE);
-        
-        $mockFilterConfiguration1->injectConfigurationBuilder(Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance());    
+            array('getFilterIdentifier','getConfigurationBuilder', 'getFilterClassName', 'getListIdentifier', 'getFilterboxIdentifier', 'isAccessable'),
+            array(Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(), 
+                $this->extBaseSettings, 'test'),'',FALSE,FALSE);
             
         $mockFilterConfiguration1->expects($this->any())
             ->method('getFilterIdentifier')
             ->will($this->returnValue($filterIdentifier));
+            
+        $mockFilterConfiguration1->expects($this->any())
+            ->method('getConfigurationBuilder')
+            ->will($this->returnValue($this->configurationBuilderMock));
         
         $mockFilterConfiguration1->expects($this->any())
             ->method('getFilterClassName')

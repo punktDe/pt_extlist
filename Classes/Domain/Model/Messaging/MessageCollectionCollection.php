@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\Messaging
  */
-class Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 
     /**
      * Restricts collection to hold only objects of given type

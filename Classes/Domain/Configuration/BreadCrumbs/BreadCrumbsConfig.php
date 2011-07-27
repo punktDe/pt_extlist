@@ -46,8 +46,7 @@ class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig extends Tx
 	
 	
 	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_AbstractConfiguration::init()
+	 * Initialization for config object
 	 */
 	public function init() {		
 		// optional

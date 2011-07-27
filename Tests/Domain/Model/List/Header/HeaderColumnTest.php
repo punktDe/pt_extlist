@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	public function testConfigurationAndStateMerge() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
 		
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
@@ -72,7 +72,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	
 	
 	public function testGetSortings() {	
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
         $sessesionPersistanceManager->expects($this->any())
             ->method('persistToSession');
 		
@@ -102,7 +102,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	
 	
 	public function testGetSortingsWithoutSortingDefinitions() {	
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
         $sessesionPersistanceManager->expects($this->any())
             ->method('persistToSession');
 		
@@ -134,7 +134,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	}
 	
 	public function testGetSortingQuery() {
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('persistToSession'));
+		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
         $sessesionPersistanceManager->expects($this->any())
             ->method('persistToSession');
 		

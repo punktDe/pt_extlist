@@ -216,7 +216,7 @@
             ->method('getFieldConfigurationCollection')
             ->will($this->returnValue($fieldConfigCollectionMock));
             
-        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager', array('loadFromSession', 'persistToSession'), array(), '', FALSE);
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('loadFromSession', 'persistToSession'), array(), '', FALSE);
             
         $filter->injectDataBackend($dataBackendMock);
         $filter->injectSessionPersistenceManager($sessionPersistenceManagerMock);

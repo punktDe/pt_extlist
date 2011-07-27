@@ -118,7 +118,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * @param string $field Field name to be added to list of fields
 	 */
 	public function addField($field) {
-		tx_pttools_assert::isNotEmptyString($field, array('message' => 'Field must not be empty! 1279988488'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, array('message' => 'Field must not be empty! 1279988488'));
 		$this->fields[] = $field;
 	}
 	
@@ -141,7 +141,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * @param string $from From part to be added to query
 	 */
 	public function addFrom($from) {
-		tx_pttools_assert::isNotEmptyString($from, array('message' => 'From must not be empty! 1279988763'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($from, array('message' => 'From must not be empty! 1279988763'));
 		$this->from[] = $from;
 	}
 	
@@ -241,7 +241,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * @param integer $direction Direction of sorting
 	 */
 	public function addSorting($field, $direction = self::SORTINGSTATE_ASC) {
-		tx_pttools_assert::isNotEmptyString($field, array('message' => 'field must not be empty! 1280060692'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, array('message' => 'field must not be empty! 1280060692'));
 		
 		if ($direction == self::SORTINGSTATE_ASC || $direction == self::SORTINGSTATE_DESC) {
 		    $this->sortings[$field] = $direction;	
@@ -261,7 +261,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * @since 02.08.2010
 	 */
 	public function addSortingArray(array $sortingArray) {
-		tx_pttools_assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
+		Tx_PtExtbase_Assertions_Assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
 		// TODO assert that content of array is correct! 
 		$this->sortings =  t3lib_div::array_merge_recursive_overrule($this->sortings, $sortingArray);
 	}

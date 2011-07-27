@@ -46,7 +46,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 	
 	/**
-	 * @see Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface::persistToSession()
+	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 *
 	 */
 	public function persistToSession() {
