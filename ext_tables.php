@@ -77,9 +77,9 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array (
         'delete'            => 'deleted',
         'enablecolumns'     => array(
             'disabled' => 'hidden'
-            ),
+        ),
         'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Tca.php', 
-        'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmars_bookmark.gif'
+        'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmars_bookmark.png'
     )
 );
 ?>
