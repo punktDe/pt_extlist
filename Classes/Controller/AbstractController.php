@@ -87,13 +87,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
 		
+		// Determine class name of session storage class to use for session persistence
 		if(TYPO3_MODE === 'FE') { 
-			$sessionStorageClass = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() 
+			$sessionStorageClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() 
 								? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
 								: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
 		} else {
-			$sessionStorageClass = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+			$sessionStorageClassName = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
 		}		
+		
+		// Instantiate session storage for determined class name
+		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance()');
 		
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
 		
