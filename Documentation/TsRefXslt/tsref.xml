@@ -637,10 +637,31 @@ LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_t
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
-													<COBJ>0</COBJ>
+													<COBJ>1</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE><![CDATA[
-st_continent.tr_name_en [] ''
+# Example using cObject
+baseWhereClause.cObject = COA
+baseWhereClause.cObject {
+    10 = TEXT
+    10 {
+        data = TSFE:fe_user|user|username
+        noTrimWrap = | ticket.queue_id IN (SELECT queue_id FROM personal_queues WHERE user_id = (SELECT id FROM users WHERE login = "|")) |
+    }
+    20 = TEXT
+    20 {
+        data = TSFE:fe_user|user|username
+        noTrimWrap = | AND ticket.user_id IN (1, (SELECT id FROM users WHERE login = "|")) |
+    }
+    30 = TEXT
+    30 {
+        data = TSFE:fe_user|user|username
+        noTrimWrap = | OR ticket.user_id = (SELECT id FROM users WHERE login = "|") |
+    }
+}
+
+# Example using  no cObject
+baseWhereClause = fe_users.uid <> 0
 													]]></EXAMPLE>
 
 													<CHILDREN></CHILDREN>
