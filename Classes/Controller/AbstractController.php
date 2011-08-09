@@ -97,7 +97,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		}		
 		
 		// Instantiate session storage for determined class name
-		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance()');
+		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance');
 		
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
 		
