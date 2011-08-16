@@ -71,5 +71,23 @@ class Tx_PtExtlist_Utility_DbUtils {
 		
 		return $selectPart;
 	}
-	
+
+
+
+	/**
+	 * Turns a fieldConfigCollection into a list of comma separated selectParts
+	 *
+	 * @static
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+	 * @return string
+	 */
+	public static function getSelectPartByFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
+		$selectParts = array();
+
+		foreach($fieldConfigCollection as $field) {
+			$selectParts[] = self::getSelectPartByFieldConfig($field);
+		}
+
+		return implode(', ', $selectParts);
+	}
 }
