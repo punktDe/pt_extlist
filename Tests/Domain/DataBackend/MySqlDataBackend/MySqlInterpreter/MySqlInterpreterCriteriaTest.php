@@ -171,7 +171,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fieldConfigCollection, 'searchString');
 		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator::translateCriteria($fullTextCriteria);
 
-		$this->assertEquals('MATCH (table.field, (special)) AGAINST "searchString"', $translatedCriteria);
+		$this->assertEquals('MATCH (table.field, (special)) AGAINST ("searchString")', $translatedCriteria);
 	}
 }
 ?>
