@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,27 +27,35 @@
  ***************************************************************/
 
 /**
- * Translator for AND criteria
- * 
+ * Class implements a string filter
+ *
  * @package Domain
- * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
+ * @subpackage Model\Filter
  * @author Daniel Lienert 
+ * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
+class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
-	
 	/**
-	 * translate fullText criteria
-	 * 
-	 * @param $criteria Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
-	 * @return string
+	 * Build the filterCriteria for filter
+	 *
+	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
 	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-		return sprintf('MATCH (%s) AGAINST ("%s")',
-								Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
-								$criteria->getSearchString()
-						);
-	}
-}
+	protected function buildFilterCriteriaForAllFields() {
+		$criteria = NULL;
 
+		if ($this->filterValue == '') return NULL;
+
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue);
+
+		return $criteria;
+	}
+
+
+	/**
+	 * Not called
+	 * @return void
+	 */
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
+}
 ?>
