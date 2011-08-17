@@ -215,6 +215,11 @@ plugin.tx_ptextlist.settings {
 		
 		filters {
 			filterbox1 {
+			    redirectOnSubmit{
+			        pageId = 10
+			        controller = 
+			        action = 
+			    }
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
