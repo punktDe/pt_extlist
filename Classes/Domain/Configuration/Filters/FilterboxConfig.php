@@ -89,7 +89,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 *
 	 * @var int
 	 */
-	protected $redirectOnSubmitPageId;
+	protected $redirectOnSubmitPageId = null;
 	
 	
 	
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 *
 	 * @var string
 	 */
-	protected $redirectOnSubmitControllerName;
+	protected $redirectOnSubmitControllerName = null;
 	
 	
 	
@@ -107,7 +107,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 *
 	 * @var string
 	 */
-	protected $redirectOnSubmitActionName;
+	protected $redirectOnSubmitActionName = null;
 	
 	
 	
@@ -273,6 +273,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 */
 	public function getRedirectOnSubmitPageId() {
 		return $this->redirectOnSubmitPageId;
+	}
+	
+	
+	
+	/**
+	 * Returns true, if we do a redirect after submit
+	 *
+	 * @return bool
+	 */
+	public function doRedirectOnSubmit() {
+		return ($this->redirectOnSubmitPageId > 0 || $this->redirectOnSubmitControllerName !== null);
 	}
 	
 }

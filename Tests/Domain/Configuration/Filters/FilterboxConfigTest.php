@@ -85,6 +85,18 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase e
     	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('action' => $testAction)));
     	$this->assertEquals($testAction, $filterboxConfig->getRedirectOnSubmitActionName());
     }
+    
+    
+    public function testDoRedirectOnSubmit() {
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('pageId' => 10)));
+    	$this->assertTrue($filterboxConfig->doRedirectOnSubmit(), 'Filterboxconfig says no redirect although we gave a redirect page id!');
+    	
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('controller' => 'test')));
+    	$this->assertTrue($filterboxConfig->doRedirectOnSubmit(), 'Filterboxconfig says no redirect although we gave a redirect controller name!');
+    	
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array());
+    	$this->assertFalse($filterboxConfig->doRedirectOnSubmit(), 'Filterbox says redirect althout we configured no redirect after submit!');
+    }
 	
 }
 
