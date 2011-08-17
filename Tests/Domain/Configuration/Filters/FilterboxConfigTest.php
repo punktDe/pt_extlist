@@ -68,14 +68,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase e
     
     public function testGetRedirectOnSubmitPageId() {
     	$pageId = 10;
-    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('pageId' => $pageId)));
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('action'=>'action', 'pageId' => $pageId)));
     	$this->assertEquals($pageId, $filterboxConfig->getRedirectOnSubmitPageId());
     }
     
     
     public function testGetRedirectOnSubmitControllerName() {
     	$testController = 'testController';
-    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('controller' => $testController)));
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('action'=>'action', 'controller' => $testController)));
     	$this->assertEquals($testController, $filterboxConfig->getRedirectOnSubmitControllerName());
     }
     
@@ -88,16 +88,37 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase e
     
     
     public function testDoRedirectOnSubmit() {
-    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('pageId' => 10)));
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('action'=>'action')));
+        $this->assertTrue($filterboxConfig->doRedirectOnSubmit(), 'Filterboxconfig says no redirect although we gave a redirect page id!');
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('action'=>'action', 'pageId' => 10)));
     	$this->assertTrue($filterboxConfig->doRedirectOnSubmit(), 'Filterboxconfig says no redirect although we gave a redirect page id!');
     	
-    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('controller' => 'test')));
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('action'=>'action', 'controller' => 'test')));
     	$this->assertTrue($filterboxConfig->doRedirectOnSubmit(), 'Filterboxconfig says no redirect although we gave a redirect controller name!');
     	
     	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array());
     	$this->assertFalse($filterboxConfig->doRedirectOnSubmit(), 'Filterbox says redirect althout we configured no redirect after submit!');
     }
 	
+    
+    public function testSettingPageIdRedirectParametersWithoutActionThrowsException() {
+    	try {
+    		$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('pageId' => 10)));
+    	} catch(Exception $e) {
+    		return;
+    	}
+    	$this->fail('No Exception has been thrown when trying to set redirect parameters without an action');
+    }
+    
+    
+    public function testSettingControllerRedirectParametersWithoutActionThrowsException() {
+        try {
+            $filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('controller' => 'test')));
+        } catch(Exception $e) {
+            return;
+        }
+        $this->fail('No Exception has been thrown when trying to set redirect parameters without an action');
+    }
 }
 
 ?>

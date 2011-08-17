@@ -116,7 +116,19 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		}
 
 		$this->resetPagers();
-		$this->forward('show'); // maybe a redirect is needed here?!? --> no, it's not, as we have GP-vars mapping!
+		
+		// check whether we have a redirect on submit configured for this filter
+		if ($this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
+			$this->redirect(
+			     $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(),      // action name
+			     $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitControllerName(),  // controller name
+			     null,                                                                                // extension name
+			     null,                                                                                // arguments
+			     $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitPageId()           // page id
+			);
+		} else {
+		    $this->forward('show'); // Filter submitted, so we redirect to show action
+		}
 	}
 	
 

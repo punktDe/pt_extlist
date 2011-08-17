@@ -191,14 +191,16 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 		
 		if (array_key_exists('redirectOnSubmit', $filterBoxSettings)) {
 			$redirectSettings = $filterBoxSettings['redirectOnSubmit'];
+			if (array_key_exists('action', $redirectSettings)) {
+				$this->redirectOnSubmitActionName = $redirectSettings['action'];
+			} else {
+				throw new Exception('You have redirect on submit configured for your filterbox ' . $this->getFilterboxIdentifier() . ' but have set no action to redirect to. You always have to set an action, even if it is nonesense! 1313610240');
+			}
 			if (array_key_exists('pageId', $redirectSettings)) {
 				$this->redirectOnSubmitPageId = $redirectSettings['pageId'];
 			}
 			if (array_key_exists('controller', $redirectSettings)) {
 				$this->redirectOnSubmitControllerName = $redirectSettings['controller'];
-			}
-			if (array_key_exists('action', $redirectSettings)) {
-				$this->redirectOnSubmitActionName = $redirectSettings['action'];
 			}
 		}
 		
@@ -283,7 +285,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 * @return bool
 	 */
 	public function doRedirectOnSubmit() {
-		return ($this->redirectOnSubmitPageId > 0 || $this->redirectOnSubmitControllerName !== null);
+		return ($this->redirectOnSubmitPageId > 0 || $this->redirectOnSubmitActionName !== null);
 	}
 	
 }
