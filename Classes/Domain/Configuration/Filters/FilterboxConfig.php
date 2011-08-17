@@ -85,6 +85,33 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	
 	
 	/**
+	 * Holds ID of page to which should be redirected after filterbox submits
+	 *
+	 * @var int
+	 */
+	protected $redirectOnSubmitPageId;
+	
+	
+	
+	/**
+	 * Holds name of controller used for redirect after filterbox submits
+	 *
+	 * @var string
+	 */
+	protected $redirectOnSubmitControllerName;
+	
+	
+	
+	/**
+	 * Holds name of action used for redirect after filterbox submits
+	 *
+	 * @var string
+	 */
+	protected $redirectOnSubmitActionName;
+	
+	
+	
+	/**
 	 * Holds an instance of configuration builder
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
@@ -154,12 +181,25 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 */
 	protected function setOptionalSettings($filterBoxSettings) {
 		
-		if(array_key_exists('showReset', $filterBoxSettings)) {
+		if (array_key_exists('showReset', $filterBoxSettings)) {
 			$this->showReset = $filterBoxSettings['showReset'] == 1 ? true : false;
 		}
 		
-		if(array_key_exists('showSubmit', $filterBoxSettings)) {
+		if (array_key_exists('showSubmit', $filterBoxSettings)) {
 			$this->showSubmit = $filterBoxSettings['showSubmit'] == 1 ? true : false;
+		}
+		
+		if (array_key_exists('redirectOnSubmit', $filterBoxSettings)) {
+			$redirectSettings = $filterBoxSettings['redirectOnSubmit'];
+			if (array_key_exists('pageId', $redirectSettings)) {
+				$this->redirectOnSubmitPageId = $redirectSettings['pageId'];
+			}
+			if (array_key_exists('controller', $redirectSettings)) {
+				$this->redirectOnSubmitControllerName = $redirectSettings['controller'];
+			}
+			if (array_key_exists('action', $redirectSettings)) {
+				$this->redirectOnSubmitActionName = $redirectSettings['action'];
+			}
 		}
 		
 	} 
@@ -193,12 +233,47 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	}
 	
 	
+	
 	/**
 	 * Show Submit button / link in filterbox
 	 * @return boolean showSubmit
 	 */
 	public function getShowSubmit() {
 		return $this->showSubmit;
-	}	
+	}
+	
+	
+	
+	/**
+	 * Returns action name used for redirect after filterbox submits
+	 * 
+	 * @return string
+	 */
+	public function getRedirectOnSubmitActionName() {
+		return $this->redirectOnSubmitActionName;
+	}
+	
+	
+	
+	/**
+	 * Returns controller name used for redirect after filterbox submits
+	 * 
+	 * @return string
+	 */
+	public function getRedirectOnSubmitControllerName() {
+		return $this->redirectOnSubmitControllerName;
+	}
+	
+	
+	
+	/**
+	 * Returns page id of page to which should be redirected after filterbox submits
+	 * 
+	 * @return int
+	 */
+	public function getRedirectOnSubmitPageId() {
+		return $this->redirectOnSubmitPageId;
+	}
+	
 }
 ?>

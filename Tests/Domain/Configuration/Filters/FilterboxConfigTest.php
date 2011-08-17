@@ -64,6 +64,27 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase e
     	$filterBoxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('showSubmit' => 0));
     	$this->assertEquals(false, $filterBoxConfig->getShowSubmit());
     }
+    
+    
+    public function testGetRedirectOnSubmitPageId() {
+    	$pageId = 10;
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('pageId' => $pageId)));
+    	$this->assertEquals($pageId, $filterboxConfig->getRedirectOnSubmitPageId());
+    }
+    
+    
+    public function testGetRedirectOnSubmitControllerName() {
+    	$testController = 'testController';
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('controller' => $testController)));
+    	$this->assertEquals($testController, $filterboxConfig->getRedirectOnSubmitControllerName());
+    }
+    
+    
+    public function testGetRedirectOnSubmitActionName() {
+    	$testAction = 'testAction';
+    	$filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('redirectOnSubmit' => array('action' => $testAction)));
+    	$this->assertEquals($testAction, $filterboxConfig->getRedirectOnSubmitActionName());
+    }
 	
 }
 
