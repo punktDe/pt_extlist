@@ -85,6 +85,33 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	
 	
 	/**
+	 * Holds ID of page to which should be redirected after filterbox submits
+	 *
+	 * @var int
+	 */
+	protected $redirectOnSubmitPageId = null;
+	
+	
+	
+	/**
+	 * Holds name of controller used for redirect after filterbox submits
+	 *
+	 * @var string
+	 */
+	protected $redirectOnSubmitControllerName = null;
+	
+	
+	
+	/**
+	 * Holds name of action used for redirect after filterbox submits
+	 *
+	 * @var string
+	 */
+	protected $redirectOnSubmitActionName = null;
+	
+	
+	
+	/**
 	 * Holds an instance of configuration builder
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
@@ -154,12 +181,27 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 */
 	protected function setOptionalSettings($filterBoxSettings) {
 		
-		if(array_key_exists('showReset', $filterBoxSettings)) {
+		if (array_key_exists('showReset', $filterBoxSettings)) {
 			$this->showReset = $filterBoxSettings['showReset'] == 1 ? true : false;
 		}
 		
-		if(array_key_exists('showSubmit', $filterBoxSettings)) {
+		if (array_key_exists('showSubmit', $filterBoxSettings)) {
 			$this->showSubmit = $filterBoxSettings['showSubmit'] == 1 ? true : false;
+		}
+		
+		if (array_key_exists('redirectOnSubmit', $filterBoxSettings)) {
+			$redirectSettings = $filterBoxSettings['redirectOnSubmit'];
+			if (array_key_exists('action', $redirectSettings)) {
+				$this->redirectOnSubmitActionName = $redirectSettings['action'];
+			} else {
+				throw new Exception('You have redirect on submit configured for your filterbox ' . $this->getFilterboxIdentifier() . ' but have set no action to redirect to. You always have to set an action, even if it is nonesense! 1313610240');
+			}
+			if (array_key_exists('pageId', $redirectSettings)) {
+				$this->redirectOnSubmitPageId = $redirectSettings['pageId'];
+			}
+			if (array_key_exists('controller', $redirectSettings)) {
+				$this->redirectOnSubmitControllerName = $redirectSettings['controller'];
+			}
 		}
 		
 	} 
@@ -193,12 +235,58 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	}
 	
 	
+	
 	/**
 	 * Show Submit button / link in filterbox
 	 * @return boolean showSubmit
 	 */
 	public function getShowSubmit() {
 		return $this->showSubmit;
-	}	
+	}
+	
+	
+	
+	/**
+	 * Returns action name used for redirect after filterbox submits
+	 * 
+	 * @return string
+	 */
+	public function getRedirectOnSubmitActionName() {
+		return $this->redirectOnSubmitActionName;
+	}
+	
+	
+	
+	/**
+	 * Returns controller name used for redirect after filterbox submits
+	 * 
+	 * @return string
+	 */
+	public function getRedirectOnSubmitControllerName() {
+		return $this->redirectOnSubmitControllerName;
+	}
+	
+	
+	
+	/**
+	 * Returns page id of page to which should be redirected after filterbox submits
+	 * 
+	 * @return int
+	 */
+	public function getRedirectOnSubmitPageId() {
+		return $this->redirectOnSubmitPageId;
+	}
+	
+	
+	
+	/**
+	 * Returns true, if we do a redirect after submit
+	 *
+	 * @return bool
+	 */
+	public function doRedirectOnSubmit() {
+		return ($this->redirectOnSubmitPageId > 0 || $this->redirectOnSubmitActionName !== null);
+	}
+	
 }
 ?>

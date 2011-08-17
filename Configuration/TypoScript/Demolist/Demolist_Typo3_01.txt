@@ -215,6 +215,12 @@ plugin.tx_ptextlist.settings {
 		
 		filters {
 			filterbox1 {
+			    # Use this configuration if you want to do a redirect after a filterbox submits
+			    #redirectOnSubmit{
+			    #    pageId = 10
+			    #    controller = testController 
+			    #    action = testAction
+			    #}
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
