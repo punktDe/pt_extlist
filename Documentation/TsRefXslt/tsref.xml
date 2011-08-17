@@ -1314,6 +1314,33 @@ aggregateRows {
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
+                                                            <ENTRY KEY="fullText">
+																<DESCRIPTION>Shows a filter to do a fullText query. The execution is database specific. If you are using a MySQL database, you have to add a fullText index to the relevant fields first.</DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.fullText</PROTOTYPE>
+																<EXAMPLE><![CDATA[
+10 < plugin.tx_ptextlist.prototype.filter.fullText
+10 {
+	filterIdentifier = fullText
+	label = Full Text Search
+	fieldIdentifier = extkey,title,description,authorname,uploadcomment
+}
+																]]></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
 															<ENTRY KEY="Select">
 																<DESCRIPTION></DESCRIPTION>
 																<DATATYPE></DATATYPE>
