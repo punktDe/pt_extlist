@@ -16,13 +16,13 @@ Tx_PtExtlist_Domain_Model_Filter_StringFilter           filter                  
 </extlist:comment>
 
 <div class="outer-wrapper">
-	
-	<f:if condition="{filter.validate} == 0">
+
+    <f:if condition="{filter.validate} == 0">
 		<div class="error">
-			Validation Error: {filter.errorMessage}
+			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}
 		</div>
 	</f:if>
-	
+
 	<label for="{filter.filterIdentifier}" class="filter-label" >
 		{filter.label}
 	</label>

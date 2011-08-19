@@ -8,17 +8,26 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="emptyList">Sorry, no list items available.</label>
-			
+
+            <!-- General phrases -->
+            <label index="general.validationError">Validation Error: </label>
+
+            <!-- Pasger -->
 			<label index="pager.of">of</label>
 			<label index="pager.to">to</label>
 			<label index="pager.showItems">Show item</label>
-			
+
+            <!-- Filterbox -->
 			<label index="filterBox.resetFilters">Reset Filters</label>
 			<label index="filterBox.submitFilters">Submit Filters</label>
 			<label index="filterBox.errorInFilter">The filters contain errors.</label>
 			
-			<label index="filter.daterange.from">From</label>
+
+            <!-- Filter -->
+            <label index="filter.daterange.from">From</label>
 			<label index="filter.daterange.to">To</label>
+            <label index="filter.fullText.errorWordTooShort">The searchword has to be at minimum %s characters.</label>
+
 			
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
@@ -56,18 +65,26 @@
 		</languageKey>
 		
 		<languageKey index="de" type="array">
-			<label index="emptyList">Leider keine Daten in der Liste.</label>
-			
+
+             <!-- General phrases -->
+            <label index="general.validationError">Fehler: </label>
+            <label index="emptyList">Diese Liste enthält keine Einträge.</label>
+
+            <!-- Pager -->
 			<label index="pager.of">von</label>
 			<label index="pager.to">bis</label>
 			<label index="pager.showItems">Zeige Element</label>
-			
+
+            <!-- Filterbox -->
 			<label index="filterBox.resetFilters">Filter zurücksetzen</label>
 			<label index="filterBox.errorInFilter">Die Eingaben der Filter enthalten Fehler.</label>
-			
-			<label index="filter.daterange.from">Von</label>
-			<label index="filter.daterange.to">Bis</label>
-			
+            <label index="filterBox.errorInFilter">Die Filter enthalten Fehler.</label>
+
+            <!-- Filter -->
+            <label index="filter.daterange.from">Von</label>
+            <label index="filter.daterange.to">Bis</label>
+            <label index="filter.fullText.errorWordTooShort">Das Suchwort muss mindestens aus %s Zeichen bestehen!</label>
+
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Beschreibung</label>
@@ -85,11 +102,13 @@
 		
 		<languageKey index="pl" type="array">
 			<label index="emptyList">Sorry, no list items available.</label>
-			
+
+            <!-- Pasger -->
 			<label index="pager.of">z</label>
 			<label index="pager.to">-</label>
 			<label index="pager.showItems">Widoczne pozycje</label>
-			
+
+            <!-- Filterbox -->
 			<label index="filterBox.resetFilters">Zresetować</label>
 			<label index="filterBox.submitFilters">Zatwierdź</label>
 			<label index="filterBox.errorInFilter">The filters contain errors.</label>

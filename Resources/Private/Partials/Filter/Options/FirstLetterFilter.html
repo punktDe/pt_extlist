@@ -18,7 +18,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 	
 	<f:if condition="{filter.validate} == 0">
 		<div class="error">
-			Validation Error: {filter.errorMessage}
+			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}{filter.errorMessage}
 		</div>
 	</f:if>
 	
