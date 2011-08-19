@@ -37,6 +37,23 @@
 class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
 	/**
+	 * @var int
+	 */
+	protected $minWordLength;
+
+
+
+	/**
+	 * @return void
+	 */
+	protected function initFilterByTsConfig() {
+		$this->minWordLength = (int) $this->filterConfig->getSettings('minWordLength');
+		parent::initFilterByTsConfig();
+	}
+
+
+
+	/**
 	 * Build the filterCriteria for filter
 	 *
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
@@ -50,6 +67,23 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
 
 		return $criteria;
 	}
+
+
+
+	/**
+	 * Validates filter
+	 *
+	 * @return bool True, if filter validates
+	 */
+	public function validate() {
+		if(strlen(trim($this->filterValue)) >= $this->minWordLength) {
+			return true;
+		} else {
+			$this->errorMessage = Tx_Extbase_Utility_Localization::translate('filter.fullText.errorWordTooShort', 'ptExtlist', array($this->minWordLength),'',t3lib_FlashMessage::ERROR);
+			return false;
+		}
+	}
+
 
 
 	/**
