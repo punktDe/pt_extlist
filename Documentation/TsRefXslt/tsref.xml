@@ -1338,6 +1338,17 @@ aggregateRows {
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <ENTRY KEY="minWordLength">
+																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>4</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1505,7 +1516,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<ENTRY KEY="maxItems">
-																		<DESCRIPTION>Maximum of items tos show.</DESCRIPTION>
+																		<DESCRIPTION>Maximum of items to show.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
 																		<POSIBLEVALUES></POSIBLEVALUES>
 																		<DEFAULT></DEFAULT>

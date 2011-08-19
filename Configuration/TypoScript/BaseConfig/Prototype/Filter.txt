@@ -30,6 +30,8 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 		accessGroups =
 
+        minWordLength = 4
+
 		maxLength =
 		size =
 
