@@ -1237,6 +1237,57 @@ aggregateRows {
 												<CHILDREN></CHILDREN>
 												<VARIANT></VARIANT>
 											</ENTRY>
+											<ENTRY KEY="redirectOnSubmit">
+                                                <DESCRIPTION>Redirects to given page id, controller and action if filter submits. Does not redirect if filter does not validate. You always have to set an action and a controller, if you want to redirect to another page only! Use fake names, if there are no controllers / actions you can addresse.</DESCRIPTION>
+                                                <DATATYPE></DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT></DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE><![CDATA[
+redirectOnSubmit{
+    pageId = 10
+    controller = List 
+    action = list
+}
+                                            ]]></EXAMPLE>
+                                                <CHILDREN>
+                                                    <ENTRY KEY="pageId">
+		                                                <DESCRIPTION>Id of page that you want to redirect to, after filterbox submits (and validates").</DESCRIPTION>
+		                                                <DATATYPE>int</DATATYPE>
+		                                                <POSIBLEVALUES></POSIBLEVALUES>
+		                                                <DEFAULT></DEFAULT>
+		                                                <COBJ></COBJ>
+		                                                <PROTOTYPE></PROTOTYPE>
+		                                                <EXAMPLE></EXAMPLE>
+		                                                <CHILDREN></CHILDREN>
+		                                                <VARIANT></VARIANT>
+		                                            </ENTRY>
+		                                            <ENTRY KEY="controller">
+                                                        <DESCRIPTION>Name of controller that sould be called after filterbox submits (and validates!).</DESCRIPTION>
+                                                        <DATATYPE>string</DATATYPE>
+                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                        <DEFAULT></DEFAULT>
+                                                        <COBJ></COBJ>
+                                                        <PROTOTYPE></PROTOTYPE>
+                                                        <EXAMPLE></EXAMPLE>
+                                                        <CHILDREN></CHILDREN>
+                                                        <VARIANT></VARIANT>
+                                                    </ENTRY>
+                                                    <ENTRY KEY="action">
+                                                        <DESCRIPTION>Name of action that should be called on destination page after filterbod submits (and validates).</DESCRIPTION>
+                                                        <DATATYPE>string</DATATYPE>
+                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                        <DEFAULT></DEFAULT>
+                                                        <COBJ></COBJ>
+                                                        <PROTOTYPE></PROTOTYPE>
+                                                        <EXAMPLE></EXAMPLE>
+                                                        <CHILDREN></CHILDREN>
+                                                        <VARIANT></VARIANT>
+                                                    </ENTRY>
+                                                </CHILDREN>
+                                                <VARIANT></VARIANT>
+                                            </ENTRY>
 											<ENTRY KEY="filterConfigs">
 												<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
 												<DATATYPE>Array</DATATYPE>
