@@ -30,7 +30,10 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 		accessGroups =
 
+        # MySQL Specific Parameters
         minWordLength = 4
+        booleanMode = 0
+        booleanModeWrapWithStars = 1
 
 		maxLength =
 		size =

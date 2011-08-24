@@ -1400,6 +1400,28 @@ redirectOnSubmit{
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
+                                                                    <ENTRY KEY="booleanMode">
+																		<DESCRIPTION>This is a MySQL specific value. If it is set to 1, the query is executed in boolean mode.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+                                                                    <ENTRY KEY="booleanModeWrapWithStars">
+																		<DESCRIPTION>If the parameter booleanMode is set to 1 and booleanModeWrapWithStars is set to 1 the searchWord is wrapped with stars (if not already done by the user). The effect is, that matches in substrings are also posible.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>

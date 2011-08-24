@@ -112,6 +112,9 @@ plugin.tx_ptextlist.settings {
 						filterIdentifier = filter1
 						label = Fulltext Search
 						fieldIdentifier = extkey,title,description,authorname,uploadcomment
+						booleanMode = 1
+						booleanModeWrapWithStars = 1
+						minWordLength = 3
 					}
 				}
 			}

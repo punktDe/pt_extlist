@@ -96,8 +96,8 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteria_testcase extends Tx
 		$criteriaReference = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
 		$criteriaEqual = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
 		$criteriaInEqual = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'anOtherSearchString');
-		$this->assertTrue($criteriaReference->isEqualTo($criteriaEqual));
-		$this->assertTrue(!($criteriaReference->isEqualTo($criteriaInEqual)));
+		$this->assertTrue($criteriaReference->isEqualTo($criteriaEqual), 'Equal Criteria is not equal! ;)');
+		$this->assertTrue(!($criteriaReference->isEqualTo($criteriaInEqual, 'Not Equal Criteria is equal! ;)')));
 	}
 	
 }

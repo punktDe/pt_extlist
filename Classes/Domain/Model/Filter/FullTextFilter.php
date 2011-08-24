@@ -63,9 +63,25 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
 
 		if ($this->filterValue == '') return NULL;
 
-		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue);
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue, $this->getSearchParameterArray());
 
 		return $criteria;
+	}
+
+
+
+	/**
+	 * Build an array with additional search parameter
+	 *
+	 * @return array
+	 */
+	protected function getSearchParameterArray() {
+		$searchParameter = array();
+		
+		$searchParameter['booleanMode'] = $this->filterConfig->getSettings('booleanMode') ? true : false;
+		$searchParameter['booleanModeWrapWithStars'] = $this->filterConfig->getSettings('booleanModeWrapWithStars') ? true : false;
+
+		return $searchParameter;
 	}
 
 
