@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullText
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 
-		$searchString = $criteria->getSearchString();
+		$searchString = mysql_real_escape_string($criteria->getSearchString());
 
 		if($criteria->getSearchParameter('booleanMode')) {
 			$booleanMode = $criteria->getSearchParameter('booleanMode') ? ' IN BOOLEAN MODE' : '';
