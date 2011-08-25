@@ -16,13 +16,6 @@ Tx_PtExtlist_Domain_Model_Filter_StringFilter           filter                  
 </extlist:comment>
 
 <div class="outer-wrapper">
-
-    <f:if condition="{filter.validate} == 0">
-		<div class="error">
-			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}
-		</div>
-	</f:if>
-
 	<label for="{filter.filterIdentifier}" class="filter-label" >
 		{filter.label}
 	</label>
@@ -31,4 +24,9 @@ Tx_PtExtlist_Domain_Model_Filter_StringFilter           filter                  
 			<f:form.textbox id="{filter.filterIdentifier}" property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" size="{filter.filterConfig.settings.size}" maxlength="{filter.filterConfig.settings.maxLength}"/>
 		</div>
 	</div>
+    <f:if condition="{filter.validate} == 0">
+		<div class="error">
+			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}
+		</div>
+	</f:if>
 </div>

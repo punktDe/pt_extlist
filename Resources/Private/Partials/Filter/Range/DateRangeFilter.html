@@ -12,13 +12,6 @@ Here is a list of objects / variables that can be accessed in this partial
 </extlist:comment>
 
 <div class="outer-wrapper">
-
-	<f:if condition="{filter.validate} == 0">
-		<div class="error">
-			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}{filter.errorMessage}
-		</div>
-	</f:if>
-	
 	<label for="{filter.filterIdentifier}" class="filter-label">
 		{filter.label}
 	</label>
@@ -30,4 +23,9 @@ Here is a list of objects / variables that can be accessed in this partial
 			<f:form.textbox property="filterValueTo" value="{filter.filterValueTo}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueTo')}" />
 		</div>
 	</div>
+    <f:if condition="{filter.validate} == 0">
+		<div class="error">
+			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}{filter.errorMessage}
+		</div>
+	</f:if>
 </div>

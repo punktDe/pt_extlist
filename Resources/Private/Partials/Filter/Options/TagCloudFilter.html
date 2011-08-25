@@ -15,13 +15,7 @@ Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      
 </extlist:comment>
 
 <div class="outer-wrapper">
-	
-	<f:if condition="{filter.validate} == 0">
-		<div class="error">
-			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}{filter.errorMessage}
-		</div>
-	</f:if>
-	
+
 	<label for="{filter.filterIdentifier}" class="filter-label">
 		{filter.label}
 	</label>
@@ -45,6 +39,10 @@ Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      
 				</label>
 			</div>
 		</f:if>
-		
+        <f:if condition="{filter.validate} == 0">
+            <div class="error">
+                <f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}{filter.errorMessage}
+            </div>
+	    </f:if>
 	</div>
 </div>
