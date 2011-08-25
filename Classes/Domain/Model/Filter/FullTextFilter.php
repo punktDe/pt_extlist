@@ -76,7 +76,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
 	 * @return bool True, if filter validates
 	 */
 	public function validate() {
-		if(strlen(trim($this->filterValue)) >= $this->minWordLength) {
+		if(!$this->isActive() || strlen(trim($this->filterValue)) >= $this->minWordLength) {
 			return true;
 		} else {
 			$this->errorMessage = Tx_Extbase_Utility_Localization::translate('filter.fullText.errorWordTooShort', 'ptExtlist', array($this->minWordLength),'',t3lib_FlashMessage::ERROR);
