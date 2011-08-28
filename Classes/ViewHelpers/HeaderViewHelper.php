@@ -28,30 +28,38 @@
 
 
 /**
+ * ViewHelper for rendering list headers.
  * 
- * TODO: Enter description here ...
+ * This ViewHelper acts as a loop over headers given in list. Foreach
+ * Header, the child elements of the ViewHelper are rendered. Therefore
+ * additional variables are set in the template variable container and
+ * hence made accessible for the child elements.
+ * 
  * @package ViewHelpers
- *
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
+	 * Renders HeaderViewHelper
 	 * 
-	 * Enter description here ...
-	 * @param $header
-	 * @param $captions
-	 * @param $headerKey string
-	 * @param $captionKey string
+	 * Sets additional template variables for children of this viewhelper.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $header
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $captions
+	 * @param string $headerKey 
+	 * @param string $captionKey
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption") {
-		
-		$output = '';
 		if ($headers === NULL || $captions === NULL) {
 			return '';
 		}
-		
+
 		$output = '';
+		
 		foreach ($headers as $header) {
+			
+			// Set additional variables in template vars for child elements
 
 			$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));		
 			$this->templateVariableContainer->add($headerKey, $header);
@@ -66,8 +74,8 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 			$this->templateVariableContainer->remove('sortingState');
 			
 		}
+		
 		return $output;
-
 	}
 
 	

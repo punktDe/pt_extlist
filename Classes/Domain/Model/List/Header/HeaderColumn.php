@@ -27,7 +27,9 @@
  ***************************************************************/
 
 /**
- * Class implements list header collection
+ * Class implements a single list header
+ * 
+ * TODO rename this class to Tx_PtExtlist_Domain_Model_List_Header_Header
  * 
  * @author Daniel Lienert 
  * @package Domain

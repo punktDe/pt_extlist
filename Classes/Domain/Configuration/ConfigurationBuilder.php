@@ -80,7 +80,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	    		  'prototype' => 'rendererChain'),
 	    'breadCrumbs' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
-	    	      'tsKey' => 'breadCrumbs')
+	    	      'tsKey' => 'breadCrumbs'),
+	    'sorter' => 
+	    	array('tsKey' => 'sorter')
 	);
 	
 	
@@ -328,6 +330,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
     	return $this->buildConfigurationGeneric('breadCrumbs');
     }
     
+    
+    
+    /**
+     * Returns a sorter configuration object
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfiguration
+     */
+    public function buildSorterConfiguration() {
+    	return $this->buildConfigurationGeneric('sorter');
+    }
+    
 }
-
 ?>
