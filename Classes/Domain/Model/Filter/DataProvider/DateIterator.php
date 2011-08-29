@@ -120,8 +120,46 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
 	 */
 	public function getRenderedOptions() {
+
+		$renderedOptions = array();
+		$timeSpanList = $this->buildTimeStampList();
+
+		foreach ($timeSpanList as $key => $timestamp) {
+
+			$optionData['allDisplayFields'] = strftime($this->dateIteratorFormat, $timestamp);
+			$renderedOptions[$key] = array('value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
+													 'selected' => false);
+		}
+
+		return $renderedOptions;
+
 	}
-	
-	
+
+
+	protected function buildTimeStampList() {
+
+		$iterationStart = $this->dateIteratorStart;
+		$timeStampList = array();
+
+		$iterator = array_combine(array('s', 'i', 'h', 'd', 'm', 'y'), array(0, 0, 0, 0, 0, 0));
+		$iterator[$this->dateIteratorIncrement] = 1;
+
+		while($iterationStart <= $this->dateIteratorEnd) {
+			
+			$iterationEnd = mktime(
+				date('s', $iterationStart) + $iterator['s'],
+				date('i', $iterationStart) + $iterator['i'],
+				date('h', $iterationStart) + $iterator['h'],
+				date('m', $iterationStart) + $iterator['m'],
+				date('d', $iterationStart) + $iterator['d'],
+				date('y', $iterationStart) + $iterator['y']
+			);
+
+			$timeStampList[$iterationStart . ',' . $iterationEnd] = $iterationStart;
+			$iterationStart = $iterationEnd;
+		}
+
+		return $timeStampList;
+	}
 }
 ?>

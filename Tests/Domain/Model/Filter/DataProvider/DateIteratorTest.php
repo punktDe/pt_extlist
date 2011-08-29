@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 					'dateIteratorStart' => '1227999510',
 					'dateIteratorEnd' =>   '1314607478',
 					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => 'm',
+					'dateIteratorFormat' => '%m',
        		 );
 	
 	
@@ -62,9 +62,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 					'dateIteratorStart' => mktime(0,0,0,1,1,date('Y')),
 					'dateIteratorEnd' => mktime(0,0,0,12,12,date('Y')),
 					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => 'm',
+					'dateIteratorFormat' => '%m',
 				),
-				'result' => 'unknown'
+				'result' => array(
+					'count' => 12
+				)
 			)
 		);
 	}
@@ -77,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 					'dateIteratorStart' => '',
 					'dateIteratorEnd' => '1314607478',
 					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => 'm',
+					'dateIteratorFormat' => '%m',
 				)
 			),
 			'NoEndDateGiven' => array(
@@ -85,7 +87,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 					'dateIteratorStart' => '1227999510',
 					'dateIteratorEnd' => '',
 					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => 'm',
+					'dateIteratorFormat' => '%m',
 				)
 			),
 			'NoIncrementGiven' => array(
@@ -93,7 +95,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 					'dateIteratorStart' => '1227999510',
 					'dateIteratorEnd' => '1314607478',
 					'dateIteratorIncrement' => '',
-					'dateIteratorFormat' => 'm',
+					'dateIteratorFormat' => '%m',
 				)
 			),
 			'NoFormatGiven' => array(
@@ -109,7 +111,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 					'dateIteratorStart' => '1314607478',
 					'dateIteratorEnd' => '1227999510',
 					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => 'm',
+					'dateIteratorFormat' => '%m',
 				)
 			),
 			'IncrementSettingUnknown' => array(
@@ -117,7 +119,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 					'dateIteratorStart' => '1314607478',
 					'dateIteratorEnd' => '1227999510',
 					'dateIteratorIncrement' => 'X',
-					'dateIteratorFormat' => 'm',
+					'dateIteratorFormat' => '%m',
 				)
 			)
 		);
@@ -166,10 +168,29 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 		$filterSettings = t3lib_div::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
 
 		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
-		Tx_ExtDebug::var_dump($dataProvider->getRenderedOptions(), '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');		
 
+		$resultArray = $dataProvider->getRenderedOptions();
+
+		$this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
+	}
+	
+	
+	
+	/**
+	 * @test
+	 * @dataProvider settingsDataProvider
+	 */
+	public function buildTimeStampList($settings, $result) {
+		$filterSettings = t3lib_div::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
+
+		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
+		$resultArray = $dataProvider->_call('buildTimeStampList');
+
+		$this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
 	}
 
+	
+	
 
 	/**
 	 * @param $filterSettings
