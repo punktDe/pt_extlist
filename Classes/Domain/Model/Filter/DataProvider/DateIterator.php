@@ -136,6 +136,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 	}
 
 
+	/**
+	 * @return array
+	 */
 	protected function buildTimeStampList() {
 
 		$iterationStart = $this->dateIteratorStart;

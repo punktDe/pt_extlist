@@ -24,9 +24,15 @@
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.txt">
 
 #
-# Demolist to show fullText filter with the extension cache filter
+# Demolist to show fullText filter with the extension cache
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_03.txt">
+
+
+#
+# Demolist to show timeSpan filter with the syslog table
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_04.txt">
 
 
 #

@@ -112,7 +112,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
-	dateSelectList < timeSpan
+	dateSelectList < plugin.tx_ptextlist.prototype.filter.timeSpan
 	dateSelectList {
 	    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
 	    partialPath = Filter/Options/SelectFilter
@@ -120,7 +120,7 @@ plugin.tx_ptextlist.prototype.filter {
 	    dateIteratorStart =
 	    dateIteratorEnd =
 	    dateIteratorIncrement = m
-	    dateIteratorFormat = m.Y
+	    dateIteratorFormat = %m.%Y
 	}
 
 
