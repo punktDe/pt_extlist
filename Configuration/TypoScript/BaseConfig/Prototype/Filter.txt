@@ -112,8 +112,9 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
-	dateSelectList < plugin.tx_ptextlist.prototype.filter.timeSpan
+	dateSelectList
 	dateSelectList {
+	    filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
 	    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
 	    partialPath = Filter/Options/SelectFilter
 
@@ -121,6 +122,28 @@ plugin.tx_ptextlist.prototype.filter {
 	    dateIteratorEnd =
 	    dateIteratorIncrement = m
 	    dateIteratorFormat = %m.%Y
+
+        dbTimeFormat = U
+
+	    defaultValue {
+		    start =
+		    end =
+		}
+
+        #fieldIdentifier {
+        #    10 {
+        #        start =
+        #        end =
+        #    }
+        #}
+
+        accessGroups =
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
+			dataWrap = {field:label} is between {field:fromValue} and {field:toValue}
+		}
 	}
 
 

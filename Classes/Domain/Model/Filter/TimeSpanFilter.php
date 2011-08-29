@@ -59,5 +59,6 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter extends Tx_PtExtlist_Domai
 		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($startValueCriteria, $endValueCriteria);
 		return $criteria;
 	}
+	
 }
 ?>
