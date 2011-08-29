@@ -334,12 +334,25 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @return void
 	 */
 	protected function processAndSetFieldIdentifier($fieldIdentifier) {
+
+		$fieldIdentifierList = array();
+
 		if(is_array($fieldIdentifier)) {
-			$this->fieldIdentifier = $fieldIdentifier;
+
+			foreach($fieldIdentifier as $firstLevel) {
+				if(is_array($firstLevel)) {
+					$fieldIdentifierList = array_merge($fieldIdentifierList, array_values($firstLevel));
+				} else {
+					$fieldIdentifierList[] = $firstLevel;
+				}
+				$fieldIdentifierList = array_unique($fieldIdentifierList);
+			}
+
 		} else {
-			$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
-			$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+			$fieldIdentifierList = t3lib_div::trimExplode(',', $fieldIdentifier);
 		}
+
+		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 	}
 
 	
