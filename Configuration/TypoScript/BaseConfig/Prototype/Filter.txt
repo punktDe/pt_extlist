@@ -78,8 +78,21 @@ plugin.tx_ptextlist.prototype.filter {
 	dateRange {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
 		partialPath = Filter/Range/DateRangeFilter
-		defaultValue =
-		accessGroups =
+        accessGroups =
+
+		defaultValue {
+		    start =
+		    end = 
+		}
+
+        fieldIdentifier {
+            10 {
+                start =
+                end = 
+            }
+        }
+
+        dbTimeFormat = U
 
 		breadCrumbString = TEXT
 		breadCrumbString {
