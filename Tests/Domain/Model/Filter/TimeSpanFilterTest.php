@@ -48,15 +48,23 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExtlist_T
 
 
 	/**
+	 * @test
+	 */
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter'));
+	}
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd
  	 *	@dataProvider fieldsDataProvider
 	 * @return void
 	 * @test
 	 */
-	protected function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd, $resultingQuery) {
+	//public function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd, $resultingQuery) {
 
-	}
+	//}
 
 }
 ?>

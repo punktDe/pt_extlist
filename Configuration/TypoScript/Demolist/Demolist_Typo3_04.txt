@@ -16,7 +16,7 @@ plugin.tx_ptextlist.settings {
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
-			baseWhereClause (
+			baseFromClause (
 			    sys_log
 			    INNER join fe_users on sys_log.userid = fe_users.uid
 			)

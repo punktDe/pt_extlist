@@ -92,12 +92,12 @@ plugin.tx_ptextlist.prototype.filter {
 		    end = 
 		}
 
-        fieldIdentifier {
-            10 {
-                start =
-                end = 
-            }
-        }
+        #fieldIdentifier {
+        #    10 {
+        #        start =
+        #        end =
+        #    }
+        #}
 
         dbTimeFormat = U
 

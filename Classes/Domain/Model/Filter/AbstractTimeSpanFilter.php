@@ -109,8 +109,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 * @return array
 	 */
 	public function getValue() {
-		return array('filterValueStart' => $this->filterValueStart->getTimestamp(),
-							 'filterValueStart' => $this->filterValueEnd->getTimestamp());
+		$returnArray = array();
+		if ($this->filterValueStart) $returnArray['filterValueStart'] = $this->filterValueStart->getTimestamp();
+		if ($this->filterValueStart) $returnArray['filterValueEnd'] = $this->filterValueEnd->getTimestamp();
+
+		return $returnArray;
 	}
 
 
@@ -136,28 +139,27 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 * @return void
 	 */
 	protected function buildDateFieldConfigArray() {
-		$fieldIdentifier = $this->filterConfig->getFieldIdentifier();
+		$fieldIdentifier = $this->filterConfig->getSettings('fieldIdentifier');
 
 		$this->dateFieldConfigs = array();
-		
-		if(is_a($fieldIdentifier,'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection')) {
-			foreach($fieldIdentifier as $fieldIdentifierConfig) {
-				$this->dateFieldConfigs[] = array(
-					'start' => $fieldIdentifierConfig,
-					'end' => $fieldIdentifierConfig
-				);
-			}
 
-		} elseif(is_array($fieldIdentifier)) {
+		if(is_array($fieldIdentifier)) {
 			foreach($fieldIdentifier as $tupleId => $dateFieldTuple) {
+
+				if(!array_key_exists('start', $dateFieldTuple) || !array_key_exists('start', $dateFieldTuple)) throw new Exception('Found a fieldIdentifier array, but the array was not suitable for a timeSpanFilter. 1314627131');
+
 				$this->dateFieldConfigs[$tupleId] = array(
 					'start' => $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($dateFieldTuple['start']),
 					'end' => $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($dateFieldTuple['end'])
 				);
 			}
-			
 		} else {
-			throw new Exception('Could not process the given fieldIdentifier for a time span filter. 1314571786');
+			foreach($this->filterConfig->getFieldIdentifier() as $fieldIdentifierConfig) {
+				$this->dateFieldConfigs[] = array(
+					'start' => $fieldIdentifierConfig,
+					'end' => $fieldIdentifierConfig
+				);
+			}
 		}
 	}
 
@@ -173,7 +175,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 			if($defaultValue['start']) $this->filterValueStart =  date_create('@' . (int) $defaultValue['start']);
 			if($defaultValue['end']) $this->filterValueStart =  date_create('@' . (int) $defaultValue['end']);
 		}
-
 	}
 
 
@@ -204,20 +205,20 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
     public function getDateFieldsConfigs() {
         return $this->dateFieldConfigs;
     }
-    
-    
-    
-    /**
-     * Persists filter state to session
-     *
-     * @return array Array of filter data to persist to session
-     */
-    public function persistToSession() {
-    	$sessionArray = array('filterValueStart' => $this->filterValueStart->getTimestamp(),
-			 						 'filterValueStart' => $this->filterValueEnd->getTimestamp(),
-									  'invert' => $this->invert);
-       return $sessionArray;
-    }
+
+
+	/**
+	 * Persists filter state to session
+	 *
+	 * @return array Array of filter data to persist to session
+	 */
+	public function persistToSession() {
+		$sessionArray['invert'] = $this->invert;
+		if ($this->filterValueStart) $sessionArray['filterValueStart'] = $this->filterValueStart->getTimestamp();
+		if ($this->filterValueStart) $sessionArray['filterValueEnd'] = $this->filterValueEnd->getTimestamp();
+
+		return $sessionArray;
+	}
 
     
     
