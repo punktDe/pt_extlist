@@ -55,13 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanTest extends T
 	 * @test
 	 */
 	public function initDataProviderByTsConfigElementCountField() {
-		$filterSettings = $this->defaultFilterSettings;
-		$tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
-		$this->assertEquals($tagCloudDataProvider->_get('elementCountField'), NULL);
 
-		$filterSettings['countFieldIdentifier'] = 'field2';
-		$tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
-		$this->assertEquals($tagCloudDataProvider->_get('elementCountField')->getField(), 'fieldName2');
 	}
 
 
