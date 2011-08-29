@@ -64,7 +64,7 @@ plugin.tx_ptextlist.settings {
 			}
 		}
 
-	    pager.itemsPerPage = 100
+	    pager.itemsPerPage = 0
 
 		filters {
 			filterBox1 {

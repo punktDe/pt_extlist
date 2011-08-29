@@ -56,7 +56,17 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter extends Tx_PtExtlist_Domai
 										Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldStartName, $this->getFilterValueEndInDBFormat()),
 										Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldEndName, $this->getFilterValueEndInDBFormat()));
 
-		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($startValueCriteria, $endValueCriteria);
+		$betweenValuesCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp(
+										Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldStartName, $this->getFilterValueStartInDBFormat()),
+										Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldEndName, $this->getFilterValueEndInDBFormat()));
+
+
+
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp(
+			Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($startValueCriteria, $endValueCriteria),
+			$betweenValuesCriteria
+		);
+				
 		return $criteria;
 	}
 	

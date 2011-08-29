@@ -104,20 +104,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	abstract protected function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $startField, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $endField);
 
 
-
-	/**
-	 * @return array
-	 */
-	public function getValue() {
-		$returnArray = array();
-		if ($this->filterValueStart) $returnArray['filterValueStart'] = $this->filterValueStart->getTimestamp();
-		if ($this->filterValueStart) $returnArray['filterValueEnd'] = $this->filterValueEnd->getTimestamp();
-
-		return $returnArray;
-	}
-
-
-
 	/**
 	 * Set generic config variables that exist for all filters
 	 *
@@ -184,7 +170,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 */
 	protected function initFilterBySession() {
 		if(array_key_exists('filterValueStart', $this->sessionFilterData)) $this->filterValueStart = date_create('@' . (int) $this->sessionFilterData['filterValueStart']);
-		if(array_key_exists('filterValueEnd', $this->sessionFilterData)) $this->filterValueStart = date_create('@' . (int) $this->sessionFilterData['filterValueEnd']);
+		if(array_key_exists('filterValueEnd', $this->sessionFilterData)) $this->filterValueEnd = date_create('@' . (int) $this->sessionFilterData['filterValueEnd']);
 	}
 
 
@@ -194,7 +180,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 */
 	protected function initFilterByGpVars() {
 		if(array_key_exists('filterValueStart', $this->gpVarFilterData)) $this->filterValueStart = date_create('@' . (int) $this->gpVarFilterData['filterValueStart']);
-		if(array_key_exists('filterValueEnd', $this->gpVarFilterData)) $this->filterValueStart = date_create('@' . (int) $this->gpVarFilterData['filterValueEnd']);
+		if(array_key_exists('filterValueEnd', $this->gpVarFilterData)) $this->filterValueEnd = date_create('@' . (int) $this->gpVarFilterData['filterValueEnd']);
 	}
 
 
@@ -215,7 +201,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	public function persistToSession() {
 		$sessionArray['invert'] = $this->invert;
 		if ($this->filterValueStart) $sessionArray['filterValueStart'] = $this->filterValueStart->getTimestamp();
-		if ($this->filterValueStart) $sessionArray['filterValueEnd'] = $this->filterValueEnd->getTimestamp();
+		if ($this->filterValueEnd) $sessionArray['filterValueEnd'] = $this->filterValueEnd->getTimestamp();
 
 		return $sessionArray;
 	}
@@ -251,7 +237,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
     protected function setActiveState() {
     	// TODO
     	// $this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false;
-		 return true;
+		 $this->isActive = true;
     }
     
 	
@@ -276,6 +262,28 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
     }
 
 
+
+	/**
+	 * @return array
+	 */
+	public function getValue() {
+		$returnArray = array();
+		if ($this->filterValueStart) $returnArray['filterValueStart'] = $this->filterValueStart->getTimestamp();
+		if ($this->filterValueEnd) $returnArray['filterValueEnd'] = $this->filterValueEnd->getTimestamp();
+
+		return $returnArray;
+	}
+
+
+
+	/**
+	 * @return string return the combined value as <start>,<end>
+	 */
+	public function getValueCombined() {
+		return implode(',',$this->getValue());
+	}
+
+	
 
 	/**
 	 * Getter for FROM filter value
