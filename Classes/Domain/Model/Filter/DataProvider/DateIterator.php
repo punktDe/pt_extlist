@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpan implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
 
 	/**
 	 * Filter configuration object
@@ -42,6 +42,53 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpan implements Tx_PtExt
 	 */
 	protected $filterConfig;
 
+	/**
+	 * @var string
+	 */
+	protected $dateIteratorStart;
+
+	/**
+	 * @var string
+	 */
+	protected $dateIteratorEnd;
+
+
+	/**
+	 * @var string
+	 */
+	protected $dateIteratorIncrement;
+
+
+	/**
+	 * @var string
+	 */
+	protected $dateIteratorFormat;
+
+
+
+	/**
+	 * Set and validate the config values
+	 *
+	 * @return void
+	 */
+	protected function initByTsConfig() {
+
+		$this->dateIteratorStart = (int) $this->filterConfig->getSettings('dateIteratorStart');
+			Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorStart, false, array('message' => 'The Value dateIteratorStart is not given. 1314608757'));
+
+		$this->dateIteratorEnd = (int) $this->filterConfig->getSettings('dateIteratorEnd');
+			Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorEnd,false, array('message' => 'The Value dateIteratorEnd is not given. 1314608758'));
+
+		$this->dateIteratorFormat = $this->filterConfig->getSettings('dateIteratorFormat');
+			Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorFormat, array('message' => 'The Value dateIteratorFormat is not given. 1314608759'));
+
+		$this->dateIteratorIncrement = strtolower(trim($this->filterConfig->getSettings('dateIteratorIncrement')));
+			Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorIncrement, array('message' => 'The Value dateIteratorIncrement is not given. 1314608760'));
+			Tx_PtExtbase_Assertions_Assert::isTrue(in_array($this->dateIteratorIncrement,array('s', 'i', 'h', 'd', 'm', 'y')), array('message' => "The parameter dateIteratorIncrement has to be out of 's', 'i', 'h', 'd', 'm', 'y'"));
+
+		Tx_PtExtbase_Assertions_Assert::isTrue($this->dateIteratorStart < $this->dateIteratorEnd, array('message' => 'The Value dateIteratorStart ('.$this->dateIteratorStart.') is higher than dateIteratorEnd ('.$this->dateIteratorEnd.')'));
+
+	}
 
 
 	/****************************************************************************************************************
@@ -53,11 +100,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpan implements Tx_PtExt
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
 	 */
 	public function init() {
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier());
-		
-		$this->initDataProviderByTsConfig($this->filterConfig->getSettings());
+		$this->initByTsConfig();
 	}
-	
+
+		
 	
 	/**
 	 * (non-PHPdoc)
@@ -74,8 +120,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpan implements Tx_PtExt
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
 	 */
 	public function getRenderedOptions() {
-		$fields = $this->getFieldsRequiredToBeSelected();
-		return $this->getRenderedOptionsByFields($fields);
 	}
 	
 	
