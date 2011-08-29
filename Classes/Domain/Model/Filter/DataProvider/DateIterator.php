@@ -144,10 +144,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 		$iterationDate = $this->dateIteratorStart;
 		$timeStampList = array();
 
-		$iterator = array_fill_keys(array('s', 'i', 'h', 'd', 'm', 'y'), 0);
+		$iterator = array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), 0);
 		$iterator[$this->dateIteratorIncrement] = 1;
 
-		$timeSpanComponents = array_fill_keys(array('s', 'i', 'h', 'd', 'm', 'y'), true);
+		$timeSpanComponents = array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), true);
 
 		foreach($timeSpanComponents as $identifier => $timeSpanComponent) {
 			if($identifier == $this->dateIteratorIncrement) break;
@@ -156,8 +156,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 
 		while($iterationDate <= $this->dateIteratorEnd) {
 
-			$iterationDate  = $this->makeTime($iterationDate, array_fill_keys(array('s', 'i', 'h', 'd', 'm', 'y'), true), $iterator);
-			$iterationStart = $this->makeTime($iterationDate, $timeSpanComponents, array_fill_keys(array('s', 'i', 'h', 'd', 'm', 'y'), 0));
+			$iterationDate  = $this->makeTime($iterationDate, array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), true), $iterator);
+			$iterationStart = $this->makeTime($iterationDate, $timeSpanComponents, array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), 0));
 			$iterationEnd   = $this->makeTime($iterationDate, $timeSpanComponents, $iterator);
 
 			$timeStampList[$iterationStart . ',' . $iterationEnd] = $iterationDate;
@@ -175,11 +175,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 	 */
 	protected function makeTime($iterationDate, $timeSpanComponents, $iterator) {
 		return mktime(
-				$timeSpanComponents['s'] ? date('s', $iterationDate) + $iterator['s'] : 0,
-				$timeSpanComponents['i'] ? date('i', $iterationDate) + $iterator['i'] : 0,
 				$timeSpanComponents['h'] ? date('h', $iterationDate) + $iterator['h'] : 0,
+				$timeSpanComponents['i'] ? date('i', $iterationDate) + $iterator['i'] : 0,
+				$timeSpanComponents['s'] ? date('s', $iterationDate) + $iterator['s'] : 0,
 				$timeSpanComponents['m'] ? date('m', $iterationDate) + $iterator['m'] : 0,
-				$timeSpanComponents['d'] ? date('d', $iterationDate) + $iterator['d'] : 0,
+				$timeSpanComponents['d'] ? date('d', $iterationDate) + $iterator['d'] : 1,
 				$timeSpanComponents['y'] ? date('y', $iterationDate) + $iterator['y'] : 0
 			);
 	}
