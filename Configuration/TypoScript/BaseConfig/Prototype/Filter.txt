@@ -24,6 +24,8 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
+
+
     fullText {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FullTextFilter
 		partialPath = Filter/String/StringFilter
@@ -45,6 +47,8 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
+
+
 	max {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MaxFilter
 		partialPath = Filter/Range/MaxFilter
@@ -59,6 +63,8 @@ plugin.tx_ptextlist.prototype.filter {
 			dataWrap = {field:label} is less than {field:value}
 		}
 	}
+
+
 
 	min {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MinFilter
@@ -75,10 +81,11 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
-	dateRange {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
-		partialPath = Filter/Range/DateRangeFilter
-        accessGroups =
+
+
+	timeSpan {
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter
+		partialPath = Filter/Range/TimeSpanFilter
 
 		defaultValue {
 		    start =
@@ -94,12 +101,30 @@ plugin.tx_ptextlist.prototype.filter {
 
         dbTimeFormat = U
 
+        accessGroups =
+
 		breadCrumbString = TEXT
 		breadCrumbString {
 			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
 			dataWrap = {field:label} is between {field:fromValue} and {field:toValue}
 		}
 	}
+
+
+
+	dateSelect < timeSpan
+	dateSelect {
+	    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpan
+	    partialPath = Filter/Options/SelectFilter
+
+	    dateStart =
+	    dateEnd = 
+	    dateIncrement =
+
+	    dateFormat = 
+	}
+
+
 
 	select {
 		partialPath = Filter/Options/SelectFilter
@@ -132,6 +157,8 @@ plugin.tx_ptextlist.prototype.filter {
 			dataWrap = {field:label} contains {field:value}
 		}
 	}
+
+
 
 	checkbox {
 		partialPath = Filter/Options/CheckBoxFilter
@@ -167,7 +194,8 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 	
-	
+
+
 	button {
 		partialPath = Filter/Options/ButtonFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
@@ -200,6 +228,7 @@ plugin.tx_ptextlist.prototype.filter {
 			dataWrap = {field:label} contains {field:value}
 		}
 	}
+
 
 
 	radiobutton {
@@ -236,6 +265,8 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
+
+
 	firstLetter {
 		partialPath = Filter/Options/FirstLetterFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
@@ -268,6 +299,8 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
+
+
 	tagCloud {
 		partialPath = Filter/Options/TagCloudFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter
@@ -292,7 +325,9 @@ plugin.tx_ptextlist.prototype.filter {
 			dataWrap = {field:allDisplayFields}
 		}
 	}
-	
+
+
+
 	proxy {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_ProxyFilter
 		partialPath = Filter/Special/ProxyFilter
