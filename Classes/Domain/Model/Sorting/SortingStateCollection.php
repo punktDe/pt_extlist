@@ -97,6 +97,21 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
     	}
     	return $sortedFields;
     }
+
+
+
+    /**
+     * Returns a query object with sortings for this sorting state collection
+     *
+     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     */
+    public function getSortingsQuery() {
+        $sortingsQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        foreach ($this->itemsArr as $sortingState) { /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            $sortingsQuery->addSorting($sortingState->getField()->getIdentifier(), $sortingState->getDirection());
+        }
+        return $sortingsQuery;
+    }
     
     
     
