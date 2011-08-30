@@ -87,6 +87,59 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
         $sessionPersistableValue = $sorterMock->persistToSession();
         $this->assertEquals($sessionPersistableValue, $dummySessionArray);
 	}
+
+
+
+    /** @test */
+    public function getSortingStateCollectionReturnsSortingStatesOfRegisteredObservers() {
+        $sortingStateMock1 = $this->buildSortingStateMock('test1', 1);
+        $sortingStateMock2 = $this->buildSortingStateMock('test2', 1);
+        $sortingStateCollectionMock1 = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+        $sortingStateCollectionMock1->addSortingState($sortingStateMock1);
+        $sortingStateCollectionMock1->addSortingState($sortingStateMock2);
+
+        $sortingStateMock3 = $this->buildSortingStateMock('test3', 0);
+        $sortingStateMock4 = $this->buildSortingStateMock('test4', 0);
+        $sortingStateCollectionMock2 = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+        $sortingStateCollectionMock2->addSortingState($sortingStateMock3);
+        $sortingStateCollectionMock2->addSortingState($sortingStateMock4);
+
+        $sortingObserverMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        $sortingObserverMock1->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock1));
+
+        $sortingObserverMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        $sortingObserverMock2->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock2));
+
+        $sorter = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
+        $sorter->registerSortingObserver($sortingObserverMock1);
+        $sorter->registerSortingObserver($sortingObserverMock2);
+
+        $sortingStateCollection = $sorter->getSortingStateCollection();
+
+        $this->assertEquals($sortingStateCollection->count(), 4);
+        $this->assertEquals($sortingStateCollection->getItemById('test1'), $sortingStateMock1);
+        $this->assertEquals($sortingStateCollection->getItemById('test2'), $sortingStateMock2);
+        $this->assertEquals($sortingStateCollection->getItemById('test3'), $sortingStateMock3);
+        $this->assertEquals($sortingStateCollection->getItemById('test4'), $sortingStateMock4);
+    }
+
+
+
+    /**
+     * Builds a sorting state mock for given field identifier and given sorting direction
+     *
+     * @param $fieldIdentifier
+     * @param $sortingDirection
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
+     */
+    protected function buildSortingStateMock($fieldIdentifier, $sortingDirection) {
+        $fieldConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_FieldConfig', array('getIdentifier'), array(), '', FALSE);
+        $fieldConfigMock->expects($this->any())->method('getIdentifier')->will($this->returnValue($fieldIdentifier));
+        $sortingStateMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingState', array(), array(), '', FALSE);
+        $sortingStateMock->expects($this->any())->method('getField')->will($this->returnValue($fieldConfigMock));
+        $sortingStateMock->expects($this->any())->method('getDirection')->will($this->returnValue($sortingDirection));
+        return $sortingStateMock;
+    }
 	
 }
 ?>

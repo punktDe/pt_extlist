@@ -108,7 +108,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
      * @param array $sessionData
      */
     public function injectSessionData(array $sessionData) {
-        var_dump($sessionData);
+        #var_dump($sessionData);
     	$this->sortingStateCollection = Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection::getIstanceBySessionArray($this->sorterConfiguration->getConfigurationBuilder(), $sessionData);
     }
     
@@ -120,7 +120,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
      * @return array
      */
     public function persistToSession() {
-        var_dump($this->sortingStateCollection->getSessionPersistableArray());
+        #var_dump($this->sortingStateCollection->getSessionPersistableArray());
     	return $this->sortingStateCollection->getSessionPersistableArray();
     }
 
@@ -136,6 +136,20 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
     public function getSortingStateCollection() {
         $this->buildSortingStateCollection();
         return $this->sortingStateCollection;
+    }
+
+
+
+    /**
+     * Resets sorter
+     *
+     * TODO test me!
+     *
+     * @return void
+     */
+    public function reset() {
+        // TODO implement me!
+        // Should reset internal sorting state as well as all observers (we have reset methods in observers therefore!)
     }
 
 
