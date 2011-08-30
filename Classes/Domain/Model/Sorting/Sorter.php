@@ -129,8 +129,6 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
     /**
      * Returns current sorting state collection of this sorter
      *
-     * TODO test me!
-     * 
      * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
      */
     public function getSortingStateCollection() {
@@ -143,13 +141,12 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
     /**
      * Resets sorter
      *
-     * TODO test me!
-     *
      * @return void
      */
     public function reset() {
-        // TODO implement me!
-        // Should reset internal sorting state as well as all observers (we have reset methods in observers therefore!)
+        foreach($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+            $sortingObserver->resetSorting();
+        }
     }
 
 
@@ -158,8 +155,6 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
      * Builds sorting state collection by respecting the registered sorting observers
      * and getting their sorting informations.
      *
-     * TODO test me!
-     * 
      * @return void
      */
     protected function buildSortingStateCollection() {
