@@ -58,15 +58,6 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
 	 * @var string
 	 */
     protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Sorting_SortingState';
-	
-    
-	
-	/**
-	 * Holds an array of array(field => $fieldObject, 'sortingDirection' => $direction) mappings
-	 *
-	 * @var array
-	 */
-    protected $sortings = array();
     
     
     
@@ -95,14 +86,14 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
     
     
     /**
-     * Returns an array of fields that are contained by this sorting state
+     * Returns an array of field configs that are contained by this sorting state collection
      *
      * @return array<Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig>
      */
     public function getSortedFields() {
     	$sortedFields = array();
-    	foreach ($this->sortings as $sorting) {
-    		$sortedFields[] = $sorting;
+    	foreach ($this->itemsArr as $fieldIdentifier => $sortingState) {
+    		$sortedFields[] = $sortingState->getField();
     	}
     	return $sortedFields;
     }
