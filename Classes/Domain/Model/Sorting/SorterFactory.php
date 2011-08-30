@@ -52,7 +52,11 @@ class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory {
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		if (self::$instance === null) {
 			self::$instance = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
+            self::$instance->injectSorterConfig($configurationBuilder->buildSorterConfiguration());
+            $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+			$sessionPersistenceManager->registerObjectAndLoadFromSession(self::$instance);
 			self::$instance->injectSorterConfig($configurationBuilder->buildSorterConfiguration());
+
 		}
 		return self::$instance;
 	}

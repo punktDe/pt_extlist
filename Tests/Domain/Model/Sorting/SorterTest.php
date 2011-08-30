@@ -81,7 +81,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
 
         $dummySessionArray = array('test' => 'test');
         $sortingStateCollectionMock = $this->getMock(Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection, array('getSessionPersistableArray'), array(), '', FALSE);
-        $sortingStateCollectionMock->expects($this->once())->method('getSessionPersistableArray')->will($this->returnValue($dummySessionArray));
+        $sortingStateCollectionMock->expects($this->any())->method('getSessionPersistableArray')->will($this->returnValue($dummySessionArray));
 		$sorterMock->_set('sortingStateCollection', $sortingStateCollectionMock);
 
         $sessionPersistableValue = $sorterMock->persistToSession();

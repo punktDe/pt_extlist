@@ -72,6 +72,9 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
 	 */
     public function registerSortingObserver(Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver) {
     	$this->sortingObservers[] = $sortingObserver;
+
+        // TODO set data from sorter session in registering object (restore session)
+
     	$sortingObserver->registerSorter($this);
     }
     
@@ -105,6 +108,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
      * @param array $sessionData
      */
     public function injectSessionData(array $sessionData) {
+        var_dump($sessionData);
     	$this->sortingStateCollection = Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection::getIstanceBySessionArray($this->sorterConfiguration->getConfigurationBuilder(), $sessionData);
     }
     
@@ -116,6 +120,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
      * @return array
      */
     public function persistToSession() {
+        var_dump($this->sortingStateCollection->getSessionPersistableArray());
     	return $this->sortingStateCollection->getSessionPersistableArray();
     }
 
