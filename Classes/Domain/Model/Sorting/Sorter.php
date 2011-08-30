@@ -119,5 +119,16 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
     	return $this->sortingStateCollection->getSessionPersistableArray();
     }
 
+
+
+    /**
+     * Returns current sorting state collection of this sorter
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     */
+    public function getSortingStateCollection() {
+        return $this->sortingStateCollection;
+    }
+
 }
 ?>
