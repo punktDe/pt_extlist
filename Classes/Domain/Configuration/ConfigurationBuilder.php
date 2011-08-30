@@ -82,7 +82,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
 	    	      'tsKey' => 'breadCrumbs'),
 	    'sorter' => 
-	    	array('tsKey' => 'sorter')
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory',
+                  'tsKey' => 'sorter')
 	);
 	
 	

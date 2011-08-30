@@ -26,17 +26,26 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
- * Class implementing configuration for sorter
- * 
+ * Factory to create config object for sorter
+ *
  * @package Domain
- * @subpackage Configuration\Sorting
- * @author Michael Knoll 
+ * @subpackage Configuration\Pager
+ * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-
+class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory {
+	
+	/**
+	 * Returns a instance of a sorter configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
+	 */
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+        $sorterSettings = $configurationBuilder->getSettings('sorter');
+		$sorterConfig = new Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig($configurationBuilder, $sorterSettings);
+		return $sorterConfig;
+	}
     
-
 }
 ?>

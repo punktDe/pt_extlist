@@ -91,7 +91,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
 	        $dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));   
 	        $dataBackend->injectPagerCollection(self::getPagerCollection($configurationBuilder));        
-	        $dataBackend->injectListHeader(self::getListHeader($configurationBuilder));
+	        //$dataBackend->injectListHeader(self::getListHeader($configurationBuilder));
+            $dataBackend->injectSorter(self::getSorter($configurationBuilder));
 	        
 	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 
@@ -193,6 +194,18 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     	// That's the part where bookmarks are written back to session
     	$bookmarkManager->processBookmark();
     	return $bookmarkManager;
+    }
+
+
+
+    /**
+     * Creates an instance of a sorter
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     */
+    protected static function getSorter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+        return Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilder);
     }
 	
 }

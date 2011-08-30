@@ -92,19 +92,22 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $listData = NULL;
+
 	
 	
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $aggregateListData;
-	
+
+
 	
     /**
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
 	protected $pagerCollection;
-	
+
+
 	
 	/**
 	 * Holds an instance for data source
@@ -140,6 +143,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
      */
     protected $bookmarkManager;
+
+
+
+    /**
+     * Holds an instance of a sorter
+     *
+     * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     */
+    protected $sorter;
 
 	
 		
@@ -286,6 +298,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      */
     public function injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager) {
     	$this->bookmarkManager = $bookmarkManager;
+    }
+
+
+
+    /**
+     * Injector for 
+     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     * @return void
+     */
+    public function injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter) {
+        $this->sorter = $sorter;
     }
 	
     
