@@ -103,6 +103,19 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
 	public function getDirection() {
 		return $this->direction;
 	}
+
+
+
+    /**
+     * Returns query object that reflects sorting of this sorting state
+     * 
+     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     */
+    public function getSortingQuery() {
+        $sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $sortingQuery->addSorting($this->field->getIdentifier(), $this->direction);
+        return $sortingQuery;
+    }
 	
 	
 	

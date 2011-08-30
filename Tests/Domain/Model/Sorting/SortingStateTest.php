@@ -85,5 +85,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtl
         $this->assertEquals($sortingState->getField(), $fieldConfigurationMock);
     }
 
+
+
+    /** @test */
+    public function getSortingQueryReturnsCorrectQueryObjectForSortingState() {
+        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', FALSE);
+        $fieldConfigurationMock->expects($this->any())->method('getIdentifier')->will($this->returnValue('test'));
+        $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
+        $sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($fieldConfigurationMock, $sortingDirection);
+        $sortingQuery = $sortingState->getSortingQuery();
+        $this->assertEquals($sortingQuery->getSortings(), array('test' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC));
+    }
+
 }
 ?>
