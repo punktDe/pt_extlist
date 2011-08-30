@@ -62,12 +62,30 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
 	
 	/** @test */
 	public function getObjectNamespaceReturnsCorrectNamespace() {
-		$listIdentifer = 'testListIdentifier';
+		$listIdentifier = 'testListIdentifier';
 		$sorterConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig', array('getListIdentifier'), array(), '', FALSE);
-		$sorterConfigurationMock->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifer));
+		$sorterConfigurationMock->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
 		$sorter = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
 		$sorter->injectSorterConfig($sorterConfigurationMock);
-		$this->assertEquals($sorter->getObjectNamespace(), $listIdentifer . '.sorter');
+		$this->assertEquals($sorter->getObjectNamespace(), $listIdentifier . '.sorter');
+	}
+	
+	
+	
+	/** @test */
+	public function persistToSessionReturnsSortingStateArray() {
+		$sorterMock = $this->getMock(
+            $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Sorting_Sorter'),
+            array('dummy'),array(), '', FALSE
+        ); /* @var $sorterMock Tx_PtExtlist_Domain_Model_Sorting_Sorter */
+
+        $dummySessionArray = array('test' => 'test');
+        $sortingStateCollectionMock = $this->getMock(Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection, array('getSessionPersistableArray'), array(), '', FALSE);
+        $sortingStateCollectionMock->expects($this->once())->method('getSessionPersistableArray')->will($this->returnValue($dummySessionArray));
+		$sorterMock->_set('sortingStateCollection', $sortingStateCollectionMock);
+
+        $sessionPersistableValue = $sorterMock->persistToSession();
+        $this->assertEquals($sessionPersistableValue, $dummySessionArray);
 	}
 	
 }
