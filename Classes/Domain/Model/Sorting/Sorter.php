@@ -50,7 +50,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
 	/**
 	 * Holds sorter configuration
 	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfiguration
+	 * @var Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
 	 */
 	protected $sorterConfiguration;
 	
@@ -80,9 +80,9 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
     /**
      * Injector for sorter configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfiguration $sortingConfiguration
+     * @param Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sortingConfiguration
      */
-    public function injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfiguration $sorterConfiguration) {
+    public function injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration) {
     	$this->sorterConfiguration = $sorterConfiguration;
     }
     
