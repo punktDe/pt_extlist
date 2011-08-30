@@ -104,7 +104,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
      *
      * @param array $sessionData
      */
-    public function injectSessionData($sessionData) {
+    public function injectSessionData(array $sessionData) {
     	$this->sortingStateCollection = Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection::getIstanceBySessionArray($this->sorterConfiguration->getConfigurationBuilder(), $sessionData);
     }
     
