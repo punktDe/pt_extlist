@@ -42,5 +42,22 @@ interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface {
 	 */
 	public function registerSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
 	
+	
+	
+	/**
+	 * Returns sorting of implementing object.
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection Collection of sorting states
+	 */
+	public function getSorting();
+	
+	
+	
+	/**
+	 * Resets sorting of implementing object.
+	 *
+	 */
+	public function resetSorting();
+	
 }
 ?>

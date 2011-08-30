@@ -26,17 +26,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
- * Class implementing configuration for sorter
- * 
- * @package Domain
- * @subpackage Configuration\Sorting
- * @author Michael Knoll 
+ * Testcase for sorting configuration
+ *
+ * @package Tests
+ * @subpackage Domain\Configuration\Sorting
+ * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	
+class Tx_PtExtlist_Tests_Domain_Configuration_Sorting_SortingConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+     
+	/** @test */
+	public function classExists() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig'));
+	}
 	
 }
 ?>
