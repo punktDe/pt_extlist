@@ -154,7 +154,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field2',
 	                            'label' => 'Column 2',  
 	                            'isSortable' => '1',
-	                        	'sorting' => 'tstamp, title',
+	                        	'sorting' => 'field1, field2',
 	                            
 	                        ),
 	                        30 => array( 
@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field3',
 	                            'label' => 'Column 3',  
 	                            'isSortable' => '1',
-	                        	'sorting' => 'tstamp asc, title !DeSc',
+	                        	'sorting' => 'field1 asc, field2 !DeSc',
 	                            'accessGroups' => '1,2,3,4',
 	                            'cellCSSClass' => 'class',
 	                        ),

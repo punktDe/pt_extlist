@@ -52,13 +52,13 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 			$headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
 			
 			if($singleColumnConfiguration->isAccessable()) {
-				$listIsSorted += $headerColumn->getSortingState();
+				$listIsSorted += $headerColumn->getSortingDirection();
 				$listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
 			}
 		}
 
 		if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
-			$listHeader->getHeaderColumn($defaultSortingColumn)->setSortingState($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
+			$listHeader->getHeaderColumn($defaultSortingColumn)->setSortingDirection($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
 			$listHeader->getHeaderColumn($defaultSortingColumn)->init();
 		}
 		return $listHeader;

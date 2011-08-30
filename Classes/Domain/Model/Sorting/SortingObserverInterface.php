@@ -49,7 +49,7 @@ interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface {
 	 * 
 	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection Collection of sorting states
 	 */
-	public function getSorting();
+	public function getSortingStateCollection();
 	
 	
 	

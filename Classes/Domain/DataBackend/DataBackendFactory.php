@@ -156,17 +156,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     
     
     /**
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-     */
-    protected static function getListHeader(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
-    	return $listHeader;
-    }
-    
-    
-    /**
      * Creates an instance of a query interpreter as configured in configuration builder
      *
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -209,5 +198,4 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     }
 	
 }
-
 ?>

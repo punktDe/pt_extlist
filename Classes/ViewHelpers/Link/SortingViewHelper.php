@@ -42,7 +42,7 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 	 * 
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort') {
-		$value = $this->invertSortingState($header->getSortingState());		
+		$value = $this->invertSortingState($header->getSortingDirection());
 		
 		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingState', $value);

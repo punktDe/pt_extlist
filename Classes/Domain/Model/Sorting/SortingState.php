@@ -31,13 +31,33 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
 	/**
 	 * Returns an instance of this object for a given session persisted array
 	 *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param array $sessionArray
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
 	 */
 	public static function getInstanceBySessionArray(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionArray) {
 		$field = $configurationBuilder->buildFieldsConfiguration()->getFieldConfigByIdentifier($sessionArray['fieldName']);
 		$direction = $sessionArray['direction'];
 		return new Tx_PtExtlist_Domain_Model_Sorting_SortingState($field, $direction);
 	}
+
+
+
+    /**
+     * Returns an instance of this object for given field identifier and sorting direction
+     *
+     * TODO test me!
+     *
+     * @static
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @param $fieldIdentifier Field identifier for field to be sorted
+     * @param $sortingDirection Sorting direction by which to sort given field
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
+     */
+    public static function getInstanceByFieldIdentifierAndSortingDirection($configurationBuilder, $fieldIdentifier, $sortingDirection) {
+        $field = $configurationBuilder->buildFieldsConfiguration()->getFieldConfigByIdentifier($fieldIdentifier);
+        return new Tx_PtExtlist_Domain_Model_Sorting_SortingState($field, $sortingDirection);
+    }
 	
 	
 	

@@ -34,7 +34,8 @@
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	
 	/**
-	 * Parse the sorting config string and build sorting config objects 
+	 * Parse the sorting config string and build sorting config objects
+     *
 	 * @param $sortingSettings string
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
@@ -68,7 +69,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 
 		return $sortingConfigCollection;
 	}
-	
+
+
+
 	/**
 	 * Generate an array by field configuration - direction is NULL here
 	 * 
