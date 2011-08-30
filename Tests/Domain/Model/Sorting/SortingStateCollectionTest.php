@@ -39,6 +39,31 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateCollectionTest extends
 	public function classExists() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'));
 	}
+
+
+
+    /** @test */
+    public function getIstanceBySessionArrayReturnsCorrectSortingStateCollection() {
+        $dummyArray = array(
+            array('fieldName' => 'test1', 'direction' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC),
+            array('fieldName' => 'test2', 'direction' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC)
+        );
+        
+        $fieldConfigurationMock1 = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', FALSE);
+        $fieldConfigurationMock1->expects($this->any())->method('getIdentifier')->will($this->returnValue('field1'));
+        $fieldConfigurationMock2 = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', FALSE);
+        $fieldConfigurationMock2->expects($this->any())->method('getIdentifier')->will($this->returnValue('field2'));
+        $fieldsConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection', array('getFieldConfigByIdentifier'), array(), '', FALSE);
+        $fieldsConfigurationMock->expects($this->at(0))->method('getFieldConfigByIdentifier')->will($this->returnValue($fieldConfigurationMock1));
+        $fieldsConfigurationMock->expects($this->at(1))->method('getFieldConfigByIdentifier')->will($this->returnValue($fieldConfigurationMock2));
+        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder',array('buildFieldsConfiguration'), array(), '', FALSE);
+        $configurationBuilderMock->expects($this->any())->method('buildFieldsConfiguration')->will($this->returnValue($fieldsConfigurationMock));
+
+        $sortingStateCollection = Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection::getIstanceBySessionArray($configurationBuilderMock, $dummyArray);
+
+        $this->assertTrue(is_a($sortingStateCollection, 'Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'));
+        $this->assertEquals($sortingStateCollection->count(), 2);
+    }
 	
 }
 ?>

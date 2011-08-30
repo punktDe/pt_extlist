@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param array $sessionArray
-	 * @return unknown
+	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
 	 */
 	public static function getIstanceBySessionArray(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionArray) {
 		$sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
@@ -122,7 +122,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
     	foreach ($this->itemsArr as $sortingState) { /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
     		$sessionPersistableArray[] = $sortingState->getSessionPersistableArray();
     	}
-    	return $sessionPersistableArray();
+    	return $sessionPersistableArray;
     }
 
 }
