@@ -57,14 +57,14 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 
 		$output = '';
 		
-		foreach ($headers as $header) {
+		foreach ($headers as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 			
 			// Set additional variables in template vars for child elements
 
 			$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));		
 			$this->templateVariableContainer->add($headerKey, $header);
 			$this->templateVariableContainer->add('sortable', $header->isSortable());
-			$this->templateVariableContainer->add('sortingState', $header->getSortingState());
+			$this->templateVariableContainer->add('sortingState', $header->getSortingDirection());
 			
 			$output .= $this->renderChildren();
 			

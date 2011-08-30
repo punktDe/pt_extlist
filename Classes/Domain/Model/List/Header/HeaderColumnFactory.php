@@ -49,6 +49,10 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
         $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpAdapter->injectParametersInObject($headerColumn);
 
+        // Register headerColumn in sorter
+        $sorter = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($columnConfiguration->getConfigurationBuilder());
+        $sorter->registerSortingObserver($headerColumn);
+
 		$headerColumn->init();
 		
 		return $headerColumn;

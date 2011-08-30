@@ -123,11 +123,37 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
 
     /**
      * Returns current sorting state collection of this sorter
+     *
+     * TODO test me!
      * 
      * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
      */
     public function getSortingStateCollection() {
+        $this->buildSortingStateCollection();
         return $this->sortingStateCollection;
+    }
+
+
+
+    /**
+     * Builds sorting state collection by respecting the registered sorting observers
+     * and getting their sorting informations.
+     *
+     * TODO test me!
+     * 
+     * @return void
+     */
+    protected function buildSortingStateCollection() {
+        $this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+
+        // Gather sorting states from registered sorting observers
+        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+            $sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
+            foreach($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
+                $this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
+            }
+        }
+        
     }
 
 }

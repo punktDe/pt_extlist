@@ -121,7 +121,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function sortAction() {
 		$this->dataBackend->resetListDataCache();
-		$headerList = $this->dataBackend->getListHeader();
+		$headerList = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
 		$headerList->reset();
 		
 		$this->forward('list');
