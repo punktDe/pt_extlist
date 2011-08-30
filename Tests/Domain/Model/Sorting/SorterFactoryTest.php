@@ -39,6 +39,22 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest extends Tx_PtExt
 	public function classExists() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'));
 	}
+
+
+
+    /** @test */
+    public function getInstanceReturnsSingletonInstanceOfSorter() {
+        $sorterConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig', array(), array(), '', FALSE);
+        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('buildSorterConfiguration'), array(), '', FALSE);
+        $configurationBuilderMock->expects($this->any())->method('buildSorterConfiguration')->will($this->returnValue($sorterConfigurationMock));
+
+        $firstInstance = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilderMock);
+        $secondInstance = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilderMock);
+
+        $this->assertTrue(is_a($firstInstance, 'Tx_PtExtlist_Domain_Model_Sorting_Sorter'));
+        $this->assertTrue(is_a($secondInstance, 'Tx_PtExtlist_Domain_Model_Sorting_Sorter'));
+        $this->assertTrue($firstInstance == $secondInstance);
+    }
 	
 }
 ?>

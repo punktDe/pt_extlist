@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory {
 	 *
 	 * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
 	 */
-	private $instance = null;
+	private static $instance = null;
 	
 	
 	
