@@ -27,17 +27,17 @@
  ***************************************************************/
 
 /**
- * Testcase for Sorter
+ * Testcase for sorter factory
  *
  * @package pt_extlist
  * @subpackage Tests\Domain\Model\Sorting
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
+class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+    
 	/** @test */
 	public function classExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_Sorter'));
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'));
 	}
 	
 }
