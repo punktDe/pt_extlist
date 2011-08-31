@@ -13,15 +13,15 @@
 
         <itemizedlist>
             <listitem>
-                <title>controller / action</title>
+                <para>controller / action</para>
                 <para>Defines the called controller / action pair. That would be Pager / show for a pager, Filterbox / show for a filterbox and List / list for a list.</para>
             </listitem>
             <listitem>
-                <title>switchableControllerActions</title>
+                <para>switchableControllerActions</para>
                 <para>Defines all callable controller / action combinations within this widget. Must contain at least the default controller / action defined above.</para>
             </listitem>
             <listitem>
-                <title>listIdentifier</title>
+                <para>listIdentifier</para>
                 <para>listIdentifier is the only needed configuration. Set it to the desired list configuration.</para>
             </listitem>
         </itemizedlist>
