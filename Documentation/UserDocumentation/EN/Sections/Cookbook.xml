@@ -1,5 +1,84 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>Coobook</title>
-  <para>This chapter is a collection of recipes for common tasks in pt_extlist.</para>
+<!-- This document was created with Syntext Serna Free. -->
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+    <title>Cookbook</title>
+    <para>This chapter is a collection of recipes for common tasks in pt_extlist.</para>
+    <section>
+        <title>Insert the output of an extlist / extbase plugin via typoscript.</title>
+        <para>It is quite simple to insert an extlist / extbase plugin in any mode as a widget directly via typoscript. The following typoscript snippet defines a widget to render a pager anywhere you like.</para>
+        <para/>
+
+        <itemizedlist>
+            <listitem>
+                <title>controller / action</title>
+                <para>Defines the called controller / action pair. That would be Pager / show for a pager, Filterbox / show for a filterbox and List / list for a list.</para>
+            </listitem>
+            <listitem>
+                <title>switchableControllerActions</title>
+                <para>Defines all callable controller / action combinations within this widget. Must contain at least the default controller / action defined above.</para>
+            </listitem>
+            <listitem>
+                <title>listIdentifier</title>
+                <para>listIdentifier is the only needed configuration. Set it to the desired list configuration.</para>
+            </listitem>
+        </itemizedlist>
+
+        <programlisting><![CDATA[
+pagerWidget = USER
+pagerWidget {
+    userFunc = tx_extbase_core_bootstrap->run
+    pluginName = Pi1
+    extensionName = PtExtlist
+    controller = Pager
+    action = show
+    switchableControllerActions {
+        Pager {
+            1 = show
+        }
+    }
+
+    persistence =< plugin.tx_ptextlist.persistence
+    view =< plugin.tx_ptextlist.view
+    settings =< plugin.tx_ptextlist.settings
+
+    settings {
+        listIdentifier = YOURLISTIDENTIFIER
+    }
+}]]></programlisting>
+    </section>
 </section>
+
+
+<!--
+  <section>
+        <title>Testaufgabe</title>
+        <para>Beschribung der Aufgabe</para>
+        <para/>
+        <figure>
+            <title/>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="../images/logo_punktde.png" align="center" role="fo" contentwidth="350" format="jpg"/>
+                </imageobject>
+                <imageobject>
+                    <imagedata fileref="../images/logo_punktde.png" align="center" role="html" contentwidth="350" format="jpg"/>
+                </imageobject>
+            </mediaobject>
+        </figure>
+        <itemizedlist>
+            <listitem>
+                <para/>
+            </listitem>
+        </itemizedlist>
+        <orderedlist>
+            <listitem>
+                <para/>
+            </listitem>
+        </orderedlist>
+        <programlisting>
+ </programlisting>
+    </section>
+-->
