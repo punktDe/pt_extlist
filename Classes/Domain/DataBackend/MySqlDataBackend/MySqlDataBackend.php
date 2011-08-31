@@ -168,8 +168,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$query = implode('', $this->listQueryParts);
 
-		Tx_ExtDebug::var_dump($query, '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');
-
 		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 		return $query;
 	}

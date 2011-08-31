@@ -59,13 +59,16 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 		return array(
 			'incrementMonth' => array(
 				'settings' => array (
-					'dateIteratorStart' => mktime(0,0,0,1,1,date('Y')),
-					'dateIteratorEnd' => mktime(0,0,0,12,12,date('Y')),
+					'dateIteratorStart' => mktime(0,0,0,1,1,2011),
+					'dateIteratorEnd' => mktime(0,0,0,12,31,2011),
 					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => '%m',
+					'dateIteratorFormat' => '%m.%Y',
 				),
 				'result' => array(
-					'count' => 12
+					'count' => 12,
+					'firstRendered' => '01.2011',
+					'lastRendered' => '12.2011',
+					'rangeArray' => array('1293836400,1296514800','1296514800,1298934000','1298934000,1301608800','1301608800,1304200800','1304200800,1306879200','1306879200,1309471200','1309471200,1312149600','1312149600,1314828000','1314828000,1317420000','1317420000,1320102000','1320102000,1322694000','1322694000,1325372400')
 				)
 			)
 		);
@@ -170,7 +173,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
 
 		$resultArray = $dataProvider->getRenderedOptions();
-
 		$this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
 	}
 	
@@ -187,6 +189,16 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 		$resultArray = $dataProvider->_call('buildTimeStampList');
 
 		$this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
+
+		$i =0;
+		foreach($resultArray as $range => $renderValue) {
+			$this->assertEquals($range, $result['rangeArray'][$i], 'Range ' . $i . 'differs from test value');
+			$i++;
+		}
+
+		reset($resultArray);
+		$this->assertEquals($result['firstRendered'], strftime($settings['dateIteratorFormat'],current($resultArray)));
+		$this->assertEquals($result['lastRendered'], strftime($settings['dateIteratorFormat'], end($resultArray)));
 	}
 
 	

@@ -229,16 +229,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	}
 
 
-	
-    /**
-     * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
-     */
-    protected function setActiveState() {
-    	// TODO
-    	// $this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false;
-		 $this->isActive = true;
-    }
+	/**
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+	 */
+	protected function setActiveState() {
+		$this->isActive = is_object($this->filterValueStart) && is_object($this->filterValueEnd);
+	}
     
 	
     

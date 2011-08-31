@@ -156,11 +156,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 
 		while($iterationDate <= $this->dateIteratorEnd) {
 
-			$iterationDate  = $this->makeTime($iterationDate, array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), true), $iterator);
 			$iterationStart = $this->makeTime($iterationDate, $timeSpanComponents, array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), 0));
 			$iterationEnd   = $this->makeTime($iterationDate, $timeSpanComponents, $iterator);
 
 			$timeStampList[$iterationStart . ',' . $iterationEnd] = $iterationDate;
+
+			$iterationDate  = $this->makeTime($iterationDate, array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), true), $iterator);
 		}
 
 		return $timeStampList;
@@ -183,7 +184,5 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 				$timeSpanComponents['y'] ? date('y', $iterationDate) + $iterator['y'] : 0
 			);
 	}
-
-
 }
 ?>

@@ -79,7 +79,7 @@ plugin.tx_ptextlist.settings {
 						dateIteratorStart = 1227999510
                         dateIteratorEnd = 1314607478
                         dateIteratorIncrement = m
-                        dateIteratorFormat = %m.%Y
+                        dateIteratorFormat = %B %Y
 
 						inactiveOption = [ALL]
 						inactiveValue = ---ALL---
