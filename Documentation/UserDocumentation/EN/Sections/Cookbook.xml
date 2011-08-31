@@ -1,5 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>Coobook</title>
+  <title>Cookbook</title>
   <para>This chapter is a collection of recipes for common tasks in pt_extlist.</para>
+  <section>
+    <title>Testaufgabe</title>
+    <para>Beschribung der Aufgabe</para>
+    <para/>
+    <figure>
+      <title/>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/logo_punktde.png" align="center" role="fo" contentwidth="350" format="jpg"/>
+        </imageobject>
+        <imageobject>
+          <imagedata fileref="../images/logo_punktde.png" align="center" role="html" contentwidth="350" format="jpg"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    <itemizedlist>
+      <listitem>
+        <para/>
+      </listitem>
+    </itemizedlist>
+    <orderedlist>
+      <listitem>
+        <para/>
+      </listitem>
+    </orderedlist>
+    <programlisting/>
+  </section>
 </section>
