@@ -77,7 +77,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
      */	
 	public function findBookmarksByFeUserAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $listIdentifier) {
 		$feUserUid = $feUser->getUid();
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117065'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117065'));
 		if ($feUserUid > 0) {
 			$query = $this->createQuery();
 			$query->matching($query->logicalAnd($query->equals('feUser', $feUserUid), $query->equals('listId', $listIdentifier)));
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
 	 */
 	public function findPublicBookmarksByListIdentifier($listIdentifier) {
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117066'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117066'));
 		$query = $this->createQuery();
 		$query->matching($query->logicalAnd(
 		    $query->logicalAnd($query->equals('listId', $listIdentifier), $query->equals('isPublic', 1)), 
@@ -117,7 +117,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
 	 */
 	public function findGroupBookmarksByFeUserAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $listIdentifier) {
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117068'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117068'));
 		$groupBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
 		$feUserGroups = $feUser->getUsergroups();
 		foreach($feUserGroups as $feUserGroup) { /* @var $feUserGroup Tx_Extbase_Domain_Model_FrontendUserGroup */
@@ -136,7 +136,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
 	 */
 	public function findGroupBookmarksByFeGroupAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUserGroup $feGroup, $listIdentifier) {
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117067'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117067'));
 		$query = $this->createQuery();
 		$query->matching($query->logicalAnd($query->equals('feGroup', $feGroup->getUid()), $query->equals('listId', $listIdentifier)));
 		return $query->execute();
@@ -158,7 +158,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 	 * @return unknown
 	 */
 	public function findBookmarksByFeUserGroupIdsAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $groupIds, $listIdentifier) {
-		tx_pttools_assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117069'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117069'));
 		if (!is_array($groupIds)) {
 			$groupIds = explode(',', $groupIds);
 		}

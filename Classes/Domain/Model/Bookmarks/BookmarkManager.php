@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	/**
 	 * Holds an instance of a session persistence manager
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager = null;
 	
@@ -85,9 +85,9 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	/**
 	 * Injector for session persistence manager
 	 *
-	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
 	 */
-	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
 		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
 	

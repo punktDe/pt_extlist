@@ -34,9 +34,9 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends tx_pttools_objectCollection
-	implements  Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface,
-	            Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtExtbase_Collection_ObjectCollection 
+	implements  Tx_PtExtbase_State_IdentifiableInterface,
+	            Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 
 	/**
 	 * Restrict collection to breadcrumb class
@@ -94,7 +94,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends tx_ptto
 
 
 	/**
-	 * @see Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
+	 * @see Tx_PtExtbase_State_IdentifiableInterface
 	 */
 	public function getObjectNamespace() {
 		return $this->configurationBuilder->getListIdentifier() . '.' . 'breadcrumbs';
@@ -103,7 +103,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends tx_ptto
 
 
 	/**
-	 *
+	 * 
 	 *
 	 */
 	public function resetFilters() {

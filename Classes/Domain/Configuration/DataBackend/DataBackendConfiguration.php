@@ -88,8 +88,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * @param string $dataBackendClassName
 	 */
 	protected function checkAndSetDataBackendClass($dataBackendClassName) {
-		tx_pttools_assert::isNotEmptyString($dataBackendClassName, array('message' => 'dataBackendClass must not be empty! 1281178473'));   
-		tx_pttools_assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1281178474'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendClassName, array('message' => 'dataBackendClass must not be empty! 1281178473'));   
+		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendClassName), array('message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1281178474'));
 		$this->dataBackendClass = $dataBackendClassName;
 	}
 	
@@ -100,8 +100,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * @param string $dataMapperClassName
 	 */
 	protected function checkAndSetDataMapperClass($dataMapperClassName) {
-		tx_pttools_assert::isNotEmptyString($dataMapperClassName, array('message' => 'dataMaperClass must not be empty! 1281178475'));   
-		tx_pttools_assert::isTrue(class_exists($dataMapperClassName), array('message' =>' Datamapper class ' . $dataMapperClassName . ' does not exist! 1281178476'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataMapperClassName, array('message' => 'dataMaperClass must not be empty! 1281178475'));   
+		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataMapperClassName), array('message' =>' Datamapper class ' . $dataMapperClassName . ' does not exist! 1281178476'));
 		$this->dataMapperClass = $dataMapperClassName;
 	}
 	
@@ -112,8 +112,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * @param string $queryInterpreterClassname
 	 */
 	protected function checkAndSetQueryInterpreterClass($queryInterpreterClassname) {
-		tx_pttools_assert::isNotEmptyString($queryInterpreterClassname, array('message' => 'queryInterpreterClass must not be empty! 1281178538'));   
-		tx_pttools_assert::isTrue(class_exists($queryInterpreterClassname), array('message' =>' QueryInterpreter class ' . $queryInterpreterClassname . ' does not exist! 1281178539'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($queryInterpreterClassname, array('message' => 'queryInterpreterClass must not be empty! 1281178538'));   
+		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($queryInterpreterClassname), array('message' =>' QueryInterpreter class ' . $queryInterpreterClassname . ' does not exist! 1281178539'));
 		$this->queryInterpreterClass = $queryInterpreterClassname;
 	}
 	

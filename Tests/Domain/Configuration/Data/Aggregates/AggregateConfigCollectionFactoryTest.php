@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
 	
 	public function testGetAggregateConfigCollection() {
 		$aggregateConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($this->configurationBuilderMock);
-		$this->assertTrue(is_a($aggregateConfigCollection, 'tx_pttools_objectCollection'));
+		$this->assertTrue(is_a($aggregateConfigCollection, 'Tx_PtExtbase_Collection_ObjectCollection'));
 		$aggregateConfig1 = $aggregateConfigCollection->getAggregateConfigByIdentifier('agg1');
 		$this->assertEquals($aggregateConfig1->getMethod(), 'avg');
 	}

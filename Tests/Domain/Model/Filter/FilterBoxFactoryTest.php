@@ -42,12 +42,25 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends T
 		Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
 	}
 	
+	
+	
+	public function testTest() {
+		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
+		$filterboxConfigurationMock->setup();
+        $filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
+        $this->assertTrue(is_a($filterboxConfiguration->getConfigurationBuilder(), Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder));
+	}
+	
+	
+	
 	public function testCreateInstanceByFilterboxConfiguration() {
 		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
+		$filterboxConfigurationMock->setup();
 		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
-        
         $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
 	}
+	
+	
 	
 	public function testCreateAccessableInstance() {
 		

@@ -37,7 +37,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings) {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($configurationBuilder,$filterSettings,$filterboxIdentifier);
-		$filterConfig->injectConfigurationBuilder($configurationBuilder);
 		$filterConfig = self::setAccessableFlag($filterConfig, $configurationBuilder);
 		return $filterConfig;
 	}

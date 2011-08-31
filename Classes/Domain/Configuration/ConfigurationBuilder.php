@@ -36,7 +36,7 @@
  * @author Michael Knoll 
  * @author Christoph Ehscheidt 
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder {
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbase_Configuration_AbstractConfigurationBuilder {
 	
 	/**
 	 * Holds settings to build configuration objects
@@ -78,7 +78,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	    'rendererChain' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
 	    		  'prototype' => 'rendererChain'),
+	    'breadCrumbs' => 
+	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
+	    	      'tsKey' => 'breadCrumbs')
 	);
+	
 	
 	
 	/**
@@ -88,11 +92,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	protected $origSettings;
 	
 	
+	
 	/**
 	 * Prototype settings for ts-configurable objects
 	 * @var array
 	 */
 	protected $protoTypeSettings;
+	
 	
 	
 	/**
@@ -108,9 +114,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 * 
 	 * @param array $settings  Settings of extension
 	 */
-	public function __construct(array $settings) {	
+	public function __construct(array $settings, $listIdentifier = NULL) {	
 		$this->setProtoTypeSettings($settings);
-		$this->setListIdentifier($settings);
+		$this->setListIdentifier($settings, $listIdentifier);
 		$this->origSettings = $settings;
 		$this->mergeAndSetGlobalAndLocalConf();
 	}
@@ -122,7 +128,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 * @param array $settings
 	 */
 	protected function setProtoTypeSettings($settings) {
-		tx_pttools_assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
+		Tx_PtExtbase_Assertions_Assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
 		$this->protoTypeSettings = $settings['prototype'];
 	}
 
@@ -133,19 +139,23 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
 	 *
 	 * @param array $settings
 	 */
-	protected function setListIdentifier($settings) {
+	protected function setListIdentifier($settings, $listIdentifier = NULL) {
 		
-		if(!array_key_exists($settings['listIdentifier'], $settings['listConfig'])) {
+		if(!$listIdentifier) {
+			$listIdentifier = $settings['listIdentifier'];
+		}
+		
+		if(!array_key_exists($listIdentifier, $settings['listConfig'])) {
 			if(count($settings['listConfig']) > 0) {
 				$helpListIdentifier = 'Available list configurations on this page are: ' . implode(', ', array_keys($settings['listConfig'])) . '.';
 			} else {
 				$helpListIdentifier = 'No list configurations available on this page.';
 			}
-			throw new Exception('No list configuration can be found for list identifier "' . $settings['listIdentifier'] . '" 1278419536' . '<br>' . $helpListIdentifier);
+			throw new Exception('No list configuration can be found for list identifier "' . $listIdentifier . '" 1278419536' . '<br>' . $helpListIdentifier);
 		}
 
-        $this->listIdentifier = $settings['listIdentifier'];    
-	}	
+        $this->listIdentifier = $listIdentifier;    
+	}		
 
     
     
@@ -166,9 +176,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
      * @param array $filterboxIdentifier
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
-    	tx_pttools_assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
+    	Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
     	return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
+    
     
     
    /**
@@ -266,6 +277,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
    /**
      * Returns bookmarks configuration
      *
@@ -276,12 +288,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     }
     
     
+    
     /**
      * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
      */
     public function buildListDefaultConfig() {
     	return $this->buildConfigurationGeneric('listDefault');
     }
+    
     
     
     /**
@@ -302,6 +316,18 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtlis
     public function buildListConfiguration() {
     	return $this->buildConfigurationGeneric('list');
     }
+    
+    
+    
+    /**
+     * Returns a breadcrumbs configuration object
+     *
+     * @return unknown
+     */
+    public function buildBreadCrumbsConfiguration() {
+    	return $this->buildConfigurationGeneric('breadCrumbs');
+    }
+    
 }
 
 ?>

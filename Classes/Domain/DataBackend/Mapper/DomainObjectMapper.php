@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	public function getMappedListData($domainObjects) {
 		
-		tx_pttools_assert::isNotNull($this->mapperConfiguration, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
+		Tx_PtExtbase_Assertions_Assert::isNotNull($this->mapperConfiguration, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
 		
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		

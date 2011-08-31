@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		tx_pttools_assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
+		Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
 		$renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
 		foreach($listHeader as $headerColumn) {

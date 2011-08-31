@@ -104,10 +104,10 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * Read the Session data into the cache
 	 */
 	protected static function loadLifeCycleManager() {
-		$lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
-		$lifecycleManager->register(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
+		$lifecycleManager->register(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 		// SET LIFECYCLE TO START -> read session data into cache
-		$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+		$lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::START);
 	}
 
 
@@ -121,7 +121,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * @return array
 	 */
 	protected static function getExtListTyposcriptSettings($listIdentifier, $customTSArray = NULL) {
-		$extListTS = tx_pttools_div::getTS('plugin.tx_ptextlist.settings.');
+		$extListTS = Tx_PtExtbase_Div::getTS('plugin.tx_ptextlist.settings.');
 		$extListTSArray = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
 
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();

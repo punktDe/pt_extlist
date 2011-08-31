@@ -26,12 +26,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * Tx pt_tools div methods - used for loading TS
- * @package Utility
- */
-require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_div.php';
-
+require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Div.php';
+require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
 
 /**
  * Utilitty to get selectable options from typoscript
@@ -128,7 +124,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 */
 	protected function loadExtListTyposcriptArray() {
 		if(is_null($this->extListTypoScript)) {
-			$extListTS = tx_pttools_div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
+			$extListTS = Tx_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
 			$this->extListTypoScript =  Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
 		}
 	}

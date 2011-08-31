@@ -37,11 +37,11 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 		
 	/**
 	 * render a key/value GET/POST-string within the namespace of the given object
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * @param string $property, single property or propertypath separated by '.'
 	 * @return string
 	 */
-	public function render(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, $property) {
+	public function render(Tx_PtExtbase_State_IdentifiableInterface $object, $property) {
 			
 		$getPostProperty = '';
 		$getPostProperty .= $this->renderNamespacePart($object);
@@ -70,12 +70,12 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 	/**
 	 * Render the namespacepart
 	 * 
-	 * @param $object Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface
+	 * @param $object Tx_PtExtbase_State_IdentifiableInterface
 	 * @return string namespacepart
 	 */
-	public function renderNamespacePart(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object) {
+	public function renderNamespacePart(Tx_PtExtbase_State_IdentifiableInterface $object) {
 		$nameSpace = $object->getObjectNamespace();
-		tx_pttools_assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 		
 		$identChunks =  t3lib_div::trimExplode('.', $nameSpace);
 		$nameSpacePart  = array_shift($identChunks);

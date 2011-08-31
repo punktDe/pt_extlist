@@ -37,7 +37,7 @@
 class Tx_PtExtlist_Domain_Link_LinkManager {
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
+	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
 	 */
 	protected $getPostVarAdapter;
 	
@@ -50,9 +50,9 @@ class Tx_PtExtlist_Domain_Link_LinkManager {
 	
 	/**
 	 * Inkect the get post var adapter
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $getPostVarAdapater
+	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapater
 	 */
-	public function injectGetPostVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $getPostVarAdapater) {
+	public function injectGetPostVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapater) {
 		$this->getPostVarAdapter = $getPostVarAdapater;
 	}
 	
@@ -71,10 +71,10 @@ class Tx_PtExtlist_Domain_Link_LinkManager {
 	/**
 	 * Build and return the argument array for the given object
 	 * 
-	 * @param Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object
+	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * @param array $properties
 	 */
-	public function buildArgumentArrayForObject(Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface $object, array $properties) {
+	public function buildArgumentArrayForObject(Tx_PtExtbase_State_IdentifiableInterface $object, array $properties) {
 		
 	}
 	

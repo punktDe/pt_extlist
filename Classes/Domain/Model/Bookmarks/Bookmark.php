@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark 
     extends Tx_Extbase_DomainObject_AbstractEntity 
-    implements Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface {
+    implements Tx_PtExtbase_State_IdentifiableInterface {
 	
 	/**
 	 * Name for bookmark
@@ -120,7 +120,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
     
     
 	/**
-	 * @see Tx_PtExtlist_Domain_StateAdapter_IdentifiableInterface::getObjectNamespace()
+	 * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
 	 *
 	 * @return String
 	 */

@@ -78,6 +78,7 @@
     <!--##########################-->
     <!-- Tab for list settings    -->
     <!--##########################-->
+    <!--
     <list>
       <ROOT>
         <TCEforms>
@@ -91,7 +92,7 @@
         </el>
       </ROOT>
     </list>
-    
+    -->
     
     
     <!--##########################-->
@@ -355,7 +356,7 @@
 
           <settings.breadCrumbs.showResetLinks>
             <TCEforms>
-              <label>Show reset links</label>
+              <label>Show reset links (you have to set this in your filterbox plugin, not in breadcrumbs plugin!)</label>
               <config>
                 <type>check</type>
               </config>

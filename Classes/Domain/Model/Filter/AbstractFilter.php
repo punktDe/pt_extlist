@@ -36,8 +36,8 @@
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter 
     implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface, 
-               Tx_PtExtlist_Domain_StateAdapter_SessionPersistableInterface,
-               Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface {
+               Tx_PtExtbase_State_Session_SessionPersistableInterface,
+               Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
     	
     /**
      * Identifier of list to which this filter belongs to
@@ -96,7 +96,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Get/Post vars adapter
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter
+	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
 	 */
 	protected $gpVarAdapter = null;
 	
@@ -113,8 +113,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
 	/**
 	 * Session persistence manager
+	 * 
+	 * TODO this reference is no longer required!
 	 *
-	 * @var Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
 	 */
 	protected $sessionPersistenceManager = null;
 	
@@ -195,9 +197,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Injector for Get/Post Vars adapter
 	 *
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter Get/Post vars adapter to be injected
+	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter Get/Post vars adapter to be injected
 	 */
-	public function injectGpVarAdapter(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapter $gpVarAdapter) {
+	public function injectGpVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter) {
 		$this->gpVarAdapter = $gpVarAdapter;
 	}
 	
@@ -206,9 +208,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Injector for session persistence manager
 	 *
-	 * @param Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
 	 */
-	public function injectSessionPersistenceManager(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManager $sessionPersistenceManager) {
+	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
 		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
 	
@@ -341,7 +343,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 * @return void
 	 */
-	public function init() {
+	public function init($initAfterReset = false) {
 		
 		/**
 		 * What happens during initialization:
@@ -364,9 +366,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		 * I you want to change the way, a filter initializes itsel, you have
 		 * to override init() in your own filter implementation!
 		 */
+	    $this->initGenericFilterByTSConfig();
 
-		$this->initGenericFilterByTSConfig();
-		$this->initFilterByTsConfig();
+	    
+	    // We only want to reset a filter to its TS default value, if TS configuration says so
+		if (!$initAfterReset || ($initAfterReset && $this->filterConfig->getResetToDefaultValue())) {
+		    $this->initFilterByTsConfig();
+		}
 		
 		$this->initGenericFilterBySession();
 		$this->initFilterBySession();
@@ -482,6 +488,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	abstract protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
 	
 	
+	
 	/**
 	 * Build the filterCriteria for filter 
 	 * 
@@ -503,6 +510,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		return $criteria;
 	}
 	
+	
 
 	/**
 	 * Template method for validating filter data.
@@ -512,7 +520,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return bool True, if filter validates, false, if filter does not validate
 	 */
 	public function validate() {
-		return 1;
+		return true;
 	}
 	
 	
@@ -535,20 +543,20 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
      */
     public function getFilterBreadCrumb() {
-        
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
+    	$breadCrumb->injectBreadCrumbsConfiguration($this->filterConfig->getConfigurationBuilder()->buildBreadCrumbsConfiguration());
         
         if ($this->getFilterValueForBreadCrumb() != '') {
             $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
             
             $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
                 $this->getFieldsForBreadcrumb(), 
-                $breadCrumbRenderArray);
+                $breadCrumbRenderArray
+            );
             
             $breadCrumb->setMessage($breadCrumbMessage);
             $breadCrumb->setIsResettable(true);
         }
-        
         return $breadCrumb;
     }
     
@@ -592,8 +600,42 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	
     
     
+	/**
+     * Resets filter to its default values
+     * 
+     * @return void
+     */
+    public function reset() {
+        $this->filterValue = '';
+        $this->invert = false;
+        $this->resetSessionDataForFilter();
+        $this->resetGpVarDataForFilter();
+        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $this->init(true);
+    }
+    
+    
+    
+    /**
+     * Resets session data for this filter
+     */
+    protected function resetSessionDataForFilter() {
+        $this->sessionFilterData = array();
+    }
+    
+    
+    
+    /**
+     * Resets get/post var data for this filter
+     */
+    protected function resetGpVarDataForFilter() {
+        $this->gpVarFilterData = array();
+    }
+    
+    
+    
 	/****************************************************************************************************************
-     * Methods implementing "Tx_PtExtlist_Domain_StateAdapter_GetPostVarInjectableInterface"
+     * Methods implementing "Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface"
      *****************************************************************************************************************/
 	
 	/**
@@ -632,4 +674,5 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 }
+
 ?>

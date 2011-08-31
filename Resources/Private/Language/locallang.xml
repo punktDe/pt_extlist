@@ -82,5 +82,53 @@
 			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
 			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
 		</languageKey>
+		
+		<languageKey index="pl" type="array">
+			<label index="emptyList">Sorry, no list items available.</label>
+			
+			<label index="pager.of">z</label>
+			<label index="pager.to">-</label>
+			<label index="pager.showItems">Widoczne pozycje</label>
+			
+			<label index="filterBox.resetFilters">Zresetować</label>
+			<label index="filterBox.submitFilters">Zatwierdź</label>
+			<label index="filterBox.errorInFilter">The filters contain errors.</label>
+			
+			<label index="filter.daterange.from">From</label>
+			<label index="filter.daterange.to">To</label>
+			
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Description</label>
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.content">Content</label>
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.create_date">Date</label>
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user">FE User</label>
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Group</label>
+			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.is_public">Public Bookmark</label>
+			
+			<label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
+			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
+			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
+			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
+
+			<label index="tx_ptextlist_flexform_controllerAction.Filterbox_show">Filterbox</label>
+			<label index="tx_ptextlist_flexform_controllerAction.List_list">List</label>
+			<label index="tx_ptextlist_flexform_controllerAction.Pager_show">Pager</label>
+			<label index="tx_ptextlist_flexform_controllerAction.List_export">Export</label>
+			<label index="tx_ptextlist_flexform_controllerAction.BreadCrumbs_index">Breadcrumbs</label>
+			<label index="tx_ptextlist_flexform_controllerAction.Bookmarks_show">Bookmarks</label>
+			
+			<label index="tx_ptextlist_flexform_listIdentifier">List Identifier</label>
+			<label index="tx_ptextlist_flexform_controllerAction">Plugin Mode</label>
+			<label index="tx_ptextlist_flexform_filterBox">Filter Box</label>
+			
+			<label index="tx_ptextlist_flexform_export.type">Export Type</label>
+			<label index="tx_ptextlist_flexform_export.filename">Export Filename</label>
+			<label index="tx_ptextlist_flexform_export.downloadtype">Export Download Type</label>
+
+			<label index="tx_ptextlist_flexform_export.downloadtype.D">Force download</label>
+			<label index="tx_ptextlist_flexform_export.downloadtype.I">Try to show in browser</label>
+		</languageKey>
+		
 	</data>
 </T3locallang>

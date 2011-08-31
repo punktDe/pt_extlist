@@ -125,10 +125,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * Read the Session data into the cache
 	 */
 	protected static function loadLifeCycleManager() {
-		$lifecycleManager = Tx_PtExtlist_Domain_Lifecycle_LifecycleManagerFactory::getInstance();
-		$lifecycleManager->register(Tx_PtExtlist_Domain_StateAdapter_SessionPersistenceManagerFactory::getInstance());
+		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
+		$lifecycleManager->register(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 		// SET LIFECYCLE TO START -> read session data into cache
-		$lifecycleManager->updateState(Tx_PtExtlist_Domain_Lifecycle_LifecycleManager::START);
+		$lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::START);
 	}
 
 

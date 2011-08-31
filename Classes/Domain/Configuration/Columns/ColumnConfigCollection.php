@@ -32,7 +32,7 @@
  * @package 		Domain
  * @subpackage 		Configuration\Columns  
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends tx_pttools_objectCollection {
+class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 
 	/**
 	 * @var string

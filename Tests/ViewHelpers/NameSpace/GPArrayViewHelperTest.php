@@ -40,9 +40,13 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 	 */
 	protected $configurationBuilderMock;
 	
+	
+	
 	public function setup() {
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
+	
+	
 	
 	public function testGetArgumentArraySingleNoValue() {
 		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
@@ -50,11 +54,15 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$this->assertEquals($GPArray, array('label' => NULL));
 	}
 	
+	
+	
 	public function testGetArgumentArrayMultiNoValue() {
 		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		$GPArray = $GPArrayViewHelper->getArgumentArray('label,name');
 		$this->assertEquals($GPArray, array('label' => NULL, 'name' => NULL));
 	}
+	
+	
 	
 	public function testGetArgumentArraySingle() {
 		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
@@ -62,11 +70,14 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$this->assertEquals($GPArray, array('label' => 'test'));
 	}
 	
+	
+	
 	public function testGetArgumentArrayMulti() {
 		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		$GPArray = $GPArrayViewHelper->getArgumentArray('label:test,name:daniel');
 		$this->assertEquals($GPArray, array('label' => 'test', 'name' => 'daniel'));
 	}
+	
 	
 	
 	public function testRenderWithObject() {
@@ -87,6 +98,8 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$this->assertEquals($gpArray, $refArray);
 	}
 
+	
+	
 	public function testRenderWithObjectAndValue() {
 		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		
@@ -103,4 +116,5 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 	}
 
 }
+
 ?>

@@ -27,20 +27,48 @@
  ***************************************************************/
 
 /**
- * The interface for classes which needs to be updated on a lifecycle event.
- * 
- * @author Christoph Ehscheidt 
- * @package Domain
- * @subpackage Lifecycle
+ * Testcase for base configuration
+ *
+ * @package Tests
+ * @subpackage Domain\Configuration\Base
+ * @author Daniel Lienert
  */
-interface Tx_PtExtlist_Domain_Lifecycle_LifecycleEventInterface {
+class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
 	
 	/**
-	 * Will be called by the lifecycle manager. 
-	 * 
-	 * @param int $state
+	 * @var Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
 	 */
-	public function lifecycleUpdate($state);
+	protected $baseConfig;
+	
+	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+		
+		$configArray = array('uncachedSessionStorageAdapter' => 'uncachedSessionStorageAdapter',
+							'cachedSessionStorageAdapter' => 'cachedSessionStorageAdapter'
+							);
+		
+		$this->baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $configArray);
+	}
+	
+	
+	/**
+	 * @test
+	 */
+	public function getCachedSessionStorageAdapter() {
+		$this->assertEquals($this->baseConfig->getCachedSessionStorageAdapter(), 'cachedSessionStorageAdapter');
+	}
+	
+	
+	
+	/**
+	 * @test
+	 */
+	public function getUncachedSessionStorageAdapter() {
+		$this->assertEquals($this->baseConfig->getUncachedSessionStorageAdapter(), 'uncachedSessionStorageAdapter');
+	}
+	
 }
 
 ?>

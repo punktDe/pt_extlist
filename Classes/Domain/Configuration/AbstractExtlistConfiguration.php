@@ -34,7 +34,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtlist_Domain_Configuration_AbstractConfiguration {
+abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtbase_Configuration_AbstractConfiguration {
 
 	/**
 	 * The listidentifier this config object belings to
@@ -44,28 +44,18 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
 	protected $listIdentifier;
 	
 	
-	/**
-	 * Injects configurationbuilder
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-	}
-	
-	
 	
 	/**
 	 * Constructor for configuration object
 	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param array $settings
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_AbstractConfigurationBuilder $configurationBuilder, array $settings = array()) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings = array()) {
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		parent::__construct($configurationBuilder, $settings);
 	}
+	
 	
 	
 	/**

@@ -1,6 +1,5 @@
 plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
-	
 	/* List */
 	.tx-ptextlist-list-standard {
 		border-collapse: collapse;
@@ -56,10 +55,12 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 		margin-bottom: 20px;
 		padding: 5px;
 		overflow: hidden;
+		background-color: #eee;
 	}
 	
 	.tx-ptextlist-filterboxcontrols {
-		float: left;
+		/* float: left; */
+		clear: both;
 		padding: 18px 0 0 10px;
 	}
 
@@ -69,8 +70,11 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	
 	.tx-ptextlist-filter {
 		float: left;
-		padding: 3px;
+		margin: 20px;
+		padding: 10px;
 		list-style-type: none;
+		background-color: #ccc;
+		border: 1px solid #AFAFAF;
 	}
 
 
@@ -86,9 +90,28 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 		margin-left: 1em;
 	}
 	
+	/* Filters | TagClud */
+	.tx-ptextlist-filter-tagCloud-list li {
+		float: left;
+		list-style: none outside none;
+		margin-right: 6px;
+		margin-top: 3px;
+
+	}
 	
+	.tx-ptextlist-filter-tagCloud-list li a:hover {
+		text-decoration: underline;
+	}
 	
 	/* Pager */
+	.tx-ptextlist-pager-wrapper {
+	    border: 1px solid #BFBFBF;
+        margin-top: 20px;
+        padding: 5px;
+        overflow: hidden;
+        background-color: #eee;
+	}
+	
 	.tx-ptextlist-pager {
 		margin-left: 0;
 		text-align: center;

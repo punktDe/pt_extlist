@@ -287,7 +287,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 			$params['currentContent'] = $content;
 
 			$params['conf'] = $rendererUserFuncConfig;
-			$rendererUserFunc = array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig;
+			
+			$rendererUserFunc = is_array($rendererUserFuncConfig) && array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig;
 
 			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef, NULL);
 		}
@@ -350,7 +351,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 		if(!is_array($tsConfigValue)) return $tsConfigValue;
 
 		$tsArray = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
-		$content = self::getCobj()->stdWrap($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
+		$content = self::getCobj()->cObjGetSingle($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
 
 		return $content;
 	}

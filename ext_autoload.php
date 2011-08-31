@@ -22,14 +22,6 @@ return array(
     'tx_ptextlist_view_baseview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/BaseView.php',
     'user_tx_ptextlist_utility_flexformdataprovider' => t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php',
 
-    /* External Extensions */
-    'tx_pttools_objectcollection'       	=> t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_objectCollection.php',
-    'tx_pttools_collection'             	=> t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_collection.php',
-    'tx_pttools_assert'                 	=> t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_assert.php',
-    'tx_pttools_sessionstorageadapter'  	=> t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_sessionStorageAdapter.php',
-	'tx_pttools_feUsersessionStorageAdapter'=> t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_feUsersessionStorageAdapter.php',
-    'tx_pttools_div'                    	=> t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_div.php',
-    'tx_pttools_iStorageAdapter'        	=> t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_iStorageAdapter.php',
-
+    'tx_ptextbase_configuration_abstractconfigurationbuilder' => t3lib_extMgm::extPath('pt_extbase').'Classes/Configuration/AbstractConfigurationBuilder.php'
 );
 ?>

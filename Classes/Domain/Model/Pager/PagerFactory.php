@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
 		$pagerClassName = $pagerConfiguration->getPagerClassName();
         		
 		$pager = new $pagerClassName($pagerConfiguration);
-        tx_pttools_assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
         
         return $pager;
 	}
