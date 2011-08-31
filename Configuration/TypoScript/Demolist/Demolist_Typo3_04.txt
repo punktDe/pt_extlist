@@ -29,6 +29,10 @@ plugin.tx_ptextlist.settings {
 				table = sys_log
 				field = tstamp
 			}
+
+			readableDate {
+			    special = FROM_UNIXTIME(sys_log.tstamp, '%d.%m.%Y %h:%i:%s')
+			}
 	
 			details {
 				table = sys_log
@@ -46,8 +50,8 @@ plugin.tx_ptextlist.settings {
 		
 			10 {
 				label = Date
-				columnIdentifier = tstamp
-				fieldIdentifier = tstamp
+				columnIdentifier = readableDate
+				fieldIdentifier = readableDate
 			}
 
 	
@@ -64,7 +68,7 @@ plugin.tx_ptextlist.settings {
 			}
 		}
 
-	    pager.itemsPerPage = 0
+	    pager.itemsPerPage = 100
 
 		filters {
 			filterBox1 {
