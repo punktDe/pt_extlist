@@ -1605,6 +1605,103 @@ fieldIdentifier {
                                                                         <CHILDREN></CHILDREN>
                                                                         <VARIANT></VARIANT>
                                                                     </ENTRY>
+                                                                     <ENTRY KEY="defaultValue">
+                                                                        <DESCRIPTION>This filter requires a start and an end value as default.</DESCRIPTION>
+                                                                        <DATATYPE>Array</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+defaultValue {
+    start = 1234567890
+    end = 234567891
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dbTimeFormat">
+                                                                        <DESCRIPTION>The filter converts the the time values to the format defined with dbTimeFormat.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES><![CDATA[
+                                                                            For MySql the possible Values are:
+                                                                            UnixTimesTamp (Integer):   U
+                                                                            DATETIME: 	Y-m-d H:i:s
+                                                                            DATE: 	Y-m-d
+                                                                            TIMESTAMP: 	Y-m-d H:i:s
+                                                                            TIME: 	H:i:s
+                                                                            YEAR: 	Y
+                                                                        ]]></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dbTimeFormat = U
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorStart">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. Start date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ>1</COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorEnd">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. End date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES>
+
+                                                                        </POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorIncrement">
+                                                                        <DESCRIPTION>The step size to increment the dates.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES><![CDATA[
+                                                                            'h': by hour
+                                                                            'i': by minute
+                                                                            's': by second
+                                                                            'd': by day
+                                                                            'm': by month
+                                                                            'y': by year
+                                                                        ]]></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorIncrement = m
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorFormat">
+                                                                        <DESCRIPTION>How the labels for the timeSpan is rendered. You hav to use PHP strftime format to render labels in the according language.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES>Strftime format string.</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorFormat = %m.%Y
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
