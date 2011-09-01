@@ -83,35 +83,6 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
-	timeSpan {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter
-		partialPath = Filter/Range/TimeSpanFilter
-
-		defaultValue {
-		    start =
-		    end = 
-		}
-
-        #fieldIdentifier {
-        #    10 {
-        #        start =
-        #        end =
-        #    }
-        #}
-
-        dbTimeFormat = U
-
-        accessGroups =
-
-		breadCrumbString = TEXT
-		breadCrumbString {
-			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
-			dataWrap = {field:label} is between {field:fromValue} and {field:toValue}
-		}
-	}
-
-
-
 	dateSelectList
 	dateSelectList {
 	    filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
