@@ -1577,12 +1577,38 @@ redirectOnSubmit{
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.dateSelectList</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
+                                                                    <ENTRY KEY="fieldIdentifier">
+                                                                        <DESCRIPTION>The fieldIdentifier for a timeSpanFilter (every filter that derives from the abstractTimeSpanFilter) can be set by two different ways.
+                                                                            1. by a comma seperated list of fieldIdentifer as normal.
+                                                                            2. by defining a 2-dimensional list of start and end fields that determines the start and end of an event. See the example for details.</DESCRIPTION>
+                                                                        <DATATYPE>CSV, Array</DATATYPE>
+                                                                        <POSIBLEVALUES>FieldIdentifier</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+# Type 1: define a single date-field
+fieldIdentifier = tstamp, crdate
+
+# Type 2: defined start and end identifier
+fieldIdentifier {
+    10 {
+        start = eventStartDate
+        end = eventEndDate
+    }
+    20 {
+        start = eventStartDate2
+        end = eventEndDate2
+    }
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
