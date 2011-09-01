@@ -1306,14 +1306,6 @@ redirectOnSubmit{
 														<PROTOTYPE></PROTOTYPE>
 														<EXAMPLE></EXAMPLE>
 														<CHILDREN>
-															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-															<TYPEREF REF="filter.label" KEY="label" />
-															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-															<TYPEREF REF="filter.invert" KEY="invert" />
-															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
 															<ENTRY KEY="size">
 																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
 																<DATATYPE>int</DATATYPE>
@@ -1336,6 +1328,14 @@ redirectOnSubmit{
 																<CHILDREN></CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
+                                                            <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+															<TYPEREF REF="filter.label" KEY="label" />
+															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+															<TYPEREF REF="filter.invert" KEY="invert" />
+															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
 														</CHILDREN>
 														<VARIANT>
 															<ENTRY KEY="String">
@@ -1381,14 +1381,6 @@ redirectOnSubmit{
 }
 																]]></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-																	<TYPEREF REF="filter.label" KEY="label" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-																	<TYPEREF REF="filter.invert" KEY="invert" />
-																	<TYPEREF REF="filter.invertable" KEY="invertable" />
                                                                     <ENTRY KEY="minWordLength">
 																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
@@ -1422,6 +1414,14 @@ redirectOnSubmit{
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.label" KEY="label" />
+                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
+                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
+                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1575,19 +1575,6 @@ redirectOnSubmit{
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.tagcloud</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
-																	<TYPEREF REF="filter.label" KEY="label" />
-																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.invert" KEY="invert" />
-																	<TYPEREF REF="filter.invertable" KEY="invertable" />
-																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
-																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
-																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
-																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<ENTRY KEY="maxItems">
 																		<DESCRIPTION>Maximum of items to show.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
@@ -1643,6 +1630,19 @@ redirectOnSubmit{
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1664,7 +1664,7 @@ redirectOnSubmit{
                                                                         <DEFAULT></DEFAULT>
                                                                         <COBJ></COBJ>
                                                                         <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE>
+                                                                        <EXAMPLE><![CDATA[
 # Type 1: define a single date-field
 fieldIdentifier = tstamp, crdate
 
@@ -1679,7 +1679,7 @@ fieldIdentifier {
         end = eventEndDate2
     }
 }
-                                                                        </EXAMPLE>
+                                                                        ]]></EXAMPLE>
                                                                         <CHILDREN></CHILDREN>
                                                                         <VARIANT></VARIANT>
                                                                     </ENTRY>
@@ -1690,12 +1690,12 @@ fieldIdentifier {
                                                                         <DEFAULT></DEFAULT>
                                                                         <COBJ></COBJ>
                                                                         <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE>
+                                                                        <EXAMPLE><![CDATA[
 defaultValue {
     start = 1234567890
     end = 234567891
 }
-                                                                        </EXAMPLE>
+                                                                        ]]></EXAMPLE>
                                                                         <CHILDREN></CHILDREN>
                                                                         <VARIANT></VARIANT>
                                                                     </ENTRY>
@@ -1780,38 +1780,23 @@ dateIteratorFormat = %m.%Y
                                                                         <CHILDREN></CHILDREN>
                                                                         <VARIANT></VARIANT>
                                                                     </ENTRY>
-                                                                        <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-                                                                        <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-                                                                        <TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
-                                                                        <TYPEREF REF="filter.label" KEY="label" />
-                                                                        <TYPEREF REF="filter.partialPath" KEY="partialPath" />
-                                                                        <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-                                                                        <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-                                                                        <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-                                                                        <TYPEREF REF="filter.invert" KEY="invert" />
-                                                                        <TYPEREF REF="filter.invertable" KEY="invertable" />
-                                                                        <TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
-                                                                        <TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
-                                                                        <TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
-                                                                        <TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
-                                                                        </CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
-																	<TYPEREF REF="filter.label" KEY="label" />
-																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.invert" KEY="invert" />
-																	<TYPEREF REF="filter.invertable" KEY="invertable" />
-																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
-																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
-																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
-																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
-																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
-																</CHILDREN>
-																<VARIANT></VARIANT>
-															</ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+                                                                    <TYPEREF REF="filter.label" KEY="label" />
+                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
+                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
+                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+                                                                    <TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+                                                                    <TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+                                                                    <TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                </CHILDREN>
+                                                                <VARIANT></VARIANT>
+                                                            </ENTRY>
 															<ENTRY KEY="Proxy">
 																<DESCRIPTION>A proxy filter is not displayed. It uses a filter from an other list defined by the proxy path and sets the result constraint to the given field.</DESCRIPTION>
 																<DATATYPE></DATATYPE>
@@ -1835,7 +1820,6 @@ dateIteratorFormat = %m.%Y
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
-
 														</VARIANT>
 													</ENTRY>
 												</CHILDREN>
