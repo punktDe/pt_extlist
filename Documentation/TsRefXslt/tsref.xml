@@ -1669,7 +1669,157 @@ redirectOnSubmit{
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
+                                                            <ENTRY KEY="dateSelectList">
+																<DESCRIPTION>Renders a list of date definitions like "August 2011" to select entries in a given file range.</DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.dateSelectList</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+																	<ENTRY KEY="fieldIdentifier">
+                                                                        <DESCRIPTION>The fieldIdentifier for a timeSpanFilter (every filter that derives from the abstractTimeSpanFilter) can be set by two different ways.
+                                                                            1. by a comma seperated list of fieldIdentifer as normal.
+                                                                            2. by defining a 2-dimensional list of start and end fields that determines the start and end of an event. See the example for details.</DESCRIPTION>
+                                                                        <DATATYPE>CSV, Array</DATATYPE>
+                                                                        <POSIBLEVALUES>FieldIdentifier</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+# Type 1: define a single date-field
+fieldIdentifier = tstamp, crdate
 
+# Type 2: defined start and end identifier
+fieldIdentifier {
+    10 {
+        start = eventStartDate
+        end = eventEndDate
+    }
+    20 {
+        start = eventStartDate2
+        end = eventEndDate2
+    }
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="defaultValue">
+                                                                        <DESCRIPTION>This filter requires a start and an end value as default.</DESCRIPTION>
+                                                                        <DATATYPE>Array</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+defaultValue {
+    start = 1234567890
+    end = 234567891
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dbTimeFormat">
+                                                                        <DESCRIPTION>The filter converts the the time values to the format defined with dbTimeFormat.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES>
+                                                                            For MySql the possible Values are:
+                                                                            UnixTimesTamp (Integer):   U
+                                                                            DATETIME: 	Y-m-d H:i:s
+                                                                            DATE: 	Y-m-d
+                                                                            TIMESTAMP: 	Y-m-d H:i:s
+                                                                            TIME: 	H:i:s
+                                                                            YEAR: 	Y
+                                                                        </POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dbTimeFormat = U
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorStart">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. Start date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ>1</COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorEnd">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. End date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES>
+
+                                                                        </POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorIncrement">
+                                                                        <DESCRIPTION>The step size to increment the dates.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES>
+                                                                            'h': by hour
+                                                                            'i': by minute
+                                                                            's': by second
+                                                                            'd': by day
+                                                                            'm': by month
+                                                                            'y': by year
+                                                                        </POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorIncrement = m
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorFormat">
+                                                                        <DESCRIPTION>How the labels for the timeSpan is rendered. You hav to use PHP strftime format to render labels in the according language.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES>Strftime format string.</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorFormat = %m.%Y
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+                                                                    <TYPEREF REF="filter.label" KEY="label" />
+                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
+                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
+                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+                                                                    <TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+                                                                    <TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+                                                                    <TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                </CHILDREN>
+                                                                <VARIANT></VARIANT>
+                                                            </ENTRY>
 														</VARIANT>
 													</ENTRY>
 												</CHILDREN>
