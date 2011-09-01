@@ -1670,7 +1670,9 @@ redirectOnSubmit{
 																<VARIANT></VARIANT>
 															</ENTRY>
                                                             <ENTRY KEY="dateSelectList">
-																<DESCRIPTION>Renders a list of date definitions like "August 2011" to select entries in a given file range.</DESCRIPTION>
+																<DESCRIPTION><![CDATA[
+																    Renders a list of date definitions like "August 2011" to select entries in a given file range.
+																]]></DESCRIPTION>
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
