@@ -73,10 +73,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 	 */
 	protected function initByTsConfig() {
 
-		$this->dateIteratorStart = (int) $this->filterConfig->getSettings('dateIteratorStart');
+		$this->dateIteratorStart = (int) Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('dateIteratorStart'));
 			Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorStart, false, array('message' => 'The Value dateIteratorStart is not given. 1314608757'));
 
-		$this->dateIteratorEnd = (int) $this->filterConfig->getSettings('dateIteratorEnd');
+		$this->dateIteratorEnd = (int) Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('dateIteratorEnd'));
 			Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorEnd,false, array('message' => 'The Value dateIteratorEnd is not given. 1314608758'));
 
 		$this->dateIteratorFormat = $this->filterConfig->getSettings('dateIteratorFormat');
