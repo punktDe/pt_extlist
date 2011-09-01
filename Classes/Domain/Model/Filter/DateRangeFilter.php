@@ -1,3 +1,4 @@
+
 <?php
 /***************************************************************
  *  Copyright notice
@@ -35,43 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
-	/**
-	 * Holds timestamp of start-time for filter
-	 *
-	 * @var int
-	 */
-	protected $filterValueFrom;
 
-
-
-	/**
-	 * Holds time stamp of end-time for filter
-	 *
-	 * @var int
-	 */
-	protected $filterValueTo;
-
-
-
-	/**
-	 * Getter for FROM filter value
-	 *
-	 * @return string
-	 */
-	public function getFilterValueFrom() {
-		return $this->filterValueFrom;
-	}
-
-
-
-	/**
-	 * Getter for TO filter value
-	 *
-	 * @return string
-	 */
-	public function getFilterValueTo() {
-		return $this->filterValueTo;
-	}
 
 
 

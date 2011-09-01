@@ -175,7 +175,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
         $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
         
         $selectFilter->injectFilterConfig($filterConfiguration);
-        $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
         $selectFilter->injectDataBackend($dataBackendMock);
         $selectFilter->init();
     }
@@ -221,7 +220,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
         $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
     	$selectFilter->injectDataBackend($dataBackendMock);
         
-        $selectFilter->injectSessionPersistenceManager($sessionManagerMock);
         $selectFilter->injectFilterConfig($filterConfiguration);
     }
     
@@ -276,7 +274,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
         $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
         
         $abstractOptionsFilter->injectFilterConfig($filterConfiguration);
-        $abstractOptionsFilter->injectSessionPersistenceManager($sessionManagerMock);
         $abstractOptionsFilter->injectDataBackend($dataBackendMock);
         $abstractOptionsFilter->init();
         
