@@ -1458,7 +1458,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
                                                                                     <ENTRY KEY="select">
                                                                                         <DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
                                                                                     </ENTRY>
-                                                                                    <ENTRY KEY="form">
+                                                                                    <ENTRY KEY="from">
                                                                                         <DESCRIPTION>The FROM part of the query.</DESCRIPTION>
                                                                                     </ENTRY>
                                                                                     <ENTRY KEY="where">

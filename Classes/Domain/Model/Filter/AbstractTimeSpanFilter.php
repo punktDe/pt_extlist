@@ -265,9 +265,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 */
 	public function getValue() {
 		$returnArray = array();
-		if ($this->filterValueStart) $returnArray['filterValueStart'] = $this->filterValueStart->getTimestamp();
-		if ($this->filterValueEnd) $returnArray['filterValueEnd'] = $this->filterValueEnd->getTimestamp();
 
+		if ($this->filterValueStart) $returnArray['filterValueStart'] = $this->filterValueStart->format('U');
+		if ($this->filterValueEnd) $returnArray['filterValueEnd'] = $this->filterValueEnd->format('U');
+		
 		return $returnArray;
 	}
 
