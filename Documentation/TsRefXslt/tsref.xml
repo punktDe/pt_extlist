@@ -1434,7 +1434,50 @@ redirectOnSubmit{
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<ENTRY KEY="dataProviderClassName">
+                                                                        <DESCRIPTION>ClassName of a dataProvider class that delivers options to select.</DESCRIPTION>
+                                                                        <VARIANT>
+                                                                            <ENTRY KEY="ExplicitSQLQuery">
+                                                                                <DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
+                                                                                <EXAMPLE><![CDATA[
+selectFilter < plugin.tx_ptextlist.prototype.filter.select {
+    partialPath = Filter/Options/SelectFilter
+    filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
+    optionsSqlQuery {
+        select = cn_short_local
+        from = static_countries
+        where = delete = 0
+        orderBy =
+        groupBy =
+        limit =
+    }
+}
+                                                                                ]]></EXAMPLE>
+                                                                                <CHILDREN>
+                                                                                    <ENTRY KEY="select">
+                                                                                        <DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="form">
+                                                                                        <DESCRIPTION>The FROM part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="where">
+                                                                                        <DESCRIPTION>The WHERE part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="orderBy">
+                                                                                        <DESCRIPTION>The ORDER BY part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="groupBy">
+                                                                                        <DESCRIPTION>The GROUP BY part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="limit">
+                                                                                        <DESCRIPTION>The LIMIT part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                </CHILDREN>
+                                                                            </ENTRY>
+                                                                        </VARIANT>
+                                                                    </ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />

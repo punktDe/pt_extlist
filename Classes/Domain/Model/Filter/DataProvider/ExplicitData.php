@@ -27,7 +27,7 @@
  ***************************************************************/
 
 /**
- * Implements data provider for explicid defined data in typoscript
+ * Implements data provider for explicit defined data in typoscript
  * 
  * @author Daniel Lienert 
  * @package Domain

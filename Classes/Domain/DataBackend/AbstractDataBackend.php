@@ -109,7 +109,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * Holds an instance for data source
 	 *
-	 * @var mixed
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
 	 */
 	protected $dataSource;
 	
@@ -287,17 +287,24 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     public function injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager) {
     	$this->bookmarkManager = $bookmarkManager;
     }
-	
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder;
+	 */
+	public function getConfigurationBuilder() {
+		return $this->configurationBuilder;
+	}
     
-    
-    /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder;
-     */
-    public function getConfigurationBuilder() {
-    	return $this->configurationBuilder;
-    }
-    
-	
+
+	/**
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+	 */
+	public function getDataSource() {
+		return $this->dataSource;
+	}
+
+
 	
 	/**
 	 * Returns filterbox collection attached to this data backend
