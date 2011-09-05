@@ -72,12 +72,73 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	public function testSetup() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'testFilterbox');
 	}
-	
-	
+
+
+	/**
+	 * @return array
+	 */
+	public function fieldIdentifierDataProvider() {
+		return array(
+			'singleFieldIdentifier' => array(
+				'fieldIdentifier' => 'field1',
+				'result' => array('field1')
+			),
+			'listOfFieldIdentifier' => array(
+				'fieldIdentifier' => 'field1, field2',
+				'result' => array('field1', 'field2')
+			),
+			'arrayOfFieldIdentifier' => array(
+				'fieldIdentifier' => array('10' => 'field3', '20' => 'field4'),
+				'result' => array('field3', 'field4')
+			),
+			'fieldIdentifierForTimeSpanFilter' => array(
+				'fieldIdentifier' => array(
+					10 => array(
+						'start' => 'field1',
+						'end' => 'field2'
+					),
+					20 => array(
+						'start' => 'field3',
+						'end' => 'field4'
+					)
+				),
+				'result' => array('field1', 'field2', 'field3', 'field4')
+			)
+		);
+	}
+
+
+	/**
+	 * @param $fieldIdentifier
+	 * @param $result
+	 * @return void
+	 * @test
+	 * @dataProvider fieldIdentifierDataProvider
+	 */
+	public function processAndSetFieldIdentifier($fieldIdentifier, $result) {
+
+		$filterSettings = $this->filterSettings;
+		$filterSettings['fieldIdentifier'] = $fieldIdentifier;
+
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig');
+		$accessibleFilterConfig = new $accessibleClassName($this->configurationBuilderMock, $filterSettings , 'test');
+
+		$accessibleFilterConfig->_call('processAndSetFieldIdentifier', $fieldIdentifier);
+
+		$realResult = $accessibleFilterConfig->_get('fieldIdentifier');
+		$resultTestList = array();
+		foreach($realResult as $field) {
+			$resultTestList[] = $field->getIdentifier();
+		}
+
+		$this->assertEquals($resultTestList, $result);
+	}
+
+
 	
 	public function testExceptionOnEmptyFilterIdentifier() {
 		try {
-			$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(array(), 'testFilterbox');
+			$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array(), 'testFilterbox');
 		} catch(Exception $e) {
 			return;
 		}
@@ -88,7 +149,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	
 	public function testExceptionOnEmptyPartialPath() {
 		try {
-			$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(array('filterIdentifier' => 'test', 'filterClassName' => 'test'), 'test');
+			$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('filterIdentifier' => 'test', 'filterClassName' => 'test'), 'test');
 		} catch(Exception $e) {
 			return;
 		}
@@ -211,8 +272,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertEquals($filterConfig->getLabel(), $this->filterSettings['label']);
 	}
-	
-	
+
 	protected function simulateFrontendEnvironment() {
 		$GLOBALS['TSFE'] = new stdClass();
 		$GLOBALS['TSFE']->cObjectDepthCounter = 100;
