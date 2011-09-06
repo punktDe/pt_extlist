@@ -175,8 +175,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery implements 
 	 */
 	protected function getDataFromSqlServer() {
 		$query = $GLOBALS['TYPO3_DB']->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
-		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
 
+		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('query' => $query));
+
+		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
 
 		if(!method_exists($dataSource, 'executeQuery')) {
 			throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider! 1315216209');
