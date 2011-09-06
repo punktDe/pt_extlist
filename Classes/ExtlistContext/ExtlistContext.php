@@ -76,8 +76,17 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::
 		    getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
 	}
-	
-	
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder() {
+		return $this->dataBackend->getConfigurationBuilder();
+	}
+
+
 	
 	/**
 	 * Returns renderer chain
