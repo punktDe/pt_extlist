@@ -36,7 +36,7 @@
  * @subpackage Domain\Model\Sorting
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Session_SessionPersistableInterface {
+class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
 
 	/**
 	 * Array that holds sorters to be observerd by sorter
@@ -72,9 +72,6 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
 	 */
     public function registerSortingObserver(Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver) {
     	$this->sortingObservers[] = $sortingObserver;
-
-        // TODO set data from sorter session in registering object (restore session)
-
     	$sortingObserver->registerSorter($this);
     }
     
@@ -87,41 +84,6 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter implements Tx_PtExtbase_State_Ses
      */
     public function injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration) {
     	$this->sorterConfiguration = $sorterConfiguration;
-    }
-    
-    
-    
-    /**
-     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
-     *
-     * @return String
-     */
-    public function getObjectNamespace() {
-    	return $this->sorterConfiguration->getListIdentifier() . '.sorter';
-    }
-    
-    
-    
-    /**
-     * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::injectSessionData()
-     *
-     * @param array $sessionData
-     */
-    public function injectSessionData(array $sessionData) {
-        #var_dump($sessionData);
-    	$this->sortingStateCollection = Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection::getIstanceBySessionArray($this->sorterConfiguration->getConfigurationBuilder(), $sessionData);
-    }
-    
-    
-    
-    /**
-     * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
-     *
-     * @return array
-     */
-    public function persistToSession() {
-        #var_dump($this->sortingStateCollection->getSessionPersistableArray());
-    	return $this->sortingStateCollection->getSessionPersistableArray();
     }
 
 

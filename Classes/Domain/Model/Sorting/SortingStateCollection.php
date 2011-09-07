@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
      */
     public function addSortingByFieldAndDirection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field, $direction) {
     	$sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($field, $direction);
-    	parent::addItem($sortingState, $sortingState->getField()->getIdentifier());
+    	parent::addItem($sortingState);
     }
     
     
@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
      * @param Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState
      */
     public function addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState) {
-    	parent::addItem($sortingState, $sortingState->getField()->getIdentifier());
+    	parent::addItem($sortingState);
     }
     
     
@@ -92,7 +92,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
      */
     public function getSortedFields() {
     	$sortedFields = array();
-    	foreach ($this->itemsArr as $fieldIdentifier => $sortingState) {
+    	foreach ($this->itemsArr as $sortingState) {
     		$sortedFields[] = $sortingState->getField();
     	}
     	return $sortedFields;

@@ -53,10 +53,9 @@ class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory {
 		if (self::$instance === null) {
 			self::$instance = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
             self::$instance->injectSorterConfig($configurationBuilder->buildSorterConfiguration());
-            $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
-			$sessionPersistenceManager->registerObjectAndLoadFromSession(self::$instance);
-			self::$instance->injectSorterConfig($configurationBuilder->buildSorterConfiguration());
-
+            // At the moment we have to build list header here, as it is not registered in sorter otherwise.
+            // TODO where could we cache list headers?
+            Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
 		}
 		return self::$instance;
 	}

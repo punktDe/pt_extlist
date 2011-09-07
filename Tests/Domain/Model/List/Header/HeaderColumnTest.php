@@ -45,9 +45,12 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 
 	public function testConfigurationAndStateMerge() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
 
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+        $headerColumn->registerSorter($sorterMock);
 
 		$this->assertEquals(0,$headerColumn->getSortingDirection());
 
@@ -69,37 +72,43 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	
 	public function testGetSortings() {	
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
         $headerColumn->injectGPVars(array('sortingState' => 1));
+        $headerColumn->registerSorter($sorterMock);
 
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting->getItemById('field1')->getDirection(), 'Sorting has to be Ascending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be Ascending here');
 		
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting->getItemById('field2')->getDirection(), 'Sorting has to be descending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[1]->getDirection(), 'Sorting has to be descending here');
 		
 		// test with forced direction
 		$headerColumn->injectColumnConfig($columnsConfiguration[30]);
         $headerColumn->injectGPVars(array('sortingState' => -1));
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting->getItemById('field2')->getDirection(), 'Sorting for tstamp is forced to desc, but is ascending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting[1]->getDirection(), 'Sorting for tstamp is forced to desc, but is ascending here');
 	}
 	
 
 
 	public function testGetSortingsWithoutSortingDefinitions() {	
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[40]);
+        $headerColumn->registerSorter($sorterMock);
 
 		$headerColumn->injectGPVars(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC));
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting->getItemById('field4')->getDirection(), 'Sorting has to be Ascending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be Ascending here');
 	}
 
 
@@ -122,14 +131,17 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 
 	public function testGetSortingQuery() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
-		
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+        $headerColumn->registerSorter($sorterMock);
 		$headerColumn->init();
 		
 		$queryObject = $headerColumn->getSortingStateCollection();
 		$this->assertTrue(is_a($queryObject, 'Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'));
 	}
-	
+
 }
 ?>

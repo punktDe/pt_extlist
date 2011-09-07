@@ -79,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateCollectionTest extends
         $sortingStateCollectionMock->addSortingState($sortingStateMock);
 
         $sortingStatesArray = $sortingStateCollectionMock->_get('itemsArr');
-        $this->assertEquals($sortingStatesArray['field1'], $sortingStateMock);
+        $this->assertEquals($sortingStatesArray[0], $sortingStateMock);
     }
 
 
@@ -95,8 +95,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateCollectionTest extends
 
         $sortingStatesArray = $sortingStateCollectionMock->_get('itemsArr');
 
-        $this->assertEquals($sortingStatesArray['field1']->getField(), $fieldConfigurationMock);
-        $this->assertEquals($sortingStatesArray['field1']->getDirection(), $sortingDirection);
+        $this->assertEquals($sortingStatesArray[0]->getField(), $fieldConfigurationMock);
+        $this->assertEquals($sortingStatesArray[0]->getDirection(), $sortingDirection);
     }
 
 

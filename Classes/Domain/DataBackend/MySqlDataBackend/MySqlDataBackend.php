@@ -84,6 +84,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $baseGroupByClause;
 
 
+
     /**
      * Array of complete query list query parts with MYSQL keywords
      *

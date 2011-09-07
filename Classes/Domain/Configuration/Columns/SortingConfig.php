@@ -27,6 +27,8 @@
  ***************************************************************/
 
 /**
+ * Sorting configuration for columns
+ * 
  * @package Domain
  * @subpackage Configuration\Columns  
  * @author Daniel Lienert 
@@ -38,13 +40,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	 * @var string
 	 */
 	protected $field; 
-	
+
+
+
 	/**
 	 * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC / SORTINGSTATE_DESC / SORTINGSTATE_NONE
 	 * @var integer 
 	 */
 	protected $direction;
-	
+
+
+
 	/**
 	 * if this is set to true, the direction cannot be changed 
 	 * 
@@ -55,15 +61,29 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	
 	// TODO: implement sorting order
 	
-	
+
+    /**
+     * Constructor for sorting configuration
+     *
+     * @param $field
+     * @param $direction
+     * @param $forceDirection
+     */
 	public function __construct($field, $direction, $forceDirection) {
+        // TODO we have to assert that direction is in 1, 0, -1!
 		$this->direction = $direction;
 		$this->field = $field; 
 		$this->forceDirection = $forceDirection;
 	}
 	
 	
-	
+
+    /**
+     * Setter for sorting direction
+     *
+     * @param $direction
+     * @return void
+     */
 	public function setDirection($direction) {
 		if($this->forceDirection == false) {
 			$this->direction = $direction;
@@ -71,21 +91,37 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	}
 	
 	
-	
+
+    /**
+     * Getter for sorting direction
+     *
+     * @return int
+     */
 	public function getDirection() {
 		return $this->direction;
 	}
 	
 	
-	
+
+    /**
+     * Returns true if direction is forced for sorted field
+     *
+     * @return bool
+     */
 	public function getForceDirection() {
 		return $this->forceDirection;
 	}
 	
 	
-	
+
+    /**
+     * Name of field for which this sorting configuration is set
+     *
+     * @return string
+     */
 	public function getField() {
 		return $this->field;
 	}
+    
 }
 ?>

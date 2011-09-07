@@ -29,16 +29,6 @@
 /**
  * Class implements a single column of a list header
  * 
- * TODO rename this class to Tx_PtExtlist_Domain_Model_List_Header_Header
- *
- * TODO das Refactoring hier muss so aussehen:
- * 1. Beim Bauen der Liste werden die header Objekte erzeugt
- * 2. Diese holen sich ihre GP-Vars
- * 3. Diese registrieren sich beim sorter
- * 4. Sie holen sich vom Sorter ihren Zustand (sorter speichert diesen in die Session!)
- * 5. Wenn die Liste erzeugt wird, frägt sorter bei denen bei ihm registrierten Objekten nach der jeweiligen Sortierung
- * 6. Sorter speichert die Sortierung in die Session
- * 
  * @author Daniel Lienert
  * @author Michael Knoll
  * @package Domain
@@ -46,6 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface,
+               Tx_PtExtbase_State_Session_SessionPersistableInterface,
                Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface {
 	
 	
@@ -61,6 +52,15 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * @var array GP-Var Data
 	 */
 	protected $headerGPVarData;
+
+
+
+    /**
+     * Holds session data array
+     * 
+     * @var array
+     */
+    protected $headerSessionData;
 	
 	
 	
@@ -139,29 +139,28 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * 4. Build the sorting Query Object
 	 */
 	public function init() {	
-		$this->initBySorter();
+		$this->initBySession();
 		$this->initByGpVars();
 		$this->buildSortingStateCollection();
 	}
-	
-	
-	
-	/**
-	 * Template method for initializing filter by sorter
-	 */
-	protected function initBySorter() {
-		// TODO implement me
 
-        // Header column has to get current sorting information from sorter and set its inner state
+
+
+    /**
+	 * Template method for initializing filter by session data
+	 */
+	protected function initBySession() {
+		if(array_key_exists('sortingDirection', $this->headerSessionData)) {
+			$this->sortingDirection = (int) $this->headerSessionData['sortingDirection'];
+    	}
 	}
-	
+
 	
 
 	/**
 	 * Template method for initializing filter by get / post vars
 	 */
 	protected function initByGpVars() {
-		
 		if(array_key_exists('sortingState', $this->headerGPVarData)) {
     		$this->sortingDirection = (int) $this->headerGPVarData['sortingState'];
     	}
@@ -193,6 +192,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
      */
     public function getSortingStateCollection() {
+        $this->buildSortingStateCollection();
     	return $this->sortingStateCollection;
     }
 
@@ -329,6 +329,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
    	public function reset() {
    		$this->sortingDirection  = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+        $this->headerSessionData = array();
+        // we must not reset header GP data!
    		$this->init();
    	}
 
@@ -382,8 +384,31 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      *
      */
     public function resetSorting() {
-        // TODO does this make sense?
         $this->reset();
+    }
+
+
+
+    /**
+	 * Called by any mechanism to persist an object's state to session
+	 *
+	 */
+    public function persistToSession() {
+		if($this->sortingDirection != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
+            $sessionPersistedArray = array('sortingDirection' => $this->sortingDirection);
+    		return $sessionPersistedArray;
+		}
+    }
+
+
+
+    /**
+     * Called by any mechanism to inject an object's state from session
+     *
+     * @param array $sessionData Object's state to be persisted to session
+     */
+    public function injectSessionData(array $sessionData) {
+		$this->headerSessionData = $sessionData;
     }
 
 }
