@@ -113,6 +113,21 @@ plugin.tx_ptextlist.settings {
 				# if not set, the first entry in dataDescriptionIdentifier will be used
 				sorting = name_en
 
+				sortingFields {
+				    10 {
+				        field = name_en
+				        label = Name
+				        direction = asc
+				        forceDirection = 0
+				    }
+                    20 {
+                        field = name_local
+                        label = Name (lokal)
+                        direction = asc
+                        forceDirection = 0
+                    }
+				}
+
 				renderObj = COA
 				renderObj {
 					5 = IMAGE

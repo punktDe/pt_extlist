@@ -31,12 +31,14 @@
  * 
  * @package Domain
  * @subpackage Configuration\Columns  
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @author Michael Knoll
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	
 	/**
-	 * 
+	 * Holds name of field for this sorting configuration
+     *
 	 * @var string
 	 */
 	protected $field; 
@@ -45,6 +47,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 
 	/**
 	 * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC / SORTINGSTATE_DESC / SORTINGSTATE_NONE
+     *
 	 * @var integer 
 	 */
 	protected $direction;
@@ -57,6 +60,15 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	 * @var bool
 	 */
 	protected $forceDirection;
+
+
+
+    /**
+     * Holds a label that is used for rendering header for this sorting field
+     *
+     * @var string
+     */
+    protected $label;
 	
 	
 	// TODO: implement sorting order
@@ -69,11 +81,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
      * @param $direction
      * @param $forceDirection
      */
-	public function __construct($field, $direction, $forceDirection) {
-        // TODO we have to assert that direction is in 1, 0, -1!
+	public function __construct($field, $direction, $forceDirection, $label='') {
+        // TODO assert that direction is 1 / 0 / -1
 		$this->direction = $direction;
 		$this->field = $field; 
 		$this->forceDirection = $forceDirection;
+        $this->label = $label;
 	}
 	
 	
@@ -122,6 +135,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	public function getField() {
 		return $this->field;
 	}
+
+
+
+    /**
+     * Getter for label for this sorting field configuration
+     * 
+     * @return string
+     */
+    public function getLabel() {
+        return $this->label;
+    }
     
 }
 ?>

@@ -171,7 +171,33 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field4',
 	                            'label' => 'Column 4',  
 	                        	//'renderTemplate' => 'typo3conf/ext/pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html',
-	                        )
+	                        ),
+                            // We use this field for testing sortingFields setup
+                            50 => array(
+                                'columnIdentifier' => 'column4',
+	                            'fieldIdentifier' => 'field4',
+	                            'label' => 'Column 4',
+                                'sortingFields' => array(
+                                    10 => array(
+                                        'field' => 'field1',
+                                        'direction' => 'desc',
+                                        'forceDirection' => 1,
+                                        'label' => 'Sorting label 1'
+                                    ),
+                                    20 => array(
+                                        'field' => 'field2',
+                                        'direction' => 'asc',
+                                        'forceDirection' => 0,
+                                        'label' => 'Sorting label 2'
+                                    ),
+                                    30 => array(
+                                        'field' => 'field3',
+                                        'direction' => 'desc',
+                                        'forceDirection' => 0,
+                                        'label' => 'Sorting label 3'
+                                    )
+                                )
+                            )
 	                    ),
 	                    
 	                    'rendererChain' => array(

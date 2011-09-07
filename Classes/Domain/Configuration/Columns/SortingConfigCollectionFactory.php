@@ -72,6 +72,40 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 
 
 
+    /**
+     * Factory method for creating a sortingField configuration for a given
+     * column.sortingFields TS-configuration array.
+     *
+     * @param array $sortingFieldsSettings TypoScript settings for column.sortingFields
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     */
+    public static function getInstanceBySortingFieldsSettings(array $sortingFieldsSettings) {
+        $nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+
+        $sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
+
+        foreach($sortingFieldsSettings as $fieldNumber => $sortingFieldSetting) {
+            $fieldIdentifier = $sortingFieldSetting['field'];
+            $sortingDirection = $nameToConstantMapping[strtolower($sortingFieldSetting['direction'])];
+            $forceSortingDirection = $sortingFieldSetting['forceDirection'];
+            $label = $sortingFieldSetting['label'];
+
+            $sortingFieldConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig(
+                $fieldIdentifier,
+                $sortingDirection,
+                $forceSortingDirection,
+                $label
+            );
+
+            $sortingConfigCollection->addSortingField($sortingFieldConfig, $fieldIdentifier);
+        }
+
+        return $sortingConfigCollection;
+    }
+
+
+
 	/**
 	 * Generate an array by field configuration - direction is NULL here
 	 * 

@@ -143,5 +143,49 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertTrue(is_a($queryObject, 'Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'));
 	}
 
+
+
+    /** @test */
+    public function initByGpVarsSetsCorrectSortingStateWhenSortingDirectionIsGiven() {
+        $columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+        $headerColumn->registerSorter($sorterMock);
+        $headerColumn->injectGPVars(array('sortingState' => 1));
+		$headerColumn->init();
+
+        $sortingStateCollection = $headerColumn->getSortingStateCollection();
+
+        $this->assertEquals($sortingStateCollection->count(), 2);
+        $this->assertEquals($sortingStateCollection[0]->getDirection(), 1);
+        $this->assertEquals($sortingStateCollection[1]->getDirection(), 1);
+    }
+
+
+
+    /** @test */
+    public function initByGpVarsSetsCorrectSortingWhenSortingForSortingFieldsIsGiven() {
+        $columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnsConfiguration[50]);
+        $headerColumn->registerSorter($sorterMock);
+        $headerColumn->injectGPVars(array('sortingFields' => 'field1:1;field2:1'));
+		$headerColumn->init();
+
+        $sortingStateCollection = $headerColumn->getSortingStateCollection();
+
+        $this->assertEquals($sortingStateCollection->count(), 2);
+        $this->assertEquals($sortingStateCollection[0]->getDirection(), -1);
+        $this->assertEquals($sortingStateCollection[0]->getField()->getIdentifier(), 'field1');
+        $this->assertEquals($sortingStateCollection[1]->getDirection(), 1);
+        $this->assertEquals($sortingStateCollection[1]->getField()->getIdentifier(), 'field2');
+    }
+
 }
 ?>

@@ -179,9 +179,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
         }
 
-		if(array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
+        /* Sorting configuration is set as follows:
+            1. We check whether we have 'sortingFields' settings in column configuration
+            2. We check whether we have 'sorting' settings in column configuration
+            3. If we don't have either, we use first field identifier and make this sorting field of column
+        */
+		if (array_key_exists('sortingFields', $this->settings)) {
+            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+        } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
-		}else{
+        } else {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
 		}
 

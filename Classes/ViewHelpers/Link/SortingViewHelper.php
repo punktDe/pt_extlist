@@ -51,6 +51,8 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 		
 		return parent::render($action,$argumentArray);
 	}
+
+    
 	
 	/**
 	 * Inverting the current sorting state.

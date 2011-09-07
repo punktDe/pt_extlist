@@ -28,7 +28,12 @@
 
 /**
  * Class implements a single column of a list header
- * 
+ *
+ * TODO finish refactoring
+ * 1. Add property "sorted fields" that can handle ALL sorting fields of column or just a bunch of it
+ * 2. Enable GP-based setting of fields that should be sorted
+ * 3. Change session persistence in such a way, that it can handle 
+ *
  * @author Daniel Lienert
  * @author Michael Knoll
  * @package Domain
@@ -96,6 +101,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * @var integer
 	 */
 	protected $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+
+
+
+    /**
+     * Holds an array of fieldIdentifiers and sortingStates
+     *
+     * array('fieldIdentifier' => sortingState, ...)
+     *
+     * @var array
+     */
+    protected $sortedFields = array();
 	
 	
 	
@@ -133,10 +149,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	/**
 	 * Init the header column:
 	 * 
-	 * 1. Set state from Sorter
+	 * 1. Set state from session
 	 * 2. Overwrite state from GPVars
-	 * 3. Build the sorting state from config and state
-	 * 4. Build the sorting Query Object
+	 * 3. Build the sorting state collection for this header
 	 */
 	public function init() {	
 		$this->initBySession();
@@ -150,8 +165,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * Template method for initializing filter by session data
 	 */
 	protected function initBySession() {
-		if(array_key_exists('sortingDirection', $this->headerSessionData)) {
+        if (array_key_exists('sortedFields', $this->headerSessionData)) {
+            $this->sortedFields = $this->headerSessionData['sortedFields'];
+        } elseif(array_key_exists('sortingDirection', $this->headerSessionData)) {
 			$this->sortingDirection = (int) $this->headerSessionData['sortingDirection'];
+            $this->sortedFields = array();
     	}
 	}
 
@@ -161,11 +179,35 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * Template method for initializing filter by get / post vars
 	 */
 	protected function initByGpVars() {
-		if(array_key_exists('sortingState', $this->headerGPVarData)) {
+        // We first check, whether fields and sorting is set individually
+        if (array_key_exists('sortingFields', $this->headerGPVarData)) {
+            $this->initByGpVarsSortingFields($this->headerGPVarData['sortingFields']);
+        }
+        // We then check, whether sortingDirection for all sortable fields should be set at once
+		elseif (array_key_exists('sortingState', $this->headerGPVarData)) {
     		$this->sortingDirection = (int) $this->headerGPVarData['sortingState'];
+            $this->sortedFields = array();
     	}
 	}
 
+
+
+    /**
+     * Sets sorting state of header by given sortingFields GP-var string.
+     * String has following format: <fieldIdentifier1>:<sortingDirection1>;<fieldIdentifier2>:<sortingDirection2>
+     *
+     * @param string $sortingFields
+     */
+    protected function initByGpVarsSortingFields($sortingFields) {
+        $fieldsAndDirections = explode(';', $sortingFields);
+        foreach($fieldsAndDirections as $fieldAndSortingDirection) {
+            list($fieldIdentifier, $sortingDirection) = explode(':', $fieldAndSortingDirection);
+            if (in_array($sortingDirection, array(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC))
+                && $this->sortingFieldConfig->hasItem($fieldIdentifier)) {
+                $this->sortedFields[$fieldIdentifier] = $sortingDirection;
+            }
+        }
+    }
 	
 	
     /**
@@ -206,7 +248,18 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     protected function buildSortingStateCollection() {
     	$this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
 
-    	if($this->sortingDirection == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC
+        if (count($this->sortedFields) > 0) {
+            // TODO implement building of sorting state collection for sorted fields
+            foreach($this->sortedFields as $fieldIdentifier => $sortingDirection) {
+                $fieldConfig = $this->sortingFieldConfig->getItemById($fieldIdentifier);
+                if ($fieldConfig->getForceDirection()) {
+                    $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $fieldConfig->getDirection());
+                } else {
+                    $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $sortingDirection);
+                }
+                $this->sortingStateCollection->addSortingState($sortingState);
+            }
+        } elseif($this->sortingDirection == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC
            || $this->sortingDirection == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
 
     		foreach($this->sortingFieldConfig as $fieldConfig) {
@@ -224,7 +277,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     
     /**
      * Returns sorting direction
-     * 
+     *
      * @return integer 1 = ASC, 0 = NONE,  -1 = DESC
      */
     public function getSortingDirection() {
@@ -381,7 +434,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 
     /**
      * Resets sorting of implementing object.
-     *
      */
     public function resetSorting() {
         $this->reset();
@@ -394,7 +446,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 *
 	 */
     public function persistToSession() {
-		if($this->sortingDirection != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
+        if (count($this->sortedFields) > 0) {
+            return array('sortedFields' => $this->sortedFields);
+        } elseif($this->sortingDirection != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
             $sessionPersistedArray = array('sortingDirection' => $this->sortingDirection);
     		return $sessionPersistedArray;
 		}
