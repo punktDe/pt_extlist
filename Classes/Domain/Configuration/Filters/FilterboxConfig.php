@@ -165,7 +165,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	/**
 	 * Get the filterconfig by filterIdentifier
 	 * 
-	 * @param sting $filterIdentifier
+	 * @param string $filterIdentifier
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	public function getFilterConfigByFilterIdentifier($filterIdentifier) {
