@@ -303,7 +303,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 *
 	 * @return tslib_cObj;
 	 */
-	protected static function getCobj() {
+	public static function getCobj() {
 		if(!self::$cObj) {
 			if(is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
 				self::$cObj = $GLOBALS['TSFE']->cObj;

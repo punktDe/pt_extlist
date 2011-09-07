@@ -94,7 +94,7 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 			list($table, $alias) = t3lib_div::trimExplode(' ', $table, true);
 			
 			if (is_array($GLOBALS['TCA'][$typo3Table])) {
-	        	$specialFieldsWhereClause .= $GLOBALS['TSFE']->cObj->enableFields($typo3Table);
+				$specialFieldsWhereClause .= Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($typo3Table);
 			}
 		}
 		
