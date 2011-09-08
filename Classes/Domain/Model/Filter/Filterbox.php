@@ -200,7 +200,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 	/**
 	 * Returns filter by given filter identifier
 	 *
-	 * @param unknown_type $filterIdentifier
+	 * @param string $filterIdentifier
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	public function getFilterByFilterIdentifier($filterIdentifier) {
