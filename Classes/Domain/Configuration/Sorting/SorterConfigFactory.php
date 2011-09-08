@@ -43,6 +43,7 @@ class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory {
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
         $sorterSettings = $configurationBuilder->getSettings('sorter');
+        if (!is_array($sorterSettings)) $sorterSettings = array();
 		$sorterConfig = new Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig($configurationBuilder, $sorterSettings);
 		return $sorterConfig;
 	}
