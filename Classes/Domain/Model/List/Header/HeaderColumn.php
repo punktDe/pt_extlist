@@ -199,6 +199,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * @param string $sortingFields
      */
     protected function initByGpVarsSortingFields($sortingFields) {
+        $this->sortedFields = array();
         $fieldsAndDirections = explode(';', $sortingFields);
         foreach($fieldsAndDirections as $fieldAndSortingDirection) {
             list($fieldIdentifier, $sortingDirection) = explode(':', $fieldAndSortingDirection);
@@ -282,6 +283,21 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
     public function getSortingDirection() {
     	return $this->sortingDirection;
+    }
+
+
+
+    /**
+     * Returns sorting direction for given field identifier
+     * 
+     * @param $fieldIdentifier Field identifier to get current sorting for
+     * @return int Sorting direction
+     */
+    public function getSortingDirectionForField($fieldIdentifier) {
+        if (array_key_exists($fieldIdentifier,$this->sortedFields)) {
+            return $this->sortedFields[$fieldIdentifier];
+        }
+        return 0;
     }
 
     
@@ -382,6 +398,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
    	public function reset() {
    		$this->sortingDirection  = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+        $this->sortedFields = array();
         $this->headerSessionData = array();
         // we must not reset header GP data!
    		$this->init();
