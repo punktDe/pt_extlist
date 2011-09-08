@@ -16,7 +16,7 @@ plugin.tx_ptextlist.settings {
 	listConfig.demolist_sorting {
 
 		# Overwrite partial for different sorting header
-		headerPartial = EXT:pt_extlist_special/Resources/Private/Partials/SortingFieldsHeader.html
+		#headerPartial = EXT:pt_extlist_special/Resources/Private/Partials/SortingFieldsHeader.html
 
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
@@ -129,6 +129,12 @@ plugin.tx_ptextlist.settings {
                     20 {
                         field = name_local
                         label = Name (lokal)
+                        direction = asc
+                        forceDirection = 0
+                    }
+                    30 {
+                        field = uno_member
+                        label = UNO member
                         direction = asc
                         forceDirection = 0
                     }
@@ -308,13 +314,6 @@ plugin.tx_ptextlist.settings {
 						inactiveOption = [ALL]
 						showRowCount = 0
 					}
-					
-					40 < plugin.tx_ptextlist.prototype.filter.dateRange
-                    40 {
-                        filterIdentifier = isoRangeFilter
-                        label = ISO-Range
-                        fieldIdentifier = isoNo
-                    }
 
 					#50 < plugin.tx_ptextlist.prototype.filter.proxy
 					#50 {

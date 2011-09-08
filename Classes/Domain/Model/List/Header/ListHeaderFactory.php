@@ -46,9 +46,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 
 
 	/**
-	 * Build singleton instance of listheader, a collection of columnheader objects
+	 * Build singleton instance of listheader, a collection of header column objects
 	 * 
-	 * @param $configurationBuilder Tx_PtExtlist_Domain_Model_List_ListData
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
@@ -61,19 +61,19 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
             $defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
             $columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
             $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
-            $listIsSorted = 0;
+            $listIsSorted = false;
 
             foreach($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
                 $headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
 
                 if($singleColumnConfiguration->isAccessable()) {
-                    $listIsSorted += $headerColumn->getSortingDirection();
+                    $listIsSorted = $headerColumn->isSortingActive();
                     $listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
                 }
             }
 
             if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
-                $listHeader->getHeaderColumn($defaultSortingColumn)->setSortingDirection($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
+                $listHeader->getHeaderColumn($defaultSortingColumn)->setDefaultSorting($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
                 $listHeader->getHeaderColumn($defaultSortingColumn)->init();
             }
             self::$instances[$listIdentifier] = $listHeader;

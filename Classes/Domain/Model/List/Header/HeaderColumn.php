@@ -94,13 +94,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	protected $sortingFieldConfig;
-	
-	
-	
-	/**
-	 * @var integer
-	 */
-	protected $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
 
 
 
@@ -167,10 +160,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	protected function initBySession() {
         if (array_key_exists('sortedFields', $this->headerSessionData)) {
             $this->sortedFields = $this->headerSessionData['sortedFields'];
-        } elseif(array_key_exists('sortingDirection', $this->headerSessionData)) {
-			$this->sortingDirection = (int) $this->headerSessionData['sortingDirection'];
-            $this->sortedFields = array();
-    	}
+        }
 	}
 
 	
@@ -179,15 +169,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * Template method for initializing filter by get / post vars
 	 */
 	protected function initByGpVars() {
-        // We first check, whether fields and sorting is set individually
         if (array_key_exists('sortingFields', $this->headerGPVarData)) {
             $this->initByGpVarsSortingFields($this->headerGPVarData['sortingFields']);
         }
-        // We then check, whether sortingDirection for all sortable fields should be set at once
-		elseif (array_key_exists('sortingState', $this->headerGPVarData)) {
-    		$this->sortingDirection = (int) $this->headerGPVarData['sortingState'];
-            $this->sortedFields = array();
-    	}
 	}
 
 
@@ -260,29 +244,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
                 }
                 $this->sortingStateCollection->addSortingState($sortingState);
             }
-        } elseif($this->sortingDirection == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC
-           || $this->sortingDirection == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC) {
-
-    		foreach($this->sortingFieldConfig as $fieldConfig) {
-                if($fieldConfig->getForceDirection()){
-                    $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $fieldConfig->getDirection());
-                } else {
-                    $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $this->sortingDirection);
-    			}
-                $this->sortingStateCollection->addSortingState($sortingState);
-    		}
-    	}
-    }
-    
-    
-    
-    /**
-     * Returns sorting direction
-     *
-     * @return integer 1 = ASC, 0 = NONE,  -1 = DESC
-     */
-    public function getSortingDirection() {
-    	return $this->sortingDirection;
+        }
     }
 
 
@@ -299,17 +261,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
         }
         return 0;
     }
-
-    
-    
-    /**
-     * Set the sorting state
-     * 
-     * @param integer $sortingState
-     */
-    public function setSortingDirection($sortingState) {
-    	$this->sortingDirection = $sortingState;
-    }
     
 
 
@@ -320,69 +271,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     public function getColumnConfig() {
     	return $this->columnConfig;
     }
-    
-    
-    
-    /**
-     * Return the default image path to show for sorting link.
-     *
-     * TODO remove this!
-     *
-     * @return string
-     */
-    public function getSortingImageDefault() {
-    	return $this->sortingImageDefault;
-    }
-    
-    
-    
-    /**
-     * Return the ASC image path to show for sorting link.
-     *
-     * TODO remove this!
-     *
-     * @return string
-     */
-    public function getSortingImageAsc() {
-    	return $this->sortingImageAsc;
-    }
-    
-    
-    
-    /**
-     * Return the DESC image path to show for sorting link.
-     *
-     * TODO remove this!
-     *
-     * @return string
-     */
-    public function getSortingImageDesc() {
-    	return $this->sortingImageDesc;
-    }
-    
-    
-    
-    /**
-     * Returns the image path to show for sorting link.
-     * Depends on the sorting state.
-     *
-     * TODO remove this!
-     * 
-     * @return string
-     */
-    public function getSortingImage() {
-    	switch($this->sortingDirection) {
-    		case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC:
-    			return $this->columnConfig->getSortingImageAsc();
-    		case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC:
-    			return $this->columnConfig->getSortingImageDesc();
-    		default:
-    			return $this->columnConfig->getSortingImageDefault();	
-    	}
-    }
-    
-    
-    
+
+
+
     /**
      * Returns if the column is sortable.
      * @return boolean True if sortable.
@@ -397,7 +288,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * reset session state
      */
    	public function reset() {
-   		$this->sortingDirection  = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
         $this->sortedFields = array();
         $this->headerSessionData = array();
         // we must not reset header GP data!
@@ -465,10 +355,39 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     public function persistToSession() {
         if (count($this->sortedFields) > 0) {
             return array('sortedFields' => $this->sortedFields);
-        } elseif($this->sortingDirection != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
-            $sessionPersistedArray = array('sortingDirection' => $this->sortingDirection);
-    		return $sessionPersistedArray;
-		}
+        } 
+    }
+
+
+
+    /**
+     * Returns true, if sorting for this header is active
+     *
+     * TODO test me!
+     *
+     * @return bool
+     */
+    public function isSortingActive() {
+        if (count($this->sortedFields) > 0) return true;
+        return false;
+    }
+
+
+
+    /**
+     * Sets sorting of this header according to default sorting.
+     *
+     * We therefore take sorting field configuration of this column
+     * and set sorting of each field according to given direction, as
+     * long as there is no forced direction for field.
+     *
+     * @param int $sortingDirection
+     * @return void
+     */
+    public function setDefaultSorting($sortingDirection) {
+        foreach ($this->sortingFieldConfig as $sortingField) { /* @var $sortingField Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+            $this->sortedFields[$sortingField->getField()] = $sortingField->getForceDirection() ? $sortingField->getDirection() : $sortingDirection;
+        }
     }
 
 
