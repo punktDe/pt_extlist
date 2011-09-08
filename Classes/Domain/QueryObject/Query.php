@@ -189,7 +189,17 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 		return $this->criterias;
 	}
 	
-	
+
+
+	/**
+	 * Unset the current filterCriterias
+	 * @return void
+	 */
+	public function unsetCriterias() {
+		unset($this->criterias);
+	}
+
+
 	
 	/**
 	 * Sets limit. Possible formats are 'd' or 'd:d'

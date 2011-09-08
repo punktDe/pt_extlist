@@ -326,5 +326,6 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Special/ProxyFilter
 		proxyPath = 
 		fieldIdentifier =
+		hidden = 1
 	}
 }
