@@ -308,9 +308,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
             ->method('isEnabled')
             ->will($this->returnValue(true));
 
-        $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
-        																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
-            
+        $sortingStateCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection', array('getSortingsQuery'), array(), '', FALSE);
+        $sortingStateCollectionMock->expects($this->any())->method('getSortingsQuery')->will($this->returnValue(new Tx_PtExtlist_Domain_QueryObject_Query()));
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock));
+
         $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper', array(), array($this->configurationBuilder));
         $mapperMock->expects($this->once())
             ->method('getMappedListData')
@@ -323,7 +325,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $dataBackend->injectDataSource($dataSourceMock);
         $dataBackend->injectPagerCollection($pagerCollectionMock);
         $dataBackend->injectDataMapper($mapperMock);
-		$dataBackend->injectListHeader($listHeaderMock);
+        $dataBackend->injectSorter($sorterMock);
         $dataBackend->init();
         
         $listData = $dataBackend->getListData();
@@ -360,32 +362,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	}
 	
 	
-	public function testGetOrderByFromListHeader() {
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-        
-        $listHeaderMock = $this->getListHeaderByFieldAndDirectionArray(array('name' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
-        																'company' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
-        
-        $orderByString = $dataBackend->getOrderByFromListHeader($listHeaderMock);
-        
-		$this->assertEquals($orderByString, 'name ASC, company DESC', 'getOrderByFromListHeader expected to be "name ASC, company DESC", was ' . $orderByString);
-	}
-	
-	
-	
-	public function testGetOrderByFromHeaderColumn() {
-		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-        
-        $headerMock = $this->getHeaderColumnBySortingFieldAndDirection('name', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
-        $orderByString = $dataBackend->getOrderByFromHeaderColumn($headerMock);
-        
-        
-        $this->assertEquals($orderByString, 'name ASC', 'getOrderByFromHeaderColumn expected to be "name ASC", was ' . $orderByString);
-	}
-	
-	
 	
 	public function testGetGroupData() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
@@ -396,7 +372,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$additionalQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThan('field1', 10));
 		
 		$returnArray = array('test');
-		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
+
+        $sortingStateCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection', array('getSortingsQuery'), array(), '', FALSE);
+        $sortingStateCollectionMock->expects($this->any())->method('getSortingsQuery')->will($this->returnValue(new Tx_PtExtlist_Domain_QueryObject_Query()));
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock));
+
 		
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
@@ -406,7 +387,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $dataBackend->injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder));
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
-		$dataBackend->injectListHeader($listHeader);
+        $dataBackend->injectSorter($sorterMock);
 		$dataBackend->init();
 		
 		$groupData = $dataBackend->getGroupData($additionalQuery, $excludeFilters);
@@ -539,16 +520,21 @@ GROUP BY company
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
 
-        $listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilderMock);
+        $sortingStateCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection', array('getSortingsQuery'), array(), '', FALSE);
+        $sortingStateCollectionMock->expects($this->any())->method('getSortingsQuery')->will($this->returnValue(new Tx_PtExtlist_Domain_QueryObject_Query()));
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock));
+
+
         $pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($configurationBuilderMock);
         
         $dataBackend->injectBackendConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
 		$dataBackend->injectFieldConfigurationCollection($configurationBuilderMock->buildFieldsConfiguration());
-		$dataBackend->injectPagerCollection($pagerCollection);        
-		$dataBackend->injectListHeader($listHeader);
-		
+		$dataBackend->injectPagerCollection($pagerCollection);
+        $dataBackend->injectSorter($sorterMock);
+
 		$dataBackend->init();
 		
 		return $dataBackend;

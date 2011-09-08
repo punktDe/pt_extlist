@@ -27,34 +27,18 @@
  ***************************************************************/
 
 /**
- * Collection of sorting field configurations
+ * Testcase for sorting configuration
  *
- * @package 		Domain
- * @subpackage 		Configuration\Columns  
- * @author         	Daniel Lienert 
+ * @package Tests
+ * @subpackage Domain\Configuration\Sorting
+ * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-
-    /**
-     * Class name to which this collection should be restricted to.
-     * Collection accepts only items of this class.
-     * 
-     * @var string
-     */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig';
-
-
-
-    /**
-     * Adds a sorting field by given fieldIdentifier
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $sortingField
-     * @param string $fieldIdentifier
-     * @return void
-     */
-	public function addSortingField($sortingField, $fieldIdentifier) {
-		$this->addItem($sortingField, $fieldIdentifier);
+class Tx_PtExtlist_Tests_Domain_Configuration_Sorting_SortingConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+     
+	/** @test */
+	public function classExists() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig'));
 	}
-    
+	
 }
 ?>

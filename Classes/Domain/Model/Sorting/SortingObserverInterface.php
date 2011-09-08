@@ -27,34 +27,37 @@
  ***************************************************************/
 
 /**
- * Collection of sorting field configurations
- *
- * @package 		Domain
- * @subpackage 		Configuration\Columns  
- * @author         	Daniel Lienert 
+ * Interface for objects that can be registered at sorter.
+ * 
+ * @author Michael Knoll
+ * @package pt_extlist
+ * @subpackage Domain\Model\Sorting
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-
-    /**
-     * Class name to which this collection should be restricted to.
-     * Collection accepts only items of this class.
-     * 
-     * @var string
-     */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig';
-
-
-
-    /**
-     * Adds a sorting field by given fieldIdentifier
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $sortingField
-     * @param string $fieldIdentifier
-     * @return void
-     */
-	public function addSortingField($sortingField, $fieldIdentifier) {
-		$this->addItem($sortingField, $fieldIdentifier);
-	}
-    
+interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface {
+	
+	/**
+	 * Registers a sorter which observes implementing object.
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+	 */
+	public function registerSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
+	
+	
+	
+	/**
+	 * Returns sorting of implementing object.
+	 * 
+	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection Collection of sorting states
+	 */
+	public function getSortingStateCollection();
+	
+	
+	
+	/**
+	 * Resets sorting of implementing object.
+	 *
+	 */
+	public function resetSorting();
+	
 }
 ?>

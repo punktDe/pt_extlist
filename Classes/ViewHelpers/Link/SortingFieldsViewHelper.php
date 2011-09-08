@@ -28,29 +28,43 @@
 
 
 /**
- * 
- * TODO: Enter description here ...
+ * ViewHelpers renders link for given sorting fields.
+ *
+ * Sorting via list headers can either happen via sortingDirection or via list of fields and directions.
+ * This viewhelper renders fields and directions link.
+ *
  * @package ViewHelpers
  * @subpackage Link
- *
+ * @author Michael Knoll
  */
-class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
+class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
 	/**
-	 * @param $header Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 * @param $action string
-	 * 
+     * Renders a link for given header and sortingFields
+     *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+     * @param array $fieldAndDirection List of fields and direction for which we want to generate sorting link {field: fieldName, direction: sortingDirection}
+	 * @param string $action Rendered link for sorting action
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort') {
-		$value = $this->invertSortingState($header->getSortingState());		
-		
+	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, array $fieldAndDirection, $action='sort') {
+		$sortingFieldParams = array();
+
+        $sortingDirection = $this->invertSortingState($fieldAndDirection['currentDirection']);
+        $sortingFieldParams[] = $fieldAndDirection['field'] . ':' . $sortingDirection;
+
+        #echo "current direction for field " . $fieldAndDirection['field'] . " = " . $fieldAndDirection['currentDirection'] . " link direction = " . $sortingDirection;
+
+        $sortingFieldParam = implode(';', $sortingFieldParams);
+
 		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingState', $value);
+		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
 		
 		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
 		
 		return parent::render($action,$argumentArray);
 	}
+
+    
 	
 	/**
 	 * Inverting the current sorting state.

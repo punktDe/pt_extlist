@@ -27,34 +27,38 @@
  ***************************************************************/
 
 /**
- * Collection of sorting field configurations
- *
- * @package 		Domain
- * @subpackage 		Configuration\Columns  
- * @author         	Daniel Lienert 
+ * Class implements a factory for sorter.
+ * 
+ * @author Michael Knoll
+ * @package pt_extlist
+ * @subpackage Domain\Model\Sorting
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-
-    /**
-     * Class name to which this collection should be restricted to.
-     * Collection accepts only items of this class.
-     * 
-     * @var string
-     */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig';
-
-
-
-    /**
-     * Adds a sorting field by given fieldIdentifier
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $sortingField
-     * @param string $fieldIdentifier
-     * @return void
-     */
-	public function addSortingField($sortingField, $fieldIdentifier) {
-		$this->addItem($sortingField, $fieldIdentifier);
+class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory {
+	
+	/**
+	 * Holds singleton instance of a sorter
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
+	 */
+	private static $instance = null;
+	
+	
+	
+	/**
+	 * Factory method for returning a singleton instance of sorter
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		if (self::$instance === null) {
+			self::$instance = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
+            self::$instance->injectSorterConfig($configurationBuilder->buildSorterConfiguration());
+            // At the moment we have to build list header here, as it is not registered in sorter otherwise.
+            // TODO where could we cache list headers?
+            Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
+		}
+		return self::$instance;
 	}
-    
+	
 }
 ?>

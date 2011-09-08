@@ -42,6 +42,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $dataSource;
 
 
+
     /**
      * Holds an instance of a query interpreter to be used for
      * query objects
@@ -51,11 +52,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $queryInterpreter;
 
 
+
     /**
      * Table definitions from TSConfig
      * @var string
      */
     protected $tables;
+
 
 
     /**
@@ -72,6 +75,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $baseFromClause;
 
 
+
     /**
      * The baseGroupByClause from TSConfig
      *
@@ -80,12 +84,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $baseGroupByClause;
 
 
+
     /**
      * Array of complete query list query parts with MYSQL keywords
      *
      * @var array
      */
     protected $listQueryParts = NULL;
+
 
 
 	/**
@@ -139,6 +145,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$rawData = $this->dataSource->executeQuery($sqlQuery);
 		return $this->dataMapper->getMappedListData($rawData);
 	}
+
 
 
 	/**
@@ -332,41 +339,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string ORDER BY part of query without 'ORDER BY'
 	 */
 	public function buildOrderByPart() {
-		return $this->getOrderByFromListHeader($this->listHeader);
+		$sortingsQuery = $this->sorter->getSortingStateCollection()->getSortingsQuery();
+        $translatedOrderBy = $this->queryInterpreter->getSorting($sortingsQuery);
+        return $translatedOrderBy;
 	}
-
-
-
-	/**
-	 * Build the order by string from list header
-	 *
-	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 * @return string
-	 */
-	public function getOrderByFromListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		$orderByArray = array();
-
-		foreach($listHeader as $headerColumn) {
-			$headerColumnSorting = $this->getOrderByFromHeaderColumn($headerColumn);
-			if ($headerColumnSorting != '' ) {
-			   $orderByArray[] = $headerColumnSorting;
-			}
-		}
-		return count($orderByArray) > 0 ? implode(', ', $orderByArray) : '';
-	}
-
-
-
-	/**
-	 * Return the interpreted order by string from a single header column
-	 *
-	 * @param $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
-	 * @return string
-	 */
-	public function getOrderByFromHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
-		return $this->queryInterpreter->getSorting($headerColumn->getSortingQuery());
-	}
-
+    
 
 
 	/**
