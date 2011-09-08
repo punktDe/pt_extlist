@@ -284,8 +284,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setRequiredValue('filterClassName', 'No filterClassName specified for filter ' . $this->filterIdentifier . '. 1277889552');
 		$this->setRequiredValue('fieldIdentifier', 'No fieldIdentifier set in TS config for filter ' . $this->fieldIdentifier . ' 1280762513');
 		$this->setRequiredValue('partialPath', 'No partial path is configured for ' . $this->filterIdentifier . ' (TS key partialPath). 1281013746');
-		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
-		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+
+		$this->processAndSetFieldIdentifier($this->settings['fieldIdentifier']);
 		
 		// optional
 		$this->setBooleanIfExistsAndNotNothing('invert');
@@ -324,7 +324,37 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
 		}
 	}
-    
+
+
+
+	/**
+	 * Convert a single field identifier or comma separated list of fieldIdentifier in fieldIdentifier collection
+	 *
+	 * @param $fieldIdentifier
+	 * @return void
+	 */
+	protected function processAndSetFieldIdentifier($fieldIdentifier) {
+
+		$fieldIdentifierList = array();
+
+		if(is_array($fieldIdentifier)) {
+
+			foreach($fieldIdentifier as $firstLevel) {
+				if(is_array($firstLevel)) {
+					$fieldIdentifierList = array_merge($fieldIdentifierList, array_values($firstLevel));
+				} else {
+					$fieldIdentifierList[] = $firstLevel;
+				}
+				$fieldIdentifierList = array_unique($fieldIdentifierList);
+			}
+
+		} else {
+			$fieldIdentifierList = t3lib_div::trimExplode(',', $fieldIdentifier);
+		}
+
+		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+	}
+
 	
 	
 	/**

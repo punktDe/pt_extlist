@@ -35,7 +35,6 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
 
-	
 	/**
 	 * translate fullText criteria
 	 * 
@@ -43,9 +42,22 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullText
 	 * @return string
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-		return sprintf('MATCH (%s) AGAINST ("%s")',
+
+		$searchString = mysql_real_escape_string($criteria->getSearchString());
+
+		if($criteria->getSearchParameter('booleanMode')) {
+			$booleanMode = $criteria->getSearchParameter('booleanMode') ? ' IN BOOLEAN MODE' : '';
+
+			if($criteria->getSearchParameter('booleanModeWrapWithStars')) {
+				if(substr($searchString,0,1) != '*') $searchString = '*' . $searchString;
+				if(substr($searchString,-1,1) != '*') $searchString .= '*';
+			}
+		}
+
+		return sprintf('MATCH (%s) AGAINST ("%s"%s)',
 								Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
-								$criteria->getSearchString()
+								$searchString,
+								$booleanMode
 						);
 	}
 }

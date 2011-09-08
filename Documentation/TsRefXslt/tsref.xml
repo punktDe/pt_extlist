@@ -1389,6 +1389,39 @@ redirectOnSubmit{
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <ENTRY KEY="minWordLength">
+																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>4</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+                                                                    <ENTRY KEY="booleanMode">
+																		<DESCRIPTION>This is a MySQL specific value. If it is set to 1, the query is executed in boolean mode.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+                                                                    <ENTRY KEY="booleanModeWrapWithStars">
+																		<DESCRIPTION>If the parameter booleanMode is set to 1 and booleanModeWrapWithStars is set to 1 the searchWord is wrapped with stars (if not already done by the user). The effect is, that matches in substrings are also posible.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1401,7 +1434,50 @@ redirectOnSubmit{
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<ENTRY KEY="dataProviderClassName">
+                                                                        <DESCRIPTION>ClassName of a dataProvider class that delivers options to select.</DESCRIPTION>
+                                                                        <VARIANT>
+                                                                            <ENTRY KEY="ExplicitSQLQuery">
+                                                                                <DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
+                                                                                <EXAMPLE><![CDATA[
+selectFilter < plugin.tx_ptextlist.prototype.filter.select {
+    partialPath = Filter/Options/SelectFilter
+    filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
+    optionsSqlQuery {
+        select = cn_short_local
+        from = static_countries
+        where = delete = 0
+        orderBy =
+        groupBy =
+        limit =
+    }
+}
+                                                                                ]]></EXAMPLE>
+                                                                                <CHILDREN>
+                                                                                    <ENTRY KEY="select">
+                                                                                        <DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="from">
+                                                                                        <DESCRIPTION>The FROM part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="where">
+                                                                                        <DESCRIPTION>The WHERE part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="orderBy">
+                                                                                        <DESCRIPTION>The ORDER BY part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="groupBy">
+                                                                                        <DESCRIPTION>The GROUP BY part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="limit">
+                                                                                        <DESCRIPTION>The LIMIT part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                </CHILDREN>
+                                                                            </ENTRY>
+                                                                        </VARIANT>
+                                                                    </ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
@@ -1533,6 +1609,157 @@ redirectOnSubmit{
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
+                                                            <ENTRY KEY="dateSelect">
+																<DESCRIPTION><![CDATA[
+																    Renders a list of date definitions like "August 2011" to select entries in a given file range.
+																]]></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.dateSelectList</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+                                                                    <ENTRY KEY="fieldIdentifier">
+                                                                        <DESCRIPTION>The fieldIdentifier for a timeSpanFilter (every filter that derives from the abstractTimeSpanFilter) can be set by two different ways.
+                                                                            1. by a comma seperated list of fieldIdentifer as normal.
+                                                                            2. by defining a 2-dimensional list of start and end fields that determines the start and end of an event. See the example for details.</DESCRIPTION>
+                                                                        <DATATYPE>CSV, Array</DATATYPE>
+                                                                        <POSIBLEVALUES>FieldIdentifier</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+# Type 1: define a single date-field
+fieldIdentifier = tstamp, crdate
+
+# Type 2: defined start and end identifier
+fieldIdentifier {
+    10 {
+        start = eventStartDate
+        end = eventEndDate
+    }
+    20 {
+        start = eventStartDate2
+        end = eventEndDate2
+    }
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                     <ENTRY KEY="defaultValue">
+                                                                        <DESCRIPTION>This filter requires a start and an end value as default.</DESCRIPTION>
+                                                                        <DATATYPE>Array</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+defaultValue {
+    start = 1234567890
+    end = 234567891
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dbTimeFormat">
+                                                                        <DESCRIPTION>The filter converts the the time values to the format defined with dbTimeFormat.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES><![CDATA[
+                                                                            For MySql the possible Values are:
+                                                                            UnixTimesTamp (Integer):   U
+                                                                            DATETIME: 	Y-m-d H:i:s
+                                                                            DATE: 	Y-m-d
+                                                                            TIMESTAMP: 	Y-m-d H:i:s
+                                                                            TIME: 	H:i:s
+                                                                            YEAR: 	Y
+                                                                        ]]></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dbTimeFormat = U
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorStart">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. Start date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ>1</COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorEnd">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. End date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES>
+
+                                                                        </POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorIncrement">
+                                                                        <DESCRIPTION>The step size to increment the dates.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES><![CDATA[
+                                                                            'h': by hour
+                                                                            'i': by minute
+                                                                            's': by second
+                                                                            'd': by day
+                                                                            'm': by month
+                                                                            'y': by year
+                                                                        ]]></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorIncrement = m
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorFormat">
+                                                                        <DESCRIPTION>How the labels for the timeSpan is rendered. You hav to use PHP strftime format to render labels in the according language.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES>Strftime format string.</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorFormat = %m.%Y
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
 															<ENTRY KEY="tagcloud">
 																<DESCRIPTION></DESCRIPTION>
 																<DATATYPE></DATATYPE>
@@ -1556,7 +1783,7 @@ redirectOnSubmit{
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<ENTRY KEY="maxItems">
-																		<DESCRIPTION>Maximum of items tos show.</DESCRIPTION>
+																		<DESCRIPTION>Maximum of items to show.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
 																		<POSIBLEVALUES></POSIBLEVALUES>
 																		<DEFAULT></DEFAULT>
@@ -1636,7 +1863,6 @@ redirectOnSubmit{
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
-
 														</VARIANT>
 													</ENTRY>
 												</CHILDREN>

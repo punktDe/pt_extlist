@@ -51,6 +51,12 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
 	 */
 	protected $searchString;
 
+
+	/**
+	 * Holds additional, backend dependent search parameter
+	 * @var array
+	 */
+	protected $searchParameter = array();
 	
 	
 	/**
@@ -58,12 +64,14 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields
 	 * @param string $searchString
+	 * @param array $searchParameter
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields , $searchString) {
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields , $searchString, array $searchParameter = array()) {
 		Tx_PtExtbase_Assertions_Assert::isPositiveInteger($fields->count(), array('message' => 'No field given to search in! 1313532571'));
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($searchString, array('message' => 'SearchString must not be empty! 1313532596'));
 		$this->fields = $fields;
 		$this->searchString = $searchString;
+		$this->searchParameter = $searchParameter;
 	}
 	
 	
@@ -78,7 +86,7 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
     	if (!is_a($criteria, __CLASS__)) {
     		return false;
     	} else {
-            if ($this->fields == $criteria->fields && $this->searchString == $criteria->searchString) {
+            if ($this->fields == $criteria->fields && $this->searchString == $criteria->searchString && $this->searchParameter == $criteria->searchParameter) {
             	return true;     
             } else {
                 return false;
@@ -106,6 +114,21 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
 	 */
 	public function getSearchString() {
 		return $this->searchString;
+	}
+
+
+
+	/**
+	 * @return array of additional searchParameter
+	 */
+	public function getSearchParameter($key = NULL) {
+		if (!$key) {
+			return $this->searchParameter;
+		} else {
+			if (array_key_exists($key, $this->searchParameter)) {
+				return $this->searchParameter[$key];
+			}
+		}
 	}
 }
 ?>

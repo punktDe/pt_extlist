@@ -55,6 +55,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 	public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier) {
 		$this->addItem($filterBox, $filterBoxIdentifier);
 	}
+
+
+	/**
+	 * @param $filterBoxIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+	 */
+	public function getFilterBoxConfig($filterBoxIdentifier) {
+		return $this->getItemById($filterBoxIdentifier);
+	}
 }
 
 ?>

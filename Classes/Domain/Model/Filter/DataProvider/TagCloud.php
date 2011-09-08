@@ -65,29 +65,29 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends  Tx_PtExtli
 	 */
 	protected function buildGroupDataQuery($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-		
-		foreach($fields as $selectField) {
+
+		foreach ($fields as $selectField) {
 			$groupDataQuery->addField(Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField));
 		}
-				
-        if ($this->additionalTables != '') {
-           $groupDataQuery->addFrom($this->additionalTables);
-        }
-               
 
-       	$groupDataQuery->addSorting('elementCount', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+		if ($this->additionalTables != '') {
+			$groupDataQuery->addFrom($this->additionalTables);
+		}
 
 
-        if($this->elementCountField !== NULL) {
-        	$groupDataQuery->addField(sprintf('%s as elementCount', $this->elementCountField->getTableFieldCombined()));
-        } else {
-        	// TODO only works with SQL!
-        	$groupDataQuery->addField(sprintf('count("%s") as elementCount', $this->filterField->getTableFieldCombined()));
-        }
-        
-        $groupDataQuery->addGroupBy($this->filterField->getIdentifier());
+		$groupDataQuery->addSorting('elementCount', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 
-        return $groupDataQuery;
+
+		if ($this->elementCountField !== NULL) {
+			$groupDataQuery->addField(sprintf('%s as elementCount', $this->elementCountField->getTableFieldCombined()));
+		} else {
+			// TODO only works with SQL!
+			$groupDataQuery->addField(sprintf('count("%s") as elementCount', $this->filterField->getTableFieldCombined()));
+		}
+
+		$groupDataQuery->addGroupBy($this->filterField->getIdentifier());
+
+		return $groupDataQuery;
 	}
 }
 ?>

@@ -37,6 +37,23 @@
 class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
 	/**
+	 * @var int
+	 */
+	protected $minWordLength;
+
+
+
+	/**
+	 * @return void
+	 */
+	protected function initFilterByTsConfig() {
+		$this->minWordLength = (int) $this->filterConfig->getSettings('minWordLength');
+		parent::initFilterByTsConfig();
+	}
+
+
+
+	/**
 	 * Build the filterCriteria for filter
 	 *
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
@@ -46,10 +63,43 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
 
 		if ($this->filterValue == '') return NULL;
 
-		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue);
+		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue, $this->getSearchParameterArray());
 
 		return $criteria;
 	}
+
+
+
+	/**
+	 * Build an array with additional search parameter
+	 *
+	 * @return array
+	 */
+	protected function getSearchParameterArray() {
+		$searchParameter = array();
+		
+		$searchParameter['booleanMode'] = $this->filterConfig->getSettings('booleanMode') ? true : false;
+		$searchParameter['booleanModeWrapWithStars'] = $this->filterConfig->getSettings('booleanModeWrapWithStars') ? true : false;
+
+		return $searchParameter;
+	}
+
+
+
+	/**
+	 * Validates filter
+	 *
+	 * @return bool True, if filter validates
+	 */
+	public function validate() {
+		if(!$this->isActive() || strlen(trim($this->filterValue)) >= $this->minWordLength) {
+			return true;
+		} else {
+			$this->errorMessage = Tx_Extbase_Utility_Localization::translate('filter.fullText.errorWordTooShort', 'ptExtlist', array($this->minWordLength),'',t3lib_FlashMessage::ERROR);
+			return false;
+		}
+	}
+
 
 
 	/**

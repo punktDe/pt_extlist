@@ -25,7 +25,6 @@ plugin.tx_ptextlist.settings {
 			baseGroupByClause (
                 extkey
             )
-
 		}
 
 
@@ -54,6 +53,11 @@ plugin.tx_ptextlist.settings {
 			uploadcomment {
 				table = cache_extensions
 				field = uploadcomment
+			}
+
+			category {
+			    table = cache_extensions
+			    field = category
 			}
 		}
 		
@@ -107,11 +111,30 @@ plugin.tx_ptextlist.settings {
 						inactiveValue = ---ALL---
 					}
 
+					15 < plugin.tx_ptextlist.prototype.filter.select
+					15 {
+						filterIdentifier = category
+						label = Plugintyp
+						fieldIdentifier = category
+						inactiveOption = [ALL]
+						inactiveValue = ---ALL---
+
+						options {
+						    0 = Backend
+						    3 = Frontend-Plug-Ins
+						}
+					}
+
+
+
 					20 < plugin.tx_ptextlist.prototype.filter.fullText
 					20 {
 						filterIdentifier = filter1
 						label = Fulltext Search
 						fieldIdentifier = extkey,title,description,authorname,uploadcomment
+						booleanMode = 1
+						booleanModeWrapWithStars = 1
+						minWordLength = 3
 					}
 				}
 			}

@@ -108,20 +108,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var boolean
 	 */
 	protected $invert = false;
-	
-	
-	
-	/**
-	 * Session persistence manager
-	 * 
-	 * TODO this reference is no longer required!
-	 *
-	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
-	 */
-	protected $sessionPersistenceManager = null;
-	
-	
-	
+
+
+
 	/**
 	 * Holds query object for this filter
 	 * 
@@ -204,18 +193,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	}
 	
 	
-	
-	/**
-	 * Injector for session persistence manager
-	 *
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
-	 */
-	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
-		$this->sessionPersistenceManager = $sessionPersistenceManager;
-	}
-	
-	
-	
+
 	/**
 	 * Injector for associated data backend
 	 *
