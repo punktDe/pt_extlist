@@ -64,9 +64,11 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
             $this->templateVariableContainer->add('header', $header);
 			$this->templateVariableContainer->add('sortable', $header->isSortable());
             $this->templateVariableContainer->add('sortingFields', $this->buildSortingFieldParams($header));
+            $this->templateVariableContainer->add('sortColumnAtOnce', $header->getSortingConfig()->getColumnSorting());
 
 			$output .= $this->renderChildren();
 
+            $this->templateVariableContainer->remove('sortColumnAtOnce');
             $this->templateVariableContainer->remove('sortingFields');
 			$this->templateVariableContainer->remove($captionKey);
 			$this->templateVariableContainer->remove($headerKey);

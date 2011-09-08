@@ -121,10 +121,9 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function sortAction() {
 		$this->dataBackend->resetListDataCache();
-        // ATTENTION: When a list header is resetted, its GP var data is not reseted, so every header that has
-        // sorting data set in GP vars will not be effected when resetted!
-		$headerList = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilder);
-		$headerList->reset();
+        // ATTENTION: When a list header is reset, its GP var data is not reset, so every header that has
+        // sorting data set in GP vars will not be effected when reset!
+        $this->dataBackend->getSorter()->reset();
 		
 		$this->forward('list');
 	}

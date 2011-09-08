@@ -414,7 +414,18 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getFieldConfigurationCollection() {
 		return $this->fieldConfigurationCollection;
 	}
-	
+
+
+
+    /**
+     * Returns sorter registered for this data backend
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     */
+    public function getSorter() {
+        return $this->sorter;
+    }
+
 }
 
 ?>

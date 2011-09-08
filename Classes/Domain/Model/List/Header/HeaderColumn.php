@@ -29,11 +29,6 @@
 /**
  * Class implements a single column of a list header
  *
- * TODO finish refactoring
- * 1. Add property "sorted fields" that can handle ALL sorting fields of column or just a bunch of it
- * 2. Enable GP-based setting of fields that should be sorted
- * 3. Change session persistence in such a way, that it can handle 
- *
  * @author Daniel Lienert
  * @author Michael Knoll
  * @package Domain
@@ -234,7 +229,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     	$this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
 
         if (count($this->sortedFields) > 0) {
-            // TODO implement building of sorting state collection for sorted fields
             foreach($this->sortedFields as $fieldIdentifier => $sortingDirection) {
                 $fieldConfig = $this->sortingFieldConfig->getItemById($fieldIdentifier);
                 if ($fieldConfig->getForceDirection()) {
@@ -270,6 +264,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
     public function getColumnConfig() {
     	return $this->columnConfig;
+    }
+
+
+
+    /**
+     * Returns sorting config of attached column config
+     * 
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     */
+    public function getSortingConfig() {
+        return $this->getColumnConfig()->getSortingConfig();
     }
 
 
@@ -353,9 +358,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 *
 	 */
     public function persistToSession() {
+        $sessionArray = null;
         if (count($this->sortedFields) > 0) {
-            return array('sortedFields' => $this->sortedFields);
-        } 
+            $sessionArray = array('sortedFields' => $this->sortedFields);
+        }
+        return $sessionArray;
     }
 
 

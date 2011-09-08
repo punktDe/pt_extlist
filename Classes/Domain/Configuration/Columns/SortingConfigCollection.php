@@ -31,7 +31,8 @@
  *
  * @package 		Domain
  * @subpackage 		Configuration\Columns  
- * @author         	Daniel Lienert 
+ * @author         	Daniel Lienert
+ * @author          Michael Knoll
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 
@@ -46,6 +47,30 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends 
 
 
     /**
+     * If set to true, this collection sets up a sorting column
+     * that has multiple fields to be sorted AT ONCE
+     *
+     * @var bool
+     */
+    protected $columnSorting;
+
+
+
+    /**
+     * Constructor for sorting config collection
+     *
+     * If columnSorting is set to true, this configuration sets up a column
+     * that can only be sorted as a whole.
+     *
+     * @param bool $columnSorting
+     */
+    public function __construct($columnSorting = false) {
+        $this->columnSorting = $columnSorting;
+    }
+
+
+
+    /**
      * Adds a sorting field by given fieldIdentifier
      *
      * @param Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $sortingField
@@ -55,6 +80,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends 
 	public function addSortingField($sortingField, $fieldIdentifier) {
 		$this->addItem($sortingField, $fieldIdentifier);
 	}
+
+
+
+    /**
+     * Returns true, if column can only be sorted as a whole
+     * 
+     * @return bool
+     */
+    public function getColumnSorting() {
+        return $this->columnSorting;
+    }
     
 }
 ?>
