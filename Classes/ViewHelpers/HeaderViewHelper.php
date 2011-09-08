@@ -45,7 +45,7 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 	 * 
 	 * Sets additional template variables for children of this viewhelper.
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $header
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $captions
 	 * @param string $headerKey 
 	 * @param string $captionKey
