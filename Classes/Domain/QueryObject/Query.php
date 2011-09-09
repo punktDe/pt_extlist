@@ -284,6 +284,25 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	public function getSortings() {
 		return $this->sortings;
 	}
+
+
+
+    /**
+	 * Inverting the current sorting state.
+	 *
+	 * @param int $sortingState
+	 * @return int The inverted sorting state.
+	 */
+	public static function invertSortingState($sortingState) {
+		switch($sortingState) {
+			case self::SORTINGSTATE_ASC:
+				return self::SORTINGSTATE_DESC;
+			case self::SORTINGSTATE_DESC:
+				return self::SORTINGSTATE_ASC;
+			default:
+				return self::SORTINGSTATE_ASC;
+		}
+	}
 	
 }
  

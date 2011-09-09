@@ -27,7 +27,7 @@
  ***************************************************************/
 
 /**
- * Class implements list header collection which are actually all header columns that make up the header of the list.
+ * Class implements list header collection which consists of all header columns that make up the header of the list.
  * 
  * @author Daniel Lienert 
  * @package Domain
@@ -101,7 +101,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 * @return void
 	 */
 	public function reset() {
-		foreach($this->itemsArr as $headerColumn) {
+		foreach($this->itemsArr as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 			$headerColumn->reset();
 		}
 	}

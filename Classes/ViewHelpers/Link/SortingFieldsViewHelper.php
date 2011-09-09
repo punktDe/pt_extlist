@@ -49,39 +49,21 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends Tx_Fluid_Vi
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, array $fieldAndDirection, $action='sort') {
 		$sortingFieldParams = array();
 
-        $sortingDirection = $this->invertSortingState($fieldAndDirection['currentDirection']);
+        $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($fieldAndDirection['currentDirection']);
         $sortingFieldParams[] = $fieldAndDirection['field'] . ':' . $sortingDirection;
 
-        #echo "current direction for field " . $fieldAndDirection['field'] . " = " . $fieldAndDirection['currentDirection'] . " link direction = " . $sortingDirection;
+        # echo "current direction for field " . $fieldAndDirection['field'] . " = " . $fieldAndDirection['currentDirection'] . " link direction = " . $sortingDirection;
 
         $sortingFieldParam = implode(';', $sortingFieldParams);
 
 		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
-		
+
 		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
-		
+
 		return parent::render($action,$argumentArray);
 	}
-
     
-	
-	/**
-	 * Inverting the current sorting state.
-	 * 
-	 * @param int $sortingState
-	 * @return int The inverted sorting state.
-	 */
-	protected function invertSortingState($sortingState) {
-		switch($sortingState) {
-			case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC:
-				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC;
-			case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC:
-				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
-			default:
-				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
-		}
-	}
 }
 
 ?>
