@@ -144,6 +144,43 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_SortingCollectionFactory_t
 		$this->assertEquals($sortingConfigNameObject->getDirection(), NULL);
 		$this->assertEquals($sortingConfigNameObject->getForceDirection(), false, 'ForceDirection');
 	}
+
+
+
+    /** @test */
+    public function getInstanceBySortingFieldsSettingsReturnsSortingFieldConfigCollection() {
+        $configurationArray = array(
+            10 => array(
+                'field' => 'field1',
+                'direction' => 'asc',
+                'forceDirection' => 1,
+                'label' => 'label1'
+            ),
+            20 => array(
+                'field' => 'field2',
+                'direction' => 'desc',
+                'forceDirection' => 0,
+                'label' => 'label2'
+            ),
+        );
+
+        $sortingFieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($configurationArray);
+        $configurationForField1 = $sortingFieldConfigCollection->getItemById('field1'); /* @var $configurationForField1 Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+        $configurationForField2 = $sortingFieldConfigCollection->getItemById('field2'); /* @var $configurationForField2 Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+
+        $this->assertTrue(is_a($configurationForField1, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'));
+        $this->assertTrue(is_a($configurationForField2, 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig'));
+
+        $this->assertEquals($configurationForField1->getField(), 'field1');
+        $this->assertEquals($configurationForField1->getDirection(), 1);
+        $this->assertEquals($configurationForField1->getForceDirection(), 1);
+        $this->assertEquals($configurationForField1->getLabel(), 'label1');
+
+        $this->assertEquals($configurationForField2->getField(), 'field2');
+        $this->assertEquals($configurationForField2->getDirection(), -1);
+        $this->assertEquals($configurationForField2->getForceDirection(), 0);
+        $this->assertEquals($configurationForField2->getLabel(), 'label2');
+    }
 	
 }
 ?>

@@ -886,7 +886,7 @@ renderUserFunctions {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sorting">
-													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction.</DESCRIPTION>
+													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction. Settings in sorting are overwritten by sortingFields!</DESCRIPTION>
 													<DATATYPE>Seperated list of fieldIdentifiers.</DATATYPE>
 													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
@@ -901,6 +901,57 @@ sorting = name_local DESC, name_en
 // Sorting by name_local is fixed to DESC with the "!" and does not toggle
 sorting = name_local !DESC, name_en
 ]]></EXAMPLE>
+												</ENTRY>
+                                                <ENTRY KEY="sortingFields">
+													<DESCRIPTION>Define more sophisticated sorting for a column. Fields, directions, forced sorting and label can be defined individually. Settings in sortingsFields overwrite settings in sorting!</DESCRIPTION>
+													<DATATYPE>Array</DATATYPE>
+													<DEFAULT></DEFAULT>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE><![CDATA[
+sortingFields {
+    10 {
+        field = name_en
+        label = Name
+        direction = asc
+        forceDirection = 0
+    }
+    20 {
+        field = name_local
+        label = Name (lokal)
+        direction = asc
+        forceDirection = 0
+    }
+    30 {
+        field = uno_member
+        label = UNO member
+        direction = asc
+        forceDirection = 0
+    }
+}]]></EXAMPLE>
+                                                <CHILDREN>
+                                                    <ENTRY KEY="10,20,30">
+                                                    <DESCRIPTION></DESCRIPTION>
+                                                        <CHILDREN>
+                                                            <ENTRY KEY="field">
+                                                                <DESCRIPTION>Field identifier to set up sorting for.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="label">
+                                                                <DESCRIPTION>Label to be displayed in column header.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="direction">
+                                                                <DESCRIPTION>Direction is used if direction is forced or if column is default sorting column.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="forceDirection">
+                                                                <DESCRIPTION>If set to 1, this field is always sorted using direction set above.</DESCRIPTION>
+                                                                <DATATYPE>Boolean</DATATYPE>
+                                                            </ENTRY>
+                                                        </CHILDREN>
+                                                    </ENTRY>
+                                                </CHILDREN>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
 													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>

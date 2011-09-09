@@ -267,8 +267,6 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * Add an array of fields and sorting direction to the array of sortings
 	 * 
 	 * @param $sortingArray array
-	 * @author Daniel Lienert 
-	 * @since 02.08.2010
 	 */
 	public function addSortingArray(array $sortingArray) {
 		Tx_PtExtbase_Assertions_Assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
