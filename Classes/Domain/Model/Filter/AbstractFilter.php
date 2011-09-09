@@ -440,6 +440,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		if($this->isActive) $criteria = $this->buildFilterCriteriaForAllFields();
 			
 		if($criteria) {
+			$this->filterQuery->unsetCriterias();
+
 			if($this->invert) {
 				$this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
 			} else {
@@ -474,8 +476,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	protected function buildFilterCriteriaForAllFields() {
 		$criteria = NULL;
-		
-		foreach($this->fieldIdentifierCollection as $fieldIdentifier) {	
+		foreach($this->fieldIdentifierCollection as $fieldIdentifier) {
 			$singleCriteria = $this->buildFilterCriteria($fieldIdentifier);
 			
 			if($criteria) {
