@@ -34,15 +34,17 @@
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	
 	/**
-	 * Parse the sorting config string and build sorting config objects 
+	 * Parse the sorting config string and build sorting config objects
+     *
 	 * @param $sortingSettings string
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public static function getInstanceBySortingSettings($sortingSettings) {
 		$nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
 									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
-		
-		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
+
+        // We create new sortingConfigCollection for column that can only be sorted as a whole
+		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
 		$sortingFields = t3lib_div::trimExplode(',', $sortingSettings);
 		foreach($sortingFields as $sortingField) {
 			
@@ -68,7 +70,44 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 
 		return $sortingConfigCollection;
 	}
-	
+
+
+
+    /**
+     * Factory method for creating a sortingField configuration for a given
+     * column.sortingFields TS-configuration array.
+     *
+     * @param array $sortingFieldsSettings TypoScript settings for column.sortingFields
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     */
+    public static function getInstanceBySortingFieldsSettings(array $sortingFieldsSettings) {
+        $nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+
+        // We create sortingConfigCollection that can handle sorting of individual fields
+        $sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(false);
+
+        foreach($sortingFieldsSettings as $fieldNumber => $sortingFieldSetting) {
+            $fieldIdentifier = $sortingFieldSetting['field'];
+            $sortingDirection = $nameToConstantMapping[strtolower($sortingFieldSetting['direction'])];
+            $forceSortingDirection = $sortingFieldSetting['forceDirection'];
+            $label = $sortingFieldSetting['label'];
+
+            $sortingFieldConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig(
+                $fieldIdentifier,
+                $sortingDirection,
+                $forceSortingDirection,
+                $label
+            );
+
+            $sortingConfigCollection->addSortingField($sortingFieldConfig, $fieldIdentifier);
+        }
+
+        return $sortingConfigCollection;
+    }
+
+
+
 	/**
 	 * Generate an array by field configuration - direction is NULL here
 	 * 
@@ -76,9 +115,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public static function getInstanceByFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
-		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection();
+        // We create a sorting field configuration that only sorts a whole column at once (hence param is true)
+		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
 		foreach($fieldConfigCollection as $fieldConfig) {
-			$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldConfig->getIdentifier(), NULL, false);
+            // We create sorting config with descending sorting as default sorting
+			$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldConfig->getIdentifier(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, false);
 			$sortingConfigCollection->addSortingField($sortingConfig, $fieldConfig->getIdentifier());
 		}
 		

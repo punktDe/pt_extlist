@@ -61,7 +61,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-
+        
 		// Do not show the list if it is empty.
 		// TODO do not use forward here!!!
 		if($list->getListData()->count() <= 0) {
@@ -121,10 +121,12 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function sortAction() {
 		$this->dataBackend->resetListDataCache();
-		$headerList = $this->dataBackend->getListHeader();
-		$headerList->reset();
+        // ATTENTION: When a list header is reset, its GP var data is not reset, so every header that has
+        // sorting data set in GP vars will not be effected when reset!
+        $this->dataBackend->getSorter()->reset();
 		
 		$this->forward('list');
 	}
+    
 }
 ?>
