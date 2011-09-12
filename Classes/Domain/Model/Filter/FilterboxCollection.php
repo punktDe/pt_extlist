@@ -126,10 +126,12 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
     
     
     /**
-     * Cascade through all filterboxes and reset their filters
+     * Resets all filterboxes of this collection.
+     *
+     * Resetting filterbox includes reset of their filters.
      */
     public function reset() {
-    	foreach($this->itemsArr as $filterBox) {
+    	foreach($this->itemsArr as $filterBox) { /* @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
     		$filterBox->reset();
     	}
     }

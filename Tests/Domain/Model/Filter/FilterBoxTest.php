@@ -61,14 +61,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 	}
 	
 	
-	
-	public function testReset() {
+
+    /** @test */
+	public function resetResetsFiltersOfThisBoxAndSetsIsSubmittedFilterboxToFalse() {
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
+        $filterbox->isSubmittedFilterbox();
 		$filter = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('reset'), array(), '', FALSE);
 		$filter->expects($this->once())
 		  ->method('reset');
 		$filterbox->addItem($filter, 'testfilter');
 		$filterbox->reset();
+        $this->assertEquals($filterbox->isSubmittedFilterbox(), false);
 	}
 	
 	
@@ -90,14 +93,18 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 		$validatingFilterboxMock->addItem($validatingFilterMock);
 		$this->assertTrue($validatingFilterboxMock->validate());
 	}
-	
+
+
+
 	public function testGetAccessableFilterbox() {
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
 		$accessableFilterbox = $filterbox->getAccessableFilterbox();
 		
 		$this->assertTrue(is_a($accessableFilterbox, 'Tx_PtExtlist_Domain_Model_Filter_Filterbox'));
 	}
-	
+
+
+
 	public function testValidateOnNonValidatingFilters() {
 		$notValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
 		$notValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', FALSE);

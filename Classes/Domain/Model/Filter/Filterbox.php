@@ -85,7 +85,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 	/**
 	 * Constructor for filterbox
 	 *
-	 * @param string $filterboxIdentifier  Identifier of filterbox
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration  Configuration of filterbox
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration = NULL) {
 		if($filterboxConfiguration != NULL) {
@@ -104,7 +104,6 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 		$this->filterBoxConfig = $filterboxConfiguration;
 		$this->listIdentifier = $filterboxConfiguration->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
-		$this->filterValidationErrors = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection();
 	}
 	
 	
@@ -125,7 +124,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 	 *
 	 * @return string
 	 */
-	public function getfilterboxIdentifier() {
+	public function getFilterboxIdentifier() {
 		return $this->filterboxIdentifier;
 	}
 	
@@ -159,6 +158,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 	 * @return void
 	 */
 	public function reset() {
+        $this->isSubmittedFilterbox = false;
 		foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 			$filter->reset();
 		}
@@ -198,7 +198,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 	 * Add Filter to Filterbox 
 	 * 
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
-	 * @param string $filteridentifier
+	 * @param string $filterIdentifier
 	 */
 	public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterIdentifier) {
 		$this->addItem($filter, $filterIdentifier);
