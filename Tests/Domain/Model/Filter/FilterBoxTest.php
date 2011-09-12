@@ -33,7 +33,7 @@
  * @package Tests
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $filterBoxConfigurationMock = null;
 	
