@@ -68,6 +68,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $baseWhereClause;
 
 
+
     /**
      * The baseFromClause from TSConfig
      * @var string
@@ -546,6 +547,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
     	return $query;
     }
-}
 
+}
 ?>
