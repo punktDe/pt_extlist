@@ -41,7 +41,7 @@ Image/SortingViewHelper		Creates a soring image based on the header information.
                                 <extlist:link.sortingFields action="sort" header="{header}" fieldAndDirection="{sortingField}">
                                     <f:if condition="{sortingField.label}">
                                         <f:then>
-                                            {sortingField.label}
+                                            <f:translate key="{sortingField.label}" default="{sortingField.label}"/>
                                         </f:then>
                                         <f:else>
                                             {caption}

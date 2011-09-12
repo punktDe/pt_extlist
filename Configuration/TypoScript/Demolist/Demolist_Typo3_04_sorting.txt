@@ -125,7 +125,7 @@ plugin.tx_ptextlist.settings {
 				sortingFields {
 				    10 {
 				        field = name_en
-				        label = Name
+				        label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_demolist.name_local
 				        direction = asc
 				        forceDirection = 0
 				    }
@@ -137,7 +137,7 @@ plugin.tx_ptextlist.settings {
                     }
                     30 {
                         field = uno_member
-                        label = UNO member
+                        label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_demolist.uno_member
                         direction = asc
                         forceDirection = 0
                     }
