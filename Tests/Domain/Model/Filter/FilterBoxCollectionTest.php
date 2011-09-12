@@ -31,10 +31,10 @@
  * Testcase for filterbox collection
  * 
  * @author Michael Knoll 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $configurationBuilderMock = null;
 	
@@ -61,13 +61,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
     	}
     	$this->fail('No error has been thrown on adding wrong data type');
     }
-    
+
+
+
     public function testSetListIdentifier() {
     	$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
     	$filterboxCollection->setListIdentifier('test123');
     	$listId = $filterboxCollection->getListIdentifier();
     	$this->assertEquals('test123', $listId);
     }
+
+
     
     public function testGettingFilterboxByFilterboxIdentifier() {
     	$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
@@ -100,5 +104,4 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
     }
 
 }
-
 ?>
