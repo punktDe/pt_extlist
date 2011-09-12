@@ -24,7 +24,7 @@ Image/SortingViewHelper		Creates a soring image based on the header information.
 
 <tr>
 	<extlist:header headers="{listHeader}" headerKey="header" captions="{listCaptions}" captionKey="caption">
-		<th class="tx-ptextlist-list-header">
+		<th class="tx-ptextlist-list-header {header.columnConfig.headerThCssClass}">
 			<f:if condition="{sortable}">
                 <f:then>
                     <f:if condition="{sortColumnAtOnce}">
