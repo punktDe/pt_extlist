@@ -137,11 +137,16 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	/**
 	 * Resets all filters of filterbox
 	 *
+     * @param string $filterboxIdentifier Identifier of filter which should be reset
 	 * @return string Rendered reset action
-	 */
-	public function resetAction() {
-		$this->filterbox->reset();
+	 */                          
+	public function resetAction($filterboxIdentifier) {
+        if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
+            $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
+        }
+        
 		$this->resetPagers();
+        
 		/**
 		 * TODO try to figure out a way how to handle this without redirect
 		 * 

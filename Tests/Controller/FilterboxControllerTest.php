@@ -134,20 +134,31 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 	}
 
 
-	public function testResetAction() {
-		$filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('reset'), array(), '', FALSE);
-		$filterboxMock->expects($this->once())->method('reset');
 
-		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', FALSE);
+    /** @test */
+	public function resetActionCallsResetInFilterboxGivenInParameter() {
+		$filterboxMock1 = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('reset'), array(), '', FALSE);
+		$filterboxMock1->expects($this->once())->method('reset');
+
+        $filterboxMock2 = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('reset'), array(), '', FALSE);
+
+        $filterboxCollectionMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection, array('hasItem','getFilterboxByFilterboxIdentifier'), array(), '', FALSE); /* @var $filterboxCollectionMock Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection */
+        $filterboxCollectionMock->expects($this->any())->method('hasItem')->with($this->equalTo('toBeResetted'))->will($this->returnValue(true));
+        $filterboxCollectionMock->expects($this->any())->method('getFilterboxByFilterboxIdentifier')->with($this->equalTo('toBeResetted'))->will($this->returnValue($filterboxMock1));
+
+        $filterboxCollectionMock->addFilterbox($filterboxMock1, 'toBeResetted');
+        $filterboxCollectionMock->addFilterBox($filterboxMock2, 'notToBeResetted');
+
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', FALSE);
 		$pagerCollectionMock->expects($this->once())->method('reset');
 
 		$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect', 'getFilterboxForControllerSettings'), array(), '', FALSE);
 		$filterboxControllerMock->_set('filterboxIdentifier', 'test');
-		$filterboxControllerMock->_set('filterbox', $filterboxMock);
+		$filterboxControllerMock->_set('filterboxCollection', $filterboxCollectionMock);
 		$filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
 		$filterboxControllerMock->expects($this->once())->method('redirect')->with('show');
 
-		$filterboxControllerMock->resetAction();
+		$filterboxControllerMock->resetAction('toBeResetted');
 	}
 	
 	
