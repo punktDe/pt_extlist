@@ -64,6 +64,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 	public function getFilterBoxConfig($filterBoxIdentifier) {
 		return $this->getItemById($filterBoxIdentifier);
 	}
-}
 
+}
 ?>
