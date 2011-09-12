@@ -153,6 +153,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	}
 
 
+
 	public function testGetWhereClauseFromFilterWithStringNumericValue() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
@@ -163,7 +164,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$this->assertTrue($filterWhereClause == 'test > 10', 'Filter where clause was expected to be "test > 10" but was ' . $filterWhereClause);
 	}
 	
-	
+
+
 	public function testGetWhereClauseFromFilterWithoutActiveFilter() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
@@ -317,7 +319,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $mapperMock->expects($this->once())
             ->method('getMappedListData')
             ->will($this->returnValue($dataSourceReturnArray));
-            
+
+        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('getExcludeFilters'), array(), '', FALSE);
+        $filterboxCollectionMock->expects($this->any())->method('excludeFilters')->will($this->returnValue(array()));
                 
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
@@ -326,12 +330,14 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $dataBackend->injectPagerCollection($pagerCollectionMock);
         $dataBackend->injectDataMapper($mapperMock);
         $dataBackend->injectSorter($sorterMock);
+        $dataBackend->injectFilterboxCollection($filterboxCollectionMock);
         $dataBackend->init();
         
         $listData = $dataBackend->getListData();
         $this->assertTrue($listData == $dataSourceReturnArray);
 	}
-	
+
+
 	
 	public function testListDataCacheWorks() {
 		/* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend */
@@ -382,12 +388,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
         $dataSourceMock->expects($this->once())->method('executeQuery')->will($this->returnValue($returnArray));
-        
+
+        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('getExcludeFilters'), array(), '', FALSE);
+        $filterboxCollectionMock->expects($this->any())->method('excludeFilters')->will($this->returnValue(array()));
+
         $dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
         $dataBackend->injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder));
 	    $dataBackend->injectDataSource($dataSourceMock);
 		$dataBackend->injectQueryInterpreter($queryInterpreterMock);
         $dataBackend->injectSorter($sorterMock);
+        $dataBackend->injectFilterboxCollection($filterboxCollectionMock);
 		$dataBackend->init();
 		
 		$groupData = $dataBackend->getGroupData($additionalQuery, $excludeFilters);
@@ -402,6 +412,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		#$dataSource = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend::createDataSource($this->configurationBuilder);
 		#$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
 	}
+
 
 	
 	public function testConvertTableFieldToAlias() {
@@ -418,6 +429,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 			$this->assertEquals($string['return'], $returnString, 'Mangled string is not as excepted : ' . $returnString . ' is not ' . $string['return']);
 		}
 	}
+
 	
 	
 	public function testBuildQuery() {
@@ -442,14 +454,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$this->markTestIncomplete();
 	}
 	
-	
+
+
 	public function testGetGroupByPart() {
 		$dataBackend = $this->getDataBackend();
 		$groupByPart = $dataBackend->buildGroupByPart();
 		$this->assertEquals($groupByPart, 'company');
 	}
 	
-	
+
+
 	public function testGetAggregatesByConfigCollection() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1']['scope'] = 'query';
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
@@ -459,7 +473,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$this->assertEquals('SUM(field1) AS sumField1', $dataBackend->_call('buildAggregateFieldSQLByConfig', $aggConfigCollection->getAggregateConfigByIdentifier('sumField1')));
 	}
 	
-	
+
+
 	public function testGetAggregatesByConfigCollectionWithUnsopportedMethod() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'method' => 'aNotExistantMethod');
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
@@ -474,7 +489,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		
 		$this->fail('No Exception thrown if Method is unsupported');
 	}
-	
+
+
 	
 	public function testGetAggregatesByConfigCollectionWithSpecialString() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'special' => 'special');
@@ -492,7 +508,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
 		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($configurationBuilderMock);
 		$dataBackend = $this->getDataBackend($configurationBuilderMock);
-		
+
+        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('getExcludeFilters'), array(), '', FALSE);
+        $filterboxCollectionMock->expects($this->any())->method('excludeFilters')->will($this->returnValue(array()));
+
+        $dataBackend->injectFilterboxCollection($filterboxCollectionMock);
+
 		$sql = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
 
 		$this->assertEquals('SELECT special AS sumField1, AVG(field2) AS avgField2 

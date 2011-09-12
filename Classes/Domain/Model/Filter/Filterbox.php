@@ -91,6 +91,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 		if($filterboxConfiguration != NULL) {
 			$this->injectFilterboxConfiguration($filterboxConfiguration);
 		}
+        $this->init();
 	}
 	
 	
@@ -105,6 +106,23 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 		$this->listIdentifier = $filterboxConfiguration->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
 	}
+
+
+
+    /**
+     * Helper method for initializing filterbox.
+     *
+     * If filterbox gets gpvars from current request, we set this filterbox as submitted
+     *
+     * @return void
+     */
+    protected function init() {
+        $gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+        $gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespace());
+        if (count($gpVarsForFilterbox) > 0) {
+            $this->setAsSubmittedFilterbox();
+        }
+    }
 	
 	
 	

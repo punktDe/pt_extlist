@@ -161,7 +161,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		if(!is_array($this->listQueryParts)) {
 			$selectPart  = $this->buildSelectPart();
 			$fromPart    = $this->buildFromPart();
-			$wherePart   = $this->buildWherePart();
+			$wherePart   = $this->buildWherePartForListData();
 			$orderByPart = $this->buildOrderByPart();
 			$limitPart   = $this->buildLimitPart();
 			$groupByPart = $this->buildGroupByPart();
@@ -179,6 +179,20 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 		return $query;
 	}
+
+
+
+    /**
+     * Helper method that builds where part for list data
+     *
+     * Method respects exclude filters of submitted (active) filterbox
+     * TODO test me!
+     *
+     * @return string
+     */
+    protected function buildWherePartForListData() {
+        return $this->buildWherePart($this->filterboxCollection->getExcludeFilters());
+    }
 
 
 

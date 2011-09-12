@@ -152,6 +152,24 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
         }
         return null;
     }
+
+
+
+    /**
+     * Returns array with exclude filters for filterbox collection.
+     *
+     * There is one filterbox submitted for this request. If we have
+     * exclude filters configured for this filterbox, they will be returned here.
+     *
+     * @return array
+     */
+    public function getExcludeFilters() {
+        $submittedFilterbox = $this->getSubmittedFilterbox();
+        if ($submittedFilterbox) {
+            return $submittedFilterbox->getFilterboxConfiguration()->getExcludeFilters();
+        }
+        return array();
+    }
 	
 }
 ?>

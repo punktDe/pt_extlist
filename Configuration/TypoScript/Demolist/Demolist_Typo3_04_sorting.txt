@@ -251,6 +251,7 @@ plugin.tx_ptextlist.settings {
 			    #    controller = testController 
 			    #    action = testAction
 			    #}
+
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {

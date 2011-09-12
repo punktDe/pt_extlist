@@ -115,8 +115,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 			$this->view->assign('filtersDontValidate', true);
 		}
 
-        $this->filterbox->setAsSubmittedFilterbox();
-
 		$this->resetPagers();
 		
 		// check whether we have a redirect on submit configured for this filter
