@@ -70,6 +70,15 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 	 * @var string
 	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface';
+
+
+
+    /**
+     * If set to true, this filterbox is submitted filterbox for this request
+     *
+     * @var bool
+     */
+    protected $isSubmittedFilterbox;
 	
 	
 	
@@ -210,7 +219,28 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 			return null;
 		}
 	}
-	
-}
 
+
+
+    /**
+     * Returns true if this filterbox is submitted filterbox of current request
+     *
+     * @return bool
+     */
+    public function isSubmittedFilterbox() {
+        return $this->isSubmittedFilterbox;
+    }
+
+
+
+    /**
+     * Set this filterbox as submitted filterbox for current request
+     *
+     * @return void
+     */
+    public function setAsSubmittedFilterbox() {
+        $this->isSubmittedFilterbox = true;
+    }
+
+}
 ?>
