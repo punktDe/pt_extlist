@@ -77,8 +77,8 @@
 
             <!-- Filterbox -->
 			<label index="filterBox.resetFilters">Filter zurücksetzen</label>
+            <label index="filterBox.submitFilters">Filter setzen</label>
 			<label index="filterBox.errorInFilter">Die Eingaben der Filter enthalten Fehler.</label>
-            <label index="filterBox.errorInFilter">Die Filter enthalten Fehler.</label>
 
             <!-- Filter -->
             <label index="filter.daterange.from">Von</label>
