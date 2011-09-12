@@ -115,9 +115,12 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 			$this->view->assign('filtersDontValidate', true);
 		}
 
+        $this->filterbox->setAsSubmittedFilterbox();
+
 		$this->resetPagers();
 		
 		// check whether we have a redirect on submit configured for this filter
+        // TODO refactor this: we can use redirect PID in form for submitted filterbox in template!
 		if ($this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
 			$this->redirect(
 			     $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(),      // action name
