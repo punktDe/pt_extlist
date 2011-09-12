@@ -133,7 +133,23 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
     		$filterBox->reset();
     	}
     }
-    
+
+
+
+    /**
+     * Returns filterbox of this collection which is currently set
+     * to be submitted filterbox of current request.
+     * 
+     * @return null|Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     */
+    public function getSubmittedFilterbox() {
+        foreach ($this->itemsArr as $filterboxIdentifier => $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+            if ($filterbox->isSubmittedFilterbox()) {
+                return $filterbox;
+            }
+        }
+        return null;
+    }
 	
 }
 ?>

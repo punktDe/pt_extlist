@@ -76,6 +76,29 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
     	$filterboxCollection->addFilterBox($filterbox, 'test');
     	$this->assertTrue($filterboxCollection->getFilterboxByFilterboxIdentifier('test') == $filterbox);
     }
+
+
+
+    /** @test */
+    public function getSubmittedFilterboxReturnsNullIfNoFilterboxIsSubmitted() {
+        $filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
+        $this->assertEquals($filterboxCollection->getSubmittedFilterbox(), null);
+    }
+
+
+
+    /** @test */
+    public function getSubmittedFilterboxReturnsSubmittedFilterboxIfThereIsOne() {
+        $submittedFilterboxMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array('isSubmittedFilterbox'), array(), '', FALSE);
+        $submittedFilterboxMock1->expects($this->any())->method('isSubmittedFilterbox')->will($this->returnValue(true));
+        $submittedFilterboxMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array('isSubmittedFilterbox'), array(), '', FALSE);
+        $submittedFilterboxMock2->expects($this->any())->method('isSubmittedFilterbox')->will($this->returnValue(false));
+        $filterboxCollectionMock = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
+        $filterboxCollectionMock->addFilterBox($submittedFilterboxMock1, 'blubb');
+        $filterboxCollectionMock->addFilterBox($submittedFilterboxMock2, 'bla');
+        $this->assertEquals($filterboxCollectionMock->getSubmittedFilterbox(), $submittedFilterboxMock1);
+    }
+
 }
 
 ?>
