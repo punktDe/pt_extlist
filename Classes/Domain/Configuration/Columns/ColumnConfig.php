@@ -181,8 +181,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 				break;
 			}
 		}
-		
-		$this->label = $this->columnIdentifier;
+
+        $this->label = '';
+		// $this->label = $this->columnIdentifier;
 
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');

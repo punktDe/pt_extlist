@@ -35,25 +35,28 @@
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
 	 */
 	protected $configurationBuilderMock;
-	
+
+
+
 	/**
 	 * Holds a dummy configuration for a column config object
 	 * @var array
 	 */
 	protected $columnSettings = array();
-	
+
+
 	
 	/**
 	 * Holds an instance of column configuration object
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
 	protected $columnConfig = null; 
-	
+
+
 	
 	/**
 	 * @return void
@@ -85,20 +88,24 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	public function testGetLabelWhenLabelGiven() {
 		$this->assertEquals($this->columnConfig->getLabel(), $this->columnSettings['label']);
 	}
-	
+
+
 	
 	public function testGetAccessGroups() {
 		$this->assertEquals($this->columnConfig->getAccessGroups(), t3lib_div::trimExplode(',',$this->columnSettings['accessGroups']));
 	}
 	
-	
-	public function testGetLabelWhenLabelNotGiven() {
+
+
+    /** @test */
+	public function getLabelReturnsEmptyStringIfNoLabelIsGiven() {
 		unset($this->columnSettings['label']);
 		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
-		$this->assertEquals($this->columnConfig->getLabel(), $this->columnSettings['columnIdentifier']);
+		$this->assertEquals($this->columnConfig->getLabel(), '');
 	}
 	
-	
+
+
 	public function testNoColumnIdentifierGivenException() {
 		try {
 			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig(array('fieldIdentifier' => 'test'));
@@ -119,6 +126,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$this->fail();
 	}
 
+
+
 	public function testSetAccessable() {
 		$this->columnConfig->setAccessable(true);
 		$this->assertTrue($this->columnConfig->isAccessable());
@@ -130,7 +139,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$this->assertFalse($this->columnConfig->isAccessable());
 	}
 	
-	
+
+
 	public function testGetContainsArrayData() {
 		$pluginSettings = $this->configurationBuilderMock->getPluginSettings();
 		$pluginSettings['listConfig']['test']['fields']['field4']['expandGroupRows'] = 1;
@@ -144,13 +154,17 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$this->assertTrue($columnConfig->getContainsArrayData());
 	}
 	
-	
+
+
 	public function testGetRenderTemplate() {
 		$this->assertEquals($this->columnSettings['renderTemplate'], $this->columnConfig->getRenderTemplate());
 	}
-	
+
+
+
 	public function testGetCellCSSClass() {
 		$this->assertEquals($this->columnSettings['cellCSSClass'], $this->columnConfig->getCellCSSClass());
 	}
+
 }
 ?>
