@@ -450,6 +450,12 @@ Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter: Save the session vari
 									<CHILDREN></CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
+                                <ENTRY KEY="resetOnEmptySubmit">
+									<DESCRIPTION>By setting this to "1", a list will be reset if there is no GP-Vars-Data for current request. You can use this, if you want a list to be in its default state every time you open the page on which the list is inserted.</DESCRIPTION>
+									<DATATYPE>Boolean</DATATYPE>
+									<POSIBLEVALUES>1,0</POSIBLEVALUES>
+									<DEFAULT>0</DEFAULT>
+								</ENTRY>
 							</CHILDREN>
 							<VARIANT></VARIANT>
 						</ENTRY>
