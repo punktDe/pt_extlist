@@ -24,6 +24,6 @@ plugin.tx_ptextlist.prototype.column {
 		#headerThCssClass =
 
 		// additional class for each cell, can be rendered with renderObj and renderUserFunction
-		#CellCSSClass =
+		#cellCSSClass =
 	}
 }
