@@ -15,6 +15,9 @@ plugin.tx_ptextlist.settings {
 	listConfig.demolist_sorting < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist_sorting {
 
+	    # If we set this to 1, list will be reset every time, we open up a page without an extlist action
+	    base.resetOnEmptySubmit = 1
+
 		# Overwrite partial for different sorting header
 		#headerPartial = EXT:pt_extlist_special/Resources/Private/Partials/SortingFieldsHeader.html
 
