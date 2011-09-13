@@ -69,9 +69,19 @@ class Tx_PtExtlist_View_BaseView extends Tx_Fluid_View_TemplateView {
 	 */
 	public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
+		$this->initConfiguration();
 	}
 	
-	
+
+	/**
+	 * Called by setConfiguration
+	 *
+	 * @return void
+	 */
+	protected function initConfiguration() {
+
+	}
+
 	
 	/**
 	 * (non-PHPdoc)

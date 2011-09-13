@@ -57,23 +57,26 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 
 		$output = '';
 
-		foreach ($headers as $header) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+		foreach ($headers as $header) {
+			/* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
-			// Set additional variables in template vars for child elements
-			$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));
-            $this->templateVariableContainer->add('header', $header);
-			$this->templateVariableContainer->add('sortable', $header->isSortable());
-            $this->templateVariableContainer->add('sortingFields', $this->buildSortingFieldParams($header));
-            $this->templateVariableContainer->add('sortColumnAtOnce', $header->getSortingConfig()->getColumnSorting());
+			if($captions->hasItem($header->getColumnIdentifier())) {
 
-			$output .= $this->renderChildren();
+				// Set additional variables in template vars for child elements
+				$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));
+				$this->templateVariableContainer->add('header', $header);
+				$this->templateVariableContainer->add('sortable', $header->isSortable());
+				$this->templateVariableContainer->add('sortingFields', $this->buildSortingFieldParams($header));
+				$this->templateVariableContainer->add('sortColumnAtOnce', $header->getSortingConfig()->getColumnSorting());
 
-            $this->templateVariableContainer->remove('sortColumnAtOnce');
-            $this->templateVariableContainer->remove('sortingFields');
-			$this->templateVariableContainer->remove($captionKey);
-			$this->templateVariableContainer->remove($headerKey);
-			$this->templateVariableContainer->remove('sortable');
+				$output .= $this->renderChildren();
 
+				$this->templateVariableContainer->remove('sortColumnAtOnce');
+				$this->templateVariableContainer->remove('sortingFields');
+				$this->templateVariableContainer->remove($captionKey);
+				$this->templateVariableContainer->remove($headerKey);
+				$this->templateVariableContainer->remove('sortable');
+			}
 		}
 
 		return $output;

@@ -25,7 +25,4 @@ plugin.tx_ptextlist.prototype.export {
 	
 	# Mime-Type string, used for inline viewing of export data 
 	#contentType =
-	
-	# Enable/Disable Pager [0|1]
-	#pager.enabled =
 }
