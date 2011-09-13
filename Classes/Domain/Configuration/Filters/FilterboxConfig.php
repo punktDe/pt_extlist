@@ -127,6 +127,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
      * @var bool
      */
     protected $isSubmittedFilterbox = false;
+
+
+
+    /**
+     * Target PID to submit filterbox to
+     * 
+     * @var string
+     */
+    protected $submitToPage;
 	
 	
 	
@@ -199,7 +208,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 * @param array $filterBoxSettings
 	 */
 	protected function setOptionalSettings($filterBoxSettings) {
-		
+
+        if (array_key_exists('submitToPage', $filterBoxSettings)) {
+            $this->submitToPage = $filterBoxSettings['submitToPage'];
+        }
+
 		if (array_key_exists('showReset', $filterBoxSettings)) {
 			$this->showReset = $filterBoxSettings['showReset'] == 1 ? true : false;
 		}
@@ -341,6 +354,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
      */
     public function getExcludeFilters() {
         return $this->excludeFilters;
+    }
+
+
+
+    /**
+     * Getter for target PID to send submit request for this filterbox
+     * 
+     * @return Target PID to send submit request of this filterbox
+     */
+    public function getSubmitToPage() {
+        return $this->submitToPage;
     }
 	
 }

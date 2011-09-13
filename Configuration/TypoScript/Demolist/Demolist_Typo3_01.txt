@@ -213,6 +213,7 @@ plugin.tx_ptextlist.settings {
 		
 		filters {
 			filterbox1 {
+			    submitToPage = 31
 			    # Use this configuration if you want to do a redirect after a filterbox submits
 			    #redirectOnSubmit{
 			    #    pageId = 10
