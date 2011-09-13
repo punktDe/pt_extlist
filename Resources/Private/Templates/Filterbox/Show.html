@@ -42,7 +42,7 @@ bool                                                                filtersDontV
 						<f:form.submit value="{f:translate(key:'filterBox.submitFilters', default:'Submit Filters')}"/>
 					</f:if>
 					<f:if condition="{filterbox.filterboxConfiguration.showReset}">
-						<f:link.action action="reset" arguments="{extlist:namespace.GPArray(object:'{filterbox}' arguments:'filterboxIdentifier')}" class="reset">
+						<f:link.action action="reset" arguments="{filterboxIdentifier: filterbox.filterboxIdentifier}" class="reset">
 							<span>
 								<f:translate key="filterBox.resetFilters" default="Reset filters" />
 							</span>

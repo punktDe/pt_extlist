@@ -1008,6 +1008,15 @@ sortingFields {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="headerThCssClass">
+													<DESCRIPTION>Set CSS class used for th-tag in list header.</DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE><![CDATA[
+headerThCssClass = yourCssClass
+]]></EXAMPLE>
+												</ENTRY>
 											</CHILDREN>
 										</ENTRY>
 									</CHILDREN>
@@ -1355,6 +1364,17 @@ redirectOnSubmit{
                                                     </ENTRY>
                                                 </CHILDREN>
                                                 <VARIANT></VARIANT>
+                                            </ENTRY>
+                                            <ENTRY KEY="excludeFilters">
+                                                <DESCRIPTION>Given filters are excluded from filtering of this filterbox. If filters are set here, they are not respected, if this filterbox is submitted. Don't mix up this setting with filter.excludeFilters setting!</DESCRIPTION>
+                                                <DATATYPE>Comma-separated list of filterboxIdentifier.filterIdentifier</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT></DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE><![CDATA[
+excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
+                                            ]]></EXAMPLE>
                                             </ENTRY>
 											<ENTRY KEY="filterConfigs">
 												<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>

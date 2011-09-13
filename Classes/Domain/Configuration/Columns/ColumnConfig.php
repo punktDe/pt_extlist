@@ -154,6 +154,15 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $accessable = false;
 
 
+
+    /**
+     * Holds CSS class for header th tag
+     * 
+     * @var string
+     */
+    protected $headerThCssClass = '';
+
+
 	
 	/**
 	 * if one of this columns fields is a expanded GroupField, 
@@ -193,6 +202,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
+        $this->setValueIfExistsAndNotNothing('headerThCssClass');
 		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
@@ -389,6 +399,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
      */
     public function getCellCSSClass() {
     	return $this->cellCSSClass;
+    }
+
+
+
+    /**
+     * Getter for CSS class for header th tag
+     * 
+     * @return string
+     */
+    public function getHeaderThCssClass() {
+        return $this->headerThCssClass;
     }
     
 }

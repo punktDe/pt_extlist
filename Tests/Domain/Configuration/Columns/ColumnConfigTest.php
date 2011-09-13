@@ -166,5 +166,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$this->assertEquals($this->columnSettings['cellCSSClass'], $this->columnConfig->getCellCSSClass());
 	}
 
+
+
+    /** @test */
+    public function getHeaderThCssClassReturnsValueFromSettings() {
+        $columnSettings = $this->columnSettings;
+        $columnSettings['headerThCssClass'] = 'testCssClass';
+        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
+        $this->assertEquals($columnConfig->getHeaderThCssClass(), 'testCssClass');
+    }
+
 }
 ?>

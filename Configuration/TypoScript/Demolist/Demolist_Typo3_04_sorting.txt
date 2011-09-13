@@ -171,6 +171,7 @@ plugin.tx_ptextlist.settings {
 
 			11 {
 				label = Capital
+				headerThCssClass = testclass
 				columnIdentifier = capital
 				fieldIdentifier = capital
 				cellCSSClass {
@@ -251,6 +252,7 @@ plugin.tx_ptextlist.settings {
 			    #    controller = testController 
 			    #    action = testAction
 			    #}
+
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
