@@ -36,41 +36,54 @@
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
 															 implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 
-	/** 
+	/**
 	 * @var string
 	 */
 	protected $columnIdentifier;
+
+
 
 	/** 
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
-	
+
+
+
 	/** 
 	 * @var string
 	 */
 	protected $label;
-	
+
+
+
 	/** 
 	 * @var array
 	 */
 	protected $accessGroups;	
-	
+
+
+
 	/**
 	 * @var boolean
 	 */
 	protected $isSortable = true;
-	
+
+
+
 	/**
 	 * @var array
 	 */
 	protected $renderUserFunctions = NULL;
-	
+
+
+
 	/**
 	 * @var array
 	 */
 	protected $renderObj;
-	
+
+
 	
 	/**
 	 * Path to fluid template
@@ -78,45 +91,52 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	protected $renderTemplate;
 	
-	
+
+
 	/**
 	 * @var string
 	 */
 	protected $specialCell = NULL;
-	
+
+
 	
 	/**
 	 * @var string
 	 */
 	protected $cellCSSClass = NULL;
 	
-	
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	protected $sortingConfigCollection = NULL;
 	
-	
+
+
 	/**
 	 * Sortingstate of this column
 	 * @var integer
 	 */
 	protected $sortingState = 0;
-	
+
+
 	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
 	protected $sortingImageDefault = '';
-	
+
+
 	
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
 	protected $sortingImageAsc = '';
-	
+
+
 	
 	/**
 	 * Image to show as sorting link.
@@ -124,14 +144,25 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	protected $sortingImageDesc = '';
 	
-	
+
+
 	/**
 	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
 	 * 
 	 * @var boolean
 	 */
 	protected $accessable = false;
-	
+
+
+
+    /**
+     * Holds CSS class for header th tag
+     * 
+     * @var string
+     */
+    protected $headerThCssClass = '';
+
+
 	
 	/**
 	 * if one of this columns fields is a expanded GroupField, 
@@ -139,7 +170,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * @var boolean
 	 */
 	protected $containsArrayData = false;
-	
+
+
 	
 	/**
 	 * (non-PHPdoc)
@@ -158,8 +190,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 				break;
 			}
 		}
-		
-		$this->label = $this->columnIdentifier;
+
+        $this->label = '';
+		// $this->label = $this->columnIdentifier;
 
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
@@ -169,6 +202,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
+        $this->setValueIfExistsAndNotNothing('headerThCssClass');
 		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
@@ -179,15 +213,27 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
         	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
         }
 
-		if(array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
+        /* Sorting configuration is set as follows:
+            1. We check whether we have 'sortingFields' settings in column configuration
+            2. We check whether we have 'sorting' settings in column configuration
+            3. If we don't have either, we use first field identifier and make this sorting field of column
+        */
+		if (array_key_exists('sortingFields', $this->settings)) {
+            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+        } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
-		}else{
+        } else {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
 		}
 
 		if(array_key_exists('accessGroups', $this->settings)) {
 			$this->accessGroups = t3lib_div::trimExplode(',',$this->settings['accessGroups']);
 		}
+
+        // Generate relative paths for sorting images
+        $this->sortingImageDefault = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
+        $this->sortingImageAsc = substr(t3lib_div::getFileAbsFileName($this->sortingImageAsc), strlen(PATH_site));
+        $this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
 	}	
 	
 	
@@ -258,21 +304,27 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	public function getRenderObj() {
 		return $this->renderObj;
 	}
-	
+
+
+    
 	/**
 	 * @return array
 	 */
 	public function getRenderUserFunctions() {
 		return $this->renderUserFunctions;
 	}
-	
+
+
+
 	/** 
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public function getSortingConfig() {
 		return $this->sortingConfigCollection;
 	}
-	
+
+
+
 	/**
      * Return the default image path to show for sorting link.
      * @return string
@@ -280,7 +332,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
     public function getSortingImageDefault() {
     	return $this->sortingImageDefault;
     }
-    
+
+
+
     /**
      * Return the ASC image path to show for sorting link.
      * @return string
@@ -288,7 +342,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
     public function getSortingImageAsc() {
     	return $this->sortingImageAsc;
     }
-    
+
+
+
     /**
      * Return the DESC image path to show for sorting link.
      * @return string
@@ -296,7 +352,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
     public function getSortingImageDesc() {
     	return $this->sortingImageDesc;
     }
-    
+
+
+
     /**
      * Returns the special cell user function path
      * @return string
@@ -304,7 +362,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
     public function getSpecialCell() {
     	return $this->specialCell;
     }
-    
+
+
+
   	/**
      * Return array off groupIds
      * @return array
@@ -313,7 +373,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
     	return $this->accessGroups;
     }
     
-    
+
+
     /**
      * Indicates if the data for this columns cells are arrays
      * @return boolean 
@@ -322,19 +383,33 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
     	return $this->containsArrayData;
     }
     
-    
+
+
     /**
      * @return string renderTemplate
      */
     public function getRenderTemplate() {
     	return $this->renderTemplate;
     }
-    
+
+
+
     /**
      * @return string;
      */
     public function getCellCSSClass() {
     	return $this->cellCSSClass;
+    }
+
+
+
+    /**
+     * Getter for CSS class for header th tag
+     * 
+     * @return string
+     */
+    public function getHeaderThCssClass() {
+        return $this->headerThCssClass;
     }
     
 }

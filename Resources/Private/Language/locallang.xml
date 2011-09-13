@@ -60,7 +60,9 @@
 
 			<label index="tx_ptextlist_flexform_export.downloadtype.D">Force download</label>
 			<label index="tx_ptextlist_flexform_export.downloadtype.I">Try to show in browser</label>
-			
+
+            <label index="tx_ptextlist_demolist.name_local">Name (local)</label>
+			<label index="tx_ptextlist_demolist.uno_member">UNO member</label>
 			
 		</languageKey>
 		
@@ -77,8 +79,8 @@
 
             <!-- Filterbox -->
 			<label index="filterBox.resetFilters">Filter zurücksetzen</label>
+            <label index="filterBox.submitFilters">Filter setzen</label>
 			<label index="filterBox.errorInFilter">Die Eingaben der Filter enthalten Fehler.</label>
-            <label index="filterBox.errorInFilter">Die Filter enthalten Fehler.</label>
 
             <!-- Filter -->
             <label index="filter.daterange.from">Von</label>
@@ -98,6 +100,9 @@
 			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
 			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
 			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
+
+            <label index="tx_ptextlist_demolist.name_local">Name (lokal)</label>
+            <label index="tx_ptextlist_demolist.uno_member">UNO Mitglied</label>
 		</languageKey>
 		
 		<languageKey index="pl" type="array">

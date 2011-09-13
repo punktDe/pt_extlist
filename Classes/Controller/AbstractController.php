@@ -98,10 +98,16 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		
 		// Instantiate session storage for determined class name
 		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance');
-		
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
-		
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass);
+
+        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+        // We reset session data, if we want to have a reset on empty submit
+        if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+            $sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+        }
+
+        $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 
 	

@@ -256,7 +256,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var bool
 	 */
 	protected $resetToDefaultValue = false;
-	
+
+
+	/**
+	 * @var boolean If the hidden flag is true, the filter is not shown in the filterBox
+	 */
+	protected $hidden = false;
 	
 	
 	/**
@@ -292,6 +297,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('invertable');
 		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
 		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
+		$this->setBooleanIfExistsAndNotNothing('hidden');
+		
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
 		$this->setValueIfExists('label');
@@ -622,6 +629,22 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function isAccessable() {
 		return $this->accessable;
 	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getHidden() {
+		return $this->hidden;
+	}
+
+
 	
+	/**
+	 * @return bool
+	 */
+	public function getVisible() {
+		return !$this->hidden;
+	}
 }
 ?>

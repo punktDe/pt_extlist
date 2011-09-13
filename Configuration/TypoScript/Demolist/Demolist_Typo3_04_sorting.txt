@@ -2,6 +2,9 @@
 # This template configures a demolist for use
 # with pt_extlist
 #
+# This demolist requires pt_extlist_special to be working!
+# TODO put this into pt_extlist_special!
+#
 # @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
 # @package Typo3
 # @subpackage pt_extlist
@@ -9,8 +12,15 @@
 
 plugin.tx_ptextlist.settings {
 
-	listConfig.demolist {
-		
+	listConfig.demolist_sorting < plugin.tx_ptextlist.prototype.listConfig.default
+	listConfig.demolist_sorting {
+
+	    # If we set this to 1, list will be reset every time, we open up a page without an extlist action
+	    # base.resetOnEmptySubmit = 1
+
+		# Overwrite partial for different sorting header
+		#headerPartial = EXT:pt_extlist_special/Resources/Private/Partials/SortingFieldsHeader.html
+
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
@@ -110,7 +120,28 @@ plugin.tx_ptextlist.settings {
 
 				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
 				# if not set, the first entry in dataDescriptionIdentifier will be used
-				sorting = name_en, name_local
+				sorting = name_en
+
+				sortingFields {
+				    10 {
+				        field = name_en
+				        label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_demolist.name_local
+				        direction = asc
+				        forceDirection = 0
+				    }
+                    20 {
+                        field = name_local
+                        label = Name (lokal)
+                        direction = asc
+                        forceDirection = 0
+                    }
+                    30 {
+                        field = uno_member
+                        label = LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_demolist.uno_member
+                        direction = asc
+                        forceDirection = 0
+                    }
+				}
 
 				renderObj = COA
 				renderObj {
@@ -140,6 +171,7 @@ plugin.tx_ptextlist.settings {
 
 			11 {
 				label = Capital
+				headerThCssClass = testclass
 				columnIdentifier = capital
 				fieldIdentifier = capital
 				cellCSSClass {
@@ -153,6 +185,7 @@ plugin.tx_ptextlist.settings {
 				columnIdentifier = isoNoColumn
 				fieldIdentifier = iso2
 				isSortable = 1
+
 			}
 
 			30 {
@@ -219,6 +252,7 @@ plugin.tx_ptextlist.settings {
 			    #    controller = testController 
 			    #    action = testAction
 			    #}
+
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
@@ -285,7 +319,6 @@ plugin.tx_ptextlist.settings {
 						inactiveOption = [ALL]
 						showRowCount = 0
 					}
-					
 
 					#50 < plugin.tx_ptextlist.prototype.filter.proxy
 					#50 {

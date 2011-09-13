@@ -136,17 +136,23 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 		switch ($criteriaClass) {
 			case 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria':
 			    $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
-			break;
+			    break;
 			
 			case 'Tx_PtExtlist_Domain_QueryObject_AndCriteria':
 				$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
-			break;
+			    break;
 			
 			case 'Tx_PtExtlist_Domain_QueryObject_OrCriteria':
 			    $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
+                break;
+
+            case 'Tx_PtExtlist_Domain_QueryObject_NotCriteria':
+                $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
+                break;
+
 			default:
 				throw new Exception('Unkown criteria type ' . $criteriaClass . ' 1299224408');
-			break;
+			    break;
 		}
 		
         return $extbaseQuery;

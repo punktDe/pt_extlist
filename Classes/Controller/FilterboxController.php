@@ -118,6 +118,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		$this->resetPagers();
 		
 		// check whether we have a redirect on submit configured for this filter
+        // TODO refactor this: we can use redirect PID in form for submitted filterbox in template!
 		if ($this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
 			$this->redirect(
 			     $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(),      // action name
@@ -136,11 +137,16 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	/**
 	 * Resets all filters of filterbox
 	 *
+     * @param string $filterboxIdentifier Identifier of filter which should be reset
 	 * @return string Rendered reset action
-	 */
-	public function resetAction() {
-		$this->filterbox->reset();
+	 */                          
+	public function resetAction($filterboxIdentifier) {
+        if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
+            $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
+        }
+        
 		$this->resetPagers();
+        
 		/**
 		 * TODO try to figure out a way how to handle this without redirect
 		 * 

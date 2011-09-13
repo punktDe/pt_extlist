@@ -341,6 +341,17 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
+        <ENTRY REF="filter.hidden" KEY="hidden">
+			<DESCRIPTION>Hide the filter completely from the filterBox (don't render any output). This can be used in filters like the proxy filter or any filter that is only set via the extlistContext PHP methods.</DESCRIPTION>
+			<DATATYPE>boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>0</DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
 		<ENTRY REF="filter.options" KEY="options">
 			<DESCRIPTION>Defines explicit options to display in a data filter. If options are set, no data is fetched from the database. There are to variants to define the data. See the example for details.</DESCRIPTION>
 			<DATATYPE>array</DATATYPE>
@@ -354,7 +365,7 @@ renderObj {
 # Variant 1: Simple key / value
 options {
 	checkedin = Someone Checked in 
-	noonecheckedin = Noone Checked In
+	noonecheckedin = LLL:EXT:pt_ext/Resources/Private/Language/locallang_db.xml:tx_ext_domain_model_downloads.facility
 }
 
 # Variant 2: Use integer keys to define option order and subKeys key / value to define the options
@@ -438,6 +449,12 @@ Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter: Save the session vari
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN></CHILDREN>
 									<VARIANT></VARIANT>
+								</ENTRY>
+                                <ENTRY KEY="resetOnEmptySubmit">
+									<DESCRIPTION>By setting this to "1", a list will be reset if there is no GP-Vars-Data for current request. You can use this, if you want a list to be in its default state every time you open the page on which the list is inserted.</DESCRIPTION>
+									<DATATYPE>Boolean</DATATYPE>
+									<POSIBLEVALUES>1,0</POSIBLEVALUES>
+									<DEFAULT>0</DEFAULT>
 								</ENTRY>
 							</CHILDREN>
 							<VARIANT></VARIANT>
@@ -886,7 +903,7 @@ renderUserFunctions {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sorting">
-													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction.</DESCRIPTION>
+													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction. Settings in sorting are overwritten by sortingFields!</DESCRIPTION>
 													<DATATYPE>Seperated list of fieldIdentifiers.</DATATYPE>
 													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
@@ -901,6 +918,57 @@ sorting = name_local DESC, name_en
 // Sorting by name_local is fixed to DESC with the "!" and does not toggle
 sorting = name_local !DESC, name_en
 ]]></EXAMPLE>
+												</ENTRY>
+                                                <ENTRY KEY="sortingFields">
+													<DESCRIPTION>Define more sophisticated sorting for a column. Fields, directions, forced sorting and label can be defined individually. Settings in sortingsFields overwrite settings in sorting!</DESCRIPTION>
+													<DATATYPE>Array</DATATYPE>
+													<DEFAULT></DEFAULT>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE><![CDATA[
+sortingFields {
+    10 {
+        field = name_en
+        label = Name
+        direction = asc
+        forceDirection = 0
+    }
+    20 {
+        field = name_local
+        label = Name (lokal)
+        direction = asc
+        forceDirection = 0
+    }
+    30 {
+        field = uno_member
+        label = UNO member
+        direction = asc
+        forceDirection = 0
+    }
+}]]></EXAMPLE>
+                                                <CHILDREN>
+                                                    <ENTRY KEY="10,20,30">
+                                                    <DESCRIPTION></DESCRIPTION>
+                                                        <CHILDREN>
+                                                            <ENTRY KEY="field">
+                                                                <DESCRIPTION>Field identifier to set up sorting for.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="label">
+                                                                <DESCRIPTION>Label to be displayed in column header.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="direction">
+                                                                <DESCRIPTION>Direction is used if direction is forced or if column is default sorting column.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="forceDirection">
+                                                                <DESCRIPTION>If set to 1, this field is always sorted using direction set above.</DESCRIPTION>
+                                                                <DATATYPE>Boolean</DATATYPE>
+                                                            </ENTRY>
+                                                        </CHILDREN>
+                                                    </ENTRY>
+                                                </CHILDREN>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
 													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
@@ -939,6 +1007,15 @@ sorting = name_local !DESC, name_en
 													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+                                                <ENTRY KEY="headerThCssClass">
+													<DESCRIPTION>Set CSS class used for th-tag in list header.</DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE><![CDATA[
+headerThCssClass = yourCssClass
+]]></EXAMPLE>
 												</ENTRY>
 											</CHILDREN>
 										</ENTRY>
@@ -1288,6 +1365,17 @@ redirectOnSubmit{
                                                 </CHILDREN>
                                                 <VARIANT></VARIANT>
                                             </ENTRY>
+                                            <ENTRY KEY="excludeFilters">
+                                                <DESCRIPTION>Given filters are excluded from filtering of this filterbox. If filters are set here, they are not respected, if this filterbox is submitted. Don't mix up this setting with filter.excludeFilters setting!</DESCRIPTION>
+                                                <DATATYPE>Comma-separated list of filterboxIdentifier.filterIdentifier</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT></DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE><![CDATA[
+excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
+                                            ]]></EXAMPLE>
+                                            </ENTRY>
 											<ENTRY KEY="filterConfigs">
 												<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
 												<DATATYPE>Array</DATATYPE>
@@ -1314,6 +1402,7 @@ redirectOnSubmit{
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 															<TYPEREF REF="filter.invert" KEY="invert" />
 															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
+															<TYPEREF KEY="filter.hidden" REF="hidden" />
 															<ENTRY KEY="size">
 																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
 																<DATATYPE>int</DATATYPE>
@@ -1362,6 +1451,7 @@ redirectOnSubmit{
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1389,6 +1479,7 @@ redirectOnSubmit{
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
                                                                     <ENTRY KEY="minWordLength">
 																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
@@ -1494,6 +1585,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1523,6 +1615,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1551,6 +1644,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1580,6 +1674,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1606,6 +1701,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1757,6 +1853,7 @@ dateIteratorFormat = %m.%Y
 																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1782,6 +1879,7 @@ dateIteratorFormat = %m.%Y
 																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																	<ENTRY KEY="maxItems">
 																		<DESCRIPTION>Maximum of items to show.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>

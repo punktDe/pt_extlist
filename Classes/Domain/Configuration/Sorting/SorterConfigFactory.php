@@ -26,24 +26,27 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
- * 
- * TODO: Enter description here ...
- * @package ViewHelpers
- * @subpackage Image
+ * Factory to create config object for sorter
  *
+ * @package Domain
+ * @subpackage Configuration\Pager
+ * @author Michael Knoll
  */
-class Tx_PtExtlist_ViewHelpers_Image_SortingViewHelper extends Tx_Fluid_ViewHelpers_ImageViewHelper {
-
-	/**
-	 * 
-	 * @param $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
-	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
-		return parent::render($header->getSortingImage());
-	}
+class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory {
 	
+	/**
+	 * Returns a instance of a sorter configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
+	 */
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+        $sorterSettings = $configurationBuilder->getSettings('sorter');
+        if (!is_array($sorterSettings)) $sorterSettings = array();
+		$sorterConfig = new Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig($configurationBuilder, $sorterSettings);
+		return $sorterConfig;
+	}
+    
 }
-
 ?>

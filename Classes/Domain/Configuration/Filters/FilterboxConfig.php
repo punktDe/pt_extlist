@@ -108,6 +108,25 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 * @var string
 	 */
 	protected $redirectOnSubmitActionName = null;
+
+
+
+    /**
+     * Holds an array of filters that are excluded from where
+     * part if this filterbox is submitted.
+     *
+     * @var array
+     */
+    protected $excludeFilters = array();
+
+
+
+    /**
+     * If set to true, this filterbox has been submitted in current request
+     * 
+     * @var bool
+     */
+    protected $isSubmittedFilterbox = false;
 	
 	
 	
@@ -165,7 +184,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	/**
 	 * Get the filterconfig by filterIdentifier
 	 * 
-	 * @param sting $filterIdentifier
+	 * @param string $filterIdentifier
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	public function getFilterConfigByFilterIdentifier($filterIdentifier) {
@@ -203,9 +222,35 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 				$this->redirectOnSubmitControllerName = $redirectSettings['controller'];
 			}
 		}
+
+        if (array_key_exists('excludeFilters', $filterBoxSettings)) {
+            $this->setExcludeFilters($filterBoxSettings['excludeFilters']);
+        }
 		
 	} 
-	
+
+
+
+    /**
+     * Setter for exclude filters for this filterbox.
+     *
+     * Set excludeFilters = filterboxIdentifier1.filterIdentifier1, filterboxIdentifier1.filterIdentifier2, ...
+     *
+     * @param $excludeFiltersString
+     * @return void
+     */
+    protected function setExcludeFilters($excludeFiltersString) {
+        $excludeFilters = t3lib_div::trimExplode(',',$excludeFiltersString);
+        foreach($excludeFilters as $excludedFilter) {
+            list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
+            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416'));
+            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, array('message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417'));
+            if (!in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
+                $this->excludeFilters[$filterboxIdentifier][] = $filterIdentifier;
+            }
+        }
+    }
+
 	
 	
 	/**
@@ -287,6 +332,16 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	public function doRedirectOnSubmit() {
 		return ($this->redirectOnSubmitPageId > 0 || $this->redirectOnSubmitActionName !== null);
 	}
+
+
+
+    /**
+     * Returns an array of 'filterboxIdentifier' => array(filterbox
+     * @return array
+     */
+    public function getExcludeFilters() {
+        return $this->excludeFilters;
+    }
 	
 }
 ?>

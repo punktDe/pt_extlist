@@ -28,46 +28,75 @@
 
 
 /**
- * 
- * TODO: Enter description here ...
+ * ViewHelpers renders link for given sorting.
+ *
+ * Generates a link, that sorts a column as a whole.
+ *
  * @package ViewHelpers
  * @subpackage Link
- *
+ * @author Michael Knoll
  */
 class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
 	/**
-	 * @param $header Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 * @param $action string
-	 * 
+     * Renders a link for given header
+     *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+	 * @param string $action Rendered link for sorting action
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort') {
-		$value = $this->invertSortingState($header->getSortingState());		
-		
+		$sortingFieldParams = array();
+
+        // We generate sorting parameters for every sorting field configured for this column
+        foreach($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+            $newSortingDirection = (
+                ($header->getSortingDirectionForField($sortingFieldConfig->getField()) != 0) ?
+                        Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($header->getSortingDirectionForField($sortingFieldConfig->getField()))
+                        : $sortingFieldConfig->getDirection()
+            );
+            $sortingFieldParams[] = $sortingFieldConfig->getField() . ':' . $newSortingDirection;
+        }
+
+        $sortingFieldParam = implode(';', $sortingFieldParams);
+
+        // We set sortingDirectionParameter for children of this viewHelper
+        $this->templateVariableContainer->add('sortingDirection', $this->getSortingDirectionForHeader($header));
+
+        #echo "Sorting field param for " . $header->getColumnConfig()->getColumnIdentifier() . " = " . $sortingFieldParam . "<br>";
+        #echo "Sorting direction for " . $header->getColumnConfig()->getColumnIdentifier() . " = ". $this->getSortingDirectionForHeader($header) . "<br>";
+
 		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingState', $value);
+		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
 		
 		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
-		
-		return parent::render($action,$argumentArray);
+
+        $output = parent::render($action,$argumentArray);
+
+        $this->templateVariableContainer->remove('sortingDirection');
+		return $output;
 	}
-	
-	/**
-	 * Inverting the current sorting state.
-	 * 
-	 * @param int $sortingState
-	 * @return int The inverted sorting state.
-	 */
-	protected function invertSortingState($sortingState) {
-		switch($sortingState) {
-			case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC:
-				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC;
-			case Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC:
-				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
-			default:
-				return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
-		}
-	}
+
+
+
+    /**
+     * Returns sorting state for header
+     *
+     * We loop over each sorting field of header and take first sorting field
+     * that has no forced direction and has a current sorting set in header.
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+     * @return int Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC
+     */
+    protected function getSortingDirectionForHeader(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
+        $sortingFieldConfigForHeader = $header->getColumnConfig()->getSortingConfig();
+        foreach($sortingFieldConfigForHeader as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+            if (!$sortingFieldConfig->getForceDirection()
+                && $header->getSortingDirectionForField($sortingFieldConfig->getField()) != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
+                return $header->getSortingDirectionForField($sortingFieldConfig->getField());
+            }
+        }
+        return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+    }
 }
 
 ?>

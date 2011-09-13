@@ -47,6 +47,24 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotC
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
            Tx_Extbase_Persistence_Query $extbaseQuery,
            Tx_Extbase_Persistence_Repository $extbaseRepository) {
+
+        // translate NOT criteria by creating a new extbase query
+        $tmpQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria(
+            $criteria->getCriteria(),
+            $extbaseRepository->createQuery(),
+            $extbaseRepository
+        );
+
+        // put translated criteria together again in a single extbase query
+        if ($extbaseQuery->getConstraint()) {
+            $extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(),
+                $extbaseQuery->logicalNot($tmpQuery->getConstraint())));
+        } else {
+        	$extbaseQuery->matching($extbaseQuery->logicalNot($tmpQuery->getConstraint()));
+        }
+
+        return $extbaseQuery;
+
 	}
 	 
 }

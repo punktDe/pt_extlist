@@ -40,7 +40,8 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 	 * @var string
 	 */
 	protected $uncachedSessionStorageAdapter;
-	
+
+    
 	
 	/**
 	 * Session storage adapter for a cached plugin
@@ -48,6 +49,15 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 	 * @var string
 	 */
 	protected $cachedSessionStorageAdapter;
+
+
+
+    /**
+     * True, if we want to reset session data on empty submit
+     * 
+     * @var bool
+     */
+    protected $resetOnEmptySubmit;
 	
 	
 	
@@ -56,9 +66,16 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 	 */
 	protected $useSession;
 	
-	
+
+
+    /**
+     * Template method for initializing this config object by injected
+     * TypoScript settings.
+     * 
+     * @return void
+     */
 	protected function init() {
-		
+		$this->setBooleanIfExistsAndNotNothing('resetOnEmptySubmit');
 		$this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
 		$this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
 		$this->useSession = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() ? false : true;
@@ -90,5 +107,17 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 	public function getUseSession() {
 		return $this->useSession;
 	}
+
+
+
+    /**
+     * Returns true, if we want to reset session on empty submit
+     * 
+     * @return bool
+     */
+    public function getResetOnEmptySubmit() {
+        return $this->resetOnEmptySubmit;
+    }
+    
 }
 ?>

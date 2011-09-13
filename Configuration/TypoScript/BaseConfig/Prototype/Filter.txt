@@ -83,7 +83,6 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
-	dateSelectList
 	dateSelectList {
 	    filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
 	    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
@@ -326,5 +325,6 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Special/ProxyFilter
 		proxyPath = 
 		fieldIdentifier =
+		hidden = 1
 	}
 }

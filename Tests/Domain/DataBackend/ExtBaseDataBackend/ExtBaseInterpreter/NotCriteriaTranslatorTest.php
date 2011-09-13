@@ -38,6 +38,34 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator'));
 	}
+
+
+
+    /** @test */
+    public function translateCriteriaTranslatesNotCriteriaToCorrectExtbaseCriteriaIfNoOtherCriteriaIsSetOnExtbaseQuery() {
+        $operand1 = $this->getMock('Tx_Extbase_Persistence_QOM_DynamicOperandInterface');
+        $operand2 = $this->getMock('Tx_Extbase_Persistence_QOM_DynamicOperandInterface');
+        $extbaseQueryInnerConstraint = new Tx_Extbase_Persistence_QOM_Comparison($operand1, 2, $operand2);
+
+        $extbaseQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint', 'matching', 'logicalAnd', 'logicalNot'));
+        $extbaseQueryMock->expects($this->any())->method('getConstraint')->will($this->returnValue($extbaseQueryInnerConstraint));
+
+        $tmpQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint'), array(), '', FALSE);
+        $tmpQueryMock->expects($this->at(0))->method('getConstraint')->will($this->returnValue(null));
+
+        $extbaseRepositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array('createQuery'), array(), '', FALSE);
+        $extbaseRepositoryMock->expects($this->once())->method('createQuery')->will($this->returnValue($tmpQueryMock));
+
+        $notCriteriaInnerCriteria = Tx_PtExtlist_Domain_QueryObject_SimpleCriteria::equals('test', 1);
+
+        $notCriteria = $this->getMock('Tx_PtExtlist_Domain_QueryObject_NotCriteria', array('getCriteria'), array(), '', FALSE);
+        $notCriteria->expects($this->any())->method('getCriteria')->will($this->returnValue($notCriteriaInnerCriteria));
+
+        $translatedQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator::translateCriteria($notCriteria, $extbaseQueryMock, $extbaseRepositoryMock);
+        $this->assertTrue(is_a($translatedQuery->getConstraint(), 'Tx_Extbase_Persistence_QOM_Comparison'));
+        $translatedConstraint = $translatedQuery->getConstraint();
+        $this->assertEquals($translatedConstraint->getOperator(), 2);
+    }
 	
 }
 ?>
