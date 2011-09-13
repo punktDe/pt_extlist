@@ -75,11 +75,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_PtExt
 	}
 	
 	
-	
-	public function testImplementsIdentifiableInterface() {
+
+    /** @test */
+	public function classImplementsSessionPersistableInterface() {
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
-		$this->assertTrue(is_a($filterbox, 'Tx_PtExtbase_State_IdentifiableInterface'), 'Filterbox does not implement Tx_PtExtbase_State_IdentifiableInterface!');
-		$this->assertTrue($filterbox->getObjectNamespace() == $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier());
+		$this->assertTrue(is_a($filterbox, 'Tx_PtExtbase_State_Session_SessionPersistableInterface'), 'Filterbox does not implement Tx_PtExtbase_State_Session_SessionPersistableInterface!');
+		$this->assertTrue($filterbox->getObjectNamespace() == $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier() . '.' . Tx_PtExtlist_Domain_Model_Filter_Filterbox::OBJECT_NAMESPACE_SUFFIX);
 	}
 	
 	

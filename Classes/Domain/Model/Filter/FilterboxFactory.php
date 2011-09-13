@@ -48,6 +48,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 			$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
 			$filterbox->addFilter($filter,$filter->getFilterIdentifier());
 		}
+
+        $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+        $sessionPersistenceManager->registerObjectAndLoadFromSession($filterbox);
+
 		return $filterbox;
 	}
 	

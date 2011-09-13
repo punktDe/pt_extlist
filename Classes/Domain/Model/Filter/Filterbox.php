@@ -34,8 +34,17 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection_ObjectCollection
-    implements Tx_PtExtbase_State_IdentifiableInterface {
+class Tx_PtExtlist_Domain_Model_Filter_Filterbox
+    extends Tx_PtExtbase_Collection_ObjectCollection
+    implements Tx_PtExtbase_State_IdentifiableInterface,
+               Tx_PtExtbase_State_Session_SessionPersistableInterface {
+
+    /**
+     * Holds a constant added to object namespace to
+     */
+    const OBJECT_NAMESPACE_SUFFIX = 'filterbox';
+
+
 
 	/**
 	 * filterbox identifier of this filterbox
@@ -118,7 +127,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
      */
     protected function init() {
         $gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-        $gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespace());
+        $gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespaceWithoutSuffix());
         if (count($gpVarsForFilterbox) > 0) {
             $this->setAsSubmittedFilterbox();
         }
@@ -190,9 +199,23 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
 	 * @return string Namespace of filterbox
 	 */
 	public function getObjectNamespace() {
-		return  $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
+		return  $this->getObjectNamespaceWithoutSuffix() . '.' . self::OBJECT_NAMESPACE_SUFFIX;
 	}
-	
+
+
+
+    /**
+     * Helper method to create the object namespace without suffix for
+     * internal usage to check whether we have GP vars or not.
+     *
+     * TODO make this dependent of object namespace of filters, as if those change, we have a problem here!
+     *
+     * @return string
+     */
+    protected function getObjectNamespaceWithoutSuffix() {
+        return  $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
+    }
+
 	
 	
 	/**
@@ -258,6 +281,51 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox extends Tx_PtExtbase_Collection
      */
     public function setAsSubmittedFilterbox() {
         $this->isSubmittedFilterbox = true;
+    }
+
+
+
+    /**
+     * Resets is submitted filterbox and checks gpvars for being currently submitted filterbox
+     *
+     * @return void
+     */
+    public function resetIsSubmittedFilterbox() {
+        /*
+         * Being a submitted filterbox can either be set by session or by gp vars.
+         * Whenever new filter data is submitted by gp vars, we have to reset session
+         * state and initialize submitted state by gp vars alone. This is done here.
+         */
+        $this->isSubmittedFilterbox = false;
+        $this->init();
+    }
+
+
+
+    /**
+     * Called by any mechanism to persist an object's state to session
+     *
+     * @return array Object's state to be persisted to session
+     */
+    public function persistToSession() {
+        if ($this->isSubmittedFilterbox) {
+            return array('isSubmittedFilterbox' => 1);
+        } else {
+            return array();
+        }
+    }
+
+
+
+    /**
+     * Called by any mechanism to inject an object's state from session
+     *
+     * @param array $sessionData Object's state previously persisted to session
+     */
+    public function injectSessionData(array $sessionData) {
+        if (array_key_exists('isSubmittedFilterbox', $sessionData) && $sessionData['isSubmittedFilterbox'] == 1) {
+            $this->isSubmittedFilterbox = true;
+        }
     }
 
 }
