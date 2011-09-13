@@ -275,17 +275,6 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 
 
     /**
-     * Set this filterbox as submitted filterbox for current request
-     *
-     * @return void
-     */
-    public function setAsSubmittedFilterbox() {
-        $this->isSubmittedFilterbox = true;
-    }
-
-
-
-    /**
      * Resets is submitted filterbox and checks gpvars for being currently submitted filterbox
      *
      * @return void
