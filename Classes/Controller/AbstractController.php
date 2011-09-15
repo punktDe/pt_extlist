@@ -97,11 +97,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		}		
 		
 		// Instantiate session storage for determined class name
-		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance()');
-		
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
-		
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance');
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass);
+
+        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+        // We reset session data, if we want to have a reset on empty submit
+        if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+            $sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+        }
+
+        $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 
 	
@@ -114,49 +120,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		parent::setViewConfiguration($view);
 		$this->setCustomPathsInView($view);  
 	}
+
 	
-	
-    
-    /**
-     * Resolve the viewObjectname in the following order
-     * 
-     * 1. TS-defined
-     * 2. Determined by Controller/Action/Format
-     * 3. Extlist BaseView 
-     * 
-     * @throws Exception
-     * @return string
-     */
-    protected function resolveViewObjectName() {
-   	
-    	$viewClassName = $this->resolveTsDefinedViewClassName();
-    	if($viewClassName) {
-    		return $viewClassName;
-		} 
-		
-		$viewClassName = parent::resolveViewObjectName();
-  		if($viewClassName) {
-			return $viewClassName;
-		}
-		
-		else {
-			return 'Tx_PtExtlist_View_BaseView';
-		}
-    }
-    
-    
-    
-    /**
-     * Template method for setting fallback view class in extending Contorllers
-     *
-     * @return string Class name of view, that should be taken by default
-     */
-    protected function getFallbackViewClassName() {
-        return 'Tx_PtExtbase_View_BaseView';
-    }
-    
-    
-    
+
 	/**
 	 * Initializes the view before invoking an action method.
 	 *

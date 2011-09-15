@@ -48,6 +48,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	
 	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
+
 		$this->simpleCriteria1 = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field1','value1','=');
 		$this->simpleCriteria2 = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field2','value2','=');
 		$this->simpleCriteria3 = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field3','value3','=');
@@ -60,6 +62,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator'));
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator'));
 	}
 	
 	
@@ -128,14 +131,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the NOT criteria translator
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
 	 */
 	public function testNOTCriteriaTranslator() {
 		$notCriteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria($this->simpleCriteria1);
 		$notCriteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator::translateCriteria($notCriteria);
 		$notCriteriaTestString = 'NOT (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($this->simpleCriteria1).')';
-		$this->assertTrue($andCriteriaSimpleString == $andCriteriaSimpleTestString, 'Test failed with SimpleCriteria. :: ' . $notCriteriaString . '!=' . $notCriteriaTestString);
+		$this->assertTrue($notCriteriaString == $notCriteriaTestString, 'Test failed with SimpleCriteria. :: ' . $notCriteriaString . '!=' . $notCriteriaTestString);
 	}
 	
 	
@@ -154,6 +155,61 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$inCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', array('test1', 'test2'), 'IN');
 		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($inCriteria);
 		$this->assertEquals($translatedCriteria, 'test IN ("test1", "test2")');
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function translateFullTextCriteria() {
+		$fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('field' => 'field', 'table' => 'table'));
+		$fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test2', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
+
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig($fieldConfig1);
+		$fieldConfigCollection->addFieldConfig($fieldConfig2);
+
+		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fieldConfigCollection, 'searchString');
+		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator::translateCriteria($fullTextCriteria);
+
+		$this->assertEquals('MATCH (table.field, (special)) AGAINST ("searchString")', $translatedCriteria);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function translateFullTextCriteriaInBooleanMode() {
+		$fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('field' => 'field', 'table' => 'table'));
+
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig($fieldConfig1);
+
+		$searchParameter['booleanMode'] = true;
+
+		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fieldConfigCollection, 'searchString', $searchParameter);
+		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator::translateCriteria($fullTextCriteria);
+
+		$this->assertEquals('MATCH (table.field) AGAINST ("searchString" IN BOOLEAN MODE)', $translatedCriteria);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function translateFullTextCriteriaInBooleanModeWrappedWithStars() {
+		$fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('field' => 'field', 'table' => 'table'));
+
+		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+		$fieldConfigCollection->addFieldConfig($fieldConfig1);
+
+		$searchParameter['booleanMode'] = true;
+		$searchParameter['booleanModeWrapWithStars'] = true;
+
+		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fieldConfigCollection, 'searchString', $searchParameter);
+		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator::translateCriteria($fullTextCriteria);
+
+		$this->assertEquals('MATCH (table.field) AGAINST ("*searchString*" IN BOOLEAN MODE)', $translatedCriteria);
 	}
 }
 ?>

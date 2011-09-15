@@ -9,7 +9,6 @@
 
 plugin.tx_ptextlist.settings {
 
-	listConfig.demolist < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist {
 		
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
@@ -111,7 +110,7 @@ plugin.tx_ptextlist.settings {
 
 				# sortingDataDescription is a reference to one dataDescription that will be used for sorting
 				# if not set, the first entry in dataDescriptionIdentifier will be used
-				sorting = name_en
+				sorting = name_en, name_local
 
 				renderObj = COA
 				renderObj {
@@ -154,7 +153,6 @@ plugin.tx_ptextlist.settings {
 				columnIdentifier = isoNoColumn
 				fieldIdentifier = iso2
 				isSortable = 1
-
 			}
 
 			30 {
@@ -215,6 +213,14 @@ plugin.tx_ptextlist.settings {
 		
 		filters {
 			filterbox1 {
+			    #submitToPage = 31
+			    # Use this configuration if you want to do a redirect after a filterbox submits
+			    #redirectOnSubmit{
+			    #    pageId = 31
+			    #    controller = testController
+			    #    action = testAction
+			    #}
+			    excludeFilters = filterbox2.firstLetterFilter
 				filterConfigs {
 					10 < plugin.tx_ptextlist.prototype.filter.string
 					10 {
@@ -282,12 +288,6 @@ plugin.tx_ptextlist.settings {
 						showRowCount = 0
 					}
 					
-					40 < plugin.tx_ptextlist.prototype.filter.dateRange
-                    40 {
-                        filterIdentifier = isoRangeFilter
-                        label = ISO-Range
-                        fieldIdentifier = isoNo
-                    }
 
 					#50 < plugin.tx_ptextlist.prototype.filter.proxy
 					#50 {

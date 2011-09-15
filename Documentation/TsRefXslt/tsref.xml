@@ -341,6 +341,17 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
+        <ENTRY REF="filter.hidden" KEY="hidden">
+			<DESCRIPTION>Hide the filter completely from the filterBox (don't render any output). This can be used in filters like the proxy filter or any filter that is only set via the extlistContext PHP methods.</DESCRIPTION>
+			<DATATYPE>boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>0</DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
 		<ENTRY REF="filter.options" KEY="options">
 			<DESCRIPTION>Defines explicit options to display in a data filter. If options are set, no data is fetched from the database. There are to variants to define the data. See the example for details.</DESCRIPTION>
 			<DATATYPE>array</DATATYPE>
@@ -354,7 +365,7 @@ renderObj {
 # Variant 1: Simple key / value
 options {
 	checkedin = Someone Checked in 
-	noonecheckedin = Noone Checked In
+	noonecheckedin = LLL:EXT:pt_ext/Resources/Private/Language/locallang_db.xml:tx_ext_domain_model_downloads.facility
 }
 
 # Variant 2: Use integer keys to define option order and subKeys key / value to define the options
@@ -438,6 +449,12 @@ Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter: Save the session vari
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN></CHILDREN>
 									<VARIANT></VARIANT>
+								</ENTRY>
+                                <ENTRY KEY="resetOnEmptySubmit">
+									<DESCRIPTION>By setting this to "1", a list will be reset if there is no GP-Vars-Data for current request. You can use this, if you want a list to be in its default state every time you open the page on which the list is inserted.</DESCRIPTION>
+									<DATATYPE>Boolean</DATATYPE>
+									<POSIBLEVALUES>1,0</POSIBLEVALUES>
+									<DEFAULT>0</DEFAULT>
 								</ENTRY>
 							</CHILDREN>
 							<VARIANT></VARIANT>
@@ -886,7 +903,7 @@ renderUserFunctions {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="sorting">
-													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction.</DESCRIPTION>
+													<DESCRIPTION>Define sorting for this column. A single sorting definition consists either of a fieldidentifier or a fieldidentifier followed by direction. The direction can be fixed with adding a '!' in front of the direction. Settings in sorting are overwritten by sortingFields!</DESCRIPTION>
 													<DATATYPE>Seperated list of fieldIdentifiers.</DATATYPE>
 													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
@@ -901,6 +918,57 @@ sorting = name_local DESC, name_en
 // Sorting by name_local is fixed to DESC with the "!" and does not toggle
 sorting = name_local !DESC, name_en
 ]]></EXAMPLE>
+												</ENTRY>
+                                                <ENTRY KEY="sortingFields">
+													<DESCRIPTION>Define more sophisticated sorting for a column. Fields, directions, forced sorting and label can be defined individually. Settings in sortingsFields overwrite settings in sorting!</DESCRIPTION>
+													<DATATYPE>Array</DATATYPE>
+													<DEFAULT></DEFAULT>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE><![CDATA[
+sortingFields {
+    10 {
+        field = name_en
+        label = Name
+        direction = asc
+        forceDirection = 0
+    }
+    20 {
+        field = name_local
+        label = Name (lokal)
+        direction = asc
+        forceDirection = 0
+    }
+    30 {
+        field = uno_member
+        label = UNO member
+        direction = asc
+        forceDirection = 0
+    }
+}]]></EXAMPLE>
+                                                <CHILDREN>
+                                                    <ENTRY KEY="10,20,30">
+                                                    <DESCRIPTION></DESCRIPTION>
+                                                        <CHILDREN>
+                                                            <ENTRY KEY="field">
+                                                                <DESCRIPTION>Field identifier to set up sorting for.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="label">
+                                                                <DESCRIPTION>Label to be displayed in column header.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="direction">
+                                                                <DESCRIPTION>Direction is used if direction is forced or if column is default sorting column.</DESCRIPTION>
+                                                                <DATATYPE>String</DATATYPE>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="forceDirection">
+                                                                <DESCRIPTION>If set to 1, this field is always sorted using direction set above.</DESCRIPTION>
+                                                                <DATATYPE>Boolean</DATATYPE>
+                                                            </ENTRY>
+                                                        </CHILDREN>
+                                                    </ENTRY>
+                                                </CHILDREN>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
 													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
@@ -939,6 +1007,15 @@ sorting = name_local !DESC, name_en
 													<COBJ>0</COBJ>
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
+												</ENTRY>
+                                                <ENTRY KEY="headerThCssClass">
+													<DESCRIPTION>Set CSS class used for th-tag in list header.</DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE><![CDATA[
+headerThCssClass = yourCssClass
+]]></EXAMPLE>
 												</ENTRY>
 											</CHILDREN>
 										</ENTRY>
@@ -1237,6 +1314,75 @@ aggregateRows {
 												<CHILDREN></CHILDREN>
 												<VARIANT></VARIANT>
 											</ENTRY>
+                                            <ENTRY KEY="submitToPage">
+												<DESCRIPTION>If this is set to a PID or page identifier, the form for this filterbox is directly submitted to this page. This can be helpful, if you do not need a validation of filter, as we don't need a redirect then (faster response times).</DESCRIPTION>
+												<DATATYPE>string|</DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<COBJ>0</COBJ>
+											</ENTRY>
+											<ENTRY KEY="redirectOnSubmit">
+                                                <DESCRIPTION>Redirects to given page id, controller and action if filter submits. Does not redirect if filter does not validate. You always have to set an action and a controller, if you want to redirect to another page only! Use fake names, if there are no controllers / actions you can addresse.</DESCRIPTION>
+                                                <DATATYPE></DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT></DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE><![CDATA[
+redirectOnSubmit{
+    pageId = 10
+    controller = List 
+    action = list
+}
+                                            ]]></EXAMPLE>
+                                                <CHILDREN>
+                                                    <ENTRY KEY="pageId">
+		                                                <DESCRIPTION>Id of page that you want to redirect to, after filterbox submits (and validates").</DESCRIPTION>
+		                                                <DATATYPE>int</DATATYPE>
+		                                                <POSIBLEVALUES></POSIBLEVALUES>
+		                                                <DEFAULT></DEFAULT>
+		                                                <COBJ></COBJ>
+		                                                <PROTOTYPE></PROTOTYPE>
+		                                                <EXAMPLE></EXAMPLE>
+		                                                <CHILDREN></CHILDREN>
+		                                                <VARIANT></VARIANT>
+		                                            </ENTRY>
+		                                            <ENTRY KEY="controller">
+                                                        <DESCRIPTION>Name of controller that sould be called after filterbox submits (and validates!).</DESCRIPTION>
+                                                        <DATATYPE>string</DATATYPE>
+                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                        <DEFAULT></DEFAULT>
+                                                        <COBJ></COBJ>
+                                                        <PROTOTYPE></PROTOTYPE>
+                                                        <EXAMPLE></EXAMPLE>
+                                                        <CHILDREN></CHILDREN>
+                                                        <VARIANT></VARIANT>
+                                                    </ENTRY>
+                                                    <ENTRY KEY="action">
+                                                        <DESCRIPTION>Name of action that should be called on destination page after filterbod submits (and validates).</DESCRIPTION>
+                                                        <DATATYPE>string</DATATYPE>
+                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                        <DEFAULT></DEFAULT>
+                                                        <COBJ></COBJ>
+                                                        <PROTOTYPE></PROTOTYPE>
+                                                        <EXAMPLE></EXAMPLE>
+                                                        <CHILDREN></CHILDREN>
+                                                        <VARIANT></VARIANT>
+                                                    </ENTRY>
+                                                </CHILDREN>
+                                                <VARIANT></VARIANT>
+                                            </ENTRY>
+                                            <ENTRY KEY="excludeFilters">
+                                                <DESCRIPTION>Given filters are excluded from filtering of this filterbox. If filters are set here, they are not respected, if this filterbox is submitted. Don't mix up this setting with filter.excludeFilters setting!</DESCRIPTION>
+                                                <DATATYPE>Comma-separated list of filterboxIdentifier.filterIdentifier</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT></DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE><![CDATA[
+excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
+                                            ]]></EXAMPLE>
+                                            </ENTRY>
 											<ENTRY KEY="filterConfigs">
 												<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
 												<DATATYPE>Array</DATATYPE>
@@ -1263,6 +1409,7 @@ aggregateRows {
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 															<TYPEREF REF="filter.invert" KEY="invert" />
 															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
+															<TYPEREF KEY="filter.hidden" REF="hidden" />
 															<ENTRY KEY="size">
 																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
 																<DATATYPE>int</DATATYPE>
@@ -1311,6 +1458,68 @@ aggregateRows {
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+                                                            <ENTRY KEY="fullText">
+																<DESCRIPTION>Shows a filter to do a fullText query. The execution is database specific. If you are using a MySQL database, you have to add a fullText index to the relevant fields first.</DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.fullText</PROTOTYPE>
+																<EXAMPLE><![CDATA[
+10 < plugin.tx_ptextlist.prototype.filter.fullText
+10 {
+	filterIdentifier = fullText
+	label = Full Text Search
+	fieldIdentifier = extkey,title,description,authorname,uploadcomment
+}
+																]]></EXAMPLE>
+																<CHILDREN>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+                                                                    <ENTRY KEY="minWordLength">
+																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>4</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+                                                                    <ENTRY KEY="booleanMode">
+																		<DESCRIPTION>This is a MySQL specific value. If it is set to 1, the query is executed in boolean mode.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+                                                                    <ENTRY KEY="booleanModeWrapWithStars">
+																		<DESCRIPTION>If the parameter booleanMode is set to 1 and booleanModeWrapWithStars is set to 1 the searchWord is wrapped with stars (if not already done by the user). The effect is, that matches in substrings are also posible.</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1323,7 +1532,50 @@ aggregateRows {
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.select</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<ENTRY KEY="dataProviderClassName">
+                                                                        <DESCRIPTION>ClassName of a dataProvider class that delivers options to select.</DESCRIPTION>
+                                                                        <VARIANT>
+                                                                            <ENTRY KEY="ExplicitSQLQuery">
+                                                                                <DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
+                                                                                <EXAMPLE><![CDATA[
+selectFilter < plugin.tx_ptextlist.prototype.filter.select {
+    partialPath = Filter/Options/SelectFilter
+    filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
+    optionsSqlQuery {
+        select = cn_short_local
+        from = static_countries
+        where = delete = 0
+        orderBy =
+        groupBy =
+        limit =
+    }
+}
+                                                                                ]]></EXAMPLE>
+                                                                                <CHILDREN>
+                                                                                    <ENTRY KEY="select">
+                                                                                        <DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="from">
+                                                                                        <DESCRIPTION>The FROM part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="where">
+                                                                                        <DESCRIPTION>The WHERE part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="orderBy">
+                                                                                        <DESCRIPTION>The ORDER BY part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="groupBy">
+                                                                                        <DESCRIPTION>The GROUP BY part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                    <ENTRY KEY="limit">
+                                                                                        <DESCRIPTION>The LIMIT part of the query.</DESCRIPTION>
+                                                                                    </ENTRY>
+                                                                                </CHILDREN>
+                                                                            </ENTRY>
+                                                                        </VARIANT>
+                                                                    </ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
@@ -1340,6 +1592,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1369,6 +1622,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1397,6 +1651,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1426,6 +1681,7 @@ aggregateRows {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1452,6 +1708,159 @@ aggregateRows {
 																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																</CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+                                                            <ENTRY KEY="dateSelect">
+																<DESCRIPTION><![CDATA[
+																    Renders a list of date definitions like "August 2011" to select entries in a given file range.
+																]]></DESCRIPTION>
+																<DATATYPE></DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ></COBJ>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.dateSelectList</PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN>
+                                                                    <ENTRY KEY="fieldIdentifier">
+                                                                        <DESCRIPTION>The fieldIdentifier for a timeSpanFilter (every filter that derives from the abstractTimeSpanFilter) can be set by two different ways.
+                                                                            1. by a comma seperated list of fieldIdentifer as normal.
+                                                                            2. by defining a 2-dimensional list of start and end fields that determines the start and end of an event. See the example for details.</DESCRIPTION>
+                                                                        <DATATYPE>CSV, Array</DATATYPE>
+                                                                        <POSIBLEVALUES>FieldIdentifier</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+# Type 1: define a single date-field
+fieldIdentifier = tstamp, crdate
+
+# Type 2: defined start and end identifier
+fieldIdentifier {
+    10 {
+        start = eventStartDate
+        end = eventEndDate
+    }
+    20 {
+        start = eventStartDate2
+        end = eventEndDate2
+    }
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                     <ENTRY KEY="defaultValue">
+                                                                        <DESCRIPTION>This filter requires a start and an end value as default.</DESCRIPTION>
+                                                                        <DATATYPE>Array</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+defaultValue {
+    start = 1234567890
+    end = 234567891
+}
+                                                                        ]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dbTimeFormat">
+                                                                        <DESCRIPTION>The filter converts the the time values to the format defined with dbTimeFormat.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES><![CDATA[
+                                                                            For MySql the possible Values are:
+                                                                            UnixTimesTamp (Integer):   U
+                                                                            DATETIME: 	Y-m-d H:i:s
+                                                                            DATE: 	Y-m-d
+                                                                            TIMESTAMP: 	Y-m-d H:i:s
+                                                                            TIME: 	H:i:s
+                                                                            YEAR: 	Y
+                                                                        ]]></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dbTimeFormat = U
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorStart">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. Start date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ>1</COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorEnd">
+                                                                        <DESCRIPTION>Used for dateIterator dataProvider. End date in unix timestamp format.</DESCRIPTION>
+                                                                        <DATATYPE>Integer</DATATYPE>
+                                                                        <POSIBLEVALUES>
+
+                                                                        </POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorIncrement">
+                                                                        <DESCRIPTION>The step size to increment the dates.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES><![CDATA[
+                                                                            'h': by hour
+                                                                            'i': by minute
+                                                                            's': by second
+                                                                            'd': by day
+                                                                            'm': by month
+                                                                            'y': by year
+                                                                        ]]></POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorIncrement = m
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+                                                                    <ENTRY KEY="dateIteratorFormat">
+                                                                        <DESCRIPTION>How the labels for the timeSpan is rendered. You hav to use PHP strftime format to render labels in the according language.</DESCRIPTION>
+                                                                        <DATATYPE>String</DATATYPE>
+                                                                        <POSIBLEVALUES>Strftime format string.</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE>
+dateIteratorFormat = %m.%Y
+                                                                        </EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1477,8 +1886,9 @@ aggregateRows {
 																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																	<ENTRY KEY="maxItems">
-																		<DESCRIPTION>Maximum of items tos show.</DESCRIPTION>
+																		<DESCRIPTION>Maximum of items to show.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
 																		<POSIBLEVALUES></POSIBLEVALUES>
 																		<DEFAULT></DEFAULT>
@@ -1558,7 +1968,6 @@ aggregateRows {
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
-
 														</VARIANT>
 													</ENTRY>
 												</CHILDREN>

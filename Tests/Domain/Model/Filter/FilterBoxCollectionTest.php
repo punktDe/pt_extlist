@@ -31,10 +31,10 @@
  * Testcase for filterbox collection
  * 
  * @author Michael Knoll 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $configurationBuilderMock = null;
 	
@@ -61,13 +61,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
     	}
     	$this->fail('No error has been thrown on adding wrong data type');
     }
-    
+
+
+
     public function testSetListIdentifier() {
     	$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
     	$filterboxCollection->setListIdentifier('test123');
     	$listId = $filterboxCollection->getListIdentifier();
     	$this->assertEquals('test123', $listId);
     }
+
+
     
     public function testGettingFilterboxByFilterboxIdentifier() {
     	$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
@@ -76,6 +80,51 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
     	$filterboxCollection->addFilterBox($filterbox, 'test');
     	$this->assertTrue($filterboxCollection->getFilterboxByFilterboxIdentifier('test') == $filterbox);
     }
-}
 
+
+
+    /** @test */
+    public function getSubmittedFilterboxReturnsNullIfNoFilterboxIsSubmitted() {
+        $filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
+        $this->assertEquals($filterboxCollection->getSubmittedFilterbox(), null);
+    }
+
+
+
+    /** @test */
+    public function getSubmittedFilterboxReturnsSubmittedFilterboxIfThereIsOne() {
+        $submittedFilterboxMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array('isSubmittedFilterbox'), array(), '', FALSE);
+        $submittedFilterboxMock1->expects($this->any())->method('isSubmittedFilterbox')->will($this->returnValue(true));
+        $submittedFilterboxMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array('isSubmittedFilterbox'), array(), '', FALSE);
+        $submittedFilterboxMock2->expects($this->any())->method('isSubmittedFilterbox')->will($this->returnValue(false));
+        $filterboxCollectionMock = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
+        $filterboxCollectionMock->addFilterBox($submittedFilterboxMock1, 'blubb');
+        $filterboxCollectionMock->addFilterBox($submittedFilterboxMock2, 'bla');
+        $this->assertEquals($filterboxCollectionMock->getSubmittedFilterbox(), $submittedFilterboxMock1);
+    }
+
+
+
+    /** @test */
+    public function getExcludeFiltersReturnsConfiguredExcludeFiltersForSubmittedFilterbox() {
+        $excludeFiltersArray = array('filterbox1' => array('filter1', 'filter2'));
+
+        $filterbox1ConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig', array('getExcludeFilters'), array(), '', FALSE);
+        $filterbox1ConfigurationMock->expects($this->any())->method('getExcludeFilters')->will($this->returnValue($excludeFiltersArray));
+
+        $submittedFilterboxMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array('isSubmittedFilterbox','getFilterboxConfiguration'), array(), '', FALSE);
+        $submittedFilterboxMock1->expects($this->any())->method('isSubmittedFilterbox')->will($this->returnValue(true));
+        $submittedFilterboxMock1->expects($this->any())->method('getFilterboxConfiguration')->will($this->returnValue($filterbox1ConfigurationMock));
+
+        $submittedFilterboxMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array('isSubmittedFilterbox'), array(), '', FALSE);
+        $submittedFilterboxMock2->expects($this->any())->method('isSubmittedFilterbox')->will($this->returnValue(false));
+
+        $filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection();
+        $filterboxCollection->addFilterBox($submittedFilterboxMock1, 'blubb');
+        $filterboxCollection->addFilterBox($submittedFilterboxMock2, 'bla');
+
+        $this->assertEquals($filterboxCollection->getExcludeFilters(), $excludeFiltersArray);
+    }
+
+}
 ?>

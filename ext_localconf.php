@@ -35,19 +35,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 );
 
 
-
-// Define state cache, if not already defined
-if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'])) {
-	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'] = array(
-		'frontend' => 't3lib_cache_frontend_VariableFrontend',
-		'backend' => 't3lib_cache_backend_DbBackend',
-		'options' => array(
-			'cacheTable' => 'tx_ptextlist_cache_state',
-			'tagsTable' => 'tx_ptextlist_cache_state_tags',
-		)
-	);
-}
-
 if(TYPO3_MODE == 'BE') {
 	// Hooks
 	$TYPO3_CONF_VARS['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['ptextlist_pi1']['pt_extlist'] = 'EXT:pt_extlist/Classes/Hooks/CMSLayoutHook.php:user_Tx_PtExtlist_Hooks_CMSLayoutHook->getExtensionSummary';

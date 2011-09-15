@@ -27,43 +27,76 @@
  ***************************************************************/
 
 /**
+ * Sorting configuration for columns
+ * 
  * @package Domain
  * @subpackage Configuration\Columns  
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @author Michael Knoll
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	
 	/**
-	 * 
+	 * Holds name of field for this sorting configuration
+     *
 	 * @var string
 	 */
 	protected $field; 
-	
+
+
+
 	/**
 	 * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC / SORTINGSTATE_DESC / SORTINGSTATE_NONE
+     *
 	 * @var integer 
 	 */
 	protected $direction;
-	
+
+
+
 	/**
 	 * if this is set to true, the direction cannot be changed 
 	 * 
 	 * @var bool
 	 */
 	protected $forceDirection;
+
+
+
+    /**
+     * Holds a label that is used for rendering header for this sorting field
+     *
+     * @var string
+     */
+    protected $label;
 	
 	
 	// TODO: implement sorting order
 	
-	
-	public function __construct($field, $direction, $forceDirection) {
+
+    /**
+     * Constructor for sorting configuration
+     *
+     * @param $field
+     * @param $direction
+     * @param $forceDirection
+     */
+	public function __construct($field, $direction, $forceDirection, $label='') {
+        // TODO assert that direction is 1 / 0 / -1
 		$this->direction = $direction;
 		$this->field = $field; 
 		$this->forceDirection = $forceDirection;
+        $this->label = $label;
 	}
 	
 	
-	
+
+    /**
+     * Setter for sorting direction
+     *
+     * @param $direction
+     * @return void
+     */
 	public function setDirection($direction) {
 		if($this->forceDirection == false) {
 			$this->direction = $direction;
@@ -71,21 +104,48 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
 	}
 	
 	
-	
+
+    /**
+     * Getter for sorting direction
+     *
+     * @return int
+     */
 	public function getDirection() {
 		return $this->direction;
 	}
 	
 	
-	
+
+    /**
+     * Returns true if direction is forced for sorted field
+     *
+     * @return bool
+     */
 	public function getForceDirection() {
 		return $this->forceDirection;
 	}
 	
 	
-	
+
+    /**
+     * Name of field for which this sorting configuration is set
+     *
+     * @return string
+     */
 	public function getField() {
 		return $this->field;
 	}
+
+
+
+    /**
+     * Getter for label for this sorting field configuration
+     * 
+     * @return string
+     */
+    public function getLabel() {
+        return $this->label;
+    }
+    
 }
 ?>

@@ -27,13 +27,15 @@
  ***************************************************************/
 
 /**
- * Class implements list header collection
+ * Class implements list header collection which consists of all header columns that make up the header of the list.
  * 
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Domain_Model_List_Row implements Tx_PtExtbase_State_IdentifiableInterface {
+class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+    extends Tx_PtExtlist_Domain_Model_List_Row
+    implements Tx_PtExtbase_State_IdentifiableInterface {
 
 	
 	/**
@@ -41,7 +43,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Doma
 	 * @var string
 	 */
 	protected $listIdentifier;
-	
+
+    
 	
 	/**
 	 * @param string $listIdentifier
@@ -49,7 +52,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Doma
 	public function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
 	}
-	
+
+
 	
 	/**
 	 * Add a header column to the collection
@@ -97,7 +101,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Doma
 	 * @return void
 	 */
 	public function reset() {
-		foreach($this->itemsArr as $headerColumn) {
+		foreach($this->itemsArr as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 			$headerColumn->reset();
 		}
 	}
@@ -110,5 +114,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader extends Tx_PtExtlist_Doma
 	public function getListIdentifier() {
 		return $this->listIdentifier;
 	}
+
 }
 ?>

@@ -152,8 +152,18 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
      */
-    public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
-    
+    #public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
+
+
+
+    /**
+     * Injector for sorter
+     * 
+     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     * @return void
+     */
+    public function injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
+
     
     
     /**
@@ -215,5 +225,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * Reset the List Data Cache
      */
     public function resetListDataCache();
+
+
+    
+    /**
+     * Returns sorter for this data backend
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     */
+    public function getSorter();
+    
 }
 ?>

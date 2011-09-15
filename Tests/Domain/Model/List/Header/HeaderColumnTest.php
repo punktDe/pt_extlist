@@ -37,89 +37,80 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
-	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
-	
-	public function testConfigurationAndStateMerge() {
-		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
-		
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
-		
-		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
-		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
-		
-		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
-		
-		$this->assertEquals(0,$headerColumn->getSortingState());
 
-		$headerColumn->injectSessionData(array('sortingState' => 1));
-		$headerColumn->injectGPVars(array('sortingState' => -1));
-		
-		$headerColumn->init();
-		
-		$this->assertEquals(-1,$headerColumn->getSortingState());
-	}
-	
-	
-	
-	public function testGetSortingImage() {
-		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
-		$this->assertTrue(method_exists($headerColumn, 'getSortingImage'));
-	}
-	
-	
-	
-	public function testGetSortings() {	
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
-        $sessesionPersistanceManager->expects($this->any())
-            ->method('persistToSession');
-		
-		
+
+
+    /** @test */
+	public function initMergesGetPostDataCorrectly() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
-		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
-		
-		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC));
+        $headerColumn->registerSorter($sorterMock);
+
+		$this->assertEquals(0,$headerColumn->getSortingDirectionForField('field1'));
+
+		$headerColumn->injectGPVars(array('sortingFields' => 'field1:1'));
+
 		$headerColumn->init();
-		$sorting = $headerColumn->getSorting();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting['tstamp'], 'Sorting has to be Ascending here');
-		
-		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+
+		$this->assertEquals(1,$headerColumn->getSortingDirectionForField('field1'));
+	}
+	
+	
+
+    /** @test */
+	public function getSortingStateCollectionReturnsCorrectSortingStateCollectionForGivenSortingFieldConfiguration() {
+		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+        $headerColumn->injectGPVars(array('sortingFields' => 'field1:1;field2:1'));
+        $headerColumn->registerSorter($sorterMock);
+
 		$headerColumn->init();
-		$sorting = $headerColumn->getSorting();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting has to be descending here');
+		$sorting = $headerColumn->getSortingStateCollection();
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be ascending here');
+		
+		$headerColumn->init();
+		$sorting = $headerColumn->getSortingStateCollection();
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[1]->getDirection(), 'Sorting has to be ascending here');
 		
 		// test with forced direction
 		$headerColumn->injectColumnConfig($columnsConfiguration[30]);
-		$headerColumn->injectSessionData(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+        $headerColumn->injectGPVars(array('sortingState' => -1));
 		$headerColumn->init();
-		$sorting = $headerColumn->getSorting();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting['tstamp'], 'Sorting for tstamp is forced to desc, but is ascending here');
+		$sorting = $headerColumn->getSortingStateCollection();
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting[1]->getDirection(), 'Sorting for tstamp is forced to desc, but is ascending here');
 	}
 	
-	
-	public function testGetSortingsWithoutSortingDefinitions() {	
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
-        $sessesionPersistanceManager->expects($this->any())
-            ->method('persistToSession');
-		
-		
+
+
+    /** @test */
+	public function getSortingStateCollectionReturnsCorrectSortingStateCollectionWithoutSortingConfigurations() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[40]);
-		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
-		
-		$headerColumn->injectGPVars(array('sortingState' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC));
+        $headerColumn->registerSorter($sorterMock);
+
+		$headerColumn->injectGPVars(array('sortingFields' => 'field4:1'));
 		$headerColumn->init();
-		$sorting = $headerColumn->getSorting();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting['field4'], 'Sorting has to be Ascending here');
+		$sorting = $headerColumn->getSortingStateCollection();
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be Ascending here');
 	}
-	
-	
-	public function testIsSortable() {
+
+
+
+    /** @test */
+	public function isSortableReturnsTrueIfColumnIsSortable() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
 		
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
@@ -132,25 +123,66 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertTrue($headerColumn->isSortable());
 		
 	}
-	
-	public function testGetSortingQuery() {
-		$sessesionPersistanceManager = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('persistToSession'));
-        $sessesionPersistanceManager->expects($this->any())
-            ->method('persistToSession');
-		
+
+
+    /** @test */
+	public function getSortingStateCollectionReturnsASortingStateCollection() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
-		
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
-		
-		$headerColumn->injectSessionPersistenceManager($sessesionPersistanceManager);
+        $headerColumn->registerSorter($sorterMock);
 		$headerColumn->init();
 		
-		$queryObject = $headerColumn->getSortingQuery();
-		$this->assertTrue(is_a($queryObject, 'Tx_PtExtlist_Domain_QueryObject_Query'));
+		$sortingStateCollection = $headerColumn->getSortingStateCollection();
+		$this->assertTrue(is_a($sortingStateCollection, 'Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'));
 	}
-	
-	
-	
+
+
+
+    /** @test */
+    public function initByGpVarsSetsCorrectSortingStateWhenSortingDirectionIsGiven() {
+        $columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
+        $headerColumn->registerSorter($sorterMock);
+        $headerColumn->injectGPVars(array('sortingFields' => 'field1:-1;field2:-1'));
+		$headerColumn->init();
+
+        $sortingStateCollection = $headerColumn->getSortingStateCollection();
+
+        $this->assertEquals($sortingStateCollection->count(), 2);
+        $this->assertEquals($sortingStateCollection[0]->getDirection(), -1);
+        $this->assertEquals($sortingStateCollection[1]->getDirection(), -1);
+    }
+
+
+
+    /** @test */
+    public function initByGpVarsSetsCorrectSortingWhenSortingForSortingFieldsIsGiven() {
+        $columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
+        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
+
+		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+		$headerColumn->injectColumnConfig($columnsConfiguration[50]);
+        $headerColumn->registerSorter($sorterMock);
+        $headerColumn->injectGPVars(array('sortingFields' => 'field1:1;field2:1'));
+		$headerColumn->init();
+
+        $sortingStateCollection = $headerColumn->getSortingStateCollection();
+
+        $this->assertEquals($sortingStateCollection->count(), 2);
+        $this->assertEquals($sortingStateCollection[0]->getDirection(), -1);
+        $this->assertEquals($sortingStateCollection[0]->getField()->getIdentifier(), 'field1');
+        $this->assertEquals($sortingStateCollection[1]->getDirection(), 1);
+        $this->assertEquals($sortingStateCollection[1]->getField()->getIdentifier(), 'field2');
+    }
+
 }
 ?>

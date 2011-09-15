@@ -44,16 +44,19 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnConfiguration);
-		
-		// Inject settings from session.
+
+        // Inject settings from session.
         $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
         $sessionPersistenceManager->registerObjectAndLoadFromSession($headerColumn);
-        
+
         // Inject settings from gp-vars.
         $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpAdapter->injectParametersInObject($headerColumn);
-		
-        $headerColumn->injectSessionPersistenceManager($sessionPersistenceManager);
+
+        // Register headerColumn in sorter
+        $sorter = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($columnConfiguration->getConfigurationBuilder());
+        $sorter->registerSortingObserver($headerColumn);
+
 		$headerColumn->init();
 		
 		return $headerColumn;

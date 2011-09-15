@@ -126,14 +126,58 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
     
     
     /**
-     * Cascade through all filterboxes and reset their filters
+     * Resets all filterboxes of this collection.
+     *
+     * Resetting filterbox includes reset of their filters.
      */
     public function reset() {
-    	foreach($this->itemsArr as $filterBox) {
+    	foreach($this->itemsArr as $filterBox) { /* @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
     		$filterBox->reset();
     	}
     }
-    
-	
+
+
+
+    /**
+     * Returns filterbox of this collection which is currently set
+     * to be submitted filterbox of current request.
+     * 
+     * @return null|Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     */
+    public function getSubmittedFilterbox() {
+        foreach ($this->itemsArr as $filterboxIdentifier => $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+            if ($filterbox->isSubmittedFilterbox()) {
+                return $filterbox;
+            }
+        }
+        return null;
+    }
+
+
+
+    /**
+     * Returns array with exclude filters for filterbox collection.
+     *
+     * There is one filterbox submitted for this request. If we have
+     * exclude filters configured for this filterbox, they will be returned here.
+     *
+     * @return array
+     */
+    public function getExcludeFilters() {
+        $submittedFilterbox = $this->getSubmittedFilterbox();
+        if ($submittedFilterbox) {
+            return $submittedFilterbox->getFilterboxConfiguration()->getExcludeFilters();
+        }
+        return array();
+    }
+
+
+
+    public function resetIsSubmittedFilterbox() {
+        foreach ($this->itemsArr as $filterboxIdentifier => $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+            $filterbox->resetIsSubmittedFilterbox();
+        }
+    }
+
 }
 ?>

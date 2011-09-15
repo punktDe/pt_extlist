@@ -46,9 +46,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
         return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());    
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Wraps an array in ("<array[0]>",...,"<array[n]>") and escapes values.
 	 * Returns string as escaped string if no array is given
@@ -60,11 +60,25 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 			$escapedValues = self::escapeArray($value);
 			$returnString = '("' . implode('", "', $escapedValues) . '")';
         } else {
-            $returnString = '"' . mysql_real_escape_string($value) . '"';
+			$returnString = self::wrapNonNumericValue(mysql_real_escape_string($value));
 		}
 		return $returnString;
 	}
-	
+
+
+	/**
+	 * Wraps non numeric values with "..."
+	 *
+	 * @param mixed $value Value to be wrapped with "..." if non-numeric
+	 * @return mixed Wrapped value, if not numeric.
+	 */
+	public static function wrapNonNumericValue($value) {
+		if (is_numeric($value)) {
+			return $value;
+		} else {
+			return '"' . $value . '"';
+		}
+	}
 	
 	
 	/**
