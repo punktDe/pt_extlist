@@ -110,7 +110,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 							'Test expected . ' .$this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['tables'] . ' but recieved ' . $fromPart
 		);
 	}
-	
+
+    
 	
 	public function testBuildFromPartWitBaseFromClause() {
 		$tsConfig = $this->tsConfig;
@@ -153,6 +154,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	}
 
 
+
 	public function testGetWhereClauseFromFilterWithStringNumericValue() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
@@ -162,7 +164,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		$filterWhereClause = $dataBackend->getWhereClauseFromFilter($filterMock);
 		$this->assertTrue($filterWhereClause == 'test > 10', 'Filter where clause was expected to be "test > 10" but was ' . $filterWhereClause);
 	}
-	
+
+
 	
 	public function testGetWhereClauseFromFilterWithoutActiveFilter() {
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
@@ -255,8 +258,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $this->assertTrue($selectPartForFieldConfigurationCollection == $expectedSelectPart, 
             'Select part for field configuration collection should be "' . $expectedSelectPart . '" but was ' . $selectPartForFieldConfigurationCollection);
 	}
-	
-	
+
 	
 	
 	public function testBuildSelectPartWithSpecialString() {
@@ -331,7 +333,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
         $listData = $dataBackend->getListData();
         $this->assertTrue($listData == $dataSourceReturnArray);
 	}
-	
+
+
 	
 	public function testListDataCacheWorks() {
 		/* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend */
@@ -344,7 +347,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 
 		$dataBackend->getListData();
 	}
-	
+
+
 	
 	public function testListDataCanBeResetted() {
 		$dataBackend = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('buildListData'), array($this->configurationBuilder));
@@ -403,7 +407,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		#$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
 	}
 
-	
+
+
 	public function testConvertTableFieldToAlias() {
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
 		$dataBackend = new $accessibleClassName($this->configurationBuilder);
@@ -418,7 +423,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 			$this->assertEquals($string['return'], $returnString, 'Mangled string is not as excepted : ' . $returnString . ' is not ' . $string['return']);
 		}
 	}
-	
+
+
 	
 	public function testBuildQuery() {
 		$this->markTestIncomplete();
@@ -441,7 +447,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	public function testGetTotalItemsCount() {
 		$this->markTestIncomplete();
 	}
-	
+
+
 	
 	public function testGetGroupByPart() {
 		$dataBackend = $this->getDataBackend();
@@ -458,7 +465,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		
 		$this->assertEquals('SUM(field1) AS sumField1', $dataBackend->_call('buildAggregateFieldSQLByConfig', $aggConfigCollection->getAggregateConfigByIdentifier('sumField1')));
 	}
-	
+
+
 	
 	public function testGetAggregatesByConfigCollectionWithUnsopportedMethod() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'method' => 'aNotExistantMethod');
@@ -474,6 +482,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		
 		$this->fail('No Exception thrown if Method is unsupported');
 	}
+
 	
 	
 	public function testGetAggregatesByConfigCollectionWithSpecialString() {
@@ -539,7 +548,9 @@ GROUP BY company
 		
 		return $dataBackend;
 	}
-	
+
+
+
 	protected function getFieldConfigMockForTableAndFieldAndIdentifier($table, $field, $identifier) {
 		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($this->configurationBuilder,$identifier, array('table' => $table, 'field' => $field)));
         $fieldConfigurationMock->expects($this->any())
@@ -550,7 +561,8 @@ GROUP BY company
             ->will($this->returnValue($field));
         return $fieldConfigurationMock;
 	}
-	
+
+
 	
 	protected function getFieldConfigMockForSpecialAndIdentifier($special, $identifier) {
 		$fieldConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array(), array($this->configurationBuilder,$identifier, array('special' => $special)));
@@ -562,6 +574,7 @@ GROUP BY company
             ->will($this->returnValue($identifier));
         return $fieldConfigurationMock;
 	}
+
 	
 	
 	protected function getFilterboxByArrayOfFilters($filtersArray) {
@@ -600,28 +613,6 @@ GROUP BY company
             ->will($this->returnValue($sortingQuery));
         return $headerMock;
 	}
-	
-	
-	
-	protected function getListHeaderByFieldAndDirectionArray($fieldAndDirectionArray) {
-		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
-		
-		foreach($fieldAndDirectionArray as $field => $direction) {
-			$sortingQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-        	$sortingQuery->addSorting($field, $direction);
-        	
-        	$headerMock = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getSortingQuery'));
-        	$headerMock->expects($this->once())
-            ->method('getSortingQuery')
-            ->will($this->returnValue($sortingQuery));
-            
-         	$listHeader->addHeaderColumn($headerMock, $field);   
-		}
-		
-		return $listHeader;
-	}
 
-    	
 }
-
 ?>
