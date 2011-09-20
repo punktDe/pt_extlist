@@ -76,18 +76,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
 	
 	
 	
-	public function testExceptionOnNonCorrectItemAdded() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		try {
-		    $fieldConfigCollection->addFieldConfig('test');
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
-	
-	
-	
 	public function testExceptionOnGettingNonAddedItem() {
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
         try {
