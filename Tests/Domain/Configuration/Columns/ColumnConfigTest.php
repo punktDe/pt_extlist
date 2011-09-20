@@ -108,7 +108,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 
 	public function testNoColumnIdentifierGivenException() {
 		try {
-			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig(array('fieldIdentifier' => 'test'));
+			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'test'));
 		} catch(Exception $e) {
 			return;
 		}
@@ -119,7 +119,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	
 	public function testNoFieldIdentifierGivenException() {
 		try {
-			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig(array('columnIdentifier' => 'test'));
+			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'test'));
 		} catch(Exception $e) {
 			return;
 		}

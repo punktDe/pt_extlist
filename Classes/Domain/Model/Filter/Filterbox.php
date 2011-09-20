@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     /**
      * Holds a constant added to object namespace to
      */
-    const OBJECT_NAMESPACE_SUFFIX = 'filterbox';
+    const OBJECT_NAMESPACE_SUFFIX = '__filterbox';
 
 
 
@@ -87,7 +87,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      *
      * @var bool
      */
-    protected $isSubmittedFilterbox;
+    protected $isSubmittedFilterbox = false;
 	
 	
 	
@@ -128,6 +128,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     protected function init() {
         $gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespaceWithoutSuffix());
+        
         if (count($gpVarsForFilterbox) > 0) {
             $this->isSubmittedFilterbox = true;
         }
@@ -297,11 +298,11 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      * @return array Object's state to be persisted to session
      */
     public function persistToSession() {
+    	$sessionArray = array();
         if ($this->isSubmittedFilterbox) {
-            return array('isSubmittedFilterbox' => 1);
-        } else {
-            return array();
-        }
+            $sessionArray['isSubmittedFilterbox'] = 1;
+        } 
+        return $sessionArray;
     }
 
 
