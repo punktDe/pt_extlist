@@ -121,16 +121,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_PtExt
 	public function testGetFilterByFilterIdentifier() {
 		$this->markTestIncomplete();
 	}
-
-
-    
-    /** @test */
-    public function setAsSubmittedFilterboxSetsIsSubmittedFilterboxToTrue() {
-        $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-        $this->assertEquals($filterbox->isSubmittedFilterbox(),false);
-        $filterbox->setAsSubmittedFilterbox();
-        $this->assertEquals($filterbox->isSubmittedFilterbox(), true);
-    }
 	
 }
 ?>

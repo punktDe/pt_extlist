@@ -172,33 +172,86 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return Tx_Extbase_Persistence_Query
 	 */
 	protected function buildExtBaseQuery() {
+        // Create extlist query object for current request
 		$query = $this->buildGenericQueryWithoutPager();
-		
-        // Collect pager limit
-        if ($this->pagerCollection->isEnabled()) {
-            $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
-            $pagerLimit = intval($this->pagerCollection->getItemsPerPage());
-            $limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
-            $limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
-        }
-        $query->setLimit($limitPart);
-        
-        // TODO refactor this!
-        // Set sorting from backend configuration TODO  respect sorting headers here!
-        if ($this->backendConfiguration->getDataBackendSettings('sorting') != '') {
-	        $sortingConfiguration = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
-	        $sorting = array();
-	        $sorting[$sortingConfiguration[0]] = $sortingConfiguration[1] == 'DESC' ? 
-	            Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC : Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
-	        $query->addSortingArray($sorting);
-        }
-        
+        $this->setLimitOnQuery($query);
+        $this->setSortingOnQuery($query);
+
+        // Create Extbase query for current request by translating extlist query
         $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
-        
         $extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
         
         return $extbaseQuery;
 	}
+
+
+
+    /**
+     * Set limits from current pager on given query object.
+     * 
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @return void
+     */
+    protected function setLimitOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+        if ($this->pagerCollection->isEnabled()) {
+            $limitPart = '';
+            $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
+            $pagerLimit = intval($this->pagerCollection->getItemsPerPage());
+            $limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
+            $limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
+            $query->setLimit($limitPart);
+        }
+    }
+
+
+
+    /**
+     * Sets sorting either from backend config or from sorter on given query
+     * 
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @return void
+     */
+    protected function setSortingOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+        if (count($this->sorter->getSortingStateCollection()) > 0) {
+            $this->setSortingFromSorterOnQuery($query);
+        } elseif ($this->backendConfiguration->getDataBackendSettings('sorting') != '') {
+	        $this->setSortingFromDefaultSortingOnQuery($query);
+        }
+    }
+
+
+
+    /**
+     * Sets sorting from sorter on given query
+     * 
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @return void
+     */
+    protected function setSortingFromSorterOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+        $sorting = array();
+        $sortingStateCollection = $this->sorter->getSortingStateCollection();
+        foreach ($sortingStateCollection as $sortingState) { /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            $fieldName = $sortingState->getField()->getIdentifier();
+            $sorting[$fieldName] = $sortingState->getDirection();
+        }
+        $query->addSortingArray($sorting);
+    }
+
+
+
+    /**
+     * Sets sortings state on given query from backend sorting configuration
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @return void
+     */
+    protected function setSortingFromDefaultSortingOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
+        $sortingConfiguration = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
+        $sorting = array();
+        $sorting[$sortingConfiguration[0]] = $sortingConfiguration[1] == 'DESC' ?
+            Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC : Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
+        $query->addSortingArray($sorting);
+    }
 	
 	
 	
