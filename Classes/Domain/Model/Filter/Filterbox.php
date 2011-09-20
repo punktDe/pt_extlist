@@ -129,7 +129,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
         $gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
         $gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespaceWithoutSuffix());
         if (count($gpVarsForFilterbox) > 0) {
-            $this->setAsSubmittedFilterbox();
+            $this->isSubmittedFilterbox = true;
         }
     }
 	
@@ -270,17 +270,6 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      */
     public function isSubmittedFilterbox() {
         return $this->isSubmittedFilterbox;
-    }
-
-
-
-    /**
-     * Set this filterbox as submitted filterbox for current request
-     *
-     * @return void
-     */
-    public function setAsSubmittedFilterbox() {
-        $this->isSubmittedFilterbox = true;
     }
 
 

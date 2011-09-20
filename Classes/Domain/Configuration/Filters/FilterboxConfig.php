@@ -258,7 +258,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
             list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
             Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416'));
             Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, array('message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417'));
-            if (!in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
+            if (!is_array($this->excludeFilters[$filterboxIdentifier]) || !in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
                 $this->excludeFilters[$filterboxIdentifier][] = $filterIdentifier;
             }
         }
