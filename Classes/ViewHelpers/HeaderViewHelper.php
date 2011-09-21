@@ -96,8 +96,6 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
     protected function buildSortingFieldParams(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
         $sortingFieldsParams = array();
 
-        #var_dump($header->getColumnConfig()->getSortingConfig());
-
         foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
             $sortingFieldParams = array();
             $sortingFieldParams['field'] = $sortingFieldConfig->getField();

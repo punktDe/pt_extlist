@@ -138,9 +138,7 @@ class Tx_PtExtlist_Controller_DocBookController extends Tx_PtExtlist_Controller_
      */
 	public function createTsDocBookAction() {
 		$this->parseTs();
-		var_dump($this->tsArray);
 		$this->createDocArray();
-		var_dump($this->docArray);
 	}
 	
 	
@@ -152,7 +150,6 @@ class Tx_PtExtlist_Controller_DocBookController extends Tx_PtExtlist_Controller_
         $this->tsParser->regComments = 1;
         $this->tsParser->parse($this->tsString);
         $this->tsArray = $this->tsParser->setup;
-        #var_dump($this->tsArray);
 	}
 	
 	
@@ -183,9 +180,7 @@ class Tx_PtExtlist_Controller_DocBookController extends Tx_PtExtlist_Controller_
 		    $currentDocArrayPart[$tsKey] = array('rawComment' => $currentTsArrayPart[$tsPath[$depth] . '..']);
 		    // add documentation for children
 		} else {
-			print_r('No comment found for ' . $tsKey . '<br />');
 		}
-	    print_r('array for recursion '.$tsKey.': '); var_dump($currentTsArrayPart[$tsPath[$depth] . '.']);
 	    foreach ($currentTsArrayPart[$tsPath[$depth] . '.'] as $childKey => $childValue) {
 	    	print_r('In recursion: $tsKey ' . $tsKey . ' - $childKey ' . $childKey);
 	    	if (substr($childKey,-1,1) == '.') {
