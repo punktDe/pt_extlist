@@ -32,7 +32,7 @@
  * @author Daniel Lienert 
  * @package Tests
  */
-class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_BaseTestCase {
+class Tx_PtExtlist_Tests_IntegrationTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
 	/**
 	 * Url of Page to User For IntegrationTest

@@ -182,7 +182,6 @@ class Tx_PtExtlist_Controller_DocBookController extends Tx_PtExtlist_Controller_
 		} else {
 		}
 	    foreach ($currentTsArrayPart[$tsPath[$depth] . '.'] as $childKey => $childValue) {
-	    	print_r('In recursion: $tsKey ' . $tsKey . ' - $childKey ' . $childKey);
 	    	if (substr($childKey,-1,1) == '.') {
 	    	    $this->createDocArrayForTsKey($tsKey . '.' . $childKey);
 	    	}
