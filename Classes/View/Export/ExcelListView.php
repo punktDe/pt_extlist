@@ -115,6 +115,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
      * @return void
      */
     protected function init() {
+        $this->checkRequirements();
         $this->objPHPExcel = new PHPExcel();
         $this->objPHPExcel->setActiveSheetIndex(0);
         $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
@@ -145,6 +146,24 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     protected function closeOutputBufferAndExit() {
 		exit();
     }
-    
+
+
+
+    /**
+     * Checks requirements of Excel export to be working
+     * 
+     * @throws Exception
+     * @return void
+     */
+    private function checkRequirements() {
+        if (!class_exists('PHPExcel')) {
+            throw new Exception('Library PHPExcel is required for using Excel export. You can get PHPExcel from http://phpexcel.codeplex.com 1316565593');
+            exit();
+        }
+        if (!class_exists('XMLWriter')) {
+            throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled 1316565594');
+            exit();
+        }
+    }
 }
 ?>
