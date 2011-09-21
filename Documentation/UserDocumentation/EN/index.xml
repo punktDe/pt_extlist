@@ -84,11 +84,15 @@
           </row>
           <row>
             <entry>last date of editing</entry>
-            <entry>03.02.2011</entry>
+            <entry>
+              <para><?dbtimestamp format="d.m.Y"?></para>
+            </entry>
           </row>
           <row>
-            <entry>last date of printing</entry>
-            <entry>-</entry>
+            <entry>file name</entry>
+            <entry>
+              <para><!-- ###DOCUMENT_NAME_WITH_PDF_SUFFIX### --> </para>
+            </entry>
           </row>
         </tbody>
       </tgroup>
@@ -133,6 +137,6 @@
   </chapter>
   <chapter>
     <title>Appendix</title>
-     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Glossar.xml" encoding="UTF-8"/>
-  </chapter>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Glossary.xml" encoding="UTF-8"/>
+   </chapter>
 </book>
