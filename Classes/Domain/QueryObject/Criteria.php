@@ -197,7 +197,7 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
     /**
      * Returns a new  raw sql criteria.
      *
-     * ATTENTION: No quoting will be used to handle query. Developer is
+     * WARNING: No quoting will be used to handle query string. Developer is
      * responsible for correct quoting of SQL string!
      *
      * @static

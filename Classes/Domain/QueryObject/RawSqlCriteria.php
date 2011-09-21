@@ -29,7 +29,7 @@
 /**
  * Implements a criteria for sending raw sql queries to databackend
  *
- * ATTENTION: No quoting will be used to handle query. Developer is
+ * WARNING: No quoting will be used to handle query. Developer is
  * responsible for correct quoting of SQL string!
  *
  * @package Domain
@@ -50,7 +50,7 @@ class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain
     /**
      * Constructor for raw sql criteria.
      *
-     * ATTENTION: No quoting will be used to handle query. Developer is
+     * WARNING: No quoting will be used to handle query. Developer is
      * responsible for correct quoting of SQL string!
      *
      * @param string $rawSqlString
