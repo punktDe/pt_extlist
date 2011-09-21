@@ -157,21 +157,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 	
 	
 	
-	public function testThrowExceptionOnInCriteria() {
-		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', 'IN');
-        $query = $this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
-        try {
-	        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
-	            $criteria, $query, $this->repositoryMock);
-        } catch(Exception $e) {
-        	return;
-        }
-        $this->fail('No error thrown on trying to translate IN operator!');
-	}
-	
-	
-	
-	
 	/************************************************************************************************
 	 * Helper methods
 	 ************************************************************************************************/

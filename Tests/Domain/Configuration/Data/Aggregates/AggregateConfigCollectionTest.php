@@ -67,18 +67,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
 	
 	
 	
-	public function testExceptionOnNonCorrectItemAdded() {
-		$aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
-		try {
-		    $aggregateConfigCollection->addAggregateConfig('test');
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
-	
-	
-	
 	public function testExceptionOnGettingNonAddedItem() {
 		$aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
         try {

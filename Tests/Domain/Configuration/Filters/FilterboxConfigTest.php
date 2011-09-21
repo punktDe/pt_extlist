@@ -144,6 +144,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfig_testcase e
         $this->assertEquals($filterboxConfig->getExcludeFilters(), $expectedExcludeFiltersArray);
     }
 
+
+
+    /** @test */
+    public function getSubmitToPageReturnsPidSetInSettings() {
+        $filterboxConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'testfilterbox', array('submitToPage' => '10'));
+        $this->assertEquals($filterboxConfig->getSubmitToPage(), 10);
+    }
+
 }
 
 ?>

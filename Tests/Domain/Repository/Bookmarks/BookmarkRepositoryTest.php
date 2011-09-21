@@ -58,10 +58,12 @@ class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase
 	
 	
 	
-	public function testThrowExceptionOnFindBookmarksByFeUserAndListIdentifierWithEmptyListIdentifier() {
+	/** @test */
+	public function findBookmarksByFeUserAndListIdentifierThrowsExceptionOnEmptyListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();
+		$feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser', array(), array(), '', FALSE);
 		try {
-			$bookmarksRepository->findBookmarksByFeUserAndListIdentifier(null, '');
+			$bookmarksRepository->findBookmarksByFeUserAndListIdentifier($feUserMock, '');
 		} catch(Exception $e) {
 			return;
 		}

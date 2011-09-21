@@ -1314,6 +1314,13 @@ aggregateRows {
 												<CHILDREN></CHILDREN>
 												<VARIANT></VARIANT>
 											</ENTRY>
+                                            <ENTRY KEY="submitToPage">
+												<DESCRIPTION>If this is set to a PID or page identifier, the form for this filterbox is directly submitted to this page. This can be helpful, if you do not need a validation of filter, as we don't need a redirect then (faster response times).</DESCRIPTION>
+												<DATATYPE>string|</DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<COBJ>0</COBJ>
+											</ENTRY>
 											<ENTRY KEY="redirectOnSubmit">
                                                 <DESCRIPTION>Redirects to given page id, controller and action if filter submits. Does not redirect if filter does not validate. You always have to set an action and a controller, if you want to redirect to another page only! Use fake names, if there are no controllers / actions you can addresse.</DESCRIPTION>
                                                 <DATATYPE></DATATYPE>

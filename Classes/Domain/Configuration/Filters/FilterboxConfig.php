@@ -127,6 +127,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
      * @var bool
      */
     protected $isSubmittedFilterbox = false;
+
+
+
+    /**
+     * Target PID to submit filterbox to
+     * 
+     * @var string
+     */
+    protected $submitToPage;
 	
 	
 	
@@ -199,7 +208,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 * @param array $filterBoxSettings
 	 */
 	protected function setOptionalSettings($filterBoxSettings) {
-		
+
+        if (array_key_exists('submitToPage', $filterBoxSettings)) {
+            $this->submitToPage = $filterBoxSettings['submitToPage'];
+        }
+
 		if (array_key_exists('showReset', $filterBoxSettings)) {
 			$this->showReset = $filterBoxSettings['showReset'] == 1 ? true : false;
 		}
@@ -245,7 +258,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
             list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
             Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416'));
             Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, array('message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417'));
-            if (!in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
+            if (!is_array($this->excludeFilters[$filterboxIdentifier]) || !in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
                 $this->excludeFilters[$filterboxIdentifier][] = $filterIdentifier;
             }
         }
@@ -341,6 +354,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
      */
     public function getExcludeFilters() {
         return $this->excludeFilters;
+    }
+
+
+
+    /**
+     * Getter for target PID to send submit request for this filterbox
+     * 
+     * @return Target PID to send submit request of this filterbox
+     */
+    public function getSubmitToPage() {
+        return $this->submitToPage;
     }
 	
 }
