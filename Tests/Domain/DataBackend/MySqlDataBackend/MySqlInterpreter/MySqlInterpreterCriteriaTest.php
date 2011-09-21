@@ -69,8 +69,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the translation of a simple criteria
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
 	 */
 	public function testSimpleCriteriaTranslator() {
 		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field','value','=');
@@ -82,8 +80,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the AND translation of two simple criterias
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
 	 */
 	public function testAndCriteriaTranslatorSimpleSimple() {	
 		$andCriteriaSimple = new Tx_PtExtlist_Domain_QueryObject_AndCriteria($this->simpleCriteria1, $this->simpleCriteria2);
@@ -98,8 +94,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the AND translation of simple and complex criterias
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
 	 */
 	public function testAndCriteriaTranslatorSimpleComplex() {
 		$andCriteriaSimple = new Tx_PtExtlist_Domain_QueryObject_AndCriteria($this->simpleCriteria1, $this->simpleCriteria2);
@@ -114,8 +108,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	/**
 	 * Test the OR translation of two simple criterias
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
 	 */
 	public function testOrCriteriaTranslatorSimpleSimple() {	
 		$orCriteriaSimple = new Tx_PtExtlist_Domain_QueryObject_OrCriteria($this->simpleCriteria1, $this->simpleCriteria2);
@@ -158,9 +150,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	}
 
 
-	/**
-	 * @test
-	 */
+	/**  @test */
 	public function translateFullTextCriteria() {
 		$fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('field' => 'field', 'table' => 'table'));
 		$fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test2', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
@@ -176,9 +166,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	}
 
 
-	/**
-	 * @test
-	 */
+
+	/** @test */
 	public function translateFullTextCriteriaInBooleanMode() {
 		$fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('field' => 'field', 'table' => 'table'));
 
@@ -194,9 +183,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	}
 
 
-	/**
-	 * @test
-	 */
+
+	/** @test */
 	public function translateFullTextCriteriaInBooleanModeWrappedWithStars() {
 		$fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('field' => 'field', 'table' => 'table'));
 
@@ -211,5 +199,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 
 		$this->assertEquals('MATCH (table.field) AGAINST ("*searchString*" IN BOOLEAN MODE)', $translatedCriteria);
 	}
+
+
+
+    /** @test */
+    public function translateRawSqlQueryReturnsGivenRawSqlQueryString() {
+        $fakeRawSqlQuery = 'THIS IS A FAKE QUERY';
+        $rawSqlCriteriaMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria', array(), array(), '', FALSE);
+        $rawSqlCriteriaMock->expects($this->once())->method('getRawSqlString')->will($this->returnValue($fakeRawSqlQuery));
+        $this->assertEquals(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator::translateCriteria($rawSqlCriteriaMock), $fakeRawSqlQuery);
+    }
+
 }
 ?>
