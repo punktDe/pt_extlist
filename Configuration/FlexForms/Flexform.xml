@@ -44,7 +44,7 @@
                   </numIndex>
                   <numIndex index="2" type="array">
                     <numIndex index="0">Export</numIndex>
-                    <numIndex index="1">List->export</numIndex>
+                    <numIndex index="1">Export->showLink;Export->download</numIndex>
                   </numIndex>
                   <numIndex index="3" type="array">
                     <numIndex index="0">Filterbox</numIndex>
@@ -106,7 +106,24 @@
         <type>array</type>
         <el>
 
-          <settings.controller.List.export.view>
+          <settings.exportListIdentifier>
+            <TCEforms>
+              <label>Export List Identifier</label>
+              <config>
+                <type>select</type>
+                	<items>
+						<numIndex index="0" type="array">
+							<numIndex index="0">[Please select a defined listConfig]</numIndex>
+							<numIndex index="1"></numIndex>
+						</numIndex>
+					</items>
+					<default></default>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedListConfigs</itemsProcFunc>
+              </config>
+            </TCEforms>
+          </settings.exportListIdentifier>
+
+          <settings.controller.Export.download.view>
             <TCEforms>
               <label>Export Type</label>
               <config>
@@ -121,8 +138,8 @@
 					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedExportConfigs</itemsProcFunc>
               </config>
             </TCEforms>
-          </settings.controller.List.export.view>
-          
+          </settings.controller.Export.download.view>
+
           <settings.prototype.export.downloadType>
             <TCEforms>
               <label>Download Type</label>
