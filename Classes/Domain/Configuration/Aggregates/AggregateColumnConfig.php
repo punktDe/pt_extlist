@@ -65,6 +65,12 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	 * @var string
 	 */
 	protected $renderTemplate;
+
+
+	/**
+	 * @var string
+	 */
+	protected $cellCSSClass = NULL;
 	
 		
 	/**
@@ -94,15 +100,16 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		
 		// optional
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
-
+		$this->setValueIfExistsAndNotNothing('cellCSSClass');
+		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
 			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
 		}
-				
-		if(array_key_exists('renderObj', $this->settings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
-        }
+
+		if (array_key_exists('renderObj', $this->settings)) {
+			$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+		}
 	}
 
 	
@@ -166,17 +173,20 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	
 	
 	
-    /**
-     * @return string renderTemplate
-     */
-    public function getRenderTemplate() {
-    	return $this->renderTemplate;
-    }
+	/**
+	* @return string renderTemplate
+	*/
+	public function getRenderTemplate() {
+		return $this->renderTemplate;
+	}
     
     
-    public function getCellCssClass() {
-    	// TODO implement me
-    	return NULL;
-    }
+
+	/**
+	 * @return string
+	 */
+	public function getCellCSSClass() {
+		return $this->cellCSSClass;
+	}
 }
 ?>

@@ -141,6 +141,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	
 	/**
 	 * Build the aggregate data by configuration
+	 * 
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
 	protected function buildAggregateDataRow() {
