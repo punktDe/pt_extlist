@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- This document was created with Syntext Serna Free. --><article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+<!-- This document was created with Syntext Serna Free. -->
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <title>pt_extlist</title>
   <subtitle>documentation</subtitle>
   <info/>
@@ -14,4 +15,4 @@
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/>
    <xi:include href="Sections/Glossary.xml"/>
-</article>
+</book>
