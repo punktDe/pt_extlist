@@ -8,15 +8,15 @@
 #
 # @author Michael Knoll <knoll@punkt.de>
 # @author Daniel Lienert <lienert@punkt.de>
-# @package Typo3
-# @subpackage pt_extlist
+# @package pt_extlist
+# @subpackage Export
 ####################################################
 
 plugin.tx_ptextlist.settings.export {
 	
 	exportConfigs {
-		
-		csvExport < plugin.tx_ptextlist.prototype.export 
+
+		csvExport < plugin.tx_ptextlist.prototype.export
 		csvExport {
 			viewClassName = Tx_PtExtlist_View_Export_CsvListView
 			fileExtension = csv
@@ -28,5 +28,13 @@ plugin.tx_ptextlist.settings.export {
 			fileExtension = txt
 			templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/export.html
 		}
+
+		excelExport < plugin.tx_ptextlist.prototype.export
+		excelExport {
+		    viewClassName = Tx_PtExtlist_View_Export_ExcelListView
+		    fileExtension = xls
+		}
+
 	}
+
 }
