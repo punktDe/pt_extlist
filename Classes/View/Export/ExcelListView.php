@@ -77,7 +77,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         // Headers
         if ($this->templateVariableContainer->exists('listCaptions')) {
             foreach ($this->templateVariableContainer['listCaptions'] as $caption) { /* @var $caption Tx_PtExtlist_Domain_Model_List_Cell */
-                $this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, $caption->getValue());
+                $this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, strip_tags($caption->getValue()));
                 $columnNumber++;
 			}
 
@@ -88,7 +88,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		// Rows
 		foreach ($this->templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
 			foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
-				$this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, $listCell->getValue());
+				$this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, strip_tags($listCell->getValue()));
                 $columnNumber++;
 			}
 
