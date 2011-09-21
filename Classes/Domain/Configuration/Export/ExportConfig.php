@@ -102,7 +102,6 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 
 	
 	protected function init() {
-		Tx_ExtDebug::var_dump($this->settings, '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');
 		$this->setRequiredValue('fileName', 'No fileName given for export file! 1284563488');
 		$this->setRequiredValue('fileExtension', 'No file extension given for export file! 1284620580');
 		
