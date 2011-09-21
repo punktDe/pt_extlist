@@ -37,6 +37,14 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
 
 	/**
+	 * Reset ConfigurationBuilder for actions in this Controller
+	 *
+	 * @var bool
+	 */
+	protected $resetConfigurationBuilder = TRUE;
+
+
+	/**
 	 * @var string
 	 */
 	protected $exportListIdentifier;
@@ -48,8 +56,9 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	public function initializeAction() {
 		parent::initializeAction();
 
-		$this->exportListIdentifier = $this->settings['exportListidentifier'];
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString(array('message' => 'No exportListidentifier set. 1316446015'));
+		$this->exportListIdentifier = $this->settings['exportListIdentifier'];
+		if(!$this->exportListIdentifier) $this->exportListIdentifier = $this->listIdentifier;
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No exportListidentifier set. 1316446015'));
 	}
 
 
@@ -57,24 +66,39 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	 * @return void
 	 */
 	public function showLinkAction() {
-
+		$fileExtension = $this->configurationBuilder->buildExportConfiguration()->getFileExtension();
+		$this->view->assign('fileExtension', $fileExtension);
 	}
 
 
+	/**
+	 * @return string
+	 */
 	public function downloadAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 
-		$renderedListData = $this->rendererChain->renderList($list->getListData());
-		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
+		if($this->listIdentifier == $this->exportListIdentifier) {
+			$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+			$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 
-		$this->view->assign('config', $this->configurationBuilder);
+		} else {
+			$exportListConfiguration = $this->settings[$this->exportListIdentifier];
+			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier);
+
+			$list = $extlistContext->getList();
+			$rendererChain = $extlistContext->getRendererChain();
+		}
+
+		$renderedListData = $rendererChain->renderList($list->getListData());
+		$renderedCaptions = $rendererChain->renderCaptions($list->getListHeader());
+		$renderedAggregateRows = $rendererChain->renderAggregateList($list->getAggregateListData());
+
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 		$this->view->assign('aggregateRows', $renderedAggregateRows);
+
 		return $this->view->render();
 	}
-    
+   
 }
 ?>

@@ -35,7 +35,17 @@
  * @package Controller
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_Controller_AbstractActionController  {
-	
+
+
+	/**
+	 * This flag is set to true, the configurationBuilder is reset
+	 *
+	 * @var bool
+	 */
+	protected $resetConfigurationBuilder = false;
+
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
@@ -85,7 +95,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		}
 		
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
-		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
+		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
 		
 		// Determine class name of session storage class to use for session persistence
 		if(TYPO3_MODE === 'FE') { 
