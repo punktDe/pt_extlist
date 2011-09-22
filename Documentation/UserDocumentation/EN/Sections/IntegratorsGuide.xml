@@ -23,6 +23,17 @@
         <para>Insert a new content element of type &quot;General Plugin&quot;. Select &quot;ExtList&quot; as selected Plugin.</para>
       </listitem>
       <listitem>
+        <para>Switch to the &quot;General Options&quot; tab and select list identifier of the list you want to export. Select &quot;Export&quot; as Plugin Type.</para>
+        <figure>
+          <title>Set plugin type to &quot;Export&quot;</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="../images/integrators_guide_1_3.jpg" format="jpg" width="450"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </listitem>
+      <listitem>
         <para>Switch to the &quot;Export Settings&quot; tab and select list identifier of the list you want to export. Select Export Type and Download Type. Hint: If you cannot select an Export Type, you most likely forgot to include static template for export on the page you are currently working. See step 2!</para>
         <figure>
           <title>Configuration for exporting a list as Excel sheet</title>
@@ -40,6 +51,8 @@
         <para>You will now see a download in your Frontend that enables you to download configured export document with your list data.</para>
       </listitem>
     </orderedlist>
+    <para><emphasis role="bold">Why are there 2 list identifiers?</emphasis></para>
+    <para>Almost everytime you want to export some data from your list, you also want to change the way the list looks like in your export. Therefore you can select a different list identifier for export than for your &quot;normal&quot; list. This way you can configure the changes for the exported list on the same page you have your &quot;normal&quot; list. In previous versions of pt_list, you had to create a special page with special TS-settings for your exported list. By chosing a second identifier for your exported list, this is no longer required!</para>
     <section>
       <title>Requirements for Excel export</title>
       <para>There are special requirements for setting up Excel Export. You have to install the module PHPExcel which is available via a special PEAR channel. In order to install PHPExcel, refer to their website: http://phpexcel.codeplex.com/releases/view/45412</para>
