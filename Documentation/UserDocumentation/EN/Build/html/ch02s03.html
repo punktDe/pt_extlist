@@ -1,0 +1,349 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3. Setting up Lists</title><link rel="stylesheet" type="text/css" href="../css/style.css"><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"><link rel="home" href="index.html" title=""><link rel="up" href="ch02.html" title="Chapter 2. Documentation"><link rel="prev" href="ch02s02.html" title="2. Examples"><link rel="next" href="ch02s04.html" title="4. Architecture"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch02s02.html"><img src="../images/png/prev.png" alt="Prev"></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch02s04.html"><img src="../images/png/next.png" alt="Next"></a></td></tr></table><hr></div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">
+    <sub>
+      <span class="inlinemediaobject"><img src="images/logo_punktde.png" width="75"></span>
+    </sub>
+  </a></span> &gt; <span class="breadcrumb-link"><a href="ch02.html">Documentation</a></span> &gt; <span class="breadcrumb-node">Setting up Lists</span></div><div class="section" title="3. Setting up Lists"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id287545530"></a>3. Setting up Lists</h2></div></div></div><p>In this section you will learn how to set up lists using pt_extlist. We will guide you step by step through the TypoScript configuration and show you how to use pt_extlist's widgets as page content.</p><div class="section" title="3.1. Widgets overview"><div class="titlepage"><div><div><h3 class="title"><a name="id287545541"></a>3.1. Widgets overview</h3></div></div></div><p>Get an overview of what the individual widgets are doing and how they look like in the frontend. All widgets depend on a list identifier set up in TypoScript and selected within the FlexForm of your plugin.</p><div class="section" title="3.1.1. List widget"><div class="titlepage"><div><div><h4 class="title"><a name="id287545550"></a>3.1.1. List widget</h4></div></div></div><p>Renders a list of data set up by configuration. Can use headers for sorting list data by certain columns.</p></div><div class="section" title="3.1.2. Filter widgets"><div class="titlepage"><div><div><h4 class="title"><a name="id287545560"></a>3.1.2. Filter widgets</h4></div></div></div><p>Renders filterboxes containing multiple filters defined by configuration.</p></div><div class="section" title="3.1.3. Pager widget"><div class="titlepage"><div><div><h4 class="title"><a name="id287545570"></a>3.1.3. Pager widget</h4></div></div></div><p>Renders a pager as configured by configuration. Pager limits rows of list to configured amount per page.</p></div><div class="section" title="3.1.4. Breadcrumbs widget"><div class="titlepage"><div><div><h4 class="title"><a name="id287545579"></a>3.1.4. Breadcrumbs widget</h4></div></div></div><p>Breadcrumbs show which filters are activated and which values they have.</p></div><div class="section" title="3.1.5. Bookmarks widget"><div class="titlepage"><div><div><h4 class="title"><a name="id287545589"></a>3.1.5. Bookmarks widget</h4></div></div></div><p>Bookmarks enable user to save certain list settings like filters, pager, sortings and reload them again afterwards.</p></div></div><div class="section" title="3.2. TypoScript configuration"><div class="titlepage"><div><div><h3 class="title"><a name="id287545601"></a>3.2. TypoScript configuration</h3></div></div></div><div class="section" title="3.2.1. List Identifier and TypoScript namespace"><div class="titlepage"><div><div><h4 class="title"><a name="id287545606"></a>3.2.1. List Identifier and TypoScript namespace</h4></div></div></div><p>Each list has its own identifier. </p></div><div class="section" title="3.2.2. Sample Configuration"><div class="titlepage"><div><div><h4 class="title"><a name="id287545616"></a>3.2.2. Sample Configuration</h4></div></div></div><p>The following listing shows a sample configuration as it ships with pt_extlist.</p><pre class="programlisting">plugin.tx_ptextlist.settings {
+
+_LOCAL_LANG.default.emptyList = blabla
+
+listConfig.demolist &lt; plugin.tx_ptextlist.prototype.listConfig.default
+listConfig.demolist {
+
+backendConfig &lt; plugin.tx_ptextlist.prototype.backend.typo3
+backendConfig {
+
+datasource {
+# no configuration required here
+}
+
+tables (
+static_countries,
+static_territories st_continent,
+static_territories st_subcontinent
+)
+
+baseFromClause (
+static_countries
+LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
+LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+)
+
+baseWhereClause (
+st_continent.tr_name_en &lt;&gt; '' 
+AND st_subcontinent.tr_name_en &lt;&gt; ''
+)
+}
+
+fields {
+name_local {
+table = static_countries
+field = cn_short_local
+isSortable = 1
+}
+
+name_en {
+table = static_countries
+field = cn_short_en
+}
+
+uno_member {
+table = static_countries
+field = cn_uno_member
+}
+
+capital {
+table = static_countries
+field = cn_capital
+}
+
+iso2 {
+table = static_countries
+field = cn_iso_2
+isSortable = 0
+}
+
+phone {
+table = static_countries
+field = cn_phone
+}
+
+isoNo {
+table = static_countries
+field = cn_currency_iso_nr
+}
+
+continent {
+table = st_continent
+field = tr_name_en
+}
+
+subcontinent {
+table = st_subcontinent
+field = tr_name_en
+}
+
+countryuid {
+table = static_countries
+field = uid
+}
+}
+
+pager {
+pagerConfigs {
+second {
+enabled = 1
+pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/second.html
+
+showNextLink = 1
+showPreviousLink = 1
+showFirstLink = 0
+showLastLink = 0
+}
+}
+}
+
+columns {
+
+10 {
+columnIdentifier = nameColumn
+label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:column_nameColumn
+
+fieldIdentifier = name_local, name_en, countryuid, uno_member
+isSortable = 1
+sorting = name_local
+
+renderObj = COA
+renderObj {
+5 = IMAGE
+5.if {
+value.data = field:uno_member
+equals = 1
+}
+5.file = EXT:pt_list/typoscript/static/demolist/un.gif
+5.stdWrap.typolink.parameter = http://www.un.org
+5.stdWrap.typolink.ATagParams = class="un-link"
+
+10 = TEXT
+10.data = field:name_en
+10.append = TEXT
+10.append {
+data = field:name_local
+if {
+value.data = field:name_local
+equals.data = field:name_en
+negate = 1
+}
+}
+10.append.noTrimWrap = | (|)|
+10.wrap3 = |&amp;nbsp;
+
+20 = TEXT
+20.value = Details
+20.typolink.parameter = 1
+20.typolink.additionalParams.dataWrap = &amp;tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
+}
+}
+
+11 {
+label = Capital
+columnIdentifier = capital
+fieldIdentifier = capital
+cellCSSClass {
+renderObj = TEXT
+renderObj.dataWrap = {field:capital}
+}
+}
+
+20 {
+label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:column_isoNoColumn
+columnIdentifier = isoNoColumn
+fieldIdentifier = iso2
+isSortable = 1
+
+}
+
+30 {
+label = Phone
+columnIdentifier = phoneColumn
+fieldIdentifier = phone
+}
+
+40 {
+label = Continent
+columnIdentifier = continent
+fieldIdentifier = continent
+}
+
+50 {
+label = Subcontinent
+columnIdentifier = subcontinent
+fieldIdentifier = subcontinent
+accessGroups = 3
+}
+}
+
+aggregateData {
+sumPhone {
+fieldIdentifier = phone
+method = sum
+}
+avgPhone {
+fieldIdentifier = phone
+method = avg
+}
+maxPhone {
+fieldIdentifier = phone
+method = max
+}
+minPhone {
+fieldIdentifier = phone
+method = min
+}
+}
+
+aggregateRows {
+10 {
+phoneColumn {
+aggregateDataIdentifier = sumPhone, avgPhone, maxPhone, minPhone
+renderObj = TEXT
+renderObj.dataWrap (
+ Min.: &lt;b&gt;{field:minPhone}&lt;/b&gt;&lt;br /&gt; 
+ &amp;empty;: &lt;b&gt;{field:avgPhone}&lt;/b&gt;&lt;br /&gt;
+ Max.: &lt;b&gt;{field:maxPhone}&lt;/b&gt;&lt;br /&gt;
+ &amp;sum;: &lt;b&gt;{field:sumPhone}&lt;/b&gt;&lt;br /&gt;
+)
+}
+}
+}
+
+filters {
+filterbox1 {
+filterConfigs {
+10 &lt; plugin.tx_ptextlist.prototype.filter.string
+10 {
+filterIdentifier = filter1
+label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:filter_nameField
+fieldIdentifier = name_local
+}
+
+11 &lt; plugin.tx_ptextlist.prototype.filter.string
+11 {
+filterIdentifier = allFields
+label = All defined Fields
+fieldIdentifier = *
+}
+
+15 &lt; plugin.tx_ptextlist.prototype.filter.max
+15 {
+filterIdentifier = filter15
+label = Max Phone
+fieldIdentifier = phone
+accessGroups = 3
+}
+
+20 &lt; plugin.tx_ptextlist.prototype.filter.checkbox
+20 {
+filterIdentifier = filter2
+label = Continent
+fieldIdentifier = continent
+filterField = continent
+displayFields = continent
+showRowCount = 1
+submitOnChange = 0
+invert = 0
+invertable = 0
+
+excludeFilters = filterbox1.filter3
+}
+
+30 &lt; plugin.tx_ptextlist.prototype.filter.select
+30 {
+filterIdentifier = filter3
+label = Subcontinent
+fieldIdentifier = subcontinent
+filterField = subcontinent
+displayFields = continent, subcontinent
+multiple = 0
+showRowCount = 1
+submitOnChange = 0
+inactiveOption = [ALL]
+invert = 0
+invertable = 0
+}
+
+}
+}
+
+filterbox2 {
+showSubmit = 0
+showReset = 0
+filterConfigs {
+10 &lt; plugin.tx_ptextlist.prototype.filter.firstLetter
+10 {
+filterIdentifier = filter4
+label = Capital
+fieldIdentifier = capital
+}
+}
+}
+}
+}
+}
+
+
+plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {  
+backendConfig &lt; plugin.tx_ptextlist.prototype.backend.typo3
+backendConfig {
+tables (
+static_territories
+)
+
+continent {
+table = static_territories
+field = tr_name_en
+}
+}
+
+fields {
+continent {
+table = static_territories
+field = tr_name_en
+}
+}
+
+filters {
+filterbox1 {
+filterConfigs {
+10 &lt; plugin.tx_ptextlist.prototype.filter.select
+10 {
+filterIdentifier = continent
+label = Subcontinent
+fieldIdentifier = continent
+filterField = continent
+displayFields = continent
+showRowCount = 0
+multiple = 0
+inactiveOption = [ALL]
+
+renderObj = TEXT
+renderObj {
+dataWrap = {field:allDisplayFields}
+}
+}
+}
+}
+}
+}
+
+################################
+# Localization Override
+################################
+plugin.tx_ptextlist._LOCAL_LANG{
+default {
+emptyList = List is empty.
+}
+de {
+emptyList = Liste ist leer.
+}
+}</pre></div><div class="section" title="3.2.3. backendConfig section"><div class="titlepage"><div><div><h4 class="title"><a name="id287545630"></a>3.2.3. backendConfig section</h4></div></div></div><div class="section" title="3.2.3.1. Setting up a MySQL backend"><div class="titlepage"><div><div><h5 class="title"><a name="id287545636"></a>3.2.3.1. Setting up a MySQL backend</h5></div></div></div></div><div class="section" title="3.2.3.2. Setting up a TYPO3 backend"><div class="titlepage"><div><div><h5 class="title"><a name="id287545642"></a>3.2.3.2. Setting up a TYPO3 backend</h5></div></div></div></div><div class="section" title="3.2.3.3. Setting up a Extbase backend"><div class="titlepage"><div><div><h5 class="title"><a name="id287545649"></a>3.2.3.3. Setting up a Extbase backend</h5></div></div></div></div></div><div class="section" title="3.2.4. fields section"><div class="titlepage"><div><div><h4 class="title"><a name="id287545656"></a>3.2.4. fields section</h4></div></div></div><div class="section" title="3.2.4.1. Setting up fields for database backends"><div class="titlepage"><div><div><h5 class="title"><a name="id287545661"></a>3.2.4.1. Setting up fields for database backends</h5></div></div></div></div><div class="section" title="3.2.4.2. Setting up fields for Extbase domain objects"><div class="titlepage"><div><div><h5 class="title"><a name="id287545668"></a>3.2.4.2. Setting up fields for Extbase domain objects</h5></div></div></div></div></div><div class="section" title="3.2.5. columns section"><div class="titlepage"><div><div><h4 class="title"><a name="id287545675"></a>3.2.5. columns section</h4></div></div></div></div><div class="section" title="3.2.6. filters section"><div class="titlepage"><div><div><h4 class="title"><a name="id287545682"></a>3.2.6. filters section</h4></div></div></div></div><div class="section" title="3.2.7. pager section"><div class="titlepage"><div><div><h4 class="title"><a name="id287553745"></a>3.2.7. pager section</h4></div></div></div></div><div class="section" title="3.2.8. aggregateData section"><div class="titlepage"><div><div><h4 class="title"><a name="id287553751"></a>3.2.8. aggregateData section</h4></div></div></div></div><div class="section" title="3.2.9. aggregateRow section"><div class="titlepage"><div><div><h4 class="title"><a name="id287553757"></a>3.2.9. aggregateRow section</h4></div></div></div></div><div class="section" title="3.2.10. Localization override"><div class="titlepage"><div><div><h4 class="title"><a name="id287553764"></a>3.2.10. Localization override</h4></div></div></div></div></div><div class="section" title="3.3. Setting up widgets as content elements"><div class="titlepage"><div><div><h3 class="title"><a name="id287553771"></a>3.3. Setting up widgets as content elements</h3></div></div></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s02.html"><img src="../images/png/prev.png" alt="Prev"></a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html"><img src="../images/png/up.png" alt="Up"></a></td><td width="40%" align="right"> <a accesskey="n" href="ch02s04.html"><img src="../images/png/next.png" alt="Next"></a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html"><img src="../images/png/home.png" alt="Home"></a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

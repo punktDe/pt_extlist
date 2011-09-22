@@ -1,29 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<section version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title>Glossary</title>
-
-  <para></para>
-
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <title>Glossar</title>
+  <para>    </para>
   <glossary>
-    <glossdiv>
-      <title>E</title>
+    <glossentry>
+      <glossterm>Arbeitsumgebung</glossterm>
+      <glossdef>
+        <para>Ein Workspace (Englisch für &quot;Arbeitsbereich&quot;) ist ein Bereich innerhalb des TYPO3-Backends, in dem Änderungen an Seiten und Inhaltselementen unabhängig vom restlichen System durchgeführt werden können.
+Man kann sich die einzelnen Workspaces als &quot;Ebenen von Arbeitsbereichen&quot; vorstellen.</para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Backend</glossterm>
+      <glossdef>
+        <para>Als Backend wird die Administrationsoberfläche eines TYPO3-Systems bezeichnet. Über diese Benutzerschnittstelle können die Inhalte einer Website bearbeitet werden.
 
-      <glossentry>
-        <glossterm>Extended Markup Language</glossterm>
 
-        <glossdef>
-          <para>A set of rules for encoding documents in machine-readable
-          form. It is defined in the XML 1.0 Specification produced by the
-          W3C, and several other related specifications, all gratis open
-          standards.</para>
-        </glossdef>
-      </glossentry>
-    </glossdiv>
+
+Die web-basierte Oberfläche kann über jeden aktuellen Browser bedient werden. Änderungen, die im Backend gemacht werden, wirken sich i.d.R. auf die Ausgabe im Frontend aus.</para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Company Master-Vorlage</glossterm>
+      <glossdef>
+        <para>Ist eine Vorlage des Seitenbaums mit Demoinhalt, den man für jede neue Company bzw. Subdomain kopiert.</para>
+      </glossdef>
+    </glossentry>
   </glossary>
 </section>
