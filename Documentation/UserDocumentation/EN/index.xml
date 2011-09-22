@@ -107,7 +107,7 @@
   </preface>
   <chapter>
     <title>Introduction</title>
-    <xi:include href="Sections/DescriptionPtExtlist.xml"/>
+    <xi:include href="Sections/Introduction.xml"/>
   </chapter>
   <chapter>
     <title>Examples</title>
@@ -128,15 +128,19 @@
   </chapter>
   <chapter>
     <title>Cookbook</title>
-     <xi:include href="Sections/Cookbook.xml"/>
+    <xi:include href="Sections/Cookbook.xml"/>
   </chapter>
   <chapter>
-    <title>TSREf</title>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
+    <title>Integrator's Guide</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/IntegratorsGuide.xml" encoding="UTF-8"/>
   </chapter>
   <chapter>
     <title>Developer's Guide</title>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/DevelopersGuide.xml" encoding="UTF-8"/>
+  </chapter>
+  <chapter>
+    <title>TypoScript Reference (TSRef)</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
   </chapter>
   <chapter>
     <title>Appendix</title>

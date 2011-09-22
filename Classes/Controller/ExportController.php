@@ -73,7 +73,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	}
 
 
-    
+
 	/**
 	 * @return string
 	 */
