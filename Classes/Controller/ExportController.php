@@ -35,7 +35,6 @@
  */
 class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_AbstractController {
 
-
 	/**
 	 * Reset ConfigurationBuilder for actions in this Controller
 	 *
@@ -44,10 +43,12 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	protected $resetConfigurationBuilder = TRUE;
 
 
+
 	/**
 	 * @var string
 	 */
 	protected $exportListIdentifier;
+
 
 
 	/**
@@ -62,6 +63,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	}
 
 
+
 	/**
 	 * @return void
 	 */
@@ -71,6 +73,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	}
 
 
+    
 	/**
 	 * @return string
 	 */
