@@ -60,8 +60,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 		
 		$allExportSettings = $configurationBuilder->getSettingsForConfigObject('export');
 		$controllerSettings = $configurationBuilder->getSettings('controller');
-		$selectedViewSettingsKey = $controllerSettings['List']['export']['view'];
-
+		$selectedViewSettingsKey = $controllerSettings['Export']['download']['view'];
 		$exportSettingsPath = explode('.',$selectedViewSettingsKey);
 
 		$exportSettings = Tx_Extbase_Utility_Arrays::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);

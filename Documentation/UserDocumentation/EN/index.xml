@@ -1,17 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- This document was created with Syntext Serna Free. --><article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+<!-- This document was created with Syntext Serna Free. -->
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <title>pt_extlist</title>
   <subtitle>documentation</subtitle>
   <info/>
-  <xi:include href="Sections/AboutTheDocument.xml"/>
-   <xi:include href="Sections/ReadingThisPtExtlist.xml"/>
-   <xi:include href="Sections/DescriptionPtExtlist.xml"/>
-   <xi:include href="Sections/Example.xml"/>
-   <xi:include href="Sections/SettingUpLists.xml"/>
-   <xi:include href="Sections/Architecture.xml"/>
-   <xi:include href="Sections/API.xml"/>
-   <xi:include href="Sections/Cookbook.xml"/>   
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/>
-   <xi:include href="Sections/Glossary.xml"/>
+  <xi:include href="Sections/AboutTheDocument.xml"/> <!-- kein chapter -->
+   <xi:include href="Sections/ReadingThisPtExtlist.xml"/> <!-- kein chapter -->
+   <xi:include href="Sections/DescriptionPtExtlist.xml"/> <!-- chapter "introduction" -->
+   <xi:include href="Sections/Example.xml"/> <!-- chapter "getting started" -->
+   <xi:include href="Sections/SettingUpLists.xml"/> <!-- chapter "setup & configuration" -->
+   <xi:include href="Sections/Architecture.xml"/><!-- chapter "architecture" -->
+   <xi:include href="Sections/API.xml"/><!-- chapter "api" -->
+   <xi:include href="Sections/Cookbook.xml"/><!-- chapter "cookbook" -->
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/><!-- chapter "TypoScript Reference" -->
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/><!-- chapter "pt_extlist Developer's guide" -->
+   <xi:include href="Sections/Glossary.xml"/><!-- kein chapter -->
 </article>

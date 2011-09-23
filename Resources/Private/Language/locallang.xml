@@ -12,7 +12,7 @@
             <!-- General phrases -->
             <label index="general.validationError">Validation Error: </label>
 
-            <!-- Pasger -->
+            <!-- Pager -->
 			<label index="pager.of">of</label>
 			<label index="pager.to">to</label>
 			<label index="pager.showItems">Show item</label>
@@ -21,13 +21,14 @@
 			<label index="filterBox.resetFilters">Reset Filters</label>
 			<label index="filterBox.submitFilters">Submit Filters</label>
 			<label index="filterBox.errorInFilter">The filters contain errors.</label>
-			
 
             <!-- Filter -->
             <label index="filter.daterange.from">From</label>
 			<label index="filter.daterange.to">To</label>
             <label index="filter.fullText.errorWordTooShort">The searchword has to be at minimum %s characters.</label>
 
+            <!-- Export -->
+            <label index="export.downloadLink">Export as %s</label>
 			
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
@@ -77,6 +78,9 @@
 			<label index="pager.to">bis</label>
 			<label index="pager.showItems">Zeige Element</label>
 
+            <!-- Export -->
+            <label index="export.downloadLink">Als %s herunterladen.</label>
+
             <!-- Filterbox -->
 			<label index="filterBox.resetFilters">Filter zurücksetzen</label>
             <label index="filterBox.submitFilters">Filter setzen</label>
@@ -108,7 +112,7 @@
 		<languageKey index="pl" type="array">
 			<label index="emptyList">Sorry, no list items available.</label>
 
-            <!-- Pasger -->
+            <!-- Pager -->
 			<label index="pager.of">z</label>
 			<label index="pager.to">-</label>
 			<label index="pager.showItems">Widoczne pozycje</label>

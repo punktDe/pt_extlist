@@ -126,8 +126,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 				    ),
 				    
                     'controller' => array (
-						'List' => array (
-							'export' => array(
+						'Export' => array (
+							'download' => array(
 								'view' => 'export.exportConfigs.test'
 							)
 						)
