@@ -86,38 +86,38 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::injectConfigurationManager()
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) { // , $initConfigurationBuilder = TRUE, $initDataBackend = TRUE
-		parent::injectConfigurationManager($configurationManager);	
-		
+		parent::injectConfigurationManager($configurationManager);
+
 		if ($this->settings['listIdentifier'] != '') {
-		    $this->listIdentifier = $this->settings['listIdentifier'];
+			$this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
-		
+
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
 		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
-		
+
 		// Determine class name of session storage class to use for session persistence
-		if(TYPO3_MODE === 'FE') { 
-			$sessionStorageClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() 
-								? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
-								: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
+		if (TYPO3_MODE === 'FE') {
+			$sessionStorageClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
+					  ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
+					  : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
 		} else {
 			$sessionStorageClassName = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
-		}		
-		
+		}
+
 		// Instantiate session storage for determined class name
 		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance');
 		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass);
 
-        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
 
-        // We reset session data, if we want to have a reset on empty submit
-        if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-            $sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
-        }
+		// We reset session data, if we want to have a reset on empty submit
+		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+		}
 
-        $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 
 	

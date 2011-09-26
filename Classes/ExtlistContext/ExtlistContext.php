@@ -173,8 +173,42 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getRenderedListData() {
 		return $this->getRendererChain()->renderList($this->getListData());
 	}
+
 	
-	
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function getRenderedCaptions() {
+		return $this->getRendererChain()->renderCaptions($this->getList()->getListHeader());
+	}
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function getRenderedAggregateRows() {
+		return $this->getRendererChain()->renderAggregateList($this->getList()->getAggregateListData());
+	}
+
+
+	/**
+	 * Return an array with all parts to display an integrated list
+	 *
+	 * @return array
+	 */
+	public function getAllListTemplateParts() {
+		$viewParts = array(
+			'config' => $this->getConfigurationBuilder(),
+			'listHeader' => $this->getList()->getListHeader(),
+			'listCaptions' => $this->getRenderedCaptions(),
+			'listData' => $this->getRenderedListData(),
+			'aggregateRows' => $this->getRenderedAggregateRows()
+		);
+
+		return $viewParts;
+	}
+
+
 	
 	/**
 	 * Resets pager collection for list context
