@@ -74,36 +74,35 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 */
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetDataBackend = false) {
 		$listIdentifier = $configurationBuilder->getListIdentifier();
-		
-		if (!array_key_exists($listIdentifier, self::$instances) || $resetDataBackend) {
-			
-	        $dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
-	        $dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
-	        $dataBackend = new $dataBackendClassName($configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
-			
-	        self::$instances[$listIdentifier] = $dataBackend; /* The reference has to be set here bercause otherwise every filter will create the databackend again -> recursion! */
-			
-	        // Check whether backend class implements backend interface
-	        Tx_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array( 'message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
-	        
-	        $dataBackend->injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
-	        //$dataBackend->injectBookmarkManager(self::getBookmarkManagerAndProcessBookmark($configurationBuilder));
-	        $dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
-	        $dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
-	        $dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));   
-	        $dataBackend->injectPagerCollection(self::getPagerCollection($configurationBuilder));        
-	        //$dataBackend->injectListHeader(self::getListHeader($configurationBuilder));
-            $dataBackend->injectSorter(self::getSorter($configurationBuilder));
-	        
-	        $dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 
-	        if (self::getQueryInterpreter($configurationBuilder) != null) {
-	        	$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
-	        }
-	        	        
-	        $dataBackend->init();
+		if (!array_key_exists($listIdentifier, self::$instances) || $resetDataBackend) {
+
+			$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
+			$dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
+			$dataBackend = new $dataBackendClassName($configurationBuilder);  /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+
+			self::$instances[$listIdentifier] = $dataBackend; /* The reference has to be set here bercause otherwise every filter will create the databackend again -> recursion! */
+
+			// Check whether backend class implements backend interface
+			Tx_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array('message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
+
+			$dataBackend->injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
+			//$dataBackend->injectBookmarkManager(self::getBookmarkManagerAndProcessBookmark($configurationBuilder));
+			$dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
+			$dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
+			$dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));
+			$dataBackend->injectPagerCollection(self::getPagerCollection($configurationBuilder));
+			$dataBackend->injectSorter(self::getSorter($configurationBuilder));
+
+			$dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
+
+			if (self::getQueryInterpreter($configurationBuilder) != null) {
+				$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
+			}
+
+			$dataBackend->init();
 		}
-		
+
 		return self::$instances[$listIdentifier];
 	}
 	

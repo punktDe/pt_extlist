@@ -85,11 +85,11 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 			
 		} else {
 			$exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
-
+			
 			if(!is_array($exportListConfiguration)) {
 				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier . ' 1317116470');
 			}
-
+			
 			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
 
 			$list = $extlistContext->getList();
@@ -104,7 +104,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 		$this->view->assign('aggregateRows', $renderedAggregateRows);
-
+		
 		return $this->view->render();
 	}
    

@@ -83,15 +83,17 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
 	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = true) {
+		
+		if(!array_key_exists($listIdentifier, self::$instances) || !$useCache) {
 
-		if(!array_key_exists($listIdentifier, self::$instances)) {
+			if($useCache) {
 
-			if($useConfigBuilderCache) {
 				try {
 					$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
 				} catch (Exception $e) {
 					$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier);
 				}
+
 			} else {
 				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, true);
 			}
@@ -163,10 +165,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 
 		$extListTSArray = self::getCurrentTyposcript();
 		$extListTSArray = $extListTSArray['settings'];
-
+		
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
 
 		if(is_array($customTSArray)) {
+			unset($extListTSArray['listConfig'][$listIdentifier]); // We remove the listConfiguration completeley if it was there before
 			$extListTSArray['listConfig'] = t3lib_div::array_merge_recursive_overrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
 		}
 
