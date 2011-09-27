@@ -82,7 +82,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 		if($this->listIdentifier == $this->exportListIdentifier  || !$this->exportListIdentifier) {
 			$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 			$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
-
+			
 		} else {
 			$exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
 
@@ -90,7 +90,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier . ' 1317116470');
 			}
 
-			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier);
+			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
 
 			$list = $extlistContext->getList();
 			$rendererChain = $extlistContext->getRendererChain();

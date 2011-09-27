@@ -69,12 +69,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 * Create new data backend object for given configuration
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param boolean $resetDataBackend
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
 	 */
-	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetDataBackend = false) {
 		$listIdentifier = $configurationBuilder->getListIdentifier();
 		
-		if (!array_key_exists($listIdentifier, self::$instances)) {
+		if (!array_key_exists($listIdentifier, self::$instances) || $resetDataBackend) {
 			
 	        $dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 	        $dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
