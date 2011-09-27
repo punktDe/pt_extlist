@@ -46,7 +46,12 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 		background-color: #DDDDDD;
 		font-weight: bold;
 	}
-	
+
+	/* Export */
+
+	.tx-ptextlist-list-exportLink {
+	    margin: 5px;
+	}
 	
 	
 	/* Filters */
