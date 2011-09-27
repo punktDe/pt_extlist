@@ -91,7 +91,6 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 			}
 			
 			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
-
 			$list = $extlistContext->getList();
 			$rendererChain = $extlistContext->getRendererChain();
 		}

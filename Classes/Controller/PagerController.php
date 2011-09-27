@@ -99,7 +99,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	protected function getPagerCollectionInstance() {
-		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+		$pagerCollection = $this->dataBackend->getPagerCollection();
 		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
 		
 		return $pagerCollection;
