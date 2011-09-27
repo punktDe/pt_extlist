@@ -328,6 +328,18 @@
             </TCEforms>
           </settings.filterboxIdentifier>
 
+          <!-- this is not working generally yet and requires a patch in abstract controller! -->
+          <settings.controller.Filterbox.show.template>
+            <TCEforms>
+              <label>Filterbox Template</label>
+              <config>
+                <type>input</type>
+                <size>60</size>
+                <eval>string</eval>
+              </config>
+            </TCEforms>
+          </settings.controller.Filterbox.show.template>
+
         </el>
       </ROOT>
     </filterbox>

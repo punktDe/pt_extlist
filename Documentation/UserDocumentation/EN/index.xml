@@ -1,18 +1,150 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- This document was created with Syntext Serna Free. -->
-<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+<!-- This document was created with Syntext Serna Free. --><book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <title>
+    <inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="images/logo_punktde.png" contentwidth="70" format="png" valign="bottom"/>
+      </imageobject>
+    </inlinemediaobject>
+  </title>
   <title>pt_extlist</title>
-  <subtitle>documentation</subtitle>
-  <info/>
-  <xi:include href="Sections/AboutTheDocument.xml"/> <!-- kein chapter -->
-   <xi:include href="Sections/ReadingThisPtExtlist.xml"/> <!-- kein chapter -->
-   <xi:include href="Sections/DescriptionPtExtlist.xml"/> <!-- chapter "introduction" -->
-   <xi:include href="Sections/Example.xml"/> <!-- chapter "getting started" -->
-   <xi:include href="Sections/SettingUpLists.xml"/> <!-- chapter "setup & configuration" -->
-   <xi:include href="Sections/Architecture.xml"/><!-- chapter "architecture" -->
-   <xi:include href="Sections/API.xml"/><!-- chapter "api" -->
-   <xi:include href="Sections/Cookbook.xml"/><!-- chapter "cookbook" -->
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/><!-- chapter "TypoScript Reference" -->
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/><!-- chapter "pt_extlist Developer's guide" -->
-   <xi:include href="Sections/Glossary.xml"/><!-- kein chapter -->
-</article>
+  <title>documentation</title>
+  <info>
+    <legalnotice>
+      <para>publisher: punkt.de</para>
+      <para>publication: 2010</para>
+      <para>print-out: 1</para>
+      <para>person responsible: Daniel Lienert, Michael Knoll</para>
+      <para>Copyright, brands and trademarks : The author will make every endeavor
+  to consider in all publications copyrights of the used illustrations,
+  sounds, video sequences and texts, to use illustrations, sounds, video
+  sequences produced by himself, or to fall back on license-free
+  illustrations, sounds, video sequences and texts. All brands and trade
+  marks, mentioned within the internet offer, which may be registered and
+  protected by third parties are unrestricted subject to the regulations of
+  the respective valid laws and to the rights of the registered owners.
+  However, due to the bare mention of an brand or trademark, one can not jump
+  to the conclusion, that brand names are not protected by rights of third
+  parties! The copyright for published objects, produced by the author
+  himself, remains only with the author of the pages. A duplication or a use
+  of such illustrations, sounds, video sequences and texts in other electronic
+  or printed publications without the strict agreement of the author is not
+  permitted.</para>
+      <para>disclaimer: The author does not take over any guarantee for the
+  topicality, the correctness, completeness or quality of the information,
+  made available. Liability claims against the author, concerning damage of
+  idealistic or of material kind, which was caused by the use or not use of
+  the presented information and/or by the use of incorrect and incomplete
+  information, are in principle impossible, so far as not a deliberate or
+  roughly negligent fault can be proved on the part of the author. The
+  documents and graphics on this Web site can be affected by technical
+  inaccuracies or misprints, for which we don&apos;t assume any liability. punkt.de any
+  time and without announcement can carry out technical amendments or
+  improvements at the products which don&apos;t have to be documented absolutely on
+  this Web site. Therefore punkt.de doesn&apos;t take any guarantee for the correctness
+  of the details on this Web site. A legally binding contract on no account
+  takes place alone by the information given here. Please consult us before
+  you make use of the information given here for your application. The author
+  expressly reserves itself the right, to change, to supplement or to delete
+  parts of the pages or the entire offer or occasionally or finally to stop
+  the publication without separate announcement.</para>
+    </legalnotice>
+  </info>
+  <preface>
+    <title>Reading this </title>
+    <table>
+      <title>Information about the document</title>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry>author</entry>
+            <entry>Michael Knoll, Daniel Lienert</entry>
+          </row>
+          <row>
+            <entry>version</entry>
+            <entry>1.0</entry>
+          </row>
+          <row>
+            <entry>status</entry>
+            <entry>draft</entry>
+          </row>
+          <row>
+            <entry>confidentiality</entry>
+            <entry>internal </entry>
+          </row>
+          <row>
+            <entry>document type</entry>
+            <entry>extension documentation </entry>
+          </row>
+          <row>
+            <entry>start</entry>
+            <entry>
+              <para>18.10.2010</para>
+            </entry>
+          </row>
+          <row>
+            <entry>last date of editing</entry>
+            <entry>
+              <para><?dbtimestamp format="d.m.Y"?></para>
+            </entry>
+          </row>
+          <row>
+            <entry>file name</entry>
+            <entry>
+              <para><!-- ###DOCUMENT_NAME_WITH_PDF_SUFFIX### --> </para>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <para>A documentation for users, administrators and developers.</para>
+    <para>The users will learn how to install and setup a demo list. The
+  administrators will learn setting up a list and plugin configuration. The
+  developers will learn what pt_extlist is about and how they can manipulate
+  pt_extlist.</para>
+    <para>The users and administrators need the basic knowledge about
+  programming. </para>
+  </preface>
+  <chapter>
+    <title>Introduction</title>
+    <xi:include href="Sections/Introduction.xml"/>
+  </chapter>
+  <chapter>
+    <title>Examples</title>
+    <xi:include href="Sections/Example.xml"/>
+  </chapter>
+  <chapter>
+    <title>Set up and Configuration</title>
+    <xi:include href="Sections/SettingUpLists.xml"/>
+  </chapter>
+  <chapter>
+    <title>Architecture</title>
+    <para>This section gives you an overview of the architecture of pt_exlist. It shows its design principles and gives you a hint on where to make your hands dirty if you want to extend pt_extlist or use it in third party extensions.</para>
+    <xi:include href="Sections/Architecture.xml"/>
+  </chapter>
+  <chapter>
+    <title>API</title>
+    <xi:include href="Sections/API.xml"/>
+  </chapter>
+  <chapter>
+    <title>Cookbook</title>
+    <xi:include href="Sections/Cookbook.xml"/>
+  </chapter>
+  <chapter>
+    <title>Integrator's Guide</title>
+    <para>This chapter describes pt_extlist&apos;s features from an integrators point of view.</para>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/IntegratorsGuide.xml" encoding="UTF-8"/>
+  </chapter>
+  <chapter>
+    <title>Developer's Guide</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/DevelopersGuide.xml" encoding="UTF-8"/>
+  </chapter>
+  <chapter>
+    <title>TypoScript Reference (TSRef)</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
+  </chapter>
+  <chapter>
+    <title>Appendix</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Glossary.xml" encoding="UTF-8"/>
+   </chapter>
+</book>

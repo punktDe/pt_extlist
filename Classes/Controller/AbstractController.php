@@ -190,9 +190,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @throws Exception
 	 */
 	protected function setCustomPathsInView(Tx_Extbase_MVC_View_ViewInterface $view) {
-		
+        // TODO we do not get global settings from pt_extlist merged into list_identifier settings here. fix this.
+
+        // Get template for current action from settings for list identifier
 		$templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
-		
+
+        // Get template for current action from global settings (e.g. flexform)
+        if (!$templatePathAndFilename) {
+            $templatePathAndFilename = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+        }
+
+        // If no template is given before, take default one
 		if(!$templatePathAndFilename) {
 			$templatePathAndFilename = $this->templatePathAndFileName;
 		}

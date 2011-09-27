@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
   <title>Architecture</title>
-  <para>This section gives you an overview of the architecture of pt_exlist. It shows its design principles and gives you a hint on where to make your hands dirty if you want to extend pt_extlist or use it in third party extensions.</para>
   <section>
     <title>Who should read this?</title>
     <para>If you are just interested in how pt_extlist works and want to see how things are put together, the following chapter could be a nice thing to read. If you are a developer and want to extend pt_extlist or want to use it as an API inside your extension, it&apos;s necessary to read this!</para>

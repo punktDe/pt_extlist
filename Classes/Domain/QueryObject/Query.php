@@ -269,7 +269,6 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * @param $sortingArray array
 	 */
 	public function addSortingArray(array $sortingArray) {
-		Tx_PtExtbase_Assertions_Assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
 		// TODO assert that content of array is correct! 
 		$this->sortings =  t3lib_div::array_merge_recursive_overrule($this->sortings, $sortingArray);
 	}
@@ -288,7 +287,11 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 
 
     /**
-	 * Inverting the current sorting state.
+	 * Inverts given sorting state.
+     *
+     * ASC will become DESC
+     * DESC will become ASC
+     * everything else will become ASC
 	 *
 	 * @param int $sortingState
 	 * @return int The inverted sorting state.
@@ -300,11 +303,10 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 			case self::SORTINGSTATE_DESC:
 				return self::SORTINGSTATE_ASC;
 			default:
+                // TODO think about this behaviour!
 				return self::SORTINGSTATE_ASC;
 		}
 	}
 	
 }
- 
- 
 ?>
