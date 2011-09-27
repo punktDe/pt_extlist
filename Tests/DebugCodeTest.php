@@ -34,6 +34,9 @@
  */
 class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
+	protected $extensionName = 'pt_extlist';
+
+
 	/**
 	 * @return array
 	 */
@@ -51,7 +54,7 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCas
 	 * @var $debugCommand
 	 */
 	public function checkForForgottenDebugCode($debugCommand) {
-		$searchPath = t3lib_extMgm::extPath('pt_extlist');
+		$searchPath = t3lib_extMgm::extPath($this->extensionName);
 
 		$result = `fgrep -i -r "$debugCommand" "$searchPath" | grep ".php"`;
 		$lines = explode("\n", trim($result));
