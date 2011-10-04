@@ -55,8 +55,19 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 		parent::__construct($configurationBuilder, $settings);
 	}
-	
-	
+
+
+
+	/**
+	 * Returns a reference to the extlist configurationbuilder
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder() {
+		return $this->configurationBuilder;
+	}
+
+
 	
 	/**
 	 * @return string listIdentifier

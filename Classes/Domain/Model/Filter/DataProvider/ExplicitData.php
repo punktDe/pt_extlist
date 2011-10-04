@@ -27,7 +27,7 @@
  ***************************************************************/
 
 /**
- * Implements data provider for explicid defined data in typoscript
+ * Implements data provider for explicit defined data in typoscript
  * 
  * @author Daniel Lienert 
  * @package Domain
@@ -79,7 +79,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData implements Tx_P
 				$optionKey = $option['key'];
 			} else {
 				$optionKey = $key;
-				$optionData['allDisplayFields'] = trim($option);
+				if(t3lib_div::isFirstPartOfStr($option, 'LLL:')) {
+					$optionData['allDisplayFields'] = Tx_Extbase_Utility_Localization::translate($option, '');
+				} else {
+					$optionData['allDisplayFields'] = trim($option);
+				}
 			}
 
 			$renderedOptions[$optionKey] = array('value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),

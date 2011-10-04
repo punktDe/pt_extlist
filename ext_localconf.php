@@ -11,12 +11,13 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
  */
 
 $controllerActions = array(															// An array holding the controller-action-combinations that are accessible 
-		'List' => 'list,sort,export',	                                            // The first controller and its first action will be the default
-		'Filterbox' => 'show,submit,reset',
-		'Pager' => 'show',
-	    'Bookmarks' => 'show,process,edit,update,delete,create,new',
-	    'BreadCrumbs' => 'index,resetFilter',
-		);
+	'List' => 'list,sort', // The first controller and its first action will be the default
+	'Export'=>'showLink,download',
+	'Filterbox' => 'show,submit,reset',
+	'Pager' => 'show',
+	'Bookmarks' => 'show,process,edit,update,delete,create,new',
+	'BreadCrumbs' => 'index,resetFilter',
+);
 
 		
 		
@@ -34,19 +35,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array()
 );
 
-
-
-// Define state cache, if not already defined
-if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'])) {
-	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['tx_ptextlist'] = array(
-		'frontend' => 't3lib_cache_frontend_VariableFrontend',
-		'backend' => 't3lib_cache_backend_DbBackend',
-		'options' => array(
-			'cacheTable' => 'tx_ptextlist_cache_state',
-			'tagsTable' => 'tx_ptextlist_cache_state_tags',
-		)
-	);
-}
 
 if(TYPO3_MODE == 'BE') {
 	// Hooks

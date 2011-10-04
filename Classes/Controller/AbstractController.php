@@ -35,7 +35,17 @@
  * @package Controller
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_Controller_AbstractActionController  {
-	
+
+
+	/**
+	 * This flag is set to true, the configurationBuilder is reset
+	 *
+	 * @var bool
+	 */
+	protected $resetConfigurationBuilder = false;
+
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
@@ -76,31 +86,37 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::injectConfigurationManager()
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) { // , $initConfigurationBuilder = TRUE, $initDataBackend = TRUE
-		parent::injectConfigurationManager($configurationManager);	
-		
+		parent::injectConfigurationManager($configurationManager);
+
 		if ($this->settings['listIdentifier'] != '') {
-		    $this->listIdentifier = $this->settings['listIdentifier'];
+			$this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
-		
+
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
-		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier);
-		
+		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
+
 		// Determine class name of session storage class to use for session persistence
-		if(TYPO3_MODE === 'FE') { 
-			$sessionStorageClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() 
-								? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
-								: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
+		if (TYPO3_MODE === 'FE') {
+			$sessionStorageClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
+					  ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
+					  : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
 		} else {
 			$sessionStorageClassName = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
-		}		
-		
+		}
+
 		// Instantiate session storage for determined class name
 		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance');
-		
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass));
-		
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass);
+
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+		// We reset session data, if we want to have a reset on empty submit
+		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+		}
+
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 
@@ -114,49 +130,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		parent::setViewConfiguration($view);
 		$this->setCustomPathsInView($view);  
 	}
+
 	
-	
-    
-    /**
-     * Resolve the viewObjectname in the following order
-     * 
-     * 1. TS-defined
-     * 2. Determined by Controller/Action/Format
-     * 3. Extlist BaseView 
-     * 
-     * @throws Exception
-     * @return string
-     */
-    protected function resolveViewObjectName() {
-   	
-    	$viewClassName = $this->resolveTsDefinedViewClassName();
-    	if($viewClassName) {
-    		return $viewClassName;
-		} 
-		
-		$viewClassName = parent::resolveViewObjectName();
-  		if($viewClassName) {
-			return $viewClassName;
-		}
-		
-		else {
-			return 'Tx_PtExtlist_View_BaseView';
-		}
-    }
-    
-    
-    
-    /**
-     * Template method for setting fallback view class in extending Contorllers
-     *
-     * @return string Class name of view, that should be taken by default
-     */
-    protected function getFallbackViewClassName() {
-        return 'Tx_PtExtbase_View_BaseView';
-    }
-    
-    
-    
+
 	/**
 	 * Initializes the view before invoking an action method.
 	 *
@@ -214,9 +190,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @throws Exception
 	 */
 	protected function setCustomPathsInView(Tx_Extbase_MVC_View_ViewInterface $view) {
-		
+        // TODO we do not get global settings from pt_extlist merged into list_identifier settings here. fix this.
+
+        // Get template for current action from settings for list identifier
 		$templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
-		
+
+        // Get template for current action from global settings (e.g. flexform)
+        if (!$templatePathAndFilename) {
+            $templatePathAndFilename = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+        }
+
+        // If no template is given before, take default one
 		if(!$templatePathAndFilename) {
 			$templatePathAndFilename = $this->templatePathAndFileName;
 		}

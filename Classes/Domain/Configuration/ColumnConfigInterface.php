@@ -45,15 +45,22 @@ interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtE
 	
 	/**
 	 * Returns an array of field identifiers, the datafields assigned to this collumn
-	 * @return array
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
 	 */
 	public function getFieldIdentifier();
 	
 	
-	
+	/**
+	 * @abstract
+	 * @return void
+	 */
 	public function getSpecialCell();
 	
-	
+
+	/**
+	 * @abstract
+	 * @return void
+	 */
 	public function getContainsArrayData();
 	
 	//Todo add cell css

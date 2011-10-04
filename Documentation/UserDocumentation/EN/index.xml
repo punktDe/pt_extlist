@@ -107,10 +107,10 @@
   </preface>
   <chapter>
     <title>Introduction</title>
-    <xi:include href="Sections/DescriptionPtExtlist.xml"/>
+    <xi:include href="Sections/Introduction.xml"/>
   </chapter>
   <chapter>
-    <title>xxx</title>
+    <title>Examples</title>
     <xi:include href="Sections/Example.xml"/>
   </chapter>
   <chapter>
@@ -123,20 +123,34 @@
     <xi:include href="Sections/Architecture.xml"/>
   </chapter>
   <chapter>
-    <title>xxx</title>
+    <title>API</title>
     <xi:include href="Sections/API.xml"/>
-     <xi:include href="Sections/Cookbook.xml"/>
   </chapter>
   <chapter>
-    <title>TSREf</title>
+    <title>Cookbook</title>
+    <xi:include href="Sections/Cookbook.xml"/>
+  </chapter>
+  <chapter>
+    <title>Integrator's Guide</title>
+    <para>This chapter describes pt_extlist&apos;s features from an integrators point of view.</para>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/IntegratorsGuide.xml" encoding="UTF-8"/>
+  </chapter>
+  <chapter>
+    <title>Developer's Guide</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/DevelopersGuide.xml" encoding="UTF-8"/>
+  </chapter>
+  <chapter>
+    <title>TypoScript Reference (TSRef)</title>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
   </chapter>
   <chapter>
-    <title>Developer Guide</title>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/ExtendingExtlist.xml" encoding="UTF-8"/>
+    <title>Changelog</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Changelog.xml"/>
   </chapter>
+    <!-- We do not need an appendix yet
   <chapter>
     <title>Appendix</title>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Glossary.xml" encoding="UTF-8"/>
    </chapter>
+   -->
 </book>

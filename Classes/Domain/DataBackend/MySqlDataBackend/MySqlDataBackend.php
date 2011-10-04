@@ -42,6 +42,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $dataSource;
 
 
+
     /**
      * Holds an instance of a query interpreter to be used for
      * query objects
@@ -51,11 +52,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $queryInterpreter;
 
 
+
     /**
      * Table definitions from TSConfig
      * @var string
      */
     protected $tables;
+
 
 
     /**
@@ -65,11 +68,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $baseWhereClause;
 
 
+
     /**
      * The baseFromClause from TSConfig
      * @var string
      */
     protected $baseFromClause;
+
 
 
     /**
@@ -80,12 +85,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $baseGroupByClause;
 
 
+
     /**
      * Array of complete query list query parts with MYSQL keywords
      *
      * @var array
      */
     protected $listQueryParts = NULL;
+
 
 
 	/**
@@ -141,6 +148,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	}
 
 
+
 	/**
 	 * Builder for SQL query. Gathers information from
 	 * all parts of plugin (ts-config, pager, filters etc.)
@@ -153,7 +161,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		if(!is_array($this->listQueryParts)) {
 			$selectPart  = $this->buildSelectPart();
 			$fromPart    = $this->buildFromPart();
-			$wherePart   = $this->buildWherePart();
+			$wherePart   = $this->buildWherePartForListData();
 			$orderByPart = $this->buildOrderByPart();
 			$limitPart   = $this->buildLimitPart();
 			$groupByPart = $this->buildGroupByPart();
@@ -167,9 +175,24 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		}
 
 		$query = implode('', $this->listQueryParts);
+
 		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 		return $query;
 	}
+
+
+
+    /**
+     * Helper method that builds where part for list data
+     *
+     * Method respects exclude filters of submitted (active) filterbox
+     * TODO test me!
+     *
+     * @return string
+     */
+    protected function buildWherePartForListData() {
+        return $this->buildWherePart($this->filterboxCollection->getExcludeFilters());
+    }
 
 
 
@@ -331,41 +354,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string ORDER BY part of query without 'ORDER BY'
 	 */
 	public function buildOrderByPart() {
-		return $this->getOrderByFromListHeader($this->listHeader);
+		$sortingsQuery = $this->sorter->getSortingStateCollection()->getSortingsQuery();
+        $translatedOrderBy = $this->queryInterpreter->getSorting($sortingsQuery);
+        return $translatedOrderBy;
 	}
-
-
-
-	/**
-	 * Build the order by string from list header
-	 *
-	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 * @return string
-	 */
-	public function getOrderByFromListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		$orderByArray = array();
-
-		foreach($listHeader as $headerColumn) {
-			$headerColumnSorting = $this->getOrderByFromHeaderColumn($headerColumn);
-			if ($headerColumnSorting != '' ) {
-			   $orderByArray[] = $headerColumnSorting;
-			}
-		}
-		return count($orderByArray) > 0 ? implode(', ', $orderByArray) : '';
-	}
-
-
-
-	/**
-	 * Return the interpreted order by string from a single header column
-	 *
-	 * @param $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
-	 * @return string
-	 */
-	public function getOrderByFromHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
-		return $this->queryInterpreter->getSorting($headerColumn->getSortingQuery());
-	}
-
+    
 
 
 	/**
@@ -568,6 +561,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
     	return $query;
     }
-}
 
+}
 ?>

@@ -111,12 +111,37 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 * @return String
 	 */
 	public function submitAction() {
+        /**
+         * Some explanation on what happens here:
+         *
+         * 1. We check whether filter validates. If not, we set error in template and forward to 'show'
+         * 2. Whenever a filter is submitted, this action is called. Previously active state of filter is stored in session, so
+         *    we have to reset this. Active state for filterbox is set in init() of filterbox again, if GP vars are available.
+         * 3. We have to reset the pagers, as changed filter state normally means changed pager state
+         * 4. We check, whether we have a redirect on submit configured for this filter and do the redirect if we have done so
+         */
+
 		if (!$this->filterbox->validate()) {
 			$this->view->assign('filtersDontValidate', true);
-		}
+            $this->forward('show');
+        }
+        
+        $this->filterboxCollection->resetIsSubmittedFilterbox();
 
-		$this->resetPagers();
-		$this->forward('show'); // maybe a redirect is needed here?!? --> no, it's not, as we have GP-vars mapping!
+        $this->resetPagers();
+
+        // check whether we have a redirect on submit configured for this filter
+        if ($this->filterbox->isSubmittedFilterbox() && $this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
+            $this->redirect(
+                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(),      // action name
+                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitControllerName(),  // controller name
+                 null,                                                                                // extension name
+                 null,                                                                                // arguments
+                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitPageId()           // page id
+            );
+        }
+
+        $this->forward('show'); // Filter submitted, so we redirect to show action
 	}
 	
 
@@ -124,11 +149,16 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	/**
 	 * Resets all filters of filterbox
 	 *
+     * @param string $filterboxIdentifier Identifier of filter which should be reset
 	 * @return string Rendered reset action
-	 */
-	public function resetAction() {
-		$this->filterbox->reset();
+	 */                          
+	public function resetAction($filterboxIdentifier) {
+        if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
+            $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
+        }
+        
 		$this->resetPagers();
+        
 		/**
 		 * TODO try to figure out a way how to handle this without redirect
 		 * 
@@ -153,7 +183,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		// Reset pagers
 		if ($this->pagerCollection === NULL) {
 			// Only get pagerCollection if it's not set already. Important for testing.
-			$this->pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilder);
+			$this->pagerCollection = $this->dataBackend->getPagerCollection();
 		}
 		$this->pagerCollection->reset();
 	}

@@ -27,7 +27,7 @@
  ***************************************************************/
 
 /**
- * Class implements Criteria. Besides an abstract base class for all other criterias,
+ * Class implements criteria for query objects. Besides an abstract base class for all other criteria,
  * this class acts as a factory for all criteria objects. 
  *
  * @package Domain
@@ -175,6 +175,38 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
 	public static function notOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		return new Tx_PtExtlist_Domain_QueryObject_NotCriteria($criteria);
 	}
-	
+
+
+
+	/**
+	 * Returns a new 'fullText' criteria
+	 *
+	 * @static
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields
+	 * @param string $searchString
+	 * @param boolean $useBooleanMode
+	 * @param array $searchParameter
+	 * @return Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
+	 */
+	public static function fullText(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields , $searchString, array $searchParameter = array()) {
+		return new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fields , $searchString, $searchParameter);
+	}
+
+
+
+    /**
+     * Returns a new  raw sql criteria.
+     *
+     * WARNING: No quoting will be used to handle query string. Developer is
+     * responsible for correct quoting of SQL string!
+     *
+     * @static
+     * @param $rawSqlString
+     * @return Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria
+     */
+    public static function rawSql($rawSqlString) {
+        return new Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria($rawSqlString);
+    }
+    
 }
 ?>

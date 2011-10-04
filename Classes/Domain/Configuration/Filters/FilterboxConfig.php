@@ -85,6 +85,61 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	
 	
 	/**
+	 * Holds ID of page to which should be redirected after filterbox submits
+	 *
+	 * @var int
+	 */
+	protected $redirectOnSubmitPageId = null;
+	
+	
+	
+	/**
+	 * Holds name of controller used for redirect after filterbox submits
+	 *
+	 * @var string
+	 */
+	protected $redirectOnSubmitControllerName = null;
+	
+	
+	
+	/**
+	 * Holds name of action used for redirect after filterbox submits
+	 *
+	 * @var string
+	 */
+	protected $redirectOnSubmitActionName = null;
+
+
+
+    /**
+     * Holds an array of filters that are excluded from where
+     * part if this filterbox is submitted.
+     *
+     * @var array
+     */
+    protected $excludeFilters = array();
+
+
+
+    /**
+     * If set to true, this filterbox has been submitted in current request
+     * 
+     * @var bool
+     */
+    protected $isSubmittedFilterbox = false;
+
+
+
+    /**
+     * Target PID to submit filterbox to
+     * 
+     * @var string
+     */
+    protected $submitToPage;
+	
+	
+	
+	/**
 	 * Holds an instance of configuration builder
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
@@ -138,7 +193,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	/**
 	 * Get the filterconfig by filterIdentifier
 	 * 
-	 * @param sting $filterIdentifier
+	 * @param string $filterIdentifier
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	public function getFilterConfigByFilterIdentifier($filterIdentifier) {
@@ -153,17 +208,62 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	 * @param array $filterBoxSettings
 	 */
 	protected function setOptionalSettings($filterBoxSettings) {
-		
-		if(array_key_exists('showReset', $filterBoxSettings)) {
+
+        if (array_key_exists('submitToPage', $filterBoxSettings)) {
+            $this->submitToPage = $filterBoxSettings['submitToPage'];
+        }
+
+		if (array_key_exists('showReset', $filterBoxSettings)) {
 			$this->showReset = $filterBoxSettings['showReset'] == 1 ? true : false;
 		}
 		
-		if(array_key_exists('showSubmit', $filterBoxSettings)) {
+		if (array_key_exists('showSubmit', $filterBoxSettings)) {
 			$this->showSubmit = $filterBoxSettings['showSubmit'] == 1 ? true : false;
 		}
 		
+		if (array_key_exists('redirectOnSubmit', $filterBoxSettings)) {
+			$redirectSettings = $filterBoxSettings['redirectOnSubmit'];
+			if (array_key_exists('action', $redirectSettings)) {
+				$this->redirectOnSubmitActionName = $redirectSettings['action'];
+			} else {
+				throw new Exception('You have redirect on submit configured for your filterbox ' . $this->getFilterboxIdentifier() . ' but have set no action to redirect to. You always have to set an action, even if it is nonesense! 1313610240');
+			}
+			if (array_key_exists('pageId', $redirectSettings)) {
+				$this->redirectOnSubmitPageId = $redirectSettings['pageId'];
+			}
+			if (array_key_exists('controller', $redirectSettings)) {
+				$this->redirectOnSubmitControllerName = $redirectSettings['controller'];
+			}
+		}
+
+        if (array_key_exists('excludeFilters', $filterBoxSettings)) {
+            $this->setExcludeFilters($filterBoxSettings['excludeFilters']);
+        }
+		
 	} 
-	
+
+
+
+    /**
+     * Setter for exclude filters for this filterbox.
+     *
+     * Set excludeFilters = filterboxIdentifier1.filterIdentifier1, filterboxIdentifier1.filterIdentifier2, ...
+     *
+     * @param $excludeFiltersString
+     * @return void
+     */
+    protected function setExcludeFilters($excludeFiltersString) {
+        $excludeFilters = t3lib_div::trimExplode(',',$excludeFiltersString);
+        foreach($excludeFilters as $excludedFilter) {
+            list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
+            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416'));
+            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, array('message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417'));
+            if (!is_array($this->excludeFilters[$filterboxIdentifier]) || !in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
+                $this->excludeFilters[$filterboxIdentifier][] = $filterIdentifier;
+            }
+        }
+    }
+
 	
 	
 	/**
@@ -193,12 +293,79 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	}
 	
 	
+	
 	/**
 	 * Show Submit button / link in filterbox
 	 * @return boolean showSubmit
 	 */
 	public function getShowSubmit() {
 		return $this->showSubmit;
-	}	
+	}
+	
+	
+	
+	/**
+	 * Returns action name used for redirect after filterbox submits
+	 * 
+	 * @return string
+	 */
+	public function getRedirectOnSubmitActionName() {
+		return $this->redirectOnSubmitActionName;
+	}
+	
+	
+	
+	/**
+	 * Returns controller name used for redirect after filterbox submits
+	 * 
+	 * @return string
+	 */
+	public function getRedirectOnSubmitControllerName() {
+		return $this->redirectOnSubmitControllerName;
+	}
+	
+	
+	
+	/**
+	 * Returns page id of page to which should be redirected after filterbox submits
+	 * 
+	 * @return int
+	 */
+	public function getRedirectOnSubmitPageId() {
+		return $this->redirectOnSubmitPageId;
+	}
+	
+	
+	
+	/**
+	 * Returns true, if we do a redirect after submit
+	 *
+	 * @return bool
+	 */
+	public function doRedirectOnSubmit() {
+		return ($this->redirectOnSubmitPageId > 0 || $this->redirectOnSubmitActionName !== null);
+	}
+
+
+
+    /**
+     * Returns an array of 'filterboxIdentifier' => array(filterbox
+     * @return array
+     */
+    public function getExcludeFilters() {
+        return $this->excludeFilters;
+    }
+
+
+
+    /**
+     * Getter for target PID to send submit request for this filterbox
+     * 
+     * @return Target PID to send submit request of this filterbox
+     */
+    public function getSubmitToPage() {
+        return $this->submitToPage;
+    }
+	
 }
 ?>

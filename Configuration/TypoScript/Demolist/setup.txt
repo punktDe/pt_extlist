@@ -24,6 +24,22 @@
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.txt">
 
 #
+# Demolist to show fullText filter with the extension cache
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_03.txt">
+
+#
+# Demolist to show advanced sorting headers
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_04_sorting.txt">
+
+#
+# Demolist to show timeSpan filter with the syslog table
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_04.txt">
+
+
+#
 # Demolist with mysql backend and external mysql data
 # As demo data we use the "World data" http://dev.mysql.com/doc/index-other.html
 # Host: localhost

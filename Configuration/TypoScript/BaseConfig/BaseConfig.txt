@@ -20,5 +20,12 @@ plugin.tx_ptextlist.settings.base {
 	* Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter			Save the session data into the databae and add an identifier to the get parameter
 	* Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter		Add all session parameters to the get parameter
 	*/
-	cachedSessionStorageAdapter = Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter
+	cachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_NullStorageAdapter
+
+	/*
+	* If this is set to 1, a list will be reset every time there is no
+    * GP-var data for current request. You can use this switch, if you want a list
+    * to be reset to its default settings every time you open up a page.
+    */
+	# resetOnEmptySubmit = 1
 }

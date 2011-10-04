@@ -72,6 +72,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 			$exportFileName .= $data['data']['export']['lDEF']['settings.prototype.export.addDateToFilename']['vDEF'] ? '[DATE]' : '';
 			$exportFileName .= '.' . $data['data']['export']['lDEF']['settings.prototype.export.fileExtension']['vDEF'];
 			$exportDownloadType = 'tx_ptextlist_flexform_export.downloadtype.'.$data['data']['export']['lDEF']['settings.prototype.export.downloadType']['vDEF'];
+			$exportListIdentifier = $data['data']['export']['lDEF']['settings.exportListIdentifier']['vDEF'];
 		}
 		
 		$this->fluidRenderer->assign($this->pluginMode, true);
@@ -82,7 +83,8 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 		$this->fluidRenderer->assign('exportType', $exportType);
 		$this->fluidRenderer->assign('exportFileName', $exportFileName);
 		$this->fluidRenderer->assign('exportDownloadType', $exportDownloadType);
-		
+		$this->fluidRenderer->assign('exportListIdentifier', $exportListIdentifier);
+
 		$this->fluidRenderer->assign('caLabel', 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_controllerAction.' . $this->pluginMode);
  		return $this->fluidRenderer->render();
 	}

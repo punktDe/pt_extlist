@@ -28,50 +28,90 @@
 
 
 /**
+ * ViewHelper for rendering list headers.
  * 
- * TODO: Enter description here ...
+ * This ViewHelper acts as a loop over headers given in list. Foreach
+ * Header, the child elements of the ViewHelper are rendered. Therefore
+ * additional variables are set in the template variable container and
+ * hence made accessible for the child elements.
+ * 
  * @package ViewHelpers
- *
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
-	 * 
-	 * Enter description here ...
-	 * @param $header
-	 * @param $captions
-	 * @param $headerKey string
-	 * @param $captionKey string
+	 * Renders SortingViewHelper
+	 *
+	 * Sets additional template variables for children of this viewhelper.
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $captions
+	 * @param string $headerKey
+	 * @param string $captionKey
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption") {
-		
-		$output = '';
 		if ($headers === NULL || $captions === NULL) {
 			return '';
 		}
-		
+
 		$output = '';
+
 		foreach ($headers as $header) {
+			/* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
-			$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));		
-			$this->templateVariableContainer->add($headerKey, $header);
-			$this->templateVariableContainer->add('sortable', $header->isSortable());
-			$this->templateVariableContainer->add('sortingState', $header->getSortingState());
-			
-			$output .= $this->renderChildren();
-			
-			$this->templateVariableContainer->remove($captionKey);
-			$this->templateVariableContainer->remove($headerKey);
-			$this->templateVariableContainer->remove('sortable');
-			$this->templateVariableContainer->remove('sortingState');
-			
+			if($captions->hasItem($header->getColumnIdentifier())) {
+
+				// Set additional variables in template vars for child elements
+				$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));
+				$this->templateVariableContainer->add('header', $header);
+				$this->templateVariableContainer->add('sortable', $header->isSortable());
+				$this->templateVariableContainer->add('sortingFields', $this->buildSortingFieldParams($header));
+				$this->templateVariableContainer->add('sortColumnAtOnce', $header->getSortingConfig()->getColumnSorting());
+
+				$output .= $this->renderChildren();
+
+				$this->templateVariableContainer->remove('sortColumnAtOnce');
+				$this->templateVariableContainer->remove('sortingFields');
+				$this->templateVariableContainer->remove($captionKey);
+				$this->templateVariableContainer->remove($headerKey);
+				$this->templateVariableContainer->remove('sortable');
+			}
 		}
-		return $output;
 
+		return $output;
 	}
 
-	
-	
+
+
+    /**
+     * Returns an array of sorting field parameters for given header.
+     *
+     * Each header can have multiple sorting fields attached, each one
+     * can be sorted individually.
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+     * @return array
+     */
+    protected function buildSortingFieldParams(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
+        $sortingFieldsParams = array();
+
+        foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+            $sortingFieldParams = array();
+            $sortingFieldParams['field'] = $sortingFieldConfig->getField();
+            $sortingFieldParams['label'] = $sortingFieldConfig->getLabel();
+            $sortingFieldParams['forceDirection'] = $sortingFieldConfig->getForceDirection();
+            $sortingFieldParams['direction'] = $sortingFieldConfig->getDirection();
+            $sortingFieldParams['sortingFieldParameterAsc'] = $sortingFieldConfig->getField() . ':1';
+            $sortingFieldParams['sortingFieldParameterDesc'] = $sortingFieldConfig->getField() . ':-1';
+            $sortingFieldParams['sortingFieldParameterNone'] = $sortingFieldConfig->getField() . ':0';
+            $sortingFieldParams['currentDirection'] = $header->getSortingDirectionForField($sortingFieldConfig->getField());
+            $sortingFieldsParams[] = $sortingFieldParams;
+        }
+
+        return $sortingFieldsParams;
+    }
+
 }
 
 ?>

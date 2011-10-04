@@ -52,10 +52,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_P
 		$filterConfigurationMock->setup();
 		$filterConfiguration = $filterConfigurationMock->getFilterConfigurationMock('filter1', 'test');
 		$className = $filterConfiguration->getConfigurationBuilder();
-		var_dump($className);
 		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
 		$this->assertEquals($filter->getFilterIdentifier(), 'filter1');
-	    $this->assertEquals($filter->getListIdentifier(), 'test');	
+	   $this->assertEquals($filter->getListIdentifier(), 'test');
 	}
 	
 	

@@ -111,8 +111,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                     'def' => '3',
 						 
 	                     'controller' => array (
-							'List' => array (
-								'export' => array(
+							'Export' => array (
+								'download' => array(
 									'view' => 'export.exportConfigs.test'
 								)
 							)
@@ -154,7 +154,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field2',
 	                            'label' => 'Column 2',  
 	                            'isSortable' => '1',
-	                        	'sorting' => 'tstamp, title',
+	                        	'sorting' => 'field1, field2',
 	                            
 	                        ),
 	                        30 => array( 
@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field3',
 	                            'label' => 'Column 3',  
 	                            'isSortable' => '1',
-	                        	'sorting' => 'tstamp asc, title !DeSc',
+	                        	'sorting' => 'field1 asc, field2 !DeSc',
 	                            'accessGroups' => '1,2,3,4',
 	                            'cellCSSClass' => 'class',
 	                        ),
@@ -171,7 +171,33 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	                            'fieldIdentifier' => 'field4',
 	                            'label' => 'Column 4',  
 	                        	//'renderTemplate' => 'typo3conf/ext/pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html',
-	                        )
+	                        ),
+                            // We use this field for testing sortingFields setup
+                            50 => array(
+                                'columnIdentifier' => 'column4',
+	                            'fieldIdentifier' => 'field4',
+	                            'label' => 'Column 4',
+                                'sortingFields' => array(
+                                    10 => array(
+                                        'field' => 'field1',
+                                        'direction' => 'desc',
+                                        'forceDirection' => 1,
+                                        'label' => 'Sorting label 1'
+                                    ),
+                                    20 => array(
+                                        'field' => 'field2',
+                                        'direction' => 'asc',
+                                        'forceDirection' => 0,
+                                        'label' => 'Sorting label 2'
+                                    ),
+                                    30 => array(
+                                        'field' => 'field3',
+                                        'direction' => 'desc',
+                                        'forceDirection' => 0,
+                                        'label' => 'Sorting label 3'
+                                    )
+                                )
+                            )
 	                    ),
 	                    
 	                    'rendererChain' => array(

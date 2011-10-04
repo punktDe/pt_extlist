@@ -52,8 +52,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	
 	
 	/**
-	 * Inject all settings of the extension 
-	 * @param $settings The current settings for this extension.
+	 * Inject all settings of the extension
+	 * 
+	 * @static
+	 * @param array $settings
+	 * @return void
 	 */
 	public static function injectSettings(array &$settings) {
 		self::$settings = &$settings;
@@ -62,10 +65,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	
 	/**
 	 * Returns a singleton instance of a configurationBuilder class
-	 * @param $listIdentifier the listidentifier of the list
+	 *
+	 * @static
+	 * @param $listIdentifier string the listidentifier of the list
+	 * @param $resetConfigurationBuilder boolean
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder 
 	 */
-	public static function getInstance($listIdentifier = NULL) {
+	public static function getInstance($listIdentifier = NULL, $resetConfigurationBuilder = false) {
 		
 		if($listIdentifier == NULL) {
 			$listIdentifier = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
@@ -76,17 +82,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 		if ($listIdentifier == '') {
 			throw new Exception('No list identifier could be found in settings! 1280230579');
 		}
-		
-		if (!array_key_exists($listIdentifier,self::$instances)) {
+
+		if (!array_key_exists($listIdentifier, self::$instances) || $resetConfigurationBuilder) {
 			
 			if(!is_array(self::$settings['listConfig']) || !array_key_exists($listIdentifier, self::$settings['listConfig'])) {
 				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
 			}
-        
-            self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings, $listIdentifier);
-        }
-        
-        return self::$instances[$listIdentifier];
+         self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings, $listIdentifier);
+      }
+
+      return self::$instances[$listIdentifier];
 	}	
 }
 ?>

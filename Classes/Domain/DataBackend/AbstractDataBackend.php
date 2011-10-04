@@ -92,24 +92,27 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $listData = NULL;
+
 	
 	
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $aggregateListData;
-	
+
+
 	
     /**
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
 	protected $pagerCollection;
-	
+
+
 	
 	/**
 	 * Holds an instance for data source
 	 *
-	 * @var mixed
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
 	 */
 	protected $dataSource;
 	
@@ -140,6 +143,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
      */
     protected $bookmarkManager;
+
+
+
+    /**
+     * Holds an instance of a sorter
+     *
+     * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     */
+    protected $sorter;
 
 	
 		
@@ -287,6 +299,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     public function injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager) {
     	$this->bookmarkManager = $bookmarkManager;
     }
+
+    
+
+    /**
+     * Injector for 
+     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     * @return void
+     */
+    public function injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter) {
+        $this->sorter = $sorter;
+    }
 	
     
     
@@ -297,7 +320,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     	return $this->configurationBuilder;
     }
     
-	
+
+	/**
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+	 */
+	public function getDataSource() {
+		return $this->dataSource;
+	}
+
+
 	
 	/**
 	 * Returns filterbox collection attached to this data backend
@@ -383,7 +414,18 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getFieldConfigurationCollection() {
 		return $this->fieldConfigurationCollection;
 	}
-	
+
+
+
+    /**
+     * Returns sorter registered for this data backend
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     */
+    public function getSorter() {
+        return $this->sorter;
+    }
+
 }
 
 ?>

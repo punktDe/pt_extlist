@@ -35,24 +35,16 @@ LastItem: {pager.lastItemIndex}
 </div>
 <ul class="tx-ptextlist-pager" id="tx-ptextlist-pager-{pager.pagerIdentifier}">
 	<f:if condition="{pager.showFirstLink}">
-		<li class="first">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.firstPage}')}"><span>&lt;&lt;</span></f:link.action>
-		</li>
+		<li class="first"><f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.firstPage}')}"><span>&lt;&lt;</span></f:link.action></li>
 	</f:if>
 	<f:if condition="{pager.showPreviousLink}">
-		<li class="previous">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.previousPage}')}"><span>&lt;</span></f:link.action>
-		</li>
+		<li class="previous"><f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.previousPage}')}"><span>&lt;</span></f:link.action></li>
 	</f:if>
 	
 	<f:if condition="{pager.showNextLink}">
-		<li class="next">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.nextPage}')}"><span>&gt;</span></f:link.action>
-		</li>
+		<li class="next"><f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.nextPage}')}"><span>&gt;</span></f:link.action></li>
 	</f:if>
 	<f:if condition="{pager.showLastLink}">
-		<li class="last">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.lastPage}')}"><span>&gt;&gt;</span></f:link.action>
-		</li>
+		<li class="last"><f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.lastPage}')}"><span>&gt;&gt;</span></f:link.action></li>
 	</f:if>
 </ul>

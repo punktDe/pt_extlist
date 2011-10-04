@@ -33,7 +33,7 @@
  * @package Tests
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $filterBoxConfigurationMock = null;
 	
@@ -61,22 +61,26 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 	}
 	
 	
-	
-	public function testReset() {
+
+    /** @test */
+	public function resetResetsFiltersOfThisBoxAndSetsIsSubmittedFilterboxToFalse() {
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
+        $filterbox->isSubmittedFilterbox();
 		$filter = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('reset'), array(), '', FALSE);
 		$filter->expects($this->once())
 		  ->method('reset');
 		$filterbox->addItem($filter, 'testfilter');
 		$filterbox->reset();
+        $this->assertEquals($filterbox->isSubmittedFilterbox(), false);
 	}
 	
 	
-	
-	public function testImplementsIdentifiableInterface() {
+
+    /** @test */
+	public function classImplementsSessionPersistableInterface() {
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
-		$this->assertTrue(is_a($filterbox, 'Tx_PtExtbase_State_IdentifiableInterface'), 'Filterbox does not implement Tx_PtExtbase_State_IdentifiableInterface!');
-		$this->assertTrue($filterbox->getObjectNamespace() == $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier());
+		$this->assertTrue(is_a($filterbox, 'Tx_PtExtbase_State_Session_SessionPersistableInterface'), 'Filterbox does not implement Tx_PtExtbase_State_Session_SessionPersistableInterface!');
+		$this->assertTrue($filterbox->getObjectNamespace() == $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier() . '.' . Tx_PtExtlist_Domain_Model_Filter_Filterbox::OBJECT_NAMESPACE_SUFFIX);
 	}
 	
 	
@@ -90,14 +94,18 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 		$validatingFilterboxMock->addItem($validatingFilterMock);
 		$this->assertTrue($validatingFilterboxMock->validate());
 	}
-	
+
+
+
 	public function testGetAccessableFilterbox() {
 		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($this->filterBoxConfigurationMock);
 		$accessableFilterbox = $filterbox->getAccessableFilterbox();
 		
 		$this->assertTrue(is_a($accessableFilterbox, 'Tx_PtExtlist_Domain_Model_Filter_Filterbox'));
 	}
-	
+
+
+
 	public function testValidateOnNonValidatingFilters() {
 		$notValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
 		$notValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', FALSE);
@@ -115,5 +123,4 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Filterbox_testcase extends Tx_Extba
 	}
 	
 }
-
 ?>

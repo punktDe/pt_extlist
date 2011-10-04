@@ -17,21 +17,42 @@ Image/SortingViewHelper		Creates a soring image based on the header information.
 
 @package Typo3
 @subpackage pt_extlist
-@author Christoph Ehscheidt <ehscheidt@punkt.de>
 -->
 </extlist:comment> 
 
 <tr>
 	<extlist:header headers="{listHeader}" headerKey="header" captions="{listCaptions}" captionKey="caption">
-		<th class="tx-ptextlist-list-header">
-				
+		<th class="tx-ptextlist-list-header {header.columnConfig.headerThCssClass}">
 			<f:if condition="{sortable}">
-			<f:then>
-				<extlist:link.sorting action="sort" header="{header}">
-					{caption}
-					<extlist:image.sorting header="{header}" alt="sorting"/>
-				</extlist:link.sorting>
-			</f:then>
+                <f:then>
+                    <f:if condition="{sortColumnAtOnce}">
+                        <f:then>
+                            <extlist:link.sorting action="sort" header="{header}">
+                                {caption}
+                                <f:if condition="{sortingDirection} == 0"><img alt="" src="{header.columnConfig.sortingImageDefault}" /></f:if>
+                                <f:if condition="{sortingDirection} == 1"><img alt="" src="{header.columnConfig.sortingImageDesc}" /></f:if>
+                                <f:if condition="{sortingDirection} == -1"><img alt="" src="{header.columnConfig.sortingImageAsc}" /></f:if>
+                            </extlist:link.sorting>
+                        </f:then>
+                        <f:else>
+                            <f:for each="{sortingFields}" as="sortingField">
+                                <extlist:link.sortingFields action="sort" header="{header}" fieldAndDirection="{sortingField}">
+                                    <f:if condition="{sortingField.label}">
+                                        <f:then>
+                                            <f:translate key="{sortingField.label}" default="{sortingField.label}"/>
+                                        </f:then>
+                                        <f:else>
+                                            {caption}
+                                        </f:else>
+                                    </f:if>
+                                    <f:if condition="{sortingField.currentDirection} == 0"><img alt="" src="{header.columnConfig.sortingImageDefault}" /></f:if>
+                                    <f:if condition="{sortingField.currentDirection} == 1"><img alt="" src="{header.columnConfig.sortingImageDesc}" /></f:if>
+                                    <f:if condition="{sortingField.currentDirection} == -1"><img alt="" src="{header.columnConfig.sortingImageAsc}" /></f:if>
+                                </extlist:link.sortingFields>
+                            </f:for>
+                        </f:else>
+                    </f:if>
+                </f:then>
 			<f:else>
 				{caption}
 			</f:else>

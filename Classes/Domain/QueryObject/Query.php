@@ -189,7 +189,17 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 		return $this->criterias;
 	}
 	
-	
+
+
+	/**
+	 * Unset the current filterCriterias
+	 * @return void
+	 */
+	public function unsetCriterias() {
+		unset($this->criterias);
+	}
+
+
 	
 	/**
 	 * Sets limit. Possible formats are 'd' or 'd:d'
@@ -257,11 +267,8 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * Add an array of fields and sorting direction to the array of sortings
 	 * 
 	 * @param $sortingArray array
-	 * @author Daniel Lienert 
-	 * @since 02.08.2010
 	 */
 	public function addSortingArray(array $sortingArray) {
-		Tx_PtExtbase_Assertions_Assert::isArray($sortingArray, array('message' => 'No array to add given! 1280754115'));
 		// TODO assert that content of array is correct! 
 		$this->sortings =  t3lib_div::array_merge_recursive_overrule($this->sortings, $sortingArray);
 	}
@@ -276,8 +283,30 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	public function getSortings() {
 		return $this->sortings;
 	}
+
+
+
+    /**
+	 * Inverts given sorting state.
+     *
+     * ASC will become DESC
+     * DESC will become ASC
+     * everything else will become ASC
+	 *
+	 * @param int $sortingState
+	 * @return int The inverted sorting state.
+	 */
+	public static function invertSortingState($sortingState) {
+		switch($sortingState) {
+			case self::SORTINGSTATE_ASC:
+				return self::SORTINGSTATE_DESC;
+			case self::SORTINGSTATE_DESC:
+				return self::SORTINGSTATE_ASC;
+			default:
+                // TODO think about this behaviour!
+				return self::SORTINGSTATE_ASC;
+		}
+	}
 	
 }
- 
- 
 ?>

@@ -16,7 +16,12 @@
 		</tr>
 	</f:if>
 	
-		<f:if condition="{List_export}">
+		<f:if condition="{Export_showLink}">
+            exportListIdentifier
+        <tr>
+			<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_export.exportListIdentifier" />:</td>
+			<td><strong>{exportListIdentifier}</strong></td>
+		</tr>
 		<tr>
 			<td><f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_export.type" />:</td>
 			<td><strong>{exportType}</strong></td>
