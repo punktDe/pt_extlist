@@ -144,6 +144,10 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
   </chapter>
   <chapter>
+    <title>Changelog</title>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Changelog.xml"/>
+  </chapter>
+  <chapter>
     <title>Appendix</title>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Glossary.xml" encoding="UTF-8"/>
    </chapter>
