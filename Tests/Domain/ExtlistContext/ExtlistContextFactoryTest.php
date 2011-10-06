@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -26,17 +26,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+/**
+ * Class tests factory for ExtListContext
+ *
+ * @package ExtlistContext
+ * @author Daniel Lienert
+ */
+class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testHudson() {
-		$this->assertTrue(true);
-//		$this->fail("Hudson LAVA! :-)");
-		// make it fail to test hudson testing
+	/**
+	 * @test
+	 */
+	public function classExists() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_ExtlistContext_ExtlistContextFactory'));
 	}
-	
-	public function testCIGame() {
-		$this->assertTrue(true);
-	}
+
 }
-
 ?>

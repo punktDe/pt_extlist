@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -26,17 +26,49 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+/**
+ * Implements a criteria for sending raw sql queries to databackend
+ *
+ * WARNING: No quoting will be used to handle query. Developer is
+ * responsible for correct quoting of SQL string!
+ *
+ * @package Domain
+ * @subpackage QueryObject
+ * @author Michael Knoll
+ */
+class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
+	 
+	/**
+	 * Holds raw SQL string of criteria
+	 *
+	 * @var string
+	 */
+	protected $rawSqlString;
 
-	public function testHudson() {
-		$this->assertTrue(true);
-//		$this->fail("Hudson LAVA! :-)");
-		// make it fail to test hudson testing
-	}
+
+
+    /**
+     * Constructor for raw sql criteria.
+     *
+     * WARNING: No quoting will be used to handle query. Developer is
+     * responsible for correct quoting of SQL string!
+     *
+     * @param string $rawSqlString
+     */
+    public function __construct($rawSqlString) {
+        $this->rawSqlString = $rawSqlString;
+    }
 	
-	public function testCIGame() {
-		$this->assertTrue(true);
-	}
-}
 
+
+    /**
+     * Getter for raw sql string
+     * 
+     * @return string
+     */
+    public function getRawSqlString() {
+        return $this->rawSqlString;
+    }
+    
+}
 ?>

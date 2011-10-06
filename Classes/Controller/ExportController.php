@@ -35,7 +35,6 @@
  */
 class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_AbstractController {
 
-
 	/**
 	 * Reset ConfigurationBuilder for actions in this Controller
 	 *
@@ -44,10 +43,12 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	protected $resetConfigurationBuilder = TRUE;
 
 
+
 	/**
 	 * @var string
 	 */
 	protected $exportListIdentifier;
+
 
 
 	/**
@@ -62,6 +63,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	}
 
 
+
 	/**
 	 * @return void
 	 */
@@ -71,19 +73,24 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	}
 
 
+
 	/**
 	 * @return string
 	 */
 	public function downloadAction() {
 
-		if($this->listIdentifier == $this->exportListIdentifier) {
+		if($this->listIdentifier == $this->exportListIdentifier  || !$this->exportListIdentifier) {
 			$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 			$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
-
+			
 		} else {
-			$exportListConfiguration = $this->settings[$this->exportListIdentifier];
-			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier);
-
+			$exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
+			
+			if(!is_array($exportListConfiguration)) {
+				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier . ' 1317116470');
+			}
+			
+			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
 			$list = $extlistContext->getList();
 			$rendererChain = $extlistContext->getRendererChain();
 		}
@@ -96,7 +103,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 		$this->view->assign('aggregateRows', $renderedAggregateRows);
-
+		
 		return $this->view->render();
 	}
    

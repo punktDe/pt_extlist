@@ -79,27 +79,47 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 *
 	 * @param array $customTSArray Custom typoscript list configuration in extBase format
 	 * @param string $listIdentifier a listIdentifier to identify the custom list
+	 * @param $useCache boolean
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier) {
+	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = true) {
+		
+		if(!array_key_exists($listIdentifier, self::$instances) || !$useCache) {
 
-		if(!array_key_exists($listIdentifier, self::$instances)) {
+			if($useCache) {
 
-			try {
-				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-			} catch (Exception $e) {
-				$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
-				self::loadLifeCycleManager();
+				try {
+					$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+				} catch (Exception $e) {
+					$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier);
+				}
 
-				Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			} else {
+				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, true);
 			}
 
-			$extListBackend =   Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder, !$useCache);
 			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
 		}
 
 		return self::$instances[$listIdentifier];
+	}
+
+
+
+	/**
+	 * @static
+	 * @param array $customTSArray
+	 * @param $listIdentifier
+	 * @param boolean $resetConfigurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = false) {
+		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
+		self::loadLifeCycleManager();
+
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+		return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier, $resetConfigurationBuilder);
 	}
 
 
@@ -145,10 +165,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 
 		$extListTSArray = self::getCurrentTyposcript();
 		$extListTSArray = $extListTSArray['settings'];
-
+		
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
 
 		if(is_array($customTSArray)) {
+			unset($extListTSArray['listConfig'][$listIdentifier]); // We remove the listConfiguration completeley if it was there before
 			$extListTSArray['listConfig'] = t3lib_div::array_merge_recursive_overrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
 		}
 

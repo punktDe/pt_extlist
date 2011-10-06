@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -26,17 +26,21 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+/**
+ * Testcase for fullText criteria
+ *
+ * @package Tests
+ * @subpackage Domain\QueryObject
+ * @author Michael Knoll
+ */
+class Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testHudson() {
-		$this->assertTrue(true);
-//		$this->fail("Hudson LAVA! :-)");
-		// make it fail to test hudson testing
+	/** @test */
+	public function getRawSqlStringReturnsSqlStringGivenInConstructor() {
+		$fakeRawSqlString = "THIS IS A FAKE RAW SQL QUERY";
+        $rawSqlCriteria = new Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria($fakeRawSqlString);
+        $this->assertEquals($rawSqlCriteria->getRawSqlString(), $fakeRawSqlString);
 	}
-	
-	public function testCIGame() {
-		$this->assertTrue(true);
-	}
+
 }
-
 ?>

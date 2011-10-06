@@ -26,17 +26,44 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+/**
+ * Testcase for header column class
+ * 
+ * @author Daniel Lienert 
+ * @package Tests
+ */
+class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
-	public function testHudson() {
-		$this->assertTrue(true);
-//		$this->fail("Hudson LAVA! :-)");
-		// make it fail to test hudson testing
+	protected $extensionName = 'pt_extlist';
+
+
+	/**
+	 * @return array
+	 */
+	public function debugStringDataProvider() {
+		return array(
+			'Search for print_r in code!' => array('debugCommand' => 'print_r'),
+			'Search for var_dump in code!' => array('debugCommand' => 'var_dump'),
+		);
 	}
-	
-	public function testCIGame() {
-		$this->assertTrue(true);
+
+	/**
+	 * @test
+	 * @dataProvider debugStringDataProvider
+	 * 
+	 * @var $debugCommand
+	 */
+	public function checkForForgottenDebugCode($debugCommand) {
+		$searchPath = t3lib_extMgm::extPath($this->extensionName);
+
+		$result = `fgrep -i -r "$debugCommand" "$searchPath" | grep ".php"`;
+		$lines = explode("\n", trim($result));
+
+		foreach($lines as $line) {
+			if(!stristr($line, __FILE__)) {
+				$this->fail('Found ' . $debugCommand . ': ' . $line);
+			}
+		}
 	}
 }
-
 ?>

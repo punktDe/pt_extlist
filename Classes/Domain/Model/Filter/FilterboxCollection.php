@@ -173,6 +173,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
 
 
 
+	/**
+	 * @return void
+	 */
     public function resetIsSubmittedFilterbox() {
         foreach ($this->itemsArr as $filterboxIdentifier => $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             $filterbox->resetIsSubmittedFilterbox();

@@ -47,7 +47,7 @@
 			<label index="tx_ptextlist_flexform_controllerAction.Filterbox_show">Filterbox</label>
 			<label index="tx_ptextlist_flexform_controllerAction.List_list">List</label>
 			<label index="tx_ptextlist_flexform_controllerAction.Pager_show">Pager</label>
-			<label index="tx_ptextlist_flexform_controllerAction.List_export">Export</label>
+			<label index="tx_ptextlist_flexform_controllerAction.Export_showLink">Export</label>
 			<label index="tx_ptextlist_flexform_controllerAction.BreadCrumbs_index">Breadcrumbs</label>
 			<label index="tx_ptextlist_flexform_controllerAction.Bookmarks_show">Bookmarks</label>
 			
@@ -57,6 +57,7 @@
 			
 			<label index="tx_ptextlist_flexform_export.type">Export Type</label>
 			<label index="tx_ptextlist_flexform_export.filename">Export Filename</label>
+			<label index="tx_ptextlist_flexform_export.exportListIdentifier">Export ListIdentifier</label>
 			<label index="tx_ptextlist_flexform_export.downloadtype">Export Download Type</label>
 
 			<label index="tx_ptextlist_flexform_export.downloadtype.D">Force download</label>

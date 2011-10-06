@@ -46,6 +46,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	                                            'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
 	                                            'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator',
 	                                            'Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator',
+                                                'Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator'
 	 );
 	 
 	 

@@ -50,35 +50,3 @@ pagerWidget {
 }]]></programlisting>
     </section>
 </section>
-
-
-<!--
-  <section>
-        <title>Testaufgabe</title>
-        <para>Beschribung der Aufgabe</para>
-        <para/>
-        <figure>
-            <title/>
-            <mediaobject>
-                <imageobject>
-                    <imagedata fileref="../images/logo_punktde.png" align="center" role="fo" contentwidth="350" format="jpg"/>
-                </imageobject>
-                <imageobject>
-                    <imagedata fileref="../images/logo_punktde.png" align="center" role="html" contentwidth="350" format="jpg"/>
-                </imageobject>
-            </mediaobject>
-        </figure>
-        <itemizedlist>
-            <listitem>
-                <para/>
-            </listitem>
-        </itemizedlist>
-        <orderedlist>
-            <listitem>
-                <para/>
-            </listitem>
-        </orderedlist>
-        <programlisting>
- </programlisting>
-    </section>
--->

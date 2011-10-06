@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -26,17 +26,25 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+/**
+ * Translator for raw sql criteria
+ * 
+ * @package Domain
+ * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
+ * @author Michael Knoll
+ */
+class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
 
-	public function testHudson() {
-		$this->assertTrue(true);
-//		$this->fail("Hudson LAVA! :-)");
-		// make it fail to test hudson testing
+	/**
+	 * translate raw sql criteria
+	 * 
+	 * @param $criteria Tx_PtExtlist_Domain_QueryObject_Criteria
+	 * @return string
+	 */
+	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+        return $criteria->getRawSqlString();
 	}
-	
-	public function testCIGame() {
-		$this->assertTrue(true);
-	}
+    
 }
 
 ?>

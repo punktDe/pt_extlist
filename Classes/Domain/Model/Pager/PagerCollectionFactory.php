@@ -36,14 +36,6 @@
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 
-	/**
-	 * Holds an instance of the pager collection.
-	 * 
-	 * @var array Tx_PtExtlist_Domain_Model_Pager_PagerCollection
-	 */
-	protected static $pagerCollection = NULL;
-	
-	
 	
 	/**
 	 * Returns a instance of the pager collection.
@@ -53,14 +45,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
 		$listIdentifier = $configurationBuilder->getListIdentifier();
-		
-		if(self::$pagerCollection[$listIdentifier] == NULL) {
-			self::buildPagerCollection($configurationBuilder, $listIdentifier);
-		}
-		
-		return self::$pagerCollection[$listIdentifier];
+
+		return self::buildPagerCollection($configurationBuilder, $listIdentifier);
 	}
-	
 	
 	
 	/**
@@ -86,7 +73,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 				$pagerCollection->addPager($pager);
 			}
 			
-			self::$pagerCollection[$listIdentifier] = $pagerCollection;
+			return $pagerCollection;
 	}
 }
 
