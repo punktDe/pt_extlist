@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. --><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <title>Changelog</title>
+  <para>Before updating your version of pt_extlist, you should read this to get an impression on what has changed. Make sure to follow advices on which steps are neccessary to make pt_extlist run again after updating.</para>
+  <para><table>
+      <title>Changelog</title>
+      <tgroup cols="2">
+        <colspec colwidth="1*"/>
+        <colspec colwidth="3*"/>
+        <tbody>
+          <row>
+            <entry>
+              <emphasis role="bold">Version</emphasis>
+            </entry>
+            <entry>
+              <emphasis role="bold">Changes</emphasis>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>0.4.0</para>
+            </entry>
+            <entry>
+              <para/>
+              <itemizedlist>
+                <listitem>
+                  <para>ADD: Template for filterbox can now be overwritten in Flexform</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Export is refactored. Export widget now generates direct link for export, page for export list settings is no longer required.</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Excel export is implemented. <emphasis role="bold">Requires PHPExcel PEAR package!</emphasis></para>
+                </listitem>
+                <listitem>
+                  <para>FIX: ConfigurationBuilder is no longer singleton, if Flexform matters.</para>
+                </listitem>
+                <listitem>
+                  <para>RFT: Format of documentation changed from article to book. Now we have TOC!</para>
+                </listitem>
+                <listitem>
+                  <para>FIX: Removed non-required spaces in pager template to fix CSS rendering.</para>
+                </listitem>
+                <listitem>
+                  <para>RFT: Introduced sorter to handle sorting in data backend.</para>
+                </listitem>
+                <listitem>
+                  <para>CHG: It is now possible to reset filterboxes individually. <emphasis role="bold">If you use your own Filterbox templates, you have to update them! Make sure to submit filterbox identifier on sending reset request.</emphasis></para>
+                </listitem>
+                <listitem>
+                  <para>ADD: ListHeader viewhelper now accepts single columns / fields for sorting. <emphasis role="bold">If you use your own Header templates, you have to update them!</emphasis></para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Filterboxes can now exclude each other. If Filterbox A is configured to exclude Filter b from Filterbox B, than B.b is not respected when filtering data, if Filter B is active.</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: List can now be resetted if no GPvars are send. This enables resetting a page whenever a user visits it for the first time.</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Improved Extbase data backend. Now respects sorting of columns and translates NOT criteria.</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Query for creating list data is now written to devlog.</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Added new dateSelect filter. See documentation for configuration settings.</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Added documentation on how to use pt_extlist as TypoScript widget.</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Added fulltext-filter (only works with MySQL data backend).</para>
+                </listitem>
+                <listitem>
+                  <para>ADD: Added redirect on submit for filterboxes.</para>
+                </listitem>
+              </itemizedlist>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table></para>
+</section>
