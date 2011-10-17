@@ -49,9 +49,13 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 
 		$renderer = new $rendererClassName(); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
 		Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $className . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
-		
+
 		$renderer->injectConfiguration($rendererConfiguration);
 		
+		if(method_exists($renderer, 'initRenderer')) {
+			$renderer->initRenderer();
+		}
+
 		return $renderer;
 	}
 	
