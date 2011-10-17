@@ -118,6 +118,15 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
+    datePicker < .dateSelectList
+    datePicker {
+        filterClassName = Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter
+        dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates
+        partialPath = Filter/Date/DatePickerFilter
+    }
+
+
+
 	select {
 		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
