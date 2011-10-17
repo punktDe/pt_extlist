@@ -28,7 +28,7 @@ Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter           filter              
 
 	<div class="outer-field-wrapper">
 		<div class="field-wrapper type-text">
-			<f:form.textbox id="{filter.filterIdentifier}" property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" size="{filter.filterConfig.settings.size}" maxlength="{filter.filterConfig.settings.maxLength}"/>
+			<f:form.hidden id="{filter.filterIdentifier}" property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" />
 		</div>
 	</div>
     <f:if condition="{filter.validate} == 0">
