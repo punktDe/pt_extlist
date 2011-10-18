@@ -101,6 +101,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanTest exte
 
 
 
+	public function testGetSortingValueCallsGetStartTimestampOnce() {
+		$proxyMock = $this->getMockBuilder($this->proxyClass)
+			->setMethods(array('getStartTimestamp'))
+			->getMock();
+		$proxyMock->expects($this->once())
+			->method('getStartTimestamp');
+		$proxyMock->getSortingValue();
+	}
+
+
+
 	public function testGetJsonValue() {
 		$inputStart = 1324681200;
 		$inputEnd = 1324681200;
@@ -110,6 +121,28 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanTest exte
 		$actual = $this->proxy->getJsonValue();
 		//$actual = print_r($this->proxy, TRUE);
 		$this->assertEquals($actual, $expected);
+	}
+
+
+
+	public function testGetJsonValueCallsGetStartTimeSpanOnce() {
+		$proxyMock = $this->getMockBuilder($this->proxyClass)
+			->setMethods(array('getStartTimestamp'))
+			->getMock();
+		$proxyMock->expects($this->once())
+			->method('getStartTimestamp');
+		$proxyMock->getJsonValue();
+	}
+
+
+
+	public function testGetJsonValueCallsGetEndTimeSpanOnce() {
+		$proxyMock = $this->getMockBuilder($this->proxyClass)
+			->setMethods(array('getEndTimestamp'))
+			->getMock();
+		$proxyMock->expects($this->once())
+			->method('getEndTimestamp');
+		$proxyMock->getJsonValue();
 	}
 
 
