@@ -56,105 +56,99 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanTest exte
 
 
 
-	public function testSetStartTimeSpan() {
-		$expected = $input = 1324681200;
-		$this->proxy->setStartTimestamp($input);
-		$actual = $this->proxy->_get('startTimestamp');
-		$this->assertEquals($actual, $expected);
+	public function testSetStartDate() {
+		$expected = $input = new DateTime("2011/10/31");
+		$this->proxy->setStartDate($input);
+		$actual = $this->proxy->_get('startDate');
+		$this->assertEquals($expected, $actual);
 	}
 
 
 
-	public function testGetStartTimeSpan() {
-		$expected = $input = 1324681200;
-		$this->proxy->_set('startTimestamp', $input);
-		$actual = $this->proxy->getStartTimestamp();
-		$this->assertEquals($actual, $expected);
+	public function testGetStartDate() {
+		$expected = $input = new DateTime("2011/10/31");
+		$this->proxy->_set('startDate', $input);
+		$actual = $this->proxy->getStartDate();
+		$this->assertEquals($expected, $actual);
 	}
 
 
 
-	public function testSetEndTimeSpan() {
-		$expected = $input = 1324681200;
-		$this->proxy->setEndTimestamp($input);
-		$actual = $this->proxy->_get('endTimestamp');
-		$this->assertEquals($actual, $expected);
+	public function testSetEndDate() {
+		$expected = $input = new DateTime("2011/10/31");
+		$this->proxy->setEndDate($input);
+		$actual = $this->proxy->_get('endDate');
+		$this->assertEquals($expected, $actual);
 	}
 
 
 
-	public function testGetEndTimeSpan() {
-		$expected = $input = 1324681200;
-		$this->proxy->_set('endTimestamp', $input);
-		$actual = $this->proxy->getEndTimestamp();
-		$this->assertEquals($actual, $expected);
+	public function testGetEndDate() {
+		$expected = $input = new DateTime("2011/10/31");
+		$this->proxy->_set('endDate', $input);
+		$actual = $this->proxy->getEndDate();
+		$this->assertEquals($expected, $actual);
 	}
 
 
 
-	public function testGetSortingValueReturnsStartTimestamp() {
-		$expected = $input = 1324681200;
-		$this->proxy->_set('startTimestamp', $input);
+	public function testGetSortingValueReturnsStartDate() {
+		$expected = $input = new DateTime("2011/10/31");
+		$this->proxy->_set('startDate', $input);
 		$actual = $this->proxy->getSortingValue();
-		$this->assertEquals($actual, $expected);
+		$this->assertEquals($expected, $actual);
 	}
 
 
 
-	public function testGetSortingValueCallsGetStartTimestampOnce() {
+	public function testGetSortingValueCallsGetStartDateOnce() {
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
-			->setMethods(array('getStartTimestamp'))
+			->setMethods(array('getStartDate'))
 			->getMock();
 		$proxyMock->expects($this->once())
-			->method('getStartTimestamp');
+			->method('getStartDate');
 		$proxyMock->getSortingValue();
 	}
 
 
 
 	public function testGetJsonValue() {
-		$inputStart = 1324681200;
-		$inputEnd = 1324681200;
-		$expected = "{\"start\":1324681200,\"end\":1324681200}";
-		$this->proxy->_set('startTimestamp', $inputStart);
-		$this->proxy->_set('endTimestamp', $inputEnd);
+		$inputStartDate = new DateTime("2011/10/31");
+		$inputEndDate = new DateTime("2011/11/05");
+		$this->proxy->_set('startDate', $inputStartDate);
+		$this->proxy->_set('endDate', $inputEndDate);
+		$expected = "{\"start\":\"20111031\",\"end\":\"20111105\"}";
 		$actual = $this->proxy->getJsonValue();
-		//$actual = print_r($this->proxy, TRUE);
-		$this->assertEquals($actual, $expected);
+		$this->assertEquals($expected, $actual);
 	}
 
 
 
-	public function testGetJsonValueCallsGetStartTimeSpanOnce() {
+	public function testGetJsonValueCallsGetStartDateAndGetEndDateOnce() {
+		$inputStartDate = new DateTime("2011/10/31");
+		$inputEndDate = new DateTime("2011/11/05");
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
-			->setMethods(array('getStartTimestamp'))
+			->setMethods(array('getStartDate', 'getEndDate'))
 			->getMock();
 		$proxyMock->expects($this->once())
-			->method('getStartTimestamp');
-		$proxyMock->getJsonValue();
-	}
-
-
-
-	public function testGetJsonValueCallsGetEndTimeSpanOnce() {
-		$proxyMock = $this->getMockBuilder($this->proxyClass)
-			->setMethods(array('getEndTimestamp'))
-			->getMock();
+			->method('getStartDate')
+		    ->will($this->returnValue($inputStartDate));
 		$proxyMock->expects($this->once())
-			->method('getEndTimestamp');
+			->method('getEndDate')
+		    ->will($this->returnValue($inputEndDate));
 		$proxyMock->getJsonValue();
 	}
 
 
 
 	public function testToStringReturnsJsonValue() {
-		$inputStart = 1324681200;
-		$inputEnd = 1324681200;
-		$expected = "{\"start\":1324681200,\"end\":1324681200}";
-		$this->proxy->_set('startTimestamp', $inputStart);
-		$this->proxy->_set('endTimestamp', $inputEnd);
+		$inputStartDate = new DateTime("2011/10/31");
+		$inputEndDate = new DateTime("2011/11/05");
+		$this->proxy->_set('startDate', $inputStartDate);
+		$this->proxy->_set('endDate', $inputEndDate);
+		$expected = "{\"start\":\"20111031\",\"end\":\"20111105\"}";
 		$actual = $this->proxy->__toString();
-		$this->assertEquals($actual, $expected);
+		$this->assertEquals($expected, $actual);
 	}
 
 }

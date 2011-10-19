@@ -36,53 +36,53 @@
 class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan implements Tx_PtExtbase_Collection_SortableEntityInterface {
 
 	/**
-	 * @var int
+	 * @var DateTime
 	 */
-	protected $startTimestamp;
+	protected $startDate;
 
 
 
 	/**
-	 * @var int
+	 * @var DateTime
 	 */
-	protected $endTimestamp;
+	protected $endDate;
 
 
 
 	/**
-	 * @param int $startTimestamp
+	 * @param DateTime $startDate
 	 * @return void
 	 */
-	public function setStartTimestamp($startTimestamp) {
-		$this->startTimestamp = $startTimestamp;
+	public function setStartDate($startDate) {
+		$this->startDate = $startDate;
 	}
 
 
 
 	/**
-	 * @return int
+	 * @return DateTime
 	 */
-	public function getStartTimestamp() {
-		return $this->startTimestamp;
+	public function getStartDate() {
+		return $this->startDate;
 	}
 
 
 
 	/**
-	 * @param int $endTimestamp
+	 * @param DateTime $endDate
 	 * @return void
 	 */
-	public function setEndTimestamp($endTimestamp) {
-		$this->endTimestamp = $endTimestamp;
+	public function setEndDate($endDate) {
+		$this->endDate = $endDate;
 	}
 
 
 
 	/**
-	 * @return int
+	 * @return DateTime
 	 */
-	public function getEndTimestamp() {
-		return $this->endTimestamp;
+	public function getEndDate() {
+		return $this->endDate;
 	}
 
 
@@ -93,7 +93,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan implements Tx_
 	 * @return int
 	 */
 	public function getSortingValue() {
-		return $this->getStartTimestamp();
+		return $this->getStartDate();
 	}
 
 
@@ -104,14 +104,14 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan implements Tx_
 	 * @return string
 	 */
 	public function getJsonValue() {
-		return json_encode(array('start' => $this->getStartTimestamp(), 'end' => $this->getEndTimestamp()));
+		return json_encode(array('start' => $this->getStartDate()->format('Ymd'), 'end' => $this->getEndDate()->format('Ymd')));
 	}
 
 
 
  	/**
-	  * @return string
-	  */
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->getJsonValue();
 	}
