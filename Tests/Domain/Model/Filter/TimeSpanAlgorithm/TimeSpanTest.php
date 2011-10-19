@@ -93,7 +93,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanTest exte
 
 
 	public function testGetSortingValueReturnsStartDate() {
-		$expected = $input = new DateTime("2011/10/31");
+		$input = new DateTime("2011/10/31");
+		$expected = $input->format('U');
 		$this->proxy->_set('startDate', $input);
 		$actual = $this->proxy->getSortingValue();
 		$this->assertEquals($expected, $actual);
@@ -102,11 +103,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanTest exte
 
 
 	public function testGetSortingValueCallsGetStartDateOnce() {
+		$input = new DateTime("2011/10/31");
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('getStartDate'))
 			->getMock();
 		$proxyMock->expects($this->once())
-			->method('getStartDate');
+			->method('getStartDate')
+				->will($this->returnValue($input));
 		$proxyMock->getSortingValue();
 	}
 

@@ -90,10 +90,10 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan implements Tx_
 	/**
 	 * Implementing SortableEntityInterface
 	 * 
-	 * @return int
+	 * @return int Timestamp
 	 */
 	public function getSortingValue() {
-		return $this->getStartDate();
+		return $this->getStartDate()->format('U');
 	}
 
 
