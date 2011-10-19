@@ -68,13 +68,14 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgor
 	 */
 	public function process() {
 		$this->timeSpans->sort();
-		foreach ($this->timeSpans as $timeSpan) {
+		foreach ($this->timeSpans as $timeSpan) { /** @var Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan $timeSpan */
 			if (count($this->condensedTimeSpans) > 0) {
-				$item = $this->condensedTimeSpans->pop();
-				if ($timeSpan->getStartTimestamp() <= $item->getEndTimestamp() && $timeSpan->getEndTimestamp() >= $item->getEndTimestamp()) {
-					$item->setEndTimestamp($timeSpan->getEndTimestamp());
+				$item = $this->condensedTimeSpans->pop(); /** @var Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan $item */
+				if ($timeSpan->getStartDate()->format('U') <= $item->getEndDate()->format('U')
+				    && $timeSpan->getEndDate()->format('U') >= $item->getEndDate()->format('U')) {
+					$item->setEndDate($timeSpan->getEndDate());
 					$this->condensedTimeSpans->push($item);
-				} elseif ($item->getEndTimestamp() < $timeSpan->getStartTimestamp()) {
+				} elseif ($item->getEndDate()->format('U') < $timeSpan->getStartDate()->format('U')) {
 					$this->condensedTimeSpans->push($item);
 					$this->condensedTimeSpans->push($timeSpan);
 				} else {

@@ -53,28 +53,28 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpa
 		$timeSpanAlgorithmMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm', array('dummy'));
 
 		$timeSpan01 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
-		$timeSpan01->setStartTimestamp(1324681200); // 2011-12-24
-		$timeSpan01->setEndTimestamp(1325286000); // 2011-12-31
+		$timeSpan01->setStartDate(new DateTime('2011/12/24'));
+		$timeSpan01->setEndDate(new DateTime('2011/12/31'));
 
 		$timeSpan02 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
-		$timeSpan02->setStartTimestamp(1325026800);	// 2011-12-28
-		$timeSpan02->setEndTimestamp(1325545200); // 2012-01-03
+		$timeSpan02->setStartDate(new DateTime('2011/12/28'));
+		$timeSpan02->setEndDate(new DateTime('2012/01/03'));
 
 		$timeSpan03 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
-		$timeSpan03->setStartTimestamp(1330902000); // 2012-03-05
-		$timeSpan03->setEndTimestamp(1331161200); // 2012-03-08
+		$timeSpan03->setStartDate(new DateTime('2012/03/05'));
+		$timeSpan03->setEndDate(new DateTime('2012/03/08'));
 
 		$timeSpan04 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
-		$timeSpan04->setStartTimestamp(1325458800);	// 2012-01-02
-		$timeSpan04->setEndTimestamp(1325458800); // 2012-01-02
+		$timeSpan04->setStartDate(new DateTime('2012/01/02'));
+		$timeSpan04->setEndDate(new DateTime('2012/01/02'));
 
 		$timeSpan05 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
-		$timeSpan05->setStartTimestamp(1336082400); // 2012-05-04
-		$timeSpan05->setEndTimestamp(1336082400); // 2012-05-04
+		$timeSpan05->setStartDate(new DateTime('2012/05/04'));
+		$timeSpan05->setEndDate(new DateTime('2012/05/04'));
 
 		$timeSpan06 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
-		$timeSpan06->setStartTimestamp(1336082400); // 2012-05-04
-		$timeSpan06->setEndTimestamp(1336082400); // 2012-05-04
+		$timeSpan06->setStartDate(new DateTime('2012/05/04'));
+		$timeSpan06->setEndDate(new DateTime('2012/05/04'));
 
 		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection();
 		$timeSpans->push($timeSpan01);
@@ -92,14 +92,21 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpa
 
 		$this->assertEquals(3, count($actual));
 
-		$this->assertEquals(1324681200, $actual[0]->getStartTimestamp()); // 2011-12-24
-		$this->assertEquals(1325545200, $actual[0]->getEndTimestamp()); // 2012-01-03
+		$expected = new DateTime('2011/12/24');
+		$this->assertEquals($expected->format('U'), $actual[0]->getStartDate()->format('U'));
+		$expected = new DateTime('2012/01/03');
+		$this->assertEquals($expected->format('U'), $actual[0]->getEndDate()->format('U'));
 
-		$this->assertEquals(1330902000, $actual[1]->getStartTimestamp()); // 2012-03-05
-		$this->assertEquals(1331161200, $actual[1]->getEndTimestamp()); // 2012-03-08
 
-		$this->assertEquals(1336082400, $actual[2]->getStartTimestamp()); // 2012-05-04
-		$this->assertEquals(1336082400, $actual[2]->getEndTimestamp()); // 2012-05-04
+		$expected = new DateTime('2012/03/05');
+		$this->assertEquals($expected->format('U'), $actual[1]->getStartDate()->format('U'));
+		$expected = new DateTime('2012/03/08');
+		$this->assertEquals($expected->format('U'), $actual[1]->getEndDate()->format('U'));
+
+		$expected = new DateTime('2012/05/04');
+		$this->assertEquals($expected->format('U'), $actual[2]->getStartDate()->format('U'));
+		$expected = new DateTime('2012/05/04');
+		$this->assertEquals($expected->format('U'), $actual[2]->getEndDate()->format('U'));
 	}
 
 
@@ -113,7 +120,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpa
 
 
 
-	public function testGetStartTimeSpan() {
+	public function testGetTimeSpans() {
 		$expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
 		$this->proxy->_set('timeSpans', $input);
 		$actual = $this->proxy->getTimeSpans();
