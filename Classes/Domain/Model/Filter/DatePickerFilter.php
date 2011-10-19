@@ -36,6 +36,44 @@
 class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter {
 
 	/**
+	 * @return void
+	 */
+	public function initFilterByGpVars() {
+		if(is_array($this->gpVarFilterData) && array_key_exists('filterValue',$this->gpVarFilterData)) {
+			$dateTimeZone = new DateTimeZone(date_default_timezone_get());
+
+			$startDateTime = new DateTime($this->gpVarFilterData['filterValue']);
+			$startDateTime->setTimezone($dateTimeZone);
+
+			$endDateTime = new DateTime($this->gpVarFilterData['filterValue']);
+			$endDateTime->setTimezone($dateTimeZone);
+			$endDateTime->modify('+86399 seconds');
+
+			$this->gpVarFilterData['filterValueStart'] = $startDateTime->format('U');
+			$this->gpVarFilterData['filterValueEnd'] = $endDateTime->format('U');
+		}
+		parent::initFilterByGpVars();
+	}
+
+
+
+	/**
+	 * @return string
+	 */
+	public function getValue() {
+		$dateTimeZone = new DateTimeZone(date_default_timezone_get());
+
+		$result = '';
+		if (isset($this->filterValueStart)) {
+			$this->getFilterValueStart()->setTimezone($dateTimeZone);
+			$result = $this->getFilterValueStart()->format('Y-m-d');
+		}
+		return $result;
+	}
+
+
+
+	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
 	 */
@@ -43,6 +81,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
 		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
 		return $dataProvider->getRenderedOptions();
 	}
+
+
 
 }
 ?>
