@@ -198,8 +198,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
 	 */
 	public function getRenderedOptions() {
-		$renderedOptions = array();
-
 		$query = $this->buildQuery($this->dateFieldConfigs);
 		$excludeFiltersArray = $this->buildExcludeFiltersArray();
 		$result = $this->dataBackend->getGroupData($query, $excludeFiltersArray);
@@ -215,8 +213,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 
 				if (!empty($startDate) && !empty($endDate)) {
 					$timeSpan = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
-					$timeSpan->setStartTimestamp($startDate);
-					$timeSpan->setEndTimestamp($endDate);
+					$timeSpan->setStartDate(new DateTime("@" . $startDate));
+					$timeSpan->getStartDate()->setTimezone(new DateTimeZone(date_default_timezone_get()));
+					$timeSpan->setEndDate(new DateTime("@" . $endDate));
+					$timeSpan->getEndDate()->setTimezone(new DateTimeZone(date_default_timezone_get()));
 					$timeSpans->push($timeSpan);
 				}
 			}
@@ -225,9 +225,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 		$condensedTimeSpansAlgorithm = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm();
 		$condensedTimeSpansAlgorithm->setTimeSpans($timeSpans);
 		$output = $condensedTimeSpansAlgorithm->process();
-
-
-		// var_dump($output->getJsonValue()); Todo: Remove me
 
 		return $output->getJsonValue();
 	}
