@@ -74,18 +74,18 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollectio
 		$timeSpan01 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan');
 		$timeSpan01->expects($this->any())
 			->method('getJsonValue')
-			->will($this->returnValue("{\"start\":1324681200,\"end\":1325286000}")); // 2011-12-24 - 2011-12-31
+			->will($this->returnValue("{\"start\":\"20111224\",\"end\":\"20111231\"}")); // 2011-12-24 - 2011-12-31
 
 		$timeSpan02 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan');
 		$timeSpan02->expects($this->any())
 			->method('getJsonValue')
-			->will($this->returnValue("{\"start\":1336082400,\"end\":1336082400}")); // 2012-05-04 - 2012-05-04
+			->will($this->returnValue("{\"start\":\"20120504\",\"end\":\"20120504\"}")); // 2012-05-04 - 2012-05-04
 
 		$timeSpans = array($timeSpan01, $timeSpan02);
 
 		$this->proxy->_set('itemsArr', $timeSpans);
 
-		$expected = "{\"timeSpans\":[{\"start\":1324681200,\"end\":1325286000},{\"start\":1336082400,\"end\":1336082400}]}";
+		$expected = "{\"timeSpans\":[{\"start\":\"20111224\",\"end\":\"20111231\"},{\"start\":\"20120504\",\"end\":\"20120504\"}]}";
 		$actual = $this->proxy->getJsonValue();
 		$this->assertEquals($expected, $actual);
 	}
