@@ -84,5 +84,35 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
 
 
 
+    /**
+     * Get DatePicker options
+     *
+     * Provide DatePicker options from TypoScript in JavaScript template
+     *
+     * @return mixed
+     */
+	public function getDatePickerOptions() {
+		$datePickerOptions = json_encode($this->filterConfig->getSettings('options'));
+		return $this->removeQuotationsFromJsonObjectValues($datePickerOptions);
+	}
+
+
+
+    /**
+     * Remove quotations from values of JSON object values
+     *
+     * This method is highly customized with respect to DatePicker's options
+     * structure. Thus, it is not swapped to a generic helper class.
+     *
+     * @param string $json JSON string encoded with json_encode()
+     * @return string
+     */
+	protected function removeQuotationsFromJsonObjectValues($json) {
+		$regexp = '/"([\w]+)":"([\w\-\.]+)"/i';
+		$replace = '"$1":$2';
+		$result = preg_replace($regexp, $replace, $json);
+		return $result;
+	}
+
 }
 ?>
