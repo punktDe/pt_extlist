@@ -23,14 +23,13 @@ jQuery(function($) {
 		var year = date.getFullYear();
 		var month = date.getMonth() + 1;
 		var day = date.getDate();
-		var dateInAltFormat = year.toString() + month.toString() + day.toString();
+		var dateInAltFormat = $.datepicker.formatDate('yymmdd', date);
 
 		for (var i = 0; i < options.timeSpans.length; i++) {
 			if (options.timeSpans[i].start <= dateInAltFormat && options.timeSpans[i].end >= dateInAltFormat) {
 				return [true, "ptextlist-event-date"];
 			}
 		}
-		
 		return [false, ''];
 	}
 
