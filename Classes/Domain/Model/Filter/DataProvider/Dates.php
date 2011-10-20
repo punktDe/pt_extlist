@@ -200,11 +200,20 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 	public function getRenderedOptions() {
 		$query = $this->buildQuery($this->dateFieldConfigs);
 		$excludeFiltersArray = $this->buildExcludeFiltersArray();
-		$result = $this->dataBackend->getGroupData($query, $excludeFiltersArray);
+		$queryResult = $this->dataBackend->getGroupData($query, $excludeFiltersArray);
+		return $this->buildCondensedTimeSpans($queryResult)->getJsonValue();
+	}
 
+
+	
+	/**
+	 * @param array $queryResult
+	 * @return Tx_PtExtbase_Collection_SortableObjectCollection Condensed time spans
+	 */
+	protected function buildCondensedTimeSpans($queryResult) {
 		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
 
-		foreach ($result as $dateRanges) {
+		foreach ($queryResult as $dateRanges) {
 			foreach ($this->dateFieldConfigs as $key => $config) {
 				$startField = $config['start']->getField() . '_' . $key . '_start';
 				$endField = $config['end']->getField() . '_' . $key . '_end';
@@ -224,9 +233,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 
 		$condensedTimeSpansAlgorithm = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm();
 		$condensedTimeSpansAlgorithm->setTimeSpans($timeSpans);
-		$output = $condensedTimeSpansAlgorithm->process();
-
-		return $output->getJsonValue();
+		return $condensedTimeSpansAlgorithm->process();
 	}
 
 }
