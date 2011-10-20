@@ -9,9 +9,10 @@ jQuery(function($) {
 		defaultDate: defaultDate,
 		onSelect: submitFilterValue,
 		beforeShowDay: evaluateTimeSpans,
-		changeMonth: true,
-		changeYear: true
 	};
+
+	jQuery.extend(datePickerOptions, $.datepicker.regional['###regional###']);
+	jQuery.extend(datePickerOptions, ###datePickerOptions###);
 
 	function submitFilterValue(date, datePicker) {
 		var form = "tx-ptextlist-filterbox-form-###filterBoxIdentifier###";
@@ -33,6 +34,5 @@ jQuery(function($) {
 		return [false, ''];
 	}
 
-	$("#datepicker").datepicker(jQuery.extend(datePickerOptions, $.datepicker.regional['###regional###']));
-
+	$("#datepicker").datepicker(datePickerOptions);
 });
