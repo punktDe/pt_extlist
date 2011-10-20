@@ -36,33 +36,16 @@
 class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter {
 
 	/**
-	 * @var DateTimeZone
-	 */
-	protected $dateTimeZone;
-
-
-
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
-	 */
-	protected function initFilter() {
-		parent::initFilter();
-		$this->dateTimeZone = new DateTimeZone(date_default_timezone_get());
-    }
-
-	
-
-	/**
 	 * @return void
 	 */
 	public function initFilterByGpVars() {
 		if(is_array($this->gpVarFilterData) && array_key_exists('filterValue',$this->gpVarFilterData)) {
+			$dateTimeZone = new DateTimeZone(date_default_timezone_get());
 			$startDateTime = new DateTime($this->gpVarFilterData['filterValue']);
-			$startDateTime->setTimezone($this->dateTimeZone);
+			$startDateTime->setTimezone($dateTimeZone);
 
 			$endDateTime = new DateTime($this->gpVarFilterData['filterValue']);
-			$endDateTime->setTimezone($this->dateTimeZone);
+			$endDateTime->setTimezone($dateTimeZone);
 			$endDateTime->modify('+86399 seconds');
 
 			$this->gpVarFilterData['filterValueStart'] = $startDateTime->format('U');
@@ -79,7 +62,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
 	public function getValue() {
 		$result = '';
 		if (isset($this->filterValueStart)) {
-			$this->getFilterValueStart()->setTimezone($this->dateTimeZone);
+			$dateTimeZone = new DateTimeZone(date_default_timezone_get());
+			$this->getFilterValueStart()->setTimezone($dateTimeZone);
 			$result = $this->getFilterValueStart()->format('Y-m-d');
 		}
 		return $result;
