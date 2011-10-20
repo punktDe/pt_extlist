@@ -27,7 +27,7 @@ jQuery(function($) {
 
 		for (var i = 0; i < options.timeSpans.length; i++) {
 			if (options.timeSpans[i].start <= dateInAltFormat && options.timeSpans[i].end >= dateInAltFormat) {
-				return [true, "ptextlist-event-date"];
+				return [true, "typo3-ptextlist-filter-eventdate"];
 			}
 		}
 		return [false, ''];
