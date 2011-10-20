@@ -121,15 +121,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 	/**
 	 * Build the group data query to retrieve the group data
 	 *
-	 * @param array $fields Array of Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 * @return Tx_PtExtlist_Domain_QueryObject_Query
 	 */
-	protected function buildQuery($fields) {
+	protected function buildQuery() {
 		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
 
-		foreach($fields as $key => $selectField) {
-			$aliasedSelectPartStart = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField['start']) . '_' . $key . '_start';
-			$aliasedSelectPartEnd = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField['end']) . '_' . $key . '_end';
+		foreach($this->dateFieldConfigs as $key => $selectField) {
+			$aliasedSelectPartStart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $this->buildFieldAlias($key, 'start');
+			$aliasedSelectPartEnd = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['end']) . ' AS ' . $this->buildFieldAlias($key, 'end');
 			$query->addField($aliasedSelectPartStart);
 			$query->addField($aliasedSelectPartEnd);
 		}
@@ -198,7 +197,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
 	 */
 	public function getRenderedOptions() {
-		$query = $this->buildQuery($this->dateFieldConfigs);
+		$query = $this->buildQuery();
 		$excludeFiltersArray = $this->buildExcludeFiltersArray();
 		$queryResult = $this->dataBackend->getGroupData($query, $excludeFiltersArray);
 		return $this->buildCondensedTimeSpans($queryResult)->getJsonValue();
@@ -215,8 +214,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 
 		foreach ($queryResult as $dateRanges) {
 			foreach ($this->dateFieldConfigs as $key => $config) {
-				$startField = $config['start']->getField() . '_' . $key . '_start';
-				$endField = $config['end']->getField() . '_' . $key . '_end';
+				$startField = $this->buildFieldAlias($key, 'start');
+				$endField = $this->buildFieldAlias($key, 'end');
 				$startDate = $dateRanges[$startField];
 				$endDate = $dateRanges[$endField];
 
@@ -236,5 +235,15 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 		return $condensedTimeSpansAlgorithm->process();
 	}
 
+
+	
+	/**
+	 * @param string $key
+	 * @param string $part
+	 * @return string
+	 */
+	protected function buildFieldAlias($key, $part) {
+		return $this->dateFieldConfigs[$key][$part]->getIdentifier() . '_' . $key . '_' . $part;
+	}
 }
 ?>
