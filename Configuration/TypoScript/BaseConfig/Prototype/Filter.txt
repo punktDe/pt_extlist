@@ -118,14 +118,28 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
-    datePicker < .dateSelectList
     datePicker {
         filterClassName = Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter
         dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates
         partialPath = Filter/Date/DatePickerFilter
 
+		dbTimeFormat = U
+
 		options {
 			regional =
+		}
+
+		#fieldIdentifier {
+        #    10 {
+        #        start =
+        #        end =
+        #    }
+        #}
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} equals {field:value}
 		}
     }
 
