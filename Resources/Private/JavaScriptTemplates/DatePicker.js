@@ -33,5 +33,5 @@ jQuery(function($) {
 		return [false, ''];
 	}
 
-	$("#datepicker").datepicker(datePickerOptions);
+	$("#typo3-ptextlist-filter-datepicker").datepicker(datePickerOptions);
 });
