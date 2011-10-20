@@ -202,7 +202,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 		$excludeFiltersArray = $this->buildExcludeFiltersArray();
 		$result = $this->dataBackend->getGroupData($query, $excludeFiltersArray);
 
-		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection();
+		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
 
 		foreach ($result as $dateRanges) {
 			foreach ($this->dateFieldConfigs as $key => $config) {
@@ -212,7 +212,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 				$endDate = $dateRanges[$endField];
 
 				if (!empty($startDate) && !empty($endDate)) {
-					$timeSpan = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
+					$timeSpan = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
 					$timeSpan->setStartDate(new DateTime("@" . $startDate));
 					$timeSpan->getStartDate()->setTimezone(new DateTimeZone(date_default_timezone_get()));
 					$timeSpan->setEndDate(new DateTime("@" . $endDate));
@@ -222,7 +222,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 			}
 		}
 
-		$condensedTimeSpansAlgorithm = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm();
+		$condensedTimeSpansAlgorithm = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm();
 		$condensedTimeSpansAlgorithm->setTimeSpans($timeSpans);
 		$output = $condensedTimeSpansAlgorithm->process();
 

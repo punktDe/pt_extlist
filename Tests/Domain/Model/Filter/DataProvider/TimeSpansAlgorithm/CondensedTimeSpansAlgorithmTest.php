@@ -27,12 +27,12 @@
  ***************************************************************/
 
 /**
- * TimeSpanAlgorithm Testcase
+ * TimeSpansAlgorithm Testcase
  *
  * @package pt_extlist
- * @subpackage Tests\Domain\Model\Filter\TimeSpanAlgorithm
+ * @subpackage Tests\Domain\Model\Filter\DataProvider\TimeSpanAlgorithm
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpanAlgorithmTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpansAlgorithm_CondensedTimeSpanAlgorithmTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $proxyClass;
 
@@ -43,40 +43,40 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpa
 
 
 	public function setUp() {
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm');
+		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm');
 		$this->proxy = new $this->proxyClass();
 	}
 
 
 
 	public function testProcess() {
-		$timeSpanAlgorithmMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm', array('dummy'));
+		$timeSpanAlgorithmMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm', array('dummy'));
 
-		$timeSpan01 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
+		$timeSpan01 = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
 		$timeSpan01->setStartDate(new DateTime('2011/12/24'));
 		$timeSpan01->setEndDate(new DateTime('2011/12/31'));
 
-		$timeSpan02 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
+		$timeSpan02 = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
 		$timeSpan02->setStartDate(new DateTime('2011/12/28'));
 		$timeSpan02->setEndDate(new DateTime('2012/01/03'));
 
-		$timeSpan03 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
+		$timeSpan03 = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
 		$timeSpan03->setStartDate(new DateTime('2012/03/05'));
 		$timeSpan03->setEndDate(new DateTime('2012/03/08'));
 
-		$timeSpan04 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
+		$timeSpan04 = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
 		$timeSpan04->setStartDate(new DateTime('2012/01/02'));
 		$timeSpan04->setEndDate(new DateTime('2012/01/02'));
 
-		$timeSpan05 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
+		$timeSpan05 = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
 		$timeSpan05->setStartDate(new DateTime('2012/05/04'));
 		$timeSpan05->setEndDate(new DateTime('2012/05/04'));
 
-		$timeSpan06 = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan();
+		$timeSpan06 = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
 		$timeSpan06->setStartDate(new DateTime('2012/05/04'));
 		$timeSpan06->setEndDate(new DateTime('2012/05/04'));
 
-		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection();
+		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
 		$timeSpans->push($timeSpan01);
 		$timeSpans->push($timeSpan02);
 		$timeSpans->push($timeSpan03);
@@ -112,7 +112,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpa
 
 
 	public function testSetTimeSpans() {
-		$expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
+		$expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
 		$this->proxy->setTimeSpans($input);
 		$actual = $this->proxy->_get('timeSpans');
 		$this->assertEquals($actual, $expected);
@@ -121,7 +121,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpa
 
 
 	public function testGetTimeSpans() {
-		$expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
+		$expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
 		$this->proxy->_set('timeSpans', $input);
 		$actual = $this->proxy->getTimeSpans();
 		$this->assertEquals($actual, $expected);
@@ -130,7 +130,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpansAlgorithm_CondensedTimeSpa
 
 
 	public function testGetCondensedTimeSpans() {
-		$expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
+		$expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
 		$this->proxy->_set('condensedTimeSpans', $input);
 		$actual = $this->proxy->getCondensedTimeSpans();
 		$this->assertEquals($actual, $expected);

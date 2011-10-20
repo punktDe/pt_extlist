@@ -30,10 +30,10 @@
  * Class implements a date picker filter
  *
  * @package Domain
- * @subpackage Model\Filter\TimeSpanAlgorithm
+ * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan implements Tx_PtExtbase_Collection_SortableEntityInterface {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan implements Tx_PtExtbase_Collection_SortableEntityInterface {
 
 	/**
 	 * @var DateTime

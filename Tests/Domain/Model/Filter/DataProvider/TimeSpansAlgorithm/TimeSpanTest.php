@@ -30,9 +30,9 @@
  * TimeSpan Testcase
  *
  * @package pt_extlist
- * @subpackage Tests\Domain\Model\Filter\TimeSpanAlgorithm
+ * @subpackage Tests\Domain\Model\Filter\DataProvider\TimeSpanAlgorithm
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $proxyClass;
 
@@ -43,7 +43,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanTest exte
 
 
 	public function setUp() {
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan');
+		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
 		$this->proxy = new $this->proxyClass();
 	}
 

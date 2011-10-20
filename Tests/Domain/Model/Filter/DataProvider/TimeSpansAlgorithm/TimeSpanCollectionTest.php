@@ -30,9 +30,9 @@
  * TimeSpanCollection Testcase
  *
  * @package pt_extlist
- * @subpackage Tests\Domain\Model\Filter\TimeSpanAlgorithm
+ * @subpackage Tests\Domain\Model\Filter\DataProvider\TimeSpanAlgorithm
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $proxyClass;
 
@@ -43,7 +43,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollectio
 
 
 	public function setUp() {
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection');
+		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection');
 		$this->proxy = new $this->proxyClass();
 	}
 
@@ -57,7 +57,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollectio
 
 
 	public function testRestrictedCollectionItemsType() {
-		$expected = 'Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan';
+		$expected = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan';
 		$actual = $this->proxy->_get('restrictedClassName');
 		$this->assertEquals($expected, $actual);
 	}
@@ -71,12 +71,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollectio
 
 
 	public function testGetJsonValue() {
-		$timeSpan01 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan');
+		$timeSpan01 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
 		$timeSpan01->expects($this->any())
 			->method('getJsonValue')
 			->will($this->returnValue("{\"start\":\"20111224\",\"end\":\"20111231\"}")); // 2011-12-24 - 2011-12-31
 
-		$timeSpan02 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan');
+		$timeSpan02 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
 		$timeSpan02->expects($this->any())
 			->method('getJsonValue')
 			->will($this->returnValue("{\"start\":\"20120504\",\"end\":\"20120504\"}")); // 2012-05-04 - 2012-05-04

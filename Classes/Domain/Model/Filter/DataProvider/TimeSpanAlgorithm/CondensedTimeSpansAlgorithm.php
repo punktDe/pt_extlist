@@ -33,10 +33,10 @@
  * to the restriction: startTimestamp <= endTimestamp
  *
  * @package Domain
- * @subpackage Model\Filter\TimeSpanAlgorithm
+ * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm {
 
 	/**
 	 * @var Tx_PtExtbase_Collection_SortableObjectCollection
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgor
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->condensedTimeSpans = new Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpanCollection();
+		$this->condensedTimeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
 	}
 
 	
@@ -68,9 +68,9 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_CondensedTimeSpansAlgor
 	 */
 	public function process() {
 		$this->timeSpans->sort();
-		foreach ($this->timeSpans as $timeSpan) { /** @var Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan $timeSpan */
+		foreach ($this->timeSpans as $timeSpan) { /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $timeSpan */
 			if (count($this->condensedTimeSpans) > 0) {
-				$item = $this->condensedTimeSpans->pop(); /** @var Tx_PtExtlist_Domain_Model_Filter_TimeSpanAlgorithm_TimeSpan $item */
+				$item = $this->condensedTimeSpans->pop(); /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $item */
 				if ($timeSpan->getStartDate()->format('U') <= $item->getEndDate()->format('U')
 				    && $timeSpan->getEndDate()->format('U') >= $item->getEndDate()->format('U')) {
 					$item->setEndDate($timeSpan->getEndDate());
