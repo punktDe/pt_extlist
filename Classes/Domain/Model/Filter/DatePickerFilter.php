@@ -107,25 +107,33 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
      */
 	public function getDatePickerOptions() {
 		$datePickerOptions = json_encode($this->filterConfig->getSettings('options'));
-		return $this->removeQuotationsFromJsonObjectValues($datePickerOptions);
+		return $this->buildJson($this->filterConfig->getSettings('options'));
 	}
 
 
 
-    /**
-     * Remove quotations from values of JSON object values
-     *
-     * This method is highly customized with respect to DatePicker's options
-     * structure. Thus, it is not swapped to a generic helper class.
-     *
-     * @param string $json JSON string encoded with json_encode()
-     * @return string
-     */
-	protected function removeQuotationsFromJsonObjectValues($json) {
-		$regexp = '/"([\w]+)":"([\w\-\.]+)"/i';
-		$replace = '"$1":$2';
-		$result = preg_replace($regexp, $replace, $json);
-		return $result;
+	/**
+	 * Build Json
+	 *
+	 * json_encode() can't be used, since object literal values mustn't be
+	 * placed within double quotations.
+	 *
+	 * This method is highly customized with respect to DatePicker's options
+	 * structure. Thus, it is not swapped to a generic helper class.
+	 *
+	 * @param array $options DatePicker Options as array from TypoScript
+	 * @return string
+	 */
+	protected function buildJson($options) {
+		$result = '';
+		if (is_array($options)) {
+			$elements = array();
+			foreach ($options as $key => $value) {
+				$elements[] = '"' . $key . '":' . $value;
+			}
+			$result = implode(',', $elements);
+		}
+		return "{" . $result . "}";
 	}
 
 }
