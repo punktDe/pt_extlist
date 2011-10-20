@@ -124,9 +124,10 @@ plugin.tx_ptextlist.prototype.filter {
         partialPath = Filter/Date/DatePickerFilter
 
 		dbTimeFormat = U
+		regional =
 
 		options {
-			regional =
+
 		}
 
 		#fieldIdentifier {
