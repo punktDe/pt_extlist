@@ -1,0 +1,39 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace ptextbase=Tx_PtExtbase_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering a string filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter           filter                      Holds an instance for the filterbox object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+@author Joachim Mathes <mathes@punkt.de>
+-->
+</extlist:comment>
+
+<div class="outer-wrapper">
+	<label for="{filter.filterIdentifier}" class="filter-label" >
+		{filter.label}
+	</label>
+
+	<ptextbase:Javascript.Template templatePath="EXT:pt_extlist/Resources/Private/JavaScriptTemplates/DatePicker.js" arguments="{filterBoxIdentifier: filter.filterBoxIdentifier, options: filter.options, filterValue: filter.value, regional: filter.filterConfig.settings.regional, datePickerOptions: filter.datePickerOptions}" addToHead="false"/>
+
+	<div id="typo3-ptextlist-filter-datepicker"></div>
+
+	<div class="outer-field-wrapper">
+		<div class="field-wrapper type-text">
+			<f:form.hidden id="{filter.filterIdentifier}" value="{filter.value}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" />
+		</div>
+	</div>
+    <f:if condition="{filter.validate} == 0">
+		<div class="error">
+			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}
+		</div>
+	</f:if>
+</div>
