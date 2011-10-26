@@ -17,26 +17,19 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 
 <div class="outer-wrapper">
 	<label for="{filter.filterIdentifier}" class="filter-label">
-		{filter.label}
+		{filter.label -> f:format.raw()}
+        <f:format.raw>{filter.label}</f:format.raw>
 	</label>
 	<div class="outer-field-wrapper">
-	
-		<f:if condition="{filter.filterConfig.submitOnChange}">
-			<f:then>
-				<div class="field-wrapper type-select">
-					<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{onchange : 'submit()'}" />
-				</div>
-			</f:then>
-			<f:else>
-				<div class="field-wrapper type-select">
-					<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}"/>
-				</div>
-			</f:else>
-		</f:if>
-		
+
+        filter.filterConfig.submitOnChange
+		<div class="field-wrapper type-select">
+			<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{f:if(condition:'0', then: {onchange: 'bar'}, else: {onchange: ''})}" />
+		</div>
+
 		<f:if condition="{filter.filterConfig.invertable}">
 			<div class="field-wrapper type-checkbox">
-				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<f:form.checkbox name="{extlist:namespace.FormElementName(object:filter, property:'invert')}" value="1" checked="{filter.invert}" />
 				<label>
 					Invert
 				</label>
