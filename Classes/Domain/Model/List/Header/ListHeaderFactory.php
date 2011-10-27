@@ -49,14 +49,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 * Build singleton instance of listheader, a collection of header column objects
 	 * 
 	 * @param Tx_PtExtlist_Domain_Model_List_ListData $configurationBuilder
+	 * @param $resetListHeader boolean
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetListHeader = false) {
         $listIdentifier = $configurationBuilder->getListIdentifier();
 
         // Check whether singleton instance exists
-        if (!array_key_exists($listIdentifier, self::$instances)
-            || self::$instances[$listIdentifier] === null) {
+        if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === null || $resetListHeader) {
 
             $defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
             $columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
@@ -76,6 +76,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
                 $listHeader->getHeaderColumn($defaultSortingColumn)->setDefaultSorting($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
                 $listHeader->getHeaderColumn($defaultSortingColumn)->init();
             }
+			  
             self::$instances[$listIdentifier] = $listHeader;
         }
 

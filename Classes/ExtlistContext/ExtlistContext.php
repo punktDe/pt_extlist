@@ -138,10 +138,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns list object of this list context
 	 *
+	 * @param $buildNew boolean
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
-	public function getList() {
-		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder());
+	public function getList($buildNew = false) {
+		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder(), $buildNew);
 	}
 
 
