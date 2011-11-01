@@ -1,4 +1,4 @@
-####################################################
+﻿####################################################
 # Definition basic pt_extlist settings
 #
 # @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
@@ -28,4 +28,43 @@ plugin.tx_ptextlist.settings.base {
     * to be reset to its default settings every time you open up a page.
     */
 	# resetOnEmptySubmit = 1
+}
+
+
+#
+# EXTLIST JSON PageType
+# Special Pagetype for JSON Views
+# Inherit from this page and set "typeNum" and "settings.listIdentifier"
+#
+EXTLISTJSONBASE = PAGE
+EXTLISTJSONBASE {
+	typeNum =
+
+	10 = COA_INT
+    10 {
+        10 = USER_INT
+        10 {
+            userFunc = tx_extbase_core_bootstrap->run
+            extensionName = PtExtlist
+            pluginName = Pi1
+
+			# LIMIT CONTROLLER / ACTION
+			switchableControllerActions {
+			    List {
+			        1 = list
+			    }
+			}
+
+			settings.listIdentifier = 
+        }
+    }
+
+	config {
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+	    debug = 0
+	    no_cache = 1
+		additionalHeaders = Content-type:application/json
+	}
 }

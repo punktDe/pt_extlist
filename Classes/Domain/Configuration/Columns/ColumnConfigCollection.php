@@ -28,9 +28,9 @@
 
 /**
  * column config collection
- *
+ * @author Daniel Lienert
  * @package 		Domain
- * @subpackage 		Configuration\Columns  
+ * @subpackage 	Configuration\Columns
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 
@@ -38,30 +38,53 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 	 * @var string
 	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig';
-	
+
+
+	/**
+	 * @var array
+	 */
+	protected $identifierToIdMap = array();
+
+
 	/**
 	 * @param $columnConfig int
 	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 * @return void 
-	 * @author Daniel Lienert 
 	 */
-	public function addColumnConfig($columnNumber, $columnConfig) {
+	public function addColumnConfig($columnNumber, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		$this->addItem($columnConfig, $columnNumber);
+		$this->identifierToIdMap[$columnConfig->getColumnIdentifier()] = $columnNumber;
 	}
-	
+
+
+
 	/** 
-	 * @param $identifier int
+	 * @param $id int
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
-	 * @author Daniel Lienert 
 	 */
-	public function getColumnConfigByIdentifier($identifier) {
-		if($this->hasItem($identifier)) {
-			return $this->getItemById($identifier);
+	public function getColumnConfigById($id) {
+		if($this->hasItem($id)) {
+			return $this->getItemById($id);
 		} else {
-			throw new Exception('The column with id ' . $identifier . ' does not exist! 1280309838');
+			throw new Exception('The column with id ' . $id . ' does not exist! 1280309838');
 		}
 	}
-	
+
+
+
+	/**
+	 * @param $identifier string
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+	 */
+	public function getColumnConfigByIdentifier($identifier) {
+
+		if(array_key_exists($identifier, $this->identifierToIdMap)) {
+			return $this->getColumnConfigById($this->identifierToIdMap[$identifier]);
+		} else {
+			throw new Exception('The column with identifier ' . $identifier . ' does not exist! 1320052358');
+		}
+
+	}
 }
 
 ?>
