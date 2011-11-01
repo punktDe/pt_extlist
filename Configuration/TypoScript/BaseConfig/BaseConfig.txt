@@ -1,4 +1,4 @@
-﻿####################################################
+####################################################
 # Definition basic pt_extlist settings
 #
 # @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
