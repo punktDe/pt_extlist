@@ -1,0 +1,13 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Test Template for rendering Partials
+-->
+</extlist:comment>
+
+<h1>Fluid default: Header</h1>
+<f:render partial="Header"/>
+
+<h1>Extlist EXT: Path: EXT:pt_extlist/</h1>
+<f:render partial="{config.listConfiguration.bodyPartial}" arguments="{listData:listData}" />
+<f:render partial="{config.listConfiguration.aggregateRowsPartial}" arguments="{aggregateRows:aggregateRows}" />
