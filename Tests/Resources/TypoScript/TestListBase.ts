@@ -12,19 +12,12 @@ plugin.tx_ptextlist.settings {
 
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
-
 			tables (
-				static_countries,
+				static_countries
 			)
 		}
 
 		fields {
-			name_local {
-				table = static_countries
-				field = cn_short_local
-				isSortable = 1
-			}
-
 			name_en {
 				table = static_countries
 				field = cn_short_en
