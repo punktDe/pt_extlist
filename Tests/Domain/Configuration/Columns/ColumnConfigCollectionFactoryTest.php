@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFact
 		$this->assertTrue(is_a($columnConfigCollection, 'Tx_PtExtbase_Collection_ObjectCollection'));
 		
 		
-		$columnConfig1 = $columnConfigCollection->getColumnConfigByIdentifier(10);
+		$columnConfig1 = $columnConfigCollection->getColumnConfigById(10);
 		$this->assertEquals($columnConfig1->getColumnIdentifier(), 'column1');
 	}
 	

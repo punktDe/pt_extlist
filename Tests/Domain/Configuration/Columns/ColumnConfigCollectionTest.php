@@ -52,13 +52,30 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollection_tes
 	public function testExceptionOnGettingNonAddedItem() {
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection($this->configurationBuilderMock);
         try {
-            $columnConfigCollection->getColumnConfigByIdentifier(30);
+            $columnConfigCollection->getColumnConfigById(30);
         } catch(Exception $e) {
             return;
         }
         $this->fail();
 	}
-	
+
+
+
+	/**
+	 * @test
+	 */
+	public function getColumnConfigByIdentifier() {
+		$columnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[10]);
+
+		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
+		$columnConfigCollection->addColumnConfig(10,$columnConfig);
+
+		$testColumn = $columnConfigCollection->getColumnConfigByIdentifier('column1');
+
+		$this->assertEquals($columnConfig, $testColumn);
+	}
+
 	
 	
 	public function testAddGetCorrectItems() {
@@ -68,9 +85,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollection_tes
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
 		$columnConfigCollection->addColumnConfig(10,new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[10]));
 		$columnConfigCollection->addColumnConfig(20,new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[20]));
-		$columnConfig10 = $columnConfigCollection->getColumnConfigByIdentifier(10);
+		$columnConfig10 = $columnConfigCollection->getColumnConfigById(10);
 		$this->assertEquals($columnConfig10->getColumnIdentifier(), 'column1');
-		$columnConfig20 = $columnConfigCollection->getColumnConfigByIdentifier(20);
+		$columnConfig20 = $columnConfigCollection->getColumnConfigById(20);
 		$this->assertEquals($columnConfig20->getColumnIdentifier(), 'column2');
 	}
 	
