@@ -8,7 +8,7 @@
 # @subpackage pt_extlist
 ####################################################
 
-plugin.tx_ptextlist.settings.listConfig.testListPartialResolver < plugin.tx_ptextlist.settings.listConfig.testListBase
-plugin.tx_ptextlist.settings.listConfig.testListPartialResolver {
+plugin.tx_ptextlist.settings.listConfig.testListCustomView < plugin.tx_ptextlist.settings.listConfig.testListBase
+plugin.tx_ptextlist.settings.listConfig.testListCustomView {
     controller.List.list.view = Tx_PtExtlist_Tests_View_TestView
 }
