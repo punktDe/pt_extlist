@@ -27,3 +27,4 @@
 plugin.tx_ptextlist.settings.prototype < plugin.tx_ptextlist.prototype
 
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Themes/Default/plugin.tx_ptextlist._CSS_DEFAULT_STYLE.ts">
+
