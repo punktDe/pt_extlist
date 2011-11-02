@@ -177,7 +177,13 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @return string View class name to be used in this controller
 	 */
 	protected function getTsViewClassName() {
-		return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+		if($this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view']) {
+			return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+		}
+
+		if($this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view']) {
+			return $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+		}
 	}
 	
 	
