@@ -18,9 +18,9 @@ Here is a list of objects / variables that can be accessed in this partial
 	<div class="outer-field-wrapper">
 		<div class="field-wrapper type-text">
 			<label for="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueFrom')}"><f:translate key="filter.daterange.from" />:</label> <br />
-			<f:form.textbox property="filterValueFrom" value="{filter.filterValueFrom}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueFrom')}" /><br />
+			<f:form.textfield property="filterValueFrom" value="{filter.filterValueFrom}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueFrom')}" /><br />
 			<label for="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueTo')}"><f:translate key="filter.daterange.to" />:</label><br />
-			<f:form.textbox property="filterValueTo" value="{filter.filterValueTo}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueTo')}" />
+			<f:form.textfield property="filterValueTo" value="{filter.filterValueTo}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueTo')}" />
 		</div>
 	</div>
     <f:if condition="{filter.validate} == 0">

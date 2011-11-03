@@ -219,27 +219,31 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     }
 
 
-    
-    /**
-     * Build sorting state collection for this column
-     *
-     * @return void
-     */
-    protected function buildSortingStateCollection() {
-    	$this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+	/**
+	 * Build sorting state collection for this column
+	 *
+	 * @return void
+	 */
+	protected function buildSortingStateCollection() {
+		$this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
 
-        if (count($this->sortedFields) > 0) {
-            foreach($this->sortedFields as $fieldIdentifier => $sortingDirection) {
-                $fieldConfig = $this->sortingFieldConfig->getItemById($fieldIdentifier);
-                if ($fieldConfig->getForceDirection()) {
-                    $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $fieldConfig->getDirection());
-                } else {
-                    $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $sortingDirection);
-                }
-                $this->sortingStateCollection->addSortingState($sortingState);
-            }
-        }
-    }
+		if (count($this->sortedFields) > 0) {
+			foreach ($this->sortedFields as $fieldIdentifier => $sortingDirection) {
+
+				if($this->sortingFieldConfig->hasItem($fieldIdentifier)) {
+					$fieldConfig = $this->sortingFieldConfig->getItemById($fieldIdentifier);
+
+					if ($fieldConfig->getForceDirection()) {
+						$sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $fieldConfig->getDirection());
+					} else {
+						$sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $sortingDirection);
+					}
+
+					$this->sortingStateCollection->addSortingState($sortingState);
+				}
+			}
+		}
+	}
 
 
 

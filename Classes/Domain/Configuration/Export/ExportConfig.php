@@ -112,8 +112,8 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 		$this->setValueIfExistsAndNotNothing('dateFormat');
 		$this->setValueIfExistsAndNotNothing('contentType');
 		
-		if(array_key_exists('downloadtype', $exportSettings)) {
-			$this->downloadType = $exportSettings['downloadtype'] == 'D' ? self::FORCE_DOWNLOAD : self::OPEN_IN_BROWSER;	
+		if(array_key_exists('downloadtype', $this->settings)) {
+			$this->downloadType = $this->settings['downloadtype'] == 'D' ? self::FORCE_DOWNLOAD : self::OPEN_IN_BROWSER;
 		}
 	}
 	
