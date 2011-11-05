@@ -27,46 +27,51 @@
  ***************************************************************/
 
 /**
- * Interface for filterData provider
+ * Implements data provider for grouped list data
  * 
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
-		
-	/**
-	 * inject the filterconfig
+abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+
+    /**
+	 * Filter configuration object
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+	protected $filterConfig;
+
+
+
+	/**
+	 * Holds a reference to solr dataBackend
+	 *
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 */
+	protected $dataBackend;
 
 
 
     /**
-     * inject databackend
-     * 
-     * @abstract
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * Injects databackend into data provider
+     *
+     * @param Tx_PtExtlistSolr_Domain_SolrDataBackend_DataBackend $dataBackend
      * @return void
      */
-    public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
+    public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+        $this->dataBackend = $dataBackend;
+    }
 
-	
-	
-	/**
-	 * Init the data provider
-	 */
-	public function init();
 
-	
-	
+
 	/**
-	 * Return the rendered filteroptions
-	 * 
-	 * @return array filter options
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
 	 */
-	public function getRenderedOptions();
-	
+	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
+		$this->filterConfig = $filterConfig;
+	}
+
 }
+?>
