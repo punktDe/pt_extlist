@@ -219,18 +219,24 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	 * @return string
 	 */
 	public function __toString() {
-		
-		if(is_string($this->value)) {
-			return (string) $this->value;
-		}
-		
-		if (is_array($this->value)) {
-			return implode(',', $this->value);
+
+		switch (true) {
+			case is_object($this->value):
+				return 'OBJECT::' . get_class($this->value);
+				break;
+
+			case is_array($this->value):
+				return implode(',', $this->value);
+				break;
+
+			case !$this->value:
+				return '';
+				break;
+
+			default:
+				return (string)$this->value;
 		}
 
-		if(!$this->value) return '';
-		
-		return 'Unknown Value';
 	}
 }
 ?>

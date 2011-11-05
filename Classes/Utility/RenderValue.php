@@ -325,12 +325,12 @@ class Tx_PtExtlist_Utility_RenderValue {
 	protected static function getFluidRenderer() {
 
 		if(!self::$fluidRenderer) {
-			self::$fluidRenderer = t3lib_div::makeInstance('Tx_Fluid_View_TemplateView');
 
-			$controllerContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
-									->get('Tx_PtExtlist_Extbase_ExtbaseContext')
-									->getControllerContext();
-									
+			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+
+			self::$fluidRenderer = $objectManager->get('Tx_Fluid_View_TemplateView');
+			
+			$controllerContext = $objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getControllerContext();
 			self::$fluidRenderer->setControllerContext($controllerContext);
 		}
 

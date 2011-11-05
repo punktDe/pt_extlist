@@ -130,7 +130,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
         	$renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
         	$renderedOptions[$optionKey]['selected'] = false;
         }
-       
+        
         return $renderedOptions;
 	}
 	

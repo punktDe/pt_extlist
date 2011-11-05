@@ -186,8 +186,9 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 * @return void
 	 */
 	public function reset() {
-        $this->isSubmittedFilterbox = false;
-		foreach($this->itemsArr as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+		$this->isSubmittedFilterbox = false;
+		foreach ($this->itemsArr as $filter) {
+			/* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 			$filter->reset();
 		}
 	}
@@ -298,9 +299,9 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      * @return array Object's state to be persisted to session
      */
     public function persistToSession() {
-    	$sessionArray = array();
+    	$sessionArray = NULL;
         if ($this->isSubmittedFilterbox) {
-            $sessionArray['isSubmittedFilterbox'] = 1;
+            $sessionArray = array('isSubmittedFilterbox' => 1);
         } 
         return $sessionArray;
     }

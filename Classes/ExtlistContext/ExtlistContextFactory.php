@@ -41,6 +41,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	protected static $instances = array();
 
 
+	/**
+	 * @var array
+	 */
+	protected static $extListTyposcript = NULL;
+
 
 	/**
 	 * Initialize and return a DataBackend with the given listIndentifier
@@ -72,7 +77,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	}
 
 
-
+	
 	/**
 	 * Get the databackend by a custom list configuration ts array
 	 * The Typoscript is identified by the given listIdentifier and merged with the extlist configuration
@@ -103,6 +108,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		}
 
 		return self::$instances[$listIdentifier];
+	}
+
+
+	/**
+	 * @static
+	 * @param $extListSettings array
+	 * @return void
+	 */
+	public static function setExtListTyposSript($extListTypoScript) {
+		self::$extListTyposcript = $extListTypoScript;
 	}
 
 
@@ -169,7 +184,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
 
 		if(is_array($customTSArray)) {
-			unset($extListTSArray['listConfig'][$listIdentifier]); // We remove the listConfiguration completeley if it was there before
+			unset($extListTSArray['listConfig'][$listIdentifier]); // We remove the listConfiguration completely if it was there before
 			$extListTSArray['listConfig'] = t3lib_div::array_merge_recursive_overrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
 		}
 
@@ -189,6 +204,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 *
 	 */
 	protected static function getCurrentTyposcript() {
+
+		if(self::$extListTyposcript !== NULL) return self::$extListTyposcript;
+		
 		if(TYPO3_MODE === 'BE') {
 			return self::getTyposcriptOfCurrentBackendPID();
 		} else {

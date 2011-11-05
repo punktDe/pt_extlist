@@ -91,7 +91,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	/**
 	 * Returns query object for this filter
 	 * 
-     * @return Tx_PtExtlist_Domain_QueryObject_QueryObject Query object that describes criterias for this filter
+     * @return Tx_PtExtlist_Domain_QueryObject_Query Query object that describes criterias for this filter
 	 */
 	public function getFilterQuery();
 	
