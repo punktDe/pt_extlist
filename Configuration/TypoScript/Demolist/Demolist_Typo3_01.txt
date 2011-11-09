@@ -359,6 +359,54 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 	}
 }
 
+
+plugin.tx_ptextlist.settings.listConfig.demolist_export < plugin.tx_ptextlist.settings.listConfig.demolist
+plugin.tx_ptextlist.settings.listConfig.demolist_export {
+
+# redifine columns completely
+    columns >
+    columns {
+
+        10 {
+            columnIdentifier = nameColumn
+            label = A label especially for the download List
+            fieldIdentifier = name_en
+        }
+
+        11 {
+            label = Capital
+            columnIdentifier = capital
+            fieldIdentifier = capital
+        }
+
+        20 {
+            label = LLL:EXT:pt_extlist/Configuration/TypoScript/Demolist/locallang.xml:column_isoNoColumn
+            columnIdentifier = isoNoColumn
+            fieldIdentifier = iso2
+        }
+
+        30 {
+            label = Phone
+            columnIdentifier = phoneColumn
+            fieldIdentifier = phone
+        }
+
+        40 {
+            label = Continent
+            columnIdentifier = continent
+            fieldIdentifier = continent
+        }
+
+        50 {
+            label = Subcontinent
+            columnIdentifier = subcontinent
+            fieldIdentifier = subcontinent
+            accessGroups = 3
+        }
+    }
+}
+
+
 ################################
 # Localization Override
 ################################

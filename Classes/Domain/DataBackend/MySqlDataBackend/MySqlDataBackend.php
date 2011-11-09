@@ -94,46 +94,43 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $listQueryParts = NULL;
 
 
+	/**
+	 * Factory method for data source
+	 *
+	 * Only DataBackend knows, which data source to use and how to instantiate it.
+	 * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource Data source object for this data backend
+	 */
+	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
+		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory::createInstance($dataSourceConfiguration);
+
+		return $dataSource;
+	}
+
 
 	/**
-     * Factory method for data source
-     *
-     * Only DataBackend knows, which data source to use and how to instantiate it.
-     * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource Data source object for this data backend
-     */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        $dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-        $dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory::createInstance($dataSourceConfiguration);
-
-        return $dataSource;
+	 * (non-PHPdoc)
+	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend::initBackendByTsConfig()
+	 */
+	protected function initBackendByTsConfig() {
+		$this->tables = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
+		$this->baseWhereClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
+		$this->baseFromClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
+		$this->baseGroupByClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
     }
 
 
-
-    /**
-     * (non-PHPdoc)
-     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend::initBackendByTsConfig()
-     */
-    protected function initBackendByTsConfig() {
-    	$this->tables = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
-    	$this->baseWhereClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
-    	$this->baseFromClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
-    	$this->baseGroupByClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
-    }
-
-
-
-    /**
-     * Injector for data source
-     *
-     * @param mixed $dataSource
-     */
-    public function injectDataSource($dataSource) {
-        $this->dataSource = $dataSource;
-    }
+	/**
+	 * Injector for data source
+	 *
+	 * @param mixed $dataSource
+	 */
+	public function injectDataSource($dataSource) {
+		$this->dataSource = $dataSource;
+	}
 
 
 

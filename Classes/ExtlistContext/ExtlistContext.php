@@ -30,11 +30,11 @@
  * Class implements ExtListContext
  *
  * @package ExtlistContext
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContext {
-	
-		
+
+
 	/**
 	 * Holds an instance of list configuration for this context
 	 *
@@ -48,27 +48,27 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @var string
 	 */
 	protected $listIdentifier;
-	
-	
-	
+
+
+
 	/**
 	 * Holds data backend for list identifier
 	 *
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
 	 */
 	protected $dataBackend = null;
-	
-	
-	
+
+
+
 	/**
 	 * Holds an instance of renderer chain for this list
 	 *
 	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
 	protected $rendererChain = null;
-	
-	
-	
+
+
+
 	/**
 	 * Initialize the extlistContext
 	 */
@@ -87,7 +87,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
-	
+
 	/**
 	 * Returns renderer chain
 	 *
@@ -96,9 +96,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getRendererChain() {
 		return $this->rendererChain;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns data backend of list context
 	 *
@@ -107,43 +107,46 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getDataBackend() {
 		return $this->dataBackend;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns pager collection fo databacken for this list context
 	 *
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
 	public function getPagerCollection() {
-		return $this->dataBackend->getPagerCollection();
+		$pagerCollection = $this->dataBackend->getPagerCollection();
+		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+		return $pagerCollection;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Get a pager object - if pagerIdentifier is null, get default pager
-	 * 
+	 *
 	 * @param unknown_type $pagerIdentifier
 	 */
 	public function getPager($pagerIdentifier = '') {
 		$pagerIdentifier = $pagerIdentifier ? $pagerIdentifier : 'default';
 		return $this->dataBackend->getPagerCollection()->getPagerByIdentifier($pagerIdentifier);
 	}
-	
-	
+
+
 
 	/**
 	 * Returns list object of this list context
 	 *
+	 * @param $buildNew boolean
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
-	public function getList() {
-		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder());
+	public function getList($buildNew = false) {
+		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder(), $buildNew);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns list data for this list context
 	 *
@@ -152,19 +155,19 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getListData() {
 		return $this->getList()->getListData();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns the filterboxCollection
-	 * 
+	 *
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
 	public function getFilterBoxCollection() {
 		return $this->dataBackend->getFilterboxCollection();
 	}
-	
-	
+
+
 	/**
 	 * Returns rendered list data of current list context
 	 *
@@ -174,7 +177,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 		return $this->getRendererChain()->renderList($this->getListData());
 	}
 
-	
+
 	/**
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
@@ -209,28 +212,28 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
-	
+
 	/**
 	 * Resets pager collection for list context
 	 */
 	public function resetPagerCollection() {
 		$this->dataBackend->getPagerCollection()->reset();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Resets filterbox collection for list context
 	 */
 	public function resetFilterboxCollection() {
 		$this->dataBackend->getFilterboxCollection()->reset();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Inject the Databackend
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 */
 	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {

@@ -144,12 +144,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @api
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
-        $this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
-        if (method_exists($view, 'setConfigurationBuilder')) {
-            $view->setConfigurationBuilder($this->configurationBuilder);
-        }
-  	        
-        $this->view->assign('config', $this->configurationBuilder);
+		$this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
+		if (method_exists($view, 'setConfigurationBuilder')) {
+			$view->setConfigurationBuilder($this->configurationBuilder);
+		}
+
+		$this->view->assign('config', $this->configurationBuilder);
 	}
     
     
@@ -166,6 +166,25 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
         return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
     }
 
+
+	/**
+	 * Template method for getting class name for view to be used in this controller from
+	 * TypoScript.
+	 *
+	 * Overwrite this method in your extending controller to enable adding
+	 * further namespace settings etc.
+	 *
+	 * @return string View class name to be used in this controller
+	 */
+	protected function getTsViewClassName() {
+		if($this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view']) {
+			return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+		}
+
+		if($this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view']) {
+			return $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+		}
+	}
 	
 	
 	/**

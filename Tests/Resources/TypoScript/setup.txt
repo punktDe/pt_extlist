@@ -1,0 +1,12 @@
+####################################################
+# Test list
+#
+# @author Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Tests/Resources/TypoScript/TestListBase.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Tests/Resources/TypoScript/TestListPartialResolver.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Tests/Resources/TypoScript/TestListRenderTemplate.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Tests/Resources/TypoScript/TestListCustomView.ts">

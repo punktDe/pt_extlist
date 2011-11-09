@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Joachim Mathes
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,39 +27,30 @@
  ***************************************************************/
 
 /**
- * Class implements base view for all pt_extlist views. 
- * 
- * Class type for base view can be changed by changing pt_extlist AbstractController::resolveView()
+ * Time span collection
  *
- * @author Daniel Lienert 
- * @author Michael Knoll
- * @package View
+ * @package Domain
+ * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
+ * @author Joachim Mathes
  */
-
-class Tx_PtExtlist_View_BaseView extends Tx_PtExtbase_View_BaseView {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilder;
-	
-	
-	/**
-	 * Inject the configurationBuilder
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->initConfiguration();
-	}
-	
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection extends Tx_PtExtbase_Collection_SortableObjectCollection {
 
 	/**
-	 * Called by setConfiguration
-	 *
-	 * @return void
+	 * Restricted class name
+	 * @var string
+	 * @see Tx_PtExtbase_Collection_ObjectCollection::checkItemType()
 	 */
-	protected function initConfiguration() {
+	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan';
+
+
+
+	public function getJsonValue() {
+		$timeSpans = array();
+		foreach ($this->itemsArr as $timeSpan) {
+			$timeSpans[] = $timeSpan->getJsonValue();
+		}
+		$result = "{\"timeSpans\":[" . implode(',', $timeSpans) . "]}";
+		return $result;
 	}
 }
+?>
