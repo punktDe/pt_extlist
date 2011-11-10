@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * @return Tx_Extbase_Persistence_Query Manipulated ExtBase query object
 	 */
 	public static function setSortingOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery) {
-		$sortings = $query->getSortings();
+        $sortings = $query->getSortings();
 		$extBaseSortings = array();
 		
 		foreach ($sortings as $field => $direction) { /* sorting is array('field' => 'Direction: 1 | -1') */
