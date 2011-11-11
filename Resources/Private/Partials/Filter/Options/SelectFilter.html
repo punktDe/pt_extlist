@@ -20,8 +20,6 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
         {filter.label}
 	</label>
 	<div class="outer-field-wrapper">
-
-        filter.filterConfig.submitOnChange
 		<div class="field-wrapper type-select">
 			<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{f:if(condition:'0', then: {onchange: 'bar'}, else: {onchange: ''})}" />
 		</div>
