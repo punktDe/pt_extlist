@@ -166,28 +166,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
 	
 	
 	/**
-	 * Render a single option line by cObject or default
-	 *
-	 * @param array $optionData
-	 */
-	protected function renderOptionData($optionData) {
-		
-		$option = '';
-		
-		foreach($this->displayFields as $displayField) {
-        	$values[] = $optionData[$displayField->getIdentifier()];
-        }
-        
-		$optionData['allDisplayFields'] = implode(' ', $values);
-		
-		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
-		
-		return $option;
-	}
-	
-	
-	
-	/**
 	 *
 	 * @return array
 	 */
