@@ -91,10 +91,10 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 		$specialFieldsWhereClause = '';
 
 		foreach($typo3Tables as $typo3Table) {
-			list($table, $alias) = t3lib_div::trimExplode(' ', $table, true);
+			list($table) = t3lib_div::trimExplode(' ', $typo3Table, true);
 			
-			if (is_array($GLOBALS['TCA'][$typo3Table])) {
-				$specialFieldsWhereClause .= Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($typo3Table);
+			if (is_array($GLOBALS['TCA'][$table])) {
+				$specialFieldsWhereClause .= Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($table);
 			}
 		}
 		
