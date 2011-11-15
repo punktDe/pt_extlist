@@ -106,8 +106,6 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 			}
 		}
 		
-		Tx_ExtDebug::var_dump($specialFieldsWhereClause, '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');
-		
 		return $specialFieldsWhereClause;
 	}
 	
