@@ -21,7 +21,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 	</label>
 	<div class="outer-field-wrapper">
 		<div class="field-wrapper type-select">
-			<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{f:if(condition:'0', then: {onchange: 'bar'}, else: {onchange: ''})}" />
+			<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{f:if(condition:'{filter.filterConfig.submitOnChange}', then: {onchange: 'onchange:submit();'}, else: {onchange: ''})}" />
 		</div>
 
 		<f:if condition="{filter.filterConfig.invertable}">
