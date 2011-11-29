@@ -53,7 +53,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	/** 
 	 * @var string
 	 */
-	protected $label;
+	protected $label = '';
 
 
 
@@ -172,6 +172,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $containsArrayData = false;
 
 
+	/**
+	 * @var bool
+	 */
+	protected $visible = true;
+
 	
 	/**
 	 * (non-PHPdoc)
@@ -191,9 +196,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 			}
 		}
 
-        $this->label = '';
-		// $this->label = $this->columnIdentifier;
-
+		$this->setBooleanIfExistsAndNotNothing('isVisible');
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		$this->setValueIfExistsAndNotNothing('sortingImageAsc');
@@ -202,7 +205,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
-        $this->setValueIfExistsAndNotNothing('headerThCssClass');
+      $this->setValueIfExistsAndNotNothing('headerThCssClass');
 		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
