@@ -79,7 +79,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	 */
 	public function downloadAction() {
 
-		if($this->listIdentifier == $this->exportListIdentifier  || !$this->exportListIdentifier) {
+		if($this->listIdentifier == $this->exportListIdentifier || !$this->exportListIdentifier) {
 			$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 			$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 			
@@ -107,6 +107,5 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 		
 		return $this->view->render();
 	}
-   
 }
 ?>
