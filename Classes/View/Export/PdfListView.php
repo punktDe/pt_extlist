@@ -172,7 +172,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 		$this->assign('csssFilePath', $this->cssFilePath);
 		$html = parent::render();
 		ob_clean();
-
+//die($html);
 		$dompdf = new DOMPDF();
 		$dompdf->set_paper($this->paperSize, $this->paperOrientation);
 		$dompdf->load_html($html);

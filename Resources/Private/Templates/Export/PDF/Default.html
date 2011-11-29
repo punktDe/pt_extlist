@@ -1,4 +1,5 @@
 {namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace dompdf=Tx_PtDompdf_ViewHelpers}
 <extlist:comment>
 <!--
 Partial for rendering a pdf List
@@ -17,16 +18,8 @@ Tx_PtExtlist_Domain_Model_List_Cell		cell		A cell which holds the value and addi
 @author Daniel Lienert <daniel@lienert.cc>
 -->
 
-<script type="text/php">
-if ( isset($pdf) ) {
-
-  $font = Font_Metrics::get_font("helvetica", "bold");
-  $pdf->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0,0,0));
-
-}
-</script>
-
 </extlist:comment>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -36,11 +29,23 @@ if ( isset($pdf) ) {
     </head>
 
     <body>
-        <table align="center" class="tx-ptextlist-list tx-ptextlist-list-standard" id="tx-ptextlist-list-{config.listConfiguration.listIdentifier}">
-            <f:render partial="{config.exportConfiguration.settings.headerPartial}" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
-            <f:render partial="{config.exportConfiguration.settings.bodyPartial}" arguments="{listData:listData}" />
-            <f:render partial="{config.exportConfiguration.settings.aggregateRowsPartial}" arguments="{aggregateRows:aggregateRows}" />
-        </table>
-    </body>
 
+
+        <table align="center" class="tx-ptextlist-list tx-ptextlist-list-standard" id="tx-ptextlist-list-{config.listConfiguration.listIdentifier}">
+            <thead>
+                <f:render partial="{config.exportConfiguration.settings.headerPartial}" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
+            </thead>
+            <tbody>
+                <f:render partial="{config.exportConfiguration.settings.bodyPartial}" arguments="{listData:listData}" />
+            </tbody>
+            <tfoot>
+                <f:render partial="{config.exportConfiguration.settings.aggregateRowsPartial}" arguments="{aggregateRows:aggregateRows}" />
+            </tfoot>
+        </table>
+
+        <dompdf:staticText position="bottom-right">
+            Seite {PAGE_NUM} von {PAGE_COUNT}
+        </dompdf:staticText>
+
+    </body>
 </html>
