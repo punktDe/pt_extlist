@@ -1399,9 +1399,31 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 														<DEFAULT></DEFAULT>
 														<COBJ></COBJ>
 														<PROTOTYPE></PROTOTYPE>
-														<EXAMPLE></EXAMPLE>
+														<EXAMPLE/>
 														<CHILDREN>
-															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                            <ENTRY KEY="size">
+                                                                <DESCRIPTION>Define the size of the string field.</DESCRIPTION>
+                                                                <DATATYPE>int</DATATYPE>
+                                                                <POSIBLEVALUES/>
+                                                                <DEFAULT></DEFAULT>
+                                                                <COBJ>0</COBJ>
+                                                                <PROTOTYPE></PROTOTYPE>
+                                                                <EXAMPLE></EXAMPLE>
+                                                                <CHILDREN></CHILDREN>
+                                                                <VARIANT></VARIANT>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="maxLength">
+                                                                <DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
+                                                                <DATATYPE>int</DATATYPE>
+                                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                                <DEFAULT></DEFAULT>
+                                                                <COBJ>0</COBJ>
+                                                                <PROTOTYPE></PROTOTYPE>
+                                                                <EXAMPLE></EXAMPLE>
+                                                                <CHILDREN></CHILDREN>
+                                                                <VARIANT></VARIANT>
+                                                            </ENTRY>
+                                                            <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 															<TYPEREF REF="filter.label" KEY="label" />
 															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
@@ -1410,28 +1432,6 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 															<TYPEREF REF="filter.invert" KEY="invert" />
 															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
 															<TYPEREF KEY="filter.hidden" REF="hidden" />
-															<ENTRY KEY="size">
-																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
-																<DATATYPE>int</DATATYPE>
-																<POSIBLEVALUES></POSIBLEVALUES>
-																<DEFAULT></DEFAULT>
-																<COBJ>0</COBJ>
-																<PROTOTYPE></PROTOTYPE>
-																<EXAMPLE></EXAMPLE>
-																<CHILDREN></CHILDREN>
-																<VARIANT></VARIANT>
-															</ENTRY>
-															<ENTRY KEY="maxLength">
-																<DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
-																<DATATYPE>int</DATATYPE>
-																<POSIBLEVALUES></POSIBLEVALUES>
-																<DEFAULT></DEFAULT>
-																<COBJ>0</COBJ>
-																<PROTOTYPE></PROTOTYPE>
-																<EXAMPLE></EXAMPLE>
-																<CHILDREN></CHILDREN>
-																<VARIANT></VARIANT>
-															</ENTRY>
 														</CHILDREN>
 														<VARIANT>
 															<ENTRY KEY="String">
@@ -1478,15 +1478,6 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 }
 																]]></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-																	<TYPEREF REF="filter.label" KEY="label" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-																	<TYPEREF REF="filter.invert" KEY="invert" />
-																	<TYPEREF REF="filter.invertable" KEY="invertable" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
                                                                     <ENTRY KEY="minWordLength">
 																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
@@ -1520,6 +1511,15 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.label" KEY="label" />
+                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
+                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
+                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1873,20 +1873,6 @@ dateIteratorFormat = %m.%Y
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.tagcloud</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
-																	<TYPEREF REF="filter.label" KEY="label" />
-																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.invert" KEY="invert" />
-																	<TYPEREF REF="filter.invertable" KEY="invertable" />
-																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
-																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
-																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
-																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																	<ENTRY KEY="maxItems">
 																		<DESCRIPTION>Maximum of items to show.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
@@ -1942,6 +1928,20 @@ dateIteratorFormat = %m.%Y
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+                                                                    <TYPEREF REF="filter.label" KEY="label" />
+                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
+                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
+                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF REF="filter.displayFields" KEY="displayFields" />
+                                                                    <TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+                                                                    <TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+                                                                    <TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
