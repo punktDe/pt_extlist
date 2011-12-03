@@ -2037,6 +2037,214 @@ agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialP
 						</ENTRY>
 					</CHILDREN>
 				</ENTRY>
+                <ENTRY KEY="export">
+                    <DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
+                    <DATATYPE>String</DATATYPE>
+                    <POSIBLEVALUES></POSIBLEVALUES>
+                    <DEFAULT></DEFAULT>
+                    <COBJ></COBJ>
+                    <PROTOTYPE></PROTOTYPE>
+                    <EXAMPLE></EXAMPLE>
+                    <CHILDREN></CHILDREN>
+                    <VARIANT>
+                        <ENTRY KEY="export">
+                           <DESCRIPTION>Export configuration section.</DESCRIPTION>
+                           <DATATYPE>Array</DATATYPE>
+                           <POSIBLEVALUES></POSIBLEVALUES>
+                           <DEFAULT></DEFAULT>
+                           <COBJ></COBJ>
+                           <PROTOTYPE></PROTOTYPE>
+                           <EXAMPLE></EXAMPLE>
+                           <CHILDREN>
+                               <ENTRY KEY="exportConfigs">
+                                  <DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
+                                  <DATATYPE>Array</DATATYPE>
+                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                  <DEFAULT></DEFAULT>
+                                  <COBJ></COBJ>
+                                  <PROTOTYPE></PROTOTYPE>
+                                  <EXAMPLE></EXAMPLE>
+                                  <CHILDREN></CHILDREN>
+                                  <VARIANT>
+                                      <ENTRY KEY="csvExport">
+                                          <DESCRIPTION>Export the list as CSV.</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE></EXAMPLE>
+                                          <CHILDREN></CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                      <ENTRY KEY="fluidTemplateExport">
+                                          <DESCRIPTION>Export the listData in any representation defined by fluid syntax.</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE></EXAMPLE>
+                                          <CHILDREN></CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                      <ENTRY KEY="excelExport">
+                                          <DESCRIPTION>Excel export</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE></EXAMPLE>
+                                          <CHILDREN></CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                      <ENTRY KEY="pdfExport">
+                                          <DESCRIPTION>Uses the domPdf library to export the list data as pdf document.</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE><![CDATA[
+pdfExport {
+    viewClassName = Tx_PtExtlist_View_Export_PdfListView
+    fileExtension = pdf
+    templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html
+    cssFilePath =  EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css
+
+    headerPartial = Export/PDF/ListHeader
+    bodyPartial = Export/PDF/ListBody
+    aggregateRowsPartial = Export/PDF/AggregateRows
+
+    // DOMPDF Settings
+    dompdfSourcePath = EXT:pt_dompdf/Classes/dompdf
+    paperSize = a4
+    paperOrientation =  portrait
+}
+]]>
+                                          </EXAMPLE>
+                                          <CHILDREN>
+                                              <ENTRY KEY="viewClassName">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>Tx_PtExtlist_View_Export_PdfListView</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="fileExtension">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>pdf</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="templatePath">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="cssFilePath">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="headerPartial">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>Export/PDF/ListHeader</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="bodyPartial">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT>Export/PDF/ListBody</DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="aggregateRowsPartial">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>Array</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT></DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="dompdfSourcePath">
+                                                  <DESCRIPTION>Path to the domPDF Sources.</DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT></DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="paperSize">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES>a0-a10, b0-b10, c0-c10, ... </POSIBLEVALUES>
+                                                  <DEFAULT>a4</DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="paperOrientation">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT>portrait</DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                          </CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                  </VARIANT>
+                               </ENTRY>
+                           </CHILDREN>
+                           <VARIANT></VARIANT>
+                        </ENTRY>
+                    </VARIANT>
+                </ENTRY>
 			</CHILDREN>
 		</ENTRY>
 	</TSREF>
