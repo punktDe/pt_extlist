@@ -62,6 +62,10 @@
                     <numIndex index="0">Breadcrumbs</numIndex>
                     <numIndex index="1">BreadCrumbs->index;BreadCrumbs->resetFilter</numIndex>
                   </numIndex>
+                  <numIndex index="7" type="array">
+                    <numIndex index="0">Column Selector</numIndex>
+                    <numIndex index="1">ColumnSelector->index</numIndex>
+                  </numIndex>
                 </items>
               </config>
             </TCEforms>
