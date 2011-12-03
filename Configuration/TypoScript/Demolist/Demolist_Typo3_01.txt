@@ -363,7 +363,10 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 plugin.tx_ptextlist.settings.listConfig.demolist_export < plugin.tx_ptextlist.settings.listConfig.demolist
 plugin.tx_ptextlist.settings.listConfig.demolist_export {
 
-# redifine columns completely
+    # show all items
+    pager.itemsPerPage = 50
+
+    # redifine columns completely
     columns >
     columns {
 
