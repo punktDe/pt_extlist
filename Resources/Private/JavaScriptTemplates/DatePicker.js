@@ -1,5 +1,4 @@
 jQuery(function($) {
-
 	var options = ###options###;
 	var filterValue = "###filterValue###";
 	var defaultDate = new Date(filterValue.split('-')[0], filterValue.split('-')[1] - 1, filterValue.split('-')[2]);
@@ -8,14 +7,14 @@ jQuery(function($) {
 		altField: "#datePickerFilter",
 		defaultDate: defaultDate,
 		onSelect: submitFilterValue,
-		beforeShowDay: evaluateTimeSpans,
+		beforeShowDay: evaluateTimeSpans
 	};
 
-	jQuery.extend(datePickerOptions, $.datepicker.regional['###regional###']);
-	jQuery.extend(datePickerOptions, ###datePickerOptions###);
+	$.extend(datePickerOptions, $.datepicker.regional['###regional###']);
+	$.extend(datePickerOptions, ###datePickerOptions###);
 
 	function submitFilterValue(date, datePicker) {
-		var form = "tx-ptextlist-filterbox-form-###filterBoxIdentifier###";
+		var form = 'tx-ptextlist-filterbox-form-###filterBoxIdentifier###';
 		document.forms[form].submit();
 	}
 
@@ -27,11 +26,11 @@ jQuery(function($) {
 
 		for (var i = 0; i < options.timeSpans.length; i++) {
 			if (options.timeSpans[i].start <= dateInAltFormat && options.timeSpans[i].end >= dateInAltFormat) {
-				return [true, "typo3-ptextlist-filter-eventdate"];
+				return [true, 'typo3-ptextlist-filter-eventdate'];
 			}
 		}
 		return [false, ''];
 	}
 
-	$("#typo3-ptextlist-filter-datepicker").datepicker(datePickerOptions);
+	$('#typo3-ptextlist-filter-datepicker').datepicker(datePickerOptions);
 });
