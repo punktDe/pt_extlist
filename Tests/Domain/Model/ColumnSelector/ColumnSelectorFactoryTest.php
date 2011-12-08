@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,28 +27,26 @@
  ***************************************************************/
 
 /**
- * Class implements factory for column selector classes for pt_extlist
+ * Testcase for column selector factory
  *
- * @package Domain
- * @subpackage Model\ColumnSelector
- * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
-	
-	
-	/**
-	 * Returns an instance of a column selector
-	 *
-	 * @static
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection
-	 * @return Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection) {
-		
-		$columnSelector = new Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector($columnConfigCollection);
+class Tx_PtExtlist_Tests_Domain_Model_ColumnSelector_ColumnSelectorFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-		return $columnSelector;
-	
+	public function setup() {
+		$this->initDefaultConfigurationBuilderMock();
 	}
+	
+
+	/**
+	 * @test
+	 */
+	public function getInstance() {
+		$columnConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
+
+		$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($columnConfiguration);
+		$this->assertTrue(is_a($columnSelector, 'Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector'));
+	}
+
 }
+
 ?>
