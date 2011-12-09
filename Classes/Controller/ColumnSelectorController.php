@@ -35,13 +35,20 @@
  */
 class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Controller_AbstractController {
 
+	/**
+	 * Holds an instance of list renderer
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+	 */
+	protected $rendererChain;
+
 
 	/**
 	 * Overwrites initAction for setting properties
 	 * and enabling easy testing
 	 */
 	protected function initializeAction() {
-
+		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 
 
@@ -52,7 +59,11 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	 * @return string The rendered index action
 	 */
 	public function indexAction() {
-
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
+		
+		$this->view->assign('listHeader', $list->getListHeader());
+		$this->view->assign('listCaptions', $renderedCaptions);
 	}
 }
 ?>
