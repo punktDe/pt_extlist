@@ -28,7 +28,7 @@
 
 /**
  * Abstract filter base class for all filters implementing single value filter
- * 
+ *
  * @author Daniel Lienert
  * @author Michael Knoll
  * @package Domain
@@ -60,12 +60,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 */
 	protected $dbTimeFormat;
 
-	
+
 
 	/**
 	 * A timeSpan can have a startTime and an endTime
 	 * Therefore the dateFieldIdentifiers are 2-dimensional arrays of start/end field tuples
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $dateFieldConfigs;
@@ -131,7 +131,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
 		if(is_array($fieldIdentifier)) {
 			foreach($fieldIdentifier as $tupleId => $dateFieldTuple) {
-
 				if(!array_key_exists('start', $dateFieldTuple) || !array_key_exists('start', $dateFieldTuple)) throw new Exception('Found a fieldIdentifier array, but the array was not suitable for a timeSpanFilter. 1314627131');
 
 				$this->dateFieldConfigs[$tupleId] = array(
@@ -149,7 +148,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 		}
 	}
 
-	
+
 
 	/**
 	 * @return void
@@ -184,7 +183,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	}
 
 
-    
+
     /**
      * @return array of fieldIdentifiers
      */
@@ -206,8 +205,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 		return $sessionArray;
 	}
 
-    
-    
+
+
     /**
      * (non-PHPdoc)
      * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
@@ -236,26 +235,26 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	protected function setActiveState() {
 		$this->isActive = is_object($this->filterValueStart) && is_object($this->filterValueEnd);
 	}
-    
-	
-    
+
+
+
     /**
      * (non-PHPdoc)
      * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
      */
     protected function initFilter() {
-    	
+
     }
-    
-    
-    
+
+
+
     /**
      * Returns filter value for breadcrumb
-     * 
+     *
      * @return string
      */
     protected function getFilterValueForBreadCrumb() {
-    	
+
     }
 
 
@@ -268,7 +267,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
 		if ($this->filterValueStart) $returnArray['filterValueStart'] = $this->filterValueStart->format('U');
 		if ($this->filterValueEnd) $returnArray['filterValueEnd'] = $this->filterValueEnd->format('U');
-		
+
 		return $returnArray;
 	}
 
@@ -281,7 +280,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 		return implode(',',$this->getValue());
 	}
 
-	
+
 
 	/**
 	 * Getter for FROM filter value
