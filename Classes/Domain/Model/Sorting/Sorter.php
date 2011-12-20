@@ -66,7 +66,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
 	
 	
 	/**
-	 * Register method for observed sorters that can influence sorting.
+	 * Registers sorter that can influence sorting.
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver
 	 */
