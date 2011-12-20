@@ -187,9 +187,9 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Injector for query interpreter
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     * @param mixed $queryInterpreter
      */
-    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter);
+    public function injectQueryInterpreter($queryInterpreter);
     
     
     
