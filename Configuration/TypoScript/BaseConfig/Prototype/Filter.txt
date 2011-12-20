@@ -146,6 +146,28 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
+    dateRange {
+        filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
+        partialPath = Filter/Range/DateRangeFilter
+
+		dbTimeFormat = U
+		regional =
+
+		options {
+
+		}
+
+		#fieldIdentifier =
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} equals {field:value}
+		}
+    }
+
+
+
 	select {
 		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter

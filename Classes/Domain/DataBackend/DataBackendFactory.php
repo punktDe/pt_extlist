@@ -164,9 +164,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
     protected static function getQueryInterpreter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$queryInterpreterClassName = $backendConfiguration->getQueryInterpreterClass();
-	    $queryInterpreter = new $queryInterpreterClassName;
-	    
-	    Tx_PtExtbase_Assertions_Assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
+        $queryInterpreter = new $queryInterpreterClassName;
+	    // TODO we cannot have generic interpreter interface here, as this may vary from backend to backend.
+	    //Tx_PtExtbase_Assertions_Assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
 	    return $queryInterpreter;
     }
     
