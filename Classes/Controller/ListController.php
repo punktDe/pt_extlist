@@ -77,6 +77,8 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 		$this->view->assign('aggregateRows', $renderedAggregateRows);
+
+		$this->view->assign('filterCollection', $this->dataBackend->getFilterboxCollection());
 	}
 
 

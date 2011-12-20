@@ -81,6 +81,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	 * @return array
 	 */
 	public function getValue() {
+		reset($this->filterValues);
 		return $this->multiple ? $this->filterValues : current($this->filterValues);
 	}
 	
