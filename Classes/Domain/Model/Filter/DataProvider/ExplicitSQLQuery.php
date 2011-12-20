@@ -33,15 +33,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
-
-
-	/**
-	 * Filter configuration object
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
-	 */
-	protected $filterConfig;
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 
 	/**
 	 * @var string
@@ -86,16 +78,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery implements 
 	 */
 	protected $filterField;
 
-
-
-	/**
-	 * inject the filterconfig
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		$this->filterConfig = $filterConfig;
-	}
 
 
 	/**

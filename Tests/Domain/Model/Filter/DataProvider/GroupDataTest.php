@@ -55,6 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
 
     public function testGetFieldsRequiredToBeSelected() {
     	$groupDataProvider = $this->buildAccessibleGroupDataProvider();
+
     	$fields = $groupDataProvider->_call('getFieldsRequiredToBeSelected');
     	$this->assertEquals($fields->count(), 3);
     	
@@ -149,7 +150,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
    }
    
    
-   protected function buildAccessibleGroupDataProvider($filterSettings) {
+   protected function buildAccessibleGroupDataProvider($filterSettings = null) {
    		
    		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData');
    		$accesibleGroupDataProvider = new $accessibleClassName;
@@ -170,7 +171,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
     	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings,'test');
     	    	
     	$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-    	
+
+        $accesibleGroupDataProvider->injectDataBackend($dataBackend);
    		$accesibleGroupDataProvider->injectFilterConfig($filterConfiguration);
    		$accesibleGroupDataProvider->init();
    		
