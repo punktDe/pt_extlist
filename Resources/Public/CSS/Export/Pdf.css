@@ -1,0 +1,33 @@
+body {
+  font-family: "verdana", "sans-serif";
+  margin: 0;
+  padding: 10mm;
+  font-size: 1em;
+}
+
+table {
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.tx-ptextlist-list-header-row {
+    background-color: #EEEEEE;
+}
+
+.tx-ptextlist-list-header-cell {
+    border-bottom: 1px solid black;
+}
+
+.tx-ptextlist-row td {
+    border-bottom: 0.7pt dotted #666666;
+    padding: 3px;
+}
+
+.tx-ptextlist-list {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.odd td {
+    background-color: #CCD7E0;
+}

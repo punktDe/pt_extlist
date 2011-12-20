@@ -1,0 +1,25 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering the aggregate rows.
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_List_ListData		aggregateRows		A collection with aggregate rows.
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<f:for each="{aggregateRows}" key="rowIndex" as="aggregateRow">
+	
+	<tr class="tx-ptextlist-aggregaterow aggregaterow-{f:if(condition: '{rowIndex} % 2', then: 'even', else: 'odd')}">
+		
+		<f:for each="{aggregateRow}" key="columnIdentifier" as="cell">
+			<td class="tx-ptextlist-aggregatefield-{columnIdentifier}  {cell.CSSClass}"><f:format.html>{cell}</f:format.html></td>
+		</f:for>
+		
+	</tr>
+</f:for>

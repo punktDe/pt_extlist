@@ -1,0 +1,27 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering a list header.
+
+Here is a list of objects / variables that can be accessed in this partial:
+
+Tx_PtExtlist_Domain_Model_List_Header_ListHeader	listHeader		A instance with header information.
+Tx_PtExtlist_Domain_Model_List_Row					listCaptions 	A row with captions for every column.
+
+
+ViewHelpers used in this template:
+
+HeaderViewHelper			A simple foreach implementation which makes some more variables accessable
+
+@package Typo3
+@subpackage pt_extlist
+-->
+</extlist:comment> 
+
+<tr class="tx-ptextlist-list-header-row">
+	<extlist:header headers="{listHeader}" headerKey="header" captions="{listCaptions}" captionKey="caption">
+		<th class="tx-ptextlist-list-header-cell {header.columnConfig.headerThCssClass}">
+			{caption}
+		</th>
+	</extlist:header>
+</tr>

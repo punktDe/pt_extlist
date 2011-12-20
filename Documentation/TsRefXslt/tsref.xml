@@ -1399,9 +1399,31 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 														<DEFAULT></DEFAULT>
 														<COBJ></COBJ>
 														<PROTOTYPE></PROTOTYPE>
-														<EXAMPLE></EXAMPLE>
+														<EXAMPLE/>
 														<CHILDREN>
-															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                            <ENTRY KEY="size">
+                                                                <DESCRIPTION>Define the size of the string field.</DESCRIPTION>
+                                                                <DATATYPE>int</DATATYPE>
+                                                                <POSIBLEVALUES/>
+                                                                <DEFAULT></DEFAULT>
+                                                                <COBJ>0</COBJ>
+                                                                <PROTOTYPE></PROTOTYPE>
+                                                                <EXAMPLE></EXAMPLE>
+                                                                <CHILDREN></CHILDREN>
+                                                                <VARIANT></VARIANT>
+                                                            </ENTRY>
+                                                            <ENTRY KEY="maxLength">
+                                                                <DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
+                                                                <DATATYPE>int</DATATYPE>
+                                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                                <DEFAULT></DEFAULT>
+                                                                <COBJ>0</COBJ>
+                                                                <PROTOTYPE></PROTOTYPE>
+                                                                <EXAMPLE></EXAMPLE>
+                                                                <CHILDREN></CHILDREN>
+                                                                <VARIANT></VARIANT>
+                                                            </ENTRY>
+                                                            <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 															<TYPEREF REF="filter.label" KEY="label" />
 															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
@@ -1410,28 +1432,6 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 															<TYPEREF REF="filter.invert" KEY="invert" />
 															<TYPEREF KEY="filter.breadCrumbString" REF="breadCrumbString" />
 															<TYPEREF KEY="filter.hidden" REF="hidden" />
-															<ENTRY KEY="size">
-																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
-																<DATATYPE>int</DATATYPE>
-																<POSIBLEVALUES></POSIBLEVALUES>
-																<DEFAULT></DEFAULT>
-																<COBJ>0</COBJ>
-																<PROTOTYPE></PROTOTYPE>
-																<EXAMPLE></EXAMPLE>
-																<CHILDREN></CHILDREN>
-																<VARIANT></VARIANT>
-															</ENTRY>
-															<ENTRY KEY="maxLength">
-																<DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
-																<DATATYPE>int</DATATYPE>
-																<POSIBLEVALUES></POSIBLEVALUES>
-																<DEFAULT></DEFAULT>
-																<COBJ>0</COBJ>
-																<PROTOTYPE></PROTOTYPE>
-																<EXAMPLE></EXAMPLE>
-																<CHILDREN></CHILDREN>
-																<VARIANT></VARIANT>
-															</ENTRY>
 														</CHILDREN>
 														<VARIANT>
 															<ENTRY KEY="String">
@@ -1478,15 +1478,6 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 }
 																]]></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-																	<TYPEREF REF="filter.label" KEY="label" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-																	<TYPEREF REF="filter.invert" KEY="invert" />
-																	<TYPEREF REF="filter.invertable" KEY="invertable" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
                                                                     <ENTRY KEY="minWordLength">
 																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
@@ -1520,6 +1511,15 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.label" KEY="label" />
+                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
+                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
+                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1873,20 +1873,6 @@ dateIteratorFormat = %m.%Y
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.tagcloud</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
-																	<TYPEREF REF="filter.label" KEY="label" />
-																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
-																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-																	<TYPEREF REF="filter.invert" KEY="invert" />
-																	<TYPEREF REF="filter.invertable" KEY="invertable" />
-																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
-																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
-																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
-																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																	<ENTRY KEY="maxItems">
 																		<DESCRIPTION>Maximum of items to show.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
@@ -1942,6 +1928,20 @@ dateIteratorFormat = %m.%Y
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
+                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+                                                                    <TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+                                                                    <TYPEREF REF="filter.label" KEY="label" />
+                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
+                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
+                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
+                                                                    <TYPEREF REF="filter.displayFields" KEY="displayFields" />
+                                                                    <TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+                                                                    <TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+                                                                    <TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -2037,6 +2037,214 @@ agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialP
 						</ENTRY>
 					</CHILDREN>
 				</ENTRY>
+                <ENTRY KEY="export">
+                    <DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
+                    <DATATYPE>String</DATATYPE>
+                    <POSIBLEVALUES></POSIBLEVALUES>
+                    <DEFAULT></DEFAULT>
+                    <COBJ></COBJ>
+                    <PROTOTYPE></PROTOTYPE>
+                    <EXAMPLE></EXAMPLE>
+                    <CHILDREN></CHILDREN>
+                    <VARIANT>
+                        <ENTRY KEY="export">
+                           <DESCRIPTION>Export configuration section.</DESCRIPTION>
+                           <DATATYPE>Array</DATATYPE>
+                           <POSIBLEVALUES></POSIBLEVALUES>
+                           <DEFAULT></DEFAULT>
+                           <COBJ></COBJ>
+                           <PROTOTYPE></PROTOTYPE>
+                           <EXAMPLE></EXAMPLE>
+                           <CHILDREN>
+                               <ENTRY KEY="exportConfigs">
+                                  <DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
+                                  <DATATYPE>Array</DATATYPE>
+                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                  <DEFAULT></DEFAULT>
+                                  <COBJ></COBJ>
+                                  <PROTOTYPE></PROTOTYPE>
+                                  <EXAMPLE></EXAMPLE>
+                                  <CHILDREN></CHILDREN>
+                                  <VARIANT>
+                                      <ENTRY KEY="csvExport">
+                                          <DESCRIPTION>Export the list as CSV.</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE></EXAMPLE>
+                                          <CHILDREN></CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                      <ENTRY KEY="fluidTemplateExport">
+                                          <DESCRIPTION>Export the listData in any representation defined by fluid syntax.</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE></EXAMPLE>
+                                          <CHILDREN></CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                      <ENTRY KEY="excelExport">
+                                          <DESCRIPTION>Excel export</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE></EXAMPLE>
+                                          <CHILDREN></CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                      <ENTRY KEY="pdfExport">
+                                          <DESCRIPTION>Uses the domPdf library to export the list data as pdf document.</DESCRIPTION>
+                                          <DATATYPE>Array</DATATYPE>
+                                          <POSIBLEVALUES></POSIBLEVALUES>
+                                          <DEFAULT></DEFAULT>
+                                          <COBJ></COBJ>
+                                          <PROTOTYPE></PROTOTYPE>
+                                          <EXAMPLE><![CDATA[
+pdfExport {
+    viewClassName = Tx_PtExtlist_View_Export_PdfListView
+    fileExtension = pdf
+    templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html
+    cssFilePath =  EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css
+
+    headerPartial = Export/PDF/ListHeader
+    bodyPartial = Export/PDF/ListBody
+    aggregateRowsPartial = Export/PDF/AggregateRows
+
+    // DOMPDF Settings
+    dompdfSourcePath = EXT:pt_dompdf/Classes/dompdf
+    paperSize = a4
+    paperOrientation =  portrait
+}
+]]>
+                                          </EXAMPLE>
+                                          <CHILDREN>
+                                              <ENTRY KEY="viewClassName">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>Tx_PtExtlist_View_Export_PdfListView</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="fileExtension">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>pdf</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="templatePath">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="cssFilePath">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="headerPartial">
+                                                <DESCRIPTION></DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>Export/PDF/ListHeader</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="bodyPartial">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT>Export/PDF/ListBody</DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="aggregateRowsPartial">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>Array</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT></DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="dompdfSourcePath">
+                                                  <DESCRIPTION>Path to the domPDF Sources.</DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT></DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="paperSize">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES>a0-a10, b0-b10, c0-c10, ... </POSIBLEVALUES>
+                                                  <DEFAULT>a4</DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                              <ENTRY KEY="paperOrientation">
+                                                  <DESCRIPTION></DESCRIPTION>
+                                                  <DATATYPE>string</DATATYPE>
+                                                  <POSIBLEVALUES></POSIBLEVALUES>
+                                                  <DEFAULT>portrait</DEFAULT>
+                                                  <COBJ></COBJ>
+                                                  <PROTOTYPE></PROTOTYPE>
+                                                  <EXAMPLE></EXAMPLE>
+                                                  <CHILDREN></CHILDREN>
+                                                  <VARIANT></VARIANT>
+                                              </ENTRY>
+                                          </CHILDREN>
+                                          <VARIANT></VARIANT>
+                                      </ENTRY>
+                                  </VARIANT>
+                               </ENTRY>
+                           </CHILDREN>
+                           <VARIANT></VARIANT>
+                        </ENTRY>
+                    </VARIANT>
+                </ENTRY>
 			</CHILDREN>
 		</ENTRY>
 	</TSREF>
