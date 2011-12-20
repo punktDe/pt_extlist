@@ -67,11 +67,16 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
                 $headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
 
                 if($singleColumnConfiguration->isAccessable()) {
-                    $listIsSorted = $headerColumn->isSortingActive();
+                    // We set list as sorted as soon as one column has sorting-status from user / session
+                    if ($headerColumn->isSortingActive()) {
+                        $listIsSorted = true;
+                    }
                     $listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
                 }
             }
 
+            // Check whether we have a sorting from header columns (set by user)
+            // or whether we have to set default sorting
             if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
                 $listHeader->getHeaderColumn($defaultSortingColumn)->setDefaultSorting($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
                 $listHeader->getHeaderColumn($defaultSortingColumn)->init();

@@ -91,10 +91,19 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 		$specialFieldsWhereClause = '';
 
 		foreach($typo3Tables as $typo3Table) {
-			list($table) = t3lib_div::trimExplode(' ', $typo3Table, true);
-			
+			list($table, $alias) = t3lib_div::trimExplode(' ', $typo3Table, true);
+			$alias = trim($alias);
+
 			if (is_array($GLOBALS['TCA'][$table])) {
-				$specialFieldsWhereClause .= Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($table);
+				$specialFieldsWhereClauseSnippet = Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($table);
+
+				if($alias) {
+					// Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
+					$specialFieldsWhereClauseSnippet = str_replace(' ' . $table . '.',  ' ' . $alias . '.', $specialFieldsWhereClauseSnippet);
+				}
+
+				$specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
+
 			}
 		}
 		
