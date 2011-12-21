@@ -153,6 +153,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 * @return string Rendered reset action
 	 */                          
 	public function resetAction($filterboxIdentifier) {
+		// TODO refactor me, as we use this twice!
         if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
             $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
         }
@@ -167,6 +168,38 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		 * the controller. The controller can be executed "too late", so that the filters
 		 * are not reset, if their values are requested.
 		 * 
+		 * We should introduce a "global" controller that handles certain actions
+		 * before any other controller (and only once!).
+		 */
+		$this->redirect('show');
+	}
+
+
+
+	/**
+	 * Resets a single filter
+	 *
+	 * @param $fullQualifiedFilterIdentifier FilterboxIdentifier.FilterIdentifier Identifier of filter to be reseted
+	 * @return string Rendered resetFilter Action
+	 */
+	public function resetFilterAction($fullQualifiedFilterIdentifier) {
+		// TODO refactor me, as we use this twice!
+		list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullQualifiedFilterIdentifier);
+		if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
+			$filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+			if ($filterbox->hasItem($filterIdentifier)) {
+				$filterbox->getFilterByFilterIdentifier($filterIdentifier)->reset();
+			}
+	  	}
+
+		/**
+		 * TODO try to figure out a way how to handle this without redirect
+		 *
+		 * The problem is, that although GP-vars mapping is done automatically,
+		 * we cannot trigger any action when resetting filterboxes without using
+		 * the controller. The controller can be executed "too late", so that the filters
+		 * are not reset, if their values are requested.
+		 *
 		 * We should introduce a "global" controller that handles certain actions
 		 * before any other controller (and only once!).
 		 */
