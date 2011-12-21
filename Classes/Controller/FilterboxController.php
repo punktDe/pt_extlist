@@ -179,6 +179,9 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	/**
 	 * Resets a single filter
 	 *
+	 * Here we reset a single filter within a filterbox. Make sure to give a full qualified filter identifier
+	 * which consists of filterboxIdentifier.filterIdentifier.
+	 *
 	 * @param $fullQualifiedFilterIdentifier FilterboxIdentifier.FilterIdentifier Identifier of filter to be reseted
 	 * @return string Rendered resetFilter Action
 	 */
