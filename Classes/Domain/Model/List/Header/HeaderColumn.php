@@ -27,7 +27,10 @@
  ***************************************************************/
 
 /**
- * Class implements a single column of a list header
+ * Class implements a single column
+ *
+ * HeaderColumn is not the right name any more - this class represents the column and its properties
+ * TODO: Rename this class to Tx_PtExtlist_Domain_Model_List_Columns_Column
  *
  * @author Daniel Lienert
  * @author Michael Knoll
@@ -170,10 +173,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 		if (array_key_exists('sortedFields', $this->headerSessionData)) {
 			$this->sortedFields = $this->headerSessionData['sortedFields'];
 		}
-
-		if (array_key_exists('isVisible', $this->headerSessionData)) {
-			$this->isVisible = (boolean)$this->headerSessionData['sortedField'];
-		}
 	}
 
 	
@@ -182,14 +181,14 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * Template method for initializing filter by get / post vars
 	 */
 	protected function initByGpVars() {
-        if (array_key_exists('sortingFields', $this->headerGPVarData)) {
-            $this->initByGpVarsSortingFields($this->headerGPVarData['sortingFields']);
-        }
+		if (array_key_exists('sortingFields', $this->headerGPVarData)) {
+			$this->initByGpVarsSortingFields($this->headerGPVarData['sortingFields']);
+		}
 	}
 
 
 
-    /**
+	/**
      * Sets sorting state of header by given sortingFields GP-var string.
      * String has following format: <fieldIdentifier1>:<sortingDirection1>;<fieldIdentifier2>:<sortingDirection2>
      *
@@ -388,8 +387,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 			$sessionArray['sortedFields'] = $this->sortedFields;
 		}
 
-		$sessionArray['isVisible'] = $this->isVisible;
-
 		return $sessionArray;
 	}
 
@@ -406,6 +403,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
         if (count($this->sortedFields) > 0) return true;
         return false;
     }
+
 
 
 	/**
@@ -453,6 +451,5 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	public function getIsVisible() {
 		return $this->isVisible;
 	}
-
 }
 ?>

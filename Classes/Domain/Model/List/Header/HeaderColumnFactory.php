@@ -57,8 +57,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 		$sorter = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($columnConfiguration->getConfigurationBuilder());
 		$sorter->registerSortingObserver($headerColumn);
 
-		// Register headerColumn in the column selector
-
 		$headerColumn->init();
 		
 		return $headerColumn;
