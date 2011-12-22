@@ -48,6 +48,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataProvider, 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface', array('message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125'));
 		
 		$dataProvider->injectFilterConfig($filterConfig);
+
+        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($filterConfig->getListIdentifier());;
+        $dataProvider->injectDataBackend($dataBackend);
+
 		$dataProvider->init();
 		return $dataProvider;
 	}

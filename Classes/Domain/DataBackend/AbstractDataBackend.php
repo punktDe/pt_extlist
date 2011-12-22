@@ -131,6 +131,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      * Holds an instance of a query interpreter to be used for
      * query objects
      *
+     * TODO using abstract class as type here makes no sense!
+     *
      * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
      */
     protected $queryInterpreter;
@@ -283,9 +285,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     /**
      * Injector for query interpreter
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     * @param mixed $queryInterpreter
      */
-    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
+    public function injectQueryInterpreter($queryInterpreter) {
         $this->queryInterpreter = $queryInterpreter;
     }
     

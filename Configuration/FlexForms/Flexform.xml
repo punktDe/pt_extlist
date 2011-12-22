@@ -48,7 +48,7 @@
                   </numIndex>
                   <numIndex index="3" type="array">
                     <numIndex index="0">Filterbox</numIndex>
-                    <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset</numIndex>
+                    <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</numIndex>
                   </numIndex>
                   <numIndex index="4" type="array">
                     <numIndex index="0">Pager</numIndex>

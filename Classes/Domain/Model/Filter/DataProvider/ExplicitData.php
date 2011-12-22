@@ -33,33 +33,18 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 
-	/**
-	 * Filter configuration object
-	 * 
-	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig 
-	 */
-	protected $filterConfig;
-	
-	
 	/**
 	 * array of options defined in typoscript
 	 * 
 	 * @var array
 	 */
 	protected $tsOptions;
+
 	
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
-	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		$this->filterConfig = $filterConfig;
-	}
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
@@ -92,7 +77,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData implements Tx_P
 		
 		return $renderedOptions;
 	}
-	
+
+
 	
 	/**
 	 * (non-PHPdoc)
@@ -101,7 +87,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData implements Tx_P
 	public function init() {
 		$this->initDataProviderByTsConfig($this->filterConfig->getSettings());
 	} 
-	
+
+    
 	
 	/**
 	 * Init the dataProvider by TS-conifg

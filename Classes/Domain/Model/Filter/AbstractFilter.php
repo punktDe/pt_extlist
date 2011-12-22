@@ -235,6 +235,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function getFilterBoxIdentifier() {
 		return $this->filterBoxIdentifier;
 	}
+
+
+
+	/**
+	 * Returns full qualified filter identifier which is 'filterboxIdentifier.filterIdentifier'
+	 * 
+	 * @return string
+	 */
+	public function getFullQualifiedFilterIdentifier() {
+		return $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier();
+	}
 	
 	
 	
