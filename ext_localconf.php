@@ -17,7 +17,7 @@ $controllerActions = array(															// An array holding the controller-act
 	'Pager' => 'show',
 	'Bookmarks' => 'show,process,edit,update,delete,create,new',
 	'BreadCrumbs' => 'index,resetFilter',
-	'ColumnSelector' => 'index',
+	'ColumnSelector' => 'show',
 );
 
 		

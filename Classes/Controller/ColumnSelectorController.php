@@ -54,11 +54,11 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 
 
 	/**
-	 * Renders index action for column selector controller
+	 * Renders show action for column selector controller
 	 *
 	 * @return string The rendered index action
 	 */
-	public function indexAction() {
+	public function showAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		

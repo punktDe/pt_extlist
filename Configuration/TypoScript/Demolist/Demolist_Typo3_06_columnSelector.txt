@@ -1,5 +1,5 @@
 ####################################################
-# This template configures a demolist to show time span filter
+# This template configures a demolist to the use of the selectable columns
 # with pt_extlist
 #
 #

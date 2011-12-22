@@ -64,7 +64,7 @@
                   </numIndex>
                   <numIndex index="7" type="array">
                     <numIndex index="0">Column Selector</numIndex>
-                    <numIndex index="1">ColumnSelector->index</numIndex>
+                    <numIndex index="1">ColumnSelector->show</numIndex>
                   </numIndex>
                 </items>
               </config>
