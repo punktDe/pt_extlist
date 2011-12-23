@@ -36,7 +36,12 @@
 #
 # Demolist to show timeSpan filter with the syslog table
 #
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_04.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_05_timeSpan.txt">
+
+#
+# Demolist to show the hidable columns and the column selector
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_06_columnSelector.txt">
 
 
 #

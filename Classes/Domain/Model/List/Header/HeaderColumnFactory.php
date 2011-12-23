@@ -45,17 +45,17 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnConfiguration);
 
-        // Inject settings from session.
-        $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
-        $sessionPersistenceManager->registerObjectAndLoadFromSession($headerColumn);
+		// Inject settings from session.
+		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+		$sessionPersistenceManager->registerObjectAndLoadFromSession($headerColumn);
 
-        // Inject settings from gp-vars.
-        $gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-        $gpAdapter->injectParametersInObject($headerColumn);
+		// Inject settings from gp-vars.
+		$gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+		$gpAdapter->injectParametersInObject($headerColumn);
 
-        // Register headerColumn in sorter
-        $sorter = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($columnConfiguration->getConfigurationBuilder());
-        $sorter->registerSortingObserver($headerColumn);
+		// Register headerColumn in sorter
+		$sorter = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($columnConfiguration->getConfigurationBuilder());
+		$sorter->registerSortingObserver($headerColumn);
 
 		$headerColumn->init();
 		

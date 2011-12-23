@@ -53,7 +53,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	/** 
 	 * @var string
 	 */
-	protected $label;
+	protected $label = '';
 
 
 
@@ -154,16 +154,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $accessable = false;
 
 
+	/**
+	 * Holds CSS class for header th tag
+	 *
+	 * @var string
+	 */
+	protected $headerThCssClass = '';
 
-    /**
-     * Holds CSS class for header th tag
-     * 
-     * @var string
-     */
-    protected $headerThCssClass = '';
 
-
-	
 	/**
 	 * if one of this columns fields is a expanded GroupField, 
 	 * this column has an array as dataStructure
@@ -171,6 +169,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	protected $containsArrayData = false;
 
+
+	/**
+	 * @var bool
+	 */
+	protected $isVisible = true;
 
 	
 	/**
@@ -191,9 +194,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 			}
 		}
 
-        $this->label = '';
-		// $this->label = $this->columnIdentifier;
-
+		$this->setBooleanIfExistsAndNotNothing('isVisible');
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		$this->setValueIfExistsAndNotNothing('sortingImageAsc');
@@ -202,7 +203,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
-        $this->setValueIfExistsAndNotNothing('headerThCssClass');
+      $this->setValueIfExistsAndNotNothing('headerThCssClass');
 		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
@@ -324,93 +325,93 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
+	/**
+	 * Return the default image path to show for sorting link.
+	 * @return string
+	 */
+	public function getSortingImageDefault() {
+		return $this->sortingImageDefault;
+	}
+
 
 	/**
-     * Return the default image path to show for sorting link.
-     * @return string
-     */
-    public function getSortingImageDefault() {
-    	return $this->sortingImageDefault;
-    }
+	 * Return the ASC image path to show for sorting link.
+	 * @return string
+	 */
+	public function getSortingImageAsc() {
+		return $this->sortingImageAsc;
+	}
+
+
+	/**
+	 * Return the DESC image path to show for sorting link.
+	 * @return string
+	 */
+	public function getSortingImageDesc() {
+		return $this->sortingImageDesc;
+	}
+
+
+	/**
+	 * Returns the special cell user function path
+	 * @return string
+	 */
+	public function getSpecialCell() {
+		return $this->specialCell;
+	}
+
+
+	/**
+	 * Return array off groupIds
+	 * @return array
+	 */
+	public function getAccessGroups() {
+		return $this->accessGroups;
+	}
+
+
+	/**
+	 * Indicates if the data for this columns cells are arrays
+	 * @return boolean
+	 */
+	public function getContainsArrayData() {
+		return $this->containsArrayData;
+	}
+
+
+	/**
+	 * @return string renderTemplate
+	 */
+	public function getRenderTemplate() {
+		return $this->renderTemplate;
+	}
+
+
+	/**
+	 * @return string;
+	 */
+	public function getCellCSSClass() {
+		return $this->cellCSSClass;
+	}
+
+
+	/**
+	 * Getter for CSS class for header th tag
+	 *
+	 * @return string
+	 */
+	public function getHeaderThCssClass() {
+		return $this->headerThCssClass;
+	}
 
 
 
-    /**
-     * Return the ASC image path to show for sorting link.
-     * @return string
-     */
-    public function getSortingImageAsc() {
-    	return $this->sortingImageAsc;
-    }
+	/**
+	 * @return boolean
+	 */
+	public function getIsVisible() {
+		return $this->isVisible;
+	}
 
-
-
-    /**
-     * Return the DESC image path to show for sorting link.
-     * @return string
-     */
-    public function getSortingImageDesc() {
-    	return $this->sortingImageDesc;
-    }
-
-
-
-    /**
-     * Returns the special cell user function path
-     * @return string
-     */
-    public function getSpecialCell() {
-    	return $this->specialCell;
-    }
-
-
-
-  	/**
-     * Return array off groupIds
-     * @return array
-     */
-    public function getAccessGroups() {
-    	return $this->accessGroups;
-    }
-    
-
-
-    /**
-     * Indicates if the data for this columns cells are arrays
-     * @return boolean 
-     */
-    public function getContainsArrayData() {
-    	return $this->containsArrayData;
-    }
-    
-
-
-    /**
-     * @return string renderTemplate
-     */
-    public function getRenderTemplate() {
-    	return $this->renderTemplate;
-    }
-
-
-
-    /**
-     * @return string;
-     */
-    public function getCellCSSClass() {
-    	return $this->cellCSSClass;
-    }
-
-
-
-    /**
-     * Getter for CSS class for header th tag
-     * 
-     * @return string
-     */
-    public function getHeaderThCssClass() {
-        return $this->headerThCssClass;
-    }
-    
 }
 ?>
