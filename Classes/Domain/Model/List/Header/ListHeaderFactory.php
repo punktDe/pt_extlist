@@ -53,39 +53,45 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetListHeader = false) {
-        $listIdentifier = $configurationBuilder->getListIdentifier();
+		$listIdentifier = $configurationBuilder->getListIdentifier();
 
-        // Check whether singleton instance exists
-        if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === null || $resetListHeader) {
+		// Check whether singleton instance exists
+		if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === null || $resetListHeader) {
 
-            $defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
-            $columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
-            $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
-            $listIsSorted = false;
+			$defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
+			$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
+			$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
+			$listIsSorted = false;
 
-            foreach($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
-                $headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
+			foreach ($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
+				$headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
 
-                if($singleColumnConfiguration->isAccessable()) {
-                    // We set list as sorted as soon as one column has sorting-status from user / session
-                    if ($headerColumn->isSortingActive()) {
-                        $listIsSorted = true;
-                    }
-                    $listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
-                }
-            }
+				if ($singleColumnConfiguration->isAccessable()) {
+					// We set list as sorted as soon as one column has sorting-status from user / session
+					if ($headerColumn->isSortingActive()) {
+						$listIsSorted = true;
+					}
+					$listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
+				}
+			}
 
-            // Check whether we have a sorting from header columns (set by user)
-            // or whether we have to set default sorting
-            if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
-                $listHeader->getHeaderColumn($defaultSortingColumn)->setDefaultSorting($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
-                $listHeader->getHeaderColumn($defaultSortingColumn)->init();
-            }
-			  
-            self::$instances[$listIdentifier] = $listHeader;
-        }
+			// Check whether we have a sorting from header columns (set by user)
+			// or whether we have to set default sorting
+			if (!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
+				$listHeader->getHeaderColumn($defaultSortingColumn)->setDefaultSorting($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
+				$listHeader->getHeaderColumn($defaultSortingColumn)->init();
+			}
 
-        // We return singleton instance of listHeader
+			// inject gpVarData
+			$gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+			$gpVarsAdapter->injectParametersInObject($listHeader);
+
+			$listHeader->init();
+
+			self::$instances[$listIdentifier] = $listHeader;
+		}
+
+		// We return singleton instance of listHeader
 		return self::$instances[$listIdentifier];
 	}
     

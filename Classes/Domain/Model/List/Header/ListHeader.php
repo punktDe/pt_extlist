@@ -87,10 +87,15 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	public function initByGpVars() {
 
-		if(array_key_exists('visibility', $this->gpVarData) && is_array($this->gpVarData)) {
-			foreach($this->gpVarData['visibility'] as $columnIdentifier => $visibility) {
-				if($this->hasItem($columnIdentifier)) {
-					$this->getHeaderColumn($columnIdentifier)->setIsVisible($visibility);
+		if(array_key_exists('visibleColumns', $this->gpVarData) && is_array($this->gpVarData['visibleColumns'])) {
+
+			$visibleColumns = $this->gpVarData['visibleColumns'];
+
+			foreach($this->itemsArr as $columnIdentifier => $column) { /** @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+				if(in_array($columnIdentifier, $visibleColumns)) {
+					$column->setIsVisible(true);
+				} else {
+					$column->setIsVisible(false);
 				}
 			}
 		}
