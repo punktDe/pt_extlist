@@ -28,6 +28,9 @@
 
 /**
  * Class implements list header collection which consists of all header columns that make up the header of the list.
+ *
+ * As the HeaderColumns represent in fact the columns, this collection should simply named columnCollection
+ * TODO: Rename listHeader to ColumnCollection
  * 
  * @author Daniel Lienert 
  * @package Domain
@@ -35,7 +38,7 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
     extends Tx_PtExtlist_Domain_Model_List_Row
-    implements Tx_PtExtbase_State_IdentifiableInterface {
+    implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 
 	
 	/**
@@ -44,13 +47,53 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	protected $listIdentifier;
 
-    
+
+	/**
+	 * @var array
+	 */
+	protected $gpVarData = array();
+
+
 	
 	/**
 	 * @param string $listIdentifier
 	 */
 	public function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
+	}
+
+
+	/**
+	 * Injects GetPost Vars into object
+	 *
+	 * @param array $GPVars GP Var data to be injected into the object
+	 */
+	public function injectGPVars($GPVars) {
+		$this->gpVarData = $GPVars;
+	}
+
+
+	/**
+	 * Init the column collection
+	 */
+	public function init() {
+		$this->initByGpVars();
+	}
+
+
+
+	/**
+	 * Init the column collection by gPVars
+	 */
+	public function initByGpVars() {
+
+		if(array_key_exists('visibility', $this->gpVarData) && is_array($this->gpVarData)) {
+			foreach($this->gpVarData['visibility'] as $columnIdentifier => $visibility) {
+				if($this->hasItem($columnIdentifier)) {
+					$this->getHeaderColumn($columnIdentifier)->setIsVisible($visibility);
+				}
+			}
+		}
 	}
 
 
@@ -90,7 +133,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 * @return string Namespace to identify this object
 	 */
 	public function getObjectNamespace() {
-		return $this->listIdentifier . '.headerColumns';
+		return $this->listIdentifier . '.columns';
 	}
 	
 	
@@ -114,6 +157,5 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	public function getListIdentifier() {
 		return $this->listIdentifier;
 	}
-
 }
 ?>

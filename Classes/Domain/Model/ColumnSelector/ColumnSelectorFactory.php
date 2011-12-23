@@ -34,7 +34,15 @@
  * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
-	
+
+
+	/**
+	 * Holds singleton instance of a column selctor
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
+	 */
+	private static $instance = null;
+
 	
 	/**
 	 * Returns an instance of a column selector
@@ -44,11 +52,12 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
 	 * @return Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection $columnConfigCollection) {
-		
-		$columnSelector = new Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector($columnConfigCollection);
 
-		return $columnSelector;
-	
+		if (self::$instance === null) {
+			self::$instance = new Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector($columnConfigCollection);
+		}
+
+		return self::$instance;
 	}
 }
 ?>
