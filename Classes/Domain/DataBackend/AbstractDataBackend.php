@@ -370,8 +370,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @return array Array of raw list data
 	 */
 	public function getListData() {
-		if(!$this->listData) {
-            // TODO: buildListData() shouold set listData on backend itself!
+		if($this->listData === null) {
+            // TODO: buildListData() should set listData on backend itself!
 			$this->listData = $this->buildListData();
 		}
         
