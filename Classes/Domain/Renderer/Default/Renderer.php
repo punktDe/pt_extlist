@@ -115,8 +115,16 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 */
 	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
 		Tx_PtExtbase_Assertions_Assert::isNotNull($listData, array(message => 'No list data found in list. 1280405145'));
-		
-		$renderedList = new Tx_PtExtlist_Domain_Model_List_ListData();
+
+		// We could get another type of list data here, so we have to instantiate this class
+		$listDataClassName = get_class($listData);
+		$renderedList = new $listDataClassName();
+
+		// We need some generic way to copy non-standard data from "old" list data to "new" list data
+		if (method_exists($renderedList, 'copyListData')) {
+			// TODO refactor this by using a getEmptyInstance method on the list data we want to copy.
+			$renderedList->copyListData($listData);
+		}
 
 		foreach($listData as $rowIndex => $row) {
 			$renderedList->addRow($this->rowRenderer->renderRow($row, $rowIndex));
