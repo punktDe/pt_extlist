@@ -84,7 +84,6 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 		$this->fluidRenderer->assign('exportFileName', $exportFileName);
 		$this->fluidRenderer->assign('exportDownloadType', $exportDownloadType);
 		$this->fluidRenderer->assign('exportListIdentifier', $exportListIdentifier);
-
 		$this->fluidRenderer->assign('caLabel', 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_controllerAction.' . $this->pluginMode);
  		return $this->fluidRenderer->render();
 	}
