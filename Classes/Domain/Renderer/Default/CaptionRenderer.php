@@ -47,10 +47,12 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 		Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
 		$renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
+
 		foreach($listHeader as $headerColumn) {
-			if($headerColumn->getColumnConfig()->isAccessable()) {
+
+			if($headerColumn->getColumnConfig()->isAccessable() && $headerColumn->getIsVisible()) {
 				$label = $headerColumn->getLabel();
-				
+
 				$label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
 				if(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
 					$label = Tx_Extbase_Utility_Localization::translate($label, '');	
@@ -59,6 +61,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 			    $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 			}
 		}
+
 		return $renderedListHeader;
 	}
 	

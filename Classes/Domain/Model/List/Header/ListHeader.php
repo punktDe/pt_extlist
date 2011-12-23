@@ -86,7 +86,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 * Init the column collection by gPVars
 	 */
 	public function initByGpVars() {
-
 		if(array_key_exists('visibleColumns', $this->gpVarData) && is_array($this->gpVarData['visibleColumns'])) {
 
 			$visibleColumns = $this->gpVarData['visibleColumns'];

@@ -322,6 +322,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	public function reset() {
 		$this->sortedFields = array();
 		$this->headerSessionData = array();
+
 		// we must not reset header GP data!
 		$this->init();
 	}
@@ -375,6 +376,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * Resets sorting of implementing object.
      */
     public function resetSorting() {
+		 // TODO only reset sorting !!!
         $this->reset();
     }
 

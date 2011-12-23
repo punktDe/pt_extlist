@@ -57,7 +57,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 
 		// Check whether singleton instance exists
 		if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === null || $resetListHeader) {
-
 			$defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
 			$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
 			$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
@@ -91,6 +90,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 			self::$instances[$listIdentifier] = $listHeader;
 		}
 
+		
 		// We return singleton instance of listHeader
 		return self::$instances[$listIdentifier];
 	}
