@@ -18,11 +18,7 @@ Tx_PtExtlist_Domain_Model_List_Row						            listCaptions 	A row with cap
 <div class="tx-ptextlist-columnSelector" id="tx-ptextlist-columnSelector-{config.listIdentifier}">
 	<extlist:form id="tx-ptextlist-columnSelector-form-{config.listIdentifier}" controller="ColumnSelector" action="submit" method="{f:if(condition: '{config.baseConfig.useSession}', then: 'POST', else: 'GET')}">
 
-		<select  id="{config.listIdentifier}-ColumnSelector" multiple="1" name="{extlist:namespace.FormElementName(object:'{listHeader}' property:'visibleColumns' addExtPrefix:'true')}[]">
-			<extlist:header headers="{listHeader}" headerKey="header" captions="{listCaptions}" captionKey="caption">
-				<option value="{header.columnIdentifier}" {f:if(condition:header.isVisible, then:'selected="selected"')}>{caption}</option>
-			</extlist:header>
-		</select>
+		<extlist:form.columnSelector id="{config.listIdentifier}-ColumnSelector" multiple="1" name="{extlist:namespace.FormElementName(object:'{listHeader}' property:'visibleColumns')}" columns="{listHeader}" />
 
 		<div class="outer-wrapper tx-ptextlist-columnSelectorControls">
 			<div class="outer-field-wrapper">
