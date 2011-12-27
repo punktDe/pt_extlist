@@ -50,14 +50,18 @@ class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		if (self::$instance === null) {
-			self::$instance = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
-            self::$instance->injectSorterConfig($configurationBuilder->buildSorterConfiguration());
+
+		$listIdentifier = $configurationBuilder->getListIdentifier();
+
+		if (self::$instance[$listIdentifier] === null) {
+			self::$instance[$listIdentifier] = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
+            self::$instance[$listIdentifier->injectSorterConfig($configurationBuilder->buildSorterConfiguration());
             // At the moment we have to build list header here, as it is not registered in sorter otherwise.
             // TODO where could we cache list headers?
             Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
 		}
-		return self::$instance;
+
+		return self::$instance[$listIdentifier];
 	}
 	
 }
