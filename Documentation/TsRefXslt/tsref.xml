@@ -810,7 +810,7 @@ name_local {
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
 												<ENTRY KEY="isSortable">
-													<DESCRIPTION></DESCRIPTION>
+													<DESCRIPTION>Configures if the list can be sorted by the column.</DESCRIPTION>
 													<DATATYPE></DATATYPE>
 													<POSIBLEVALUES></POSIBLEVALUES>
 													<DEFAULT></DEFAULT>
@@ -818,6 +818,15 @@ name_local {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="isVisible">
+                                                    <DESCRIPTION>Configures if this column is visible by default. The visibility can be toggled by the columnSelector.</DESCRIPTION>
+                                                    <DATATYPE></DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT></DEFAULT>
+                                                    <COBJ>0</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                </ENTRY>
 												<ENTRY KEY="expandGroupRows">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>

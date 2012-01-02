@@ -41,8 +41,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
 	 */
 	protected $rendererConfiguration;
-	
-	
+
 	
 	/**
 	 * Holds an instance of cell renderer
@@ -96,14 +95,14 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
      */
     public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
         $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-        $columnConfigurationCollection = $this->getColumnConfigurationCollection();
+        $columnCollection = $this->getColumnCollection();
     
         $columnIndex=0;
-        foreach($columnConfigurationCollection as $columnId => $columnConfig) {
-            $columnIdentifier = $columnConfig->getColumnIdentifier();
-            
+        foreach($columnCollection as $columnIdentifier => $column) {
+           $columnConfig = $column->getColumnConfig();
+
             // Only render if FE-User is allowed to see the column
-            if($columnConfig->isAccessable()) {
+            if($columnConfig->isAccessable() && $column->getIsVisible()) {
                 // Use strategy to render cells
                 $cell = $this->renderCell($columnConfig, $row, $columnIndex, $rowIndex);
                 $renderedRow->addCell($cell, $columnIdentifier);
@@ -125,59 +124,64 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
      * @param int $rowIndex Index of rendered row
      * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregate row
      */
-    public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow, 
-            Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig,
-            $rowIndex) {    	
-            	
-        $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-        $columnConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
-        
-        foreach($columnConfiguration as $columnIdentifier => $columnConfiguration) {
-       	
-        	if($columnConfiguration->isAccessable()) {
-        	
-	        	if($aggregateRowConfig->hasItem($columnConfiguration->getColumnIdentifier())) {
-	        		
-	        		$cell = $this->renderCell($aggregateRowConfig->getItemById($columnConfiguration->getColumnIdentifier()), 
-	        									$aggregateDataRow, 
-	        									$columnIdentifier, 
-	        									$rowIndex);
-	        									
-	        	} else {
-	        		$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
-	        	}
-	        	
-	        	$renderedRow->addCell($cell, $columnIdentifier);
-        	}
-        }
-        
-        return $renderedRow;
-    }
-    
-    
-    
-    /**
-     * Renders a cell
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
-     * @param Tx_PtExtlist_Domain_Model_List_Row $data
-     * @param int $columnIndex
-     * @param int $rowIndex
-     * @return Tx_Pt_extlist_Domain_Model_List_Cell
-     */
-    protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
-        return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
-    }
-    
-    
-    
-    /**
-     * Returns collection of configurations for columns
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
-     */
-    protected function getColumnConfigurationCollection() {
-    	return $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
-    }
-	
+	public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow,
+												  Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig,
+												  $rowIndex) {
+
+		$renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+		$columnCollection = $this->getColumnCollection();
+
+		foreach ($columnCollection as $columnIdentifier => $column) {
+			$columnConfiguration = $column->getColumnConfig();
+
+			if ($columnConfiguration->isAccessable() && $column->getIsVisible()) {
+
+				if ($aggregateRowConfig->hasItem($columnConfiguration->getColumnIdentifier())) {
+
+					$cell = $this->renderCell($aggregateRowConfig->getItemById($columnConfiguration->getColumnIdentifier()),
+						$aggregateDataRow,
+						$columnIdentifier,
+						$rowIndex);
+
+				} else {
+					$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+				}
+
+				$renderedRow->addCell($cell, $columnIdentifier);
+			}
+		}
+
+		return $renderedRow;
+	}
+
+
+	/**
+	 * Renders a cell
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $data
+	 * @param int $columnIndex
+	 * @param int $rowIndex
+	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
+	 */
+	protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
+		return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
+	}
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 */
+	protected function getColumnCollection() {
+		return Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->rendererConfiguration->getConfigurationBuilder());
+	}
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 */
+	protected function getColumnConfigurationCollection() {
+		return $this->rendererConfiguration->getConfigurationBuilder()->buildColumnsConfiguration();
+	}
 }

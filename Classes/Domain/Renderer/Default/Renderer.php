@@ -148,12 +148,12 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		$renderedAggregateList = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
 		$aggregateRowsConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildAggregateRowsConfig();
-		$aggregateDataRow = $aggregateListData->getItemByIndex(0); 
-		
-		foreach($aggregateRowsConfiguration as $aggregateRowIndex => $aggregateRowConfiguration) {
-        	$renderedAggregateList->addRow($this->rowRenderer->renderAggregateRow($aggregateDataRow, $aggregateRowConfiguration, $aggregateRowIndex));
-        }
-		
+		$aggregateDataRow = $aggregateListData->getItemByIndex(0);
+
+		foreach ($aggregateRowsConfiguration as $aggregateRowIndex => $aggregateRowConfiguration) {
+			$renderedAggregateList->addRow($this->rowRenderer->renderAggregateRow($aggregateDataRow, $aggregateRowConfiguration, $aggregateRowIndex));
+		}
+
 		return $renderedAggregateList;
 	}
 }

@@ -167,9 +167,29 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	}
 
 
+	/**
+	 * @test
+	 */
+	public function columnIsVisibleByDefault() {
+		$this->assertEquals(true, $this->columnConfig->getIsVisible());
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function columnConfigurationReturnsIsVisibleFalseIfSetToZero() {
+		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+		$columnSettings = $allColumnSettings[30];
+		$columnSettings['isVisible'] = '0';
+
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
+		$this->assertEquals(false, $columnConfig->getIsVisible());
+	}
+
 
     /** @test */
-    public function getHeaderThCssClassReturnsValueFromSettings() {
+    public function getHeaderTheCssClassReturnsValueFromSettings() {
         $columnSettings = $this->columnSettings;
         $columnSettings['headerThCssClass'] = 'testCssClass';
         $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
