@@ -16,26 +16,21 @@ config.tx_extbase {
 			Tx_Extbase_Domain_Model_FrontendUser {
 				mapping {
 					tableName = fe_users
-					recordType = 
-					columns {
-						lockToDomain.mapOnProperty = lockToDomain
-					}
+					recordType =
 				}
 			}
 			Tx_Extbase_Domain_Model_FrontendUserGroup {
 				mapping {
 					tableName = fe_groups
 					recordType =
-					columns {
-						lockToDomain.mapOnProperty = lockToDomain
-					}
 				}
 			}
 		}
 	}
 }
 
-plugin.tx_ptextlist.persistence.storagePid = 12
+#plugin.tx_ptextlist.persistence.storagePid = 12
+
 
 plugin.tx_ptextlist.settings {
 
@@ -120,6 +115,12 @@ plugin.tx_ptextlist.settings {
 						filterField = groupuid
 						multiple = 1
 						excludeFilters = filterbox1.filter1
+
+						showRowCount = 0
+						renderObj = TEXT
+						renderObj {
+							dataWrap = {field:allDisplayFields}
+						}
 					}
 				}
 			}

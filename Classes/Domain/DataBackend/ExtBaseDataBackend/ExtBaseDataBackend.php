@@ -98,36 +98,44 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		 *
 		 * TODO no row count is possible at the moment (could only be realised by a 'non-Extbase SQL query'
 		 */
+
 		$query = $this->buildGenericQueryWithoutPager($excludeFilters);
 		$query = $this->mergeGenericQueries($query, $groupDataQuery);
 
 		if (count($groupDataQuery->getFrom()) >= 1) { // use different repository for group data query
 			$fromArray = $groupDataQuery->getFrom();
+
 			$repositoryClassName = $fromArray[0];
-			Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName),
-				array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
+			Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
+
 			$repository = t3lib_div::makeInstance($repositoryClassName);
-			Tx_PtExtbase_Assertions_Assert::isTrue(is_a($repository, 'Tx_Extbase_Persistence_Repository'),
-				array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));
+			Tx_PtExtbase_Assertions_Assert::isTrue($repository instanceof Tx_Extbase_Persistence_Repository, array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));
+
 		} else {
 			$repository = $this->repository;
 		}
-		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
-			$query, $repository);
+
+		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $repository);
+		$extBaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+
 		$domainObjectsForFilterOptions = $extBaseQuery->execute();
 
 		$result = array();
 
 		foreach ($domainObjectsForFilterOptions as $domainObjectForFilterOption) {
 			$row = array();
+
 			foreach ($groupDataQuery->getFields() as $field) {
+				
 				list($dottedField, $alias) = explode('AS', $field);
 				list($object, $property) = explode('.', $dottedField);
 				$getterMethodName = 'get' . ucfirst(trim($property));
 				$row[trim($alias)] = $domainObjectForFilterOption->$getterMethodName();
 			}
+			
 			$result[] = $row;
 		}
+
 		return $result;
 	}
 	
@@ -179,6 +187,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 
 		// Create Extbase query for current request by translating extlist query
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
+
 		/* @var $extbaseQuery Tx_Extbase_Persistence_Query */
 		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
 

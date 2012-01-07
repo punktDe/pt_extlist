@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -91,9 +91,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * @param Tx_Extbase_Persistence_Repository $repository
 	 * @return Tx_Extbase_Persistence_Query
 	 */
-	public static function interpretQueryByRepository(
-	       Tx_PtExtlist_Domain_QueryObject_Query $query, 
-	       Tx_Extbase_Persistence_Repository $repository) {
+	public static function interpretQueryByRepository(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Repository $repository) {
 	       	
 		$emptyExtbaseQuery = $repository->createQuery(); /* @var $emptyExtbaseQuery Tx_Extbase_Persistence_Query */
 		
@@ -115,9 +113,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * @return Tx_Extbase_Persistence_Query
 	 */
 	public static function setAllCriteriasOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_Repository $repository) {
+
         foreach($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
             $extbaseQuery = self::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQuery, $repository);
         }
+
 		return $extbaseQuery;
 	}
 	
