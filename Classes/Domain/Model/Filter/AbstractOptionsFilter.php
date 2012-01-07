@@ -173,8 +173,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
 
 		$renderedOptions = $dataProvider->getRenderedOptions();
+
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
+
+		#echo "Rendered Options in Abstract OptionsFilter: <pre>";
+		#var_dump($renderedOptions);
+		#echo "</pre>";
 
 		return $renderedOptions;
 	}
@@ -187,9 +192,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @param array $renderedOptions
 	 */
 	protected function setSelectedOptions(&$renderedOptions) {
-
 		foreach($this->filterValues as $filterValue) {
-			$renderedOptions[$filterValue]['selected'] = true;
+			if (!is_array($filterValue) && array_key_exists($filterValue, $renderedOptions)) {
+				$renderedOptions[$filterValue]['selected'] = true;
+			}
 		}
 	}
 

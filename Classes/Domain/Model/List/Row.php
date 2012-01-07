@@ -132,7 +132,19 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 		reset($this->itemsArr);
 		return current($this->itemsArr);
 	}
-	
-}
 
+
+
+	/**
+	 * Returns cell count of this row
+	 *
+	 * This is a helper method for fluid, as count is prefixed with 'get'
+	 *
+	 * @return int
+	 */
+	public function getCount() {
+		return $this->count();
+	}
+
+}
 ?>
