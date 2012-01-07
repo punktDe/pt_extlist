@@ -83,50 +83,50 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param array $excludeFilters
 	 * @return array
 	 */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters=array()) {
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
 		/**
 		 * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
-		 * 
+		 *
 		 * additionalTables = Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
 		 * --> this is used to register a different repository than backend uses to create and execute query for group data
-		 * 
+		 *
 		 * displayFields = grouptitle
 		 * --> this is used to generate the options of the group filter by the domain objects returned by repository
-		 * 
+		 *
 		 * filterField = groupuid
 		 * --> this is used to generate value of selected objects (the value that is used for filtering)
-		 * 
+		 *
 		 * TODO no row count is possible at the moment (could only be realised by a 'non-Extbase SQL query'
 		 */
 		$query = $this->buildGenericQueryWithoutPager($excludeFilters);
 		$query = $this->mergeGenericQueries($query, $groupDataQuery);
-		
-		if (count($groupDataQuery->getFrom()) >= 1) {  // use different repository for group data query
+
+		if (count($groupDataQuery->getFrom()) >= 1) { // use different repository for group data query
 			$fromArray = $groupDataQuery->getFrom();
 			$repositoryClassName = $fromArray[0];
-			Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), 
-			    array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
-		    $repository = t3lib_div::makeInstance($repositoryClassName);
-			Tx_PtExtbase_Assertions_Assert::isTrue(is_a($repository, 'Tx_Extbase_Persistence_Repository'), 
-			    array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));   
+			Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName),
+				array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
+			$repository = t3lib_div::makeInstance($repositoryClassName);
+			Tx_PtExtbase_Assertions_Assert::isTrue(is_a($repository, 'Tx_Extbase_Persistence_Repository'),
+				array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));
 		} else {
 			$repository = $this->repository;
 		}
 		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
-		        $query, $repository);
+			$query, $repository);
 		$domainObjectsForFilterOptions = $extBaseQuery->execute();
-        
+
 		$result = array();
-		
-		foreach($domainObjectsForFilterOptions as $domainObjectForFilterOption) {
+
+		foreach ($domainObjectsForFilterOptions as $domainObjectForFilterOption) {
 			$row = array();
-		    foreach($groupDataQuery->getFields() as $field) {
-		    	list($dottedField, $alias) = explode('AS', $field);
-		    	list($object, $property) = explode('.', $dottedField);
-		    	$getterMethodName = 'get' . ucfirst(trim($property));
-			    $row[trim($alias)] = $domainObjectForFilterOption->$getterMethodName();
-		    }
-	        $result[] = $row;
+			foreach ($groupDataQuery->getFields() as $field) {
+				list($dottedField, $alias) = explode('AS', $field);
+				list($object, $property) = explode('.', $dottedField);
+				$getterMethodName = 'get' . ucfirst(trim($property));
+				$row[trim($alias)] = $domainObjectForFilterOption->$getterMethodName();
+			}
+			$result[] = $row;
 		}
 		return $result;
 	}
@@ -160,8 +160,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
 	public function injectQueryInterpreter($queryInterpreter) {
-		Tx_PtExtbase_Assertions_Assert::isTrue(get_class($queryInterpreter) == 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter');
-		parent::injectQueryInterpreter($queryInterpreter); 
+		Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
+		parent::injectQueryInterpreter($queryInterpreter);
 	}
 	
 	
@@ -172,16 +172,17 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return Tx_Extbase_Persistence_Query
 	 */
 	protected function buildExtBaseQuery() {
-        // Create extlist query object for current request
+		// Create extlist query object for current request
 		$query = $this->buildGenericQueryWithoutPager();
-        $this->setLimitOnQuery($query);
-        $this->setSortingOnQuery($query);
+		$this->setLimitOnQuery($query);
+		$this->setSortingOnQuery($query);
 
-        // Create Extbase query for current request by translating extlist query
-        $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
-        $extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
-        
-        return $extbaseQuery;
+		// Create Extbase query for current request by translating extlist query
+		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
+		/* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+
+		return $extbaseQuery;
 	}
 
 
@@ -248,7 +249,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     protected function setSortingFromDefaultSortingOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
         list($field, $direction) = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
         $sorting = array();
-        $sorting[$field] = strtoupper($direction)    == 'DESC' ?
+        $sorting[$field] = strtoupper($direction) == 'DESC' ?
             Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC : Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
         $query->addSortingArray($sorting);
     }
