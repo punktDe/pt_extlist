@@ -177,10 +177,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
 
-		#echo "Rendered Options in Abstract OptionsFilter: <pre>";
-		#var_dump($renderedOptions);
-		#echo "</pre>";
-
 		return $renderedOptions;
 	}
 

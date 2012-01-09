@@ -67,6 +67,11 @@ plugin.tx_ptextlist.settings {
 				table = __self__
 				field = username
 			}
+
+			usergroup {
+				table = __self__
+				field = usergroup
+			}
 			
 			groupuid {
 				 table = usergroups
@@ -112,7 +117,7 @@ plugin.tx_ptextlist.settings {
 						label = Benutzergruppe
 						fieldIdentifier = groupuid
 						displayFields = grouptitle
-						filterField = groupuid
+						filterField = usergroup
 						multiple = 1
 						excludeFilters = filterbox1.filter1
 
