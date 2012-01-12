@@ -1,3 +1,5 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+
 <extlist:form id="tx-ptextlist-columnSelector-form-{config.listIdentifier}" controller="ColumnSelector" action="submit" method="{f:if(condition: '{config.baseConfig.useSession}', then: 'POST', else: 'GET')}">
 
 	<extlist:form.columnSelector id="{config.listIdentifier}-ColumnSelector" multiple="1" name="{extlist:namespace.FormElementName(object:'{listHeader}' property:'visibleColumns')}" columns="{listHeader}" />
