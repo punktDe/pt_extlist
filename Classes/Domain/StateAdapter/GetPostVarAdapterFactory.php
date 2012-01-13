@@ -42,10 +42,11 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
 	 * @return Tx_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
 	 */
 	public static function getInstance() {
+
     	$extensionNameSpace = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
 									->get('Tx_PtExtlist_Extbase_ExtbaseContext')
 									->getExtensionNameSpace();
-        $instance = Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory::getInstance($extensionNameSpace);	
+        $instance = Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory::getInstance($extensionNameSpace);
 		return $instance;
 	}
 

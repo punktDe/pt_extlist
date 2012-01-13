@@ -48,6 +48,10 @@
 	            Tx_Extbase_Persistence_Query $extbaseQuery,
 	            Tx_Extbase_Persistence_Repository $extbaseRepository) {
 
+			 if (!is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_OrCriteria')) {
+				 throw new Exception('Given criteria is not of type Tx_PtExtlist_Domain_QueryObject_Criteria --> cannot be translated by or criteria translator! 1326466193');
+			 }
+
 	         /**
 	          * This is a little ugly here:
 	          *
