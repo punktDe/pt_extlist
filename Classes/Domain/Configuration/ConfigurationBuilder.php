@@ -55,6 +55,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	    		  'prototype' => 'bookmarks'),
 	    'columns' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'),
+		 'columnSelector' =>
+		 	array('factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorFactory',
+			 		'prototype' => 'columnSelector'),
 	    'dataBackend' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory',
 	    	      'tsKey' => 'backendConfig'),
@@ -246,101 +249,104 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
     public function buildColumnsConfiguration() {
     	return $this->buildConfigurationGeneric('columns');
     }
-    
-    
-    
-	/**
-     * Returns a singleton instance of a filter configuration collection for current list configuration
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
-     */
-    public function buildFilterConfiguration() {
-    	return $this->buildConfigurationGeneric('filter');
-	}
-    
-	
-    
-    /**
-     * Returns a singleton instance of the renderer chain configuration object.
-     * 
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
-     */
-    public function buildRendererChainConfiguration() {
-    	return $this->buildConfigurationGeneric('rendererChain');
-    }
-    
-    
-   /**
-     * Returns base configuration
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
-     */
-    public function buildBaseConfiguration() {
-        return $this->buildConfigurationGeneric('base');
-    }
-    
-    
-    
-   /**
-     * Returns bookmarks configuration
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
-     */
-    public function buildBookmarksConfiguration() {
-        return $this->buildConfigurationGeneric('bookmarks');
-    }
-    
-    
-    
-    /**
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
-     */
-    public function buildListDefaultConfig() {
-    	return $this->buildConfigurationGeneric('listDefault');
-    }
-    
-    
-    
-    /**
-     * Returns configuration object for pager
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection Configuration object for pager
-     */
-    public function buildPagerConfiguration() {
-    	return $this->buildConfigurationGeneric('pager');
-    }
 
-    
-    /**
-     * Returns a list configuration object
-     * 
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
-     */
-    public function buildListConfiguration() {
-    	return $this->buildConfigurationGeneric('list');
-    }
-    
-    
-    
-    /**
-     * Returns a breadcrumbs configuration object
-     *
-     * @return unknown
-     */
-    public function buildBreadCrumbsConfiguration() {
-    	return $this->buildConfigurationGeneric('breadCrumbs');
-    }
-    
-    
-    
-    /**
-     * Returns a sorter configuration object
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfiguration
-     */
-    public function buildSorterConfiguration() {
-    	return $this->buildConfigurationGeneric('sorter');
-    }
+
+	/**
+	 * Returns a singleton instance of a filter configuration collection for current list configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
+	 */
+	public function buildFilterConfiguration() {
+		return $this->buildConfigurationGeneric('filter');
+	}
+
+
+	/**
+	 * Returns a singleton instance of the renderer chain configuration object.
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
+	 */
+	public function buildRendererChainConfiguration() {
+		return $this->buildConfigurationGeneric('rendererChain');
+	}
+
+
+	/**
+	 * Returns base configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+	 */
+	public function buildBaseConfiguration() {
+		return $this->buildConfigurationGeneric('base');
+	}
+
+
+	/**
+	 * Returns bookmarks configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+	 */
+	public function buildBookmarksConfiguration() {
+		return $this->buildConfigurationGeneric('bookmarks');
+	}
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+	 */
+	public function buildListDefaultConfig() {
+		return $this->buildConfigurationGeneric('listDefault');
+	}
+
+
+	/**
+	 * Returns configuration object for pager
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection Configuration object for pager
+	 */
+	public function buildPagerConfiguration() {
+		return $this->buildConfigurationGeneric('pager');
+	}
+
+
+	/**
+	 * Returns a list configuration object
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
+	 */
+	public function buildListConfiguration() {
+		return $this->buildConfigurationGeneric('list');
+	}
+
+
+	/**
+	 * Returns a breadcrumbs configuration object
+	 *
+	 * @return unknown
+	 */
+	public function buildBreadCrumbsConfiguration() {
+		return $this->buildConfigurationGeneric('breadCrumbs');
+	}
+
+
+	/**
+	 * Returns a sorter configuration object
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfiguration
+	 */
+	public function buildSorterConfiguration() {
+		return $this->buildConfigurationGeneric('sorter');
+	}
+
+
+	/**
+	 * Returns a columnSelector configuration object
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+	 */
+	public function buildColumnSelectorConfiguration() {
+		return $this->buildConfigurationGeneric('columnSelector');
+	}
     
 }
 ?>
