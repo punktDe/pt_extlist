@@ -34,7 +34,7 @@
  * @author Daniel Lienert
  */
 
-class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorFactory {
+class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory {
 	
 	/**
 	 * Returns a instance of the columnSelector configuration.

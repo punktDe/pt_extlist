@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	    'columns' => 
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'),
 		 'columnSelector' =>
-		 	array('factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorFactory',
+		 	array('factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory',
 			 		'prototype' => 'columnSelector'),
 	    'dataBackend' =>
 	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory',
