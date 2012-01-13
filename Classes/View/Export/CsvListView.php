@@ -60,7 +60,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
         }
 
         if($this->exportConfiguration->getSettings('delimiter')) {
-            $this->outputEncoding = $this->exportConfiguration->getSettings('delimiter');
+            $this->delimiter = $this->exportConfiguration->getSettings('delimiter');
         }
 	}
 
