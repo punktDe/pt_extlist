@@ -448,7 +448,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function buildFilterQuery() {
-		if($this->isActive) $criteria = $this->buildFilterCriteriaForAllFields();
+
+		$criteria = null;
+
+		if($this->isActive) {
+			$criteria = $this->buildFilterCriteriaForAllFields();
+		}
 			
 		if($criteria) {
 			$this->filterQuery->unsetCriterias();
@@ -662,7 +667,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectSessionData(array $sessionData) {
 		$this->sessionFilterData = $sessionData;
 	}
-	
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getSessionFilterData() {
+		return $this->sessionFilterData;
+	}
 }
 
 ?>
