@@ -17,6 +17,9 @@
 			<label index="pager.to">to</label>
 			<label index="pager.showItems">Show item</label>
 
+			<!-- ColumnSelector -->
+            <label index="columnSelector.submitSelector">Select Columns</label>
+
 			<!-- Filterbox -->
 			<label index="filterBox.resetFilters">Reset Filters</label>
 			<label index="filterBox.submitFilters">Submit Filters</label>
@@ -82,6 +85,9 @@
 
 			<!-- Export -->
 			<label index="export.downloadLink">Als %s herunterladen.</label>
+
+            <!-- ColumnSelector -->
+            <label index="columnSelector.submitSelector">Spalten wählen</label>
 
 			<!-- Filterbox -->
 			<label index="filterBox.resetFilters">Filter zurücksetzen</label>
