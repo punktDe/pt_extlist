@@ -43,23 +43,34 @@ class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig exte
 	protected $hideDefaultVisible;
 
 
-	protected function init() {
-		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisible');
-	}
+	/**
+	 * @var string
+	 */
+	protected $partialPath;
 
 
 	/**
-	 * @param boolean $hideDefaultVisible
+	 * Init the configuration
 	 */
-	public function setHideDefaultVisible($hideDefaultVisible) {
-		$this->hideDefaultVisible = $hideDefaultVisible;
+	protected function init() {
+		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisible');
+		$this->setValueIfExistsAndNotNothing('partialPath');
 	}
+
 
 	/**
 	 * @return boolean
 	 */
 	public function getHideDefaultVisible() {
 		return $this->hideDefaultVisible;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getPartialPath() {
+		return $this->partialPath;
 	}
 }
 ?>

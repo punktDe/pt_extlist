@@ -16,5 +16,5 @@ Tx_PtExtlist_Domain_Model_List_Row						            listCaptions 	A row with cap
 </extlist:comment>
 
 <div class="tx-ptextlist-columnSelector" id="tx-ptextlist-columnSelector-{config.listIdentifier}">
-	<f:render partial="ColumnSelector/Select" arguments="{listHeader:listHeader, config:config}"/>
+	<f:render partial="{config.columnSelectorConfig.partialPath}" arguments="{listHeader:listHeader, config:config}"/>
 </div>
