@@ -48,14 +48,14 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 			<div class="field-wrapper type-checkbox">
 				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
 				<label>
-					Invert
+					<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:filter.invert" />
 				</label>
 			</div>
 		</f:if>
-	    <f:if condition="{filter.validate} == 0">
-            <div class="error">
-                <f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}{filter.errorMessage}
-            </div>
-        </f:if>
+		<f:if condition="{filter.validate} == 0">
+			<div class="error">
+				<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}
+			</div>
+		</f:if>
 	</div>
 </div>
