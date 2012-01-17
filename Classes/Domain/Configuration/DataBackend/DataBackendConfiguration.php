@@ -74,8 +74,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		parent::__construct($configurationBuilder);
-		
+		parent::__construct($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('dataBackend'));
+
 		$this->dataBackendSettings = $configurationBuilder->getSettingsForConfigObject('dataBackend');
 
 		$this->checkAndSetDataBackendClass($this->dataBackendSettings['dataBackendClass']);
