@@ -2083,7 +2083,30 @@ agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialP
                                           <COBJ></COBJ>
                                           <PROTOTYPE></PROTOTYPE>
                                           <EXAMPLE></EXAMPLE>
-                                          <CHILDREN></CHILDREN>
+                                          <CHILDREN>
+                                            <ENTRY KEY="delimiter">
+                                                <DESCRIPTION>Sets the column delimiter.</DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>;</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                            </ENTRY>
+                                            <ENTRY KEY="outputEncoding">
+                                                <DESCRIPTION>Sets the output encoding.</DESCRIPTION>
+                                                <DATATYPE>string</DATATYPE>
+                                                <POSIBLEVALUES></POSIBLEVALUES>
+                                                <DEFAULT>ISO-8859-1</DEFAULT>
+                                                <COBJ></COBJ>
+                                                <PROTOTYPE></PROTOTYPE>
+                                                <EXAMPLE></EXAMPLE>
+                                                <CHILDREN></CHILDREN>
+                                                <VARIANT></VARIANT>
+                                            </ENTRY>
+                                          </CHILDREN>
                                           <VARIANT></VARIANT>
                                       </ENTRY>
                                       <ENTRY KEY="fluidTemplateExport">

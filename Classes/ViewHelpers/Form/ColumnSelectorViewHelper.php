@@ -114,6 +114,8 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 		// This hack is needed to be backwards compatible to Fluid 1.3.0 where arguments was an object
 		if(is_a($this->arguments, 'Tx_Fluid_Core_ViewHelper_Arguments')) {
 			$arg = (array) $this->arguments;
+			$arg['multiple'] = 1;
+			$arg['name'] = $this->arguments['name'];
 			$arg['options'] = $options;
 			$arg['value'] = $selectedOptions;
 			$this->arguments = new Tx_Fluid_Core_ViewHelper_Arguments($arg);

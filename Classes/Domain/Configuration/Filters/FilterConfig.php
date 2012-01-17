@@ -262,8 +262,18 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var boolean If the hidden flag is true, the filter is not shown in the filterBox
 	 */
 	protected $hidden = false;
-	
-	
+
+
+
+	/**
+	 * If set to true, row count of filter values will be shown
+	 *
+	 * @var boolean
+	 */
+	protected $showRowCount = true;
+
+
+
 	/**
 	 * Build the filterconfig object
 	 * 
@@ -298,6 +308,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('submitOnChange');
 		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
 		$this->setBooleanIfExistsAndNotNothing('hidden');
+		$this->setBooleanIfExistsAndNotNothing('showRowCount');
 		
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
@@ -645,6 +656,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 */
 	public function getVisible() {
 		return !$this->hidden;
+	}
+
+
+
+	/**
+	 * Returns true, if row count should be shown for filter options
+	 *
+	 * @return boolean
+	 */
+	public function getShowRowCount() {
+		return $this->showRowCount;
 	}
 }
 ?>

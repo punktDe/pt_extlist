@@ -550,8 +550,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     		if($fieldConfiguration->getSpecial() == '') {
     			$convertTableFieldAsAliasArray[$fieldConfiguration->getIdentifier()] = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField() . ' AS ' . $fieldConfiguration->getIdentifier();
 	    		$convertTableFieldArray[$fieldConfiguration->getIdentifier()] =  $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
-    		}
+    		} else {
+               $convertTableFieldAsAliasArray[$fieldConfiguration->getIdentifier()] = '(' . $fieldConfiguration->getSpecial() . ') AS ' . $fieldConfiguration->getIdentifier();
+               $convertTableFieldArray[$fieldConfiguration->getIdentifier()] =  $fieldConfiguration->getSpecial();
+            }
     	}
+
 
     	$query = str_replace(array_values($convertTableFieldAsAliasArray), array_keys($convertTableFieldAsAliasArray), $query);
     	$query = str_replace(array_values($convertTableFieldArray), array_keys($convertTableFieldArray), $query);
