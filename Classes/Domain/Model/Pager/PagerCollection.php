@@ -44,6 +44,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	protected $configurationBuilder;
 
 
+
 	/**
 	 * Holds the current page index.
 	 * New pagers need to know the current page.
@@ -53,12 +54,14 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	protected $currentPage = 1;
 
 
+
 	/**
 	 * Shows if one of the pagers is enabled.
 	 *
 	 * @var boolean
 	 */
 	protected $enabled = false;
+
 
 
 	/**
@@ -115,7 +118,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	public function setCurrentPage($pageIndex) {
 		$this->currentPage = (int)$pageIndex;
 
-		foreach($this->itemsArr as $id => $pager) {
+		foreach($this->itemsArr as $id => $pager) { /* @var $pager Tx_PtExtlist_Domain_Model_Pager_PagerInterface */
 			$pager->setCurrentPage($pageIndex);
 		}
 	}
@@ -360,6 +363,6 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	public function getNextPage() {
 		return $this->getItemByIndex(0)->getNextPage();
 	}
-}
 
+}
 ?>
