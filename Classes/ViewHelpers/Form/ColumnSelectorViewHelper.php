@@ -40,11 +40,22 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 	 * @var Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer
 	 */
 	protected $captionRenderer;
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+	 */
+	protected $columnSelectorConfig;
+
 	
 
+	/**
+	 * Initialize the viewHelper
+	 */
 	public function initialize() {
 		parent::initialize();
 		$this->captionRenderer = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
+		$this->columnSelectorConfig = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance()->buildColumnSelectorConfiguration();
 	}
 	
 	
@@ -88,13 +99,17 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 		$selectedOptions = array();
 
 		foreach($columns as $columnIdentifier => $column) { /** @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
-			$options[$columnIdentifier] = $this->captionRenderer->renderColumnLabel($column);
+
+			if(!($this->columnSelectorConfig->getHideDefaultVisible() && $column->getColumnConfig()->getIsVisible())) {
+				$options[$columnIdentifier] = $this->captionRenderer->renderColumnLabel($column);
+			}
 
 			if($column->getIsVisible()) {
 				$selectedOptions[] = $columnIdentifier;
 			}
 			
 		}
+
 
 		// This hack is needed to be backwards compatible to Fluid 1.3.0 where arguments was an object
 		if(is_a($this->arguments, 'Tx_Fluid_Core_ViewHelper_Arguments')) {

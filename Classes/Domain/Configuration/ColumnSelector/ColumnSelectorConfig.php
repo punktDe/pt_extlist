@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig exte
 
 
 	protected function init() {
-		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisible');	
+		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisible');
 	}
 
 
