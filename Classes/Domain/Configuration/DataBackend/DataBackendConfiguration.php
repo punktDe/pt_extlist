@@ -33,7 +33,7 @@
  * @subpackage Configuration\DataBackend
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
+class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
 	/**
 	 * Holds th classname of the databackend class
@@ -74,6 +74,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		parent::__construct($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('dataBackend'));
+
 		$this->dataBackendSettings = $configurationBuilder->getSettingsForConfigObject('dataBackend');
 
 		$this->checkAndSetDataBackendClass($this->dataBackendSettings['dataBackendClass']);
