@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	/**
 	 * @var array
 	 */
-	protected $selectedColumnIdentifiers;
+	protected $selectedColumnIdentifiers = array();
 
 
 	/**
