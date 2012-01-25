@@ -1030,6 +1030,73 @@ headerThCssClass = yourCssClass
 										</ENTRY>
 									</CHILDREN>
 								</ENTRY>
+                                <ENTRY KEY="columnSelector">
+                                    <DESCRIPTION>Configuration for the column selector widget.</DESCRIPTION>
+                                    <DATATYPE>array</DATATYPE>
+                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                    <DEFAULT></DEFAULT>
+                                    <COBJ></COBJ>
+                                    <PROTOTYPE>plugin.tx_ptextlist.prototype.columnSelector</PROTOTYPE>
+                                    <EXAMPLE></EXAMPLE>
+                                    <CHILDREN>
+                                        <ENTRY KEY="enabled">
+                                            <DESCRIPTION>Per default the column selector is disabled. You have to enable the selector to avoid illicit unhiding of columns.</DESCRIPTION>
+                                            <DATATYPE>Boolean</DATATYPE>
+                                            <POSIBLEVALUES>0,1</POSIBLEVALUES>
+                                            <DEFAULT>0</DEFAULT>
+                                            <COBJ></COBJ>
+                                            <PROTOTYPE></PROTOTYPE>
+                                            <EXAMPLE></EXAMPLE>
+                                            <CHILDREN></CHILDREN>
+                                            <VARIANT></VARIANT>
+                                        </ENTRY>
+                                        <ENTRY KEY="hideDefaultVisibleInSelector">
+                                            <DESCRIPTION>If set to 1, the selector only shows the columns, that are set to visible in the column configuration. If set to 0, all columns are selectable.</DESCRIPTION>
+                                            <DATATYPE>Boolean</DATATYPE>
+                                            <POSIBLEVALUES>0,1</POSIBLEVALUES>
+                                            <DEFAULT>1</DEFAULT>
+                                            <COBJ></COBJ>
+                                            <PROTOTYPE></PROTOTYPE>
+                                            <EXAMPLE></EXAMPLE>
+                                            <CHILDREN></CHILDREN>
+                                            <VARIANT></VARIANT>
+                                        </ENTRY>
+                                        <ENTRY KEY="persistToSession">
+                                            <DESCRIPTION>Persist the selected columns to session. If the CS is used only to select the columns for printView, it should not persist its state to session permanently because this would effect the original list also.</DESCRIPTION>
+                                            <DATATYPE>Boolean</DATATYPE>
+                                            <POSIBLEVALUES>0,1</POSIBLEVALUES>
+                                            <DEFAULT>1</DEFAULT>
+                                            <COBJ></COBJ>
+                                            <PROTOTYPE></PROTOTYPE>
+                                            <EXAMPLE></EXAMPLE>
+                                            <CHILDREN></CHILDREN>
+                                            <VARIANT></VARIANT>
+                                        </ENTRY>
+                                        <ENTRY KEY="onlyShowSelectedColumns">
+                                            <DESCRIPTION>If enabled, only selected columns are shown in the list. When disabled, the selected columns are added to already visible columns.</DESCRIPTION>
+                                            <DATATYPE>Boolean</DATATYPE>
+                                            <POSIBLEVALUES>0,1</POSIBLEVALUES>
+                                            <DEFAULT>0</DEFAULT>
+                                            <COBJ></COBJ>
+                                            <PROTOTYPE></PROTOTYPE>
+                                            <EXAMPLE></EXAMPLE>
+                                            <CHILDREN></CHILDREN>
+                                            <VARIANT></VARIANT>
+                                        </ENTRY>
+                                        <ENTRY KEY="partialPath">
+                                            <DESCRIPTION>Set the partial path</DESCRIPTION>
+                                            <DATATYPE>array</DATATYPE>
+                                            <POSIBLEVALUES></POSIBLEVALUES>
+                                            <DEFAULT></DEFAULT>
+                                            <COBJ></COBJ>
+                                            <PROTOTYPE></PROTOTYPE>
+                                            <EXAMPLE></EXAMPLE>
+                                            <CHILDREN></CHILDREN>
+                                            <VARIANT></VARIANT>
+                                        </ENTRY>
+                                    </CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
 								<ENTRY KEY="rendererChain">
 									<DESCRIPTION>Holds the renderer configuration.</DESCRIPTION>
 									<DATATYPE></DATATYPE>
@@ -1198,7 +1265,6 @@ aggregateRows {
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
-
 								<ENTRY KEY="pager">
 									<DESCRIPTION>Holds all pager configuration</DESCRIPTION>
 									<DATATYPE>Associative array</DATATYPE>
@@ -1282,7 +1348,6 @@ aggregateRows {
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
-
 								<ENTRY KEY="filters">
 								<DESCRIPTION>Holds all filterbox configurations.</DESCRIPTION>
 								<DATATYPE>Associative array</DATATYPE>

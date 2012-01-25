@@ -82,7 +82,6 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 * @param array $GPVars GP Var data to be injected into the object
 	 */
 	public function injectGPVars($GPVars) {
-		//Tx_ExtDebug::var_dump($GPVars, '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');
 		if(array_key_exists('selectedColumns', $GPVars) && is_array($GPVars['selectedColumns'])) {
 			$this->selectedColumnIdentifiers = $GPVars['selectedColumns'];
 		}
