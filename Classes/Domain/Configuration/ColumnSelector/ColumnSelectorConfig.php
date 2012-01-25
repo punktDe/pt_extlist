@@ -50,11 +50,33 @@ class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig exte
 
 
 	/**
+	 * @var boolean
+	 */
+	protected $enabled = false;
+
+
+	/**
+	 * @var boolean
+	 */
+	protected $persistToSession = false;
+
+
+	/**
+	 * @var boolean
+	 */
+	protected $onlyShowSelectedColumns = false;
+
+
+	/**
 	 * Init the configuration
 	 */
 	protected function init() {
-		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisibleInSelector');
 		$this->setValueIfExistsAndNotNothing('partialPath');
+
+		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisibleInSelector');
+		$this->setBooleanIfExistsAndNotNothing('enabled');
+		$this->setBooleanIfExistsAndNotNothing('persistToSession');
+		$this->setBooleanIfExistsAndNotNothing('onlyShowSelectedColumns');
 	}
 
 	/**
@@ -83,6 +105,48 @@ class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig exte
 	 */
 	public function getPartialPath() {
 		return $this->partialPath;
+	}
+
+	/**
+	 * @param boolean $enabled
+	 */
+	public function setEnabled($enabled) {
+		$this->enabled = $enabled;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getEnabled() {
+		return $this->enabled;
+	}
+
+	/**
+	 * @param boolean $persistToSession
+	 */
+	public function setPersistToSession($persistToSession) {
+		$this->persistToSession = $persistToSession;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getPersistToSession() {
+		return $this->persistToSession;
+	}
+
+	/**
+	 * @param boolean $onlyShowSelectedColumns
+	 */
+	public function setOnlyShowSelectedColumns($onlyShowSelectedColumns) {
+		$this->onlyShowSelectedColumns = $onlyShowSelectedColumns;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getOnlyShowSelectedColumns() {
+		return $this->onlyShowSelectedColumns;
 	}
 
 }

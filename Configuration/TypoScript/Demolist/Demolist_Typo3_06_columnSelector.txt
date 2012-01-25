@@ -18,7 +18,7 @@ plugin.tx_ptextlist.settings {
 		columns.20.isVisible = 0
 
 		columnSelector {
-			partialPath = ColumnSelector/SelectAndDownload
+			#partialPath = ColumnSelector/SelectAndDownload
 		}
 
 	}

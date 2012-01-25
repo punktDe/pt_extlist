@@ -77,31 +77,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 * Init the column collection
 	 */
 	public function init() {
-		$this->initByGpVars();
 	}
 
 
-
-	/**
-	 * Init the column collection by gPVars
-	 */
-	public function initByGpVars() {
-		if(array_key_exists('visibleColumns', $this->gpVarData) && is_array($this->gpVarData['visibleColumns'])) {
-
-			$visibleColumns = $this->gpVarData['visibleColumns'];
-
-			foreach($this->itemsArr as $columnIdentifier => $column) { /** @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
-				if(in_array($columnIdentifier, $visibleColumns)) {
-					$column->setIsVisible(true);
-				} else {
-					$column->setIsVisible(false);
-				}
-			}
-		}
-	}
-
-
-	
 	/**
 	 * Add a header column to the collection
 	 *

@@ -61,7 +61,9 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	public function showAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		
+		$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($this->configurationBuilder);
+
+		$this->view->assign('columnSelector', $columnSelector);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 	}

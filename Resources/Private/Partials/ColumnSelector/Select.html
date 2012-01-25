@@ -2,7 +2,7 @@
 
 <extlist:form id="tx-ptextlist-columnSelector-form-{config.listIdentifier}" controller="ColumnSelector" action="submit" method="{f:if(condition: '{config.baseConfig.useSession}', then: 'POST', else: 'GET')}">
 
-	<extlist:form.columnSelector id="{config.listIdentifier}-ColumnSelector" multiple="1" name="{extlist:namespace.FormElementName(object:'{listHeader}' property:'visibleColumns')}" columns="{listHeader}" />
+	<extlist:form.columnSelector id="{config.listIdentifier}-ColumnSelector" multiple="1" name="{extlist:namespace.FormElementName(object:'{columnSelector}' property:'selectedColumns')}" columns="{listHeader}" />
 
 	<div class="outer-wrapper tx-ptextlist-columnSelectorControls">
 		<div class="outer-field-wrapper">

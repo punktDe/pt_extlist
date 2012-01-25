@@ -173,10 +173,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 		if (array_key_exists('sortedFields', $this->headerSessionData)) {
 			$this->sortedFields = $this->headerSessionData['sortedFields'];
 		}
-
-		if(array_key_exists('isVisible', $this->headerSessionData)) {
-			$this->isVisible = (bool) $this->headerSessionData['isVisible'];
-		}
 	}
 
 	
@@ -352,8 +348,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     
     
 	/**
-	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::injectGPVars()
+	 * @param $GPVars
 	 */
     public function injectGPVars($GPVars) {
     	$this->headerGPVarData = $GPVars;
@@ -435,13 +430,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	public function persistToSession() {
 		$sessionArray = null;
 
-		$sessionArray['isVisible'] = $this->isVisible;
-
 		if (count($this->sortedFields) > 0) {
 			$sessionArray['sortedFields'] = $this->sortedFields;
 		}
-
-		$sessionArray['foo'] = 'bar';
 
 		return $sessionArray;
 	}
