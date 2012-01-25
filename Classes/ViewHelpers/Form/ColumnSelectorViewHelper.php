@@ -100,7 +100,7 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 
 		foreach($columns as $columnIdentifier => $column) { /** @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
-			if(!($this->columnSelectorConfig->getHideDefaultVisible() && $column->getColumnConfig()->getIsVisible())) {
+			if(!($this->columnSelectorConfig->getHideDefaultVisibleInSelector() && $column->getColumnConfig()->getIsVisible())) {
 				$options[$columnIdentifier] = $this->captionRenderer->renderColumnLabel($column);
 			}
 

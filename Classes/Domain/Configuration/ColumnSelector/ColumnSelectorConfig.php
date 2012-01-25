@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig exte
 	 * Hide the columns from the listing which are visible by default
 	 * @var boolean
 	 */
-	protected $hideDefaultVisible;
+	protected $hideDefaultVisibleInSelector;
 
 
 	/**
@@ -53,18 +53,30 @@ class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig exte
 	 * Init the configuration
 	 */
 	protected function init() {
-		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisible');
+		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisibleInSelector');
 		$this->setValueIfExistsAndNotNothing('partialPath');
 	}
 
+	/**
+	 * @param boolean $hideDefaultVisibleInSelector
+	 */
+	public function setHideDefaultVisibleInSelector($hideDefaultVisibleInSelector) {
+		$this->hideDefaultVisibleInSelector = $hideDefaultVisibleInSelector;
+	}
 
 	/**
 	 * @return boolean
 	 */
-	public function getHideDefaultVisible() {
-		return $this->hideDefaultVisible;
+	public function getHideDefaultVisibleInSelector() {
+		return $this->hideDefaultVisibleInSelector;
 	}
 
+	/**
+	 * @param string $partialPath
+	 */
+	public function setPartialPath($partialPath) {
+		$this->partialPath = $partialPath;
+	}
 
 	/**
 	 * @return string
@@ -72,5 +84,6 @@ class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig exte
 	public function getPartialPath() {
 		return $this->partialPath;
 	}
+
 }
 ?>

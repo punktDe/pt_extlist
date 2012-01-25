@@ -15,11 +15,17 @@ plugin.tx_ptextlist.settings {
 	listConfig.demolist_typo3_06_columnSelector {
 
 		columns.11.isVisible = 0
+		columns.20.isVisible = 0
+
+		columnSelector {
+			partialPath = ColumnSelector/SelectAndDownload
+		}
 
 	}
 
 	listConfig.demolist_typo3_06_columnSelector_export  < plugin.tx_ptextlist.settings.listConfig.demolist_typo3_06_columnSelector
 	listConfig.demolist_typo3_06_columnSelector_export {
+
 
 	}
 }

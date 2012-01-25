@@ -8,7 +8,7 @@
 
 plugin.tx_ptextlist.prototype.columnSelector {
 
-	hideDefaultVisible = 1
+	hideDefaultVisibleInSelector = 1
 	partialPath = ColumnSelector/Select
 
 }
