@@ -51,7 +51,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 */
 	protected $pagerIdentifier;
 
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::injectConfigurationManager()
@@ -101,7 +102,6 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	protected function getPagerCollectionInstance() {
 		$pagerCollection = $this->dataBackend->getPagerCollection();
 		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
-		
 		return $pagerCollection;
 	}
 }

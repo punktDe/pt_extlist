@@ -36,16 +36,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollection_tes
 	public function setup() {
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 	}
-		
-	public function testExceptionOnNonCorrectItemAdded() {
-		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection($this->configurationBuilderMock);
-		try {
-		    $columnConfigCollection->addColumnConfig('test');
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
 	
 	
 	

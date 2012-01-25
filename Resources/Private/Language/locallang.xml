@@ -9,26 +9,30 @@
 		<languageKey index="default" type="array">
 			<label index="emptyList">Sorry, no list items available.</label>
 
-            <!-- General phrases -->
-            <label index="general.validationError">Validation Error: </label>
+			<!-- General phrases -->
+			<label index="general.validationError">Validation Error: </label>
 
-            <!-- Pager -->
+			<!-- Pager -->
 			<label index="pager.of">of</label>
 			<label index="pager.to">to</label>
 			<label index="pager.showItems">Show item</label>
 
-            <!-- Filterbox -->
+			<!-- ColumnSelector -->
+            <label index="columnSelector.submitSelector">Select Columns</label>
+
+			<!-- Filterbox -->
 			<label index="filterBox.resetFilters">Reset Filters</label>
 			<label index="filterBox.submitFilters">Submit Filters</label>
 			<label index="filterBox.errorInFilter">The filters contain errors.</label>
 
-            <!-- Filter -->
-            <label index="filter.daterange.from">From</label>
+			<!-- Filter -->
+			<label index="filter.daterange.from">From</label>
 			<label index="filter.daterange.to">To</label>
-            <label index="filter.fullText.errorWordTooShort">The searchword has to be at minimum %s characters.</label>
+			<label index="filter.fullText.errorWordTooShort">The searchword has to be at minimum %s characters.</label>
+			<label index="filter.invert">Invert</label>
 
-            <!-- Export -->
-            <label index="export.downloadLink">Export as %s</label>
+			<!-- Export -->
+			<label index="export.downloadLink">Export as %s</label>
 			
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
@@ -64,40 +68,37 @@
 			<label index="tx_ptextlist_flexform_export.downloadtype.D">Force download</label>
 			<label index="tx_ptextlist_flexform_export.downloadtype.I">Try to show in browser</label>
 
-            <label index="tx_ptextlist_demolist.name_local">Name (local)</label>
+			<label index="tx_ptextlist_demolist.name_local">Name (local)</label>
 			<label index="tx_ptextlist_demolist.uno_member">UNO member</label>
-			
 		</languageKey>
 
-
-
-
-
-
-		
 		<languageKey index="de" type="array">
 
-             <!-- General phrases -->
-            <label index="general.validationError">Fehler: </label>
-            <label index="emptyList">Diese Liste enthält keine Einträge.</label>
+			 <!-- General phrases -->
+			<label index="general.validationError">Fehler: </label>
+			<label index="emptyList">Diese Liste enthält keine Einträge.</label>
 
-            <!-- Pager -->
+			<!-- Pager -->
 			<label index="pager.of">von</label>
 			<label index="pager.to">bis</label>
 			<label index="pager.showItems">Zeige Element</label>
 
-            <!-- Export -->
-            <label index="export.downloadLink">Als %s herunterladen.</label>
+			<!-- Export -->
+			<label index="export.downloadLink">Als %s herunterladen.</label>
 
-            <!-- Filterbox -->
+            <!-- ColumnSelector -->
+            <label index="columnSelector.submitSelector">Spalten wählen</label>
+
+			<!-- Filterbox -->
 			<label index="filterBox.resetFilters">Filter zurücksetzen</label>
-            <label index="filterBox.submitFilters">Filter setzen</label>
+			<label index="filterBox.submitFilters">Filter setzen</label>
 			<label index="filterBox.errorInFilter">Die Eingaben der Filter enthalten Fehler.</label>
 
-            <!-- Filter -->
-            <label index="filter.daterange.from">Von</label>
-            <label index="filter.daterange.to">Bis</label>
-            <label index="filter.fullText.errorWordTooShort">Das Suchwort muss mindestens aus %s Zeichen bestehen!</label>
+			<!-- Filter -->
+			<label index="filter.daterange.from">Von</label>
+			<label index="filter.daterange.to">Bis</label>
+			<label index="filter.fullText.errorWordTooShort">Das Suchwort muss mindestens aus %s Zeichen bestehen!</label>
+			<label index="filter.invert">invertieren</label>
 
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
@@ -108,39 +109,32 @@
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Gruppe</label>
 			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.is_public">Öffentlicher Bookmark</label>
 
-
-            <label index="tx_ptextlist_flexform_controllerAction.Filterbox_show">Filter</label>
-            <label index="tx_ptextlist_flexform_controllerAction.List_list">Liste</label>
-            <label index="tx_ptextlist_flexform_controllerAction.Pager_show">Pager</label>
-            <label index="tx_ptextlist_flexform_controllerAction.List_export">Export</label>
-            <label index="tx_ptextlist_flexform_controllerAction.BreadCrumbs_index">Breadcrumbs</label>
-            <label index="tx_ptextlist_flexform_controllerAction.Bookmarks_show">Bookmarks</label>
-            <label index="tx_ptextlist_flexform_controllerAction.ColumnSelector_show">Spaltenauswahl</label>
-
+			<label index="tx_ptextlist_flexform_controllerAction.Filterbox_show">Filter</label>
+			<label index="tx_ptextlist_flexform_controllerAction.List_list">Liste</label>
+			<label index="tx_ptextlist_flexform_controllerAction.Pager_show">Pager</label>
+			<label index="tx_ptextlist_flexform_controllerAction.List_export">Export</label>
+			<label index="tx_ptextlist_flexform_controllerAction.BreadCrumbs_index">Breadcrumbs</label>
+			<label index="tx_ptextlist_flexform_controllerAction.Bookmarks_show">Bookmarks</label>
+			<label index="tx_ptextlist_flexform_controllerAction.ColumnSelector_show">Spaltenauswahl</label>
 
 			<label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
 			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
 			<label index="tx_ptextlist_domain_model_state_state.shortcode">shortcode</label>
 			<label index="tx_ptextlist_domain_model_state_state.statedata">statedata</label>
 
-            <label index="tx_ptextlist_demolist.name_local">Name (lokal)</label>
-            <label index="tx_ptextlist_demolist.uno_member">UNO Mitglied</label>
+			<label index="tx_ptextlist_demolist.name_local">Name (lokal)</label>
+			<label index="tx_ptextlist_demolist.uno_member">UNO Mitglied</label>
 		</languageKey>
-
-
-
-
-
 
 		<languageKey index="pl" type="array">
 			<label index="emptyList">Sorry, no list items available.</label>
 
-            <!-- Pager -->
+			<!-- Pager -->
 			<label index="pager.of">z</label>
 			<label index="pager.to">-</label>
 			<label index="pager.showItems">Widoczne pozycje</label>
 
-            <!-- Filterbox -->
+			<!-- Filterbox -->
 			<label index="filterBox.resetFilters">Zresetować</label>
 			<label index="filterBox.submitFilters">Zatwierdź</label>
 			<label index="filterBox.errorInFilter">The filters contain errors.</label>
@@ -168,7 +162,7 @@
 			<label index="tx_ptextlist_flexform_controllerAction.List_export">Export</label>
 			<label index="tx_ptextlist_flexform_controllerAction.BreadCrumbs_index">Breadcrumbs</label>
 			<label index="tx_ptextlist_flexform_controllerAction.Bookmarks_show">Bookmarks</label>
-            <label index="tx_ptextlist_flexform_controllerAction.ColumnSelector_show">Column Selector</label>
+			<label index="tx_ptextlist_flexform_controllerAction.ColumnSelector_show">Column Selector</label>
 			
 			<label index="tx_ptextlist_flexform_listIdentifier">List Identifier</label>
 			<label index="tx_ptextlist_flexform_controllerAction">Plugin Mode</label>

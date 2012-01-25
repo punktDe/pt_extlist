@@ -190,6 +190,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 		$this->assertTrue(is_a($fieldConfigCollection, 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
 	}
 
+
+	public function testBuildcolumnSelectorConfiguration() {
+		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
+		$columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();
+		$this->assertTrue(is_a($columnSelectorConfig, 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig'), 'The method returned ' . get_class($columnSelectorConfig));
+	}
+
 	
 	public function testBuildExportConfiguration() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');

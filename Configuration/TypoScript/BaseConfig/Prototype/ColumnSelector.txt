@@ -1,0 +1,14 @@
+# Definition of ColumnSelector prototypes for use in list configuration
+#
+# @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+
+plugin.tx_ptextlist.prototype.columnSelector {
+
+	hideDefaultVisible = 1
+	partialPath = ColumnSelector/Select
+
+}

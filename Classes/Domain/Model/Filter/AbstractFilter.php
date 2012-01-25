@@ -153,6 +153,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var string
 	 */
 	protected $errorMessage = '';
+
+
+
+	/**
+	 * Holds Filterbox to which this filter belongs to
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+	 */
+	protected $filterbox;
 	
 	
 	
@@ -201,6 +210,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		$this->dataBackend = $dataBackend;
+	}
+
+
+
+	/**
+	 * Injects filterbox into filter
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
+	 */
+	public function injectFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox) {
+		$this->filterbox = $filterbox;
 	}
 	
 	
@@ -324,6 +344,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     public function getErrorMessage() {
     	return $this->errorMessage;
     }
+
+
+
+	/**
+	 * Returns filterbox to which this filter is associated to
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+	 */
+	public function getFilterbox() {
+		return $this->filterbox;
+	}
     
     
 	
@@ -448,7 +479,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function buildFilterQuery() {
-		if($this->isActive) $criteria = $this->buildFilterCriteriaForAllFields();
+
+		$criteria = null;
+
+		if($this->isActive) {
+			$criteria = $this->buildFilterCriteriaForAllFields();
+		}
 			
 		if($criteria) {
 			$this->filterQuery->unsetCriterias();
@@ -662,7 +698,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectSessionData(array $sessionData) {
 		$this->sessionFilterData = $sessionData;
 	}
-	
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getSessionFilterData() {
+		return $this->sessionFilterData;
+	}
 }
 
 ?>

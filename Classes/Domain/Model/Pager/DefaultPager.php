@@ -43,7 +43,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
      */
     protected $pagerIdentifier;
 	
-             	
+
+
 	/**
 	 * The current page.
 	 * Basis of all calculations.
@@ -52,14 +53,16 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	protected $currentPage = 1;
 	
-	
+
+
 	/**
 	 * TS settings.
 	 *
 	 * @var array
 	 */
 	protected $settings = array();
-	
+
+
 	
 	/**
 	 * Amount of items to display per page.
@@ -67,7 +70,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @var int
 	 */
 	protected $itemsPerPage;
-	
+
+
 	
 	/**
 	 * The current amount of all items available for the list.
@@ -75,7 +79,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @var int
 	 */
 	protected $totalItemCount;
-		
+
+
 	
 	/**
 	 * Holds pager configuration for this pager
@@ -83,7 +88,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
 	 */
 	protected $pagerConfiguration;
-	
+
+
 	
 	/**
 	 * True, if pager is enabled.
@@ -91,7 +97,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @var bool
 	 */
 	protected $enabled;
-	
+
+
 	
 	/**
 	 * The listIdentifier for which this pager is active.
@@ -99,7 +106,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @var string
 	 */
 	protected $listIdentifier;
-	
+
+
 	
 	/**
 	 * Constructor for pager
@@ -224,7 +232,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	public function getLastItemIndex() {
 		return (($this->currentPage - 1) * $this->itemsPerPage) + $this->itemsPerPage;
 	}
-	
+
+
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::setItemsCount()

@@ -114,6 +114,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		// TODO this action is simply stupid... why the hell do we have that?!?
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 		$this->view->assign('listData', $list->getListData());
+		$this->view->assign('filterCollection', $this->dataBackend->getFilterboxCollection());
 	}
 
 

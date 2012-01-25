@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -26,30 +26,51 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * Class implements a factory for GET/POST Var Adapter.
- * 
- * Class is an adapter for pt_extbase's gpvarsAdapter. Sets extension namespace of pt_extlist on generic factory method.
- *
- * @package Domain
- * @subpackage StateAdapter
- */
-class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory {
-    
-    /**
-	 * Factory method for GET/POST Var Adapter.
-	 * 
-	 * @return Tx_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
-	 */
-	public static function getInstance() {
 
-    	$extensionNameSpace = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
-									->get('Tx_PtExtlist_Extbase_ExtbaseContext')
-									->getExtensionNameSpace();
-        $instance = Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory::getInstance($extensionNameSpace);
-		return $instance;
+/**
+ * Class implementing configuration for columnSelector
+ * 
+ * @package Domain
+ * @subpackage Configuration\ColumnSelector
+ * @author Daniel Lienert
+ */
+class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
+
+	/**
+	 * Hide the columns from the listing which are visible by default
+	 * @var boolean
+	 */
+	protected $hideDefaultVisible;
+
+
+	/**
+	 * @var string
+	 */
+	protected $partialPath;
+
+
+	/**
+	 * Init the configuration
+	 */
+	protected function init() {
+		$this->setBooleanIfExistsAndNotNothing('hideDefaultVisible');
+		$this->setValueIfExistsAndNotNothing('partialPath');
 	}
 
-}
 
+	/**
+	 * @return boolean
+	 */
+	public function getHideDefaultVisible() {
+		return $this->hideDefaultVisible;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getPartialPath() {
+		return $this->partialPath;
+	}
+}
 ?>
