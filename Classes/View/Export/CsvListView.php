@@ -89,8 +89,10 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 			fputcsv($out, $row, $this->delimiter);
 		}
 
+
 		// Rows
 		foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+
 			$row = array();
 			foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 				$row[] = $listCell->getValue();

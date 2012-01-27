@@ -68,11 +68,14 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	public function render() {
 
+
+
         $this->init();
         $this->clearOutputBufferAndSendHeaders();
 
         $rowNumber = 1;
         $columnNumber = 0;
+
 
         // Headers
         if ($this->templateVariableContainer->exists('listCaptions')) {
@@ -104,6 +107,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
         // TODO make output configurable via TS
         $objWriter->save('php://output');
+
         $this->closeOutputBufferAndExit();
 	}
 

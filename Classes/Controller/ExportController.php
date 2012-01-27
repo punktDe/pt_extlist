@@ -28,7 +28,7 @@
 
 
 /**
- * Controller for all list actions
+ * Controller for export actions
  *
  * @package Controller
  * @author Daniel Lienert
@@ -75,6 +75,8 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
 
 	/**
+	 * Returns download for given parameters
+	 *
 	 * @return string
 	 */
 	public function downloadAction() {
@@ -104,8 +106,9 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 		$this->view->assign('aggregateRows', $renderedAggregateRows);
-		
+
 		return $this->view->render();
 	}
+
 }
 ?>
