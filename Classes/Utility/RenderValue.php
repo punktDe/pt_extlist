@@ -60,7 +60,16 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @return string rendered value
 	 */
 	public static function render(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL, $renderTemplate = NULL) {
-		$cacheKey = md5(serialize(func_get_args()));
+
+		try {
+			/* if $data contains an extbase model object like we get them with the extbase backend, on some systems this
+			 * causes an exception: Serialization of 'Closure' is not allowed
+			 */
+			$cacheKey = md5(serialize(array($data, $renderObjectConfig, $renderObjectConfig, $renderTemplate)));
+		} catch(Eexception $e) {
+			$cacheKey = uniqid('cacheItem');
+		}
+
 		if(!self::$renderCache[$cacheKey]) {
 			self::$renderCache[$cacheKey] = self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
 		}
