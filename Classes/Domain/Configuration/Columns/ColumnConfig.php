@@ -84,6 +84,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $renderObj;
 
 
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig
+	 */
+	protected $objectMapperConfig = NULL;
+
+
 	
 	/**
 	 * Path to fluid template
@@ -203,42 +209,46 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
-      $this->setValueIfExistsAndNotNothing('headerThCssClass');
-		
-		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
+		$this->setValueIfExistsAndNotNothing('headerThCssClass');
+
+		if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
 			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
 		}
-	
-		if(array_key_exists('renderObj', $this->settings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
-        }
 
-        /* Sorting configuration is set as follows:
-            1. We check whether we have 'sortingFields' settings in column configuration
-            2. We check whether we have 'sorting' settings in column configuration
-            3. If we don't have either, we use first field identifier and make this sorting field of column
-        */
+		if (array_key_exists('renderObj', $this->settings)) {
+			$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+		}
+
+		/* Sorting configuration is set as follows:
+						  1. We check whether we have 'sortingFields' settings in column configuration
+						  2. We check whether we have 'sorting' settings in column configuration
+						  3. If we don't have either, we use first field identifier and make this sorting field of column
+					 */
 		if (array_key_exists('sortingFields', $this->settings)) {
-            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
-        } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
+			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+		} elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
-        } else {
+		} else {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
 		}
 
-		if(array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',',$this->settings['accessGroups']);
+		if (array_key_exists('accessGroups', $this->settings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
 		}
 
-        // Generate relative paths for sorting images
-        $this->sortingImageDefault = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
-        $this->sortingImageAsc = substr(t3lib_div::getFileAbsFileName($this->sortingImageAsc), strlen(PATH_site));
-        $this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
-	}	
-	
-	
-	
+		// Generate relative paths for sorting images
+		$this->sortingImageDefault = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
+		$this->sortingImageAsc = substr(t3lib_div::getFileAbsFileName($this->sortingImageAsc), strlen(PATH_site));
+		$this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
+
+		// Build the objectMapperConfig
+		if(array_key_extst('objectMapper', $this->settings)) {
+			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
+		}
+	}
+
+
 	/**
 	 * @param boolean $accessable
 	 */
