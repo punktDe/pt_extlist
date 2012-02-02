@@ -31,8 +31,7 @@
  * 
  * @package Domain
  * @subpackage Renderer\Default
- * @author Christoph Ehscheidt 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  * @author Michael Knoll 
  */
 class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {

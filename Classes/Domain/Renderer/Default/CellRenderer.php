@@ -31,8 +31,7 @@
  * 
  * @package Domain
  * @subpackage Renderer\Default
- * @author Christoph Ehscheidt 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 
@@ -70,17 +69,17 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		$this->rendererConfiguration = $rendererConfiguration;
 		#$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
 	}
-	
-	
-	
+
+
 	/**
 	 * Renders the cell content.
 	 *
-	 * @param string $columnIdentifier The columnIdentifier.
+	 * @param \Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $data The table data.
 	 * @param int $columnIndex Current column index.
 	 * @param int $rowIndex Current row index.
-	 * 
+	 *
+	 * @internal param string $columnIdentifier The columnIdentifier.
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
 	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex) {
@@ -95,21 +94,11 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		$cell->setRowIndex($rowIndex);
 		$cell->setColumnIndex($columnIndex);
 		
-		
 		// render cell css class
 		if($columnConfig->getCellCSSClass()) {
 			$cell->setCSSClass($this->renderCellCSSClass($fieldSet, $columnConfig));
 		}
-		
-		// Resolve special cell values
-		/*
-		 * TODO: make something usefull here ... :)
-		 * 
-		if($this->renderSpecialCellUserFunc || $columnConfig->getSpecialCell()) {
-			$this->renderSpecialValues($cell, $columnConfig);	
-		 }
-		*/
-		
+
 		return $cell;
 	}
 	

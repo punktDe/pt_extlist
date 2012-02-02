@@ -243,7 +243,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
 
 		// Build the objectMapperConfig
-		if(array_key_extst('objectMapper', $this->settings)) {
+		if(array_key_exists('objectMapper', $this->settings)) {
 			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
 		}
 	}

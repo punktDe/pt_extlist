@@ -34,7 +34,7 @@
  * @subpackage Configuration\Column
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
+class Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
 	/**
 	 * The class of the target object
