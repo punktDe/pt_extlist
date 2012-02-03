@@ -163,7 +163,28 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
         $this->listIdentifier = $listIdentifier;    
 	}		
 
-    
+
+
+	/**
+	 * Merges configuration of settings in namespace of list identifier
+	 * with settings from plugin.
+	 *
+	 * @param void
+	 * @return void
+	 */
+	protected function mergeAndSetGlobalAndLocalConf() {
+		$settingsToBeMerged = $this->origSettings;
+		unset($settingsToBeMerged['listConfig']);
+		if (is_array($this->origSettings['listConfig'][$this->listIdentifier])) {
+			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+				$settingsToBeMerged,
+				$this->origSettings['listConfig'][$this->listIdentifier]
+			);
+			$this->settings = $mergedSettings;
+		}
+	}
+
+
     
     /**
      * Returns identifier of list
