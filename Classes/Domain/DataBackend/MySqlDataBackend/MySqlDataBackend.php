@@ -94,6 +94,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $listQueryParts = NULL;
 
 
+
+	/**
+	 * Holds total item count (cached)
+	 *
+	 * @var int
+	 */
+	protected $totalItemsCount = NULL;
+
+
+
 	/**
 	 * Factory method for data source
 	 *
@@ -121,6 +131,20 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$this->baseFromClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
 		$this->baseGroupByClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
     }
+
+
+
+
+	/**
+	 * We implement template method for initializing backend
+	 */
+	protected function initBackend() {
+		parent::initBackend();
+		// As pager->getCurrentPage is requested during $this->getTotalItemsCount(),
+		// we have to set it to infty first and later set correct item count!
+		$this->pagerCollection->setItemCount(PHP_INT_MAX);
+	}
+
 
 
 	/**
@@ -392,23 +416,32 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function getTotalItemsCount() {
 
-		$this->buildQuery();
+		if ($this->totalItemsCount == null) {
+			$this->buildQuery();
 
-		$query = '';
-		$query .= 'SELECT COUNT(*) AS totalItemCount ';
-		$query .= $this->listQueryParts['FROM'];
-		$query .= $this->listQueryParts['WHERE'];
-		$query .= $this->listQueryParts['GROUPBY'];
+			$query = '';
+			$query .= 'SELECT COUNT(*) AS totalItemCount ';
+			$query .= $this->listQueryParts['FROM'];
+			$query .= $this->listQueryParts['WHERE'];
+			$query .= $this->listQueryParts['GROUPBY'];
 
-		$countResult = $this->dataSource->executeQuery($query);
+			$countResult = $this->dataSource->executeQuery($query);
 
-		if($this->listQueryParts['GROUPBY']) {
-			$count = count($countResult);
-		} else {
-			$count = intval($countResult[0]['totalItemCount']);
+			if($this->listQueryParts['GROUPBY']) {
+				$this->totalItemsCount = count($countResult);
+			} else {
+				$this->totalItemsCount = intval($countResult[0]['totalItemCount']);
+			}
+
+			$this->pagerCollection->setItemCount($this->totalItemsCount);
+
+			// We have to build query again, as LIMIT is not set correctly above!
+			// TODO fix this! Split build query in buildQueryWithoutPager() and buildQueryPartsFromPager()
+			$this->listQueryParts = null;
+			$this->buildQuery();
 		}
 
-		return $count;
+		return $this->totalItemsCount;
 	}
 
 

@@ -143,7 +143,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	public function getCurrentPage() {
 		// If number of items has changed between to requests, we can check here, whether we still have enough items to be on recent page
 		if ($this->currentPage * $this->getItemsPerPage() > $this->getItemCount()) {
-			$this->setCurrentPage(1);
+			$this->reset();
 		}
 		return $this->currentPage;
 	}
