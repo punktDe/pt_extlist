@@ -196,5 +196,33 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
         $this->assertEquals($columnConfig->getHeaderThCssClass(), 'testCssClass');
     }
 
+
+	/**
+	 * @test
+	 */
+	public function getMapperConfigurationReturnsObjectIfDefined() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+		$columnSettings = $allColumnSettings['60'];
+
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
+
+		$this->assertTrue(is_a($columnConfig->getObjectMapperConfig(), 'Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig'), 'getObjectMapperConfig does not return objectMapperConfig object');
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function getMapperConfigurationReturnsNullIfNotDefined() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+		$columnSettings = $allColumnSettings['50'];
+
+		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
+
+		$this->assertNull($columnConfig->getObjectMapperConfig());
+	}
+
 }
 ?>

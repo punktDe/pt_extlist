@@ -85,7 +85,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
 	 */
 	protected $objectMapperConfig = NULL;
 
@@ -221,10 +221,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		}
 
 		/* Sorting configuration is set as follows:
-						  1. We check whether we have 'sortingFields' settings in column configuration
-						  2. We check whether we have 'sorting' settings in column configuration
-						  3. If we don't have either, we use first field identifier and make this sorting field of column
-					 */
+			  1. We check whether we have 'sortingFields' settings in column configuration
+			  2. We check whether we have 'sorting' settings in column configuration
+			  3. If we don't have either, we use first field identifier and make this sorting field of column
+		 */
 		if (array_key_exists('sortingFields', $this->settings)) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
 		} elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
@@ -244,7 +244,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 		// Build the objectMapperConfig
 		if(array_key_exists('objectMapper', $this->settings)) {
-			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
+			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
 		}
 	}
 
@@ -421,6 +421,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	public function getIsVisible() {
 		return $this->isVisible;
+	}
+
+	/**
+	 * @return \Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig
+	 */
+	public function getObjectMapperConfig() {
+		return $this->objectMapperConfig;
 	}
 
 }
