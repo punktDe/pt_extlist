@@ -36,13 +36,6 @@
 class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
-	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
-	 */
-	protected $configurationBuilderMock;
-
-
-
-	/**
 	 * Holds a dummy configuration for a column config object
 	 * @var array
 	 */
