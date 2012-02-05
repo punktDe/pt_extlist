@@ -422,44 +422,43 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
-        $this->buildQuery();
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+		$this->buildQuery();
 
-    	$selectPart  = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
-    	$fromPart = $this->listQueryParts['FROM'];
-    	$groupPart   = count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
-    	$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
+		$selectPart = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
+		$fromPart = $this->listQueryParts['FROM'];
+		$groupPart = count($groupDataQuery->getGroupBy()) > 0 ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
+		$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
-    	if(count($groupDataQuery->getFrom()) > 0) {
-    		// special from part from filter TODO think about this and implement it!
-    		//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
+		if (count($groupDataQuery->getFrom()) > 0) {
+			// special from part from filter TODO think about this and implement it!
+			//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
 
-    	} elseif($this->listQueryParts['GROUPBY']) {
-    		$selectPart = $this->convertTableFieldToAlias($selectPart);
-    		$groupPart = $this->convertTableFieldToAlias($groupPart);
-    		$sortingPart = $this->convertTableFieldToAlias($sortingPart);
+		} elseif ($this->listQueryParts['GROUPBY']) {
+			$selectPart = $this->convertTableFieldToAlias($selectPart);
+			$groupPart = $this->convertTableFieldToAlias($groupPart);
+			$sortingPart = $this->convertTableFieldToAlias($sortingPart);
 
-    		$filterWherePart = $this->buildWherePart($excludeFilters);
-    		$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
+			$filterWherePart = $this->buildWherePart($excludeFilters);
+			$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
 
-    		// if the list has a group by clause itself, we have to use the listquery as subquery
-    		$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+			// if the list has a group by clause itself, we have to use the listquery as subquery
+			$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
 
-    		unset($filterWherePart);	// we confined the subquery, so we dont need this in the group query
+			unset($filterWherePart); // we confined the subquery, so we dont need this in the group query
 
-    	} else {
-    		$filterWherePart =  $this->buildWherePart($excludeFilters);
-    		if($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
-    	}
+		} else {
+			$filterWherePart = $this->buildWherePart($excludeFilters);
+			if ($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
+		}
 
-    	$query =  implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
+		$query = implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
 
-    	if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : ' . $this->listIdentifier . ' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+		$groupDataArray = $this->dataSource->executeQuery($query);
 
-        $groupDataArray = $this->dataSource->executeQuery($query);
-
-        return $groupDataArray;
-    }
+		return $groupDataArray;
+	}
 
 
 

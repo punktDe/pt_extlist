@@ -314,10 +314,14 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	public static function getCobj() {
 		if(!self::$cObj) {
-			if(is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
-				self::$cObj = $GLOBALS['TSFE']->cObj;
+			if(TYPO3_MODE == 'FE') {
+				if(is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
+					self::$cObj = $GLOBALS['TSFE']->cObj;
+				}
+
 			} else {
-				self::$cObj = t3lib_div::makeInstance('tslib_cObj');
+				t3lib_div::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
+				self::$cObj = $GLOBALS['TSFE']->cObj;
 			}
 		}
 

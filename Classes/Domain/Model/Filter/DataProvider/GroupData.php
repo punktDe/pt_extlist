@@ -127,8 +127,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
 	 */
 	protected function getOptionsByFields($fields) {
 		$groupDataQuery = $this->buildGroupDataQuery($fields);
-        $excludeFiltersArray = $this->buildExcludeFiltersArray();
-        return $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
+		$excludeFiltersArray = $this->buildExcludeFiltersArray();
+		return $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
 	}
 	
 	
