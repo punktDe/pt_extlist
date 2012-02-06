@@ -72,7 +72,6 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 *
 	 */
 	protected function initFilterByTsConfig() {
-
 		parent::initFilterByTsConfig();
 
 		if ($this->filterConfig->getSettings('multiple')) {
