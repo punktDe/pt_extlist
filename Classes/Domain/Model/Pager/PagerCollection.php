@@ -141,6 +141,10 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @return int
 	 */
 	public function getCurrentPage() {
+		// If number of items has changed between to requests, we can check here, whether we still have enough items to be on recent page
+		if ($this->currentPage > $this->getLastPage()) {
+			$this->reset();
+		}
 		return $this->currentPage;
 	}
 
@@ -217,9 +221,15 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 */
 	public function persistToSession() {
-		if($this->currentPage > 1) { 
-			return array('page' => $this->currentPage);	
-		} else { // Page 1 is default therefore we dont need it in the sesssion
+		if($this->currentPage > 1) {
+			return array('page' => $this->currentPage);
+		} else {
+			/*
+			 *  Page 1 is default therefore we dont need it in the sesssion
+			 *
+			 *  Don't change this, this belongs to RealUrl configuration if everything is
+			 *  put into URL.
+			 */
 			$this->sessionPersistenceManager->removeSessionDataByNamespace($this->getObjectNamespace());
 		}
 	}

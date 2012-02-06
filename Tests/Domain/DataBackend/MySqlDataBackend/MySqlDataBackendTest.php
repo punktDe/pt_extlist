@@ -101,8 +101,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testBuildFromPart() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
 		$dataBackend->init();
 		$fromPart = $dataBackend->buildFromPart();
 		$this->assertEquals($fromPart, 
@@ -121,8 +123,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 		
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($tsConfig['plugin']['tx_ptextlist']['settings']);
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('list2');
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($configurationBuilder);
 		$dataBackend->injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
 		$dataBackend->init();
 		$fromPart = $dataBackend->buildFromPart();
 		$this->assertEquals($fromPart, 
@@ -134,8 +138,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testGetBaseWhereClause() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
 		$dataBackend->init();
 		$baseWhereClause = $dataBackend->getBaseWhereClause();
 		$this->assertTrue($baseWhereClause == $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['baseWhereClause']);
@@ -144,7 +150,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testGetWhereClauseFromFilterWithStringValue() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 		
 		$filterMock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'testValue', '='));
@@ -156,8 +164,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 
 
 	public function testGetWhereClauseFromFilterWithStringNumericValue() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
 
 		$filterMock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>'));
 
@@ -168,9 +178,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 
 
 	public function testGetWhereClauseFromFilterWithoutActiveFilter() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-		
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
+
 		$filterMock = $this->getFilterMockByCriteria();
 		
 		$filterWhereClause = $dataBackend->getWhereClauseFromFilter($filterMock);
@@ -180,9 +192,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testGetWhereClauseFromFilterbox() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
-        
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
+
         $filter1Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 10, '>'));
         $filter2Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 10, '<'));
             
@@ -195,7 +209,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testGetWhereClauseFromFilterboxCollection() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
 		$dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 
 		$filter1Mock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 10, '>'));
@@ -242,7 +258,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testBuildSelectPartWithTableAndField() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 
         $fieldConfigurationCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
@@ -262,7 +280,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_testcase extends Tx
 	
 	
 	public function testBuildSelectPartWithSpecialString() {
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
+		$dataBackend->injectPagerCollection($pagerCollectionMock);
         $dataBackend->injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 
         $fieldConfigurationCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();

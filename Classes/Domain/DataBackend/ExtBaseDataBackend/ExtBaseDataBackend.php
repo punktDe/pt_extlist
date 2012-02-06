@@ -73,6 +73,18 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$data = $extbaseQuery->execute();
 		return $this->dataMapper->getMappedListData($data);
 	}
+
+
+
+	/**
+	 * We implement template method for initializing backend
+	 */
+	protected function initBackend() {
+		parent::initBackend();
+		// As pager->getCurrentPage is requested during $this->getTotalItemsCount(),
+		// we have to set it to infty first and later set correct item count!
+		$this->pagerCollection->setItemCount(PHP_INT_MAX);
+	}
 	
 	
 	
@@ -324,7 +336,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
-		return $this->buildExtBaseQueryWithoutPager()->count();
+		$count = $this->buildExtBaseQueryWithoutPager()->count();
+		$this->pagerCollection->setItemCount($count);
+		return $count;
 	}
 	
 	
