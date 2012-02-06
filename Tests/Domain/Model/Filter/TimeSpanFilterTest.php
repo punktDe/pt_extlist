@@ -33,7 +33,7 @@
  * @package Test
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 
 	/**
