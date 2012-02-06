@@ -22,9 +22,9 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 	</label>
 	<div class="outer-field-wrapper">
 
-		<ptx:tree.selector name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}"
-						 id="selectedCategory"
-						 value=""
+		<ptx:tree.selector name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}"
+						 id="{filter.filterIdentifier}"
+						 value="{filter.value}"
 						 nodes="{filter.treeNodes}"
 						 multiple="{filter.multiple}" />
 	</div>
