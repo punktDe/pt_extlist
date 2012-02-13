@@ -10,9 +10,9 @@
 
 
 plugin.tx_ptextlist.settings {
-	
+
 	listConfig.demolist_typo3_04_timeSpan {
-	
+
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
@@ -24,7 +24,7 @@ plugin.tx_ptextlist.settings {
 
 
 		fields {
-			
+
 			tstamp {
 				table = sys_log
 				field = tstamp
@@ -33,7 +33,7 @@ plugin.tx_ptextlist.settings {
 			readableDate {
 			    special = FROM_UNIXTIME(sys_log.tstamp, '%d.%m.%Y %h:%i:%s')
 			}
-	
+
 			details {
 				table = sys_log
 				field = details
@@ -45,16 +45,16 @@ plugin.tx_ptextlist.settings {
 			}
 
 		}
-		
+
 		columns {
-		
+
 			10 {
 				label = Date
 				columnIdentifier = readableDate
 				fieldIdentifier = readableDate
 			}
 
-	
+
 			20 {
 				label = User
 				columnIdentifier = username
