@@ -210,13 +210,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      */
     protected function initBackend() {}    
     
-    
+
+
     /**
      * Init the backend specific configuration from TS config
      * 
      */
     protected function initBackendByTsConfig() {}	
-    
+
+
 	
 	/**
 	 * Injector for data mapper
@@ -259,6 +261,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection) {
 		$this->pagerCollection = $pagerCollection;
 	}
+
+
 	
 	/**
 	 * Injector for data source
@@ -305,7 +309,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     
 
     /**
-     * Injector for 
+     * Injector for sorter
+	 *
      * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
      * @return void
      */
@@ -430,5 +435,4 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     }
 
 }
-
 ?>
