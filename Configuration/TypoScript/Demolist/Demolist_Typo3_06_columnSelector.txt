@@ -10,7 +10,7 @@
 
 
 plugin.tx_ptextlist.settings {
-	
+
 	listConfig.demolist_typo3_06_columnSelector < plugin.tx_ptextlist.settings.listConfig.demolist
 	listConfig.demolist_typo3_06_columnSelector {
 
