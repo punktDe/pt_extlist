@@ -10,7 +10,7 @@
 
 config.tx_extbase {
 	persistence{
-		
+
 		enableAutomaticCacheClearing = 1
 		updateReferenceIndex = 0
 		classes {
@@ -41,27 +41,27 @@ plugin.tx_ptextlist.persistence.storagePid = 14
 plugin.tx_ptextlist.settings {
 
 	listConfig.demolist_extbase_01 {
-	
+
 		backendConfig < plugin.tx_ptextlist.prototype.backend.extbase
 		backendConfig {
-		
+
 			dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
 			dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
 			queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
 			repositoryClassName = Tx_ExtBase_Domain_Repository_FrontendUserGroupRepository
-			
+
 			dataSource {
 			}
-			
+
 			tables (
 			)
-			
+
 			baseFromClause (
 			)
-			
+
 			baseWhereClause (
 			)
-			
+
 			baseGroupByClause (
 			)
 		}
@@ -80,7 +80,7 @@ plugin.tx_ptextlist.settings {
 				label = Titel
 			}
 		}
-		
+
 		filters {
 			filterbox1 {
 				filterConfigs {
@@ -93,7 +93,7 @@ plugin.tx_ptextlist.settings {
 				}
 			}
 		}
-		
+
 		pager {
 			itemsPerPage = 30
 		}

@@ -194,6 +194,17 @@
             </TCEforms>
           </settings.prototype.export.addDateToFilename>
 
+          <settings.prototype.export.fileFormat>
+            <TCEforms>
+              <label>File Format</label>
+              <config>
+                  <type>input</type>
+                  <size>20</size>
+                  <eval>trim</eval>
+              </config>
+            </TCEforms>
+          </settings.prototype.export.fileFormat>
+
         </el>
       </ROOT>
     </export>
