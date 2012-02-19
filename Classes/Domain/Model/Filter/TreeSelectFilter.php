@@ -132,6 +132,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		$tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
 
+		if (isset($this->treeMaxDepth)) {
+			$tree->setRestrictedDepth($this->treeMaxDepth);
+			$tree->setRespectRestrictedDepth(TRUE);
+		}
+
 		$arrayWriterVisitor = new Tx_PtExtbase_Tree_ExtJsJsonWriterVisitor();
 		$arrayWriterVisitor->registerFirstVisitCallback($this, 'alterNodeArray');
 		$arrayWriterVisitor->setMultipleSelect($this->getMultiple());
