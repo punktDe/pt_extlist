@@ -72,6 +72,9 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
 
+		$pagerCollection = $this->dataBackend->getPagerCollection();
+		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+
 		$this->view->assign('config', $this->configurationBuilder);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
@@ -79,6 +82,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$this->view->assign('aggregateRows', $renderedAggregateRows);
 
 		$this->view->assign('filterCollection', $this->dataBackend->getFilterboxCollection());
+		$this->view->assign('pagerCollection', $pagerCollection);
 	}
 
 
