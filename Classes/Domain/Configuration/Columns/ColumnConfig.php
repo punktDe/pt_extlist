@@ -246,9 +246,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		}
 
 		// Generate relative paths for sorting images
-		$this->sortingImageDefault = $this->buildFrontendIncludePath()$this->sortingImageDefault), strlen(PATH_site));
-		$this->sortingImageAsc = substr(t3lib_div::getFileAbsFileName($this->sortingImageAsc), strlen(PATH_site));
-		$this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
+		$this->sortingImageDefault = $this->buildFrontendIncludePath($this->sortingImageDefault);
+		$this->sortingImageAsc = $this->buildFrontendIncludePath($this->sortingImageAsc);
+		$this->sortingImageDesc = $this->buildFrontendIncludePath($this->sortingImageDesc);
 
 		// Build the objectMapperConfig
 		if(array_key_exists('objectMapper', $this->settings)) {
@@ -263,7 +263,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * @return string
 	 */
 	protected function buildFrontendIncludePath($path) {
-		$path = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
+		$path = substr(t3lib_div::getFileAbsFileName($path), strlen(PATH_site));
 
 		if(TYPO3_MODE  == 'BE') {
 			$path = '../' . $path;
