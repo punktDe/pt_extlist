@@ -162,13 +162,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
 	protected $filterbox;
-	
-	
-	
+
 	/**
 	 * Constructor for filter
-	 *
-	 * @param String $filterIdentifier     Identifier for filter
 	 */
 	public function __construct() {
 		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
@@ -283,7 +279,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Returns filter configuration of this filter
 	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	public function getFilterConfig() {
 		return $this->filterConfig;
@@ -355,12 +351,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function getFilterbox() {
 		return $this->filterbox;
 	}
-    
-    
-	
+
+
+
 	/**
 	 * Initializes the filter
-	 * 
+	 *
+	 * @param bool $initAfterReset
 	 * @return void
 	 */
 	public function init($initAfterReset = false) {
@@ -404,7 +401,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->initFilter();
 		
 		$this->buildFilterQuery();
-		
 	}
 	
 	
