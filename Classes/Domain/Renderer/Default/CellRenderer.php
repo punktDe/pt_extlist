@@ -87,9 +87,13 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
 
-		$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);
+		if($columnConfig->getRawFields()) {
+			$content = $fieldSet;
+		} else {
+			$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);	
+		}
 		
-		// Create new cell 
+		// Create new cell
 		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($content);
 		$cell->setRowIndex($rowIndex);
 		$cell->setColumnIndex($columnIndex);

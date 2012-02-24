@@ -181,6 +181,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	protected $isVisible = true;
 
+
+	/**
+	 * If this is true, the default renderer returns the array of raw fieldValues instead of rendered content
+	 * @var bool
+	 */
+	protected $rawFields;
+
 	
 	/**
 	 * (non-PHPdoc)
@@ -202,6 +209,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 		$this->setBooleanIfExistsAndNotNothing('isVisible');
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
+		$this->setBooleanIfExistsAndNotNothing('rawFields');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		$this->setValueIfExistsAndNotNothing('sortingImageAsc');
 		$this->setValueIfExistsAndNotNothing('sortingImageDesc');
@@ -238,7 +246,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		}
 
 		// Generate relative paths for sorting images
-		$this->sortingImageDefault = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
+		$this->sortingImageDefault = $this->buildFrontendIncludePath()$this->sortingImageDefault), strlen(PATH_site));
 		$this->sortingImageAsc = substr(t3lib_div::getFileAbsFileName($this->sortingImageAsc), strlen(PATH_site));
 		$this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
 
@@ -246,6 +254,22 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		if(array_key_exists('objectMapper', $this->settings)) {
 			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
 		}
+	}
+
+
+
+	/**
+	 * @param $path
+	 * @return string
+	 */
+	protected function buildFrontendIncludePath($path) {
+		$path = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
+
+		if(TYPO3_MODE  == 'BE') {
+			$path = '../' . $path;
+		}
+
+		return $path;
 	}
 
 
@@ -428,6 +452,20 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	public function getObjectMapperConfig() {
 		return $this->objectMapperConfig;
+	}
+
+	/**
+	 * @param boolean $rawFields
+	 */
+	public function setRawFields($rawFields) {
+		$this->rawFields = $rawFields;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getRawFields() {
+		return $this->rawFields;
 	}
 
 }
