@@ -1,7 +1,11 @@
 jQuery(function($) {
 	var options = ###options###;
 	var filterValue = "###filterValue###";
-	var defaultDate = new Date(filterValue.split('-')[0], filterValue.split('-')[1] - 1, filterValue.split('-')[2]);
+
+	var defaultDate = new Date();
+	if (filterValue) {
+		defaultDate = new Date(filterValue.split('-')[0], filterValue.split('-')[1] - 1, filterValue.split('-')[2]);
+	}
 	var datePickerOptions = {
 		altFormat: "yymmdd",
 		altField: "#datePickerFilter",
