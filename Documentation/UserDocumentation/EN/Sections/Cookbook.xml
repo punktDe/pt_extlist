@@ -50,12 +50,28 @@ pagerWidget {
 }]]></programlisting>
     </section>
 
-    
-    
-    
-    
-    
-    
+
+
+
+    <section>
+            <title>Exchange the default template by controller / action.</title>
+            <para>In default extbase it is only possible to exhenage the complete template folder. Pt_extlist enables you to exchange a single template per list. The example below shows you how to exchange a template. In general it is
+
+                controller.THECONTROLLERNAME.THEACTIONNAME.template = PATHTOTHETEMPLATE
+
+                This holds for any controller / action pair. Check the URL or the template folder for the controller and action names.</para>
+            <para/>
+
+            <programlisting><![CDATA[
+    plugin.tx_ptextlist.settings {
+        	listConfig.demolist {
+    	    controller.List.list.template = EXT:my_extension/Resources/Private/Templates/NewTemplate.html
+    	}
+    }
+    }]]></programlisting>
+        </section>
+
+
     
 
     <section>

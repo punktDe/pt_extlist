@@ -1008,6 +1008,13 @@ sortingFields {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="rawFields">
+                                                    <DESCRIPTION>If rawfields is set to 1, the default renderer sets an array of all fields as the value of the column instead of a comma separated list. This array can the now be used in a custom list template.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <COBJ>0</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                </ENTRY>
 												<ENTRY KEY="cellCSSClass">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
