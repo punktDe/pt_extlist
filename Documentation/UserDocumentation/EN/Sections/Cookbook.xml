@@ -4,7 +4,7 @@
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
          xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-    <title>Cookbook</title>
+
     <para>This chapter is a collection of recipes for common tasks in pt_extlist.</para>
     <section>
         <title>Insert the output of an extlist / extbase plugin via typoscript.</title>
@@ -69,7 +69,7 @@ pagerWidget {
     	}
     }
     }]]></programlisting>
-        </section>
+    </section>
 
 
     
