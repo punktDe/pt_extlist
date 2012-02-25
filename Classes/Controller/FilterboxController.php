@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -102,7 +102,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		$this->view->assign('filterbox', $this->filterbox);
 		$this->view->assign('config', $this->configurationBuilder);
 	}
-	
 
 
 	/**
@@ -111,63 +110,62 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 * @return String
 	 */
 	public function submitAction() {
-        /**
-         * Some explanation on what happens here:
-         *
-         * 1. We check whether filter validates. If not, we set error in template and forward to 'show'
-         * 2. Whenever a filter is submitted, this action is called. Previously active state of filter is stored in session, so
-         *    we have to reset this. Active state for filterbox is set in init() of filterbox again, if GP vars are available.
-         * 3. We have to reset the pagers, as changed filter state normally means changed pager state
-         * 4. We check, whether we have a redirect on submit configured for this filter and do the redirect if we have done so
-         */
+		/**
+		 * Some explanation on what happens here:
+		 *
+		 * 1. We check whether filter validates. If not, we set error in template and forward to 'show'
+		 * 2. Whenever a filter is submitted, this action is called. Previously active state of filter is stored in session, so
+		 *	 we have to reset this. Active state for filterbox is set in init() of filterbox again, if GP vars are available.
+		 * 3. We have to reset the pagers, as changed filter state normally means changed pager state
+		 * 4. We check, whether we have a redirect on submit configured for this filter and do the redirect if we have done so
+		 */
 
 		if (!$this->filterbox->validate()) {
 			$this->view->assign('filtersDontValidate', true);
-            $this->forward('show');
-        }
-        
-        $this->filterboxCollection->resetIsSubmittedFilterbox();
+			$this->forward('show');
+		}
 
-        $this->resetPagers();
+		$this->filterboxCollection->resetIsSubmittedFilterbox();
 
-        // check whether we have a redirect on submit configured for this filter
-        if ($this->filterbox->isSubmittedFilterbox() && $this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
-            $this->redirect(
-                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(),      // action name
-                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitControllerName(),  // controller name
-                 null,                                                                                // extension name
-                 null,                                                                                // arguments
-                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitPageId()           // page id
-            );
-        }
+		$this->resetPagers();
 
-        $this->forward('show'); // Filter submitted, so we redirect to show action
+		// check whether we have a redirect on submit configured for this filter
+		if ($this->filterbox->isSubmittedFilterbox() && $this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
+			$this->redirect(
+				$this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(), // action name
+				$this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitControllerName(), // controller name
+				null, // extension name
+				null, // arguments
+				$this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitPageId() // page id
+			);
+		}
+
+		$this->forward('show'); // Filter submitted, so we redirect to show action
 	}
-	
 
 
 	/**
 	 * Resets all filters of filterbox
 	 *
-     * @param string $filterboxIdentifier Identifier of filter which should be reset
+	 * @param string $filterboxIdentifier Identifier of filter which should be reset
 	 * @return string Rendered reset action
-	 */                          
+	 */
 	public function resetAction($filterboxIdentifier) {
 		// TODO refactor me, as we use this twice!
-        if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
-            $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
-        }
-        
+		if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
+			$this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
+		}
+
 		$this->resetPagers();
-        
+
 		/**
 		 * TODO try to figure out a way how to handle this without redirect
-		 * 
-		 * The problem is, that although GP-vars mapping is done automatically, 
+		 *
+		 * The problem is, that although GP-vars mapping is done automatically,
 		 * we cannot trigger any action when resetting filterboxes without using
 		 * the controller. The controller can be executed "too late", so that the filters
 		 * are not reset, if their values are requested.
-		 * 
+		 *
 		 * We should introduce a "global" controller that handles certain actions
 		 * before any other controller (and only once!).
 		 */
