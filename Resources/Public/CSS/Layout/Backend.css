@@ -1,5 +1,12 @@
 /* List */
 
+.typo3-dblist tr.odd {
+	background-color: #ffffff;
+}
+
+.typo3-dblist tr.even {
+	background-color: #F5F5F5;
+}
 
 /* Pager */
 .tx-ptextlist-pager-wrapper {
