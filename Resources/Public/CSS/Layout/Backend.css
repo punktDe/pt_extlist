@@ -3,7 +3,6 @@
 
 /* Pager */
 .tx-ptextlist-pager-wrapper {
-    border-top: 1px solid #909090;
     margin-top: 20px;
     padding: 5px;
     overflow: hidden;
@@ -19,7 +18,7 @@
 }
 
 .tx-ptextlist-pager li.number a, .tx-ptextlist-pager li a span, .tx-ptextlist-pager li.number .cur, .tx-ptextlist-pager li.number .fill{
-    background: url("../Images/b-pager.png") repeat-x scroll 0 0 transparent;
+    background: url("../../Images/b-pager.png") repeat-x scroll 0 0 transparent;
     border: 1px solid #BFBFBF;
     color: #000000;
     display: inline-block;
