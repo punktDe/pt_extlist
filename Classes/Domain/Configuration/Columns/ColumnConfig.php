@@ -194,6 +194,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
+
+		$headerInclusionUtility = t3lib_div::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
+
 		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
 		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "'.$this->columnIdentifier.'" not given 1277889447');
 		
@@ -246,9 +249,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		}
 
 		// Generate relative paths for sorting images
-		$this->sortingImageDefault = $this->buildFrontendIncludePath($this->sortingImageDefault);
-		$this->sortingImageAsc = $this->buildFrontendIncludePath($this->sortingImageAsc);
-		$this->sortingImageDesc = $this->buildFrontendIncludePath($this->sortingImageDesc);
+		$this->sortingImageDefault = $headerInclusionUtility->getFileRelFileName($this->sortingImageDefault);
+		$this->sortingImageAsc = $headerInclusionUtility->getFileRelFileName($this->sortingImageAsc);
+		$this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
 
 		// Build the objectMapperConfig
 		if(array_key_exists('objectMapper', $this->settings)) {
@@ -256,21 +259,6 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		}
 	}
 
-
-
-	/**
-	 * @param $path
-	 * @return string
-	 */
-	protected function buildFrontendIncludePath($path) {
-		$path = substr(t3lib_div::getFileAbsFileName($path), strlen(PATH_site));
-
-		if(TYPO3_MODE  == 'BE') {
-			$path = '../' . $path;
-		}
-
-		return $path;
-	}
 
 
 	/**
