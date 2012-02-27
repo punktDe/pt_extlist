@@ -158,7 +158,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
         }
         
-        $groupDataQuery->addGroupBy($this->filterField->getIdentifier());
+        if ($this->filterConfig->getSettings('explicitGroupBy') !== array()) {
+        	$groupDataQuery->addGroupBy($this->filterConfig->getSettings('explicitGroupBy'));
+        } else {
+        	$groupDataQuery->addGroupBy($this->filterField->getIdentifier());	
+        }
 
         return $groupDataQuery;
 	}
