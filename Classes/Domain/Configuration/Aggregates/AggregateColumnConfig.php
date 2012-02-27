@@ -188,5 +188,13 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	public function getCellCSSClass() {
 		return $this->cellCSSClass;
 	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function getRawFields() {
+		return false;
+	}
 }
 ?>
