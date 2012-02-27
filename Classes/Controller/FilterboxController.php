@@ -141,7 +141,15 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
             );
         }
 
-        $this->forward('show'); // Filter submitted, so we redirect to show action
+		if ($this->configurationBuilder->getSettings('redirectOnSubmitFilter') == 1) {
+			/**
+			 * Whenever a filter is not first widget on page, we have to do a redirect
+			 * for reset pager and all other components whenever a filter values changed
+			 */
+			$this->redirect('show');
+		} else {
+			$this->forward('show');
+		}
 	}
 	
 
@@ -222,6 +230,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 			$this->pagerCollection = $this->dataBackend->getPagerCollection();
 		}
 		$this->pagerCollection->reset();
+		#$this->dataBackend->resetListDataCache();
 	}
     
 }
