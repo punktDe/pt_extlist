@@ -80,11 +80,13 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	protected $columnIdentifier;
 
 
+
 	/**
 	 * @var boolean
 	 */
 	protected $isVisible = true;
-	
+
+
 	
 	/**
 	 * @var boolean

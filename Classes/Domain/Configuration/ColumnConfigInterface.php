@@ -62,7 +62,15 @@ interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtE
 	 * @return void
 	 */
 	public function getContainsArrayData();
-	
+
+
+	/**
+	 * @abstract
+	 * @return boolean
+	 */
+	public function getRawFields();
+
+
 	//Todo add cell css
 	
 }
