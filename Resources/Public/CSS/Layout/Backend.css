@@ -1,5 +1,21 @@
 /* List */
 
+.typo3-dblist tr.odd {
+	background-color: #ffffff;
+}
+
+.typo3-dblist tr.even {
+	background-color: #F5F5F5;
+}
+
+
+/* Filter */
+.tx-ptextlist-filterboxcontrols {
+	/* float: left; */
+	clear: both;
+	padding: 18px 0 0 10px;
+}
+
 
 /* Pager */
 .tx-ptextlist-pager-wrapper {
