@@ -153,7 +153,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 	/**
-	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
+	 * Says if this column is accessible by the current FE-User. Will be injected by the factory.
 	 * 
 	 * @var boolean
 	 */
