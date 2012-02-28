@@ -8,6 +8,15 @@
 	background-color: #F5F5F5;
 }
 
+
+/* Filter */
+.tx-ptextlist-filterboxcontrols {
+	/* float: left; */
+	clear: both;
+	padding: 18px 0 0 10px;
+}
+
+
 /* Pager */
 .tx-ptextlist-pager-wrapper {
     margin-top: 20px;
