@@ -234,6 +234,22 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     public function getSorter();
-    
+
+
+
+	/**
+	 * Reset sorting if sorting changes due to GP vars
+	 *
+	 * DOES NOT RESET SORTING TO DEFAULT SORTING!!! @see resetSortingToDefault()
+	 */
+	public function resetSorting();
+
+
+
+	/**
+	 * Reset sorting to default sorting (configured in TS)
+	 */
+	public function resetSortingToDefault();
+
 }
 ?>
