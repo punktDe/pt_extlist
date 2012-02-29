@@ -162,6 +162,13 @@ plugin.tx_ptextlist.settings {
 				fieldIdentifier = phone
 			}
 
+			31 {
+				label = Phone2
+				columnIdentifier = phoneColumn2
+				# default columns can only operate on _one_ dataDescription
+				fieldIdentifier =  capital, phone
+			}
+
 			40 {
 				label = Continent
 				columnIdentifier = continent

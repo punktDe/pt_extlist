@@ -45,10 +45,10 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapperTest extends Tx_PtE
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
 
-		$mapper = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get(Tx_Extbase_Property_Mapper);
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$mapper = $objectManager->get('Tx_Extbase_Property_Mapper');
 
-		$this->objectMapper = new Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper();
-		$this->objectMapper->setMapper($mapper);
+		$this->objectMapper = $objectManager->get('Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper');
 	}
 
 
