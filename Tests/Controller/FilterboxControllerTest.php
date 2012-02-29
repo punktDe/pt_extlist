@@ -79,7 +79,8 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 
 
 
-	public function testSubmitActionWhenValidationFails() {
+	/** @test */
+	public function submitActionForwardsToShowWhenValidationFails() {
 		$filterboxConfigMock = $this->getMock(
             Tx_PtExtlist_Domain_Model_Filter_Filterbox, 
             array('doRedirectOnSubmit'), 
@@ -92,8 +93,9 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('validate', 'getFilterValidationErrors', 'getFilterboxConfiguration'), array(), '', FALSE);
         $filterboxMock->expects($this->once())->method('validate')->will($this->returnValue(false));
 
-        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward'), array(), '', FALSE);
+        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward','resetSorter'), array(), '', FALSE);
         $filterboxControllerMock->expects($this->any())->method('forward')->with('show');
+		$filterboxControllerMock->expects($this->once())->method('resetSorter');
 
         $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('resetIsSubmittedFilterbox'), array(), '', FALSE);
         $filterboxCollectionMock->expects($this->once())->method('resetIsSubmittedFilterbox');
@@ -118,7 +120,8 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 
 
 
-	public function testSubmitActionWhenValidationSucceeds() {
+	/** @test */
+	public function submitActionForwardsToShowWhenValidationSucceeds() {
 		$filterboxConfigMock = $this->getMock(
             Tx_PtExtlist_Domain_Model_Filter_Filterbox, 
             array('getRedirectOnSubmitPageId', 'getRedirectOnSubmitControllerName', 'getRedirectOnSubmitAction', 'doRedirectOnSubmit'), 
@@ -134,8 +137,9 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('resetIsSubmittedFilterbox'), array(), '', FALSE);
         $filterboxCollectionMock->expects($this->once())->method('resetIsSubmittedFilterbox');
 
-		$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward'), array(), '', FALSE);
+		$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward','resetSorter'), array(), '', FALSE);
 		$filterboxControllerMock->expects($this->once())->method('forward')->with('show');
+		$filterboxControllerMock->expects($this->once())->method('resetSorter');
         $filterboxControllerMock->_set('filterboxCollection', $filterboxCollectionMock);
 
 		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', FALSE);
@@ -170,10 +174,11 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', FALSE);
 		$pagerCollectionMock->expects($this->once())->method('reset');
 
-		$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect', 'getFilterboxForControllerSettings'), array(), '', FALSE);
+		$filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect', 'getFilterboxForControllerSettings', 'resetSorter'), array(), '', FALSE);
 		$filterboxControllerMock->_set('filterboxIdentifier', 'test');
 		$filterboxControllerMock->_set('filterboxCollection', $filterboxCollectionMock);
 		$filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
+		$filterboxControllerMock->expects($this->once())->method('resetSorter');
 		$filterboxControllerMock->expects($this->once())->method('redirect')->with('show');
 
 		$filterboxControllerMock->resetAction('toBeResetted');

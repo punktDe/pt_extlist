@@ -123,11 +123,13 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		if (!$this->filterbox->validate()) {
 			$this->view->assign('filtersDontValidate', true);
             $this->forward('show');
+			// TODO shouldn't we have a return here?
         }
         
         $this->filterboxCollection->resetIsSubmittedFilterbox();
 
         $this->resetPagers();
+		$this->resetSorter();
 
         // check whether we have a redirect on submit configured for this filter
         if ($this->filterbox->isSubmittedFilterbox() && $this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
@@ -152,6 +154,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	}
 
 
+
 	/**
 	 * Resets all filters of filterbox
 	 *
@@ -165,6 +168,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		}
 
 		$this->resetPagers();
+		$this->resetSorter();
 
 		/**
 		 * TODO try to figure out a way how to handle this without redirect
@@ -222,6 +226,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 *
 	 */
 	protected function resetPagers() {
+		// TODO put this into abstract controller
+
 		// Reset pagers
 		if ($this->pagerCollection === NULL) {
 			// Only get pagerCollection if it's not set already. Important for testing.
@@ -229,6 +235,18 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		}
 		$this->pagerCollection->reset();
 		#$this->dataBackend->resetListDataCache();
+	}
+
+
+
+	/**
+	 * Resets sorting for this list.
+	 */
+	protected function resetSorter() {
+		// TODO put this into abstract controller
+		$this->dataBackend->getSorter()->reset();
+		// TODO add method to data backend that resets sorting and resets cache!
+		$this->dataBackend->resetListDataCache();
 	}
     
 }
