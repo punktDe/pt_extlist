@@ -32,17 +32,18 @@
  * @package Tests
  * @subpackage Controller
  */
-class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase
-{
+class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
 
 
+
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Controller_FilterboxController', 'Class Tx_PtExtlist_Controller_FilterboxController does not exist!'));
 	}
+
 
 
 	public function testThrowExceptionOnNonExistingFilterboxIdentifier() {
@@ -56,6 +57,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 			return;
 		}
 	}
+
 
 
 	public function testShowAction() {
@@ -74,6 +76,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 
 		$mockController->showAction();
 	}
+
 
 
 	public function testSubmitActionWhenValidationFails() {
@@ -101,13 +104,18 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', FALSE);
 		$pagerCollectionMock->expects($this->once())->method('reset');
 
+		$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getSettings'), array(), '', FALSE);
+		$configurationBuilderMock->expects($this->any())->method('getSettings')->will($this->returnValue(''));
+
 		$filterboxControllerMock->_set('view', $viewMock);
 		$filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
 		$filterboxControllerMock->_set('filterbox', $filterboxMock);
         $filterboxControllerMock->_set('filterboxCollection', $filterboxCollectionMock);
+		$filterboxControllerMock->_set('configurationBuilder', $configurationBuilderMock);
 
 		$filterboxControllerMock->submitAction();
 	}
+
 
 
 	public function testSubmitActionWhenValidationSucceeds() {
@@ -133,8 +141,12 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', FALSE);
 		$pagerCollectionMock->expects($this->once())->method('reset');
 
+		$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getSettings'), array(), '', FALSE);
+		$configurationBuilderMock->expects($this->any())->method('getSettings')->will($this->returnValue(''));
+
 		$filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
 		$filterboxControllerMock->_set('filterbox', $filterboxMock);
+		$filterboxControllerMock->_set('configurationBuilder', $configurationBuilderMock);
 
 		$filterboxControllerMock->submitAction();
 	}
@@ -201,5 +213,6 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
         $filterboxControllerMock->expects($this->once())->method('redirect')->with($redirectActionName, $redirectControllerName, null, null, $redirectPageUid);
 	}
+
 }
 ?>

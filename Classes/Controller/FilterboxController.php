@@ -122,25 +122,33 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 
 		if (!$this->filterbox->validate()) {
 			$this->view->assign('filtersDontValidate', true);
+            $this->forward('show');
+        }
+        
+        $this->filterboxCollection->resetIsSubmittedFilterbox();
+
+        $this->resetPagers();
+
+        // check whether we have a redirect on submit configured for this filter
+        if ($this->filterbox->isSubmittedFilterbox() && $this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
+            $this->redirect(
+                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(),      // action name
+                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitControllerName(),  // controller name
+                 null,                                                                                // extension name
+                 null,                                                                                // arguments
+                 $this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitPageId()           // page id
+            );
+        }
+
+		if ($this->configurationBuilder->getSettings('redirectOnSubmitFilter') == 1) {
+			/**
+			 * Whenever a filter is not first widget on page, we have to do a redirect
+			 * for reset pager and all other components whenever a filter values changed
+			 */
+			$this->redirect('show');
+		} else {
 			$this->forward('show');
 		}
-
-		$this->filterboxCollection->resetIsSubmittedFilterbox();
-
-		$this->resetPagers();
-
-		// check whether we have a redirect on submit configured for this filter
-		if ($this->filterbox->isSubmittedFilterbox() && $this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
-			$this->redirect(
-				$this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitActionName(), // action name
-				$this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitControllerName(), // controller name
-				null, // extension name
-				null, // arguments
-				$this->filterbox->getFilterboxConfiguration()->getRedirectOnSubmitPageId() // page id
-			);
-		}
-
-		$this->forward('show'); // Filter submitted, so we redirect to show action
 	}
 
 
@@ -220,6 +228,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 			$this->pagerCollection = $this->dataBackend->getPagerCollection();
 		}
 		$this->pagerCollection->reset();
+		#$this->dataBackend->resetListDataCache();
 	}
     
 }
