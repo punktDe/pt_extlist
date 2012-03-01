@@ -53,7 +53,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	    
 		if ($this->filterConfig->getSettings('multiple')) {
         	$this->multiple = $this->filterConfig->getSettings('multiple');
-        }        
+      }
 	}
 	
 	

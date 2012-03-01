@@ -41,6 +41,14 @@
 class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
+	 * Define arguments
+	 */
+	public function initializeArguments() {
+		$this->registerArgument('exclude', 'array', 'Define identifiers to exclude from the headers', FALSE, array());
+	}
+
+
+	/**
 	 * Renders SortingViewHelper
 	 *
 	 * Sets additional template variables for children of this viewhelper.
@@ -60,7 +68,7 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
 		foreach ($headers as $header) {
 			/* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
-			if($captions->hasItem($header->getColumnIdentifier())) {
+			if($captions->hasItem($header->getColumnIdentifier()) && !in_array($header->getColumnIdentifier(), $this->arguments['exclude']) ) {
 
 				// Set additional variables in template vars for child elements
 				$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));

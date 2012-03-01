@@ -33,7 +33,7 @@
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements t3lib_Singleton{
+class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements t3lib_Singleton {
 
 
 	/**
@@ -42,13 +42,13 @@ class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements t3lib_Singlet
 	protected $mapper;
 
 
+
 	/**
 	 * @param Tx_Extbase_Property_Mapper $mapper
 	 */
-	public function setMapper(Tx_Extbase_Property_Mapper $mapper) {
+	public function injectMapper(Tx_Extbase_Property_Mapper $mapper) {
 		$this->mapper = $mapper;
 	}
-
 
 
 	/**

@@ -80,13 +80,34 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	}
 	
 	
-	
 	/**
 	 * Creates configuration builder after getting extension configuration injected
-	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_AbstractController::injectConfigurationManager()
+	 *
+	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 * @throws Exception
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) { // , $initConfigurationBuilder = TRUE, $initDataBackend = TRUE
 		parent::injectConfigurationManager($configurationManager);
+
+		$this->configurationBuilder = $this->buildConfigurationBuilder();
+		$sessionPersistenceManager = $this->buildSessionPersistenceManager();
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+		// We reset session data, if we want to have a reset on empty submit
+		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+		}
+
+		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+	}
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 * @throws Exception
+	 */
+	protected function buildConfigurationBuilder() {
 
 		if ($this->settings['listIdentifier'] != '') {
 			$this->listIdentifier = $this->settings['listIdentifier'];
@@ -95,8 +116,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		}
 
 		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
-		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
+		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
+	}
 
+
+
+	/**
+	 * @return Tx_PtExtbase_State_Session_SessionPersistenceManager
+	 */
+	protected function buildSessionPersistenceManager() {
 		// Determine class name of session storage class to use for session persistence
 		if (TYPO3_MODE === 'FE') {
 			$sessionStorageClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
@@ -110,17 +138,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance');
 		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass);
 
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
-
-		// We reset session data, if we want to have a reset on empty submit
-		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
-		}
-
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+		return $sessionPersistenceManager;
 	}
 
-	
+
 		
 	/**
 	 * @param Tx_Extbase_MVC_View_ViewInterface $view

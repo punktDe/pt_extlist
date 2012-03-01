@@ -80,13 +80,13 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 		}
 
 		if ($listIdentifier == '') {
-			throw new Exception('No list identifier could be found in settings! 1280230579');
+			throw new Exception('No list identifier could be found in settings!', 1280230579);
 		}
 
 		if (!array_key_exists($listIdentifier, self::$instances) || $resetConfigurationBuilder) {
 			
 			if(!is_array(self::$settings['listConfig']) || !array_key_exists($listIdentifier, self::$settings['listConfig'])) {
-				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
+				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings!', 1288110596);
 			}
          self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings, $listIdentifier);
       }
