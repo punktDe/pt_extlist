@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
-		$repository = t3lib_div::makeInstance($dataBackendSettings['repositoryClassName']);
+		$repository = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get($dataBackendSettings['repositoryClassName']);
 		return $repository;
 	}
 	
@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		}
 
 		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $repository);
-		$extBaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		//$extBaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		$domainObjectsForFilterOptions = $extBaseQuery->execute();
 
@@ -201,7 +201,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
 
 		/* @var $extbaseQuery Tx_Extbase_Persistence_Query */
-		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		//$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		return $extbaseQuery;
 	}
@@ -322,8 +322,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildExtBaseQueryWithoutPager() {
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
 		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
-		    
-		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+
+		//$this->backendConfiguration->getSettings('respectStoragePage')
+		//$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
 		    
 		return $extbaseQuery;
 	}
