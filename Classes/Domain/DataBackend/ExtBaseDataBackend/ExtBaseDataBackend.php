@@ -128,7 +128,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		}
 
 		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $repository);
-		//$extBaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+
+		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
+			$extBaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		}
 
 		$domainObjectsForFilterOptions = $extBaseQuery->execute();
 
@@ -201,7 +204,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
 
 		/* @var $extbaseQuery Tx_Extbase_Persistence_Query */
-		//$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
+			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		}
 
 		return $extbaseQuery;
 	}
@@ -323,9 +328,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
 		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
 
-		//$this->backendConfiguration->getSettings('respectStoragePage')
-		//$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
-		    
+		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
+			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		}
+
 		return $extbaseQuery;
 	}
 	
