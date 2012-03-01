@@ -56,8 +56,16 @@ interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface {
 	/**
 	 * Resets sorting of implementing object.
 	 *
+	 * DOES NOT RESET TO DEFAULT SORTING!!!
 	 */
 	public function resetSorting();
+
+
+
+	/**
+	 * Resets sorting of implementing object to default sorting.
+	 */
+	public function resetToDefaultSorting();
 	
 }
 ?>
