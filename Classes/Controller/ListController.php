@@ -61,7 +61,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-        
+
 		// Do not show the list if it is empty.
 		// TODO do not use forward here!!!
 		if($list->getListData()->count() <= 0) {
@@ -72,11 +72,17 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
 
+		$pagerCollection = $this->dataBackend->getPagerCollection();
+		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+
 		$this->view->assign('config', $this->configurationBuilder);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
 		$this->view->assign('aggregateRows', $renderedAggregateRows);
+
+		$this->view->assign('filterCollection', $this->dataBackend->getFilterboxCollection());
+		$this->view->assign('pagerCollection', $pagerCollection);
 	}
 
 
@@ -109,7 +115,10 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @return string A message saying that the list is empty.
 	 */
 	public function emptyListAction() {
-		// template handles translation...
+		// TODO this action is simply stupid... why the hell do we have that?!?
+		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$this->view->assign('listData', $list->getListData());
+		$this->view->assign('filterCollection', $this->dataBackend->getFilterboxCollection());
 	}
 
 

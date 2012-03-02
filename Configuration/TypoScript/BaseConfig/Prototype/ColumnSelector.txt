@@ -1,0 +1,25 @@
+# Definition of ColumnSelector prototypes for use in list configuration
+#
+# @author Daniel Lienert <lienert@punkt.de> Michael Knoll <knoll@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+
+plugin.tx_ptextlist.prototype.columnSelector {
+
+	# You have to enable the column selector to avoid illicit unhiding of columns
+	enabled = 0
+
+	# If set to 1, the selector only shows the by default hidden columns
+	hideDefaultVisibleInSelector = 0
+
+	# If the CS is used only to select the columns for printView, it should not persist its state to session permanently
+	persistToSession = 1
+
+	# If enabled, only selected columns are shown. When disabled, they are added to already visible columns.
+	onlyShowSelectedColumns = 0
+
+	partialPath = ColumnSelector/Select
+
+}

@@ -77,6 +77,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends T
 
 		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
 
+        $accesibleTagCloudDataProvider->injectDataBackend($dataBackend);
 		$accesibleTagCloudDataProvider->injectFilterConfig($filterConfiguration);
 		$accesibleTagCloudDataProvider->init();
 

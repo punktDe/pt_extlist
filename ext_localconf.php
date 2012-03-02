@@ -13,10 +13,11 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $controllerActions = array(															// An array holding the controller-action-combinations that are accessible 
 	'List' => 'list,sort', // The first controller and its first action will be the default
 	'Export'=>'showLink,download',
-	'Filterbox' => 'show,submit,reset',
+	'Filterbox' => 'show,submit,reset,resetFilter',
 	'Pager' => 'show',
 	'Bookmarks' => 'show,process,edit,update,delete,create,new',
 	'BreadCrumbs' => 'index,resetFilter',
+	'ColumnSelector' => 'show',
 );
 
 		

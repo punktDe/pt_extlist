@@ -36,6 +36,36 @@
  */
 class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_AbstractExportView {
 
+
+    /**
+     * @var string sets the output encoding
+     */
+    protected $outputEncoding = 'ISO-8859-1';
+
+
+    /**
+     * @var string sets the delimiter
+     */
+    protected $delimiter = ';';
+
+
+    /**
+     * Init the configuration for CSVExport
+     */
+    protected function initConfiguration() {
+		parent::initConfiguration();
+
+        if($this->exportConfiguration->getSettings('outputEncoding')) {
+            $this->outputEncoding = $this->exportConfiguration->getSettings('outputEncoding');
+        }
+
+        if($this->exportConfiguration->getSettings('delimiter')) {
+            $this->delimiter = $this->exportConfiguration->getSettings('delimiter');
+        }
+	}
+
+
+
 	/**
 	 * Overwriting the render method to generate a CSV output
 	 *
@@ -56,17 +86,24 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 			foreach ($templateVariableContainer['listCaptions'] as $caption) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 				$row[] = $caption;
 			}
-			fputcsv($out, $row, ";"); // todo - delimiter configurabe by ts
+			fputcsv($out, $row, $this->delimiter);
 		}
+
 
 		// Rows
 		foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+
 			$row = array();
 			foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 				$row[] = $listCell->getValue();
 			}
-			$row = Tx_PtExtbase_Div::iconvArray($row, 'UTF-8', 'ISO-8859-1');     // TODO: make encoding configurable via TS
-			fputcsv($out, $row, ";");
+
+            if($this->outputEncoding != 'UTF-8') {
+                $row = Tx_PtExtbase_Div::iconvArray($row, 'UTF-8', $this->outputEncoding);
+            }
+
+            $this->exportConfiguration->getSettings('outputEncoding');
+            fputcsv($out, $row, ";");
 		}
 
 		fclose($out);

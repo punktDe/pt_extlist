@@ -68,11 +68,14 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	public function render() {
 
+
+
         $this->init();
         $this->clearOutputBufferAndSendHeaders();
 
         $rowNumber = 1;
         $columnNumber = 0;
+
 
         // Headers
         if ($this->templateVariableContainer->exists('listCaptions')) {
@@ -99,11 +102,15 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		}
 
 
-        // TODO make file format configurable via TS
-        $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'Excel2007');
+        // File format can be changed in FlexForm in 'fileFormat' field.
+		// possible values: 'Excel2007', 'Excel5'
+		// if no value is given, 'Excel2007' is taken.
+		$fileFormat = ($this->exportConfiguration->getSettings('fileFormat') !== array() ? $this->exportConfiguration->getSettings('fileFormat') : 'Excel2007');
+        $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $fileFormat);
 
         // TODO make output configurable via TS
         $objWriter->save('php://output');
+
         $this->closeOutputBufferAndExit();
 	}
 

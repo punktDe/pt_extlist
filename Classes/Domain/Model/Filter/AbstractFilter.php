@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -153,13 +153,18 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var string
 	 */
 	protected $errorMessage = '';
-	
-	
-	
+
+
+
+	/**
+	 * Holds Filterbox to which this filter belongs to
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+	 */
+	protected $filterbox;
+
 	/**
 	 * Constructor for filter
-	 *
-	 * @param String $filterIdentifier     Identifier for filter
 	 */
 	public function __construct() {
 		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
@@ -202,6 +207,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		$this->dataBackend = $dataBackend;
 	}
+
+
+
+	/**
+	 * Injects filterbox into filter
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
+	 */
+	public function injectFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox) {
+		$this->filterbox = $filterbox;
+	}
 	
 	
 	
@@ -235,6 +251,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function getFilterBoxIdentifier() {
 		return $this->filterBoxIdentifier;
 	}
+
+
+
+	/**
+	 * Returns full qualified filter identifier which is 'filterboxIdentifier.filterIdentifier'
+	 *
+	 * @return string
+	 */
+	public function getFullQualifiedFilterIdentifier() {
+		return $this->getFilterBoxIdentifier() . '.' . $this->getFilterIdentifier();
+	}
 	
 	
 	
@@ -252,7 +279,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Returns filter configuration of this filter
 	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	public function getFilterConfig() {
 		return $this->filterConfig;
@@ -313,12 +340,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     public function getErrorMessage() {
     	return $this->errorMessage;
     }
-    
-    
-	
+
+
+
+	/**
+	 * Returns filterbox to which this filter is associated to
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+	 */
+	public function getFilterbox() {
+		return $this->filterbox;
+	}
+
+
+
 	/**
 	 * Initializes the filter
-	 * 
+	 *
+	 * @param bool $initAfterReset
 	 * @return void
 	 */
 	public function init($initAfterReset = false) {
@@ -362,7 +401,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->initFilter();
 		
 		$this->buildFilterQuery();
-		
 	}
 	
 	
@@ -437,7 +475,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * 
 	 */
 	protected function buildFilterQuery() {
-		if($this->isActive) $criteria = $this->buildFilterCriteriaForAllFields();
+
+		$criteria = null;
+
+		if($this->isActive) {
+			$criteria = $this->buildFilterCriteriaForAllFields();
+		}
 			
 		if($criteria) {
 			$this->filterQuery->unsetCriterias();
@@ -651,7 +694,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectSessionData(array $sessionData) {
 		$this->sessionFilterData = $sessionData;
 	}
-	
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getSessionFilterData() {
+		return $this->sessionFilterData;
+	}
 }
 
 ?>

@@ -81,7 +81,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	        $className = self::$translatorClasses[$criteriaClass];
 		    $criteriaString = call_user_func($className . '::translateCriteria', $criteria);	
 		} else {
-		    throw new Exception('Unknown type of criteria ' . get_class($criteria));
+		    throw new Exception('Unknown type of criteria ' . get_class($criteria) . ' 1320484761');
 		}
 		return $criteriaString;
 	}

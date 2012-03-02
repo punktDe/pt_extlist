@@ -58,7 +58,6 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * @return array GPArray of objects namespace
 	 */
 	public function render($arguments, $object = NULL, $nameSpace = '') {
-		$GetPostValueArray = array();
 		$argumentStringArray = $this->getArgumentArray($arguments);
 		$argumentArray = array();
 		

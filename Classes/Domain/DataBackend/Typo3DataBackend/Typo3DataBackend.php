@@ -91,10 +91,21 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 		$specialFieldsWhereClause = '';
 
 		foreach($typo3Tables as $typo3Table) {
-			list($table, $alias) = t3lib_div::trimExplode(' ', $table, true);
-			
-			if (is_array($GLOBALS['TCA'][$typo3Table])) {
-				$specialFieldsWhereClause .= Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($typo3Table);
+			list($table, $alias) = t3lib_div::trimExplode(' ', $typo3Table, true);
+			$alias = trim($alias);
+
+			if (is_array($GLOBALS['TCA'][$table])) {
+				$specialFieldsWhereClauseSnippet = Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($table);
+
+				if($alias) {
+					// Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
+					$specialFieldsWhereClauseSnippet = str_replace(' ' . $table . '.',  ' ' . $alias . '.', $specialFieldsWhereClauseSnippet);
+                    // Make sure not to replace parts of table names with wrong aliases! So check for '(' to come before and '.' to come after
+                    $specialFieldsWhereClauseSnippet = str_replace('(' . $table . '.',  '(' . $alias . '.', $specialFieldsWhereClauseSnippet);
+                }
+
+				$specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
+
 			}
 		}
 		

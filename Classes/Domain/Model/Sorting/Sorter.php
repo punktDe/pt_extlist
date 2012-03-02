@@ -66,7 +66,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
 	
 	
 	/**
-	 * Register method for observed sorters that can influence sorting.
+	 * Registers sorter that can influence sorting.
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver
 	 */
@@ -113,6 +113,17 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
 
 
 
+	/**
+	 * Resets all sorting observers to default sorting
+	 */
+	public function resetToDefault() {
+		foreach($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+			$sortingObserver->resetToDefaultSorting();
+		}
+	}
+
+
+
     /**
      * Builds sorting state collection by respecting the registered sorting observers
      * and getting their sorting informations.
@@ -129,7 +140,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
                 $this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
             }
         }
-        
+
     }
 
 }

@@ -52,10 +52,19 @@ plugin.tx_ptextlist._CSS_DEFAULT_STYLE (
 	.tx-ptextlist-list-exportLink {
 	    margin: 5px;
 	}
-	
-	
+
+	/* Column selector */
+	.tx-ptextlist-columnSelector{
+		border: 1px solid #BFBFBF;
+		margin-bottom: 20px;
+		padding: 5px;
+		overflow: hidden;
+		background-color: #eee;
+	}
+
+
 	/* Filters */
-	.tx-ptextlist-filterbox{
+	.tx-ptextlist-filterbox {
 		border: 1px solid #BFBFBF;
 		margin-bottom: 20px;
 		padding: 5px;

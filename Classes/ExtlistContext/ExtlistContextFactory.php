@@ -150,7 +150,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 
 		$extlistContext->injectDataBackend($dataBackend);
 		$extlistContext->init();
-
+		
 		return $extlistContext;
 	}
 

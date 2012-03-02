@@ -33,17 +33,9 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 
-	/**
-	 * Filter configuration object
-	 * 
-	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig 
-	 */
-	protected $filterConfig;
-	
-	
-	/**
+    /**
 	 * Show the group row count
 	 * 
 	 * @var integer
@@ -85,14 +77,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	 */
 	protected $additionalTables;
 	
-	
-	/**
-	 * Holds a reference to the current dataBackend
-	 * 
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
-	 */
-	protected $dataBackend;
-	
 
 	
 	/**
@@ -130,7 +114,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
         	$renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
         	$renderedOptions[$optionKey]['selected'] = false;
         }
-       
+        
         return $renderedOptions;
 	}
 	
@@ -143,8 +127,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	 */
 	protected function getOptionsByFields($fields) {
 		$groupDataQuery = $this->buildGroupDataQuery($fields);
-        $excludeFiltersArray = $this->buildExcludeFiltersArray();
-        return $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
+		$excludeFiltersArray = $this->buildExcludeFiltersArray();
+		return $this->dataBackend->getGroupData($groupDataQuery, $excludeFiltersArray);
 	}
 	
 	
@@ -174,31 +158,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
         	$groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
         }
         
-        $groupDataQuery->addGroupBy($this->filterField->getIdentifier());
+        $groupFields = array();
+        foreach ($this->getFieldsRequiredToBeSelected() as $field) {
+        	$groupFields[] = $field->getIdentifier();
+        }
+
+    	$groupDataQuery->addGroupBy(implode(',', $groupFields));	
 
         return $groupDataQuery;
-	}
-	
-	
-	
-	/**
-	 * Render a single option line by cObject or default
-	 *
-	 * @param array $optionData
-	 */
-	protected function renderOptionData($optionData) {
-		
-		$option = '';
-		
-		foreach($this->displayFields as $displayField) {
-        	$values[] = $optionData[$displayField->getIdentifier()];
-        }
-        
-		$optionData['allDisplayFields'] = implode(' ', $values);
-		
-		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
-		
-		return $option;
 	}
 	
 	
@@ -288,8 +255,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	protected function resolveFieldConfig($fieldIdentifier) {	
 		return $this->dataBackend->getFieldConfigurationCollection()->getFieldConfigByIdentifier($fieldIdentifier);
 	}
-	
-	
+
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface"
 	 *****************************************************************************************************************/
@@ -299,18 +265,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData implements Tx_PtEx
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
 	 */
 	public function init() {
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier());
-		
 		$this->initDataProviderByTsConfig($this->filterConfig->getSettings());
-	}
-	
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
-	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		$this->filterConfig = $filterConfig;
 	}
 	
 	

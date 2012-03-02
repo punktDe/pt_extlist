@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -31,8 +31,7 @@
  * 
  * @package Domain
  * @subpackage Renderer\Default
- * @author Christoph Ehscheidt 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 
@@ -70,17 +69,17 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		$this->rendererConfiguration = $rendererConfiguration;
 		#$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
 	}
-	
-	
-	
+
+
 	/**
 	 * Renders the cell content.
 	 *
-	 * @param string $columnIdentifier The columnIdentifier.
+	 * @param \Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $data The table data.
 	 * @param int $columnIndex Current column index.
 	 * @param int $rowIndex Current row index.
-	 * 
+	 *
+	 * @internal param string $columnIdentifier The columnIdentifier.
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
 	public function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex) {
@@ -88,37 +87,34 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
 
-		$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);
+		// TODO: Include the objectMapper here ...
+		// if($columnConfig->getObjectMapperConfig() instanceof Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig) {}
+
+		if($columnConfig->getRawFields()) {
+			$content = $fieldSet;
+		} else {
+			$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);
+		}
 		
-		// Create new cell 
+		// Create new cell
 		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($content);
 		$cell->setRowIndex($rowIndex);
 		$cell->setColumnIndex($columnIndex);
-		
 		
 		// render cell css class
 		if($columnConfig->getCellCSSClass()) {
 			$cell->setCSSClass($this->renderCellCSSClass($fieldSet, $columnConfig));
 		}
-		
-		// Resolve special cell values
-		/*
-		 * TODO: make something usefull here ... :)
-		 * 
-		if($this->renderSpecialCellUserFunc || $columnConfig->getSpecialCell()) {
-			$this->renderSpecialValues($cell, $columnConfig);	
-		 }
-		*/
-		
+
 		return $cell;
 	}
-	
-	
+
+
 	
 	/**
 	 * render the cells CSS Class
 	 * 
-	 * @param array $cell
+	 * @param array $fieldSet
 	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 * @return string
 	 */
@@ -134,39 +130,37 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 			return $cellCSSConfig;
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Call user functions for building special values.
 	 * renderer.specialCell gets overridden by column.specialCell
-	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_Cell &$cell
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig &$columnConfig
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Cell $cell
+	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 */
 	protected function renderSpecialValues(Tx_PtExtlist_Domain_Model_List_Cell $cell, Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig) {
 
 		$rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
-				
-		if(!is_null($columnConfig->getSpecialCell())) {
+
+		if (!is_null($columnConfig->getSpecialCell())) {
 			$rendererUserFunc = $columnConfig->getSpecialCell();
 		}
-		
-		if(!empty($rendererUserFunc)) {
 
-			$dummRef = '';			
-			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $cell, $dummRef);
-			
+		if (!empty($rendererUserFunc)) {
+			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $cell, '');
 			$cell->setSpecialValues($specialValues);
 		}
 	}
-		
-	
-	
+
+
+
 	/**
 	 * Creates a set of fields which are available. Defined by the 'fields' TS setup.
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 * @return array
 	 */
 	protected function createFieldSet(Tx_PtExtlist_Domain_Model_List_Row $row, Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig) {

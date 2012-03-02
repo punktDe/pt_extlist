@@ -146,6 +146,28 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 
+    dateRange {
+        filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
+        partialPath = Filter/Range/DateRangeFilter
+
+		dbTimeFormat = U
+		regional =
+
+		options {
+
+		}
+
+		#fieldIdentifier =
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} equals {field:value}
+		}
+    }
+
+
+
 	select {
 		partialPath = Filter/Options/SelectFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
@@ -178,6 +200,42 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
+
+	treeSelect {
+		partialPath = Filter/Options/TreeSelectFilter
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter
+		#dataProviderClassName =
+		defaultValue =
+		filterIdentifier =
+		displayFields =
+		label =
+		fieldIdentifier =
+		multiple = 0
+		excludeFilters =
+		showRowCount = 1
+		submitOnChange = 0
+		inactiveOption =
+		inactiveValue =
+		invert = 0
+		invertable = 0
+		accessGroups =
+
+		treeNodeRepository =
+		treeNamespace =
+		treeMaxDepth =
+		# treeUidFieldIdentifier =
+
+		renderObj = TEXT
+		renderObj {
+			dataWrap = {field:allDisplayFields} ({field:rowCount})
+		}
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} contains {field:value}
+		}
+	}
 
 
 	checkbox {

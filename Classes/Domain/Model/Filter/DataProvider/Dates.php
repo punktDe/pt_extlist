@@ -33,26 +33,8 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 
-	/**
-	 * Filter configuration object
-	 * 
-	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig 
-	 */
-	protected $filterConfig;
-
-
-
-	/**
-	 * Holds a reference to the current dataBackend
-	 *
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
-	 */
-	protected $dataBackend;
-
-
-	
 	/**
 	 * Array of filters to be excluded if options for this filter are determined
 	 *
@@ -176,18 +158,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
 	 */
 	public function init() {
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier());
 		$this->initDataProviderByTsConfig($this->filterConfig->getSettings());
-	}
-
-		
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
-	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		$this->filterConfig = $filterConfig;
 	}
 	
 	
@@ -245,5 +216,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates implements Tx_PtExtlis
 	protected function buildFieldAlias($key, $part) {
 		return $this->dateFieldConfigs[$key][$part]->getIdentifier() . '_' . $key . '_' . $part;
 	}
+    
 }
 ?>

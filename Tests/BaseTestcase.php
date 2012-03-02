@@ -29,6 +29,8 @@
 /**
  * Class implements a base testcase for pt_extlist testcases
  *
+ * TODO we should use pt_extbase base testcase to be extended here. Add some generic functions there!
+ *
  * @package Tests
  * @author Michael Knoll 
  */
@@ -128,8 +130,19 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_Bas
         $rendererConfiguration = $rendererChainConfig->getItemById('100');
         return $rendererConfiguration;
     }
-	
-	
-}
 
+
+
+    /**
+     * Returns mock object for given class name with methods given in override methods overwritten in returned object.
+     *
+     * @param $className Name of class to be mocked
+     * @param array $overrideMethods Methods to be overwritten in mocked class
+     * @return PHPUnit_Framework_MockObject_MockObject Mock instance of $className
+     */
+    public function getSimpleMock($className, $overrideMethods = array()) {
+        return $this->getMock($className, array(), $overrideMethods, '', FALSE);
+    }
+
+}
 ?>

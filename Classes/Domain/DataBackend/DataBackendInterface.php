@@ -187,9 +187,9 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Injector for query interpreter
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     * @param mixed $queryInterpreter
      */
-    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter);
+    public function injectQueryInterpreter($queryInterpreter);
     
     
     
@@ -234,6 +234,22 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     public function getSorter();
-    
+
+
+
+	/**
+	 * Reset sorting if sorting changes due to GP vars
+	 *
+	 * DOES NOT RESET SORTING TO DEFAULT SORTING!!! @see resetSortingToDefault()
+	 */
+	public function resetSorting();
+
+
+
+	/**
+	 * Reset sorting to default sorting (configured in TS)
+	 */
+	public function resetSortingToDefault();
+
 }
 ?>

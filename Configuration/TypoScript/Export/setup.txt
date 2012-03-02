@@ -6,7 +6,6 @@
 # on the same page or a parent page. Only
 # settings for export are given here!
 #
-# @author Michael Knoll <knoll@punkt.de>
 # @author Daniel Lienert <lienert@punkt.de>
 # @package pt_extlist
 # @subpackage Export
@@ -20,8 +19,12 @@ plugin.tx_ptextlist.settings.export {
 		csvExport {
 			viewClassName = Tx_PtExtlist_View_Export_CsvListView
 			fileExtension = csv
+
+			outputEncoding = ISO-8859-1
+			delimiter = ;
 		}
-		
+
+
 		fluidTemplateExport < plugin.tx_ptextlist.prototype.export
 		fluidTemplateExport {
 			viewClassName = Tx_PtExtlist_View_Export_FluidListView
@@ -29,10 +32,29 @@ plugin.tx_ptextlist.settings.export {
 			templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/export.html
 		}
 
+
 		excelExport < plugin.tx_ptextlist.prototype.export
 		excelExport {
 		    viewClassName = Tx_PtExtlist_View_Export_ExcelListView
 		    fileExtension = xls
+		}
+
+
+		pdfExport < plugin.tx_ptextlist.prototype.export
+		pdfExport {
+		    viewClassName = Tx_PtExtlist_View_Export_PdfListView
+		    fileExtension = pdf
+		    templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html
+            cssFilePath =  EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css
+
+		    headerPartial = Export/PDF/ListHeader
+            bodyPartial = Export/PDF/ListBody
+            aggregateRowsPartial = Export/PDF/AggregateRows
+
+            // DOMPDF Settings
+            dompdfSourcePath = EXT:pt_dompdf/Classes/dompdf
+            paperSize = a4
+            paperOrientation =  portrait
 		}
 
 	}

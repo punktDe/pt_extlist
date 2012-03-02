@@ -48,7 +48,7 @@
                   </numIndex>
                   <numIndex index="3" type="array">
                     <numIndex index="0">Filterbox</numIndex>
-                    <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset</numIndex>
+                    <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</numIndex>
                   </numIndex>
                   <numIndex index="4" type="array">
                     <numIndex index="0">Pager</numIndex>
@@ -61,6 +61,10 @@
                   <numIndex index="6" type="array">
                     <numIndex index="0">Breadcrumbs</numIndex>
                     <numIndex index="1">BreadCrumbs->index;BreadCrumbs->resetFilter</numIndex>
+                  </numIndex>
+                  <numIndex index="7" type="array">
+                    <numIndex index="0">Column Selector</numIndex>
+                    <numIndex index="1">ColumnSelector->show</numIndex>
                   </numIndex>
                 </items>
               </config>
@@ -189,6 +193,17 @@
               </config>
             </TCEforms>
           </settings.prototype.export.addDateToFilename>
+
+          <settings.prototype.export.fileFormat>
+            <TCEforms>
+              <label>File Format</label>
+              <config>
+                  <type>input</type>
+                  <size>20</size>
+                  <eval>trim</eval>
+              </config>
+            </TCEforms>
+          </settings.prototype.export.fileFormat>
 
         </el>
       </ROOT>

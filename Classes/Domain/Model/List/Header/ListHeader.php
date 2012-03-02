@@ -28,6 +28,9 @@
 
 /**
  * Class implements list header collection which consists of all header columns that make up the header of the list.
+ *
+ * As the HeaderColumns represent in fact the columns, this collection should simply named columnCollection
+ * TODO: Rename listHeader to ColumnCollection
  * 
  * @author Daniel Lienert 
  * @package Domain
@@ -35,16 +38,22 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
     extends Tx_PtExtlist_Domain_Model_List_Row
-    implements Tx_PtExtbase_State_IdentifiableInterface {
+    implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 
-	
 	/**
 	 * ListIdentifier of the current list
 	 * @var string
 	 */
 	protected $listIdentifier;
 
-    
+
+
+	/**
+	 * @var array
+	 */
+	protected $gpVarData = array();
+
+
 	
 	/**
 	 * @param string $listIdentifier
@@ -54,7 +63,26 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	}
 
 
-	
+
+	/**
+	 * Injects GetPost Vars into object
+	 *
+	 * @param array $GPVars GP Var data to be injected into the object
+	 */
+	public function injectGPVars($GPVars) {
+		$this->gpVarData = $GPVars;
+	}
+
+
+
+	/**
+	 * Init the column collection
+	 */
+	public function init() {
+	}
+
+
+
 	/**
 	 * Add a header column to the collection
 	 *
@@ -90,7 +118,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 * @return string Namespace to identify this object
 	 */
 	public function getObjectNamespace() {
-		return $this->listIdentifier . '.headerColumns';
+		return $this->listIdentifier . '.columns';
 	}
 	
 	

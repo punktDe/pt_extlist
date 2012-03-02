@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -31,11 +31,10 @@
  * 
  * @package Domain
  * @subpackage Renderer\Strategy
- * @author Christoph Ehscheidt 
- * @author Michael Knoll 
+ * @author Michael Knoll
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
+class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements t3lib_Singleton {
 
 	/**
 	 * Renders captions
@@ -47,19 +46,34 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer {
 		Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
 		
 		$renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
+
 		foreach($listHeader as $headerColumn) {
-			if($headerColumn->getColumnConfig()->isAccessable()) {
-				$label = $headerColumn->getLabel();
-				
-				$label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
-				if(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
-					$label = Tx_Extbase_Utility_Localization::translate($label, '');	
-				}
-				
-			    $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
+
+			if($headerColumn->getColumnConfig()->isAccessable() && $headerColumn->getIsVisible()) {
+				$label = $this->renderColumnLabel($headerColumn);
+			   $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
 			}
 		}
+
 		return $renderedListHeader;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn
+	 * @return rendered|string
+	 */
+	public function renderColumnLabel(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
+		$label = $headerColumn->getLabel();
+
+		$label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
+
+		if(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
+			$label = Tx_Extbase_Utility_Localization::translate($label, '');
+		}
+
+		return $label;
 	}
 	
 }

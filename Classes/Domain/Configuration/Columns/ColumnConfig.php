@@ -53,7 +53,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	/** 
 	 * @var string
 	 */
-	protected $label;
+	protected $label = '';
 
 
 
@@ -82,6 +82,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * @var array
 	 */
 	protected $renderObj;
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
+	 */
+	protected $objectMapperConfig = NULL;
 
 
 	
@@ -147,23 +153,21 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 	/**
-	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
+	 * Says if this column is accessible by the current FE-User. Will be injected by the factory.
 	 * 
 	 * @var boolean
 	 */
 	protected $accessable = false;
 
 
+	/**
+	 * Holds CSS class for header th tag
+	 *
+	 * @var string
+	 */
+	protected $headerThCssClass = '';
 
-    /**
-     * Holds CSS class for header th tag
-     * 
-     * @var string
-     */
-    protected $headerThCssClass = '';
 
-
-	
 	/**
 	 * if one of this columns fields is a expanded GroupField, 
 	 * this column has an array as dataStructure
@@ -172,12 +176,27 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $containsArrayData = false;
 
 
+	/**
+	 * @var bool
+	 */
+	protected $isVisible = true;
+
+
+	/**
+	 * If this is true, the default renderer returns the array of raw fieldValues instead of rendered content
+	 * @var bool
+	 */
+	protected $rawFields;
+
 	
 	/**
 	 * (non-PHPdoc)
 	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
+
+		$headerInclusionUtility = t3lib_div::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
+
 		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
 		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "'.$this->columnIdentifier.'" not given 1277889447');
 		
@@ -191,10 +210,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 			}
 		}
 
-        $this->label = '';
-		// $this->label = $this->columnIdentifier;
-
+		$this->setBooleanIfExistsAndNotNothing('isVisible');
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
+		$this->setBooleanIfExistsAndNotNothing('rawFields');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		$this->setValueIfExistsAndNotNothing('sortingImageAsc');
 		$this->setValueIfExistsAndNotNothing('sortingImageDesc');
@@ -202,42 +220,47 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
-        $this->setValueIfExistsAndNotNothing('headerThCssClass');
-		
-		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
+		$this->setValueIfExistsAndNotNothing('headerThCssClass');
+
+		if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
 			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
 		}
-	
-		if(array_key_exists('renderObj', $this->settings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
-        }
 
-        /* Sorting configuration is set as follows:
-            1. We check whether we have 'sortingFields' settings in column configuration
-            2. We check whether we have 'sorting' settings in column configuration
-            3. If we don't have either, we use first field identifier and make this sorting field of column
-        */
+		if (array_key_exists('renderObj', $this->settings)) {
+			$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+		}
+
+		/* Sorting configuration is set as follows:
+			  1. We check whether we have 'sortingFields' settings in column configuration
+			  2. We check whether we have 'sorting' settings in column configuration
+			  3. If we don't have either, we use first field identifier and make this sorting field of column
+		 */
 		if (array_key_exists('sortingFields', $this->settings)) {
-            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
-        } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
+			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+		} elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
-        } else {
+		} else {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
 		}
 
-		if(array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',',$this->settings['accessGroups']);
+		if (array_key_exists('accessGroups', $this->settings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
 		}
 
-        // Generate relative paths for sorting images
-        $this->sortingImageDefault = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
-        $this->sortingImageAsc = substr(t3lib_div::getFileAbsFileName($this->sortingImageAsc), strlen(PATH_site));
-        $this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
-	}	
-	
-	
-	
+		// Generate relative paths for sorting images
+		$this->sortingImageDefault = $headerInclusionUtility->getFileRelFileName($this->sortingImageDefault);
+		$this->sortingImageAsc = $headerInclusionUtility->getFileRelFileName($this->sortingImageAsc);
+		$this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
+
+		// Build the objectMapperConfig
+		if(array_key_exists('objectMapper', $this->settings)) {
+			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
+		}
+	}
+
+
+
 	/**
 	 * @param boolean $accessable
 	 */
@@ -324,93 +347,114 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
+	/**
+	 * Return the default image path to show for sorting link.
+	 * @return string
+	 */
+	public function getSortingImageDefault() {
+		return $this->sortingImageDefault;
+	}
+
 
 	/**
-     * Return the default image path to show for sorting link.
-     * @return string
-     */
-    public function getSortingImageDefault() {
-    	return $this->sortingImageDefault;
-    }
+	 * Return the ASC image path to show for sorting link.
+	 * @return string
+	 */
+	public function getSortingImageAsc() {
+		return $this->sortingImageAsc;
+	}
+
+
+	/**
+	 * Return the DESC image path to show for sorting link.
+	 * @return string
+	 */
+	public function getSortingImageDesc() {
+		return $this->sortingImageDesc;
+	}
+
+
+	/**
+	 * Returns the special cell user function path
+	 * @return string
+	 */
+	public function getSpecialCell() {
+		return $this->specialCell;
+	}
+
+
+	/**
+	 * Return array off groupIds
+	 * @return array
+	 */
+	public function getAccessGroups() {
+		return $this->accessGroups;
+	}
+
+
+	/**
+	 * Indicates if the data for this columns cells are arrays
+	 * @return boolean
+	 */
+	public function getContainsArrayData() {
+		return $this->containsArrayData;
+	}
+
+
+	/**
+	 * @return string renderTemplate
+	 */
+	public function getRenderTemplate() {
+		return $this->renderTemplate;
+	}
+
+
+	/**
+	 * @return string;
+	 */
+	public function getCellCSSClass() {
+		return $this->cellCSSClass;
+	}
+
+
+	/**
+	 * Getter for CSS class for header th tag
+	 *
+	 * @return string
+	 */
+	public function getHeaderThCssClass() {
+		return $this->headerThCssClass;
+	}
 
 
 
-    /**
-     * Return the ASC image path to show for sorting link.
-     * @return string
-     */
-    public function getSortingImageAsc() {
-    	return $this->sortingImageAsc;
-    }
+	/**
+	 * @return boolean
+	 */
+	public function getIsVisible() {
+		return $this->isVisible;
+	}
 
+	/**
+	 * @return \Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig
+	 */
+	public function getObjectMapperConfig() {
+		return $this->objectMapperConfig;
+	}
 
+	/**
+	 * @param boolean $rawFields
+	 */
+	public function setRawFields($rawFields) {
+		$this->rawFields = $rawFields;
+	}
 
-    /**
-     * Return the DESC image path to show for sorting link.
-     * @return string
-     */
-    public function getSortingImageDesc() {
-    	return $this->sortingImageDesc;
-    }
+	/**
+	 * @return boolean
+	 */
+	public function getRawFields() {
+		return $this->rawFields;
+	}
 
-
-
-    /**
-     * Returns the special cell user function path
-     * @return string
-     */
-    public function getSpecialCell() {
-    	return $this->specialCell;
-    }
-
-
-
-  	/**
-     * Return array off groupIds
-     * @return array
-     */
-    public function getAccessGroups() {
-    	return $this->accessGroups;
-    }
-    
-
-
-    /**
-     * Indicates if the data for this columns cells are arrays
-     * @return boolean 
-     */
-    public function getContainsArrayData() {
-    	return $this->containsArrayData;
-    }
-    
-
-
-    /**
-     * @return string renderTemplate
-     */
-    public function getRenderTemplate() {
-    	return $this->renderTemplate;
-    }
-
-
-
-    /**
-     * @return string;
-     */
-    public function getCellCSSClass() {
-    	return $this->cellCSSClass;
-    }
-
-
-
-    /**
-     * Getter for CSS class for header th tag
-     * 
-     * @return string
-     */
-    public function getHeaderThCssClass() {
-        return $this->headerThCssClass;
-    }
-    
 }
 ?>

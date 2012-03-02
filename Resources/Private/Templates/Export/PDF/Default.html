@@ -1,0 +1,51 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace dompdf=Tx_PtDompdf_ViewHelpers}
+<extlist:comment>
+<!--
+Partial for rendering a pdf List
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_List_ListData		listData		A collection with rows of the list.
+
+
+In this example their are more objects to access:
+Tx_PtExtlist_Domain_Model_List_Row		listRow		A collection with cells of the row.
+Tx_PtExtlist_Domain_Model_List_Cell		cell		A cell which holds the value and additional information of the cell.
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <daniel@lienert.cc>
+-->
+
+</extlist:comment>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="{csssFilePath}" />
+    </head>
+
+    <body>
+
+
+        <table align="center" class="tx-ptextlist-list tx-ptextlist-list-standard" id="tx-ptextlist-list-{config.listConfiguration.listIdentifier}">
+            <thead>
+                <f:render partial="{config.exportConfiguration.settings.headerPartial}" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
+            </thead>
+            <tbody>
+                <f:render partial="{config.exportConfiguration.settings.bodyPartial}" arguments="{listData:listData}" />
+            </tbody>
+            <tfoot>
+                <f:render partial="{config.exportConfiguration.settings.aggregateRowsPartial}" arguments="{aggregateRows:aggregateRows}" />
+            </tfoot>
+        </table>
+
+        <dompdf:staticText position="bottom-right">
+            Seite {PAGE_NUM} von {PAGE_COUNT}
+        </dompdf:staticText>
+
+    </body>
+</html>

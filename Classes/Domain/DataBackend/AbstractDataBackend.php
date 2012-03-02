@@ -131,6 +131,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      * Holds an instance of a query interpreter to be used for
      * query objects
      *
+     * TODO using abstract class as type here makes no sense!
+     *
      * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
      */
     protected $queryInterpreter;
@@ -208,13 +210,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      */
     protected function initBackend() {}    
     
-    
+
+
     /**
      * Init the backend specific configuration from TS config
      * 
      */
     protected function initBackendByTsConfig() {}	
-    
+
+
 	
 	/**
 	 * Injector for data mapper
@@ -257,6 +261,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection) {
 		$this->pagerCollection = $pagerCollection;
 	}
+
+
 	
 	/**
 	 * Injector for data source
@@ -283,9 +289,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     /**
      * Injector for query interpreter
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter
+     * @param mixed $queryInterpreter
      */
-    public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter $queryInterpreter) {
+    public function injectQueryInterpreter($queryInterpreter) {
         $this->queryInterpreter = $queryInterpreter;
     }
     
@@ -303,7 +309,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     
 
     /**
-     * Injector for 
+     * Injector for sorter
+	 *
      * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
      * @return void
      */
@@ -368,10 +375,11 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 * @return array Array of raw list data
 	 */
 	public function getListData() {
-		if(!$this->listData) {
+		if($this->listData === null) {
+            // TODO: buildListData() should set listData on backend itself!
 			$this->listData = $this->buildListData();
 		}
-
+        
 		return $this->listData;
 	}
 	
@@ -426,6 +434,27 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
         return $this->sorter;
     }
 
-}
 
+
+	/**
+	 * Reset sorting if sorting changes due to GP vars
+	 *
+	 * DOES NOT RESET SORTING TO DEFAULT SORTING!!! @see resetSortingToDefault()
+	 */
+	public function resetSorting() {
+		$this->sorter->reset();
+		$this->resetListDataCache();
+	}
+
+
+
+	/**
+	 * Reset sorting to default sorting (configured in TS)
+	 */
+	public function resetSortingToDefault() {
+		$this->sorter->resetToDefault();
+		$this->resetListDataCache();
+	}
+
+}
 ?>

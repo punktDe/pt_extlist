@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -47,7 +47,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	
 	/**
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
-	 *
+	 * @return array
 	 */
 	public function persistToSession() {
 		return array('filterValues' => $this->filterValues, 'invert' => $this->invert);
@@ -77,6 +77,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * Build the criteria for a single field
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
 	 */
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
@@ -98,7 +99,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
 	 */
 	protected function setActiveState() {
-		$this->isActive = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? false : true;
+		$this->isActive = (in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? false : true);
 	}
 	
 
@@ -108,17 +109,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 *
 	 */
 	protected function initFilterByGpVars() {
-		
+
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
-			$filterValues= $this->gpVarFilterData['filterValues'];
+			$filterValues = $this->gpVarFilterData['filterValues'];
 			
-			if(is_array($filterValues)) {
+			if (is_array($filterValues)) {
 				$this->filterValues = array_filter($filterValues);
 			} else {
-				$this->filterValues = trim($filterValues) ? array($filterValues => $filterValues) : array();
+				$this->filterValues = trim($filterValues) != '' ? array($filterValues => $filterValues) : array();
 			}
 		}
-		
 	}
 
 
@@ -140,7 +140,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 *
 	 */
 	protected function initFilterByTsConfig() {
-		if($this->filterConfig->getDefaultValue()) {
+		if ($this->filterConfig->getDefaultValue()) {
 			$this->setDefaultValuesFromTSConfig($this->filterConfig->getDefaultValue());
 		}
 	}
@@ -153,7 +153,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @param mixed $defaultValue single value or array of preselected values
 	 */
 	protected function setDefaultValuesFromTSConfig($defaultValue) {
-		if(is_array($defaultValue)) {
+		if (is_array($defaultValue)) {
 			foreach($defaultValue as $value) {
 				$this->filterValues[$value] = $value;
 			}
@@ -173,6 +173,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
 
 		$renderedOptions = $dataProvider->getRenderedOptions();
+
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
 
@@ -187,9 +188,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @param array $renderedOptions
 	 */
 	protected function setSelectedOptions(&$renderedOptions) {
-
 		foreach($this->filterValues as $filterValue) {
-			$renderedOptions[$filterValue]['selected'] = true;
+			if (!is_array($filterValue) && array_key_exists($filterValue, $renderedOptions)) {
+				$renderedOptions[$filterValue]['selected'] = true;
+			}
 		}
 	}
 
@@ -199,16 +201,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * Add inactiveFilterOpotion to rendered options
 	 *
 	 * @param array $renderedOptions
+	 * @return array
 	 */
 	protected function addInactiveOption(&$renderedOptions) {
 
-		if($renderedOptions == NULL) $renderedOptions = array();
+		if ($renderedOptions == NULL) $renderedOptions = array();
 		
-		if($this->filterConfig->getInactiveOption()) {
+		if ($this->filterConfig->getInactiveOption()) {
 
 			unset($renderedOptions[$this->filterConfig->getInactiveValue()]);
 
-			if(count($this->filterValues) == 0) {
+			if (count($this->filterValues) == 0) {
 				$selected = true;
 			} else {
 				$selected = in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? true : false;
@@ -219,7 +222,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			$renderedInactiveOption[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
         													     'selected' => $selected);
 
-			$renderedOptions= $renderedInactiveOption + $renderedOptions;
+			$renderedOptions = $renderedInactiveOption + $renderedOptions;
 		}
 
 		return $renderedOptions;
@@ -233,7 +236,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @return mixed String for single value, array for multiple values
 	 */
 	public function getValue() {
-		if(count($this->filterValues) > 1){
+		if (count($this->filterValues) > 1){
 			return $this->filterValues;
 		} else {
 			return current($this->filterValues);

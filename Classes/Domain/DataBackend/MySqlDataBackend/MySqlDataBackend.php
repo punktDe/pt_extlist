@@ -94,6 +94,16 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $listQueryParts = NULL;
 
 
+
+	/**
+	 * Holds total item count (cached)
+	 *
+	 * @var int
+	 */
+	protected $totalItemsCount = NULL;
+
+
+
 	/**
 	 * Factory method for data source
 	 *
@@ -121,6 +131,20 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$this->baseFromClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
 		$this->baseGroupByClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
     }
+
+
+
+
+	/**
+	 * We implement template method for initializing backend
+	 */
+	protected function initBackend() {
+		parent::initBackend();
+		// As pager->getCurrentPage is requested during $this->getTotalItemsCount(),
+		// we have to set it to infty first and later set correct item count!
+		$this->pagerCollection->setItemCount(PHP_INT_MAX);
+	}
+
 
 
 	/**
@@ -375,6 +399,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	}
 
 
+
 	/**
 	 * Get the query parts
 	 * @return array query parts
@@ -392,23 +417,32 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function getTotalItemsCount() {
 
-		$this->buildQuery();
+		if ($this->totalItemsCount == null) {
+			$this->buildQuery();
 
-		$query = '';
-		$query .= 'SELECT COUNT(*) AS totalItemCount ';
-		$query .= $this->listQueryParts['FROM'];
-		$query .= $this->listQueryParts['WHERE'];
-		$query .= $this->listQueryParts['GROUPBY'];
+			$query = '';
+			$query .= 'SELECT COUNT(*) AS totalItemCount ';
+			$query .= $this->listQueryParts['FROM'];
+			$query .= $this->listQueryParts['WHERE'];
+			$query .= $this->listQueryParts['GROUPBY'];
 
-		$countResult = $this->dataSource->executeQuery($query);
+			$countResult = $this->dataSource->executeQuery($query);
 
-		if($this->listQueryParts['GROUPBY']) {
-			$count = count($countResult);
-		} else {
-			$count = intval($countResult[0]['totalItemCount']);
+			if($this->listQueryParts['GROUPBY']) {
+				$this->totalItemsCount = count($countResult);
+			} else {
+				$this->totalItemsCount = intval($countResult[0]['totalItemCount']);
+			}
+
+			$this->pagerCollection->setItemCount($this->totalItemsCount);
+
+			// We have to build query again, as LIMIT is not set correctly above!
+			// TODO fix this! Split build query in buildQueryWithoutPager() and buildQueryPartsFromPager()
+			$this->listQueryParts = null;
+			$this->buildQuery();
 		}
 
-		return $count;
+		return $this->totalItemsCount;
 	}
 
 
@@ -422,44 +456,43 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
-        $this->buildQuery();
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+		$this->buildQuery();
 
-    	$selectPart  = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
-    	$fromPart = $this->listQueryParts['FROM'];
-    	$groupPart   = count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
-    	$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
+		$selectPart = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
+		$fromPart = $this->listQueryParts['FROM'];
+		$groupPart = count($groupDataQuery->getGroupBy()) > 0 ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
+		$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
-    	if(count($groupDataQuery->getFrom()) > 0) {
-    		// special from part from filter TODO think about this and implement it!
-    		//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
+		if (count($groupDataQuery->getFrom()) > 0) {
+			// special from part from filter TODO think about this and implement it!
+			//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
 
-    	} elseif($this->listQueryParts['GROUPBY']) {
-    		$selectPart = $this->convertTableFieldToAlias($selectPart);
-    		$groupPart = $this->convertTableFieldToAlias($groupPart);
-    		$sortingPart = $this->convertTableFieldToAlias($sortingPart);
+		} elseif ($this->listQueryParts['GROUPBY']) {
+			$selectPart = $this->convertTableFieldToAlias($selectPart);
+			$groupPart = $this->convertTableFieldToAlias($groupPart);
+			$sortingPart = $this->convertTableFieldToAlias($sortingPart);
 
-    		$filterWherePart = $this->buildWherePart($excludeFilters);
-    		$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
+			$filterWherePart = $this->buildWherePart($excludeFilters);
+			$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
 
-    		// if the list has a group by clause itself, we have to use the listquery as subquery
-    		$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+			// if the list has a group by clause itself, we have to use the listquery as subquery
+			$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
 
-    		unset($filterWherePart);	// we confined the subquery, so we dont need this in the group query
+			unset($filterWherePart); // we confined the subquery, so we dont need this in the group query
 
-    	} else {
-    		$filterWherePart =  $this->buildWherePart($excludeFilters);
-    		if($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
-    	}
+		} else {
+			$filterWherePart = $this->buildWherePart($excludeFilters);
+			if ($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
+		}
 
-    	$query =  implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
+		$query = implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
 
-    	if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : ' . $this->listIdentifier . ' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+		$groupDataArray = $this->dataSource->executeQuery($query);
 
-        $groupDataArray = $this->dataSource->executeQuery($query);
-
-        return $groupDataArray;
-    }
+		return $groupDataArray;
+	}
 
 
 
@@ -550,8 +583,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     		if($fieldConfiguration->getSpecial() == '') {
     			$convertTableFieldAsAliasArray[$fieldConfiguration->getIdentifier()] = $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField() . ' AS ' . $fieldConfiguration->getIdentifier();
 	    		$convertTableFieldArray[$fieldConfiguration->getIdentifier()] =  $fieldConfiguration->getTable() . '.' . $fieldConfiguration->getField();
-    		}
+    		} else {
+               $convertTableFieldAsAliasArray[$fieldConfiguration->getIdentifier()] = '(' . $fieldConfiguration->getSpecial() . ') AS ' . $fieldConfiguration->getIdentifier();
+               $convertTableFieldArray[$fieldConfiguration->getIdentifier()] =  $fieldConfiguration->getSpecial();
+            }
     	}
+
 
     	$query = str_replace(array_values($convertTableFieldAsAliasArray), array_keys($convertTableFieldAsAliasArray), $query);
     	$query = str_replace(array_values($convertTableFieldArray), array_keys($convertTableFieldArray), $query);

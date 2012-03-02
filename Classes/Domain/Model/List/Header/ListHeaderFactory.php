@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -53,35 +53,62 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetListHeader = false) {
-        $listIdentifier = $configurationBuilder->getListIdentifier();
+		$listIdentifier = $configurationBuilder->getListIdentifier();
 
-        // Check whether singleton instance exists
-        if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === null || $resetListHeader) {
+		// Check whether singleton instance exists
+		if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === null || $resetListHeader) {
+			$defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
+			$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
+			$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
+			$listIsSorted = false;
 
-            $defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
-            $columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
-            $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
-            $listIsSorted = false;
+			foreach ($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
+				$headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
 
-            foreach($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
-                $headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
+				if ($singleColumnConfiguration->isAccessable()) {
+					// We set list as sorted as soon as one column has sorting-status from user / session
+					if ($headerColumn->isSortingActive()) {
+						$listIsSorted = true;
+					}
 
-                if($singleColumnConfiguration->isAccessable()) {
-                    $listIsSorted = $headerColumn->isSortingActive();
-                    $listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
-                }
-            }
+					$listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
+				}
+			}
 
-            if(!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
-                $listHeader->getHeaderColumn($defaultSortingColumn)->setDefaultSorting($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
-                $listHeader->getHeaderColumn($defaultSortingColumn)->init();
-            }
-			  
-            self::$instances[$listIdentifier] = $listHeader;
-        }
+			self::setVisibilityByColumnSelector($configurationBuilder, $listHeader);
 
-        // We return singleton instance of listHeader
+			// Check whether we have a sorting from header columns (set by user)
+			// or whether we have to set default sorting
+			if (!$listIsSorted && $defaultSortingColumn && $listHeader->hasItem($defaultSortingColumn)) {
+				$listHeader->getHeaderColumn($defaultSortingColumn)->setDefaultSorting($configurationBuilder->buildListDefaultConfig()->getSortingDirection());
+				$listHeader->getHeaderColumn($defaultSortingColumn)->init();
+			}
+
+			// inject gpVarData
+			$gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+			$gpVarsAdapter->injectParametersInObject($listHeader);
+
+			$listHeader->init();
+
+			self::$instances[$listIdentifier] = $listHeader;
+		}
+
+		
+		// We return singleton instance of listHeader
 		return self::$instances[$listIdentifier];
+	}
+
+
+	/**
+	 * @static
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 */
+	protected static function setVisibilityByColumnSelector(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		if($configurationBuilder->buildColumnSelectorConfiguration()->getEnabled()) {
+			$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($configurationBuilder);
+			$columnSelector->setVisibilityOnListHeader($listHeader);
+		}
 	}
     
 }

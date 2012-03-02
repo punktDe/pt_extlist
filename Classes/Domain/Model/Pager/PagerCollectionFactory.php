@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 	
 	
 	/**
-	 * Build the Pager Colelction
+	 * Build the Pager Collection
 	 * 
 	 * @param $configurationBuilder
 	 * @param $listIdentifier

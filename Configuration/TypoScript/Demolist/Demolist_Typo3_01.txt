@@ -10,7 +10,7 @@
 plugin.tx_ptextlist.settings {
 
 	listConfig.demolist {
-		
+
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
@@ -27,7 +27,7 @@ plugin.tx_ptextlist.settings {
 			baseFromClause (
 				static_countries
 				LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-				LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+				LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr)
 			)
 
 			baseWhereClause (
@@ -91,7 +91,7 @@ plugin.tx_ptextlist.settings {
 		}
 
 		columns {
-			
+
 			10 {
 				# choose a columnIdentifier
 				columnIdentifier = nameColumn
@@ -125,7 +125,7 @@ plugin.tx_ptextlist.settings {
 
 					10 = TEXT
 					10.data = field:name_en
-					
+
 					/*
 					10.append.noTrimWrap = | (|)|
 					10.wrap3 = |&nbsp;
@@ -134,7 +134,7 @@ plugin.tx_ptextlist.settings {
 					20.value = Details
 					20.typolink.parameter = 1
 					20.typolink.additionalParams.dataWrap = &tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
-					*/ 
+					*/
 				}
 			}
 
@@ -162,6 +162,13 @@ plugin.tx_ptextlist.settings {
 				fieldIdentifier = phone
 			}
 
+			31 {
+				label = Phone2
+				columnIdentifier = phoneColumn2
+				# default columns can only operate on _one_ dataDescription
+				fieldIdentifier =  capital, phone
+			}
+
 			40 {
 				label = Continent
 				columnIdentifier = continent
@@ -175,7 +182,7 @@ plugin.tx_ptextlist.settings {
 				accessGroups = 3
 			}
 		}
-	
+
 		aggregateData {
 			# methods: sum, min, max, avg
 			sumPhone {
@@ -195,7 +202,7 @@ plugin.tx_ptextlist.settings {
 				method = min
 			}
 		}
-		
+
 		aggregateRows {
 			10 {
 				phoneColumn {
@@ -210,7 +217,7 @@ plugin.tx_ptextlist.settings {
 				}
 			}
 		}
-		
+
 		filters {
 			filterbox1 {
 			    #submitToPage = 31
@@ -257,7 +264,7 @@ plugin.tx_ptextlist.settings {
 						submitOnChange = 0
 						invert = 0
 						invertable = 0
-						
+
 						excludeFilters = filterbox1.filter3
 					}
 
@@ -278,7 +285,7 @@ plugin.tx_ptextlist.settings {
 						invert = 0
 						invertable = 0
 					}
-					
+
 					35 < plugin.tx_ptextlist.prototype.filter.select
 					35 {
 						filterIdentifier = capitalFilter
@@ -287,7 +294,7 @@ plugin.tx_ptextlist.settings {
 						inactiveOption = [ALL]
 						showRowCount = 0
 					}
-					
+
 
 					#50 < plugin.tx_ptextlist.prototype.filter.proxy
 					#50 {
@@ -296,8 +303,8 @@ plugin.tx_ptextlist.settings {
 					#	fieldIdentifier = continent
 					#}
 				}
-			}	
-			
+			}
+
 			filterbox2 {
 				showSubmit = 0
 				showReset = 0
@@ -321,20 +328,20 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 		tables (
 			static_territories
 		)
-		
+
 		continent {
 			table = static_territories
 			field = tr_name_en
 		}
 	}
-	
+
 	fields {
 		continent {
 			table = static_territories
 			field = tr_name_en
 		}
 	}
-	
+
 	filters {
 		filterbox1 {
 			filterConfigs {
@@ -348,7 +355,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 					showRowCount = 0
 					multiple = 0
 					inactiveOption = [ALL]
-					
+
 					renderObj = TEXT
 					renderObj {
 						dataWrap = {field:allDisplayFields}
@@ -363,7 +370,10 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 plugin.tx_ptextlist.settings.listConfig.demolist_export < plugin.tx_ptextlist.settings.listConfig.demolist
 plugin.tx_ptextlist.settings.listConfig.demolist_export {
 
-# redifine columns completely
+    # show all items
+    pager.itemsPerPage = 50
+
+    # redifine columns completely
     columns >
     columns {
 

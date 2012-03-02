@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends  Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData {
 
 	/**
 	 * Build the group data query to retrieve the group data

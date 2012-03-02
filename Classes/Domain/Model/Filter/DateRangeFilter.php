@@ -1,4 +1,3 @@
-
 <?php
 /***************************************************************
  *  Copyright notice
@@ -36,7 +35,21 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
+	/**
+	 * From filter value (value to start date range)
+	 *
+	 * @var string
+	 */
+	protected $filterValueFrom = null;
 
+
+
+	/**
+	 * To filter value (value to end date range)
+	 *
+	 * @var string
+	 */
+	protected $filterValueTo = null;
 
 
 
@@ -52,7 +65,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		if ($this->filterValueFrom == '' || $this->filterValueTo == '') {
 			return NULL;
 		}
-
+		
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
 		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $this->filterValueFrom);
@@ -81,8 +94,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * Template method for initializing filter by session data
 	 */
 	protected function initFilterBySession() {
-		$this->filterValueFrom = array_key_exists('filterValueFrom', $this->sessionFilterData) ? $this->sessionFilterData['filterValueFrom'] : $this->filterValueFrom;
-		$this->filterValueTo = array_key_exists('filterValueTo', $this->sessionFilterData) ? $this->sessionFilterData['filterValueTo'] : $this->filterValueTo;
+		if (array_key_exists('filterValueFrom', $this->sessionFilterData)) {
+			$this->filterValueFrom = $this->sessionFilterData['filterValueFrom'];
+		}
+
+		if (array_key_exists('filterValueTo', $this->sessionFilterData)) {
+			$this->filterValueTo = $this->sessionFilterData['filterValueTo'];
+		}
 	}
 
 
@@ -110,15 +128,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 
 
 	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
-	 */
-	protected function initFilter() {
-	}
-
-
-
-	/**
 	 * Adds some fields for rendering breadcrumbs.
 	 *
 	 * @return array
@@ -138,14 +147,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @return array Array of filter data to persist to session
 	 */
 	public function persistToSession() {
-		return array(
+		$sessionArray = array(
 			'filterValueFrom' => $this->filterValueFrom,
 			'invert' => $this->invert,
 			'filterValueTo' => $this->filterValueTo
 		);
+		return $sessionArray;
 	}
-	
-	
+
 	
 	
 	/**
@@ -157,6 +166,27 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		parent::reset();
 	}
 
-}
 
+
+	/**
+	 * Getter for FROM filter value
+	 *
+	 * @return null|string
+	 */
+	public function getFilterValueFrom() {
+		return $this->filterValueFrom;
+	}
+
+
+
+	/**
+	 * Getter for TO filter value
+	 *
+	 * @return null|string
+	 */
+	public function getFilterValueTo() {
+		return $this->filterValueTo;
+	}
+
+}
 ?>

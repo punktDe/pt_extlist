@@ -60,7 +60,16 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @return string rendered value
 	 */
 	public static function render(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL, $renderTemplate = NULL) {
-		$cacheKey = md5(serialize(func_get_args()));
+
+		try {
+			/* if $data contains an extbase model object like we get them with the extbase backend, on some systems this
+			 * causes an exception: Serialization of 'Closure' is not allowed
+			 */
+			$cacheKey = md5(serialize(func_get_args()));
+		} catch(Eexception $e) {
+			return self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
+		}
+
 		if(!self::$renderCache[$cacheKey]) {
 			self::$renderCache[$cacheKey] = self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
 		}
@@ -305,13 +314,16 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	public static function getCobj() {
 		if(!self::$cObj) {
-			if(is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
-				self::$cObj = $GLOBALS['TSFE']->cObj;
+			if(TYPO3_MODE == 'FE') {
+				if(!is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
+					$GLOBALS['TSFE']->newCObj();
+				}
 			} else {
-				self::$cObj = t3lib_div::makeInstance('tslib_cObj');
+				t3lib_div::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
 			}
 		}
 
+		self::$cObj = $GLOBALS['TSFE']->cObj;
 		return self::$cObj;
 	}
 

@@ -33,14 +33,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
-
-	/**
-	 * Filter configuration object
-	 * 
-	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig 
-	 */
-	protected $filterConfig;
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 
 	/**
 	 * @var string
@@ -103,16 +96,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator implements Tx_P
 		$this->initByTsConfig();
 	}
 
-		
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
-	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		$this->filterConfig = $filterConfig;
-	}
-	
 	
 	
 	/**
