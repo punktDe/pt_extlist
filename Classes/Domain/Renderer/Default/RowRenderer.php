@@ -42,7 +42,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 */
 	protected $rendererConfiguration;
 
-	
+
+
 	/**
 	 * Holds an instance of cell renderer
 	 * 
@@ -95,6 +96,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
      */
     public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
         $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+
+		// copy special values
+		$renderedRow->setSpecialValues($row->getSpecialValues());
+
         $columnCollection = $this->getColumnCollection();
     
         $columnIndex=0;

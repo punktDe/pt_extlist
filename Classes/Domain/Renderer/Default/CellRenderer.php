@@ -89,7 +89,6 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 
 		// TODO: Include the objectMapper here ...
 		// if($columnConfig->getObjectMapperConfig() instanceof Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig) {}
-
 		if($columnConfig->getRawFields()) {
 			$content = $fieldSet;
 		} else {

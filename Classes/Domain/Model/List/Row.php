@@ -112,6 +112,16 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	public function getSpecialValues() {
 		return $this->specialValues;
 	}
+
+
+
+	/**
+	 * Setter for special values
+	 * @param mixed $specialValues
+	 */
+	public function setSpecialValues($specialValues) {
+		$this->specialValues = $specialValues;
+	}
 	
 	
 	
