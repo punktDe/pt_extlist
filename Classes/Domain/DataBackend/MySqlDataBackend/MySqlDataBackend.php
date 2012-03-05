@@ -399,6 +399,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	}
 
 
+
 	/**
 	 * Get the query parts
 	 * @return array query parts

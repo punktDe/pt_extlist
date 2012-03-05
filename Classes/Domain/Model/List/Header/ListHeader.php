@@ -40,12 +40,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
     extends Tx_PtExtlist_Domain_Model_List_Row
     implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 
-	
 	/**
 	 * ListIdentifier of the current list
 	 * @var string
 	 */
 	protected $listIdentifier;
+
 
 
 	/**
@@ -63,6 +63,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	}
 
 
+
 	/**
 	 * Injects GetPost Vars into object
 	 *
@@ -73,11 +74,13 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	}
 
 
+
 	/**
 	 * Init the column collection
 	 */
 	public function init() {
 	}
+
 
 
 	/**
@@ -139,5 +142,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	public function getListIdentifier() {
 		return $this->listIdentifier;
 	}
+
 }
 ?>
