@@ -74,10 +74,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
         $sortingStateCollectionMock2->addSortingState($sortingStateMock3);
         $sortingStateCollectionMock2->addSortingState($sortingStateMock4);
 
-        $sortingObserverMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        $sortingObserverMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting','resetToDefaultSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
         $sortingObserverMock1->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock1));
 
-        $sortingObserverMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        $sortingObserverMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting','resetToDefaultSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
         $sortingObserverMock2->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock2));
 
         $sorter = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
@@ -97,9 +97,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
 
     /** @test */
     public function resetResetsAllRegisteredSortingObservers() {
-        $sortingObserverMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        $sortingObserverMock1 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting','resetToDefaultSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
         $sortingObserverMock1->expects($this->once())->method('resetSorting');
-        $sortingObserverMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        $sortingObserverMock2 = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('getSortingStateCollection','registerSorter','resetSorting','resetToDefaultSorting'), array(), '', FALSE); /* @var $sortingObserverMock Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
         $sortingObserverMock2->expects($this->once())->method('resetSorting');
 
         $sorter = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
