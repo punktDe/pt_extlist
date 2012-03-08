@@ -34,6 +34,7 @@ plugin.tx_ptextlist.prototype.backend {
 		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
 		repositoryClassName =
+		respectStoragePage = 0
 	}
 
 }

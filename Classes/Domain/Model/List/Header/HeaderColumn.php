@@ -163,9 +163,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 */
 	protected function initByTsConfig() {
 		$this->sortingFieldConfig = $this->columnConfig->getSortingConfig();
-		#echo '<pre>';
-		#var_dump($this->sortingFieldConfig);
-		#echo '</pre>';
 		$this->isVisible = $this->columnConfig->getIsVisible();
 	}
 
@@ -397,19 +394,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * Resets sorting of implementing object.
      */
     public function resetSorting() {
-		#echo 'Vorher: <br><pre>';
-		#var_dump($this->sortedFields);
-		#echo '</pre>';
-
-
-
-		#echo 'In ' . __METHOD__ . ' identifier ' . $this->columnIdentifier . '<br>';
 		$this->sortedFields = array();
     	unset($this->headerSessionData['sortedFields']);
 		$this->init();
-		#echo 'Sorting after resetSorting():<br><pre>';
-		#var_dump($this->sortedFields);
-		#echo '</pre>';
     }
 
 

@@ -66,7 +66,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 			 * causes an exception: Serialization of 'Closure' is not allowed
 			 */
 			$cacheKey = md5(serialize(func_get_args()));
-		} catch(Eexception $e) {
+		} catch(Exception $e) {
 			return self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
 		}
 
