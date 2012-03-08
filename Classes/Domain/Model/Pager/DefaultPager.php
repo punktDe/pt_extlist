@@ -329,7 +329,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastPage()
 	 */
 	public function getLastPage() {
-		return ceil((intval($this->totalItemCount)/intval($this->itemsPerPage)));
+		$lastPage = $this->itemsPerPage > 0 ? ceil((intval($this->totalItemCount)/intval($this->itemsPerPage))) : 0;
+		return $lastPage;
 	}
 	
 	
