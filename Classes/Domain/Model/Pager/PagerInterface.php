@@ -41,6 +41,8 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 * @return boolean true if enabled
 	 */
 	public function isEnabled();
+
+
 	
 	/**
 	 * Returns the pager identifier.
@@ -48,7 +50,9 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 * @return string
 	 */
 	public function getPagerIdentifier();
-	
+
+
+
 	/**
 	 * Returns the current page index.
 	 * @return int The current page index
@@ -176,7 +180,24 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 * @return int Index of next page
 	 */
 	public function getNextPage();
+
+
+
+	/**
+	 * Returns true if pager is on first page
+	 *
+	 * @return bool True, if pager is on first page
+	 */
+	public function getIsOnFirstPage();
+
+
+
+	/**
+	 * Returns true, if pager is on last page
+	 *
+	 * @return bool True, if pager is on last page
+	 */
+	public function getIsOnLastPage();
 	
 }
-
 ?>

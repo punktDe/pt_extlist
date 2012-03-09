@@ -142,7 +142,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
      */
     protected function setActiveState() {
-    	$this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false; 
+    	$this->isActive = ($this->filterValue != $this->filterConfig->getInactiveValue() ? true : false);
     }
     
 	

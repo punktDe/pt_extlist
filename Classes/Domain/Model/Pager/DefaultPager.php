@@ -367,5 +367,27 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		return $this->getLastPage();
 	}
 
+
+
+	/**
+	 * Returns true if pager is on first page
+	 *
+	 * @return bool True, if pager is on first page
+	 */
+	public function getIsOnFirstPage() {
+		return ($this->currentPage == $this->getFirstPage());
+	}
+
+
+
+	/**
+	 * Returns true, if pager is on last page
+	 *
+	 * @return bool True, if pager is on last page
+	 */
+	public function getIsOnLastPage() {
+		return ($this->currentPage == $this->getLastPage());
+	}
+
 }
 ?>

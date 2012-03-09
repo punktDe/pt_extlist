@@ -182,9 +182,61 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     	
     	$this->assertEquals($this->pager->getLastItemIndex(), 30);
     }
+
+
     
 	public function testgetPagerConfiguration() {
 		$this->assertNotNull($this->pager->getPagerConfiguration());	
+	}
+
+
+
+	/** @test */
+	public function getIsOnFirstPageReturnsTrueIfPagerIsOnFirstPage() {
+		$settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
+		$settings['itemsPerPage'] = 10;
+		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+		$pager->setCurrentPage(1);
+
+		$this->assertTrue($pager->getIsOnFirstPage());
+	}
+
+
+
+	/** @test */
+	public function getIsOnFirstPageReturnsFalseIfPagerIsNotOnFirstPage() {
+		$settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
+		$settings['itemsPerPage'] = 10;
+		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+		$pager->setCurrentPage(2);
+
+		$this->assertFalse($pager->getIsOnFirstPage());
+	}
+
+
+
+	/** @test */
+	public function getIsOnLastPageReturnsTrueIfPagerIsOnLastPage() {
+		$settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
+		$settings['itemsPerPage'] = 10;
+		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+		$pager->setCurrentPage(10);
+		$pager->setItemCount(100);
+
+		$this->assertTrue($pager->getIsOnLastPage());
+	}
+
+
+
+	/** @test */
+	public function getIsOnLastPageReturnsFalseIfPagerIsNotOnLastPage() {
+		$settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
+		$settings['itemsPerPage'] = 10;
+		$pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+		$pager->setCurrentPage(1);
+		$pager->setItemCount(100);
+
+		$this->assertFalse($pager->getIsOnLastPage());
 	}
     
     
