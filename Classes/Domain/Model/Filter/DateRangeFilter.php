@@ -68,8 +68,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
-		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $this->filterValueFrom);
-		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $this->filterValueTo);
+		$filterValueFromDateObject = new DateTime($this->filterValueFrom);
+		$filterValueFromTimestamp = $filterValueFromDateObject->getTimestamp();
+
+		$filterValueToDateObject = new DateTime($this->filterValueFrom);
+		$filterValueToTimestamp = $filterValueToDateObject->getTimestamp();
+
+		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $filterValueFromTimestamp);
+		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $filterValueToTimestamp);
 		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria1, $criteria2);
 		return $criteria;
 	}
