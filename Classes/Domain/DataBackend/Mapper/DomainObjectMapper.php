@@ -134,8 +134,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 		if (method_exists($object, $getterMethodName)) {
 			return $object->$getterMethodName();
 		} else {
-			throw new Exception('Trying to get a property ' . $property . ' on a domain object of type ' . get_class($object) . ' that does not implement a getter for this property: ' .
-			    print_r(get_class_methods($object), true) . '. Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
+			throw new Exception('Trying to get a property ' . $property . ' on a domain object of type ' . get_class($object) . ' that does not implement a getter for this property.
+			Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
 		}
 	}
 	
