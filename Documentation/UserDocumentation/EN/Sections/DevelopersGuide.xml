@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- This document was created with Syntext Serna Free. -->
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-  <title>Developer's guide</title>
   <para>Pt_extlist can be extended in multiple ways. Many of its classes are configured via TypoScript so you can easily exchange them with your own classes to fit your needs. Common types of extensions are changing Data-Backends or writing your own filter classes. We will start with the latter one.</para>
 
    <section>
@@ -96,23 +95,32 @@ filters {
     </section>
 
 
+    <section>
+        <title>Extending the RenderChain</title>
+        <figure>
+            <title>RenderChain</title>
+            <mediaobject>
+
+                <imageobject role="fo">
+                    <imagedata align="center" fileref="../images/RendererChain.svg" width="100%" scalefit="1"
+                               format="SVG"/>
+                </imageobject>
+
+                <imageobject role="html">
+                    <imagedata align="center" fileref="../images/RendererChain.svg" width="6in" format="SVG"/>
+                </imageobject>
+            </mediaobject>
+        </figure>
+    </section>
 
 
 
+    <section>
+        <title>Using extlist in the TYPO3 backend</title>
+        <para>
 
-  <section>
-    <title>Extending the RenderChain</title>
-    <figure>
-      <title>RenderChain</title>
-      <mediaobject>
+        </para>
+    </section>
 
-       <imageobject role="fo">
-          <imagedata align="center" fileref="../images/RendererChain.svg" width="100%" scalefit="1" format="SVG"/>
-        </imageobject>
 
-        <imageobject role="html">
-          <imagedata align="center" fileref="../images/RendererChain.svg" width="6in" format="SVG"/>
-        </imageobject></mediaobject>
-    </figure>
-  </section>
 </section>
