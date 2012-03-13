@@ -109,10 +109,15 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
 
 		foreach($this->dateFieldConfigs as $key => $selectField) {
-			$aliasedSelectPartStart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $this->buildFieldAlias($key, 'start');
-			$aliasedSelectPartEnd = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['end']) . ' AS ' . $this->buildFieldAlias($key, 'end');
-			$query->addField($aliasedSelectPartStart);
-			$query->addField($aliasedSelectPartEnd);
+			if ($selectField['start'] == $selectField['end']) {
+				$aliasedSelectPart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $selectField['start']->getIdentifier();
+				$query->addField($aliasedSelectPart);
+			} else {
+				$aliasedSelectPartStart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $this->buildFieldAlias($key, 'start');
+				$aliasedSelectPartEnd = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['end']) . ' AS ' . $this->buildFieldAlias($key, 'end');				
+				$query->addField($aliasedSelectPartStart);
+				$query->addField($aliasedSelectPartEnd);
+			}
 		}
 		
 		return $query;
