@@ -152,6 +152,10 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 
+		if(count($list->getListData()) == 0) {
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('general.emptyList', 'PtExtlist'), '', t3lib_FlashMessage::INFO);
+		}
+
 		$renderedListData = $this->rendererChain->renderList($list->getListData());
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
@@ -171,7 +175,6 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 			$this->view->assign('pagerCollection', $this->pagerCollection);
 			$this->view->assign('pager', $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier));
 		}
-
 	}
 
 
