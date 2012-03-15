@@ -168,7 +168,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	 * @test
 	 */
 	public function getDefaultValueSingleStdWrap() {
-		Tx_Phpunit_Framework::createFakeFrontEnd();
 
 		$filterSettings = $this->filterSettings;
 

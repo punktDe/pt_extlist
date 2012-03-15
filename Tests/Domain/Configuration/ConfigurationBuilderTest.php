@@ -32,123 +32,131 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase extends Tx_Extbase_BaseTestcase {
-	
+class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase extends Tx_Extbase_Tests_Unit_BaseTestCase {
+
 	protected $settings = array(
-		    'listIdentifier' => 'test',
-		    'abc' => '1',
-			'prototype' => array(
-				'pager' => array(
-					'default' => array(
-						'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
-						'pagerProperty' => 'pagerValue'
+		'listIdentifier' => 'test',
+		'abc' => '1',
+		'prototype' => array(
+			'pager' => array(
+				'default' => array(
+					'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+					'pagerProperty' => 'pagerValue'
+				)
+			),
+			'column' => array(
+				'xy' => 'z',
+			),
+			'bookmarks' => array(
+			),
+		),
+		'listConfig' => array(
+			'test' => array(
+				'abc' => '2',
+				'def' => '3',
+				'fields' => array(
+					'field1' => array(
+						'table' => 'tableName1',
+						'field' => 'fieldName1',
+						'isSortable' => '0',
+						'access' => '1,2,3,4'
+					),
+					'field2' => array(
+						'table' => 'tableName2',
+						'field' => 'fieldName2',
+						'isSortable' => '0',
+						'access' => '1,2,3,4'
 					)
 				),
-				'column' => array (
-						'xy' => 'z',
+				'columns' => array(
+					10 => array(
+						'columnIdentifier' => 'column1',
+						'fieldIdentifier' => 'field1',
+						'label' => 'Column 1'
 					),
-				'bookmarks' => array (
+					20 => array(
+						'columnIdentifier' => 'column2',
+						'fieldIdentifier' => 'field2',
+						'label' => 'Column 2'
+					)
 				),
-			) ,
-		    'listConfig' => array(
-		         'test' => array(
-		             'abc' => '2',
-		             'def' => '3',
-		             'fields' => array(
-				         'field1' => array( 
-				             'table' => 'tableName1',
-				             'field' => 'fieldName1',
-				             'isSortable' => '0',
-				             'access' => '1,2,3,4'
-				         ),
-				         'field2' => array( 
-				             'table' => 'tableName2',
-				             'field' => 'fieldName2',
-				             'isSortable' => '0',
-				             'access' => '1,2,3,4'
-				         )
-				    ),
-				    'columns' => array(
-			            10 => array( 
-			                'columnIdentifier' => 'column1',
-			                'fieldIdentifier' => 'field1',
-			                'label' => 'Column 1'
-			            ),
-			            20 => array( 
-			                'columnIdentifier' => 'column2',
-			                'fieldIdentifier' => 'field2',
-			                'label' => 'Column 2'
-			            )
-			        ),
-			        'filters' => array(
-			             'testfilterbox' => array(
-			        		10 => array (
-			        			'testkey' => 'testvalue',
-			        			'filterIdentifier' => 'filter1',
-			        			'fieldIdentifier' => 'field1',
-			        			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-								'partialPath' => 'Filter/StringFilter',
-			        		)   
-			            )
-			        ),
-				    'pager' => array(
-				        'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager' 
-				    ),
-				    
-				    'aggregateData' => array(
-				    	'sumField1' => array (
-				    		'fieldIdentifier' => 'field1',
-				    		'method' => 'sum',
-				    	),
-				    	'avgField2' => array (
-				    		'fieldIdentifier' => 'field2',
-				    		'method' => 'avg',
-				    	),
-				    ),
-				    
-				    'bookmarks' => array(
-		                            'showPublicBookmarks' => '1',
-		                            'showUserBookmarks' => '1',
-		                            'showGroupBookmarks' => '1',
-		                            'bookmarksPid' => '1,2,3',
-		                            'feUsersAllowedToEdit' => '2,3,4',
-		                            'feGroupsAllowedToEdit' => '3,4,5',
-		                            'groupIdsToShowBookmarksFor' => '4,5,6'
-		                        ),
-				    
-				    
-				    'aggregateRows' => array (
-			        	10 => array (
-			        		'column2' => array (
-			        			'aggregateDataIdentifier' => 'avgField2',
-							)
+				'filters' => array(
+					'testfilterbox' => array(
+						10 => array(
+							'testkey' => 'testvalue',
+							'filterIdentifier' => 'filter1',
+							'fieldIdentifier' => 'field1',
+							'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+							'partialPath' => 'Filter/StringFilter',
 						)
-				    ),
-				    
-                    'controller' => array (
-						'Export' => array (
-							'download' => array(
-								'view' => 'export.exportConfigs.test'
-							)
-						)
+					)
+				),
+				'pager' => array(
+					'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager'
+				),
+
+				'aggregateData' => array(
+					'sumField1' => array(
+						'fieldIdentifier' => 'field1',
+						'method' => 'sum',
 					),
-				    
-				    'export' => array (
-					    	'exportConfigs' => array (
-					    		'test' => array (
-						    		'downloadType' => 'D',
-						    		'fileName' => 'testfile',
-						    		'fileExtension' => 'ext',
-						    		'addDateToFilename' => 1,
-						    		'pager' => array('enabled' => 0),
-					    			'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
-					    		)
-					    	)
-					    )				    
-				    
-			    )
-		    )
-		);
+					'avgField2' => array(
+						'fieldIdentifier' => 'field2',
+						'method' => 'avg',
+					),
+				),
+
+				'bookmarks' => array(
+					'showPublicBookmarks' => '1',
+					'showUserBookmarks' => '1',
+					'showGroupBookmarks' => '1',
+					'bookmarksPid' => '1,2,3',
+					'feUsersAllowedToEdit' => '2,3,4',
+					'feGroupsAllowedToEdit' => '3,4,5',
+					'groupIdsToShowBookmarksFor' => '4,5,6'
+				),
+
+
+				'aggregateRows' => array(
+					10 => array(
+						'column2' => array(
+							'aggregateDataIdentifier' => 'avgField2',
+						)
+					)
+				),
+
+				'controller' => array(
+					'Export' => array(
+						'download' => array(
+							'view' => 'export.exportConfigs.test'
+						)
+					)
+				),
+
+				'rendererChain' => array(
+					'rendererConfigs' => array(
+						100 => array(
+							'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer'
+						)
+					)
+				),
+
+				'export' => array(
+					'exportConfigs' => array(
+						'test' => array(
+							'downloadType' => 'D',
+							'fileName' => 'testfile',
+							'fileExtension' => 'ext',
+							'addDateToFilename' => 1,
+							'pager' => array('enabled' => 0),
+							'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
+						)
+					)
+				)
+
+			)
+		)
+	);
 
 		
 	
@@ -301,7 +309,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase exte
 	public function testBuildRendererChainConfiguration() {
 		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('test');
 		$rendererChainConfig = $configurationBuilder->buildRendererChainConfiguration();
-		$this->assertTrue(is_a($rendererChainConfig, 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig'));
+
+		$this->assertNotNull($rendererChainConfig);
+		$this->assertTrue(is_a($rendererChainConfig, 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig'), 'Got ' . get_class($rendererChainConfig));
 	}
 	
 }
