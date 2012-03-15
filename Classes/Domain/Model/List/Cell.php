@@ -223,15 +223,15 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 		switch (true) {
 			case is_object($this->value):
 				return 'OBJECT::' . get_class($this->value);
-				break;
 
 			case is_array($this->value):
-				return implode(',', $this->value);
-				break;
+				return implode(', ', $this->value);
+
+			case is_int($this->value):
+				return $this->value;
 
 			case !$this->value:
 				return '';
-				break;
 
 			default:
 				return (string)$this->value;
