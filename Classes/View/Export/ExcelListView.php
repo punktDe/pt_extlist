@@ -77,15 +77,16 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         $columnNumber = 0;
 
 
-        // Headers
-        if ($this->templateVariableContainer->exists('listCaptions')) {
-            foreach ($this->templateVariableContainer['listCaptions'] as $caption) { /* @var $caption Tx_PtExtlist_Domain_Model_List_Cell */
-                $this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, strip_tags($caption->getValue()));
-                $columnNumber++;
+		// Headers
+		if ($this->templateVariableContainer->exists('listCaptions')) {
+			foreach ($this->templateVariableContainer['listCaptions'] as $caption) {
+				/* @var $caption Tx_PtExtlist_Domain_Model_List_Cell */
+				$this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, strip_tags($caption->getValue()));
+				$columnNumber++;
 			}
 
-            $rowNumber++;
-            $columnNumber = 0;
+			$rowNumber++;
+			$columnNumber = 0;
 		}
 
 		// Rows
@@ -102,7 +103,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		}
 
 
-        // File format can be changed in FlexForm in 'fileFormat' field.
+      // File format can be changed in FlexForm in 'fileFormat' field.
 		// possible values: 'Excel2007', 'Excel5'
 		// if no value is given, 'Excel2007' is taken.
 		$fileFormat = ($this->exportConfiguration->getSettings('fileFormat') !== array() ? $this->exportConfiguration->getSettings('fileFormat') : 'Excel2007');
@@ -167,6 +168,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
             throw new Exception('Library PHPExcel is required for using Excel export. You can get PHPExcel from http://phpexcel.codeplex.com 1316565593');
             exit();
         }
+
         if (!class_exists('XMLWriter')) {
             throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled 1316565594');
             exit();

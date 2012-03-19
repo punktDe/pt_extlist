@@ -772,7 +772,7 @@ static_territories st_continent
 											<DEFAULT></DEFAULT>
 											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE><![CDATA[<![CDATA[
+											<EXAMPLE><![CDATA[
 name_local {
 	table = static_countries
 	field = cn_short_local
@@ -834,6 +834,15 @@ name_local {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="expandGroupRowsSeparator">
+                                                    <DESCRIPTION>Use this to implode and later split the rows. This Separator should never be part of the selected string!</DESCRIPTION>
+                                                    <DATATYPE>String</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT><![CDATA[<extListSeparator>]]></DEFAULT>
+                                                    <COBJ>0</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE>expandGroupRowsSeparator = SomeStringThatNeverOccursInAnyOfTheSelectedFields</EXAMPLE>
+                                                </ENTRY>
 											</CHILDREN>
 										</ENTRY>
 									</CHILDREN>

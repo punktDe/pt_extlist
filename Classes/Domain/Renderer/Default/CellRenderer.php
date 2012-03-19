@@ -92,6 +92,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		if($columnConfig->getRawFields()) {
 			$content = $fieldSet;
 		} else {
+			if($columnConfig->getColumnIdentifier() == 'answer1' && false) {
+				Tx_ExtDebug::var_dump($fieldSet, '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');
+				die();
+			}
 			$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);
 		}
 		

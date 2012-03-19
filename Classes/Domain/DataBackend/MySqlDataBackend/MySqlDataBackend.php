@@ -227,7 +227,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 			if($fieldConfiguration->getExpandGroupRows() && $this->baseGroupByClause) {
-        		$selectParts[] = 'group_concat('.Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldConfiguration).') AS ' . $fieldConfiguration->getIdentifier();
+        		$selectParts[] = 'group_concat('.Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldConfiguration).' SEPARATOR "' . $fieldConfiguration->getExpandGroupRowsSeparator() . '") AS ' . $fieldConfiguration->getIdentifier();
         	} else {
         		$selectParts[] = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
         	}
