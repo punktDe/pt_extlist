@@ -210,7 +210,9 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 		$renderedAggregateRows = $rendererChain->renderAggregateList($list->getAggregateListData());
 
 		$view = $this->objectManager->get($exportConfig->getViewClassName());
+		$view->setConfigurationBuilder($extlistContext->getConfigurationBuilder());
 		$view->setExportConfiguration($exportConfig);
+
 
 		$view->assign('listHeader', $list->getListHeader());
 		$view->assign('listCaptions', $renderedCaptions);
