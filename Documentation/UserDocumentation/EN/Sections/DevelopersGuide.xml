@@ -118,7 +118,20 @@ filters {
     <section>
         <title>Using extlist in the TYPO3 backend</title>
         <para>
+            Extbase enables you to write backend modules the same easy way as you do in the frontend.
+            The main difference however is that in the frontend you can have multiple plugins with controller / action pair fired at each rendering, whereas in the backend you can only call one controller / action at a time.
+            As pt_extlist in the frontend by default uses one plugin each for filter, list and pager, we have to use the extension in the backend in a different way to cope with the one controller/action restriction.
 
+            <section>
+            <title>Use the extlistContext</title>
+            </section>
+
+            <section>
+            <title>Derive from the Tx_PtExtlist_Controller_AbstractBackendListController</title>
+                <para>
+                    
+                </para>
+            </section>
         </para>
     </section>
 
