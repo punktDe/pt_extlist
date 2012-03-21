@@ -181,7 +181,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 
 	/**
 	 * @param array $queryResult
-	 * @return Tx_PtExtbase_Collection_SortableObjectCollection Condensed time spans
+	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection Condensed time spans
 	 */
 	protected function buildCondensedTimeSpans($queryResult) {
 		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
