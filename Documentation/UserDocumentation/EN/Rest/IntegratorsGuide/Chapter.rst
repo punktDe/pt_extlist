@@ -114,3 +114,15 @@ These are the configuration values that are offered by PHPExcel.
 * lightUp
 * lightVertical
 * mediumGray
+
+Define all columns to a common style
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To define a common style that fits to the page CD just add the following typoscript to a basic typoscript file::
+
+    # Page CI Excel Settings
+    plugin.tx_ptextlist.settings.prototype.column.default < plugin.tx_ptextlist.settings.prototype.column.excel
+    plugin.tx_ptextlist.settings.prototype.column.default {
+        # Define all custom configuration for all fields here
+    	excelExport.header.fill.color = ffcc00
+    }
