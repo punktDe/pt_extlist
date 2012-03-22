@@ -48,6 +48,10 @@ class Tx_PtExtlist_Tests_View_List_ExcelListView_testcase extends Tx_PtExtlist_T
 
 
 	public function setUp() {
+		if(!file_exists('PHPExcel/PHPExcel.php')) {
+			$this->markTestSkipped('PHPExcel is not available!');
+		}
+
 		$this->initDefaultConfigurationBuilderMock();
 
 		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_View_Export_ExcelListView');
