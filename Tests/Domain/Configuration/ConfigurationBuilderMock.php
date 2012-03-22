@@ -148,6 +148,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 								'label' => 'Column 1',
 								'isSortable' => '0',
 
+								'excelExport' => array(
+									'wrap' => 0,
+									'vertical' => 'top',
+								),
 							),
 							20 => array(
 								'columnIdentifier' => 'column2',
