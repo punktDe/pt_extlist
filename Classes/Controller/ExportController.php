@@ -102,6 +102,8 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 		$renderedCaptions = $rendererChain->renderCaptions($list->getListHeader());
 		$renderedAggregateRows = $rendererChain->renderAggregateList($list->getAggregateListData());
 
+		$this->view->setExportConfiguration($this->configurationBuilder->buildExportConfiguration());
+
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 		$this->view->assign('listData', $renderedListData);
