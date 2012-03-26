@@ -104,6 +104,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 * @var string
 	 */
 	protected $listIdentifier;
+
+
+
+	/**
+	 * Holds prototype settings
+	 * @var array
+	 */
+	protected $protoTypeSettings = array();
 	
 	
 		
@@ -127,7 +135,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 */
 	protected function setProtoTypeSettings($settings) {
 		Tx_PtExtbase_Assertions_Assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
-		$this->prototypeSettings = $settings['prototype'];
+		$this->protoTypeSettings = $settings['prototype'];
 	}
 
 	
