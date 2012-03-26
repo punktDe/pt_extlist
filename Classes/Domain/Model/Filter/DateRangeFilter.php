@@ -180,7 +180,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @return null|string
 	 */
 	public function getFilterValueFrom() {
-		return $this->filterValueFrom;
+		if ($this->filterValueFrom && $this->filterValueFrom !== '') {
+			return $this->filterValueFrom;
+		} else {
+			return NULL;
+		}
 	}
 
 
@@ -191,7 +195,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @return null|string
 	 */
 	public function getFilterValueTo() {
-		return $this->filterValueTo;
+		if ($this->filterValueTo && $this->filterValueTo !== '') {
+			return $this->filterValueTo;
+		} else {
+			return NULL;
+		}
 	}
 
 }
