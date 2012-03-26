@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
 	 * @return void
 	 */
 	public function initFilterByGpVars() {
-		if(is_array($this->gpVarFilterData) && array_key_exists('filterValue',$this->gpVarFilterData) && $this->gpVarFilterData['filterValue']) {
+		if (is_array($this->gpVarFilterData) && array_key_exists('filterValue',$this->gpVarFilterData) && $this->gpVarFilterData['filterValue']) {
 			$dateTimeZone = new DateTimeZone(date_default_timezone_get());
 			$startDateTime = new DateTime($this->gpVarFilterData['filterValue']);
 			$startDateTime->setTimezone($dateTimeZone);
@@ -90,7 +90,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
      * @return mixed
      */
 	public function getDatePickerOptions() {
-		$datePickerOptions = json_encode($this->filterConfig->getSettings('options'));
 		return $this->buildJson($this->filterConfig->getSettings('options'));
 	}
 
