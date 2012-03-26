@@ -156,17 +156,21 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->fail('No error has been thrown on non-existing partialPath setting');
 	}
 	
-	
+
+
 	public function testGetDefaultValueSingle() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertEquals($filterConfig->getdefaultValue(), 'default');
 	}
-	
-	public function testGetDefaultValueSingleStdWrap() {
-		$this->simulateFrontendEnvironment();
-		
+
+
+	/**
+	 * @test
+	 */
+	public function getDefaultValueSingleStdWrap() {
+
 		$filterSettings = $this->filterSettings;
-				
+
 		$filterSettings['defaultValue'] = array(
 			'cObject' => array(
 				'value' => 'together',
@@ -175,7 +179,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		);
 
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-		
+
 		$this->assertEquals($filterConfig->getdefaultValue(), 'together');
 	}
 	
@@ -273,9 +277,5 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->assertEquals($filterConfig->getLabel(), $this->filterSettings['label']);
 	}
 
-	protected function simulateFrontendEnvironment() {
-		$GLOBALS['TSFE'] = new stdClass();
-		$GLOBALS['TSFE']->cObjectDepthCounter = 100;
-	}
 }
 ?>

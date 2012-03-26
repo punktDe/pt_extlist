@@ -88,6 +88,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		$this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
 		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
 		$this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
+		$this->pagerCollection = $this->dataBackend->getPagerCollection();
 	}
 	
 
@@ -101,6 +102,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	public function showAction() {
 		$this->view->assign('filterbox', $this->filterbox);
 		$this->view->assign('config', $this->configurationBuilder);
+		$this->view->assign('pagerCollection', $this->pagerCollection);
 	}
 
 
@@ -234,7 +236,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 			$this->pagerCollection = $this->dataBackend->getPagerCollection();
 		}
 		$this->pagerCollection->reset();
-		#$this->dataBackend->resetListDataCache();
+		$this->dataBackend->resetListDataCache();
 	}
 
 
@@ -248,6 +250,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		// TODO add method to data backend that resets sorting and resets cache!
 		$this->dataBackend->resetListDataCache();
 	}
-    
+
 }
 ?>

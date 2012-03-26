@@ -89,7 +89,6 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 
 		// TODO: Include the objectMapper here ...
 		// if($columnConfig->getObjectMapperConfig() instanceof Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig) {}
-
 		if($columnConfig->getRawFields()) {
 			$content = $fieldSet;
 		} else {
@@ -196,7 +195,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 			}
 		}
 		
-		if(!is_array($loopArray)) throw new Exception('Error Column with Flag "containsArrayData" contains no Field with array-value! 1283426460');	
+		if(!is_array($loopArray)) throw new Exception('Error Column with Flag "containsArrayData" contains no Field with array-value!', 1283426460);
 		
 		$outDataArray = array();
 

@@ -59,10 +59,18 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 
 
 	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration
+	 */
+	public function setExportConfiguration(Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration) {
+		$this->exportConfiguration = $exportConfiguration;
+	}
+
+
+	/**
 	 * @return void
 	 */
-	protected function initConfiguration() {
-		$this->exportConfiguration = $this->configurationBuilder->buildExportConfiguration();
+	public function initConfiguration() {
+	//	$this->exportConfiguration = $this->configurationBuilder->buildExportConfiguration();
 	}	
 
 	

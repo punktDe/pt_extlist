@@ -73,6 +73,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 
 
 	/**
+	 * Checks if an identifier is in the column
+	 * @param $identifier
+	 * @return bool
+	 */
+	public function hasIdentifier($identifier) {
+	  return array_key_exists($this->identifierToIdMap[$identifier], $this->itemsArr);
+	}
+
+
+
+	/**
 	 * @param $identifier string
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */

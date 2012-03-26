@@ -135,26 +135,26 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		if (array_key_exists($mapping->getIdentifier(), $row)) {
 			
 			if($this->fieldConfigurationCollection[$mapping->getIdentifier()]->getExpandGroupRows()) {
-				return $this->expandGroupedData($row[$mapping->getIdentifier()]);
+				return $this->expandGroupedData($row, $mapping);
 			} else {
 				return $row[$mapping->getIdentifier()];
 			}
 			
 		} else {
-			throw new Exception('Array key ' . $mapping->getIdentifier() . 'does not exist in row. Perhaps wrong mapping configuration? 1280317751');
+			throw new Exception('Array key ' . $mapping->getIdentifier() . 'does not exist in row. Perhaps wrong mapping configuration?', 1280317751);
 		}
 	}
 	
 	
-	
 	/**
 	 * Expand the field by delimiter
-	 * TODO: make the delimiter configurable
-	 * 
-	 * @param string $value
+	 *
+	 * @param array $row
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping
+	 * @return array
 	 */
-	protected function expandGroupedData($value) {
-		return explode(',', $value);
+	protected function expandGroupedData(&$row, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping) {
+		return explode($mapping->getExpandGroupRowsSeparator(), $row[$mapping->getIdentifier()]);
 	}
 }
 ?>

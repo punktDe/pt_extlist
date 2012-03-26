@@ -48,7 +48,6 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 	protected $pagerIdentifier = 'default';
 
 
-
 	/**
 	 * @var string
 	 */
@@ -153,6 +152,10 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 
+		if(count($list->getListData()) == 0) {
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('general.emptyList', 'PtExtlist'), '', t3lib_FlashMessage::INFO);
+		}
+
 		$renderedListData = $this->rendererChain->renderList($list->getListData());
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
@@ -172,7 +175,51 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 			$this->view->assign('pagerCollection', $this->pagerCollection);
 			$this->view->assign('pager', $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier));
 		}
+	}
 
+
+
+	/**
+	 * @param $exportIdentifier string
+	 * @return string
+	 * @throws Exception
+	 */
+	public function downloadAction($exportIdentifier) {
+
+		$exportSettingsPath = $this->extlistTypoScriptSettingsPath . '.export.exportConfigs.' . $exportIdentifier;
+		$exportSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
+
+		if(!is_array($exportSettings)) {
+			throw new Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
+		}
+
+		$exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilder, $exportSettings);
+
+		if(array_key_exists('exportListSettingsPath', $exportSettings)) {
+			$exportListSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
+		} else {
+			$exportListSettings = $this->configurationBuilder->getSettings();
+		}
+
+		$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
+		$list = $extlistContext->getList(true);
+		$rendererChain = $extlistContext->getRendererChain();
+
+		$renderedListData = $rendererChain->renderList($list->getListData());
+		$renderedCaptions = $rendererChain->renderCaptions($list->getListHeader());
+		$renderedAggregateRows = $rendererChain->renderAggregateList($list->getAggregateListData());
+
+		$view = $this->objectManager->get($exportConfig->getViewClassName());
+		$view->setConfigurationBuilder($extlistContext->getConfigurationBuilder());
+		$view->setExportConfiguration($exportConfig);
+
+
+		$view->assign('listHeader', $list->getListHeader());
+		$view->assign('listCaptions', $renderedCaptions);
+		$view->assign('listData', $renderedListData);
+		$view->assign('aggregateRows', $renderedAggregateRows);
+
+		return $view->render();
 	}
 
 

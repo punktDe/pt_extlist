@@ -7,7 +7,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="emptyList">Sorry, no list items available.</label>
+			<label index="general.emptyList">Sorry, no list items available.</label>
 
 			<!-- General phrases -->
 			<label index="general.validationError">Validation Error: </label>
@@ -76,7 +76,7 @@
 
 			 <!-- General phrases -->
 			<label index="general.validationError">Fehler: </label>
-			<label index="emptyList">Diese Liste enthält keine Einträge.</label>
+			<label index="general.emptyList">Diese Liste enthält keine Einträge.</label>
 
 			<!-- Pager -->
 			<label index="pager.of">von</label>

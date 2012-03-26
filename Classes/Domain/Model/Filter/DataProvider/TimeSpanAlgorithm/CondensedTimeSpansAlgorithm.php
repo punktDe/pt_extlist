@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
 	/**
 	 * Process algorithm
 	 *
-	 * @return \Tx_PtExtbase_Collection_SortableObjectCollection
+	 * @return \Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection
 	 */
 	public function process() {
 		$this->timeSpans->sort();

@@ -43,22 +43,45 @@ require_once('PHPExcel/PHPExcel.php');
  */
 class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_AbstractExportView {
 
-    /**
-     * Holds an PHPExcel worksheet object
-     * 
-     * @var PHPExcel
-     */
-    protected $objPHPExcel;
+	/**
+	 * Holds an PHPExcel worksheet object
+	 *
+	 * @var PHPExcel
+	 */
+	protected $objPHPExcel;
 
 
+	/**
+	 * @var PHPExcel_Worksheet
+	 */
+	protected $activeSheet;
 
-    /**
-     * Holds an instance of FLUID template variable container
-     *
-     * @var Tx_Fluid_Core_ViewHelper_TemplateVariableContainer
-     */
-    protected $templateVariableContainer;
 
+	/**
+	 * Holds an instance of FLUID template variable container
+	 *
+	 * @var Tx_Fluid_Core_ViewHelper_TemplateVariableContainer
+	 */
+	protected $templateVariableContainer;
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 */
+	protected $columnConfigCollection;
+
+
+	/**
+	 * Current rowNumber
+	 * @var int
+	 */
+	protected $rowNumber = 1;
+
+
+	/*
+	 * array
+	 */
+	protected $bodyCellStyleCache;
 
 
 	/**
@@ -68,109 +91,246 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	public function render() {
 
+		$this->init();
 
+		$this->clearOutputBufferAndSendHeaders();
 
-        $this->init();
-        $this->clearOutputBufferAndSendHeaders();
+		$this->renderPreHeaderRows();
 
-        $rowNumber = 1;
-        $columnNumber = 0;
+		$this->renderHeader();
 
+		$this->renderBody();
 
-        // Headers
-        if ($this->templateVariableContainer->exists('listCaptions')) {
-            foreach ($this->templateVariableContainer['listCaptions'] as $caption) { /* @var $caption Tx_PtExtlist_Domain_Model_List_Cell */
-                $this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, strip_tags($caption->getValue()));
-                $columnNumber++;
-			}
+		$this->renderPostBodyRows();
 
-            $rowNumber++;
-            $columnNumber = 0;
-		}
-
-		// Rows
-		foreach ($this->templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
-			foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
-				$this->objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($columnNumber, $rowNumber, strip_tags($listCell->getValue()));
-                $columnNumber++;
-			}
-
-            $rowNumber++;
-            $columnNumber = 0;
-
-			#$row = Tx_PtExtbase_Div::iconvArray($row, 'UTF-8', 'ISO-8859-1');     // TODO: make encoding configurable via TS
-		}
-
-
-        // File format can be changed in FlexForm in 'fileFormat' field.
+		// File format can be changed in FlexForm in 'fileFormat' field.
 		// possible values: 'Excel2007', 'Excel5'
-		// if no value is given, 'Excel2007' is taken.
-		$fileFormat = ($this->exportConfiguration->getSettings('fileFormat') !== array() ? $this->exportConfiguration->getSettings('fileFormat') : 'Excel2007');
-        $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $fileFormat);
+		// if no value is given, 'Excel5' is taken.
+		$fileFormat = ($this->exportConfiguration->getSettings('fileFormat') ? $this->exportConfiguration->getSettings('fileFormat') : 'Excel5');
+		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $fileFormat);
 
-        // TODO make output configurable via TS
-        $objWriter->save('php://output');
+		$this->saveOutputAndExit($objWriter);
+	}
 
-        $this->closeOutputBufferAndExit();
+
+	/**
+	 * Overwrite this to render pre header rows
+	 */
+	protected function renderPreHeaderRows() {}
+
+
+	/**
+	 * Overwrite this to render post body rows
+	 */
+	protected function renderPostBodyRows() {}
+
+
+	/**
+	 * Render the header row
+	 */
+	protected function renderHeader() {
+		$columnNumber = 0;
+
+		// Headers
+		if ($this->templateVariableContainer->exists('listCaptions')) {
+			foreach ($this->templateVariableContainer['listCaptions'] as $columnIdentifier => $caption) {
+
+				/* @var $caption Tx_PtExtlist_Domain_Model_List_Cell */
+				$this->activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($caption->getValue()));
+
+				$excelSettings = $this->getExcelSettingsByColumnIdentifier($columnIdentifier);
+
+				/**
+				 * Width
+				 */
+				if (array_key_exists('width', $excelSettings)) {
+					$this->activeSheet->getColumnDimensionByColumn($columnNumber)->setWidth($excelSettings['width']);
+				} else {
+					$this->activeSheet->getColumnDimensionByColumn($columnNumber)->setAutoSize(true);
+				}
+
+				$this->doCellStyling($columnNumber, $columnIdentifier, 'header');
+
+				$columnNumber++;
+			}
+		}
+
+		$this->rowNumber++;
 	}
 
 
 
-    /**
-     * Initializes empty worksheet object
-     * 
-     * @return void
-     */
-    protected function init() {
-        $this->checkRequirements();
-        $this->objPHPExcel = new PHPExcel();
-        $this->objPHPExcel->setActiveSheetIndex(0);
-        $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
-    }
+	/**
+	 * render all body rows
+	 */
+	protected function renderBody() {
+
+		$columnNumber = 0;
+
+		$activeSheet = $this->objPHPExcel->getActiveSheet();
+
+		// Rows
+		foreach ($this->templateVariableContainer['listData'] as $listRow) {
+			/* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+			foreach ($listRow as $columnIdentifier => $listCell) {
+				/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+
+				$activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($listCell->getValue()));
+
+				$this->doCellStyling($columnNumber, $columnIdentifier, 'body');
+ 				$columnNumber++;
+			}
+
+			$this->rowNumber++;
+			$columnNumber = 0;
+		}
+	}
+
+
+	/**
+	 * @param string $columnIdentifier
+	 * @return array
+	 */
+	protected function getExcelSettingsByColumnIdentifier($columnIdentifier) {
+		if ($this->columnConfigCollection->hasIdentifier($columnIdentifier)) {
+			$excelSettings = $this->columnConfigCollection->getColumnConfigByIdentifier($columnIdentifier)->getSettings('excelExport');
+			if (!is_array($excelSettings)) $excelSettings = array();
+		}
+
+		return $excelSettings;
+	}
+
+
+	/**
+	 * @param $columnNumber
+	 * @param $columnIdentifier
+	 * @param $type
+	 */
+	protected function doCellStyling($columnNumber, $columnIdentifier, $type) {
+
+		$excelSettings = $this->getExcelSettingsByColumnIdentifier($columnIdentifier);
+		if(!is_array($excelSettings[$type])) return;
+		$settings = $excelSettings[$type];
+
+		if($settings['wrapText']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setWrapText($settings['wrapText']);
+		if($settings['vertical']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setVertical($settings['vertical']);
+		if($settings['shrinkToFit']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setShrinkToFit($settings['shrinkToFit']);
+
+		if($type == 'body') {
+			if(!array_key_exists($columnIdentifier, $this->bodyCellStyleCache)) {
+				$this->bodyCellStyleCache[$columnIdentifier] = $this->buildStyleArray($settings);
+			}
+
+			$this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->applyFromArray($this->bodyCellStyleCache[$columnIdentifier]);
+		} else {
+			$this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->applyFromArray($this->buildStyleArray($settings));
+		}
+	}
 
 
 
-    /**
-     * Clears output buffer and sends corresponding headers
-     * 
-     * @return void
-     */
-    protected function clearOutputBufferAndSendHeaders() {
-        ob_clean();
+	/**
+	 * @param $styleSettings
+	 * @return array
+	 */
+	protected function buildStyleArray($styleSettings) {
+
+		$style = array();
+
+		if(array_key_exists('borders', $styleSettings)) {
+			$style['borders']['bottom'] = $this->buildBorderStyle($styleSettings['borders']['bottom']);
+			$style['borders']['left'] = $this->buildBorderStyle($styleSettings['borders']['left']);
+			$style['borders']['top'] = $this->buildBorderStyle($styleSettings['borders']['top']);
+			$style['borders']['right'] = $this->buildBorderStyle($styleSettings['borders']['right']);
+		}
+
+		if(array_key_exists('fill', $styleSettings)) {
+			$style['fill'] = array(
+				'type' => $styleSettings['fill']['type'],
+				'color' => array('rgb' => $styleSettings['fill']['color'])
+			);
+		}
+
+		if(array_key_exists('font', $styleSettings)) {
+			$style['font'] = $styleSettings['font'];
+		}
+
+		return $style;
+	}
+
+
+
+	/**
+	 * @param $borderStyleSettings string
+	 * @return array
+	 */
+	protected function buildBorderStyle($borderStyleSettings) {
+		return array(
+			'style' => $borderStyleSettings['style'],
+			'color' => array('rgb' => $borderStyleSettings['color']),
+		);
+	}
+
+
+	/**
+	 * Initializes empty worksheet object
+	 *
+	 * @return void
+	 */
+	protected function init() {
+		$this->checkRequirements();
+
+		$this->objPHPExcel = new PHPExcel();
+		$this->objPHPExcel->setActiveSheetIndex(0);
+		$this->activeSheet = $this->objPHPExcel->getActiveSheet();
+
+		$this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+		$this->columnConfigCollection = $this->configurationBuilder->buildColumnsConfiguration();
+	}
+
+
+
+	/**
+	 * Clears output buffer and sends corresponding headers
+	 *
+	 * @return void
+	 */
+	protected function clearOutputBufferAndSendHeaders() {
+		ob_clean();
 		// redirect output to client browser
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="' . $this->getFilenameFromTs() . '"');
-        header('Cache-Control: max-age=0');
-    }
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="' . $this->getFilenameFromTs() . '"');
+		header('Cache-Control: max-age=0');
+	}
 
 
 
-    /**
-     * Closes output buffer and exits script
-     * 
-     * @return void
-     */
-    protected function closeOutputBufferAndExit() {
+	/**
+	 * @param $objWriter PHPExcel_Writer_IWriter
+	 */
+	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
+		$objWriter->save('php://output');
 		exit();
-    }
+	}
 
 
+	/**
+	 * Checks requirements of Excel export to be working
+	 *
+	 * @throws Exception
+	 * @return void
+	 */
+	private function checkRequirements() {
+		if (!class_exists('PHPExcel')) {
+			throw new Exception('Library PHPExcel is required for using Excel export. You can get PHPExcel from http://phpexcel.codeplex.com 1316565593');
+			exit();
+		}
 
-    /**
-     * Checks requirements of Excel export to be working
-     * 
-     * @throws Exception
-     * @return void
-     */
-    private function checkRequirements() {
-        if (!class_exists('PHPExcel')) {
-            throw new Exception('Library PHPExcel is required for using Excel export. You can get PHPExcel from http://phpexcel.codeplex.com 1316565593');
-            exit();
-        }
-        if (!class_exists('XMLWriter')) {
-            throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled 1316565594');
-            exit();
-        }
-    }
+		if (!class_exists('XMLWriter')) {
+			throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled 1316565594');
+			exit();
+		}
+	}
 }
+
 ?>

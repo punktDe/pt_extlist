@@ -168,8 +168,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 * Template method for initializing filter by session data
 	 */
 	protected function initFilterBySession() {
-		if(array_key_exists('filterValueStart', $this->sessionFilterData)) $this->filterValueStart = date_create('@' . (int) $this->sessionFilterData['filterValueStart']);
-		if(array_key_exists('filterValueEnd', $this->sessionFilterData)) $this->filterValueEnd = date_create('@' . (int) $this->sessionFilterData['filterValueEnd']);
+		if(array_key_exists('filterValueStart', $this->sessionFilterData) && $this->sessionFilterData['filterValueStart']) $this->filterValueStart = date_create('@' . (int) $this->sessionFilterData['filterValueStart']);
+		if(array_key_exists('filterValueEnd', $this->sessionFilterData) && $this->sessionFilterData['filterValueEnd']) $this->filterValueEnd = date_create('@' . (int) $this->sessionFilterData['filterValueEnd']);
 	}
 
 
@@ -178,8 +178,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 * Template method for initializing filter by get / post vars
 	 */
 	protected function initFilterByGpVars() {
-		if(array_key_exists('filterValueStart', $this->gpVarFilterData)) $this->filterValueStart = date_create('@' . (int) $this->gpVarFilterData['filterValueStart']);
-		if(array_key_exists('filterValueEnd', $this->gpVarFilterData)) $this->filterValueEnd = date_create('@' . (int) $this->gpVarFilterData['filterValueEnd']);
+		if(array_key_exists('filterValueStart', $this->gpVarFilterData) && $this->gpVarFilterData['filterValueStart']) $this->filterValueStart = date_create('@' . (int) $this->gpVarFilterData['filterValueStart']);
+		if(array_key_exists('filterValueEnd', $this->gpVarFilterData) && $this->gpVarFilterData['filterValueEnd']) $this->filterValueEnd = date_create('@' . (int) $this->gpVarFilterData['filterValueEnd']);
 	}
 
 
@@ -264,7 +264,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 */
 	public function getValue() {
 		$returnArray = array();
-
 		if ($this->filterValueStart) $returnArray['filterValueStart'] = $this->filterValueStart->format('U');
 		if ($this->filterValueEnd) $returnArray['filterValueEnd'] = $this->filterValueEnd->format('U');
 

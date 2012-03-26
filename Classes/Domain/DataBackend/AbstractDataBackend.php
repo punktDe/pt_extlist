@@ -434,5 +434,27 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
         return $this->sorter;
     }
 
+
+
+	/**
+	 * Reset sorting if sorting changes due to GP vars
+	 *
+	 * DOES NOT RESET SORTING TO DEFAULT SORTING!!! @see resetSortingToDefault()
+	 */
+	public function resetSorting() {
+		$this->sorter->reset();
+		$this->resetListDataCache();
+	}
+
+
+
+	/**
+	 * Reset sorting to default sorting (configured in TS)
+	 */
+	public function resetSortingToDefault() {
+		$this->sorter->resetToDefault();
+		$this->resetListDataCache();
+	}
+
 }
 ?>
