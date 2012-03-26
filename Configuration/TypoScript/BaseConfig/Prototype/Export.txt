@@ -26,3 +26,4 @@ plugin.tx_ptextlist.prototype.export {
 	# Mime-Type string, used for inline viewing of export data 
 	#contentType =
 }
+

@@ -184,7 +184,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
      * @return string Template path and filename
      */
     protected function getTsTemplatePathAndFilename() {
-        return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+       if($this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template']) {
+			 return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+		 }
+
+		 return $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
     }
 
 
@@ -250,7 +254,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { 
                 $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
 			} else {
-				throw new Exception('Given template path and filename could not be found or resolved: ' . $templatePathAndFilename . ' 1284655109');
+				throw new Exception('Given template path and filename could not be found or resolved: ' . t3lib_div::getFileAbsFileName($templatePathAndFilename), 1284655110);
 			}
         }		
 	}

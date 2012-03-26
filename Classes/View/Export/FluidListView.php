@@ -47,7 +47,7 @@ class Tx_PtExtlist_View_Export_FluidListView Extends Tx_PtExtlist_View_Export_Ab
 	 * Initialize additional class properties
 	 *
 	 */
-	protected function initConfiguration() {
+	public function initConfiguration() {
 
 		$this->templatePath = $this->exportConfiguration->getSettings('templatePath');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export! 1284621481'));
