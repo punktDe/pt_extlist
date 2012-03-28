@@ -62,8 +62,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
 		
 		foreach($columnSettings as $columnId => $columnSetting) {
-			$columnSettingMergedWithProtoType = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');
-			$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSettingMergedWithProtoType);
+			$columnSettingMergedWithPrototype = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');
+			$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilder, $columnSettingMergedWithPrototype);
 				
 			// Inject security information
 			$accessable = $security->isAccessableColumn($columnConfig);
