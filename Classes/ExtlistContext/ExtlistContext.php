@@ -34,13 +34,14 @@
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
-
 	/**
 	 * Holds an instance of list configuration for this context
 	 *
 	 * @var array
 	 */
 	protected $listSettings;
+
+
 
 	/**
 	 * Holds list identifier for list kept in context
@@ -70,11 +71,38 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
+	 * Cached list data
+	 *
+	 * @var
+	 */
+	protected $listData;
+
+
+
+	/**
+	 * Cached rendered list data
+	 *
+	 * @var
+	 */
+	protected $renderedListData;
+
+
+
+	/**
+	 * Cached pager collection
+	 *
+	 * @var
+	 */
+	protected $pagerCollection;
+
+
+
+	/**
 	 * Initialize the extlistContext
 	 */
 	public function init() {
 		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::
-		    getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
+				getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
 	}
 
 
@@ -116,9 +144,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
 	public function getPagerCollection() {
-		$pagerCollection = $this->dataBackend->getPagerCollection();
-		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
-		return $pagerCollection;
+		if ($this->pagerCollection === NULL) {
+			$this->pagerCollection = $this->dataBackend->getPagerCollection();
+			$this->pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+		}
+		return $this->pagerCollection;
 	}
 
 
@@ -153,7 +183,24 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
-		return $this->getList()->getListData();
+		if ($this->listData === NULL) {
+			$this->listData = $this->getList()->getListData();
+		}
+		return $this->listData;
+	}
+
+
+
+	/**
+	 * Returns rendered list data for this list context
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function getRenderedListData() {
+		if ($this->renderedListData === NULL) {
+			$this->renderedListData = $this->getRendererChain()->renderList($this->getListData());
+		}
+		return $this->renderedListData;
 	}
 
 
@@ -168,14 +215,20 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
+
 	/**
-	 * Returns rendered list data of current list context
+	 * Returns filter for given full filter name (filterboxIdentifier.filterIdentifier)
 	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @param $fullFilterName
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
-	public function getRenderedListData() {
-		return $this->getRendererChain()->renderList($this->getListData());
+	public function getFilterByFullFiltername($fullFilterName) {
+		list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
+		$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
+		return $filter;
 	}
+
 
 
 	/**
@@ -186,12 +239,14 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
+
 	/**
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getRenderedAggregateRows() {
 		return $this->getRendererChain()->renderAggregateList($this->getList()->getAggregateListData());
 	}
+
 
 
 	/**
@@ -239,5 +294,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		$this->dataBackend = $dataBackend;
 	}
+
 }
 ?>
