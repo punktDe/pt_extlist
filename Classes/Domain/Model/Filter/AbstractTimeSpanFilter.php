@@ -253,7 +253,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
      *
      * @return string
      */
-    protected function getFilterValueForBreadCrumb() {
+    public function getFilterValueForBreadCrumb() {
 
     }
 
