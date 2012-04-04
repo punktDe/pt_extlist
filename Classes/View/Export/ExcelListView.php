@@ -106,7 +106,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		// File format can be changed in FlexForm in 'fileFormat' field.
 		// possible values: 'Excel2007', 'Excel5'
 		// if no value is given, 'Excel5' is taken.
-		$fileFormat = ($this->exportConfiguration->getSettings('fileFormat') !== array() ? $this->exportConfiguration->getSettings('fileFormat') : 'Excel5');
+		$fileFormat = ($this->exportConfiguration->getSettings('fileFormat') ? $this->exportConfiguration->getSettings('fileFormat') : 'Excel5');
 		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $fileFormat);
 
 		$this->saveOutputAndExit($objWriter);

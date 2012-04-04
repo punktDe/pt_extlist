@@ -71,9 +71,9 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 	/**
 	 * Initialize additional class properties
 	 */
-	protected function initConfiguration() {
+	public function initConfiguration() {
 		parent::initConfiguration();
-
+		echo 's';
 		$this->templatePath = $this->exportConfiguration->getSettings('templatePath');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export! 1284621481'));
 		$this->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($this->templatePath));
@@ -172,7 +172,13 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 		$this->assign('csssFilePath', $this->cssFilePath);
 		$html = parent::render();
 		ob_clean();
-//die($html);
+
+		if((int) t3lib_div::_GET('showHTML') == 1) {
+			$relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], '', $this->cssFilePath);
+			$html = str_replace($this->cssFilePath, $relativePath, $html);
+			die($html);
+		}
+
 		$dompdf = new DOMPDF();
 		$dompdf->set_paper($this->paperSize, $this->paperOrientation);
 		$dompdf->load_html($html);

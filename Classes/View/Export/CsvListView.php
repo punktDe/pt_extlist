@@ -49,21 +49,20 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
     protected $delimiter = ';';
 
 
-    /**
-     * Init the configuration for CSVExport
-     */
-    protected function initConfiguration() {
+	/**
+	 * Init the configuration for CSVExport
+	 */
+	public function initConfiguration() {
 		parent::initConfiguration();
 
-        if($this->exportConfiguration->getSettings('outputEncoding')) {
-            $this->outputEncoding = $this->exportConfiguration->getSettings('outputEncoding');
-        }
+		if ($this->exportConfiguration->getSettings('outputEncoding')) {
+			$this->outputEncoding = $this->exportConfiguration->getSettings('outputEncoding');
+		}
 
-        if($this->exportConfiguration->getSettings('delimiter')) {
-            $this->delimiter = $this->exportConfiguration->getSettings('delimiter');
-        }
+		if ($this->exportConfiguration->getSettings('delimiter')) {
+			$this->delimiter = $this->exportConfiguration->getSettings('delimiter');
+		}
 	}
-
 
 
 	/**

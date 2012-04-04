@@ -51,7 +51,6 @@ class Tx_PtExtlist_View_BaseView extends Tx_PtExtbase_View_BaseView {
 	 */
 	public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;
-		$this->initConfiguration();
 	}
 	
 

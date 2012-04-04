@@ -47,7 +47,7 @@ The current installation process looks like this:
 
 * Use the following command to make PEAR channel known to your 
 
-    ``PEAR:pear channel-discover pear.pearplex.net``
+    ``pear channel-discover pear.pearplex.net``
 
 * Use the following command to install PHPExcel on your system:
 
