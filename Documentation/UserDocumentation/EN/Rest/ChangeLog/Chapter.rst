@@ -1,5 +1,7 @@
-
+************
 Changelog
+************
+
 Before updating your version of pt_extlist, you should read this to get an impression on what has changed. Make sure to follow advices on which steps are neccessary to make pt_extlist run again after updating.
 
 Changelog

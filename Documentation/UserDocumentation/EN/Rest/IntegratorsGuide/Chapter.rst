@@ -5,7 +5,6 @@ Integrators Guide
 Setting up export
 =================
 
-
 pt_extlist offers several exporters for lists. You can select from a list of pre-defined export formats or implement your own exporters. Here is a step-by-step explanation on how to set up export:
 
  1. Go to the page on which you have your list set up.
@@ -35,7 +34,7 @@ Configuration for exporting a list as Excel sheet
  7. You will now see a download in your Frontend that enables you to download configured export document with your list data.
 
 Why are there 2 list identifiers?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------
 Almost everytime you want to export some data from your list, you also want to change the way the list looks like in your export. Therefore you can select a different list identifier for export than for your "normal" list. This way you can configure the changes for the exported list on the same page you have your "normal" list. In previous versions of pt_list, you had to create a special page with special TS-settings for your exported list. By chosing a second identifier for your exported list, this is no longer required!
 
 Requirements for Excel export

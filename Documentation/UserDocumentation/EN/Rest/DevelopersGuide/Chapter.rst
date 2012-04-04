@@ -1,3 +1,6 @@
+*********************
+Developpers Guide
+*********************
 
 Pt_extlist can be extended in multiple ways. Many of its classes are configured via TypoScript so you can easily exchange them with your own classes to fit your needs. Common types of extensions are changing Data-Backends or writing your own filter classes. We will start with the latter one.
 

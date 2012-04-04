@@ -1,5 +1,7 @@
-
+********
 Examples
+********
+
 In this section, some examples will be provided to describe the functionality of pt_extlist. Before you can start, make sure, that pt_extlist is installed and loaded using Extension Manager.
 
 Setting up a demo list based on static_countries table

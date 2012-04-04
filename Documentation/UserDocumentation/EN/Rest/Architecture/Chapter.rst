@@ -1,5 +1,6 @@
-
+***************
 Architecture
+***************
 
 Who should read this?
 If you are just interested in how pt_extlist works and want to see how things are put together, the following chapter could be a nice thing to read. If you are a developer and want to extend pt_extlist or want to use it as an API inside your extension, it's necessary to read this!

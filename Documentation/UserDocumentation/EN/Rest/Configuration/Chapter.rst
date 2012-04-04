@@ -1,3 +1,7 @@
+***************
+Configuraration
+***************
+
 
 Setting up Lists
 In this section you will learn how to set up lists using pt_extlist. We will guide you step by step through the TypoScript configuration and show you how to use pt_extlist's widgets as page content.
