@@ -134,13 +134,14 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
         $this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
 
         // Gather sorting states from registered sorting observers
-        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
-            $sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
-            foreach($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
-                $this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
-            }
-        }
-
+		if (is_array($this->sortingObservers)) {
+			foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+				$sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
+				foreach($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
+					$this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
+				}
+			}
+		}
     }
 
 }
