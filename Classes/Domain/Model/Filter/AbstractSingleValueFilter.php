@@ -162,7 +162,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
      * 
      * @return string
      */
-    public function getFilterValueForBreadCrumb() {
+    public function getDisplayValue() {
     	return $this->filterValue;
     }
     

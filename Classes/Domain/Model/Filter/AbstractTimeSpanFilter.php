@@ -248,17 +248,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
 
 
-    /**
-     * Returns filter value for breadcrumb
-     *
-     * @return string
-     */
-    public function getFilterValueForBreadCrumb() {
-
-    }
-
-
-
 	/**
 	 * @return array
 	 */

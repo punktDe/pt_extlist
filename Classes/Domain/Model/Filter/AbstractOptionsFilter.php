@@ -250,10 +250,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 *
 	 * @return string
 	 */
-	public function getFilterValueForBreadCrumb() {
+	public function getDisplayValue() {
 		return implode(', ', $this->filterValues);
 	}
 
 }
-
 ?>
