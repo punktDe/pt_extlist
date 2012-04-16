@@ -31,50 +31,49 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @author Michael Knoll
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
+
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
-	
-	
-	
+
+
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_FilterFactory'));
 	}
 
 
-    public function testCreateInstanceByConfiguration() {
-        $filterConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
-        $filterConfigurationMock->setup();
-        $filterConfiguration = $filterConfigurationMock->getFilterConfigurationMock('filter1', 'test');
-        $className = $filterConfiguration->getConfigurationBuilder();
-        $filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
-        $this->assertEquals($filter->getFilterIdentifier(), 'filter1');
-        $this->assertEquals($filter->getListIdentifier(), 'test');
-    }
-	
-	
-	
+	public function testCreateInstanceByConfiguration() {
+		$filterConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
+		$filterConfigurationMock->setup();
+		$filterConfiguration = $filterConfigurationMock->getFilterConfigurationMock('filter1', 'test');
+
+		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
+
+		$this->assertEquals($filter->getFilterIdentifier(), 'filter1');
+		$this->assertEquals($filter->getListIdentifier(), 'test');
+	}
+
+
 	public function testCreateNonInterfaceImplementingClass() {
 		$mockFilterConfiguration = $this->getMock(
-            'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
-            array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier'),array(),'',FALSE,FALSE,FALSE);
-      
-        $mockFilterConfiguration->expects($this->once())
-            ->method('getFilterClassName')
-            ->will($this->returnValue(__CLASS__));
-        
-        try {
-            $filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($mockFilterConfiguration);
-        } catch(Exception $e) {
-        	return;
-        }
-        $this->fail('No Exception thrown on creating non-filterinterface implementing class');
+			'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
+			array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier'), array(), '', FALSE, FALSE, FALSE);
+
+		$mockFilterConfiguration->expects($this->once())
+			->method('getFilterClassName')
+			->will($this->returnValue(__CLASS__));
+
+		try {
+			$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($mockFilterConfiguration);
+		} catch (Exception $e) {
+			return;
+		}
+		$this->fail('No Exception thrown on creating non-filterinterface implementing class');
 	}
-	
+
 }
 
 ?>

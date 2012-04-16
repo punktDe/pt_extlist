@@ -44,6 +44,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected $filterValues = array();
 
 
+    /**
+     * Array with selectable filter options
+     *
+     * @var array
+     */
+    protected $options = NULL;
+
 	
 	/**
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
@@ -172,6 +179,20 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
     }
 
 
+    /**
+     * Get cached renderes options from data provider
+     *
+     * @return array|null
+     */
+    protected function getOptionsFromDataProvider() {
+        if($this->options === NULL) {
+            $this->options = $this->buildDataProvider()->getRenderedOptions();
+        }
+
+        return $this->options;
+    }
+
+
 
 	/**
 	 * Returns an associative array of options as possible filter values
@@ -179,8 +200,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @return array
 	 */
 	public function getOptions() {
-
-		$renderedOptions = $this->buildDataProvider()->getRenderedOptions();
+		$renderedOptions = $this->getOptionsFromDataProvider();
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
 
@@ -258,7 +278,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @return string
 	 */
 	public function getDisplayValue() {
-		return implode(', ', $this->filterValues);
+        $options = $this->getOptions();
+        $displayValues = array();
+
+        foreach($options as $key => $option) {
+            if($option['selected'] === TRUE) {
+                $displayValues[] = $option['value'];
+            }
+        }
+
+		return implode(', ', $displayValues);
 	}
 
 }
