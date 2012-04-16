@@ -1,4 +1,6 @@
 <?php
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,6 +27,8 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+require_once t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Fixtures/TestDataProvider.php';
 
 /**
  * Testcase for abstract groupDataFilter class
@@ -116,9 +120,37 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
-    public function testGetOptions() {
-        $this->markTestIncomplete();
+
+    /**
+     * @test
+     */
+    public function getOptions() {
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
+
+        $abstractOptionsFilter = $this->getMockBuilder($accessibleClassName)
+            ->setMethods(array('buildDataProvider'))
+            ->getMock();
+
+        $allFilterSettings = $this->configurationBuilderMock->getSettings('filters');
+        $filterSettings = $allFilterSettings['testfilterbox']['filterConfigs']['10'];
+
+        $abstractOptionsFilter->_set('filterConfig', new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+            $this->configurationBuilderMock,
+            $filterSettings, 'test'));
+
+        $dataProviderFixture = new Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider();
+        $dataProviderFixture->setOptions(
+          array('key1' => 'value1', 'key2' => 'value2')
+        );
+
+        $abstractOptionsFilter->expects($this->once())->method('buildDataProvider')->will($this->returnValue($dataProviderFixture));
+
+        $options = $abstractOptionsFilter->getOptions();
+
+        $this->assertEquals(array('value' => 'value1', 'selected' => FALSE), $options['key1']);
     }
+
+
 
     public function testAddInactiveOption() {
 
@@ -252,7 +284,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     /**
      * @test
      * @dataProvider displayValueDataProvider
-     * @param $fields
+     * @param $values
      * @param $expected
      */
     public function displayValue($values, $expected) {
@@ -265,9 +297,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 
 
-    /**
-     * Utility Methods
-     */
+
+
+//**************************************************************
+//* Utility Methods
+//**************************************************************/
 
     public function buildAccessibleAbstractGroupDataFilter($filterSettings = NULL) {
         $this->defaultFilterSettings = $filterSettings;

@@ -58,6 +58,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends T
 		$filterboxConfigurationMock->setup();
 		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
+
+        $this->assertTrue(is_a('Tx_PtExtlist_Domain_Model_Filter_Filterbox', $filterbox));
 	}
 	
 	
