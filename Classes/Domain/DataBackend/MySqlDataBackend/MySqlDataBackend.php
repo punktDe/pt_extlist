@@ -152,7 +152,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 *
 	 * @param mixed $dataSource
 	 */
-	public function injectDataSource($dataSource) {
+	public function _injectDataSource($dataSource) {
 		$this->dataSource = $dataSource;
 	}
 

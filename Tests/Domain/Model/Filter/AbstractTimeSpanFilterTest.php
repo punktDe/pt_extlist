@@ -38,6 +38,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
 	protected $defaultFilterSettings;
 
 
+
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 
@@ -54,6 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
 			),
 		);
 	}
+
 
 
 	/**
@@ -168,7 +170,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
 		$dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
-		$dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
+		$dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
 		$abstractTimeSpanFilter->injectFilterConfig($filterConfiguration);
 		$abstractTimeSpanFilter->injectDataBackend($dataBackendMock);
