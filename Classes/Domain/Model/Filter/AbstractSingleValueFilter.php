@@ -103,7 +103,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
-    
+
 	/**
 	 * Returns an error message for this filter
 	 *

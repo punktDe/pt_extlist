@@ -121,37 +121,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 
 
-    /**
-     * @test
-     */
-    public function getOptions() {
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
-
-        $abstractOptionsFilter = $this->getMockBuilder($accessibleClassName)
-            ->setMethods(array('buildDataProvider'))
-            ->getMock();
-
-        $allFilterSettings = $this->configurationBuilderMock->getSettings('filters');
-        $filterSettings = $allFilterSettings['testfilterbox']['filterConfigs']['10'];
-
-        $abstractOptionsFilter->_set('filterConfig', new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
-            $this->configurationBuilderMock,
-            $filterSettings, 'test'));
-
-        $dataProviderFixture = new Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider();
-        $dataProviderFixture->setOptions(
-          array('key1' => 'value1', 'key2' => 'value2')
-        );
-
-        $abstractOptionsFilter->expects($this->once())->method('buildDataProvider')->will($this->returnValue($dataProviderFixture));
-
-        $options = $abstractOptionsFilter->getOptions();
-
-        $this->assertEquals(array('value' => 'value1', 'selected' => FALSE), $options['key1']);
-    }
-
-
-
     public function testAddInactiveOption() {
 
         $settings = array(
@@ -268,14 +237,25 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 
     /**
+     * @test
+     */
+    public function getOptions() {
+        $abstractOptionsFilter = $this->buildAcccessibleAbstractOptionsFilterWithTestDataProvider();
+        $options = $abstractOptionsFilter->getOptions();
+
+        $this->assertEquals(array('value' => 'value1', 'selected' => FALSE), $options['key1']);
+    }
+
+
+
+    /**
      * @return array
      */
     public function displayValueDataProvider() {
         return array(
-            'none' => array('values' => array(), 'expected' => ''),
-            'one' => array('values' => array('test'), 'expected' => 'test'),
-            'multiple' => array('values' => array('val1', 'val2'), 'expected' => 'val1, val2'),
-
+            'none' => array('values' => array(), 'selectedValues' => array(), 'expected' => ''),
+            'one' => array('values' => array('key' => 'test', 'otherKey' => 'test2'), 'selectedValues' => array('key'), 'expected' => 'test'),
+            'multiple' => array('values' => array('key1' => 'val1', 'key2' => 'val2', 'key3' => 'val3'),  'selectedValues' => array('key1', 'key2'), 'expected' => 'val1, val2'),
         );
     }
 
@@ -285,13 +265,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
      * @test
      * @dataProvider displayValueDataProvider
      * @param $values
+     * @param $selectedValues
      * @param $expected
      */
-    public function displayValue($values, $expected) {
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
-        $abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
+    public function displayValue($values, $selectedValues, $expected) {
+        $abstractOptionsFilter = $this->buildAcccessibleAbstractOptionsFilterWithTestDataProvider($values, $selectedValues);
 
-        $abstractOptionsFilter->_set('filterValues', $values);
+        $abstractOptionsFilter->_set('filterValues', $selectedValues);
         $this->assertEquals($expected, $abstractOptionsFilter->getDisplayValue());
     }
 
@@ -302,6 +282,39 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 //**************************************************************
 //* Utility Methods
 //**************************************************************/
+
+    /**
+     * @param null $testData
+     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+     */
+    protected function buildAcccessibleAbstractOptionsFilterWithTestDataProvider($testData = NULL) {
+
+        if(!$testData) {
+            $testData = array('key1' => 'value1', 'key2' => 'value2');
+        }
+
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
+
+        $abstractOptionsFilter = $this->getMockBuilder($accessibleClassName)
+            ->setMethods(array('buildDataProvider'))
+            ->getMock();
+
+        $allFilterSettings = $this->configurationBuilderMock->getSettings('filters');
+        $filterSettings = $allFilterSettings['testfilterbox']['filterConfigs']['10'];
+
+        $abstractOptionsFilter->_set('filterConfig', new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+            $this->configurationBuilderMock,
+            $filterSettings, 'test'));
+
+        $dataProviderFixture = new Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider();
+        $dataProviderFixture->setOptions($testData);
+
+        $abstractOptionsFilter->expects($this->once())->method('buildDataProvider')->will($this->returnValue($dataProviderFixture));
+
+        return $abstractOptionsFilter;
+    }
+
+
 
     public function buildAccessibleAbstractGroupDataFilter($filterSettings = NULL) {
         $this->defaultFilterSettings = $filterSettings;

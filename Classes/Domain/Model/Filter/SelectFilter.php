@@ -95,7 +95,27 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	public function getMultiple() {
 		return $this->multiple;
 	}
-	
+
+
+
+    /**
+     * Return filter value string for breadcrumb
+     *
+     * @return string
+     */
+    public function getDisplayValue() {
+        $options = parent::getOptions();
+        $displayValues = array();
+
+        foreach($options as $option) {
+            if($option['selected'] === TRUE) {
+                $displayValues[] = $option['value'];
+            }
+        }
+
+        return implode(', ', $displayValues);
+    }
+
 }
 
 ?>
