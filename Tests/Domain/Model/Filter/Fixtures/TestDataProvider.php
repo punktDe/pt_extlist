@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Joachim Mathes
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,31 +27,44 @@
  ***************************************************************/
 
 /**
- * Time span collection
- *
+ * Test Data Provider
+ * 
+ * @author Daniel Lienert 
  * @package Domain
- * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
- * @author Joachim Mathes
+ * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection extends Tx_PtExtbase_Collection_SortableObjectCollection {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider  {
 
 	/**
-	 * Restricted class name
-	 * @var string
-	 * @see Tx_PtExtbase_Collection_ObjectCollection::checkItemType()
+	 * array of options
+	 * 
+	 * @var array
 	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan';
+	protected $options;
 
 
+    /**
+     * @param $renderedOptions
+     */
+    public function setOptions($options) {
+        $this->options = $options;
+    }
 
-	public function getJsonValue() {
-		$timeSpans = array();
-		foreach ($this->itemsArr as $timeSpan) {
-			/* @var $timeSpan Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan */
-			$timeSpans[] = $timeSpan->getJsonValue();
-		}
-		$result = "{\"timeSpans\":[" . implode(',', $timeSpans) . "]}";
-		return $result;
+
+	/**
+     * @return array
+     */
+	public function getRenderedOptions() {
+		$renderedOptions = array();
+
+        foreach($this->options as $key => $value) {
+            $renderedOptions[$key] = array(
+                'value' => $value,
+                'selected' => false,
+            );
+        }
+
+        return $renderedOptions;
 	}
 }
 ?>

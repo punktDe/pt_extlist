@@ -100,9 +100,27 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     	$filter = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub('testFilter');
     	return $filter;
     }
-	
+
+
+    /**
+     * @test
+     */
+    public function getDisplayValueSingle() {
+        $filterClass = $this->buildAccessibleProxy('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'testfilter');
+        $filter = new $filterClass;
+        $filter->_set('filterValue', 'test');
+        $this->assertEquals('test', $filter->getDisplayValue());
+    }
+
+
+    /**
+     * @test
+     */
+    public function getDisplayValueMultiple() {
+        $filterClass = $this->buildAccessibleProxy('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'testfilter');
+        $filter = new $filterClass;
+        $filter->_set('filterValue', array('val1', 'val2'));
+        $this->assertEquals('val1, val2', $filter->getDisplayValue());
+    }
 }
-
-
-
 ?>

@@ -1,4 +1,6 @@
 <?php
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,264 +28,311 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Fixtures/TestDataProvider.php';
+
 /**
  * Testcase for abstract groupDataFilter class
  *
  * @package Tests
  * @subpackage Domain\Model\Filter
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-    
-	protected $defaultFilterSettings;
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-	
-	
-	public function testCreateFilterQuerySingleValue() {
-    	
-        $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
-		$selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
-		
-        $selectFilter->_call('buildFilterQuery');
- 		$filterQuery = $selectFilter->_get('filterQuery');
-		$criterias = $filterQuery->getCriterias();
 
-		$this->assertEquals(count($criterias), 1);
-		$this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
-		$this->assertEquals($criterias[0]->getField(), 'tableName1.fieldName1');
-		$this->assertEquals($criterias[0]->getValue(), 'filterValue');
-		$this->assertEquals($criterias[0]->getOperator(), '=');
+    protected $defaultFilterSettings;
+
+    public function setup() {
+        $this->initDefaultConfigurationBuilderMock();
     }
-    
-    
-	public function testCreateFilterQueryMultipleValue() {
-    	
+
+
+    public function testCreateFilterQuerySingleValue() {
+
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
-		$selectFilter->_set('filterValues', array('filterValue1', 'filterValue2'));
-		
+        $selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
+
         $selectFilter->_call('buildFilterQuery');
- 		$filterQuery = $selectFilter->_get('filterQuery');
-		$criterias = $filterQuery->getCriterias();
-		
-		$this->assertEquals(count($criterias), 1);
-		$this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
-		$this->assertEquals($criterias[0]->getField(), 'tableName1.fieldName1');
-		$this->assertEquals($criterias[0]->getValue(), array('filterValue1', 'filterValue2'));
-		$this->assertEquals($criterias[0]->getOperator(), 'IN');
+        $filterQuery = $selectFilter->_get('filterQuery');
+        $criterias = $filterQuery->getCriterias();
+
+        $this->assertEquals(count($criterias), 1);
+        $this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+        $this->assertEquals($criterias[0]->getField(), 'tableName1.fieldName1');
+        $this->assertEquals($criterias[0]->getValue(), 'filterValue');
+        $this->assertEquals($criterias[0]->getOperator(), '=');
     }
-    
-    
-	public function testCreateFilterQuerySingleValueInverted() {
-    	
-		$filterSettings = array(
-               'filterIdentifier' => 'field1', 
-               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-               'partialPath' => 'Filter/SelectFilter',
-               'fieldIdentifier' => 'field1',
-               'displayFields' => 'field1,field2',
-               'filterField' => 'field1',
-               'invert' => '1'
-       		 );
-		
-		
+
+
+    public function testCreateFilterQueryMultipleValue() {
+
+        $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
+        $selectFilter->_set('filterValues', array('filterValue1', 'filterValue2'));
+
+        $selectFilter->_call('buildFilterQuery');
+        $filterQuery = $selectFilter->_get('filterQuery');
+        $criterias = $filterQuery->getCriterias();
+
+        $this->assertEquals(count($criterias), 1);
+        $this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+        $this->assertEquals($criterias[0]->getField(), 'tableName1.fieldName1');
+        $this->assertEquals($criterias[0]->getValue(), array('filterValue1', 'filterValue2'));
+        $this->assertEquals($criterias[0]->getOperator(), 'IN');
+    }
+
+
+    public function testCreateFilterQuerySingleValueInverted() {
+
+        $filterSettings = array(
+            'filterIdentifier' => 'field1',
+            'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+            'partialPath' => 'Filter/SelectFilter',
+            'fieldIdentifier' => 'field1',
+            'displayFields' => 'field1,field2',
+            'filterField' => 'field1',
+            'invert' => '1'
+        );
+
+
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter($filterSettings);
-		$selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
-		
+        $selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
+
         $selectFilter->_call('buildFilterQuery');
- 		$filterQuery = $selectFilter->_get('filterQuery');
-		$criterias = $filterQuery->getCriterias();
-		
-		$this->assertEquals(count($criterias), 1);
-		$this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
+        $filterQuery = $selectFilter->_get('filterQuery');
+        $criterias = $filterQuery->getCriterias();
+
+        $this->assertEquals(count($criterias), 1);
+        $this->assertTrue(is_a($criterias[0], 'Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
     }
-    
-    
+
+
     public function testInit() {
-    	$this->markTestIncomplete();
+        $this->markTestIncomplete();
     }
-    
-    
-    
+
+
     public function testReset() {
-    	$this->markTestIncomplete();
+        $this->markTestIncomplete();
     }
-    
-    
-    
+
+
     public function testPersistToSession() {
-    	$this->markTestIncomplete();
+        $this->markTestIncomplete();
     }
-    
-    
-    
-    public function testGetOptions() {
-    	$this->markTestIncomplete();
+
+
+
+    /**
+     * @test
+     */
+    public function getOptions() {
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
+
+        $abstractOptionsFilter = $this->getMockBuilder($accessibleClassName)
+            ->setMethods(array('buildDataProvider'))
+            ->getMock();
+
+        $allFilterSettings = $this->configurationBuilderMock->getSettings('filters');
+        $filterSettings = $allFilterSettings['testfilterbox']['filterConfigs']['10'];
+
+        $abstractOptionsFilter->_set('filterConfig', new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+            $this->configurationBuilderMock,
+            $filterSettings, 'test'));
+
+        $dataProviderFixture = new Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider();
+        $dataProviderFixture->setOptions(
+          array('key1' => 'value1', 'key2' => 'value2')
+        );
+
+        $abstractOptionsFilter->expects($this->once())->method('buildDataProvider')->will($this->returnValue($dataProviderFixture));
+
+        $options = $abstractOptionsFilter->getOptions();
+
+        $this->assertEquals(array('value' => 'value1', 'selected' => FALSE), $options['key1']);
     }
-    
+
+
+
     public function testAddInactiveOption() {
-    	
-    	$settings = array(
-               'filterIdentifier' => 'test', 
-               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-               'partialPath' => 'Filter/SelectFilter',
-               'fieldIdentifier' => 'field1',
-               'displayFields' => 'field1,field2',
-               'filterField' => 'field3',
-               'invert' => '0',
-    		   'inactiveOption' => 'all',
-       		 );
-    	
-    	$abstractGroupDataFilter = $this->buildAccessibleAbstractGroupDataFilter($settings);
-    	$options = array();
-    	$abstractGroupDataFilter->_callRef('addInactiveOption', $options);
-    	
-    	$this->assertEquals($options['']['value'], 'all');
-    	$this->assertEquals($options['']['selected'], true, 'Selected must be true cause no filterValues are set');
-    	
-    	$options = array();
-    	$abstractGroupDataFilter->_set('filterValues', array('x' => 'x'));
-    	$abstractGroupDataFilter->_callRef('addInactiveOption', $options);
-    	
-    	$this->assertEquals($options['']['value'], 'all');
-    	$this->assertEquals($options['']['selected'], false, 'Selected must be false cause we have a filterValue');
+
+        $settings = array(
+            'filterIdentifier' => 'test',
+            'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+            'partialPath' => 'Filter/SelectFilter',
+            'fieldIdentifier' => 'field1',
+            'displayFields' => 'field1,field2',
+            'filterField' => 'field3',
+            'invert' => '0',
+            'inactiveOption' => 'all',
+        );
+
+        $abstractGroupDataFilter = $this->buildAccessibleAbstractGroupDataFilter($settings);
+        $options = array();
+        $abstractGroupDataFilter->_callRef('addInactiveOption', $options);
+
+        $this->assertEquals($options['']['value'], 'all');
+        $this->assertEquals($options['']['selected'], true, 'Selected must be true cause no filterValues are set');
+
+        $options = array();
+        $abstractGroupDataFilter->_set('filterValues', array('x' => 'x'));
+        $abstractGroupDataFilter->_callRef('addInactiveOption', $options);
+
+        $this->assertEquals($options['']['value'], 'all');
+        $this->assertEquals($options['']['selected'], false, 'Selected must be false cause we have a filterValue');
     }
-       
-    
+
+
     public function testGetValues() {
-    	$this->markTestIncomplete();
+        $this->markTestIncomplete();
     }
-	
-    
-	public function testInitOnCorrectConfiguration() {
-    	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
+
+
+    public function testInitOnCorrectConfiguration() {
+        $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
-        	$this->configurationBuilderMock,
-           array(
-               'filterIdentifier' => 'field1', 
-               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-               'partialPath' => 'Filter/SelectFilter',
-               'fieldIdentifier' => 'field1',
-               'displayFields' => 'field1,field2',
-               'filterField' => 'field1'
-        ),'test');
+            $this->configurationBuilderMock,
+            array(
+                'filterIdentifier' => 'field1',
+                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+                'partialPath' => 'Filter/SelectFilter',
+                'fieldIdentifier' => 'field1',
+                'displayFields' => 'field1,field2',
+                'filterField' => 'field1'
+            ), 'test');
         $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', FALSE);
-        
+
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
-        
+
         $selectFilter->injectFilterConfig($filterConfiguration);
         $selectFilter->injectDataBackend($dataBackendMock);
         $selectFilter->init();
     }
-    
-    
-    
+
+
     public function testExceptionsOnMissingFieldIdentifierConfiguration() {
-    	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
-    	
-    	try {
-	    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
-	    	$this->configurationBuilderMock,
-	    	   array(
-	    	       'filterIdentifier' => 'field1', 
-	    	       'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-	    	       'partialPath' => 'Filter/SelectFilter',
-	               'optionsSourceField' => 'field1,field2',
-	    	),'test');
-    	
+        $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
+
+        try {
+            $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+                $this->configurationBuilderMock,
+                array(
+                    'filterIdentifier' => 'field1',
+                    'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+                    'partialPath' => 'Filter/SelectFilter',
+                    'optionsSourceField' => 'field1,field2',
+                ), 'test');
+
             $selectFilter->init();
-    	} catch(Exception $e) {
-    		return;
-    	}
-    	$this->fail('No error has been thrown on configuration without fieldIdentifier');
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail('No error has been thrown on configuration without fieldIdentifier');
     }
-    
-    
-    
+
+
     public function testOnMissingFilterFieldConfiguration() {
-    	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
+        $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
-        $this->configurationBuilderMock,
-           array(
-               'filterIdentifier' => 'field1', 
-               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-               'partialPath' => 'Filter/SelectFilter',
-               'fieldIdentifier' => 'field1',
-               'displayField' => 'field2'
-        ), 'test');
+            $this->configurationBuilderMock,
+            array(
+                'filterIdentifier' => 'field1',
+                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+                'partialPath' => 'Filter/SelectFilter',
+                'fieldIdentifier' => 'field1',
+                'displayField' => 'field2'
+            ), 'test');
         $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', FALSE);
-        
+
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
-    	$selectFilter->injectDataBackend($dataBackendMock);
-        
+        $selectFilter->injectDataBackend($dataBackendMock);
+
         $selectFilter->injectFilterConfig($filterConfiguration);
     }
-    
-    
-   public function testSetDefaultValuesFromTSConfigSingle() {
-   		$testFilter = $this->buildAccessibleAbstractGroupDataFilter();
-   		$defaultValue = 'test';
-   		$testFilter->_call('setDefaultValuesFromTSConfig', $defaultValue);
-   		$this->assertEquals(array('test' => 'test'), $testFilter->_get('filterValues'));
-   }
-    
-   
- 	public function testSetDefaultValuesFromTSConfigMultiple() {
-   		$testFilter = $this->buildAccessibleAbstractGroupDataFilter();
-   		$defaultValue = array(10 => 'test', 20 => 'test2');
-   		$testFilter->_call('setDefaultValuesFromTSConfig', $defaultValue);
-   		$this->assertEquals(array('test' => 'test', 'test2' => 'test2'), $testFilter->_get('filterValues'));
-   }
-   
-   
-   /** @test */
-   public function defaultValuesAndDBOptionsAreCorrectlyMergedWithNumericKeys() {
-   	
-   }
-   
-   
+
+
+    public function testSetDefaultValuesFromTSConfigSingle() {
+        $testFilter = $this->buildAccessibleAbstractGroupDataFilter();
+        $defaultValue = 'test';
+        $testFilter->_call('setDefaultValuesFromTSConfig', $defaultValue);
+        $this->assertEquals(array('test' => 'test'), $testFilter->_get('filterValues'));
+    }
+
+
+    public function testSetDefaultValuesFromTSConfigMultiple() {
+        $testFilter = $this->buildAccessibleAbstractGroupDataFilter();
+        $defaultValue = array(10 => 'test', 20 => 'test2');
+        $testFilter->_call('setDefaultValuesFromTSConfig', $defaultValue);
+        $this->assertEquals(array('test' => 'test', 'test2' => 'test2'), $testFilter->_get('filterValues'));
+    }
+
+
     /**
-     * Utility Methods
+     * @return array
      */
-    
+    public function displayValueDataProvider() {
+        return array(
+            'none' => array('values' => array(), 'expected' => ''),
+            'one' => array('values' => array('test'), 'expected' => 'test'),
+            'multiple' => array('values' => array('val1', 'val2'), 'expected' => 'val1, val2'),
+
+        );
+    }
+
+
+
+    /**
+     * @test
+     * @dataProvider displayValueDataProvider
+     * @param $values
+     * @param $expected
+     */
+    public function displayValue($values, $expected) {
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
+        $abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
+
+        $abstractOptionsFilter->_set('filterValues', $values);
+        $this->assertEquals($expected, $abstractOptionsFilter->getDisplayValue());
+    }
+
+
+
+
+
+//**************************************************************
+//* Utility Methods
+//**************************************************************/
+
     public function buildAccessibleAbstractGroupDataFilter($filterSettings = NULL) {
-    	$this->defaultFilterSettings = $filterSettings;
-    	if(!$this->defaultFilterSettings) {
-    		$this->defaultFilterSettings = array(
-               'filterIdentifier' => 'test', 
-               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-               'partialPath' => 'Filter/SelectFilter',
-               'fieldIdentifier' => 'field1',
-               'displayFields' => 'field1,field2',
-               'filterField' => 'field3',
-               'invert' => '0'
-       		 );
-    	}
-    	
-    	$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
-    	$abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
-        
-    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock,$this->defaultFilterSettings,'test');
-        $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', FALSE);
-        
+        $this->defaultFilterSettings = $filterSettings;
+        if (!$this->defaultFilterSettings) {
+            $this->defaultFilterSettings = array(
+                'filterIdentifier' => 'test',
+                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+                'partialPath' => 'Filter/SelectFilter',
+                'fieldIdentifier' => 'field1',
+                'displayFields' => 'field1,field2',
+                'filterField' => 'field3',
+                'invert' => '0'
+            );
+        }
+
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
+        $abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
+
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings, 'test');
+
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
-        
+
         $abstractOptionsFilter->injectFilterConfig($filterConfiguration);
         $abstractOptionsFilter->injectDataBackend($dataBackendMock);
         $abstractOptionsFilter->init();
-        
+
         return $abstractOptionsFilter;
     }
-    
-    
 
-    
-    
-    
+
 }
+
 ?>

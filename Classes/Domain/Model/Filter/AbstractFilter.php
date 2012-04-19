@@ -99,7 +99,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
 	 */
 	protected $gpVarAdapter = null;
-	
+
+
+
+	/**
+	 * @var mixed
+	 */
+	protected $filterValue;
 	
 	
 	/**
@@ -568,7 +574,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
     	$breadCrumb->injectBreadCrumbsConfiguration($this->filterConfig->getConfigurationBuilder()->buildBreadCrumbsConfiguration());
         
-        if ($this->getFilterValueForBreadCrumb() != '') {
+        if ($this->getDisplayValue() != '') {
             $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
             
             $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
@@ -595,18 +601,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     protected function getFieldsForBreadcrumb() {
     	return array(
     	   'label' => $this->filterConfig->getLabel(), 
-    	   'value' => $this->getFilterValueForBreadCrumb()
+    	   'value' => $this->getDisplayValue()
     	);
     }
     
     
     
     /**
-     * Returns a string to be shown as filter value in breadcrumb
+     * Returns a string to be shown as filter value (eg. in breadcrumb)
      * 
      * @return string
      */
-    abstract protected function getFilterValueForBreadCrumb();
+    public function getDisplayValue() {
+		 if(is_array($this->filterValue)) {
+			 return implode(', ', $this->filterValue);
+		 } else {
+			 return $this->filterValue;
+		 }
+	 }
     
     
     

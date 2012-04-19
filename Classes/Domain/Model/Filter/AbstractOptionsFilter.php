@@ -163,17 +163,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	}
 
 
-	
+
+    /**
+     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+     */
+    protected function buildDataProvider() {
+        return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
+    }
+
+
+
 	/**
 	 * Returns an associative array of options as possible filter values
 	 *
 	 * @return array
 	 */
 	public function getOptions() {
-		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
 
-		$renderedOptions = $dataProvider->getRenderedOptions();
-
+		$renderedOptions = $this->buildDataProvider()->getRenderedOptions();
 		$this->addInactiveOption($renderedOptions);
 		$this->setSelectedOptions($renderedOptions);
 
@@ -250,10 +257,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 *
 	 * @return string
 	 */
-	protected function getFilterValueForBreadCrumb() {
+	public function getDisplayValue() {
 		return implode(', ', $this->filterValues);
 	}
 
 }
-
 ?>
