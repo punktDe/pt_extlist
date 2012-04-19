@@ -2,6 +2,12 @@
 Introduction
 *****************
 
+A documentation for users, administrators and developers.
+
+The users will learn how to install and setup a demo list. The administrators will learn setting up a list and plugin configuration. The developers will learn what pt_extlist is about and how they can manipulate pt_extlist.
+
+The users and administrators need the basic knowledge about programming.
+
 What does it do?
 ================
 
