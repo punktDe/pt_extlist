@@ -35,7 +35,7 @@
  * @package Tests
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
@@ -43,30 +43,34 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends T
 	}
 	
 	
-	
-	public function testTest() {
+
+	/** @test */
+	public function getFilterboxConfigurationMockReturnsInstanceOfConfigurationBuilder() {
+
+		// TODO what is this test for?
+
 		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
 		$filterboxConfigurationMock->setup();
         $filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
-        $this->assertTrue(is_a($filterboxConfiguration->getConfigurationBuilder(), Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder));
+        $this->assertTrue($filterboxConfiguration->getConfigurationBuilder() instanceof Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder);
 	}
 	
 	
-	
-	public function testCreateInstanceByFilterboxConfiguration() {
+
+	/** @test */
+	public function createInstanceByFilterboxConfigurationReturnsInstanceOfFilterbox() {
 		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
 		$filterboxConfigurationMock->setup();
 		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         $filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
 
-        $this->assertTrue(is_a('Tx_PtExtlist_Domain_Model_Filter_Filterbox', $filterbox));
+        $this->assertTrue($filterbox instanceof Tx_PtExtlist_Domain_Model_Filter_Filterbox);
 	}
 	
 	
-	
-	public function testCreateAccessableInstance() {
-		
-		
+
+	/** @test */
+	public function containedFiltersHaveCorrectAccessRights() {
 		$filterBoxConfig = $this->configurationBuilderMock->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
 		$filterBox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterBoxConfig);
 
@@ -79,5 +83,4 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase extends T
 	}
 	
 }
-
 ?>
