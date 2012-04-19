@@ -136,6 +136,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
      * @var string
      */
     protected $submitToPage;
+
+
+
+	/**
+	 * If set to true, sorting should be reset to default if filterbox is submit
+	 *
+	 * @var boolean
+	 */
+	protected $resetToDefaultSortingOnSubmit = TRUE;
 	
 	
 	
@@ -219,6 +228,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 		
 		if (array_key_exists('showSubmit', $filterBoxSettings)) {
 			$this->showSubmit = $filterBoxSettings['showSubmit'] == 1 ? true : false;
+		}
+
+		if (array_key_exists('resetToDefaultSortingOnSubmit', $filterBoxSettings)) {
+			$this->resetToDefaultSortingOnSubmit = $filterBoxSettings['resetToDefaultSortingOnSubmit'] == 1 ? true : false;
 		}
 		
 		if (array_key_exists('redirectOnSubmit', $filterBoxSettings)) {
@@ -366,6 +379,31 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
     public function getSubmitToPage() {
         return $this->submitToPage;
     }
-	
+
+
+
+	/**
+	 * Setter for resetToDefaultSortingOnSubmit
+	 *
+	 * If set to TRUE (which is default), sorting will be reset to default values if filterbox is submitted.
+	 * If set to FALSE, no sorting will be reset if filter is submitted.
+	 *
+	 * @param boolean $resetToDefaultSortingOnSubmit
+	 */
+	public function setResetToDefaultSortingOnSubmit($resetToDefaultSortingOnSubmit) {
+		$this->resetToDefaultSortingOnSubmit = $resetToDefaultSortingOnSubmit;
+	}
+
+
+
+	/**
+	 * Getter for resetToDefaultSortingOnSubmit
+	 *
+	 * @return boolean
+	 */
+	public function getResetToDefaultSortingOnSubmit() {
+		return $this->resetToDefaultSortingOnSubmit;
+	}
+
 }
 ?>

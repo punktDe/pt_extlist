@@ -125,13 +125,15 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 		if (!$this->filterbox->validate()) {
 			$this->view->assign('filtersDontValidate', true);
             $this->forward('show');
-			// TODO shouldn't we have a return here?
         }
         
         $this->filterboxCollection->resetIsSubmittedFilterbox();
 
         $this->resetPagers();
-		$this->resetSorter();
+
+		if ($this->filterbox->getFilterboxConfiguration()->getResetToDefaultSortingOnSubmit()) {
+			$this->resetSorter();
+		}
 
         // check whether we have a redirect on submit configured for this filter
         if ($this->filterbox->isSubmittedFilterbox() && $this->filterbox->getFilterboxConfiguration()->doRedirectOnSubmit()) {
