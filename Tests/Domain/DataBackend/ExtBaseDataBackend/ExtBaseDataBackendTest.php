@@ -157,7 +157,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     public function testInjectDataSource() {
     	$dataSourceMock = $this->getMock('Tx_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array(), '', FALSE);
     	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
-    	$extBaseDataBackend->injectDataSource($dataSourceMock);
+    	$extBaseDataBackend->_injectDataSource($dataSourceMock);
     }
     
     
@@ -166,7 +166,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     	$dataSourceMock = $this->getMock('Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest', array(), array(), '', FALSE);
     	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
     	try {
-    		$extBaseDataBackend->injectDataSource($dataSourceMock);
+    		$extBaseDataBackend->_injectDataSource($dataSourceMock);
     	} catch(Exception $e) {
     		return;
     	}
@@ -180,13 +180,13 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
 
         $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
         $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock));
-        $extBaseDataBackend->injectSorter($sorterMock);
+        $extBaseDataBackend->_injectSorter($sorterMock);
 
         $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper', array('getMappedListData'), array(), '', FALSE);
         $mapperMock->expects($this->any())
             ->method('getMappedListData')
             ->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_List()));
-        $extBaseDataBackend->injectDataMapper($mapperMock);
+        $extBaseDataBackend->_injectDataMapper($mapperMock);
         
         $listData = $extBaseDataBackend->getListData();
     }
@@ -209,7 +209,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     	$repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array('createQuery'), '', FALSE);
     	$repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($queryObjectMock));
     	
-    	$extBaseDataBackend->injectDataSource($repositoryMock);
+    	$extBaseDataBackend->_injectDataSource($repositoryMock);
     	
     	$this->assertEquals($extBaseDataBackend->getTotalItemsCount(), 10);
     }
@@ -234,7 +234,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array('createQuery'), '', FALSE);
         $repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($extbaseQueryObjectMock));
         
-        $extBaseDataBackend->injectDataSource($repositoryMock);
+        $extBaseDataBackend->_injectDataSource($repositoryMock);
         
         $this->assertEquals($extBaseDataBackend->getGroupData($queryObjectMock), $returnArray);
     }
@@ -255,19 +255,18 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     protected function getPreparedExtbaseDataBackend() {
         $dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
         $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
-        $extBaseDataBackend->injectDataSource($dataSource);
-        $extBaseDataBackend->injectBackendConfiguration($this->configurationBuilderMock->buildDataBackendConfiguration());
+        $extBaseDataBackend->_injectDataSource($dataSource);
+        $extBaseDataBackend->_injectBackendConfiguration($this->configurationBuilderMock->buildDataBackendConfiguration());
         
         $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array(),'',FALSE);
         $pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
         $pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
         $pagerCollectionMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
         
-        $extBaseDataBackend->injectPagerCollection($pagerCollectionMock);
+        $extBaseDataBackend->_injectPagerCollection($pagerCollectionMock);
         
         return $extBaseDataBackend;
     }
 
 }
-
 ?>
