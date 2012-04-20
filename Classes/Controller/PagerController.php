@@ -104,5 +104,6 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
 		return $pagerCollection;
 	}
+
 }
 ?>

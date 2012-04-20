@@ -29,10 +29,12 @@
 /**
  * Class implements factory for ExtListContext
  *
+ * TODO refactor this class to be "non-static" anymore
+ *
  * @package ExtlistContext
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
+class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singleton {
 
 	/**
 	 * Array of listContext Instances
@@ -41,10 +43,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	protected static $instances = array();
 
 
+
 	/**
 	 * @var array
 	 */
 	protected static $extListTyposcript = NULL;
+
 
 
 	/**
@@ -74,6 +78,18 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		}
 
 		return self::$instances[$listIdentifier];
+	}
+
+
+
+	/**
+	 * Non-static wrapper for getContextByListIdentifier
+	 *
+	 * @param $listIdentifier
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
+	 */
+	public function getContextByListIdentifierNonStatic($listIdentifier) {
+		return self::getContextByListIdentifier($listIdentifier);
 	}
 
 
@@ -109,6 +125,22 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 
 		return self::$instances[$listIdentifier];
 	}
+
+
+
+
+	/**
+	 * Non-static wrapper for getContextByCustomConfiguration
+	 *
+	 * @param array $customTSArray
+	 * @param $listIdentifier
+	 * @param bool $useCache
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
+	 */
+	public function getContextByCustomConfigurationNonStatic(array $customTSArray, $listIdentifier, $useCache = true) {
+		return self::getContextByCustomConfiguration($customTSArray, $listIdentifier, $useCache);
+	}
+
 
 
 	/**
@@ -161,9 +193,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 */
 	protected static function loadLifeCycleManager() {
 		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
-		$lifecycleManager->register(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
-		// SET LIFECYCLE TO START -> read session data into cache
-		$lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::START);
+		$sessionPersistenceManger = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+		// We have to update state manually here since lifecycle manager is already set to START
+		// TODO is this a bug or a feature?!?
+		$sessionPersistenceManger->lifecycleUpdate(Tx_PtExtbase_Lifecycle_Manager::START);
+		$lifecycleManager->register($sessionPersistenceManger);
 	}
 
 
@@ -240,5 +274,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		$completeTS = $configurationManager->getTypoScriptSetup();
 		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
+
 }
 ?>

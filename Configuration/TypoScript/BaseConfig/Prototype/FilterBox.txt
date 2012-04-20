@@ -13,6 +13,10 @@ plugin.tx_ptextlist.prototype.filterBox {
 	# Use this configuration if you want to submit filter data directly on another page
 	#submitToPage = 31
 
+	# Use this configuration if you want DON'T to reset sorting to default after submitting a filterbox
+	# (Default behaviour: Sorting is reset to default)
+	#resetToDefaultSortingOnSubmit = 0
+
     # Use this configuration if you want to do a redirect after a filterbox submits
     #redirectOnSubmit{
     #    pageId = 10
