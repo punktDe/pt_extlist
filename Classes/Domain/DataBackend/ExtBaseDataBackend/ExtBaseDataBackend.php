@@ -180,13 +180,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * 
 	 * This method is overwritten to make sure that correct type for interpreter is injected
 	 *
+	 * TODO this method is not really required ATM, as all methods in query interpreter are static ATM
+	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
-	public function injectQueryInterpreter($queryInterpreter) {
-		Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
-		parent::injectQueryInterpreter($queryInterpreter);
-	}
-	
+	#public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter) {
+	#	Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
+	#	parent::_injectQueryInterpreter($queryInterpreter);
+	#}
+
 	
 	
 	/**
