@@ -93,13 +93,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
-	 */
+
+    /**
+     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     */
 	public function reset() {
 		$this->filterValue = '';
 		parent::reset();
+
+        return $this;
 	}
 
 
