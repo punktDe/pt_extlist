@@ -79,25 +79,27 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 
 			$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 			$dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
-			$dataBackend = new $dataBackendClassName($configurationBuilder);  /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+
+			$dataBackend = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+			#$dataBackend = new $dataBackendClassName($configurationBuilder);  /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
 
 			self::$instances[$listIdentifier] = $dataBackend; /* The reference has to be set here bercause otherwise every filter will create the databackend again -> recursion! */
 
 			// Check whether backend class implements backend interface
 			Tx_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array('message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
 
-			$dataBackend->injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
-			//$dataBackend->injectBookmarkManager(self::getBookmarkManagerAndProcessBookmark($configurationBuilder));
-			$dataBackend->injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
-			$dataBackend->injectDataMapper(self::getDataMapper($configurationBuilder));
-			$dataBackend->injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));
-			$dataBackend->injectPagerCollection(self::getPagerCollection($configurationBuilder));
-			$dataBackend->injectSorter(self::getSorter($configurationBuilder));
+			$dataBackend->_injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
+			//$dataBackend->_injectBookmarkManager(self::getBookmarkManagerAndProcessBookmark($configurationBuilder));
+			$dataBackend->_injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
+			$dataBackend->_injectDataMapper(self::getDataMapper($configurationBuilder));
+			$dataBackend->_injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));
+			$dataBackend->_injectPagerCollection(self::getPagerCollection($configurationBuilder));
+			$dataBackend->_injectSorter(self::getSorter($configurationBuilder));
 
-			$dataBackend->injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
+			$dataBackend->_injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 
 			if (self::getQueryInterpreter($configurationBuilder) != null) {
-				$dataBackend->injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
+				$dataBackend->_injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
 			}
 
 			$dataBackend->init();
