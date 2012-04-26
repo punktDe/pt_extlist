@@ -11,6 +11,9 @@ plugin.tx_ptextlist.prototype.filter {
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
 		partialPath = Filter/String/StringFilter
+
+		exactMatch = 0
+
 		defaultValue =
 		accessGroups =
 
