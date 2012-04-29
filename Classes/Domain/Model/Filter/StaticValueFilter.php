@@ -59,7 +59,8 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
 	 * Template method for initializing filter by TS configuration
 	 */
 	protected function initFilterByTsConfig() {
-		$this->filterValue = $this->filterConfig->getSettings('filterValue');
+		$filterValue = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('filterValue'));
+		$this->filterValue = $filterValue;
 	}
 
 
