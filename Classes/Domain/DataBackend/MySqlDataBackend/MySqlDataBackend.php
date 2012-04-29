@@ -165,6 +165,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function buildListData() {
 		$sqlQuery = $this->buildQuery();
 		$rawData = $this->dataSource->executeQuery($sqlQuery);
+	
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect', 'pt_extlist', 1, array('query' => $sqlQuery));
+
 		return $this->dataMapper->getMappedListData($rawData);
 	}
 
@@ -196,8 +199,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		}
 
 		$query = implode('', $this->listQueryParts);
-
-		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 
 		return $query;
 	}
@@ -429,6 +430,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 			$countResult = $this->dataSource->executeQuery($query);
 
+			if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, array('query' => $query));
+
 			if($this->listQueryParts['GROUPBY']) {
 				$this->totalItemsCount = count($countResult);
 			} else {
@@ -489,7 +492,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$query = implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
 
-		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : ' . $this->listIdentifier . ' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+
 		$groupDataArray = $this->dataSource->executeQuery($query);
 
 		return $groupDataArray;

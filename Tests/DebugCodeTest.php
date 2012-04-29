@@ -56,7 +56,8 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCas
 	public function checkForForgottenDebugCode($debugCommand) {
 		$searchPath = t3lib_extMgm::extPath($this->extensionName);
 
-		$result = `fgrep -i -r "$debugCommand" "$searchPath" | grep ".php"`;
+		$command = 'fgrep -i -r ' . escapeshellarg($debugCommand) . ' ' . escapeshellarg($searchPath) . '| grep ".php"';
+		$result = `$command`;
 		$lines = explode("\n", trim($result));
 
 		foreach($lines as $line) {
@@ -65,5 +66,6 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCas
 			}
 		}
 	}
+	
 }
 ?>

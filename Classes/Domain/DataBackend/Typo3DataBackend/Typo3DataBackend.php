@@ -62,7 +62,6 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
 	 */
 	public function buildWherePart($excludeFilters = array()) {
-		$wherePart = '';
 		$baseWhereClause = $this->getBaseWhereClause();
 		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes($excludeFilters);
 		
