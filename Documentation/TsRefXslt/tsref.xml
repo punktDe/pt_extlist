@@ -1538,6 +1538,17 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 }
 																]]></EXAMPLE>
 																<CHILDREN>
+                                                                    <ENTRY KEY="exactMatch">
+                                                                        <DESCRIPTION>If set to 1 the filter queries the field by key="value" instead of key like "%value%"</DESCRIPTION>
+                                                                        <DATATYPE>Int</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT>0</DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
