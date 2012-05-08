@@ -184,12 +184,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
-	#public function injectQueryInterpreter(Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter) {
-	#	Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
-	#	parent::_injectQueryInterpreter($queryInterpreter);
-	#}
+	public function _injectQueryInterpreter($queryInterpreter) {
+		Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
+		parent::_injectQueryInterpreter($queryInterpreter);
+	}
 
-	
 	
 	/**
 	 * Builds query for current pager, filter and sorting settings
@@ -372,3 +371,4 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	}
 
 }
+?>
