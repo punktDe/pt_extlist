@@ -182,9 +182,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
-	public function injectQueryInterpreter($queryInterpreter) {
+	public function _injectQueryInterpreter($queryInterpreter) {
 		Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
-		parent::injectQueryInterpreter($queryInterpreter);
+		parent::_injectQueryInterpreter($queryInterpreter);
 	}
 	
 	
