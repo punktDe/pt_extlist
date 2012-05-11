@@ -5,24 +5,39 @@ Examples
 In this section, some examples will be provided to describe the functionality of pt_extlist. Before you can start, make sure, that pt_extlist is installed and loaded using Extension Manager.
 
 Setting up a demo list based on static_countries table
+======================================================
+
 In this example, you will learn how to create a list by using a TYPO3 table as data source. We will use static_countries table as it is available on all TYPO3 installations.
 We will set up a page showing filters, list and pager for static countries.
 
-Create a new page inside your page tree and open the template module. Open Template module and create new extension template:
+1. Create a new page inside your page tree and open the template module. Open Template module and create new extension template:
+
+.. figure:: Images/examples_1_1_01.png
+	:scale: 50%
 
 Create new extension template ###TODO### insert 1,2,3 for showing what to do in image
 
-Give your extension template a proper name:
+2. Give your extension template a proper name:
+
+.. figure:: Images/examples_1_1_02.png
+	:scale: 50%
 
 Give your extension template a proper name
 
-Switch to the "Includes" Tab and select the following templates:
+3. Switch to the "Includes" Tab and select the following templates:
+
+.. figure:: Images/examples_1_1_03.png
+	:scale: 50%
 
 Select Basic settings and demolist package as static templates
 
-Save your template and switch to the page module.
+4. Save your template and switch to the page module.
 
-Select the page you just created and insert a new content element of type "plugin":
+5. Select the page you just created and insert a new content element of type "plugin":
+
+.. figure:: Images/examples_1_1_04.png
+	:scale: 50%
+
 
 Insert plugin as content element
 
@@ -61,4 +76,3 @@ Now reload your page in the Frontend and look what's happening - there should be
 List after changing items per page
 
 So that's it - you just set up your first list! Feel free to test the other sample configurations shipping with pt_extlist to see some more features.
-
