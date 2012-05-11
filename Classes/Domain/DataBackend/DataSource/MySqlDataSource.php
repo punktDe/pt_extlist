@@ -85,6 +85,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 			    ' 1280322659 - Error message from PDO: ' . $e->getMessage() . 
 			    '. Further information from PDO_errorInfo: ' . $statement->errorInfo());
 		}
+
 		return $result;
 	}
 	
