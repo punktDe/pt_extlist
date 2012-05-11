@@ -36,20 +36,24 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
     
+
     /**
-     * Creates filter query from filter value and settings
-     * 
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria Criteria for current filter value (null, if empty)
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+     * @return null|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
      */
     protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
     	
     	if ($this->filterValue == '') return NULL; 
 
     	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
-    	$filterValue = '%'.$this->filterValue.'%';
-    	
-    	$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);	
-    	
+
+        if((int) $this->filterConfig->getSettings('exactMatch') == 1) {
+            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue);
+        } else {
+            $filterValue = '%'.$this->filterValue.'%';
+    	    $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);
+        }
+
     	return $criteria;
     }   	
 }

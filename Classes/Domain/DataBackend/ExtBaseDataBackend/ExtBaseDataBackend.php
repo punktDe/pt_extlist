@@ -180,14 +180,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * 
 	 * This method is overwritten to make sure that correct type for interpreter is injected
 	 *
+	 * TODO this method is not really required ATM, as all methods in query interpreter are static ATM
+	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
-	public function injectQueryInterpreter($queryInterpreter) {
+	public function _injectQueryInterpreter($queryInterpreter) {
 		Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
-		parent::injectQueryInterpreter($queryInterpreter);
+		parent::_injectQueryInterpreter($queryInterpreter);
 	}
-	
-	
+
 	
 	/**
 	 * Builds query for current pager, filter and sorting settings
@@ -364,9 +365,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 *
 	 * @param mixed $dataSource
 	 */
-	public function injectDataSource($dataSource) {
+	public function _injectDataSource($dataSource) {
 		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, 'Tx_Extbase_Persistence_Repository', array('message' => 'Given data source must implement Tx_Extbase_Persistence_Repository but did not! 1281545172'));
 		$this->repository = $dataSource;
 	}
 
 }
+?>

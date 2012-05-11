@@ -73,7 +73,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 	 */
 	public function initConfiguration() {
 		parent::initConfiguration();
-		echo 's';
+		//echo 's';
 		$this->templatePath = $this->exportConfiguration->getSettings('templatePath');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export! 1284621481'));
 		$this->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($this->templatePath));
