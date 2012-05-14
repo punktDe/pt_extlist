@@ -8,6 +8,18 @@
 
 plugin.tx_ptextlist.prototype.filter {
 
+	staticValue {
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter
+		partialPath = Filter/Special/StaticValue
+		filterValue =
+		filterIdentifier =
+		label =
+		fieldIdentifier =
+		filterField =
+	}
+
+
+
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
 		partialPath = Filter/String/StringFilter
