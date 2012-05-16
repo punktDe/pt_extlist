@@ -57,16 +57,23 @@ class Tx_PtExtlist_View_Export_ExcelZipListView extends Tx_PtExtlist_View_Export
 
 		$now = time();
 		$workPath = PATH_site . '/fileadmin/_temp_/' .$now . '/';
+		if (!is_dir($workPath)) {
+			mkdir($workPath);
+		}
 		$zipFile = $this->getFilenameFromTs();
 		$excelFile = str_replace('.zip', '.xls', $zipFile);
 		if (mkdir($workPath)) {
 			chdir($workPath);
 			$objWriter->save($excelFile);
 			$zipPassword = $this->exportConfiguration->getSettings('password');
+			$execResult = '';
 			if ($zipPassword) {
-				exec('zip -e -P ' . $zipPassword . ' ' . $zipFile . ' ' . $excelFile);
+				exec('zip -e -P ' . $zipPassword . ' ' . $zipFile . ' ' . $excelFile, '', $execResult);
 			} else {
-				exec('zip ' . $zipFile . ' ' . $excelFile);
+				exec('zip ' . $zipFile . ' ' . $excelFile, '', $execResult);
+			}
+			if ($execResult !== 0) {
+				if (TYPO3_DLOG) t3lib_div::devLog('exec(zip) didn\'t work, error code '.$execResult, 'pt_extlist', 2);
 			}
 			$zipContent = file_get_contents($zipFile);
 			unlink($zipFile);
