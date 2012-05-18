@@ -44,7 +44,7 @@ plugin.tx_ptextlist.settings.export {
 		excelZipExport {
 			viewClassName = Tx_PtExtlist_View_Export_ExcelZipListView
 			fileExtension = zip
-			password = P@ssw0rd
+			password = {$plugin.tx_ptextlist.settings.export.exportConfigs.excelZipExport.password}
 		}
 
 

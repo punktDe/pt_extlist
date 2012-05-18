@@ -1,0 +1,6 @@
+plugin.tx_ptextlist.settings.export {
+	exportConfigs {
+		# cat=plugin.tx_ptextlist//export; type=string; label=Password for zip export, leave empty for no password
+		excelZipExport.password =
+	}
+}
