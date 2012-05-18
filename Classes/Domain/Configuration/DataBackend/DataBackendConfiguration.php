@@ -86,7 +86,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
 
 		$this->checkAndSetDataBackendClass($this->dataBackendSettings['dataBackendClass']);
 		$this->checkAndSetDataMapperClass($this->dataBackendSettings['dataMapperClass']);
-        $this->checkAndSetQueryInterpreterClass($this->dataBackendSettings['queryInterpreterClass']);
+		$this->checkAndSetDataSourceClass($this->dataBackendSettings['dataSourceClass']);
+		$this->checkAndSetQueryInterpreterClass($this->dataBackendSettings['queryInterpreterClass']);
 	}
 	
 	
