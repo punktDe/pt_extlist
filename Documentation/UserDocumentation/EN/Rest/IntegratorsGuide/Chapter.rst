@@ -7,31 +7,37 @@ Setting up export
 
 pt_extlist offers several exporters for lists. You can select from a list of pre-defined export formats or implement your own exporters. Here is a step-by-step explanation on how to set up export:
 
- 1. Go to the page on which you have your list set up.
+ #. Go to the page on which you have your list set up.
 
- 2. You have to include a static template for export settings on the page you want to export list data. Go to the Template module and modify the template of the page. Switch to the "Includes" tab of your template record and select "\[pt_extlist] Export settings (pt_extlist)". Save your template and switch to page module.
+ #. You have to include a static template for export settings on the page you want to export list data. Go to the Template module and modify the template of the page. Switch to the "Includes" tab of your template record and select "\[pt_extlist] Export settings (pt_extlist)". Save your template and switch to page module.
 
 .. figure:: Images/integrators_guide_1_1.jpg
 
 Inclusion of static template for export
 
- 3. Insert a new content element of type "General Plugin". Select "ExtList" as selected Plugin.
+ #. If you want to use Zip-Export and a password for the file, go to constants editor and change the password under the PLUGIN.TX_PTEXTLIST-category. If you leave the field empty, then the zip-file won't be password protected.
 
- 4. Switch to the "General Options" tab and select list identifier of the list you want to export. Select "Export" as Plugin Type.
+.. figure:: Images/integrators_guide_1_4.jpg
+
+Set password for zip-export
+
+ #. Insert a new content element of type "General Plugin". Select "ExtList" as selected Plugin.
+
+ #. Switch to the "General Options" tab and select list identifier of the list you want to export. Select "Export" as Plugin Type.
 
 .. figure:: Images/integrators_guide_1_2.jpg
 
 Set plugin type to "Export"
 
- 5. Switch to the "Export Settings" tab and select list identifier of the list you want to export. Select Export Type and Download Type. Hint: If you cannot select an Export Type, you most likely forgot to include static template for export on the page you are currently working. See step 2!
+ #. Switch to the "Export Settings" tab and select list identifier of the list you want to export. Select Export Type and Download Type. Hint: If you cannot select an Export Type, you most likely forgot to include static template for export on the page you are currently working. See step 2!
 
 .. figure:: Images/integrators_guide_1_3.jpg
 
 Configuration for exporting a list as Excel sheet
 
- 6. Save your content element and switch to frontend view.
+ #. Save your content element and switch to frontend view.
 
- 7. You will now see a download in your Frontend that enables you to download configured export document with your list data.
+ #. You will now see a download in your Frontend that enables you to download configured export document with your list data.
 
 Why are there 2 list identifiers?
 ---------------------------------
