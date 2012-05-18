@@ -54,12 +54,11 @@ class Tx_PtExtlist_View_Export_ExcelZipListView extends Tx_PtExtlist_View_Export
 	 * @param $objWriter PHPExcel_Writer_IWriter
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
-
+		if (!is_dir(PATH_site . '/fileadmin/_temp_/')) {
+			mkdir(PATH_site . '/fileadmin/_temp_/');
+		}
 		$now = time();
 		$workPath = PATH_site . '/fileadmin/_temp_/' .$now . '/';
-		if (!is_dir($workPath)) {
-			mkdir($workPath);
-		}
 		$zipFile = $this->getFilenameFromTs();
 		$excelFile = str_replace('.zip', '.xls', $zipFile);
 		if (mkdir($workPath)) {
