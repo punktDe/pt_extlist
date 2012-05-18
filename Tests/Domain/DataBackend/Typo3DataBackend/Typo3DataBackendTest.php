@@ -44,9 +44,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTes
 	
 
 	/** @test */
-	public function createsDataSourceCreatesObjectOfExpectedType() {
+	public function createDataSourceCreatesObjectOfExpectedType() {
 		$dataSource = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend::createDataSource($this->configurationBuilder);
-		$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource'));
+		$this->assertTrue($dataSource instanceof Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource, 'Class is ' . get_class($dataSource));
 	}
 
 
