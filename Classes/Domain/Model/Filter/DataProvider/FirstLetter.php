@@ -39,6 +39,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
 	 * Build the group data query to retrieve the group data
 	 * 
 	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+	 * @return string
 	 */
 	protected function buildGroupDataQuery($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
@@ -73,23 +74,69 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
 	 */
 	protected function getRenderedOptionsByFields($fields) {
 		$options =& $this->getOptionsByFields($fields);
-		
+
         foreach($options as $optionData) {
         	$optionKey = $optionData['firstLetter'];
         	
         	$renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
-        										'selected' => false);
+												'hasRecords' => TRUE,
+        										'selected' => FALSE);
         }
+
+		$missingLetters = $this->getMissingLetters();
+		if($missingLetters) {
+			$renderedOptions = $this->addMissingLetters($renderedOptions, $missingLetters);
+		}
 
         return $renderedOptions;
 	}
+
+
+
+	/**
+	 * @param $renderedOptions
+	 * @param $missingLetters
+	 * @return array
+	 */
+	protected function addMissingLetters($renderedOptions, $missingLetters) {
+
+		foreach($missingLetters as $letter) {
+
+			if(!array_key_exists($letter, $renderedOptions)) {
+
+				$renderedOptions[$letter] = array('value' => $this->renderOptionData(array('firstLetter' => $letter)),
+					'hasRecords' => FALSE,
+					'selected' => FALSE);
+			}
+		}
+
+		sort($renderedOptions);
+
+		return $renderedOptions;
+	}
 	
-	
-	
+
+
+	/**
+	 * If the missin leters setting is set - return an array with these letters
+	 *
+	 * @return array|null
+	 */
+	protected function getMissingLetters() {
+		$missingLettersString = $this->filterConfig->getSettings('addLettersIfMissing');
+		if($missingLettersString) {
+			return t3lib_div::trimExplode(',', $missingLettersString);
+		} else {
+			return NULL;
+		}
+	}
+
+
 	/**
 	 * Render a single option line by cObject or default
 	 *
 	 * @param array $optionData
+	 * @return string
 	 */
 	protected function renderOptionData($optionData) {
 		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
