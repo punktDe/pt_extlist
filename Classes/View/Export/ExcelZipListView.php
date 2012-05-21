@@ -81,6 +81,8 @@ class Tx_PtExtlist_View_Export_ExcelZipListView extends Tx_PtExtlist_View_Export
 			rmdir($now);
 
 			echo $zipContent;
+		} else {
+			if (TYPO3_DLOG) t3lib_div::devLog('could not create folder '.PATH_site . '/fileadmin/_temp_/' .$now . '/', 'pt_extlist', 2);
 		}
 		exit();
 	}
