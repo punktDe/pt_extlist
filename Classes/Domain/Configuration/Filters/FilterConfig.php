@@ -203,7 +203,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var string
 	 */
 	protected $partialPath;
-	
+
+
+
+	/**
+	 * Holds a partial tha could be used to exchange parts of the filter via ajax
+	 *
+	 * @var string
+	 */
+	protected $ajaxPartialPath;
 	
 	
 	/**
@@ -313,7 +321,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
 		$this->setValueIfExists('label');
-		
+		$this->setValueIfExists('ajaxPartialPath');
+
 		$this->setValueIfExistsAndNotNothing('defaultValue');
 		if($this->defaultValue) $this->renderDefaultValue();
 		
@@ -667,6 +676,13 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 */
 	public function getShowRowCount() {
 		return $this->showRowCount;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAjaxPartialPath() {
+		return $this->ajaxPartialPath;
 	}
 }
 ?>
