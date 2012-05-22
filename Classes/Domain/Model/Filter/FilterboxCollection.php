@@ -182,5 +182,22 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
         }
     }
 
+
+
+	/**
+	 * Returns filter for given full filter name (filterboxIdentifier.filterIdentifier)
+	 *
+	 * TODO since we have this method here, refactor extlistContext and put a proxy method into abstract backend
+	 *
+	 * @param $fullFilterName
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+	 */
+	public function getFilterByFullFiltername($fullFilterName) {
+		list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
+		$filterbox = $this->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
+		return $filter;
+	}
+
 }
 ?>
