@@ -46,25 +46,25 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
                         'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
                         'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                         'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-                        
+						'dataSourceClass' => 'Tx_Extbase_Persistence_Repository',
                         
                     )
-                    ),
+                ),
                 'column' => array (
                         'xy' => 'z',
                     ),
                 ),
                 'listConfig' => array(
                      'test' => array(
-                        
-                        'backendConfig' => array (
-                                'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                                'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                                'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
-                                'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
-                
-                            ),
+						 'backendConfig' => array(
+							 'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
+							 'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
+							 'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+							 'dataSourceClass' => 'Tx_Extbase_Persistence_Repository',
+							 'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
+
+						 ),
                         
                          'abc' => '2',
                          'def' => '3',

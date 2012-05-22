@@ -35,21 +35,28 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory {
 
+
 	/**
-	 *
 	 * Create instance of mysql data source
+	 *
+	 * @static
+	 * @param string $datSourceClassName
 	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-		$dataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfiguration);
+	public static function createInstance($datSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
+		$dataSource = new $datSourceClassName($dataSourceConfiguration);
 		$dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
 		return $dataSource;
 	}
 
+
 	/**
 	 * Create Database Object
 	 *
+	 * @static
 	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+	 * @return PDO
 	 * @throws Exception
 	 */
 	protected static function createDataObject(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {

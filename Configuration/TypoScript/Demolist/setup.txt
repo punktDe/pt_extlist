@@ -43,6 +43,10 @@
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_06_columnSelector.txt">
 
+#
+# Demolist to show the usage of ajax filter
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_07.ts">
 
 #
 # Demolist with mysql backend and external mysql data

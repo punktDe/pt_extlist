@@ -23,9 +23,16 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 			<f:for each="{filter.options}" key="optionValue" as="option">
 				<li class="tx-ptextlist-filter-firstLetter">
 					<div class="field-wrapper type-content">
-						<f:if condition="{option.selected}"><span class="selected"></f:if>
-						<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
-						<f:if condition="{option.selected}"></span></f:if>
+						<f:if condition="{option.hasRecords}">
+							<f:then>
+								<span class="{f:if(condition:option.selected, then:'selected')}">
+									<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
+								</span>
+							</f:then>
+							<f:else>
+								<span class="missingLetter">{option.value}</span>
+							</f:else>
+						</f:if>
 					</div>
 				</li>
 			</f:for>

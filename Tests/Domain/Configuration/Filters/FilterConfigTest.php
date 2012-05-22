@@ -49,6 +49,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		    'filterIdentifier' => 'filterName1',
 		    'filterClassName' => 'test',
 		    'partialPath' => 'partialPath',
+		    'ajaxPartialPath' => 'ajaxPartialPath',
 		    'defaultValue' => 'default',
 			'fieldIdentifier' => 'field1',
 			'invert' => '1',
@@ -221,7 +222,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertTrue($filterConfig->getPartialPath() == 'partialPath');
 	}
-	
+
+
+	/**
+	 * @test
+	 */
+	public function getAjaxPartialPath() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+		$this->assertTrue($filterConfig->getAjaxPartialPath() == 'ajaxPartialPath');
+	}
+
 	
 	public function testGetInvert() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');

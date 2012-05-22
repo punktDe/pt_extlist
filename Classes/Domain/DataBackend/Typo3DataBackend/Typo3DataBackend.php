@@ -50,11 +50,12 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-		$dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($dataSourceConfiguration);
+		$dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
 		return $dataSource;
 	}
 	
-	
+
+
 	/**
 	 * Builds where part of query from all parts of plugin
 	 *

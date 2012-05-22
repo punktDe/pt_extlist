@@ -90,8 +90,27 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
 		    $this->fail('No exception has been thrown, when a not existing databaseClassName has been set!');
 		} catch(Exception $e) {
     	}
-	} 
-	
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function checkAndSetDataBackendClass() {
+
+		try {
+			$this->dataBackendConfiguration->_call('checkAndSetDataSourceClass','');
+			$this->fail('No exception has been thrown, when no databaseClassName has been set!');
+		} catch(Exception $e) {
+		}
+
+		try {
+			$this->dataBackendConfiguration->_call('checkAndSetDataSourceClass','NotExistingClass');
+			$this->fail('No exception has been thrown, when a not existing databaseClassName has been set!');
+		} catch(Exception $e) {
+		}
+	}
+
 
 	public function testCheckAndSetDataMapperClass() {
 		try {

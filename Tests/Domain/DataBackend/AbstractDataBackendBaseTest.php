@@ -95,6 +95,7 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        backendConfig {
 			
 			            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
+			            dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
 			            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 			            queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 			            

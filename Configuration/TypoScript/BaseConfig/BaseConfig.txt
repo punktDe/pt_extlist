@@ -45,8 +45,8 @@ plugin.tx_ptextlist {
 # Special Pagetype for JSON Views
 # Inherit from this page and set "typeNum" and "settings.listIdentifier"
 #
-EXTLISTJSONBASE = PAGE
-EXTLISTJSONBASE {
+EXTLISTAJAX = PAGE
+EXTLISTAJAX {
 	typeNum =
 
 	10 = COA_INT
@@ -59,9 +59,15 @@ EXTLISTJSONBASE {
 
 			# LIMIT CONTROLLER / ACTION
 			switchableControllerActions {
+
+			    AjaxFilter {
+					1 = getFilterElement
+				}
+
 			    List {
 			        1 = list
 			    }
+
 			}
 
 			settings.listIdentifier = 
