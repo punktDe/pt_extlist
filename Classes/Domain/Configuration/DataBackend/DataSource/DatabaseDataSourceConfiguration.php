@@ -36,6 +36,13 @@
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration {
 
+
+	/**
+	 * @var array
+	 */
+	protected $settings;
+
+
     /**
      * Host name for database connection
      *
@@ -87,11 +94,34 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
 	 * @param array $dataSourceSettings dataBaseDataSourceSettings 
 	 */
 	public function __construct(array $dataSourceSettings) {
+		$this->settings = $dataSourceSettings;
+
 		$this->host = $dataSourceSettings['host'];
 		$this->username = $dataSourceSettings['username'];
 		$this->password = $dataSourceSettings['password'];
 		$this->databaseName = $dataSourceSettings['databaseName'];
 		$this->port = $dataSourceSettings['port'];
+	}
+
+
+
+	/**
+	 * Returns sub array of settings for given array namespace
+	 * (e.g. key1.key2.key3 returns settings['key1']['key2']['key3'])
+	 *
+	 * If no key is given, whole settings array is returned.
+	 *
+	 * If key does not exist, empty array is returned.
+	 *
+	 * @param string $key Key of settings array to be returned
+	 * @return array
+	 */
+	public function getSettings($key = '') {
+		if ($key != '' ) {
+			return Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $key);
+		} else {
+			return $this->settings;
+		}
 	}
 	
 	
