@@ -39,22 +39,35 @@ class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controll
 
 	/**
 	 * @param string $fullQualifiedFilterIdentifier
+	 * @param string $filerValues
 	 * @return string
 	 */
-	public function getFilterElementAction($fullQualifiedFilterIdentifier) {
+	public function getFilterElementAction($fullQualifiedFilterIdentifier, $filerValues = NULL) {
 
+		$getVars[$this->listIdentifier]['filters'] = $filerValues;
+Tx_ExtDebug::var_dump($getVars, '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');
+		$gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->injectPostVars();
+
+		$filterConfig = $this->getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier);
+		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfig);
+		
+		$this->view->assign('filter', $filter);
+	}
+
+
+	/**
+	 * @param $fullQualifiedFilterIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+	 */
+	protected function getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier) {
 		$parts = explode('.', $fullQualifiedFilterIdentifier);
 		$filterBoxIdentifier = $parts[0];
 		$filterIdentifier = $parts[1];
 
-		$filterConfig = $this->configurationBuilder
+		return $this->configurationBuilder
 			->buildFilterConfiguration()
 			->getFilterBoxConfig($filterBoxIdentifier)
 			->getFilterConfigByFilterIdentifier($filterIdentifier);
-
-		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfig);
-		
-		$this->view->assign('filter', $filter);
 	}
 
 }
