@@ -18,6 +18,7 @@ $controllerActions = array(															// An array holding the controller-act
 	'Bookmarks' => 'show,process,edit,update,delete,create,new',
 	'BreadCrumbs' => 'index,resetFilter',
 	'ColumnSelector' => 'show',
+	'AjaxFilter' => 'getFilterElement'
 );
 
 		
