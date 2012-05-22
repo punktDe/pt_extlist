@@ -1,21 +1,22 @@
 jQuery(function($) {
+	var baseId = "#typo3-ptextlist-filter-daterangedatepicker-" + "###filterIdentifier###".toLowerCase();
 	var altFormat = "yymmdd";
 	var datePickerFromOptions = {
 		altFormat: altFormat,
-		altField: "#typo3-ptextlist-filter-daterangedatepicker-daterangefrom"
+		altField: baseId + "-daterangefrom"
 	};
 	var datePickerToOptions = {
 		altFormat: altFormat,
-		altField: "#typo3-ptextlist-filter-daterangedatepicker-daterangeto"
+		altField: baseId + "-daterangeto"
 	};
 
-	$("#typo3-ptextlist-filter-daterangedatepicker-from").change(function(){
-		if (!$(this).val()) $("#typo3-ptextlist-filter-daterangedatepicker-daterangefrom").val('');
+	$(baseId + "-from").change(function(){
+		if (!$(this).val()) $(baseId + "-daterangefrom").val('');
 	});
-	$("#typo3-ptextlist-filter-daterangedatepicker-to").change(function(){
-		if (!$(this).val()) $("#typo3-ptextlist-filter-daterangedatepicker-daterangeto").val('');
+	$(baseId+ "-to").change(function(){
+		if (!$(this).val()) $(baseId + "-daterangeto").val('');
 	});
 
-	$('#typo3-ptextlist-filter-daterangedatepicker-from').datepicker(datePickerFromOptions);
-	$('#typo3-ptextlist-filter-daterangedatepicker-to').datepicker(datePickerToOptions);
+	$(baseId + "-from").datepicker(datePickerFromOptions);
+	$(baseId + "-to").datepicker(datePickerToOptions);
 });
