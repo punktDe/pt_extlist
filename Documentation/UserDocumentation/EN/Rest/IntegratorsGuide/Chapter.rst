@@ -15,12 +15,6 @@ pt_extlist offers several exporters for lists. You can select from a list of pre
 
 Inclusion of static template for export
 
- #. If you want to use Zip-Export and a password for the file, go to constants editor and change the password under the PLUGIN.TX_PTEXTLIST-category. If you leave the field empty, then the zip-file won't be password protected.
-
-.. figure:: Images/integrators_guide_1_4.jpg
-
-Set password for zip-export
-
  #. Insert a new content element of type "General Plugin". Select "ExtList" as selected Plugin.
 
  #. Switch to the "General Options" tab and select list identifier of the list you want to export. Select "Export" as Plugin Type.
