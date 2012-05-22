@@ -73,6 +73,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
 	 * @return array Options to be displayed by filter
 	 */
 	protected function getRenderedOptionsByFields($fields) {
+		
 		$options =& $this->getOptionsByFields($fields);
 
         foreach($options as $optionData) {
@@ -83,10 +84,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
         										'selected' => FALSE);
         }
 
+
+		
 		$missingLetters = $this->getMissingLetters();
 		if($missingLetters) {
 			$renderedOptions = $this->addMissingLetters($renderedOptions, $missingLetters);
 		}
+
 
         return $renderedOptions;
 	}
@@ -110,7 +114,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
 			}
 		}
 
-		sort($renderedOptions);
+		ksort($renderedOptions);
 
 		return $renderedOptions;
 	}
