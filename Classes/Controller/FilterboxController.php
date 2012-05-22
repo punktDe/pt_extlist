@@ -245,10 +245,19 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 
 	/**
 	 * Resets sorting for this list.
+	 *
+	 * If we have setting resetToDefaultSortingOnSubmit = 1 within FILTERBOX setting
+	 * we reset to default, otherwise we reset completely.
+	 *
 	 */
 	protected function resetSorter() {
 		// TODO put this into abstract controller
-		$this->dataBackend->getSorter()->reset();
+		if ($this->filterbox->getFilterboxConfiguration()->getResetToDefaultSortingOnSubmit()) {
+			$this->dataBackend->getSorter()->resetToDefault();
+		} else {
+			$this->dataBackend->getSorter()->reset();
+		}
+
 		// TODO add method to data backend that resets sorting and resets cache!
 		$this->dataBackend->resetListDataCache();
 	}

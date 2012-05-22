@@ -13,7 +13,7 @@ plugin.tx_ptextlist.prototype.filterBox {
 	# Use this configuration if you want to submit filter data directly on another page
 	#submitToPage = 31
 
-	# Use this configuration if you want DON'T to reset sorting to default after submitting a filterbox
+	# Use this configuration if you DON'T want to reset sorting to default after submitting a filterbox
 	# (Default behaviour: Sorting is reset to default)
 	#resetToDefaultSortingOnSubmit = 0
 
@@ -23,4 +23,5 @@ plugin.tx_ptextlist.prototype.filterBox {
     #    controller = testController
     #    action = testAction
     #}
+
 }
