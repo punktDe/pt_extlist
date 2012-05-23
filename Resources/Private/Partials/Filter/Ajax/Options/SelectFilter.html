@@ -1,0 +1,2 @@
+<f:for each="{filter.options}" key="key" as="value">
+<option {f:if(condition:'{filter.value} == {key}', then:'selected="selected"')} value="{key}">{value}</option></f:for>
