@@ -36,11 +36,25 @@
  */
 class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controller_AbstractController {
 
+
 	/**
-	 *
+	 * @param string $fullQualifiedFilterIdentifier
+	 * @return string
 	 */
-	public function getFilterElementAction() {
-		return '<b>TEST</b>';
+	public function getFilterElementAction($fullQualifiedFilterIdentifier) {
+
+		$parts = explode('.', $fullQualifiedFilterIdentifier);
+		$filterBoxIdentifier = $parts[0];
+		$filterIdentifier = $parts[1];
+
+		$filterConfig = $this->configurationBuilder
+			->buildFilterConfiguration()
+			->getFilterBoxConfig($filterBoxIdentifier)
+			->getFilterConfigByFilterIdentifier($filterIdentifier);
+
+		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfig);
+		
+		$this->view->assign('filter', $filter);
 	}
 
 }

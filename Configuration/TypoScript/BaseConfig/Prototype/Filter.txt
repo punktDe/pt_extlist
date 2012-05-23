@@ -185,6 +185,8 @@ plugin.tx_ptextlist.prototype.filter {
 
 	select {
 		partialPath = Filter/Options/SelectFilter
+		ajaxPartialPath = Filter/Ajax/Options/SelectFilter
+
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		#dataProviderClassName =
 		defaultValue =
