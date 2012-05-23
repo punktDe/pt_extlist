@@ -39,15 +39,9 @@ class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controll
 
 	/**
 	 * @param string $fullQualifiedFilterIdentifier
-	 * @param string $filerValues
 	 * @return string
 	 */
-	public function getFilterElementAction($fullQualifiedFilterIdentifier, $filerValues = NULL) {
-
-		$getVars[$this->listIdentifier]['filters'] = $filerValues;
-Tx_ExtDebug::var_dump($getVars, '', '(Debug '. __CLASS__ .' :: '.__METHOD__.'<br/> in '. __FILE__.' :: '.__LINE__.' @ '.time().')');
-		$gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->injectPostVars();
-
+	public function getFilterElementAction($fullQualifiedFilterIdentifier) {
 		$filterConfig = $this->getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier);
 		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfig);
 		
