@@ -19,6 +19,8 @@ plugin.tx_ptextlist.settings {
 
 	listConfig.demolist_ajaxFilter {
 
+		controller.Filterbox.show.template = EXT:pt_extlist/Resources/Private/Templates/Filterbox/AjaxShow.html
+
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
@@ -42,13 +44,10 @@ plugin.tx_ptextlist.settings {
 				st_continent.tr_name_en <> ''
 				AND st_subcontinent.tr_name_en <> ''
 			)
-
-			baseGroupByClause(
-				st_subcontinent.tr_iso_nr
-			)
 		}
 
-
+		default.sortingColumn = continent
+		
 		fields {
 
 			country_local {
@@ -99,6 +98,7 @@ plugin.tx_ptextlist.settings {
 			continent {
 				table = st_continent
 				field = tr_name_en
+				isSortable = 1
 			}
 
 			subcontinent {
@@ -109,6 +109,11 @@ plugin.tx_ptextlist.settings {
 			countryuid {
 				table = static_countries
 				field = uid
+			}
+
+			countryname {
+				table = static_countries
+				field = cn_official_name_en
 			}
 		}
 
@@ -128,10 +133,9 @@ plugin.tx_ptextlist.settings {
 			}
 
 			30 {
-				label = Countriy
+				label = Country
 				columnIdentifier = country
-				fieldIdentifier = country_en, capital, tld
-				renderTemplate = EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html
+				fieldIdentifier = countryname
 			}
 		}
 
@@ -187,38 +191,27 @@ plugin.tx_ptextlist.settings {
 						fieldIdentifier = phone
 					}
 
-					20 < plugin.tx_ptextlist.prototype.filter.checkbox
+					20 < plugin.tx_ptextlist.prototype.filter.select
 					20 {
 						filterIdentifier = filter2
-						label = Continent
-						fieldIdentifier = continent
-						filterField = continent
-						displayFields = continent
-						showRowCount = 1
-						submitOnChange = 0
-						invert = 0
-						invertable = 0
-
-						excludeFilters = filterbox1.filter3
+                    	label = Continent
+                    	fieldIdentifier = continent
 					}
 
 					30 < plugin.tx_ptextlist.prototype.filter.select
 					30 {
 						filterIdentifier = filter3
 						label = Subcontinent
-
 						fieldIdentifier = subcontinent
-						filterField = subcontinent
 						displayFields = continent, subcontinent
+					}
 
-						multiple = 0
-						showRowCount = 1
-						#excludeFilters = filterbox1.filter1
-						submitOnChange = 0
-						inactiveOption = [ALL]
-						inactiveValue =
-						invert = 0
-						invertable = 0
+					40 < plugin.tx_ptextlist.prototype.filter.select
+					40 {
+						filterIdentifier = filter4
+						label = Country
+						fieldIdentifier = countryuid
+						displayFields = continent, countryname
 					}
 				}
 			}
