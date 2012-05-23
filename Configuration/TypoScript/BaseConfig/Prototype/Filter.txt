@@ -203,6 +203,11 @@ plugin.tx_ptextlist.prototype.filter {
 		invertable = 0
 		accessGroups =
 
+		ajax {
+			enable = 1
+			registerToFilter = filterbox.filterIdentifier
+		}
+
 		renderObj = TEXT
 		renderObj {
 			dataWrap = {field:allDisplayFields} ({field:rowCount})
