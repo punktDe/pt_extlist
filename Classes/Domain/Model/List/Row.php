@@ -45,7 +45,12 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	 */
 	protected $specialValues;
 	
-	
+	/**
+	 * @return array
+	 */
+	public function getColumnIdentifiers() {
+		return array_keys($this->itemsArr);
+	}
 	
 	/**
 	 * Add a new cell to row identified by a given column name
