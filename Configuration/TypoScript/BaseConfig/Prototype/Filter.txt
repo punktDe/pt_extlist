@@ -374,7 +374,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 		defaultValue =
 
-		addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V,W,X,Y,Z
+		# addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V,W,X,Y,Z
 
 		filterIdentifier =
 		label =
