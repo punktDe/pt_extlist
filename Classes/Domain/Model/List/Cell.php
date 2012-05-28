@@ -228,7 +228,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 				return implode(', ', $this->value);
 
 			case is_int($this->value):
-				return $this->value;
+				return (string)$this->value;
 
 			case !$this->value:
 				return '';
