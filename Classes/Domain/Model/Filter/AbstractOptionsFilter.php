@@ -106,7 +106,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
 	 */
 	protected function setActiveState() {
-		$this->isActive = (in_array($this->filterConfig->getInactiveValue(), $this->filterValues) ? false : true);
+		if (is_array($this->filterValues)) {
+			$this->isActive = (in_array($this->filterConfig->getInactiveValue(), $this->filterValues) || count($this->filterValues) == 0 ? false : true);
+		} else {
+			$this->isActive = false;
+		}
 	}
 	
 
