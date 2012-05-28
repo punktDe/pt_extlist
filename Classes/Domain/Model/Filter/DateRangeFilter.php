@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		$filterValueFromDateObject = new DateTime($this->filterValueFrom);
 		$filterValueFromTimestamp = $filterValueFromDateObject->getTimestamp();
 
-		$filterValueToDateObject = new DateTime($this->filterValueFrom);
+		$filterValueToDateObject = new DateTime($this->filterValueTo);
 		$filterValueToTimestamp = $filterValueToDateObject->getTimestamp();
 
 		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $filterValueFromTimestamp);
