@@ -219,6 +219,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns filter for given full filter name (filterboxIdentifier.filterIdentifier)
 	 *
+	 * TODO refactor me, use filterboxCollection->getFilterByFullFiltername()
+	 *
 	 * @param $fullFilterName
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
