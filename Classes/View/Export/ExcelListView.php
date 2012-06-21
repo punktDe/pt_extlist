@@ -175,16 +175,24 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 			foreach ($listRow as $columnIdentifier => $listCell) {
 				/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 
-				$activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($listCell->getValue()));
+				//$activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($listCell->getValue()));
 
-				$this->doCellStyling($columnNumber, $columnIdentifier, 'body');
- 				$columnNumber++;
+				//$this->doCellStyling($columnNumber, $columnIdentifier, 'body');
+				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($listCell->getValue());
+
+				$columnNumber++;
 			}
 
 			$this->rowNumber++;
 			$columnNumber = 0;
 		}
+
+		//$activeSheet->fromArray($outputArray, NULL, 'A'.$bodyStartRowNumber);
 	}
+
+
+
+
 
 
 	/**
@@ -310,6 +318,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
 		$objWriter->save('php://output');
+		error_log('Export of ' . count($this->templateVariableContainer['listData']) . ', needed ' . memory_get_usage(true) / (1024*1024) . ' MB.');
 		exit();
 	}
 
