@@ -202,5 +202,15 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		}
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getDisplayValue() {
+		$filterValueFromDateObject = new DateTime($this->getFilterValueFrom());
+		$filterValueToDateObject = new DateTime($this->getFilterValueTo());
+		$format = $this->getFilterConfig()->getSettings('displayValueDateFormat');
+		return $filterValueFromDateObject->format($format) . ' - ' . $filterValueToDateObject->format($format);
+	}
+
 }
 ?>

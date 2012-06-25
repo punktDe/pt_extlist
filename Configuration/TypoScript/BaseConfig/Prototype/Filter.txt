@@ -165,6 +165,7 @@ plugin.tx_ptextlist.prototype.filter {
         filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
         partialPath = Filter/Range/DateRangeFilter
 
+		displayValueDateFormat = d.m.Y
 		dbTimeFormat = U
 		regional =
 
