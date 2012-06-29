@@ -143,7 +143,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 				/**
 				 * Width
 				 */
-				if (array_key_exists('width', $excelSettings)) {
+				if (is_array($excelSettings) && array_key_exists('width', $excelSettings)) {
 					$this->activeSheet->getColumnDimensionByColumn($columnNumber)->setWidth($excelSettings['width']);
 				} else {
 					$this->activeSheet->getColumnDimensionByColumn($columnNumber)->setAutoSize(true);
