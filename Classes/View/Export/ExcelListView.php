@@ -178,7 +178,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 				//$activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($listCell->getValue()));
 
 				//$this->doCellStyling($columnNumber, $columnIdentifier, 'body');
-				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($listCell->getValue());
+				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue(
+					strip_tags($listCell->getValue())
+				);
 
 				$columnNumber++;
 			}
