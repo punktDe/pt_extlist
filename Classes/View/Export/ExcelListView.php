@@ -85,11 +85,36 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
+	 * @var string
+	 */
+	protected $fileFormat = 'Excel5';
+
+
+	/**
+	 * @var bool
+	 */
+	protected $doBodyCellStyling = true;
+
+
+	/**
+	 * @var bool
+	 */
+	protected $stripTags = true;
+
+
+	/**
+	 * Needed for performance Measurement
+	 * @var integer
+	 */
+	protected $exportStartTime;
+
+
+	/**
 	 * Overwriting the render method to generate Excel output
-	 *
-	 * @return  void (never returns)
 	 */
 	public function render() {
+
+		$this->exportStartTime = microtime(true);
 
 		$this->init();
 
@@ -103,14 +128,52 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 		$this->renderPostBodyRows();
 
-		// File format can be changed in FlexForm in 'fileFormat' field.
-		// possible values: 'Excel2007', 'Excel5'
-		// if no value is given, 'Excel5' is taken.
-		$fileFormat = ($this->exportConfiguration->getSettings('fileFormat') ? $this->exportConfiguration->getSettings('fileFormat') : 'Excel5');
-		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $fileFormat);
+		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $this->fileFormat);
 
 		$this->saveOutputAndExit($objWriter);
 	}
+
+
+
+	public function initConfiguration() {
+
+		$settings = $this->exportConfiguration->getSettings();
+
+		// File format can be changed in FlexForm in 'fileFormat' field.
+		// possible values: 'Excel2007', 'Excel5'
+		// if no value is given, 'Excel5' is taken.
+		if(array_key_exists('fileFormat', $settings) && trim($settings['fileFormat']) ) {
+			$this->fileFormat = $settings['fileFormat'];
+		}
+
+		if(array_key_exists('stripTags', $settings)) {
+			$this->stripTags = $settings['stripTags'] == '1' ? true : false;
+		}
+
+		if(array_key_exists('doBodyCellStyling', $settings)) {
+			$this->doBodyCellStyling = $settings['doBodyCellStyling'] == '1' ? true : false;
+		}
+	}
+
+
+	/**
+	 * Initializes empty worksheet object
+	 *
+	 * @return void
+	 */
+	protected function init() {
+		$this->initConfiguration();
+
+		$this->checkRequirements();
+
+		$this->objPHPExcel = new PHPExcel();
+		$this->objPHPExcel->setActiveSheetIndex(0);
+		$this->activeSheet = $this->objPHPExcel->getActiveSheet();
+
+		$this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+		$this->columnConfigCollection = $this->configurationBuilder->buildColumnsConfiguration();
+	}
+
 
 
 	/**
@@ -170,29 +233,27 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		$activeSheet = $this->objPHPExcel->getActiveSheet();
 
 		// Rows
-		foreach ($this->templateVariableContainer['listData'] as $listRow) {
-			/* @var $row Tx_PtExtlist_Domain_Model_List_Row */
-			foreach ($listRow as $columnIdentifier => $listCell) {
-				/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+		foreach ($this->templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+			foreach ($listRow as $columnIdentifier => $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 
-				//$activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($listCell->getValue()));
+				$cellValue = $listCell->getValue();
+				if($this->stripTags) $cellValue = strip_tags($cellValue);
 
-				//$this->doCellStyling($columnNumber, $columnIdentifier, 'body');
-				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($listCell->getValue());
+				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($cellValue);
 
+				if($this->doBodyCellStyling) $this->doCellStyling($columnNumber, $columnIdentifier, 'body');
+
+				unset($listCell);
 				$columnNumber++;
 			}
 
+			unset($listRow);
 			$this->rowNumber++;
 			$columnNumber = 0;
 		}
 
-		//$activeSheet->fromArray($outputArray, NULL, 'A'.$bodyStartRowNumber);
+		unset($this->templateVariableContainer['listData']);
 	}
-
-
-
-
 
 
 	/**
@@ -281,24 +342,6 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * Initializes empty worksheet object
-	 *
-	 * @return void
-	 */
-	protected function init() {
-		$this->checkRequirements();
-
-		$this->objPHPExcel = new PHPExcel();
-		$this->objPHPExcel->setActiveSheetIndex(0);
-		$this->activeSheet = $this->objPHPExcel->getActiveSheet();
-
-		$this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
-		$this->columnConfigCollection = $this->configurationBuilder->buildColumnsConfiguration();
-	}
-
-
-
-	/**
 	 * Clears output buffer and sends corresponding headers
 	 *
 	 * @return void
@@ -318,8 +361,17 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
 		$objWriter->save('php://output');
-		error_log('Export of ' . count($this->templateVariableContainer['listData']) . ', needed ' . memory_get_usage(true) / (1024*1024) . ' MB.');
+		$this->logStats();
 		exit();
+	}
+
+
+	/**
+	 * Log some stats to the error log
+	 */
+	protected function logStats() {
+		$usedTime = microtime(true) - $this->exportStartTime;
+		error_log('Export of ' . count($this->templateVariableContainer['listData']) . ' rows in ' . $usedTime . ' Seconds , needed ' . memory_get_usage(true) / (1024*1024) . ' MB of memeory.');
 	}
 
 
