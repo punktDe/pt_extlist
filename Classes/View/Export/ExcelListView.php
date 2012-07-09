@@ -165,7 +165,6 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		$this->initConfiguration();
 
 		$this->checkRequirements();
-
 		$this->objPHPExcel = new PHPExcel();
 		$this->objPHPExcel->setActiveSheetIndex(0);
 		$this->activeSheet = $this->objPHPExcel->getActiveSheet();
@@ -361,7 +360,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
 		$objWriter->save('php://output');
-		$this->logStats();
+		// $this->logStats(); TODO: repair logStats() first!
 		exit();
 	}
 
