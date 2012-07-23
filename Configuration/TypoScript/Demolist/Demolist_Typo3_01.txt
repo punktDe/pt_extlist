@@ -13,6 +13,9 @@ plugin.tx_ptextlist.settings {
 
 		default.sortingColumn = nameColumn
 
+		# show all items
+		pager.itemsPerPage = 0
+
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
 		backendConfig {
 
@@ -373,7 +376,7 @@ plugin.tx_ptextlist.settings.listConfig.demolist_export < plugin.tx_ptextlist.se
 plugin.tx_ptextlist.settings.listConfig.demolist_export {
 
     # show all items
-    pager.itemsPerPage = 50
+    pager.itemsPerPage = 0
 
     # redifine columns completely
     columns >
