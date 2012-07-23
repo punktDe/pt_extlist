@@ -116,7 +116,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
             $columnIndex++;
         }
 
-		
+		unset($row);
         
         return $renderedRow;
     }
@@ -158,6 +158,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 			}
 		}
 
+		unset($aggregateDataRow);
+
 		return $renderedRow;
 	}
 
@@ -171,7 +173,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 * @param int $rowIndex
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
-	protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
+	protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex) {
 		return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
 	}
 

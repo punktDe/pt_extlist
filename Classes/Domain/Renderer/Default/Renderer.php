@@ -128,6 +128,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		foreach($listData as $rowIndex => $row) {
 			$renderedList->addRow($this->rowRenderer->renderRow($row, $rowIndex));
 		}
+
+		unset($listData);
 		
 		return $renderedList;
 	}
