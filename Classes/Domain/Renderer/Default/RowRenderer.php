@@ -115,6 +115,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
             
             $columnIndex++;
         }
+
+		
         
         return $renderedRow;
     }

@@ -170,6 +170,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		t3lib_div::devLog("Memory usage BEFORE mapping list data: " . memory_get_usage() . " with peak " . memory_get_peak_usage(), 'pt_extlist', 0);
 		$mappedListData = $this->dataMapper->getMappedListData($rawData);
+		unset($rawData);
 		t3lib_div::devLog("Memory usage AFTER mapping list data: " . memory_get_usage() . " with peak " . memory_get_peak_usage(), 'pt_extlist', 0);
 		return $mappedListData;
 	}
