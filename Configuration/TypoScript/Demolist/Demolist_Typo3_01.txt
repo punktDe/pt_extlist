@@ -422,6 +422,12 @@ plugin.tx_ptextlist.settings.listConfig.demolist_export {
 }
 
 
+plugin.tx_ptextlist.settings.listConfig.demolist_csvexport < plugin.tx_ptextlist.settings.listConfig.demolist
+plugin.tx_ptextlist.settings.listConfig.demolist_csvexport {
+	backendConfig.dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3ExportDataBackend_Typo3ExportDataBackend
+}
+
+
 ################################
 # Localization Override
 ################################

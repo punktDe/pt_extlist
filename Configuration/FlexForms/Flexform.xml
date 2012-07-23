@@ -66,6 +66,10 @@
                     <numIndex index="0">Column Selector</numIndex>
                     <numIndex index="1">ColumnSelector->show</numIndex>
                   </numIndex>
+                  <numIndex index="8" type="array">
+                    <numIndex index="0">ExportCsv</numIndex>
+                    <numIndex index="1">ExportCsv->showLink;ExportCsv->download</numIndex>
+                  </numIndex>
                 </items>
               </config>
             </TCEforms>

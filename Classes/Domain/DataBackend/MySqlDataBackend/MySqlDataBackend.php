@@ -163,8 +163,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return array Array of raw list data
 	 */
 	public function buildListData() {
-		$sqlQuery = $this->buildQuery();
-		$rawData = $this->dataSource->executeQuery($sqlQuery);
+		$rawData = $this->getRawQueryDataArray();
 	
 		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect', 'pt_extlist', 1, array('query' => $sqlQuery));
 
@@ -173,6 +172,19 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		unset($rawData);
 		t3lib_div::devLog("Memory usage AFTER mapping list data: " . memory_get_usage() . " with peak " . memory_get_peak_usage(), 'pt_extlist', 0);
 		return $mappedListData;
+	}
+
+
+
+	/**
+	 * Returns raw query data by array
+	 *
+	 * @return array Raw query data
+	 */
+	protected function getRawQueryDataArray() {
+		$sqlQuery = $this->buildQuery();
+		$rawData = $this->dataSource->executeQuery($sqlQuery);
+		return $rawData;
 	}
 
 

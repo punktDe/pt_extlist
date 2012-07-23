@@ -44,22 +44,28 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtl
      */
     protected $mapperConfiguration = null;
     
-    
+
+
     /**
      * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
      */
     protected $configurationBuilder;
     
-    
+
+
     /**
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      */
     public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$this->configurationBuilder = $configurationBuilder;
     }
-    
+
+
+
     public function init() {}
-    
+
+
+
     /**
      * Sets the mapper configuration
      *

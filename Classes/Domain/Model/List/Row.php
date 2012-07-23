@@ -37,21 +37,25 @@
  * @subpackage Model\List
  */
 class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectCollection {
-	
-	
+
 	/**
-	 * Special values for multiple purpose
-	 * @var string
+	 * Special values for multiple purpose. Values are stored as key=>value pair
+	 *
+	 * @var array
 	 */
 	protected $specialValues;
-	
+
+
+
 	/**
 	 * @return array
 	 */
 	public function getColumnIdentifiers() {
 		return array_keys($this->itemsArr);
 	}
-	
+
+
+
 	/**
 	 * Add a new cell to row identified by a given column name
 	 * 

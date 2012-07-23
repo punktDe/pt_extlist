@@ -40,9 +40,12 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldConfigurationCollection;
-	
-	
-	
+
+
+
+	/**
+	 * Initializes
+	 */
 	public function init() {
 		$this->fieldConfigurationCollection = $this->configurationBuilder->buildFieldsConfiguration();
 	}
@@ -81,7 +84,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	protected function mapWithoutConfiguration(array &$arrayData) {
 		#t3lib_div::devLog("Memory usage BEFORE mapWithoutConfiguration list data: " . memory_get_usage() . " with peak " . memory_get_peak_usage(), 'pt_extlist', 0);
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
-		foreach ($arrayData as $row) {
+		foreach ($arrayData as &$row) {
 			$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach ($row as $columnName => $value) {
 				$mappedRow->createAndAddCell($value, $columnName);
@@ -107,6 +110,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 			$mappedRow = $this->mapRowWithConfiguration($row);
 			$listData->addRow($mappedRow);
 		}
+		unset($arrayData);
 		#t3lib_div::devLog("Memory usage AFTER mapWithConfiguration list data: " . memory_get_usage() . " with peak " . memory_get_peak_usage(), 'pt_extlist', 0);
 		return $listData;
 	}
@@ -125,6 +129,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 			$mappedCellValue = $this->getMappedCellValue($mapping, $row);
 			$mappedRow->createAndAddCell($mappedCellValue, $mapping->getIdentifier());
 		}
+		unset($row);
 		return $mappedRow;
 	}
 	

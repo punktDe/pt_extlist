@@ -55,7 +55,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	
 	
 	/**
-	 * TODO add some comment!
+	 * Holds index of row (number of row in list)
 	 *
 	 * @var int
 	 */
@@ -64,12 +64,13 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	
 	
 	/**
-	 * TODO add some comment
+	 * Holds index of column (number of column in row)
 	 *
 	 * @var int
 	 */
 	protected $columnIndex;
-	
+
+
 	
 	/**
 	 * Individual cell class
@@ -77,7 +78,8 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	 * @var string
 	 */
 	protected $cssClass;
-	
+
+
 	
 	/**
 	 * Constructor for cell object
@@ -193,6 +195,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	public function getColumnIndex() {
 		return $this->columnIndex;
 	}
+
 	
 	
 	/**
@@ -203,6 +206,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	public function setCSSClass($cssClass) {
 		$this->cssClass = $cssClass;
 	}
+
 	
 	
 	/**
@@ -212,6 +216,8 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	public function getCSSClass() {
 		return $this->cssClass;
 	}
+
+
 	
 	/**
 	 * Returns object value as string
@@ -238,5 +244,6 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 		}
 
 	}
+
 }
 ?>

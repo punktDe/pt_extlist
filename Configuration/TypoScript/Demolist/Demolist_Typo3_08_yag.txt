@@ -72,3 +72,9 @@ plugin.tx_ptextlist.settings {
 		}
 	}
 }
+
+
+plugin.tx_ptextlist.settings.listConfig.demolist_yagcsvexport < plugin.tx_ptextlist.settings.listConfig.demolist_yagitems
+plugin.tx_ptextlist.settings.listConfig.demolist_yagcsvexport {
+	backendConfig.dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3ExportDataBackend_Typo3ExportDataBackend
+}
