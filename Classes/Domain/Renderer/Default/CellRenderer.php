@@ -67,6 +67,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$this->rendererConfiguration = $rendererConfiguration;
+		$this->configurationBuilder = $rendererConfiguration->getConfigurationBuilder();
 		#$this->renderSpecialCellUserFunc = $this->rendererConfiguration->getSpecialCell();
 	}
 
@@ -87,12 +88,14 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
 
+		$caching = $columnConfig->getCacheRendering() || $this->configurationBuilder->buildListDefaultConfig()->getCacheRendering();
+
 		// TODO: Include the objectMapper here ...
 		// if($columnConfig->getObjectMapperConfig() instanceof Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig) {}
 		if($columnConfig->getRawFields()) {
 			$content = $fieldSet;
 		} else {
-			$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig);
+			$content = Tx_PtExtlist_Utility_RenderValue::renderByConfigObject($fieldSet, $columnConfig, $caching);
 		}
 		
 		// Create new cell

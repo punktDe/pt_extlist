@@ -10,7 +10,6 @@
 plugin.tx_ptextlist.settings {
 
 	listConfig.demolist {
-
 		default.sortingColumn = nameColumn
 
 		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3

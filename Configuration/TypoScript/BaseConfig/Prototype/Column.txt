@@ -20,6 +20,7 @@ plugin.tx_ptextlist.prototype.column {
 		label =
 		sorting =
 		rawFields = 0
+		cacheRendering = 0
 
 		#renderUserFunction =
 		#renderObj =

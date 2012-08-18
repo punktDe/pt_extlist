@@ -84,6 +84,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $renderObj;
 
 
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
 	 */
@@ -168,6 +169,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $headerThCssClass = '';
 
 
+
 	/**
 	 * if one of this columns fields is a expanded GroupField, 
 	 * this column has an array as dataStructure
@@ -176,10 +178,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $containsArrayData = false;
 
 
+
 	/**
 	 * @var bool
 	 */
 	protected $isVisible = true;
+
 
 
 	/**
@@ -187,6 +191,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * @var bool
 	 */
 	protected $rawFields;
+
+
+
+	/**
+	 * If this is true, we want to cache rendered cells
+	 * @var bool
+	 */
+	protected $cacheRendering;
 
 	
 	/**
@@ -221,6 +233,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
 		$this->setValueIfExistsAndNotNothing('headerThCssClass');
+		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
 
 		if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
@@ -454,6 +467,17 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	public function getRawFields() {
 		return $this->rawFields;
+	}
+
+
+
+	/**
+	 * Returns true, if rendering should be cached
+	 *
+	 * @return bool True, if rendering should be cached
+	 */
+	public function getCacheRendering() {
+		return $this->cacheRendering;
 	}
 
 }
