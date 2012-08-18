@@ -65,7 +65,16 @@ class Tx_PtExtlist_Utility_RenderValue {
 			/* if $data contains an extbase model object like we get them with the extbase backend, on some systems this
 			 * causes an exception: Serialization of 'Closure' is not allowed
 			 */
-			$cacheKey = md5(serialize(func_get_args()));
+			// BEFORE: $cacheKey = md5(serialize(func_get_args()));
+			// AFTER see http://forge.typo3.org/issues/32272
+			$hash = '';
+			$args = func_get_args();
+			foreach($args as $inner) {
+			   if (is_array($inner))
+				   foreach($inner as $key => $value)
+					   $hash .= $key.$value;
+			}
+   			$cacheKey = md5($hash);
 		} catch(Exception $e) {
 			return self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
 		}
