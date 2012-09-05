@@ -17,7 +17,7 @@ bool                                                                filtersDontV
 </extlist:comment>
 
 <script type="text/javascript">
-	<![CDATA[
+<![CDATA[
 	jQuery(function($) {
 
 		$('#filter2').change(function() {
@@ -60,22 +60,17 @@ bool                                                                filtersDontV
 				}
 			});
 		}
-
 	});
-
-
-	]]>
+]]>
 </script>
 
 <div class="tx-ptextlist-filterbox" id="tx-ptextlist-filterbox-{filterbox.filterBoxIdentifier}">
 	<extlist:form id="tx-ptextlist-filterbox-form-{filterbox.filterBoxIdentifier}" controller="Filterbox" action="submit" pageUid="{filterbox.filterboxConfiguration.submitToPage}" method="{f:if(condition: '{config.baseConfig.useSession}', then: 'POST', else: 'GET')}">
-		
 		<f:if condition="{filtersDontValidate}">
 			<div class="error">
 				<f:translate key="filterBox.errorInFilter" default="Errors in Filter" />
 			</div>
 		</f:if>
-		
 		<ul class="tx-ptextlist-filters">
 			<f:for each="{filterbox}" as="filter">
 				<f:if condition="{filter.filterConfig.visible}">
@@ -85,7 +80,6 @@ bool                                                                filtersDontV
                 </f:if>
 			</f:for>
 		</ul>
-		
 		<div class="outer-wrapper tx-ptextlist-filterboxcontrols">
 			<div class="outer-field-wrapper">
 				<div class="field-wrapper type-button">

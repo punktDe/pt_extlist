@@ -40,9 +40,12 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldConfigurationCollection;
-	
-	
-	
+
+
+
+	/**
+	 * Initializes mapper with settings from field configuration
+	 */
 	public function init() {
 		$this->fieldConfigurationCollection = $this->configurationBuilder->buildFieldsConfiguration();
 	}
