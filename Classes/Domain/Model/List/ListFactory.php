@@ -51,6 +51,8 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 		// We have to build headers here, as they are no longer created by data backend
 		$list->setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder, $resetList));
 
+		if($resetList) $dataBackend->resetListDataCache();
+
 		$list->setListData($dataBackend->getListData());
 		$list->setAggregateListData(self::buildAggregateListData($dataBackend, $configurationBuilder));
 
