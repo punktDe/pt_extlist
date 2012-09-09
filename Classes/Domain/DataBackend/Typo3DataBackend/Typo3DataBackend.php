@@ -32,7 +32,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  * @package Domain
- * @subpackage Domain\DataBackend\Typo3DataBackend
+ * @subpackage DataBackend\Typo3DataBackend
  *
  * TODO implement T3 db object methods for query (hidden fields, deleted rows etc...)
  *  
