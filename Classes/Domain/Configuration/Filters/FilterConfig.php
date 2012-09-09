@@ -266,6 +266,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $resetToDefaultValue = false;
 
 
+
 	/**
 	 * @var boolean If the hidden flag is true, the filter is not shown in the filterBox
 	 */
@@ -279,6 +280,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var boolean
 	 */
 	protected $showRowCount = true;
+
+
+
+	/**
+	 * If set to true, we want to cache rendering
+	 *
+	 * @var bool
+	 */
+	protected $cacheRendering;
 
 
 
@@ -317,6 +327,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
 		$this->setBooleanIfExistsAndNotNothing('hidden');
 		$this->setBooleanIfExistsAndNotNothing('showRowCount');
+		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
 		
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
@@ -684,5 +695,17 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function getAjaxPartialPath() {
 		return $this->ajaxPartialPath;
 	}
+
+
+
+	/**
+	 * Returns true, if rendering should be cached
+	 *
+	 * @return bool True, if rendering should be cached
+	 */
+	public function getCacheRendering() {
+		return $this->cacheRendering;
+	}
+
 }
 ?>

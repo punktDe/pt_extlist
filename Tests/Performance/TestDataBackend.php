@@ -1,0 +1,95 @@
+<?php
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  All rights reserved
+ *
+ *  For further information: http://extlist.punkt.de <extlist@punkt.de>
+ *
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Test DataBackend for generating test data
+ * 
+ * @author Daniel Lienert
+ * @package Domain
+ * @subpackage Tests\Performance\TestDataBackend
+ *
+ */
+class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
+
+
+	/**
+	 *
+	 * Build the listData and cache it in $this->listData
+	 */
+	protected function buildListData() {
+
+		$rowCount = 1;
+		$columnCount = 5;
+
+		$rawData = array();
+
+		for($i = 0; $i < $rowCount; $i++) {
+			for($j = 1; $j <= $columnCount; $j++) {
+				$rawData[$i]['col_' . $j] = uniqid('TestData');
+			}
+		}
+
+		return $this->dataMapper->getMappedListData($rawData);
+	}
+
+
+	/**
+	 * Returns raw data for all filters excluding given filters.
+	 *
+	 * Result is given as associative array with fields given in query object.
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
+	 * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @return array Array of group data with given fields as array keys
+	 */
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+		// TODO: Implement getGroupData() method.
+	}
+
+
+	/**
+	 * Returns the number of items for current settings without pager settings
+	 *
+	 * @return int Total number of items for current data set
+	 */
+	public function getTotalItemsCount() {
+		// TODO: Implement getTotalItemsCount() method.
+	}
+
+
+	/**
+	 * Return an aggregate for a field and with a method defined in the given config
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateDataConfig
+	 */
+	public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
+		// TODO: Implement getAggregatesByConfigCollection() method.
+	}
+}
+
+?>

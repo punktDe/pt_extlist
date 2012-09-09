@@ -10,7 +10,6 @@
 plugin.tx_ptextlist.settings {
 
 	listConfig.demolist {
-
 		default.sortingColumn = nameColumn
 
 		# show all items

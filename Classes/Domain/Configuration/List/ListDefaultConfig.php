@@ -41,7 +41,8 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 	 * @var string
 	 */
 	protected $sortingColumn;
-	
+
+
 	
 	/**
 	 * The sorting direction of default sorting column
@@ -49,13 +50,23 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 	 * @var integer
 	 */
 	protected $sortingDirection;
+
+
+
+	/**
+	 * Is set to true, if rendering (e.g. of cells) should be cached
+	 *
+	 * @var bool
+	 */
+	protected $cacheRendering;
+
 	
 	
 	/**
 	 * Set the properties
 	 */
 	protected function init() {
-		
+		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
 		$this->setValueIfExistsAndNotNothing('sortingColumn');
 		if($this->sortingColumn) {
 			list($this->sortingColumn, $direction) = explode(' ', $this->sortingColumn);
@@ -80,6 +91,15 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 	 */
 	public function getSortingDirection() {
 		return $this->sortingDirection;
+	}
+
+
+
+	/**
+	 * @return bool
+	 */
+	public function getCacheRendering() {
+		return $this->cacheRendering;
 	}
 }
 ?>

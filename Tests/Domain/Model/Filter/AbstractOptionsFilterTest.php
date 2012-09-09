@@ -36,22 +36,28 @@ require_once t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Fixt
  * @package Tests
  * @subpackage Domain\Model\Filter
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
     protected $defaultFilterSettings;
+
+
 
     public function setup() {
         $this->initDefaultConfigurationBuilderMock();
     }
 
 
-    public function testCreateFilterQuerySingleValue() {
+
+	/** @test */
+    public function buildFilterQueryBuildsExpectedCriteriasForSingleFilterValue() {
 
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
         $selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
-
+		$selectFilter->_set('isActive', TRUE);
         $selectFilter->_call('buildFilterQuery');
+
         $filterQuery = $selectFilter->_get('filterQuery');
         $criterias = $filterQuery->getCriterias();
 
@@ -63,12 +69,15 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
-    public function testCreateFilterQueryMultipleValue() {
+
+	/** @test */
+    public function buildFilterQueryBuildsExpectedCriteriasForMultipleFilterValue() {
 
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
         $selectFilter->_set('filterValues', array('filterValue1', 'filterValue2'));
-
+		$selectFilter->_set('isActive', TRUE);
         $selectFilter->_call('buildFilterQuery');
+
         $filterQuery = $selectFilter->_get('filterQuery');
         $criterias = $filterQuery->getCriterias();
 
@@ -80,7 +89,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
-    public function testCreateFilterQuerySingleValueInverted() {
+
+	/** @test */
+    public function buildFilterQueryBuildsExpectedCriteriasForSingleFilterValueWhenInverted() {
 
         $filterSettings = array(
             'filterIdentifier' => 'field1',
@@ -92,11 +103,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
             'invert' => '1'
         );
 
-
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter($filterSettings);
         $selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
-
+		$selectFilter->_set('isActive', TRUE);
         $selectFilter->_call('buildFilterQuery');
+
         $filterQuery = $selectFilter->_get('filterQuery');
         $criterias = $filterQuery->getCriterias();
 
@@ -105,14 +116,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
+
     public function testInit() {
         $this->markTestIncomplete();
     }
 
 
+
     public function testReset() {
         $this->markTestIncomplete();
     }
+
 
 
     public function testPersistToSession() {
@@ -150,9 +164,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
+
     public function testGetValues() {
         $this->markTestIncomplete();
     }
+
 
 
     public function testInitOnCorrectConfiguration() {
@@ -178,6 +194,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
+
     public function testExceptionsOnMissingFieldIdentifierConfiguration() {
         $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
 
@@ -197,6 +214,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
         }
         $this->fail('No error has been thrown on configuration without fieldIdentifier');
     }
+
 
 
     public function testOnMissingFilterFieldConfiguration() {
@@ -220,6 +238,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
+
     public function testSetDefaultValuesFromTSConfigSingle() {
         $testFilter = $this->buildAccessibleAbstractGroupDataFilter();
         $defaultValue = 'test';
@@ -228,12 +247,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
     }
 
 
+
     public function testSetDefaultValuesFromTSConfigMultiple() {
         $testFilter = $this->buildAccessibleAbstractGroupDataFilter();
         $defaultValue = array(10 => 'test', 20 => 'test2');
         $testFilter->_call('setDefaultValuesFromTSConfig', $defaultValue);
         $this->assertEquals(array('test' => 'test', 'test2' => 'test2'), $testFilter->_get('filterValues'));
     }
+
 
 
     /**
@@ -277,11 +298,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 
 
-
-
-//**************************************************************
-//* Utility Methods
-//**************************************************************/
+	//**************************************************************
+	//* Utility Methods
+	//**************************************************************/
 
     /**
      * @param null $testData

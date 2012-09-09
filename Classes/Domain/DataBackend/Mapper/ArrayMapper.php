@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 
 
 	/**
-	 * Initializes
+	 * Initializes mapper with settings from field configuration
 	 */
 	public function init() {
 		$this->fieldConfigurationCollection = $this->configurationBuilder->buildFieldsConfiguration();

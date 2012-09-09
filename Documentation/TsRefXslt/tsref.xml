@@ -518,6 +518,17 @@ sortingColumn = capital	DESC
 											<CHILDREN></CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
+                                        <ENTRY KEY="cacheRendering">
+                                            <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
+                                            <DATATYPE>Boolean</DATATYPE>
+                                            <POSIBLEVALUES></POSIBLEVALUES>
+                                            <DEFAULT></DEFAULT>
+                                            <COBJ></COBJ>
+                                            <PROTOTYPE></PROTOTYPE>
+                                            <EXAMPLE></EXAMPLE>
+                                            <CHILDREN></CHILDREN>
+                                            <VARIANT></VARIANT>
+                                        </ENTRY>
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
@@ -1054,6 +1065,17 @@ sortingFields {
 headerThCssClass = yourCssClass
 ]]></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="cacheRendering">
+                                                    <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT></DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
 											</CHILDREN>
 										</ENTRY>
 									</CHILDREN>

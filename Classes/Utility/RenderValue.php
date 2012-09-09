@@ -38,10 +38,12 @@ class Tx_PtExtlist_Utility_RenderValue {
 	protected static $cObj;
 
 
+
 	/**
 	 * @var Tx_Fluid_View_TemplateView
 	 */
 	protected static $fluidRenderer;
+
 
 
 	/**
@@ -83,9 +85,14 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 *
 	 * @param array $data data to be rendered
 	 * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
+	 * @param bool $caching Set to true if you want to get caching for cell rendering. Default is FALSE
 	 */
-	public static function renderByConfigObject(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig) {
-		return self::render($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
+	public static function renderByConfigObject(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig, $caching = FALSE) {
+		if ($caching) {
+			return self::render($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
+		} else {
+			return self::renderUncached($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
+		}
 	}
 
 
