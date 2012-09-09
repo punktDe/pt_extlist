@@ -53,25 +53,47 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 
 	/**
+	 * @return array
+	 */
+	public function performanceDataProvider() {
+		return array(
+			//'performance 5:1 - Framework only' => array(5,1),
+			'performance 5:10000' => array(5,10000),
+		);
+	}
+
+
+	/**
+	 * @dataProvider performanceDataProvider
 	 * @test
 	 */
-	public function performance() {
-
-
+	public function performance($colCount, $rowCount) {
 
 		$listSettings = $this->getExtListTypoScript();
 
 		$memoryBefore = memory_get_usage(true);
+		$timeBefore = microtime(true);
 
 		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
-		$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
-		$renderedListData = $extlistContext->getRenderedListData();
+		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
+		$extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
+		$list= $extListContext->getList(TRUE);
+		$renderedListData = $extListContext->getRendererChain()->renderList($list->getListData());
 
-		
+
 		$usedMemory = memory_get_usage(true) - $memoryBefore;
 		$readableMemoryUsage = $usedMemory / (1024*1024);
 
-		echo 'Memory Usage: ' . $readableMemoryUsage . ' MB';
+		$usedMicroseconds = microtime(true) - $timeBefore;
+
+		$this->assertTrue(true);
+
+
+
+		$info = sprintf("
+			Memory Usage: %s MB <br />
+			Processing Time: %s Mircroseconds.", $readableMemoryUsage, $usedMicroseconds);
+		echo($info);
 
 		die();
 	}

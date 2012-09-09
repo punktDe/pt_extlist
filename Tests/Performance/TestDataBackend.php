@@ -36,6 +36,16 @@
  */
 class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
 
+	/**
+	 * @var int
+	 */
+	protected $rowCount = 20;
+
+	/**
+	 * @var int
+	 */
+	protected $colCount = 5;
+
 
 	/**
 	 *
@@ -43,14 +53,11 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 */
 	protected function buildListData() {
 
-		$rowCount = 1;
-		$columnCount = 5;
-
 		$rawData = array();
 
-		for($i = 0; $i < $rowCount; $i++) {
-			for($j = 1; $j <= $columnCount; $j++) {
-				$rawData[$i]['col_' . $j] = uniqid('TestData');
+		for($i = 0; $i < $this->rowCount; $i++) {
+			for($j = 1; $j <= $this->colCount; $j++) {
+				$rawData[$i]['col_' . $j] = "Testdaten aus der Koordinate $i:$j" ;
 			}
 		}
 
@@ -89,6 +96,36 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 */
 	public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
 		// TODO: Implement getAggregatesByConfigCollection() method.
+	}
+
+	/**
+	 * @param int $rowCount
+	 */
+	public function setRowCount($rowCount) {
+		$this->rowCount = $rowCount;
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRowCount() {
+		return $this->rowCount;
+	}
+
+	/**
+	 * @param int $colCount
+	 */
+	public function setColCount($colCount) {
+		$this->colCount = $colCount;
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getColCount() {
+		return $this->colCount;
 	}
 }
 
