@@ -98,8 +98,10 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 		// TODO: Implement getAggregatesByConfigCollection() method.
 	}
 
+
 	/**
-	 * @param int $rowCount
+	 * @param $rowCount
+	 * @return Tx_PtExtlist_Tests_Performance_TestDataBackend
 	 */
 	public function setRowCount($rowCount) {
 		$this->rowCount = $rowCount;

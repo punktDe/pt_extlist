@@ -83,6 +83,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 		$usedMemory = memory_get_usage(true) - $memoryBefore;
 		$readableMemoryUsage = $usedMemory / (1024*1024);
+		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024*1024);
 
 		$usedMicroseconds = microtime(true) - $timeBefore;
 
@@ -92,7 +93,8 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 		$info = sprintf("
 			Memory Usage: %s MB <br />
-			Processing Time: %s Mircroseconds.", $readableMemoryUsage, $usedMicroseconds);
+			Memory Peak Usage %s MB <br />
+			Processing Time: %s Mircroseconds.", $readableMemoryUsage, $readableMemoryPeakUsage, $usedMicroseconds);
 		echo($info);
 
 		die();
