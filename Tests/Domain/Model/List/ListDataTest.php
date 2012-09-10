@@ -30,24 +30,145 @@
 
 /**
  * Testcase for list data class
- * 
- * @author Michael Knoll 
+ *
+ * @author Daniel Lienert
  * @package Tests
  * @subpackage Model\List
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_BaseTestcase {
-	
-	public function testSetup() {
-		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+
+
+	/**
+	 * Representation of a list as data array
+	 *
+	 * @var array
+	 */
+	protected $testData = array(
+		'rows' => array(
+			0 => array(
+				'col0' => array(
+					'value' => 'testValue1',
+					'cssClass' => 'testCssClass1',
+					'rowIndex' => 0,
+					'columnIndex' => 0,
+					'specialValues' => array('key1' => 'value1')
+				),
+				'col1' => array(
+					'value' => 'testValue2',
+					'cssClass' => 'testCssClass2',
+					'rowIndex' => 0,
+					'columnIndex' => 1,
+					'specialValues' => array('key1' => 'value1')
+				)
+			),
+			1 => array(
+				'col0' => array(
+					'value' => 'testValue3',
+					'cssClass' => 'testCssClass3',
+					'rowIndex' => 1,
+					'columnIndex' => 0,
+					'specialValues' => array('key1' => 'value1')
+				),
+				'col1' => array(
+					'value' => 'testValue4',
+					'cssClass' => 'testCssClass4',
+					'rowIndex' => 1,
+					'columnIndex' => 1,
+					'specialValues' => array('key1' => 'value1')
+				)
+			)
+		),
+	);
+
+
+	/**
+	 * @test
+	 */
+	public function classExists() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_ListData'));
 	}
-	
-	public function testAddRow() {
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+
+
+	/**
+	 * @test
+	 */
+	public function getFirstRow() {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$this->populateListDataByObjects($listData);
+
+		$row = $listData->getFirstRow();
+
+		$this->assertEquals($listData->getItemByIndex(0), $row);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function addRow() {
+		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$row = $this->createRowFromTestData($this->testData['rows'][0]);
+
 		$listData->addRow($row);
-		// TODO check row ??
+		$this->assertEquals($row, $listData->getItemByIndex(0));
 	}
-	
+
+
+	/**
+	 * @test
+	 */
+	public function getRow() {
+		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$this->populateListDataByObjects($listData);
+
+		$testRow = $this->createRowFromTestData($this->testData['rows'][1]);
+
+		$this->assertEquals($testRow, $listData->getRow(1));
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function getCountTest() {
+		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$this->populateListDataByObjects($listData);
+
+		$this->assertEquals(count($this->testData['rows']), $listData->count());
+	}
+
+
+	/**
+	 * Populates the listData the old way ..
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 */
+	protected function populateListDataByObjects(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+		foreach($this->testData['rows'] as $testRow) {
+			$listData->addRow($this->createRowFromTestData($testRow));
+		}
+	}
+
+
+	/**
+	 * @param array $rowData
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	protected function createRowFromTestData(array $rowData) {
+		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+
+		foreach($rowData as $key => $testCell) {
+			$cell = new Tx_PtExtlist_Domain_Model_List_Cell($testCell['value']);
+			$cell->setCSSClass($testCell['cssClass']);
+			$cell->setColumnIndex($testCell['columnIndex']);
+			$cell->setRowIndex($testCell['rowIndex']);
+			$cell->addSpecialValue('key1', $testCell['specialValues']['key1']);
+
+			$row->addCell($cell, $key);
+		}
+
+		return $row;
+	}
 }
 
 ?>
