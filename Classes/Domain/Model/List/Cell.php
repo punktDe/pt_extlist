@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -32,15 +32,14 @@
  * @package Domain
  * @subpackage Model\List
  * @author Michael Knoll 
- * @author Christoph Ehscheidt 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Model_List_Cell {
 
 	/**
 	 * Holds value of cell
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $value;
 	
@@ -48,7 +47,8 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	
 	/**
 	 * Special values for multiple purpose
-	 * @var string
+	 *
+	 * @var array
 	 */
 	protected $specialValues;
 	
@@ -201,7 +201,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	/**
 	 * set the individual cell CSS class
 	 * 
-	 * @param string $cellCSSClass
+	 * @param string $cssClass
 	 */
 	public function setCSSClass($cssClass) {
 		$this->cssClass = $cssClass;
@@ -242,8 +242,41 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 			default:
 				return (string)$this->value;
 		}
-
 	}
 
+
+	/**
+	 * array(
+	 * 	'value' =>
+	 * 	'cssClass' =>
+	 *  'rowIndex' =>
+	 *  'columnIndex' =>
+	 *  'specialValues' => array()
+	 * )
+	 *
+	 * @param $dataArray
+	 */
+	public function setByArray($dataArray) {
+		$internalVars = get_object_vars($this);
+
+		foreach($dataArray as $key => $value) {
+			if(array_key_exists($key, $internalVars)) $this->$key = $value;
+		}
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getAsArray() {
+		$internalVars = get_object_vars($this);
+		$returnArray = array();
+
+		foreach($internalVars as $key => $value) {
+			$returnArray[$key] = $value;
+		}
+
+		return $returnArray;
+	}
 }
 ?>
