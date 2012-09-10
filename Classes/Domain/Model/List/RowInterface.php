@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,100 +27,69 @@
  ***************************************************************/
 
 /**
- * Class implements a row for a list data structure. Row contains
- * cells addressed by a identifier (column name).
- * 
- * @author Daniel Lienert 
- * @author Michael Knoll
+ * Interface for row structure
+ *
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectCollection implements Tx_PtExtlist_Domain_Model_List_RowInterface {
-
-	/**
-	 * Special values for multiple purpose. Values are stored as key=>value pair
-	 *
-	 * @var array
-	 */
-	protected $specialValues;
-
-
+interface Tx_PtExtlist_Domain_Model_List_RowInterface {
 
 	/**
 	 * @return array
 	 */
-	public function getColumnIdentifiers() {
-		return array_keys($this->itemsArr);
-	}
-
+	public function getColumnIdentifiers();
 
 
 	/**
 	 * Add a new cell to row identified by a given column name
-	 * 
+	 *
 	 * @param string $columnName
 	 * @param Tx_PtExtlist_Domain_Model_List_Cell $cell
 	 * @return void
 	 */
-	public function addCell(Tx_PtExtlist_Domain_Model_List_Cell $cell, $columnName) {
-		$this->addItem($cell, $columnName);
-	}
-	
-	
-	
+	public function addCell(Tx_PtExtlist_Domain_Model_List_Cell $cell, $columnName);
+
+
 	/**
 	 * Create a new Cell with the Content and add it
-	 * 
+	 *
 	 * @param string $cellContent
 	 * @param string $columnIdentifier
 	 */
-	public function createAndAddCell($cellContent, $columnIdentifier) {
-		$this->addItem(new Tx_PtExtlist_Domain_Model_List_Cell($cellContent), $columnIdentifier);
-	}
-	
-	
-	
+	public function createAndAddCell($cellContent, $columnIdentifier);
+
+
+
 	/**
 	 * @param string $columnIdentifier
 	 * @return Tx_PtExtlist_Domain_Model_List_Cell
 	 */
-	public function getCell($columnIdentifier) {
-		if(!$this->hasItem($columnIdentifier)) {
-			Throw new Exception('No Cell with Identifier "' . $columnIdentifier . '" found in Row. There are ('.implode(', ',array_keys($this->itemsArr)).')! 1282978972');
-		}
-		return $this->getItemById($columnIdentifier);
-	}
-	
-	
-	
-    /**
+	public function getCell($columnIdentifier);
+
+
+
+	/**
 	 * Add a special value to the list
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	public function addSpecialValue($key, $value) {
-		$this->specialValues[$key] = $value;
-	}
-	
-	
-	
+	public function addSpecialValue($key, $value);
+
+
+
 	/**
-	 * Get a special value from the list
+	 * Get a special value
 	 * @param string $key
 	 */
-	public function getSpecialValue($key) {
-		return $this->specialValues[$key];
-	}	
-	
-	
-	
+	public function getSpecialValue($key);
+
+
 	/**
 	 * Return the complete value array
 	 * @return array
 	 */
-	public function getSpecialValues() {
-		return $this->specialValues;
-	}
+	public function getSpecialValues();
 
 
 
@@ -128,29 +97,22 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	 * Setter for special values
 	 * @param mixed $specialValues
 	 */
-	public function setSpecialValues($specialValues) {
-		$this->specialValues = $specialValues;
-	}
-	
-	
-	
+	public function setSpecialValues($specialValues);
+
+
+
 	/**
 	 * Remove a special value from the list
 	 * @param string $key
 	 */
-	public function removeSpecialValue($key) {
-		unset($this->specialValues[$key]);
-	}
-	
-	
-	
+	public function removeSpecialValue($key);
+
+
+
 	/**
 	 * @return Tx_PtExtlist_Domain_Model_List_Cell $cell
 	 */
-	public function getFirstCell() {
-		reset($this->itemsArr);
-		return current($this->itemsArr);
-	}
+	public function getFirstCell();
 
 
 
@@ -161,9 +123,6 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	 *
 	 * @return int
 	 */
-	public function getCount() {
-		return $this->count();
-	}
+	public function getCount();
 
 }
-?>

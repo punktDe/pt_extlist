@@ -58,7 +58,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	public function performanceDataProvider() {
 		return array(
 			//'performance 5:1 - Framework only' => array(5,1),
-			'performance 5:10000' => array(5,10000),
+			'performance 5:10000' => array(5,1000),
 		);
 	}
 
@@ -87,17 +87,14 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 		$usedMicroseconds = microtime(true) - $timeBefore;
 
-		$this->assertTrue(true);
-
-
-
 		$info = sprintf("
 			Memory Usage: %s MB <br />
 			Memory Peak Usage %s MB <br />
 			Processing Time: %s Mircroseconds.", $readableMemoryUsage, $readableMemoryPeakUsage, $usedMicroseconds);
-		echo($info);
 
-		die();
+		//die($info);
+
+		$this->assertTrue(true);
 	}
 
 

@@ -27,62 +27,14 @@
  ***************************************************************/
 
 /**
- * Class implements list data object containing rows for a list.
+ * Interface for listData structure
  *
- * @author Michael Knoll
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_ListData extends Tx_PtExtbase_Collection_ObjectCollection {
-	
-	/**
-	 * Class name to restrict collection to
-	 *
-	 * @var string
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_List_Row';
-	
-	
-	
-	/**
-	 * Adds a row to list data
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 * @return void
-	 */
-	public function addRow(Tx_PtExtlist_Domain_Model_List_Row $row) {
-		$this->addItem($row);
-	}
-	
-	
-	/**
-	 * @param int $id
-	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 */
-	public function getRow($id) {
-		return $this->getItemById($id);
-	}
-	
-	
-	/**
-	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 */
-	public function getFirstRow() {
-		return $this->itemsArr[0];
-	}
-	
-	
-	
-	/**
-	 * Getter for count of items in list data
-	 * 
-	 * (Fluid-compatible getter for count() method in collection)
-	 *
-	 * @return int Count of objects in list data
-	 */
-	public function getCount() {
-		return $this->count();
-	}
+interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
+
+
+
 }
-?>

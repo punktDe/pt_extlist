@@ -61,7 +61,12 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 			}
 		}
 
-		return $this->dataMapper->getMappedListData($rawData);
+		$mappedData =  $this->dataMapper->getMappedListData($rawData);
+
+		unset($rawData);
+
+		return $mappedData;
+
 	}
 
 
