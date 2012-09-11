@@ -109,10 +109,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	/**
 	 * Renders list data
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
 		Tx_PtExtbase_Assertions_Assert::isNotNull($listData, array(message => 'No list data found in list. 1280405145'));
 
 		// We could get another type of list data here, so we have to instantiate this class
@@ -139,10 +139,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	/**
 	 * Returns a rendered aggregate list for a given row of aggregates
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
+	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface Rendererd List of aggregate rows
 	 */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData) {
 		
 		if($aggregateListData->count() == 0) return $aggregateListData;
 		

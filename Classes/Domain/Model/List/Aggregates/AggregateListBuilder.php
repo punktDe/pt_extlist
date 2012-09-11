@@ -129,7 +129,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	
 	/**
 	 * Build the aggregate list
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public function buildAggregateListData() {
 		$aggreagteListData = new Tx_PtExtlist_Domain_Model_List_ListData();

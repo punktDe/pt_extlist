@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 	 * 
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public static function getAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		

@@ -48,7 +48,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	/**
 	 * Returns mapped List structure
 	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
     public function getListData();
     
@@ -65,7 +65,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Returns th aggregate data
      * 
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
      */
     public function getAggregateListData();
     

@@ -58,7 +58,7 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
 		return $listData;
 	}
 	
@@ -78,7 +78,7 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
 	 */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData) {
 		return $aggregateListData;
 	}
 	

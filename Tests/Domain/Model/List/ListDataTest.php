@@ -143,7 +143,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
 	 */
-	protected function populateListDataByObjects(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+	protected function populateListDataByObjects(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
 		foreach($this->testData['rows'] as $testRow) {
 			$listData->addRow($this->createRowFromTestData($testRow));
 		}

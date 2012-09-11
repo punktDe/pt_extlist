@@ -65,7 +65,7 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public static function buildAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		if($configurationBuilder->buildAggregateDataConfig()->count() > 0) {

@@ -35,6 +35,38 @@
  */
 interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
 
+	/**
+	 * Adds a row to list data
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+	 * @return void
+	 */
+	public function addRow(Tx_PtExtlist_Domain_Model_List_Row $row);
 
+
+
+	/**
+	 * @param int $id
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+	 */
+	public function getRow($id);
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+	 */
+	public function getFirstRow();
+
+
+
+	/**
+	 * Getter for count of items in list data
+	 *
+	 * (Fluid-compatible getter for count() method in collection)
+	 *
+	 * @return int Count of objects in list data
+	 */
+	public function getCount();
 
 }

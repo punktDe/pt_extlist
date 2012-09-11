@@ -81,10 +81,10 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	/**
 	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
 		if(!$this->rendererChainConfiguration->isEnabled()) return $listData;
 		foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
 			$listData = $renderer->renderList($listData);
@@ -99,10 +99,10 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	 * 
 	 * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData Row to be rendered
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregated list data
+	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregatedListData Row to be rendered
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface Rendered aggregated list data
 	 */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData) {
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregatedListData) {
 		foreach($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
 			$aggregatedListData = $renderer->renderAggregateList($aggregatedListData);
 		}

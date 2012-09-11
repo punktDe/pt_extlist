@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 * If a configuration is given, this configuration is used to map the fields
 	 *
 	 * @param array $arrayData Raw data array to be mapped to list data structure
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public function getMappedListData(array &$arrayData) {
 
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 * a cell in the list data structure
 	 *
 	 * @param array $arrayData Raw array to be mapped
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData Mapped list data structure
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface Mapped list data structure
 	 */
 	protected function mapWithoutConfiguration(array &$arrayData) {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
@@ -103,7 +103,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 * Maps raw list data with given mapper configuration.
 	 *
 	 * @param array $arrayData Raw array to be mapped
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData Mapped list data structure
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface Mapped list data structure
 	 */
 	protected function mapWithConfiguration(array &$arrayData) {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();

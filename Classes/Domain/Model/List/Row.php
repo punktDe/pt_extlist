@@ -35,7 +35,7 @@
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectCollection implements Tx_PtExtlist_Domain_Model_List_RowInterface {
+class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectCollection {
 
 	/**
 	 * Special values for multiple purpose. Values are stored as key=>value pair

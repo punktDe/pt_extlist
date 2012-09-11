@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	/**
 	 * Holds a reference of the list data object holding all list data
-	 * @var Tx_PtExtlist_Domain_Model_List_ListData
+	 * @var Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	protected $listData;
 	
@@ -55,7 +55,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	/**
 	 * A List Data Object holding the aggregate rows
-	 * @var Tx_PtExtlist_Domain_Model_List_ListData
+	 * @var Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	protected $aggregateListData;
 	
@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
     /**
      * Getter for list data. 
      *
-     * @return Tx_PtExtlist_Domain_Model_List_ListData      Returns list data of this list
+     * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface      Returns list data of this list
      */	
 	public function getListData() {
 		return $this->listData;
@@ -74,9 +74,9 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	/**
 	 * Setter for aggregate rows
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData  $listData   List data object holding aggregate rows
+	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface  $listData   List data object holding aggregate rows
 	 */
-	public function setAggregateListData(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
+	public function setAggregateListData(Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData) {
 		$this->aggregateListData = $aggregateListData;
 	}
 	
@@ -84,9 +84,9 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	/**
 	 * Setter for list data
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData  $listData   List data to be set for this list object
+	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface  $listData   List data to be set for this list object
 	 */
-	public function setListData(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
+	public function setListData(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
 		$this->listData = $listData;
 	}
 	
@@ -116,7 +116,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	
 	/**
 	 * Getter for aggregate rows
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public function getAggregateListData() {
 		return $this->aggregateListData;

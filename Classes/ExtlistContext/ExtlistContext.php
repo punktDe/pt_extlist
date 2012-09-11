@@ -180,7 +180,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns list data for this list context
 	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public function getListData() {
 		if ($this->listData === NULL) {
@@ -194,7 +194,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns rendered list data for this list context
 	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public function getRenderedListData() {
 		if ($this->renderedListData === NULL) {
@@ -243,7 +243,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
 	public function getRenderedAggregateRows() {
 		return $this->getRendererChain()->renderAggregateList($this->getList()->getAggregateListData());
