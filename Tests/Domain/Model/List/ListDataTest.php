@@ -46,35 +46,41 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 	protected $testData = array(
 		'rows' => array(
 			0 => array(
-				'col0' => array(
-					'value' => 'testValue1',
-					'cssClass' => 'testCssClass1',
-					'rowIndex' => 0,
-					'columnIndex' => 0,
-					'specialValues' => array('key1' => 'value1')
+				'columns' => array(
+					'col0' => array(
+						'value' => 'testValue1',
+						'cssClass' => 'testCssClass1',
+						'rowIndex' => 0,
+						'columnIndex' => 0,
+						'specialValues' => array('key1' => 'value1')
+					),
+					'col1' => array(
+						'value' => 'testValue2',
+						'cssClass' => 'testCssClass2',
+						'rowIndex' => 0,
+						'columnIndex' => 1,
+						'specialValues' => array('key1' => 'value1')
+					)
 				),
-				'col1' => array(
-					'value' => 'testValue2',
-					'cssClass' => 'testCssClass2',
-					'rowIndex' => 0,
-					'columnIndex' => 1,
-					'specialValues' => array('key1' => 'value1')
-				)
+				'specialValues' => array(),
 			),
 			1 => array(
-				'col0' => array(
-					'value' => 'testValue3',
-					'cssClass' => 'testCssClass3',
-					'rowIndex' => 1,
-					'columnIndex' => 0,
-					'specialValues' => array('key1' => 'value1')
-				),
-				'col1' => array(
-					'value' => 'testValue4',
-					'cssClass' => 'testCssClass4',
-					'rowIndex' => 1,
-					'columnIndex' => 1,
-					'specialValues' => array('key1' => 'value1')
+				'columns' => array(
+					'col0' => array(
+						'value' => 'testValue3',
+						'cssClass' => 'testCssClass3',
+						'rowIndex' => 1,
+						'columnIndex' => 0,
+						'specialValues' => array('key1' => 'value1')
+					),
+					'col1' => array(
+						'value' => 'testValue4',
+						'cssClass' => 'testCssClass4',
+						'rowIndex' => 1,
+						'columnIndex' => 1,
+						'specialValues' => array('key1' => 'value1')
+					),
+					'specialValues' => array(),
 				)
 			)
 		),
@@ -92,13 +98,22 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 	/**
 	 * @test
 	 */
+	public function populateListData() {
+		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$this->populateListDataByObjects($listData);
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function getFirstRow() {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		$this->populateListDataByObjects($listData);
 
 		$row = $listData->getFirstRow();
 
-		$this->assertEquals($listData->getItemByIndex(0), $row);
+		$this->assertEquals($listData->getRow(0), $row);
 	}
 
 
@@ -110,7 +125,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 		$row = $this->createRowFromTestData($this->testData['rows'][0]);
 
 		$listData->addRow($row);
-		$this->assertEquals($row, $listData->getItemByIndex(0));
+		$this->assertEquals($row, $listData->getRow(0));
 	}
 
 
@@ -121,10 +136,16 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		$this->populateListDataByObjects($listData);
 
+		echo '<pre>';
+		print_r($listData->getData());
+		die();
+
+
 		$testRow = $this->createRowFromTestData($this->testData['rows'][1]);
 
 		$this->assertEquals($testRow, $listData->getRow(1));
 	}
+
 
 
 	/**
@@ -138,10 +159,16 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 	}
 
 
+	public function convertRowToArray() {
+
+	}
+
+
+
 	/**
 	 * Populates the listData the old way ..
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData
 	 */
 	protected function populateListDataByObjects(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
 		foreach($this->testData['rows'] as $testRow) {
@@ -157,7 +184,9 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 	protected function createRowFromTestData(array $rowData) {
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 
-		foreach($rowData as $key => $testCell) {
+		$row->setSpecialValues($rowData['specialValues']);
+
+		foreach($rowData['columns'] as $key => $testCell) {
 			$cell = new Tx_PtExtlist_Domain_Model_List_Cell($testCell['value']);
 			$cell->setCSSClass($testCell['cssClass']);
 			$cell->setColumnIndex($testCell['columnIndex']);
