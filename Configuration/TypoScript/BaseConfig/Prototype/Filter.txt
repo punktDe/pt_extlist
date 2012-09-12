@@ -245,11 +245,12 @@ plugin.tx_ptextlist.prototype.filter {
 		treeNodeRepository =
 		treeNamespace =
 		treeMaxDepth =
+		treeRootNode =
 		# treeUidFieldIdentifier =
 
 		renderObj = TEXT
 		renderObj {
-			dataWrap = {field:allDisplayFields} ({field:rowCount})
+			dataWrap = ({field:rowCount})
 		}
 
 		breadCrumbString = TEXT
