@@ -34,16 +34,19 @@
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_ObjectListData extends Tx_PtExtbase_Collection_ObjectCollection implements Tx_PtExtlist_Domain_Model_List_ListDataInterface {
-	
+class Tx_PtExtlist_Domain_Model_List_ArrayListData implements Tx_PtExtlist_Domain_Model_List_ListDataInterface {
+
 	/**
-	 * Class name to restrict collection to
-	 *
-	 * @var string
+	 * @var     array   array containing items as values
 	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_List_Row';
-	
-	
+	protected $data = array();
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	protected $rowPrototype;
+
 	
 	/**
 	 * Adds a row to list data
@@ -52,7 +55,7 @@ class Tx_PtExtlist_Domain_Model_List_ObjectListData extends Tx_PtExtbase_Collect
 	 * @return void
 	 */
 	public function addRow(Tx_PtExtlist_Domain_Model_List_Row $row) {
-		$this->addItem($row);
+		$this->data['rows'][] = $row->getAsArray();
 	}
 	
 	
@@ -61,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_List_ObjectListData extends Tx_PtExtbase_Collect
 	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
 	 */
 	public function getRow($id) {
-		return $this->getItemById($id);
+		return $this->getRowPrototype()->setByArray($this->data['rows'][$id]);
 	}
 	
 	
@@ -69,7 +72,7 @@ class Tx_PtExtlist_Domain_Model_List_ObjectListData extends Tx_PtExtbase_Collect
 	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
 	 */
 	public function getFirstRow() {
-		return $this->itemsArr[0];
+		return $this->getRowPrototype()->setByArray($this->data['rows'][0]);
 	}
 	
 	
@@ -84,5 +87,44 @@ class Tx_PtExtlist_Domain_Model_List_ObjectListData extends Tx_PtExtbase_Collect
 	public function getCount() {
 		return $this->count();
 	}
+
+
+
+	/**
+	 * @return int
+	 */
+	public function count() {
+		return count($this->data['rows']);
+	}
+
+
+
+	/**
+	 * @param array $data
+	 */
+	public function setData($data) {
+		$this->data = $data;
+	}
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getData() {
+		return $this->data;
+	}
+
+
+
+	/**
+	 * @return \Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function getRowPrototype() {
+		if(!$this->rowPrototype) $this->rowPrototype = new Tx_PtExtlist_Domain_Model_List_Row();
+		return $this->rowPrototype;
+	}
+
+
 }
 ?>

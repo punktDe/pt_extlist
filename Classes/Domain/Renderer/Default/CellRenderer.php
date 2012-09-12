@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	 *   
 	 * @param array fieldSet
 	 */
-	protected function createArrayDataFieldSet(array &$fieldSet) {
+	protected function createArrayDataFieldSet(array $fieldSet) {
 				
 		foreach($fieldSet as $field) {
 			if(is_array($field)) {

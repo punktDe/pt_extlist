@@ -136,11 +136,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		$this->populateListDataByObjects($listData);
 
-		echo '<pre>';
-		print_r($listData->getData());
-		die();
-
-
 		$testRow = $this->createRowFromTestData($this->testData['rows'][1]);
 
 		$this->assertEquals($testRow, $listData->getRow(1));
