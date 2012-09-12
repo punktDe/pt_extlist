@@ -758,6 +758,20 @@ static_territories st_continent
 										</ENTRY>
 									</VARIANT>
 								</ENTRY>
+                                <ENTRY KEY="resetOnEmptySubmit">
+                                    <DESCRIPTION>If this is set to 1, a list will be reset every time there is no
+                                        GP-var data for current request. You can use this switch, if you want a list
+                                        to be reset to its default settings every time you open up a page.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES>0,1</POSIBLEVALUES>
+                                    <DEFAULT>1</DEFAULT>
+                                    <COBJ>0</COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE>
+                                    </EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
 								<ENTRY KEY="fields">
 									<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
 									<DATATYPE>Associative array</DATATYPE>

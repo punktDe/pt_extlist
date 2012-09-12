@@ -23,7 +23,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 
 		<f:for each="{filter.options}" key="optionValue" as="option">
 			<div class="field-wrapper type-button">
-				<f:form.submit class="{f:if(condition:'{option.selected}' then:'active')}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" />
+				<f:form.submit id="{filter.filterIdentifier}" class="{f:if(condition:'{option.selected}' then:'active')}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" />
 			</div>
 		</f:for>
 	

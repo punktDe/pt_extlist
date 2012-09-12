@@ -236,7 +236,7 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 
 		$this->resetPagers();
 
-		$this->redirect('show');
+		$this->redirect('list');
 	}
 
 
