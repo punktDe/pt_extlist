@@ -111,7 +111,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 		$lifecycleManager->register($sessionPersistenceManager);
-		
+
 		// SET LIFECYCLE TO START -> read session data into cache
 		$lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::START);
 	}
