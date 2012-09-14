@@ -65,6 +65,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
+	 * Holds instance of configuration builder factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
+	 */
+	private $configurationBuilderFactory;
+
+
+
+	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected $configurationBuilder = NULL;
@@ -121,12 +130,25 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @throws Exception if no list identifier is set in plugin settings (FlexForm)
 	 */
 	public function injectConfigurationBuilderFactory(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory) {
+		$this->configurationBuilderFactory = $configurationBuilderFactory;
+	}
+
+
+
+	/**
+	 * Initializes controller once DI has finished
+	 *
+	 * @throws Exception
+	 */
+	protected function initializeAction() {
+		parent::initializeAction();
+
 		if ($this->settings['listIdentifier'] != '') {
 			$this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
-		$this->configurationBuilder = $configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
+		$this->configurationBuilder = $this->configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
 		$this->buildSessionPersistenceManager();
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}

@@ -58,6 +58,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 * and enabling easy testing
 	 */
 	protected function initializeAction() {
+		parent::initializeAction();
 		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
 	}
 

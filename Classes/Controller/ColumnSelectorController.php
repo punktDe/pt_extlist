@@ -48,6 +48,7 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	 * and enabling easy testing
 	 */
 	protected function initializeAction() {
+		parent::initializeAction();
 		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 

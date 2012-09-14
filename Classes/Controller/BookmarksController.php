@@ -136,7 +136,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return void
      */
     protected function initializeAction() {
-    	
+    	parent::initializeAction();
         $feUserUid = $GLOBALS['TSFE']->fe_user->user['uid'];
         if ($feUserUid > 0) {
             $this->feUser = $this->feUserRepository->findByUid(intval($feUserUid));

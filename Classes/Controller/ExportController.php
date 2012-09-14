@@ -54,7 +54,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	/**
 	 * @return void
 	 */
-	public function initializeAction() {
+	protected function initializeAction() {
 		parent::initializeAction();
 
 		$this->exportListIdentifier = $this->settings['exportListIdentifier'];

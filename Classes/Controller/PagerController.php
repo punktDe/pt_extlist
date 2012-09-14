@@ -57,7 +57,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
 	 * (non-PHPdoc)
 	 * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::initializeAction()
 	 */
-	public function initializeAction() {
+	protected function initializeAction() {
+		parent::initializeAction();
 		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
 		$this->templatePathAndFileName = $this->configurationBuilder->buildPagerConfiguration()->getPagerConfig($this->pagerIdentifier)->getTemplatePath();
 		$this->pagerCollection = $this->getPagerCollectionInstance();
