@@ -87,6 +87,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager) {
 		$this->lifecycleManager = $lifecycleManager;
 		parent::__construct();
+
+		/**
+		 * TODO we should use DI here, but creation of concrete storage adapter cannot be handled by object manager yet
+		 * Solution: Enable object manager to register instances for classes.
+		 */
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
 	

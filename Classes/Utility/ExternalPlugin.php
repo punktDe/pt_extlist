@@ -30,7 +30,7 @@
  * Class contains utility functions to access extlist objects
  * form external dependent plugins
  * 
- * DEPRECTED
+ * DEPRECATED!
  * 
  * @author Daniel Lienert 
  * @package Utility
