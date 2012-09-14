@@ -56,6 +56,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
+	 * Holds instance of session persistence manager builder
+	 *
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	protected $sessionPersistenceManagerBuilder;
+
+
+
+	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected $configurationBuilder = NULL;
@@ -84,15 +93,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 *
 	 * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager Lifecycle manager to be injected via DI
 	 */
-	public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager) {
+	public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager, Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
 		$this->lifecycleManager = $lifecycleManager;
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
 		parent::__construct();
-
-		/**
-		 * TODO we should use DI here, but creation of concrete storage adapter cannot be handled by object manager yet
-		 * Solution: Enable object manager to register instances for classes.
-		 */
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
 	
 	
@@ -106,13 +110,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		parent::injectConfigurationManager($configurationManager);
 
 		$this->configurationBuilder = $this->buildConfigurationBuilder();
-		$sessionPersistenceManager = $this->buildSessionPersistenceManager();
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
-
-		// We reset session data, if we want to have a reset on empty submit
-		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
-		}
+		$this->buildSessionPersistenceManager();
 
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
@@ -143,18 +141,26 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	protected function buildSessionPersistenceManager() {
 		// Determine class name of session storage class to use for session persistence
 		if (TYPO3_MODE === 'FE') {
-			$sessionStorageClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
-					  ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()
-					  : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();
+			$sessionPersistenceStorageAdapterClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
+					  ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter()		// We are in cached mode
+					  : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter();	// We are in uncached mode
 		} else {
-			$sessionStorageClassName = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+			$sessionPersistenceStorageAdapterClassName = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
 		}
 
 		// Instantiate session storage for determined class name
-		$sessionStorageClass = call_user_func($sessionStorageClassName . '::getInstance');
-		$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance($sessionStorageClass);
+		$sessionStorageAdapter = call_user_func($sessionPersistenceStorageAdapterClassName . '::getInstance');
+		$sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance($sessionStorageAdapter);
 
-		return $sessionPersistenceManager;
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+		// We reset session data, if we want to have a reset on empty submit
+		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+		}
+
+		// TODO remove this, once we finished refactoring!
+		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::setInstance($sessionPersistenceManager);
 	}
 
 
