@@ -84,6 +84,6 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
 
 		return $bookmarkManager;
 	}
+	
 }
- 
 ?>
