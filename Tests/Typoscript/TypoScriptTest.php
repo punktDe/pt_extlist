@@ -36,17 +36,24 @@
 class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCase {
 	
 	protected $prototypePath;
+
+
 	
 	protected $baseConfigTSFile;
-	
+
+
+
 	protected $prototypeFiles;
-	
+
+
 	
 	public function SetUp() {
 		$this->baseConfigTSFile = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
 		$this->prototypePath = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/BaseConfig/Prototype/';
 		$this->prototypeFiles = $this->loadProttypeFileNamesAsArray();	
 	}
+
+
 		
 	public function testTsInclusion() {
 		$TSIncludeString = $this->loadTSFile($this->baseConfigTSFile);
@@ -62,8 +69,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testConfigurationBuilderWithTypo3Backend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('t3BackendTestList');
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
+		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
 		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
 		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
 	}
@@ -72,8 +78,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testConfigurationBuilderWithMysqlBackend() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('mysqlBackendTestList');
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
+		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
 		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
 		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
 	}
@@ -82,9 +87,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	
 	public function testBuildColumnsConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
-	
+		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
 	}
 	
 	
@@ -92,24 +95,27 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 	public function testBuildRendererConfiguration() {
 		$this->markTestIncomplete('TODO refactor all rendering');
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
+		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
 		$configurationBuilder->buildRendererConfiguration();
 	}
+
+
 	
 	public function testBuildPagerConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
+		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
 		$configurationBuilder->buildPagerConfiguration();
 	}
+
+
 	
 	public function testBuildFilterBoxConfiguration() {
 		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($settings);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('t3BackendTestList');
+		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
 		$configurationBuilder->buildFilterConfiguration();
 	}
+
+
 	
 	protected function buildTypoScriptConfigForConfigBuilder($listIdentifier) {
 		$TSString = $this->loadAllPrototypeTS();
@@ -143,7 +149,9 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 		
 		return $TSString;
 	}
-	
+
+
+
 	protected function loadProttypeFileNamesAsArray() {
 		$dirHandler = dir($this->prototypePath);
 		while (false !== ($entry = $dirHandler->read())) {
@@ -155,19 +163,25 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 		
 		return $entries;
 	}
+
+
 	
 	protected function loadTestList() {
 		return $this->loadTSFile(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Typoscript/testlist.txt');
 	}
+
+
 	
 	protected function loadTSFile($filePath) {
 		$handle = fopen ($filePath, "r");
+		$buffer = '';
 		while (!feof($handle)) {
 		    $buffer .= fgets($handle, 4096);
 		}
 		fclose ($handle);
 		
 		return $buffer;
-	}	
+	}
+
 }
 ?>

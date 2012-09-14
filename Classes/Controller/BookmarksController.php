@@ -86,17 +86,6 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @var Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
      */
     protected $bookmarkConfiguration = null;
-
-    
-    
-    /**
-     * Constructor for bookmarks controller
-     * 
-     * @return void
-     */
-    public function __construct() {
-    	parent::__construct();
-    }
     
     
     
@@ -120,7 +109,11 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      */
     protected function initDependencies() {
-        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->settings);
+		// TODO Remove this, once we have DI
+		$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+		$configurationBuilderFactory->setSettings($this->settings);
+        $this->configurationBuilder = $configurationBuilderFactory->getInstance();
+
         $this->feUserRepository  = t3lib_div::makeInstance('Tx_Extbase_Domain_Repository_FrontendUserRepository'); /* @var $feUserRepository Tx_Extbase_Domain_Repository_FrontendUserRepository */
         $this->feUser = $this->feUserRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         

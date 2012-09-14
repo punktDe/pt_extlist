@@ -53,8 +53,10 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 			$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
 			self::loadLifeCycleManager();
 
-			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			// TODO Remove this, once we have DI
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilderFactory->setSettings($extListTs);
+			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 		}
@@ -75,13 +77,16 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	public static function getDataBackendByCustomConfiguration(array $customTSArray, $listIdentifier) {
 
 		try {
-			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 		} catch (Exception $e) {
 			$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
 			self::loadLifeCycleManager();
 
-			Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-			$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			// TODO Remove this, once we have DI
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilderFactory->setSettings($extListTs);
+			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 		}
 
 		return  Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);

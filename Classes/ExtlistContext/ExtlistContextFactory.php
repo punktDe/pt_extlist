@@ -67,8 +67,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 				$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
 				self::loadLifeCycleManager();
 
-				Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+				// TODO resolve this properly with Dependency Injection once we have cascading container
+				#Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+				$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+				$configurationBuilderFactory->setSettings($extListTs);
+				$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
+				#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
 
 				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 			}
@@ -110,7 +114,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 			if($useCache) {
 
 				try {
-					$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+					// TODO Remove this, once we have DI
+					$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+					$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 				} catch (Exception $e) {
 					$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier);
 				}
@@ -165,8 +171,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
 		self::loadLifeCycleManager();
 
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-		return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier, $resetConfigurationBuilder);
+		// TODO remove this, once we have DI
+		$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+		$configurationBuilderFactory->setSettings($extListTs);
+		$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier, $resetConfigurationBuilder);
+
+		return $configurationBuilder;
 	}
 
 

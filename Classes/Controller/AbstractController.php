@@ -92,45 +92,43 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * Constructor for all plugin controllers
 	 *
 	 * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager Lifecycle manager to be injected via DI
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder Session persistence manager to be injected via DI
 	 */
 	public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager, Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
 		$this->lifecycleManager = $lifecycleManager;
 		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
 		parent::__construct();
 	}
-	
-	
+
+
+
 	/**
 	 * Creates configuration builder after getting extension configuration injected
 	 *
 	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
 	 * @throws Exception
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) { // , $initConfigurationBuilder = TRUE, $initDataBackend = TRUE
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
 		parent::injectConfigurationManager($configurationManager);
-
-		$this->configurationBuilder = $this->buildConfigurationBuilder();
-		$this->buildSessionPersistenceManager();
-
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 
 
 
 	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 * @throws Exception
+	 * Injects configuration builder factory
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory
+	 * @throws Exception if no list identifier is set in plugin settings (FlexForm)
 	 */
-	protected function buildConfigurationBuilder() {
-
+	public function injectConfigurationBuilderFactory(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory) {
 		if ($this->settings['listIdentifier'] != '') {
 			$this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
-
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
-		return  Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
+		$this->configurationBuilder = $configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
+		$this->buildSessionPersistenceManager();
+		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
 
 
@@ -158,9 +156,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
 			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
 		}
-
-		// TODO remove this, once we finished refactoring!
-		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::setInstance($sessionPersistenceManager);
 	}
 
 
@@ -293,5 +288,4 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     }
     
 }
-
 ?>
