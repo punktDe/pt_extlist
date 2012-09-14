@@ -193,11 +193,14 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 */
 	protected static function loadLifeCycleManager() {
 		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
-		$sessionPersistenceManger = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+		// TODO use DI here once refactoring is finished
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager'); /* @var $objectManager Tx_Extbase_Object_Manager */
+		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 		// We have to update state manually here since lifecycle manager is already set to START
 		// TODO is this a bug or a feature?!?
-		$sessionPersistenceManger->lifecycleUpdate(Tx_PtExtbase_Lifecycle_Manager::START);
-		$lifecycleManager->register($sessionPersistenceManger);
+		$sessionPersistenceManager->lifecycleUpdate(Tx_PtExtbase_Lifecycle_Manager::START);
+		$lifecycleManager->register($sessionPersistenceManager);
 	}
 
 
