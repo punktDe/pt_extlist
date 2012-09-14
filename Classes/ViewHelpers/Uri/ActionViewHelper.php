@@ -36,6 +36,26 @@
 class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
+	 * Holds instance of session persistence manager builder
+	 *
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	protected $sessionPersistenceManagerBuilder;
+
+
+
+	/**
+	 * Injects session persistence manager factory (used by DI)
+	 *
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
+	/**
 	 * @param string $action Target action
 	 * @param array $arguments Arguments
 	 * @param string $controller Target controller. If NULL current controllerName is used
@@ -58,7 +78,7 @@ class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends Tx_Fluid_Core_ViewHe
 	 */
 	public function render($action = NULL, array $arguments = array(), $controller = NULL, $extensionName = NULL, $pluginName = NULL, $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
 		
-	    Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
+	    $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 		
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		$uri = $uriBuilder
@@ -78,5 +98,6 @@ class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends Tx_Fluid_Core_ViewHe
 
 		return $uri;
 	}
+	
 }
 ?>
