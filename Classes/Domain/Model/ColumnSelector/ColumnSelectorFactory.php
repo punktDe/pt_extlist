@@ -59,7 +59,10 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
          self::$instances[$listIdentifier]->setConfiguration($configurationBuilder->buildColumnSelectorConfiguration());
 
 			// Inject settings from session.
-			$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+			// TODO use DI here once refactoring is finished
+			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager'); /* @var $objectManager Tx_Extbase_Object_Manager */
+			$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+			$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 			$sessionPersistenceManager->registerObjectAndLoadFromSession(self::$instances[$listIdentifier]);
 
 			// Inject settings from gp-vars.
