@@ -98,6 +98,6 @@ class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends Tx_Fluid_Core_ViewHe
 
 		return $uri;
 	}
-	
+
 }
 ?>

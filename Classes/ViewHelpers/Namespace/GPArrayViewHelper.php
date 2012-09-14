@@ -46,7 +46,27 @@
  * @subpackage NameSpace
  */
 class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
-	
+
+	/**
+	 * Holds instance of session persistence manager builder
+	 *
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	protected $sessionPersistenceManagerBuilder;
+
+
+
+	/**
+	 * Injects session persistence manager factory (used by DI)
+	 *
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
 	/**
 	 * render build key/value GET/POST-array within the namespace of the given object
 	 * 
@@ -73,7 +93,8 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 			}
 		}
 
-		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
+		$this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
+		
 		return $argumentArray;
 	}
 	
