@@ -94,7 +94,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		}
 
 		$this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
-		
+
 		return $argumentArray;
 	}
 	
