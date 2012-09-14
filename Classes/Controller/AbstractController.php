@@ -47,6 +47,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
+	 * Holds instance of lifecycle manager
+	 *
+	 * @var Tx_PtExtbase_Lifecycle_Manager
+	 */
+	protected $lifecycleManager;
+
+
+
+	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected $configurationBuilder = NULL;
@@ -72,9 +81,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	
 	/**
 	 * Constructor for all plugin controllers
+	 *
+	 * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager Lifecycle manager to be injected via DI
 	 */
-	public function __construct() {
-		$this->lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
+	public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager) {
+		$this->lifecycleManager = $lifecycleManager;
 		parent::__construct();
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
@@ -221,7 +232,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		
 		if(TYPO3_MODE === 'BE') {
 			// if we are in BE mode, this ist the last line called
-			Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance()->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
+			$this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
 		}
 	}
 	

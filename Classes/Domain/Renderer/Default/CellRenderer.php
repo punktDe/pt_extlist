@@ -191,7 +191,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	 * @param array fieldSet
 	 */
 	protected function createArrayDataFieldSet(array &$fieldSet) {
-				
+
 		foreach($fieldSet as $field) {
 			if(is_array($field)) {
 				$loopArray = $field;
@@ -199,7 +199,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		}
 		
 		if(!is_array($loopArray)) throw new Exception('Error Column with Flag "containsArrayData" contains no Field with array-value!', 1283426460);
-		
+
 		$outDataArray = array();
 
 		foreach($loopArray as $index => $value) {
