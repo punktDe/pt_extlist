@@ -164,9 +164,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildListData() {
 		$sqlQuery = $this->buildQuery();
-		$rawData = $this->dataSource->executeQuery($sqlQuery);
-	
-		t3lib_div::devLog("Memory usage BEFORE mapping list data: " . memory_get_usage() . " with peak " . memory_get_peak_usage(), 'pt_extlist', 0);
+		$rawData = $this->dataSource->executeQuery($sqlQuery)->fetchAll();
 
 		$mappedListData = $this->dataMapper->getMappedListData($rawData);
 		unset($rawData);
@@ -430,7 +428,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			$query .= $this->listQueryParts['WHERE'];
 			$query .= $this->listQueryParts['GROUPBY'];
 
-			$countResult = $this->dataSource->executeQuery($query);
+			$countResult = $this->dataSource->executeQuery($query)->fetchAll();
 
 			if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, array('query' => $query));
 
@@ -496,7 +494,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('query' => $query));
 
-		$groupDataArray = $this->dataSource->executeQuery($query);
+		$groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
 
 		return $groupDataArray;
 	}
@@ -506,12 +504,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Aggreagte the list by field and method or special sql
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
      */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$aggregateSQLQuery = $this->buildAggregateSQLByConfigCollection($aggregateConfigCollection);
 
-    	$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery);
+    	$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
 
     	return $aggregates[0];
     }
@@ -522,6 +520,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Build the whole SQL Query for all aggregate fields
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+	 * @return string
      */
     protected function buildAggregateSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$this->buildQuery();
