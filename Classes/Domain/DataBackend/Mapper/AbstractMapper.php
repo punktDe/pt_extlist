@@ -35,7 +35,7 @@
  * @package Domain
  * @subpackage DataBackend\Mapper
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface{
+abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
 	
     /**
      * Holds mapping configurations
@@ -74,6 +74,5 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtl
     public function injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration) {
         $this->mapperConfiguration = $mapperConfiguration;
     }
-
 }
 ?>

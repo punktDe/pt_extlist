@@ -67,7 +67,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	 * @dataProvider performanceDataProvider
 	 * @test
 	 */
-	public function performance($colCount, $rowCount) {
+	public function listDataPerformance($colCount, $rowCount) {
 
 		$listSettings = $this->getExtListTypoScript();
 

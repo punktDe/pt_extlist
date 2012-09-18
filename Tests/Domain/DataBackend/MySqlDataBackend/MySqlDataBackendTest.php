@@ -331,13 +331,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
         );
 
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', 
-        									array('executeQuery'), 
+        									array('executeQuery', 'fetchAll'),
         									array(new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->configurationBuilder->buildDataBackendConfiguration()->getDataBackendSettings())));
-        $dataSourceMock->expects($this->once())
+
+		$dataSourceMock->expects($this->once())
             ->method('executeQuery')
-            ->will($this->returnValue($dataSourceReturnArray));
+            ->will($this->returnValue($dataSourceMock));
+
+		$dataSourceMock->expects($this->once())
+			->method('fetchAll')
+			->will($this->returnValue($dataSourceReturnArray));
             
-       
         $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array($this->configurationBuilder));
         $pagerCollectionMock->expects($this->any())
             ->method('getCurrentPage')
@@ -429,8 +433,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 
 		
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
-        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
-        $dataSourceMock->expects($this->once())->method('executeQuery')->will($this->returnValue($returnArray));
+        $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery', 'fetchAll'), array(), '', FALSE);
+
+		$dataSourceMock->expects($this->once())
+			->method('executeQuery')
+			->will($this->returnValue($dataSourceMock));
+
+		$dataSourceMock->expects($this->once())
+			->method('fetchAll')
+			->will($this->returnValue($returnArray));
+
 
         $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('getExcludeFilters'), array(), '', FALSE);
         $filterboxCollectionMock->expects($this->any())->method('excludeFilters')->will($this->returnValue(array()));

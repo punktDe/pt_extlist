@@ -68,7 +68,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	/**
 	 * Injector for cell renderer
 	 * 
-	 * @param Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy $cellRenderer
+	 * @param Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer
 	 */
 	public function injectCellRenderer(Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer) {
 		$this->cellRenderer = $cellRenderer;
