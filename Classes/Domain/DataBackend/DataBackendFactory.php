@@ -33,7 +33,7 @@
  * @subpackage DataBackend
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
+class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Singleton {
 	
 	/**
      * Holds an associative array of instances of data backend objects
