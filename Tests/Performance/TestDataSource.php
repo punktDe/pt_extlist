@@ -54,9 +54,12 @@ class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Doma
 	protected $data;
 
 
-	public function __construct() {
+	public function __construct($rowCount = 10, $colCount = 10) {
+		$this->rowCount = $rowCount;
+		$this->colCount = $colCount;
 		$this->data = $this->buildData();
 	}
+
 
 
 	protected function buildData() {
@@ -69,6 +72,14 @@ class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Doma
 		}
 
 		return $rawData;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function fetchAll() {
+		return $this->data;
 	}
 
 

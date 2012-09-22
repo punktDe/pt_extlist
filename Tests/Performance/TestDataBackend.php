@@ -53,7 +53,9 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 */
 	protected function buildListData() {
 
-		$rawData = array();
+		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
+
+		$rawData = $dataSource->fetchAll();
 
 		for($i = 0; $i < $this->rowCount; $i++) {
 			for($j = 1; $j <= $this->colCount; $j++) {
@@ -66,8 +68,21 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 		unset($rawData);
 
 		return $mappedData;
+	}
+
+
+
+	public function getIterationListData() {
+
+		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
+
+		$iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+		$iterationListData->setDataSource($dataSource);
+		$iterationListData->setDataMapper($this->dataMapper);
+		//$iterationListData->setRowRenderer()
 
 	}
+
 
 
 	/**
