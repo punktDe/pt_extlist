@@ -123,7 +123,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 				}
 
 				if (headers_sent()) {
-					throw new Exception('Some data has already been output to browser, can\'t send Export file 1283945901');
+					throw new Exception('Some data has already been output to browser, can\'t send Export file.', 1283945901);
 				}
 
 				header('Content-disposition: inline; filename="'.$this->getFilenameFromTs().'"');
@@ -141,7 +141,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 				break;
 
 			default:
-				throw new Exception('No valid download handling set for Export file! 1283945902');
+				throw new Exception('No valid download handling set for Export file!', 1283945902);
 		}
 	}
 }
