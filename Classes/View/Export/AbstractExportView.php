@@ -132,9 +132,9 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
 
 				if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
-					header('Content-Type: application/force-download');
+					header('Content-Type: application/force-download, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));
 				} else {
-					header('Content-Type: application/octet-stream');
+					header('Content-Type: application/octet-stream, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));
 				}
 
 				header('Content-disposition: attachment; filename="'. $this->getFilenameFromTs() .'"');
