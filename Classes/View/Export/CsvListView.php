@@ -101,8 +101,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
                 $row = Tx_PtExtbase_Div::iconvArray($row, 'UTF-8', $this->outputEncoding);
             }
 
-            $this->exportConfiguration->getSettings('outputEncoding');
-            fputcsv($out, $row, ";");
+            fputcsv($out, $row, $this->delimiter);
 		}
 
 		fclose($out);
