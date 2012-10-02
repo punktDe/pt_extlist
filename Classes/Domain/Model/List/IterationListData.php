@@ -68,7 +68,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	/**
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
 	 */
-	public function setDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface $dataSource) {
+	public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface $dataSource) {
 		$this->dataSource = $dataSource;
 	}
 
@@ -76,7 +76,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	/**
 	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
 	 */
-	public function setDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper) {
+	public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper) {
 		$this->dataMapper = $dataMapper;
 	}
 
@@ -84,7 +84,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	/**
 	 * @param \Tx_PtExtlist_Domain_Renderer_Default_RowRenderer $rowRenderer
 	 */
-	public function setRowRenderer($rowRenderer) {
+	public function _injectRowRenderer($rowRenderer) {
 		$this->rowRenderer = $rowRenderer;
 	}
 

@@ -40,13 +40,13 @@ interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface {
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
 	 */
-	public function setDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource);
+	public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource);
 
 
 	/**
 	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper
 	 */
-	public function setDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper);
+	public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper);
 
 
 	/**

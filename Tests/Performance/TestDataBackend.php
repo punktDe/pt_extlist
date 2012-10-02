@@ -1,4 +1,7 @@
 <?php
+
+require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php');
+
 /***************************************************************
  *  Copyright notice
  *

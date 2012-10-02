@@ -1,4 +1,7 @@
 <?php
+
+require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php');
+
 /***************************************************************
  *  Copyright notice
  *
@@ -57,9 +60,9 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 		$rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($rendererConfiguration));
 
 		$this->fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
-		$this->fixture->setDataSource($dataSource);
-		$this->fixture->setDataMapper($dataMapper);
-		$this->fixture->setRowRenderer($rowRenderer);
+		$this->fixture->_injectDataSource($dataSource);
+		$this->fixture->_injectDataMapper($dataMapper);
+		$this->fixture->_injectRowRenderer($rowRenderer);
 	}
 
 
