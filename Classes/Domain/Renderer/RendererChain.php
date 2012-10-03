@@ -91,9 +91,25 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 		}
 		return $listData;
 	}
-	
-	
-	
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @param $rowIndex
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
+		if(!$this->rendererChainConfiguration->isEnabled()) return $row;
+		foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+			$row = $renderer->renderSingleRow($row, $rowIndex);
+		}
+
+		return $row;
+	}
+
+
+
 	/**
 	 * Renders aggregated list data
 	 * 
