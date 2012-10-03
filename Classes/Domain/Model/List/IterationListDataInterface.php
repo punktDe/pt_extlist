@@ -50,6 +50,13 @@ interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface {
 
 
 	/**
+	 * @abstract
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
+	 */
+	public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain);
+
+
+	/**
 	 * Alias function for count to be accessible in fluid
 	 *
 	 * @return int

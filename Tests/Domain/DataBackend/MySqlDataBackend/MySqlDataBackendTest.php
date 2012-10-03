@@ -588,12 +588,28 @@ WHERE employees > 0
 GROUP BY company 
 )  AS AGGREGATEQUERY', $sql);
 	}
+
+
+	/**
+	 * @test
+	 */
+	public function getIterationListData() {
+		$dataBackend = $this->getDataBackend($configurationBuilderMock);
+		$iterationListData = $dataBackend->getIterationListData();
+
+		$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_IterationListDataInterface', $iterationListData);
+	}
 	
 	
 	/**********************************************************************************************************************************************************
 	 * Helper methods 
 	 **********************************************************************************************************************************************************/
-	
+
+
+	/**
+	 * @param null $configurationBuilderMock
+	 * @return Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
+	 */
 	protected function getDataBackend($configurationBuilderMock = NULL) {
 		
 		if(!is_a($configurationBuilderMock, 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock')) {

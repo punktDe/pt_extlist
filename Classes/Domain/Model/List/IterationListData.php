@@ -60,9 +60,9 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 
 	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
-	protected $rowRenderer;
+	protected $renderChain;
 
 
 	/**
@@ -82,10 +82,10 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 
 	/**
-	 * @param \Tx_PtExtlist_Domain_Renderer_Default_RowRenderer $rowRenderer
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
 	 */
-	public function _injectRowRenderer($rowRenderer) {
-		$this->rowRenderer = $rowRenderer;
+	public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain) {
+		$this->renderChain = $renderChain;
 	}
 
 
@@ -118,7 +118,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 */
 	protected function getProcessedCurrentRow() {
 		if($this->currentRow !== FALSE) {
-			return $this->rowRenderer->renderRow($this->dataMapper->getMappedRow($this->currentRow), $this->index);
+			return $this->renderChain->renderSingleRow($this->dataMapper->getMappedRow($this->currentRow), $this->index);
 		} else {
 			return FALSE;
 		}

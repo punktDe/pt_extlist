@@ -125,7 +125,15 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
     	// TODO implement me!
     }
-    
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+	 */
+	public function getIterationListData() {
+		// TODO: Implement getIterationListData() method.
+	}
+
+
 }
 
 ?>

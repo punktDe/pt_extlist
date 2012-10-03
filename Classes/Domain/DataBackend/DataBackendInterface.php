@@ -51,7 +51,14 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
 	 */
     public function getListData();
-    
+
+
+	/**
+	 * @abstract
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+	 */
+	public function getIterationListData();
+
     
     /**
 	 * Returns the list header

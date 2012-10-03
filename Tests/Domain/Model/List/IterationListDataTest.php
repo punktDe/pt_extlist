@@ -54,15 +54,13 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource();
 		$dataMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 
-		$rendererConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration()->getItemById(100);
-		$rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
-		$rowRenderer->injectRendererConfiguration($rendererConfiguration);
-		$rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($rendererConfiguration));
+		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
+		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
 
 		$this->fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
 		$this->fixture->_injectDataSource($dataSource);
 		$this->fixture->_injectDataMapper($dataMapper);
-		$this->fixture->_injectRowRenderer($rowRenderer);
+		$this->fixture->_injectRenderChain($rendererChain);
 	}
 
 

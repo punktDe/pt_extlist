@@ -98,6 +98,20 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	}
 
 
+	public function iterationListDataPerformance($colCount, $rowCount) {
+		$listSettings = $this->getExtListTypoScript();
+
+		$memoryBefore = memory_get_usage(true);
+		$timeBefore = microtime(true);
+
+		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
+		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
+		$extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
+
+		$iterationListData = $extListContext->getDataBackend()->getIterationListData();
+	}
+
+
 	protected function getExtListTypoScript() {
 
 		$extListConfigFile = __DIR__ . '/TestListConfiguration.ts';
