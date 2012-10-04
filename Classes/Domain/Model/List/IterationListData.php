@@ -182,7 +182,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * Returns true on success or false on failure.
 	 */
 	public function valid() {
-		error_log(__METHOD__);
+		error_log(__METHOD__ . ' INDEX: ' . $this->index . ' COUNT ' . $this->count() . ' VALID ' . ($this->index < $this->count() ? 'TRUE' : 'FALSE'));
 		if($this->index < $this->count()) {
 			return true;
 		} else {
