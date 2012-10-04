@@ -50,7 +50,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	/**
 	 * Generates dummy list data
 	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function buildListData() {
 		$this->updateObserversItemCount($this->dataSource->countItems());

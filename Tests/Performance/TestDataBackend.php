@@ -74,16 +74,22 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	}
 
 
-
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
+	 */
 	public function getIterationListData() {
+
+		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
+		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
 
 		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
 
 		$iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
-		$iterationListData->setDataSource($dataSource);
-		$iterationListData->setDataMapper($this->dataMapper);
-		//$iterationListData->setRowRenderer()
+		$iterationListData->_injectDataSource($dataSource);
+		$iterationListData->_injectDataMapper($this->dataMapper);
+		$iterationListData->_injectRenderChain($rendererChain);
 
+		return $iterationListData;
 	}
 
 

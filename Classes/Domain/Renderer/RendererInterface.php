@@ -41,10 +41,10 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	 * Renders the given list through TypoScript.
 	 * Also uses the column definitions.
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData);
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData);
 	
 	
 	
@@ -61,10 +61,10 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	/**
      * Returns a rendered aggregate list for a given row of aggregates
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData
-     * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface Rendererd List of aggregate rows
+     * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
+     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
      */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData);
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData);
 
 
 

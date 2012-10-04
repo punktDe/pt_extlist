@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_Domain_Model_List_IterationListDataInterface, Iterator {
+class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_Domain_Model_List_IterationListDataInterface {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface
@@ -137,6 +137,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * @return mixed Can return any type.
 	 */
 	public function current() {
+		error_log(__METHOD__);
 		if($this->currentRow === NULL) {
 			$this->currentRow = $this->dataSource->fetchRow();
 		}
@@ -153,9 +154,9 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * @return void Any returned value is ignored.
 	 */
 	public function next() {
+		error_log(__METHOD__);
 		$this->currentRow = $this->dataSource->fetchRow();
 		$this->index++;
-		return $this->getProcessedCurrentRow();
 	}
 
 
@@ -167,6 +168,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * @return mixed scalar on success, or null on failure.
 	 */
 	public function key() {
+		error_log(__METHOD__);
 		return $this->index;
 	}
 
@@ -180,6 +182,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * Returns true on success or false on failure.
 	 */
 	public function valid() {
+		error_log(__METHOD__);
 		if($this->index < $this->count()) {
 			return true;
 		} else {
@@ -196,6 +199,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * @return void Any returned value is ignored.
 	 */
 	public function rewind() {
+		error_log(__METHOD__);
 		$this->dataSource->rewind();
 		$this->index = 0;
 		$this->currentRow = NULL;

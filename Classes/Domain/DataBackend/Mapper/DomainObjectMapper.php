@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 * Uses configuration currently set in mapper.
 	 *
 	 * @param mixed $domainObjects
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface List data generated for given mapping configuration
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData List data generated for given mapping configuration
 	 */
 	public function getMappedListData($domainObjects) {
 		

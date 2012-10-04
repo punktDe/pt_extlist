@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\List
  */
-interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface {
+interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface extends Iterator {
 
 	/**
 	 * Set the datasource

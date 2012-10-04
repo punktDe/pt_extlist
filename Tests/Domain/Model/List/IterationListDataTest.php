@@ -48,19 +48,30 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 
 
 	public function setUp() {
+		$this->fixture = $this->getIterationListDataObject(10,10);
+	}
 
+
+	/**
+	 * @param $rows
+	 * @param $cols
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListData
+	 */
+	protected function getIterationListDataObject($rows, $cols) {
 		$this->initDefaultConfigurationBuilderMock();
 
-		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource();
+		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($rows, $cols);
 		$dataMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 
 		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
 		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
 
-		$this->fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
-		$this->fixture->_injectDataSource($dataSource);
-		$this->fixture->_injectDataMapper($dataMapper);
-		$this->fixture->_injectRenderChain($rendererChain);
+		$fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+		$fixture->_injectDataSource($dataSource);
+		$fixture->_injectDataMapper($dataMapper);
+		$fixture->_injectRenderChain($rendererChain);
+
+		return $fixture;
 	}
 
 
@@ -85,12 +96,21 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 	}
 
 
+	public function rowCountProvider() {
+		return array(
+			'0 rows' => array('rows' => 0),
+			'1 row' =>  array('rows' => 1),
+			'10 rows' =>  array('rows' => 10),
+		);
+	}
+
 
 	/**
+	 * @dataProvider rowCountProvider
 	 * @test
 	 */
-	public function validCountOfIterations() {
-		$this->setUp();
+	public function validCountOfIterations($rows) {
+		$this->fixture = $this->getIterationListDataObject($rows, 10);
 
 		$counter = 0;
 
@@ -98,8 +118,26 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 			$counter++;
 		}
 
-		$this->assertEquals(10, $counter, 'We should have 10 iterations');
+		$this->assertEquals($rows, $counter, 'We should have 10 iterations');
 	}
+
+
+
+	/**
+	 * @dataProvider rowCountProvider
+	 * @test
+	 */
+	public function IterationsReturnRows($rows) {
+		$this->fixture = $this->getIterationListDataObject($rows, 10);
+
+		$counter = 0;
+
+		foreach($this->fixture as $row) {
+			$counter++;
+			$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row, 'False in Iteration ' . $counter);
+		}
+	}
+
 
 
 	/**
@@ -143,20 +181,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 		$this->setUp();
 
 		$row = $this->fixture->current();
-
-		$this->assertTrue(is_object($row));
-		$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row);
-	}
-
-
-
-	/**
-	 * @test
-	 */
-	public function nextReturnsRowObject() {
-		$this->setUp();
-
-		$row = $this->fixture->next();
 
 		$this->assertTrue(is_object($row));
 		$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row);

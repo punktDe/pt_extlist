@@ -89,14 +89,14 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $listData = NULL;
 
 	
 	
 	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $aggregateListData;
 
@@ -406,7 +406,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregateListData()
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getAggregateListData() {
 		return Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
