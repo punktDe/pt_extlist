@@ -17,5 +17,8 @@ plugin.tx_ptextlist.prototype.list {
 
 	cacheRendering = 0
 
+	# If set to one, the iterationListData is used
+	useIterationListData = 1
+
 	pagerIdentifier = default
 }
