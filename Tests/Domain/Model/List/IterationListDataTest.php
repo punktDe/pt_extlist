@@ -98,9 +98,9 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 
 	public function rowCountProvider() {
 		return array(
-//			'0 rows' => array('rows' => 0),
+			'0 rows' => array('rows' => 0),
 			'1 row' =>  array('rows' => 1),
-//			'10 rows' =>  array('rows' => 10),
+			'1000 rows' =>  array('rows' => 1000),
 		);
 	}
 

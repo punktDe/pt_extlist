@@ -89,7 +89,8 @@ class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Doma
 	 * @return array
 	 */
 	public function fetchRow() {
-		return next($this->data);
+		return current($this->data);
+		next($this->data);
 	}
 
 
