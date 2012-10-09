@@ -27,13 +27,14 @@
  ***************************************************************/
 
 /**
- * Class implements data source for typo3 databases
+ * Class implements data source for TYPO3 databases
  * 
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
+class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+	implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
 	
 	/**
 	 * Holds an instance of typo3 db object
@@ -78,7 +79,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 		}
 
 		return $this;
-
 	}
 
 
@@ -97,5 +97,35 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 		return $rows;
 	}
 
+
+
+	/**
+	 * Return data row as array
+	 *
+	 * @return array
+	 */
+	public function fetchRow() {
+		return $this->connection->sql_fetch_assoc($this->resource);
+	}
+
+
+
+	/**
+	 * Return record count
+	 *
+	 * @return int
+	 */
+	public function count() {
+		return $this->connection->sql_num_rows($this->resource);
+	}
+
+
+
+	/**
+	 * Rewind the cursor to the first row
+	 */
+	public function rewind() {
+		return $this->connection->sql_data_seek($this->resource, 0);
+	}
 }
 ?>

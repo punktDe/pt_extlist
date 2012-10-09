@@ -181,8 +181,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
 		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
 
-		$iterationListData = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData');
-		$iterationListData->_injectDataSource($this->dataSource);
+		$dataSource = clone $this->dataSource->executeQuery($this->buildQuery());
+
+		$iterationListData = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData'); /** @var $iterationListData Tx_PtExtlist_Domain_Model_List_IterationListData */
+		$iterationListData->_injectDataSource($dataSource);
 		$iterationListData->_injectDataMapper($this->dataMapper);
 		$iterationListData->_injectRenderChain($rendererChain);
 

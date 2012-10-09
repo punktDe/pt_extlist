@@ -55,7 +55,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
 	/**
 	 * @abstract
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListData
 	 */
 	public function getIterationListData();
 

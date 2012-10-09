@@ -34,7 +34,7 @@
  * @subpackage DataBackend\DataSource
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
-	implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface {
+	implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
 
 	/**
 	 * Holds an instance of PDO for database connection
