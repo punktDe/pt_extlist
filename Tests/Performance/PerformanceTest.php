@@ -124,8 +124,6 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 		 * This loop renders the complete data set
 		 */
 		foreach($iterationListData as $row) { /**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
-			//$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row);
-			//error_log(print_r($row->getAsArray(), 1));
 		}
 
 
