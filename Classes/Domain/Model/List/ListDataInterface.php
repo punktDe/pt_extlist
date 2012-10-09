@@ -35,15 +35,6 @@
  */
 interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
 
-	/**
-	 * Adds a row to list data
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 * @return void
-	 */
-	public function addRow(Tx_PtExtlist_Domain_Model_List_Row $row);
-
-
 
 	/**
 	 * @param int $id

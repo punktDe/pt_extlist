@@ -29,8 +29,7 @@
 /**
  * Factory to put all parts of a list together.
  * 
- * @author Christoph Ehscheidt 
- * @author Michael Knoll 
+ * @author Michael Knoll
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List
@@ -51,9 +50,16 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 		// We have to build headers here, as they are no longer created by data backend
 		$list->setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder, $resetList));
 
-		if($resetList) $dataBackend->resetListDataCache();
+		$list->setRendererChain(Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
 
-		$list->setListData($dataBackend->getListData());
+		if($configurationBuilder->buildListConfiguration()->getUseIterationListData()) {
+			$list->setIterationListData($dataBackend->getIterationListData());
+			$list->setUseIterationListData(TRUE);
+		} else {
+			if($resetList) $dataBackend->resetListDataCache();
+			$list->setListData($dataBackend->getListData());
+		}
+
 		$list->setAggregateListData(self::buildAggregateListData($dataBackend, $configurationBuilder));
 
 		return $list;
