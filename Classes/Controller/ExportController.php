@@ -91,9 +91,9 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
 			}
 			
-			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
+			$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
 			
-			$list = $extlistContext->getList(true);
+			$list = $extListContext->getList(true);
 		}
 
 		$this->view->setExportConfiguration($this->configurationBuilder->buildExportConfiguration());

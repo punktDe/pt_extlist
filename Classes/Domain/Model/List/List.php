@@ -73,7 +73,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	/**
 	 * @var boolean
 	 */
-	protected $useIterationListData = true;
+	protected $useIterationListData = FALSE;
 	
 	
     /**
@@ -156,7 +156,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	 * @return Traversable
 	 */
 	public function getRenderedListData() {
-		if($this->useIterationListData) {
+		if($this->useIterationListData === TRUE) {
 			return $this->iterationListData;
 		} else {
 			return $this->rendererChain->renderList($this->listData);

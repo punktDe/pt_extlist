@@ -83,22 +83,11 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 
 
 	/**
-	 * Holds an instance of list renderer
-	 *
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
-	 */
-	protected $rendererChain;
-
-
-
-	/**
 	 * Initialize this controller
 	 */
 	public function initializeAction() {
 		$headerInclusionUtility = $this->objectManager->get('Tx_PtExtbase_Utility_HeaderInclusion');
 		$headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
-
-		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 
 		$this->initFilterBox();
 		$this->initPager();
@@ -152,19 +141,15 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 	public function listAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 
-		if(count($list->getListData()) == 0) {
+		if($list->count() == 0) {
 			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('general.emptyList', 'PtExtlist'), '', t3lib_FlashMessage::INFO);
 		}
 
-		$renderedListData = $this->rendererChain->renderList($list->getListData());
-		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
-
 		$this->view->assign('config', $this->configurationBuilder);
 		$this->view->assign('listHeader', $list->getListHeader());
-		$this->view->assign('listCaptions', $renderedCaptions);
-		$this->view->assign('listData', $renderedListData);
-		$this->view->assign('aggregateRows', $renderedAggregateRows);
+		$this->view->assign('listCaptions', $list->getRenderedListHeader());
+		$this->view->assign('listData', $list->getRenderedListData());
+		$this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
 
 		if($this->filterbox) {
 			$this->view->assign('filterBoxCollection', $this->filterboxCollection);
@@ -201,23 +186,16 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 			$exportListSettings = $this->configurationBuilder->getSettings();
 		}
 
-		$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
-		$list = $extlistContext->getList(true);
-		$rendererChain = $extlistContext->getRendererChain();
-
-		$renderedListData = $rendererChain->renderList($list->getListData());
-		$renderedCaptions = $rendererChain->renderCaptions($list->getListHeader());
-		$renderedAggregateRows = $rendererChain->renderAggregateList($list->getAggregateListData());
+		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
+		$list = $extListContext->getList(true);
 
 		$view = $this->objectManager->get($exportConfig->getViewClassName());
-		$view->setConfigurationBuilder($extlistContext->getConfigurationBuilder());
+		$view->setConfigurationBuilder($extListContext->getConfigurationBuilder());
 		$view->setExportConfiguration($exportConfig);
-
-
 		$view->assign('listHeader', $list->getListHeader());
-		$view->assign('listCaptions', $renderedCaptions);
-		$view->assign('listData', $renderedListData);
-		$view->assign('aggregateRows', $renderedAggregateRows);
+		$view->assign('listCaptions', $list->getRenderedListHeader());
+		$view->assign('listData', $list->getRenderedListData());
+		$view->assign('aggregateRows', $list->getRenderedAggregateListData());
 
 		return $view->render();
 	}
