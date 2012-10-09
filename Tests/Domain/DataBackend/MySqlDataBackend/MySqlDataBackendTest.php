@@ -594,7 +594,12 @@ GROUP BY company
 	 * @test
 	 */
 	public function getIterationListData() {
-		$dataBackend = $this->getDataBackend($configurationBuilderMock);
+		$dataBackend = $this->getDataBackend($this->configurationBuilder);
+
+		$filterBoxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('getExcludeFilters'), array(), '', FALSE);
+		$filterBoxCollectionMock->expects($this->any())->method('excludeFilters')->will($this->returnValue(array()));
+		$dataBackend->_injectFilterboxCollection($filterBoxCollectionMock);
+
 		$iterationListData = $dataBackend->getIterationListData();
 
 		$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_IterationListDataInterface', $iterationListData);
@@ -617,7 +622,7 @@ GROUP BY company
 		}
 		
 		$dataBackendAccessible = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
-		$dataBackend = new $dataBackendAccessible($configurationBuilderMock);
+		$dataBackend = new $dataBackendAccessible($configurationBuilderMock); /** @var $dataBackend  Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend */
 				
 		$queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',array('interpretQuery'), array(), '', FALSE);
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource', array('executeQuery'), array(), '', FALSE);
@@ -627,7 +632,7 @@ GROUP BY company
         $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
         $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock));
 
-
+		$dataMapperMock = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($configurationBuilderMock);
         $pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($configurationBuilderMock);
         
         $dataBackend->_injectBackendConfiguration($configurationBuilderMock->buildDataBackendConfiguration());
@@ -636,6 +641,7 @@ GROUP BY company
 		$dataBackend->_injectFieldConfigurationCollection($configurationBuilderMock->buildFieldsConfiguration());
 		$dataBackend->_injectPagerCollection($pagerCollection);
         $dataBackend->_injectSorter($sorterMock);
+		$dataBackend->_injectDataMapper($dataMapperMock);
 
 		$dataBackend->init();
 		

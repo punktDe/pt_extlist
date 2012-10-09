@@ -126,7 +126,6 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 		foreach($iterationListData as $row) { /**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
 		}
 
-
 		$usedMemory = memory_get_usage(true) - $memoryBefore;
 		$readableMemoryUsage = $usedMemory / (1024*1024);
 		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024*1024);

@@ -84,7 +84,14 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	public function getListData() {
 		return $this->listData;
 	}
-	
+
+
+	/**
+	 * @return \Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+	 */
+	public function getIterationListData() {
+		return $this->iterationListData;
+	}
 	
 	
 	/**

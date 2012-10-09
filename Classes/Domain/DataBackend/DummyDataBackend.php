@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource();
+		return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
 	}
 	
 	
