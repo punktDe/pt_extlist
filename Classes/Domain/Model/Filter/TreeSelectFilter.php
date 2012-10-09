@@ -104,7 +104,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 */
  	public function initFilter() {
 		 if($this->multiple) {
-			 $this->filterValues = t3lib_div::trimExplode(',', $this->filterValues);
+			 $this->filterValues = t3lib_div::trimExplode(',', array_shift($this->filterValues));
 		 }
 	 }
 
@@ -131,11 +131,17 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		$treeRepository = $treeRepositoryBuilder->buildTreeRepository();
 
 		$tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
+		if ($this->filterConfig->getSettings('treeRootNode')) {
+			$subTreeRootNode = $tree->getNodeByUid($this->filterConfig->getSettings('treeRootNode'));
+			$tree = Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($subTreeRootNode);
+		}
+
 
 		if (isset($this->treeMaxDepth)) {
 			$tree->setRestrictedDepth($this->treeMaxDepth);
 			$tree->setRespectRestrictedDepth(TRUE);
 		}
+
 
 		$arrayWriterVisitor = new Tx_PtExtbase_Tree_ExtJsJsonWriterVisitor();
 		$arrayWriterVisitor->registerFirstVisitCallback($this, 'alterNodeArray');
@@ -162,7 +168,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		}
 
 		if($this->multiple) {
-			return implode(',', $selection);
+			return $selection;
 		} else {
 			return count($selection) > 0 ? $selection[0] : '';
 		}
@@ -177,7 +183,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 */
 	public function alterNodeArray($node, $nodeArray) {
 		if(array_key_exists($node->getUid(), $this->options)) {
-			$nodeArray['text'] = $this->options[$node->getUid()]['value'];
+			$nodeArray['text'] .= $this->options[$node->getUid()]['value'];
 		}
 
 		return $nodeArray;

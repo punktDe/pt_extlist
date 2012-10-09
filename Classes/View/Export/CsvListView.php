@@ -82,12 +82,11 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 		// Headers
 		if ($templateVariableContainer->exists('listCaptions')) {
 			$row = array();
-			foreach ($templateVariableContainer['listCaptions'] as $caption) { /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
-				$row[] = $caption;
+			foreach ($templateVariableContainer['listCaptions'] as $caption) {
+				$row[] = iconv('UTF-8', $this->outputEncoding, $caption);
 			}
 			fputcsv($out, $row, $this->delimiter);
 		}
-
 
 		// Rows
 		foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
@@ -101,8 +100,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
                 $row = Tx_PtExtbase_Div::iconvArray($row, 'UTF-8', $this->outputEncoding);
             }
 
-            $this->exportConfiguration->getSettings('outputEncoding');
-            fputcsv($out, $row, ";");
+            fputcsv($out, $row, $this->delimiter);
 		}
 
 		fclose($out);
