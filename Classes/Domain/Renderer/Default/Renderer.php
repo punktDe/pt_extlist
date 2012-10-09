@@ -128,11 +128,24 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		foreach($listData as $rowIndex => $row) {
 			$renderedList->addRow($this->rowRenderer->renderRow($row, $rowIndex));
 		}
+
+		unset($listData);
 		
 		return $renderedList;
 	}
-	
-	
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @param $rowIndex
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
+		return $this->rowRenderer->renderRow($row, $rowIndex);
+	}
+
+
 	
 	/**
 	 * Returns a rendered aggregate list for a given row of aggregates

@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -32,15 +32,14 @@
  * @package Domain
  * @subpackage Model\List
  * @author Michael Knoll 
- * @author Christoph Ehscheidt 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Model_List_Cell {
 
 	/**
 	 * Holds value of cell
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $value;
 	
@@ -48,14 +47,15 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	
 	/**
 	 * Special values for multiple purpose
-	 * @var string
+	 *
+	 * @var array
 	 */
 	protected $specialValues;
 	
 	
 	
 	/**
-	 * TODO add some comment!
+	 * Holds index of row (number of row in list)
 	 *
 	 * @var int
 	 */
@@ -64,12 +64,13 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	
 	
 	/**
-	 * TODO add some comment
+	 * Holds index of column (number of column in row)
 	 *
 	 * @var int
 	 */
 	protected $columnIndex;
-	
+
+
 	
 	/**
 	 * Individual cell class
@@ -77,7 +78,8 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	 * @var string
 	 */
 	protected $cssClass;
-	
+
+
 	
 	/**
 	 * Constructor for cell object
@@ -193,16 +195,18 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	public function getColumnIndex() {
 		return $this->columnIndex;
 	}
+
 	
 	
 	/**
 	 * set the individual cell CSS class
 	 * 
-	 * @param string $cellCSSClass
+	 * @param string $cssClass
 	 */
 	public function setCSSClass($cssClass) {
 		$this->cssClass = $cssClass;
 	}
+
 	
 	
 	/**
@@ -212,6 +216,8 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	public function getCSSClass() {
 		return $this->cssClass;
 	}
+
+
 	
 	/**
 	 * Returns object value as string
@@ -236,7 +242,46 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 			default:
 				return (string)$this->value;
 		}
+	}
 
+
+	/**
+	 * array(
+	 * 	'value' =>
+	 * 	'cssClass' =>
+	 *  'rowIndex' =>
+	 *  'columnIndex' =>
+	 *  'specialValues' => array()
+	 * )
+	 *
+	 * @param $dataArray
+	 */
+	public function setByArray($dataArray) {
+		$internalVars = get_object_vars($this);
+
+		foreach($internalVars as $key => $value) {
+			if(array_key_exists($key, $dataArray)) {
+				$this->$key = $dataArray[$key];
+			} else {
+				unset($this->$key);
+			}
+		}
+	}
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getAsArray() {
+		$internalVars = get_object_vars($this);
+		$returnArray = array();
+
+		foreach($internalVars as $key => $value) {
+			$returnArray[$key] = $value;
+		}
+
+		return $returnArray;
 	}
 }
 ?>

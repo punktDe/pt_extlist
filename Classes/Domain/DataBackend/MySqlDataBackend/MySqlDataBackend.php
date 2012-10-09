@@ -164,11 +164,32 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildListData() {
 		$sqlQuery = $this->buildQuery();
-		$rawData = $this->dataSource->executeQuery($sqlQuery);
-	
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect', 'pt_extlist', 1, array('query' => $sqlQuery));
+		$rawData = $this->dataSource->executeQuery($sqlQuery)->fetchAll();
 
-		return $this->dataMapper->getMappedListData($rawData);
+		$mappedListData = $this->dataMapper->getMappedListData($rawData);
+		unset($rawData);
+
+		return $mappedListData;
+	}
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+	 */
+	public function getIterationListData() {
+		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
+		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
+
+		$dataSource = clone $this->dataSource;
+		$dataSource->executeQuery($this->buildQuery());
+
+		$iterationListData = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData'); /** @var $iterationListData Tx_PtExtlist_Domain_Model_List_IterationListData */
+		$iterationListData->_injectDataSource($dataSource);
+		$iterationListData->_injectDataMapper($this->dataMapper);
+		$iterationListData->_injectRenderChain($rendererChain);
+
+		return $iterationListData;
 	}
 
 
@@ -428,7 +449,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			$query .= $this->listQueryParts['WHERE'];
 			$query .= $this->listQueryParts['GROUPBY'];
 
-			$countResult = $this->dataSource->executeQuery($query);
+			$countResult = $this->dataSource->executeQuery($query)->fetchAll();
 
 			if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, array('query' => $query));
 
@@ -494,7 +515,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('query' => $query));
 
-		$groupDataArray = $this->dataSource->executeQuery($query);
+		$groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
 
 		return $groupDataArray;
 	}
@@ -504,12 +525,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Aggreagte the list by field and method or special sql
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
      */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$aggregateSQLQuery = $this->buildAggregateSQLByConfigCollection($aggregateConfigCollection);
 
-    	$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery);
+    	$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
 
     	return $aggregates[0];
     }
@@ -520,6 +541,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Build the whole SQL Query for all aggregate fields
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+	 * @return string
      */
     protected function buildAggregateSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$this->buildQuery();

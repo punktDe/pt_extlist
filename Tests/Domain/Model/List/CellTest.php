@@ -29,11 +29,20 @@
 /**
  * Testcase for row object. 
  * 
- * @author Michael Knoll 
- * @package Typo3
- * @subpackage pt_extlist
+ * @author Michael Knoll
+ * @author Daniel Lienert
+ * @package Tests
+ * @subpackage Domain\Model\List
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_Extbase_Tests_Unit_BaseTestCase {
+
+	protected $testDataArray = array(
+		'value' => 'testValue',
+		'cssClass' => 'testCssClass',
+		'rowIndex' => 1,
+		'columnIndex' => 2,
+		'specialValues' => array('key1' => 'value1')
+	);
 
 
 	/**
@@ -77,6 +86,39 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_Extbase_Test
 		$cell = new Tx_PtExtlist_Domain_Model_List_Cell($value);
 		$this->assertEquals($expected, $cell->__toString());
 	}
+
+
+	/**
+	 * @test
+	 */
+	public function setByArray() {
+		$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+
+		$cell->setByArray($this->testDataArray);
+
+		$this->assertEquals('testValue', $cell->getValue());
+		$this->assertEquals('testCssClass', $cell->getCSSClass());
+		$this->assertEquals(1, $cell->getRowIndex());
+		$this->assertEquals(2, $cell->getColumnIndex());
+		$this->assertEquals(array('key1' => 'value1'), $cell->getSpecialValues());
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function getByArray() {
+
+		$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+		$cell->setValue('testValue');
+		$cell->setRowIndex(1);
+		$cell->setColumnIndex(2);
+		$cell->addSpecialValue('key1', 'value1');
+		$cell->setCSSClass('testCssClass');
+
+		$this->assertEquals($this->testDataArray, $cell->getAsArray());
+	}
+
 
 }
 

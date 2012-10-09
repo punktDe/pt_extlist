@@ -71,15 +71,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
-	 * Cached list data
-	 *
-	 * @var
-	 */
-	protected $listData;
-
-
-
-	/**
 	 * Cached rendered list data
 	 *
 	 * @var
@@ -96,13 +87,17 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	protected $pagerCollection;
 
 
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_List
+	 */
+	protected $list = NULL;
+
+
 
 	/**
 	 * Initialize the extlistContext
 	 */
 	public function init() {
-		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::
-				getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
 	}
 
 
@@ -122,6 +117,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
 	public function getRendererChain() {
+
+		if($this->rendererChain === NULL) {
+			$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
+		}
+
 		return $this->rendererChain;
 	}
 
@@ -156,7 +156,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Get a pager object - if pagerIdentifier is null, get default pager
 	 *
-	 * @param unknown_type $pagerIdentifier
+	 * @param string $pagerIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getPager($pagerIdentifier = '') {
 		$pagerIdentifier = $pagerIdentifier ? $pagerIdentifier : 'default';
@@ -172,7 +173,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public function getList($buildNew = false) {
-		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder(), $buildNew);
+		if($this->list == NULL || $buildNew) {
+			$this->list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder(), $buildNew);
+		}
+
+		return $this->list;
 	}
 
 
@@ -183,10 +188,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
-		if ($this->listData === NULL) {
-			$this->listData = $this->getList()->getListData();
-		}
-		return $this->listData;
+		return $this->getList()->getListData();
+	}
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
+	 */
+	public function getIterationListData() {
+		return $this->dataBackend->getIterationListData();
 	}
 
 
@@ -197,10 +208,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getRenderedListData() {
-		if ($this->renderedListData === NULL) {
-			$this->renderedListData = $this->getRendererChain()->renderList($this->getListData());
-		}
-		return $this->renderedListData;
+		return $this->getList()->getRenderedListData();
 	}
 
 
@@ -237,7 +245,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
 	public function getRenderedCaptions() {
-		return $this->getRendererChain()->renderCaptions($this->getList()->getListHeader());
+		return $this->getList()->getRenderedListHeader();
 	}
 
 
@@ -246,7 +254,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getRenderedAggregateRows() {
-		return $this->getRendererChain()->renderAggregateList($this->getList()->getAggregateListData());
+		return $this->getList()->getRenderedAggregateListData();
 	}
 
 

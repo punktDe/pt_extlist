@@ -518,20 +518,31 @@ sortingColumn = capital	DESC
 											<CHILDREN></CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
-                                        <ENTRY KEY="cacheRendering">
-                                            <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
-                                            <DATATYPE>Boolean</DATATYPE>
-                                            <POSIBLEVALUES></POSIBLEVALUES>
-                                            <DEFAULT></DEFAULT>
-                                            <COBJ></COBJ>
-                                            <PROTOTYPE></PROTOTYPE>
-                                            <EXAMPLE></EXAMPLE>
-                                            <CHILDREN></CHILDREN>
-                                            <VARIANT></VARIANT>
-                                        </ENTRY>
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
+                                <ENTRY KEY="cacheRendering">
+                                    <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                    <DEFAULT></DEFAULT>
+                                    <COBJ></COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE></EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
+                                <ENTRY KEY="useIterationListData">
+                                    <DESCRIPTION>If set to 1 the iterationListData is used instead of the default listData. While the listData provides an array of all data fetched from the database, which is then mapped and rendered completely, the iterationListData fetches, maps and renders a single row at a time. This has the big advantage, that only the memory for a single row object is consumed and only a constant amount of memory is needed, independent from the amoutn of rows. The disadvantage is, that a renderer is only able to process one single row, which makes it impossible to compute an aggregate on the fetched data.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                    <DEFAULT>1</DEFAULT>
+                                    <COBJ></COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE></EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
 								<ENTRY KEY="backendConfig">
 									<DESCRIPTION>Holds the configuration for the data backend to be used with this configuration. Configurable values depend on
 									individual backend, e.g. TYPO3-Backend, MySQL-Backen, ExtBase-Backend etc.</DESCRIPTION>

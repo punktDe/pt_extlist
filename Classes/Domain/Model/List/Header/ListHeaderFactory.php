@@ -46,9 +46,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 
 
 	/**
-	 * Build singleton instance of listheader, a collection of header column objects
+	 * Build singleton instance of listHeader, a collection of header column objects
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param $resetListHeader boolean
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */

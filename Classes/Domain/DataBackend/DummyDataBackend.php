@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource();
+		return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
 	}
 	
 	
@@ -125,7 +125,15 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
     	// TODO implement me!
     }
-    
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+	 */
+	public function getIterationListData() {
+		// TODO: Implement getIterationListData() method.
+	}
+
+
 }
 
 ?>

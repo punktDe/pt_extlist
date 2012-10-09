@@ -27,20 +27,33 @@
  ***************************************************************/
 
 /**
- * Interface for mappers
- *
- * @author Michael Knoll
+ * Class implements data source for typo3 databases
+ * 
  * @author Daniel Lienert
  * @package Domain
- * @subpackage DataBackend\Mapper
+ * @subpackage DataBackend\DataSource
  */
-interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
+interface Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
 
 	/**
-	 * This method is called frm the factory to init the mapper
+	 * Return data row as array
+	 *
+	 * @return array
 	 */
-	public function init();
+	public function fetchRow();
 
 
+	/**
+	 * Return record count
+	 *
+	 * @return int
+	 */
+	public function count();
+
+
+	/**
+	 * Rewind the cursor to the first row
+	 */
+	public function rewind();
 }
 ?>

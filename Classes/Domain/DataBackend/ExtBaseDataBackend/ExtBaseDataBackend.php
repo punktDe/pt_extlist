@@ -370,5 +370,13 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$this->repository = $dataSource;
 	}
 
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
+	 * @throws Exception
+	 */
+	public function getIterationListData() {
+		throw new Exception('The extbase databackend does not support iteration lists yet! Ask a friendly extlist hacker to implement it :)', 1349282023);
+	}
 }
 ?>

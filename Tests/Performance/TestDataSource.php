@@ -27,80 +27,92 @@
  ***************************************************************/
 
 /**
- * Class implements configuration for list defaults
- *
+ * Test DataSource for generating test data
+ * 
+ * @author Daniel Lienert
  * @package Domain
- * @subpackage Configuration\List
- * @author Daniel Lienert 
+ * @subpackage Tests\Performance\TestDataBackend
+ *
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
+class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
+
 	/**
-	 * @var string 
+	 * @var int
 	 */
-	protected $headerPartial;
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $bodyPartial;
-	
-	
-	/**
-	 * @var string headerPartial
-	 */
-	protected $aggregateRowsPartial;
+	protected $rowCount = 10;
 
 
 	/**
-	 * @var boolean
+	 * @var int
 	 */
-	protected $useIterationListData;
+	protected $colCount = 10;
 
-	
+
 	/**
-	 * Set the properties
+	 * @var array
 	 */
-	protected function init() {
-		$this->setValueIfExistsAndNotNothing('headerPartial');
-		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-		$this->setBooleanIfExistsAndNotNothing('useIterationListData');
+	protected $data;
+
+
+	public function __construct($rowCount = 10, $colCount = 10) {
+		$this->rowCount = $rowCount;
+		$this->colCount = $colCount;
+		$this->data = $this->buildData();
+	}
+
+
+
+	protected function buildData() {
+		$rawData = array();
+
+		for($i = 0; $i < $this->rowCount; $i++) {
+			for($j = 1; $j <= $this->colCount; $j++) {
+				$rawData[$i]['field' . $j] = "Testdaten aus der Koordinate $i:$j" ;
+			}
+		}
+
+		return $rawData;
 	}
 
 
 	/**
-	 * @return string
+	 * @return array
 	 */
-	public function getHeaderPartial() {
-		return $this->headerPartial;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getBodyPartial() {
-		return $this->bodyPartial;		
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getAggregateRowsPartial() {
-		return $this->aggregateRowsPartial;
+	public function fetchAll() {
+		return $this->data;
 	}
 
 
 	/**
-	 * @return boolean
+	 * Return data row as array
+	 *
+	 * @return array
 	 */
-	public function getUseIterationListData() {
-		return $this->useIterationListData;
+	public function fetchRow() {
+		return current($this->data);
+		next($this->data);
 	}
+
+
+
+	/**
+	 * Return record count
+	 *
+	 * @return int
+	 */
+	public function count() {
+		return count($this->data);
+	}
+
+
+	/**
+	 * Rewind the cursor to the first row
+	 */
+	public function rewind() {
+		reset($this->data);
+	}
+
+
 }
+
 ?>

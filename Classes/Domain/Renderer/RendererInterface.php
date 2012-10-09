@@ -65,6 +65,16 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
      * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
      */
 	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData);
-	
+
+
+
+	/**
+	 * @abstract
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @param $rowIndex
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex);
+
 }
 ?>

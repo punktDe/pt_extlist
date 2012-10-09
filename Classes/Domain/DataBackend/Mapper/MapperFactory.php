@@ -42,20 +42,20 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 	 * @return mixed
 	 */
 	public static function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();	
+		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
-		
+
 		// TODO check whether we should use singleton here
-		
+
 		$dataMapper = new $dataMapperClassName($configurationBuilder);
 		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
 		// Check whether mapper implements interface
 		Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
-		
-      $dataMapper->injectMapperConfiguration($mapperConfiguration);
+
+		$dataMapper->injectMapperConfiguration($mapperConfiguration);
 		$dataMapper->init();
-        
+
 		return $dataMapper;
 	}
 	

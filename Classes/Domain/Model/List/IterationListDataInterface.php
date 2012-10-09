@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,20 +27,46 @@
  ***************************************************************/
 
 /**
- * Interface for mappers
+ * Interface for listData structure
  *
- * @author Michael Knoll
  * @author Daniel Lienert
  * @package Domain
- * @subpackage DataBackend\Mapper
+ * @subpackage Model\List
  */
-interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
+interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface extends Iterator {
 
 	/**
-	 * This method is called frm the factory to init the mapper
+	 * Set the datasource
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
 	 */
-	public function init();
+	public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource);
 
+
+	/**
+	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper
+	 */
+	public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper);
+
+
+	/**
+	 * @abstract
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
+	 */
+	public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain);
+
+
+	/**
+	 * Alias function for count to be accessible in fluid
+	 *
+	 * @return int
+	 */
+	public function getCount();
+
+
+	/**
+	 * @return int
+	 */
+	public function count();
 
 }
-?>

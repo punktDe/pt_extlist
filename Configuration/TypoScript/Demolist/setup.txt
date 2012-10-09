@@ -67,3 +67,13 @@
 # Demolist from fe_groups with extbase backend and some filters
 #
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_ExtBase_02.txt">
+
+#
+# Demolist from yag items
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_08_yag.txt">
+
+#
+# Demolist for iterationListDataExport
+#
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_09_bigdata.txt">

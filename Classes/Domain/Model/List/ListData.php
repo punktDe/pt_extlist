@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -28,14 +28,13 @@
 
 /**
  * Class implements list data object containing rows for a list.
- * 
+ *
  * @author Michael Knoll
- * @author Daniel Lienert 
- * @author Christoph Ehscheidt
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_ListData extends Tx_PtExtbase_Collection_ObjectCollection {
+class Tx_PtExtlist_Domain_Model_List_ListData extends Tx_PtExtbase_Collection_ObjectCollection implements Tx_PtExtlist_Domain_Model_List_ListDataInterface {
 	
 	/**
 	 * Class name to restrict collection to

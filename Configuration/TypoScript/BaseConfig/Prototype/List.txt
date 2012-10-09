@@ -11,11 +11,14 @@ plugin.tx_ptextlist.prototype.list {
 	headerPartial = EXT:pt_extlist/Resources/Private/Partials/List/ListHeader.html
 	bodyPartial = EXT:pt_extlist/Resources/Private/Partials/List/ListBody.html
 	aggregateRowsPartial = EXT:pt_extlist/Resources/Private/Partials/List/AggregateRows.html
-	
+
 	useSession = 1
 	useStateCache = 0
 
 	cacheRendering = 0
+
+	# If set to one, the iterationListData is used
+	useIterationListData = 0
 
 	pagerIdentifier = default
 }

@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,20 +27,37 @@
  ***************************************************************/
 
 /**
- * Interface for mappers
+ * Interface for listData structure
  *
- * @author Michael Knoll
  * @author Daniel Lienert
  * @package Domain
- * @subpackage DataBackend\Mapper
+ * @subpackage Model\List
  */
-interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
+interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
+
 
 	/**
-	 * This method is called frm the factory to init the mapper
+	 * @param int $id
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
 	 */
-	public function init();
+	public function getRow($id);
 
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+	 */
+	public function getFirstRow();
+
+
+
+	/**
+	 * Getter for count of items in list data
+	 *
+	 * (Fluid-compatible getter for count() method in collection)
+	 *
+	 * @return int Count of objects in list data
+	 */
+	public function getCount();
 
 }
-?>
