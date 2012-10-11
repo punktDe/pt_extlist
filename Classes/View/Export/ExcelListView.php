@@ -103,13 +103,6 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * Needed for performance Measurement
-	 * @var integer
-	 */
-	protected $exportStartTime;
-
-
-	/**
 	 * Overwriting the render method to generate Excel output
 	 */
 	public function render() {
@@ -360,17 +353,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
 		$objWriter->save('php://output');
-		// $this->logStats(); TODO: repair logStats() first!
 		exit();
-	}
-
-
-	/**
-	 * Log some stats to the error log
-	 */
-	protected function logStats() {
-		$usedTime = microtime(true) - $this->exportStartTime;
-		error_log('Export of ' . count($this->templateVariableContainer['listData']) . ' rows in ' . $usedTime . ' Seconds , needed ' . memory_get_usage(true) / (1024*1024) . ' MB of memeory.');
 	}
 
 
