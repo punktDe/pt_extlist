@@ -72,6 +72,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 	 */
 	public function render() {
 
+
 		$templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
 
 		ob_clean();
@@ -82,9 +83,11 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 		// Headers
 		if ($templateVariableContainer->exists('listCaptions')) {
 			$row = array();
+
 			foreach ($templateVariableContainer['listCaptions'] as $caption) {
 				$row[] = iconv('UTF-8', $this->outputEncoding, $caption);
 			}
+
 			fputcsv($out, $row, $this->delimiter);
 		}
 
@@ -92,13 +95,17 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 		foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
 
 			$row = array();
-			foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
-				$row[] = $listCell->getValue();
-			}
 
-            if($this->outputEncoding != 'UTF-8') {
-                $row = Tx_PtExtbase_Div::iconvArray($row, 'UTF-8', $this->outputEncoding);
-            }
+			if($this->outputEncoding == 'UTF-8') {
+				foreach ($listRow as &$listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+					$row[] = $listCell->getValue();
+				}
+
+			} else {
+				foreach ($listRow as &$listCell) {
+					$row[] =  iconv('UTF-8', $this->outputEncoding, $listCell->getValue());
+				}
+			}
 
             fputcsv($out, $row, $this->delimiter);
 		}
