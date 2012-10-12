@@ -63,7 +63,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	/**
 	 * Construct the strategy.
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$this->rendererConfiguration = $rendererConfiguration;
@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
 
-		$caching = $columnConfig->getCacheRendering() || $this->configurationBuilder->buildListDefaultConfig()->getCacheRendering();
+		$caching = $columnConfig->getCacheRendering() || $this->configurationBuilder->buildListConfiguration()->getCacheRendering();
 
 		// TODO: Include the objectMapper here ...
 		// if($columnConfig->getObjectMapperConfig() instanceof Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig) {}
@@ -189,6 +189,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	 *  2b duplicate non array fields
 	 *   
 	 * @param array fieldSet
+	 * @throws Exception
+	 * @return array
 	 */
 	protected function createArrayDataFieldSet(array $fieldSet) {
 				
