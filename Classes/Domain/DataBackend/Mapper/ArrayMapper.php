@@ -62,15 +62,11 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	public function getMappedListData(array &$arrayData) {
 
-		// t3lib_div::devLog("Memory usage BEFORE getMappedListData list data: " . memory_get_usage() / (1024*1024) . " with peak " . memory_get_peak_usage() / (1024*1024), 'pt_extlist', 0);
-
 		if (is_null($this->mapperConfiguration)) {
 			$mappedListData = $this->mapWithoutConfiguration($arrayData);
 		} else {
 		    $mappedListData = $this->mapWithConfiguration($arrayData);
 		}
-
-		// t3lib_div::devLog("Memory usage AFTER getMappedListData list data: " . memory_get_usage() / (1024*1024) . " with peak " . memory_get_peak_usage() / (1024*1024), 'pt_extlist', 0);
 
 		unset($arrayData);
 
