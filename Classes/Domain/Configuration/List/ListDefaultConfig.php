@@ -51,6 +51,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 	 */
 	protected $sortingDirection;
 
+
 	
 	/**
 	 * Set the properties
@@ -73,5 +74,13 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
 		return trim($this->sortingColumn);
 	}
 
+
+
+	/**
+	 * @return integer
+	 */
+	public function getSortingDirection() {
+		return $this->sortingDirection;
+	}
 }
 ?>
