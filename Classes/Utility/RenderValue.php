@@ -59,6 +59,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param array $data data values to be rendered
 	 * @param array $renderObjectConfig config for cObj rendering
 	 * @param array $renderUserFunctionConfig array and config for multiple renderuserfunctions
+	 * @param $renderTemplate
 	 * @return string rendered value
 	 */
 	public static function render(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL, $renderTemplate = NULL) {
@@ -86,6 +87,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param array $data data to be rendered
 	 * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
 	 * @param bool $caching Set to true if you want to get caching for cell rendering. Default is FALSE
+	 * @return string
 	 */
 	public static function renderByConfigObject(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig, $caching = FALSE) {
 		if ($caching) {
@@ -102,6 +104,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 *
 	 * @param array $data data to be rendered
 	 * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
+	 * @return string
 	 */
 	public static function renderByConfigObjectUncached(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig) {
 		return self::renderUncached($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
@@ -273,6 +276,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 *
 	 * @param array $data data values
 	 * @param string $templatePath
+	 * @return string
 	 */
 	public static function renderValueByTemplate(array $data, $templatePath) {
 		if(!file_exists($templatePath)) {
@@ -292,7 +296,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * Render content by renderuserfunction array
 	 *
 	 * @param array $data dataFields
-	 * @param array $renderUserFunctionConfig array of renderUserFunctions
+	 * @param array $renderUserFunctionConfigArray array of renderUserFunctions
+	 * @return string
 	 */
 	public static function renderValueByRenderUserFunctionArray(array $data, array $renderUserFunctionConfigArray) {
 		$params['values'] = $data;
