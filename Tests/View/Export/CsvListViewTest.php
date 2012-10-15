@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -31,19 +31,65 @@
  *
  * @package Tests
  * @subpackage View\Export
- * @author Michael Knoll 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/**
+	 * @var Tx_PtExtlist_View_Export_CsvListView
+	 */
+	protected $fixture;
+
+
+	public function setUp() {
+		$proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_View_Export_CsvListView');
+		$this->fixture = new $proxyClass();
+	}
+
+
 
     public function testSetup() {
         $this->assertTrue(class_exists('Tx_PtExtlist_View_Export_CsvListView'));
     }
+
+
+	/**
+	 *  @test
+	 */
+	public function initConfiguration() {
+
+		$settings = array(
+			'outputEncoding' => 'UTF888',
+			'delimiter' => '|',
+			'enclosure' => '#'
+		);
+
+		$overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = $settings;
+
+		$this->initDefaultConfigurationBuilderMock($overWriteSettings);
+
+		$exportConfig = $this->configurationBuilderMock->buildExportConfiguration();
+
+		$this->fixture->_set('exportConfiguration', $exportConfig);
+		$this->fixture->initConfiguration();
+
+		$this->assertEquals($settings['outputEncoding'], $this->fixture->_get('outputEncoding'));
+		$this->assertEquals($settings['delimiter'], $this->fixture->_get('delimiter'));
+		$this->assertEquals($settings['enclosure'], $this->fixture->_get('enclosure'));
+	}
+
+
+	public function renderHeader() {
+
+
+	}
+
+
+	public function  renderData() {
+
+	}
     
-    
-    
-    public function testRender() {
-    	$this->markTestIncomplete('How can this be tested? Idea: do not write on StdOUT but in file and compare?');
-    }
+
     
 }
 ?>
