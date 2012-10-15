@@ -50,6 +50,24 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 
 
 	/**
+	 * @var string
+	 */
+	protected $enclosure;
+
+
+	/**
+	 * @var Tx_Fluid_Core_ViewHelper_TemplateVariableContainer
+	 */
+	protected $templateVariableContainer;
+
+
+	/**
+	 * @var output stream
+	 */
+	protected $outputStream;
+
+
+	/**
 	 * Init the configuration for CSVExport
 	 */
 	public function initConfiguration() {
@@ -72,27 +90,49 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 	 */
 	public function render() {
 
-
-		$templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+		$this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
 
 		ob_clean();
 
 		$this->sendHeader($this->getFilenameFromTs());
-		$out = fopen('php://output', 'w');
+		$this->outputStream = fopen('php://output', 'w');
+
+		$this->renderHeader();
+		$this->renderData();
+
+		fclose($this->outputStream);
+
+		exit();
+	}
+
+
+
+	/**
+	 * Render the header
+	 */
+	public function renderHeader() {
 
 		// Headers
-		if ($templateVariableContainer->exists('listCaptions')) {
+		if ($this->templateVariableContainer->exists('listCaptions')) {
 			$row = array();
 
-			foreach ($templateVariableContainer['listCaptions'] as $caption) {
+			foreach ($this->templateVariableContainer['listCaptions'] as $caption) {
 				$row[] = iconv('UTF-8', $this->outputEncoding, $caption);
 			}
 
-			fputcsv($out, $row, $this->delimiter);
+			fputcsv($this->outputStream, $row, $this->delimiter);
 		}
+	}
+
+
+
+	/**
+	 * Render the data
+	 */
+	public function renderData() {
 
 		// Rows
-		foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+		foreach ($this->templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
 
 			$row = array();
 
@@ -107,11 +147,9 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 				}
 			}
 
-            fputcsv($out, $row, $this->delimiter);
+			fputcsv($this->outputStream, $row, $this->delimiter);
 		}
-
-		fclose($out);
-
-		exit();
 	}
+
+
 }
