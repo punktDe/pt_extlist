@@ -44,6 +44,11 @@ class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tes
 	public function setUp() {
 		$proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_View_Export_CsvListView');
 		$this->fixture = new $proxyClass();
+
+		$buffer = fopen('php://temp', 'w');
+
+		$this->fixture->setOutputStreamHandle($buffer);
+		$this->fixture->_set('templateVariableContainer', $this->createTemplateVariableContainer());
 	}
 
 
@@ -79,16 +84,75 @@ class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tes
 	}
 
 
+	/**
+	 * @test
+	 */
 	public function renderHeader() {
+		$overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = array(
+			'delimiter' => '|',
+			'enclosure' => "'"
+		);
 
+		$this->initDefaultConfigurationBuilderMock($overWriteSettings);
+		$this->fixture->setExportConfiguration($this->configurationBuilderMock->buildExportConfiguration());
+		$this->fixture->initConfiguration();
 
+		$this->fixture->renderHeader();
+
+		$buffer = $this->fixture->getOutputStreamHandle();
+		rewind($buffer);
+		$data = stream_get_contents($buffer);
+
+		$this->assertEquals("header1Value|header2Value|header3Value\n", $data);
 	}
 
 
+	/**
+	 * @test
+	 */
 	public function  renderData() {
+		$overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = array(
+			'delimiter' => '|',
+			'enclosure' => "'"
+		);
 
+		$this->initDefaultConfigurationBuilderMock($overWriteSettings);
+		$this->fixture->setExportConfiguration($this->configurationBuilderMock->buildExportConfiguration());
+		$this->fixture->initConfiguration();
+
+		$this->fixture->renderData();
+
+		$buffer = $this->fixture->getOutputStreamHandle();
+		rewind($buffer);
+		$data = stream_get_contents($buffer);
+
+		$this->assertEquals("col1Value|col2Value|col3Value\n", $data);
 	}
-    
+
+
+
+	protected function createTemplateVariableContainer() {
+		$templateVariableContainer = new Tx_Fluid_Core_ViewHelper_TemplateVariableContainer();
+
+
+		$header = new Tx_PtExtlist_Domain_Model_List_Row();
+		$header->createAndAddCell('header1Value', 'col1');
+		$header->createAndAddCell('header2Value', 'col2');
+		$header->createAndAddCell('header3Value', 'col3');
+
+		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+		$row->createAndAddCell('col1Value', 'col1');
+		$row->createAndAddCell('col2Value', 'col2');
+		$row->createAndAddCell('col3Value', 'col3');
+
+		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$listData->addRow($row);
+
+		$templateVariableContainer->add('listCaptions', $header);
+		$templateVariableContainer->add('listData', $listData);
+
+		return $templateVariableContainer;
+	}
 
     
 }

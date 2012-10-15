@@ -62,9 +62,9 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 
 
 	/**
-	 * @var output stream
+	 * @var resource stream
 	 */
-	protected $outputStream;
+	protected $outputStreamHandle;
 
 
 	/**
@@ -99,12 +99,12 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 		ob_clean();
 
 		$this->sendHeader($this->getFilenameFromTs());
-		$this->outputStream = fopen('php://output', 'w');
+		$this->outputStreamHandle = fopen('php://output', 'w');
 
 		$this->renderHeader();
 		$this->renderData();
 
-		fclose($this->outputStream);
+		fclose($this->outputStreamHandle);
 
 		exit();
 	}
@@ -124,7 +124,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 				$row[] = iconv('UTF-8', $this->outputEncoding, $caption);
 			}
 
-			fputcsv($this->outputStream, $row, $this->delimiter);
+			fputcsv($this->outputStreamHandle, $row, $this->delimiter, $this->enclosure);
 		}
 	}
 
@@ -151,8 +151,24 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 				}
 			}
 
-			fputcsv($this->outputStream, $row, $this->delimiter);
+			fputcsv($this->outputStreamHandle, $row, $this->delimiter, $this->enclosure);
 		}
+	}
+
+
+	/**
+	 * @param resource $outputStreamHandle
+	 */
+	public function setOutputStreamHandle($outputStreamHandle) {
+		$this->outputStreamHandle = $outputStreamHandle;
+	}
+
+
+	/**
+	 * @return resource
+	 */
+	public function getOutputStreamHandle() {
+		return $this->outputStreamHandle;
 	}
 
 
