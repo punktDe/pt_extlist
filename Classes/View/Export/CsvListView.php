@@ -52,7 +52,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 	/**
 	 * @var string
 	 */
-	protected $enclosure = "'";
+	protected $enclosure = '"';
 
 
 	/**
