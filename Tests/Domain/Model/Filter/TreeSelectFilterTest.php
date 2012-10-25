@@ -135,7 +135,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	 * @test
 	 */
 	public function filterTransformsFilterValuesMultiple() {
-		$this->accessibleFilterProxy->_set('filterValues', '5,4,8');
+		$this->accessibleFilterProxy->_set('filterValues', array('5,4,8'));
 		$this->accessibleFilterProxy->_set('multiple', true);
 		$this->accessibleFilterProxy->initFilter();
 		$this->assertEquals(array(5,4,8), $this->accessibleFilterProxy->_get('filterValues'));
@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 		$this->accessibleFilterProxy->_set('multiple', 1);
 		$result = $this->accessibleFilterProxy->_call('getSelection');
 
-		$this->assertEquals('1,4', $result);
+		$this->assertEquals(array(1,4), $result);
 	}
 
 
