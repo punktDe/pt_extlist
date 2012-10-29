@@ -34,7 +34,10 @@
  * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Utility_RenderValue {
-	
+
+	/**
+	 * @var tslib_cObj
+	 */
 	protected static $cObj;
 
 
@@ -324,6 +327,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * return the cObj object
 	 *
 	 * @return tslib_cObj;
+	 * @deprecated Use Tx_PtExtbase_Div::getCobj instead
 	 */
 	public static function getCobj() {
 		if(!self::$cObj) {
