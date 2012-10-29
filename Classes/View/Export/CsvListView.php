@@ -102,7 +102,12 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 		$this->outputStreamHandle = fopen('php://output', 'w');
 
 		$this->renderHeader();
-		$this->renderData();
+
+		// Render the body
+		$this->renderData($this->templateVariableContainer['listData']);
+
+		// Render the aggregates if defined
+		$this->renderData($this->templateVariableContainer['aggregateRows']);
 
 		fclose($this->outputStreamHandle);
 
@@ -131,12 +136,12 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 
 
 	/**
-	 * Render the data
+	 * Render given multi-row data
 	 */
-	public function renderData() {
+	public function renderData($data) {
 
 		// Rows
-		foreach ($this->templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+		foreach ($data as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
 
 			$row = array();
 
@@ -154,6 +159,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 			fputcsv($this->outputStreamHandle, $row, $this->delimiter, $this->enclosure);
 		}
 	}
+
 
 
 	/**
