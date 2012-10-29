@@ -158,7 +158,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	/**
 	 * Return the selection as single value or comma separated string of values
 	 *
-	 * @return string
+	 * @return array / string
 	 */
 	protected function getSelection() {
 		$selection = array();

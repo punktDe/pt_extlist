@@ -58,11 +58,20 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 */
 	protected $useIterationListData;
 
+
+	/**
+	 * Is set to true, if rendering (e.g. of cells) should be cached
+	 *
+	 * @var bool
+	 */
+	protected $cacheRendering;
+
 	
 	/**
 	 * Set the properties
 	 */
 	protected function init() {
+		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
 		$this->setValueIfExistsAndNotNothing('headerPartial');
 		$this->setValueIfExistsAndNotNothing('bodyPartial');
 		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
@@ -101,6 +110,24 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 	 */
 	public function getUseIterationListData() {
 		return $this->useIterationListData;
+	}
+
+
+
+	/**
+	 * @return integer
+	 */
+	public function getSortingDirection() {
+		return $this->sortingDirection;
+	}
+
+
+
+	/**
+	 * @return bool
+	 */
+	public function getCacheRendering() {
+		return $this->cacheRendering;
 	}
 }
 ?>

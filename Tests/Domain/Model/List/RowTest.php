@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_Extbase_BaseT
 
 		$testCell = $row->getCell('testKey');
 
-		$this->assertEquals('testContent', $testCell);
+		$this->assertEquals('testContent', $testCell->getValue());
 	}
 
 

@@ -54,19 +54,27 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfig_testcase ex
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig'));
 	}
-	
-	
 
-	public function testGetSortingColumn() {
+
+	/**
+	 * @test
+	 */
+	public function getSortingColumn() {
 		$this->assertEquals($this->listDefaultConfiguration->getSortingColumn(), 'column3');
 	}
-	
-	
-	public function testGetSortingColumnDirectionASC() {
+
+
+	/**
+	 * @test
+	 */
+	public function getSortingColumnDirectionASC() {
 		$this->assertEquals($this->listDefaultConfiguration->getSortingDirection(), 1);
 	}
-	
-	public function testGetSortingColumnDirectionDESC() {
+
+	/**
+	 * @test
+	 */
+	public function getSortingColumnDirectionDESC() {
 		
 		$overwriteSettings['listConfig']['test']['default']['sortingColumn'] = 'column3 DESC';
 		

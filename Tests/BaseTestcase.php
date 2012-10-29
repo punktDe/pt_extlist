@@ -111,8 +111,6 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_Bas
 	
 	/**
 	 * Initializes default configuration builder mock used throughout different testcases
-	 *
-	 * @return void
 	 */
 	protected function initDefaultConfigurationBuilderMock($overwriteSettings = NULL) {
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings, $overwriteSettings);		
