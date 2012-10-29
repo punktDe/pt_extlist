@@ -59,7 +59,6 @@ plugin.tx_ptextlist.prototype.column {
 
 
 			header {
-
 				wrapText = 0
             	vertical = top
 				shrinkToFit = 0
@@ -83,6 +82,20 @@ plugin.tx_ptextlist.prototype.column {
 				fill {
 					type = solid
 					color = c8c8c8
+				}
+			}
+
+
+			aggregate {
+				font {
+					bold = 1
+				}
+
+				borders {
+					top {
+						style = thin
+                        color = 000000
+					}
 				}
 			}
 		}

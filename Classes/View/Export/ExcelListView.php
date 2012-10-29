@@ -119,6 +119,8 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 		$this->renderBody();
 
+		$this->renderAggregates();
+
 		$this->renderPostBodyRows();
 
 		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $this->fileFormat);
@@ -246,6 +248,39 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 		unset($this->templateVariableContainer['listData']);
 	}
+
+
+
+	/**
+	 * Render the aggregate Rows
+	 */
+	protected function renderAggregates() {
+
+		$activeSheet = $this->objPHPExcel->getActiveSheet();
+
+		// Rows
+		foreach ($this->templateVariableContainer['aggregateRows'] as $aggregateRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+
+			$columnNumber = 0;
+
+			foreach ($aggregateRow as $columnIdentifier => $aggregateCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+
+				$cellValue = $aggregateCell->getValue();
+				if($this->stripTags) $cellValue = strip_tags($cellValue);
+
+				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($cellValue);
+
+				$this->doCellStyling($columnNumber, $columnIdentifier, 'aggregate');
+
+				$columnNumber++;
+			}
+
+			$this->rowNumber++;
+		}
+
+		unset($this->templateVariableContainer['aggregateRows']);
+	}
+
 
 
 	/**
