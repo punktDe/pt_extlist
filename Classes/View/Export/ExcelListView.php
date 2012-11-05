@@ -103,6 +103,35 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
+	 * @var bool
+	 */
+	protected $renderFilterStates = false;
+
+
+	/**
+	 * @var array
+	 */
+	protected $freeText = array();
+
+
+	/**
+	 * @var Tx_Extbase_Service_TypoScriptService
+	 */
+	protected $typoScriptService;
+
+
+
+	/**
+	 * @param Tx_Extbase_Service_TypoScriptService $typoScriptService
+	 * @return void
+	 */
+	public function injectTypoScriptService(Tx_Extbase_Service_TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+	}
+
+
+
+	/**
 	 * Overwriting the render method to generate Excel output
 	 */
 	public function render() {
@@ -148,6 +177,14 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		if(array_key_exists('doBodyCellStyling', $settings)) {
 			$this->doBodyCellStyling = $settings['doBodyCellStyling'] == '1' ? true : false;
 		}
+
+		if(array_key_exists('renderFilterStates', $settings)) {
+			$this->renderFilterStates = $settings['renderFilterStates'] == '1' ? true : false;
+		}
+
+		if (array_key_exists('freeText', $settings)) {
+			$this->freeText = $settings['freeText'];
+		}
 	}
 
 
@@ -171,9 +208,83 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * Overwrite this to render pre header rows
+	 * Render pre header rows
+	 *
+	 * Overwrite this method to render individual pre header rows.
+	 *
+	 * @return void
 	 */
-	protected function renderPreHeaderRows() {}
+	protected function renderPreHeaderRows() {
+		if($this->freeText) {
+			$this->renderFreeText();
+		}
+		if ($this->renderFilterStates === TRUE) {
+			$this->renderFilterStates();
+		}
+	}
+
+
+
+	/**
+	 * @return void
+	 */
+	protected function renderFreeText() {
+		$activeSheet = $this->objPHPExcel->getActiveSheet();
+		$freeText = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->freeText);
+		$activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(array('font' => array('bold' => TRUE)));
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, $freeText);
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, '');
+	}
+
+
+
+	/**
+	 * @return void
+	 */
+	protected function renderFilterStates() {
+		$activeSheet = $this->objPHPExcel->getActiveSheet();
+		$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier($this->exportConfiguration->getListIdentifier());
+		$filterBoxCollection = $extlistContext->getFilterBoxCollection();
+
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber, 'Filter');
+		$this->activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(array('font' => array('bold' => TRUE)));
+		$this->rowNumber++;
+
+		foreach($filterBoxCollection as $filterBox) { /** @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+			foreach($filterBox as $filter) { /** @var $filter Tx_PtExtlist_Domain_Model_Filter_AbstractFilter */
+				$activeSheet->setCellValueByColumnAndRow(
+					0,
+					$this->rowNumber,
+					$extlistContext->getConfigurationBuilder()
+							->buildFilterConfiguration()
+							->getFilterBoxConfig($filter->getFilterConfig()->getFilterboxIdentifier())
+							->getFilterConfigByFilterIdentifier($filter->getFilterConfig()->getFilterIdentifier())
+							->getLabel());
+				$activeSheet->setCellValueByColumnAndRow(1, $this->rowNumber++, $this->renderFilterValues($filter));
+
+			}
+		}
+
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, '');
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter
+	 * @return string
+	 */
+	protected function renderFilterValues(Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter) {
+
+		$filterValue = $filter->getDisplayValue();
+
+		if(!$filterValue) {
+			$filterValue = '...';
+		}
+
+		return $filterValue;
+	}
+
 
 
 	/**
