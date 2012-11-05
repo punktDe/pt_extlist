@@ -2278,7 +2278,52 @@ agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialP
 											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE></EXAMPLE>
-											<CHILDREN></CHILDREN>
+											<CHILDREN>
+                                                <ENTRY KEY="stripTags">
+                                                    <DESCRIPTION>Remove HTML Tags from content.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>1</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="doBodyCellStyling">
+                                                    <DESCRIPTION>Use the cell style configuration from the column configuration to style the body part of the list. This tremendously decreases the render performance. Therefore it is not suitable for big lists > 10k lines.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFilterStates">
+                                                    <DESCRIPTION>Render a block with the filter states of the list to the table header.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFreeText">
+                                                    <DESCRIPTION>If set, render this free text to the head of the list.</DESCRIPTION>
+                                                    <DATATYPE>String</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT></DEFAULT>
+                                                    <COBJ>1</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+											</CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
 										<ENTRY KEY="pdfExport">
