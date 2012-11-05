@@ -136,12 +136,13 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	public function render() {
 
-		$this->exportStartTime = microtime(true);
-
 		$this->init();
 
 		$this->clearOutputBufferAndSendHeaders();
 
+		if($this->freeText) $this->renderFreeText();
+		if($this->renderFilterStates === TRUE) $this->renderFilterStates();
+		
 		$this->renderPreHeaderRows();
 
 		$this->renderHeader();
@@ -215,12 +216,6 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 * @return void
 	 */
 	protected function renderPreHeaderRows() {
-		if($this->freeText) {
-			$this->renderFreeText();
-		}
-		if ($this->renderFilterStates === TRUE) {
-			$this->renderFilterStates();
-		}
 	}
 
 
