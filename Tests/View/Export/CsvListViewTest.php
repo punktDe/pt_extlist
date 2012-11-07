@@ -116,11 +116,13 @@ class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tes
 			'enclosure' => "'"
 		);
 
+		$templateVariableContainer = $this->createTemplateVariableContainer();
+
 		$this->initDefaultConfigurationBuilderMock($overWriteSettings);
 		$this->fixture->setExportConfiguration($this->configurationBuilderMock->buildExportConfiguration());
 		$this->fixture->initConfiguration();
 
-		$this->fixture->renderData();
+		$this->fixture->renderData($templateVariableContainer['listData']);
 
 		$buffer = $this->fixture->getOutputStreamHandle();
 		rewind($buffer);
