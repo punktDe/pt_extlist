@@ -85,9 +85,11 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array());
+    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL);
     
     
     

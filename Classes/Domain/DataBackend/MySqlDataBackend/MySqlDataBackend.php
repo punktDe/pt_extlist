@@ -484,9 +484,28 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
+		$query = $this->buildGroupDataQuery($groupDataQuery, $excludeFilters, $filterConfig);
+
+		$groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
+
+		return $groupDataArray;
+	}
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery
+	 * @param array $excludeFilters
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @return string
+	 */
+	protected function buildGroupDataQuery(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+										   Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
+
 		$this->buildQuery();
 
 		$selectPart = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
@@ -497,8 +516,17 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		if (count($groupDataQuery->getFrom()) > 0) {
 			// special from part from filter TODO think about this and implement it!
 			//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
+		}
 
-		} elseif ($this->listQueryParts['GROUPBY']) {
+		/**
+		 * If this list is grouped. There are two cases
+		 * 1. We want to show the rowCount. In this case we have to build the list first and then use this list as
+		 * 		source to calculate the selectable rows and the count. This has the drawback, that options are not displayed, if grouped within the list.
+		 * 2. We do not need the rowCount. In this case, we exchange the original grouping fields with the fields needed by the filter.
+		 */
+
+		if ($this->listQueryParts['GROUPBY'] && $filterConfig->getShowRowCount()) {
+
 			$selectPart = $this->convertTableFieldToAlias($selectPart);
 			$groupPart = $this->convertTableFieldToAlias($groupPart);
 			$sortingPart = $this->convertTableFieldToAlias($sortingPart);
@@ -506,7 +534,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			$filterWherePart = $this->buildWherePart($excludeFilters);
 			$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
 
-			// if the list has a group by clause itself, we have to use the listquery as subquery
+			// if the list has a group by clause itself, we have to use the listQuery as subQuery
 			$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
 
 			unset($filterWherePart); // we confined the subquery, so we dont need this in the group query
@@ -520,9 +548,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('query' => $query));
 
-		$groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
-
-		return $groupDataArray;
+		return $query;
 	}
 
 
@@ -565,6 +591,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Build the fields Sql for all fields
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+	 * @return string
      */
     protected function buildAggregateFieldsSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$fieldsSQL = array();
@@ -582,6 +609,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Build the SQL Query for an aggregate
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+	 * @return string
      */
     protected function buildAggregateFieldSQLByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
     	$supportedMethods = array('sum', 'avg', 'min', 'max');
@@ -604,6 +632,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Replaces all occurrences of "table.field AS fieldIdentifier" and "table.field"
      *
      * @param string $query
+	 * @return string
      */
     protected function convertTableFieldToAlias($query) {
 

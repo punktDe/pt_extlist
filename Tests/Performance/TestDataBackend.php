@@ -103,7 +103,8 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
 	 * @return array Array of group data with given fields as array keys
 	 */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 		// TODO: Implement getGroupData() method.
 	}
 

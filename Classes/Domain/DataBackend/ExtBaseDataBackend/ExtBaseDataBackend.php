@@ -95,7 +95,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param array $excludeFilters
 	 * @return array
 	 */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 		/**
 		 * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
 		 *

@@ -276,7 +276,14 @@ renderObj {
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.showRowCount" KEY="showRowCount">
-			<DESCRIPTION>Show the rowcount if the select filter is filled with grouped data.</DESCRIPTION>
+			<DESCRIPTION>Show the row count if the select filter is filled with grouped data.
+
+Info for use with MySQL Backend
+In case this list is grouped by any field, showRowCount also implies the following manipulation to the original list query:
+1. ShowRowCount is activated, In this case we have to build the list first and then use this list as source to calculate the selectable rows and the count. This has the drawback, that options are not displayed, if grouped within the list.
+2. ShowRowCount is not activated: In this case, we exchange the original grouping fields with the fields needed by the filter.
+
+            </DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>1</DEFAULT>

@@ -54,9 +54,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvide
 
 
     /**
-     * Injects databackend into data provider
+     * Injects dataBackend into data provider
      *
-     * @param Tx_PtExtlistSolr_Domain_SolrDataBackend_DataBackend $dataBackend
+     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
      * @return void
      */
     public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
@@ -79,10 +79,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvide
 	 * Render a single option line by cObject or default
 	 *
 	 * @param array $optionData
+	 * @return string $option;
 	 */
 	protected function renderOptionData($optionData) {
-
-		$option = '';
 
 		foreach($this->displayFields as $displayField) {
         	$values[] = $optionData[$displayField->getIdentifier()];
