@@ -1691,6 +1691,8 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																			<ENTRY KEY="ExplicitSQLQuery">
 																				<DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
 																				<EXAMPLE><![CDATA[
+
+# Example 1
 selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 	partialPath = Filter/Options/SelectFilter
 	filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
@@ -1704,7 +1706,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 		limit =
 	}
 }
-																				]]></EXAMPLE>
+																			]]></EXAMPLE>
 																				<CHILDREN>
 																					<ENTRY KEY="select">
 																						<DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
@@ -1723,6 +1725,53 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																					</ENTRY>
 																					<ENTRY KEY="limit">
 																						<DESCRIPTION>The LIMIT part of the query.</DESCRIPTION>
+																					</ENTRY>
+																				</CHILDREN>
+																			</ENTRY>
+																		</VARIANT>
+																		<VARIANT>
+																			<ENTRY KEY="ExplicitData">
+																				<DESCRIPTION>This data provider allows you to define options for a select filter.</DESCRIPTION>
+																				<EXAMPLE><![CDATA[
+
+  filters {
+  		filterbox {
+  			filterConfigs {
+  				10 < plugin.tx_ptextlist.prototype.filter.select
+  				10 {
+  					label = Abgeschlossen?
+  					filterIdentifier = finishedFilter
+  					fieldIdentifier = finished
+ 
+  					inactiveOption = Alle
+  					inactiveValue = ----alle----
+ 
+  					dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
+ 
+  					options {
+  						10 {
+  							key = 0
+  							value = nein
+  						}
+  						20 {
+  							key = 1
+ 						 	value = ja
+  						}
+  					}
+ 
+ 				 	renderObj {
+  						dataWrap = {field:allDisplayFields}
+  					}
+ 
+  					showRowCount = 0
+  				}
+  			}
+  		}
+  }
+																			]]></EXAMPLE>
+																				<CHILDREN>
+																					<ENTRY KEY="options">
+																						<DESCRIPTION>A key/value list of options</DESCRIPTION>
 																					</ENTRY>
 																				</CHILDREN>
 																			</ENTRY>
