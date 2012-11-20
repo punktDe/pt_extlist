@@ -173,7 +173,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	public function getRenderedOptions() {
 		$query = $this->buildQuery();
 		$excludeFiltersArray = $this->buildExcludeFiltersArray();
-		$queryResult = $this->dataBackend->getGroupData($query, $excludeFiltersArray);
+		$queryResult = $this->dataBackend->getGroupData($query, $excludeFiltersArray, $this->filterConfig);
 		return $this->buildCondensedTimeSpans($queryResult)->getJsonValue();
 	}
 

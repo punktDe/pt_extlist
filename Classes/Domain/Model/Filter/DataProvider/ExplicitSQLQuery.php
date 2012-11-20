@@ -115,7 +115,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 */
 	public function getRenderedOptions() {
 		$options = $this->getDataFromSqlServer();
-
 		foreach ($options as $optionData) {
 			$optionKey = $optionData[$this->filterField];
 
@@ -123,7 +122,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 			$renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
 			$renderedOptions[$optionKey]['selected'] = false;
 		}
-
 		return $renderedOptions;
 	}
 
@@ -166,7 +164,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 			throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider! 1315216209');
 		}
 
-		return $dataSource->executeQuery($query);
+		return $dataSource->executeQuery($query)->fetchAll();
 	}
 }
 ?>
