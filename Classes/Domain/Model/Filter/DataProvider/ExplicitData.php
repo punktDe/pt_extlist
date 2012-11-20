@@ -28,10 +28,47 @@
 
 /**
  * Implements data provider for explicit defined data in typoscript
- * 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter\DataProvider
+ *
+ *
+ * Typoscript-Example:
+ * filters {
+ * 		filterbox {
+ * 			filterConfigs {
+ * 				10 < plugin.tx_ptextlist.prototype.filter.select
+ * 				10 {
+ * 					label = Abgeschlossen?
+ * 					filterIdentifier = finishedFilter
+ * 					fieldIdentifier = finished
+ *
+ * 					inactiveOption = Alle
+ * 					inactiveValue = ----alle----
+ *
+ * 					dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
+ *
+ * 					options {
+ * 						10 {
+ * 							key = 0
+ * 							value = nein
+ * 						}
+ * 						20 {
+ * 							key = 1
+ *						 	value = ja
+ * 						}
+ * 					}
+ *
+ *				 	renderObj {
+ * 						dataWrap = {field:allDisplayFields}
+ * 					}
+ *
+ * 					showRowCount = 0
+ * 				}
+ * 			}
+ * 		}
+ * }
+ *
  */
 class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 
