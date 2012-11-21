@@ -35,9 +35,47 @@
  * @author Michael Knoll 
  */
 class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
-    
 
-    /**
+	/**
+	 * @var boolean
+	 */
+	protected $exactMatch = FALSE;
+
+
+	/**
+	 * @var string
+	 */
+	protected $splitOrToken;
+
+
+	/**
+	 * @var string
+	 */
+	protected $splitAndToken;
+
+
+	protected function initFilterByTsConfig() {
+		parent::initFilterByTsConfig();
+
+		$settings = $this->filterConfig->getSettings();
+
+		if(array_key_exists('exactMatch', $settings)) {
+			$this->exactMatch = (int) $this->filterConfig->getSettings('exactMatch') == 1 ? TRUE : FALSE;
+		}
+
+		if(array_key_exists('splitOrToken', $settings) && $settings['splitOrToken']) {
+			$token = $settings['splitOrToken'];
+			$this->splitOrToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
+		}
+
+		if(array_key_exists('splitAndToken', $settings) && $settings['splitAndToken']) {
+			$token = $settings['splitAndToken'];
+			$this->splitAndToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
+		}
+	}
+
+
+	/**
      * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
      * @return null|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
      */
@@ -47,7 +85,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 
     	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
-        if((int) $this->filterConfig->getSettings('exactMatch') == 1) {
+        if($this->exactMatch) {
             $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue);
         } else {
             $filterValue = '%'.$this->filterValue.'%';
@@ -55,6 +93,15 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
         }
 
     	return $criteria;
-    }   	
+    }
+
+
+	protected function prepareFilterValue($filterValue) {
+
+		if($this->filterConfig->getSettings('splitOr')) {
+
+		}
+
+	}
 }
 ?>
