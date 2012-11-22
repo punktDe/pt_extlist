@@ -1603,6 +1603,46 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
                                                                         <CHILDREN></CHILDREN>
                                                                         <VARIANT></VARIANT>
                                                                     </ENTRY>
+																	<ENTRY KEY="orToken">
+																		<DESCRIPTION><![CDATA[
+If set to any value, the filterValue is separated at this token, and the single pieces are combined with SQL OR. To separate at a blank, use pipes to define it (orToken = | |).
+																		]]></DESCRIPTION>
+																		<DATATYPE>String</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>
+																			<![CDATA[
+Typoscript:
+
+10 {
+		orToken = |||
+		andToken = &
+}
+
+Search String: test
+Generated SQL: table1.field1 LIKE "%test%"
+
+Search String: test | test2 & test3
+Generated SQL: (table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") AND (table1.field1 LIKE "%test3%"))
+
+																		]]>
+																		</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="andToken">
+																		<DESCRIPTION>If set to any value, the filterValue is separated at this token, and the single pieces are combined with SQL AND. To separate at a blank, use pipes to define it (orToken = | |).</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
