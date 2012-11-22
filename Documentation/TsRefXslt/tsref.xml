@@ -118,7 +118,18 @@
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.label" KEY="label">
-			<DESCRIPTION>The label wich is displayed beside the filter.</DESCRIPTION>
+			<DESCRIPTION>The label which is displayed beside the filter.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.description" KEY="description">
+			<DESCRIPTION>An optional description string, that describes the filters functions.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
@@ -1568,6 +1579,7 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 															<TYPEREF REF="filter.label" KEY="label" />
+															<TYPEREF REF="filter.description" KEY="description" />
 															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
@@ -1645,6 +1657,7 @@ Generated SQL: (table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") 
 																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
@@ -1706,6 +1719,7 @@ Generated SQL: (table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") 
 																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
@@ -1820,6 +1834,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1850,6 +1865,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1880,6 +1896,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1909,6 +1926,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1952,6 +1970,7 @@ addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V.W,X,Y,Z
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -2105,6 +2124,7 @@ dateIteratorFormat = %m.%Y
 																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
@@ -2186,6 +2206,7 @@ dateIteratorFormat = %m.%Y
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
