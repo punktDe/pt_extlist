@@ -14,6 +14,7 @@ plugin.tx_ptextlist.prototype.filter {
 		filterValue =
 		filterIdentifier =
 		label =
+		description =
 		fieldIdentifier =
 		filterField =
 	}
@@ -23,6 +24,9 @@ plugin.tx_ptextlist.prototype.filter {
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
 		partialPath = Filter/String/StringFilter
+
+		label =
+		description =
 
 		exactMatch = 0
 		orToken =
@@ -49,6 +53,9 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 		accessGroups =
 
+		label =
+		description =
+
         # MySQL Specific Parameters
         minWordLength = 4
         booleanMode = 0
@@ -71,6 +78,10 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Range/MaxFilter
 		defaultValue =
 		accessGroups =
+
+		label =
+		description =
+
 		#validation.maxValue = 500
 		#validation.minValue = 0
 
@@ -88,6 +99,10 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Range/MinFilter
 		defaultValue =
 		accessGroups =
+
+		label =
+		description =
+
 		#validation.maxValue = 500
 		#validation.minValue = 0
 
@@ -104,6 +119,9 @@ plugin.tx_ptextlist.prototype.filter {
 	    filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
 	    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
 	    partialPath = Filter/Options/SelectFilter
+
+		label =
+		description =
 
 	    dateIteratorStart =
 	    dateIteratorEnd =
@@ -140,6 +158,9 @@ plugin.tx_ptextlist.prototype.filter {
         dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates
         partialPath = Filter/Date/DatePickerFilter
 
+		label =
+		description =
+
 		dbTimeFormat = U
 		regional =
 
@@ -166,6 +187,9 @@ plugin.tx_ptextlist.prototype.filter {
     dateRange {
         filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
         partialPath = Filter/Range/DateRangeFilter
+
+		label =
+		description =
 
 		displayValueDateFormat = d.m.Y
 		dbTimeFormat = U
@@ -194,10 +218,14 @@ plugin.tx_ptextlist.prototype.filter {
 		#dataProviderClassName =
 		defaultValue =
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
+
 		multiple = 0
 		excludeFilters =
 		showRowCount = 1
@@ -233,8 +261,11 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 		filterIdentifier =
 		displayFields =
-		label =
 		fieldIdentifier =
+
+		label =
+		description =
+
 		multiple = 0
 		excludeFilters =
 		showRowCount = 1
@@ -273,7 +304,10 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -309,7 +343,10 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -344,7 +381,10 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -381,7 +421,10 @@ plugin.tx_ptextlist.prototype.filter {
 		# addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V,W,X,Y,Z
 
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -413,7 +456,10 @@ plugin.tx_ptextlist.prototype.filter {
 		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud
 				
 		filterIdentifier =
-		label = 
+
+		label =
+		description =
+
 		fieldIdentifier =
 		countFieldIdentifier = 
 		

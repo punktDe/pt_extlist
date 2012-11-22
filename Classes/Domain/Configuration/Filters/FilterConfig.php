@@ -291,15 +291,23 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $cacheRendering;
 
 
+	/**
+	 * A optional filter description
+	 *
+	 * @var string
+	 */
+	protected $description;
+
 
 	/**
 	 * Build the filterconfig object
-	 * 
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param array $settings
 	 * @param string $filterBoxIdentifier
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $settings, $filterboxIdentifier) {
-		$settings['filterboxIdentifier'] = $filterboxIdentifier;
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $settings, $filterBoxIdentifier) {
+		$settings['filterboxIdentifier'] = $filterBoxIdentifier;
 		parent::__construct($configurationBuilder, $settings);
 	}
 	
@@ -332,6 +340,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
 		$this->setValueIfExists('label');
+		$this->setValueIfExists('description');
 		$this->setValueIfExists('ajaxPartialPath');
 
 		$this->setValueIfExistsAndNotNothing('defaultValue');
@@ -689,6 +698,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		return $this->showRowCount;
 	}
 
+
+
 	/**
 	 * @return string
 	 */
@@ -705,6 +716,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 */
 	public function getCacheRendering() {
 		return $this->cacheRendering;
+	}
+
+
+
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
 	}
 
 }

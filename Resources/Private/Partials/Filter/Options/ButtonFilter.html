@@ -26,7 +26,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 				<f:form.submit id="{filter.filterIdentifier}" class="{f:if(condition:'{option.selected}' then:'active')}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" />
 			</div>
 		</f:for>
-	
+		<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
 		<f:if condition="{filter.filterConfig.invertable}">
 			<div class="field-wrapper type-button">
 				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
