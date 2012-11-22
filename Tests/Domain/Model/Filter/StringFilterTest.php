@@ -131,7 +131,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 	}
 
 
-	public function testCreateQuery() {
+	/**
+	 * @test
+	 */
+	public function createQuery() {
 		$filter = $this->getStringFilterInstance();
 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
@@ -147,7 +150,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 	}
 
 
-	public function testValidate() {
+	/**
+	 * @test
+	 */
+	public function filterIsValid() {
 		$filter = $this->getStringFilterInstance();
 		$this->assertTrue($filter->validate() == true);
 	}
@@ -194,10 +200,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 	}
 
 
-	public function filterValueDataProvider() {
-
-	}
-
 
 	/**
 	 * DataProvider
@@ -221,17 +223,106 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 	 * @param $expected
 	 */
 	public function splitTokensAreSetByInitFilterByTsConfig($config, $expected) {
-		$additionalSettings = array('splitAndToken' => $config, 'splitOrToken' => $config);
+		$additionalSettings = array('andToken' => $config, 'orToken' => $config);
 
 		$filter = $this->getStringFilterInstance($additionalSettings);
 		$filter->_call('initFilterByTsConfig');
 
-		$this->assertEquals($expected, $filter->_get('splitAndToken'));
-		$this->assertEquals($expected, $filter->_get('splitOrToken'));
+		$this->assertEquals($expected, $filter->_get('andToken'));
+		$this->assertEquals($expected, $filter->_get('orToken'));
+	}
+
+
+	/**
+	 * Data provider for filter values
+	 * @return array
+	 */
+	public function filterValueDataProvider() {
+		return array(
+			'simpleValueNoToken' => 				array('value' => 'test', 			'andToken' => '', 		'orToken' => '', 	'expected' => array('test'), 			'expectedSQL' => 'table1.field1 LIKE "%test%"'),
+			'2ValuesNoToken' => 					array('value' => 'test test2', 		'andToken' => '', 		'orToken' => '', 	'expected' => array('test test2'), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
+			'2ValuesNoTokenButAndTokenGiven' => 	array('value' => 'test test2', 		'andToken' => 'and', 	'orToken' => '', 	'expected' => array(array('test test2')), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
+			'2ValuesNoTokenButOrTokenGiven' => 		array('value' => 'test test2', 		'andToken' => '', 		'orToken' => 'or', 	'expected' => array(array('test test2')), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
+			'2ValuesNoTokenButBothTokenGiven' => 	array('value' => 'test test2', 		'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test test2')), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
+			'2ValuesOrConcatenated' => 				array('value' => 'test or test2', 	'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test'), array('test2')), 	'expectedSQL' => '(table1.field1 LIKE "%test%") OR (table1.field1 LIKE "%test2%")'),
+			'2ValuesAndConcatenated' => 			array('value' => 'test and test2', 	'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test', 'test2')), 'expectedSQL' => '(table1.field1 LIKE "%test%") AND (table1.field1 LIKE "%test2%")'),
+			'3ValuesOrAndConcatenated' => 			array('value' => 'test or test2 and test3', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test'), array('test2', 'test3')), 'expectedSQL' => '(table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") AND (table1.field1 LIKE "%test3%"))'),
+			'3ValuesAndOrConcatenated' => 			array('value' => 'test and test2 or test3', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test', 'test2'), array('test3')), 'expectedSQL' => '((table1.field1 LIKE "%test%") AND (table1.field1 LIKE "%test2%")) OR (table1.field1 LIKE "%test3%")'),
+			'4ValuesAndOrConcatenated' => 			array('value' => 'test or test2 and test3 or test4', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test'), array('test2', 'test3'), array('test4')), 'expectedSQL' => '((table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") AND (table1.field1 LIKE "%test3%"))) OR (table1.field1 LIKE "%test4%")'),
+			'4ValuesOrAndConcatenated' => 			array('value' => 'test and test2 or test3 and test4', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test','test2'), array('test3', 'test4')), 'expectedSQL' => '((table1.field1 LIKE "%test%") AND (table1.field1 LIKE "%test2%")) OR ((table1.field1 LIKE "%test3%") AND (table1.field1 LIKE "%test4%"))'),
+		);
+	}
+
+
+	/**
+	 * @test
+	 * @dataProvider filterValueDataProvider
+	 *
+	 * @param $value
+	 * @param $andToken
+	 * @param $orToken
+	 * @param $expected
+	 * @param $expectedSQL
+	 */
+	public function prepareFilterValue($value, $andToken, $orToken, $expected, $expectedSQL = '') {
+		$additionalSettings = array('andToken' => $andToken, 'orToken' => $orToken);
+
+		$filter = $this->getStringFilterInstance($additionalSettings);
+		$filter->_call('initFilterByTsConfig');
+
+		$actual = $filter->_call('prepareFilterValue', $value);
+		$this->assertEquals($expected, $actual);
 	}
 
 
 
+	/**
+	 * @test
+	 * @dataProvider filterValueDataProvider
+	 *
+	 * @param $value
+	 * @param $andToken
+	 * @param $orToken
+	 * @param $expected
+	 * @param string $expectedSQL
+	 */
+	public function buildFilterCriteria($value, $andToken, $orToken, $expected, $expectedSQL = '') {
+
+		$additionalSettings = array('andToken' => $andToken, 'orToken' => $orToken);
+
+		$filter = $this->getStringFilterInstance($additionalSettings);
+		$filter->_set('filterValue', $value);
+		$filter->_call('initFilterByTsConfig');
+
+		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'testField', array('table' => 'table1', 'field' => 'field1'));
+
+		$actualCriteria = $filter->_call('buildFilterCriteria', $fieldConfig);
+
+		$this->assertInstanceOf('Tx_PtExtlist_Domain_QueryObject_Criteria', $actualCriteria);
+
+		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
+		$query->addCriteria($actualCriteria);
+
+		$actualSQL = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getCriterias($query);
+
+		$this->assertEquals($expectedSQL, $actualSQL);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function buildFilterCriteriaForSingleValue() {
+
+		$filter = $this->getStringFilterInstance();
+		$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'testField', array('table' => 'table1', 'field' => 'field1'));
+
+		$criteria = $filter->_call('buildFilterCriteriaForSingleValue','testValue', $fieldConfig);
+
+
+		$this->assertInstanceOf('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria', $criteria);
+	}
 
 
 

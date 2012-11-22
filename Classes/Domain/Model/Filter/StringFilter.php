@@ -45,13 +45,13 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	/**
 	 * @var string
 	 */
-	protected $splitOrToken;
+	protected $orToken;
 
 
 	/**
 	 * @var string
 	 */
-	protected $splitAndToken;
+	protected $andToken;
 
 
 	protected function initFilterByTsConfig() {
@@ -63,16 +63,17 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 			$this->exactMatch = (int) $this->filterConfig->getSettings('exactMatch') == 1 ? TRUE : FALSE;
 		}
 
-		if(array_key_exists('splitOrToken', $settings) && $settings['splitOrToken']) {
-			$token = $settings['splitOrToken'];
-			$this->splitOrToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
+		if(array_key_exists('orToken', $settings) && $settings['orToken']) {
+			$token = $settings['orToken'];
+			$this->orToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
 		}
 
-		if(array_key_exists('splitAndToken', $settings) && $settings['splitAndToken']) {
-			$token = $settings['splitAndToken'];
-			$this->splitAndToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
+		if(array_key_exists('andToken', $settings) && $settings['andToken']) {
+			$token = $settings['andToken'];
+			$this->andToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
 		}
 	}
+
 
 
 	/**
@@ -83,25 +84,114 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     	
     	if ($this->filterValue == '') return NULL; 
 
+
     	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
-        if($this->exactMatch) {
-            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue);
-        } else {
-            $filterValue = '%'.$this->filterValue.'%';
-    	    $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);
-        }
+		if($this->orToken || $this->andToken) {
+			$filterValueArray = $this->prepareFilterValue($this->filterValue);
+			$criteria = $this->buildOrCriteria($fieldName, $filterValueArray);
+		} else {
+			$criteria = $this->buildFilterCriteriaForSingleValue($fieldName, $this->filterValue);
+		}
 
     	return $criteria;
     }
 
 
-	protected function prepareFilterValue($filterValue) {
+	/**
+	 * @param $fieldName
+	 * @param $orLevelArray
+	 * @return null|Tx_PtExtlist_Domain_QueryObject_AndCriteria|Tx_PtExtlist_Domain_QueryObject_OrCriteria|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
+	protected function buildOrCriteria($fieldName, $orLevelArray) {
 
-		if($this->filterConfig->getSettings('splitOr')) {
+		$criteria = NULL;
 
+		foreach ($orLevelArray as $andLevelArray) {
+			$singleORCriteria = $this->buildAndCriteria($fieldName, $andLevelArray);
+
+			if ($criteria) {
+				$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria, $singleORCriteria);
+			} else {
+				$criteria = $singleORCriteria;
+			}
 		}
 
+		return $criteria;
+	}
+
+
+
+	/**
+	 * @param $fieldName
+	 * @param $andLevelArray
+	 * @return null|Tx_PtExtlist_Domain_QueryObject_AndCriteria|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
+	public function buildAndCriteria($fieldName, $andLevelArray) {
+
+		$criteria = NULL;
+
+		foreach ($andLevelArray as $singleValue) {
+			$singleAndCriteria = $this->buildFilterCriteriaForSingleValue($fieldName, $singleValue);
+
+			if ($criteria) {
+				$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria, $singleAndCriteria);
+			} else {
+				$criteria = $singleAndCriteria;
+			}
+		}
+
+		return $criteria;
+	}
+
+
+
+	/**
+	 * @param $fieldName
+	 * @param $filterValue
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
+	protected function buildFilterCriteriaForSingleValue($fieldName, $filterValue) {
+
+		if($this->exactMatch) {
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $filterValue);
+		} else {
+			$filterValue = '%'.$filterValue.'%';
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);
+		}
+
+		return $criteria;
+	}
+
+
+
+	/**
+	 * Creates an array of splitted or / and parts from a filterValue
+	 *
+	 * @param $filterValue
+	 * @return array|mixed
+	 */
+	protected function prepareFilterValue($filterValue) {
+
+		if($this->orToken && !$this->andToken) {
+			$valueArray = t3lib_div::trimExplode($this->orToken, $filterValue);
+			foreach($valueArray as &$value) {
+				$value = array($value);
+			}
+		} elseif (!$this->orToken && $this->andToken) {
+			$valueArray = array(t3lib_div::trimExplode($this->andToken, $filterValue));
+		} elseif($this->orToken && $this->andToken) {
+			$valueArray = t3lib_div::trimExplode($this->orToken, $filterValue);
+
+			foreach($valueArray as &$orValue) {
+				$orValue = t3lib_div::trimExplode($this->andToken, $orValue);
+			}
+
+		} else {
+			$valueArray = array($filterValue);
+		}
+
+		return $valueArray;
 	}
 }
 ?>

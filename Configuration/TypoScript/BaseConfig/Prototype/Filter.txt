@@ -25,7 +25,8 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/String/StringFilter
 
 		exactMatch = 0
-		splitOrToken = | |
+		orToken =
+		andToken =
 
 		defaultValue =
 		accessGroups =
