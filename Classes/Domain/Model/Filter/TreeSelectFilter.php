@@ -88,13 +88,6 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		if ($this->filterConfig->getSettings('treeMaxDepth')) {
 			$this->treeMaxDepth = $this->filterConfig->getSettings('treeMaxDepth');
 		}
-
-		if ($this->filterConfig->getSettings('treeUidFieldIdentifier')) {
-			$fieldIdentifierName = $this->filterConfig->getSettings('treeUidFieldIdentifier');
-			$this->treeUidFieldIdentifier = $this->fieldIdentifierCollection->getFieldConfigByIdentifier($fieldIdentifierName);
-		} else {
-			$this->treeUidFieldIdentifier = $this->fieldIdentifierCollection->getItemByIndex(0);
-		}
 	}
 
 

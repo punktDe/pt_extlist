@@ -280,7 +280,6 @@ plugin.tx_ptextlist.prototype.filter {
 		treeNamespace =
 		treeMaxDepth =
 		treeRootNode =
-		# treeUidFieldIdentifier =
 
 		renderObj = TEXT
 		renderObj {
