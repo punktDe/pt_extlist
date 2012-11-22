@@ -270,7 +270,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 			'listHeader' => $this->getList()->getListHeader(),
 			'listCaptions' => $this->getRenderedCaptions(),
 			'listData' => $this->getRenderedListData(),
-			'aggregateRows' => $this->getRenderedAggregateRows()
+			'aggregateRows' => $this->getRenderedAggregateRows(),
+			'pagerCollection' => $this->getPagerCollection(),
+			'pager' => $this->getPager(),
+			'filterbox' => $this->getFilterBoxCollection()->getItemByIndex(0),
 		);
 
 		return $viewParts;

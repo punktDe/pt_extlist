@@ -1731,6 +1731,8 @@ Generated SQL: (table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") 
 																			<ENTRY KEY="ExplicitSQLQuery">
 																				<DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
 																				<EXAMPLE><![CDATA[
+
+# Example 1
 selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 	partialPath = Filter/Options/SelectFilter
 	filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
@@ -1744,7 +1746,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 		limit =
 	}
 }
-																				]]></EXAMPLE>
+																			]]></EXAMPLE>
 																				<CHILDREN>
 																					<ENTRY KEY="select">
 																						<DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
@@ -1763,6 +1765,53 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																					</ENTRY>
 																					<ENTRY KEY="limit">
 																						<DESCRIPTION>The LIMIT part of the query.</DESCRIPTION>
+																					</ENTRY>
+																				</CHILDREN>
+																			</ENTRY>
+																		</VARIANT>
+																		<VARIANT>
+																			<ENTRY KEY="ExplicitData">
+																				<DESCRIPTION>This data provider allows you to define options for a select filter.</DESCRIPTION>
+																				<EXAMPLE><![CDATA[
+
+  filters {
+  		filterbox {
+  			filterConfigs {
+  				10 < plugin.tx_ptextlist.prototype.filter.select
+  				10 {
+  					label = Abgeschlossen?
+  					filterIdentifier = finishedFilter
+  					fieldIdentifier = finished
+ 
+  					inactiveOption = Alle
+  					inactiveValue = ----alle----
+ 
+  					dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
+ 
+  					options {
+  						10 {
+  							key = 0
+  							value = nein
+  						}
+  						20 {
+  							key = 1
+ 						 	value = ja
+  						}
+  					}
+ 
+ 				 	renderObj {
+  						dataWrap = {field:allDisplayFields}
+  					}
+ 
+  					showRowCount = 0
+  				}
+  			}
+  		}
+  }
+																			]]></EXAMPLE>
+																				<CHILDREN>
+																					<ENTRY KEY="options">
+																						<DESCRIPTION>A key/value list of options</DESCRIPTION>
 																					</ENTRY>
 																				</CHILDREN>
 																			</ENTRY>
@@ -2325,7 +2374,52 @@ agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialP
 											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE></EXAMPLE>
-											<CHILDREN></CHILDREN>
+											<CHILDREN>
+                                                <ENTRY KEY="stripTags">
+                                                    <DESCRIPTION>Remove HTML Tags from content.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>1</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="doBodyCellStyling">
+                                                    <DESCRIPTION>Use the cell style configuration from the column configuration to style the body part of the list. This tremendously decreases the render performance. Therefore it is not suitable for big lists > 10k lines.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFilterStates">
+                                                    <DESCRIPTION>Render a block with the filter states of the list to the table header.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFreeText">
+                                                    <DESCRIPTION>If set, render this free text to the head of the list.</DESCRIPTION>
+                                                    <DATATYPE>String</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT></DEFAULT>
+                                                    <COBJ>1</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+											</CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
 										<ENTRY KEY="pdfExport">

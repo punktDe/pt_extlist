@@ -142,7 +142,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 		if($this->freeText) $this->renderFreeText();
 		if($this->renderFilterStates === TRUE) $this->renderFilterStates();
-		
+
 		$this->renderPreHeaderRows();
 
 		$this->renderHeader();
