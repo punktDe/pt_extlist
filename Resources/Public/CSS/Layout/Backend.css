@@ -73,3 +73,23 @@
 .tx-ptextlist-pager-item-display .first, .tx-ptextlist-pager-item-display .last, .tx-ptextlist-pager-item-display .count {
     color: #707070;
 }
+
+.tx-ptextlist-filter {
+    padding: 3px;
+    margin: 0;
+    list-style-type: none !important;
+    background: none;
+    border: none;
+}
+
+label {
+    font-weight: bold;
+    color: #393939;
+    float:left;
+    width:150px;
+}
+
+input[type="text"], input[type="password"], textarea, select {
+    border: 1px solid #BFBFBF;
+    line-height: 1.4em;
+}

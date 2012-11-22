@@ -173,6 +173,20 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 */
 	protected function prepareFilterValue($filterValue) {
 
+		/*
+		 * Changes to use space as or token
+		 */
+		$filterValue = str_replace('  ', ' ', $filterValue);
+		if($this->andToken) {
+			$filterValue = str_replace(array(' ' . $this->andToken, ' ' . $this->andToken . ' ', $this->andToken . ' '), $this->andToken, $filterValue);
+		}
+		if($this->orToken) {
+			$filterValue = str_replace(array(' ' . $this->orToken, ' ' . $this->orToken . ' ', $this->orToken . ' '), $this->orToken, $filterValue);
+		}
+
+		/*
+		 * Explode to array structure
+		 */
 		if($this->orToken && !$this->andToken) {
 			$valueArray = t3lib_div::trimExplode($this->orToken, $filterValue);
 			foreach($valueArray as &$value) {
