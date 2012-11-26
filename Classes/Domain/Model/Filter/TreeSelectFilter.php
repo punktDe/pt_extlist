@@ -104,6 +104,18 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
+	 * @return array
+	 */
+	public function persistToSession() {
+		return array(
+			'filterValues' => array(1 => implode(',',$this->filterValues)),
+			'invert' => $this->invert
+		);
+	}
+
+
+
+	/**
 	 * @return string
 	 */
 	public function getTreeNodes() {
@@ -118,12 +130,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 */
 	protected function buildTreeNodes() {
 
-		$treeRepositoryBuilder = Tx_PtExtbase_Tree_TreeRepositoryBuilder::getInstance();
-		$treeRepositoryBuilder->setNodeRepositoryClassName($this->treeNodeRepository);
+		$tree = $this->buildTree();
 
-		$treeRepository = $treeRepositoryBuilder->buildTreeRepository();
-
-		$tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
 		if ($this->filterConfig->getSettings('treeRootNode')) {
 			$subTreeRootNode = $tree->getNodeByUid($this->filterConfig->getSettings('treeRootNode'));
 			$tree = Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($subTreeRootNode);
@@ -144,6 +152,22 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		$jsonTreeWriter = new Tx_PtExtbase_Tree_JsonTreeWriter(array($arrayWriterVisitor), $arrayWriterVisitor);
 
 		return $jsonTreeWriter->writeTree($tree);
+	}
+
+
+
+	/**
+	 * @return Tx_PtExtbase_Tree_Tree
+	 */
+	protected function buildTree() {
+		$treeRepositoryBuilder = Tx_PtExtbase_Tree_TreeRepositoryBuilder::getInstance();
+		$treeRepositoryBuilder->setNodeRepositoryClassName($this->treeNodeRepository);
+
+		$treeRepository = $treeRepositoryBuilder->buildTreeRepository();
+
+		$tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
+
+		return $tree;
 	}
 
 
@@ -206,7 +230,28 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	public function getMultiple() {
 		return $this->multiple;
 	}
-	
+
+
+
+	/**
+	 * @return string
+	 */
+	public function getDisplayValue() {
+		$tree = $this->buildTree();
+
+		$options = $this->getOptions();
+		$displayValues = array();
+
+		foreach($options as $key => $option) {
+			if($option['selected'] === TRUE) {
+				$displayValues[] = $tree->getNodeByUid($key)->getLabel();
+			}
+		}
+
+		return implode(', ', $displayValues);
+	}
+
+
 }
 
 ?>
