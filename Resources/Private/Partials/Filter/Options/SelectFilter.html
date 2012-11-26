@@ -27,7 +27,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 		<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
 
 		<f:if condition="{filter.filterConfig.invertable}">
-			<div class="field-wrapper type-checkbox">
+			<div class="field-wrapper type-select">
 				<f:form.checkbox name="{extlist:namespace.FormElementName(object:filter, property:'invert')}" value="1" checked="{filter.invert}" />
 				<label>
 					<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:filter.invert" />
