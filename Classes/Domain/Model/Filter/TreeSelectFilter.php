@@ -61,6 +61,12 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
+	 * @var int
+	 */
+	protected $treeRootNode = NULL;
+
+
+	/**
 	 * @var array
 	 */
 	protected $options;
@@ -88,6 +94,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		if ($this->filterConfig->getSettings('treeMaxDepth')) {
 			$this->treeMaxDepth = $this->filterConfig->getSettings('treeMaxDepth');
 		}
+
+		if(array_key_exists('treeRootNode', $this->filterConfig->getSettings())) {
+			$this->treeRootNode = (int) $this->filterConfig->getSettings('treeRootNode');
+		}
+
 	}
 
 
@@ -132,8 +143,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		$tree = $this->buildTree();
 
-		if ($this->filterConfig->getSettings('treeRootNode')) {
-			$subTreeRootNode = $tree->getNodeByUid($this->filterConfig->getSettings('treeRootNode'));
+		if ($this->treeRootNode) {
+			$subTreeRootNode = $tree->getNodeByUid($this->treeRootNode);
 			$tree = Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($subTreeRootNode);
 		}
 
