@@ -379,7 +379,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function stdWrapIfPlainArray($tsConfigValue) {
 		if(!is_array($tsConfigValue)) return $tsConfigValue;
 
-		$tsArray = Tx_PtExtbase_Compatibitity_Typoscript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
+		$tsArray = Tx_PtExtbase_Compatibility_Typoscript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
 		$content = self::getCobj()->cObjGetSingle($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
 
 		return $content;
@@ -396,7 +396,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function renderCObjectWithPlainArray($tsConfigValue) {
 		if(!is_array($tsConfigValue) && array_key_exists('cObject', $tsConfigValue)) return $tsConfigValue;
 		
-		$tsArray = Tx_PtExtbase_Compatibitity_Typoscript::convertPlainArrayToTypoScriptArray($tsConfigValue);
+		$tsArray = Tx_PtExtbase_Compatibility_Typoscript::convertPlainArrayToTypoScriptArray($tsConfigValue);
 
 		return self::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
 	}

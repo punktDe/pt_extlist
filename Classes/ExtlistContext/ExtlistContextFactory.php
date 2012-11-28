@@ -258,7 +258,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	protected static function getTyposcriptOfCurrentBackendPID() {
 		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager');
 		$completeTS = $configurationManager->getTypoScriptSetup();
-		return Tx_PtExtbase_Compatibitity_Typoscript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+		return Tx_PtExtbase_Compatibility_Typoscript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
 
 
@@ -272,7 +272,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager');
 		$completeTS = $configurationManager->getTypoScriptSetup();
-		return Tx_PtExtbase_Compatibitity_Typoscript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+		return Tx_PtExtbase_Compatibility_Typoscript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
 
 }

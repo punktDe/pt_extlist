@@ -121,7 +121,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		}
 
 		if (array_key_exists('renderObj', $this->settings)) {
-			$this->renderObj = Tx_PtExtbase_Compatibitity_Typoscript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+			$this->renderObj = Tx_PtExtbase_Compatibility_Typoscript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
 		}
 	}
 

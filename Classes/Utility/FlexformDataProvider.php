@@ -110,9 +110,10 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	
 	
 	/**
-	 * set the current pid from config array
+	 * get the current pid from config array
 	 * 
 	 * @param array $config
+	 * @return int
 	 */
 	protected function getCurrentPID($config) {
 		return (int) $config['row']['pid'];
@@ -125,15 +126,17 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	protected function loadExtListTyposcriptArray() {
 		if(is_null($this->extListTypoScript)) {
 			$extListTS = Tx_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
-			$this->extListTypoScript =  Tx_PtExtbase_Compatibitity_Typoscript::convertTypoScriptArrayToPlainArray($extListTS);
+			$this->extListTypoScript =  Tx_PtExtbase_Compatibility_Typoscript::convertTypoScriptArrayToPlainArray($extListTS);
 		}
 	}
 	
-	
+
+
 	/**
 	 * Return a list of typoscript keys beneath the current path
 	 * 
-	 * @param unknown_type $typoScriptPath
+	 * @param string $typoScriptPath
+	 * @return array
 	 */
 	protected function getTypoScriptKeyList($typoScriptPath) {
 		
@@ -148,7 +151,8 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 
 		return $keyList;
 	}
-	
+
+
 	
 	/**
 	 * return a typoscript array by given typoscript path
