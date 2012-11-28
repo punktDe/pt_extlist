@@ -364,7 +364,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		}
 		
 		if(array_key_exists('renderObj', $this->settings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+        	$this->renderObj = Tx_PtExtbase_Compatibitity_Typoscript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
         }
         
 		if(array_key_exists('accessGroups', $this->settings)) {

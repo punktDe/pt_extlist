@@ -124,7 +124,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		$cellCSSConfig = $columnConfig->getCellCSSClass();
 		
 		if(is_array($cellCSSConfig)) {
-			$renderObj = 			array_key_exists('renderObj', $cellCSSConfig) 			? Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : NULL;
+			$renderObj = 			array_key_exists('renderObj', $cellCSSConfig) 			? Tx_PtExtbase_Compatibitity_Typoscript::convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : NULL;
 			$renderUserFunction = 	array_key_exists('renderUserFunction', $cellCSSConfig) 	? $cellCSSConfig['renderUserFunction'] : NULL;
 			
 			return Tx_PtExtlist_Utility_RenderValue::render($fieldSet, $renderObj, $renderUserFunction);
