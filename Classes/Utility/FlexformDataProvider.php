@@ -126,7 +126,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	protected function loadExtListTyposcriptArray() {
 		if(is_null($this->extListTypoScript)) {
 			$extListTS = Tx_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
-			$this->extListTypoScript =  Tx_PtExtbase_Compatibility_Typoscript::convertTypoScriptArrayToPlainArray($extListTS);
+			$this->extListTypoScript =  Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
 		}
 	}
 	

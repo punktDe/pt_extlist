@@ -158,7 +158,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 		$tsSettings = $parserInstance->setup;
 
-		$typoScript = Tx_PtExtbase_Compatibility_Typoscript::convertTypoScriptArrayToPlainArray($tsSettings);
+		$typoScript = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
 
 		return $typoScript['plugin']['tx_ptextlist'];
 	}
