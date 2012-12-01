@@ -21,8 +21,8 @@ $controllerActions = array(															// An array holding the controller-act
 	'AjaxFilter' => 'getFilterElement'
 );
 
-		
-		
+
+
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
 	'Pi1',																			// A unique name of the plugin in UpperCamelCase

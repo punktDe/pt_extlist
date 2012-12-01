@@ -124,7 +124,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCa
 		
 		$tsSettings = $parserInstance->setup;
 
-		$settings = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
+		$settings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
 		
 		$settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
 		

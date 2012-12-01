@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
-		$repository = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get($dataBackendSettings['repositoryClassName']);
+		$repository = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get($dataBackendSettings['repositoryClassName']);
 		return $repository;
 	}
 	
