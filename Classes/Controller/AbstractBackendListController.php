@@ -134,6 +134,15 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 
 
 	/**
+	 * Alias action to use the unmodified pager templates
+	 */
+	public function showAction() {
+		$this->forward('list');
+	}
+
+
+
+	/**
 	 * List action rendering list
 	 *
 	 * @return string  Rendered list for given list identifier
