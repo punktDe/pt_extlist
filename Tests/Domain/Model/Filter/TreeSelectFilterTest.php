@@ -79,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 				'fieldIdentifier' => 'field1',
 				'filterField' => 'field2',
 				'displayFields' => 'field1',
-				'treeNodeRepository' => __CLASS__,
+				'treeNodeRepository' => 'Tx_PtExtbase_Tree_NodeRepository',
 				'multiple' => 1
 			), 'test');
 
@@ -191,6 +191,78 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	}
 
 
+	/**
+	 * @test
+	 */
+	public function getSubTreeUIDs() {
+
+		$tree = $this->createDemoTree();
+		$this->accessibleFilterProxy->_set('tree', $tree);
+
+		$resultUIds = $this->accessibleFilterProxy->_call('getSubTreeUIDs', 2);
+
+		$this->assertEquals(array(3,4), $resultUIds);
+	}
+
+
+	public function getFilterNodeUidTestDataProvider() {
+		return array(
+			'singleValueLeafNode' => array('values' => array(6), 'expected' => array(6)),
+			'multipleValueLeafNodes' => array('values' => array(6,4), 'expected' => array(6,4)),
+			'singleValueBranchNode' => array('values' => array(5), 'expected' => array(5,6)),
+			'multiValueBranchNodes' => array('values' => array(5,2), 'expected' => array(5,6,2,3,4)),
+			'handleDuplicates' => array('values' => array(2,3), 'expected' => array(2,3,4)),
+		);
+	}
+
+
+	/**
+	 * @test
+	 * @dataProvider getFilterNodeUidTestDataProvider
+	 *
+	 * @param $values
+	 * @param $expected
+	 */
+	public function getFilterNodeUIds($values, $expected) {
+		$tree = $this->createDemoTree();
+
+		$this->accessibleFilterProxy->_set('tree', $tree);
+		$this->accessibleFilterProxy->_set('filterValues', $values);
+
+		$actual = $this->accessibleFilterProxy->_call('getFilterNodeUIds');
+
+		$this->assertEquals(sort($expected), sort($actual));
+	}
+
+
+
+	/**
+	 * @return Tx_PtExtbase_Tree_Tree
+	 *
+	 * A tree like
+	 * . node1
+	 * .. node2
+	 * ... node3
+	 * ... node4
+	 * .. node5
+	 * ... node6
+	 */
+	protected function createDemoTree() {
+		$node1 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('1', 0, 0, 1, '1');
+		$node2 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('2', 0, 0, 1, '2');
+		$node3 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('3', 0, 0, 1, '3');
+		$node4 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('4', 0, 0, 1, '4');
+		$node5 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('5', 0, 0, 1, '5');
+		$node6 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('6', 0, 0, 1, '6');
+
+		$node1->addChild($node2); $node2->setParent($node1);
+		$node1->addChild($node5); $node5->setParent($node1);
+		$node2->addChild($node3); $node3->setParent($node2);
+		$node2->addChild($node4); $node4->setParent($node2);
+		$node5->addChild($node6); $node6->setParent($node5);
+
+		return Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($node1);
+	}
 
 
 
