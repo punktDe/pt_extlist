@@ -125,9 +125,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	 * @test
 	 */
 	public function filterTransformsFilterValuesSingle() {
-		$this->accessibleFilterProxy->_set('filterValues', '5');
-		$this->accessibleFilterProxy->initFilter();
-		$this->assertEquals('5', $this->accessibleFilterProxy->_get('filterValues'));
+		$this->accessibleFilterProxy->_set('filterValues', array(5));
+		$this->accessibleFilterProxy->_call('initFilter');
+		$this->assertEquals(array(5), $this->accessibleFilterProxy->_get('filterValues'));
 	}
 
 
@@ -135,60 +135,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	 * @test
 	 */
 	public function filterTransformsFilterValuesMultiple() {
-		$this->accessibleFilterProxy->_set('filterValues', array('5,4,8'));
+		$this->accessibleFilterProxy->_set('filterValues', array(5,4,8));
 		$this->accessibleFilterProxy->_set('multiple', true);
-		$this->accessibleFilterProxy->initFilter();
+		$this->accessibleFilterProxy->_call('initFilter');
 		$this->assertEquals(array(5,4,8), $this->accessibleFilterProxy->_get('filterValues'));
 	}
 
-
-	/**
-	 * @test
-	 */
-	public function getSelectionMultiple() {
-
-		$options = array(
-			1 => array(
-				'rowCount' => '3378',
-				'value' => 'Test Value 1',
-				'selected' => TRUE),
-			4 => array(
-				'rowCount' => '4711',
-				'value' => 'Test Value 2',
-				'selected' => TRUE),
-		);
-
-		$this->accessibleFilterProxy->_set('options', $options);
-		$this->accessibleFilterProxy->_set('multiple', 1);
-		$result = $this->accessibleFilterProxy->_call('getSelection');
-
-		$this->assertEquals(array(1,4), $result);
-	}
-
-
-
-	/**
-	 * @test
-	 */
-	public function getSelectionSingle() {
-
-		$options = array(
-			1 => array(
-				'rowCount' => '3378',
-				'value' => 'Test Value 1',
-				'selected' => FALSE),
-			4 => array(
-				'rowCount' => '4711',
-				'value' => 'Test Value 2',
-				'selected' => TRUE),
-		);
-
-		$this->accessibleFilterProxy->_set('options', $options);
-		$this->accessibleFilterProxy->_set('multiple', 0);
-		$result = $this->accessibleFilterProxy->_call('getSelection');
-
-		$this->assertEquals('4', $result);
-	}
 
 
 	/**

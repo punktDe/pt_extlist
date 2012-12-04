@@ -79,6 +79,12 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
+	 * @var bool
+	 */
+	protected $treeRespectEnableFields = TRUE;
+
+
+	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
 	 *
 	 */
@@ -102,6 +108,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		if(array_key_exists('treeRootNode', $this->filterConfig->getSettings())) {
 			$this->treeRootNode = (int) $this->filterConfig->getSettings('treeRootNode');
+		}
+
+
+		if(array_key_exists('treeRespectEnableFields', $this->filterConfig->getSettings())) {
+			$this->treeRespectEnableFields = (int) $this->filterConfig->getSettings('treeRespectEnableFields') === 1 ? TRUE : FALSE;
 		}
 
 
@@ -215,6 +226,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		$treeRepositoryBuilder->setNodeRepositoryClassName($this->treeNodeRepository);
 
 		$treeRepository = $treeRepositoryBuilder->buildTreeRepository();
+		$treeRepository->setRespectEnableFields($this->treeRespectEnableFields);
 
 		$this->tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
 	}
@@ -236,7 +248,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 	/**
 	 * @param $node Tx_PtExtbase_Tree_Node
-	 * @param $nodeArray array
+	 * @param $currentNode array
 	 * @return array
 	 */
 	public function alterNodeArrayOnLastVisit($node, $currentNode) {
@@ -245,7 +257,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 			$currentNode['rowCount'] += $child['rowCount'];
 		}
 
-		$currentNode['text'] .= sprintf(' (%s)',$currentNode['rowCount']);
+		$currentNode['text'] .= sprintf(' (%s)',(int) $currentNode['rowCount']);
 
 		return $currentNode;
 	}
