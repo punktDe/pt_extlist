@@ -50,6 +50,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	protected static $extListTyposcript = NULL;
 
 
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected static $objectManager;
+
 
 	/**
 	 * Initialize and return a DataBackend with the given listIndentifier
@@ -60,6 +65,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	public static function getContextByListIdentifier($listIdentifier) {
 
 		if(!array_key_exists($listIdentifier, self::$instances)) {
+
+			self::$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 
@@ -178,12 +185,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extlistContext
 	 */
 	protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$extlistContext = new Tx_PtExtlist_ExtlistContext_ExtlistContext();
+		$extListContext = self::$objectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext');
 
-		$extlistContext->injectDataBackend($dataBackend);
-		$extlistContext->init();
+		$extListContext->_injectDataBackend($dataBackend);
+		$extListContext->init();
 		
-		return $extlistContext;
+		return $extListContext;
 	}
 
 
