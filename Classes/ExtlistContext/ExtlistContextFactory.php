@@ -114,6 +114,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 		
 		if(!array_key_exists($listIdentifier, self::$instances) || !$useCache) {
 
+			self::$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+
 			if($useCache) {
 
 				try {
