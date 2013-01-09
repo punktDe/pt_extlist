@@ -34,6 +34,14 @@
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
+
+	/**
+	 * @var Tx_PtExtlist_Extbase_ExtbaseContext
+	 */
+	protected $extBaseContext;
+
+
+
 	/**
 	 * Holds an instance of list configuration for this context
 	 *
@@ -100,6 +108,23 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function init() {
 	}
 
+
+	/**
+	 * @param Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext
+	 */
+	public function injectExtBaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext) {
+		$this->extBaseContext = $extBaseContext;
+	}
+
+
+	/**
+	 * Inject the Databackend
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 */
+	public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$this->dataBackend = $dataBackend;
+	}
 
 
 	/**
@@ -298,14 +323,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
-
 	/**
-	 * Inject the Databackend
-	 *
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 * @return \Tx_PtExtlist_Extbase_ExtbaseContext
 	 */
-	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$this->dataBackend = $dataBackend;
+	public function getExtBaseContext() {
+		return $this->extBaseContext;
 	}
 
 }

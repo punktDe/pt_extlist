@@ -12,6 +12,7 @@ pt_extlist offers several exporters for lists. You can select from a list of pre
  #. You have to include a static template for export settings on the page you want to export list data. Go to the Template module and modify the template of the page. Switch to the "Includes" tab of your template record and select "\[pt_extlist] Export settings (pt_extlist)". Save your template and switch to page module.
 
 .. figure:: Images/integrators_guide_1_1.jpg
+	:scale: 50%
 
 Inclusion of static template for export
 
@@ -20,12 +21,14 @@ Inclusion of static template for export
  #. Switch to the "General Options" tab and select list identifier of the list you want to export. Select "Export" as Plugin Type.
 
 .. figure:: Images/integrators_guide_1_2.jpg
+	:scale: 50%
 
 Set plugin type to "Export"
 
  #. Switch to the "Export Settings" tab and select list identifier of the list you want to export. Select Export Type and Download Type. Hint: If you cannot select an Export Type, you most likely forgot to include static template for export on the page you are currently working. See step 2!
 
 .. figure:: Images/integrators_guide_1_3.jpg
+	:scale: 50%
 
 Configuration for exporting a list as Excel sheet
 

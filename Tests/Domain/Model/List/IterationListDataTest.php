@@ -132,9 +132,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 
 		$counter = 0;
 
-
-		error_log('START');
-
 		foreach($this->fixture as $row) {
 			$counter++;
 			$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row, 'Returned false in Iteration ' . $counter);
