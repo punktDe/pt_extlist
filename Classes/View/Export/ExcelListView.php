@@ -114,22 +114,6 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected $freeText = array();
 
 
-	/**
-	 * @var Tx_Extbase_Service_TypoScriptService
-	 */
-	protected $typoScriptService;
-
-
-
-	/**
-	 * @param Tx_Extbase_Service_TypoScriptService $typoScriptService
-	 * @return void
-	 */
-	public function injectTypoScriptService(Tx_Extbase_Service_TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-	}
-
-
 
 	/**
 	 * Overwriting the render method to generate Excel output
