@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Doma
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 	}
 	
 	

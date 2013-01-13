@@ -68,9 +68,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		// TODO remove this after refactoring!
-        parent::injectConfiguration($rendererConfiguration);
+        parent::_injectConfiguration($rendererConfiguration);
         $this->initRowRenderer();
         $this->initCaptionRenderer();
     }

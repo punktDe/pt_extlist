@@ -49,7 +49,7 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$this->rendererConfiguration = $rendererConfiguration;
 	}
 	
