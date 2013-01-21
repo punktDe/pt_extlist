@@ -45,8 +45,6 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 
-		// TODO check whether we should use singleton here
-
 		$dataMapper = new $dataMapperClassName($configurationBuilder);
 		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 

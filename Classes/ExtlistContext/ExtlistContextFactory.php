@@ -110,7 +110,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @param $useCache boolean
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = true) {
+	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE) {
 		
 		if(!array_key_exists($listIdentifier, self::$instances) || !$useCache) {
 
@@ -125,7 +125,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 				}
 
 			} else {
-				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, true);
+				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, TRUE);
 			}
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder, !$useCache);
@@ -170,7 +170,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @param boolean $resetConfigurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = false) {
+	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = FALSE) {
 		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
 		self::loadLifeCycleManager();
 
