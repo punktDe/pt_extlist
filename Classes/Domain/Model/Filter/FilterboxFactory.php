@@ -59,21 +59,21 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 	
 	
 	/**
-	 * Factory method for filter boxes. Returns only accessable filters from a given filterbox.
+	 * Factory method for filter boxes. Returns only accessible filters from a given filterbox.
 	 * 
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection
 	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
 	public static function createAccessableInstance(Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection) {
-		$accessableCollection = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-		$accessableCollection->injectFilterboxConfiguration($collection->getFilterboxConfiguration());
+		$accessibleCollection = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+		$accessibleCollection->injectFilterboxConfiguration($collection->getFilterboxConfiguration());
 		
 		foreach($collection as $filter) {
 			if($filter->getFilterConfig()->isAccessable()) {
-				$accessableCollection->addFilter($filter, $filter->getFilterIdentifier());
+				$accessibleCollection->addFilter($filter, $filter->getFilterIdentifier());
 			} 		
 		}
-		return $accessableCollection;
+		return $accessibleCollection;
 	}	
 }
 ?>

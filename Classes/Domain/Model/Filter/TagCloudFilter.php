@@ -75,14 +75,6 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	 */
 	protected function initFilter() {
 
-		
-				$c1 = str_replace('#', '', $c1);
-		$c2 = str_replace('#', '', $c2);
-		if (!preg_match('/^[a-f0-9]{6}$/i', $c1) || !preg_match('/^[a-f0-9]{6}$/i', $c2)) {
-			return FALSE;
-		}
-		$_c1 = array(hexdec(substr($c1,0,2)), hexdec(substr($c1,2,2)), hexdec(substr($c1,4,2)));
-		$_c2 = array(hexdec(substr($c2,0,2)), hexdec(substr($c2,2,2)), hexdec(substr($c2,4,2)));
 	}
 	
 	
@@ -96,8 +88,16 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 		
 		$this->initColors();
 	}
-	
-	
+
+
+	/**
+	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
+	 * @return array
+	 */
+	public function persistToSession() {
+		return array('filterValues' => current($this->filterValues), 'invert' => $this->invert);
+	}
+
 	
 	/**
 	 * Init the Color range

@@ -47,10 +47,13 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory {
 		$rendererClassName = $rendererConfiguration->getRendererClassName();
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($rendererClassName), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
 
-		$renderer = new $rendererClassName(); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
+
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+
+		$renderer = $objectManager->get($rendererClassName); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
 		Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $className . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
 
-		$renderer->injectConfiguration($rendererConfiguration);
+		$renderer->_injectConfiguration($rendererConfiguration);
 		
 		if(method_exists($renderer, 'initRenderer')) {
 			$renderer->initRenderer();

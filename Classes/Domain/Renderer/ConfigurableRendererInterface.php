@@ -42,7 +42,7 @@ interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_
      *
      * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
      */
-    public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration);
+    public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration);
 
 }
  
