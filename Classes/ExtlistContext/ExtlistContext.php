@@ -298,8 +298,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 			'aggregateRows' => $this->getRenderedAggregateRows(),
 			'pagerCollection' => $this->getPagerCollection(),
 			'pager' => $this->getPager(),
-			'filterbox' => $this->getFilterBoxCollection()->getItemByIndex(0),
 		);
+		if ($this->getFilterBoxCollection()->count() > 0) {
+			$viewParts['filterbox'] = $this->getFilterBoxCollection()->getItemByIndex(0);
+		}
 
 		return $viewParts;
 	}
