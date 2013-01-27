@@ -582,6 +582,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
     	$query =  implode(" \n", array($selectPart, $fromPart));
 
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, array('query' => $query));
+
     	return $query;
     }
 
