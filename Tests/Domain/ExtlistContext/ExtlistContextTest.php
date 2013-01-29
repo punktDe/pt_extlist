@@ -24,14 +24,15 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 /**
+ * Testcase for extlist context class.
  *
+ * TODO write tests for all methods and refactor current test to mock tested methods from the same class to get smaller tests.
  *
  * @author Michael Knoll <knoll@punkt.de>
- * @package
- * @subpackage
+ * @package ExtlistContext
  * @see Tx_PtExtlist_ExtlistContext_ExtlistContext
  */
-class Tx_PtExtlist_Tests_Domain_ExtlistContext_ExtlistContextTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_ExtlistContext_ExtlistContextTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/** @test */
 	public function setFilterValueSetsFilterValueAsExpected() {
@@ -74,7 +75,45 @@ class Tx_PtExtlist_Tests_Domain_ExtlistContext_ExtlistContextTest extends Tx_PtE
 
 	/** @test */
 	public function setSortingColumnSetsSortingColumnAsExpected() {
-		// TODO test me!
+		/*
+		 * if (!$this->getList()->getListHeader()->hasItem($sortingColumn)) {
+		 			throw new Exception('The column with column identifier ' . $sortingColumn . ' does not exist in this list (' . $this->getConfigurationBuilder()->getListIdentifier() . '1359373245) ');
+		 		}
+
+		 		$this->getDataBackend()->getSorter()->removeAllSortingObservers();
+		 		$this->getList()->getListHeader()->getHeaderColumn($sortingColumn)->setSorting($sortingDirection);
+		 		$this->getDataBackend()->getSorter()->registerSortingObserver($this->getList()->getListHeader()->getHeaderColumn($sortingColumn));
+
+		 		if ($rebuildListCache) {
+		 			$this->getList(TRUE);
+		 		}
+		 */
+		$sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
+		$columnIdentifier = 'columnIdentifier';
+
+		$headerColumnMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface', array('setSorting', 'registerSorter', 'getSortingStateCollection', 'resetSorting', 'resetToDefaultSorting'), array(), '', FALSE);
+		$headerColumnMock->expects($this->once())->method('setSorting')->with($sortingDirection);
+
+		$headerMock = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_ListHeader', array('hasItem', 'getHeaderColumn'), array(), '', FALSE);
+		$headerMock->expects($this->any())->method('hasItem')->with($columnIdentifier)->will($this->returnValue(TRUE));
+		$headerMock->expects($this->any())->method('getHeaderColumn')->with($columnIdentifier)->will($this->returnValue($headerColumnMock));
+
+		$listMock = $this->getMock('Tx_PtExtlist_Domain_Model_List_List', array('getListHeader'), array(), '', FALSE);
+		$listMock->expects($this->any())->method('getListHeader')->will($this->returnValue($headerMock));
+
+		$sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('removeAllSortingObservers', 'registerSortingObserver'), array(), '', FALSE);
+		$sorterMock->expects($this->once())->method('removeAllSortingObservers');
+
+		$dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getSorter'), array(), '', FALSE);
+		$dataBackendMock->expects($this->any())->method('getSorter')->will($this->returnValue($sorterMock));
+
+		$extlistContextMock = $this->getMock('Tx_PtExtlist_ExtlistContext_ExtlistContext', array('getList'), array(), '', FALSE);
+		$extlistContextMock->expects($this->any())->method('getList')->will($this->returnValue($listMock)); /* @var Tx_PtExtlist_ExtlistContext_ExtlistContext $extlistContextMock */
+
+		$extlistContextMock->_injectDataBackend($dataBackendMock);
+		$extlistContextMock->setSortingColumn($columnIdentifier, $sortingDirection, FALSE);
+
+		// TODO write tests to check whether list cache is rebuild
 	}
 
 
