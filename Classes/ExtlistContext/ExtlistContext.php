@@ -31,6 +31,8 @@
  *
  * @package ExtlistContext
  * @author Daniel Lienert
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_ExtlistContext_ExtlistContextTest
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
@@ -289,9 +291,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	public function getFilterByFullFiltername($fullFilterName) {
-		list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
-		$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
-		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
+		#list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
+		#$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+		$filter = $this->getFilterBoxCollection()->getFilterByFullFiltername($fullFilterName);
 		return $filter;
 	}
 
@@ -313,7 +315,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @throws Exception, if addressed filter object does not have a setValue method (this is not part of the filter interface!)
 	 */
 	public function setFilterValue($filterboxIdentifier, $filterIdentifier, $filterValue, $resetListCache = TRUE) {
-		$filter = $this->getFilterBoxCollection()->getFilterByFullFiltername($filterboxIdentifier . '.' . $filterIdentifier);
+		$filter = $this->getFilterByFullFiltername($filterboxIdentifier . '.' . $filterIdentifier);
 		$filter->reset();
 		$filter->setFilterValue($filterValue); // ATM this is not part of the filter interface, so we might get an exception if this method does not exist!
 		$filter->init();
