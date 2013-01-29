@@ -75,19 +75,6 @@ class Tx_PtExtlist_Tests_ExtlistContext_ExtlistContextTest extends Tx_PtExtlist_
 
 	/** @test */
 	public function setSortingColumnSetsSortingColumnAsExpected() {
-		/*
-		 * if (!$this->getList()->getListHeader()->hasItem($sortingColumn)) {
-		 			throw new Exception('The column with column identifier ' . $sortingColumn . ' does not exist in this list (' . $this->getConfigurationBuilder()->getListIdentifier() . '1359373245) ');
-		 		}
-
-		 		$this->getDataBackend()->getSorter()->removeAllSortingObservers();
-		 		$this->getList()->getListHeader()->getHeaderColumn($sortingColumn)->setSorting($sortingDirection);
-		 		$this->getDataBackend()->getSorter()->registerSortingObserver($this->getList()->getListHeader()->getHeaderColumn($sortingColumn));
-
-		 		if ($rebuildListCache) {
-		 			$this->getList(TRUE);
-		 		}
-		 */
 		$sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
 		$columnIdentifier = 'columnIdentifier';
 
