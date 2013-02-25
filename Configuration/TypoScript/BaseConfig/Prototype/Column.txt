@@ -46,7 +46,7 @@ plugin.tx_ptextlist.prototype.column {
 
 				# PHPExcel Data Types:
 				# String2 (str), String (s), Formula (f), Numeric (n), Inline (inlineStr), Error (e)
-				dataType = s
+				# dataType = s
 
 				border {
 					style = thin
