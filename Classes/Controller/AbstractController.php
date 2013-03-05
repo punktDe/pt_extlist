@@ -74,11 +74,20 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * Constructor for all plugin controllers
 	 */
 	public function __construct() {
-		$this->lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
 		parent::__construct();
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
-	
+
+
+
+    /**
+     * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager
+     */
+    public function injectLifecycleManager(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager) {
+        $this->lifecycleManager = $lifecycleManager;
+    }
+
+
 	
 	/**
 	 * Creates configuration builder after getting extension configuration injected
