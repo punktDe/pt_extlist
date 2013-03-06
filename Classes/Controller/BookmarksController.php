@@ -104,7 +104,34 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @return void
      */
     public function __construct() {
-    	parent::__construct();
+
+        /**
+         * Was muss hier passieren?
+         *
+         * 1. Wir brauchen einen Bookmark-Controller, der diese Klasse erweitert und diese Methode überschreibt
+         * 2. In der überschreibenden Methode muss ein Bookmark Manager geladen werden
+         * 3. Der Bookmark Manager muss sich im Falle einer Wiederherstellung DIREKT aus dem GP vars das Kommando abholen, welches Bookmark wiederhergestellt werden soll
+         * 4. Die Daten aus dem Boockmark müssen im Session Persistence Manager überschrieben werden BEVOR dieser an den LifeCycleManager übergeben wird
+         */
+
+        //$sessionPersistenceManager->getSessionDataForObjectNamespace()
+
+    	Tx_PtExtbase_Controller_AbstractActionController::__construct();
+        $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+
+        //TODO:Get PluginName from request
+        $pluginName = 'tx_ptextlist_pi1';
+        //TODO:Question for Mimi: Use $_GET or $_REQUEST?
+        $action = $_REQUEST[$pluginName]['action'];
+        if ($action == 'restore'){
+            $bookmarkUid = $_REQUEST[$pluginName]['bookmark'];
+            //TODO:Question for Mimi: We do not have a Repository yet :S
+        }
+
+
+        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+        //TODO:Question for Mimi: Other option would be to copy Tx_PtExtbase_Controller_AbstractActionController plus the one line from Tx_Extbase_MVC_Controller_AbstractController
     }
 
 
@@ -154,10 +181,6 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     	$this->persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
     }
 
-
-
-
-    
     
     
     /**
@@ -212,10 +235,9 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
         //$newBookmark->setPid($this->bookmarkConfiguration->getBookmarksPid());
         $this->bookmarkManager->addContentToBookmark($newBookmark);
 
-
-
         $this->bookmarkRepository->add($newBookmark);
-        $this->redirect('show');
+        $this->persistenceManager->persistAll();
+        $this->forward('show');
     }
 
 
@@ -225,11 +247,22 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be deleted
      */
     public function deleteAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-    		$this->bookmarkRepository->remove($bookmark);
-    		$this->persistenceManager->persistAll();
-    		$this->forward('show');
+        $this->bookmarkRepository->remove($bookmark);
+        $this->persistenceManager->persistAll();
+        $this->forward('show');
     }
-    
+
+
+
+    /**
+     * Action for restoring saved bookmarks
+     *
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+     */
+    public function restoreAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark){
+
+    }
+
     
     
     /**
