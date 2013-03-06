@@ -69,13 +69,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	protected $listIdentifier;
 	
 	
-	
+	//TODO:Question for Mimi:Can we delete this constructor?
 	/**
 	 * Constructor for all plugin controllers
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
 	}
 
 
@@ -109,6 +108,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
 	}
+
+
+
+    /**
+     * @return void
+     */
+    public function initializeAction(){
+        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
+    }
 
 
 
@@ -183,7 +191,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	}
     
     
-    
+
     /**
      * Template method for getting template path and filename from
      * TypoScript settings.

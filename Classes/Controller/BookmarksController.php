@@ -167,7 +167,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * Initializes and sets dependent objects
      *
      */
-    protected function initializeAction() {
+    public function initializeAction() {
         $user_uid = $GLOBALS['TSFE']->fe_user->user['uid'];
 
         $this->feUser = $this->feUserRepository->findByUid($user_uid);
