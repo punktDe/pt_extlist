@@ -152,7 +152,10 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
 	 */
 	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-		// TODO use object instead of array to save session data in bookmark
+
+        //TODO:QuestionForMimi: Is the Following TODO still correct?
+		//TODO use object instead of array to save session data in bookmark
+
         $filterboxesContent = serialize(array('filters' => $this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace())));
 		$bookmark->setContent($filterboxesContent);
 	}
@@ -165,7 +168,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @return string
 	 */
 	protected function getFilterboxCollectionNamespace() {
-		return 'tx_ptextlist_pi1.' . $this->listIdentifier . '.filters';
+		return $this->listIdentifier . '.filters';
 	}
 	
 }

@@ -83,3 +83,7 @@ EXTLISTAJAX {
 		additionalHeaders = Content-type:application/json
 	}
 }
+
+
+// Clear mapping for Frontend user so that feUserRepository is able to find user records
+config.tx_extbase.persistence.classes.Tx_Extbase_Domain_Model_FrontendUser.mapping.recordType >
