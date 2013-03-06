@@ -325,6 +325,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($cellValue);
 
+
 				if($this->doBodyCellStyling) $this->doCellStyling($columnNumber, $columnIdentifier, 'body');
 
 				unset($listCell);
@@ -386,6 +387,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		return $excelSettings;
 	}
 
+	
 
 	/**
 	 * @param $columnNumber
@@ -397,6 +399,8 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		$excelSettings = $this->getExcelSettingsByColumnIdentifier($columnIdentifier);
 		if(!is_array($excelSettings[$type])) return;
 		$settings = $excelSettings[$type];
+
+		if($settings['dataType']) $this->activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setDataType($settings['dataType']);
 
 		if($settings['wrapText']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setWrapText($settings['wrapText']);
 		if($settings['vertical']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setVertical($settings['vertical']);
