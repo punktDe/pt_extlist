@@ -176,7 +176,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @param int $itemCount The amount of items.
 	 */
 	public function setItemCount($itemCount) {
-		foreach($this as $pagerId => $pager) {
+		foreach($this as $pager) { /** @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager */
 			$pager->setItemCount($itemCount);
 		}
 	}

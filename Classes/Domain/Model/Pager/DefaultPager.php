@@ -221,7 +221,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
 	 */
 	public function getFirstItemIndex() {
-		return ( ($this->currentPage - 1) * $this->itemsPerPage) + 1;
+		$firstItemIndex = ($this->currentPage - 1) * $this->itemsPerPage + 1;
+		return $firstItemIndex > 0 ? $firstItemIndex : 0;
 	}
 	
 	

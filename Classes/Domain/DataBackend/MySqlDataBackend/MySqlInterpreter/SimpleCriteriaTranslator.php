@@ -95,5 +95,3 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	}
 	
 }
-
-?>

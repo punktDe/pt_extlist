@@ -32,7 +32,7 @@ plugin.tx_ptextlist.prototype.column {
 	}
 
 
-	# This prototype adds excel eport styling to the column settings
+	# This prototype adds excel export styling to the column settings
 	excel < .default
     excel {
 		excelExport {
@@ -43,6 +43,10 @@ plugin.tx_ptextlist.prototype.column {
 				wrapText = 1
 				vertical = top
 				shrinkToFit = 1
+
+				# PHPExcel Data Types:
+				# String2 (str), String (s), Formula (f), Numeric (n), Inline (inlineStr), Error (e)
+				# dataType = s
 
 				border {
 					style = thin
