@@ -48,11 +48,19 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	/**
 	 * Returns mapped List structure
 	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
     public function getListData();
 
-    
+
+
+	/**
+	 * @abstract
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListData
+	 */
+	public function getIterationListData();
+
+
     
     /**
 	 * Returns the list header
@@ -66,7 +74,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Returns th aggregate data
      * 
-     * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
      */
     public function getAggregateListData();
     
@@ -79,9 +87,11 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array());
+    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL);
     
     
     
@@ -253,4 +263,3 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	public function resetSortingToDefault();
 
 }
-?>

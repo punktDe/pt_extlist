@@ -68,7 +68,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	/**
 	 * Injector for cell renderer
 	 * 
-	 * @param Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy $cellRenderer
+	 * @param Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer
 	 */
 	public function injectCellRenderer(Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer) {
 		$this->cellRenderer = $cellRenderer;
@@ -129,7 +129,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
      * @param Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow Row to be rendered
      * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
      * @param int $rowIndex Index of rendered row
-     * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface Rendered aggregate row
+     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregate row
      */
 	public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow,
 												  Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig,

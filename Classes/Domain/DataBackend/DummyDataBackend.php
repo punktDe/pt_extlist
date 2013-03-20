@@ -50,7 +50,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	/**
 	 * Generates dummy list data
 	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function buildListData() {
 		$this->updateObserversItemCount($this->dataSource->countItems());
@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource();
+		return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
 	}
 	
 	
@@ -113,7 +113,8 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
         // TODO implement me!
     }
 	
@@ -125,7 +126,15 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
     	// TODO implement me!
     }
-    
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+	 */
+	public function getIterationListData() {
+		// TODO: Implement getIterationListData() method.
+	}
+
+
 }
 
 ?>

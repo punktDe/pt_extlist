@@ -40,6 +40,9 @@ plugin.tx_ptextlist.settings.export {
 
 		    stripTags = 1
 		    doBodyCellStyling = 1
+
+			renderFilterStates = 0
+			# renderFreeText =
 		}
 
 

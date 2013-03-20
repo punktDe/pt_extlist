@@ -1,4 +1,7 @@
 <?php
+
+require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php');
+
 /***************************************************************
  *  Copyright notice
  *
@@ -53,7 +56,9 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 */
 	protected function buildListData() {
 
-		$rawData = array();
+		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
+
+		$rawData = $dataSource->fetchAll();
 
 		for($i = 0; $i < $this->rowCount; $i++) {
 			for($j = 1; $j <= $this->colCount; $j++) {
@@ -66,8 +71,27 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 		unset($rawData);
 
 		return $mappedData;
-
 	}
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
+	 */
+	public function getIterationListData() {
+
+		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
+		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
+
+		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
+
+		$iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+		$iterationListData->_injectDataSource($dataSource);
+		$iterationListData->_injectDataMapper($this->dataMapper);
+		$iterationListData->_injectRenderChain($rendererChain);
+
+		return $iterationListData;
+	}
+
 
 
 	/**
@@ -79,7 +103,8 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
 	 * @return array Array of group data with given fields as array keys
 	 */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 		// TODO: Implement getGroupData() method.
 	}
 

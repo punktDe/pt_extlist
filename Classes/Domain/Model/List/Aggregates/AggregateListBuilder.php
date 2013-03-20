@@ -129,7 +129,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	
 	/**
 	 * Build the aggregate list
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function buildAggregateListData() {
 		$aggreagteListData = new Tx_PtExtlist_Domain_Model_List_ListData();
@@ -151,20 +151,20 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		$aggregatesForPage = $this->getAggregatesForPage($aggregateDataConfigCollection->extractCollectionByScope('page'));
 		$aggregatesForQuery = $this->getAggregatesForQuery($aggregateDataConfigCollection->extractCollectionByScope('query'));
 		$aggregates = t3lib_div::array_merge_recursive_overrule($aggregatesForQuery, $aggregatesForPage);	
-				
+
 		foreach($aggregates as $key => $value) {
 			$dataRow->createAndAddCell($value, $key);
 		}
 		
 		return $dataRow;
 	}
-	
-	
-	
+
+
 	/**
 	 * Get Aggregate data for Page
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+	 * @return array
 	 */
 	protected function getAggregatesForPage(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
 		
@@ -176,16 +176,19 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 
 		return $aggregates;
 	}
-	
-	
-	
+
+
 	/**
 	 * Get aggregate data for the whole query
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+	 * @return array
 	 */
 	protected function getAggregatesForQuery(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
-		$aggregates = $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
+		if($aggregateDataConfigCollection->count() > 0) {
+			$aggregates = $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
+		}
+
 		if(!is_array($aggregates)) $aggregates = array();
 		return $aggregates;
 	}

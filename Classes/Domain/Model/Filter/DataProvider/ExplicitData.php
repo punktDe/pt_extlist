@@ -28,10 +28,12 @@
 
 /**
  * Implements data provider for explicit defined data in typoscript
- * 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter\DataProvider
+ *
+ * Have a look at the documentation for an example.
+ *
  */
 class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 

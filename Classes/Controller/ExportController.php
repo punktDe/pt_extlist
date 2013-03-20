@@ -59,7 +59,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
 		$this->exportListIdentifier = $this->settings['exportListIdentifier'];
 		if(!$this->exportListIdentifier) $this->exportListIdentifier = $this->listIdentifier;
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No exportListidentifier set. 1316446015'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No exportListidentifier set.', 1316446015));
 	}
 
 
@@ -78,40 +78,33 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	 * Returns download for given parameters
 	 *
 	 * @return string
+	 * @throws Exception
 	 */
 	public function downloadAction() {
 
 		if($this->listIdentifier == $this->exportListIdentifier || !$this->exportListIdentifier) {
 			$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
-			$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
-			
 		} else {
 			$exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
 			
 			if(!is_array($exportListConfiguration)) {
-				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier . ' 1317116470');
+				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
 			}
 			
-			$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
+			$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
 			
-			$list = $extlistContext->getList(true);
-			$rendererChain = $extlistContext->getRendererChain();
+			$list = $extListContext->getList(true);
 		}
-
-		$renderedListData = $rendererChain->renderList($list->getListData());
-		$renderedCaptions = $rendererChain->renderCaptions($list->getListHeader());
-		$renderedAggregateRows = $rendererChain->renderAggregateList($list->getAggregateListData());
 
 		$this->view->setExportConfiguration($this->configurationBuilder->buildExportConfiguration());
 		$this->view->initConfiguration();
 
 		$this->view->assign('listHeader', $list->getListHeader());
-		$this->view->assign('listCaptions', $renderedCaptions);
-		$this->view->assign('listData', $renderedListData);
-		$this->view->assign('aggregateRows', $renderedAggregateRows);
+		$this->view->assign('listCaptions', $list->getRenderedListHeader());
+		$this->view->assign('listData', $list->getRenderedListData());
+		$this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
 
 		return $this->view->render();
 	}
 
 }
-?>

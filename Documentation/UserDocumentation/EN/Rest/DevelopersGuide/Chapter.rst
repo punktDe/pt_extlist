@@ -58,7 +58,15 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends::
         }
     }
 
-The most important function is *buildFilterCriteria()* where the filter creates a constraint on how the data filtered by this filter should look like. We use our generic query criteria *Tx_PtExtlist_Domain_QueryObject_SimpleCriteria * with an operator like here to implement a string filter that uses a LIKE-comparison in its built criteria. *Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue)* is nothing more but a factory method that returns a criteria object.
+The most important function is *buildFilterCriteria()* where the filter creates a constraint on how the data filtered by this filter should look like. We use our generic query criteria
+
+*Tx_PtExtlist_Domain_QueryObject_SimpleCriteria*
+
+with an operator like here to implement a string filter that uses a LIKE-comparison in its built criteria.
+
+*Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue)*
+
+is nothing more but a factory method that returns a criteria object.
 As we mentioned above, a lot of functionality is given to us by our abstract classes, so to get some more information about what the String-Filter does and how it is configured, ake a look at its TypoScript prototype located in Configuration/TypoScript/BaseConfig/Prototype/Filter.txt::
 
     string {
@@ -97,7 +105,6 @@ Extending the RenderChain
 =========================
 
 .. figure:: Images/RenderChain.png
-	:scale: 50 %
 
 RenderChain
 

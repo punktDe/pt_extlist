@@ -118,7 +118,18 @@
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.label" KEY="label">
-			<DESCRIPTION>The label wich is displayed beside the filter.</DESCRIPTION>
+			<DESCRIPTION>The label which is displayed beside the filter.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.description" KEY="description">
+			<DESCRIPTION>An optional description string, that describes the filters functions.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
@@ -276,7 +287,14 @@ renderObj {
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.showRowCount" KEY="showRowCount">
-			<DESCRIPTION>Show the rowcount if the select filter is filled with grouped data.</DESCRIPTION>
+			<DESCRIPTION>Show the row count if the select filter is filled with grouped data.
+
+Info for use with MySQL Backend
+In case this list is grouped by any field, showRowCount also implies the following manipulation to the original list query:
+1. ShowRowCount is activated, In this case we have to build the list first and then use this list as source to calculate the selectable rows and the count. This has the drawback, that options are not displayed, if grouped within the list.
+2. ShowRowCount is not activated: In this case, we exchange the original grouping fields with the fields needed by the filter.
+
+            </DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>1</DEFAULT>
@@ -518,20 +536,31 @@ sortingColumn = capital	DESC
 											<CHILDREN></CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
-                                        <ENTRY KEY="cacheRendering">
-                                            <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
-                                            <DATATYPE>Boolean</DATATYPE>
-                                            <POSIBLEVALUES></POSIBLEVALUES>
-                                            <DEFAULT></DEFAULT>
-                                            <COBJ></COBJ>
-                                            <PROTOTYPE></PROTOTYPE>
-                                            <EXAMPLE></EXAMPLE>
-                                            <CHILDREN></CHILDREN>
-                                            <VARIANT></VARIANT>
-                                        </ENTRY>
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
+                                <ENTRY KEY="cacheRendering">
+                                    <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                    <DEFAULT></DEFAULT>
+                                    <COBJ></COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE></EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
+                                <ENTRY KEY="useIterationListData">
+                                    <DESCRIPTION>If set to 1 the iterationListData is used instead of the default listData. While the listData provides an array of all data fetched from the database, which is then mapped and rendered completely, the iterationListData fetches, maps and renders a single row at a time. This has the big advantage, that only the memory for a single row object is consumed and only a constant amount of memory is needed, independent from the amoutn of rows. The disadvantage is, that a renderer is only able to process one single row, which makes it impossible to compute an aggregate on the fetched data.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                    <DEFAULT>1</DEFAULT>
+                                    <COBJ></COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE></EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
 								<ENTRY KEY="backendConfig">
 									<DESCRIPTION>Holds the configuration for the data backend to be used with this configuration. Configurable values depend on
 									individual backend, e.g. TYPO3-Backend, MySQL-Backen, ExtBase-Backend etc.</DESCRIPTION>
@@ -1550,6 +1579,7 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 															<TYPEREF REF="filter.label" KEY="label" />
+															<TYPEREF REF="filter.description" KEY="description" />
 															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
@@ -1585,8 +1615,49 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
                                                                         <CHILDREN></CHILDREN>
                                                                         <VARIANT></VARIANT>
                                                                     </ENTRY>
+																	<ENTRY KEY="orToken">
+																		<DESCRIPTION><![CDATA[
+If set to any value, the filterValue is separated at this token, and the single pieces are combined with SQL OR. To separate at a blank, use pipes to define it (orToken = | |).
+																		]]></DESCRIPTION>
+																		<DATATYPE>String</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>
+																			<![CDATA[
+Typoscript:
+
+10 {
+		orToken = |||
+		andToken = &
+}
+
+Search String: test
+Generated SQL: table1.field1 LIKE "%test%"
+
+Search String: test | test2 & test3
+Generated SQL: (table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") AND (table1.field1 LIKE "%test3%"))
+
+																		]]>
+																		</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="andToken">
+																		<DESCRIPTION>If set to any value, the filterValue is separated at this token, and the single pieces are combined with SQL AND. To separate at a blank, use pipes to define it (orToken = | |).</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
@@ -1648,6 +1719,7 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
@@ -1673,6 +1745,8 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																			<ENTRY KEY="ExplicitSQLQuery">
 																				<DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
 																				<EXAMPLE><![CDATA[
+
+# Example 1
 selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 	partialPath = Filter/Options/SelectFilter
 	filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
@@ -1686,7 +1760,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 		limit =
 	}
 }
-																				]]></EXAMPLE>
+																			]]></EXAMPLE>
 																				<CHILDREN>
 																					<ENTRY KEY="select">
 																						<DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
@@ -1709,10 +1783,58 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																				</CHILDREN>
 																			</ENTRY>
 																		</VARIANT>
+																		<VARIANT>
+																			<ENTRY KEY="ExplicitData">
+																				<DESCRIPTION>This data provider allows you to define options for a select filter.</DESCRIPTION>
+																				<EXAMPLE><![CDATA[
+
+  filters {
+  		filterbox {
+  			filterConfigs {
+  				10 < plugin.tx_ptextlist.prototype.filter.select
+  				10 {
+  					label = Abgeschlossen?
+  					filterIdentifier = finishedFilter
+  					fieldIdentifier = finished
+ 
+  					inactiveOption = Alle
+  					inactiveValue = ----alle----
+ 
+  					dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
+ 
+  					options {
+  						10 {
+  							key = 0
+  							value = nein
+  						}
+  						20 {
+  							key = 1
+ 						 	value = ja
+  						}
+  					}
+ 
+ 				 	renderObj {
+  						dataWrap = {field:allDisplayFields}
+  					}
+ 
+  					showRowCount = 0
+  				}
+  			}
+  		}
+  }
+																			]]></EXAMPLE>
+																				<CHILDREN>
+																					<ENTRY KEY="options">
+																						<DESCRIPTION>A key/value list of options</DESCRIPTION>
+																					</ENTRY>
+																				</CHILDREN>
+																			</ENTRY>
+																		</VARIANT>
 																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1743,6 +1865,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1773,6 +1896,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1802,6 +1926,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1845,6 +1970,7 @@ addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V.W,X,Y,Z
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1998,6 +2124,7 @@ dateIteratorFormat = %m.%Y
 																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
@@ -2079,6 +2206,7 @@ dateIteratorFormat = %m.%Y
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -2267,7 +2395,52 @@ agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialP
 											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
 											<EXAMPLE></EXAMPLE>
-											<CHILDREN></CHILDREN>
+											<CHILDREN>
+                                                <ENTRY KEY="stripTags">
+                                                    <DESCRIPTION>Remove HTML Tags from content.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>1</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="doBodyCellStyling">
+                                                    <DESCRIPTION>Use the cell style configuration from the column configuration to style the body part of the list. This tremendously decreases the render performance. Therefore it is not suitable for big lists > 10k lines.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFilterStates">
+                                                    <DESCRIPTION>Render a block with the filter states of the list to the table header.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFreeText">
+                                                    <DESCRIPTION>If set, render this free text to the head of the list.</DESCRIPTION>
+                                                    <DATATYPE>String</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT></DEFAULT>
+                                                    <COBJ>1</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+											</CHILDREN>
 											<VARIANT></VARIANT>
 										</ENTRY>
 										<ENTRY KEY="pdfExport">

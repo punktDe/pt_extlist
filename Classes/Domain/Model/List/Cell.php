@@ -259,10 +259,15 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	public function setByArray($dataArray) {
 		$internalVars = get_object_vars($this);
 
-		foreach($dataArray as $key => $value) {
-			if(array_key_exists($key, $internalVars)) $this->$key = $value;
+		foreach($internalVars as $key => $value) {
+			if(array_key_exists($key, $dataArray)) {
+				$this->$key = $dataArray[$key];
+			} else {
+				unset($this->$key);
+			}
 		}
 	}
+
 
 
 	/**

@@ -53,12 +53,13 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * datasource for this backend.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return mixed
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
-		$repository = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get($dataBackendSettings['repositoryClassName']);
+		$repository = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get($dataBackendSettings['repositoryClassName']);
 		return $repository;
 	}
 	
@@ -71,6 +72,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
+
 		return $this->dataMapper->getMappedListData($data);
 	}
 
@@ -82,20 +84,19 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function initBackend() {
 		parent::initBackend();
 		// As pager->getCurrentPage is requested during $this->getTotalItemsCount(),
-		// we have to set it to infty first and later set correct item count!
+		// we have to set it to infinity first and later set correct item count!
 		$this->pagerCollection->setItemCount(PHP_INT_MAX);
 	}
-	
-	
-	
+
+
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getGroupData()
-	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery
 	 * @param array $excludeFilters
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @return array
 	 */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 		/**
 		 * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
 		 *
@@ -286,6 +287,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Builds extlist query object without regarding pager
 	 *
+	 * @param array $excludeFilters
 	 * @return Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected function buildGenericQueryWithoutPager(array $excludeFilters = array()) {
@@ -299,6 +301,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * Builds extlist query object excluding criterias from filters given by parameter
 	 *
 	 * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected function buildGenericQueryExcludingFilters(array $excludeFilters = array()) {
 	    
@@ -344,7 +347,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
-		$count = $this->buildExtBaseQueryWithoutPager()->count();
+		$count = $this->buildExtBaseQueryWithoutPager()->execute()->count();
 		$this->pagerCollection->setItemCount($count);
 		return $count;
 	}
@@ -370,5 +373,13 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$this->repository = $dataSource;
 	}
 
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
+	 * @throws Exception
+	 */
+	public function getIterationListData() {
+		throw new Exception('The extbase databackend does not support iteration lists yet! Ask a friendly extlist hacker to implement it :)', 1349282023);
+	}
 }
 ?>

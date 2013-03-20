@@ -31,16 +31,17 @@
  *
  * @package Domain
  * @subpackage Model\Bookmarks
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
+class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory implements t3lib_Singleton {
 	
 	/**
 	 * Holds an array of instances for each list identifier
 	 *
 	 * @var array
 	 */
-	protected static $instances = array();
+	protected $instances = array();
 	
 	
 	
@@ -50,12 +51,12 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
 	 */
-	public static function getInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public function getInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$listIdentifier = $configurationBuilder->getListIdentifier();
-		if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === NULL) {
-			self::$instances[$listIdentifier] = self::createNewInstanceByConfigurationBuilder($configurationBuilder);
+		if (!array_key_exists($listIdentifier, $this->instances) || $this->instances[$listIdentifier] === NULL) {
+			$this->instances[$listIdentifier] = $this->createNewInstanceByConfigurationBuilder($configurationBuilder);
 		}
-		return self::$instances[$listIdentifier];
+		return $this->instances[$listIdentifier];
 	}
 	
 	
@@ -66,7 +67,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
 	 */
-	protected static function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	protected function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$bookmarksConfiguration = $configurationBuilder->buildBookmarksConfiguration();
 		$bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'); /* @var $bookmarksRepository Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository */
 		$bookmarksRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());

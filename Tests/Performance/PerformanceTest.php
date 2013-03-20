@@ -57,17 +57,19 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	 */
 	public function performanceDataProvider() {
 		return array(
-			//'performance 5:1 - Framework only' => array(5,1),
-			'performance 5:10000' => array(5,1000),
+			'performance 5:1 - Framework only' => array(5,1),
+			//'performance 5:10000' => array(5,10000),
+			//'performance 5:40000' => array(5,40000),
 		);
 	}
+
 
 
 	/**
 	 * @dataProvider performanceDataProvider
 	 * @test
 	 */
-	public function performance($colCount, $rowCount) {
+	public function listDataPerformance($colCount, $rowCount) {
 
 		$listSettings = $this->getExtListTypoScript();
 
@@ -98,6 +100,50 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	}
 
 
+	/**
+	 * @test
+	 * @dataProvider performanceDataProvider
+	 * @param $colCount
+	 * @param $rowCount
+	 */
+	public function iterationListDataPerformance($colCount, $rowCount) {
+		$listSettings = $this->getExtListTypoScript();
+
+		$memoryBefore = memory_get_usage(true);
+		$timeBefore = microtime(true);
+
+		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
+		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
+		$extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
+
+		$iterationListData = $extListContext->getDataBackend()->getIterationListData();
+
+		$iterationListData->current();
+
+		/**
+		 * This loop renders the complete data set
+		 */
+		foreach($iterationListData as $row) { /**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
+		}
+
+		$usedMemory = memory_get_usage(true) - $memoryBefore;
+		$readableMemoryUsage = $usedMemory / (1024*1024);
+		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024*1024);
+
+		$usedMicroseconds = microtime(true) - $timeBefore;
+
+		$info = sprintf("
+			Memory Usage: %s MB <br />
+			Memory Peak Usage %s MB <br />
+			Processing Time: %s Mircroseconds.", $readableMemoryUsage, $readableMemoryPeakUsage, $usedMicroseconds);
+
+		//die($info);
+
+		$this->assertTrue(true);
+
+	}
+
+
 	protected function getExtListTypoScript() {
 
 		$extListConfigFile = __DIR__ . '/TestListConfiguration.ts';
@@ -112,7 +158,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 		$tsSettings = $parserInstance->setup;
 
-		$typoScript = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
+		$typoScript = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
 
 		return $typoScript['plugin']['tx_ptextlist'];
 	}

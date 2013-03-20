@@ -94,9 +94,16 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @var string
 	 */
 	protected $listIdentifier;
+
+
+    /**
+     * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
+     */
+    protected $sessionPersistenceManager;
+
 	
 	
-	
+	//TODO:Question for Mimi:Can we delete this constructor?
 	/**
 	 * Constructor for all plugin controllers
 	 *
@@ -104,7 +111,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder Session persistence manager to be injected via DI
 	 */
 	public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager, Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
-		$this->lifecycleManager = $lifecycleManager;
 		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
 		parent::__construct();
 	}
@@ -135,23 +141,63 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 
+    /**
+     * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager
+     */
+    public function injectLifecycleManager(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager) {
+        $this->lifecycleManager = $lifecycleManager;
+    }
+
+
+
+    /**
+     * @return void
+     */
+    public function initializeAction(){
+		parent::initializeAction();
+
+        $this->buildConfigurationBuilder();
+        $this->initSessionPersistenceManager();
+        $this->resetOnEmptySubmit();
+		// TODO refactor me to use non-static method
+        $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+    }
+
+
+
 	/**
-	 * Initializes controller once DI has finished
-	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 * @throws Exception
 	 */
-	protected function initializeAction() {
-		parent::initializeAction();
+	protected function buildConfigurationBuilder() {
 
 		if ($this->settings['listIdentifier'] != '') {
 			$this->listIdentifier = $this->settings['listIdentifier'];
 		} else {
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
-		$this->configurationBuilder = $this->configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
-		$this->buildSessionPersistenceManager();
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+
+		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
+
+		// TODO refactor me to use non-static method
+		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
 	}
+
+
+
+    protected function initSessionPersistenceManager(){
+        $this->sessionPersistenceManager = $this->buildSessionPersistenceManager();
+        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
+    }
+
+
+
+    protected function resetOnEmptySubmit(){
+        // We reset session data, if we want to have a reset on empty submit
+        if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+            $this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+        }
+    }
 
 
 
@@ -191,7 +237,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		$this->setCustomPathsInView($view);  
 	}
 
-	
+
 
 	/**
 	 * Initializes the view before invoking an action method.
@@ -199,7 +245,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * Override this method to solve assign variables common for all actions
 	 * or prepare the view in another way before the action is called.
 	 *
-	 * @param Tx_Extbase_View_ViewInterface $view The view to be initialized
+	 * @param Tx_Extbase_MVC_View_ViewInterface $view The view to be initialized
 	 * @return void
 	 * @api
 	 */
@@ -213,7 +259,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	}
     
     
-    
+
     /**
      * Template method for getting template path and filename from
      * TypoScript settings.

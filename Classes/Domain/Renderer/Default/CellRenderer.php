@@ -63,7 +63,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	/**
 	 * Construct the strategy.
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration $configuration
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$this->rendererConfiguration = $rendererConfiguration;
@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		// Load all available fields
 		$fieldSet = $this->createFieldSet($data, $columnConfig);
 
-		$caching = $columnConfig->getCacheRendering() || $this->configurationBuilder->buildListDefaultConfig()->getCacheRendering();
+		$caching = $columnConfig->getCacheRendering() || $this->configurationBuilder->buildListConfiguration()->getCacheRendering();
 
 		// TODO: Include the objectMapper here ...
 		// if($columnConfig->getObjectMapperConfig() instanceof Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig) {}
@@ -124,7 +124,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		$cellCSSConfig = $columnConfig->getCellCSSClass();
 		
 		if(is_array($cellCSSConfig)) {
-			$renderObj = 			array_key_exists('renderObj', $cellCSSConfig) 			? Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : NULL;
+			$renderObj = 			array_key_exists('renderObj', $cellCSSConfig) 			? Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : NULL;
 			$renderUserFunction = 	array_key_exists('renderUserFunction', $cellCSSConfig) 	? $cellCSSConfig['renderUserFunction'] : NULL;
 			
 			return Tx_PtExtlist_Utility_RenderValue::render($fieldSet, $renderObj, $renderUserFunction);
@@ -189,8 +189,12 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	 *  2b duplicate non array fields
 	 *   
 	 * @param array fieldSet
+	 * @throws Exception
+	 * @return array
 	 */
-	protected function createArrayDataFieldSet(array &$fieldSet) {
+	protected function createArrayDataFieldSet(array $fieldSet) {
+
+		$loopArray = NULL;
 
 		foreach($fieldSet as $field) {
 			if(is_array($field)) {
@@ -216,5 +220,3 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	}
 	
 }
-
-?>

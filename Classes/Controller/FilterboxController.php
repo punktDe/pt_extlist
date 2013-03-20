@@ -83,8 +83,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	 * @param array $settings Settings container of the current extension
 	 * @return void
 	 */
-	protected function initializeAction() {
-		parent::initializeAction();
+	public function initializeAction() {
+        parent::initializeAction();
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['filterboxIdentifier'], array('message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418'));
 		$this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
 		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
@@ -264,4 +264,3 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	}
 
 }
-?>

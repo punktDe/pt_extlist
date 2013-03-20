@@ -50,6 +50,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	protected static $extListTyposcript = NULL;
 
 
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected static $objectManager;
+
 
 	/**
 	 * Initialize and return a DataBackend with the given listIndentifier
@@ -60,6 +65,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	public static function getContextByListIdentifier($listIdentifier) {
 
 		if(!array_key_exists($listIdentifier, self::$instances)) {
+
+			self::$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 
@@ -107,9 +114,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @param $useCache boolean
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = true) {
+	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE) {
 		
 		if(!array_key_exists($listIdentifier, self::$instances) || !$useCache) {
+
+			self::$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			if($useCache) {
 
@@ -122,7 +131,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 				}
 
 			} else {
-				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, true);
+				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, TRUE);
 			}
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder, !$useCache);
@@ -167,7 +176,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @param boolean $resetConfigurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = false) {
+	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = FALSE) {
 		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
 		self::loadLifeCycleManager();
 
@@ -188,12 +197,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extlistContext
 	 */
 	protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$extlistContext = new Tx_PtExtlist_ExtlistContext_ExtlistContext();
+		$extListContext = self::$objectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext');
 
-		$extlistContext->injectDataBackend($dataBackend);
-		$extlistContext->init();
+		$extListContext->_injectDataBackend($dataBackend);
+		$extListContext->init();
 		
-		return $extlistContext;
+		return $extListContext;
 	}
 
 
@@ -271,7 +280,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	protected static function getTyposcriptOfCurrentBackendPID() {
 		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager');
 		$completeTS = $configurationManager->getTypoScriptSetup();
-		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
 
 
@@ -285,7 +294,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager');
 		$completeTS = $configurationManager->getTypoScriptSetup();
-		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
 
 }

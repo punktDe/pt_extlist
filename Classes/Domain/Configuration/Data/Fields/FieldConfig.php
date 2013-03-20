@@ -130,10 +130,10 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	}
 
 	
-	/* 
+	/*
 	 * method to be comatible with structures using fieldIdentifier as array of strings
-	 * TODO - all objects should use fieldConfigCollections 
-	 */ 
+	 * TODO - all objects should use fieldConfigCollections
+	 */
 	public function __toString() {
 		return $this->identifier;
 	}

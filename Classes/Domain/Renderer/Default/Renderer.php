@@ -68,9 +68,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		// TODO remove this after refactoring!
-        parent::injectConfiguration($rendererConfiguration);
+        parent::_injectConfiguration($rendererConfiguration);
         $this->initRowRenderer();
         $this->initCaptionRenderer();
     }
@@ -109,10 +109,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 	/**
 	 * Renders list data
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
 		Tx_PtExtbase_Assertions_Assert::isNotNull($listData, array(message => 'No list data found in list. 1280405145'));
 
 		// We could get another type of list data here, so we have to instantiate this class
@@ -133,16 +133,27 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 		
 		return $renderedList;
 	}
-	
-	
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @param $rowIndex
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
+		return $this->rowRenderer->renderRow($row, $rowIndex);
+	}
+
+
 	
 	/**
 	 * Returns a rendered aggregate list for a given row of aggregates
 	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListDataInterface Rendererd List of aggregate rows
+	 * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
 	 */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData) {
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
 		
 		if($aggregateListData->count() == 0) return $aggregateListData;
 		

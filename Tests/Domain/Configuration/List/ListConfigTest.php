@@ -66,6 +66,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfig_testcase extends T
 	public function testGetAggregateRowsPartial() {
 		$this->assertEquals($this->listConfiguration->getAggregateRowsPartial(), 'List/AggregateRows');
 	}
+
+	/**
+	 * @test
+	 */
+	public function getUseIterationListData() {
+		$this->assertTrue($this->listConfiguration->getUseIterationListData());
+	}
 	
 }
  

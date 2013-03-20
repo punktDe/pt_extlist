@@ -49,7 +49,7 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$this->rendererConfiguration = $rendererConfiguration;
 	}
 	
@@ -58,10 +58,28 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
 	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $listData) {
+	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
 		return $listData;
 	}
-	
+
+
+	/**
+	 * This method makes existing renderer compatible to iteration list data
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
+	 * @param $rowIndex
+	 * @return Tx_PtExtlist_Domain_Model_List_Row
+	 */
+	public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
+
+		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+		$listData->addRow($row, $rowIndex);
+		$this->renderList($listData);
+		$renderedRow = $listData->getFirstRow();
+		unset($listData);
+
+		return $renderedRow;
+	}
 	
 	
 	/**
@@ -78,11 +96,9 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
 	 */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListDataInterface $aggregateListData) {
+	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
 		return $aggregateListData;
 	}
-	
-	
 }
 
 ?>

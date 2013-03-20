@@ -103,10 +103,16 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * Needed for performance Measurement
-	 * @var integer
+	 * @var bool
 	 */
-	protected $exportStartTime;
+	protected $renderFilterStates = false;
+
+
+	/**
+	 * @var array
+	 */
+	protected $freeText = array();
+
 
 
 	/**
@@ -114,17 +120,20 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	public function render() {
 
-		$this->exportStartTime = microtime(true);
-
 		$this->init();
 
 		$this->clearOutputBufferAndSendHeaders();
+
+		if($this->freeText) $this->renderFreeText();
+		if($this->renderFilterStates === TRUE) $this->renderFilterStates();
 
 		$this->renderPreHeaderRows();
 
 		$this->renderHeader();
 
 		$this->renderBody();
+
+		$this->renderAggregates();
 
 		$this->renderPostBodyRows();
 
@@ -153,6 +162,14 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		if(array_key_exists('doBodyCellStyling', $settings)) {
 			$this->doBodyCellStyling = $settings['doBodyCellStyling'] == '1' ? true : false;
 		}
+
+		if(array_key_exists('renderFilterStates', $settings)) {
+			$this->renderFilterStates = $settings['renderFilterStates'] == '1' ? true : false;
+		}
+
+		if (array_key_exists('freeText', $settings)) {
+			$this->freeText = $settings['freeText'];
+		}
 	}
 
 
@@ -176,9 +193,77 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * Overwrite this to render pre header rows
+	 * Render pre header rows
+	 *
+	 * Overwrite this method to render individual pre header rows.
+	 *
+	 * @return void
 	 */
-	protected function renderPreHeaderRows() {}
+	protected function renderPreHeaderRows() {
+	}
+
+
+
+	/**
+	 * @return void
+	 */
+	protected function renderFreeText() {
+		$activeSheet = $this->objPHPExcel->getActiveSheet();
+		$freeText = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->freeText);
+		$activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(array('font' => array('bold' => TRUE)));
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, $freeText);
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, '');
+	}
+
+
+
+	/**
+	 * @return void
+	 */
+	protected function renderFilterStates() {
+		$activeSheet = $this->objPHPExcel->getActiveSheet();
+		$extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier($this->exportConfiguration->getListIdentifier());
+		$filterBoxCollection = $extlistContext->getFilterBoxCollection();
+
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber, 'Filter');
+		$this->activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(array('font' => array('bold' => TRUE)));
+		$this->rowNumber++;
+
+		foreach($filterBoxCollection as $filterBox) { /** @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+			foreach($filterBox as $filter) { /** @var $filter Tx_PtExtlist_Domain_Model_Filter_AbstractFilter */
+				$activeSheet->setCellValueByColumnAndRow(
+					0,
+					$this->rowNumber,
+					$extlistContext->getConfigurationBuilder()
+							->buildFilterConfiguration()
+							->getFilterBoxConfig($filter->getFilterConfig()->getFilterboxIdentifier())
+							->getFilterConfigByFilterIdentifier($filter->getFilterConfig()->getFilterIdentifier())
+							->getLabel());
+				$activeSheet->setCellValueByColumnAndRow(1, $this->rowNumber++, $this->renderFilterValues($filter));
+
+			}
+		}
+
+		$activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, '');
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter
+	 * @return string
+	 */
+	protected function renderFilterValues(Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter) {
+
+		$filterValue = $filter->getDisplayValue();
+
+		if(!$filterValue) {
+			$filterValue = '...';
+		}
+
+		return $filterValue;
+	}
+
 
 
 	/**
@@ -240,6 +325,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($cellValue);
 
+
 				if($this->doBodyCellStyling) $this->doCellStyling($columnNumber, $columnIdentifier, 'body');
 
 				unset($listCell);
@@ -255,6 +341,39 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	}
 
 
+
+	/**
+	 * Render the aggregate Rows
+	 */
+	protected function renderAggregates() {
+
+		$activeSheet = $this->objPHPExcel->getActiveSheet();
+
+		// Rows
+		foreach ($this->templateVariableContainer['aggregateRows'] as $aggregateRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+
+			$columnNumber = 0;
+
+			foreach ($aggregateRow as $columnIdentifier => $aggregateCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+
+				$cellValue = $aggregateCell->getValue();
+				if($this->stripTags) $cellValue = strip_tags($cellValue);
+
+				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($cellValue);
+
+				$this->doCellStyling($columnNumber, $columnIdentifier, 'aggregate');
+
+				$columnNumber++;
+			}
+
+			$this->rowNumber++;
+		}
+
+		unset($this->templateVariableContainer['aggregateRows']);
+	}
+
+
+
 	/**
 	 * @param string $columnIdentifier
 	 * @return array
@@ -268,6 +387,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		return $excelSettings;
 	}
 
+	
 
 	/**
 	 * @param $columnNumber
@@ -279,6 +399,8 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		$excelSettings = $this->getExcelSettingsByColumnIdentifier($columnIdentifier);
 		if(!is_array($excelSettings[$type])) return;
 		$settings = $excelSettings[$type];
+
+		if($settings['dataType']) $this->activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setDataType($settings['dataType']);
 
 		if($settings['wrapText']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setWrapText($settings['wrapText']);
 		if($settings['vertical']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setVertical($settings['vertical']);
@@ -360,17 +482,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
 		$objWriter->save('php://output');
-		// $this->logStats(); TODO: repair logStats() first!
 		exit();
-	}
-
-
-	/**
-	 * Log some stats to the error log
-	 */
-	protected function logStats() {
-		$usedTime = microtime(true) - $this->exportStartTime;
-		error_log('Export of ' . count($this->templateVariableContainer['listData']) . ' rows in ' . $usedTime . ' Seconds , needed ' . memory_get_usage(true) / (1024*1024) . ' MB of memeory.');
 	}
 
 

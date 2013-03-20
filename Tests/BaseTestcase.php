@@ -103,7 +103,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_Bas
 	public function setup() {
 		$typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser'); /* @var $typoScriptParser t3lib_TSparser */
         $typoScriptParser->parse($this->extBaseSettingsString);
-        $this->extBaseSettings = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
+        $this->extBaseSettings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
         
 	}
 	
@@ -111,8 +111,6 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_Bas
 	
 	/**
 	 * Initializes default configuration builder mock used throughout different testcases
-	 *
-	 * @return void
 	 */
 	protected function initDefaultConfigurationBuilderMock($overwriteSettings = NULL) {
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings, $overwriteSettings);		

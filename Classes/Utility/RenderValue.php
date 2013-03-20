@@ -34,7 +34,10 @@
  * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Utility_RenderValue {
-	
+
+	/**
+	 * @var tslib_cObj
+	 */
 	protected static $cObj;
 
 
@@ -59,6 +62,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param array $data data values to be rendered
 	 * @param array $renderObjectConfig config for cObj rendering
 	 * @param array $renderUserFunctionConfig array and config for multiple renderuserfunctions
+	 * @param string $renderTemplate
 	 * @return string rendered value
 	 */
 	public static function render(array $data, array $renderObjectConfig = NULL, array $renderUserFunctionConfig = NULL, $renderTemplate = NULL) {
@@ -75,6 +79,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 		if(!self::$renderCache[$cacheKey]) {
 			self::$renderCache[$cacheKey] = self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
 		}
+
 		return self::$renderCache[$cacheKey];
 	}
 
@@ -86,6 +91,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @param array $data data to be rendered
 	 * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
 	 * @param bool $caching Set to true if you want to get caching for cell rendering. Default is FALSE
+	 * @return string
 	 */
 	public static function renderByConfigObject(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig, $caching = FALSE) {
 		if ($caching) {
@@ -102,6 +108,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 *
 	 * @param array $data data to be rendered
 	 * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
+	 * @return string
 	 */
 	public static function renderByConfigObjectUncached(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig) {
 		return self::renderUncached($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
@@ -273,6 +280,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 *
 	 * @param array $data data values
 	 * @param string $templatePath
+	 * @return string
 	 */
 	public static function renderValueByTemplate(array $data, $templatePath) {
 		if(!file_exists($templatePath)) {
@@ -292,7 +300,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * Render content by renderuserfunction array
 	 *
 	 * @param array $data dataFields
-	 * @param array $renderUserFunctionConfig array of renderUserFunctions
+	 * @param array $renderUserFunctionConfigArray array of renderUserFunctions
+	 * @return string
 	 */
 	public static function renderValueByRenderUserFunctionArray(array $data, array $renderUserFunctionConfigArray) {
 		$params['values'] = $data;
@@ -318,6 +327,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * return the cObj object
 	 *
 	 * @return tslib_cObj;
+	 * @deprecated Use Tx_PtExtbase_Div::getCobj instead
 	 */
 	public static function getCobj() {
 		if(!self::$cObj) {
@@ -369,7 +379,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function stdWrapIfPlainArray($tsConfigValue) {
 		if(!is_array($tsConfigValue)) return $tsConfigValue;
 
-		$tsArray = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
+		$tsArray = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
 		$content = self::getCobj()->cObjGetSingle($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
 
 		return $content;
@@ -386,7 +396,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function renderCObjectWithPlainArray($tsConfigValue) {
 		if(!is_array($tsConfigValue) && array_key_exists('cObject', $tsConfigValue)) return $tsConfigValue;
 		
-		$tsArray = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($tsConfigValue);
+		$tsArray = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray($tsConfigValue);
 
 		return self::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
 	}

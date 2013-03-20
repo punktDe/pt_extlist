@@ -31,7 +31,7 @@
  * 
  * @package Domain
  * @subpackage DataBackend
- * @author Michael Knoll 
+ * @author Michael Knoll, Daniel Lienert
  */
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Singleton {
 	
@@ -41,8 +41,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
      * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
      */
 	private static $instances = array();
-	
-	
+
+
+	/**
+	 * @var boolean
+	 */
+	protected static $resetDataBackend = FALSE;
+
 	
 	/**
 	 * Returns an instance of data backend for a given list identifier.
@@ -50,13 +55,14 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
 	 * @param string $listIdentifier
 	 * @param bool $throwExceptionOnNonExistingListIdentifier
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+	 * @throws Exception
 	 */
 	public static function getInstanceByListIdentifier($listIdentifier, $throwExceptionOnNonExistingListIdentifier = true) {
 		if (array_key_exists($listIdentifier, self::$instances)) {
 			return self::$instances[$listIdentifier];
 		} else {
 			if ($throwExceptionOnNonExistingListIdentifier) {
-				throw new Exception('No data backend found for list identifier ' . $listIdentifier . ' 1280770617');
+				throw new Exception('No data backend found for list identifier ' . $listIdentifier, 1280770617);
 			} else {
 				return NULL;
 			}
@@ -72,16 +78,16 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
 	 * @param boolean $resetDataBackend
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
 	 */
-	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetDataBackend = false) {
+	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetDataBackend = FALSE) {
 		$listIdentifier = $configurationBuilder->getListIdentifier();
 
 		if (!array_key_exists($listIdentifier, self::$instances) || $resetDataBackend) {
+			self::$resetDataBackend = $resetDataBackend;
 
 			$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 			$dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
 
-			$dataBackend = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
-			#$dataBackend = new $dataBackendClassName($configurationBuilder);  /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+			$dataBackend = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
 
 			self::$instances[$listIdentifier] = $dataBackend; /* The reference has to be set here bercause otherwise every filter will create the databackend again -> recursion! */
 
@@ -98,7 +104,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
 
 			$dataBackend->_injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 
-			if (self::getQueryInterpreter($configurationBuilder) != null) {
+			if (self::getQueryInterpreter($configurationBuilder) != NULL) {
 				$dataBackend->_injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
 			}
 
@@ -113,7 +119,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
 	/**
 	 * Initializes the data source used for this data backend
 	 *
+	 * @param string $dataBackendClassName
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
 	 */
     protected static function getDataSource($dataBackendClassName, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	 // Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
@@ -127,6 +135,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
      * Injects the data mapper used for created backend
      *
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
      */
     protected static function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
         $dataMapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($configurationBuilder);
@@ -140,7 +149,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
      * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
      */
     protected static function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) { 		
-    	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
+    	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder, self::$resetDataBackend);
     	return $filterboxCollection;
     }
     
@@ -167,8 +176,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
     	$backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$queryInterpreterClassName = $backendConfiguration->getQueryInterpreterClass();
         $queryInterpreter = new $queryInterpreterClassName;
-	    // TODO we cannot have generic interpreter interface here, as this may vary from backend to backend.
-	    //Tx_PtExtbase_Assertions_Assert::isTrue(is_a($queryInterpreter, 'Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter'));
+
 	    return $queryInterpreter;
     }
     

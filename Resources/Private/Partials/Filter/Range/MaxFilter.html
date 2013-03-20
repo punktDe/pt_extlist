@@ -20,6 +20,9 @@ Here is a list of objects / variables that can be accessed in this partial
 			<f:form.textfield id="{filter.filterIdentifier}" property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" />
 		</div>
 	</div>
+
+	<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
+
 	<f:if condition="{filter.validate} == 0">
 		<div class="error">
 			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}

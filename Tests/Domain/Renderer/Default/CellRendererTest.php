@@ -99,19 +99,19 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
 		$this->assertEquals('val1', $cellContent->getValue()); 
 		
 	}
-	
-	
-	
+
+
 	/** @test */
 	public function createArrayDataFieldSetReturnsCorrectFieldset() {
-		$array = array('field1' => 'test1',
-					   'field2' => array ('value1', 'value2', 'value3'),
-					   'field3' => 'test3',
-						);
-						
-	    $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer');
+		$array = array(
+			'field1' => 'test1',
+			'field2' => array('value1', 'value2', 'value3'),
+			'field3' => 'test3',
+		);
+
+		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer');
 		$defaultCellRenderer = new $accessibleClassName($this->getRendererConfiguration()); /* @var $defaultCellRenderer Tx_PtExtlist_Domain_Renderer_Default_CellRenderer */
-		
+
 		$outArray = $defaultCellRenderer->_call('createArrayDataFieldSet', $array);
 
 		$this->assertEquals($outArray[1]['field2'], 'value2');
@@ -120,5 +120,3 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
 	
 	
 }
-
-?>

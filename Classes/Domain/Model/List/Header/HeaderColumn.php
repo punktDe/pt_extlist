@@ -159,6 +159,27 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 
 
 	/**
+	 * Sets the sorting direction of this column.
+	 *
+	 * Which fields are sorted
+	 *
+	 * @param int $sortingDirection One of  Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE
+	 */
+	public function setSorting($sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC) {
+		$this->sortedFields = array();
+		$sortingConfig = $this->columnConfig->getSortingConfig();
+		foreach ($sortingConfig as $fieldConfig) { /* @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $fieldConfig */
+			if ($fieldConfig->getForceDirection()) {
+				$this->sortedFields[$fieldConfig->getField()] = $fieldConfig->getDirection();
+			} else {
+				$this->sortedFields[$fieldConfig->getField()] = $sortingDirection;
+			}
+		}
+	}
+
+
+
+	/**
 	 * Initialize the Column by Configuration
 	 */
 	protected function initByTsConfig() {

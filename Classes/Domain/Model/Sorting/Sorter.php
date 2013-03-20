@@ -74,6 +74,16 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
     	$this->sortingObservers[] = $sortingObserver;
     	$sortingObserver->registerSorter($this);
     }
+
+
+
+	/**
+	 * Removes all registered sorting observers and resets sorting state collection
+	 */
+	public function removeAllSortingObservers() {
+		$this->sortingObservers = array();
+		$this->buildSortingStateCollection();
+	}
     
     
     

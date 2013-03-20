@@ -68,7 +68,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 		foreach($options as $optionKey => $optionValue) {
 			$selectOptions[$optionKey] = $optionValue['value'];
 		}
-		
+
 		return $selectOptions;
 	}
 	

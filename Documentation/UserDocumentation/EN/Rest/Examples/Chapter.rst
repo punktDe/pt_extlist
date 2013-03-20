@@ -12,6 +12,7 @@ We will set up a page showing filters, list and pager for static countries.
 
 1. Create a new page inside your page tree and open the template module. Open Template module and create new extension template:
 
+
 .. figure:: Images/examples_1_1_01.png
 	:scale: 50%
 

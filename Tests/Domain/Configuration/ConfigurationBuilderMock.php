@@ -50,10 +50,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     /**
      * Returns a singleton instance of this class
      * @param $settings The current settings for this extension.
+	 * @param $overwriteSettings Overwrite the default settings
      * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
      */
 	public static function getInstance($settings = null, $overwriteSettings = null) {
-		if ($settings != null) {
+		if (is_array($settings) && count($settings)) {
 			$configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
 		} else {
 
@@ -86,7 +87,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 						'headerPartial' => 'List/ListHeader',
 						'bodyPartial' => 'List/ListBody',
 						'aggregateRowsPartial' => 'List/AggregateRows',
-
+						'useIterationListData' => 1,
 
 						'backendConfig' => array(
 							'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',

@@ -13,52 +13,52 @@ plugin.tx_ptextlist.settings {
 
     		fields {
 
-				col_1 {
-					special = col_1
+				field1 {
+					special = field1
 				}
 
-				col_2 {
-					special = col_2
+				field2 {
+					special = field2
 				}
 
-				col_3 {
-					special = col_3
+				field3 {
+					special = field3
 				}
 
-				col_4 {
-					special = col_4
+				field4 {
+					special = field4
 				}
 
-				col_5 {
-					special = col_5
+				field5 {
+					special = field5
 				}
 
     		}
 
     		columns {
     			10 {
-    				columnIdentifier = col_1
-    				fieldIdentifier = col_1, col_2, col_3
+    				columnIdentifier = field1
+    				fieldIdentifier = field1, field2, field3
     			}
 
     			20 {
-					columnIdentifier = col_2
-					fieldIdentifier = col_2
+					columnIdentifier = field2
+					fieldIdentifier = field2
 				}
 
     			30 {
-					columnIdentifier = col_3
-					fieldIdentifier = col_3
+					columnIdentifier = field3
+					fieldIdentifier = field3
 				}
 
     			40 {
-					columnIdentifier = col_4
-					fieldIdentifier = col_4
+					columnIdentifier = field4
+					fieldIdentifier = field4
 				}
 
     			50 {
-					columnIdentifier = col_5
-					fieldIdentifier = col_5
+					columnIdentifier = field5
+					fieldIdentifier = field5
 				}
     		}
 

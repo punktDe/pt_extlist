@@ -15,14 +15,14 @@ $controllerActions = array(															// An array holding the controller-act
 	'Export'=>'showLink,download',
 	'Filterbox' => 'show,submit,reset,resetFilter',
 	'Pager' => 'show',
-	'Bookmarks' => 'show,process,edit,update,delete,create,new',
+	'Bookmarks' => 'show,save,delete,restore',
 	'BreadCrumbs' => 'index,resetFilter',
 	'ColumnSelector' => 'show',
 	'AjaxFilter' => 'getFilterElement'
 );
 
-		
-		
+
+
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
 	'Pi1',																			// A unique name of the plugin in UpperCamelCase
