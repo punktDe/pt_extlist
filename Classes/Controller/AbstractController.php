@@ -67,6 +67,13 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @var string
 	 */
 	protected $listIdentifier;
+
+
+    /**
+     * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
+     */
+    protected $sessionPersistenceManager;
+
 	
 	
 	//TODO:Question for Mimi:Can we delete this constructor?
@@ -74,6 +81,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * Constructor for all plugin controllers
 	 */
 	public function __construct() {
+        //TODO:How can we prevent initialisation of lifecycleManager in parent __construct
 		parent::__construct();
 	}
 
@@ -87,35 +95,35 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     }
 
 
-	
-	/**
-	 * Creates configuration builder after getting extension configuration injected
-	 *
-	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
-	 * @throws Exception
-	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) { // , $initConfigurationBuilder = TRUE, $initDataBackend = TRUE
-		parent::injectConfigurationManager($configurationManager);
-
-		$this->configurationBuilder = $this->buildConfigurationBuilder();
-		$sessionPersistenceManager = $this->buildSessionPersistenceManager();
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
-
-		// We reset session data, if we want to have a reset on empty submit
-		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
-		}
-
-		$this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
-	}
-
-
 
     /**
      * @return void
      */
     public function initializeAction(){
-        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
+        $this->configurationBuilder = $this->buildConfigurationBuilder();
+
+        $this->initSessionPersistenceManager();
+
+        $this->resetOnEmptySubmit();
+
+        $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+    }
+
+
+
+    protected function initSessionPersistenceManager(){
+        $this->sessionPersistenceManager = $this->buildSessionPersistenceManager();
+        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
+    }
+
+
+
+
+    protected function resetOnEmptySubmit(){
+        // We reset session data, if we want to have a reset on empty submit
+        if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+            $this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+        }
     }
 
 

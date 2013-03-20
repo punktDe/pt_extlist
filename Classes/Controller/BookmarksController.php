@@ -31,7 +31,8 @@
  * Class implementing bookmarks controller
  *
  * @package Controller
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @author David "Dex" Vogt
  */
 class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controller_AbstractController {
     
@@ -96,44 +97,6 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     protected $bookmarkConfiguration = null;
 
-    
-    
-    /**
-     * Constructor for bookmarks controller
-     * 
-     * @return void
-     */
-    public function __construct() {
-
-        /**
-         * Was muss hier passieren?
-         *
-         * 1. Wir brauchen einen Bookmark-Controller, der diese Klasse erweitert und diese Methode überschreibt
-         * 2. In der überschreibenden Methode muss ein Bookmark Manager geladen werden
-         * 3. Der Bookmark Manager muss sich im Falle einer Wiederherstellung DIREKT aus dem GP vars das Kommando abholen, welches Bookmark wiederhergestellt werden soll
-         * 4. Die Daten aus dem Boockmark müssen im Session Persistence Manager überschrieben werden BEVOR dieser an den LifeCycleManager übergeben wird
-         */
-
-        //$sessionPersistenceManager->getSessionDataForObjectNamespace()
-
-    	Tx_PtExtbase_Controller_AbstractActionController::__construct();
-        $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
-
-        //TODO:Get PluginName from request
-        $pluginName = 'tx_ptextlist_pi1';
-        //TODO:Question for Mimi: Use $_GET or $_REQUEST?
-        $action = $_REQUEST[$pluginName]['action'];
-        if ($action == 'restore'){
-            $bookmarkUid = $_REQUEST[$pluginName]['bookmark'];
-            //TODO:Question for Mimi: We do not have a Repository yet :S
-        }
-
-
-        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
-
-        //TODO:Question for Mimi: Other option would be to copy Tx_PtExtbase_Controller_AbstractActionController plus the one line from Tx_Extbase_MVC_Controller_AbstractController
-    }
-
 
 
     /**
@@ -168,6 +131,9 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      */
     public function initializeAction() {
+
+        parent::initializeAction();
+
         $user_uid = $GLOBALS['TSFE']->fe_user->user['uid'];
 
         $this->feUser = $this->feUserRepository->findByUid($user_uid);
@@ -175,10 +141,31 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     	$this->bookmarkRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
 
     	$this->bookmarkConfiguration = $this->configurationBuilder->buildBookmarksConfiguration();
-    	
-    	$this->bookmarkManager = $this->bookmarkManagerFactory->getInstanceByConfigurationBuilder($this->configurationBuilder);
 
+        //TODO:Question for Mimi: Can't this be injected?
     	$this->persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager'); /* @var $persistenceManager Tx_Extbase_Persistence_Manager */
+    }
+
+
+    /**
+     * override the initSessionPersistenceManager-method from parent class to inject Bookmark-data into SessionPersistenceManager before handing it to lifecycleManager.
+     */
+    protected function initSessionPersistenceManager(){
+        $this->sessionPersistenceManager = $this->buildSessionPersistenceManager();
+
+        $this->bookmarkManager = $this->bookmarkManagerFactory->getInstanceByConfigurationBuilder($this->configurationBuilder);
+
+        //TODO:Question for Mimi: Get PluginName from request?
+        $pluginName = 'tx_ptextlist_pi1';
+        //TODO:Question for Mimi: Use $_GET or $_REQUEST?
+        $action = $_REQUEST[$pluginName]['action'];
+        $controller = $_REQUEST[$pluginName]['controller'];
+        if ($action == 'restore' && $controller == 'Bookmarks'){
+            $bookmark = $this->bookmarkRepository->findByUid($_REQUEST[$pluginName]['bookmark']);
+            $this->bookmarkManager->restoreBookmark($bookmark);
+        }
+
+        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
     }
 
     
@@ -260,7 +247,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
      */
     public function restoreAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark){
-
+        $this->forward('show');
     }
 
     

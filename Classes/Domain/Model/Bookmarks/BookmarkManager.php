@@ -101,6 +101,19 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	public function injectBookmarkRepository(Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository $bookmarkRepository) {
 		$this->bookmarkRepository = $bookmarkRepository;
 	}
+
+
+
+    /**
+     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
+     */
+    public function restoreBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark){
+        //TODO:Question for Mimi: Do it like this or like the processBookmark-method in line 122
+        //TODO:Question for Mimi: can we inject GPVarAdapter?
+        $content = $bookmark->getContent();
+        $this->sessionPersistenceManager->restoreBookmark($content);
+
+    }
 	
 	
 	
