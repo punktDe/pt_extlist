@@ -69,7 +69,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
 	 */
-	private $configurationBuilderFactory;
+	protected $configurationBuilderFactory;
 
 
 
@@ -102,6 +102,13 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
      */
     protected $sessionPersistenceManager;
 
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+	 */
+	protected $dataBackendFactory;
+
 	
 	
 	/**
@@ -125,6 +132,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
 		parent::injectConfigurationManager($configurationManager);
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+	 */
+	public function injectDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory) {
+		$this->dataBackendFactory = $dataBackendFactory;
 	}
 
 
@@ -156,12 +172,27 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     public function initializeAction(){
 		parent::initializeAction();
 
+		$this->initListIdentifier();
         $this->buildConfigurationBuilder();
         $this->buildAndInitSessionPersistenceManager();
         $this->resetOnEmptySubmit();
-		// TODO refactor me to use non-static method
-        $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
+		$this->dataBackend = $this->dataBackendFactory->getDataBackendInstanceByListIdentifier($this->listIdentifier);
     }
+
+
+
+	/**
+	 * Sets list identifier for this controller
+	 *
+	 * @throws Exception
+	 */
+	protected function initListIdentifier() {
+		if ($this->settings['listIdentifier'] != '') {
+			$this->listIdentifier = $this->settings['listIdentifier'];
+		} else {
+			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in FlexForm 1363797701');
+		}
+	}
 
 
 
@@ -170,13 +201,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @throws Exception
 	 */
 	protected function buildConfigurationBuilder() {
-
-		if ($this->settings['listIdentifier'] != '') {
-			$this->listIdentifier = $this->settings['listIdentifier'];
-		} else {
-			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
-		}
-
 		$this->configurationBuilder = $this->configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
 	}
 

@@ -37,6 +37,15 @@
 interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
 	/**
+	 * Returns list identifier of list to which this backend belongs to.
+	 *
+	 * @return string List identifier of associated list
+	 */
+	public function getListIdentifier();
+
+
+
+	/**
 	 * Creates an instance of data source object to be used with current backend
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder

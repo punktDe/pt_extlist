@@ -81,6 +81,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory implements t
 	 *
 	 * TODO at the moment we need this for extlist context. This should be fixed, once we have bootstrap and new DI
 	 *
+	 * TODO Think about the problem, that this class is a singleton, hence we get the same instance over and over, once it is
+	 * TODO instantiated. BUT settings are likely to change from one request to this instance to another, so we need a possibility to
+	 * TODO get different instances for different settings.
+	 *
 	 * @param array $settings
 	 */
 	public function setSettings(array $settings) {
