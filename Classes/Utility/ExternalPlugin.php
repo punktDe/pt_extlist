@@ -109,10 +109,11 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * Read the Session data into the cache
 	 */
 	protected static function loadLifeCycleManager() {
-		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
 
 		// TODO use DI here once refactoring is finished
 		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager'); /* @var $objectManager Tx_Extbase_Object_Manager */
+		$lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
+
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 		$lifecycleManager->register($sessionPersistenceManager);

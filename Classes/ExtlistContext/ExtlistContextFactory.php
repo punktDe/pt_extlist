@@ -36,11 +36,92 @@
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singleton {
 
+
+	/**
+	 * @var Tx_Extbase_Configuration_ConfigurationManager
+	 */
+	protected $configurationMananger;
+
+
+
+	/**
+	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager){
+		$this->configurationMananger = $configurationManager;
+	}
+
+
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected $objectManager;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager){
+		$this->objectManager = $objectManager;
+	}
+
+
+
+	/**
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	protected $sessionPersistenceManagerBuilder;
+
+
+
+	/**
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder){
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
+	/**
+	 * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
+	 */
+	protected $instances = array();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	 * Array of listContext Instances
-	 * @var Tx_PtExtlist_Domain_ListContext_ListContext
+	 * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
 	 */
-	protected static $instances = array();
+	protected static $staticInstances = array();
 
 
 
@@ -50,10 +131,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	protected static $extListTyposcript = NULL;
 
 
+
 	/**
 	 * @var Tx_Extbase_Object_ObjectManager
 	 */
-	protected static $objectManager;
+	protected static $staticObjectManager;
+
 
 
 	/**
@@ -64,9 +147,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 */
 	public static function getContextByListIdentifier($listIdentifier) {
 
-		if(!array_key_exists($listIdentifier, self::$instances)) {
+		if(!array_key_exists($listIdentifier, self::$staticInstances)) {
 
-			self::$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+			self::$staticObjectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 
@@ -84,11 +167,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 			}
 
-			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
+			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
 
 		}
 
-		return self::$instances[$listIdentifier];
+		return self::$staticInstances[$listIdentifier];
 	}
 
 
@@ -116,9 +199,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 */
 	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE) {
 		
-		if(!array_key_exists($listIdentifier, self::$instances) || !$useCache) {
+		if(!array_key_exists($listIdentifier, self::$staticInstances) || !$useCache) {
 
-			self::$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+			self::$staticObjectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			if($useCache) {
 
@@ -135,10 +218,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 			}
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder, !$useCache);
-			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
+			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
 		}
 
-		return self::$instances[$listIdentifier];
+		return self::$staticInstances[$listIdentifier];
 	}
 
 
@@ -191,13 +274,13 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 
 	/**
-	 * Build the extlistContext
+	 * Build the extbaseContext
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extlistContext
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extbaseContext
 	 */
 	protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$extListContext = self::$objectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext');
+		$extListContext = self::$staticObjectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext');
 
 		$extListContext->_injectDataBackend($dataBackend);
 		$extListContext->init();
@@ -211,15 +294,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * Read the Session data into the cache
 	 */
 	protected static function loadLifeCycleManager() {
-		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
 		// TODO use DI here once refactoring is finished
 		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager'); /* @var $objectManager Tx_Extbase_Object_Manager */
+		$lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
-		// We have to update state manually here since lifecycle manager is already set to START
-		// TODO is this a bug or a feature?!?
-		$sessionPersistenceManager->lifecycleUpdate(Tx_PtExtbase_Lifecycle_Manager::START);
-		$lifecycleManager->register($sessionPersistenceManager);
+		$lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
 	}
 
 
@@ -298,4 +378,3 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	}
 
 }
-?>

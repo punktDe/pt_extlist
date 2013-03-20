@@ -112,7 +112,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager, Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
 		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
-		parent::__construct();
+		parent::__construct($lifecycleManager);
 	}
 
 
@@ -157,7 +157,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		parent::initializeAction();
 
         $this->buildConfigurationBuilder();
-        $this->initSessionPersistenceManager();
+        $this->buildAndInitSessionPersistenceManager();
         $this->resetOnEmptySubmit();
 		// TODO refactor me to use non-static method
         $this->dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilder);
@@ -177,17 +177,20 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 			throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in flexform');
 		}
 
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->settings);
-
-		// TODO refactor me to use non-static method
-		$this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
+		$this->configurationBuilder = $this->configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
 	}
 
 
 
-    protected function initSessionPersistenceManager(){
-        $this->sessionPersistenceManager = $this->buildSessionPersistenceManager();
-        $this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
+    protected function buildAndInitSessionPersistenceManager(){
+        $this->buildSessionPersistenceManager();
+
+		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
+
+		// We reset session data, if we want to have a reset on empty submit
+		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+			$this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+		}
     }
 
 
@@ -216,14 +219,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 		// Instantiate session storage for determined class name
 		$sessionStorageAdapter = call_user_func($sessionPersistenceStorageAdapterClassName . '::getInstance');
-		$sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance($sessionStorageAdapter);
-
-		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
-
-		// We reset session data, if we want to have a reset on empty submit
-		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
-		}
+		$this->sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance($sessionStorageAdapter);
 	}
 
 
@@ -356,4 +352,3 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     }
     
 }
-?>

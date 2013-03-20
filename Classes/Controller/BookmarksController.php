@@ -150,7 +150,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     /**
      * override the initSessionPersistenceManager-method from parent class to inject Bookmark-data into SessionPersistenceManager before handing it to lifecycleManager.
      */
-    protected function initSessionPersistenceManager(){
+    protected function buildAndInitSessionPersistenceManager(){
         $this->sessionPersistenceManager = $this->buildSessionPersistenceManager();
 
         $this->bookmarkManager = $this->bookmarkManagerFactory->getInstanceByConfigurationBuilder($this->configurationBuilder);

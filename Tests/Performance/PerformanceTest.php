@@ -183,5 +183,3 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	}
 
 }
-
-?>

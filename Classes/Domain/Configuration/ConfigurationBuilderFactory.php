@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory implements t
 	 *
 	 * @var Tx_PtExtlist_Extbase_ExtbaseContext
 	 */
-	private $extlistContext;
+	private $extbaseContext;
 
 
 
@@ -92,10 +92,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory implements t
 	/**
 	 * Injects extbase context (for determine FE / BE usage) for usage with DI
 	 *
-	 * @param Tx_PtExtlist_Extbase_ExtbaseContext $extlistContext
+	 * @param Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext
 	 */
-	public function injectExtlistContext(Tx_PtExtlist_Extbase_ExtbaseContext $extlistContext) {
-		$this->extlistContext = $extlistContext;
+	public function injectExtbaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext) {
+		$this->extbaseContext = $extbaseContext;
 	}
 
 
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory implements t
 	 */
 	public function getInstance($listIdentifier = NULL, $resetConfigurationBuilder = false) {
 		if($listIdentifier == NULL) {
-			$listIdentifier = $this->extlistContext->getCurrentListIdentifier();
+			$listIdentifier = $this->extbaseContext->getCurrentListIdentifier();
 		}
 
 		if ($listIdentifier == '') {

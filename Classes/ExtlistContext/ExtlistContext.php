@@ -105,7 +105,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
-	 * Initialize the extlistContext
+	 * Initialize the extbaseContext
 	 */
 	public function init() {
 	}
