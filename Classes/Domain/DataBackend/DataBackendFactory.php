@@ -208,4 +208,3 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory implements t3lib_Single
     }
 	
 }
-?>

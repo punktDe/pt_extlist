@@ -243,7 +243,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 	/**
 	 * @static
-	 * @param $extListSettings array
+	 * @param $extListTypoScript array
 	 * @return void
 	 */
 	public static function setExtListTyposSript($extListTypoScript) {
@@ -358,7 +358,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @return array typoscript array
 	 */
 	protected static function getTyposcriptOfCurrentBackendPID() {
-		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager');
+		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager'); /* @var $configurationManager Tx_Extbase_Configuration_BackendConfigurationManager */
 		$completeTS = $configurationManager->getTypoScriptSetup();
 		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
@@ -372,7 +372,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 */
 	protected static function getTyposcriptOfCurrentFrontendPID() {
 
-		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager');
+		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager'); /* @var $configurationManager Tx_Extbase_Configuration_FrontendConfigurationManager */
 		$completeTS = $configurationManager->getTypoScriptSetup();
 		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}

@@ -96,6 +96,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	protected $listIdentifier;
 
 
+
     /**
      * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
      */
@@ -103,7 +104,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 	
 	
-	//TODO:Question for Mimi:Can we delete this constructor?
 	/**
 	 * Constructor for all plugin controllers
 	 *
