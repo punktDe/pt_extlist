@@ -135,4 +135,3 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	}
     
 }
-?>

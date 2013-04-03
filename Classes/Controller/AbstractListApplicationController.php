@@ -284,4 +284,3 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	}
     
 }
-?>

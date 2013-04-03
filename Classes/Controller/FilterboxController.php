@@ -263,4 +263,3 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 	}
 
 }
-?>

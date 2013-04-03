@@ -385,4 +385,3 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     }
     
 }
-?>
