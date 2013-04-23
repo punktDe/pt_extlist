@@ -35,11 +35,20 @@
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
 
-
 	/**
 	 * @var Tx_Extbase_Object_ObjectManager;
 	 */
 	protected $objectManager;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
 
 
 	/**
@@ -49,7 +58,8 @@ class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
 	 * @return Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
 	public function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
-		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
+		$rendererChain = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererChain', $rendererChainConfiguration);
+		//$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
 		foreach ($rendererChainConfiguration as $rendererConfiguration) {
 			$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
 			$rendererChain->addRenderer($renderer);
