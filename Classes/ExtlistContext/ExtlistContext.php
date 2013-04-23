@@ -105,6 +105,15 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
 	 * Initialize the extbaseContext
 	 */
 	public function init() {
@@ -117,6 +126,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function injectExtBaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext) {
 		$this->extBaseContext = $extBaseContext;
 	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
 
 
 	/**
@@ -146,7 +165,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getRendererChain() {
 
 		if($this->rendererChain === NULL) {
-			$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
+			$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
 		}
 
 		return $this->rendererChain;

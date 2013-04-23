@@ -30,15 +30,16 @@ require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSo
  ***************************************************************/
 
 
-
 /**
  * Testcase for list data class
  *
  * @author Daniel Lienert
+ * @author Michael Knoll
  * @package Tests
  * @subpackage Model\List
+ * @see Tx_PtExtlist_Domain_Model_List_IterationListData
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_IterationListData
@@ -47,9 +48,18 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 
 
 
+	/**
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
 	public function setUp() {
-		$this->fixture = $this->getIterationListDataObject(10,10);
+		$this->rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->getObject('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
+		$this->fixture = $this->getIterationListDataObject(10, 10);
 	}
+
 
 
 	/**
@@ -64,7 +74,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 		$dataMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 
 		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
-		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
+		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 
 		$fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
 		$fixture->_injectDataSource($dataSource);
@@ -96,13 +106,15 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 	}
 
 
+
 	public function rowCountProvider() {
 		return array(
 			'0 rows' => array('rows' => 0),
-			'1 row' =>  array('rows' => 1),
-			'1000 rows' =>  array('rows' => 1000),
+			'1 row' => array('rows' => 1),
+			'1000 rows' => array('rows' => 1000),
 		);
 	}
+
 
 
 	/**
@@ -114,11 +126,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 
 		$counter = 0;
 
-		foreach($this->fixture as $row) {
+		foreach ($this->fixture as $row) {
 			$counter++;
 		}
 
-		$this->assertEquals($rows, $counter, 'We should have '.$rows.' iterations');
+		$this->assertEquals($rows, $counter, 'We should have ' . $rows . ' iterations');
 	}
 
 
@@ -132,7 +144,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 
 		$counter = 0;
 
-		foreach($this->fixture as $row) {
+		foreach ($this->fixture as $row) {
 			$counter++;
 			$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row, 'Returned false in Iteration ' . $counter);
 		}
@@ -146,7 +158,8 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 	public function rewindSetsKeyToZero() {
 		$this->setUp();
 
-		foreach($this->fixture as $row) {}
+		foreach ($this->fixture as $row) {
+		}
 
 		$this->fixture->rewind();
 
@@ -161,18 +174,20 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 	public function validCountOfIterationsAfterRewind() {
 		$this->setUp();
 
-		foreach($this->fixture as $row) {}
+		foreach ($this->fixture as $row) {
+		}
 
 		$counter = 0;
 
 		$this->fixture->rewind();
 
-		foreach($this->fixture as $row) {
+		foreach ($this->fixture as $row) {
 			$counter++;
 		}
 
 		$this->assertEquals(10, $counter, 'We should have 10 iterations');
 	}
+
 
 
 	/**
@@ -188,5 +203,3 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListData_testcase extends Tx
 	}
 
 }
-
-?>

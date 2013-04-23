@@ -45,27 +45,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 
 	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
-	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager){
-		$this->configurationMananger = $configurationManager;
-	}
-
-
-
-	/**
 	 * @var Tx_Extbase_Object_ObjectManager
 	 */
 	protected $objectManager;
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager){
-		$this->objectManager = $objectManager;
-	}
 
 
 
@@ -77,43 +59,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 
 	/**
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
-	 */
-	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder){
-		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
-	}
-
-
-
-	/**
 	 * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
 	 */
 	protected $instances = array();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -136,6 +84,33 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @var Tx_Extbase_Object_ObjectManager
 	 */
 	protected static $staticObjectManager;
+
+
+
+	/**
+	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager){
+		$this->configurationMananger = $configurationManager;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder){
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager){
+		$this->objectManager = $objectManager;
+	}
 
 
 

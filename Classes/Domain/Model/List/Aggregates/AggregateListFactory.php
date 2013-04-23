@@ -47,7 +47,9 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 		
 		$aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
 		$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
-		//$aggregateListBuilder->injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
+		// TODO make this class non-static and use injection for rendererChainFactory here
+		// $rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->getObject('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'); /* @var $rendererChainFactory Tx_PtExtlist_Domain_Renderer_RendererChainFactory */
+		// $aggregateListBuilder->injectRenderer($rendererChainFactory->getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
 		$aggregateListBuilder->injectDataBackend($dataBackend);
 		
 		$aggregateListData = $aggregateListBuilder->buildAggregateListData();	
@@ -55,4 +57,3 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
 		return $aggregateListData;
 	}
 }
-?>

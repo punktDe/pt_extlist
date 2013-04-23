@@ -137,14 +137,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return int Total number of items for current data set
      */
     public function getTotalItemsCount();
-    
-    
-    
-    /**
-     * Return an aggregate for a field and with a method defined in the given config
-     *  
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateDataConfig
-     */
+
+
+
+	/**
+	 * Return an aggregate for a field and with a method defined in the given config
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+	 * @return
+	 */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection);
     
     
@@ -270,5 +271,12 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	 * Reset sorting to default sorting (configured in TS)
 	 */
 	public function resetSortingToDefault();
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder();
 
 }

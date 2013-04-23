@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration
 	 * @return Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
-	public static function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
+	public function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
 		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
 		foreach ($rendererChainConfiguration as $rendererConfiguration) {
 			$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
@@ -51,5 +51,3 @@ class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
 	}
 	
 }
- 
-?>
