@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 
 
 		// TODO make this class non-static and use injection for rendererChainFactory here
-		$rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->getObject('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'); /* @var $rendererChainFactory Tx_PtExtlist_Domain_Renderer_RendererChainFactory */
+		$rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->getObject('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'); /* @var $rendererChainFactory Tx_PtExtlist_Domain_Renderer_RendererChainFactory */
 		$list->setRendererChain($rendererChainFactory->getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
 
 		if($configurationBuilder->buildListConfiguration()->getUseIterationListData()) {

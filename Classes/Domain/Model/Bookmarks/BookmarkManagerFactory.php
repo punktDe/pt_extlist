@@ -75,7 +75,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory implements t3li
 		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($configurationBuilder->getListIdentifier());
 
 		// TODO use DI here once refactoring is finished
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager'); /* @var $objectManager Tx_Extbase_Object_Manager */
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 		#$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());

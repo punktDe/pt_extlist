@@ -35,6 +35,13 @@
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
 
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager;
+	 */
+	protected $objectManager;
+
+
 	/**
 	 * Creates an instance of renderer chain object for given renderer chain configuration
 	 *

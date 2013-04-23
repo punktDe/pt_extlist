@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory {
 
 			// TODO resolve this properly with Dependency Injection once we have cascading container
 			#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 
 			self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Link_LinkManager();
@@ -69,4 +69,3 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory {
 	}
 
 }
-?>
