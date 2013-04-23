@@ -54,7 +54,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 			self::loadLifeCycleManager();
 
 			// TODO Remove this, once we have DI
-			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilderFactory->setSettings($extListTs);
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 
@@ -77,14 +77,14 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	public static function getDataBackendByCustomConfiguration(array $customTSArray, $listIdentifier) {
 
 		try {
-			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 		} catch (Exception $e) {
 			$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
 			self::loadLifeCycleManager();
 
 			// TODO Remove this, once we have DI
-			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilderFactory->setSettings($extListTs);
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 		}
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	protected static function loadLifeCycleManager() {
 
 		// TODO use DI here once refactoring is finished
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_Manager'); /* @var $objectManager Tx_Extbase_Object_Manager */
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
 		$lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
 
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
