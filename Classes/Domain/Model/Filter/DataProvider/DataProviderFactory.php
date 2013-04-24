@@ -49,19 +49,22 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 		
 		$dataProvider->injectFilterConfig($filterConfig);
 
-        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($filterConfig->getListIdentifier());;
-        $dataProvider->injectDataBackend($dataBackend);
+
+		// TODO fix me, once we make this class non-static
+		$dataBackendFactory = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstance($filterConfig->getConfigurationBuilder()->getSettings());
+        $dataProvider->injectDataBackend($dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
 
 		$dataProvider->init();
 		return $dataProvider;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Determine the dataProvider to use for filter options
-	 * 
+	 *
 	 * TODO: Test me!
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @return string dataProviderClass
 	 */
 	protected static function determineDataProviderClass(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
@@ -80,6 +83,4 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 		return $dataProviderClassName;
 	}
 	
-	
 }
-?>

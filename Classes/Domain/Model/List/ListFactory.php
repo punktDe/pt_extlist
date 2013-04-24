@@ -50,7 +50,10 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 		// We have to build headers here, as they are no longer created by data backend
 		$list->setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder, $resetList));
 
-		$list->setRendererChain(Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
+
+		// TODO make this class non-static and use injection for rendererChainFactory here
+		$rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'); /* @var $rendererChainFactory Tx_PtExtlist_Domain_Renderer_RendererChainFactory */
+		$list->setRendererChain($rendererChainFactory->getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
 
 		if($configurationBuilder->buildListConfiguration()->getUseIterationListData()) {
 			$list->setIterationListData($dataBackend->getIterationListData());

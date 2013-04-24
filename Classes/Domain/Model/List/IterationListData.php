@@ -32,6 +32,7 @@
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\List
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest
  */
 class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_Domain_Model_List_IterationListDataInterface {
 
@@ -41,10 +42,12 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	protected $dataSource;
 
 
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_Row
 	 */
 	protected $currentRow = NULL;
+
 
 
 	/**
@@ -53,16 +56,19 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	protected $index = 0;
 
 
+
 	/**
 	 * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
 	 */
 	protected $dataMapper;
 
 
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
 	protected $renderChain;
+
 
 
 	/**
@@ -73,6 +79,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	}
 
 
+
 	/**
 	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
 	 */
@@ -81,12 +88,14 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	}
 
 
+
 	/**
 	 * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
 	 */
 	public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain) {
 		$this->renderChain = $renderChain;
 	}
+
 
 
 	/**
@@ -111,18 +120,19 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 	/**
 	 * Processes the current row (array data structure):
-	 * 	1. build a row data structure
+	 *    1. build a row data structure
 	 *  2. render this data structure using the row renderer of the default renderer
 	 *
 	 * @return Tx_PtExtlist_Domain_Model_List_Row
 	 */
 	protected function getProcessedCurrentRow() {
-		if($this->currentRow !== FALSE) {
+		if ($this->currentRow !== FALSE) {
 			return $this->renderChain->renderSingleRow($this->dataMapper->getMappedRow($this->currentRow), $this->index);
 		} else {
 			return FALSE;
 		}
 	}
+
 
 
 	/**
@@ -137,7 +147,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * @return mixed Can return any type.
 	 */
 	public function current() {
-		if($this->currentRow === NULL) {
+		if ($this->currentRow === NULL) {
 			$this->currentRow = $this->dataSource->fetchRow();
 		}
 
@@ -179,7 +189,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	 * Returns true on success or false on failure.
 	 */
 	public function valid() {
-		if($this->index < $this->count()) {
+		if ($this->index < $this->count()) {
 			return true;
 		} else {
 			return false;
@@ -200,4 +210,3 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 		$this->currentRow = NULL;
 	}
 }
-?>

@@ -113,7 +113,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 
         $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager',array('getSessionDataByNamespace'), array(), '', FALSE);
         $returnArray = array('test');
-		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('tx_ptextlist_pi1.Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase.filters')->will($this->returnValue($returnArray));
+		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase.filters')->will($this->returnValue($returnArray));
         
 		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
         $bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
@@ -126,7 +126,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	public function testInjectSessionPersistenceManager() {
-		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager');
+		$sessionAdapterMock = new Tx_PtExtbase_Tests_Unit_State_Stubs_SessionAdapterMock();
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array($sessionAdapterMock));
 		
 		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
 		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);

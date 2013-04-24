@@ -15,9 +15,11 @@ Here is a list of objects / variables that can be accessed in this template
 
 <h2>Bookmarks</h2>
 
-<f:for each="{allBookmarks}" as="bookmark">
-    <f:link.action action="process" arguments="{bookmark : bookmark}">{bookmark.name}</f:link.action> 
-    <f:link.action action="delete" arguments="{bookmark: bookmark}">&nbsp;delete</f:link.action><br />
-</f:for>
+<f:if condition="{bookmarks}">
+	<f:for each="{bookmarks}" as="bookmark">
+		<f:link.action action="restore" arguments="{bookmark : bookmark}">{bookmark.name}</f:link.action>
+		<f:link.action action="delete" arguments="{bookmark: bookmark}">&nbsp;delete</f:link.action><br />
+	</f:for>
+</f:if>
 <br />
-<f:link.action action="new">Create new Bookmark</f:link.action>
+<f:link.action action="save">Save current session status as bookmark</f:link.action>

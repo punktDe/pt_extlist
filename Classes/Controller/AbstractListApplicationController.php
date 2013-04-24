@@ -113,6 +113,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	 * Initialize this controller
 	 */
 	public function initializeAction() {
+        parent::initializeAction();
 		$this->initFilterBox();
 		$this->initPager();
 	}

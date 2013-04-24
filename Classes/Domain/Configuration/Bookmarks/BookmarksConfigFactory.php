@@ -47,5 +47,6 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory {
 		$bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($configurationBuilder, $bookmarksSettings);
 		return $bookmarkConfig;
 	}
+
 }
 ?>
