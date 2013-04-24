@@ -104,13 +104,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 * @var string
 	 */
 	protected $listIdentifier;
-	
-	
-		
+
+
+
 	/**
 	 * Constructor is private, use getInstance instead!
-	 * 
+	 *
 	 * @param array $settings  Settings of extension
+	 * @param string $listIdentifier
 	 */
 	public function __construct(array $settings, $listIdentifier = NULL) {	
 		$this->setPrototypeSettings($settings);
@@ -130,12 +131,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 		$this->prototypeSettings = $settings['prototype'];
 	}
 
-	
-	
+
+
 	/**
 	 * Sets the list identifier of current list
 	 *
 	 * @param array $settings
+	 * @param string $listIdentifier
+	 * @throws Exception
 	 */
 	protected function setListIdentifier($settings, $listIdentifier = NULL) {
 		
@@ -192,8 +195,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
     /**
      * Returns configuration object for filterbox identifier
      *
-     * @param array $filterboxIdentifier
-     */
+     * @param string $filterboxIdentifier
+	 * @return mixed
+	 */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
     	Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
     	return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
@@ -335,7 +339,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	/**
 	 * Returns a breadcrumbs configuration object
 	 *
-	 * @return unknown
+	 * @return Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
 	 */
 	public function buildBreadCrumbsConfiguration() {
 		return $this->buildConfigurationGeneric('breadCrumbs');
@@ -345,7 +349,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	/**
 	 * Returns a sorter configuration object
 	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
 	 */
 	public function buildSorterConfiguration() {
 		return $this->buildConfigurationGeneric('sorter');
@@ -362,4 +366,3 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	}
     
 }
-?>

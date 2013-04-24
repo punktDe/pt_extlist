@@ -28,6 +28,8 @@
 /**
  * Class implements a container for data backend instances which is a singleton.
  *
+ * TODO refactor this into an abstract class that holds basic functionality
+ *
  * @author Michael Knoll <knoll@punkt.de>
  * @package Domain
  * @subpackage DataBackend

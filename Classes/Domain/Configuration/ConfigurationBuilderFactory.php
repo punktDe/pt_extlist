@@ -35,14 +35,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTests
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 
 	/**
-	 * Holds an associative array of instances of configuration builder objects
-	 * Each list identifier holds its own configuration builder object
-	 * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer
 	 */
-	private $instances = array();
+	private $configurationBuilderInstancesContainer;
 
 
 	
@@ -71,6 +69,15 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory implements t
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
 		$this->settings = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer
+	 */
+	public function injectConfigurationBuilderInstancesContainer(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer) {
+		$this->configurationBuilderInstancesContainer = $instancesContainer;
 	}
 
 
@@ -122,15 +129,20 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory implements t
 			throw new Exception('No list identifier could be found in settings!', 1280230579);
 		}
 
-		if (!array_key_exists($listIdentifier, $this->instances) || $resetConfigurationBuilder) {
+		if ($resetConfigurationBuilder) {
+			$this->configurationBuilderInstancesContainer->remove($listIdentifier); // Make sure, we overwrite a previously added configuration builder if we want to reset
+		}
+
+		if (!$this->configurationBuilderInstancesContainer->contains($listIdentifier)) {
 			if(!is_array($this->settings['listConfig']) || !array_key_exists($listIdentifier, $this->settings['listConfig'])) {
 				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings!', 1288110596);
 			}
 
-        	$this->instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->settings, $listIdentifier);
+			// TODO use object manager to instantiate the configuration builder object
+        	$this->configurationBuilderInstancesContainer->add(new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->settings, $listIdentifier));
     	}
 
-    	return $this->instances[$listIdentifier];
+    	return $this->configurationBuilderInstancesContainer->get($listIdentifier);
 	}
 
 }

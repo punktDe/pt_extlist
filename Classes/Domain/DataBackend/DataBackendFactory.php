@@ -94,9 +94,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	public static function getInstance(array $settings = NULL) {
 		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 		$instance = $objectManager->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory'); /* @var $instance Tx_PtExtlist_Domain_DataBackend_DataBackendFactory */
-		if ($settings !== NULL) {
-			$instance->configurationBuilderFactory->setSettings($settings);
-		}
 		return $instance;
 	}
 
