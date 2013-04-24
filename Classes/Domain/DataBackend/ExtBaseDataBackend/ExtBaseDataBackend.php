@@ -347,7 +347,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
-		$count = $this->buildExtBaseQueryWithoutPager()->count();
+		$count = $this->buildExtBaseQueryWithoutPager()->execute()->count();
 		$this->pagerCollection->setItemCount($count);
 		return $count;
 	}

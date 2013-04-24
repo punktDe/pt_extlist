@@ -53,9 +53,9 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
 		$criteria = NULL;
 
 		if ($this->isActive) {
-			$columnName = $fieldIdentifier->getTableFieldCombined();
+			$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 			$filterValue = intval($this->filterValue);
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($columnName, $filterValue);
+			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $filterValue);
 		}
 
 		return $criteria;

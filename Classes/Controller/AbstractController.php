@@ -271,5 +271,3 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     }
     
 }
-
-?>

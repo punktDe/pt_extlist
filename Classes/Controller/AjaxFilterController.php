@@ -65,4 +65,3 @@ class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controll
 	}
 
 }
-?>

@@ -42,4 +42,3 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
 	}
 
 }
-?>

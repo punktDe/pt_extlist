@@ -68,4 +68,3 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 		$this->view->assign('listCaptions', $renderedCaptions);
 	}
 }
-?>

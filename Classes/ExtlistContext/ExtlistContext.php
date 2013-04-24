@@ -92,7 +92,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Cached pager collection
 	 *
-	 * @var
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
 	protected $pagerCollection;
 

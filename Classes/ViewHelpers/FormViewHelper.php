@@ -46,7 +46,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormV
 	 * @return void
 	 */
 	protected function setFormActionUri() {
-		if (array_key_exists('actionUri', $this->arguments)) {
+		if (array_key_exists('actionUri', $this->arguments) && !empty($this->arguments['actionUri'])) {
 			$formActionUri = $this->arguments['actionUri'];
 		} else {
 			$uriBuilder = $this->controllerContext->getUriBuilder();

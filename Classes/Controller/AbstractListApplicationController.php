@@ -51,7 +51,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	/**
 	 * @var string
 	 */
-	protected $filterBoxIdentifier = '';
+	protected $filterboxIdentifier = '';
 
 
 	/**
@@ -123,9 +123,9 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	 * Init the filterbox
 	 */
 	protected function initFilterBox() {
-		if($this->filterBoxIdentifier) {
+		if($this->filterboxIdentifier) {
 			$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
-			$this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterBoxIdentifier, true);
+			$this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
 		}
 	}
 
@@ -284,4 +284,3 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	}
     
 }
-?>
