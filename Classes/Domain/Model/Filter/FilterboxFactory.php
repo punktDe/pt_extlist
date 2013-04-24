@@ -28,12 +28,65 @@
 
 /**
  * Class implements factory for filter boxes
- * 
+ *
  * @author Michael Knoll <mimi@kaktusteam.de>
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory implements t3lib_Singleton {
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	private $objectManager;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterFactory
+	 */
+	private $filterFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+	 */
+	private $dataBackendFactory;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterFactory $filterFactory
+	 */
+	public function injectFilterFactory(Tx_PtExtlist_Domain_Model_Filter_FilterFactory $filterFactory) {
+		$this->filterFactory = $filterFactory;
+	}
+
+
+
+	/**
+	 * We can not use DI here, since we would get cyclic dependency!
+	 *
+	 * TODO think about how we get rid of this cyclic dependency!
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+	 */
+	public function setDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory) {
+		$this->dataBackendFactory = $dataBackendFactory;
+		$this->filterFactory->setDataBackendFactory($this->dataBackendFactory);
+	}
+
+
 
 	/**
 	 * Factory method for filter boxes. Returns filterbox for a given filterbox configuration and list identifier
@@ -41,44 +94,41 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
 	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
-	   	Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), array('message' => 'List identifier must not be empty 1277889458'));
-		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox($filterboxConfiguration);
+	public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), array('message' => 'List identifier must not be empty 1277889458'));
+		$filterbox = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox', $filterboxConfiguration); /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
 		foreach ($filterboxConfiguration as $filterConfiguration) {
-			$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfiguration);
+			$filter = $this->filterFactory->createInstance($filterConfiguration);
 			$filter->injectFilterbox($filterbox);
-			$filterbox->addFilter($filter,$filter->getFilterIdentifier());
+			$filterbox->addFilter($filter, $filter->getFilterIdentifier());
 		}
 
-		// TODO use DI here once refactoring is finished
-		#$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
-		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+		$sessionPersistenceManagerBuilder = $this->objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 
-        $sessionPersistenceManager->registerObjectAndLoadFromSession($filterbox);
+		$sessionPersistenceManager->registerObjectAndLoadFromSession($filterbox);
 
 		return $filterbox;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Factory method for filter boxes. Returns only accessible filters from a given filterbox.
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection
 	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
-	public static function createAccessableInstance(Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection) {
-		$accessibleCollection = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+	public function createAccessableInstance(Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection) {
+		$accessibleCollection = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox');
 		$accessibleCollection->injectFilterboxConfiguration($collection->getFilterboxConfiguration());
-		
-		foreach($collection as $filter) {
-			if($filter->getFilterConfig()->isAccessable()) {
+
+		foreach ($collection as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+			if ($filter->getFilterConfig()->isAccessable()) {
 				$accessibleCollection->addFilter($filter, $filter->getFilterIdentifier());
-			} 		
+			}
 		}
 		return $accessibleCollection;
-	}	
+	}
+
 }
-?>

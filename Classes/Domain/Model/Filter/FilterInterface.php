@@ -146,7 +146,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	/**
      * Returns filter configuration of this filter
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfiguration
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
      */
     public function getFilterConfig();
     
@@ -176,6 +176,5 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
      * @return variant
      */
     public function getValue();
-}
 
-?>
+}

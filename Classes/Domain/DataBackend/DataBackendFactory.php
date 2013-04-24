@@ -41,11 +41,12 @@
 class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! see comment above!
 
 	/**
-	 * Holds an instance of this class for deprecated static use. Remove this, once we remove static functions.
+	 * Holds an instance of this class
 	 *
 	 * TODO remove later!
 	 *
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+	 * @deprecated for deprecated static use. Remove this, once we remove static functions.
 	 */
 	private static $dataBackendFactoryInstance = NULL;
 
@@ -72,6 +73,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	 * @var Tx_Extbase_Object_ObjectManager
 	 */
 	private $objectManager;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory
+	 */
+	private $filterboxCollectionFactory;
 
 
 
@@ -128,6 +136,25 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	}
 
 
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory $filterboxCollectionFactory
+	 */
+	public function injectFilterboxCollectionFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory $filterboxCollectionFactory) {
+		$this->filterboxCollectionFactory = $filterboxCollectionFactory;
+	}
+
+
+
+	/**
+	 * Initialize object after creation in DI
+	 */
+	public function initializeObject() {
+		// TODO we need to resolve cyclic dependency here
+		$this->filterboxCollectionFactory->setDataBackendFactory($this);
+	}
+
+
 	
 	/**
 	 * Returns an instance of data backend for a given list identifier.
@@ -159,7 +186,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param boolean $resetDataBackend
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
-	 * @deprecated Use non-static method!
+	 * @deprecated Use non-static method getDataBackendInstanceByListIdentifier() instead!
 	 */
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetDataBackend = FALSE) {
 		self::createStaticInstance();
@@ -260,7 +287,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
     
     
     private function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder, $this->resetDataBackend);
+    	$filterboxCollection = $this->filterboxCollectionFactory->createInstance($configurationBuilder, $this->resetDataBackend);
     	return $filterboxCollection;
     }
     
