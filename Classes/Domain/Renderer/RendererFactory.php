@@ -69,9 +69,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory implements t3lib_Singleton {
 
 		$renderer->_injectConfiguration($rendererConfiguration);
 		
-		if(method_exists($renderer, 'initRenderer')) {
-			$renderer->initRenderer();
-		}
+		$renderer->initRenderer();
 
 		return $renderer;
 	}
