@@ -48,7 +48,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 
 	public function testGetFilterValueAfterSessionInjection() {
 		$filter = $this->getStringFilterInstance();
-		$filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+		$filter->_injectSessionData(array('filterValue' => 'sessionFilterValue'));
 		$filter->init();
 		$this->assertTrue($filter->getFilterValue() == 'sessionFilterValue');
 	}
@@ -66,7 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 
 	public function testGetFilterValueAfterFirstInjectingConfigThenInjectingSessionData() {
 		$filter = $this->getStringFilterInstance();
-		$filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+		$filter->_injectSessionData(array('filterValue' => 'sessionFilterValue'));
 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
 			array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
@@ -79,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 		$filter = $this->getStringFilterInstance();
 
 		/* First test: GP vars holds value for filter --> gp var value should be returned */
-		$filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+		$filter->_injectSessionData(array('filterValue' => 'sessionFilterValue'));
 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
 			array('filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 		$filter = $this->getStringFilterInstance();
 		$filter->injectGPVars(array('filterValue' => 'persistedFilterValue'));
 		$filter->init();
-		$sessionValue = $filter->persistToSession();
+		$sessionValue = $filter->_persistToSession();
 		$this->assertTrue(array_key_exists('filterValue', $sessionValue));
 		$this->assertTrue($sessionValue['filterValue'] == 'persistedFilterValue');
 	}
@@ -164,7 +164,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 		$filter->injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
 			array('fieldIdentifier' => 'field1', 'filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter', 'defaultValue' => 'defaultValue', 'fieldIdentifier' => 'field1', 'partialPath' => 'Filter/StringFilter'), 'test'));
-		$filter->injectSessionData(array('filterValue' => 'sessionFilterValue'));
+		$filter->_injectSessionData(array('filterValue' => 'sessionFilterValue'));
 		$filter->injectGPVars(array('filterValue' => 'gpVarFilterValue'));
 		$filter->init();
 		$this->assertTrue($filter->getFilterValue() == 'gpVarFilterValue');

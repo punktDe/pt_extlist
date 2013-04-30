@@ -35,7 +35,7 @@
  */
 class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface,
-	 Tx_PtExtbase_State_Session_SessionPersistableInterface {
+	Tx_PtExtbase_State_Session_SessionPersistableInterface {
 
 
 	/**
@@ -46,10 +46,12 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	protected $configuration;
 
 
+
 	/**
 	 * @var array
 	 */
 	protected $selectedColumnIdentifiers = array();
+
 
 
 	/**
@@ -60,6 +62,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	public function setConfiguration(Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig $configuration) {
 		$this->configuration = $configuration;
 	}
+
 
 
 	/**
@@ -82,7 +85,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 * @param array $GPVars GP Var data to be injected into the object
 	 */
 	public function injectGPVars($GPVars) {
-		if(array_key_exists('selectedColumns', $GPVars) && is_array($GPVars['selectedColumns'])) {
+		if (array_key_exists('selectedColumns', $GPVars) && is_array($GPVars['selectedColumns'])) {
 			$this->selectedColumnIdentifiers = $GPVars['selectedColumns'];
 		}
 	}
@@ -94,10 +97,12 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 *
 	 * @return array Object's state to be persisted to session
 	 */
-	public function persistToSession() {
+	public function _persistToSession() {
+		$returnValue = NULL;
 		if ($this->configuration->getPersistToSession()) {
-			return array('selectedColumns' => $this->selectedColumnIdentifiers);
+			$returnValue = array('selectedColumns' => $this->selectedColumnIdentifiers);
 		}
+		return $returnValue;
 	}
 
 
@@ -107,9 +112,10 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 *
 	 * @param array $sessionData Object's state previously persisted to session
 	 */
-	public function injectSessionData(array $sessionData) {
-		if($this->configuration->getPersistToSession()
-				  && array_key_exists('selectedColumns', $sessionData) && is_array($sessionData['selectedColumns'])) {
+	public function _injectSessionData(array $sessionData) {
+		if ($this->configuration->getPersistToSession()
+				&& array_key_exists('selectedColumns', $sessionData) && is_array($sessionData['selectedColumns'])) {
+
 			$this->selectedColumnIdentifiers = $sessionData['selectedColumns'];
 		}
 	}
@@ -132,14 +138,14 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 */
 	public function setVisibilityOnListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 
-		foreach($listHeader as $columnIdentifier => $headerColumn) { /** @var Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn */
-			if(in_array($columnIdentifier, $this->selectedColumnIdentifiers)) {
+		foreach ($listHeader as $columnIdentifier => $headerColumn) {
+			/** @var Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn */
+			if (in_array($columnIdentifier, $this->selectedColumnIdentifiers)) {
 				$headerColumn->setIsVisible(true);
 			} else {
-				if($this->configuration->getOnlyShowSelectedColumns()) $headerColumn->setIsVisible(false);
+				if ($this->configuration->getOnlyShowSelectedColumns()) $headerColumn->setIsVisible(false);
 			}
 		}
 	}
-}
 
-?>
+}
