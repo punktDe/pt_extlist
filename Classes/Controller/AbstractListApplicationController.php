@@ -142,19 +142,28 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
 
 	/**
+	 * Sets list identifier for this controller
+	 *
+	 * @throws Exception
+	 */
+	protected function initListIdentifier() {
+		$settings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
+
+		if(!$this->extlistTypoScriptSettingsPath) throw new Exception('No extlist typoscript settings path given', 1330188161);
+		$this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
+		$this->extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($settings, $this->listIdentifier);
+	}
+
+
+
+	/**
 	 * Build the configuration builder with settings from the given extlistTypoScriptConfigurationPath
 	 *
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 * @throws Exception
 	 */
 	protected function buildConfigurationBuilder() {
-		$settings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
-
-		if(!$this->extlistTypoScriptSettingsPath) throw new Exception('No extlist typoscript settings path given', 1330188161);
-		$this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
-		$this->extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($settings, $this->listIdentifier);
-
-		return $this->extListContext->getConfigurationBuilder();
+		$this->configurationBuilder = $this->extListContext->getConfigurationBuilder();
 	}
 
 
