@@ -226,9 +226,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		$treeRepositoryBuilder->setNodeRepositoryClassName($this->treeNodeRepository);
 
 		$treeRepository = $treeRepositoryBuilder->buildTreeRepository();
-		$treeRepository->setRespectEnableFields($this->treeRespectEnableFields);
 
-		$this->tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
+		$this->tree = $treeRepository->loadTreeByNamespace($this->treeNamespace, $this->treeRespectEnableFields);
 	}
 
 
