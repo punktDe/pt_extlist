@@ -31,8 +31,8 @@
  *
  * @package Domain
  * @subpackage Model\Filter
- * @author Daniel Lienert 
- * @author Michael Knoll 
+ * @author Daniel Lienert
+ * @author Michael Knoll
  */
 class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
@@ -42,10 +42,12 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	protected $exactMatch = FALSE;
 
 
+
 	/**
 	 * @var string
 	 */
 	protected $orToken;
+
 
 
 	/**
@@ -54,48 +56,50 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	protected $andToken;
 
 
+
 	protected function initFilterByTsConfig() {
 		parent::initFilterByTsConfig();
 
 		$settings = $this->filterConfig->getSettings();
 
-		if(array_key_exists('exactMatch', $settings)) {
-			$this->exactMatch = (int) $this->filterConfig->getSettings('exactMatch') == 1 ? TRUE : FALSE;
+		if (array_key_exists('exactMatch', $settings)) {
+			$this->exactMatch = (int)$this->filterConfig->getSettings('exactMatch') == 1 ? TRUE : FALSE;
 		}
 
-		if(array_key_exists('orToken', $settings) && $settings['orToken']) {
+		if (array_key_exists('orToken', $settings) && $settings['orToken']) {
 			$token = $settings['orToken'];
-			$this->orToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
+			$this->orToken = (substr($token, 0, 1) == '|' && substr($token, -1, 1) == '|') ? substr($token, 1, -1) : $token;
 		}
 
-		if(array_key_exists('andToken', $settings) && $settings['andToken']) {
+		if (array_key_exists('andToken', $settings) && $settings['andToken']) {
 			$token = $settings['andToken'];
-			$this->andToken = (substr($token,0,1) == '|' && substr($token,-1,1) == '|') ? substr($token,1,-1) : $token;
+			$this->andToken = (substr($token, 0, 1) == '|' && substr($token, -1, 1) == '|') ? substr($token, 1, -1) : $token;
 		}
 	}
 
 
 
 	/**
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-     * @return null|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
-     */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
-    	
-    	if ($this->filterValue == '') return NULL; 
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+	 * @return null|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+
+		if ($this->filterValue == '') return NULL;
 
 
-    	$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
-		if($this->orToken || $this->andToken) {
+		if ($this->orToken || $this->andToken) {
 			$filterValueArray = $this->prepareFilterValue($this->filterValue);
 			$criteria = $this->buildOrCriteria($fieldName, $filterValueArray);
 		} else {
 			$criteria = $this->buildFilterCriteriaForSingleValue($fieldName, $this->filterValue);
 		}
 
-    	return $criteria;
-    }
+		return $criteria;
+	}
+
 
 
 	/**
@@ -153,10 +157,10 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 	 */
 	protected function buildFilterCriteriaForSingleValue($fieldName, $filterValue) {
 
-		if($this->exactMatch) {
+		if ($this->exactMatch) {
 			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $filterValue);
 		} else {
-			$filterValue = '%'.$filterValue.'%';
+			$filterValue = '%' . $filterValue . '%';
 			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);
 		}
 
@@ -177,27 +181,27 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 		 * Changes to use space as or token
 		 */
 		$filterValue = str_replace('  ', ' ', $filterValue);
-		if($this->andToken) {
+		if ($this->andToken) {
 			$filterValue = str_replace(array(' ' . $this->andToken, ' ' . $this->andToken . ' ', $this->andToken . ' '), $this->andToken, $filterValue);
 		}
-		if($this->orToken) {
+		if ($this->orToken) {
 			$filterValue = str_replace(array(' ' . $this->orToken, ' ' . $this->orToken . ' ', $this->orToken . ' '), $this->orToken, $filterValue);
 		}
 
 		/*
 		 * Explode to array structure
 		 */
-		if($this->orToken && !$this->andToken) {
+		if ($this->orToken && !$this->andToken) {
 			$valueArray = t3lib_div::trimExplode($this->orToken, $filterValue);
-			foreach($valueArray as &$value) {
+			foreach ($valueArray as &$value) {
 				$value = array($value);
 			}
 		} elseif (!$this->orToken && $this->andToken) {
 			$valueArray = array(t3lib_div::trimExplode($this->andToken, $filterValue));
-		} elseif($this->orToken && $this->andToken) {
+		} elseif ($this->orToken && $this->andToken) {
 			$valueArray = t3lib_div::trimExplode($this->orToken, $filterValue);
 
-			foreach($valueArray as &$orValue) {
+			foreach ($valueArray as &$orValue) {
 				$orValue = t3lib_div::trimExplode($this->andToken, $orValue);
 			}
 
@@ -207,5 +211,5 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 
 		return $valueArray;
 	}
+
 }
-?>

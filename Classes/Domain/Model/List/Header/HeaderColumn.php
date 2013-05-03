@@ -397,7 +397,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	/**
 	 * @param $GPVars
 	 */
-	public function injectGPVars($GPVars) {
+	public function _injectGPVars($GPVars) {
 		$this->headerGPVarData = $GPVars;
 	}
 

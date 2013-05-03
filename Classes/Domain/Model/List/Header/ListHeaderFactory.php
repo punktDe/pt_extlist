@@ -84,9 +84,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 				$listHeader->getHeaderColumn($defaultSortingColumn)->init();
 			}
 
-			// inject gpVarData
-			$gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-			$gpVarsAdapter->injectParametersInObject($listHeader);
+			// TODO use DI here, once refactoring is finished!
+			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+			$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($listHeader);
 
 			$listHeader->init();
 

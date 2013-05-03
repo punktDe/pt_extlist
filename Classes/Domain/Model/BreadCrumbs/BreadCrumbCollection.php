@@ -75,7 +75,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtEx
 	 *
 	 * @param array $gpVarData
 	 */
-	public function injectGPVars($gpVarData) {
+	public function _injectGPVars($gpVarData) {
 		$this->gpVarData = $gpVarData;
 	}
 

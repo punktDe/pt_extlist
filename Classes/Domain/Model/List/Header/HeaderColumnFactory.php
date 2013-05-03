@@ -52,9 +52,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 		$sessionPersistenceManager->registerObjectAndLoadFromSession($headerColumn);
 
-		// Inject settings from gp-vars.
-		$gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
-		$gpAdapter->injectParametersInObject($headerColumn);
+		// TODO use DI here, once refactoring is finished!
+		$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+		$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($headerColumn);
 
 		// Register headerColumn in sorter
 		$sorter = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($columnConfiguration->getConfigurationBuilder());

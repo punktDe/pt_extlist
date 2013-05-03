@@ -55,6 +55,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 	 * Get the settings 
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return array
 	 */
 	protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		
@@ -72,5 +73,5 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 		
 		return $configurationBuilder->getMergedSettingsWithPrototype($exportSettings, 'export');
 	}
+
 }
-?>

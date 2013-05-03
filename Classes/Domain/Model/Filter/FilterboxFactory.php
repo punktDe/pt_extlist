@@ -96,10 +96,12 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory implements t3lib_Singlet
 	 */
 	public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), array('message' => 'List identifier must not be empty 1277889458'));
-		$filterbox = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox', $filterboxConfiguration); /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+		$filterbox = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox'); /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+		$filterbox->_injectFilterboxConfiguration($filterboxConfiguration);
+		$filterbox->_injectFilterboxFactory($this);
 		foreach ($filterboxConfiguration as $filterConfiguration) {
 			$filter = $this->filterFactory->createInstance($filterConfiguration);
-			$filter->injectFilterbox($filterbox);
+			$filter->_injectFilterbox($filterbox);
 			$filterbox->addFilter($filter, $filter->getFilterIdentifier());
 		}
 

@@ -67,8 +67,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 			$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 			$sessionPersistenceManager->registerObjectAndLoadFromSession($pagerCollection);
 			$pagerCollection->injectSessionPersistenceManager($sessionPersistenceManager);
-			
-			Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->injectParametersInObject($pagerCollection);
+
+
+			// TODO use DI here, once refactoring is finished!
+			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+			$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($pagerCollection);
 			
 			// Create pagers and add them to the collection
 			foreach($pagerConfigurationCollection as $pagerIdentifier => $pagerConfig) {
@@ -78,4 +81,5 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
 			
 			return $pagerCollection;
 	}
+
 }

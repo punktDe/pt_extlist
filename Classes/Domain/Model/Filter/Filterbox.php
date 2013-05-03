@@ -99,15 +99,17 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 
 
 	/**
-	 * Constructor for filterbox
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration  Configuration of filterbox
+	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration = NULL) {
-		if ($filterboxConfiguration != NULL) {
-			$this->injectFilterboxConfiguration($filterboxConfiguration);
-		}
-		$this->init();
+	protected $gpVarsAdapterFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory
+	 */
+	public function injectGpVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory) {
+		$this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
 	}
 
 
@@ -117,7 +119,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
 	 */
-	public function injectFilterboxConfiguration(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
+	public function _injectFilterboxConfiguration(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
 		$this->filterBoxConfig = $filterboxConfiguration;
 		$this->listIdentifier = $filterboxConfiguration->getListIdentifier();
 		$this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
@@ -125,7 +127,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 
 
 
-	public function injectFilterboxFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory $filterboxFactory) {
+	public function _injectFilterboxFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory $filterboxFactory) {
 		$this->filterboxFactory = $filterboxFactory;
 	}
 
@@ -138,8 +140,8 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 *
 	 * @return void
 	 */
-	protected function init() {
-		$gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+	public function initializeObject() {
+		$gpVarAdapter = $this->gpVarsAdapterFactory->getInstance();
 		$gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespaceWithoutSuffix());
 
 		if (count($gpVarsForFilterbox) > 0) {

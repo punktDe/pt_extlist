@@ -392,4 +392,3 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	}
 
 }
-?>

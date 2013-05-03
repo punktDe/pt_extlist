@@ -33,14 +33,16 @@
  * @subpackage Model\Filter
  * @author Michael Knoll 
  */
-interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
+interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
+	Tx_PtExtbase_State_Session_SessionPersistableInterface,
+	Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 
 	/**
 	 * Injector for filter configuration
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+	public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
 	
 	
 	
@@ -49,7 +51,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	 *
 	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter
 	 */
-	public function injectGpVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter);
+	public function _injectGpVarsAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter);
 
 	
 	
@@ -58,7 +60,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
      *
      * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
      */
-	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
+	public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
 
 
 
@@ -67,7 +69,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
 	 */
-	public function injectFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox);
+	public function _injectFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox);
 
 	
 	
@@ -171,9 +173,9 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
     
     
     /**
-     * Returns the current filtervalues of this filter
+     * Returns the current filter values of this filter
      * 
-     * @return variant
+     * @return mixed
      */
     public function getValue();
 

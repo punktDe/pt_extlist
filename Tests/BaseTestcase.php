@@ -178,9 +178,12 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_Bas
 		$configurationManagerMock = $this->getMock('Tx_Extbase_Configuration_ConfigurationManager', array('getConfiguration'), array(), '', FALSE);
 		$configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($typoScriptSettingsForListIdentifier)); /* @var $configurationManagerMock Tx_Extbase_Configuration_ConfigurationManager */
 
+		$configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+
 		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
 		$configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
 		$configurationBuilderFactory->setSettings($typoScriptSettingsForListIdentifier);
+		$configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
 		$configurationBuilderFactory->getInstance($listIdentifier);
 
 		$instancesContainer = t3lib_div::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
