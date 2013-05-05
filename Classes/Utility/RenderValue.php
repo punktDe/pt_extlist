@@ -337,10 +337,12 @@ class Tx_PtExtlist_Utility_RenderValue {
 				}
 			} else {
 				t3lib_div::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
+				$GLOBALS['TSFE']->newCObj();
 			}
+
+			self::$cObj = $GLOBALS['TSFE']->cObj;
 		}
 
-		self::$cObj = $GLOBALS['TSFE']->cObj;
 		return self::$cObj;
 	}
 
