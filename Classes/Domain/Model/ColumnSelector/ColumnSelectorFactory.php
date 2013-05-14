@@ -28,22 +28,22 @@
 
 /**
  * Class implements a factory for the columnSelector.
- * 
+ *
  * @author Daniel Lienert
  * @package pt_extlist
  * @subpackage Domain\Model\columnSelector
  */
 class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
-	
+
 	/**
 	 * Holds singleton instances of column selectors for each list
 	 *
 	 * @var array<Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector>
 	 */
 	private static $instances = array();
-	
-	
-	
+
+
+
 	/**
 	 * Factory method for returning a singleton instance of a column selector
 	 *
@@ -56,17 +56,19 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
 
 		if (self::$instances[$listIdentifier] === null) {
 			self::$instances[$listIdentifier] = new  Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector();
-         self::$instances[$listIdentifier]->setConfiguration($configurationBuilder->buildColumnSelectorConfiguration());
+			self::$instances[$listIdentifier]->setConfiguration($configurationBuilder->buildColumnSelectorConfiguration());
 
 			// Inject settings from session.
 			// TODO use DI here once refactoring is finished
-			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
-			$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');			/* @var $objectManager Tx_Extbase_Object_ObjectManager */
+			$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder');			/* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 			$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 			$sessionPersistenceManager->registerObjectAndLoadFromSession(self::$instances[$listIdentifier]);
 
+			$gpVarsAdapterFactory = $objectManager->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $gpVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+
 			// Inject settings from gp-vars.
-			$gpAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+			$gpAdapter = $gpVarsAdapterFactory->getInstance();
 			$gpAdapter->injectParametersInObject(self::$instances[$listIdentifier]);
 
 			//Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
@@ -74,6 +76,5 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
 
 		return self::$instances[$listIdentifier];
 	}
-	
+
 }
-?>

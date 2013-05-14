@@ -106,6 +106,20 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 
 
 	/**
+	 * Constructor for filterbox
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration  Configuration of filterbox
+	 */
+	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration = NULL) {
+		if ($filterboxConfiguration != NULL) {
+			$this->_injectFilterboxConfiguration($filterboxConfiguration);
+		}
+	}
+
+
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory
 	 */
 	public function injectGpVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory) {
@@ -304,7 +318,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 		 * state and initialize submitted state by gp vars alone. This is done here.
 		 */
 		$this->isSubmittedFilterbox = false;
-		$this->init();
+		$this->initializeObject();
 	}
 
 

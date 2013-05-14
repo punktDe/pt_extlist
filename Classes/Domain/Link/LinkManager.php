@@ -32,32 +32,34 @@
  *
  * @package Domain
  * @subpackage Link
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Link_LinkManager {
-	
+
 	/**
 	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
 	 */
 	protected $getPostVarAdapter;
-	
-	
+
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
 	 */
 	protected $listConfiguration;
-	
-	
+
+
+
 	/**
-	 * Inkect the get post var adapter
-	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapater
+	 * Inject the get post var adapter
+	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapter
 	 */
-	public function injectGetPostVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapater) {
-		$this->getPostVarAdapter = $getPostVarAdapater;
+	public function injectGetPostVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapter) {
+		$this->getPostVarAdapter = $getPostVarAdapter;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Inject the List configuration
 	 * @param $listConfig
@@ -65,21 +67,17 @@ class Tx_PtExtlist_Domain_Link_LinkManager {
 	public function injectListConfiguration(Tx_PtExtlist_Domain_Configuration_List_ListConfig $listConfig) {
 		$this->listConfiguration = $listConfig;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Build and return the argument array for the given object
-	 * 
+	 *
 	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * @param array $properties
 	 */
 	public function buildArgumentArrayForObject(Tx_PtExtbase_State_IdentifiableInterface $object, array $properties) {
-		
+
 	}
-	
-	
-	
-	
+
 }
-?>

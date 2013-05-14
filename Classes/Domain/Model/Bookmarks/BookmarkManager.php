@@ -68,6 +68,13 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @var Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
 	 */
 	protected $bookmarkRepository = null;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+	 */
+	protected $getPostVarsAdapterFactory;
 	
 	
 	
@@ -104,6 +111,15 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 
 
 
+	/**
+	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory
+	 */
+	public function injectGetPostVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory) {
+		$this->getPostVarsAdapterFactory = $getPostVarsAdapterFactory;
+	}
+
+
+
     /**
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
      */
@@ -122,7 +138,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 *
 	 */
 	public function processBookmark() {
-		$gpVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+		$gpVarAdapter = $this->getPostVarsAdapterFactory->getInstance();
 		$gpVars = $gpVarAdapter->extractGpVarsByNamespace('tx_ptextlist_pi1');
 		if ($gpVars['controller'] == 'Bookmarks' && $gpVars['action'] == 'process') {
 			$bookmarkId = $gpVars['bookmark'];

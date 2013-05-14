@@ -58,9 +58,10 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory {
 			#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
 			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
+			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 
 			self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Link_LinkManager();
-			self::$instances[$listIdentifier]->injectGetPostVarAdapater(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+			self::$instances[$listIdentifier]->injectGetPostVarAdapater($getPostVarsAdapterFactory->getInstance());
 			self::$instances[$listIdentifier]->injectListConfiguration($configurationBuilder->buildListConfiguration());
 			
 		}

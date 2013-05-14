@@ -53,8 +53,10 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory {
 	public static function getInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		if (!array_key_exists($configurationBuilder->getListIdentifier(), self::$instances)
 			|| self::$instances[$configurationBuilder->getListIdentifier()] == null) {
+
+			$filterboxCollectionFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
 		
-			$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder);
+			$filterboxCollection = $filterboxCollectionFactory->createInstance($configurationBuilder, FALSE);
 			$breadCrumbCollection = self::getInstanceByFilterboxCollection($configurationBuilder, $filterboxCollection);
 
 			self::$instances[$configurationBuilder->getListIdentifier()] = $breadCrumbCollection;
@@ -67,17 +69,20 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory {
 	/**
 	 * Factory method creates instance of breadcrumbs collection for a given filterbox collection
 	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection
 	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection
 	 */
 	public static function getInstanceByFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection) {
-		if (!array_key_exists($filterboxCollection->getListIdentifier(), self::$instances
-			|| self::$instances[$filterboxCollection->getListIdentifier()] == null)) {
+		if (!array_key_exists($filterboxCollection->getListIdentifier(), self::$instances)
+			|| self::$instances[$filterboxCollection->getListIdentifier()] == null) {
 
 			$breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
 			$breadCrumbCollection->injectConfigurationBuilder($configurationBuilder);
 
-			$gpVarsAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+
+			$gpVarsAdapter = $getPostVarsAdapterFactory->getInstance();
 			$gpVarsAdapter->injectParametersInObject($breadCrumbCollection);
 
 			foreach($filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
@@ -99,5 +104,3 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory {
 	}
 
 }
-
-?>

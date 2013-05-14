@@ -109,6 +109,13 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	protected $dataBackendFactory;
 
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+	 */
+	protected $getPostVarsAdapterFactory;
+
 	
 	
 	/**
@@ -166,6 +173,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 
+	/**
+	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory
+	 */
+	public function injectGetPostVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory) {
+		$this->getPostVarsAdapterFactory = $getPostVarsAdapterFactory;
+	}
+
+
+
     /**
      * @return void
      */
@@ -213,7 +229,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 		// We reset session data, if we want to have a reset on empty submit
 		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-			$this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+			$this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars($this->getPostVarsAdapterFactory->getInstance());
 		}
     }
 
@@ -222,7 +238,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     protected function resetOnEmptySubmit(){
         // We reset session data, if we want to have a reset on empty submit
         if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-            $this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+            $this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars($this->getPostVarsAdapterFactory->getInstance());
         }
     }
 
