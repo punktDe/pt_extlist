@@ -57,6 +57,13 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 
 
 	/**
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	private $sessionPersistenceManagerBuilder;
+
+
+
+	/**
 	 * @param Tx_Extbase_Object_ObjectManager $objectManager
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
@@ -70,6 +77,15 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 	 */
 	public function injectGpVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory) {
 		$this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
 	}
 
 
@@ -97,8 +113,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory {
 		$filter = $this->createFilterObject($filterConfig->getFilterClassName()); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 		$filter->_injectFilterConfig($filterConfig);
 
-		$sessionPersistenceManagerBuilder = $this->objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
-		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
+		$sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance();
 
 		// TODO check whether filter interface should extend session persistable interface
 		$sessionPersistenceManager->registerObjectAndLoadFromSession($filter);

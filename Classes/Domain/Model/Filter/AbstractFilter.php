@@ -202,7 +202,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function _injectGpVarsAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter) {
 		$this->gpVarAdapter = $gpVarAdapter;
-		$gpVarAdapter->injectParametersInObject($this);
 	}
 
 
@@ -369,6 +368,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @return void
 	 */
 	public function init($initAfterReset = false) {
+
+		$this->gpVarAdapter->injectParametersInObject($this);
 
 		/**
 		 * What happens during initialization:

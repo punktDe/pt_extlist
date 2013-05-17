@@ -36,8 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	extends Tx_PtExtbase_Collection_ObjectCollection
-	implements Tx_PtExtbase_State_IdentifiableInterface,
-	Tx_PtExtbase_State_Session_SessionPersistableInterface {
+	implements Tx_PtExtbase_State_IdentifiableInterface, Tx_PtExtbase_State_Session_SessionPersistableInterface {
 
 	/**
 	 * Holds a constant added to object namespace to
@@ -102,20 +101,6 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
 	 */
 	protected $gpVarsAdapterFactory;
-
-
-
-	/**
-	 * Constructor for filterbox
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration  Configuration of filterbox
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration = NULL) {
-		if ($filterboxConfiguration != NULL) {
-			$this->_injectFilterboxConfiguration($filterboxConfiguration);
-		}
-	}
-
 
 
 
