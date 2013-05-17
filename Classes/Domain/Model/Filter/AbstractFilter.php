@@ -175,7 +175,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	public function __construct() {
 		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-		$this->errorMessages = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollection();
 	}
 
 
@@ -545,8 +544,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 
 	/**
 	 * Template method for validating filter data.
-	 *
-	 * Method should write error messages to $this->errorMessages array
 	 *
 	 * @return bool True, if filter validates, false, if filter does not validate
 	 */
