@@ -30,49 +30,50 @@
  * Abstract class for mapper classes
  *
  * TODO we need custom factory to create data mapper here and be able to create data mapper automatically with DI
- * 
- * @author Michael Knoll 
+ *
+ * @author Michael Knoll
  * @package Domain
  * @subpackage DataBackend\Mapper
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
-	
-    /**
-     * Holds mapping configurations
-     *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-     */
-    protected $mapperConfiguration = null;
-    
 
-
-    /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     */
-    protected $configurationBuilder;
-    
-
-
-    /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$this->configurationBuilder = $configurationBuilder;
-    }
+	/**
+	 * Holds mapping configurations
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	protected $fieldConfigurationCollection = null;
 
 
 
-    public function init() {}
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected $configurationBuilder;
 
 
 
-    /**
-     * Sets the mapper configuration
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
-     */
-    public function injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration) {
-        $this->mapperConfiguration = $mapperConfiguration;
-    }
+	public function init() {
+	}
+
+
+
+	/**
+	 * Sets the mapper configuration
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
+	 */
+	public function _injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration) {
+		$this->fieldConfigurationCollection = $mapperConfiguration;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+	}
+
 }
-?>

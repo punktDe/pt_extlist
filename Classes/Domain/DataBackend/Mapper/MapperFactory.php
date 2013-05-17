@@ -33,7 +33,30 @@
  * @subpackage DataBackend\Mapper
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
+class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements t3lib_Singleton {
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	private $objectManager;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	private $configurationBuilder;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
 	
 	/**
 	 * Returns an instance of a data mapper for a given data mapper class name.
@@ -41,22 +64,29 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return mixed
 	 */
-	public static function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 
-		$dataMapper = new $dataMapperClassName($configurationBuilder);
+		$dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder);
 		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
 		// Check whether mapper implements interface
 		Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
 
-		$dataMapper->injectMapperConfiguration($mapperConfiguration);
+		$dataMapper->_injectMapperConfiguration($mapperConfiguration);
 		$dataMapper->init();
 
 		return $dataMapper;
 	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 */
+	public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+	}
 	
 }
-
-?>

@@ -27,32 +27,16 @@
  ***************************************************************/
 
 /**
- * Class implements a mapper that maps array data to list data structure for a given 
+ * Class implements a mapper that maps array data to list data structure for a given
  * fields configuration.
- * 
+ *
  * @package Domain
  * @subpackage DataBackend\Mapper
- * @author Michael Knoll 
+ * @author Michael Knoll
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
-    
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	protected $fieldConfigurationCollection;
-
-
 
 	/**
-	 * Initializes mapper with settings from field configuration
-	 */
-	public function init() {
-		$this->fieldConfigurationCollection = $this->configurationBuilder->buildFieldsConfiguration();
-	}
-	
-	
-	
-    /**
 	 * Maps given array data to list data structure.
 	 * If no configuration is set, the array is mapped 1:1 to the list data structure
 	 * If a configuration is given, this configuration is used to map the fields
@@ -62,19 +46,19 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	public function getMappedListData(array &$arrayData) {
 
-		if (is_null($this->mapperConfiguration)) {
+		if (is_null($this->fieldConfigurationCollection)) {
 			$mappedListData = $this->mapWithoutConfiguration($arrayData);
 		} else {
-		    $mappedListData = $this->mapWithConfiguration($arrayData);
+			$mappedListData = $this->mapWithConfiguration($arrayData);
 		}
 
 		unset($arrayData);
 
 		return $mappedListData;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Maps raw list data without any mapper configuration.
 	 * Each field of the given raw array is mapped to
@@ -94,9 +78,9 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		}
 		return $listData;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Maps raw list data with given mapper configuration.
 	 *
@@ -105,7 +89,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	protected function mapWithConfiguration(array &$arrayData) {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
-		foreach($arrayData as $row) {
+		foreach ($arrayData as $row) {
 			$mappedRow = $this->mapRowWithConfiguration($row);
 			$listData->addRow($mappedRow);
 		}
@@ -121,7 +105,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	public function getMappedRow(array &$rowData) {
 
-		if (is_null($this->mapperConfiguration)) {
+		if (is_null($this->fieldConfigurationCollection)) {
 			$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
 			foreach ($rowData as $columnName => $value) {
 				$mappedRow->createAndAddCell($value, $columnName);
@@ -133,8 +117,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		return $mappedRow;
 	}
 
-	
-	
+
+
 	/**
 	 * Maps a single row of a list data structure with given configuration.
 	 *
@@ -143,7 +127,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	protected function mapRowWithConfiguration(array &$row) {
 		$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
-		foreach ($this->mapperConfiguration as $mapping) { /* @var $mapping Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+		foreach ($this->fieldConfigurationCollection as $mapping) {
+			/* @var $mapping Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 			$mappedCellValue = $this->getMappedCellValue($mapping, $row);
 			$mappedRow->createAndAddCell($mappedCellValue, $mapping->getIdentifier());
 		}
@@ -152,31 +137,33 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 
 		return $mappedRow;
 	}
-	
-	
-	
+
+
+
 	/**
-	 * Maps a field of raw data to a cell of a list data structure 
+	 * Maps a field of raw data to a cell of a list data structure
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping Mapping for this field / cell
 	 * @param array $row   Raw row of list data array
+	 * @throws Exception if array key defined in the mapping does not exist in the array
 	 * @return string  Value of raw data array field corresponding to given mapping
 	 */
 	protected function getMappedCellValue(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping, array &$row) {
 		if (array_key_exists($mapping->getIdentifier(), $row)) {
-			
-			if($this->fieldConfigurationCollection[$mapping->getIdentifier()]->getExpandGroupRows()) {
+
+			if ($this->fieldConfigurationCollection[$mapping->getIdentifier()]->getExpandGroupRows()) {
 				return $this->expandGroupedData($row, $mapping);
 			} else {
 				return $row[$mapping->getIdentifier()];
 			}
-			
+
 		} else {
 			throw new Exception('Array key ' . $mapping->getIdentifier() . 'does not exist in row. Perhaps wrong mapping configuration?', 1280317751);
 		}
 	}
-	
-	
+
+
+
 	/**
 	 * Expand the field by delimiter
 	 *
@@ -187,5 +174,5 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	protected function expandGroupedData(&$row, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping) {
 		return explode($mapping->getExpandGroupRowsSeparator(), $row[$mapping->getIdentifier()]);
 	}
+
 }
-?>

@@ -91,6 +91,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory
+	 */
+	private $dataMapperFactory;
+
+
+
+	/**
 	 * Returns an instance of this class with optionally given settings injected in associated configuration builder.
 	 *
 	 * This is a helper method to create an instance of this class in static environment.
@@ -139,6 +146,15 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	 */
 	public function injectFilterboxCollectionFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory $filterboxCollectionFactory) {
 		$this->filterboxCollectionFactory = $filterboxCollectionFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory $mapperFactory
+	 */
+	public function injectMapperFactory(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory $mapperFactory) {
+		$this->dataMapperFactory = $mapperFactory;
 	}
 
 
@@ -277,7 +293,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
     
     
     private function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        $dataMapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($configurationBuilder);
+		$this->dataMapperFactory->_injectConfigurationBuilder($configurationBuilder);
+        $dataMapper = $this->dataMapperFactory->createDataMapper($configurationBuilder);
         return $dataMapper;
     }
     
