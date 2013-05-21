@@ -213,7 +213,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		$jsonTreeWriter = new Tx_PtExtbase_Tree_JsonTreeWriter(array($arrayWriterVisitor), $arrayWriterVisitor);
 
-		return $jsonTreeWriter->writeTree($this->tree);
+		return $jsonTreeWriter->setRespectEnableFields($this->treeRespectEnableFields)->writeTree($this->tree);
 	}
 
 
