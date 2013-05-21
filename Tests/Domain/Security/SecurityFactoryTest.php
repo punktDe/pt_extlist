@@ -31,7 +31,7 @@
  * @package Tests
  * @subpackage Security
  */
-class Tx_PtExtlist_Tests_Domain_Security_SecurityFactoryTest extends Tx_Extbase_BaseTestCase {
+class Tx_PtExtlist_Tests_Domain_Security_SecurityFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function testGetInstance() {
 		$instance = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();

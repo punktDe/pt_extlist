@@ -33,7 +33,7 @@
  * @package Tests
  * @subpackage Domain\DataBackend
  */
-abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_Extbase_BaseTestcase {
+abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_PtExtlist_Tests_BaseTestcase {
    
     /**
      * Holds configuration string for demo TS setup
