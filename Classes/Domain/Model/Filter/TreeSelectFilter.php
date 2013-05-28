@@ -84,6 +84,25 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	protected $treeRespectEnableFields = TRUE;
 
 
+
+	/**
+	 * @var Tx_PtExtbase_Tree_TreeContext
+	 */
+	protected $treeContext;
+
+
+	/**
+	 * @return void
+	 */
+	public function initFilter() {
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /** @var Tx_Extbase_Object_ObjectManager $objectManager */
+		$this->treeContext = $objectManager->get('Tx_PtExtbase_Tree_TreeContext');
+		$this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
+		$this->buildTree();
+	}
+
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
 	 *
@@ -114,9 +133,6 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		if(array_key_exists('treeRespectEnableFields', $this->filterConfig->getSettings())) {
 			$this->treeRespectEnableFields = (int) $this->filterConfig->getSettings('treeRespectEnableFields') === 1 ? TRUE : FALSE;
 		}
-
-
-		$this->buildTree();
 	}
 
 
@@ -213,7 +229,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		$jsonTreeWriter = new Tx_PtExtbase_Tree_JsonTreeWriter(array($arrayWriterVisitor), $arrayWriterVisitor);
 
-		return $jsonTreeWriter->setRespectEnableFields($this->treeRespectEnableFields)->writeTree($this->tree);
+		return $jsonTreeWriter->writeTree($this->tree);
 	}
 
 
@@ -227,7 +243,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		$treeRepository = $treeRepositoryBuilder->buildTreeRepository();
 
-		$this->tree = $treeRepository->loadTreeByNamespace($this->treeNamespace, $this->treeRespectEnableFields);
+		$this->tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
 	}
 
 
