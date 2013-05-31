@@ -28,5 +28,5 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 						 nodes="{filter.treeNodes}"
 						 multiple="{filter.multiple}" />
 	</div>
-	<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
+	<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription"><f:format.html>{filter.filterConfig.description}</f:format.html></div></f:if>
 </div>

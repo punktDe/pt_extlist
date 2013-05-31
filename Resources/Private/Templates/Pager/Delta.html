@@ -39,7 +39,7 @@ Tx_PtExtlist_Domain_Model_Pager				The pager object
 					<f:then>
 						<f:if condition="{i} == {pageNumber}">
 							<f:then>
-								<li class="number"><extlist:link.action action="show" controller="Pager" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pageNumber}')}"><span>{pageNumber}</span></extlist:link.action></li>
+								<li class="number"><extlist:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pageNumber}')}"><span>{pageNumber}</span></extlist:link.action></li>
 							</f:then>
 							<f:else>
 								<li class="number"><span class="fill">{pageNumber}</span></li>

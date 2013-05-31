@@ -126,7 +126,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	}
 
 
-
 	/**
 	 * Render a single option line by cObject or default
 	 *
@@ -136,9 +135,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 
 		$option = '';
 
-		foreach($this->displayFields as $displayField) {
-      	$values[] = $optionData[$displayField];
-      }
+		foreach ($this->displayFields as $displayField) {
+			$values[] = $optionData[$displayField];
+		}
 
 		$optionData['allDisplayFields'] = implode(' ', $values);
 

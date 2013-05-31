@@ -33,32 +33,45 @@
  * @subpackage Renderer
  * @author Christoph Ehscheidt 
  * @author Daniel Lienert 
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest
  */
-class Tx_PtExtlist_Domain_Renderer_RendererFactory {
+class Tx_PtExtlist_Domain_Renderer_RendererFactory implements t3lib_Singleton {
 
-    /**
-     * Build and return the renderer
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
-     */	
-	public static function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected $objectManager;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
+
+	/**
+	 * Build and return the renderer
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+	 * @return Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
+	 */
+	public function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 		$rendererClassName = $rendererConfiguration->getRendererClassName();
-		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($rendererClassName), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
+		Tx_PtExtbase_Assertions_Assert::classExists($rendererClassName, array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
 
-		$renderer = new $rendererClassName(); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
-		Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $className . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
+		$renderer = $this->objectManager->get($rendererClassName); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
+		Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
 
-		$renderer->injectConfiguration($rendererConfiguration);
+		$renderer->_injectConfiguration($rendererConfiguration);
 		
-		if(method_exists($renderer, 'initRenderer')) {
-			$renderer->initRenderer();
-		}
+		$renderer->initRenderer();
 
 		return $renderer;
 	}
-	
-}
 
-?>
+}

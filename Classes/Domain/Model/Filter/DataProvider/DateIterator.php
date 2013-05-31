@@ -158,14 +158,15 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
 	 * @return int
 	 */
 	protected function makeTime($iterationDate, $timeSpanComponents, $iterator) {
-		return mktime(
+		$time = mktime(
 				$timeSpanComponents['h'] ? date('h', $iterationDate) + $iterator['h'] : 0,
 				$timeSpanComponents['i'] ? date('i', $iterationDate) + $iterator['i'] : 0,
 				$timeSpanComponents['s'] ? date('s', $iterationDate) + $iterator['s'] : 0,
-				$timeSpanComponents['m'] ? date('m', $iterationDate) + $iterator['m'] : 0,
+				$timeSpanComponents['m'] ? date('m', $iterationDate) + $iterator['m'] : 1,
 				$timeSpanComponents['d'] ? date('d', $iterationDate) + $iterator['d'] : 1,
 				$timeSpanComponents['y'] ? date('y', $iterationDate) + $iterator['y'] : 0
 			);
+		return $time;
 	}
 }
 ?>

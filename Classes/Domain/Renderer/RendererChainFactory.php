@@ -33,7 +33,39 @@
  * @subpackage Renderer
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
+class Tx_PtExtlist_Domain_Renderer_RendererChainFactory implements t3lib_Singleton {
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager;
+	 */
+	protected $objectManager;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererFactory
+	 */
+	protected $rendererFactory;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererFactory $rendererFactory
+	 */
+	public function injectRendererFactory(Tx_PtExtlist_Domain_Renderer_RendererFactory $rendererFactory) {
+		$this->rendererFactory = $rendererFactory;
+	}
+
+
 
 	/**
 	 * Creates an instance of renderer chain object for given renderer chain configuration
@@ -41,15 +73,14 @@ class Tx_PtExtlist_Domain_Renderer_RendererChainFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration
 	 * @return Tx_PtExtlist_Domain_Renderer_RendererChain
 	 */
-	public static function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
-		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
+	public function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
+		$rendererChain = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererChain', $rendererChainConfiguration);
+		//$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
 		foreach ($rendererChainConfiguration as $rendererConfiguration) {
-			$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
+			$renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
 			$rendererChain->addRenderer($renderer);
 		}
 		return $rendererChain;
 	}
 	
 }
- 
-?>

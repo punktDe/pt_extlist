@@ -130,8 +130,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list2']['backendConfig']['baseFromClause'] = 'static_countries';
 		$tsConfig['plugin']['tx_ptextlist']['settings']['listIdentifier'] = 'list2';
 		
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($tsConfig['plugin']['tx_ptextlist']['settings']);
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('list2');
+		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($tsConfig['plugin']['tx_ptextlist']['settings'], 'list2');
 		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($configurationBuilder);
 		$dataBackend->_injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
@@ -643,6 +642,9 @@ GROUP BY company
         $dataBackend->_injectSorter($sorterMock);
 		$dataBackend->_injectDataMapper($dataMapperMock);
 
+		// TODO should we also mock this?!?
+		$dataBackend->injectRendererChainFactory(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
+
 		$dataBackend->init();
 		
 		return $dataBackend;
@@ -714,4 +716,3 @@ GROUP BY company
 	}
 
 }
-?>

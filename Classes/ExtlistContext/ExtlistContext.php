@@ -31,8 +31,18 @@
  *
  * @package ExtlistContext
  * @author Daniel Lienert
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_ExtlistContext_ExtlistContextTest
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContext {
+
+
+	/**
+	 * @var Tx_PtExtlist_Extbase_ExtbaseContext
+	 */
+	protected $extBaseContext;
+
+
 
 	/**
 	 * Holds an instance of list configuration for this context
@@ -82,7 +92,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Cached pager collection
 	 *
-	 * @var
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
 	protected $pagerCollection;
 
@@ -95,11 +105,47 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
-	 * Initialize the extlistContext
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * Initialize the extbaseContext
 	 */
 	public function init() {
 	}
 
+
+	/**
+	 * @param Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext
+	 */
+	public function injectExtBaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext) {
+		$this->extBaseContext = $extBaseContext;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
+	 * Inject the Databackend
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 */
+	public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+		$this->dataBackend = $dataBackend;
+	}
 
 
 	/**
@@ -119,7 +165,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getRendererChain() {
 
 		if($this->rendererChain === NULL) {
-			$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
+			$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
 		}
 
 		return $this->rendererChain;
@@ -134,6 +180,37 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 */
 	public function getDataBackend() {
 		return $this->dataBackend;
+	}
+
+
+
+	/**
+	 * Sets sorting of list to given column identifier.
+	 *
+	 * Sorting needs to be set up in column configuration to make this work.
+	 *
+	 * ATTENTION: If sorting doesn't change after re-configuration, make sure to have
+	 * truncated the fe_sessions_data table, as sorting is stored in session and not overwritten
+	 * by changed configuration.
+	 *
+	 * @param string $sortingColumn Column identifier of column by which list should be sorted.
+	 * @param int $sortingDirection Sorting direction (one of Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE)
+	 * @param bool $rebuildListCache If set to false, the list cache has to be re-calculated manually (e.g. by calling $extlistcontext->getList(TRUE))
+	 * @throws Exception, if given column identifier does not exist in this list
+	 */
+	public function setSortingColumn($sortingColumn, $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $rebuildListCache = TRUE) {
+
+		if (!$this->getList()->getListHeader()->hasItem($sortingColumn)) {
+			throw new Exception('The column with column identifier ' . $sortingColumn . ' does not exist in this list (' . $this->getConfigurationBuilder()->getListIdentifier() . '1359373245) ');
+		}
+
+		$this->getDataBackend()->getSorter()->removeAllSortingObservers();
+		$this->getList()->getListHeader()->getHeaderColumn($sortingColumn)->setSorting($sortingDirection);
+		$this->getDataBackend()->getSorter()->registerSortingObserver($this->getList()->getListHeader()->getHeaderColumn($sortingColumn));
+
+		if ($rebuildListCache) {
+			$this->getList(TRUE);
+		}
 	}
 
 
@@ -233,10 +310,37 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	public function getFilterByFullFiltername($fullFilterName) {
-		list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
-		$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
-		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
+		#list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
+		#$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+		$filter = $this->getFilterBoxCollection()->getFilterByFullFiltername($fullFilterName);
 		return $filter;
+	}
+
+
+
+	/**
+	 * Sets a filter value for a given filterbox identifier, filter identifier and filter value.
+	 *
+	 * If $resetListCache is set to FALSE, the data backend is not invalidated and the list has
+	 * to be re-rendered manually. This can be useful, if several methods are called that invalidate
+	 * the list cache and the cache should only be re-calculated once.
+	 *
+	 * Make sure that the filter addressed by filterbox and filter identifier has a setValue() method.
+	 *
+	 * @param string $filterboxIdentifier Identifier of filterbox in which we want to set a filter value
+	 * @param string $filterIdentifier Identifier of filter for which we want to set a value
+	 * @param mixed $filterValue Filter value to be set in filter
+	 * @param bool $resetListCache If set to FALSE, list cache must be re-calculated manually
+	 * @throws Exception, if addressed filter object does not have a setValue method (this is not part of the filter interface!)
+	 */
+	public function setFilterValue($filterboxIdentifier, $filterIdentifier, $filterValue, $resetListCache = TRUE) {
+		$filter = $this->getFilterByFullFiltername($filterboxIdentifier . '.' . $filterIdentifier);
+		$filter->reset();
+		$filter->setFilterValue($filterValue); // ATM this is not part of the filter interface, so we might get an exception if this method does not exist!
+		$filter->init();
+		if ($resetListCache) {
+			$this->getList(TRUE);
+		}
 	}
 
 
@@ -273,8 +377,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 			'aggregateRows' => $this->getRenderedAggregateRows(),
 			'pagerCollection' => $this->getPagerCollection(),
 			'pager' => $this->getPager(),
-			'filterbox' => $this->getFilterBoxCollection()->getItemByIndex(0),
 		);
+		if ($this->getFilterBoxCollection()->count() > 0) {
+			$viewParts['filterbox'] = $this->getFilterBoxCollection()->getItemByIndex(0);
+		}
 
 		return $viewParts;
 	}
@@ -298,14 +404,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
-
 	/**
-	 * Inject the Databackend
-	 *
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 * @return \Tx_PtExtlist_Extbase_ExtbaseContext
 	 */
-	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$this->dataBackend = $dataBackend;
+	public function getExtBaseContext() {
+		return $this->extBaseContext;
 	}
 
 }

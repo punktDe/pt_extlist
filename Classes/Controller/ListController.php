@@ -46,10 +46,29 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
 
 	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
 	 * Initializes controller
 	 */
 	public function initializeAction() {
-		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
+        parent::initializeAction();
+		$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 
 
@@ -135,4 +154,3 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	}
     
 }
-?>

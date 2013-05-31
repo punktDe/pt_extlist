@@ -47,5 +47,4 @@ class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory {
 	}
 	
 }
-
 ?>

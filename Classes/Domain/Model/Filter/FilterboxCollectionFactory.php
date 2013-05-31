@@ -2,8 +2,8 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  (c) 2010-2013 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,9 +27,9 @@
  ***************************************************************/
 
 /**
- * Implements factory for filterboxe collections
+ * Implements factory for filterbox collections
  * 
- * @author Michael Knoll 
+ * @author Daniel Lienert, Michael Knoll
  * @package Domain
  * @subpackage Model\Filter
  */
@@ -47,16 +47,16 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
 	 * Factory method for creating filterbox collection for a given filterbox config collection
 	 * and a given list identifier
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection $filterboxConfigCollection
-	 * @param String $listIdentifier Identifier of the list to which this filterbox collection belongs to
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param boolean $resetFilterBoxCollection
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		if (self::$instances[$configurationBuilder->getListIdentifier()] === null) {
+	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetFilterBoxCollection) {
+		if (self::$instances[$configurationBuilder->getListIdentifier()] === null || $resetFilterBoxCollection === TRUE) {
 			$filterboxConfigCollection = $configurationBuilder->buildFilterConfiguration(); 
 			$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($configurationBuilder);
 			
-			foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filter_FilterboxConfiguration */
+			foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig */
 				$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
 				$filterboxCollection->addFilterBox($filterbox, $filterbox->getfilterboxIdentifier());
 			}

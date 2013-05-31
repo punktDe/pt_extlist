@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Doma
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
 	 */
-	public function injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
+	public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
 	}
 	
 	
@@ -82,7 +82,16 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Doma
 	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
     	return new Tx_PtExtlist_Domain_Model_List_ListData();
     }
-    
+
+
+
+	/**
+	 * Initializes the renderer
+	 *
+	 * @return void
+	 */
+	public function initRenderer() {
+
+	}
+
 }
- 
-?>
