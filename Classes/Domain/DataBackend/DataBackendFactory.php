@@ -254,13 +254,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 
 
 	private function buildDataBackendForConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
-		/** @var $dataBackendClassName string */
+		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();	/* @var $dataBackendClassName string */
 		$dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
 
 		$dataBackend = $this->objectManager->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
 
-		$this->instancesContainer->set($dataBackend); /* The reference has to be set here because otherwise every filter will create the databackend again -> recursion! */
+		// The reference has to be set here because otherwise every filter will create the databackend again -> recursion!
+		$this->instancesContainer->set($dataBackend);
 
 		// Check whether backend class implements backend interface
 		Tx_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array('message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
