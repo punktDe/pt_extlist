@@ -31,7 +31,7 @@
  *
  * This class is no singleton, since we should get different backends for different settings that may change during
  * a single run of a TYPO3 request.
- * 
+ *
  * @package Domain
  * @subpackage DataBackend
  * @author Michael Knoll
@@ -98,6 +98,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
+	 */
+	private $pagerCollectionFactory;
+
+
+
+	/**
 	 * Returns an instance of this class with optionally given settings injected in associated configuration builder.
 	 *
 	 * This is a helper method to create an instance of this class in static environment.
@@ -160,6 +167,15 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 
 
 	/**
+	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory $pagerCollectionFactory
+	 */
+	public function injectPagerCollectionFactory(Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory $pagerCollectionFactory) {
+		$this->pagerCollectionFactory = $pagerCollectionFactory;
+	}
+
+
+
+	/**
 	 * Initialize object after creation in DI
 	 */
 	public function initializeObject() {
@@ -168,7 +184,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	}
 
 
-	
+
 	/**
 	 * Returns an instance of data backend for a given list identifier.
 	 *
@@ -190,9 +206,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Create new data backend object for given configuration
 	 *
@@ -254,7 +270,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 
 
 	private function buildDataBackendForConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();	/* @var $dataBackendClassName string */
+		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration(); /* @var $dataBackendClassName string */
 		$dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
 
 		$dataBackend = $this->objectManager->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
@@ -281,50 +297,49 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 		$dataBackend->init();
 	}
 
-	
-	
-	
+
+
 	private function getDataSource($dataBackendClassName, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	 // Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
-         $dataSource = call_user_func($dataBackendClassName . '::createDataSource', $configurationBuilder);
-         return $dataSource;
-    }
-    
-    
-    
-    private function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		// Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
+		$dataSource = call_user_func($dataBackendClassName . '::createDataSource', $configurationBuilder);
+		return $dataSource;
+	}
+
+
+
+	private function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->dataMapperFactory->_injectConfigurationBuilder($configurationBuilder);
-        $dataMapper = $this->dataMapperFactory->createDataMapper($configurationBuilder);
-        return $dataMapper;
-    }
-    
-    
-    
-    private function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$filterboxCollection = $this->filterboxCollectionFactory->createInstance($configurationBuilder, $this->resetDataBackend);
-    	return $filterboxCollection;
-    }
-    
-    
-    
-    private function getPagerCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	return Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($configurationBuilder);
-    }
-    
-    
-    
-    private function getQueryInterpreter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
+		$dataMapper = $this->dataMapperFactory->createDataMapper($configurationBuilder);
+		return $dataMapper;
+	}
+
+
+
+	private function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$filterboxCollection = $this->filterboxCollectionFactory->createInstance($configurationBuilder, $this->resetDataBackend);
+		return $filterboxCollection;
+	}
+
+
+
+	private function getPagerCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return $this->pagerCollectionFactory->getInstance($configurationBuilder);
+	}
+
+
+
+	private function getQueryInterpreter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$queryInterpreterClassName = $backendConfiguration->getQueryInterpreterClass();
-        $queryInterpreter = new $queryInterpreterClassName;
+		$queryInterpreter = new $queryInterpreterClassName;
 
-	    return $queryInterpreter;
-    }
+		return $queryInterpreter;
+	}
 
 
 
-    private function getSorter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        return Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilder);
-    }
-	
+	private function getSorter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilder);
+	}
+
 }

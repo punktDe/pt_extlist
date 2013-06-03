@@ -31,55 +31,71 @@
  *
  * @package Domain
  * @subpackage Model\Pager
- * @author Daniel Lienert 
- * @author Christoph Ehscheidt 
+ * @author Daniel Lienert
+ * @author Christoph Ehscheidt
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory {
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory implements t3lib_Singleton {
 
-	
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	private $objectManager;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerFactory
+	 */
+	private $pagerFactory;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerFactory $pagerFactory
+	 */
+	public function injectPagerFactory(Tx_PtExtlist_Domain_Model_Pager_PagerFactory $pagerFactory) {
+		$this->pagerFactory = $pagerFactory;
+	}
+
+
+
 	/**
 	 * Returns a instance of the pager collection.
-	 * 
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
-		$listIdentifier = $configurationBuilder->getListIdentifier();
+	public function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$pagerConfigurationCollection = $configurationBuilder->buildPagerConfiguration();
 
-		return self::buildPagerCollection($configurationBuilder, $listIdentifier);
-	}
-	
-	
-	/**
-	 * Build the Pager Collection
-	 * 
-	 * @param $configurationBuilder
-	 * @param $listIdentifier
-	 */
-	protected static function buildPagerCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $listIdentifier) {
-			$pagerConfigurationCollection = $configurationBuilder->buildPagerConfiguration();	
+		$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($configurationBuilder);
 
-			$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($configurationBuilder);
-			
-			// TODO use DI here once refactoring is finished
-			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
-			$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
-			$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
-			$sessionPersistenceManager->registerObjectAndLoadFromSession($pagerCollection);
-			$pagerCollection->injectSessionPersistenceManager($sessionPersistenceManager);
+		// TODO use DI here once refactoring is finished
+		$sessionPersistenceManagerBuilder = $this->objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder');		/* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
+		$sessionPersistenceManager->registerObjectAndLoadFromSession($pagerCollection);
+		$pagerCollection->injectSessionPersistenceManager($sessionPersistenceManager);
 
 
-			// TODO use DI here, once refactoring is finished!
-			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
-			$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($pagerCollection);
-			
-			// Create pagers and add them to the collection
-			foreach($pagerConfigurationCollection as $pagerIdentifier => $pagerConfig) {
-				$pager = Tx_PtExtlist_Domain_Model_Pager_PagerFactory::getInstance($pagerConfig);
-				$pagerCollection->addPager($pager);
-			}
-			
-			return $pagerCollection;
+		// TODO use DI here, once refactoring is finished!
+		$getPostVarsAdapterFactory = $this->objectManager->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); 		/* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+		$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($pagerCollection);
+
+		// Create pagers and add them to the collection
+		foreach ($pagerConfigurationCollection as $pagerIdentifier => $pagerConfig) {
+			$pagerCollection->addPager($this->pagerFactory->getInstance($pagerConfig));
+		}
+
+		return $pagerCollection;
 	}
 
 }
