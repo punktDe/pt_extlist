@@ -33,23 +33,8 @@
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExtlist_Domain_AbstractComponentFactory {
+class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState {
 
-	/**
-	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
-	 */
-	private $sessionPersistenceManagerBuilder;
-
-
-
-	/**
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
-	 */
-	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
-		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
-	}
-
-	
 	/**
 	 * build an instance of a header column by columnConfiguration 
 	 * 

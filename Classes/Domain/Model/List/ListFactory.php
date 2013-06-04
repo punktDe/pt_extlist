@@ -48,7 +48,10 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
 
 		// We have to build headers here, as they are no longer created by data backend
-		$list->setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder, $resetList));
+		// TODO refactor me!
+		$listHeaderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+		$listHeader = $listHeaderFactory->createInstance($configurationBuilder, $resetList);
+		$list->setListHeader($listHeader);
 
 
 		// TODO make this class non-static and use injection for rendererChainFactory here
@@ -85,4 +88,3 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	}
     
 }
-?>

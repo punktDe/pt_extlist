@@ -70,8 +70,6 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory {
 			// Inject settings from gp-vars.
 			$gpAdapter = $gpVarsAdapterFactory->getInstance();
 			$gpAdapter->injectParametersInObject(self::$instances[$listIdentifier]);
-
-			//Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder);
 		}
 
 		return self::$instances[$listIdentifier];
