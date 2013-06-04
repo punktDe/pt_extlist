@@ -33,7 +33,22 @@
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
+class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExtlist_Domain_AbstractComponentFactory {
+
+	/**
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	private $sessionPersistenceManagerBuilder;
+
+
+
+	/**
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
 	
 	/**
 	 * build an instance of a header column by columnConfiguration 
@@ -57,7 +72,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory {
 		$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($headerColumn);
 
 		// Register headerColumn in sorter
-		$sorter = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($columnConfiguration->getConfigurationBuilder());
+		// TODO use DI here, once refactoring is finished!
+		$sorterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'); /* @var $sorterFactory Tx_PtExtlist_Domain_Model_Sorting_SorterFactory */
+		$sorter = $sorterFactory->getInstance($columnConfiguration->getConfigurationBuilder());
 		$sorter->registerSortingObserver($headerColumn);
 
 		$headerColumn->init();

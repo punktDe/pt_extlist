@@ -105,6 +105,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_Sorting_SorterFactory
+	 */
+	private $sorterFactory;
+
+
+
+	/**
 	 * Returns an instance of this class with optionally given settings injected in associated configuration builder.
 	 *
 	 * This is a helper method to create an instance of this class in static environment.
@@ -171,6 +178,15 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	 */
 	public function injectPagerCollectionFactory(Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory $pagerCollectionFactory) {
 		$this->pagerCollectionFactory = $pagerCollectionFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Sorting_SorterFactory $sorterFactory
+	 */
+	public function injectSorterFactory(Tx_PtExtlist_Domain_Model_Sorting_SorterFactory $sorterFactory) {
+		$this->sorterFactory = $sorterFactory;
 	}
 
 
@@ -339,7 +355,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 
 
 	private function getSorter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilder);
+		return $this->sorterFactory->getInstance($configurationBuilder);
 	}
 
 }

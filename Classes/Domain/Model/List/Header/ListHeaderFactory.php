@@ -34,14 +34,14 @@
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
+class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory implements t3lib_Singleton {
 
     /**
      * Holds an array of singleton instances for each list identifier
      * 
      * @var array
      */
-    private static $instances = array();
+    private $instances = array();
 
 
 
@@ -52,11 +52,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 * @param $resetListHeader boolean
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetListHeader = false) {
+	public function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetListHeader = false) {
 		$listIdentifier = $configurationBuilder->getListIdentifier();
 
 		// Check whether singleton instance exists
-		if (!array_key_exists($listIdentifier, self::$instances) || self::$instances[$listIdentifier] === null || $resetListHeader) {
+		if (!array_key_exists($listIdentifier, $this->instances) || $this->instances[$listIdentifier] === null || $resetListHeader) {
 			$defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
 			$columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
 			$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
@@ -75,7 +75,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 				}
 			}
 
-			self::setVisibilityByColumnSelector($configurationBuilder, $listHeader);
+			$this->setVisibilityByColumnSelector($configurationBuilder, $listHeader);
 
 			// Check whether we have a sorting from header columns (set by user)
 			// or whether we have to set default sorting
@@ -90,12 +90,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 
 			$listHeader->init();
 
-			self::$instances[$listIdentifier] = $listHeader;
+			$this->instances[$listIdentifier] = $listHeader;
 		}
 
 		
 		// We return singleton instance of listHeader
-		return self::$instances[$listIdentifier];
+		return $this->instances[$listIdentifier];
 	}
 
 
@@ -104,7 +104,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
-	protected static function setVisibilityByColumnSelector(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+	protected function setVisibilityByColumnSelector(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		if($configurationBuilder->buildColumnSelectorConfiguration()->getEnabled()) {
 			$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($configurationBuilder);
 			$columnSelector->setVisibilityOnListHeader($listHeader);
@@ -112,4 +112,3 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 	}
     
 }
-?>

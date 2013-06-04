@@ -33,14 +33,9 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory implements t3lib_Singleton {
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManager
-	 */
-	private $objectManager;
-
-
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+	implements t3lib_Singleton {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterFactory
@@ -57,35 +52,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory implements t3lib_Singlet
 
 
 	/**
-	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
-	 */
-	private $sessionPersistenceManagerBuilder;
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-
-
-	/**
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterFactory $filterFactory
 	 */
 	public function injectFilterFactory(Tx_PtExtlist_Domain_Model_Filter_FilterFactory $filterFactory) {
 		$this->filterFactory = $filterFactory;
-	}
-
-
-
-	/**
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
-	 */
-	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
-		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
 	}
 
 
