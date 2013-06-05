@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage DataBackend\Mapper
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements t3lib_Singleton {
 
