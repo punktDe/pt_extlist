@@ -34,7 +34,9 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactory
+	implements t3lib_Singleton {
 
 	/**
 	 * Holds singleton instances of FilterboxCollections for each list identifier
@@ -42,13 +44,6 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory implements t3l
 	 * @var array<Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection>
 	 */
 	private $instances = array();
-
-
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManager
-	 */
-	private $objectManager;
 
 
 
@@ -63,15 +58,6 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory implements t3l
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
 	 */
 	private $dataBackendFactory;
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
 
 
 

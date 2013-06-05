@@ -36,7 +36,6 @@
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_Controller_AbstractActionController  {
 
-
 	/**
 	 * This flag is set to true, the configurationBuilder is reset
 	 *
@@ -132,10 +131,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
-	 * Creates configuration builder after getting extension configuration injected
-	 *
 	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
-	 * @throws Exception
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
 		parent::injectConfigurationManager($configurationManager);
@@ -153,23 +149,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
-	 * Injects configuration builder factory
-	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory
-	 * @throws Exception if no list identifier is set in plugin settings (FlexForm)
 	 */
 	public function injectConfigurationBuilderFactory(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory) {
 		$this->configurationBuilderFactory = $configurationBuilderFactory;
 	}
-
-
-
-    /**
-     * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager
-     */
-    public function injectLifecycleManager(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager) {
-        $this->lifecycleManager = $lifecycleManager;
-    }
 
 
 

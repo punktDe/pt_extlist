@@ -27,7 +27,7 @@
  ***************************************************************/
 
 /**
- * Testscase for renderer factory
+ * Testcase for renderer factory
  * 
  * @author Michael Knoll 
  * @package pt_extlist

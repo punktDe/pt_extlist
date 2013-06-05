@@ -40,18 +40,19 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 		$filterConfig = self::setAccessableFlag($filterConfig, $configurationBuilder);
 		return $filterConfig;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Sets accessable flag for filter
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
+		$security = $objectManager->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
 		$accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
 		$filterConfig->setAccessable($accessable);
 		
@@ -59,5 +60,3 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	}
 	
 }
-
-?>

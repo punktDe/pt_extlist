@@ -38,7 +38,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	/**
 	 * Holds an instance of filterbox collection processed by this controller
 	 *
-	 * @var Tx_PtExtlist_Domain_Model_Filters_FilterboxCollection
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
 	protected $filterboxCollection;
 	
@@ -50,6 +50,22 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
 	protected $pagerCollection = NULL;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
+	 */
+	protected $breadCrumbsCollectionFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory
+	 */
+	public function injectBreadCrumbsCollectionFactory(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory) {
+		$this->breadCrumbsCollectionFactory = $breadCrumbsCollectionFactory;
+	}
 
 
 
@@ -70,14 +86,14 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 * @return string The rendered index action
 	 */
 	public function indexAction() {
-		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+		$breadcrumbs = $this->breadCrumbsCollectionFactory->getInstanceByFilterboxCollection(
 			$this->configurationBuilder,
 			$this->filterboxCollection
 		);
 		
 		// Ugly hack, to check whether there really exists a breadcrumb 
 		$breadcrumbsHaveMessage = false;
-		foreach ($breadcrumbs as $breadcrumb) {
+		foreach ($breadcrumbs as $breadcrumb) { /* @var $breadcrumb Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb */
 			if ($breadcrumb->getMessage() != '') $breadcrumbsHaveMessage = true;
 		}
 		
@@ -94,7 +110,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	 * @return string The rendered reset filter action
 	 */
 	public function resetFilterAction() {
-		$breadcrumbs = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByFilterboxCollection(
+		$breadcrumbs = $this->breadCrumbsCollectionFactory->getInstanceByFilterboxCollection(
 			$this->configurationBuilder,
 			$this->filterboxCollection
 		);
@@ -109,7 +125,6 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
 	
     /**
      * Reset all pagers for this list.
-     * 
      */
     protected function resetPagers(){
         // Reset pagers
