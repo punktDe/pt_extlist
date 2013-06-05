@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage DataBackend\Mapper
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
 
