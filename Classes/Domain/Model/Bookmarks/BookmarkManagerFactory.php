@@ -34,7 +34,9 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+	implements t3lib_Singleton {
 	
 	/**
 	 * Holds an array of instances for each list identifier
@@ -42,9 +44,9 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory implements t3li
 	 * @var array
 	 */
 	protected $instances = array();
-	
-	
-	
+
+
+
 	/**
 	 * Returns an instance of bookmark manager for a given configuration builder
 	 *
@@ -69,22 +71,15 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory implements t3li
 	 */
 	protected function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$bookmarksConfiguration = $configurationBuilder->buildBookmarksConfiguration();
-		$bookmarksRepository = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'); /* @var $bookmarksRepository Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository */
+
+		$bookmarksRepository = $this->objectManager->get('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'); /* @var $bookmarksRepository Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository */
 		$bookmarksRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());
 		
-		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($configurationBuilder->getListIdentifier());
-
-		// TODO use DI here once refactoring is finished
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
-		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
-		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
-		#$bookmarkManager->injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
-		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManager);
-
-		$bookmarkManager->injectBookmarkRepository(t3lib_div::makeInstance('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'));
+		$bookmarkManager = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager', $configurationBuilder->getListIdentifier());
+		$bookmarkManager->injectSessionPersistenceManager($this->sessionPersistenceManagerBuilder->getInstance());
+		$bookmarkManager->injectBookmarkRepository($bookmarksRepository);
 
 		return $bookmarkManager;
 	}
 
 }
-?>
