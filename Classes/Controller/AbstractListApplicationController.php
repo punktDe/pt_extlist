@@ -42,10 +42,12 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	protected $extlistTypoScriptSettingsPath = '';
 
 
+
 	/**
 	 * @var string the pagerIdentifier to use
 	 */
 	protected $pagerIdentifier = 'delta';
+
 
 
 	/**
@@ -54,12 +56,14 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	protected $filterboxIdentifier = '';
 
 
+
 	/**
 	 * Array of available exportTypeIdentifiers
 	 *
 	 * @var array
 	 */
 	protected $exportIdentifiers = array();
+
 
 
 	/******************************************************
@@ -75,6 +79,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	protected $filterboxCollection = NULL;
 
 
+
 	/**
 	 * Holds an instance of filterbox processed by this controller
 	 *
@@ -83,10 +88,12 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	protected $filterbox = NULL;
 
 
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
 	 */
 	protected $pagerCollection = NULL;
+
 
 
 	/**
@@ -95,10 +102,19 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	protected $extListContext;
 
 
+
 	/**
 	 * @var Tx_PtExtbase_Utility_HeaderInclusion
 	 */
 	protected $headerInclusionUtility;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+	 */
+	protected $listFactory;
+
 
 
 	/**
@@ -109,11 +125,21 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	}
 
 
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+	 */
+	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
+		$this->listFactory = $listFactory;
+	}
+
+
+
 	/**
 	 * Initialize this controller
 	 */
 	public function initializeAction() {
-        parent::initializeAction();
+		parent::initializeAction();
 		$this->initFilterBox();
 		$this->initPager();
 	}
@@ -124,7 +150,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	 * Init the filterbox
 	 */
 	protected function initFilterBox() {
-		if($this->filterboxIdentifier) {
+		if ($this->filterboxIdentifier) {
 			$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
 			$this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
 		}
@@ -141,6 +167,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	}
 
 
+
 	/**
 	 * Build the configuration builder with settings from the given extlistTypoScriptConfigurationPath
 	 *
@@ -150,7 +177,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	protected function buildConfigurationBuilder() {
 		$settings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
 
-		if(!$this->extlistTypoScriptSettingsPath) throw new Exception('No extlist typoscript settings path given', 1330188161);
+		if (!$this->extlistTypoScriptSettingsPath) throw new Exception('No extlist typoscript settings path given', 1330188161);
 		$this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
 		$this->extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($settings, $this->listIdentifier);
 
@@ -174,9 +201,9 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	 * @return string  Rendered list for given list identifier
 	 */
 	public function listAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 
-		if($list->count() == 0) {
+		if ($list->count() == 0) {
 			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('general.emptyList', 'PtExtlist'), '', t3lib_FlashMessage::INFO);
 		}
 
@@ -188,12 +215,12 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
 		$this->view->assign('exportIdentifiers', $this->exportIdentifiers);
 
-		if($this->filterbox) {
+		if ($this->filterbox) {
 			$this->view->assign('filterBoxCollection', $this->filterboxCollection);
 			$this->view->assign('filterbox', $this->filterbox);
 		}
 
-		if($this->pagerIdentifier) {
+		if ($this->pagerIdentifier) {
 			$this->view->assign('pagerCollection', $this->pagerCollection);
 			$this->view->assign('pager', $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier));
 		}
@@ -211,13 +238,13 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 		$exportSettingsPath = $this->extlistTypoScriptSettingsPath . '.export.exportConfigs.' . $exportIdentifier;
 		$exportSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
 
-		if(!is_array($exportSettings) || empty($exportSettings)) {
+		if (!is_array($exportSettings) || empty($exportSettings)) {
 			throw new Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
 		}
 
 		$exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilder, $exportSettings);
 
-		if(array_key_exists('exportListSettingsPath', $exportSettings)) {
+		if (array_key_exists('exportListSettingsPath', $exportSettings)) {
 			$exportListSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
 		} else {
 			$exportListSettings = $this->configurationBuilder->getSettings();
@@ -238,6 +265,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	}
 
 
+
 	/**
 	 * Resets all filters of filterbox
 	 *
@@ -255,6 +283,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	}
 
 
+
 	/**
 	 * Sorting action used to change sorting of a list
 	 *
@@ -262,10 +291,10 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 	 */
 	public function sortAction() {
 		$this->dataBackend->resetListDataCache();
-        // ATTENTION: When a list header is reset, its GP var data is not reset, so every header that has
-        // sorting data set in GP vars will not be effected when reset!
-        $this->dataBackend->getSorter()->reset();
-		
+		// ATTENTION: When a list header is reset, its GP var data is not reset, so every header that has
+		// sorting data set in GP vars will not be effected when reset!
+		$this->dataBackend->getSorter()->reset();
+
 		$this->forward('list');
 	}
 
@@ -283,5 +312,5 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 		}
 		$this->pagerCollection->reset();
 	}
-    
+
 }

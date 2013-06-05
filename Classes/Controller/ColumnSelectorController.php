@@ -61,12 +61,28 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 
 
 
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+	 */
+	protected $listFactory;
+
+
+
 
 	/**
 	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
 	 */
 	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
 		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+	 */
+	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
+		$this->listFactory = $listFactory;
 	}
 
 
@@ -97,7 +113,7 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	 * @return string The rendered index action
 	 */
 	public function showAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
 		$columnSelector = $this->columnSelectorFactory->getInstance($this->configurationBuilder);
 
