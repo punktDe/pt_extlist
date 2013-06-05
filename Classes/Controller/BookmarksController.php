@@ -33,6 +33,7 @@
  * @package Controller
  * @author Michael Knoll
  * @author David "Dex" Vogt
+ * @see Tx_PtExtlist_Tests_Controller_BookmarksControllerTest
  */
 class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controller_AbstractController {
     

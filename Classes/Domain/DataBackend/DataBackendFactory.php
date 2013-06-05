@@ -38,7 +38,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! see comment above!
+class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory extends Tx_PtExtlist_Domain_AbstractComponentFactory { // NO SINGLETON!!! see comment above!
 
 	/**
 	 * Holds an instance of this class
@@ -66,13 +66,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
 	 */
 	private $configurationBuilderFactory;
-
-
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManager
-	 */
-	private $objectManager;
 
 
 
@@ -133,15 +126,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory { // NO SINGLETON!!! se
 	 */
 	public function injectConfigurationBuilderFactory(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory) {
 		$this->configurationBuilderFactory = $configurationBuilderFactory;
-	}
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
 	}
 
 

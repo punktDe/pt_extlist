@@ -31,7 +31,7 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @package Domain
  */
-class Tx_PtExtlist_Domain_AbstractComponentFactoryWithState extends Tx_PtExtlist_Domain_AbstractComponentFactory {
+abstract class Tx_PtExtlist_Domain_AbstractComponentFactoryWithState extends Tx_PtExtlist_Domain_AbstractComponentFactory {
 
 	/**
 	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
@@ -41,10 +41,26 @@ class Tx_PtExtlist_Domain_AbstractComponentFactoryWithState extends Tx_PtExtlist
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+	 */
+	protected $getPostVarsAdapterFactory;
+
+
+
+	/**
 	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
 	 */
 	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
 		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory
+	 */
+	public function injectGetPostVarAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory) {
+		$this->getPostVarsAdapterFactory = $getPostVarAdapterFactory;
 	}
 
 }

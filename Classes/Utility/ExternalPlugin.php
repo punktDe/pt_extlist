@@ -98,6 +98,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * Return the list object by listIdentifier
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 * @return \Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public static function getListByDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		return Tx_PtExtlist_Domain_Model_List_ListFactory::createList($dataBackend, $dataBackend->getConfigurationBuilder());

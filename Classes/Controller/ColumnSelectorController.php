@@ -32,6 +32,7 @@
  *
  * @package Controller
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Controller_ColumnSelectorControllerTest
  */
 class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Controller_AbstractController {
 
@@ -54,6 +55,14 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
+	 */
+	protected $columnSelectorFactory;
+
+
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
 	 */
 	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
@@ -63,11 +72,20 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 
 
 	/**
+	 * @param Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory
+	 */
+	public function injectColumnSelectorFactory(Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory) {
+		$this->columnSelectorFactory = $columnSelectorFactory;
+	}
+
+
+
+	/**
 	 * Overwrites initAction for setting properties
 	 * and enabling easy testing
 	 */
 	public function initializeAction() {
-        parent::initializeAction();
+		parent::initializeAction();
 		$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 
@@ -81,10 +99,11 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	public function showAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($this->configurationBuilder);
+		$columnSelector = $this->columnSelectorFactory->getInstance($this->configurationBuilder);
 
 		$this->view->assign('columnSelector', $columnSelector);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 	}
+
 }

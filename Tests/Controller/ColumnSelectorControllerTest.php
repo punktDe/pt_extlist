@@ -2,9 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2013 Michael Knoll <knoll@punkt.de>, punkt.de GmbH
-*
-*
+*  (c) 2013 Michael Knoll <knoll@punkt.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,25 +24,19 @@
 
 
 /**
- * Abstact base class for component factories that use injected object manager.
+ * Class implements a testcase for the column selector controller
  *
  * @author Michael Knoll <knoll@punkt.de>
- * @package Domain
+ * @package Tests
+ * @subpackage Controller
+ * @see Tx_PtExtlist_Controller_ColumnSelectorController
  */
-abstract class Tx_PtExtlist_Domain_AbstractComponentFactory {
+class Tx_PtExtlist_Tests_Controller_ColumnSelectorControllerTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	/**
-	 * @var Tx_Extbase_Object_ObjectManager
-	 */
-	protected $objectManager;
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
+	/** @test */
+	public function classExists() {
+		$this->isTrue(class_exists('Tx_PtExtlist_Controller_ColumnSelectorController'));
 	}
+
 
 }

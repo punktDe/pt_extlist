@@ -34,7 +34,9 @@
  * @package Domain
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+	implements t3lib_Singleton {
 
     /**
      * Holds an array of singleton instances for each list identifier
@@ -42,6 +44,38 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory implements t3lib_S
      * @var array
      */
     private $instances = array();
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory
+	 */
+	private $headerColumnFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
+	 */
+	private $columnSelectorFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory $headerColumnFactory
+	 */
+	public function injectHeaderColumnFactory(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory $headerColumnFactory) {
+		$this->headerColumnFactory = $headerColumnFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory
+	 */
+	public function injectColumnSelectorFactory(Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory) {
+		$this->columnSelectorFactory = $columnSelectorFactory;
+	}
 
 
 
@@ -62,8 +96,8 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory implements t3lib_S
 			$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
 			$listIsSorted = false;
 
-			foreach ($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) {
-				$headerColumn = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($singleColumnConfiguration);
+			foreach ($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) { /* @var $singleColumnConfiguration Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig */
+				$headerColumn = $this->headerColumnFactory->createInstance($singleColumnConfiguration);
 
 				if ($singleColumnConfiguration->isAccessable()) {
 					// We set list as sorted as soon as one column has sorting-status from user / session
@@ -84,9 +118,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory implements t3lib_S
 				$listHeader->getHeaderColumn($defaultSortingColumn)->init();
 			}
 
-			// TODO use DI here, once refactoring is finished!
-			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
-			$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($listHeader);
+			$this->getPostVarsAdapterFactory->getInstance()->injectParametersInObject($listHeader);
 
 			$listHeader->init();
 
@@ -99,6 +131,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory implements t3lib_S
 	}
 
 
+
 	/**
 	 * @static
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -106,8 +139,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory implements t3lib_S
 	 */
 	protected function setVisibilityByColumnSelector(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		if($configurationBuilder->buildColumnSelectorConfiguration()->getEnabled()) {
-			$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($configurationBuilder);
-			$columnSelector->setVisibilityOnListHeader($listHeader);
+			$this->columnSelectorFactory->getInstance($configurationBuilder)->setVisibilityOnListHeader($listHeader);
 		}
 	}
     
