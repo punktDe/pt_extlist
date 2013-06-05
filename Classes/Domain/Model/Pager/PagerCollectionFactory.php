@@ -34,28 +34,14 @@
  * @author Daniel Lienert
  * @author Christoph Ehscheidt
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory implements t3lib_Singleton {
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManager
-	 */
-	private $objectManager;
-
-
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+	implements t3lib_Singleton {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerFactory
 	 */
 	private $pagerFactory;
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
 
 
 
@@ -79,16 +65,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory implements t3lib_Si
 
 		$pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($configurationBuilder);
 
-		// TODO use DI here once refactoring is finished
-		$sessionPersistenceManagerBuilder = $this->objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder');		/* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
-		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
+		$sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance();
 		$sessionPersistenceManager->registerObjectAndLoadFromSession($pagerCollection);
 		$pagerCollection->injectSessionPersistenceManager($sessionPersistenceManager);
 
-
-		// TODO use DI here, once refactoring is finished!
-		$getPostVarsAdapterFactory = $this->objectManager->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); 		/* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
-		$getPostVarsAdapterFactory->getInstance()->injectParametersInObject($pagerCollection);
+		$this->getPostVarsAdapterFactory->getInstance()->injectParametersInObject($pagerCollection);
 
 		// Create pagers and add them to the collection
 		foreach ($pagerConfigurationCollection as $pagerIdentifier => $pagerConfig) {

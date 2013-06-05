@@ -33,28 +33,14 @@
  * @subpackage Renderer
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_Renderer_RendererChainFactory implements t3lib_Singleton {
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManager;
-	 */
-	protected $objectManager;
-
-
+class Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactory
+	implements t3lib_Singleton {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Renderer_RendererFactory
 	 */
 	protected $rendererFactory;
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
 
 
 
