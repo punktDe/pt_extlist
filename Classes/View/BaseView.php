@@ -36,7 +36,9 @@
  * @package View
  */
 
-class Tx_PtExtlist_View_BaseView extends Tx_PtExtbase_View_BaseView {
+class Tx_PtExtlist_View_BaseView
+	extends Tx_PtExtbase_View_BaseView
+	implements Tx_PtExtlist_View_ConfigurableViewInterface {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
@@ -48,6 +50,7 @@ class Tx_PtExtlist_View_BaseView extends Tx_PtExtbase_View_BaseView {
 	 * Inject the configurationBuilder
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return mixed|void
 	 */
 	public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$this->configurationBuilder = $configurationBuilder;

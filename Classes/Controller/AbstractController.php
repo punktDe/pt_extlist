@@ -271,7 +271,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
 		$this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
-		if (method_exists($view, 'setConfigurationBuilder')) {
+		if (method_exists($view, 'setConfigurationBuilder')) { /* @var $view Tx_PtExtlist_View_ConfigurableViewInterface */
 			$view->setConfigurationBuilder($this->configurationBuilder);
 		}
 
@@ -307,13 +307,17 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @return string View class name to be used in this controller
 	 */
 	protected function getTsViewClassName() {
+		$viewClassName = NULL;
+
 		if($this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view']) {
-			return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+			$viewClassName = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
 		}
 
 		if($this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view']) {
-			return $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
+			$viewClassName = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['view'];
 		}
+
+		return $viewClassName;
 	}
 	
 	
@@ -356,7 +360,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		
 		if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
 			
-			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { 
+			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) { /* @var $view Tx_PtExtlist_View_BaseView */
                 $view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
 			} else {
 				throw new Exception('Given template path and filename could not be found or resolved: ' . t3lib_div::getFileAbsFileName($templatePathAndFilename), 1284655110);
