@@ -32,6 +32,7 @@
  * @author Daniel Lienert
  * @package Test
  * @subpackage Domain\Model\Filter
+ * @see Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
@@ -85,6 +86,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
 	}
 
 
+
 	/**
 	 * @test
 	 */
@@ -105,10 +107,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
 	}
 
 
+
 	public function testDBTimeFormatIsSet() {
 		$filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
 		$this->assertEquals('d.m.Y H:i', $filterMock->_get('dbTimeFormat'));
 	}
+
 
 
 	/**
@@ -158,22 +162,26 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
 	/**
 	 * Utility Methods
 	 *
+	 * @param array $filterSettings
 	 * @return Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter
 	 */
 	public function buildAccessibleAbstractTimeSpanFilter($filterSettings = NULL) {
 
 		if(!$filterSettings) $filterSettings = $this->defaultFilterSettings;
 
+		$gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter'); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
+
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter');
-		$abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName);
+		$abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName); /* @var $abstractTimeSpanFilter Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter */
 
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
 		$dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
 		$dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
-		$abstractTimeSpanFilter->injectFilterConfig($filterConfiguration);
-		$abstractTimeSpanFilter->injectDataBackend($dataBackendMock);
+		$abstractTimeSpanFilter->_injectFilterConfig($filterConfiguration);
+		$abstractTimeSpanFilter->_injectDataBackend($dataBackendMock);
+		$abstractTimeSpanFilter->_injectGpVarsAdapter($gpVarsAdapgerMock);
 
 		$abstractTimeSpanFilter->_set('filterValueStart', date_create('2000-01-01'));
 		$abstractTimeSpanFilter->_set('filterValueEnd', date_create());
