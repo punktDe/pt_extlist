@@ -32,6 +32,7 @@
  * @package Tests
  * @subpackage pt_extlist
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
@@ -52,7 +53,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
 	public function filterConfigCanBeInjected() {
 		$filter = $this->getExtendingFilterMock();
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'field1', 'filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'), 'test');
-		$filter->injectFilterConfig($filterConfig);
+		$filter->_injectFilterConfig($filterConfig);
 	}
 
 
@@ -61,7 +62,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
 	public function gpVarAdapterCanBeInjected() {
 		$filter = $this->getExtendingFilterMock();
 		$gpVarAdapter = new Tx_PtExtbase_State_GpVars_GpVarsAdapter('dummy_namespace');
-		$filter->injectGpVarAdapter($gpVarAdapter);
+		$filter->_injectGpVarsAdapter($gpVarAdapter);
 	}
 
 
@@ -70,7 +71,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
 	public function gettersReturnExpectedResults() {
 		$filter = $this->getExtendingFilterMock();
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'field1', 'filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'), 'test');
-		$filter->injectFilterConfig($filterConfig);
+		$filter->_injectFilterConfig($filterConfig);
 
 		$this->assertEquals($filter->getFilterIdentifier(), 'test');
 		$this->assertEquals($filter->getFilterBoxIdentifier(), 'test');
@@ -83,7 +84,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
 	/** @test */
 	public function sessionDataCanBeInjected() {
 		$filter = $this->getExtendingFilterMock();
-		$filter->injectSessionData(array('filterValue' => 'filterValueValue'));
+		$filter->_injectSessionData(array('filterValue' => 'filterValueValue'));
 	}
 
 
@@ -92,7 +93,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
 	public function getFilterConfigurationReturnsExpectedConfiguration() {
 		$filterConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', array(), array(), '', FALSE);
 		$filter = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub('testfilter'); /* @var $filterConfiguration Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig */
-		$filter->injectFilterConfig($filterConfiguration);
+		$filter->_injectFilterConfig($filterConfiguration);
 		$this->assertTrue($filter->getFilterConfig() == $filterConfiguration);
 	}
 

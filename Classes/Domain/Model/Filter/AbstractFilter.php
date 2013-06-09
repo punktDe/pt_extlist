@@ -33,6 +33,7 @@
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
