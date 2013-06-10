@@ -35,6 +35,21 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter {
 
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+	 */
+	protected $dataProviderFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
+	 */
+	public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory) {
+		$this->dataProviderFactory = $dataProviderFactory;
+	}
+
+
 
 	/**
 	 * @return void
@@ -48,13 +63,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
 	}
 
 
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
 	 */
 	public function getOptions() {
-
-		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
+		$dataProvider = $this->dataProviderFactory->createInstance($this->filterConfig);
 
 		$renderedOptions = $dataProvider->getRenderedOptions();
 		$this->addInactiveOption($renderedOptions);
@@ -78,10 +93,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
 	}
 
 
+
 	/**
 	 * Add inactiveFilterOpotion to rendered options
 	 *
 	 * @param array $renderedOptions
+	 * @return array
 	 */
 	protected function addInactiveOption(&$renderedOptions) {
 
@@ -118,5 +135,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
 	}
 
 
+
+	/**
+	 * @return array
+	 */
+	public function _persistToSession() {
+		return array();
+	}
+
 }
-?>

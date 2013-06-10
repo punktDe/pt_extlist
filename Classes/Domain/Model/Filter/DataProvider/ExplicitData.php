@@ -28,12 +28,12 @@
 
 /**
  * Implements data provider for explicit defined data in typoscript
- * @author Daniel Lienert
- * @package Domain
- * @subpackage Model\Filter\DataProvider
  *
  * Have a look at the documentation for an example.
  *
+ * @author Daniel Lienert
+ * @package Domain
+ * @subpackage Model\Filter\DataProvider
  */
 class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
 
@@ -45,7 +45,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
 	protected $tsOptions;
 
 	
-
 
 	/**
 	 * (non-PHPdoc)
@@ -98,11 +97,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
 	 * @param array $filterSettings
 	 */
 	protected function initDataProviderByTsConfig($filterSettings) {
-		
 		$this->tsOptions = $this->filterConfig->getSettings('options');
 		Tx_PtExtbase_Assertions_Assert::isArray($this->tsOptions, array('message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006'));
-		
 	}
 	
 }
-?>

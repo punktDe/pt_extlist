@@ -56,6 +56,22 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+	 */
+	protected $dataProviderFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
+	 */
+	public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory) {
+		$this->dataProviderFactory = $dataProviderFactory;
+	}
+
+
+
+	/**
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 * @return array
 	 */
@@ -183,7 +199,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
 	 */
 	protected function buildDataProvider() {
-		return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
+		return $this->dataProviderFactory->createInstance($this->filterConfig);
 	}
 
 
