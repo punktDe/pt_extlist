@@ -153,7 +153,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
    protected function buildAccessibleGroupDataProvider($filterSettings = null) {
    		
    		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData');
-   		$accesibleGroupDataProvider = new $accessibleClassName;
+   		$accessibleGroupDataProvider = new $accessibleClassName; /* @var $accessibleGroupDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData */
    		
  	  	$this->defaultFilterSettings = $filterSettings;
     	if(!$this->defaultFilterSettings) {
@@ -172,11 +172,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
     	    	
     	$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
 
-        $accesibleGroupDataProvider->injectDataBackend($dataBackend);
-   		$accesibleGroupDataProvider->injectFilterConfig($filterConfiguration);
-   		$accesibleGroupDataProvider->init();
+        $accessibleGroupDataProvider->_injectDataBackend($dataBackend);
+   		$accessibleGroupDataProvider->_injectFilterConfig($filterConfiguration);
+   		$accessibleGroupDataProvider->init();
    		
-   		return $accesibleGroupDataProvider;
-   }  
+   		return $accessibleGroupDataProvider;
+   }
+
 }
-?>

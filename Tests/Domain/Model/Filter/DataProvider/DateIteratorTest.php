@@ -34,8 +34,7 @@
  * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest extends Tx_PtExtlist_Tests_BaseTestcase {
-    
-	
+
 	protected $defaultFilterSettings = array(
                'filterIdentifier' => 'timeSpanTest',
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter',
@@ -53,6 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
+
 
 
 	public function settingsDataProvider() {
@@ -73,6 +73,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 			)
 		);
 	}
+
 
 
 	public function incorrectSettingsDataProvider() {
@@ -162,6 +163,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	}
 
 
+
 	/**
 	 * @test
 	 * @dataProvider settingsDataProvider
@@ -213,14 +215,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 		if(!$filterSettings) $filterSettings = $this->defaultFilterSettings;
 
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator');
-		$accessibleTimeSpanDataProvider = new $accessibleClassName;
+		$accessibleTimeSpanDataProvider = new $accessibleClassName; /* @var $accessibleTimeSpanDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
 
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
-		$accessibleTimeSpanDataProvider->injectFilterConfig($filterConfiguration);
+		$accessibleTimeSpanDataProvider->_injectFilterConfig($filterConfiguration);
 		$accessibleTimeSpanDataProvider->init();
 
 		return $accessibleTimeSpanDataProvider;
 	}
+
 }
-?>

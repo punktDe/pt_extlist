@@ -31,11 +31,11 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Daniel Lienert >
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
-	
 	protected $defaultFilterSettings;
 	
 	
@@ -59,7 +59,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
 
 
 
-	public function testGetRenderedOptionsSimple() {
+	/** @test */
+	public function getRenderedOptionsReturnsExpectedValue() {
 		
 		$explicitDataProvider = $this->buildAccessibleExplicitDataProvider();
 		$options = $explicitDataProvider->getRenderedOptions();
@@ -68,7 +69,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
 		$this->assertEquals(array('value' => 'test', 'selected' => false), $options['x']);
 	}
 
-	
+
+
 	/** @test */
 	public function getRenderedOptionsComplex() {
 
@@ -86,27 +88,29 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
 
 	/**
 	 * Build the dataprovider
-	 * 
+	 *
 	 * @param array $filterSettings
 	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
 	 */
 	protected function buildAccessibleExplicitDataProvider($filterSettings = NULL) {
-   		
+
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData');
-		$accesibleExplicitDataProvider = new $accessibleClassName;
+		$accessibleExplicitDataProvider = new $accessibleClassName; /* @var $accessibleExplicitDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
 
 		if(!$filterSettings) $filterSettings = $this->defaultFilterSettings;
 
     	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings,'test');
-    	
-    	$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-    	
-		$accesibleExplicitDataProvider->injectFilterConfig($filterConfiguration);
-		$accesibleExplicitDataProvider->init();
-   		
-		return $accesibleExplicitDataProvider;
+
+		// We need to do this to initially create a configuration builder! TODO remove this, once we have proper DI!
+		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+		// Create singleton instance of dataBackendFactory for corresponding configuration
+		$dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
+
+		$accessibleExplicitDataProvider->_injectFilterConfig($filterConfiguration);
+		$accessibleExplicitDataProvider->_injectDataBackend($dataBackend);
+		$accessibleExplicitDataProvider->init();
+
+		return $accessibleExplicitDataProvider;
    }
    
 }
-
-?>

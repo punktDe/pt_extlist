@@ -32,6 +32,7 @@
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter\DataProvider
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData {
 

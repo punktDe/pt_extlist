@@ -33,6 +33,7 @@
  * @subpackage Model\Filter
  * @author Daniel Lienert
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase
  */
 class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 

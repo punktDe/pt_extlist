@@ -32,6 +32,7 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilter_testcase
  */
 class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {
 

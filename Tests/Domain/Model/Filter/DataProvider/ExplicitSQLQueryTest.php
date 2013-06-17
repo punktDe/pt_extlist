@@ -33,13 +33,8 @@
  * @subpackage Model/Filter/DataProvider
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-    
-	
-	protected $defaultFilterSettings;
-	
-	
-	
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest extends Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderTest {
+
 	public function setup() {
 
 
@@ -54,11 +49,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 			'filterField' => 'field3',
 			'invert' => '0',
 			'optionsSqlQuery' => array('select' => 'username, email',
-									 			'from' => 'be_users',
-												'where' => 'deleted = 0',
-												'orderBy' => 'username',
-												'groupBy' => 'username',
-												'limit' => 10
+				'from' => 'be_users',
+				'where' => 'deleted = 0',
+				'orderBy' => 'username',
+				'groupBy' => 'username',
+				'limit' => 10
 			)
 		);
 	}
@@ -71,6 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery'));
 	}
+
 
 
 	/**
@@ -92,6 +88,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 	}
 
 
+
 	/**
 	 * @return array
 	 */
@@ -106,11 +103,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 			'filterField' => 'field3',
 			'invert' => '0',
 			'optionsSqlQuery' => array('select' => 'username, email',
-									 			'from' => 'be_users',
-												'where' => 'deleted = 0',
-												'orderBy' => 'username',
-												'groupBy' => 'username',
-												'limit' => 10
+				'from' => 'be_users',
+				'where' => 'deleted = 0',
+				'orderBy' => 'username',
+				'groupBy' => 'username',
+				'limit' => 10
 			)
 		);
 
@@ -133,12 +130,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 	public function throwExceptionOnMissingParameter($faultySettings) {
 		try {
 			$dataProvider = $this->buildAccessibleDataProvider($faultySettings);
-		} catch(Exception $e) {
+		} catch (Exception $e) {
 			return;
 		}
 
 		$this->fail('No Exception is thrown.');
 	}
+
 
 
 	/**
@@ -150,28 +148,4 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 		$this->assertTrue(count($data) > 0);
 	}
 
-
-	/**
-	 * Build the dataprovider
-	 *
-	 * @param array $filterSettings
-	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
-	 */
-	protected function buildAccessibleDataProvider($filterSettings = NULL) {
-
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery');
-		$accesibleExplicitDataProvider = new $accessibleClassName;
-
-		if(!$filterSettings) $filterSettings = $this->defaultFilterSettings;
-
-    	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings,'test');
-
-		$accesibleExplicitDataProvider->injectFilterConfig($filterConfiguration);
-		$accesibleExplicitDataProvider->init();
-
-		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-
-		return $accesibleExplicitDataProvider;
-   }
 }
-?>
