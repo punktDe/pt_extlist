@@ -72,12 +72,13 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
 	protected function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$bookmarksConfiguration = $configurationBuilder->buildBookmarksConfiguration();
 
+		//TODO: inject
 		$bookmarksRepository = $this->objectManager->get('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'); /* @var $bookmarksRepository Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository */
 		$bookmarksRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());
 		
-		$bookmarkManager = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager', $configurationBuilder->getListIdentifier());
-		$bookmarkManager->injectSessionPersistenceManager($this->sessionPersistenceManagerBuilder->getInstance());
-		$bookmarkManager->injectBookmarkRepository($bookmarksRepository);
+		$bookmarkManager = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager', $configurationBuilder->getListIdentifier()); /* @var $bookmarkManager Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager */
+		$bookmarkManager->_injectConfigurationBuilder($configurationBuilder);
+		$bookmarkManager->_injectSessionPersistenceManager($this->sessionPersistenceManagerBuilder->getInstance());
 
 		return $bookmarkManager;
 	}

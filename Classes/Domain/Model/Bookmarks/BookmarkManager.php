@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  (c) 2013 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
  *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
  *  All rights reserved
  *
@@ -31,7 +31,7 @@
  *
  * @package Domain
  * @subpackage Model\Bookmarks
- * @author Michael Knoll 
+ * @author David Vogt
  */
 class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 *
 	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
 	 */
-	protected $sessionPersistenceManager = null;
+	protected $sessionPersistenceManager = NULL;
 	
 	
 	
@@ -67,17 +67,33 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 *
 	 * @var Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
 	 */
-	protected $bookmarkRepository = null;
+	protected $bookmarkRepository = NULL;
 
 
 
 	/**
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+	 * Holds an instance of a BookmarkStrategy
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkStrategyInterface
 	 */
-	protected $getPostVarsAdapterFactory;
-	
-	
-	
+	protected $bookmarkStrategy = NULL;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected $configurationBuilder;
+
+
+
+	/**
+	 * @var bool
+	 */
+	protected $bookmarkIsRestored = FALSE;
+
+
+
 	/**
 	 * Constructor for bookmark manager
 	 *
@@ -86,7 +102,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	public function __construct($listIdentifier) {
 		$this->listIdentifier = $listIdentifier;
 	}
-	
+
 	
 	
 	/**
@@ -94,7 +110,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 *
 	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
 	 */
-	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
+	public function _injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
 		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
 	
@@ -112,67 +128,62 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 
 
 	/**
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory
+	 * Injector for bookmark strategy
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkStrategyInterface $bookmarkStrategy
 	 */
-	public function injectGetPostVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory) {
-		$this->getPostVarsAdapterFactory = $getPostVarsAdapterFactory;
+	public function injectBookmarkStrategy(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkStrategyInterface $bookmarkStrategy) {
+		$this->bookmarkStrategy = $bookmarkStrategy;
 	}
 
 
 
-    /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
-     */
-    public function restoreBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark){
-        //TODO:Question for Mimi: Do it like this or like the processBookmark-method in line 122
-        //TODO:Question for Mimi: can we inject GPVarAdapter?
-        $content = $bookmark->getContent();
-        $this->sessionPersistenceManager->restoreBookmark($content);
-
-    }
-	
-	
-	
 	/**
-	 * Processes bookmark from GP vars given for current request
-	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
-	public function processBookmark() {
-		$gpVarAdapter = $this->getPostVarsAdapterFactory->getInstance();
-		$gpVars = $gpVarAdapter->extractGpVarsByNamespace('tx_ptextlist_pi1');
-		if ($gpVars['controller'] == 'Bookmarks' && $gpVars['action'] == 'process') {
-			$bookmarkId = $gpVars['bookmark'];
-			$bookmark = $this->bookmarkRepository->findByUid($bookmarkId);
-			if (!is_null($bookmark)) {
-			    $this->setCurrentBookmark($bookmark);
-			}
+	public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->configurationBuilder = $configurationBuilder;
+	}
+
+
+
+	/**
+	 * Determines if request holds a bookmark to restore and in case there is forwards it to restoreBookmark
+	 *
+	 * @param Tx_Extbase_MVC_RequestInterface $request
+	 */
+	public function processRequest(Tx_Extbase_MVC_RequestInterface $request){
+		if ($request->getArgument('action') == 'restore' && $request->getArgument('controller') == 'Bookmarks' && $this->bookmarkIsRestored === FALSE){
+			//TODO: check if request holds bookmark-UID (wenn net dann werf Exception: "Du Arsch")
+			$this->restoreBookmarkByUid($request->getArgument('bookmark'));
 		}
 	}
-	
-	
-	
-	
+
+
+
 	/**
-	 * Sets bookmark which is currently applied to list
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark
+	 * @param int $bookmarkUid
 	 */
-	public function setCurrentBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $currentBookmark) {
-		$this->currentBookmark = $currentBookmark;
-		$this->sessionPersistenceManager->processBookmark($this->currentBookmark);
+	public function restoreBookmarkByUid($bookmarkUid){
+		//TODO:Check that bookmark is not NULL
+		$bookmark = $this->bookmarkRepository->findByUid($bookmarkUid);
+		$this->restoreBookmark($bookmark);
 	}
-	
-	
-	
+
+
+
 	/**
-	 * Returns bookmark which is currently applied to list
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
 	 */
-	public function getCurrentBookmark() {
-		return $this->currentBookmark;
+	public function restoreBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark){
+		//TODO: That smells to hell. CHANGE!
+		$this->sessionPersistenceManager->init();
+		$sessionData = $this->sessionPersistenceManager->getSessionData();
+		$mergedSessionData = $this->bookmarkStrategy->mergeSessionAndBookmark($bookmark, $sessionData);
+		$this->sessionPersistenceManager->setSessionData($mergedSessionData);
+		$this->bookmarkIsRestored = TRUE;
 	}
-	
+
 	
 	
 	/**
@@ -182,24 +193,8 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 */
 	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
 
-        //TODO:QuestionForMimi: Is the Following TODO still correct?
-		//TODO use object instead of array to save session data in bookmark
-
-        $filterboxesContent = serialize(array('filters' => $this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace())));
-		$bookmark->setContent($filterboxesContent);
-	}
-	
-	
-	
-	/**
-	 * Returns session namespace string for filters
-	 *
-	 * @return string
-	 */
-	protected function getFilterboxCollectionNamespace() {
-		return $this->listIdentifier . '.filters';
+ //       $filterboxesContent = serialize(array('filters' => $this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace())));
+		$this->bookmarkStrategy->addContentToBookmark($bookmark, $this->configurationBuilder, $this->sessionPersistenceManager->getSessionData());
 	}
 	
 }
- 
-?>

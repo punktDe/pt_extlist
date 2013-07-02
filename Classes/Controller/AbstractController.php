@@ -36,6 +36,14 @@
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_Controller_AbstractActionController  {
 
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+	 */
+	protected $bookmarkManager;
+
+
+
 	/**
 	 * This flag is set to true, the configurationBuilder is reset
 	 *
@@ -115,7 +123,14 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	protected $getPostVarsAdapterFactory;
 
-	
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
+	 */
+	protected $bookmarkManagerFactory;
+
+
 	
 	/**
 	 * Constructor for all plugin controllers
@@ -166,10 +181,21 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory $bookmarkManagerFactory
+	 */
+	public function injectBookmarkManagerFactory (Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory $bookmarkManagerFactory){
+		$this->bookmarkManagerFactory = $bookmarkManagerFactory;
+	}
+
+
+
     /**
      * @return void
      */
     public function initializeAction(){
+
+		//TODO: Do we need this line? parent initializeAction is empty.
 		parent::initializeAction();
 
 		$this->initListIdentifier();
@@ -209,8 +235,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     protected function buildAndInitSessionPersistenceManager(){
         $this->buildSessionPersistenceManager();
 
+		$this->bookmarkManager =  $this->bookmarkManagerFactory->getInstanceByConfigurationBuilder($this->configurationBuilder);
+		$this->bookmarkManager->processRequest($this->request);
+
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
 
+		//TODO: if session was restored from bookmark do not reset session
 		// We reset session data, if we want to have a reset on empty submit
 		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
 			$this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars($this->getPostVarsAdapterFactory->getInstance());
