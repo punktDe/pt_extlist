@@ -155,7 +155,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function showAction() {
 
-        $this->view->assign('bookmarks', $this->bookmarkRepository->findAll());
+        $this->view->assign('bookmarks', $this->bookmarkRepository->findByListId($this->configurationBuilder->getListIdentifier()));
 
         /*
         $allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
@@ -183,16 +183,15 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
     }
 
 
-    /**
-     * Saves the current session state as a bookmark
-     *
-     * @return void
-     */
-    public function saveAction(){
+	/**
+	 * Saves the current session state as a bookmark
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $newBookmark
+	 * @return void
+	 */
+    public function saveAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $newBookmark){
 
-        $newBookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark;
-        $newBookmark->setName('neuer Name');
-        $newBookmark->setFeUser($this->feUser);
+		$newBookmark->setFeUser($this->feUser);
         $newBookmark->setCreateDate(time());
         $newBookmark->setListId($this->bookmarkConfiguration->getListIdentifier());
         //TODO:get ExtbasePersistanceManager to use pid from bookmark-plugin configuration

@@ -22,4 +22,9 @@ Here is a list of objects / variables that can be accessed in this template
 	</f:for>
 </f:if>
 <br />
-<f:link.action action="save">Save current session status as bookmark</f:link.action>
+
+<f:form method="post" action="save" object="newBookmark" objectName="newBookmark">
+    <label for="name">Name of the bookmark:</label>
+    <f:form.textfield name="name" property="name" />
+    <f:form.submit value="save" />
+</f:form>
