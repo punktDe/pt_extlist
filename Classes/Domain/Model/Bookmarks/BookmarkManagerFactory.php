@@ -48,6 +48,22 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
+	 */
+	protected $bookmarkRepository;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository $bookmarkRepository
+	 */
+	public function injectBookmarkRepository(Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository $bookmarkRepository) {
+		$this->bookmarkRepository = $bookmarkRepository;
+	}
+
+
+
+	/**
 	 * Returns an instance of bookmark manager for a given configuration builder
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -72,9 +88,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
 	protected function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$bookmarksConfiguration = $configurationBuilder->buildBookmarksConfiguration();
 
-		//TODO: inject
-		$bookmarksRepository = $this->objectManager->get('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository'); /* @var $bookmarksRepository Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository */
-		$bookmarksRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());
+		$this->bookmarkRepository->setBookmarksStoragePid($bookmarksConfiguration->getBookmarksPid());
 		
 		$bookmarkManager = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager', $configurationBuilder->getListIdentifier()); /* @var $bookmarkManager Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager */
 		$bookmarkManager->_injectConfigurationBuilder($configurationBuilder);
