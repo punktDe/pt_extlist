@@ -158,65 +158,51 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_Bookmark_testcase extends Tx_PtEx
 
 
 
-//	/**
-//	 * @test
-//	 */
-//	public function getFeGroupGetsFeGroup() {
-//		$expected = 'feGroup';
-//        $this->proxy->_set('listId', $expected);
-//		$actual = $this->proxy->getListId();
-//        $this->assertEquals($expected, $actual);
-//    }
-
-
-//    public function testGetSetFeGroup() {
-//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmark_Bookmark();
-//        $feGroupMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
-//        $bookmark->setFeGroup($feGroupMock);
-//        $this->assertEquals($bookmark->getFeGroup(), $feGroupMock);
-//    }
-
-
-//	/**
-//	 * @test
-//	 */
-//	public function setListIdSetsListId() {
-//		$expected = 'listid';
-//		$this->proxy->setListId($expected);
-//		$actual = $this->proxy->_get('listId');
-//		$this->assertEquals($expected, $actual);
-//	}
+	/**
+	 * @test
+	 */
+	public function getFeGroupGetsFeGroup() {
+		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+        $this->proxy->_set('feGroup', $expected);
+		$actual = $this->proxy->getFeGroup();
+        $this->assertEquals($expected, $actual);
+    }
 
 
 
-//	/**
-//	 * @test
-//	 */
-//	public function getListIdGetsListId() {
-//		$expected = 'listid';
-//        $this->proxy->_set('listId', $expected);
-//		$actual = $this->proxy->getListId();
-//        $this->assertEquals($expected, $actual);
-//    }
+	/**
+	 * @test
+	 */
+	public function setFeGroupSetsFegroup() {
+		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+		$this->proxy->setFeGroup($expected);
+		$actual = $this->proxy->_get('feGroup');
+		$this->assertEquals($expected, $actual);
+	}
 
-//
-//
-//    public function testGetSetFeUser() {
-//        $feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
-//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmark_Bookmark();
-//        $bookmark->setFeUser($feUserMock);
-//        $this->assertEquals($bookmark->getFeUser(), $feUserMock);
-//    }
 
-//	/**
-//	 * @test
-//	 */
-//	public function setListIdSetsListId() {
-//		$expected = 'listid';
-//		$this->proxy->setListId($expected);
-//		$actual = $this->proxy->_get('listId');
-//		$this->assertEquals($expected, $actual);
-//	}
+
+	/**
+	 * @test
+	 */
+	public function getFeUserGetsFeUser() {
+		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+        $this->proxy->_set('feUser', $expected);
+		$actual = $this->proxy->getFeUser();
+        $this->assertEquals($expected, $actual);
+    }
+
+
+
+	/**
+	 * @test
+	 */
+	public function setfeuserSetsFeUser() {
+		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+		$this->proxy->setFeUser($expected);
+		$actual = $this->proxy->_get('feUser');
+		$this->assertEquals($expected, $actual);
+	}
 
 
 
