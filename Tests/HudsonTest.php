@@ -26,7 +26,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_PtExtlist_Tests_HudsonTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
 
 	public function testHudson() {
 		$this->assertTrue(true);
@@ -38,5 +38,3 @@ class Tx_PtExtlist_Tests_HudsonTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 		$this->assertTrue(true);
 	}
 }
-
-?>

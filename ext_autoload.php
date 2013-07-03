@@ -29,4 +29,3 @@ return array(
 
     'tx_ptextbase_configuration_abstractconfigurationbuilder' => t3lib_extMgm::extPath('pt_extbase').'Classes/Configuration/AbstractConfigurationBuilder.php'
 );
-?>
