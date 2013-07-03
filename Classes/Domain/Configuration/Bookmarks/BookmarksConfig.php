@@ -206,37 +206,4 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 		return $this->showPrivateBookmarks;
 	}
 
-
-
-	/**
-	 * Returns public constant of a bookmark
-	 *
-	 * @return int
-	 */
-	public function getPublicConstant() {
-		return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark::PTEXTLIST_BOOKMARK_PUBLIC;
-	}
-
-
-
-	/**
-	 * Returns private constant of a bookmark
-	 *
-	 * @return int
-	 */
-	public function getPrivateConstant() {
-		return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark::PTEXTLIST_BOOKMARK_PRIVATE;
-	}
-
-
-
-	/**
-	 * Returns group constant of a bookmark
-	 *
-	 * @return int
-	 */
-	public function getGroupConstant() {
-		return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark::PTEXTLIST_BOOKMARK_GROUP;
-	}
-
 }
