@@ -126,7 +126,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
         parent::initializeAction();
 
-        $this->bookmarkConfiguration = $this->configurationBuilder->buildBookmarksConfiguration();
+        $this->bookmarkConfiguration = $this->configurationBuilder->buildBookmarkConfiguration();
     }
 
 
@@ -138,7 +138,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
      */
     public function showAction() {
 
-		$this->view->assign('bookmarksConfig', $this->bookmarkConfiguration);
+		$this->view->assign('bookmarkConfig', $this->bookmarkConfiguration);
 
 		$feGroupsQuery = $this->feUserGroupRepository->createQuery();
 		$feGroupsQuery->getQuerySettings()->setRespectStoragePage(FALSE);
@@ -155,9 +155,9 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
         }
         
         if ($this->bookmarkConfiguration->getShowPrivateBookmarks() && $this->feUser != NULL) {
-            $userBookmarks = $this->bookmarkRepository->findPrivateBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
-            $this->addObjectsToObjectStorageByArray($allBookmarks, $userBookmarks);
-            $this->view->assign('userBookmarks', $userBookmarks);
+            $privateBookmarks = $this->bookmarkRepository->findPrivateBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+            $this->addObjectsToObjectStorageByArray($allBookmarks, $privateBookmarks);
+            $this->view->assign('privateBookmarks', $privateBookmarks);
         }
         
         if ($this->bookmarkConfiguration->getShowGroupBookmarks() && $this->feUser != NULL && count($this->feUser->getUsergroup()) > 0) {

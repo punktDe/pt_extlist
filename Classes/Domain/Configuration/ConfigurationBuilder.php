@@ -303,11 +303,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 
 
 	/**
-	 * Returns bookmarks configuration
+	 * Returns bookmark configuration
 	 *
 	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
 	 */
-	public function buildBookmarksConfiguration() {
+	public function buildBookmarkConfiguration() {
 		return $this->buildConfigurationGeneric('bookmarks');
 	}
 
