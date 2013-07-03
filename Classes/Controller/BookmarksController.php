@@ -138,13 +138,11 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function showAction() {
 
-        //$this->view->assign('bookmarks', $this->bookmarkRepository->findByListId($this->configurationBuilder->getListIdentifier()));
 		$this->view->assign('bookmarksConfig', $this->bookmarkConfiguration);
 
 		$feGroupsQuery = $this->feUserGroupRepository->createQuery();
 		$feGroupsQuery->getQuerySettings()->setRespectStoragePage(FALSE);
 		$feGroups = $feGroupsQuery->execute();
-
 
 		$this->view->assign('feGroups', $feGroups);
 
@@ -204,11 +202,15 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be deleted
      */
     public function deleteAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-		//TODO: Check whether user is allowed to delete bookmark
-        $this->bookmarkRepository->remove($bookmark);
-        $this->persistenceManager->persistAll();
-        $this->forward('show');
-    }
+
+		if($bookmark->getFeUser()->getUid() == $this->feUser->getUid() || $this->bookmarkConfiguration->getUserCanDeleteAll()) {
+			$this->bookmarkRepository->remove($bookmark);
+			$this->persistenceManager->persistAll();
+		} else {
+			$this->flashMessageContainer->add('You are not allowed to delete this bookmark.');
+		}
+		$this->forward('show');
+	}
 
 
 

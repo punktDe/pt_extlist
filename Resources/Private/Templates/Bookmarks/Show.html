@@ -30,7 +30,6 @@ Here is a list of objects / variables that can be accessed in this template
         <label for="name">Name of the bookmark:</label>
         <f:form.textfield name="name" property="name" id="name" />
 
-
         <f:if condition="{bookmarksConfig.createPublicBookmarks}">
             <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark', constantName:'PTEXTLIST_BOOKMARK_PUBLIC')}" name="type-public" property="type" id="type-public" /> <label for="type-public">Public</label>
         </f:if>

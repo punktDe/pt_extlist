@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	/**
 	 * If true, user bookmarks should be displayed
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
     protected $showPrivateBookmarks;
     
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     /**
      * If true, group bookmarks should be displayed
      *
-     * @var bool
+     * @var boolean
      */
     protected $showGroupBookmarks;
     
@@ -65,7 +65,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     /**
      * If true, public bookmarks should be displayed
      *
-     * @var bool
+     * @var boolean
      */
     protected $showPublicBookmarks;
 
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	/**
 	 * If true, users are allowed to create public bookmarks
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $createPublicBookmarks;
 
@@ -92,7 +92,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	/**
 	 * If true, users are allowed to create private bookmarks
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $createPrivateBookmarks;
 
@@ -101,9 +101,16 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	/**
 	 * If true, users are allowed to create group bookmarks
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $createGroupBookmarks;
+
+
+
+	/**
+	 * @var boolean
+	 */
+	protected $userCanDeleteAll;
 
 
 
@@ -122,7 +129,17 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 		$this->setBooleanIfExistsAndNotNothing('createPublicBookmarks');
 		$this->setBooleanIfExistsAndNotNothing('createPrivateBookmarks');
 		$this->setBooleanIfExistsAndNotNothing('createGroupBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('userCanDeleteAll');
     }
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getUserCanDeleteAll() {
+		return $this->userCanDeleteAll;
+	}
 
 
 
