@@ -31,9 +31,9 @@
  *
  * @package Tests
  * @subpackage Domain\Model\Bookmark
- * @author Michael Knoll 
+ * @author Christiane Helmchen
  */
-class Tx_PtExtlist_Tests_Domain_Model_Bookmark_Bookmark_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * @var string
@@ -102,7 +102,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_Bookmark_testcase extends Tx_PtEx
 	 */
 	public function setTypeSetsType() {
 		$expected = 3;
-		//$expected = Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::PTEXTLIST_BOOKMARK_PUBLIC;
 		$this->proxy->setType($expected);
 		$actual = $this->proxy->_get('type');
 		$this->assertEquals($expected, $actual);
@@ -197,7 +196,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_Bookmark_testcase extends Tx_PtEx
 	/**
 	 * @test
 	 */
-	public function setfeuserSetsFeUser() {
+	public function setFeUserSetsFeUser() {
 		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
 		$this->proxy->setFeUser($expected);
 		$actual = $this->proxy->_get('feUser');
@@ -297,6 +296,21 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_Bookmark_testcase extends Tx_PtEx
 		$expected = '42';
 		$this->proxy->setPid($expected);
 		$actual = $this->proxy->_get('pid');
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function getObjectNamespaceBuildsCorrectObjectNamespace(){
+		$listId = 'hallo';
+		$uid = 3;
+		$expected = 'hallo.bookmark.3';
+		$this->proxy->_set('listId', $listId);
+		$this->proxy->_set('uid', $uid);
+		$actual = $this->proxy->getObjectNamespace();
 		$this->assertEquals($expected, $actual);
 	}
 
