@@ -131,7 +131,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	 * @return String
 	 */
 	public function getObjectNamespace() {
-		return $this->listIdentifier . '.bookmark.' . $this->getUid();
+		return $this->listId . '.bookmark.' . $this->getUid();
 	}
 	
 	

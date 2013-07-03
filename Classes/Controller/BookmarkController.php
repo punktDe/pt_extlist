@@ -224,7 +224,20 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     }
     
     
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Action for creating a new bookmark
      *
