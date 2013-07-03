@@ -151,11 +151,16 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
             )
         ),
         
-        'is_public' => array(
+        'type' => array(
             'exclude' => 1,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.is_public',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.type',
             'config'  => array(
-                'type' => 'check'
+                'type' => 'select',
+				'items' => array(
+					array('public', 1),
+					array('private', 2),
+					array('group', 3)
+				)
             )
         )
     )

@@ -82,6 +82,15 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
 
 
 
+	/**
+	 * Holds an instance of the FE-UserGroup Repository
+	 *
+	 * @var Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
+	 */
+	protected $feUserGroupRepository;
+
+
+
     /**
      * @param Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository $bookmarkRepository
      */
@@ -96,6 +105,15 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
 	 */
 	public function injectPersistenceManager (Tx_Extbase_Persistence_Manager $persistenceManager){
 		$this->persistenceManager = $persistenceManager;
+	}
+
+
+
+	/**
+	 * @param Tx_Extbase_Domain_Repository_FrontendUserGroupRepository $feUserGroupRepository
+	 */
+	public function injectFeUserGroupRepository (Tx_Extbase_Domain_Repository_FrontendUserGroupRepository $feUserGroupRepository){
+		$this->feUserGroupRepository = $feUserGroupRepository;
 	}
 
 
@@ -120,9 +138,16 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      */
     public function showAction() {
 
-        $this->view->assign('bookmarks', $this->bookmarkRepository->findByListId($this->configurationBuilder->getListIdentifier()));
+        //$this->view->assign('bookmarks', $this->bookmarkRepository->findByListId($this->configurationBuilder->getListIdentifier()));
+		$this->view->assign('bookmarksConfig', $this->bookmarkConfiguration);
 
-        /*
+		$feGroupsQuery = $this->feUserGroupRepository->createQuery();
+		$feGroupsQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		$feGroups = $feGroupsQuery->execute();
+
+
+		$this->view->assign('feGroups', $feGroups);
+
         $allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
         
         if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
@@ -131,20 +156,20 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
             $this->view->assign('publicBookmarks', $publicBookmarks);
         }
         
-        if ($this->bookmarkConfiguration->getShowUserBookmarks() && $this->feUser != null) {
-            $userBookmarks = $this->bookmarkRepository->findBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+        if ($this->bookmarkConfiguration->getShowPrivateBookmarks() && $this->feUser != NULL) {
+            $userBookmarks = $this->bookmarkRepository->findPrivateBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
             $this->addObjectsToObjectStorageByArray($allBookmarks, $userBookmarks);
             $this->view->assign('userBookmarks', $userBookmarks);
         }
         
-        if ($this->bookmarkConfiguration->getShowGroupBookmarks() && $this->feUser != null && count($this->feUser->getUsergroups()) > 0) {
-            $groupBookmarks = $this->bookmarkRepository->findBookmarksByFeUserGroupIdsAndListIdentifier($this->feUser, $this->bookmarkConfiguration->getGroupIdsToShowBookmarksFor(), $this->listIdentifier);
+        if ($this->bookmarkConfiguration->getShowGroupBookmarks() && $this->feUser != NULL && count($this->feUser->getUsergroup()) > 0) {
+            $groupBookmarks = $this->bookmarkRepository->findGroupBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
             $this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
             $this->view->assign('groupBookmarks', $groupBookmarks);
         }
         
-        $this->view->assign('allBookmarks', $allBookmarks);
-        */
+        $this->view->assign('bookmarks', $allBookmarks);
+
     }
 
 
@@ -155,6 +180,10 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
 	 * @return void
 	 */
     public function saveAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $newBookmark){
+
+		if($newBookmark->getType()!=Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark::PTEXTLIST_BOOKMARK_GROUP){
+			$newBookmark->setFeGroup(NULL);
+		}
 
 		$newBookmark->setFeUser($this->feUser);
         $newBookmark->setCreateDate(time());

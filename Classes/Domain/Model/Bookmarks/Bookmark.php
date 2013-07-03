@@ -37,7 +37,13 @@
 class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark 
     extends Tx_Extbase_DomainObject_AbstractEntity 
     implements Tx_PtExtbase_State_IdentifiableInterface {
-	
+
+
+	const PTEXTLIST_BOOKMARK_PUBLIC = 1;
+	const PTEXTLIST_BOOKMARK_PRIVATE = 2;
+	const PTEXTLIST_BOOKMARK_GROUP = 3;
+
+
 	/**
 	 * Name for bookmark
 	 *
@@ -102,11 +108,11 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
     
     
     /**
-     * True, if bookmark is public
+     * Type of bookmark (public, private, group)
      *
-     * @var bool
+     * @var int
      */
-    protected $isPublic;
+    protected $type;
     
     
     
@@ -126,15 +132,6 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
 	 */
 	public function getObjectNamespace() {
 		return $this->listIdentifier . '.bookmark.' . $this->getUid();
-	}
-	
-	
-	
-	/**
-	 * Constructor for bookmark 
-	 */
-	public function __construct() {
-	
 	}
 	
 	
@@ -163,7 +160,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
 	 * @return int
 	 */
 	public function getCreateDate() {
-		return $this->date;
+		return $this->createDate;
 	}
 	
 	
@@ -212,16 +209,16 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
 	public function getName() {
 		return $this->name;
 	}
-	
-	
-	
+
+
+
 	/**
-	 * Getter for is public property
+	 * Getter for type property
 	 *
-	 * @return bool
+	 * @return int
 	 */
-	public function getIsPublic() {
-		return $this->isPublic;
+	public function getType() {
+		return $this->type;
 	}
     
     
@@ -250,7 +247,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
 	 * @param int $date
 	 */
 	public function setCreateDate($date) {
-		$this->date = $date;
+		$this->createDate = $date;
 	}
 	
 	
@@ -299,18 +296,15 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
 	public function setName($name) {
 		$this->name = $name;
 	}
-	
-	
+
 
 	/**
-	 * Setter for isPublic property
+	 * Setter for type property
 	 *
-	 * @param bool $isPublic
+	 * @param int $type
 	 */
-	public function setIsPublic($isPublic) {
-		$this->isPublic = $isPublic;
+	public function setType($type) {
+		$this->type = $type;
 	}
 
 }
-
-?>

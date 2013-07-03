@@ -30,7 +30,7 @@ CREATE TABLE tx_ptextlist_domain_model_bookmarks_bookmark (
   fe_group int(11) unsigned DEFAULT '0' NOT NULL,
   list_id varchar(250) DEFAULT '' NOT NULL,
   create_date int(11) unsigned DEFAULT '0' NOT NULL,
-  is_public tinyint(4) unsigned DEFAULT '0' NOT NULL,
+  type tinyint(4) unsigned DEFAULT '0' NOT NULL,
   
   PRIMARY KEY (uid),
   KEY parent (pid),

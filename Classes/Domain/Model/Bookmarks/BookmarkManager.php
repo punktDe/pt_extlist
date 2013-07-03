@@ -144,9 +144,11 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @param Tx_Extbase_MVC_RequestInterface $request
 	 */
 	public function processRequest(Tx_Extbase_MVC_RequestInterface $request){
-		if ($request->getArgument('action') == 'restore' && $request->getArgument('controller') == 'Bookmarks' && $this->bookmarkIsRestored === FALSE){
-			if($request->hasArgument('bookmark')){
-				$this->restoreBookmarkByUid($request->getArgument('bookmark'));
+		if($request->hasArgument('action') && $request->hasArgument('controller')) {
+			if ($request->getArgument('action') == 'restore' && $request->getArgument('controller') == 'Bookmarks' && $this->bookmarkIsRestored === FALSE){
+				if($request->hasArgument('bookmark')){
+					$this->restoreBookmarkByUid($request->getArgument('bookmark'));
+				}
 			}
 		}
 	}

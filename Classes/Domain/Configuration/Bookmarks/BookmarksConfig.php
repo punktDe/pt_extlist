@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	 *
 	 * @var bool
 	 */
-    protected $showUserBookmarks;
+    protected $showPrivateBookmarks;
     
     
     
@@ -69,70 +69,87 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
      */
     protected $showPublicBookmarks;
 
-    
-    
-    /**
-     * Comma seperated list of fe users that are allowd to edit bookmarks
-     *
-     * @var string
-     */
-    protected $feUsersAllowedToEdit;
-    
-    
-    
-    /**
-     * Comma seperated list of fe groups that are allowed to edit bookmarks
-     *
-     * @var string
-     */
-    protected $feGroupsAllowedToEdit;
-    
-    
-    
-    /**
-     * Comma seperated list of fe users that are allowed to edit public bookmarks
-     *
-     * @var string
-     */
-    protected $feUsersAllowedToEditPublic;
-    
-    
-    
-    /**
-     * Comma seperated list of fe groups that are allowed to edit public bookmarks
-     *
-     * @var unknown_type
-     */
-    protected $feGroupsAllowedToEditPublic;
-    
-    
-    
-    /**
-     * Holds comma-seperated list of fe group ids to show bookmarks for 
+
+
+	/**
+     * Holds comma-seperated list of fe group ids to show bookmarks for
      *
      * @var string
      */
     protected $groupIdsToShowBookmarksFor;
-   
-    
-    
-    /**
+
+
+
+	/**
+	 * If true, users are allowed to create public bookmarks
+	 *
+	 * @var bool
+	 */
+	protected $createPublicBookmarks;
+
+
+
+	/**
+	 * If true, users are allowed to create private bookmarks
+	 *
+	 * @var bool
+	 */
+	protected $createPrivateBookmarks;
+
+
+
+	/**
+	 * If true, users are allowed to create group bookmarks
+	 *
+	 * @var bool
+	 */
+	protected $createGroupBookmarks;
+
+
+
+	/**
      * Initializes properties from given settings
      *
      */
     protected function init() {
     	
     	$this->setValueIfExistsAndNotNothing('bookmarksPid');
-    	$this->setValueIfExistsAndNotNothing('feUsersAllowedToEdit');
-    	$this->setValueIfExistsAndNotNothing('feGroupsAllowedToEdit');
-    	$this->setValueIfExistsAndNotNothing('feUsersAllowedToEditPublic');
-    	$this->setValueIfExistsAndNotNothing('feGroupsAllowedToEditPublic');
     	$this->setValueIfExistsAndNotNothing('groupIdsToShowBookmarksFor');
     	
-    	$this->setBooleanIfExistsAndNotNothing('showUserBookmarks');
+    	$this->setBooleanIfExistsAndNotNothing('showPrivateBookmarks');
     	$this->setBooleanIfExistsAndNotNothing('showGroupBookmarks');
     	$this->setBooleanIfExistsAndNotNothing('showPublicBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('createPublicBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('createPrivateBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('createGroupBookmarks');
     }
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getCreateGroupBookmarks() {
+		return $this->createGroupBookmarks;
+	}
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getCreatePrivateBookmarks() {
+		return $this->createPrivateBookmarks;
+	}
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getCreatePublicBookmarks() {
+		return $this->createPublicBookmarks;
+	}
     
     
     
@@ -145,51 +162,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 		return $this->bookmarksPid;
 	}
 	
-	
-	
-	/**
-	 * Returns comma seperated list of fe groups to be allowed editing bookmarks
-	 * 
-	 * @return string
-	 */
-	public function getFeGroupsAllowedToEdit() {
-		return $this->feGroupsAllowedToEdit;
-	}
-	
-	
-	
-	/**
-	 * Returns comma-seperated list of fe users to be allowed editing bookmarks
-	 * 
-	 * @return string
-	 */
-	public function getFeUsersAllowedToEdit() {
-		return $this->feUsersAllowedToEdit;
-	}
-	
-	
-	
-	/**
-	 * Returns comma-seperated list of fe users that are allowed editing public bookmarks
-	 *
-	 * @return string
-	 */
-	public function getFeUsersAllowedToEditPublic() {
-		return $this->feUsersAllowedToEditPublic;
-	}
-	
-	
-	
-	/**
-	 * Returns comma-seperated list of fe groups that are allowed editing public bookmarks
-	 *
-	 * @return string
-	 */
-	public function getFeGroupsAllowedToEditPublic() {
-		return $this->feGroupsAllowedToEditPublic;
-	}
-	
-	
+
 	
 	/**
 	 * Returns comma-seperated list of fe groups to show bookmarks for
@@ -225,13 +198,45 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	
 	
 	/**
-	 * Returns TRUE if user bookmarks should be shown
+	 * Returns TRUE if private bookmarks should be shown
 	 * 
 	 * @return bool
 	 */
-	public function getShowUserBookmarks() {
-		return $this->showUserBookmarks;
+	public function getShowPrivateBookmarks() {
+		return $this->showPrivateBookmarks;
+	}
+
+
+
+	/**
+	 * Returns public constant of a bookmark
+	 *
+	 * @return int
+	 */
+	public function getPublicConstant() {
+		return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark::PTEXTLIST_BOOKMARK_PUBLIC;
+	}
+
+
+
+	/**
+	 * Returns private constant of a bookmark
+	 *
+	 * @return int
+	 */
+	public function getPrivateConstant() {
+		return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark::PTEXTLIST_BOOKMARK_PRIVATE;
+	}
+
+
+
+	/**
+	 * Returns group constant of a bookmark
+	 *
+	 * @return int
+	 */
+	public function getGroupConstant() {
+		return Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark::PTEXTLIST_BOOKMARK_GROUP;
 	}
 
 }
-?>

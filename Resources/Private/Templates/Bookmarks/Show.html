@@ -25,6 +25,21 @@ Here is a list of objects / variables that can be accessed in this template
 
 <f:form method="post" action="save" object="newBookmark" objectName="newBookmark">
     <label for="name">Name of the bookmark:</label>
-    <f:form.textfield name="name" property="name" />
+    <f:form.textfield name="name" property="name" id="name" />
+
+
+    <f:if condition="{bookmarksConfig.createPublicBookmarks}">
+        <f:form.radio value="{bookmarksConfig.publicConstant}" name="type-public" property="type" id="type-public" /> <label for="type-public">Public</label>
+    </f:if>
+
+    <f:if condition="{bookmarksConfig.createPrivateBookmarks}">
+        <f:form.radio value="{bookmarksConfig.privateConstant}" name="type-private" property="type" id="type-private" checked="checked" /> <label for="type-private">Private</label>
+    </f:if>
+
+    <f:if condition="{bookmarksConfig.createGroupBookmarks}">
+        <f:form.radio value="{bookmarksConfig.groupConstant}" name="type-group" property="type" id="type-group" /> <label for="type-group">Group</label>
+        <f:form.select property="feGroup" options="{feGroups}" optionLabelField="title" />
+    </f:if>
+
     <f:form.submit value="save" />
 </f:form>

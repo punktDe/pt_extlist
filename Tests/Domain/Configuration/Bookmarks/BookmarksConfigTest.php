@@ -190,7 +190,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
     
     
     public function getShowUserBookmarks() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getShowUserBookmarks(), true);
+        $this->assertEquals($this->bookmarkConfigToBeTested->getShowPrivateBookmarks(), true);
     }
 	
 }
