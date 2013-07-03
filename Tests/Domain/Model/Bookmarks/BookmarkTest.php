@@ -34,77 +34,133 @@
  * @author Michael Knoll 
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_Bookmark_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-     
-	public function testSetup() {
+
+	/**
+	 * @var string
+	 */
+	protected $proxyClass;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
+	 */
+	protected $proxy;
+
+
+
+	public function setUp() {
+		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+		$this->proxy = new $this->proxyClass;
+	}
+
+
+
+	public function tearDown(){
+		$this->proxyClass = NULL;
+		$this->proxy = NULL;
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function classExists() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark'));
 	}
-	
-	
-	
-    public function testGetSetContent() {
-        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $bookmark->setContent('test');
-        $this->assertEquals($bookmark->getContent(), 'test');
-    }
-    
-    
-    
-    public function testGetSetCreateDate() {
-        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $bookmark->setCreateDate(1234);
-        $this->assertEquals($bookmark->getCreateDate(), 1234);
-    }
-    
-    
-    
-    public function testGetSetDescription() {
-        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $bookmark->setDescription('description');
-        $this->assertEquals($bookmark->getDescription(), 'description');
-    }
-    
-    
-    
-    public function testGetSetFeUser() {
-        $feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
-        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $bookmark->setFeUser($feUserMock);
-        $this->assertEquals($bookmark->getFeUser(), $feUserMock);
-    }
-    
-    
 
-    public function testGetSetListId() {
-        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $bookmark->setListId('list_id');
-        $this->assertEquals($bookmark->getListId(),'list_id');
-    }
-    
-    
-    
-    public function testGetSetName() {
-        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $bookmark->setName('testname');
-        $this->assertEquals($bookmark->getName(), 'testname');
-    }
-    
-    
-    
-    public function testGetSetFeGroup() {
-        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $feGroupMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
-        $bookmark->setFeGroup($feGroupMock);
-        $this->assertEquals($bookmark->getFeGroup(), $feGroupMock); 	
+
+	/**
+	 * @test
+	 */
+	public function getContentGetsContent() {
+		$expected = 'test';
+        $this->proxy->_set('content', $expected);
+		$actual = $this->proxy->getContent();
+        $this->assertEquals($expected, $actual);
     }
 
+
+
+	/**
+	 * @test
+	 */
+	public function setContentSetsContent() {
+		$expected = 'test';
+		$this->proxy->setContent($expected);
+		$actual = $this->proxy->_get('content');
+		$this->assertEquals($expected, $actual);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function canAccessConstants(){
+		$className = 'Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark';
+		$constantName = 'PTEXTLIST_BOOKMARK_PUBLIC';
+		$expected = 1;
+		$actual = constant(sprintf('%s::%s', $className, $constantName));
+		$this->assertEquals($expected, $actual);
+	}
     
     
-    public function testGetSetIsPublic() {
-    	$bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-    	$isPublic = false;
-    	$bookmark->setIsPublic($isPublic);
-    	$this->assertEquals($bookmark->getIsPublic(), $isPublic);
-    }
+//    public function testGetSetCreateDate() {
+//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+//        $bookmark->setCreateDate(1234);
+//        $this->assertEquals($bookmark->getCreateDate(), 1234);
+//    }
+//
+//
+//
+//    public function testGetSetDescription() {
+//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+//        $bookmark->setDescription('description');
+//        $this->assertEquals($bookmark->getDescription(), 'description');
+//    }
+//
+//
+//
+//    public function testGetSetFeUser() {
+//        $feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+//        $bookmark->setFeUser($feUserMock);
+//        $this->assertEquals($bookmark->getFeUser(), $feUserMock);
+//    }
+//
+//
+//
+//    public function testGetSetListId() {
+//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+//        $bookmark->setListId('list_id');
+//        $this->assertEquals($bookmark->getListId(),'list_id');
+//    }
+//
+//
+//
+//    public function testGetSetName() {
+//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+//        $bookmark->setName('testname');
+//        $this->assertEquals($bookmark->getName(), 'testname');
+//    }
+//
+//
+//
+//    public function testGetSetFeGroup() {
+//        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+//        $feGroupMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+//        $bookmark->setFeGroup($feGroupMock);
+//        $this->assertEquals($bookmark->getFeGroup(), $feGroupMock);
+//    }
+//
+//
+//
+//    public function testGetSetIsPublic() {
+//    	$bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+//    	$isPublic = false;
+//    	$bookmark->setIsPublic($isPublic);
+//    	$this->assertEquals($bookmark->getIsPublic(), $isPublic);
+//    }
 
 }
-?>
