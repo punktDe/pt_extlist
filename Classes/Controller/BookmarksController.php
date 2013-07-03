@@ -38,29 +38,11 @@
 class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controller_AbstractController {
     
     /**
-     * Holds an instance of fe user repository
-     *
-     * @var Tx_Extbase_Domain_Repository_FrontendUserRepository
-     */
-    protected $feUserRepository = null;
-    
-    
-    
-    /**
      * Holds an instance of bookmarks repository
      *
      * @var Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
      */
-    protected $bookmarkRepository = null;
-    
-    
-    
-    /**
-     * Holds an instance of currently logged in fe user
-     *
-     * @var Tx_Extbase_Domain_Model_FrontendUser
-     */
-    protected $feUser = null;
+    protected $bookmarkRepository;
     
     
     
@@ -69,7 +51,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      * @var Tx_Extbase_Persistence_Manager
      */
-    protected $persistenceManager = null;
+    protected $persistenceManager;
     
     
     
@@ -78,7 +60,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
      */
-    protected $bookmarkManager = null;
+    protected $bookmarkManager;
 
 
 
@@ -87,7 +69,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
      */
-    protected $bookmarkManagerFactory = null;
+    protected $bookmarkManagerFactory;
 
     
     
@@ -96,16 +78,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      *
      * @var Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
      */
-    protected $bookmarkConfiguration = null;
-
-
-
-    /**
-     * @param Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository
-     */
-    public function injectFeUserRepository (Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository){
-        $this->feUserRepository = $feUserRepository;
-    }
+    protected $bookmarkConfiguration;
 
 
 
@@ -126,7 +99,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
 	}
 
 
-    
+
     /**
      * Initializes and sets dependent objects
      *
@@ -135,15 +108,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
 
         parent::initializeAction();
 
-		//TODO: move to save action?
-        $user_uid = $GLOBALS['TSFE']->fe_user->user['uid'];
-
-        $this->feUser = $this->feUserRepository->findByUid($user_uid);
-
-        $this->bookmarkRepository->setBookmarksStoragePid($this->settings['bookmarks']['bookmarksPid']);
-
         $this->bookmarkConfiguration = $this->configurationBuilder->buildBookmarksConfiguration();
-
     }
 
 
@@ -195,7 +160,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
         $newBookmark->setCreateDate(time());
         $newBookmark->setListId($this->bookmarkConfiguration->getListIdentifier());
         //TODO:get ExtbasePersistanceManager to use pid from bookmark-plugin configuration
-        //$newBookmark->setPid($this->bookmarkConfiguration->getBookmarksPid());
+        $newBookmark->setPid($this->bookmarkConfiguration->getBookmarksPid());
         $this->bookmarkManager->addContentToBookmark($newBookmark);
 
         $this->bookmarkRepository->add($newBookmark);
@@ -210,6 +175,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be deleted
      */
     public function deleteAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
+		//TODO: Check whether user is allowed to delete bookmark
         $this->bookmarkRepository->remove($bookmark);
         $this->persistenceManager->persistAll();
         $this->forward('show');
@@ -223,22 +189,6 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
      */
     public function restoreAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark){
-        $this->forward('show');
-    }
-
-    
-    
-    /**
-     * Makes a bookmark being processed
-     *
-     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be processed
-     */
-    public function processAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-        /**
-         * Bookmark is not directly processed here but in DataBackend as we need to manipulate
-         * session data which is too late here as session is already loaded and processed.
-         */
-        $this->view->assign('processedBookmark', $bookmark);
         $this->forward('show');
     }
     
@@ -302,46 +252,7 @@ class Tx_PtExtlist_Controller_BookmarksController extends Tx_PtExtlist_Controlle
         
         $this->forward('show');
     }
-    
-    
-    
-    /**
-     * Action for updating a bookmark
-     */
-    public function updateAction() {
-        // TODO implement me, if you have the time
-    }
-    
-    
-    
-    /**
-     * Action for deleting a bookmark
-     * 
-     * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark Bookmark to be deleted
-     */
-    /*public function deleteAction(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-        if ($this->request->hasArgument('reallyDelete')) {
-            $this->bookmarkRepository->remove($bookmark);
-            $this->persistenceManager->persistAll();
-            $this->forward('show');
-        } else {
-            $this->view->assign('bookmark', $bookmark);
-        }
-    }*/
-    
-    
-    
-    /**
-     * Action for editing a bookmark
-     */
-    public function editAction() {
-        // TODO implement me, if you have the time
-    }
 
-
-
-
-    
     
     
     /*****************************************************************************

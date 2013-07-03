@@ -49,7 +49,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 *
 	 * @var bool
 	 */
-	protected $resetConfigurationBuilder = false;
+	protected $resetConfigurationBuilder = FALSE;
 
 
 
@@ -83,7 +83,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected $configurationBuilder = NULL;
+	protected $configurationBuilder;
 	
 	
 	
@@ -101,6 +101,16 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @var string
 	 */
 	protected $listIdentifier;
+
+
+
+	/**
+	 * Holds an instance of currently logged in fe user
+	 * If no User is logged in Property will be NULL
+	 *
+	 * @var Tx_Extbase_Domain_Model_FrontendUser
+	 */
+	protected $feUser = NULL;
 
 
 
@@ -129,6 +139,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
 	 */
 	protected $bookmarkManagerFactory;
+
+
+
+	/**
+	 * Holds an instance of fe user repository
+	 *
+	 * @var Tx_Extbase_Domain_Repository_FrontendUserRepository
+	 */
+	protected $feUserRepository;
 
 
 	
@@ -190,14 +209,23 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 
+	/**
+	 * @param Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository
+	 */
+	public function injectFeUserRepository (Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository){
+		$this->feUserRepository = $feUserRepository;
+	}
+
+
+
     /**
      * @return void
      */
     public function initializeAction(){
 
-		//TODO: Do we need this line? parent initializeAction is empty.
 		parent::initializeAction();
 
+		$this->initFeUser();
 		$this->initListIdentifier();
         $this->buildConfigurationBuilder();
         $this->buildAndInitSessionPersistenceManager();
@@ -408,5 +436,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     	$this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
         parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
     }
-    
+
+	protected function initFeUser() {
+		$user_uid = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$this->feUser = $this->feUserRepository->findByUid($user_uid);
+	}
+
 }

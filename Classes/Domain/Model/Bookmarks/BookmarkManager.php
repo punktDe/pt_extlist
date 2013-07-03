@@ -45,20 +45,11 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	
 	
 	/**
-	 * Holds an instance of a bookmark being currently applied to list
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark
-	 */
-	protected $currentBookmark;
-	
-	
-	
-	/**
 	 * Holds an instance of a session persistence manager
 	 *
 	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
 	 */
-	protected $sessionPersistenceManager = NULL;
+	protected $sessionPersistenceManager;
 	
 	
 	
@@ -67,7 +58,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 *
 	 * @var Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
 	 */
-	protected $bookmarkRepository = NULL;
+	protected $bookmarkRepository;
 
 
 
@@ -76,7 +67,7 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 *
 	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkStrategyInterface
 	 */
-	protected $bookmarkStrategy = NULL;
+	protected $bookmarkStrategy;
 
 
 
@@ -154,20 +145,24 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 */
 	public function processRequest(Tx_Extbase_MVC_RequestInterface $request){
 		if ($request->getArgument('action') == 'restore' && $request->getArgument('controller') == 'Bookmarks' && $this->bookmarkIsRestored === FALSE){
-			//TODO: check if request holds bookmark-UID (wenn net dann werf Exception: "Du Arsch")
-			$this->restoreBookmarkByUid($request->getArgument('bookmark'));
+			if($request->hasArgument('bookmark')){
+				$this->restoreBookmarkByUid($request->getArgument('bookmark'));
+			}
 		}
 	}
 
 
-
 	/**
 	 * @param int $bookmarkUid
+	 * @throws InvalidArgumentException
 	 */
 	public function restoreBookmarkByUid($bookmarkUid){
-		//TODO:Check that bookmark is not NULL
 		$bookmark = $this->bookmarkRepository->findByUid($bookmarkUid);
-		$this->restoreBookmark($bookmark);
+		if($bookmark != NULL){
+			$this->restoreBookmark($bookmark);
+		} else {
+			throw new InvalidArgumentException('No bookmark could be found for Bookmark-UID '.$bookmarkUid, 1372836569);
+		}
 	}
 
 
@@ -192,8 +187,6 @@ class Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager {
 	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark
 	 */
 	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark $bookmark) {
-
- //       $filterboxesContent = serialize(array('filters' => $this->sessionPersistenceManager->getSessionDataByNamespace($this->getFilterboxCollectionNamespace())));
 		$this->bookmarkStrategy->addContentToBookmark($bookmark, $this->configurationBuilder, $this->sessionPersistenceManager->getSessionData());
 	}
 	
