@@ -38,7 +38,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
-	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
 	 */
 	protected $bookmarkManager;
 
@@ -136,7 +136,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
-	 * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
 	 */
 	protected $bookmarkManagerFactory;
 
@@ -201,9 +201,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
-	 * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory $bookmarkManagerFactory
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory
 	 */
-	public function injectBookmarkManagerFactory (Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory $bookmarkManagerFactory){
+	public function injectBookmarkManagerFactory (Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory){
 		$this->bookmarkManagerFactory = $bookmarkManagerFactory;
 	}
 

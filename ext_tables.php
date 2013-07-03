@@ -63,8 +63,8 @@ foreach ($pluginModes as $ident => $label) {
 /**
  * Configuration for Bookmarks table
  */
-t3lib_extMgm::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmarks_bookmark');
-$TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array (
+t3lib_extMgm::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmark_bookmark');
+$TCA['tx_ptextlist_domain_model_bookmark_bookmark'] = array (
     'ctrl' => array (
         'title'             => 'Bookmark', 
         'label'             => 'name',

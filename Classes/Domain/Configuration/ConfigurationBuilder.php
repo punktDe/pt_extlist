@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 		'base' =>
 		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'),
 		'bookmarks' =>
-		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory',
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory',
 			'prototype' => 'bookmarks'),
 		'columns' =>
 		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'),
@@ -305,7 +305,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	/**
 	 * Returns bookmarks configuration
 	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
 	 */
 	public function buildBookmarksConfiguration() {
 		return $this->buildConfigurationGeneric('bookmarks');
