@@ -48,12 +48,34 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	protected $proxy;
 
 
+	
+	/**
+	 * @var PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $bookmark;
+
+
+	
+	/**
+	 * @var string
+	 */
+	protected $listIdentifier = 'identifier';
+
+
 
 	protected $simpleSessionData =
 		array(
 			'identifier' => array(
 				'headerColumns' => 'sorting',
 				'filters' => 'allAvailableFilters'
+			)
+		);
+
+	protected $modifiedSimpleSessionData =
+		array(
+			'identifier' => array(
+				'headerColumns' => 'savedSorting',
+				'filters' => 'allAvailableSavedFilters'
 			)
 		);
 
@@ -94,17 +116,90 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 			)
 		);
 
+	protected $modifiedComplexSessionData =
+		array(
+			'anotherIdentifier' => array(
+				'headerColumns' => 'otherSorting',
+				'filters' => 'allOtherAvailableFilters',
+				'pageCollection' => 'otherPages'
+			),
+			'identifier' => array(
+				'headerColumns' => 'savedSorting',
+				'filters' => 'allAvailableSavedFilters',
+			)
+		);
+
+	protected $modifiedComplexSessionDataJustFilters =
+		array(
+			'identifier' => array(
+				'filters' => 'allAvailableSavedFilters',
+			),
+			'anotherIdentifier' => array(
+				'headerColumns' => 'otherSorting',
+				'filters' => 'allOtherAvailableFilters',
+				'pageCollection' => 'otherPages'
+			)
+		);
+
+	protected $modifiedComplexSessionDataJustHeaders =
+		array(
+			'identifier' => array(
+				'headerColumns' => 'savedSorting',
+			),
+			'anotherIdentifier' => array(
+				'headerColumns' => 'otherSorting',
+				'filters' => 'allOtherAvailableFilters',
+				'pageCollection' => 'otherPages'
+			)
+		);
+
+	protected $modifiedComplexSessionDataEmpty =
+		array(
+			'identifier' => array(),
+			'anotherIdentifier' => array(
+				'headerColumns' => 'otherSorting',
+				'filters' => 'allOtherAvailableFilters',
+				'pageCollection' => 'otherPages'
+			)
+		);
+
+	protected $otherSessionData =
+	array(
+		'otherIdentifier' => array(
+			'headerColumns' => 'sorting',
+			'filters' => 'allAvailableFilters',
+			'pageCollection' => 'pages'
+		)
+	);
+
+	protected $modifiedOtherSessionData =
+		array(
+			'otherIdentifier' => array(
+				'headerColumns' => 'sorting',
+				'filters' => 'allAvailableFilters',
+				'pageCollection' => 'pages'
+			),
+			'identifier' => array(
+				'headerColumns' => 'savedSorting',
+				'filters' => 'allAvailableSavedFilters',
+			)
+		);
+
 	protected $expectedContent = 'a:1:{s:10:"identifier";a:2:{s:13:"headerColumns";s:7:"sorting";s:7:"filters";s:19:"allAvailableFilters";}}';
+	protected $savedContent = 'a:1:{s:10:"identifier";a:2:{s:13:"headerColumns";s:12:"savedSorting";s:7:"filters";s:24:"allAvailableSavedFilters";}}';
+	protected $savedContentEmpty = 'a:1:{s:10:"identifier";a:0:{}}';
 
 	protected $expectedContentJustFilters = 'a:1:{s:10:"identifier";a:1:{s:7:"filters";s:19:"allAvailableFilters";}}';
+	protected $savedContentJustFilters = 'a:1:{s:10:"identifier";a:1:{s:7:"filters";s:24:"allAvailableSavedFilters";}}';
 
 	protected $expectedContentJustHeaders = 'a:1:{s:10:"identifier";a:1:{s:13:"headerColumns";s:7:"sorting";}}';
-
+	protected $savedContentJustHeaders = 'a:1:{s:10:"identifier";a:1:{s:13:"headerColumns";s:12:"savedSorting";}}';
 
 	
 	public function setUp() {
 		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy');
 		$this->proxy = new $this->proxyClass;
+		$this->bookmark = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array('setContent', 'getListId', 'getContent'));
 	}
 
 
@@ -129,13 +224,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	 * @test
 	 */
 	public function addContentToBookmarkAddsEmptyArrayToBookmarkContent() {
-		$listIdentifier = 'identifier';
 		$configurationBuilder = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getListIdentifier'), array(), '', FALSE);
-		$bookmark = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array('setContent'));
 
-		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$bookmark->expects($this->once())->method('setContent')->with($this->equalTo('a:0:{}'));
-		$this->proxy->addContentToBookmark($bookmark,$configurationBuilder,array());
+		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($this->listIdentifier));
+		$this->bookmark->expects($this->once())->method('setContent')->with($this->equalTo('a:0:{}'));
+		$this->proxy->addContentToBookmark($this->bookmark,$configurationBuilder,array());
 	}
 
 
@@ -144,13 +237,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	 * @test
 	 */
 	public function addContentToBookmarkAddsSimpleSessionDataToBookmarkContent() {
-		$listIdentifier = 'identifier';
 		$configurationBuilder = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getListIdentifier'), array(), '', FALSE);
-		$bookmark = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array('setContent'));
 
-		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContent));
-		$this->proxy->addContentToBookmark($bookmark,$configurationBuilder,$this->simpleSessionData);
+		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($this->listIdentifier));
+		$this->bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContent));
+		$this->proxy->addContentToBookmark($this->bookmark,$configurationBuilder,$this->simpleSessionData);
 	}
 
 
@@ -159,13 +250,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	 * @test
 	 */
 	public function addContentToBookmarkAddsJustFiltersSessionDataToBookmarkContent() {
-		$listIdentifier = 'identifier';
 		$configurationBuilder = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getListIdentifier'), array(), '', FALSE);
-		$bookmark = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array('setContent'));
 
-		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContentJustFilters));
-		$this->proxy->addContentToBookmark($bookmark,$configurationBuilder,$this->justFiltersSessionData);
+		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($this->listIdentifier));
+		$this->bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContentJustFilters));
+		$this->proxy->addContentToBookmark($this->bookmark,$configurationBuilder,$this->justFiltersSessionData);
 	}
 
 
@@ -174,13 +263,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	 * @test
 	 */
 	public function addContentToBookmarkAddsJustHeadersSessionDataToBookmarkContent() {
-		$listIdentifier = 'identifier';
 		$configurationBuilder = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getListIdentifier'), array(), '', FALSE);
-		$bookmark = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array('setContent'));
 
-		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContentJustHeaders));
-		$this->proxy->addContentToBookmark($bookmark,$configurationBuilder,$this->justHeadersSessionData);
+		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($this->listIdentifier));
+		$this->bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContentJustHeaders));
+		$this->proxy->addContentToBookmark($this->bookmark,$configurationBuilder,$this->justHeadersSessionData);
 	}
 
 
@@ -189,13 +276,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	 * @test
 	 */
 	public function addContentToBookmarkAddsPagerSessionDataToBookmarkContent() {
-		$listIdentifier = 'identifier';
 		$configurationBuilder = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getListIdentifier'), array(), '', FALSE);
-		$bookmark = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array('setContent'));
 
-		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContent));
-		$this->proxy->addContentToBookmark($bookmark,$configurationBuilder,$this->pagerSessionData);
+		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($this->listIdentifier));
+		$this->bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContent));
+		$this->proxy->addContentToBookmark($this->bookmark,$configurationBuilder,$this->pagerSessionData);
 	}
 
 
@@ -204,17 +289,161 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	 * @test
 	 */
 	public function addContentToBookmarkAddsComplexSessionDataToBookmarkContent() {
-		$listIdentifier = 'identifier';
 		$configurationBuilder = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getListIdentifier'), array(), '', FALSE);
-		$bookmark = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array('setContent'));
 
-		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContent));
-		$this->proxy->addContentToBookmark($bookmark,$configurationBuilder,$this->complexSessionData);
+		$configurationBuilder->expects($this->once())->method('getListIdentifier')->will($this->returnValue($this->listIdentifier));
+		$this->bookmark->expects($this->once())->method('setContent')->with($this->equalTo($this->expectedContent));
+		$this->proxy->addContentToBookmark($this->bookmark,$configurationBuilder,$this->complexSessionData);
 	}
 
 
 
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesEmptySessionArrayAndEmptyBookmarkContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue(''));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
 
+		$expected = array();
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, array());
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesEmptySessionArrayAndEmptyArrayInBookmarkContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue('a:0:{}'));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = array();
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, array());
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesEmptySessionAndBookmarkWithContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue($this->savedContent));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->modifiedSimpleSessionData;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, array());
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesSimpleSessionAndEmptyArrayInBookmarkContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue('a:0:{}'));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->simpleSessionData;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, $this->simpleSessionData);
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesSimpleSessionAndBookmarkWithContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue($this->savedContent));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->modifiedSimpleSessionData;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, $this->simpleSessionData);
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesComplexSessionAndBookmarkWithContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue($this->savedContent));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->modifiedComplexSessionData;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, $this->complexSessionData);
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesOtherSessionAndBookmarkWithContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue($this->savedContent));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->modifiedOtherSessionData;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, $this->otherSessionData);
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesComplexSessionAndBookmarkWithOnlyFiltersInContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue($this->savedContentJustFilters));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->modifiedComplexSessionDataJustFilters;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, $this->complexSessionData);
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesComplexSessionAndBookmarkWithOnlyHeadersInContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue($this->savedContentJustHeaders));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->modifiedComplexSessionDataJustHeaders;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, $this->complexSessionData);
+
+		$this->assertEquals($expected, $actual);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function mergeSessionAndBookmarkMergesComplexSessionAndBookmarkWithEmptyListIdentifierInContent(){
+		$this->bookmark->expects($this->once())->method('getContent')->will($this->returnValue($this->savedContentEmpty));
+		$this->bookmark->expects($this->once())->method('getListId')->will($this->returnValue($this->listIdentifier));
+
+		$expected = $this->modifiedComplexSessionDataEmpty;
+		$actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, $this->complexSessionData);
+
+		$this->assertEquals($expected, $actual);
+	}
 
 }
