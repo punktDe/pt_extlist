@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage Configuration\Bookmarks
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfgTest
  */
 class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
@@ -40,7 +41,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
 	 *
 	 * @var string
 	 */
-	protected $bookmarksPid;
+	protected $bookmarkPid;
 	
 	
 	
@@ -175,8 +176,8 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
 	 * 
 	 * @return string
 	 */
-	public function getBookmarksPid() {
-		return $this->bookmarksPid;
+	public function getBookmarkPid() {
+		return $this->bookmarkPid;
 	}
 	
 

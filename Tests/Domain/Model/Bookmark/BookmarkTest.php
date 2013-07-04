@@ -32,6 +32,7 @@
  * @package Tests
  * @subpackage Domain\Model\Bookmark
  * @author Christiane Helmchen
+ * @see Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist_Tests_BaseTestcase {
 

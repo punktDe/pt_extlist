@@ -33,6 +33,7 @@
  * @package Domain
  * @subpackage Model\Bookmarks
  * @entity
+ * @see Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     extends Tx_Extbase_DomainObject_AbstractEntity 

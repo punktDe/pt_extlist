@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
 	protected function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$bookmarksConfiguration = $configurationBuilder->buildBookmarkConfiguration();
 
-		$this->bookmarkRepository->setBookmarkStoragePid($bookmarksConfiguration->getBookmarksPid());
+		$this->bookmarkRepository->setBookmarkStoragePid($bookmarksConfiguration->getBookmarkPid());
 		
 		$bookmarkManager = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', $configurationBuilder->getListIdentifier()); /* @var $bookmarkManager Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager */
 		$bookmarkManager->_injectConfigurationBuilder($configurationBuilder);

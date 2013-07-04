@@ -32,6 +32,7 @@
  * @package Domain
  * @subpackage Model\Bookmarks
  * @entity
+ * @see Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy implements Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface {
 

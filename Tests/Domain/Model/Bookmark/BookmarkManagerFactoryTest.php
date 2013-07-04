@@ -32,13 +32,13 @@
  * @package Tests
  * @subpackage Domain\Model\Bookmarks
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
+ * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
     /** @test */
     public function classExists(){
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory'));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'));
     }
 	
 }

@@ -32,6 +32,7 @@
  * @package Tests
  * @subpackage Domain\Model\Bookmark
  * @author David Vogt
+ * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_PtExtlist_Tests_BaseTestcase {
 

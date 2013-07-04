@@ -322,7 +322,7 @@ plugin.tx_ptextlist.settings {
 			}
 		}
 		bookmarks {
-			bookmarksPid = 30
+			bookmarkPid = 30
 			createPublicBookmarks = 1
 			createPrivateBookmarks = 1
 			createGroupBookmarks = 1

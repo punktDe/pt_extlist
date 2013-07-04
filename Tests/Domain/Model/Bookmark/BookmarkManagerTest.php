@@ -30,10 +30,11 @@
  * Testcase for bookmark manager
  *
  * @package Tests
- * @subpackage Domain\Model\Bookmarks
- * @author Michael Knoll 
+ * @subpackage Domain\Model\Bookmark
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
  */
-class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
     /**
      * Holds an array of settings
@@ -87,7 +88,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManager_testcase extends
 	
 	
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager'));
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager'));
 	}
 	
 	
