@@ -92,7 +92,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
      *
      * @param Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sortingConfiguration
      */
-    public function injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration) {
+    public function _injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration) {
     	$this->sorterConfiguration = $sorterConfiguration;
     }
 
@@ -155,4 +155,3 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
     }
 
 }
-?>

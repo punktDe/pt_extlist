@@ -27,24 +27,35 @@
  ***************************************************************/
 
 /**
- * Testscase for renderer factory
+ * Testcase for renderer factory
  * 
  * @author Michael Knoll 
  * @package pt_extlist
  * @subpackage Tests\Domain\Renderer
- *
+ * @see Tx_PtExtlist_Domain_Renderer_RendererFactory
  */
-class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
+class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererFactory
+	 */
+	protected $rendererFactory;
+
+
+
+	public function setUp() {
+		$this->rendererFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererFactory');
+	}
+
+
+
 	/** @test */
 	public function getRendererReturnsRendererForConfiguration() {
 		$rendererConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(), '', FALSE);
-		$rendererConfiguration->expects($this->any())->method('getRendererClassName')->will($this->returnValue('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer'));
-		$renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
+		$rendererConfiguration->expects($this->any())->method('getRendererClassName')->will($this->returnValue('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer')); /* @var $rendererConfiguration Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig */
+		$renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
 		
 		$this->assertTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
 	}
 	
 }
-
-?>

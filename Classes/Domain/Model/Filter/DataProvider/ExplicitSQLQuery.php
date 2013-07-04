@@ -40,25 +40,35 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 */
 	protected $selectPart;
 
+
+
 	/**
 	 * @var string
 	 */
 	protected $fromPart;
+
+
 
 	/**
 	 * @var string
 	 */
 	protected $wherePart;
 
+
+
 	/**
 	 * @var string
 	 */
 	protected $groupByPart;
 
+
+
 	/**
 	 * @var string
 	 */
 	protected $orderByPart;
+
+
 
 	/**
 	 * @var string
@@ -66,8 +76,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	protected $limitPart;
 
 
+
 	/**
-	 * @var string
+	 * @var array
 	 */
 	protected $displayFields;
 
@@ -81,21 +92,31 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 
 
 	/**
+	 * @var t3lib_DB
+	 */
+	protected $dbObj;
+
+
+
+	/**
 	 * Init the data provider
 	 */
 	public function init() {
+		// TODO use DI here!
+		$this->dbObj = $GLOBALS['TYPO3_DB'];
+
 		$sqlQuerySettings = $this->filterConfig->getSettings('optionsSqlQuery');
 
-		foreach($sqlQuerySettings as $type => $part) {
+		foreach ($sqlQuerySettings as $type => $part) {
 			$sqlQuerySettings[$type] = trim($part);
 		}
 
-		if($sqlQuerySettings['select']) $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
-		if($sqlQuerySettings['from']) $this->fromPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']);
-		if($sqlQuerySettings['where']) $this->wherePart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']);
-		if($sqlQuerySettings['orderBy']) $this->orderByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['orderBy']);
-		if($sqlQuerySettings['groupBy']) $this->groupByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']);
-		if($sqlQuerySettings['limit']) $this->limitPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']);
+		if ($sqlQuerySettings['select']) $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
+		if ($sqlQuerySettings['from']) $this->fromPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']);
+		if ($sqlQuerySettings['where']) $this->wherePart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']);
+		if ($sqlQuerySettings['orderBy']) $this->orderByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['orderBy']);
+		if ($sqlQuerySettings['groupBy']) $this->groupByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']);
+		if ($sqlQuerySettings['limit']) $this->limitPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']);
 
 
 		$this->filterField = trim($this->filterConfig->getSettings('filterField'));
@@ -114,6 +135,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 * @return array filter options
 	 */
 	public function getRenderedOptions() {
+		$renderedOptions = array();
 		$options = $this->getDataFromSqlServer();
 		foreach ($options as $optionData) {
 			$optionKey = $optionData[$this->filterField];
@@ -126,15 +148,15 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	}
 
 
+
 	/**
 	 * Render a single option line by cObject or default
 	 *
 	 * @param array $optionData
+	 * @return string The rendered option
 	 */
 	protected function renderOptionData($optionData) {
-
-		$option = '';
-
+		$values = array();
 		foreach ($this->displayFields as $displayField) {
 			$values[] = $optionData[$displayField];
 		}
@@ -153,17 +175,17 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 * @return array of options
 	 */
 	protected function getDataFromSqlServer() {
-		$query = $GLOBALS['TYPO3_DB']->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
+		$query = $this->dbObj->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
 
-		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('query' => $query));
+		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('query' => $query));
 
 		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
 
-		if(!method_exists($dataSource, 'executeQuery')) {
+		if (!method_exists($dataSource, 'executeQuery')) {
 			throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider! 1315216209');
 		}
 
+		// TODO: make sure, this method exists and add it to a proper data source interface for type checking!
 		return $dataSource->executeQuery($query)->fetchAll();
 	}
 }
-?>

@@ -2,8 +2,8 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  (c) 2013 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Christiane Helmchen, David Vogt, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,25 +27,28 @@
  ***************************************************************/
 
 /**
- * Class implements factory for export configuration
  *
+ * @author David Vogt
  * @package Domain
- * @subpackage Configuration\Bookmarks
- * @author Daniel Lienert 
+ * @subpackage Model\Bookmarks
+ * @see Tests/Domain/Security/SecurityFactoryTest.php
  */
+interface Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface {
 
-class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory {
-	
+
 	/**
-	 * Returns a instance of a bookmark configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+	 * @param array $sessionData
+	 * @return array merged SessionData
 	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
-		$bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($configurationBuilder, $bookmarksSettings);
-		return $bookmarkConfig;
-	}
+	public function mergeSessionAndBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, array $sessionData);
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param array $sessionData
+	 * @return void
+	 */
+	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionData);
 }
-?>

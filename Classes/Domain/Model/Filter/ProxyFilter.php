@@ -173,8 +173,10 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected function getConfigurationBuilderForRealList() {
-		$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($this->proxyListIdentifier);
-		
+		// TODO Remove this, once we have DI
+		$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+		$configurationBuilder = $configurationBuilderFactory->getInstance($this->proxyListIdentifier);
+
 		if($configurationBuilder->getListIdentifier() != $this->proxyListIdentifier) {
 			throw new Exception('Tried to get configurationBuilder for listIdentifier ' . $this->proxyListIdentifier . ', but got ' . $configurationBuilder->getListIdentifier());
 		}

@@ -64,12 +64,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
 				  'excludeFilters' => 'filterbox1.filter1',
 				  'multiple' => 1
 			), 'test');
-		$selectFilter->injectFilterConfig($filterConfiguration);
+		$selectFilter->_injectFilterConfig($filterConfiguration);
 		$sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', FALSE);
 
 		$dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
 		$dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
-		$selectFilter->injectDataBackend($dataBackendMock);
+		$selectFilter->_injectDataBackend($dataBackendMock);
 
 		$selectFilter->init();
 		$this->assertEquals($selectFilter->getMultiple(), 1);
@@ -142,5 +142,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
     }
     
 }
-
-?>

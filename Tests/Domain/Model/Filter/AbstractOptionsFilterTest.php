@@ -117,12 +117,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 
 
-    public function testInit() {
-        $this->markTestIncomplete();
-    }
-
-
-
     public function testReset() {
         $this->markTestIncomplete();
     }
@@ -171,26 +165,30 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 
 
-    public function testInitOnCorrectConfiguration() {
+	/** @test */
+    public function initInitializesFilterAsExpectedGivenCorrectConfiguration() {
         $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
             $this->configurationBuilderMock,
             array(
-                'filterIdentifier' => 'field1',
+                'filterIdentifier' => 'firstFilter',
                 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                 'partialPath' => 'Filter/SelectFilter',
                 'fieldIdentifier' => 'field1',
                 'displayFields' => 'field1,field2',
                 'filterField' => 'field1'
             ), 'test');
-        $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', FALSE);
+		$gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter'); /* @var $gpVarAdapterMock Tx_PtExtbase_State_GpVars_GpVarsAdapter */
 
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
-        $selectFilter->injectFilterConfig($filterConfiguration);
-        $selectFilter->injectDataBackend($dataBackendMock);
+        $selectFilter->_injectFilterConfig($filterConfiguration);
+        $selectFilter->_injectDataBackend($dataBackendMock);
+		$selectFilter->_injectGpVarsAdapter($gpVarAdapterMock);
         $selectFilter->init();
+
+		$this->assertSame('firstFilter', $selectFilter->getFilterIdentifier());
     }
 
 
@@ -232,9 +230,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
-        $selectFilter->injectDataBackend($dataBackendMock);
+        $selectFilter->_injectDataBackend($dataBackendMock);
 
-        $selectFilter->injectFilterConfig($filterConfiguration);
+        $selectFilter->_injectFilterConfig($filterConfiguration);
     }
 
 
@@ -353,16 +351,19 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
         $abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
 
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings, 'test');
+		$gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter'); /* @var $gpVarAdapterMock Tx_PtExtbase_State_GpVars_GpVarsAdapter */
 
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
-        $abstractOptionsFilter->injectFilterConfig($filterConfiguration);
-        $abstractOptionsFilter->injectDataBackend($dataBackendMock);
+		/* @var $abstractOptionsFilter Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter */
+
+        $abstractOptionsFilter->_injectFilterConfig($filterConfiguration);
+        $abstractOptionsFilter->_injectDataBackend($dataBackendMock);
+		$abstractOptionsFilter->_injectGpVarsAdapter($gpVarAdapterMock);
         $abstractOptionsFilter->init();
 
         return $abstractOptionsFilter;
     }
 
 }
-?>

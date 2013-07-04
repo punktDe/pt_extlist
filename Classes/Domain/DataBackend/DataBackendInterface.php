@@ -37,6 +37,15 @@
 interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
 	/**
+	 * Returns list identifier of list to which this backend belongs to.
+	 *
+	 * @return string List identifier of associated list
+	 */
+	public function getListIdentifier();
+
+
+
+	/**
 	 * Creates an instance of data source object to be used with current backend
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -53,11 +62,13 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     public function getListData();
 
 
+
 	/**
 	 * @abstract
 	 * @return Tx_PtExtlist_Domain_Model_List_IterationListData
 	 */
 	public function getIterationListData();
+
 
     
     /**
@@ -126,14 +137,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return int Total number of items for current data set
      */
     public function getTotalItemsCount();
-    
-    
-    
-    /**
-     * Return an aggregate for a field and with a method defined in the given config
-     *  
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateDataConfig
-     */
+
+
+
+	/**
+	 * Return an aggregate for a field and with a method defined in the given config
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+	 * @return
+	 */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection);
     
     
@@ -205,9 +217,9 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Injector for bookmark manager
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
      */
-    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager);
+    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager);
     
     
     
@@ -260,5 +272,11 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	 */
 	public function resetSortingToDefault();
 
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder();
+
 }
-?>

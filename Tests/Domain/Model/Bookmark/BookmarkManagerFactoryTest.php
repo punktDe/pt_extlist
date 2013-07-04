@@ -27,23 +27,18 @@
  ***************************************************************/
 
 /**
- * @author Christoph Ehscheidt
+ * Testcase for bookmark manager factory
+ *
  * @package Tests
- * @subpackage Security
+ * @subpackage Domain\Model\Bookmarks
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
  */
-class Tx_PtExtlist_Tests_Domain_Security_SecurityFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testGetInstance() {
-		$instance = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
-		$this->assertTrue(is_a($instance, 'Tx_PtExtlist_Domain_Security_SecurityInterface'));
-	}
+    /** @test */
+    public function classExists(){
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'));
+    }
 	
-	public function testIsSingleInstance() {
-		$instance1 = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
-		$instance2 = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
-		
-		$this->assertEquals($instance1, $instance2);
-	}
 }
-
-?>

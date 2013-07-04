@@ -33,12 +33,13 @@
  * @subpackage Performance
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * @var string
 	 */
 	protected $baseConfigTSFile;
+
 
 
 	/**
@@ -47,9 +48,11 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	protected $listConfiguration = array();
 
 
-	public function setup() {
+
+	public function setUp() {
 		$this->baseConfigTSFile = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
 	}
+
 
 
 	/**
@@ -57,7 +60,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	 */
 	public function performanceDataProvider() {
 		return array(
-			'performance 5:1 - Framework only' => array(5,1),
+			'performance 5:1 - Framework only' => array(5, 1),
 			//'performance 5:10000' => array(5,10000),
 			//'performance 5:40000' => array(5,40000),
 		);
@@ -76,16 +79,18 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 		$memoryBefore = memory_get_usage(true);
 		$timeBefore = microtime(true);
 
+
+		// TODO we are calling a static method on an object here... make this non-static and remove static methods from extlist context factory!
 		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
 		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
 		$extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
-		$list= $extListContext->getList(TRUE);
+		$list = $extListContext->getList(TRUE);
 		$renderedListData = $extListContext->getRendererChain()->renderList($list->getListData());
 
 
 		$usedMemory = memory_get_usage(true) - $memoryBefore;
-		$readableMemoryUsage = $usedMemory / (1024*1024);
-		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024*1024);
+		$readableMemoryUsage = $usedMemory / (1024 * 1024);
+		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024 * 1024);
 
 		$usedMicroseconds = microtime(true) - $timeBefore;
 
@@ -98,6 +103,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 		$this->assertTrue(true);
 	}
+
 
 
 	/**
@@ -112,6 +118,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 		$memoryBefore = memory_get_usage(true);
 		$timeBefore = microtime(true);
 
+		// TODO we are calling a static method on an object here... make this non-static and remove static methods from extlist context factory!
 		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
 		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
 		$extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
@@ -123,12 +130,13 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 		/**
 		 * This loop renders the complete data set
 		 */
-		foreach($iterationListData as $row) { /**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
+		foreach ($iterationListData as $row) {
+			/**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
 		}
 
 		$usedMemory = memory_get_usage(true) - $memoryBefore;
-		$readableMemoryUsage = $usedMemory / (1024*1024);
-		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024*1024);
+		$readableMemoryUsage = $usedMemory / (1024 * 1024);
+		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024 * 1024);
 
 		$usedMicroseconds = microtime(true) - $timeBefore;
 
@@ -144,6 +152,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	}
 
 
+
 	protected function getExtListTypoScript() {
 
 		$extListConfigFile = __DIR__ . '/TestListConfiguration.ts';
@@ -151,7 +160,8 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 		$tSString = $this->readTSString($this->baseConfigTSFile);
 		$tSString .= $this->readTSString($extListConfigFile);
 
-		$parserInstance = t3lib_div::makeInstance('t3lib_tsparser'); /** @var $parserInstance t3lib_tsparser */
+		$parserInstance = t3lib_div::makeInstance('t3lib_tsparser');
+		/** @var $parserInstance t3lib_tsparser */
 		$tSString = $parserInstance->checkIncludeLines($tSString);
 		$parserInstance->parse($tSString);
 
@@ -175,7 +185,7 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 
 		$typoScriptArray = file($pathAndFileName);
 
-		if($typoScriptArray === FALSE) {
+		if ($typoScriptArray === FALSE) {
 			$this->fail('Could not read from file ' . $pathAndFileName);
 		}
 
@@ -183,5 +193,3 @@ class Tx_PtExtlist_Tests_Performance_Performance_testcase extends Tx_PtExtlist_T
 	}
 
 }
-
-?>

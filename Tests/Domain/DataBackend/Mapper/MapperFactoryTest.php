@@ -31,26 +31,29 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
 	
 	
-	
-	public function testSetup() {
+
+	/** @test */
+	public function classExists() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
 	}
 	
 	
-	
-	public function testCreateInstance() {
-		$mapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($this->configurationBuilderMock);
+
+	/** @test */
+	public function createDataMapperReturnsMapperObject() {
+		$mapperFactory = $this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory');
+		$mapper = $mapperFactory->createDataMapper($this->configurationBuilderMock);
 		$this->assertTrue(is_a($mapper, 'Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface'));
 	}
 	
 }
-?>

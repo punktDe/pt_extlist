@@ -34,12 +34,20 @@
  * @author Michael Knoll 
  */
 class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-    
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
 	/**
 	 * Sets up testcase
 	 */
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
+		$this->rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
 	}
 	
 	
@@ -54,10 +62,9 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtE
 	/** @test */
 	public function getRendererChainReturnsRendererChainForConfiguration() {
 		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
-		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
+		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 		$renderers = $rendererChain->getRenderers();
 		$this->assertEquals(get_class($renderers[0]), 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer');
 	}
 	
 }
-?>

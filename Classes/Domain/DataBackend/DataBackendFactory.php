@@ -28,27 +28,163 @@
 
 /**
  * Factory for data backend objects
- * 
+ *
+ * This class is no singleton, since we should get different backends for different settings that may change during
+ * a single run of a TYPO3 request.
+ *
  * @package Domain
  * @subpackage DataBackend
- * @author Michael Knoll, Daniel Lienert
+ * @author Michael Knoll
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
-	
-	/**
-     * Holds an associative array of instances of data backend objects
-     * Each list identifier holds its own data backend object
-     * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
-     */
-	private static $instances = array();
-
+class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory extends Tx_PtExtlist_Domain_AbstractComponentFactory { // NO SINGLETON!!! see comment above!
 
 	/**
-	 * @var boolean
+	 * Holds an instance of this class
+	 *
+	 * TODO remove later!
+	 *
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+	 * @deprecated for deprecated static use. Remove this, once we remove static functions.
 	 */
-	protected static $resetDataBackend = FALSE;
+	private static $dataBackendFactoryInstance = NULL;
 
-	
+
+
+	/**
+	 * Holds an associative array of instances of data backend objects
+	 * Each list identifier holds its own data backend object
+	 *
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer
+	 */
+	private $instancesContainer;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
+	 */
+	private $configurationBuilderFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory
+	 */
+	private $filterboxCollectionFactory;
+
+
+
+	/**
+	 * @var bool
+	 */
+	private $resetDataBackend = FALSE;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory
+	 */
+	private $dataMapperFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
+	 */
+	private $pagerCollectionFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Sorting_SorterFactory
+	 */
+	private $sorterFactory;
+
+
+
+	/**
+	 * Returns an instance of this class with optionally given settings injected in associated configuration builder.
+	 *
+	 * This is a helper method to create an instance of this class in static environment.
+	 *
+	 * @deprecated Remove this method, once all factories are non-static and properly use DI.
+	 * @param array $settings
+	 * @return \Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+	 */
+	public static function getInstance(array $settings = NULL) {
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$instance = $objectManager->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory'); /* @var $instance Tx_PtExtlist_Domain_DataBackend_DataBackendFactory */
+		return $instance;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory
+	 */
+	public function injectConfigurationBuilderFactory(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory) {
+		$this->configurationBuilderFactory = $configurationBuilderFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer $instancesContainer
+	 */
+	public function injectInstancesContainer(Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer $instancesContainer) {
+		$this->instancesContainer = $instancesContainer;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory $filterboxCollectionFactory
+	 */
+	public function injectFilterboxCollectionFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory $filterboxCollectionFactory) {
+		$this->filterboxCollectionFactory = $filterboxCollectionFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory $mapperFactory
+	 */
+	public function injectMapperFactory(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory $mapperFactory) {
+		$this->dataMapperFactory = $mapperFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory $pagerCollectionFactory
+	 */
+	public function injectPagerCollectionFactory(Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory $pagerCollectionFactory) {
+		$this->pagerCollectionFactory = $pagerCollectionFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Sorting_SorterFactory $sorterFactory
+	 */
+	public function injectSorterFactory(Tx_PtExtlist_Domain_Model_Sorting_SorterFactory $sorterFactory) {
+		$this->sorterFactory = $sorterFactory;
+	}
+
+
+
+	/**
+	 * Initialize object after creation in DI
+	 */
+	public function initializeObject() {
+		// TODO we need to resolve cyclic dependency here
+		$this->filterboxCollectionFactory->setDataBackendFactory($this);
+	}
+
+
+
 	/**
 	 * Returns an instance of data backend for a given list identifier.
 	 *
@@ -56,10 +192,12 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 	 * @param bool $throwExceptionOnNonExistingListIdentifier
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
 	 * @throws Exception
+	 * @deprecated Use non-static method!
 	 */
-	public static function getInstanceByListIdentifier($listIdentifier, $throwExceptionOnNonExistingListIdentifier = true) {
-		if (array_key_exists($listIdentifier, self::$instances)) {
-			return self::$instances[$listIdentifier];
+	public static function getInstanceByListIdentifier($listIdentifier, $throwExceptionOnNonExistingListIdentifier = TRUE) {
+		self::createStaticInstance();
+		if (self::$dataBackendFactoryInstance->instancesContainer->contains($listIdentifier)) {
+			return self::$dataBackendFactoryInstance->instancesContainer->get($listIdentifier);
 		} else {
 			if ($throwExceptionOnNonExistingListIdentifier) {
 				throw new Exception('No data backend found for list identifier ' . $listIdentifier, 1280770617);
@@ -68,144 +206,140 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Create new data backend object for given configuration
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param boolean $resetDataBackend
 	 * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+	 * @deprecated Use non-static method getDataBackendInstanceByListIdentifier() instead!
 	 */
 	public static function createDataBackend(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetDataBackend = FALSE) {
+		self::createStaticInstance();
+		return self::$dataBackendFactoryInstance->getDataBackendInstanceByListIdentifier($configurationBuilder->getListIdentifier(), $resetDataBackend);
+	}
+
+
+
+	/**
+	 * Returns data backend instance for given list identifier
+	 *
+	 * @param $listIdentifier
+	 * @param bool $resetDataBackend
+	 * @return \Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+	 */
+	public function getDataBackendInstanceByListIdentifier($listIdentifier, $resetDataBackend = FALSE) {
+		if (!$this->instancesContainer->contains($listIdentifier) || $resetDataBackend) {
+			$this->resetDataBackend = $resetDataBackend;
+			$this->buildDataBackendForListIdentifier($listIdentifier);
+		}
+		return $this->instancesContainer->get($listIdentifier);
+	}
+
+
+
+	/**
+	 * Returns data backend instance for given configuration builder
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return \Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+	 */
+	public function getDataBackendInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$listIdentifier = $configurationBuilder->getListIdentifier();
+		return $this->getDataBackendInstanceByListIdentifier($listIdentifier);
+	}
 
-		if (!array_key_exists($listIdentifier, self::$instances) || $resetDataBackend) {
-			self::$resetDataBackend = $resetDataBackend;
 
-			$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
-			$dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
 
-			$dataBackend = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+	private static function createStaticInstance() {
+		if (self::$dataBackendFactoryInstance === NULL) {
+			self::$dataBackendFactoryInstance = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory');
+		}
+	}
 
-			self::$instances[$listIdentifier] = $dataBackend; /* The reference has to be set here bercause otherwise every filter will create the databackend again -> recursion! */
 
-			// Check whether backend class implements backend interface
-			Tx_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array('message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
 
-			$dataBackend->_injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
-			//$dataBackend->_injectBookmarkManager(self::getBookmarkManagerAndProcessBookmark($configurationBuilder));
-			$dataBackend->_injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
-			$dataBackend->_injectDataMapper(self::getDataMapper($configurationBuilder));
-			$dataBackend->_injectDataSource(self::getDataSource($dataBackendClassName, $configurationBuilder));
-			$dataBackend->_injectPagerCollection(self::getPagerCollection($configurationBuilder));
-			$dataBackend->_injectSorter(self::getSorter($configurationBuilder));
+	private function buildDataBackendForListIdentifier($listIdentifier) {
+		$configurationBuilderForListIdentifier = $this->configurationBuilderFactory->getInstance($listIdentifier);
+		$this->buildDataBackendForConfigurationBuilder($configurationBuilderForListIdentifier);
+	}
 
-			$dataBackend->_injectFilterboxCollection(self::getfilterboxCollection($configurationBuilder));
 
-			if (self::getQueryInterpreter($configurationBuilder) != NULL) {
-				$dataBackend->_injectQueryInterpreter(self::getQueryInterpreter($configurationBuilder));
-			}
 
-			$dataBackend->init();
+	private function buildDataBackendForConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration(); /* @var $dataBackendClassName string */
+		$dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
+
+		$dataBackend = $this->objectManager->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+
+		// The reference has to be set here because otherwise every filter will create the databackend again -> recursion!
+		$this->instancesContainer->set($dataBackend);
+
+		// Check whether backend class implements backend interface
+		Tx_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof Tx_PtExtlist_Domain_DataBackend_DataBackendInterface, array('message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022'));
+
+		$dataBackend->_injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
+		$dataBackend->_injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
+		$dataBackend->_injectDataMapper($this->getDataMapper($configurationBuilder));
+		$dataBackend->_injectDataSource($this->getDataSource($dataBackendClassName, $configurationBuilder));
+		$dataBackend->_injectPagerCollection($this->getPagerCollection($configurationBuilder));
+		$dataBackend->_injectSorter($this->getSorter($configurationBuilder));
+
+		$dataBackend->_injectFilterboxCollection($this->getfilterboxCollection($configurationBuilder));
+
+		if ($this->getQueryInterpreter($configurationBuilder) != NULL) {
+			$dataBackend->_injectQueryInterpreter($this->getQueryInterpreter($configurationBuilder));
 		}
 
-		return self::$instances[$listIdentifier];
+		$dataBackend->init();
 	}
-	
-	
-	
-	/**
-	 * Initializes the data source used for this data backend
-	 *
-	 * @param string $dataBackendClassName
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
-	 */
-    protected static function getDataSource($dataBackendClassName, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	 // Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
-         $dataSource = call_user_func($dataBackendClassName . '::createDataSource', $configurationBuilder);
-         return $dataSource;
-    }
-    
-    
-    
-    /**
-     * Injects the data mapper used for created backend
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
-     */
-    protected static function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        $dataMapper = Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::createDataMapper($configurationBuilder);
-        return $dataMapper;
-    }
-    
-    
-    
-    /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
-     */
-    protected static function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) { 		
-    	$filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($configurationBuilder, self::$resetDataBackend);
-    	return $filterboxCollection;
-    }
-    
-    
-    
-    /**
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
-     */
-    protected static function getPagerCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	return Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($configurationBuilder);
-    }
-    
-    
-    
-    /**
-     * Creates an instance of a query interpreter as configured in configuration builder
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
-     */
-    protected static function getQueryInterpreter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
+
+
+
+	private function getDataSource($dataBackendClassName, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		// Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
+		$dataSource = call_user_func($dataBackendClassName . '::createDataSource', $configurationBuilder);
+		return $dataSource;
+	}
+
+
+
+	private function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$this->dataMapperFactory->_injectConfigurationBuilder($configurationBuilder);
+		$dataMapper = $this->dataMapperFactory->createDataMapper($configurationBuilder);
+		return $dataMapper;
+	}
+
+
+
+	private function getFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$filterboxCollection = $this->filterboxCollectionFactory->createInstance($configurationBuilder, $this->resetDataBackend);
+		return $filterboxCollection;
+	}
+
+
+
+	private function getPagerCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return $this->pagerCollectionFactory->getInstance($configurationBuilder);
+	}
+
+
+
+	private function getQueryInterpreter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$queryInterpreterClassName = $backendConfiguration->getQueryInterpreterClass();
-        $queryInterpreter = new $queryInterpreterClassName;
+		$queryInterpreter = new $queryInterpreterClassName;
 
-	    return $queryInterpreter;
-    }
-    
-    
-    
-    /**
-     * Creates an instance of a bookmark manager
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
-     */
-    protected static function getBookmarkManagerAndProcessBookmark(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($configurationBuilder);
-    	// That's the part where bookmarks are written back to session
-    	$bookmarkManager->processBookmark();
-    	return $bookmarkManager;
-    }
+		return $queryInterpreter;
+	}
 
 
 
-    /**
-     * Creates an instance of a sorter
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
-     */
-    protected static function getSorter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-        return Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilder);
-    }
-	
+	private function getSorter(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return $this->sorterFactory->getInstance($configurationBuilder);
+	}
+
 }
-?>

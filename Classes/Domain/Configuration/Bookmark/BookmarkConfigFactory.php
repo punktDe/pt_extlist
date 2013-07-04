@@ -27,45 +27,26 @@
  ***************************************************************/
 
 /**
- * Class implements a collection of messages
- * 
- * @author Michael Knoll 
+ * Class implements factory for export configuration
+ *
  * @package Domain
- * @subpackage Model\Messaging
+ * @subpackage Configuration\Bookmarks
+ * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Model_Messaging_MessageCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 
-	/**
-	 * Restricts collection to hold only objects of given type
-	 *
-	 * @var string
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Messaging_Message';
-	
-	
+class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory {
 	
 	/**
-	 * Adds message to collection by given message key
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Messaging_Message $message
-	 * @param string $messageKey
+	 * Returns a instance of a bookmark configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
 	 */
-	public function addMessage(Tx_PtExtlist_Domain_Model_Messaging_Message $message, $messageKey=0) {
-		$this->addItem($message, $messageKey);
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
+		$bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig($configurationBuilder, $bookmarksSettings);
+		return $bookmarkConfig;
 	}
-	
-	
-	
-	/**
-	 * Returns message for a given id
-	 *
-	 * @param string $messageKey
-	 * @return Tx_PtExtlist_Domain_Model_Messaging_Message
-	 */
-	public function getMessageByKey($messageKey) {
-		if ($this->hasItem($messageKey)) {
-		    return $this->getItemById($messageKey);
-		}
-	}
- 	
+
 }
+?>

@@ -130,12 +130,11 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        }
 			   }
 			}";
-        $this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
-        $this->typoScriptParser->parse($this->tsConfigString);
-        $this->tsConfig = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
-        Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->tsConfig['plugin']['tx_ptextlist']['settings']);
-        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('list1');
+		$this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
+		$this->typoScriptParser->parse($this->tsConfigString);
+		$this->tsConfig = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+		$this->configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
+
     }
 	
 }
-?>

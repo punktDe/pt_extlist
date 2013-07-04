@@ -27,14 +27,15 @@
  ***************************************************************/
 
 /**
- * Testcase for bookmark manager factory
+ * Testcase for bookmark manager
  *
  * @package Tests
- * @subpackage Domain\Model\Bookmarks
- * @author Michael Knoll 
+ * @subpackage Domain\Model\Bookmark
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
  */
-class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-    
+class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
     /**
      * Holds an array of settings
      *
@@ -66,8 +67,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactory_testcase 
                                 'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                         ),
                             
-                                            
-                        // this is really ugly but required to make controller work
                         'bookmarks' => array(
                             'showPublicBookmarks' => '1',
                             'showUserBookmarks' => '1',
@@ -84,34 +83,65 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactory_testcase 
             
             
     public function setup() {
-    	parent::setup();
-    	$this->initDefaultConfigurationBuilderMock();
+        $this->initDefaultConfigurationBuilderMock();
     }
-            
-            
-            
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory'));	
-    }
-    
-    
-    
-    public function testGetInstanceByConfigurationBuilder() {
-    	$bookmarkManager = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($this->configurationBuilderMock);
-    	$this->assertTrue(is_a($bookmarkManager, 'Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager'));
-    }
-    
-    
-    
-    public function testGetSingleton() {
-    	$firstInstance = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($this->configurationBuilderMock);
-    	$secondInstance = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($this->configurationBuilderMock);
-    	$this->assertEquals($firstInstance, $secondInstance);
-    	
-    	$anotherConfigurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-    	$differentInstance = Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory::getInstanceByConfigurationBuilder($anotherConfigurationBuilder);
-    	$this->assertNotEquals($firstInstance, $differentInstance); 
-    }
+	
+	
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager'));
+	}
+	
+	
+	
+	public function testGetSetCurrentBookmark() {
+		
+		$this->markTestIncomplete();
+		
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager');
+		
+		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark');
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
+		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
+		$bookmarkManager->setCurrentBookmark($bookmarkMock);
+		
+		$this->assertTrue($bookmarkManager->getCurrentBookmark() === $bookmarkMock);
+	}
+	
+	
+	
+	public function testAddContentToBookmark() {	
+        $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
+
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager',array('getSessionDataByNamespace'), array(), '', FALSE);
+        $returnArray = array('test');
+		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionDataByNamespace')->with('Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase.filters')->will($this->returnValue($returnArray));
+        
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
+        $bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
+
+        $bookmarkManager->addContentToBookmark($bookmark);
+        
+        $this->assertEquals(serialize(array('filters' => $returnArray)), $bookmark->getContent());
+	}
+	
+	
+	
+	public function testInjectSessionPersistenceManager() {
+		$sessionAdapterMock = new Tx_PtExtbase_Tests_Unit_State_Stubs_SessionAdapterMock();
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array($sessionAdapterMock));
+		
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
+		$bookmarkManager->injectSessionPersistenceManager($sessionPersistenceManagerMock);
+	}
+	
+	
+	
+	public function testInjectBookmarkRepository() {
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository', array(), array(), '', FALSE);
+		
+		$bookmarkManager = new Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager($this->configurationBuilderMock->getListIdentifier());
+		$bookmarkManager->injectBookmarkRepository($bookmarkRepositoryMock);
+	}
 	
 }
 

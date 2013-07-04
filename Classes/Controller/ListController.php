@@ -46,10 +46,45 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
 
 	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+	 */
+	protected $listFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+	 */
+	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
+		$this->listFactory = $listFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
 	 * Initializes controller
 	 */
 	public function initializeAction() {
-		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
+        parent::initializeAction();
+		$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 
 
@@ -60,7 +95,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @return string  Rendered list for given list identifier
 	 */
 	public function listAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 
 		// Do not show the list if it is empty.
 		// TODO do not use forward here!!!
@@ -90,7 +125,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 * @return mixed Whatever format-specific view returns
 	 */
 	public function exportAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 
 		$renderedListData = $this->rendererChain->renderList($list->getListData());
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
@@ -113,7 +148,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	 */
 	public function emptyListAction() {
 		// TODO this action is simply stupid... why the hell do we have that?!?
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 		$this->view->assign('listData', $list->getListData());
 		$this->view->assign('filterCollection', $this->dataBackend->getFilterboxCollection());
 	}

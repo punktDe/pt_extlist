@@ -30,15 +30,16 @@
  * Testcase for bookmarks configuration
  *
  * @package Tests
- * @subpackage Domain\Configuration\Bookmarks
- * @author Michael Knoll 
+ * @subpackage Domain\Configuration\Bookmark
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds instance of bookmark config that we want to test
 	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+	 * @var Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
 	 */
 	protected $bookmarkConfigToBeTested;
 	
@@ -51,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
 	 */
 	protected $settings = array(
 
-                'listIdentifier' => 'Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase',
+                'listIdentifier' => 'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest',
 
 	            'prototype' => array(
 
@@ -67,7 +68,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
 	            ),
                 
                 'listConfig' => array(
-                     'Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase' => array(
+                     'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest' => array(
                         
                         'backendConfig' => array (
                                 'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
@@ -92,15 +93,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
                                             
                         // this is really ugly but required to make controller work
                         'bookmarks' => array(
-                            'showPublicBookmarks' => '1',
-                            'showUserBookmarks' => '1',
-                            'showGroupBookmarks' => '1',
-                            'bookmarksPid' => '1,2,3',
-						    'feUsersAllowedToEdit' => '2,3,4',
-						    'feGroupsAllowedToEdit' => '3,4,5',
-						    'groupIdsToShowBookmarksFor' => '4,5,6',
-                            'feUsersAllowedToEditPublic' => '5,6,7',
-                            'feGroupsAllowedToEditPublic' => '6,7,8'
+							'bookmarkPid' => 30,
+							'createPublicBookmarks' => 1,
+							'createPrivateBookmarks' => 1,
+							'createGroupBookmarks' => 1,
+							'showPublicBookmarks' => 1,
+							'showPrivateBookmarks' => 1,
+							'showGroupBookmarks' => 1,
+							'userCanDeleteAll' => 0,
+							'groupIdsToShowBookmarksFor' => '4,5,6'
                         ),
                     )
                 )
@@ -108,64 +109,45 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
             
             
             
-    public function setup() {
+    public function setUp() {
     	$this->initDefaultConfigurationBuilderMock($this->settings);
-    	$this->bookmarkConfigToBeTested = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this->configurationBuilderMock, $this->configurationBuilderMock->getSettingsForConfigObject('bookmarks'));
+    	$this->bookmarkConfigToBeTested = new Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig($this->configurationBuilderMock, $this->configurationBuilderMock->getSettingsForConfigObject('bookmarks'));
     }
-	
-            
-            
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig'));
+
+
+	/**
+	 * @test
+	 */
+	public function classExists() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig'));
 	}
-	
-	
-	
-	public function testConstruct() {
-		$bookmarksConfiguration = new Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig($this->configurationBuilderMock, $this->configurationBuilderMock->getSettingsForConfigObject('bookmarks'));
-		$this->assertTrue(is_a($bookmarksConfiguration, 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig'));
-	}
-	
-	
-	
-    public function testGetBookmarksPid() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getBookmarksPid(), '1,2,3');
+
+
+
+	/**
+	 * @test
+	 */
+	public function getBookmarksPidGetsBookmarkPid() {
+        $this->assertEquals($this->bookmarkConfigToBeTested->getBookmarkPid(), '30');
     }
-    
-    
-    
-    public function testGetFeGroupsAllowedToEdit() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getFeGroupsAllowedToEdit(), '3,4,5');
-    }
-    
-    
-    
-    public function testGetFeUsersAllowedToEdit() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getFeUsersAllowedToEdit(), '2,3,4');
-    }
-    
-    
-    
-    public function testGetGroupIdsToShowBookmarksFor() {
+
+
+
+	/**
+	 * @test
+	 */
+	public function testGetGroupIdsToShowBookmarksFor() {
         $this->assertEquals($this->bookmarkConfigToBeTested->getGroupIdsToShowBookmarksFor(), '4,5,6');
     }
-    
-    
-    
-    public function testGetFeUsersAllowdToEditPublic() {
-    	$this->assertEquals($this->bookmarkConfigToBeTested->getFeUsersAllowedToEditPublic(), '5,6,7');
-    }
-    
-    
-    
-    public function testGetFeGroupsAllowedToEditPublic() {
-    	$this->assertEquals($this->bookmarkConfigToBeTested->getFeGroupsAllowedToEditPublic(), '6,7,8');
-    }
-    
-    
-    
-    public function testGetListIdentifier() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getListIdentifier(), 'Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase');
+
+
+	
+
+	/**
+	 * @test
+	 */
+	public function testGetListIdentifier() {
+        $this->assertEquals($this->bookmarkConfigToBeTested->getListIdentifier(), 'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest');
     }
     
     
@@ -190,7 +172,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase 
     
     
     public function getShowUserBookmarks() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getShowUserBookmarks(), true);
+        $this->assertEquals($this->bookmarkConfigToBeTested->getShowPrivateBookmarks(), true);
     }
 	
 }
