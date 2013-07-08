@@ -32,22 +32,32 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilter_testcase
  */
-class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
+class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+	 */
+	protected $dataProviderFactory;
+
+
 
 	/**
 	 * Maximum of elements to display 
 	 * @var int
 	 */
 	protected $maxItems;
-	
+
+
 	
 	/**
 	 * Minimum font Size 
 	 * @var int
 	 */	
 	protected $minSize;
-	
+
+
 	
 	/**
 	 * Maximum font Size 
@@ -55,20 +65,23 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	 */	
 	protected $maxSize;
 	
-	
+
+
 	/**
 	 * Minimum color as integer 
 	 * @var array
 	 */
 	protected $minColor = array();
-	
+
+
 	
 	/**
 	 * Maximum color as integer 
 	 * @var array
 	 */
 	protected $maxColor = array();
-	
+
+
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
@@ -76,7 +89,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	protected function initFilter() {
 
 	}
-	
+
+
 	
 	protected function initFilterByTsConfig() {
 		parent::initFilterByTsConfig();
@@ -90,13 +104,15 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	}
 
 
+
 	/**
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 * @return array
 	 */
-	public function persistToSession() {
+	public function _persistToSession() {
 		return array('filterValues' => current($this->filterValues), 'invert' => $this->invert);
 	}
+
 
 	
 	/**
@@ -121,7 +137,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	 * @return array
 	 */
 	public function getOptions() {
-		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
+		$dataProvider = $this->dataProviderFactory->createInstance($this->filterConfig);
 
 		$renderedOptions = $dataProvider->getRenderedOptions();
 		
@@ -153,7 +169,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 			$iterator++; 
 		}
 	}
-	
+
+
 
 	protected function calculateSize($minItemCount, $maxItemCount, $itemCount) {
 		$sizeRange = $this->maxSize - $this->minSize;
@@ -162,13 +179,15 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 		$sizePerCount = $sizeRange / $countRange;
 		return $this->minSize + (int) ($itemCount * $sizePerCount);
 	}
-	
+
+
 	
 	/**
 	 * Calculate color
 	 * 
-	 * @param int $colorStep
+	 * @param int $tagCount
 	 * @param int $iterator
+	 * @return string
 	 */
 	protected function calculateColor($tagCount, $iterator) {
 		

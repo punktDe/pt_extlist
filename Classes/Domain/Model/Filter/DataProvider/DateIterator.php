@@ -40,16 +40,20 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
 	 */
 	protected $dateIteratorStart;
 
+
+
 	/**
 	 * @var string
 	 */
 	protected $dateIteratorEnd;
 
 
+
 	/**
 	 * @var string
 	 */
 	protected $dateIteratorIncrement;
+
 
 
 	/**
@@ -82,6 +86,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
 		Tx_PtExtbase_Assertions_Assert::isTrue($this->dateIteratorStart < $this->dateIteratorEnd, array('message' => 'The Value dateIteratorStart ('.$this->dateIteratorStart.') is higher than dateIteratorEnd ('.$this->dateIteratorEnd.')'));
 
 	}
+
 
 
 	/****************************************************************************************************************
@@ -119,6 +124,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
 	}
 
 
+
 	/**
 	 * @return array
 	 */
@@ -151,6 +157,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
 	}
 
 
+
 	/**
 	 * @param $iterationDate
 	 * @param $timeSpanComponents
@@ -168,5 +175,5 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
 			);
 		return $time;
 	}
+
 }
-?>

@@ -82,7 +82,16 @@ class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Doma
 	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
     	return new Tx_PtExtlist_Domain_Model_List_ListData();
     }
-    
+
+
+
+	/**
+	 * Initializes the renderer
+	 *
+	 * @return void
+	 */
+	public function initRenderer() {
+
+	}
+
 }
- 
-?>

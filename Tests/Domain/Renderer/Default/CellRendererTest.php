@@ -110,14 +110,13 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
 		);
 
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer');
-		$defaultCellRenderer = new $accessibleClassName($this->getRendererConfiguration());
+		$defaultCellRenderer = new $accessibleClassName($this->getRendererConfiguration()); /* @var $defaultCellRenderer Tx_PtExtlist_Domain_Renderer_Default_CellRenderer */
 
 		$outArray = $defaultCellRenderer->_call('createArrayDataFieldSet', $array);
+
 		$this->assertEquals($outArray[1]['field2'], 'value2');
 		$this->assertEquals($outArray[1]['field3'], 'test3');
 	}
 	
 	
 }
-
-?>

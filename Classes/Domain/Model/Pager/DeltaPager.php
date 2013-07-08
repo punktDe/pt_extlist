@@ -97,5 +97,3 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 	}
 	
 }
-
-?>

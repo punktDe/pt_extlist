@@ -31,7 +31,8 @@
  *
  * @package Tests
  * @subpackage Somain\Model\Filter\DataProvider
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
@@ -53,9 +54,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends T
 	}
 	
 	
- 	/**
-    * @test
-    */
+ 	/** @test  */
     public function initDataProviderByTsConfigElementCountField() {
     	$filterSettings = $this->defaultFilterSettings;
     	$tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
@@ -69,19 +68,18 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends T
 	
 
 	protected function buildAccessibleTagCloudDataProvider($filterSettings) {
-
 		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud');
-		$accesibleTagCloudDataProvider = new $accessibleClassName;
+		$accessibleTagCloudDataProvider = new $accessibleClassName; /* @var $accessibleTagCloudDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud */
 
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
 		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
 
-        $accesibleTagCloudDataProvider->injectDataBackend($dataBackend);
-		$accesibleTagCloudDataProvider->injectFilterConfig($filterConfiguration);
-		$accesibleTagCloudDataProvider->init();
+        $accessibleTagCloudDataProvider->_injectDataBackend($dataBackend);
+		$accessibleTagCloudDataProvider->_injectFilterConfig($filterConfiguration);
+		$accessibleTagCloudDataProvider->init();
 
-		return $accesibleTagCloudDataProvider;
+		return $accessibleTagCloudDataProvider;
 	}
+
 }
-?>

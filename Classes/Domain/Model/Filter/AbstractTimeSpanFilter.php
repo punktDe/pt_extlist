@@ -33,6 +33,7 @@
  * @author Michael Knoll
  * @package Domain
  * @subpackage Model\Filter
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest
  */
 abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 

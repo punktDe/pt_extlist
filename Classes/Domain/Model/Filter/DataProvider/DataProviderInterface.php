@@ -40,7 +40,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 */
-	public function injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+	public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
 
 
 
@@ -51,7 +51,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
      * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
      * @return void
      */
-    public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
+    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
 
 	
 	

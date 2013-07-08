@@ -53,18 +53,20 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory {
 	public static function getInstance($listIdentifier) {
 		
 		if (self::$instances[$listIdentifier] == NULL) {
-			
-			$configurationBuidler = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-			
-			
+
+			// TODO resolve this properly with Dependency Injection once we have cascading container
+			#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
+			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+
 			self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Link_LinkManager();
-			self::$instances[$listIdentifier]->injectGetPostVarAdapater(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
-			self::$instances[$listIdentifier]->injectListConfiguration($configurationBuidler->buildListConfiguration());
+			self::$instances[$listIdentifier]->injectGetPostVarAdapater($getPostVarsAdapterFactory->getInstance());
+			self::$instances[$listIdentifier]->injectListConfiguration($configurationBuilder->buildListConfiguration());
 			
 		}
 		
 		return self::$instances[$listIdentifier];
 	}
-}
 
-?>
+}

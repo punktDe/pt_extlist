@@ -42,6 +42,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	protected $accessibleFilterProxy;
 
 
+
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 
@@ -50,14 +51,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	}
 
 
+
 	public function tearDown() {
 		unset($this->accessibleFilterProxy);
 	}
 
+
 	
-	/**
-	 * @test
-	 */
+	/** @test */
     public function classExist() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter'));
     	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter();
@@ -65,9 +66,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
     }
 
 
-	/**
-	 * @test
-	 */
+
+	/** @test */
 	public function getMultiple() {
 		$treeSelectFilter = new Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter();
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 				'multiple' => 1
 			), 'test');
 
-		$treeSelectFilter->injectFilterConfig($filterConfiguration);
+		$treeSelectFilter->_injectFilterConfig($filterConfiguration);
 
 		$treeSelectFilter->init();
 		$this->assertEquals($treeSelectFilter->getMultiple(), 1);
@@ -91,9 +91,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 
 
 
-	/**
-	 * @test
-	 */
+	/** @test */
 	public function filterChecksTreeNodeRepository() {
 		$treeSelectFilter = new Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter();
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
@@ -109,7 +107,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 				'multiple' => 1
 			), 'test');
 
-		$treeSelectFilter->injectFilterConfig($filterConfiguration);
+		$treeSelectFilter->_injectFilterConfig($filterConfiguration);
 
 		try {
 			$treeSelectFilter->init();
@@ -121,9 +119,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	}
 
 
-	/**
-	 * @test
-	 */
+
+	/** @test */
 	public function filterTransformsFilterValuesSingle() {
 		$this->accessibleFilterProxy->_set('filterValues', array(5));
 		$this->accessibleFilterProxy->_call('initFilter');
@@ -131,9 +128,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	}
 
 
-	/**
-	 * @test
-	 */
+
+	/** @test */
 	public function filterTransformsFilterValuesMultiple() {
 		$this->accessibleFilterProxy->_set('filterValues', array(5,4,8));
 		$this->accessibleFilterProxy->_set('multiple', true);
@@ -143,9 +139,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 
 
 
-	/**
-	 * @test
-	 */
+	/** @test */
 	public function getSubTreeUIDs() {
 
 		$tree = $this->createDemoTree();
@@ -157,6 +151,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	}
 
 
+
 	public function getFilterNodeUidTestDataProvider() {
 		return array(
 			'singleValueLeafNode' => array('values' => array(6), 'expected' => array(6)),
@@ -166,6 +161,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 			'handleDuplicates' => array('values' => array(2,3), 'expected' => array(2,3,4)),
 		);
 	}
+
 
 
 	/**
@@ -216,8 +212,4 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 		return Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($node1);
 	}
 
-
-
 }
-
-?>

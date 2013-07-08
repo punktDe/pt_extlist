@@ -31,39 +31,42 @@
  *
  * @package Domain
  * @subpackage Model\Pager
- * @author Michael Knoll 
- * @author Daniel Lienert 
+ * @author Michael Knoll
+ * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerFactory {
-	
-	
+class Tx_PtExtlist_Domain_Model_Pager_PagerFactory implements t3lib_Singleton {
+
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	private $objectManager;
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
+
 	/**
 	 * Returns an instance of pager for a given configuration builder and a pager configuration
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration) {
-		
-		return  self::createInstance($pagerConfiguration);
-	
-	}
-	
-	
-	/**
-	 * Returns pager object configured by given pager configuration
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration
-	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
-	 */
-	private static function createInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration) {
+	public function getInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration) {
 		$pagerClassName = $pagerConfiguration->getPagerClassName();
-        		
-		$pager = new $pagerClassName($pagerConfiguration);
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
-        
-        return $pager;
+
+		$pager = $this->objectManager->get($pagerClassName, $pagerConfiguration);
+		Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
+
+		return $pager;
+
 	}
-	
+
 }
-?>

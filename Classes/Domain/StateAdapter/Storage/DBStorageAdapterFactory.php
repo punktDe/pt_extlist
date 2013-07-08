@@ -40,7 +40,8 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 	 * @var Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter
 	 */
 	protected static $instance = NULL;
-	
+
+
 	
 	/**
 	 * Create a single instance of the db storage adapter
@@ -59,11 +60,12 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 		
 		return self::$instance;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Build TYPO3 Caching Framework Cache
+	 * @throws Exception
 	 * @return t3lib_cache_frontend_Cache
 	 */
 	protected function buildStateCache() {
@@ -94,14 +96,15 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 	
 	
 	/**
-	 * Get the statehash from GPVars
+	 * Get the state hash from GPVars
 	 * 
 	 * @return string hash 
 	 */
 	protected static function getStateHash() {
-		$getPostVarAdapter = Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance();
+		$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+		$getPostVarAdapter = $getPostVarsAdapterFactory->getInstance();
 		$stateHash = $getPostVarAdapter->getParametersByNamespace('state');
 		return $stateHash;	
 	}
+
 }
-?>

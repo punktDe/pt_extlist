@@ -34,7 +34,42 @@
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_ListFactory {
+class Tx_PtExtlist_Domain_Model_List_ListFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactory
+	implements t3lib_Singleton {
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
+	 */
+	protected $listHeaderFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory $listHeaderFactory
+	 */
+	public function injectListHeaderFactory(Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory $listHeaderFactory) {
+		$this->listHeaderFactory = $listHeaderFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
 
 	/**
 	 * Returns a full featured list object.
@@ -44,13 +79,14 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	 * @param $resetList boolean
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
-	public static function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetList = false) {
+	public function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetList = false) {
 		$list = new Tx_PtExtlist_Domain_Model_List_List();
 
 		// We have to build headers here, as they are no longer created by data backend
-		$list->setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($configurationBuilder, $resetList));
+		$listHeader = $this->listHeaderFactory->createInstance($configurationBuilder, $resetList);
+		$list->setListHeader($listHeader);
 
-		$list->setRendererChain(Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
+		$list->setRendererChain($this->rendererChainFactory->getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
 
 		if($configurationBuilder->buildListConfiguration()->getUseIterationListData()) {
 			$list->setIterationListData($dataBackend->getIterationListData());
@@ -66,14 +102,15 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	}
 
 
+
 	/**
 	 * Build the aggregate list data if any aggregates are defined
-
+	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public static function buildAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public function buildAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		if($configurationBuilder->buildAggregateDataConfig()->count() > 0) {
 			return $dataBackend->getAggregateListData();	
 		} else {
@@ -82,4 +119,3 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory {
 	}
     
 }
-?>

@@ -142,7 +142,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     /**
      * Holds an instance of bookmark manager
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -300,9 +300,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     /**
      * Injector for bookmark manager
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
      */
-    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager) {
+    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager) {
     	$this->bookmarkManager = $bookmarkManager;
     }
 
@@ -317,6 +317,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     public function _injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter) {
         $this->sorter = $sorter;
     }
+
+
+
+	/**
+	 * Returns list identifier of the list to which this backend belongs to
+	 *
+	 * @return String
+	 */
+	public function getListIdentifier() {
+		return $this->configurationBuilder->getListIdentifier();
+	}
 	
     
     

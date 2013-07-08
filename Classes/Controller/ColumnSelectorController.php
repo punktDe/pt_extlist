@@ -32,6 +32,7 @@
  *
  * @package Controller
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Controller_ColumnSelectorControllerTest
  */
 class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Controller_AbstractController {
 
@@ -43,12 +44,65 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	protected $rendererChain;
 
 
+
+	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
+	 */
+	protected $columnSelectorFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+	 */
+	protected $listFactory;
+
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+	 */
+	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
+		$this->listFactory = $listFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory
+	 */
+	public function injectColumnSelectorFactory(Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory) {
+		$this->columnSelectorFactory = $columnSelectorFactory;
+	}
+
+
+
 	/**
 	 * Overwrites initAction for setting properties
 	 * and enabling easy testing
 	 */
-	protected function initializeAction() {
-		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
+	public function initializeAction() {
+		parent::initializeAction();
+		$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 
 
@@ -59,12 +113,13 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	 * @return string The rendered index action
 	 */
 	public function showAction() {
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($this->configurationBuilder);
+		$columnSelector = $this->columnSelectorFactory->getInstance($this->configurationBuilder);
 
 		$this->view->assign('columnSelector', $columnSelector);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 	}
+
 }

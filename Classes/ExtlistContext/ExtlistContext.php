@@ -97,6 +97,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	protected $pagerCollection;
 
 
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_List
 	 */
@@ -105,10 +106,28 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
-	 * Initialize the extlistContext
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
 	 */
-	public function init() {
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+	 */
+	protected $listFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+	 */
+	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
+		$this->listFactory = $listFactory;
 	}
+
 
 
 	/**
@@ -119,6 +138,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
 	/**
 	 * Inject the Databackend
 	 *
@@ -127,6 +156,15 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		$this->dataBackend = $dataBackend;
 	}
+
+
+
+	/**
+	 * Initialize the extbaseContext
+	 */
+	public function init() {
+	}
+
 
 
 	/**
@@ -146,7 +184,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getRendererChain() {
 
 		if($this->rendererChain === NULL) {
-			$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
+			$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
 		}
 
 		return $this->rendererChain;
@@ -232,7 +270,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 */
 	public function getList($buildNew = false) {
 		if($this->list == NULL || $buildNew) {
-			$this->list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder(), $buildNew);
+			$this->list = $this->listFactory->createList($this->dataBackend, $this->dataBackend->getConfigurationBuilder(), $buildNew);
 		}
 
 		return $this->list;
@@ -385,6 +423,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
+
 	/**
 	 * @return \Tx_PtExtlist_Extbase_ExtbaseContext
 	 */
@@ -393,4 +432,3 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 }
-?>

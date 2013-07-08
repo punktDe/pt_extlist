@@ -119,10 +119,9 @@
 		
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'someOtherBox');
 		
-		$proxyFilterMock->injectFilterConfig($filterConfig);
+		$proxyFilterMock->_injectFilterConfig($filterConfig);
 		
 		return $proxyFilterMock;
 	}
+
 }
- 
-?>

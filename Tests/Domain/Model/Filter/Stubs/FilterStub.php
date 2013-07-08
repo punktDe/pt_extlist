@@ -31,30 +31,91 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/
 /**
  * Class implements fake implementation of abstract filter (for testing only!)
  *
- * @author Michael Knoll 
+ * @author Michael Knoll
  * @package Tests
  * @subpackage Domain\Model\Filter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
-	
-	public function persistToSession() {}
-    #public function getObjectNamespace() {return 'testnamespace';}
-    public function injectSessionData(array $sessionData) {}
-    public function init() {}
-    protected function initFilterByTsConfig() {}
-    protected function initFilterBySession() {}
-    protected function initFilterByGpVars() {}
-    protected function buildFilterQuery() {}
-	protected function buildFilterCriteriaForAllFields() {}
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
-    protected function initFilter() {}
- 	protected function setActiveState() {}
-    public function reset() {}
-    public function getFilterBreadCrumb() {return null;}
-    public function getFilterValueForBreadCrumb() { return null;}
-    public function isActive() {return false;}
-    public function getValue() {}
-	
-}
 
-?>
+	public function _persistToSession() {
+	}
+
+
+
+	public function _injectSessionData(array $sessionData) {
+	}
+
+
+
+	public function init() {
+	}
+
+
+
+	protected function initFilterByTsConfig() {
+	}
+
+
+
+	protected function initFilterBySession() {
+	}
+
+
+
+	protected function initFilterByGpVars() {
+	}
+
+
+
+	protected function buildFilterQuery() {
+	}
+
+
+
+	protected function buildFilterCriteriaForAllFields() {
+	}
+
+
+
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
+	}
+
+
+
+	protected function initFilter() {
+	}
+
+
+
+	protected function setActiveState() {
+	}
+
+
+
+	public function reset() {
+	}
+
+
+
+	public function getFilterBreadCrumb() {
+		return null;
+	}
+
+
+
+	public function getFilterValueForBreadCrumb() {
+		return null;
+	}
+
+
+
+	public function isActive() {
+		return false;
+	}
+
+
+
+	public function getValue() {
+	}
+
+}

@@ -42,5 +42,11 @@ interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
 	public function init();
 
 
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
+	 * @return void
+	 */
+	public function _injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration);
+
 }
-?>
