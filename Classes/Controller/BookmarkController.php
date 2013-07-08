@@ -187,10 +187,9 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
         $newBookmark->setCreateDate(time());
         $newBookmark->setListId($this->bookmarkConfiguration->getListIdentifier());
         //TODO:get ExtbasePersistanceManager to use pid from bookmark-plugin configuration
-        $newBookmark->setPid($this->bookmarkConfiguration->getBookmarksPid());
+        $newBookmark->setPid($this->bookmarkConfiguration->getBookmarkPid());
         $this->bookmarkManager->addContentToBookmark($newBookmark);
-
-        $this->bookmarkRepository->add($newBookmark);
+		$this->bookmarkRepository->add($newBookmark);
         $this->persistenceManager->persistAll();
         $this->forward('show');
     }

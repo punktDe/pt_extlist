@@ -30,7 +30,7 @@
  * Bookmark manager
  *
  * @package Domain
- * @subpackage Model\Bookmarks
+ * @subpackage Model\Bookmark
  * @author David Vogt
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
@@ -145,7 +145,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 	 */
 	public function processRequest(Tx_Extbase_MVC_RequestInterface $request){
 		if($request->hasArgument('action') && $request->hasArgument('controller')) {
-			if ($request->getArgument('action') == 'restore' && $request->getArgument('controller') == 'Bookmarks' && $this->bookmarkIsRestored === FALSE){
+			if ($request->getArgument('action') == 'restore' && $request->getArgument('controller') == 'Bookmark' && $this->bookmarkIsRestored === FALSE){
 				if($request->hasArgument('bookmark')){
 					$this->restoreBookmarkByUid($request->getArgument('bookmark'));
 				}

@@ -440,8 +440,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	protected function initFeUser() {
-		$user_uid = $GLOBALS['TSFE']->fe_user->user['uid'];
-		$this->feUser = $this->feUserRepository->findByUid($user_uid);
+		$userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$this->feUser = $this->feUserRepository->findByUid($userUid);
 	}
 
 }

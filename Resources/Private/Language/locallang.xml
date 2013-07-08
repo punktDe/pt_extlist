@@ -34,14 +34,14 @@
 			<!-- Export -->
 			<label index="export.downloadLink">Export as %s</label>
 			
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Description</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.content">Content</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.create_date">Date</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user">FE User</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Group</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.type">Type</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.name">Name</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.list_id">List Identifier</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.description">Description</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.content">Content</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.create_date">Date</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.fe_user">FE User</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.fe_group">FE Group</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.type">Type</label>
 			
 			<label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
 			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>
@@ -100,14 +100,14 @@
 			<label index="filter.fullText.errorWordTooShort">Das Suchwort muss mindestens aus %s Zeichen bestehen!</label>
 			<label index="filter.invert">invertieren</label>
 
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Beschreibung</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.content">Inhalt</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.create_date">Datum</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user">FE Benutzer</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Gruppe</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.type">Typ</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.name">Name</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.list_id">List Identifier</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.description">Beschreibung</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.content">Inhalt</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.create_date">Datum</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.fe_user">FE Benutzer</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.fe_group">FE Gruppe</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.type">Typ</label>
 
 			<label index="tx_ptextlist_flexform_controllerAction.Filterbox_show">Filter</label>
 			<label index="tx_ptextlist_flexform_controllerAction.List_list">Liste</label>
@@ -142,14 +142,14 @@
 			<label index="filter.daterange.from">From</label>
 			<label index="filter.daterange.to">To</label>
 			
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.name">Name</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.list_id">List Identifier</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.description">Description</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.content">Content</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.create_date">Date</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user">FE User</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group">FE Group</label>
-			<label index="tx_pt_extlist_domain_model_bookmarks_bookmark.type">Type</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.name">Name</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.list_id">List Identifier</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.description">Description</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.content">Content</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.create_date">Date</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.fe_user">FE User</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.fe_group">FE Group</label>
+			<label index="tx_pt_extlist_domain_model_bookmark_bookmark.type">Type</label>
 			
 			<label index="tx_ptextlist_domain_model_state_state">Table to store the current list state when using it without session.</label>
 			<label index="tx_ptextlist_domain_model_state_state.hash">hash</label>

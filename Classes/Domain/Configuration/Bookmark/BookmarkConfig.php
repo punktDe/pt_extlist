@@ -121,7 +121,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
      */
     protected function init() {
     	
-    	$this->setValueIfExistsAndNotNothing('bookmarksPid');
+    	$this->setValueIfExistsAndNotNothing('bookmarkPid');
     	$this->setValueIfExistsAndNotNothing('groupIdsToShowBookmarksFor');
     	
     	$this->setBooleanIfExistsAndNotNothing('showPrivateBookmarks');
