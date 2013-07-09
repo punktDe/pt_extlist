@@ -84,6 +84,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 
 
+	protected $bookmarkUid = 5;
+
+
 	/**
 	 * @var string
 	 */
@@ -137,8 +140,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	public function restoreBookmarkByUidRestoresFoundBookmark() {
 		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', array('findByUid'), array(), '', FALSE);
 		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array(), array(), '', TRUE, FALSE);
-		$bookmarkUid = 5;
-		$bookmarkRepositoryMock->expects($this->once())->method('findByUid')->with($bookmarkUid)->will($this->returnValue($bookmarkMock));
+		$bookmarkRepositoryMock->expects($this->once())->method('findByUid')->with($this->bookmarkUid)->will($this->returnValue($bookmarkMock));
 
 		$sessionAdapterMock = new Tx_PtExtbase_Tests_Unit_State_Stubs_SessionAdapterMock();
 		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('init', 'getSessionData', 'setSessionData'), array($sessionAdapterMock));
@@ -153,7 +155,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 		$this->proxy->_set('bookmarkStrategy', $bookmarkStrategyMock);
 		$this->proxy->_set('bookmarkRepository', $bookmarkRepositoryMock);
 
-		$this->proxy->restoreBookmarkByUid($bookmarkUid);
+		$this->proxy->restoreBookmarkByUid($this->bookmarkUid);
 		$this->assertEquals(TRUE, $this->proxy->_get('bookmarkIsRestored'));
 	}
 
@@ -203,7 +205,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 */
 	public function processRequestWithoutArgumentControllerDoesNotCallBookmarkRepository(){
 		$requestMock = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument'), array(), '', FALSE);
-		$requestMock->expects($this->exactly(2))->method('hasArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnCallback(array($this, 'hasArgumentReturn')));
+		$requestMock->expects($this->exactly(2))->method('hasArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnCallback(array($this, 'hasArgumentReturnFalseForController')));
 
 		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', array('findByUid'), array(), '', FALSE);
 		$bookmarkRepositoryMock->expects($this->never())->method('findByUid');
@@ -214,15 +216,108 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 
 
-	public function hasArgumentReturn($argument) {
-		if($argument == 'controller') {
-			return FALSE;
-		}
-		return TRUE;
+	/**
+	 * @test
+	 */
+	public function processRequestWithWrongArgumentActionDoesNotCallBookmarkRepository(){
+		$requestMock = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$requestMock->expects($this->exactly(2))->method('hasArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnValue(TRUE));
+		$requestMock->expects($this->once())->method('getArgument')->with('action')->will($this->returnValue('notRestore'));
+
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', array('findByUid'), array(), '', FALSE);
+		$bookmarkRepositoryMock->expects($this->never())->method('findByUid');
+
+		$this->proxy->_set('bookmarkRepository', $bookmarkRepositoryMock);
+		$this->proxy->processRequest($requestMock);
 	}
 
 
-	
+
+	/**
+	 * @test
+	 */
+	public function processRequestWithWrongArgumentControllerDoesNotCallBookmarkRepository(){
+		$requestMock = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$requestMock->expects($this->exactly(2))->method('hasArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnValue(TRUE));
+		$requestMock->expects($this->exactly(2))->method('getArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnCallback(array($this, 'getArgumentReturnWrongArgumentForController')));
+
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', array('findByUid'), array(), '', FALSE);
+		$bookmarkRepositoryMock->expects($this->never())->method('findByUid');
+
+		$this->proxy->_set('bookmarkRepository', $bookmarkRepositoryMock);
+		$this->proxy->processRequest($requestMock);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function processRequestWithAlreadyRestoredBookmarkDoesNotCallBookmarkRepository(){
+		$requestMock = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$requestMock->expects($this->exactly(2))->method('hasArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnValue(TRUE));
+		$requestMock->expects($this->exactly(2))->method('getArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnCallback(array($this, 'getArgumentReturn')));
+
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', array('findByUid'), array(), '', FALSE);
+		$bookmarkRepositoryMock->expects($this->never())->method('findByUid');
+
+		$this->proxy->_set('bookmarkRepository', $bookmarkRepositoryMock);
+		$this->proxy->_set('bookmarkIsRestored', TRUE);
+		$this->proxy->processRequest($requestMock);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function processRequestWithWithoutArgumentBookmarkDoesNotCallBookmarkRepository(){
+		$requestMock = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$requestMock->expects($this->exactly(3))->method('hasArgument')->with($this->logicalOr($this->logicalOr('action', 'controller'), 'bookmark'))->will($this->returnCallback(array($this, 'hasArgumentReturnFalseForBookmark')));
+		$requestMock->expects($this->exactly(2))->method('getArgument')->with($this->logicalOr('action', 'controller'))->will($this->returnCallback(array($this, 'getArgumentReturn')));
+
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', array('findByUid'), array(), '', FALSE);
+		$bookmarkRepositoryMock->expects($this->never())->method('findByUid');
+
+		$this->proxy->_set('bookmarkRepository', $bookmarkRepositoryMock);
+		$this->proxy->processRequest($requestMock);
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function processRequestProcessesRequest(){
+		$requestMock = $this->getMock('Tx_Extbase_MVC_Request', array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$requestMock->expects($this->exactly(3))->method('hasArgument')->with($this->logicalOr($this->logicalOr('action', 'controller'), 'bookmark'))->will($this->returnValue(TRUE));
+		$requestMock->expects($this->exactly(3))->method('getArgument')->with($this->logicalOr($this->logicalOr('action', 'controller'), 'bookmark'))->will($this->returnCallback(array($this, 'getArgumentReturn')));
+
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', array('findByUid'), array(), '', FALSE);
+		$bookmarkMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', array(), array(), '', TRUE, FALSE);
+
+		$bookmarkRepositoryMock->expects($this->once())->method('findByUid')->with($this->bookmarkUid)->will($this->returnValue($bookmarkMock));
+
+		$sessionAdapterMock = new Tx_PtExtbase_Tests_Unit_State_Stubs_SessionAdapterMock();
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('init', 'getSessionData', 'setSessionData'), array($sessionAdapterMock));
+		$sessionPersistenceManagerMock->expects($this->once())->method('init');
+		$sessionPersistenceManagerMock->expects($this->once())->method('getSessionData')->will($this->returnValue(array('sessionData')));
+		$sessionPersistenceManagerMock->expects($this->once())->method('setSessionData')->with(array('mergedSessionData'));
+
+		$bookmarkStrategyMock = $this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy', array('mergeSessionAndBookmark'));
+		$bookmarkStrategyMock->expects($this->once())->method('mergeSessionAndBookmark')->with($bookmarkMock, array('sessionData'))->will($this->returnValue(array('mergedSessionData')));
+
+		$this->proxy->_set('sessionPersistenceManager', $sessionPersistenceManagerMock);
+		$this->proxy->_set('bookmarkStrategy', $bookmarkStrategyMock);
+		$this->proxy->_set('bookmarkRepository', $bookmarkRepositoryMock);
+
+
+		$this->proxy->processRequest($requestMock);
+		$this->assertEquals(TRUE, $this->proxy->_get('bookmarkIsRestored'));
+	}
+
+
+
 	/**
 	 * @test
 	 */
@@ -288,6 +383,50 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	public function injectConfigurationBuilderInjectsConfigurationBuilder() {
 		$this->proxy->_injectConfigurationBuilder($this->configurationBuilderMock);
 		$this->assertEquals($this->configurationBuilderMock, $this->proxy->_get('configurationBuilder'));
+	}
+
+
+
+	//Callback-Functions for Mocks
+
+	public function hasArgumentReturnFalseForController($argument) {
+		if($argument == 'controller') {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+
+
+	public function hasArgumentReturnFalseForBookmark($argument) {
+		if($argument == 'bookmark') {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+
+
+	public function getArgumentReturnWrongArgumentForController($argument) {
+		if($argument == 'controller') {
+			return 'notBookmark';
+		} elseif($argument == 'action'){
+			return 'restore';
+		}
+		return NULL;
+	}
+
+
+
+	public function getArgumentReturn($argument) {
+		if($argument == 'controller') {
+			return 'Bookmark';
+		} elseif($argument == 'action'){
+			return 'restore';
+		} elseif($argument == 'bookmark'){
+			return $this->bookmarkUid;
+		}
+		return NULL;
 	}
 	
 }
