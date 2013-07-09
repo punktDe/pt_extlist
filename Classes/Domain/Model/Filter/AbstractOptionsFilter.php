@@ -131,6 +131,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 				$this->filterValues = trim($filterValues) != '' ? array($filterValues => $filterValues) : array();
 			}
 		}
+
 	}
 
 
