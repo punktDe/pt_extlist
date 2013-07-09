@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
 							'createGroupBookmarks' => 1,
 							'showPublicBookmarks' => 1,
 							'showPrivateBookmarks' => 1,
-							'showGroupBookmarks' => 1,
+							'showGroupBookmarks' => NULL,
 							'userCanDeleteAll' => 0,
 							'groupIdsToShowBookmarksFor' => '4,5,6'
                         ),
@@ -128,7 +128,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
 	 * @test
 	 */
 	public function getBookmarksPidGetsBookmarkPid() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getBookmarkPid(), '30');
+        $this->assertEquals('30', $this->bookmarkConfigToBeTested->getBookmarkPid());
     }
 
 
@@ -136,45 +136,71 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
 	/**
 	 * @test
 	 */
-	public function testGetGroupIdsToShowBookmarksFor() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getGroupIdsToShowBookmarksFor(), '4,5,6');
+	public function getGroupIdsToShowBookmarksFor() {
+        $this->assertEquals('4,5,6', $this->bookmarkConfigToBeTested->getGroupIdsToShowBookmarksFor());
     }
 
 
-	
 
 	/**
 	 * @test
 	 */
-	public function testGetListIdentifier() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getListIdentifier(), 'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest');
+    public function getShowGroupBookmarks() {
+        $this->assertEquals(NULL, $this->bookmarkConfigToBeTested->getShowGroupBookmarks());
     }
-    
-    
-    
-    public function testGetSettingsArray() {
-    	$settingsArray = $this->settings['listConfig']['Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase']['bookmarks'];
-        $this->assertEquals($this->bookmarkConfigToBeTested->getSettings(), $settingsArray);
-    }
-    
-    
 
-    public function testGetShowGroupBookmarks() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getShowGroupBookmarks(), true);
-    }
-    
-    
-    
+
+
+	/**
+	 * @test
+	 */
     public function getShowPublicBookmarks() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getShowPublicBookmarks(), true);
+        $this->assertEquals(TRUE, $this->bookmarkConfigToBeTested->getShowPublicBookmarks());
     }
-    
-    
-    
-    public function getShowUserBookmarks() {
-        $this->assertEquals($this->bookmarkConfigToBeTested->getShowPrivateBookmarks(), true);
+
+
+
+	/**
+	 * @test
+	 */
+    public function getShowPrivateBookmarks() {
+        $this->assertEquals(TRUE, $this->bookmarkConfigToBeTested->getShowPrivateBookmarks());
     }
+
+
+
+	/**
+	 * @test
+	 */
+	public function getCreateGroupBookmarks() {
+		$this->assertEquals(TRUE, $this->bookmarkConfigToBeTested->getCreateGroupBookmarks());
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function getCreatePublicBookmarks() {
+		$this->assertEquals(TRUE, $this->bookmarkConfigToBeTested->getCreatePublicBookmarks());
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function getCreatePrivateBookmarks() {
+		$this->assertEquals(TRUE, $this->bookmarkConfigToBeTested->getCreatePrivateBookmarks());
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function getUserCanDeleteAll(){
+		$this->assertEquals(FALSE, $this->bookmarkConfigToBeTested->getUserCanDeleteAll());
+	}
 	
 }
-
-?>

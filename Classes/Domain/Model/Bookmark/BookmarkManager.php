@@ -159,7 +159,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 	 * @throws InvalidArgumentException
 	 */
 	public function restoreBookmarkByUid($bookmarkUid){
-		$bookmark = $this->bookmarkRepository->findByUid($bookmarkUid);
+		$bookmark = $this->bookmarkRepository->findByUid($bookmarkUid);		/* @var $bookmark Tx_PtExtlist_Domain_Model_Bookmark_Bookmark */
 		if($bookmark != NULL){
 			$this->restoreBookmark($bookmark);
 		} else {
