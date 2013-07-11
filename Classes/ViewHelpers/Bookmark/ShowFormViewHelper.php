@@ -5,9 +5,10 @@ class Tx_PtExtlist_ViewHelpers_Bookmark_ShowFormViewHelper extends Tx_Fluid_Core
 
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig $bookmarkConfig
+	 * @param int $userLoggedIn
 	 * @return boolean
 	 */
-	public function render(Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig $bookmarkConfig) {
-		return ($bookmarkConfig->getCreatePublicBookmarks() || $bookmarkConfig->getCreatePrivateBookmarks() || $bookmarkConfig->getCreateGroupBookmarks());
+	public function render(Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig $bookmarkConfig, $userLoggedIn) {
+		return ($bookmarkConfig->getCreatePublicBookmarks() || ($bookmarkConfig->getCreatePrivateBookmarks() && $userLoggedIn) || $bookmarkConfig->getCreateGroupBookmarks());
 	}
 }

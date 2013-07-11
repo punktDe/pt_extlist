@@ -165,7 +165,13 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
             $this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
             $this->view->assign('groupBookmarks', $groupBookmarks);
         }
-        
+
+		$userLoggedIn = 0;
+		if($this->feUser != NULL){
+			$userLoggedIn = 1;
+		}
+
+		$this->view->assign('userLoggedIn', $userLoggedIn);
         $this->view->assign('bookmarks', $allBookmarks);
 
     }

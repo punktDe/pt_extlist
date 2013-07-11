@@ -25,7 +25,7 @@ Here is a list of objects / variables that can be accessed in this template
 <br />
 
 
-<f:if condition="{extlist:bookmark.showForm(bookmarkConfig:bookmarkConfig)}">
+<f:if condition="{extlist:bookmark.showForm(bookmarkConfig:bookmarkConfig,userLoggedIn:userLoggedIn)}">
     <f:form method="post" action="save" object="newBookmark" objectName="newBookmark">
         <label for="name">Name of the bookmark:</label>
         <f:form.textfield name="name" property="name" id="name" />
@@ -35,7 +35,9 @@ Here is a list of objects / variables that can be accessed in this template
         </f:if>
 
         <f:if condition="{bookmarkConfig.createPrivateBookmarks}">
-            <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_PRIVATE')}" name="type-private" property="type" id="type-private" checked="checked" /> <label for="type-private">Private</label>
+            <f:if condition="{userLoggedIn}">
+                <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_PRIVATE')}" name="type-private" property="type" id="type-private" /> <label for="type-private">Private</label>
+            </f:if>
         </f:if>
 
         <f:if condition="{bookmarkConfig.createGroupBookmarks}">
@@ -47,4 +49,21 @@ Here is a list of objects / variables that can be accessed in this template
 
         <f:form.submit value="save" />
     </f:form>
+
+    <script>
+        (function($){
+            $(document).ready(function(){
+                var createPrivateBookmark = $('#type-private');
+                var createPublicBookmark = $('#type-public');
+                var createGroupBookmark = $('#type-group');
+                if(createPrivateBookmark.length > 0){
+                    createPrivateBookmark.attr('checked', 'checked');
+                } else if(createPublicBookmark.length > 0){
+                    createPublicBookmark.attr('checked', 'checked');
+                } else if(createGroupBookmark.length > 0){
+                    createGroupBookmark.attr('checked', 'checked');
+                }
+            });
+        })(jQuery);
+    </script>
 </f:if>
