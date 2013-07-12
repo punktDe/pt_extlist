@@ -284,4 +284,9 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 			$objectStorage->attach($value, $key);
 		}
 	}
+
+
+	public function removeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark) {
+		$this->bookmarkRepository->remove($bookmark);
+	}
 }

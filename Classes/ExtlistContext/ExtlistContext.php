@@ -186,6 +186,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * Initialize the extbaseContext
 	 */
 	public function init() {
+		$this->initBookmarkManager();
 	}
 
 
@@ -459,7 +460,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark Bookmark to be stored to database(This bookmark does not contain session data yet)
 	 */
 	public function storeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark){
-		$this->initBookmarkManager();
 		$this->bookmarkManager->storeBookmark($bookmark);
 	}
 
@@ -473,8 +473,23 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_Extbase_Persistence_ObjectStorage
 	 */
 	public function getBookmarks(){
-		$this->initBookmarkManager();
 		return $this->bookmarkManager->getBookmarksForCurrentConfigAndFeUser();
 	}
 
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+	 */
+	public function getBookmarkConfiguration(){
+		return $this->getConfigurationBuilder()->buildBookmarkConfiguration();
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+	 */
+	public function removeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark) {
+		$this->bookmarkManager->removeBookmark($bookmark);
+	}
 }
