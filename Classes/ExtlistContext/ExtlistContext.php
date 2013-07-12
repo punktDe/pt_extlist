@@ -122,6 +122,20 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+	 */
+	protected $bookmarkManagerFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+	 */
+	protected $bookmarkManager;
+
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
 	 */
 	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
@@ -144,6 +158,15 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 */
 	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
 		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory
+	 */
+	public function injectBookmarkManagerFactory(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory){
+		$this->bookmarkManagerFactory = $bookmarkManagerFactory;
 	}
 
 
@@ -429,6 +452,29 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 */
 	public function getExtBaseContext() {
 		return $this->extBaseContext;
+	}
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark Bookmark to be stored to database(This bookmark does not contain session data yet)
+	 */
+	public function storeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark){
+		$this->initBookmarkManager();
+		$this->bookmarkManager->storeBookmark($bookmark);
+	}
+
+
+	protected function initBookmarkManager(){
+		$this->bookmarkManager = $this->bookmarkManagerFactory->getInstanceByConfigurationBuilder($this->getConfigurationBuilder());
+	}
+
+
+	/**
+	 * @return Tx_Extbase_Persistence_ObjectStorage
+	 */
+	public function getBookmarks(){
+		$this->initBookmarkManager();
+		return $this->bookmarkManager->getBookmarksForCurrentConfigAndFeUser();
 	}
 
 }

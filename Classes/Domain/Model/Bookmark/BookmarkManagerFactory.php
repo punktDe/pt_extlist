@@ -93,6 +93,8 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
 		$bookmarkManager = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', $configurationBuilder->getListIdentifier()); /* @var $bookmarkManager Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager */
 		$bookmarkManager->_injectConfigurationBuilder($configurationBuilder);
 		$bookmarkManager->_injectSessionPersistenceManager($this->sessionPersistenceManagerBuilder->getInstance());
+		$bookmarkManager->buildBookmarkConfig();
+		$bookmarkManager->initFeUser();
 
 		return $bookmarkManager;
 	}

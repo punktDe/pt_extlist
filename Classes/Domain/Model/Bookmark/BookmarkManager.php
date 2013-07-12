@@ -86,6 +86,27 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+	 */
+	protected $bookmarkConfiguration;
+
+
+
+	/**
+	 * @var Tx_Extbase_Domain_Model_FrontendUser
+	 */
+	protected $feUser;
+
+
+
+	/**
+	 * @var Tx_Extbase_Domain_Repository_FrontendUserRepository
+	 */
+	protected $feUserRepository;
+
+
+
+	/**
 	 * Constructor for bookmark manager
 	 *
 	 * @param string $listIdentifier
@@ -125,6 +146,15 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 	 */
 	public function injectBookmarkStrategy(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface $bookmarkStrategy) {
 		$this->bookmarkStrategy = $bookmarkStrategy;
+	}
+
+
+
+	/**
+	 * @param Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository
+	 */
+	public function injectFeUserRepository(Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository) {
+		$this->feUserRepository = $feUserRepository;
 	}
 
 
@@ -191,5 +221,67 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark) {
 		$this->bookmarkStrategy->addContentToBookmark($bookmark, $this->configurationBuilder, $this->sessionPersistenceManager->getSessionData());
 	}
-	
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+	 */
+	public function storeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark){
+		$bookmark->setPid($this->bookmarkConfiguration->getBookmarkPid());
+		$this->addContentToBookmark($bookmark);
+		$this->bookmarkRepository->add($bookmark);
+	}
+
+
+
+	public function buildBookmarkConfig(){
+		$this->bookmarkConfiguration = $this->configurationBuilder->buildBookmarkConfiguration();
+	}
+
+
+
+	public function  initFeUser(){
+		$userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$this->feUser = $this->feUserRepository->findByUid($userUid);
+	}
+
+
+
+	/**
+	 * @return Tx_Extbase_Persistence_ObjectStorage
+	 */
+	public function getBookmarksForCurrentConfigAndFeUser(){
+		$allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
+
+		if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
+			$publicBookmarks = $this->bookmarkRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
+			$this->addObjectsToObjectStorageByArray($allBookmarks, $publicBookmarks);
+		}
+
+		if ($this->bookmarkConfiguration->getShowPrivateBookmarks() && $this->feUser != NULL) {
+			$privateBookmarks = $this->bookmarkRepository->findPrivateBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+			$this->addObjectsToObjectStorageByArray($allBookmarks, $privateBookmarks);
+		}
+
+		if ($this->bookmarkConfiguration->getShowGroupBookmarks() && $this->feUser != NULL && count($this->feUser->getUsergroup()) > 0) {
+			$groupBookmarks = $this->bookmarkRepository->findGroupBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
+			$this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
+		}
+		return $allBookmarks;
+	}
+
+
+
+	/**
+	 * Adds given elements of an array to given object storage
+	 *
+	 * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
+	 * @param array $arrayToBeAdded
+	 */
+	protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, $arrayToBeAdded) {
+		foreach ($arrayToBeAdded as $key => $value) {
+			$objectStorage->attach($value, $key);
+		}
+	}
 }

@@ -151,19 +151,16 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
         if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
             $publicBookmarks = $this->bookmarkRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
             $this->addObjectsToObjectStorageByArray($allBookmarks, $publicBookmarks);
-            $this->view->assign('publicBookmarks', $publicBookmarks);
         }
         
         if ($this->bookmarkConfiguration->getShowPrivateBookmarks() && $this->feUser != NULL) {
             $privateBookmarks = $this->bookmarkRepository->findPrivateBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
             $this->addObjectsToObjectStorageByArray($allBookmarks, $privateBookmarks);
-            $this->view->assign('privateBookmarks', $privateBookmarks);
         }
         
         if ($this->bookmarkConfiguration->getShowGroupBookmarks() && $this->feUser != NULL && count($this->feUser->getUsergroup()) > 0) {
             $groupBookmarks = $this->bookmarkRepository->findGroupBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
             $this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
-            $this->view->assign('groupBookmarks', $groupBookmarks);
         }
 
 		$userLoggedIn = 0;
