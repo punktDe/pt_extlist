@@ -152,6 +152,15 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 	/**
+	 * Holds path to CSS file used to style exported list
+	 *
+	 * @var string
+	 */
+	private $cssFilePath;
+
+
+
+	/**
 	 * Initialize additional class properties
 	 */
 	public function initConfiguration() {
@@ -182,36 +191,73 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 	public function render() {
 		$htmlDocument = $this->tempPdfBasePath . basename($this->tmp);
 
-		$html = parent::render();
+		// Set css path as template variable
+		$this->assign('cssFilePath', $this->cssFilePath);
+
+		$html = $this->renderHtml();
+
+		// WKHTML requires http accessible CSS, so we replace absolute path with http-URL
+		$relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], 'http://' . $_SERVER['HTTP_HOST'], $this->cssFilePath);
+		$html = str_replace($this->cssFilePath, $relativePath, $html);
 
 		if ((int)t3lib_div::_GET('showHTML') == 1) {
 			die($html);
 		}
 
-		file_put_contents($htmlDocument, $html);
-
-
-		$this->pdf = $this->pipeExec(
-			'"' . $this->cmd . '"'
-					. (($this->copies > 1) ? ' --copies ' . $this->copies : '') 		// number of copies
-					. ' --orientation ' . $this->orient 								// orientation
-					. ' --page-size ' . $this->size 									// page size
-					. ($this->toc ? ' --toc' : '') 										// table of contents
-					. ($this->grayscale ? ' --grayscale' : '') 							// grayscale
-					. (($this->title != '') ? ' --title "' . $this->title . '"' : '') 	// title
-					. ' "' . $htmlDocument . '" -' 										// URL and optional to write to STDOUT
-		);
-		if (strpos(strtolower($this->pdf['stderr']), 'error') !== false) throw new Exception('WKPDF system error: <pre>' . $this->pdf['stderr'] . '</pre>', 1373448918);
-		if ($this->pdf['stdout'] == '') throw new Exception('WKPDF didn\'t return any data. <pre>' . $this->pdf['stderr'] . '</pre>', 1373448919);
-		if (((int)$this->pdf['return']) > 1) throw new Exception('WKPDF shell error, return code ' . (int)$this->pdf['return'] . '.', 1373448920);
-		$this->status = $this->pdf['stderr'];
-		$this->pdf = $this->pdf['stdout'];
-		unlink($htmlDocument);
+		$this->runWkHtmlCommand($htmlDocument, $html);
 
 		// TODO use settings from TypoScript here!
 		$this->output(self::PDF_DOWNLOAD, $this->tempPdfBasePath . $this->tmp . '.pdf');
 
 		exit();
+	}
+
+
+
+	/**
+	 * Template method that renders the html source which is converted to PDF.
+	 *
+	 * Can be overwritten in extending classes to change behaviour of HTML rendering.
+	 *
+	 * @return string
+	 */
+	protected function renderHtml() {
+		return parent::render();
+	}
+
+
+
+	private function runWkHtmlCommand($htmlDocument, $html) {
+		file_put_contents($htmlDocument, $html);
+
+		$wkCommand = '"' . $this->cmd . '"'							// page borders TODO make this configurable!
+			. (($this->copies > 1) ? ' --copies ' . $this->copies : '') 		// number of copies
+			. ' --orientation ' . $this->orient 								// orientation
+			. ' --page-size ' . $this->size 									// page size
+			. ($this->toc ? ' --toc' : '') 										// table of contents
+			. ($this->grayscale ? ' --grayscale' : '') 							// grayscale
+			. (($this->title != '') ? ' --title "' . $this->title . '"' : '') 	// title
+			. ' "' . $htmlDocument . '" -';
+
+		$this->pdf = $this->pipeExec($wkCommand);
+
+		if (strpos(strtolower($this->pdf['stderr']), 'error') !== false) {
+			throw new Exception('WKPDF command: ' . $wkCommand . ' raised WKPDF system error: <pre>' . $this->pdf['stderr'] . '</pre>', 1373448918);
+		}
+
+		if ($this->pdf['stdout'] == '') {
+			throw new Exception('WKPDF command: ' . $wkCommand . ' didn\'t return any data. <pre>' . $this->pdf['stderr'] . '</pre>', 1373448919);
+		}
+
+		if (((int)$this->pdf['return']) > 1) {
+			throw new Exception('WKPDF command: ' . $wkCommand . ' raised WKPDF shell error, return code ' . (int)$this->pdf['return'] . '.', 1373448920);
+		}
+
+		$this->status = $this->pdf['stderr'];
+		$this->pdf = $this->pdf['stdout'];
+		unlink($htmlDocument);
+
+		return $wkCommand;
 	}
 
 
@@ -321,6 +367,8 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 		$this->cssFilePath = t3lib_div::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
+		Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), array('message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627'));
+
 	}
 
 }
