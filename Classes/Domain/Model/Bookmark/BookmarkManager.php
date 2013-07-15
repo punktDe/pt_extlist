@@ -229,6 +229,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 	 */
 	public function storeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark){
 		$bookmark->setPid($this->bookmarkConfiguration->getBookmarkPid());
+		$bookmark->setFeUser($this->feUser);
 		$this->addContentToBookmark($bookmark);
 		$this->bookmarkRepository->add($bookmark);
 	}
@@ -249,7 +250,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 
 
 	/**
-	 * @return Tx_Extbase_Persistence_ObjectStorage
+	 * @return array
 	 */
 	public function getBookmarksForCurrentConfigAndFeUser(){
 		$allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
@@ -268,7 +269,9 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 			$groupBookmarks = $this->bookmarkRepository->findGroupBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
 			$this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
 		}
-		return $allBookmarks;
+		$bookmarkArray = $allBookmarks->toArray();
+		sort($bookmarkArray);
+		return $bookmarkArray;
 	}
 
 

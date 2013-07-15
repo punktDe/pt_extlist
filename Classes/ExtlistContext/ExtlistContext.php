@@ -470,7 +470,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
-	 * @return Tx_Extbase_Persistence_ObjectStorage
+	 * @return array
 	 */
 	public function getBookmarks(){
 		return $this->bookmarkManager->getBookmarksForCurrentConfigAndFeUser();
