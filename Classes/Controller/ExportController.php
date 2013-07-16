@@ -59,6 +59,13 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
 
 	/**
+	 * @var Tx_PtExtlist_View_Export_AbstractExportView
+	 */
+	protected $view;
+
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
 	 */
 	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
@@ -106,7 +113,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 			if(!is_array($exportListConfiguration)) {
 				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
 			}
-			
+
 			$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
 			
 			$list = $extListContext->getList(true);
