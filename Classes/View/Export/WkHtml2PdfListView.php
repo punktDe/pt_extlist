@@ -138,6 +138,10 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 
+	private $additionalWkhtmlParams = NULL;
+
+
+
 	private static $cpu = '';
 
 
@@ -230,7 +234,8 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 	private function runWkHtmlCommand($htmlDocument, $html) {
 		file_put_contents($htmlDocument, $html);
 
-		$wkCommand = '"' . $this->cmd . '"'							// page borders TODO make this configurable!
+		$wkCommand = '"' . $this->cmd . '"'
+			. (($this->additionalWkhtmlParams) !== NULL ? ' ' . $this->additionalWkhtmlParams : '')
 			. (($this->copies > 1) ? ' --copies ' . $this->copies : '') 		// number of copies
 			. ' --orientation ' . $this->orient 								// orientation
 			. ' --page-size ' . $this->size 									// page size
@@ -369,6 +374,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 		$this->cssFilePath = t3lib_div::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), array('message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627'));
 
+		$this->additionalWkhtmlParams = $this->exportConfiguration->getSettings('additionalWkhtmlParams');
 	}
 
 }
