@@ -32,7 +32,7 @@
  * @package TYPO3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilder_testcase extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
 
 	protected $settings = array(
 		'listIdentifier' => 'test',

@@ -34,7 +34,7 @@
  * @package Tests
  * @author Michael Knoll 
  */
-abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_BaseTestCase {
+abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
 
 	protected $extBaseSettings = array();
     
