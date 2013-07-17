@@ -33,7 +33,7 @@
  * @package Tests
  * @subpackage Typoscript
  */
-class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_Extbase_BaseTestCase {
+class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $prototypePath;
 
