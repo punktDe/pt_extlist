@@ -31,72 +31,83 @@
  *
  * @package Tests
  * @subpackage Utility
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Utility_RenderValue
  */
-class Tx_PtExtlist_Tests_Utility_RenderValue_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
+class Tx_PtExtlist_Tests_Utility_RenderValueTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
 	protected $renderObj;
-	
+
+
+
 	protected $renderUserFunctions;
-	
-	
+
+
+
 	public function setUp() {
 		$this->renderObj = array('renderObj' => 'TEXT',
-								'renderObj.' => Array(
-             						'dataWrap' => '{field:allDisplayFields} ({field:rowCount})')
-							);
-		
+			'renderObj.' => Array(
+				'dataWrap' => '{field:allDisplayFields} ({field:rowCount})')
+		);
+
 		$this->renderUserFunctions = array('10' => 'EXT:pt_extlist/Tests/Utility/RenderValueTest.php:Tx_PtExtlist_Tests_Utility_RenderValue_testcase->RenderFunction');
-		
+
 	}
-	
-	
+
+
+
 	public function testRenderDefaultWithSingleFields() {
 		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('x', 'y'));
 		$this->assertEquals($renderedOutput, 'x, y');
 	}
-	
+
+
+
 	public function testRenderDefaultWithArrays() {
 		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array(array('x' => 'z'), array('x' => 'y')));
-		
+
 		$this->assertEquals($renderedOutput, 'x : z, x : y');
 	}
 
+
+
 	public function testRenderDefaultWithObjects() {
-		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass();
+		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValueTest_testclass();
 		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('field' => $testObject));
-		$this->assertTrue(is_a($renderedOutput,'Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass'));
+		$this->assertTrue(is_a($renderedOutput, 'Tx_PtExtlist_Tests_Utility_RenderValueTest_testclass'));
 	}
 
-	
+
+
 	public function testRenderDefaultMixed() {
-		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass();
-		
+		$testObject = new Tx_PtExtlist_Tests_Utility_RenderValueTest_testclass();
+
 		$renderedOutput = Tx_PtExtlist_Utility_RenderValue::renderDefault(array('field1' => $testObject, 'field2' => array('x' => 'y'), 'field3' => 'field3Value'));
-		$this->assertEquals($renderedOutput, 'Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass, x : y, field3Value');
+		$this->assertEquals($renderedOutput, 'Tx_PtExtlist_Tests_Utility_RenderValueTest_testclass, x : y, field3Value');
 	}
-	
-	
+
+
+
 	public function testRenderValueByRenderUserFunctionArray() {
 		$this->markTestIncomplete();
 	}
-	
-	
+
+
+
 	public function RenderFunction(array $params) {
-		return arrray_pop($params);
-	} 
-	
+		return array_pop($params);
+	}
+
 }
 
 
 /**
  * Helper class for object rendering tests
  */
+class Tx_PtExtlist_Tests_Utility_RenderValueTest_testclass {
 
-class Tx_PtExtlist_Tests_Utility_RenderValue_testcase_testclass {
 	public function getTestValue() {
 		return 'testContent';
 	}
-}
 
-?>
+}

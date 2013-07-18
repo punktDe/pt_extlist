@@ -35,6 +35,7 @@
  * @author Daniel Lienert
  * @author Michael Knoll
  * @author Christoph Ehscheidt
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbase_Configuration_AbstractConfigurationBuilder {
 

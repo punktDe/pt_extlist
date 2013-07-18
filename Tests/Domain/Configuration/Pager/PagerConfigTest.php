@@ -32,14 +32,15 @@
  * @package Tests
  * @subpackage Domain\Configuration\Pager
  * @author Michael Knoll 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds an instance of pager configuration
 	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+	 * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
 	 */
 	protected $pagerConfiguration;
 	
@@ -84,4 +85,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfig_testcase extends
 		$this->assertEquals(10, $this->pagerConfiguration->getItemsPerPage());
 	}	
 }
-?>

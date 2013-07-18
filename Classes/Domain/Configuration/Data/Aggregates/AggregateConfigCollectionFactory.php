@@ -33,7 +33,8 @@
  *
  * @package Domain
  * @subpackage Configuration\Data\Aggregates
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory {
 	
@@ -48,13 +49,13 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 		$aggregateConfigCollection = self::buildAggregateConfigCollection($configurationBuilder);
 	    return $aggregateConfigCollection;	
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Builds a collection of aggregate config objects for a given settings array
 	 *
-	 * @param array $aggregateSettings
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 */
 	protected static function buildAggregateConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
@@ -67,9 +68,5 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 		}
 		return $aggregateConfigCollection;
 	}
-	
-	
-	
-}
 
-?>
+}

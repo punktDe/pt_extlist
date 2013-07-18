@@ -31,29 +31,31 @@
  *
  * @package Tests
  * @subpackage View\Export
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_View_Export_AbstractExportView
  */
-class Tx_PtExtlist_Tests_View_Export_AbstractExportView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
-	
+
+
+
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_View_Export_AbstractExportView'));
+		$this->assertClassExists('Tx_PtExtlist_View_Export_AbstractExportView');
 	}
-	
-	
-	
+
+
+
 	public function testSetConfigurationBuilder() {
 		$viewMock = new Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView();
 
 		$viewMock->setConfigurationBuilder($this->configurationBuilderMock);
 		$this->markTestIncomplete('Check for Settings after init process');
 	}
-	
-}
 
+}
 
 
 /**
@@ -61,7 +63,7 @@ class Tx_PtExtlist_Tests_View_Export_AbstractExportView_testcase extends Tx_PtEx
  *
  */
 class Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView extends Tx_PtExtlist_View_Export_AbstractExportView {
-	
+
 	/**
 	 * @see Tx_PtExtlist_View_AbstractExportView::getDefaultFilePrefix()
 	 *
@@ -70,6 +72,5 @@ class Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView exten
 	protected function getDefaultFilePrefix() {
 		return 'testprefix';
 	}
-	
+
 }
-?>

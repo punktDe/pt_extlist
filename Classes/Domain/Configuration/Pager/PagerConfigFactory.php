@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage Configuration\Pager
  * @author Daniel Lienert 
- * @author Christoph Ehscheidt 
+ * @author Christoph Ehscheidt
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigFactoryTest
  */
 
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory {
@@ -42,7 +43,8 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory {
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param string pagerIdentifier
-	 * @param array $pagerSettings 
+	 * @param array $pagerSettings
+	 * @return \Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $pagerSettings) {
 					
@@ -51,4 +53,3 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory {
 		return $pagerConfig;
 	}
 }
-?>

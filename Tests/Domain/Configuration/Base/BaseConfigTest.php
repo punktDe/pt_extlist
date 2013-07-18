@@ -32,8 +32,9 @@
  * @package Tests
  * @subpackage Domain\Configuration\Base
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	
 	/**
@@ -97,5 +98,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfig_testcase extends T
     }
 	
 }
-
-?>

@@ -44,6 +44,7 @@
  * @author Daniel Lienert 
  * @package ViewHelpers
  * @subpackage NameSpace
+ * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest
  */
 class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
@@ -147,6 +148,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
 	 * @param string $key
 	 * @param string $value
+	 * @return array
 	 */
 	public function buildObjectValueArray(Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value) {
 		$nameSpace = $object->getObjectNamespace();
@@ -154,14 +156,15 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 		
 		return $this->buildNamespaceValueArray($nameSpace, $key, $value);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Building a namespace array filled with an value.
-	 * 
-	 * @param string $nameSpace 
-	 * @param mixed $value 
+	 *
+	 * @param string $nameSpace
+	 * @param string $key
+	 * @param mixed $value
 	 * @return array The built array filled with the given value.
 	 */
 	public function buildNamespaceValueArray($nameSpace, $key, $value) {	
@@ -181,4 +184,3 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	}
 
 }
-?>

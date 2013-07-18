@@ -28,47 +28,50 @@
 
 /**
  * Class contains utility functions concerning database related stuff
- * 
- * @author Daniel Lienert 
- * @author Michael Knoll 
+ *
+ * @author Daniel Lienert
+ * @author Michael Knoll
  * @package Utility
+ * @see Tx_PtExtlist_Tests_Utility_DbUtilsTest
  */
 class Tx_PtExtlist_Utility_DbUtils {
 
 
 	/**
 	 * Creates an aliased select part for given field config
-	 * 
+	 *
 	 * <table>.<field> as <fieldIdentifier>
-	 * 
+	 *
 	 * Or: if a special mysql string is given
 	 * <special mysql string> as <fieldIdentifier>
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
 	 * @return string
 	 */
 	public static function getAliasedSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
 		return self::getSelectPartByFieldConfig($fieldConfiguration) . ' AS ' . $fieldConfiguration->getIdentifier();
 	}
-	
-	
+
+
+
 	/**
-	  * Creates the select part for given field config
-	 * 
+	 * Creates the select part for given field config
+	 *
 	 * <table>.<field>
-	 * 
+	 *
 	 * Or: if a special mysql string is given
 	 * <special mysql string>
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+	 * @return string
 	 */
 	public static function getSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
-		if($fieldConfiguration->getSpecial()) {
+		if ($fieldConfiguration->getSpecial()) {
 			$selectPart = '(' . $fieldConfiguration->getSpecial() . ')';
 		} else {
 			$selectPart = $fieldConfiguration->getTableFieldCombined();
 		}
-		
+
 		return $selectPart;
 	}
 
@@ -84,7 +87,7 @@ class Tx_PtExtlist_Utility_DbUtils {
 	public static function getSelectPartByFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
 		$selectParts = array();
 
-		foreach($fieldConfigCollection as $field) {
+		foreach ($fieldConfigCollection as $field) {
 			$selectParts[] = self::getSelectPartByFieldConfig($field);
 		}
 

@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Utility
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Utility_DbUtils
  */
-class Tx_PtExtlist_Tests_Utility_DbUtils_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Utility_DbUtilsTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
@@ -70,5 +71,3 @@ class Tx_PtExtlist_Tests_Utility_DbUtils_testcase extends Tx_PtExtlist_Tests_Bas
 		$this->assertEquals('table.field, (special)', $return);
 	}
 }
-
-?>

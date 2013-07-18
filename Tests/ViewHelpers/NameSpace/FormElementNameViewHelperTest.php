@@ -32,8 +32,9 @@
  * @author Daniel Lienert 
  * @package Tests
  * @subpackage Domain\Model\ViewHelpers\NameSpace
+ * @see Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper
  */
-class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 
 	/**
@@ -92,19 +93,17 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelper_testcas
 }
 
 
-	class Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture implements Tx_PtExtbase_State_IdentifiableInterface {
+class Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture implements Tx_PtExtbase_State_IdentifiableInterface {
 
-		/**
-		 * Generates an unique namespace for an object to be used
-		 * for addressing object specific session data and gp variables.
-		 *
-		 * Expected notation: ns1.ns2.ns3.(...)
-		 *
-		 * @return String Unique namespace for object
-		 */
-		public function getObjectNamespace() {
-			return 'test.object.namespace';
-		}
+	/**
+	 * Generates an unique namespace for an object to be used
+	 * for addressing object specific session data and gp variables.
+	 *
+	 * Expected notation: ns1.ns2.ns3.(...)
+	 *
+	 * @return String Unique namespace for object
+	 */
+	public function getObjectNamespace() {
+		return 'test.object.namespace';
 	}
-
-?>
+}

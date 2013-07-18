@@ -33,20 +33,22 @@
  * @author Daniel Lienert
  * @package View
  * @subpackage Export
+ * @see Tx_PtExtlist_Tests_View_List_CsvListViewTest
  */
 class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_AbstractExportView {
 
+	/**
+	 * @var string sets the output encoding
+	 */
+	protected $outputEncoding = 'ISO-8859-1';
 
-    /**
-     * @var string sets the output encoding
-     */
-    protected $outputEncoding = 'ISO-8859-1';
 
 
-    /**
-     * @var string sets the delimiter
-     */
-    protected $delimiter = ';';
+	/**
+	 * @var string sets the delimiter
+	 */
+	protected $delimiter = ';';
+
 
 
 	/**
@@ -55,16 +57,19 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 	protected $enclosure = '"';
 
 
+
 	/**
 	 * @var Tx_Fluid_Core_ViewHelper_TemplateVariableContainer
 	 */
 	protected $templateVariableContainer;
 
 
+
 	/**
 	 * @var resource stream
 	 */
 	protected $outputStreamHandle;
+
 
 
 	/**
@@ -85,6 +90,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 			$this->enclosure = $this->exportConfiguration->getSettings('enclosure');
 		}
 	}
+
 
 
 	/**
@@ -141,18 +147,21 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 	public function renderData($data) {
 
 		// Rows
-		foreach ($data as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+		foreach ($data as $listRow) {
+			/* @var $listRow Tx_PtExtlist_Domain_Model_List_Row */
 
 			$row = array();
 
-			if($this->outputEncoding == 'UTF-8') {
-				foreach ($listRow as &$listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+			if ($this->outputEncoding == 'UTF-8') {
+				foreach ($listRow as &$listCell) {
+					/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 					$row[] = $listCell->getValue();
 				}
 
 			} else {
 				foreach ($listRow as &$listCell) {
-					$row[] =  iconv('UTF-8', $this->outputEncoding, $listCell->getValue());
+					/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+					$row[] = iconv('UTF-8', $this->outputEncoding, $listCell->getValue());
 				}
 			}
 
@@ -170,12 +179,12 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 	}
 
 
+
 	/**
 	 * @return resource
 	 */
 	public function getOutputStreamHandle() {
 		return $this->outputStreamHandle;
 	}
-
 
 }

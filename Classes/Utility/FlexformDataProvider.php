@@ -33,7 +33,8 @@ require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Assertions/Assert.ph
  * Utilitty to get selectable options from typoscript
  *
  * @package Utility
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest
  */
 class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	
@@ -170,4 +171,3 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	}
 	
 }
-?>

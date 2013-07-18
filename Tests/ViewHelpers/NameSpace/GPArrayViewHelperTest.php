@@ -32,8 +32,9 @@
  * @author Daniel Lienert 
  * @package Tests
  * @subpackage Domain\Model\ViewHelpers\NameSpace
+ * @see Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper
  */
-class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -85,6 +86,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
 		$sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', FALSE);
 		$sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
+		/* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
 		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		$linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
@@ -111,6 +113,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 		$sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
 		$sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', FALSE);
 		$sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
+		/* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
 		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 
@@ -129,5 +132,3 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 	}
 
 }
-
-?>

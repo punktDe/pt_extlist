@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage Configuration\List
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
@@ -130,4 +131,3 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Dom
 		return $this->cacheRendering;
 	}
 }
-?>

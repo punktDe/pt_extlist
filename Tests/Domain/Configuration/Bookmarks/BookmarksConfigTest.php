@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Bookmarks
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds instance of bookmark config that we want to test

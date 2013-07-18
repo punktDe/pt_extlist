@@ -32,6 +32,7 @@
  * @author Daniel Lienert
  * @package ViewHelpers
  * @subpackage NameSpace
+ * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest
  */
 class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
@@ -89,5 +90,3 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends Tx_Fl
 		return $nameSpace;
 	}
 }
-
-?>

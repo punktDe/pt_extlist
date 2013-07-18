@@ -31,14 +31,13 @@
  * 
  * @package Tests
  * @subpackage Domain\configuration\Filters
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
     public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection does not exist!'));
+    	$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection does not exist!');
     }
 	
 }
-
-?>

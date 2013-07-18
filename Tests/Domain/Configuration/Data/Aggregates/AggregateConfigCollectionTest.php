@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Configuration\Data\Aggregates
- * @author Daniel Lienert <linert@punkt.de>
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a aggregate config collection object
@@ -62,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
 	
 	
 	public function testSetup() {
-		$aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
+		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection');
 	}
 	
 	
@@ -92,4 +93,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
 	}
 	
 }
-?>

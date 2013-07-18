@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Aggregates
- * @author Daniel Lienert <linert@punkt.de>
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a aggregate column config object
@@ -76,4 +77,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfig_t
 	}
 	
 }
-?>

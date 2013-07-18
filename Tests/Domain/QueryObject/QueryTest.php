@@ -31,9 +31,10 @@
  *
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_QueryObject_Query
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_Query_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_QueryObject_QueryTest extends Tx_PtExtlist_Tests_BaseTestcase {
      
     public function testSetup() {
         $this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_Query'));
@@ -197,6 +198,3 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_Query_testcase extends Tx_PtExtlist_
     
     
 }
- 
- 
-?>

@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage Configuration\Data\Aggregates
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 	
@@ -52,13 +53,14 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 	public function addAggregateConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
 		$this->addItem($aggregateConfig, $aggregateConfig->getIdentifier());
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns a aggregate configuration object for a given identifier
 	 *
 	 * @param string $identifier
+	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
 	 */
 	public function getAggregateConfigByIdentifier($identifier) {
@@ -87,5 +89,3 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
 	}
 	
 }
-
-?>

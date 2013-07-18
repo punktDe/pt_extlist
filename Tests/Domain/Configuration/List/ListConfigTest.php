@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\List
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see  Tx_PtExtlist_Domain_Configuration_List_ListConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds an instance of list configuration
@@ -52,7 +53,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfig_testcase extends T
 	
 	
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_List_ListConfig'));
+		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_List_ListConfig');
 	}
 	
 	public function testGetHeaderPartial() {
@@ -75,5 +76,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfig_testcase extends T
 	}
 	
 }
- 
-?>

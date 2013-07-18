@@ -32,6 +32,7 @@
  * @package Domain
  * @subpackage QueryObject
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest
  */
 class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 	 
@@ -86,6 +87,7 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
     	if (!is_a($criteria, __CLASS__)) {
     		return false;
     	} else {
+			/* @var $criteria Tx_PtExtlist_Domain_QueryObject_FullTextCriteria */
             if ($this->fields == $criteria->fields && $this->searchString == $criteria->searchString && $this->searchParameter == $criteria->searchParameter) {
             	return true;     
             } else {
@@ -119,6 +121,7 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
 
 
 	/**
+	 * @param string $key
 	 * @return array of additional searchParameter
 	 */
 	public function getSearchParameter($key = NULL) {
@@ -129,6 +132,7 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
 				return $this->searchParameter[$key];
 			}
 		}
+		return NULL;
 	}
+
 }
-?>

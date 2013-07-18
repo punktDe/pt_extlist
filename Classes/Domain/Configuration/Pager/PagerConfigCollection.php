@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage Configuration\Pager
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionTest
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 	
@@ -70,4 +71,3 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends Tx_P
 	}
 	
 }
-?>
