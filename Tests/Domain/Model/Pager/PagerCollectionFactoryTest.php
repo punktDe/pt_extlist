@@ -29,8 +29,9 @@
 /**
  * Testcase for pager collection factory
  *
+ * @see Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $settings = array(
                 'listIdentifier' => 'Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest',
@@ -126,9 +127,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx
 	
 	
 	public function testGetInstance() {
-		$pagerCollection = Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::getInstance($this->configurationBuilderMock);
+		$pagerCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory');
+		$pagerCollection = $pagerCollectionFactory->getInstance($this->configurationBuilderMock);
 		
-		$this->assertTrue(is_a($pagerCollection, 'Tx_PtExtlist_Domain_Model_Pager_PagerCollection'));
+		$this->assertIsA($pagerCollection, 'Tx_PtExtlist_Domain_Model_Pager_PagerCollection'); /* @var $pagerCollection Tx_PtExtlist_Domain_Model_Pager_PagerCollection */
 		
 		$this->assertEquals(1, $pagerCollection->count());
 		
@@ -137,5 +139,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest extends Tx
 	}
 	
 }
-
-?>

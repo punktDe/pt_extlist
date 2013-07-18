@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage Repository\Bookmarks
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepositoryTest
  */
 class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Extbase_Persistence_Repository {
 	
@@ -153,9 +154,9 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 	 *     ==> all bookmarks for groups 3,4 are returned
 	 *
 	 * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
-	 * @param unknown_type $groupIds
-	 * @param unknown_type $listIdentifier
-	 * @return unknown
+	 * @param string $groupIds Comma-separated list of group uids
+	 * @param string $listIdentifier
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
 	 */
 	public function findBookmarksByFeUserGroupIdsAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $groupIds, $listIdentifier) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117069'));
@@ -178,5 +179,3 @@ class Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository extends Tx_Ext
 	}
 	
 }
- 
-?>

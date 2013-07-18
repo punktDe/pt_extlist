@@ -27,7 +27,7 @@
  ***************************************************************/
 
 /**
- * Factory class for databaceknd config objects
+ * Factory class for data backend config objects
  *
  * @package Domain
  * @subpackage Configuration\DataBackend
@@ -40,5 +40,5 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFact
 
 		return $dataBackendConfig;
 	}
+
 }
-?>

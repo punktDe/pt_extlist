@@ -31,6 +31,7 @@
  *
  * @package Domain
  * @subpackage Security
+ * @see Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest
  */
 class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_Security_SecurityInterface, t3lib_Singleton {
 

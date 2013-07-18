@@ -33,7 +33,7 @@
  * @subpackage Model/Filter/DataProvider
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest extends Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderTest {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTestcase extends Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderBaseTestcase {
 
 	public function setup() {
 

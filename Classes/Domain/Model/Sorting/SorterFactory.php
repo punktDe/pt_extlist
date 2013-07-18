@@ -33,6 +33,7 @@
  * @author Daniel Lienert
  * @package pt_extlist
  * @subpackage Domain\Model\Sorting
+ * @see Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest
  */
 class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory implements t3lib_Singleton {
 

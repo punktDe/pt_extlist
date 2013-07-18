@@ -32,6 +32,7 @@
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter\DataProvider
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData {
 

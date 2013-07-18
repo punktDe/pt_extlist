@@ -33,6 +33,7 @@
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	extends Tx_PtExtbase_Collection_ObjectCollection

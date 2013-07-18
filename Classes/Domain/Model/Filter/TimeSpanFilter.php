@@ -68,6 +68,5 @@ class Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter extends Tx_PtExtlist_Domai
 				
 		return $criteria;
 	}
-	
+
 }
-?>

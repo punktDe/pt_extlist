@@ -198,7 +198,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 	 *
 	 * @return array Array of filter data to persist to session
 	 */
-	public function persistToSession() {
+	public function _persistToSession() {
 		$sessionArray['invert'] = $this->invert;
 		if ($this->filterValueStart) $sessionArray['filterValueStart'] = $this->filterValueStart->format('U');
 		if ($this->filterValueEnd) $sessionArray['filterValueEnd'] = $this->filterValueEnd->format('U');

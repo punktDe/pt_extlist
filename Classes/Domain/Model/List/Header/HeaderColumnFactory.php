@@ -32,6 +32,7 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List\Header
+ * @see Tx_PtExtlist_Twests_Domain_Model_List_Header_HeaderColumnFactoryTest
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState {
 
