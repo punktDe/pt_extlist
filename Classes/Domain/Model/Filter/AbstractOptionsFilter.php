@@ -140,7 +140,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 *
 	 */
 	protected function initFilterBySession() {
-		if (array_key_exists('filterValues', $this->sessionFilterData)) {
+		if (!empty($this->sessionFilterData['filterValues'])) {
 			$this->filterValues = $this->sessionFilterData['filterValues'];
 		}
 	}
