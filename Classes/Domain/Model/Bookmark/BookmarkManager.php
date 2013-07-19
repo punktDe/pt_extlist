@@ -250,15 +250,10 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 
 
 	/**
-	 * @return array
+	 * @return Tx_Extbase_Persistence_ObjectStorage
 	 */
 	public function getBookmarksForCurrentConfigAndFeUser(){
 		$allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
-
-		if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
-			$publicBookmarks = $this->bookmarkRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
-			$this->addObjectsToObjectStorageByArray($allBookmarks, $publicBookmarks);
-		}
 
 		if ($this->bookmarkConfiguration->getShowPrivateBookmarks() && $this->feUser != NULL) {
 			$privateBookmarks = $this->bookmarkRepository->findPrivateBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
@@ -269,9 +264,12 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 			$groupBookmarks = $this->bookmarkRepository->findGroupBookmarksByFeUserAndListIdentifier($this->feUser, $this->listIdentifier);
 			$this->addObjectsToObjectStorageByArray($allBookmarks, $groupBookmarks);
 		}
-		$bookmarkArray = $allBookmarks->toArray();
-		sort($bookmarkArray);
-		return $bookmarkArray;
+		if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
+			$publicBookmarks = $this->bookmarkRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
+			$this->addObjectsToObjectStorageByArray($allBookmarks, $publicBookmarks);
+		}
+
+		return $allBookmarks;
 	}
 
 

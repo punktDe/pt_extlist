@@ -80,6 +80,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117065'));
 		if ($feUserUid > 0) {
 			$query = $this->createQuery();
+			$query->setOrderings(array('name' => 'ASC'));
 			$query->matching($query->logicalAnd(
 				$query->logicalAnd(
 					$query->equals('feUser', $feUserUid), $query->equals('listId', $listIdentifier)),
@@ -103,6 +104,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	public function findPublicBookmarksByListIdentifier($listIdentifier) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117066'));
 		$query = $this->createQuery();
+		$query->setOrderings(array('name'=>'ASC'));
 		$query->matching($query->logicalAnd(
 		    $query->logicalAnd($query->equals('listId', $listIdentifier), $query->equals('type', Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::PTEXTLIST_BOOKMARK_PUBLIC)),
 		    $query->equals('pid', $this->bookmarkStoragePid)));
@@ -141,6 +143,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	public function findGroupBookmarksByFeGroupAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUserGroup $feGroup, $listIdentifier) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117067'));
 		$query = $this->createQuery();
+		$query->setOrderings(array('name'=>'ASC'));
 		$query->matching($query->logicalAnd(
 			$query->logicalAnd(
 				$query->equals('feGroup', $feGroup->getUid()), $query->equals('listId', $listIdentifier)),
