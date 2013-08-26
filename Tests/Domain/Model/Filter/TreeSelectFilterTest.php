@@ -215,5 +215,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	}
 
 }
-
-?>
