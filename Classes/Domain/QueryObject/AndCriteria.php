@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage QueryObject
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteriaTest
  */
  class Tx_PtExtlist_Domain_QueryObject_AndCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
  	
@@ -104,6 +105,3 @@
  	}
  	
  }
- 
- 
- ?>

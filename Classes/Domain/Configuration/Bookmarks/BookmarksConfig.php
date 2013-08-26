@@ -31,12 +31,13 @@
  *
  * @package Domain
  * @subpackage Configuration\Bookmarks
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
 	/**
-	 * Holds comma seperated list of pids to search for bookmarks
+	 * Holds comma separated list of pids to search for bookmarks
 	 *
 	 * @var string
 	 */
@@ -72,7 +73,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     
     
     /**
-     * Comma seperated list of fe users that are allowd to edit bookmarks
+     * Comma separated list of fe users that are allowd to edit bookmarks
      *
      * @var string
      */
@@ -81,7 +82,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     
     
     /**
-     * Comma seperated list of fe groups that are allowed to edit bookmarks
+     * Comma separated list of fe groups that are allowed to edit bookmarks
      *
      * @var string
      */
@@ -90,7 +91,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     
     
     /**
-     * Comma seperated list of fe users that are allowed to edit public bookmarks
+     * Comma separated list of fe users that are allowed to edit public bookmarks
      *
      * @var string
      */
@@ -99,16 +100,16 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     
     
     /**
-     * Comma seperated list of fe groups that are allowed to edit public bookmarks
+     * Comma separated list of fe groups that are allowed to edit public bookmarks
      *
-     * @var unknown_type
+     * @var string
      */
     protected $feGroupsAllowedToEditPublic;
     
     
     
     /**
-     * Holds comma-seperated list of fe group ids to show bookmarks for 
+     * Holds comma-separated list of fe group ids to show bookmarks for 
      *
      * @var string
      */
@@ -137,7 +138,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     
     
 	/**
-	 * Returns comma seperated list of pids to search for bookmarks in
+	 * Returns comma separated list of pids to search for bookmarks in
 	 * 
 	 * @return string
 	 */
@@ -148,7 +149,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	
 	
 	/**
-	 * Returns comma seperated list of fe groups to be allowed editing bookmarks
+	 * Returns comma separated list of fe groups to be allowed editing bookmarks
 	 * 
 	 * @return string
 	 */
@@ -159,7 +160,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	
 	
 	/**
-	 * Returns comma-seperated list of fe users to be allowed editing bookmarks
+	 * Returns comma-separated list of fe users to be allowed editing bookmarks
 	 * 
 	 * @return string
 	 */
@@ -170,7 +171,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	
 	
 	/**
-	 * Returns comma-seperated list of fe users that are allowed editing public bookmarks
+	 * Returns comma-separated list of fe users that are allowed editing public bookmarks
 	 *
 	 * @return string
 	 */
@@ -181,7 +182,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	
 	
 	/**
-	 * Returns comma-seperated list of fe groups that are allowed editing public bookmarks
+	 * Returns comma-separated list of fe groups that are allowed editing public bookmarks
 	 *
 	 * @return string
 	 */
@@ -192,7 +193,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	
 	
 	/**
-	 * Returns comma-seperated list of fe groups to show bookmarks for
+	 * Returns comma-separated list of fe groups to show bookmarks for
 	 * 
 	 * @return string
 	 */
@@ -234,4 +235,3 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	}
 
 }
-?>

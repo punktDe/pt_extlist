@@ -31,11 +31,12 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Pager
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	// TODO : Implement the needed Tests
+	// TODO : Implement the required Tests
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
@@ -44,8 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollection_testca
 	
 	
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection'));
+		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection');
 	}
 	
-}	
-?>
+}

@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage Configuration\Data\Fields 
  * @author Daniel Lienert 
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
@@ -199,5 +200,5 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	public function getExpandGroupRowsSeparator() {
 		return $this->expandGroupRowsSeparator;
 	}
+
 }
-?>

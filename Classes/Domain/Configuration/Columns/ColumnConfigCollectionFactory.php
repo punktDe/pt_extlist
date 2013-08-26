@@ -34,13 +34,14 @@
  * @author Daniel Lienert
  * @author Michael Knoll
  * @author Christoph Ehscheidt
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 
 	/**
 	 * Build and return ColumnConfigurationCollection (as a singleton!)
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $columnSettings typoscript array of column Collection
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
@@ -50,7 +51,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 
 
 	/**
-	 * @param $columnSettings
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
 	protected static function buildColumnConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
@@ -75,4 +76,5 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 
 		return $columnConfigCollection;
 	}
+
 }

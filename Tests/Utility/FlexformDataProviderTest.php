@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Utility
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see user_Tx_PtExtlist_Utility_FlexformDataProvider
  */
-class Tx_PtExtlist_Tests_Utility_FlexformDataProvider_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	 
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
@@ -91,5 +92,3 @@ class Tx_PtExtlist_Tests_Utility_FlexformDataProvider_testcase extends Tx_PtExtl
 	}
 	
 }
-
-?>

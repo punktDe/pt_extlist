@@ -35,6 +35,7 @@
  * @package Domain
  * @subpackage QueryObject
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteriaTest
  */
 class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 	 
@@ -71,4 +72,3 @@ class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain
     }
     
 }
-?>

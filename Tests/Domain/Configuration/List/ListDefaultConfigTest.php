@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\List
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds an instance of list default configuration
@@ -85,5 +86,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfig_testcase ex
 		$this->assertEquals($listDefaultConfiguration->getSortingColumn(), 'column3');
 	}
 }
- 
-?>

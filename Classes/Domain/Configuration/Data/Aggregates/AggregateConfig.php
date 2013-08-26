@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage Configuration\Data\Aggregates 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 	

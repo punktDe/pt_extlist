@@ -33,7 +33,8 @@
  * @subpackage Configuration\Pager
  * @author Michael Knoll 
  * @author Daniel Lienert 
- * @author Christoph Ehscheidt 
+ * @author Christoph Ehscheidt
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
@@ -163,4 +164,3 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
 		return $this->itemsPerPage;
 	}
 }
-?>

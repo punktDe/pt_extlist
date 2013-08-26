@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage Configuration\Filters
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	
@@ -44,7 +45,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 
 
 	/**
-	 * Sets accessable flag for filter
+	 * Sets accessible flag for filter
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder

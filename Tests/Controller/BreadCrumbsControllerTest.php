@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Controller
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Controller_BreadCrumbsController
  */
-class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest extends Tx_PtExtlist_Tests_BaseTestcase {
      
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
@@ -42,7 +43,7 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
 	
 	
 	public function testSetup() {
-		$this->assertTrue(class_exists(Tx_PtExtlist_Controller_BreadCrumbsController));
+		$this->assertClassExists('Tx_PtExtlist_Controller_BreadCrumbsController');
 	}
 	
 	
@@ -105,5 +106,3 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsController_testcase extends Tx_Pt
 	}
 	
 }
-
-?>

@@ -28,24 +28,25 @@
 
 /**
  * Class implementing testcase for filterbox configuration factory
- * 
+ *
  * @package Tests
  * @subpackage Domain\Configuration\Filters
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory does not exist!'));
-    }
-	
-    public function testCreateInstance() {
-    	$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-    	$filterboxConfigurationCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getInstance($configurationBuilderMock);
-    	$filterBoxConfiguration = $filterboxConfigurationCollection['testfilterbox'];
-    	$this->assertEquals($filterBoxConfiguration->getFilterboxIdentifier(), 'testfilterbox');
-    }
-    
-}
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-?>
+	public function testSetup() {
+		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory does not exist!'));
+	}
+
+
+
+	public function testCreateInstance() {
+		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$filterboxConfigurationCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getInstance($configurationBuilderMock);
+		$filterBoxConfiguration = $filterboxConfigurationCollection['testfilterbox'];
+		$this->assertEquals($filterBoxConfiguration->getFilterboxIdentifier(), 'testfilterbox');
+	}
+
+}

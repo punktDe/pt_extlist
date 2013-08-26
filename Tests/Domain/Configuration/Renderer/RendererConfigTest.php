@@ -34,7 +34,7 @@
  * @subpackage Domain\Configuration\Renderer
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	
 	public function setup() {
@@ -51,5 +51,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfig_testcase e
 	
 	}
 }
-
-?>

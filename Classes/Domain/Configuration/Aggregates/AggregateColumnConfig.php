@@ -32,14 +32,15 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Aggregates
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration 
-																	     implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
-	
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration {
+
 	/** 
 	 * @var string
 	 */
 	protected $columnIdentifier;
+
 
 	
 	/** 
@@ -47,13 +48,15 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	 */
 	protected $aggregateDataIdentifier;
 
+
 	
 	/**
 	 * @var array
 	 */
 	protected $renderUserFunctions = NULL;
 	
-	
+
+
 	/**
 	 * @var array
 	 */
@@ -84,13 +87,12 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	protected $cellCSSClass = NULL;
 
 
-		
+
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param string $columnIdentifier 
-	 * @param array $aggregateColumnSettings array of coumn settings
-	 * @return void
+	 * @param array $settings
+	 * @param string $columnIdentifier
+	 * @return \Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings, $columnIdentifier) {
 		$settings['columnIdentifier'] = $columnIdentifier;
@@ -107,7 +109,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		// required
 		$this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
 		
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array(message => 'Aggregate data identifier not given for aggregate column "'.$columnIdentifier.'" 1282916619'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array('message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619'));
 		$this->aggregateDataIdentifier = t3lib_div::trimExplode(',', $this->settings['aggregateDataIdentifier']);
 		
 		// optional
@@ -162,11 +164,13 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		return '';
 	}
 	
-	
+
+
 	public function getContainsArrayData() {
 		return false;
 	}
-	
+
+
 	
 	/**
 	 * @return array
@@ -203,6 +207,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	}
 
 
+
 	/**
 	 * @return bool
 	 */
@@ -222,4 +227,3 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	}
 
 }
-?>

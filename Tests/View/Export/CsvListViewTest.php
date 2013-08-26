@@ -32,8 +32,9 @@
  * @package Tests
  * @subpackage View\Export
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_View_Export_CsvListView
  */
-class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * @var Tx_PtExtlist_View_Export_CsvListView
@@ -158,4 +159,3 @@ class Tx_PtExtlist_Tests_View_List_CsvListView_testcase extends Tx_PtExtlist_Tes
 
     
 }
-?>

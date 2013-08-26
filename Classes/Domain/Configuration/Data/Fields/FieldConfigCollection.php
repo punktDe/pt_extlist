@@ -32,6 +32,7 @@
  * @package Domain
  * @subpackage Configuration\Data\Fields
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 

@@ -31,11 +31,11 @@
  *
  * @package Domain
  * @subpackage Configuration\Data\Fields
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory {
 	
-
 	/**
 	 * Returns an instance of a field config collection for given field settings
 	 *
@@ -66,7 +66,5 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
 		}
 		return $fieldConfigCollection;
 	}
-	
-	
 	
 }

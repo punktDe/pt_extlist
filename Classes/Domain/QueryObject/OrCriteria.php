@@ -31,7 +31,9 @@
  *
  * @package Domain
  * @subpackage QueryObject
- * @author Daniel Lienert , Michael Knoll 
+ * @author Daniel Lienert
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_QueryObject_OrCriteriaTest
  */
 class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
 
@@ -50,15 +52,13 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	 * @var Tx_PtExtlist_Domain_QueryObject_Criteria
 	 */
 	protected $secondCriteria;
-	
-	
-	
-	/** 
+
+
+
+	/**
 	 * @param $firstCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
 	 * @param $secondCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
-	 * @return void
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
+	 * @return \Tx_PtExtlist_Domain_QueryObject_OrCriteria
 	 */
 	public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria) {
 		$this->firstCriteria = $firstCriteria;
@@ -77,6 +77,7 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
         if (!is_a($criteria, __CLASS__)) {
         	return false;   
         } else {
+			/* @var $criteria Tx_PtExtlist_Domain_QueryObject_OrCriteria */
         	if ($this->firstCriteria == $criteria->firstCriteria || $this->secondCriteria == $criteria->secondCriteria) {
         		return true;
         	} else {
@@ -89,8 +90,6 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	
 	/**
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
 	 */
 	public function getFirstCriteria() {
 		return $this->firstCriteria;
@@ -100,12 +99,8 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 	
 	/**
 	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 * @author Daniel Lienert 
-	 * @since 28.07.2010
-	 */	
+	 */
 	public function getSecondCriteria() {
 		return $this->secondCriteria;
 	}
 }
- 
-?>

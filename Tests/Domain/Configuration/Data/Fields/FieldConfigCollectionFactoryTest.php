@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Data\Fields
- * @author Daniel Lienert <linert@punkt.de>
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a field config collection object
@@ -74,5 +75,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionF
 	}
 			
 }
-
-?>

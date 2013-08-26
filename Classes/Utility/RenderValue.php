@@ -31,7 +31,8 @@
  * Caching for rendered Values is implemented here
  *
  * @package Utility
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Utility_RenderValueTest
  */
 class Tx_PtExtlist_Utility_RenderValue {
 
@@ -400,6 +401,5 @@ class Tx_PtExtlist_Utility_RenderValue {
 
 		return self::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
 	}
-	
 
 }

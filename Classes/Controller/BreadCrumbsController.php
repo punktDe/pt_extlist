@@ -32,6 +32,7 @@
  *
  * @package Controller
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest
  */
 class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController {
 

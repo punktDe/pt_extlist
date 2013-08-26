@@ -32,6 +32,7 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Filters
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExtbase_Collection_ObjectCollection {
 
@@ -183,14 +184,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	public function getConfigurationBuilder() {
 		return $this->configurationBuilder;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Add FilterConfig to the FilterboxConfig
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 * @param string $filterIdentifier
+	 * @param $filterIndex
 	 */
 	public function addFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, $filterIndex)  {
 		$this->addItem($filterConfig, $filterIndex);
@@ -208,13 +209,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	public function getFilterConfigByFilterIdentifier($filterIdentifier) {
 		return $this->getItemById($this->filterIdentifierToFilterIndex[$filterIdentifier]);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Set the optional settings
-	 * 
+	 *
 	 * @param array $filterBoxSettings
+	 * @throws Exception
 	 */
 	protected function setOptionalSettings($filterBoxSettings) {
 
@@ -406,4 +408,3 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	}
 
 }
-?>

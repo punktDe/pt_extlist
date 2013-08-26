@@ -31,6 +31,7 @@
  * @author Daniel Lienert
  * @package 		Domain
  * @subpackage 	Configuration\Columns
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionTest
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
 
@@ -46,10 +47,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 	protected $identifierToIdMap = array();
 
 
+
 	/**
-	 * @param $columnConfig int
-	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
-	 * @return void 
+	 * @param $columnNumber
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+	 * @return void
 	 */
 	public function addColumnConfig($columnNumber, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		$this->addItem($columnConfig, $columnNumber);
@@ -58,8 +60,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 
 
 
-	/** 
+	/**
 	 * @param $id int
+	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
 	public function getColumnConfigById($id) {
@@ -85,6 +88,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 
 	/**
 	 * @param $identifier string
+	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
 	public function getColumnConfigByIdentifier($identifier) {
@@ -97,5 +101,3 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 
 	}
 }
-
-?>

@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Export
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	
 	public function setup() {
@@ -43,14 +44,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigFactory_testcas
 	
 	
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'));
+		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory');
 	}
 	
 	
 	public function testGetInstance() {
 		$exportConfigInstance = Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory::getInstance($this->configurationBuilderMock);
-		$this->assertTrue(is_a($exportConfigInstance, 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfig'));
+		$this->assertIsA($exportConfigInstance, 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfig');
 	}
 	
-}	
-?>
+}

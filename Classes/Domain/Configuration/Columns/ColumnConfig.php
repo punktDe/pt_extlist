@@ -32,6 +32,7 @@
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Configuration\Columns
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration

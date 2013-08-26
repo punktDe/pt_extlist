@@ -32,8 +32,9 @@
  * @package Tests
  * @subpackage Domain\QueryObject
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/** @test */
 	public function getRawSqlStringReturnsSqlStringGivenInConstructor() {
@@ -43,4 +44,3 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteria_testcase extends Tx_P
 	}
 
 }
-?>

@@ -34,28 +34,30 @@
  * @subpackage Export
  * @author Daniel Lienert
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest
  */
 abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView {
 
 	/**
-	 * Export configuration objekt
+	 * Export configuration object
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
 	 */
 	protected $exportConfiguration;
 
 
+
 	/**
 	 * Returns true, if view has a template
 	 *
-	 * TODO We return true here, because otherwise, another view class is
-	 * instantiated in controller.
+	 * TODO We return true here, because otherwise, another view class is instantiated in controller.
 	 *
 	 * @return bool
 	 */
 	public function hasTemplate() {
 		return TRUE;
 	}
+
 
 
 	/**
@@ -66,14 +68,16 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 	}
 
 
+
 	/**
 	 * @return void
 	 */
 	public function initConfiguration() {
-	//	$this->exportConfiguration = $this->configurationBuilder->buildExportConfiguration();
-	}	
+		//	$this->exportConfiguration = $this->configurationBuilder->buildExportConfiguration();
+	}
 
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/View/Tx_Fluid_View_TemplateView::canRender()
@@ -110,11 +114,10 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 	 *
 	 * Functionality is taken from FPDF!
 	 *
-	 * @param   string  name of the file to send to the browser
-	 * @return  void
+	 * @throws Exception
 	 */
-	protected function sendHeader($filename) {
-		switch($this->exportConfiguration->getDownloadType()) {
+	protected function sendHeader() {
+		switch ($this->exportConfiguration->getDownloadType()) {
 
 			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::OPEN_IN_BROWSER:
 
@@ -126,23 +129,23 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 					throw new Exception('Some data has already been output to browser, can\'t send Export file.', 1283945901);
 				}
 
-				header('Content-disposition: inline; filename="'.$this->getFilenameFromTs().'"');
+				header('Content-disposition: inline; filename="' . $this->getFilenameFromTs() . '"');
 				break;
 
 			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
 
-				if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
+				if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
 					header('Content-Type: application/force-download, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));
 				} else {
 					header('Content-Type: application/octet-stream, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));
 				}
 
-				header('Content-disposition: attachment; filename="'. $this->getFilenameFromTs() .'"');
+				header('Content-disposition: attachment; filename="' . $this->getFilenameFromTs() . '"');
 				break;
 
 			default:
 				throw new Exception('No valid download handling set for Export file!', 1283945902);
 		}
 	}
+
 }
-?>

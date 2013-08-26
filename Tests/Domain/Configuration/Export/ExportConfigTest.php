@@ -31,45 +31,53 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Export
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $exportConfiguration;
-	
-	
-	
+
+
+
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 		$this->exportConfiguration = $this->configurationBuilderMock->buildExportConfiguration();
 	}
-		
-	
-	
+
+
+
 	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfig'));
+		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfig');
 	}
-	
-	
+
+
+
 	public function testGetFileName() {
 		$this->assertEquals('testfile', $this->exportConfiguration->getFileName());
 	}
-	
+
+
+
 	public function testGetDownloadtype() {
 		$this->assertEquals('D', $this->exportConfiguration->getDownloadtype());
 	}
-	
+
+
+
 	public function testGetAddDateToFilename() {
 		$this->assertEquals(true, $this->exportConfiguration->getAddDateToFilename());
 	}
-	
+
+
+
 	public function testGetViewClassName() {
 		$this->assertEquals('Tx_PtExtlist_View_Export_CsvListView', $this->exportConfiguration->getViewClassName());
 	}
-	
+
+
+
 	public function testGetFileExtension() {
 		$this->assertEquals('ext', $this->exportConfiguration->getFileExtension());
-	}	
+	}
 }
- 
-?>

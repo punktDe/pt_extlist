@@ -32,6 +32,7 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Renderer
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
 
@@ -40,6 +41,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$rendererChainConfiguration = NULL;
 		$rendererChainSettings = $configurationBuilder->getSettingsForConfigObject('rendererChain');
 
 		if(is_array($rendererChainSettings['rendererConfigs'])) {
@@ -54,5 +56,5 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
 
 		return $rendererChainConfiguration;
 	}
+
 }
-?>
