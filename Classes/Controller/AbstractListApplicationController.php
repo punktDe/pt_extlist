@@ -118,10 +118,23 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
 
 	/**
+	 * @var Tx_PtExtlist_ExtlistContext_ExtlistContextFactory
+	 */
+	protected $extlistContextFactory;
+
+
+
+	/**
 	 * @param Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility
 	 */
 	public function injectHeaderInclusionUtility(Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility) {
 		$this->headerInclusionUtility = $headerInclusionUtility;
+	}
+
+
+
+	public function injectExtlistContextFactory(Tx_PtExtlist_ExtlistContext_ExtlistContextFactory $extlistContextFactory) {
+		$this->extlistContextFactory = $extlistContextFactory;
 	}
 
 
@@ -178,7 +191,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
 		if (!$this->extlistTypoScriptSettingsPath) throw new Exception('No extlist typoscript settings path given', 1330188161);
 		$this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
-		$this->extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($settings, $this->listIdentifier);
+		$this->extListContext = $this->extlistContextFactory->getContextByCustomConfigurationNonStatic($settings, $this->listIdentifier);
 
 		return $this->extListContext->getConfigurationBuilder();
 	}

@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
 	 * @param $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
 	 */
-	public static function wgetInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$filterboxCollectionSettings = $configurationBuilder->getSettingsForConfigObject('filter');
 
 
