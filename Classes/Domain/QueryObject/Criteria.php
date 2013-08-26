@@ -63,6 +63,19 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
 	
 	
 	/**
+	 * Returns a new relation criteria for given field and value
+	 *
+	 * @param string $field Field name to compare value with
+	 * @param string $value Value to be compared
+	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 */
+	public static function relation($field, $value) {
+		return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '.');
+	}
+	
+	
+	
+	/**
 	 * Returns a new greater than criteria for given field and value
 	 *
 	 * @param string $field Field to be compared
