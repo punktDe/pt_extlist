@@ -33,7 +33,7 @@
  * @subpackage pt_extlist
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurationFactoryTest extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurationFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 
 	public function testGetInstance() {
