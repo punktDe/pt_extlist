@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage Model\Filter
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactoryTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
@@ -100,8 +101,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check TS configuration! 1277889459'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460'));
         $filter = $this->objectManager->get($filterClassName); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-		$filter->_injectGpVarsAdapter($this->getPostVarsAdapterFactory->getInstance());
         Tx_PtExtbase_Assertions_Assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
+		$filter->_injectGpVarsAdapter($this->getPostVarsAdapterFactory->getInstance());
         return $filter;
 	}
 	

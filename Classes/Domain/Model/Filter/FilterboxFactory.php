@@ -32,6 +32,7 @@
  * @author Michael Knoll <mimi@kaktusteam.de>
  * @package Domain
  * @subpackage Model\Filter
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactoryTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
@@ -107,7 +108,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
 	 */
 	public function createAccessableInstance(Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection) {
 		$accessibleCollection = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox');
-		$accessibleCollection->injectFilterboxConfiguration($collection->getFilterboxConfiguration());
+		$accessibleCollection->_injectFilterboxConfiguration($collection->getFilterboxConfiguration());
 
 		foreach ($collection as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 			if ($filter->getFilterConfig()->isAccessable()) {

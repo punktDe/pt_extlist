@@ -31,11 +31,11 @@
  *
  * @package Tests
  * @subpackage Somain\Model\Filter\DataProvider
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
-	
 	protected $defaultFilterSettings = array(
 		'filterIdentifier' => 'firstLetterTest',
 		'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_FirsrLetterFilter',
@@ -67,6 +67,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extend
 	}
 
 
+
 	/**
 	 * @test
 	 */
@@ -86,6 +87,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extend
 		$this->assertEquals($expectedMissingLetter, $renderedOprionsWithMissingLetters['B']);
 	}
 
+
 	
 	protected function buildAccessibleFirstLetterDataProvider($filterSettings) {
 
@@ -94,13 +96,15 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extend
 
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
-		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+		$dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
 
-        $accesibleFirstLetterDataProvider->injectDataBackend($dataBackend);
-		$accesibleFirstLetterDataProvider->injectFilterConfig($filterConfiguration);
+
+        $accesibleFirstLetterDataProvider->_injectDataBackend($dataBackend);
+		$accesibleFirstLetterDataProvider->_injectFilterConfig($filterConfiguration);
 		$accesibleFirstLetterDataProvider->init();
 
 		return $accesibleFirstLetterDataProvider;
 	}
+
 }
-?>

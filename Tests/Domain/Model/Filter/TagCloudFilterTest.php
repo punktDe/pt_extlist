@@ -34,7 +34,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $filterSettings = array('filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
 		'partialPath' => 'partialPath',

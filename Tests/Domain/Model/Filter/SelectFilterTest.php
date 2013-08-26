@@ -33,9 +33,10 @@ require_once t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Fixt
  *
  * @package Tests
  * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_Filter_SelectFilter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
@@ -50,8 +51,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
     }
 
 
+	/** @test */
 	public function testGetMultiple() {
-		$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
+		$selectFilter = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_SelectFilter'); /* @var $selectFilter Tx_PtExtlist_Domain_Model_Filter_SelectFilter */
+		$selectFilter->_injectGpVarsAdapter(new Tx_PtExtbase_State_GpVars_GpVarsAdapter('pt_extlist'));
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
 			array(
@@ -63,7 +66,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
 				  'displayFields' => 'field1',
 				  'excludeFilters' => 'filterbox1.filter1',
 				  'multiple' => 1
-			), 'test');
+			),
+			'test'
+		);
 		$selectFilter->_injectFilterConfig($filterConfiguration);
 		$sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', FALSE);
 
@@ -72,7 +77,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
 		$selectFilter->_injectDataBackend($dataBackendMock);
 
 		$selectFilter->init();
-		$this->assertEquals($selectFilter->getMultiple(), 1);
+		$this->assertEquals(1, $selectFilter->getMultiple());
 	}
 
 
@@ -131,7 +136,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilter_testcase extends Tx_Pt
 
         $abstractOptionsFilter->_set('filterConfig', new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
             $this->configurationBuilderMock,
-            $filterSettings, 'test'));
+            $filterSettings, 'test')
+		);
 
         $dataProviderFixture = new Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider();
         $dataProviderFixture->setOptions($testData);

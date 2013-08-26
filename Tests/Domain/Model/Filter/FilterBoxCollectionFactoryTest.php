@@ -34,14 +34,18 @@
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
-    public function testCreateInstanceByfilterboxConfigurationCollection() {
+    public function testCreateInstanceByFilterboxConfigurationCollection() {
     	$this->initDefaultConfigurationBuilderMock();
-    	Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-        $filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($this->configurationBuilderMock); 
+
+		// Initialize singleton instance of databackend
+		$dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock, $this->configurationBuilderMock->getListIdentifier());
+
+		$filterboxCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
+		$filterboxCollectionFactory->setDataBackendFactory($dataBackendFactoryMock);
+        $filterboxCollection = $filterboxCollectionFactory->createInstance($this->configurationBuilderMock, false);
+		$this->assertSame($this->configurationBuilderMock->getListIdentifier(), $filterboxCollection->getListIdentifier());
     }
     
 }
-
-?>

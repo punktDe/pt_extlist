@@ -32,12 +32,13 @@
  * @package pt_extlist
  * @subpackage Tests\Domain\Model\Sorting
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_Sorting_SorterFactory
  */
 class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
 	/** @test */
 	public function classExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'));
+		$this->assertClassExists('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory');
 	}
 
 
@@ -48,8 +49,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest extends Tx_PtExt
         $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('buildSorterConfiguration'), array(), '', FALSE);
         $configurationBuilderMock->expects($this->any())->method('buildSorterConfiguration')->will($this->returnValue($sorterConfigurationMock));
 
-        $firstInstance = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilderMock);
-        $secondInstance = Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::getInstance($configurationBuilderMock);
+		$sorterFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory');
+
+        $firstInstance = $sorterFactory->getInstance($configurationBuilderMock);
+        $secondInstance = $sorterFactory->getInstance($configurationBuilderMock);
 
         $this->assertTrue(is_a($firstInstance, 'Tx_PtExtlist_Domain_Model_Sorting_Sorter'));
         $this->assertTrue(is_a($secondInstance, 'Tx_PtExtlist_Domain_Model_Sorting_Sorter'));
@@ -57,4 +60,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest extends Tx_PtExt
     }
 	
 }
-?>

@@ -33,9 +33,10 @@
  *
  * @package Tests
  * @subpackage Domain\Repository\Bookmarks
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository
  */
-class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepositoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setup() {
 		
@@ -141,4 +142,3 @@ class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase
 	}
 	
 }
-?>

@@ -35,7 +35,7 @@
  * @package Tests
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_ListData_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 
 	/**

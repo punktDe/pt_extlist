@@ -34,8 +34,9 @@
  * @author Daniel Lienert 
  * @package Tests
  * @subpackage Model\List\Header
+ * @see Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -47,10 +48,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactory_testcase e
 	}
 	
 	public function testCreateInstance() {
+		$headerColumnFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory');
+
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
-		$instance = Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::createInstance($columnsConfiguration->pop());
+		$instance = $headerColumnFactory->createInstance($columnsConfiguration->pop());
 		$this->assertTrue(is_a($instance, 'Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn'));
 	}
 	
 }
-?>

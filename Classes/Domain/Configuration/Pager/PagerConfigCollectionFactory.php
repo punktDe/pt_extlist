@@ -32,6 +32,7 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Pager
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory {
 	
@@ -54,5 +55,5 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory {
 
 		return $pagerConfigCollection;
 	}
+
 }
-?>

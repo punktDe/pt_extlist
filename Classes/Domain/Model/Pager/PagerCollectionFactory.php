@@ -33,6 +33,7 @@
  * @subpackage Model\Pager
  * @author Daniel Lienert
  * @author Christoph Ehscheidt
+ * @see Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState

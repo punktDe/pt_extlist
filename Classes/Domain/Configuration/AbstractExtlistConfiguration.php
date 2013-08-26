@@ -76,4 +76,3 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
 		return $this->listIdentifier;
 	}
 }
-?>
