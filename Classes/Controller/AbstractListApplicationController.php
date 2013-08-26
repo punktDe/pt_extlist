@@ -181,6 +181,8 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 		$this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
 		$this->extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($settings, $this->listIdentifier);
 
+		$this->configurationBuilder = $this->extListContext->getConfigurationBuilder();
+
 		return $this->extListContext->getConfigurationBuilder();
 	}
 
