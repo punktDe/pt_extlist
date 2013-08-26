@@ -113,6 +113,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 		
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
 		$this->setBooleanIfExistsAndNotNothing('expandGroupRows');
+		$this->setBooleanIfExistsAndNotNothing('isRelation');
 
 		$this->setValueIfExists('expandGroupRowsSeparator');
 		
@@ -165,6 +166,12 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	
 	public function getIsSortable() {
 		return $this->isSortable;
+	}
+	
+	
+	
+	public function getIsRelation() {
+		return $this->isRelation;
 	}
 	
 	
