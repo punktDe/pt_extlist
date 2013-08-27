@@ -47,9 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest extends T
 			),
 			'column' => array(
 				'xy' => 'z',
-			),
-			'bookmarks' => array(
-			),
+			)
 		),
 		'listConfig' => array(
 			'test' => array(
@@ -111,9 +109,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest extends T
 					'showPublicBookmarks' => '1',
 					'showUserBookmarks' => '1',
 					'showGroupBookmarks' => '1',
-					'bookmarksPid' => '1,2,3',
-					'feUsersAllowedToEdit' => '2,3,4',
-					'feGroupsAllowedToEdit' => '3,4,5',
+					'bookmarksPid' => '1',
 					'groupIdsToShowBookmarksFor' => '4,5,6'
 				),
 
@@ -305,7 +301,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest extends T
 	public function testBuildBookmarksConfiguration() {
 		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->settings, 'test');
 		$bookmarkConfig = $configurationBuilder->buildBookmarkConfiguration();
-		$this->assertTrue(is_a($bookmarkConfig, 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig'));
+		$this->assertTrue(is_a($bookmarkConfig, 'Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig'));
 	}
 	
 	

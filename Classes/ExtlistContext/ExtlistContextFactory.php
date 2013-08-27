@@ -126,23 +126,29 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 			self::$staticObjectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
-			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
+#			#$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 
-			if($extListBackend === NULL) {
+#			#if($extListBackend === NULL) {
 				$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
-				self::loadLifeCycleManager();
+				self::getContextByCustomConfiguration($extListTs['listConfig'][$listIdentifier], $listIdentifier);
 
-				// TODO resolve this properly with Dependency Injection once we have cascading container
-				#Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-				$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
-				$configurationBuilderFactory->setSettings($extListTs);
-				$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
-				#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+#				self::loadLifeCycleManager();
+#
+#				// TODO resolve this properly with Dependency Injection once we have cascading container
+#				#Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+#				$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+#				$configurationBuilderFactory->setSettings($extListTs);
+#				$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
+#				#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+#
+#				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 
-				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
-			}
 
-			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
+#			}
+
+
+
+			#self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
 
 		}
 

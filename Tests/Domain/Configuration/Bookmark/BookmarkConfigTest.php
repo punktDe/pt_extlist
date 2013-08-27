@@ -127,7 +127,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
 	/**
 	 * @test
 	 */
-	public function getBookmarksPidGetsBookmarkPid() {
+	public function getBookmarkPidGetsBookmarkPid() {
         $this->assertEquals('30', $this->bookmarkConfigToBeTested->getBookmarkPid());
     }
 

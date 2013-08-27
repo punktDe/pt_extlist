@@ -30,7 +30,7 @@
  * Testcase for bookmark manager factory
  *
  * @package Tests
- * @subpackage Domain\Model\Bookmarks
+ * @subpackage Domain\Model\Bookmark
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
  */
