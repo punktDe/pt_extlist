@@ -162,7 +162,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	}
 
 
-	
 	/**
 	 * Get the databackend by a custom list configuration ts array
 	 * The Typoscript is identified by the given listIdentifier and merged with the extlist configuration
@@ -170,9 +169,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @param array $customTSArray Custom typoscript list configuration in extBase format
 	 * @param string $listIdentifier a listIdentifier to identify the custom list
 	 * @param $useCache boolean
+	 * @param null|int $bookmarkUidToRestore
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE) {
+	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE, $bookmarkUidToRestore = NULL) {
 		
 		if(!array_key_exists($listIdentifier, self::$staticInstances) || !$useCache) {
 
@@ -192,6 +192,13 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, TRUE);
 			}
 
+			if($bookmarkUidToRestore){
+				$bookmarkManagerFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'); /* @var $bookmarkManagerFactory Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory */
+				$bookmarkManager = $bookmarkManagerFactory->getInstanceByConfigurationBuilder($configurationBuilder);
+				$bookmarkManager->restoreBookmarkByUid($bookmarkUidToRestore);
+			}
+
+
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder, !$useCache);
 			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
 		}
@@ -200,18 +207,17 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	}
 
 
-
-
 	/**
 	 * Non-static wrapper for getContextByCustomConfiguration
 	 *
 	 * @param array $customTSArray
 	 * @param $listIdentifier
 	 * @param bool $useCache
+	 * @param null|int $bookmarkUidToRestore
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public function getContextByCustomConfigurationNonStatic(array $customTSArray, $listIdentifier, $useCache = true) {
-		return self::getContextByCustomConfiguration($customTSArray, $listIdentifier, $useCache);
+	public function getContextByCustomConfigurationNonStatic(array $customTSArray, $listIdentifier, $useCache = true, $bookmarkUidToRestore = NULL) {
+		return self::getContextByCustomConfiguration($customTSArray, $listIdentifier, $useCache, $bookmarkUidToRestore);
 	}
 
 

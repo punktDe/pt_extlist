@@ -304,7 +304,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest extends T
 	
 	public function testBuildBookmarksConfiguration() {
 		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->settings, 'test');
-		$bookmarkConfig = $configurationBuilder->buildBookmarksConfiguration();
+		$bookmarkConfig = $configurationBuilder->buildBookmarkConfiguration();
 		$this->assertTrue(is_a($bookmarkConfig, 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig'));
 	}
 	

@@ -27,18 +27,26 @@
  ***************************************************************/
 
 /**
- * Testcase for bookmark manager factory
+ * Class implements factory for export configuration
  *
- * @package Tests
- * @subpackage Domain\Model\Bookmarks
- * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory
+ * @package Domain
+ * @subpackage Configuration\Bookmarks
+ * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-    /** @test */
-    public function classExists(){
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManagerFactory'));
-    }
+class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory {
 	
+	/**
+	 * Returns a instance of a bookmark configuration.
+	 * 
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+	 */
+	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		$bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
+		$bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig($configurationBuilder, $bookmarksSettings);
+		return $bookmarkConfig;
+	}
+
 }
+?>

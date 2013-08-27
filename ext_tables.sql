@@ -1,7 +1,7 @@
 #
-# Table structure for table 'tx_ptextlist_domain_model_bookmars_bookmark'
+# Table structure for table 'tx_ptextlist_domain_model_bookmark_bookmark'
 #
-CREATE TABLE tx_ptextlist_domain_model_bookmarks_bookmark (
+CREATE TABLE tx_ptextlist_domain_model_bookmark_bookmark (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) DEFAULT '0' NOT NULL,
   tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE tx_ptextlist_domain_model_bookmarks_bookmark (
   fe_group int(11) unsigned DEFAULT '0' NOT NULL,
   list_id varchar(250) DEFAULT '' NOT NULL,
   create_date int(11) unsigned DEFAULT '0' NOT NULL,
-  is_public tinyint(4) unsigned DEFAULT '0' NOT NULL,
+  type tinyint(4) unsigned DEFAULT '0' NOT NULL,
   
   PRIMARY KEY (uid),
   KEY parent (pid),

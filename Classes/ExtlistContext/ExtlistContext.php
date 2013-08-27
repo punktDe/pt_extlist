@@ -122,6 +122,20 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+	 */
+	protected $bookmarkManagerFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+	 */
+	protected $bookmarkManager;
+
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
 	 */
 	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
@@ -149,6 +163,15 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory
+	 */
+	public function injectBookmarkManagerFactory(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory){
+		$this->bookmarkManagerFactory = $bookmarkManagerFactory;
+	}
+
+
+
+	/**
 	 * Inject the Databackend
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
@@ -163,6 +186,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * Initialize the extbaseContext
 	 */
 	public function init() {
+		$this->initBookmarkManager();
 	}
 
 
@@ -431,4 +455,41 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 		return $this->extBaseContext;
 	}
 
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark Bookmark to be stored to database(This bookmark does not contain session data yet)
+	 */
+	public function storeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark){
+		$this->bookmarkManager->storeBookmark($bookmark);
+	}
+
+
+	protected function initBookmarkManager(){
+		$this->bookmarkManager = $this->bookmarkManagerFactory->getInstanceByConfigurationBuilder($this->getConfigurationBuilder());
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getBookmarks(){
+		return $this->bookmarkManager->getBookmarksForCurrentConfigAndFeUser();
+	}
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+	 */
+	public function getBookmarkConfiguration(){
+		return $this->getConfigurationBuilder()->buildBookmarkConfiguration();
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+	 */
+	public function removeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark) {
+		$this->bookmarkManager->removeBookmark($bookmark);
+	}
 }

@@ -55,8 +55,8 @@
                     <numIndex index="1">Pager->show</numIndex>
                   </numIndex>
                   <numIndex index="5" type="array">
-                    <numIndex index="0">Bookmarks</numIndex>
-                    <numIndex index="1">Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</numIndex>
+                    <numIndex index="0">Bookmark</numIndex>
+                    <numIndex index="1">Bookmark->show;Bookmark->save;Bookmark->delete;Bookmark->restore</numIndex>
                   </numIndex>
                   <numIndex index="6" type="array">
                     <numIndex index="0">Breadcrumbs</numIndex>

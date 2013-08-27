@@ -32,32 +32,32 @@
  * @package Domain
  * @subpackage Configuration\Bookmarks
  * @author Michael Knoll
- * @see Tx_PtExtlist_Tests_Domain_Configuration_Bookmarks_BookmarkConfigTest
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfgTest
  */
-class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
+class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 	
 	/**
 	 * Holds comma separated list of pids to search for bookmarks
 	 *
 	 * @var string
 	 */
-	protected $bookmarksPid;
+	protected $bookmarkPid;
 	
 	
 	
 	/**
 	 * If true, user bookmarks should be displayed
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
-    protected $showUserBookmarks;
+    protected $showPrivateBookmarks;
     
     
     
     /**
      * If true, group bookmarks should be displayed
      *
-     * @var bool
+     * @var boolean
      */
     protected $showGroupBookmarks;
     
@@ -66,131 +66,118 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
     /**
      * If true, public bookmarks should be displayed
      *
-     * @var bool
+     * @var boolean
      */
     protected $showPublicBookmarks;
 
-    
-    
-    /**
-     * Comma separated list of fe users that are allowd to edit bookmarks
-     *
-     * @var string
-     */
-    protected $feUsersAllowedToEdit;
-    
-    
-    
-    /**
-     * Comma separated list of fe groups that are allowed to edit bookmarks
-     *
-     * @var string
-     */
-    protected $feGroupsAllowedToEdit;
-    
-    
-    
-    /**
-     * Comma separated list of fe users that are allowed to edit public bookmarks
-     *
-     * @var string
-     */
-    protected $feUsersAllowedToEditPublic;
-    
-    
-    
-    /**
-     * Comma separated list of fe groups that are allowed to edit public bookmarks
-     *
-     * @var string
-     */
-    protected $feGroupsAllowedToEditPublic;
-    
-    
-    
-    /**
-     * Holds comma-separated list of fe group ids to show bookmarks for 
+
+	/**
+     * Holds comma-seperated list of fe group ids to show bookmarks for
      *
      * @var string
      */
     protected $groupIdsToShowBookmarksFor;
-   
-    
-    
-    /**
+
+
+
+	/**
+	 * If true, users are allowed to create public bookmarks
+	 *
+	 * @var boolean
+	 */
+	protected $createPublicBookmarks;
+
+
+
+	/**
+	 * If true, users are allowed to create private bookmarks
+	 *
+	 * @var boolean
+	 */
+	protected $createPrivateBookmarks;
+
+
+
+	/**
+	 * If true, users are allowed to create group bookmarks
+	 *
+	 * @var boolean
+	 */
+	protected $createGroupBookmarks;
+
+
+
+	/**
+	 * @var boolean
+	 */
+	protected $userCanDeleteAll;
+
+
+
+	/**
      * Initializes properties from given settings
      *
      */
     protected function init() {
     	
-    	$this->setValueIfExistsAndNotNothing('bookmarksPid');
-    	$this->setValueIfExistsAndNotNothing('feUsersAllowedToEdit');
-    	$this->setValueIfExistsAndNotNothing('feGroupsAllowedToEdit');
-    	$this->setValueIfExistsAndNotNothing('feUsersAllowedToEditPublic');
-    	$this->setValueIfExistsAndNotNothing('feGroupsAllowedToEditPublic');
+    	$this->setValueIfExistsAndNotNothing('bookmarkPid');
     	$this->setValueIfExistsAndNotNothing('groupIdsToShowBookmarksFor');
     	
-    	$this->setBooleanIfExistsAndNotNothing('showUserBookmarks');
+    	$this->setBooleanIfExistsAndNotNothing('showPrivateBookmarks');
     	$this->setBooleanIfExistsAndNotNothing('showGroupBookmarks');
     	$this->setBooleanIfExistsAndNotNothing('showPublicBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('createPublicBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('createPrivateBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('createGroupBookmarks');
+		$this->setBooleanIfExistsAndNotNothing('userCanDeleteAll');
     }
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getUserCanDeleteAll() {
+		return $this->userCanDeleteAll;
+	}
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getCreateGroupBookmarks() {
+		return $this->createGroupBookmarks;
+	}
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getCreatePrivateBookmarks() {
+		return $this->createPrivateBookmarks;
+	}
+
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getCreatePublicBookmarks() {
+		return $this->createPublicBookmarks;
+	}
     
     
     
 	/**
-	 * Returns comma separated list of pids to search for bookmarks in
-	 * 
 	 * @return string
 	 */
-	public function getBookmarksPid() {
-		return $this->bookmarksPid;
+	public function getBookmarkPid() {
+		return $this->bookmarkPid;
 	}
 	
-	
-	
-	/**
-	 * Returns comma separated list of fe groups to be allowed editing bookmarks
-	 * 
-	 * @return string
-	 */
-	public function getFeGroupsAllowedToEdit() {
-		return $this->feGroupsAllowedToEdit;
-	}
-	
-	
-	
-	/**
-	 * Returns comma-separated list of fe users to be allowed editing bookmarks
-	 * 
-	 * @return string
-	 */
-	public function getFeUsersAllowedToEdit() {
-		return $this->feUsersAllowedToEdit;
-	}
-	
-	
-	
-	/**
-	 * Returns comma-separated list of fe users that are allowed editing public bookmarks
-	 *
-	 * @return string
-	 */
-	public function getFeUsersAllowedToEditPublic() {
-		return $this->feUsersAllowedToEditPublic;
-	}
-	
-	
-	
-	/**
-	 * Returns comma-separated list of fe groups that are allowed editing public bookmarks
-	 *
-	 * @return string
-	 */
-	public function getFeGroupsAllowedToEditPublic() {
-		return $this->feGroupsAllowedToEditPublic;
-	}
-	
-	
+
 	
 	/**
 	 * Returns comma-separated list of fe groups to show bookmarks for
@@ -226,12 +213,12 @@ class Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig extends Tx_PtE
 	
 	
 	/**
-	 * Returns TRUE if user bookmarks should be shown
+	 * Returns TRUE if private bookmarks should be shown
 	 * 
 	 * @return bool
 	 */
-	public function getShowUserBookmarks() {
-		return $this->showUserBookmarks;
+	public function getShowPrivateBookmarks() {
+		return $this->showPrivateBookmarks;
 	}
 
 }

@@ -217,9 +217,9 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Injector for bookmark manager
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
      */
-    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager);
+    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager);
     
     
     

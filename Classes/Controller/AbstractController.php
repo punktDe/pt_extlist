@@ -36,12 +36,20 @@
  */
 abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_Controller_AbstractActionController  {
 
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+	 */
+	protected $bookmarkManager;
+
+
+
 	/**
 	 * This flag is set to true, the configurationBuilder is reset
 	 *
 	 * @var bool
 	 */
-	protected $resetConfigurationBuilder = false;
+	protected $resetConfigurationBuilder = FALSE;
 
 
 
@@ -75,7 +83,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected $configurationBuilder = NULL;
+	protected $configurationBuilder;
 	
 	
 	
@@ -93,6 +101,16 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @var string
 	 */
 	protected $listIdentifier;
+
+
+
+	/**
+	 * Holds an instance of currently logged in fe user
+	 * If no User is logged in Property will be NULL
+	 *
+	 * @var Tx_Extbase_Domain_Model_FrontendUser
+	 */
+	protected $feUser = NULL;
 
 
 
@@ -115,7 +133,23 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	protected $getPostVarsAdapterFactory;
 
-	
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+	 */
+	protected $bookmarkManagerFactory;
+
+
+
+	/**
+	 * Holds an instance of fe user repository
+	 *
+	 * @var Tx_Extbase_Domain_Repository_FrontendUserRepository
+	 */
+	protected $feUserRepository;
+
+
 	
 	/**
 	 * Constructor for all plugin controllers
@@ -166,12 +200,32 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory
+	 */
+	public function injectBookmarkManagerFactory (Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory){
+		$this->bookmarkManagerFactory = $bookmarkManagerFactory;
+	}
+
+
+
+	/**
+	 * @param Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository
+	 */
+	public function injectFeUserRepository (Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository){
+		$this->feUserRepository = $feUserRepository;
+	}
+
+
+
     /**
      * @return void
      */
     public function initializeAction(){
+
 		parent::initializeAction();
 
+		$this->initFeUser();
 		$this->initListIdentifier();
         $this->buildConfigurationBuilder();
         $this->buildAndInitSessionPersistenceManager();
@@ -209,8 +263,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     protected function buildAndInitSessionPersistenceManager(){
         $this->buildSessionPersistenceManager();
 
+		$this->bookmarkManager =  $this->bookmarkManagerFactory->getInstanceByConfigurationBuilder($this->configurationBuilder);
+		$this->bookmarkManager->processRequest($this->request);
+
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
 
+		//TODO: if session was restored from bookmark do not reset session
 		// We reset session data, if we want to have a reset on empty submit
 		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
 			$this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars($this->getPostVarsAdapterFactory->getInstance());
@@ -378,5 +436,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     	$this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
         parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
     }
-    
+
+
+
+	protected function initFeUser() {
+		$userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$this->feUser = $this->feUserRepository->findByUid($userUid);
+	}
+
 }

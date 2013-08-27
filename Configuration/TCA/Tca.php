@@ -3,10 +3,10 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
 
 /**
- * Configuration for bookmars table
+ * Configuration for bookmark table
  */
-$TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
-    'ctrl' => $TCA['tx_ptextlist_domain_model_bookmarks_bookmark']['ctrl'],
+$TCA['tx_ptextlist_domain_model_bookmark_bookmark'] = array(
+    'ctrl' => $TCA['tx_ptextlist_domain_model_bookmark_bookmark']['ctrl'],
     'interface' => array(
         'showRecordFieldList' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content'
     ),
@@ -70,7 +70,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         
         'name' => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.name',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.name',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -80,7 +80,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         
         'list_id' => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.list_id',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.list_id',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -90,7 +90,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         
         'description' => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.description',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.description',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -100,7 +100,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         
         'content' => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.content',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.content',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -110,7 +110,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         
         'create_date' => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.create_date',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.create_date',
             'config'  => array(
                 'type' => 'input',
                 'size' => 12,
@@ -123,7 +123,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         
         'fe_user' => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.fe_user',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.fe_user',
             'config'  => array(
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -138,7 +138,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
         
         'fe_group' => array(
             'exclude' => 0,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.fe_group',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.fe_group',
             'config'  => array(
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -151,11 +151,16 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array(
             )
         ),
         
-        'is_public' => array(
+        'type' => array(
             'exclude' => 1,
-            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmarks_bookmark.is_public',
+            'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.type',
             'config'  => array(
-                'type' => 'check'
+                'type' => 'select',
+				'items' => array(
+					array('public', 1),
+					array('private', 2),
+					array('group', 3)
+				)
             )
         )
     )
