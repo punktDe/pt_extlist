@@ -321,16 +321,6 @@ plugin.tx_ptextlist.settings {
 				}
 			}
 		}
-		bookmarks {
-			bookmarkPid = 30
-			createPublicBookmarks = 1
-			createPrivateBookmarks = 1
-			createGroupBookmarks = 1
-			showPublicBookmarks = 1
-			showPrivateBookmarks = 1
-			showGroupBookmarks = 1
-			userCanDeleteAll = 0
-		}
 	}
 }
 
