@@ -202,4 +202,3 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
 		}
 	}
 }
-?>

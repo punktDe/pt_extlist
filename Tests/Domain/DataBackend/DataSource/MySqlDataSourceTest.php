@@ -33,10 +33,12 @@
  * @author Daniel Lienert
  * @package Tests
  * @subpackage Domain/DataBackend/DataSource
+ * @see Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	public function testSetup() {
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/** @test */
+	public function assertThatClassExists() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
 	}
 	
@@ -125,5 +127,3 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_PDOErrorMock {
 	}
 	
 }
-
-?>

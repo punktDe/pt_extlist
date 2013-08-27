@@ -281,5 +281,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     }
     
 }
- 
- ?>

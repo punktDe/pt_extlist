@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Utility_RenderValueTest extends Tx_PtExtlist_Tests_Base
 				'dataWrap' => '{field:allDisplayFields} ({field:rowCount})')
 		);
 
-		$this->renderUserFunctions = array('10' => 'EXT:pt_extlist/Tests/Utility/RenderValueTest.php:Tx_PtExtlist_Tests_Utility_RenderValue_testcase->RenderFunction');
+		$this->renderUserFunctions = array('10' => 'EXT:pt_extlist/Tests/Utility/RenderValueTest.php:Tx_PtExtlist_Tests_Utility_RenderValueTest->RenderFunction');
 
 	}
 

@@ -213,4 +213,3 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	}
 
 }
-?>

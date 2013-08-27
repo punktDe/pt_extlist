@@ -33,6 +33,7 @@
  * @author Michael Knoll
  * @package Domain
  * @subpackage Model\List\Header
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderfactoryTest
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState

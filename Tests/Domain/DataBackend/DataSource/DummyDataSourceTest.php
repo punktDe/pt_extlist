@@ -31,16 +31,16 @@
 /**
  * Testcase for dummy data source
  * 
- * @package Typo3
- * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @package Tests
+ * @subpackage Domain\DataBackend\DataSource\DummyDataSource
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource'));
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSourceTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/** @test */
+	public function assertThatClassExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource');
 	}
 	
 }
-
-?>

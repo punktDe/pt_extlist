@@ -29,12 +29,13 @@
 /**
  * Testcase for mysql query interpreter
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * Query Object
@@ -71,11 +72,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$this->queryObject->addSorting('test2', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 		
 	}
-	
-	
-	
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter'));
+
+
+
+	/** @test */
+	public function assertThatClassExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter');
 	}
 	
 	
@@ -105,4 +107,3 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	
 }
-?>

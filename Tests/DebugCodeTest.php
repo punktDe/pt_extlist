@@ -68,4 +68,3 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractB
 	}
 	
 }
-?>

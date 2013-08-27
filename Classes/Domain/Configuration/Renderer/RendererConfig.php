@@ -86,4 +86,3 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig extends Tx_PtExt
 		return $this->rendererClassName;
 	}
 }
-?>

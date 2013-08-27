@@ -31,8 +31,8 @@
  *
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
- * 
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslatorTest
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator 
     implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {
@@ -43,7 +43,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndC
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
      * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
      * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
-     */
+	 * @return Tx_Extbase_Persistence_Query
+	 */
     public static function translateCriteria(
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
            Tx_Extbase_Persistence_Query $extbaseQuery,
@@ -76,5 +77,3 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndC
 	}
 	
 }
- 
-?>

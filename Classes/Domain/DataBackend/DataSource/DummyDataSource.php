@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage DataBackend\DataSource
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSourceTest
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource{ 
 
@@ -56,19 +57,19 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 	/**
 	 * Returns some dummy data on an executed query
 	 *
-	 * @param Tx_PtExtlist_Domain_Query_QueryInterface $query
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
 	 * @return array
 	 */
-	public function execute(Tx_PtExtlist_Domain_Query_QueryInterface $query = null) {
-		
+	public function execute(Tx_PtExtlist_Domain_QueryObject_Query $query = null) {
 		return $this->dummyArray;
 	}
-	
+
+
 	
 	/**
 	 * TODO remove function!
 	 *
-	 * @return unknown
+	 * @return int
 	 */
 	public function countItems() {
 		return count($this->dummyArray);
@@ -82,6 +83,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 	 * Returns some dummy data, requested between a range.
 	 * @param integer $start The start index of the requested data.
 	 * @param integer $end The end index of the requested data.
+	 * @return array
 	 */
 	public function executeWithLimit($start=1,$end=-1) {
 		
@@ -99,5 +101,3 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 	}
 	
 }
-
-?>

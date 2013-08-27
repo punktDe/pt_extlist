@@ -127,4 +127,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionT
 		$this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field3'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
 	}
 }
-?>

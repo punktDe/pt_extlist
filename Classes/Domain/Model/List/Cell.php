@@ -33,6 +33,7 @@
  * @subpackage Model\List
  * @author Michael Knoll 
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_CellTest
  */
 class Tx_PtExtlist_Domain_Model_List_Cell {
 
@@ -283,4 +284,5 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 
 		return $returnArray;
 	}
+
 }

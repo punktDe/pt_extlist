@@ -32,6 +32,7 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List\Aggregates
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilderTest
  */
 class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	
@@ -194,5 +195,3 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 	}
 	
 }
-
-?>

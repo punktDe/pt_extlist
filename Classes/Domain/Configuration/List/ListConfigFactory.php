@@ -46,4 +46,3 @@ class Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory {
 		return new Tx_PtExtlist_Domain_Configuration_List_ListConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('list'));
 	}
 }
-?>

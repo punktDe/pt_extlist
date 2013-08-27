@@ -31,14 +31,15 @@
  * 
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
 
 	/**
 	 * translate fullText criteria
-	 * 
-	 * @param $criteria Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
 	 * @return string
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
@@ -60,6 +61,5 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullText
 								$booleanMode
 						);
 	}
-}
 
-?>
+}

@@ -80,4 +80,3 @@ class Tx_PtExtlist_Tests_IntegrationTest extends Tx_PtExtbase_Tests_Unit_Abstrac
 		fclose($handle);	
 	}
 }
-?>

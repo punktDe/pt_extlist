@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
 
@@ -40,8 +41,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 *
 	 * @param \Tx_PtExtlist_Domain_QueryObject_Criteria|\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
 	 * @return string
-	 * @author Daniel Lienert
-	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
         return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());    
@@ -98,4 +97,3 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	}
 	
 }
-?>

@@ -32,6 +32,7 @@
  * @package Domain
  * @subpackage Model\BreadCrumbs
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactory

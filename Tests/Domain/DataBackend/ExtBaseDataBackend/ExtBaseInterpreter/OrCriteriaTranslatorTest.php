@@ -29,29 +29,33 @@
 /**
  * Testcase for or criteria translator for extbase backend interpreter
  *
- * @package Typo3
- * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @package Tests
+ * @subpackage Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-    
+class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/** @var  Tx_Extbase_Persistence_Repository */
     protected $repositoryMock;
     
     
-    
+
     public function setup() {
-        $this->repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array(), '', FALSE); 
+        $this->repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array(), '', FALSE);
     }
-    
-    
-     
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator'));
+
+
+
+	/** @test */
+	public function assertThatClassExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator');
 	}
 	
 	
-	
-	public function testThrowExceptionOnWrongCriteriaType() {
+
+	/** @test */
+	public function translateCriteriaThrowsExceptionOnWrongCriteriaType() {
 		$criteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '='));
         $query = $this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
         try {
@@ -65,4 +69,3 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 	}
 	
 }
-?>

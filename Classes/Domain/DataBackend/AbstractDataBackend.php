@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage DataBackend
  * @author Michael Knoll 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
@@ -468,4 +469,3 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 
 }
-?>

@@ -382,4 +382,3 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		throw new Exception('The extbase databackend does not support iteration lists yet! Ask a friendly extlist hacker to implement it :)', 1349282023);
 	}
 }
-?>

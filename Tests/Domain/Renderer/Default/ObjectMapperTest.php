@@ -175,5 +175,3 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject {
 		return $this->value2;
 	}
 }
-
-?>

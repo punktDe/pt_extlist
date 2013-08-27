@@ -31,9 +31,10 @@
  *
  * @package TYPO3
  * @subpackage pt_extlist
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function setup() {
 	}
@@ -41,9 +42,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilter_testcase extends Tx_P
 	
 	
     public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_OptionsFilter'));
+    	$this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_OptionsFilter');
     	$optionsFilter = new Tx_PtExtlist_Domain_Model_Filter_OptionsFilter();
-    	$this->assertTrue(is_a($optionsFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'));
+    	$this->assertIsA($optionsFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface');
     }
        
     
@@ -53,4 +54,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilter_testcase extends Tx_P
     }
     
 }
-?>

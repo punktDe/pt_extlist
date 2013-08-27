@@ -29,14 +29,16 @@
 /**
  * Testcase for ExtBase Query interpreter
  *
- * @package TYPO3
- * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @package Tests
+ * @subpackage Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter'));
+class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreterTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/** @test */
+    public function assertThatClassExists() {
+    	$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter');
     }
 
     
@@ -169,5 +171,3 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     }
     
 }
-
-?>

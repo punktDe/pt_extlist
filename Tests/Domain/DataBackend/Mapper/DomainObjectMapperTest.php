@@ -42,7 +42,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
 
 
 	/** @test */
-	public function assertClassExists() {
+	public function assertThatClassExists() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper'));
 	}
 

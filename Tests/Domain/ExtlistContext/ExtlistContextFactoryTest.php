@@ -31,15 +31,13 @@
  *
  * @package ExtlistContext
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_ExtlistContext_ExtlistContextFactory
  */
-class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_ExtlistContext_ExtlistContextFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	/**
-	 * @test
-	 */
+	/** @test */
 	public function classExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_ExtlistContext_ExtlistContextFactory'));
+		$this->assertClassExists('Tx_PtExtlist_ExtlistContext_ExtlistContextFactory');
 	}
 
 }
-?>

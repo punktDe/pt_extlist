@@ -47,4 +47,3 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory {
 	}
 
 }
-?>

@@ -27,14 +27,15 @@
  ***************************************************************/
 
 /**
- * Testcase for row object. 
- * 
+ * Testcase for row object.
+ *
  * @author Michael Knoll
  * @author Daniel Lienert
  * @package Tests
  * @subpackage Domain\Model\List
+ * @see Tx_PtExtlist_Domain_Model_List_Cell
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
 
 	protected $testDataArray = array(
 		'value' => 'testValue',
@@ -45,17 +46,19 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_PtExtbase_Te
 	);
 
 
+
 	/**
 	 * @test
 	 */
 	public function classExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_Cell'));
+		$this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Cell');
 	}
+
 
 
 	public function cellValueDataProvider() {
 
-		$testObject = new Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase_testClass();
+		$testObject = new Tx_PtExtlist_Tests_Domain_Model_List_CellTest_TestClass();
 
 		return array(
 			'object' => array('value' => $testObject, 'expected' => 'OBJECT::' . get_class($testObject)),
@@ -67,11 +70,12 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_PtExtbase_Te
 			'integerZero' => array('value' => 0, 'expected' => '0'),
 			'integerNegative' => array('value' => -100, 'expected' => '-100'),
 
-			'array' => array('value' => array(1,2), 'expected' => implode(', ', array(1,2))),
+			'array' => array('value' => array(1, 2), 'expected' => implode(', ', array(1, 2))),
 
 			'null' => array('value' => NULL, 'expected' => ''),
 		);
 	}
+
 
 
 	/**
@@ -88,6 +92,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_PtExtbase_Te
 	}
 
 
+
 	/**
 	 * @test
 	 */
@@ -102,6 +107,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_PtExtbase_Te
 		$this->assertEquals(2, $cell->getColumnIndex());
 		$this->assertEquals(array('key1' => 'value1'), $cell->getSpecialValues());
 	}
+
 
 
 	/**
@@ -122,5 +128,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase extends Tx_PtExtbase_Te
 
 }
 
-class Tx_PtExtlist_Tests_Domain_Model_List_Cell_testcase_testClass {}
-?>
+class Tx_PtExtlist_Tests_Domain_Model_List_CellTest_TestClass {
+
+}

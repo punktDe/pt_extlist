@@ -90,4 +90,3 @@ class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements t3lib_Singlet
 
 
 }
-?>

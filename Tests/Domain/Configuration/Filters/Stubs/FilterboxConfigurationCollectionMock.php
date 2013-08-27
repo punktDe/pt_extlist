@@ -103,6 +103,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
 	}
 	
 }
-
-
-?>

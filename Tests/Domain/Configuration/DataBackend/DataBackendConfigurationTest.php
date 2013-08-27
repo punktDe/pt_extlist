@@ -142,4 +142,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
     	}
 	}
 }
-?>

@@ -49,4 +49,3 @@ class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory {
 	}
     
 }
-?>

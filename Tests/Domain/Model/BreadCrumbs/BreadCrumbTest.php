@@ -31,25 +31,29 @@
  *
  * @package Tests
  * @subpackage Domain\Model\BreadCrumbs
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
  */
-class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumb_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-     
-    public function testSetup() {
+class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/** @test */
+    public function assertThatClassExists() {
     	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb'));	
     }
-    
-    
-    
-    public function testConstruct() {
+
+
+
+	/** @test */
+    public function constructorReturnsExpectedInstance() {
     	$filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($filterMock);
     	$this->assertTrue(is_a($breadCrumb, 'Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb'));
     }
     
     
-    
-    public function testGetFilter() {
+
+	/** @test */
+    public function getFilterReturnsExpectedFilter() {
         $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
         $breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($filterMock);
         $this->assertEquals($breadCrumb->getFilter(), $filterMock);
@@ -80,5 +84,3 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumb_testcase extends Tx
     }
 	
 }
-
-?>

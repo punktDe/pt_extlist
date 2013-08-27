@@ -148,5 +148,3 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 	}
 	
 }
- 
-?>

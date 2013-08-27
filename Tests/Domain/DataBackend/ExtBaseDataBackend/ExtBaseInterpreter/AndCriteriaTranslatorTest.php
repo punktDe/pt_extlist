@@ -29,15 +29,16 @@
 /**
  * Testcase for and criteria translator for extbase data backend interpreter
  *
- * @package Typo3
- * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @package Test
+ * @subpackage Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-     
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator'));
+class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
+	/** @test */
+	public function assertThatClassExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator');
 	}
 	
 }
-?>

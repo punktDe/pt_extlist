@@ -68,4 +68,3 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTes
 	}
 	
 }
-?>

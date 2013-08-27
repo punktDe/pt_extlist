@@ -110,8 +110,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 
 	/**
 	 * Generate an array by field configuration - direction is NULL here
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public static function getInstanceByFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
@@ -127,4 +127,3 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	}
 	
 }
-?>

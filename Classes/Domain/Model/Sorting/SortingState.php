@@ -151,4 +151,3 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
 	}
 	
 }
-?>

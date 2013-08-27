@@ -63,5 +63,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DatePickerFilterTest extends Tx_PtE
 	}
 
 }
- 
-?>

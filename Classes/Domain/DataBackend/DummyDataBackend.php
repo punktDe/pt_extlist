@@ -101,18 +101,19 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	public function getTotalItemsCount() {
 		return 10;
 	}
-	
-	
-	
-    /**
-     * Returns raw data for all filters excluding given filters. 
-     * 
-     * Result is given as associative array with fields given in query object.
-     *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
-     * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
-     * @return array Array of group data with given fields as array keys
-     */
+
+
+
+	/**
+	 * Returns raw data for all filters excluding given filters.
+	 *
+	 * Result is given as associative array with fields given in query object.
+	 *
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
+	 * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @return array Array of group data with given fields as array keys
+	 */
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
 								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
         // TODO implement me!
@@ -136,5 +137,3 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 
 
 }
-
-?>

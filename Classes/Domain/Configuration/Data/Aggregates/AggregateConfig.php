@@ -146,4 +146,3 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig {
 		return $this->special;
 	}
 }
-?>

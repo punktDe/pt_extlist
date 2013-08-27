@@ -68,4 +68,3 @@ interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface {
 	public function resetToDefaultSorting();
 	
 }
-?>

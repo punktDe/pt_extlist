@@ -220,6 +220,5 @@ class Tx_PtExtlist_Domain_Model_List_List {
 	public function getUseIterationListData() {
 		return $this->useIterationListData;
 	}
-}
 
-?>
+}

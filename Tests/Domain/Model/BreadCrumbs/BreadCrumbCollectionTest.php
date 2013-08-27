@@ -31,17 +31,20 @@
  *
  * @package Tests
  * @subpackage Domain\Model\BreadCrumbs
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection
  */
-class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testSetup() {
+	/** @test */
+	public function assertThatClassExists() {
         $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection'));		
 	}
 	
 	
-	
-	public function testAddBreadCrumb() {
+
+	/** @test */
+	public function addBreadCrumbAddsBreadCrumbToCollection() {
 		$filterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array(), array(),'', FALSE);
 		
 		$breadCrumbMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array('dummy'), array($filterMock),'', FALSE);
@@ -52,5 +55,3 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollection_testcase 
 	}
 	
 }
-
-?>

@@ -36,6 +36,7 @@
  * @author Michael Knoll
  * @package Domain
  * @subpackage Model\List\Header
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest
  */
 class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface,

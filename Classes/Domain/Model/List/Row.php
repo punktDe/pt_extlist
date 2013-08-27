@@ -34,6 +34,7 @@
  * @author Michael Knoll
  * @package Domain
  * @subpackage Model\List
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_RowTest
  */
 class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectCollection {
 
@@ -77,6 +78,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	public function createAndAddCell($cellContent, $columnIdentifier) {
 		$this->addItem(new Tx_PtExtlist_Domain_Model_List_Cell($cellContent), $columnIdentifier);
 	}
+
 
 
 	/**
@@ -195,6 +197,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	}
 
 
+
 	/**
 	 * @return array
 	 */
@@ -211,4 +214,3 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	}
 
 }
-?>
