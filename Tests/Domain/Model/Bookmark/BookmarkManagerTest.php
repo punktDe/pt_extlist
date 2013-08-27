@@ -103,8 +103,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 	public function setUp() {
 		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager');
-		$this->proxy = new $this->proxyClass;
-		$this->proxy->_set('listIdentifier', $this->settings['listIdentifier']);
+		$this->proxy = new $this->proxyClass($this->settings['listIdentifier']);
+		//$this->proxy->_set('listIdentifier', $this->settings['listIdentifier']);
 		$this->initDefaultConfigurationBuilderMock();
 	}
             
@@ -159,6 +159,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmark'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->once())
 			->method('restoreBookMark')
@@ -224,6 +225,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmarkByUid'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->never())
 			->method('restoreBookmarkByUid');
@@ -247,6 +249,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmarkByUid'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->never())
 			->method('restoreBookmarkByUid');
@@ -275,6 +278,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmarkByUid'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->never())
 			->method('restoreBookmarkByUid');
@@ -303,6 +307,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmarkByUid'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->never())
 			->method('restoreBookmarkByUid');
@@ -331,6 +336,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmarkByUid'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->never())
 			->method('restoreBookmarkByUid');
@@ -360,6 +366,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmarkByUid'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->never())
 			->method('restoreBookmarkByUid');
@@ -388,6 +395,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 
 		$proxyMock = $this->getMockBuilder($this->proxyClass)
 			->setMethods(array('restoreBookmarkByUid'))
+			->disableOriginalConstructor()
 			->getMock();
 		$proxyMock->expects($this->once())
 			->method('restoreBookmarkByUid')
