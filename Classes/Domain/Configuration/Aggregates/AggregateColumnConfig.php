@@ -34,7 +34,7 @@
  * @subpackage Configuration\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration {
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 
 	/** 
 	 * @var string
