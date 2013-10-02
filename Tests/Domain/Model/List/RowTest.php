@@ -34,7 +34,7 @@
  * @package Tests
  * @subpackage Domain\List
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $dataArray = array(
 		'specialValues' => array(

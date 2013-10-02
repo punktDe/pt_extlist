@@ -33,7 +33,7 @@
  * @subpackage pt_extlist
  * @author Christoph Ehscheidt 
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock

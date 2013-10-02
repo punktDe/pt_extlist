@@ -35,7 +35,7 @@
  * @subpackage pt_extlist
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSource_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource'));

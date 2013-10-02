@@ -330,17 +330,19 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @deprecated Use Tx_PtExtbase_Div::getCobj instead
 	 */
 	public static function getCobj() {
-		if(!self::$cObj) {
+		if(!self::$cObj || !is_object(self::$cObj)) {
 			if(TYPO3_MODE == 'FE') {
 				if(!is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
 					$GLOBALS['TSFE']->newCObj();
 				}
 			} else {
 				t3lib_div::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
+				$GLOBALS['TSFE']->newCObj();
 			}
+
+			self::$cObj = $GLOBALS['TSFE']->cObj;
 		}
 
-		self::$cObj = $GLOBALS['TSFE']->cObj;
 		return self::$cObj;
 	}
 
