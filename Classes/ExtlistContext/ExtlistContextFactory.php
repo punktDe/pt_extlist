@@ -130,7 +130,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 			if($extListBackend === NULL) {
 				$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
-				self::loadLifeCycleManager();
 
 				// TODO resolve this properly with Dependency Injection once we have cascading container
 				#Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
@@ -138,6 +137,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 				$configurationBuilderFactory->setSettings($extListTs);
 				$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 				#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+
+				self::loadLifeCycleManager($configurationBuilder);
 
 				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 			}
@@ -236,12 +237,13 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 */
 	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = FALSE) {
 		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
-		self::loadLifeCycleManager();
 
 		// TODO remove this, once we have DI
 		$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 		$configurationBuilderFactory->setSettings($extListTs);
 		$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier, $resetConfigurationBuilder);
+
+		self::loadLifeCycleManager($configurationBuilder);
 
 		return $configurationBuilder;
 	}
@@ -268,13 +270,18 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	/**
 	 * Read the Session data into the cache
 	 */
-	protected static function loadLifeCycleManager() {
+	protected static function loadLifeCycleManager(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		// TODO use DI here once refactoring is finished
 		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
 		$lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
 		$lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+		// If we have resetOnEmptySubmit, we reset session data here
+		if ($configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
+			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+		}
 	}
 
 
