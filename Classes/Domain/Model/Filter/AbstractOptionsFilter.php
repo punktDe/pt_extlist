@@ -91,7 +91,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 		$singleCriteria = NULL;
 
-		if (is_array($this->filterValues) && count($this->filterValues) == 1) {
+		if ($fieldIdentifier->getIsRelation()) {
+			$singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::relation($fieldName, current($this->filterValues));
+		} elseif (is_array($this->filterValues) && count($this->filterValues) == 1) {
 			$singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues));
 		} elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
 			$singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
@@ -131,6 +133,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 				$this->filterValues = trim($filterValues) != '' ? array($filterValues => $filterValues) : array();
 			}
 		}
+
 	}
 
 

@@ -84,6 +84,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	protected $treeRespectEnableFields = TRUE;
 
 
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected $objectManager;
+
 
 	/**
 	 * @var Tx_PtExtbase_Tree_TreeContext
@@ -95,8 +100,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 * @return void
 	 */
 	public function initFilter() {
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /** @var Tx_Extbase_Object_ObjectManager $objectManager */
-		$this->treeContext = $objectManager->get('Tx_PtExtbase_Tree_TreeContext');
+		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /** @var Tx_Extbase_Object_ObjectManager $objectManager */
+		$this->treeContext = $this->objectManager->get('Tx_PtExtbase_Tree_TreeContext');
 		$this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
 		$this->buildTree();
 	}
@@ -221,13 +226,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		}
 
 
-		$arrayWriterVisitor = new Tx_PtExtbase_Tree_ExtJsJsonWriterVisitor();
+		$arrayWriterVisitor = $this->objectManager->get('Tx_PtExtbase_Tree_ExtJsJsonWriterVisitor');
 		$arrayWriterVisitor->registerFirstVisitCallback($this, 'alterNodeArrayOnFirstVisit');
 		$arrayWriterVisitor->registerLastVisitCallBack($this, 'alterNodeArrayOnLastVisit');
 		$arrayWriterVisitor->setMultipleSelect($this->getMultiple());
 		$arrayWriterVisitor->setSelection($this->filterValues);
 
-		$jsonTreeWriter = new Tx_PtExtbase_Tree_JsonTreeWriter(array($arrayWriterVisitor), $arrayWriterVisitor);
+		$jsonTreeWriter = $this->objectManager->get('Tx_PtExtbase_Tree_JsonTreeWriter', array($arrayWriterVisitor), $arrayWriterVisitor);
 
 		return $jsonTreeWriter->writeTree($this->tree);
 	}
@@ -314,7 +319,10 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		$displayValues = array();
 
 		foreach($this->filterValues as $value) {
-			$displayValues[] = $this->tree->getNodeByUid($value)->getLabel();
+			$node = $this->tree->getNodeByUid($value);
+			if ($node instanceof Tx_PtExtbase_Tree_Node) {
+				$displayValues[] = $node->getLabel();
+			}
 		}
 
 		return implode(', ', $displayValues);
@@ -350,5 +358,3 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	}
 
 }
-
-?>
