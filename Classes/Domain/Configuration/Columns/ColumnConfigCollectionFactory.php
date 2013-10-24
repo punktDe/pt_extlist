@@ -59,7 +59,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 		ksort($columnSettings);
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
 		 
-		$security = Tx_PtExtlist_Domain_Security_SecurityFactory::getInstance();
+		$security = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
 		
 		foreach($columnSettings as $columnId => $columnSetting) {
 			$columnSettingMergedWithPrototype = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');
@@ -74,5 +74,5 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 		
 		return $columnConfigCollection;
 	}
+
 }
-?>
