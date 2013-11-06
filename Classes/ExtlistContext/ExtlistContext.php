@@ -282,10 +282,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns rendered list data for this list context
 	 *
+	 * @param bool $buildNew If set to TRUE, the list data is rebuild
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function getRenderedListData() {
-		return $this->getList()->getRenderedListData();
+	public function getRenderedListData($buildNew = FALSE) {
+		return $this->getList($buildNew)->getRenderedListData();
 	}
 
 
@@ -412,4 +413,3 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 }
-?>

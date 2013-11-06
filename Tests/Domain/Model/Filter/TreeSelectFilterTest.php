@@ -224,6 +224,5 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 
 		return Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($node1);
 	}
-}
 
-?>
+}

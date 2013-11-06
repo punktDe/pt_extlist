@@ -58,6 +58,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
       	$propertyName = self::getPropertyNameByCriteria($criteria);
       	    
       	switch ($criteria->getOperator()) {
+      		case '.' :
+      		    self::addConstraint($extbaseQuery, $extbaseQuery->contains($propertyName, $criteria->getValue()));
+      		break;
+      		
       		case '=' :
       		    self::addConstraint($extbaseQuery, $extbaseQuery->equals($propertyName, $criteria->getValue()));
       		break;
@@ -127,5 +131,3 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
 	}
 	
 }
- 
-?>
