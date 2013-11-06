@@ -60,20 +60,20 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 * @var string
 	 */
 	protected $proxyFilterIdentifier;
-	
-	
+
+
 	/**
 	 * @var string
 	 */
 	protected $proxyFilterClass;
-	
-	
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
 	protected function initFilter() {}
-	
-	
+
+
 	
 	/**
 	 * Copy the filter query from realFilter 
@@ -103,6 +103,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 			$proxyQuery->addCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($this->filterConfig->getFieldIdentifier()->getItemByIndex(0)->getTableFieldCombined(), 
 																						$criteria->getValue(), 
 																						$criteria->getOperator()));
+
 		}
 		
 		return $proxyQuery;
@@ -194,8 +195,16 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 */
 	protected function getRealFilterObject() {
 		$realFilterConfig = $this->getRealFilterConfig();
-		$realFilterObject = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($realFilterConfig);
-		
+
+		$dataBackendFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory');
+
+		$realFilterObject = $dataBackendFactory
+			->getDataBackendInstanceByListIdentifier($realFilterConfig->getListIdentifier())
+			->getFilterboxCollection()
+			->getFilterboxByFilterboxIdentifier($this->proxyFilterBoxIdentifier)
+			->getFilterByFilterIdentifier($this->proxyFilterIdentifier);
+
+
 		if(!is_a($realFilterObject, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface')) {
 			throw new Exception('The real filter object of type "'.get_class($realFilterObject).'" is not a filter. 1302854030');
 		}
