@@ -35,7 +35,7 @@
  * @package Tests
  * @subpackage Model\List\Header
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactory_testcase extends Tx_Extbase_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
