@@ -67,7 +67,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	/**
 	 * @var boolean
 	 */
-	protected $isSortable = true;
+	protected $isSortable = TRUE;
 
 
 
@@ -158,7 +158,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * 
 	 * @var boolean
 	 */
-	protected $accessable = false;
+	protected $accessable = FALSE;
 
 
 	/**
@@ -169,20 +169,25 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $headerThCssClass = '';
 
 
+	/**
+	 * @var bool
+	 */
+	protected $showInHeader = TRUE;
+
 
 	/**
 	 * if one of this columns fields is a expanded GroupField, 
 	 * this column has an array as dataStructure
 	 * @var boolean
 	 */
-	protected $containsArrayData = false;
+	protected $containsArrayData = FALSE;
 
 
 
 	/**
 	 * @var bool
 	 */
-	protected $isVisible = true;
+	protected $isVisible = TRUE;
 
 
 
@@ -234,6 +239,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('label');
 		$this->setValueIfExistsAndNotNothing('headerThCssClass');
 		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
+		$this->setBooleanIfExistsAndNotNothing('showInHeader');
 
 		if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
@@ -480,5 +486,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		return $this->cacheRendering;
 	}
 
+
+	/**
+	 * @return boolean
+	 */
+	public function getShowInHeader() {
+		return $this->showInHeader;
+	}
 }
 ?>
