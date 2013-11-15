@@ -29,9 +29,6 @@ plugin.tx_ptextlist.prototype.backend {
 		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 
-		# Define the filters that have to be active to show a result (search mode)
-		# requiredActiveFilters = filterBoxName.filterName
-
 		useEnableFields = 1
 	}
 
