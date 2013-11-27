@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCas
 		$lines = explode("\n", trim($result));
 
 		foreach($lines as $line) {
-			if(!stristr($line, __FILE__)) {
+			if(!stristr(basename($line), basename(__FILE__))) {
 				$this->fail('Found ' . $debugCommand . ': ' . $line);
 			}
 		}
