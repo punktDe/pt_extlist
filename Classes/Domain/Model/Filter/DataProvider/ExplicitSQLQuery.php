@@ -114,6 +114,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 * @return array filter options
 	 */
 	public function getRenderedOptions() {
+		$renderedOptions = array();
 		$options = $this->getDataFromSqlServer();
 		foreach ($options as $optionData) {
 			$optionKey = $optionData[$this->filterField];
@@ -132,17 +133,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 * @param array $optionData
 	 */
 	protected function renderOptionData($optionData) {
-
-		$option = '';
-
-		foreach ($this->displayFields as $displayField) {
-			$values[] = $optionData[$displayField];
+		$values = array();
+		if (is_array($this->displayFields)) {
+			foreach ($this->displayFields as $displayField) {
+				$values[] = $optionData[$displayField];
+			}
 		}
-
 		$optionData['allDisplayFields'] = implode(' ', $values);
-
 		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
-
 		return $option;
 	}
 
