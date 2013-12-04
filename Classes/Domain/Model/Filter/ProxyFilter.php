@@ -34,32 +34,35 @@
  * @subpackage Model\Filter
  */
 class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
-	
-	
+
 	/**
 	 * Holds identifier of field that should be filtered
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 */
 	protected $fieldIdentifier;
-	
+
+
 
 	/**
 	 * @var string
 	 */
 	protected $proxyListIdentifier;
 
-	
+
+
 	/**
 	 * @var string
 	 */
 	protected $proxyFilterBoxIdentifier;
 	
 
+
 	/**
 	 * @var string
 	 */
 	protected $proxyFilterIdentifier;
+
 
 
 	/**
@@ -68,10 +71,12 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	protected $proxyFilterClass;
 
 
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
 	protected function initFilter() {}
+
 
 
 	
@@ -82,13 +87,14 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		$realFilterObject = $this->getRealFilterObject();
 		$this->filterQuery = $this->buildProxyQuery($realFilterObject->getFilterQuery());
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Set the fieldIdentifier of the proxy filter as fieldIdentifier in the filterQuery
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $filterQuery
+	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_QueryObject_Query $proxyQuery
 	 */
 	protected function buildProxyQuery(Tx_PtExtlist_Domain_QueryObject_Query $filterQuery) {
@@ -135,15 +141,20 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 */
 	protected function initFilterBySession() {}
 	
-	
+
+
 	public function reset() {}
 
-	
+
+
 	public function persistToSession() {}
-	
+
+
+
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
 	
-	
+
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
 	 *
@@ -157,7 +168,6 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	
 	
 	
-	
 	protected function setProxyConfigFromProxyPath($proxyPath) {
 		list($this->proxyListIdentifier, $this->proxyFilterBoxIdentifier, $this->proxyFilterIdentifier) = explode('.', $proxyPath);
 		
@@ -165,12 +175,13 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 			throw new Exception("Either proxyListIdentifier, proxyFilterBoxIdentifier or proxyFilterIdentifier not given! 1288352507");
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Get the Configurationbuilder for the real list
-	 * 
+	 *
+	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected function getConfigurationBuilderForRealList() {
@@ -246,7 +257,5 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 												 ->getFilterConfigByFilterIdentifier($this->proxyFilterIdentifier);
 		return $realFilterConfig;
 	}
-	
-	
-	
+
 }
