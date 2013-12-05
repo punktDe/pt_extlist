@@ -36,5 +36,3 @@
 interface Tx_PtExtlist_Domain_Security_SecurityInterface  {
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder);
 }
-
-?>
