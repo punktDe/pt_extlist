@@ -108,8 +108,14 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 * @return int Amount of items per page.
 	 */
 	public function getItemsPerPage();
-	
-	
+
+
+	/**
+	 * Sets the items per page
+	 * @param int $itemsPerPage
+	 */
+	public function setItemsPerPage($itemsPerPage);
+
 	
 	/**
 	 * Returns an array with the index=>pageNumber pairs
