@@ -63,7 +63,17 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
         } elseif(is_numeric($value)) {
 			$returnString = $value;
 		} else {
-			$returnString = self::wrapNonNumericValue(mysql_real_escape_string($value));
+			if (class_exists('t3lib_utility_VersionNumber')) {
+				$t3Version = t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version);
+			} else {
+				$t3Version = t3lib_div::int_from_ver(TYPO3_version);
+			}
+
+			if ($t3Version < 6001000) {
+				$returnString = self::wrapNonNumericValue(mysql_real_escape_string($value));
+			} else {
+				$returnString = self::wrapNonNumericValue(mysqli_real_escape_string($GLOBALS['TYPO3_DB']->getDatabaseHandle(), $value));
+			}
 		}
 		return $returnString;
 	}
