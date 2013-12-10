@@ -55,7 +55,12 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 	public function initialize() {
 		parent::initialize();
 		$this->captionRenderer = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
-		$this->columnSelectorConfig = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance()->buildColumnSelectorConfiguration();
+
+		// TODO Remove this, once we have DI
+		$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+		$configurationBuilder = $configurationBuilderFactory->getInstance();
+
+		$this->columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();
 	}
 	
 	
@@ -129,5 +134,3 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 	}
 
 }
-
-?>

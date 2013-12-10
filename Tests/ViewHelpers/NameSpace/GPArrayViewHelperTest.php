@@ -81,7 +81,13 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 	
 	
 	public function testRenderWithObject() {
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('addSessionRelatedArguments'), array(), '', FALSE);
+		$sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
+		$sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', FALSE);
+		$sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
+
 		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+		$linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
 		
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace','getLabel'));
         $object->expects($this->once())
@@ -101,7 +107,14 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelper_testcase extend
 	
 	
 	public function testRenderWithObjectAndValue() {
+		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('addSessionRelatedArguments'), array(), '', FALSE);
+		$sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
+		$sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', FALSE);
+		$sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
+
 		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+
+		$linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
 		
 		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())

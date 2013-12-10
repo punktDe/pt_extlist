@@ -105,6 +105,24 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 
 	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
 	 * Factory method for data source
 	 *
 	 * Only DataBackend knows, which data source to use and how to instantiate it.
@@ -181,7 +199,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function getIterationListData() {
 		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
-		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
+
+		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 
 		$sqlQuery = $this->buildQuery();
 		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, array('query' => $sqlQuery));

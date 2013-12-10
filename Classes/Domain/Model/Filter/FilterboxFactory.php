@@ -50,7 +50,12 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory {
 			$filterbox->addFilter($filter,$filter->getFilterIdentifier());
 		}
 
-        $sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+		// TODO use DI here once refactoring is finished
+		#$sessionPersistenceManager = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance();
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
+		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
+
         $sessionPersistenceManager->registerObjectAndLoadFromSession($filterbox);
 
 		return $filterbox;

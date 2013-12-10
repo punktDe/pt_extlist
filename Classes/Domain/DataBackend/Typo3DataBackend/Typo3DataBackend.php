@@ -102,6 +102,8 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 					$specialFieldsWhereClauseSnippet = str_replace(' ' . $table . '.',  ' ' . $alias . '.', $specialFieldsWhereClauseSnippet);
                     // Make sure not to replace parts of table names with wrong aliases! So check for '(' to come before and '.' to come after
                     $specialFieldsWhereClauseSnippet = str_replace('(' . $table . '.',  '(' . $alias . '.', $specialFieldsWhereClauseSnippet);
+                    // Make sure not to replace parts of table names with wrong aliases! So check for ',' to come before and '.' to come after
+                    $specialFieldsWhereClauseSnippet = str_replace(',' . $table . '.',  ',' . $alias . '.', $specialFieldsWhereClauseSnippet);
                 }
 
 				$specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
@@ -112,5 +114,3 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 		return $specialFieldsWhereClause;
 	}
 }
-
-?>

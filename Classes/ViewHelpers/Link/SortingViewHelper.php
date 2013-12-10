@@ -39,12 +39,44 @@
 class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
 	/**
-     * Renders a link for given header
-     *
+	 * Holds instance of session persistence manager builder
+	 *
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	protected $sessionPersistenceManagerBuilder;
+
+
+
+	/**
+	 * Injects session persistence manager factory (used by DI)
+	 *
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
+	/**
+	 * Renders a link for given header
+	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
 	 * @param string $action Rendered link for sorting action
+	 * @param int $pageUid
+	 * @param int $pageType
+	 * @param bool $noCache
+	 * @param bool $noCacheHash
+	 * @param string $section
+	 * @param string $format
+	 * @param bool $linkAccessRestrictedPages
+	 * @param array $additionalParams
+	 * @param bool $absolute
+	 * @param bool $addQueryString
+	 * @param array $argumentsToBeExcludedFromQueryString
+	 * @return string
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort') {
+	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort', $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
 		$sortingFieldParams = array();
 
         // We generate sorting parameters for every sorting field configured for this column
@@ -68,9 +100,9 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
 		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
 		
-		Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->addSessionRelatedArguments($argumentArray);
+		$this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
-        $output = parent::render($action,$argumentArray);
+        $output = parent::render($action, $argumentArray, NULL, NULL, NULL, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
 
         $this->templateVariableContainer->remove('sortingDirection');
 		return $output;

@@ -99,6 +99,16 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
 	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
 		return $aggregateListData;
 	}
-}
 
-?>
+
+
+	/**
+	 * Initializes the renderer
+	 *
+	 * @return void
+	 */
+	public function initRenderer() {
+		// Implement this method in classes using initalization
+	}
+
+}

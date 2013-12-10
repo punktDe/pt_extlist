@@ -28,36 +28,45 @@
 
 /**
  * Testcase for default renderer
- * 
- * @author Michael Knoll 
+ *
+ * @author Michael Knoll
  * @package Tests
  * @subpackage Domain\Renderer\Default
+ * @see Tx_PtExtlist_Domain_Renderer_Default_Renderer
  */
 class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
+
 	/**
 	 * Holds an instance of the renderer to be tested
-	 * 
+	 *
 	 * @var Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
 	 */
 	protected $renderer;
-	
-	
-	
-    /**
-     * Set up testcase
-     */	
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererFactory
+	 */
+	protected $rendererFactory;
+
+
+
+	/**
+	 * Set up testcase
+	 */
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
 		$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, array('rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer', 'enabled' => '1'));
-		$this->renderer = Tx_PtExtlist_Domain_Renderer_RendererFactory::getRenderer($rendererConfiguration);
+		$this->rendererFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererFactory');
+		$this->renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
 	}
-	
-	
-	
+
+
+
 	/** @test */
 	public function renderListReturnsRenderedListForGivenConfiguration() {
-		
+
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		$row = new Tx_PtExtlist_Domain_Model_List_Row();
 		$row->createAndAddCell('val1', 'field1');
@@ -65,29 +74,27 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
 		$row->createAndAddCell('val3', 'field3');
 		$row->createAndAddCell('val4', 'field4');
 		$listData->addRow($row);
-		
+
 		$renderedList = $this->renderer->renderList($listData);
-		
+
 		$this->assertTrue(is_a($renderedList, 'Tx_PtExtlist_Domain_Model_List_ListData'));
-		
-		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getCell('column1'),'val1');
-		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getCell('column4'),'val4');
+
+		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getCell('column1'), 'val1');
+		$this->assertEquals((string)$renderedList->getItemByIndex(0)->getCell('column4'), 'val4');
 	}
-	
-	
-	
+
+
+
 	/** @test */
 	public function renderCaptionRendersCaptionForGivenConfiguration() {
 		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilderMock);
-		
+
 		$captions = $this->renderer->renderCaptions($listHeader);
-		
+
 		$this->assertTrue(is_a($captions, 'Tx_PtExtlist_Domain_Model_List_Row'));
-		
+
 		$this->assertEquals((string)$captions->getItemById('column1'), 'Column 1');
 		$this->assertEquals((string)$captions->getItemById('column4'), 'Column 4');
 	}
-	
-}
 
-?>
+}

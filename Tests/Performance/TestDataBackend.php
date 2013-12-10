@@ -31,7 +31,7 @@ require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSo
 
 /**
  * Test DataBackend for generating test data
- * 
+ *
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Tests\Performance\TestDataBackend
@@ -44,10 +44,26 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 */
 	protected $rowCount = 20;
 
+
+
 	/**
 	 * @var int
 	 */
 	protected $colCount = 5;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
 
 
 	/**
@@ -60,18 +76,19 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 
 		$rawData = $dataSource->fetchAll();
 
-		for($i = 0; $i < $this->rowCount; $i++) {
-			for($j = 1; $j <= $this->colCount; $j++) {
-				$rawData[$i]['col_' . $j] = "Testdaten aus der Koordinate $i:$j" ;
+		for ($i = 0; $i < $this->rowCount; $i++) {
+			for ($j = 1; $j <= $this->colCount; $j++) {
+				$rawData[$i]['col_' . $j] = "Testdaten aus der Koordinate $i:$j";
 			}
 		}
 
-		$mappedData =  $this->dataMapper->getMappedListData($rawData);
+		$mappedData = $this->dataMapper->getMappedListData($rawData);
 
 		unset($rawData);
 
 		return $mappedData;
 	}
+
 
 
 	/**
@@ -80,7 +97,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	public function getIterationListData() {
 
 		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
-		$rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($rendererChainConfiguration);
+		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 
 		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
 
@@ -101,12 +118,14 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
 	 * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @return array Array of group data with given fields as array keys
 	 */
 	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
 								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 		// TODO: Implement getGroupData() method.
 	}
+
 
 
 	/**
@@ -119,14 +138,16 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	}
 
 
+
 	/**
 	 * Return an aggregate for a field and with a method defined in the given config
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateDataConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
 	 */
 	public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
 		// TODO: Implement getAggregatesByConfigCollection() method.
 	}
+
 
 
 	/**
@@ -138,6 +159,8 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 		return $this;
 	}
 
+
+
 	/**
 	 * @return int
 	 */
@@ -145,13 +168,18 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 		return $this->rowCount;
 	}
 
+
+
 	/**
 	 * @param int $colCount
+	 * @return $this
 	 */
 	public function setColCount($colCount) {
 		$this->colCount = $colCount;
 		return $this;
 	}
+
+
 
 	/**
 	 * @return int
@@ -159,6 +187,5 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	public function getColCount() {
 		return $this->colCount;
 	}
-}
 
-?>
+}

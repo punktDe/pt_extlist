@@ -37,4 +37,3 @@
 class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
 }
-?>
