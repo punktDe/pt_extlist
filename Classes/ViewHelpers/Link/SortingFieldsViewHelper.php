@@ -60,13 +60,25 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends Tx_Fluid_Vi
 
 
 	/**
-     * Renders a link for given header and sortingFields
-     *
+	 * Renders a link for given header and sortingFields
+	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
-     * @param array $fieldAndDirection List of fields and direction for which we want to generate sorting link {field: fieldName, direction: sortingDirection}
+	 * @param array $fieldAndDirection List of fields and direction for which we want to generate sorting link {field: fieldName, direction: sortingDirection}
 	 * @param string $action Rendered link for sorting action
+	 * @param int $pageUid
+	 * @param int $pageType
+	 * @param bool $noCache
+	 * @param bool $noCacheHash
+	 * @param string $section
+	 * @param string $format
+	 * @param bool $linkAccessRestrictedPages
+	 * @param array $additionalParams
+	 * @param bool $absolute
+	 * @param bool $addQueryString
+	 * @param array $argumentsToBeExcludedFromQueryString
+	 * @return string
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, array $fieldAndDirection, $action='sort') {
+	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, array $fieldAndDirection, $action='sort', $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
 		$sortingFieldParams = array();
 
         $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($fieldAndDirection['currentDirection']);
@@ -81,9 +93,8 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends Tx_Fluid_Vi
 
 		$this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
-		return parent::render($action,$argumentArray);
+		return parent::render($action, $argumentArray, NULL, NULL, NULL, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
 	}
-    
 }
 
 ?>
