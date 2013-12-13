@@ -91,7 +91,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 		
 		
 		// we need to give a list to the renderer
-		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
+		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader('temp');
 		$listHeader->addHeaderColumn($headerColumn, 'test');
 		
 		
@@ -126,7 +126,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 			
 		$headerColumn->injectColumnConfig($columnConfigMock);
 		
-		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader();
+		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader('temp');
 		$listHeader->addHeaderColumn($headerColumn, 'bla');
 		
 		

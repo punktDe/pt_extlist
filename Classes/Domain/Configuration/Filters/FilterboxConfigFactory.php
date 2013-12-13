@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterBoxSettings) {
 		$filterboxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilder, $filterboxIdentifier, $filterBoxSettings);
 
-		$filterSettingsArray = $filterBoxSettings['filterConfigs'];
+		$filterSettingsArray = is_array($filterBoxSettings['filterConfigs']) ? $filterBoxSettings['filterConfigs'] : array();
 		ksort($filterSettingsArray);
 
 		foreach($filterSettingsArray as $arrayIndex => $filterSettings) {
