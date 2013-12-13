@@ -204,6 +204,14 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 * @return bool True, if pager is on last page
 	 */
 	public function getIsOnLastPage();
-	
+
+
+
+	/**
+	 * Return the calculated item offset
+	 *
+	 * @return int
+	 */
+	public function getItemOffset();
 }
 ?>
