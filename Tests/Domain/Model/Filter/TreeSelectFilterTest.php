@@ -73,6 +73,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
 			array(
+				'treeNamespace' => 'test',
 				'filterIdentifier' => 'test',
 				'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter',
 				'partialPath' => 'Filter/SelectFilter',

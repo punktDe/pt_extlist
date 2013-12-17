@@ -54,7 +54,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * 
 	 * @var array GP-Var Data
 	 */
-	protected $headerGPVarData;
+	protected $headerGPVarData = array();
 
 
 
@@ -63,7 +63,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * 
      * @var array
      */
-    protected $headerSessionData;
+    protected $headerSessionData = array();
 	
 	
 	

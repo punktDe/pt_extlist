@@ -123,10 +123,10 @@ class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase
 	public function testFindNoBookmarksOnDifferingGroupIdsAndFeUserGroupBelongTos() {
 		$groupUids = '1,2,3,4';
 		
-		$userGroup1Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+		$userGroup1Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array(), array('title'));
 		$userGroup1Mock->expects($this->any())->method('getUid')->will($this->returnValue(5));
 		
-		$userGroup2Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+		$userGroup2Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array(), array('alternate'));
 		$userGroup2Mock->expects($this->any())->method('getUid')->will($this->returnValue(6));
 		
 		$userGroupObjectStorageMock = new Tx_Extbase_Persistence_ObjectStorage();
