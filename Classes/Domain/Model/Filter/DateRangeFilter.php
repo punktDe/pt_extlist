@@ -65,19 +65,31 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		if ($this->filterValueFrom == '' || $this->filterValueTo == '') {
 			return NULL;
 		}
-		
+
+		$timestampBoundaries = $this->getCalculatedTimestampBoundaries();
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
-		$filterValueFromDateObject = new DateTime($this->filterValueFrom);
-		$filterValueFromTimestamp = $filterValueFromDateObject->getTimestamp();
-
-		$filterValueToDateObject = new DateTime($this->filterValueTo);
-		$filterValueToTimestamp = $filterValueToDateObject->getTimestamp();
-
-		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $filterValueFromTimestamp);
-		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $filterValueToTimestamp);
+		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $timestampBoundaries['filterValueFromTimestamp']);
+		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $timestampBoundaries['filterValueToTimestamp']);
 		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria1, $criteria2);
 		return $criteria;
+	}
+
+
+	/**
+	 * Calculate the timestamp boundaries from the input values
+	 * @return array
+	 */
+	protected function getCalculatedTimestampBoundaries() {
+		$timestampBoundaries = array();
+
+		$filterValueFromDateObject = new DateTime($this->filterValueFrom);
+		$timestampBoundaries['filterValueFromTimestamp'] =  $filterValueFromDateObject->getTimestamp();
+
+		$filterValueToDateObject = new DateTime($this->filterValueTo);
+		$timestampBoundaries['filterValueToTimestamp'] = $filterValueToDateObject->getTimestamp() + (24*60*60) - 1;
+
+		return $timestampBoundaries;
 	}
 
 
