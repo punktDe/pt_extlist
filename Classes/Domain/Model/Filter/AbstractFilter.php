@@ -662,8 +662,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     protected function resetGpVarDataForFilter() {
         $this->gpVarFilterData = array();
     }
-    
-    
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getGPVarFilterData() {
+		return $this->gpVarFilterData;
+	}
     
 	/****************************************************************************************************************
      * Methods implementing "Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface"
@@ -677,8 +684,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectGPVars($gpVars) {
 		$this->gpVarFilterData = $gpVars;
 	}
-	
-	
+
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"

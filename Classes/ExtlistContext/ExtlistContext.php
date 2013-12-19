@@ -311,8 +311,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	public function getFilterByFullFiltername($fullFilterName) {
-		#list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
-		#$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
 		$filter = $this->getFilterBoxCollection()->getFilterByFullFiltername($fullFilterName);
 		return $filter;
 	}
