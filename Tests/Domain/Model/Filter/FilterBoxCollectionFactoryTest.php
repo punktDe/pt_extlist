@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactory_testcase
     public function testCreateInstanceByfilterboxConfigurationCollection() {
     	$this->initDefaultConfigurationBuilderMock();
     	Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-        $filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($this->configurationBuilderMock); 
+        $filterboxCollection = Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::createInstance($this->configurationBuilderMock, FALSE);
     }
     
 }

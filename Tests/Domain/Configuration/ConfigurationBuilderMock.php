@@ -163,7 +163,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 								'isSortable' => '1',
 								'isVisible' => '0',
 								'sorting' => 'field1, field2',
-
+								'showInHeader' => 0,
 
 							),
 							30 => array(

@@ -158,8 +158,13 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface {
      * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
      */
     public function getFilterBreadCrumb();
-    
-    
+
+
+	/**
+	 * @return array
+	 */
+	public function getGPVarFilterData();
+
     
     /**
      * Returns true, if filter is active

@@ -109,8 +109,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 */
 	protected $dataBackendFactory;
 
-	
-	
 	/**
 	 * Constructor for all plugin controllers
 	 *
@@ -144,7 +142,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	}
 
 
-
 	/**
 	 * Injects configuration builder factory
 	 *
@@ -155,16 +152,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		$this->configurationBuilderFactory = $configurationBuilderFactory;
 	}
 
-
-
-    /**
+	/**
      * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager
      */
     public function injectLifecycleManager(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager) {
         $this->lifecycleManager = $lifecycleManager;
     }
-
-
 
     /**
      * @return void
@@ -175,6 +168,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		$this->initListIdentifier();
         $this->buildConfigurationBuilder();
         $this->buildAndInitSessionPersistenceManager();
+		$this->resetSessionOnResetParameter();
         $this->resetOnEmptySubmit();
 		$this->dataBackend = $this->dataBackendFactory->getDataBackendInstanceByListIdentifier($this->listIdentifier);
     }
@@ -205,26 +199,35 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	}
 
 
-
-    protected function buildAndInitSessionPersistenceManager(){
+	/**
+	 *
+	 */
+	protected function buildAndInitSessionPersistenceManager(){
         $this->buildSessionPersistenceManager();
 
 		$this->lifecycleManager->registerAndUpdateStateOnRegisteredObject($this->sessionPersistenceManager);
 
 		// We reset session data, if we want to have a reset on empty submit
-		if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-			$this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
-		}
+		$this->resetOnEmptySubmit();
     }
 
 
-
-    protected function resetOnEmptySubmit(){
+	/**
+	 * Reset session if ResetOnEmptySubmit is set in config and gpvars are empty
+	 */
+	protected function resetOnEmptySubmit(){
         // We reset session data, if we want to have a reset on empty submit
-        if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-            $this->sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+        if ($this->configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit() && Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->isEmptySubmit()) {
+            $this->sessionPersistenceManager->resetSessionData();
         }
     }
+
+	protected function resetSessionOnResetParameter() {
+		if ($this->configurationBuilder->buildBaseConfiguration()->getResetSessionOnResetParameter()
+			&& Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->getParametersByNamespace($this->listIdentifier . '.resetSession')) {
+			$this->sessionPersistenceManager->resetSessionData();
+		}
+	}
 
 
 

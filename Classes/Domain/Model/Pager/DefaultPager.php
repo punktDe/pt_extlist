@@ -32,8 +32,7 @@
  * @package Domain
  * @subpackage Model\Pager
  * @author Michael Knoll 
- * @author Christoph Ehscheidt 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
                	
@@ -389,6 +388,14 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 */
 	public function getIsOnLastPage() {
 		return ($this->currentPage == $this->getLastPage());
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getItemOffset() {
+		return intval($this->getCurrentPage() - 1) * intval($this->getItemsPerPage());
 	}
 
 }

@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
 		$mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
-		$pdo = new PDO();
+		$pdo = new PDO("sqlite::memory:");
 		$mysqlDataSource->injectDbObject($pdo);
 	}
 
