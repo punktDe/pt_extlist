@@ -63,7 +63,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
         } elseif(is_numeric($value)) {
 			$returnString = $value;
 		} else {
-			$returnString = self::wrapNonNumericValue(mysql_real_escape_string($value));
+			$returnString = self::wrapNonNumericValue(self::escape($value));
 		}
 		return $returnString;
 	}
@@ -92,9 +92,25 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 */
 	public static function escapeArray(array $values) {
 		foreach($values as $value) {
-			$escapedValues[] = mysql_real_escape_string($value);
+			$escapedValues[] = self::escape($value);
 		}
 		return $escapedValues;
+	}
+
+
+	/**
+	 * @param $value
+	 * @return string
+	 */
+	protected static function escape($value) {
+		$connection = $GLOBALS['TYPO3_DB'];
+		if(method_exists($connection, 'getDatabaseHandle') && $connection->getDatabaseHandle() instanceof mysqli) {
+			$value =  $connection->getDatabaseHandle()->real_escape_string($value);
+		} else {
+			$value = mysql_real_escape_string($value);
+		}
+
+		return $value;
 	}
 	
 }
