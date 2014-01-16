@@ -633,7 +633,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string
      */
     protected function buildAggregateFieldSQLByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
-    	$supportedMethods = array('sum', 'avg', 'min', 'max');
+    	$supportedMethods = array('sum', 'avg', 'min', 'max', 'count');
 
     	if($aggregateConfig->getSpecial()) {
     		$aggregateFieldSQL = $aggregateConfig->getSpecial();
