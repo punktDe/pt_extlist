@@ -326,6 +326,7 @@
             <TCEforms>
               <label>Filterbox Identifier</label>
 				<displayCond>FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</displayCond>
+				<onChange>reload</onChange>
 				<config>
 					<type>select</type>
 					<items>
