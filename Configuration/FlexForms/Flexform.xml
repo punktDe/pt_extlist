@@ -17,6 +17,7 @@
           <settings.listIdentifier>
             <TCEforms>
               <label>List Identifier</label>
+				<onChange>reload</onChange>
               <config>
                 <type>select</type>
                 	<items>
@@ -35,7 +36,9 @@
           <switchableControllerActions>
             <TCEforms>
               <label>Plugin type</label>
-              <config>
+				<displayCond>FIELD:settings.listIdentifier:REQ:true</displayCond>
+				<onChange>reload</onChange>
+				<config>
                 <type>select</type>
                 <items type="array">
                   <numIndex index="1" type="array">
@@ -106,6 +109,7 @@
       <ROOT>
         <TCEforms>
           <sheetTitle>Export settings</sheetTitle>
+			<displayCond>FIELD:sDefault.switchableControllerActions:=:Export->showLink;Export->download</displayCond>
         </TCEforms>
         <type>array</type>
         <el>
