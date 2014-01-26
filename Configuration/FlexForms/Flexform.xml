@@ -126,7 +126,7 @@
           <settings.controller.Export.download.view>
             <TCEforms>
               <label>Export Type</label>
-				<displayCond>FIELD:settings.exportListIdentifier:REQ:true</displayCond>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
               <config>
                 <type>select</type>
                 	<items>
@@ -144,7 +144,7 @@
           <settings.prototype.export.downloadType>
             <TCEforms>
               <label>Download Type</label>
-				<displayCond>FIELD:settings.exportListIdentifier:REQ:true</displayCond>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
 				<config>
                 <type>select</type>
                   <items type="array">
@@ -164,7 +164,7 @@
           <settings.prototype.export.fileName>
             <TCEforms>
               <label>Filename (Prefix)</label>
-				<displayCond>FIELD:settings.exportListIdentifier:REQ:true</displayCond>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
 				<config>
                 <type>input</type>
                 <size>30</size>
@@ -176,7 +176,7 @@
           <settings.prototype.export.fileExtension>
             <TCEforms>
               <label>File Extension (Suffix without ".")</label>
-				<displayCond>FIELD:settings.exportListIdentifier:REQ:true</displayCond>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
 				<config>
                 <type>input</type>
                 <size>4</size>
@@ -188,7 +188,7 @@
           <settings.prototype.export.addDateToFilename>
             <TCEforms>
               <label>Add Date to Filename</label>
-				<displayCond>FIELD:settings.exportListIdentifier:REQ:true</displayCond>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
 				<config>
                 <type>check</type>
               </config>
@@ -198,7 +198,7 @@
           <settings.prototype.export.fileFormat>
             <TCEforms>
               <label>File Format</label>
-				<displayCond>FIELD:settings.exportListIdentifier:REQ:true</displayCond>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
 				<config>
                   <type>input</type>
                   <size>20</size>
@@ -345,7 +345,7 @@
           <settings.controller.Filterbox.show.template>
             <TCEforms>
               <label>Filterbox Template</label>
-				<displayCond>FIELD:settings.filterboxIdentifier:REQ:true</displayCond>
+				<displayCond>FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</displayCond>
 				<config>
                 <type>input</type>
                 <size>60</size>
