@@ -307,7 +307,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 		}
 
 		if(!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {
-			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page! 1284655053');
+			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page!', 1284655053);
 		}
 
 		$extListTSArray['listIdentifier'] = $listIdentifier;
