@@ -60,5 +60,3 @@ $dispatcher->setActionName(t3lib_div::_GP('action'));
 
 header('Content-Type: text/html; charset=' . $TSFE->renderCharset);
 echo $dispatcher->dispatch();
-
-?>
