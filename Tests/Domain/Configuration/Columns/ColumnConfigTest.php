@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		
 		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
 	}
-	
+
 	
 	
 	public function testGetFieldIdentifier() {
@@ -82,6 +82,27 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 		$this->assertEquals($this->columnConfig->getLabel(), $this->columnSettings['label']);
 	}
 
+
+	/**
+	 * @test
+	 */
+	public function showInHeaderDefaultIsTrue() {
+		$this->assertEquals($this->columnConfig->getShowInHeader(), TRUE);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function showInHeaderCanBeSetToFalse() {
+		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+		$this->columnSettings = $allColumnSettings[20];
+
+		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
+
+		$this->assertEquals($this->columnConfig->getShowInHeader(), FALSE);
+	}
 
 	
 	public function testGetAccessGroups() {

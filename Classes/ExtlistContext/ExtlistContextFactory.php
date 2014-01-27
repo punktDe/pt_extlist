@@ -279,8 +279,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 		$lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
 
 		// If we have resetOnEmptySubmit, we reset session data here
-		if ($configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit()) {
-			$sessionPersistenceManager->resetSessionDataOnEmptyGpVars(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance());
+		if ($configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit() && Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->isEmptySubmit()) {
+			$sessionPersistenceManager->resetSessionData();
 		}
 	}
 
@@ -307,7 +307,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 		}
 
 		if(!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {
-			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page! 1284655053');
+			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page!', 1284655053);
 		}
 
 		$extListTSArray['listIdentifier'] = $listIdentifier;

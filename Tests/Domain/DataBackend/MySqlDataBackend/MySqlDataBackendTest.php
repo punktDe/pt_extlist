@@ -253,7 +253,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataBackend->_injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array($this->configurationBuilder));
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage', 'getItemOffset'), array($this->configurationBuilder));
         $pagerCollectionMock->expects($this->any())
             ->method('getCurrentPage')
             ->will($this->returnValue(10));
@@ -263,6 +263,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
         $pagerCollectionMock->expects($this->once())
             ->method('isEnabled')
             ->will($this->returnValue(true));
+		$pagerCollectionMock->expects($this->once())
+			->method('getItemOffset')
+			->will($this->returnValue(90));
         
         $dataBackend->_injectPagerCollection($pagerCollectionMock);
             
@@ -340,17 +343,20 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$dataSourceMock->expects($this->once())
 			->method('fetchAll')
 			->will($this->returnValue($dataSourceReturnArray));
-            
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array($this->configurationBuilder));
-        $pagerCollectionMock->expects($this->any())
-            ->method('getCurrentPage')
-            ->will($this->returnValue(10));
-        $pagerCollectionMock->expects($this->any())
-            ->method('getItemsPerPage')
-            ->will($this->returnValue(10));
-        $pagerCollectionMock->expects($this->once())
-            ->method('isEnabled')
-            ->will($this->returnValue(true));
+
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage', 'getItemOffset'), array($this->configurationBuilder));
+		$pagerCollectionMock->expects($this->any())
+			->method('getCurrentPage')
+			->will($this->returnValue(10));
+		$pagerCollectionMock->expects($this->any())
+			->method('getItemsPerPage')
+			->will($this->returnValue(10));
+		$pagerCollectionMock->expects($this->once())
+			->method('isEnabled')
+			->will($this->returnValue(true));
+		$pagerCollectionMock->expects($this->once())
+			->method('getItemOffset')
+			->will($this->returnValue(90));
 
         $sortingStateCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection', array('getSortingsQuery'), array(), '', FALSE);
         $sortingStateCollectionMock->expects($this->any())->method('getSortingsQuery')->will($this->returnValue(new Tx_PtExtlist_Domain_QueryObject_Query()));

@@ -192,7 +192,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	public static function setSortingOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery) {
         $sortings = $query->getSortings();
 		$extBaseSortings = array();
-		
+
 		foreach ($sortings as $field => $direction) { /* sorting is array('field' => 'Direction: 1 | -1') */
 			$extBaseDirection = $direction == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC ? Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING;
 		   $extBaseSortings[$field] = $extBaseDirection;

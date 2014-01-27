@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * 
 	 * @var array
 	 */
-	protected $fieldData;
+	protected $fieldData = array();
 	
 	
 	/**
@@ -105,6 +105,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * @param string $fieldIdentifier
 	 */
 	protected function getFieldSum($fieldIdentifier) {
+		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
+			return 0;
+		}
+
 		return array_sum($this->fieldData[$fieldIdentifier]);
 	}
 	
@@ -115,6 +119,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * @param string $fieldIdentifier
 	 */
 	protected function getFieldAvg($fieldIdentifier) {
+		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
+			return 0;
+		}
+
 		return array_sum($this->fieldData[$fieldIdentifier])/count($this->fieldData[$fieldIdentifier]);
 	}
 	
@@ -125,6 +133,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * @param string $fieldIdentifier
 	 */
 	protected function getFieldMax($fieldIdentifier) {
+		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
+			return 0;
+		}
+
 		return max($this->fieldData[$fieldIdentifier]);
 	}
 	
@@ -135,6 +147,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 	 * @param string $fieldIdentifier
 	 */
 	protected function getFieldMin($fieldIdentifier) {
+		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
+			return 0;
+		}
+
 		return min($this->fieldData[$fieldIdentifier]);
 	}
 }

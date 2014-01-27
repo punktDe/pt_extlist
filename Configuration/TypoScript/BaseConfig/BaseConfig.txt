@@ -35,7 +35,10 @@ plugin.tx_ptextlist {
         * GP-var data for current request. You can use this switch, if you want a list
         * to be reset to its default settings every time you open up a page.
         */
-        # resetOnEmptySubmit = 1
+        resetOnEmptySubmit = 0
+
+        # If set to 1, it's possible to reset session with GP var 'resetSession'
+        resetSessionOnResetParameter = 0
     }
 }
 

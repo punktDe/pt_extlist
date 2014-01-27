@@ -37,14 +37,30 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 	 * @var int
 	 */
 	protected $delta;
-	
-	
+
+
+	/**
+	 * @var int
+	 */
+	protected $firstItemDelta = 0;
+
+
+	/**
+	 * @var int
+	 */
+	protected $lastItemDelta = 0;
+
+
+
 	public function __construct($pagerConfiguration) {
 		parent::__construct($pagerConfiguration);
 		
 		$this->delta = (int) $this->pagerConfiguration->getSettings('delta');
+		$this->firstItemDelta = (int) $this->pagerConfiguration->getSettings('firstItemDelta');
+		$this->lastItemDelta = (int) $this->pagerConfiguration->getSettings('lastItemDelta');
 	}
-	
+
+
 	
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPages()
@@ -63,8 +79,13 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 				$pages['bfi'] = $this->pagerConfiguration->getSettings('fillItem');
 			}
 			
-			if($i==1 || $i == $pageCount|| abs($i - $this->currentPage) <= $this->delta) {
-				$pages[$i] = $i;			
+			if(	$i == 1																				// First Element is always visible
+				|| $i <= 1 + $this->firstItemDelta && $this->currentPage == 1						// lastItemDelta before last item is visible
+				|| $i >= $pageCount - $this->lastItemDelta && $this->currentPage == $pageCount		// firstItemDelta after first item is visible
+				|| $i == $pageCount																	// Last element is always visible
+				|| abs($i - $this->currentPage) <= $this->delta)									// Delta before and after the selected is visible
+			{
+				$pages[$i] = $i;
 			}
 			
 			if($i == 1 && $this->getUseFrontFill()) {
@@ -83,7 +104,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 	 * @return bool
 	 */
 	public function getUseFrontFill() {
-		return $this->currentPage - $this->delta > 2;
+		return $this->fillIsNeeded() && $this->currentPage - $this->delta > 2;
 	}
 	
 	
@@ -93,9 +114,17 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 	 * @return bool
 	 */
 	public function getUseBackFill() {
-		return $this->currentPage + $this->delta < $this->getPageCount() - 1;
+		return $this->fillIsNeeded() && $this->currentPage + $this->delta < $this->getPageCount() - 1;
 	}
-	
+
+
+	/**
+	 * Check overlapping delta and if we need a fill item
+	 * @return bool
+	 */
+	protected function fillIsNeeded() {
+		return $this->getPageCount() - (3 + 2 * $this->delta + $this->lastItemDelta + $this->firstItemDelta) > 0;
+	}
 }
 
 ?>

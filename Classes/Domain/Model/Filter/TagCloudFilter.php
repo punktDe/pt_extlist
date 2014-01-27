@@ -95,7 +95,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	 * @return array
 	 */
 	public function persistToSession() {
-		return array('filterValues' => current($this->filterValues), 'invert' => $this->invert);
+		return array('filterValues' => $this->filterValues, 'invert' => $this->invert);
 	}
 
 	
