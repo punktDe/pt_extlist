@@ -73,6 +73,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
 			array(
+				'treeNamespace' => 'test',
 				'filterIdentifier' => 'test',
 				'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter',
 				'partialPath' => 'Filter/SelectFilter',
@@ -126,7 +127,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	 */
 	public function filterTransformsFilterValuesSingle() {
 		$this->accessibleFilterProxy->_set('filterValues', array(5));
-		$this->accessibleFilterProxy->_call('initFilter');
 		$this->assertEquals(array(5), $this->accessibleFilterProxy->_get('filterValues'));
 	}
 
@@ -137,7 +137,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 	public function filterTransformsFilterValuesMultiple() {
 		$this->accessibleFilterProxy->_set('filterValues', array(5,4,8));
 		$this->accessibleFilterProxy->_set('multiple', true);
-		$this->accessibleFilterProxy->_call('initFilter');
 		$this->assertEquals(array(5,4,8), $this->accessibleFilterProxy->_get('filterValues'));
 	}
 
@@ -189,6 +188,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 
 
 	/**
+	 * @test
+	 */
+	public function getDisplayValueChecksIfGetNodeByUidReturnsANodeInstance() {
+		$this->accessibleFilterProxy->_set('tree', $this->createDemoTree());
+		$this->accessibleFilterProxy->_set('filterValues', array(NULL));
+		$this->accessibleFilterProxy->getDisplayValue();
+	}
+
+
+
+	/**
 	 * @return Tx_PtExtbase_Tree_Tree
 	 *
 	 * A tree like
@@ -216,8 +226,4 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilter_testcase extends T
 		return Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($node1);
 	}
 
-
-
 }
-
-?>

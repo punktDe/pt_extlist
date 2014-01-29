@@ -114,5 +114,3 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 		return $specialFieldsWhereClause;
 	}
 }
-
-?>

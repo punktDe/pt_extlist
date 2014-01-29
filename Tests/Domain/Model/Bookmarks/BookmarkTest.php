@@ -92,7 +92,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmarks_Bookmark_testcase extends Tx_PtE
     
     public function testGetSetFeGroup() {
         $bookmark = new Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark();
-        $feGroupMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+        $feGroupMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array(), array('title'));
         $bookmark->setFeGroup($feGroupMock);
         $this->assertEquals($bookmark->getFeGroup(), $feGroupMock); 	
     }

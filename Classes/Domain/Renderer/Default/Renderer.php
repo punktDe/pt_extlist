@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage Renderer\Default
  * @author Daniel Lienert
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest
  */
 class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer {
     
@@ -168,5 +169,16 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 
 		return $renderedAggregateList;
 	}
+
+
+
+	/**
+	 * Initializes the renderer
+	 *
+	 * @return void
+	 */
+	public function initRenderer() {
+
+	}
+
 }
-?>

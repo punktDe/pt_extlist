@@ -99,9 +99,18 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 	 */
 	public function loadDomPDFClasses() {
 
+		// See https://github.com/dompdf/dompdf/pull/604 for further information on dompdf and problems with composer installation
+		if (file_exists($this->dompdfSourcePath . 'vendor/autoload.php')) {
+			define('DOMPDF_ENABLE_AUTOLOAD', false);
+			define("DOMPDF_ENABLE_REMOTE", true);
+			require_once ($this->dompdfSourcePath . 'dompdf_config.inc.php'); // This sets up some constants
+			require_once($this->dompdfSourcePath . 'vendor/autoload.php');    // This enables autoload of classes
+		} else {
+			// This is for backwards-compatibility with old versions of dompdf
+			// we do NOT disable autoload here, hence all required dependencies should be loaded "the old way"
+			require_once ($this->dompdfSourcePath . 'dompdf_config.inc.php'); // This sets up some constants
+		}
 
-
-		require_once ($this->dompdfSourcePath . 'dompdf_config.inc.php');
 
 		/*
 		$includePath = $this->dompdfSourcePath . 'include/';

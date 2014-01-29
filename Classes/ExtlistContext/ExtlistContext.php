@@ -105,7 +105,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 
 
 	/**
-	 * Initialize the extlistContext
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * Initialize the extbaseContext
 	 */
 	public function init() {
 	}
@@ -117,6 +126,16 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function injectExtBaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext) {
 		$this->extBaseContext = $extBaseContext;
 	}
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
 
 
 	/**
@@ -146,7 +165,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function getRendererChain() {
 
 		if($this->rendererChain === NULL) {
-			$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
+			$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->dataBackend->getConfigurationBuilder()->buildRendererChainConfiguration());
 		}
 
 		return $this->rendererChain;
@@ -263,10 +282,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns rendered list data for this list context
 	 *
+	 * @param bool $buildNew If set to TRUE, the list data is rebuild
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function getRenderedListData() {
-		return $this->getList()->getRenderedListData();
+	public function getRenderedListData($buildNew = FALSE) {
+		return $this->getList($buildNew)->getRenderedListData();
 	}
 
 
@@ -291,8 +311,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	public function getFilterByFullFiltername($fullFilterName) {
-		#list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
-		#$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
 		$filter = $this->getFilterBoxCollection()->getFilterByFullFiltername($fullFilterName);
 		return $filter;
 	}
@@ -393,4 +411,3 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 }
-?>

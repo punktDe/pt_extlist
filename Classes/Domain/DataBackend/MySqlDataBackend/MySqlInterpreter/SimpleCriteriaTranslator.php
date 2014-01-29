@@ -34,13 +34,13 @@
  * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
-	
+
 	/**
-	 * translate simple criteria 
-	 * 
-	 * @param $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+	 * translate simple criteria
+	 *
+	 * @param \Tx_PtExtlist_Domain_QueryObject_Criteria|\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
 	 * @return string
-	 * @author Daniel Lienert 
+	 * @author Daniel Lienert
 	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
@@ -54,6 +54,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 * Returns string as escaped string if no array is given
 	 *
 	 * @param mixed $value
+	 * @return int|mixed|string
 	 */
 	public static function wrapArrayInBrackets($value) {
 		if (is_array($value)) {
@@ -62,7 +63,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
         } elseif(is_numeric($value)) {
 			$returnString = $value;
 		} else {
-			$returnString = self::wrapNonNumericValue(mysql_real_escape_string($value));
+			$returnString = self::wrapNonNumericValue(self::escape($value));
 		}
 		return $returnString;
 	}
@@ -91,9 +92,26 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 */
 	public static function escapeArray(array $values) {
 		foreach($values as $value) {
-			$escapedValues[] = mysql_real_escape_string($value);
+			$escapedValues[] = self::escape($value);
 		}
 		return $escapedValues;
 	}
+
+
+	/**
+	 * @param $value
+	 * @return string
+	 */
+	protected static function escape($value) {
+		$connection = $GLOBALS['TYPO3_DB'];
+		if(method_exists($connection, 'getDatabaseHandle') && $connection->getDatabaseHandle() instanceof mysqli) {
+			$value =  $connection->getDatabaseHandle()->real_escape_string($value);
+		} else {
+			$value = mysql_real_escape_string($value);
+		}
+
+		return $value;
+	}
 	
 }
+?>
