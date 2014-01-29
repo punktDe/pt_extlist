@@ -55,9 +55,9 @@ class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase
 		// TODO think about how to test repository method!
 		$this->markTestIncomplete();
 	}
-	
-	
-	
+
+
+
 	/** @test */
 	public function findBookmarksByFeUserAndListIdentifierThrowsExceptionOnEmptyListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();
@@ -69,18 +69,18 @@ class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase
 		}
 		$this->fail();
 	}
-	
-	
-	
+
+
+
 	public function testFindPublicBookmarksByListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();
 		$this->assertTrue(method_exists($bookmarksRepository, 'findPublicBookmarksByListIdentifier'));
 		// TODO think about how to test this!
 		$this->markTestIncomplete();
 	}
-	
-	
-	
+
+
+
 	public function testThrowExceptionOnFindingPublicBookmarksWithoutListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();
         try {
@@ -90,50 +90,50 @@ class Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepository_testcase
         }
         $this->fail();
 	}
-	
-	
-	
+
+
+
 	public function testFindGroupBookmarksByFeGroupAndListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();
 		$this->assertTrue(method_exists($bookmarksRepository, 'findGroupBookmarksByFeGroupAndListIdentifier'));
 		// TODO think about how to test this
 		$this->markTestIncomplete();
 	}
-	
-	
-	
+
+
+
 	public function testFindGroupBookmarksByFeUserAndListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();
 		$this->assertTrue(method_exists($bookmarksRepository, 'findGroupBookmarksByFeUserAndListIdentifier'));
 		// TODO think about how to test this
 		$this->markTestIncomplete();
 	}
-	
-	
-	
+
+
+
 	public function testFindBookmarksByFeUserGroupIdsAndListIdentifier() {
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();
 		$this->assertTrue(method_exists($bookmarksRepository, 'findBookmarksByFeUserGroupIdsAndListIdentifier'));
 		// TODO think about how to test this
 		$this->markTestIncomplete();
 	}
-	
-	
-	
+
+
+
 	public function testFindNoBookmarksOnDifferingGroupIdsAndFeUserGroupBelongTos() {
 		$groupUids = '1,2,3,4';
-		
+
 		$userGroup1Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array(), array('title'));
 		$userGroup1Mock->expects($this->any())->method('getUid')->will($this->returnValue(5));
-		
+
 		$userGroup2Mock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array(), array('alternate'));
 		$userGroup2Mock->expects($this->any())->method('getUid')->will($this->returnValue(6));
-		
+
 		$userGroupObjectStorageMock = new Tx_Extbase_Persistence_ObjectStorage();
 		$userGroupObjectStorageMock->attach($userGroup1Mock);
 		$userGroupObjectStorageMock->attach($userGroup2Mock);
-		
-		$feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+
+		$feUserMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser', array('getUsergroups'));
 		$feUserMock->expects($this->any())->method('getUsergroups')->will($this->returnValue($userGroupObjectStorageMock));
 
 		$bookmarksRepository = new Tx_PtExtlist_Domain_Repository_Bookmarks_BookmarkRepository();

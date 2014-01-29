@@ -217,7 +217,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
-		$accessibleTimeSpanDataProvider->injectFilterConfig($filterConfiguration);
+		$accessibleTimeSpanDataProvider->_injectFilterConfig($filterConfiguration);
 		$accessibleTimeSpanDataProvider->init();
 
 		return $accessibleTimeSpanDataProvider;

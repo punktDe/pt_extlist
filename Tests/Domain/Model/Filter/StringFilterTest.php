@@ -239,21 +239,22 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilter_testcase extends Tx_Pt
 	 */
 	public function filterValueDataProvider() {
 		return array(
-			'simpleValueNoToken' => 				array('value' => 'test', 			'andToken' => '', 		'orToken' => '', 	'expected' => array('test'), 			'expectedSQL' => 'table1.field1 LIKE "%test%"'),
-			'2ValuesNoToken' => 					array('value' => 'test test2', 		'andToken' => '', 		'orToken' => '', 	'expected' => array('test test2'), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
-			'2ValuesNoTokenButAndTokenGiven' => 	array('value' => 'test test2', 		'andToken' => 'and', 	'orToken' => '', 	'expected' => array(array('test test2')), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
-			'2ValuesNoTokenButOrTokenGiven' => 		array('value' => 'test test2', 		'andToken' => '', 		'orToken' => 'or', 	'expected' => array(array('test test2')), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
-			'2ValuesNoTokenButBothTokenGiven' => 	array('value' => 'test test2', 		'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test test2')), 		'expectedSQL' => 'table1.field1 LIKE "%test test2%"'),
-			'2ValuesOrConcatenated' => 				array('value' => 'test or test2', 	'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test'), array('test2')), 	'expectedSQL' => '(table1.field1 LIKE "%test%") OR (table1.field1 LIKE "%test2%")'),
-			'2ValuesAndConcatenated' => 			array('value' => 'test and test2', 	'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test', 'test2')), 'expectedSQL' => '(table1.field1 LIKE "%test%") AND (table1.field1 LIKE "%test2%")'),
-			'3ValuesOrAndConcatenated' => 			array('value' => 'test or test2 and test3', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test'), array('test2', 'test3')), 'expectedSQL' => '(table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") AND (table1.field1 LIKE "%test3%"))'),
-			'3ValuesAndOrConcatenated' => 			array('value' => 'test and test2 or test3', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test', 'test2'), array('test3')), 'expectedSQL' => '((table1.field1 LIKE "%test%") AND (table1.field1 LIKE "%test2%")) OR (table1.field1 LIKE "%test3%")'),
-			'4ValuesAndOrConcatenated' => 			array('value' => 'test or test2 and test3 or test4', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test'), array('test2', 'test3'), array('test4')), 'expectedSQL' => '((table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") AND (table1.field1 LIKE "%test3%"))) OR (table1.field1 LIKE "%test4%")'),
-			'4ValuesOrAndConcatenated' => 			array('value' => 'test and test2 or test3 and test4', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test','test2'), array('test3', 'test4')), 'expectedSQL' => '((table1.field1 LIKE "%test%") AND (table1.field1 LIKE "%test2%")) OR ((table1.field1 LIKE "%test3%") AND (table1.field1 LIKE "%test4%"))'),
+			'simpleValueNoToken' => 				array('value' => 'test', 			'andToken' => '', 		'orToken' => '', 	'expected' => array('test'), 			'expectedSQL' => "table1.field1 LIKE '%test%'"),
+			'2ValuesNoToken' => 					array('value' => 'test test2', 		'andToken' => '', 		'orToken' => '', 	'expected' => array('test test2'), 		'expectedSQL' => "table1.field1 LIKE '%test test2%'"),
+			'2ValuesNoTokenButAndTokenGiven' => 	array('value' => 'test test2', 		'andToken' => 'and', 	'orToken' => '', 	'expected' => array(array('test test2')), 		'expectedSQL' => "table1.field1 LIKE '%test test2%'"),
+			'2ValuesNoTokenButOrTokenGiven' => 		array('value' => 'test test2', 		'andToken' => '', 		'orToken' => 'or', 	'expected' => array(array('test test2')), 		'expectedSQL' => "table1.field1 LIKE '%test test2%'"),
+			'2ValuesNoTokenButBothTokenGiven' => 	array('value' => 'test test2', 		'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test test2')), 		'expectedSQL' => "table1.field1 LIKE '%test test2%'"),
+			'2ValuesOrConcatenated' => 				array('value' => 'test or test2', 	'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test'), array('test2')), 	'expectedSQL' => "(table1.field1 LIKE '%test%') OR (table1.field1 LIKE '%test2%')"),
+			'2ValuesAndConcatenated' => 			array('value' => 'test and test2', 	'andToken' => 'and', 	'orToken' => 'or', 	'expected' => array(array('test', 'test2')), 'expectedSQL' => "(table1.field1 LIKE '%test%') AND (table1.field1 LIKE '%test2%')"),
+			'3ValuesOrAndConcatenated' => 			array('value' => 'test or test2 and test3', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test'), array('test2', 'test3')), 'expectedSQL' => "(table1.field1 LIKE '%test%') OR ((table1.field1 LIKE '%test2%') AND (table1.field1 LIKE '%test3%'))"),
+			'3ValuesAndOrConcatenated' => 			array('value' => 'test and test2 or test3', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test', 'test2'), array('test3')), 'expectedSQL' => "((table1.field1 LIKE '%test%') AND (table1.field1 LIKE '%test2%')) OR (table1.field1 LIKE '%test3%')"),
+			'4ValuesAndOrConcatenated' => 			array('value' => 'test or test2 and test3 or test4', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test'), array('test2', 'test3'), array('test4')), 'expectedSQL' => "((table1.field1 LIKE '%test%') OR ((table1.field1 LIKE '%test2%') AND (table1.field1 LIKE '%test3%'))) OR (table1.field1 LIKE '%test4%')"),
+			'4ValuesOrAndConcatenated' => 			array('value' => 'test and test2 or test3 and test4', 'andToken' => 'and', 'orToken' => 'or', 'expected' => array(array('test','test2'), array('test3', 'test4')), 'expectedSQL' => "((table1.field1 LIKE '%test%') AND (table1.field1 LIKE '%test2%')) OR ((table1.field1 LIKE '%test3%') AND (table1.field1 LIKE '%test4%'))"),
 
 			# Space as OR token
-			'2ValuesSpaceOrToken' => 				array('value' => 'test test2', 	'andToken' => 'and', 	'orToken' => ' ', 	'expected' => array(array('test'), array('test2')), 	'expectedSQL' => '(table1.field1 LIKE "%test%") OR (table1.field1 LIKE "%test2%")'),
-			'3ValuesAndSpaceOrToken' => 			array('value' => 'test & test2 test3', 'andToken' => '&', 'orToken' => ' ', 'expected' => array(array('test', 'test2'), array('test3')), 'expectedSQL' => '((table1.field1 LIKE "%test%") AND (table1.field1 LIKE "%test2%")) OR (table1.field1 LIKE "%test3%")'),
+			'2ValuesSpaceOrToken' => 				array('value' => 'test test2', 	'andToken' => 'and', 	'orToken' => ' ', 	'expected' => array(array('test'), array('test2')), 	'expectedSQL' => "(table1.field1 LIKE '%test%') OR (table1.field1 LIKE '%test2%')"),
+			'3ValuesAndSpaceOrToken' => 			array('value' => 'test & test2 test3', 'andToken' => '&', 'orToken' => ' ', 'expected' => array(array('test', 'test2'), array('test3')), 'expectedSQL' => "((table1.field1 LIKE '%test%') AND (table1.field1 LIKE '%test2%')) OR (table1.field1 LIKE '%test3%')"),
+
 		);
 	}
 

@@ -96,8 +96,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extend
 
 		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
 
-        $accesibleFirstLetterDataProvider->injectDataBackend($dataBackend);
-		$accesibleFirstLetterDataProvider->injectFilterConfig($filterConfiguration);
+        $accesibleFirstLetterDataProvider->_injectDataBackend($dataBackend);
+		$accesibleFirstLetterDataProvider->_injectFilterConfig($filterConfiguration);
 		$accesibleFirstLetterDataProvider->init();
 
 		return $accesibleFirstLetterDataProvider;
