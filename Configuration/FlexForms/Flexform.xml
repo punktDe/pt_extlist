@@ -13,10 +13,10 @@
         <type>array</type>
         <el>
 
-
           <settings.listIdentifier>
             <TCEforms>
               <label>List Identifier</label>
+				<onChange>reload</onChange>
               <config>
                 <type>select</type>
                 	<items>
@@ -35,7 +35,9 @@
           <switchableControllerActions>
             <TCEforms>
               <label>Plugin type</label>
-              <config>
+				<displayCond>FIELD:settings.listIdentifier:REQ:true</displayCond>
+				<onChange>reload</onChange>
+				<config>
                 <type>select</type>
                 <items type="array">
                   <numIndex index="1" type="array">
@@ -72,9 +74,7 @@
           </switchableControllerActions>
 
 
-        </el>
-      </ROOT>
-    </sDefault>
+
     
     
     
@@ -100,20 +100,15 @@
     
     
     <!--##########################-->
-    <!-- Tab for export settings  -->
+    <!-- export settings  -->
     <!--##########################-->
-    <export>
-      <ROOT>
-        <TCEforms>
-          <sheetTitle>Export settings</sheetTitle>
-        </TCEforms>
-        <type>array</type>
-        <el>
+
 
           <settings.exportListIdentifier>
             <TCEforms>
               <label>Export List Identifier</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
+				<config>
                 <type>select</type>
                 	<items>
 						<numIndex index="0" type="array">
@@ -130,6 +125,7 @@
           <settings.controller.Export.download.view>
             <TCEforms>
               <label>Export Type</label>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
               <config>
                 <type>select</type>
                 	<items>
@@ -147,7 +143,8 @@
           <settings.prototype.export.downloadType>
             <TCEforms>
               <label>Download Type</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
+				<config>
                 <type>select</type>
                   <items type="array">
                     <numIndex index="1" type="array">
@@ -166,7 +163,8 @@
           <settings.prototype.export.fileName>
             <TCEforms>
               <label>Filename (Prefix)</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
+				<config>
                 <type>input</type>
                 <size>30</size>
                 <eval>string</eval>
@@ -177,7 +175,8 @@
           <settings.prototype.export.fileExtension>
             <TCEforms>
               <label>File Extension (Suffix without ".")</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
+				<config>
                 <type>input</type>
                 <size>4</size>
                 <eval>trim</eval>
@@ -188,7 +187,8 @@
           <settings.prototype.export.addDateToFilename>
             <TCEforms>
               <label>Add Date to Filename</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
+				<config>
                 <type>check</type>
               </config>
             </TCEforms>
@@ -197,7 +197,8 @@
           <settings.prototype.export.fileFormat>
             <TCEforms>
               <label>File Format</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
+				<config>
                   <type>input</type>
                   <size>20</size>
                   <eval>trim</eval>
@@ -205,27 +206,18 @@
             </TCEforms>
           </settings.prototype.export.fileFormat>
 
-        </el>
-      </ROOT>
-    </export>
-    
-    
+
     
     <!--###############################-->
-    <!-- Tab for bookmarks settings    -->
+    <!-- bookmarks settings    -->
     <!--###############################-->
-    <bookmarks>
-      <ROOT>
-        <TCEforms>
-          <sheetTitle>Bookmarks settings</sheetTitle>
-        </TCEforms>
-        <type>array</type>
-        <el>
+
         
           <settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
             <TCEforms>
               <label>Bookmarks PID</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>input</type>
                 <size>4</size>
                 <eval>int</eval>
@@ -236,7 +228,8 @@
           <settings.bookmarks.showUserBookmarks>
             <TCEforms>
               <label>Show User's Bookmarks</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>check</type>
               </config>
             </TCEforms>
@@ -245,7 +238,8 @@
           <settings.bookmarks.showGroupBookmarks>
             <TCEforms>
               <label>Show Group's Bookmarks</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>check</type>
               </config>
             </TCEforms>
@@ -254,7 +248,8 @@
           <settings.bookmarks.showPublicBookmarks>
             <TCEforms>
               <label>Show public Bookmarks</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>check</type>
               </config>
             </TCEforms>
@@ -263,7 +258,8 @@
           <settings.bookmarks.feUsersAllowedToEditPublic>
             <TCEforms>
               <label>FE User IDs that are allowed to create public bookmarks (comma-seperated)</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>input</type>
                 <size>30</size>
                 <eval>string</eval>
@@ -274,7 +270,8 @@
           <settings.bookmarks.feGroupsAllowedToEditPublic>
             <TCEforms>
               <label>FE Group IDs that are allowed to create public bookmarks (comma-seperated)</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>input</type>
                 <size>30</size>
                 <eval>string</eval>
@@ -285,7 +282,8 @@
           <settings.bookmarks.feUsersAllowedToEdit>
             <TCEforms>
               <label>FE User IDs that are allowed to edit bookmarks (comma-seperated)</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>input</type>
                 <size>30</size>
                 <eval>string</eval>
@@ -296,7 +294,8 @@
           <settings.bookmarks.feGroupsAllowedToEdit>
             <TCEforms>
               <label>FE Group IDs that are allowed to edit bookmarks (comma-seperated)</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>input</type>
                 <size>30</size>
                 <eval>string</eval>
@@ -307,7 +306,8 @@
           <settings.bookmarks.groupIdsToShowBookmarksFor>
             <TCEforms>
               <label>Group IDs for which to show bookmarks (comma-seperated)</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
+				<config>
                 <type>input</type>
                 <size>30</size>
                 <eval>string</eval>
@@ -315,31 +315,27 @@
             </TCEforms>
           </settings.bookmarks.groupIdsToShowBookmarksFor>
 
-        </el>
-      </ROOT>
-    </bookmarks>
-    
-    
-    
+
+
     <!--############################-->
-    <!-- Tab for filterbox settings -->
+    <!--filterbox settings -->
     <!--############################-->
-    <filterbox>
-      <ROOT>
-        <TCEforms>
-          <sheetTitle>Filterbox settings</sheetTitle>
-        </TCEforms>
-        <type>array</type>
-        <el>
 
           <settings.filterboxIdentifier>
             <TCEforms>
               <label>Filterbox Identifier</label>
-              <config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
+				<displayCond>FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</displayCond>
+				<config>
+					<type>select</type>
+					<items>
+						<numIndex index="0" type="array">
+							<numIndex index="0">[Please select the filter identifier]</numIndex>
+							<numIndex index="1"></numIndex>
+						</numIndex>
+					</items>
+					<default></default>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedFilterConfigs</itemsProcFunc>
+				</config>
             </TCEforms>
           </settings.filterboxIdentifier>
 
@@ -347,7 +343,8 @@
           <settings.controller.Filterbox.show.template>
             <TCEforms>
               <label>Filterbox Template</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</displayCond>
+				<config>
                 <type>input</type>
                 <size>60</size>
                 <eval>string</eval>
@@ -355,61 +352,50 @@
             </TCEforms>
           </settings.controller.Filterbox.show.template>
 
-        </el>
-      </ROOT>
-    </filterbox>
-    
     
     
     <!--##########################-->
-    <!-- Tab for pager settings   -->
+    <!-- pager settings   -->
     <!--##########################-->
-    <pager>
-      <ROOT>
-        <TCEforms>
-          <sheetTitle>Pager settings</sheetTitle>
-        </TCEforms>
-        <type>array</type>
-        <el>
+
            <settings.pagerIdentifier>
             <TCEforms>
               <label>Pager Identifier</label>
-              <config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
+				<displayCond>FIELD:switchableControllerActions:=:Pager->show</displayCond>
+				<config>
+					<type>select</type>
+					<items>
+						<numIndex index="0" type="array">
+							<numIndex index="0">[Please select the pager config]</numIndex>
+							<numIndex index="1"></numIndex>
+						</numIndex>
+					</items>
+					<default></default>
+					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedPagerConfigs</itemsProcFunc>
+				</config>
             </TCEforms>
           </settings.pagerIdentifier>
-        </el>
-      </ROOT>
-    </pager>
-    
-    
-    
+
+
+
+
     <!--#################################-->
-    <!-- Tab for breadcrumbs settings    -->
+    <!--       breadcrumbs settings      -->
     <!--#################################-->
-    <breadcrumbs>
-      <ROOT>
-        <TCEforms>
-          <sheetTitle>Breadcrumbs settings</sheetTitle>
-        </TCEforms>
-        <type>array</type>
-        <el>
 
           <settings.breadCrumbs.showResetLinks>
             <TCEforms>
               <label>Show reset links (you have to set this in your filterbox plugin, not in breadcrumbs plugin!)</label>
-              <config>
+				<displayCond>FIELD:switchableControllerActions:=:BreadCrumbs->index;BreadCrumbs->resetFilter</displayCond>
+				<config>
                 <type>check</type>
               </config>
             </TCEforms>
           </settings.breadCrumbs.showResetLinks>
 
-        </el>
-      </ROOT>
-    </breadcrumbs>
+		</el>
+	  </ROOT>
+	</sDefault>
     
     
     
