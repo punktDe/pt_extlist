@@ -28,22 +28,25 @@
 
 /**
  * Translator for AND criteria
- * 
+ *
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
- * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
+
+
 
 	/**
 	 * translate simple criteria
 	 *
 	 * @param \Tx_PtExtlist_Domain_QueryObject_Criteria|\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
 	 * @return string
+	 * @author Daniel Lienert
+	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-        return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());    
+		return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());
 	}
 
 
@@ -56,44 +59,21 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 * @return int|mixed|string
 	 */
 	public static function wrapArrayInBrackets($value) {
+		$connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
+
 		if (is_array($value)) {
-			$escapedValues = self::escapeArray($value);
-			$returnString = '("' . implode('", "', $escapedValues) . '")';
-        } elseif(is_numeric($value)) {
+			$escapedValues = $connection->fullQuoteArray($value, '');
+			$returnString = '(' . implode(',', $escapedValues) . ')';
+
+		} elseif(is_numeric($value)) {
 			$returnString = $value;
+
 		} else {
-			$returnString = self::wrapNonNumericValue(mysql_real_escape_string($value));
+			$returnString = $connection->fullQuoteStr($value, '');
+
 		}
+
 		return $returnString;
 	}
-
-
-	/**
-	 * Wraps non numeric values with "..."
-	 *
-	 * @param mixed $value Value to be wrapped with "..." if non-numeric
-	 * @return mixed Wrapped value, if not numeric.
-	 */
-	public static function wrapNonNumericValue($value) {
-		if (is_numeric($value)) {
-			return $value;
-		} else {
-			return '"' . $value . '"';
-		}
-	}
-	
-	
-	/**
-	 * Escapes all values of a given array
-	 *
-	 * @param array $values Array with values that should be escaped
-	 * @return array Array with escaped values
-	 */
-	public static function escapeArray(array $values) {
-		foreach($values as $value) {
-			$escapedValues[] = mysql_real_escape_string($value);
-		}
-		return $escapedValues;
-	}
-	
 }
+?>
