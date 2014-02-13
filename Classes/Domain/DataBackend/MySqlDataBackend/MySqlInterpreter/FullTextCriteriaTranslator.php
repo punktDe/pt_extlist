@@ -42,8 +42,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullText
 	 * @return string
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+		$connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
 
-		$searchString = mysql_real_escape_string($criteria->getSearchString());
+		$searchString = $criteria->getSearchString();
 
 		if($criteria->getSearchParameter('booleanMode')) {
 			$booleanMode = $criteria->getSearchParameter('booleanMode') ? ' IN BOOLEAN MODE' : '';
@@ -54,7 +55,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullText
 			}
 		}
 
-		return sprintf('MATCH (%s) AGAINST ("%s"%s)',
+		$searchString = $connection->fullQuoteStr($searchString,'');
+
+		return sprintf('MATCH (%s) AGAINST (%s%s)',
 								Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
 								$searchString,
 								$booleanMode

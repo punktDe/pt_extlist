@@ -50,6 +50,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 		
 		foreach($domainObjects as $domainObject) {
 			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
+
 			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
 				
@@ -61,6 +62,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 				
 				$listDataRow->createAndAddCell($value, $fieldConfiguration->getIdentifier());
 			}
+
 			$listData->addRow($listDataRow);
 		}
 		
@@ -100,6 +102,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	public function getObjectPropertyValueByProperty($domainObject, $property) {
 		// if property is aggregated object, resolve object path
 		$resolvedObject = $this->resolveObjectPath($domainObject, $property);
+
 		if (get_class($resolvedObject) == 'Tx_Extbase_Persistence_ObjectStorage'
 			|| get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage'
 			|| get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\ObjectStorage'
@@ -118,6 +121,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 			}
 	    	$value = $this->getPropertyValueSafely($resolvedObject, $property);
 	    }
+
 	    return $value;
 	}
 	
@@ -133,6 +137,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	protected function getPropertyValueSafely($object, $property) {
 		$getterMethodName = 'get' . ucfirst($property);
+
+		if(!$object) return NULL;
 
 		if (method_exists($object, $getterMethodName)) {
 			return $object->$getterMethodName();
@@ -157,10 +163,13 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	public function resolveObjectPath($object, $objectPath) {
 		$objectPathParts = explode('.', $objectPath);
+
 		if (count($objectPathParts) == 1) {
 			return $object;
 		}
+
 	    $getterMethodName = 'get' . ucfirst($objectPathParts[0]);
+
 		if (count($objectPathParts) > 2) {     // Recursive method call for resolving longer object paths
 			if (method_exists($object, $getterMethodName)) {
 				array_shift($objectPathParts);
@@ -175,6 +184,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 				throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
 			}
         }
+
 	}
 	
 }

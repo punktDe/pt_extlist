@@ -172,8 +172,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
     	    	
     	$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
 
-        $accesibleGroupDataProvider->injectDataBackend($dataBackend);
-   		$accesibleGroupDataProvider->injectFilterConfig($filterConfiguration);
+        $accesibleGroupDataProvider->_injectDataBackend($dataBackend);
+   		$accesibleGroupDataProvider->_injectFilterConfig($filterConfiguration);
    		$accesibleGroupDataProvider->init();
    		
    		return $accesibleGroupDataProvider;

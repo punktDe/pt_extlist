@@ -168,7 +168,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$filterMock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'testValue', '='));
 		
 		$filterWhereClause = $dataBackend->getWhereClauseFromFilter($filterMock);
-		$this->assertTrue($filterWhereClause == 'test = "testValue"', 'Filter where clause was expected to be <test = "testValue"> but was ' . $filterWhereClause);
+		$this->assertEquals("test = 'testValue'", $filterWhereClause);
 	}
 
 

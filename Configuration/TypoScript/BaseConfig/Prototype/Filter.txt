@@ -369,7 +369,10 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
-
+	link < .button
+	link {
+		partialPath = Filter/Options/LinkFilter
+	}
 
 	radiobutton {
 		partialPath = Filter/Options/RadioButtonFilter
