@@ -466,14 +466,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 	
 	
 
-	public function testCreateDataSource() {
-		/* PROBLEM: PDO is not installed on devel server */
-		// hint: Database parameters are taken from current T3 database configuration
-		#$dataSource = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend::createDataSource($this->configurationBuilder);
-		#$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
-	}
-
-
 
 	/** @test */
 	public function convertTableFieldToAliasReturnsExpectedStrings() {
@@ -572,9 +564,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 	
 	
 
-	/** @test */
+	/**
+	 * @test
+	 */
 	public function buildAggregateSqlByConfigCollectionReturnsExpectedSql() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'special' => 'special');
+
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
 		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($configurationBuilderMock);
 		$dataBackend = $this->getDataBackend($configurationBuilderMock);
@@ -586,12 +581,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 
 		$sql = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
 
-		$this->assertEquals('SELECT special AS sumField1, AVG(field2) AS avgField2 
- FROM (SELECT tableName1.fieldName1 AS field1, tableName2.fieldName2 AS field2, (special) AS field3, tableName4.fieldName4 AS field4 
-FROM companies 
-WHERE employees > 0 
-GROUP BY company 
-)  AS AGGREGATEQUERY', $sql);
+		$expected = "SELECT special AS sumField1, AVG(field2) AS avgField2
+ FROM (SELECT tableName1.fieldName1 AS field1, tableName2.fieldName2 AS field2, (special) AS field3, tableName4.fieldName4 AS field4
+FROM companies
+WHERE employees > 0
+GROUP BY company
+)  AS AGGREGATEQUERY";
+
+		$this->assertEquals(strlen($expected), strlen($sql));
+		$this->assertEquals(trim(preg_replace('/\s\s+/', ' ', $expected)), trim(preg_replace('/\s\s+/', ' ', $sql)));
 	}
 
 
