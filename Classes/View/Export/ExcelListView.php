@@ -470,10 +470,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected function clearOutputBufferAndSendHeaders() {
 		ob_clean();
 		// redirect output to client browser
-		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Type: application/'.$this->getContentTypeApplicationForBrowser());
+
 		header('Content-Disposition: attachment;filename="' . $this->getFilenameFromTs() . '"');
 		header('Cache-Control: max-age=0');
 	}
+
 
 
 
@@ -503,6 +505,26 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 			exit();
 		}
 	}
+
+	/**
+	 * Get Content-Type application for Excelsheet in Browsermode dependent from File Format
+	 *
+	 * @return  string      Conten-type: application for ExcelExport
+	 */
+	protected function getContentTypeApplicationForBrowser() {
+		$settings = $this->exportConfiguration->getSettings();
+
+		if ($settings['fileFormat'] == "Excel5") {
+			$contentTypeForApplication= 'octet-stream, charset=' . $this->exportConfiguration->getSettings('outputEncoding');
+		} else {
+			$contentTypeForApplication = 'vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+		}
+
+		return $contentTypeForApplication;
+	}
+
+
+
 }
 
 ?>
