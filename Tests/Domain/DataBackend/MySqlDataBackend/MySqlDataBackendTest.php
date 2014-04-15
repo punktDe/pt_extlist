@@ -153,7 +153,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$dataBackend->_injectPagerCollection($pagerCollectionMock);
 		$dataBackend->init();
 		$baseWhereClause = $dataBackend->getBaseWhereClause();
-		$this->assertTrue($baseWhereClause == $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['baseWhereClause']);
+		$this->assertEquals($baseWhereClause, $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['baseWhereClause']);
 	}
 	
 	
@@ -588,7 +588,7 @@ WHERE employees > 0
 GROUP BY company
 )  AS AGGREGATEQUERY";
 
-		$this->assertEquals(strlen($expected), strlen($sql));
+		$this->assertEquals(strlen(trim(preg_replace('/\s\s+/', ' ', $expected))), strlen(trim(preg_replace('/\s\s+/', ' ', $sql))));
 		$this->assertEquals(trim(preg_replace('/\s\s+/', ' ', $expected)), trim(preg_replace('/\s\s+/', ' ', $sql)));
 	}
 
