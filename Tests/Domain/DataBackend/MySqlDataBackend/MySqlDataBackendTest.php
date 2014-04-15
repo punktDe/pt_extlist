@@ -594,7 +594,6 @@ GROUP BY company
 		$actual = trim(preg_replace('/\s\s+/', ' ', $sql));
 		$actual = preg_replace('/[\n\r]/','',$actual);
 
-		$this->assertEquals(strlen($expected), strlen($actual));
 		$this->assertEquals($expected, $actual);
 	}
 
