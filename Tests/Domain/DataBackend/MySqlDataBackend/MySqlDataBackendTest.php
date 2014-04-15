@@ -579,7 +579,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 
         $dataBackend->_injectFilterboxCollection($filterboxCollectionMock);
 
-		$sql = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
+		$actual = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
 
 		$expected = "SELECT special AS sumField1, AVG(field2) AS avgField2
  FROM (SELECT tableName1.fieldName1 AS field1, tableName2.fieldName2 AS field2, (special) AS field3, tableName4.fieldName4 AS field4
@@ -588,11 +588,11 @@ WHERE employees > 0
 GROUP BY company
 )  AS AGGREGATEQUERY";
 
+		$expected = preg_replace('/[\n\r]/',' ',$expected);
 		$expected = trim(preg_replace('/\s\s+/', ' ', $expected));
-		$expected = preg_replace('/[\n\r]/','',$expected);
 
-		$actual = trim(preg_replace('/\s\s+/', ' ', $sql));
-		$actual = preg_replace('/[\n\r]/','',$actual);
+		$actual = preg_replace('/[\n\r]/',' ',$actual);
+		$actual = trim(preg_replace('/\s\s+/', ' ', $actual));
 
 		$this->assertEquals($expected, $actual);
 	}
