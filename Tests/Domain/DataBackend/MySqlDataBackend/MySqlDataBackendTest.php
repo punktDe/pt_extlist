@@ -588,8 +588,14 @@ WHERE employees > 0
 GROUP BY company
 )  AS AGGREGATEQUERY";
 
-		$this->assertEquals(strlen(trim(preg_replace('/\s\s+/', ' ', $expected))), strlen(trim(preg_replace('/\s\s+/', ' ', $sql))));
-		$this->assertEquals(trim(preg_replace('/\s\s+/', ' ', $expected)), trim(preg_replace('/\s\s+/', ' ', $sql)));
+		$expected = trim(preg_replace('/\s\s+/', ' ', $expected));
+		$expected = preg_replace('/[\n\r]/','',$expected);
+
+		$actual = trim(preg_replace('/\s\s+/', ' ', $sql));
+		$actual = preg_replace('/[\n\r]/','',$actual);
+
+		$this->assertEquals(strlen($expected), strlen($actual));
+		$this->assertEquals($expected, $actual);
 	}
 
 
