@@ -123,7 +123,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 	 * @return bool
 	 */
 	protected function fillIsNeeded() {
-		return $this->getPageCount() - (3 + 2 * $this->delta) > 0;
+		return $this->getPageCount() - (3 + 2 * $this->delta) >= 0;
 	}
 }
 
