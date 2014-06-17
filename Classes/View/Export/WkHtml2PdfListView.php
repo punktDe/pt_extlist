@@ -132,7 +132,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 
-	private $orient = 'Portrait';
+	protected $orient = 'Portrait';
 
 
 
