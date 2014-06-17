@@ -188,7 +188,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 	public function initConfiguration() {
 		parent::initConfiguration();
 
-		$this->tempPdfBasePath = PATH_site.'typo3temp';
+		$this->tempPdfBasePath = PATH_site.'typo3temp/';
 
 		$this->cmd = 'wkhtmltopdf';
 		// This method seems not to work to check, whether a command is available in unix
