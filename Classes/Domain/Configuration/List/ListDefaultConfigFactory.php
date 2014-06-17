@@ -45,5 +45,6 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory {
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		return new Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('listDefault'));
 	}
+
 }
 ?>

@@ -28,12 +28,14 @@
 
 /**
  * Abstract class for mapper classes
+ *
+ * TODO we need custom factory to create data mapper here and be able to create data mapper automatically with DI
  * 
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\Mapper
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface{
+abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
 	
     /**
      * Holds mapping configurations
@@ -42,22 +44,28 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtl
      */
     protected $mapperConfiguration = null;
     
-    
+
+
     /**
      * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
      */
     protected $configurationBuilder;
     
-    
+
+
     /**
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      */
     public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
     	$this->configurationBuilder = $configurationBuilder;
     }
-    
+
+
+
     public function init() {}
-    
+
+
+
     /**
      * Sets the mapper configuration
      *
@@ -66,9 +74,5 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtl
     public function injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration) {
         $this->mapperConfiguration = $mapperConfiguration;
     }
-    
-    
-    
 }
-
 ?>

@@ -58,8 +58,18 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	 * @var array
 	 */
 	protected $renderObj = null;
+
+
+
+	/**
+	 * Set to true, if we want to cache rendering
+	 *
+	 * @var bool
+	 */
+	protected $cacheRendering;
 	
-	
+
+
 	/**
 	 * Path to fluid template
 	 * @var string
@@ -67,11 +77,13 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	protected $renderTemplate;
 
 
+
 	/**
 	 * @var string
 	 */
 	protected $cellCSSClass = NULL;
-	
+
+
 		
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -101,6 +113,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		// optional
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
+		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
 		
 		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
@@ -108,7 +121,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		}
 
 		if (array_key_exists('renderObj', $this->settings)) {
-			$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+			$this->renderObj = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
 		}
 	}
 
@@ -188,5 +201,25 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 	public function getCellCSSClass() {
 		return $this->cellCSSClass;
 	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function getRawFields() {
+		return false;
+	}
+
+
+
+	/**
+	 * Returns true, if rendering should be cached
+	 *
+	 * @return bool True, if rendering should be cached
+	 */
+	public function getCacheRendering() {
+		return $this->cacheRendering;
+	}
+
 }
 ?>

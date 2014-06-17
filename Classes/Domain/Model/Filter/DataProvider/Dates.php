@@ -28,7 +28,7 @@
 
 /**
  * Implements data provider for grouped list data
- * 
+ *
  * @author Joachim Mathes
  * @package Domain
  * @subpackage Model\Filter\DataProvider
@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	protected $excludeFilters = NULL;
 
 
-	
+
 	/**
 	 * A timeSpan can have a startTime and an endTime
 	 * Therefore the dateFieldIdentifiers are 2-dimensional arrays of start/end field tuples
@@ -52,19 +52,18 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	 */
 	protected $dateFieldConfigs;
 
-	
+
+
 	/**
 	 * Init the dataProvider by TS-conifg
 	 *
 	 * @param array $filterSettings
 	 */
 	protected function initDataProviderByTsConfig($filterSettings) {
-        if (array_key_exists('excludeFilters', $filterSettings) && trim($filterSettings['excludeFilters'])) {
-        	$this->excludeFilters = t3lib_div::trimExplode(',', $filterSettings['excludeFilters']);
-        }
+		if (array_key_exists('excludeFilters', $filterSettings) && trim($filterSettings['excludeFilters'])) {
+			$this->excludeFilters = t3lib_div::trimExplode(',', $filterSettings['excludeFilters']);
+		}
 		$this->buildDateFieldConfigArray();
-
-		
 	}
 
 
@@ -78,10 +77,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 
 		$this->dateFieldConfigs = array();
 
-		if(is_array($fieldIdentifier)) {
+		if (is_array($fieldIdentifier)) {
 			foreach($fieldIdentifier as $tupleId => $dateFieldTuple) {
 
-				if(!array_key_exists('start', $dateFieldTuple) || !array_key_exists('start', $dateFieldTuple)) throw new Exception('Found a fieldIdentifier array, but the array was not suitable for a timeSpanFilter. 1314627131');
+				if (!array_key_exists('start', $dateFieldTuple) || !array_key_exists('start', $dateFieldTuple)) throw new Exception('Found a fieldIdentifier array, but the array was not suitable for a timeSpanFilter. 1314627131');
 
 				$this->dateFieldConfigs[$tupleId] = array(
 					'start' => $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($dateFieldTuple['start']),
@@ -109,12 +108,16 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
 
 		foreach($this->dateFieldConfigs as $key => $selectField) {
-			$aliasedSelectPartStart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $this->buildFieldAlias($key, 'start');
-			$aliasedSelectPartEnd = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['end']) . ' AS ' . $this->buildFieldAlias($key, 'end');
-			$query->addField($aliasedSelectPartStart);
-			$query->addField($aliasedSelectPartEnd);
+			if ($selectField['start'] == $selectField['end']) {
+				$aliasedSelectPart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $selectField['start']->getIdentifier();
+				$query->addField($aliasedSelectPart);
+			} else {
+				$aliasedSelectPartStart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $this->buildFieldAlias($key, 'start');
+				$aliasedSelectPartEnd = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['end']) . ' AS ' . $this->buildFieldAlias($key, 'end');
+				$query->addField($aliasedSelectPartStart);
+				$query->addField($aliasedSelectPartEnd);
+			}
 		}
-		
 		return $query;
 	}
 
@@ -129,13 +132,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 
 		$excludeFiltersAssocArray = array($this->filterConfig->getFilterboxIdentifier() => array($this->filterConfig->getFilterIdentifier()));
 
-		if($this->excludeFilters) {
-			foreach($this->excludeFilters as $excludeFilter) {
+		if ($this->excludeFilters) {
+			foreach ($this->excludeFilters as $excludeFilter) {
 
 				list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludeFilter);
 
 				if ($filterIdentifier != '' && $filterboxIdentifier != '') {
-				    $excludeFiltersAssocArray[$filterboxIdentifier][] = $filterIdentifier;
+					$excludeFiltersAssocArray[$filterboxIdentifier][] = $filterIdentifier;
 				} else {
 					throw new Exception('Wrong configuration of exclude filters for filter '. $this->filterConfig->getFilterboxIdentifier() . '.' . $this->filterConfig->getFilterIdentifier() . '. Should be comma seperated list of "filterboxIdentifier.filterIdentifier" but was ' . $excludeFilter . ' 1281102702');
 				}
@@ -148,11 +151,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	}
 
 
-	
+
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface"
 	 *****************************************************************************************************************/
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
@@ -160,9 +163,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	public function init() {
 		$this->initDataProviderByTsConfig($this->filterConfig->getSettings());
 	}
-	
-	
-	
+
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
@@ -170,23 +173,30 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	public function getRenderedOptions() {
 		$query = $this->buildQuery();
 		$excludeFiltersArray = $this->buildExcludeFiltersArray();
-		$queryResult = $this->dataBackend->getGroupData($query, $excludeFiltersArray);
+		$queryResult = $this->dataBackend->getGroupData($query, $excludeFiltersArray, $this->filterConfig);
 		return $this->buildCondensedTimeSpans($queryResult)->getJsonValue();
 	}
 
 
-	
+
 	/**
 	 * @param array $queryResult
-	 * @return Tx_PtExtbase_Collection_SortableObjectCollection Condensed time spans
+	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection Condensed time spans
 	 */
 	protected function buildCondensedTimeSpans($queryResult) {
 		$timeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
 
 		foreach ($queryResult as $dateRanges) {
 			foreach ($this->dateFieldConfigs as $key => $config) {
-				$startField = $this->buildFieldAlias($key, 'start');
-				$endField = $this->buildFieldAlias($key, 'end');
+
+				if ($config['start'] == $config['end']) {
+					$startField = $config['start']->getIdentifier();
+					$endField = $config['end']->getIdentifier();
+				} else {
+					$startField = $this->buildFieldAlias($key, 'start');
+					$endField = $this->buildFieldAlias($key, 'end');
+				}
+
 				$startDate = $dateRanges[$startField];
 				$endDate = $dateRanges[$endField];
 
@@ -207,7 +217,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	}
 
 
-	
+
 	/**
 	 * @param string $key
 	 * @param string $part
@@ -216,6 +226,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	protected function buildFieldAlias($key, $part) {
 		return $this->dateFieldConfigs[$key][$part]->getIdentifier() . '_' . $key . '_' . $part;
 	}
-    
+
 }
 ?>

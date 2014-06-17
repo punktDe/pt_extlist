@@ -94,15 +94,16 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
     /**
      * Returns a filterbox for a given filterbox identifier
      *
-     * @param string $filterboxIdentifier Identifier of filterbox to be returned
+     * @param string $filterBoxIdentifier Identifier of filterbox to be returned
      * @param bool $throwExceptionOnNonExistingIdentifier If set to true, an exception will be thrown, if no filterbox is registered for given identifier
      * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+	 * @throws Exception
      */
-    public function getFilterboxByFilterboxIdentifier($filterboxIdentifier, $throwExceptionOnNonExistingIdentifier = false) {
-    	if ($this->hasItem($filterboxIdentifier)) {
-    		return $this->getItemById($filterboxIdentifier);
+    public function getFilterboxByFilterboxIdentifier($filterBoxIdentifier, $throwExceptionOnNonExistingIdentifier = false) {
+    	if ($this->hasItem($filterBoxIdentifier)) {
+    		return $this->getItemById($filterBoxIdentifier);
     	} elseif($throwExceptionOnNonExistingIdentifier) {
-    		throw new Exception('No filterbox can be found for ID ' . $filterboxIdentifier . ' 1280857703');
+    		throw new Exception('No filterBox can be found for ID ' . $filterBoxIdentifier, 1280857703);
     	}
     }
     
@@ -181,6 +182,23 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
             $filterbox->resetIsSubmittedFilterbox();
         }
     }
+
+
+
+	/**
+	 * Returns filter for given full filter name (filterboxIdentifier.filterIdentifier)
+	 *
+	 * TODO since we have this method here, refactor extbaseContext and put a proxy method into abstract backend
+	 *
+	 * @param $fullFilterName
+	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+	 */
+	public function getFilterByFullFiltername($fullFilterName) {
+		list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
+		$filterbox = $this->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
+		return $filter;
+	}
 
 }
 ?>

@@ -1,0 +1,95 @@
+/* List */
+
+.typo3-dblist tr.odd {
+	background-color: #ffffff;
+}
+
+.typo3-dblist tr.even {
+	background-color: #F5F5F5;
+}
+
+
+/* Filter */
+.tx-ptextlist-filterboxcontrols {
+	/* float: left; */
+	clear: both;
+	padding: 18px 0 0 10px;
+}
+
+
+/* Pager */
+.tx-ptextlist-pager-wrapper {
+    margin-top: 20px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.tx-ptextlist-pager {
+    margin-left: 0;
+    text-align: center;
+}
+
+.tx-ptextlist-pager li {
+    display: inline;
+}
+
+.tx-ptextlist-pager li.number a, .tx-ptextlist-pager li a span, .tx-ptextlist-pager li.number .cur, .tx-ptextlist-pager li.number .fill{
+    background: url("../../Images/b-pager.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #BFBFBF;
+    color: #000000;
+    display: inline-block;
+    font-size: 11px;
+    height: 23px;
+    width: 24px;
+    line-height: 23px;
+    margin-right: 6px;
+    padding: 0;
+    text-align: center;
+}
+
+.tx-ptextlist-pager li.number a:hover, .tx-ptextlist-pager li a:hover span, .tx-ptextlist-pager li a:hover {
+    color: #FF8700;
+    text-decoration: none;
+}
+
+.tx-ptextlist-pager li.number .fill {
+    color: #BFBFBF;
+}
+
+.tx-ptextlist-pager li.number .cur {
+    border: 1px solid #393939;
+}
+
+.tx-ptextlist-pager li a {
+    text-decoration: none;
+}
+
+
+.tx-ptextlist-pager-item-display {
+    color: #393939;
+    padding-top:10px;
+}
+
+.tx-ptextlist-pager-item-display .first, .tx-ptextlist-pager-item-display .last, .tx-ptextlist-pager-item-display .count {
+    color: #707070;
+}
+
+.tx-ptextlist-filter {
+    padding: 3px;
+    margin: 0;
+    list-style-type: none !important;
+    background: none;
+    border: none;
+}
+
+label {
+    font-weight: bold;
+    color: #393939;
+    float:left;
+    width:150px;
+}
+
+input[type="text"], input[type="password"], textarea, select {
+    border: 1px solid #BFBFBF;
+    line-height: 1.4em;
+}

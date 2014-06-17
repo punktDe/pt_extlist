@@ -4,7 +4,7 @@
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
          xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook" version="5.0">
-    <title>Cookbook</title>
+
     <para>This chapter is a collection of recipes for common tasks in pt_extlist.</para>
     <section>
         <title>Insert the output of an extlist / extbase plugin via typoscript.</title>
@@ -50,12 +50,28 @@ pagerWidget {
 }]]></programlisting>
     </section>
 
-    
-    
-    
-    
-    
-    
+
+
+
+    <section>
+            <title>Exchange the default template by controller / action.</title>
+            <para>In default extbase it is only possible to exhenage the complete template folder. Pt_extlist enables you to exchange a single template per list. The example below shows you how to exchange a template. In general it is
+
+                controller.THECONTROLLERNAME.THEACTIONNAME.template = PATHTOTHETEMPLATE
+
+                This holds for any controller / action pair. Check the URL or the template folder for the controller and action names.</para>
+            <para/>
+
+            <programlisting><![CDATA[
+    plugin.tx_ptextlist.settings {
+        	listConfig.demolist {
+    	    controller.List.list.template = EXT:my_extension/Resources/Private/Templates/NewTemplate.html
+    	}
+    }
+    }]]></programlisting>
+    </section>
+
+
     
 
     <section>

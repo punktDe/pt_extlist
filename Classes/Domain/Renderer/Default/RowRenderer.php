@@ -42,7 +42,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 */
 	protected $rendererConfiguration;
 
-	
+
+
 	/**
 	 * Holds an instance of cell renderer
 	 * 
@@ -67,7 +68,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	/**
 	 * Injector for cell renderer
 	 * 
-	 * @param Tx_PtExtlist_Domain_Renderer_Default_DefaultCellRenderingStrategy $cellRenderer
+	 * @param Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer
 	 */
 	public function injectCellRenderer(Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer) {
 		$this->cellRenderer = $cellRenderer;
@@ -95,6 +96,10 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
      */
     public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex) {
         $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+
+		// copy special values
+		$renderedRow->setSpecialValues($row->getSpecialValues());
+
         $columnCollection = $this->getColumnCollection();
     
         $columnIndex=0;
@@ -110,6 +115,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
             
             $columnIndex++;
         }
+
+		unset($row);
         
         return $renderedRow;
     }
@@ -119,7 +126,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
     /**
      * Renders an aggregate row for given aggregate row configuration and given row index
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Row $aggregatedRow Row to be rendered
+     * @param Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow Row to be rendered
      * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
      * @param int $rowIndex Index of rendered row
      * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregate row
@@ -151,6 +158,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 			}
 		}
 
+		unset($aggregateDataRow);
+
 		return $renderedRow;
 	}
 
@@ -164,7 +173,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 * @param int $rowIndex
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
 	 */
-	protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row &$data, $columnIndex, $rowIndex) {
+	protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex) {
 		return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
 	}
 

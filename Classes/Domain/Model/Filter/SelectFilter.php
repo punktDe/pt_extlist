@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -53,15 +53,14 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	    
 		if ($this->filterConfig->getSettings('multiple')) {
         	$this->multiple = $this->filterConfig->getSettings('multiple');
-        }        
+      }
 	}
 	
 	
 	
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
-	 */
+    /**
+     * @return array
+     */
 	public function getOptions() {
 		$options = parent::getOptions();
 
@@ -69,7 +68,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 		foreach($options as $optionKey => $optionValue) {
 			$selectOptions[$optionKey] = $optionValue['value'];
 		}
-		
+
 		return $selectOptions;
 	}
 	
@@ -96,7 +95,25 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
 	public function getMultiple() {
 		return $this->multiple;
 	}
-	
-}
 
-?>
+
+
+    /**
+     * Return filter value string for breadcrumb
+     *
+     * @return string
+     */
+    public function getDisplayValue() {
+        $options = parent::getOptions();
+        $displayValues = array();
+
+        foreach($options as $option) {
+            if($option['selected'] === TRUE) {
+                $displayValues[] = $option['value'];
+            }
+        }
+
+        return implode(', ', $displayValues);
+    }
+
+}

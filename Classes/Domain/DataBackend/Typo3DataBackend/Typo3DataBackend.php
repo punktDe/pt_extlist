@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,10 +27,10 @@
  ***************************************************************/
 
 /**
- * Data backend for typo3 database
- * 
- * @author Michael Knoll 
- * @author Daniel Lienert 
+ * Data backend for TYPO3 database
+ *
+ * @author Daniel Lienert
+ * @author Michael Knoll
  * @package Domain
  * @subpackage DataBackend\Typo3DataBackend
  *
@@ -50,11 +50,12 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-		$dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($dataSourceConfiguration);
+		$dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
 		return $dataSource;
 	}
 	
-	
+
+
 	/**
 	 * Builds where part of query from all parts of plugin
 	 *
@@ -62,7 +63,6 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
 	 */
 	public function buildWherePart($excludeFilters = array()) {
-		$wherePart = '';
 		$baseWhereClause = $this->getBaseWhereClause();
 		$whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes($excludeFilters);
 		
@@ -81,10 +81,10 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	
 	
 	/**
-	 * Build and return whereclause part with TYPO3 enablefields criterias
-	 * for all tables wich are defined in backendConfig.tables and in TCA
+	 * Build and return whereClause part with TYPO3 enablefields criterias
+	 * for all tables which are defined in backendConfig.tables and in TCA
 	 * 
-	 * @return string whereclause part with TYPO3 enablefields criterias
+	 * @return string whereClause part with TYPO3 enablefields criterias
 	 */
 	protected function getTypo3SpecialFieldsWhereClause() {
 		$typo3Tables = t3lib_div::trimExplode(',', $this->backendConfiguration->getDataBackendSettings('tables'), true);
@@ -102,6 +102,8 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 					$specialFieldsWhereClauseSnippet = str_replace(' ' . $table . '.',  ' ' . $alias . '.', $specialFieldsWhereClauseSnippet);
                     // Make sure not to replace parts of table names with wrong aliases! So check for '(' to come before and '.' to come after
                     $specialFieldsWhereClauseSnippet = str_replace('(' . $table . '.',  '(' . $alias . '.', $specialFieldsWhereClauseSnippet);
+                    // Make sure not to replace parts of table names with wrong aliases! So check for ',' to come before and '.' to come after
+                    $specialFieldsWhereClauseSnippet = str_replace(',' . $table . '.',  ',' . $alias . '.', $specialFieldsWhereClauseSnippet);
                 }
 
 				$specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
@@ -111,7 +113,4 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 		
 		return $specialFieldsWhereClause;
 	}
-	
 }
-
-?>

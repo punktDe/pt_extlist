@@ -37,6 +37,15 @@
 interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
 	/**
+	 * Returns list identifier of list to which this backend belongs to.
+	 *
+	 * @return string List identifier of associated list
+	 */
+	public function getListIdentifier();
+
+
+
+	/**
 	 * Creates an instance of data source object to be used with current backend
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
@@ -51,7 +60,16 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
     public function getListData();
-    
+
+
+
+	/**
+	 * @abstract
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListData
+	 */
+	public function getIterationListData();
+
+
     
     /**
 	 * Returns the list header
@@ -78,9 +96,11 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array());
+    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL);
     
     
     
@@ -98,7 +118,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
      */
-    public function injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection  $fieldConfigCollection);
+    public function _injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection  $fieldConfigCollection);
     
   
     
@@ -107,7 +127,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection
      */
-    public function injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection);
+    public function _injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection);
     
     
     
@@ -117,14 +137,15 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return int Total number of items for current data set
      */
     public function getTotalItemsCount();
-    
-    
-    
-    /**
-     * Return an aggregate for a field and with a method defined in the given config
-     *  
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateDataConfig
-     */
+
+
+
+	/**
+	 * Return an aggregate for a field and with a method defined in the given config
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+	 * @return
+	 */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection);
     
     
@@ -134,7 +155,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
      */
-    public function injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper);
+    public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper);
     
     
     
@@ -143,7 +164,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param mixed $dataSource
      */
-    public function injectDataSource($dataSource);
+    public function _injectDataSource($dataSource);
     
     
     
@@ -152,7 +173,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
      */
-    #public function injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
+    #public function _injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
 
 
 
@@ -162,7 +183,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
      * @return void
      */
-    public function injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
+    public function _injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
 
     
     
@@ -171,7 +192,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection
      */
-    public function injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection);
+    public function _injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection);
     
     
     
@@ -180,7 +201,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration
      */
-    public function injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration);
+    public function _injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration);
     
     
     
@@ -189,7 +210,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param mixed $queryInterpreter
      */
-    public function injectQueryInterpreter($queryInterpreter);
+    public function _injectQueryInterpreter($queryInterpreter);
     
     
     
@@ -198,7 +219,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager
      */
-    public function injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager);
+    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager);
     
     
     
@@ -234,6 +255,28 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     public function getSorter();
-    
+
+
+
+	/**
+	 * Reset sorting if sorting changes due to GP vars
+	 *
+	 * DOES NOT RESET SORTING TO DEFAULT SORTING!!! @see resetSortingToDefault()
+	 */
+	public function resetSorting();
+
+
+
+	/**
+	 * Reset sorting to default sorting (configured in TS)
+	 */
+	public function resetSortingToDefault();
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	public function getConfigurationBuilder();
+
 }
-?>

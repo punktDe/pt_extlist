@@ -1,0 +1,36 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering a firstLetter filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                      Holds an instance for the group filter object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<div class="outer-wrapper">
+	<label class="filter-label">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+		<ul>
+			<f:for each="{filter.options}" key="optionValue" as="option">
+				<li class="tx-ptextlist-filter-link">
+					<div class="field-wrapper type-content">
+						<span class="{f:if(condition:option.selected, then:'selected')}">
+							<f:link.action action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
+						</span>
+					</div>
+				</li>
+			</f:for>
+		</ul>
+
+		<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
+	</div>
+</div>

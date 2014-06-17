@@ -37,6 +37,12 @@ plugin.tx_ptextlist.settings.export {
 		excelExport {
 		    viewClassName = Tx_PtExtlist_View_Export_ExcelListView
 		    fileExtension = xls
+
+		    stripTags = 1
+		    doBodyCellStyling = 1
+
+			renderFilterStates = 0
+			# renderFreeText =
 		}
 
 

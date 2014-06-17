@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -41,14 +41,16 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 	 */
 	protected $addDateToFileName;
 	
-	
+
+
 	/**
 	 * Date forma string in php's date format
 	 * 
 	 * @var string
 	 */
 	protected $dateFormat = 'Y-m-d';
-	
+
+
 	
 	/**
 	 * File extension without '.'
@@ -56,17 +58,20 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 	 */
 	protected $fileExtension;
 	
-	
+
+
 	/**
 	 * @var string
 	 */
 	protected $fileName;
 	
-	
+
+
 	/**
 	 * @var string
 	 */
 	protected $viewClassName;
+
 
 	
 	/**
@@ -76,7 +81,8 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 	 * @var string
 	 */
 	protected $contentType;
-	
+
+
 	
 	/**
 	 * DownloadType
@@ -86,6 +92,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 	 * @var string
 	 */
 	protected $downloadType = self::FORCE_DOWNLOAD;
+
 
 	
 	/**
@@ -100,13 +107,14 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 	 */
 	const OPEN_IN_BROWSER = 'I';
 
-	
+
+
 	protected function init() {
 		$this->setRequiredValue('fileName', 'No fileName given for export file! 1284563488');
 		$this->setRequiredValue('fileExtension', 'No file extension given for export file! 1284620580');
 		
-		$this->setRequiredValue('viewClassName', 'No viewClassName given for export file '.$this->fileName.' ! 1284563488');
-		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->viewClassName), array('message' => 'The classname "' . $this->viewClassName . '" for export view does not exist! 1284563683'));
+		$this->setRequiredValue('viewClassName', 'No viewClassName given for export file ' . $this->fileName . '1284563489');
+		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->viewClassName), array('message' => 'The class name "' . $this->viewClassName . '" for export view does not exist! 1284563683'));
 				
 		$this->setBooleanIfExistsAndNotNothing('addDateToFilename');
 		$this->setValueIfExistsAndNotNothing('dateFormat');
@@ -178,5 +186,6 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 	public function getContentType() {
 		return $this->contentType;
 	}
+	
 }
 ?>

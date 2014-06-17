@@ -86,6 +86,13 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	 * @var boolean
 	 */
 	protected $expandGroupRows = false;
+
+
+	/**
+	 * Join and expand the groupRows by the following delimiter
+	 * @var string
+	 */
+	protected $expandGroupRowsSeparator = '<extListSeparator>';
 	
 	
 	
@@ -106,6 +113,9 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 		
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
 		$this->setBooleanIfExistsAndNotNothing('expandGroupRows');
+		$this->setBooleanIfExistsAndNotNothing('isRelation');
+
+		$this->setValueIfExists('expandGroupRowsSeparator');
 		
 		if(array_key_exists('accessGroups', $this->settings)) {
 			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
@@ -121,10 +131,10 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	}
 
 	
-	/* 
+	/*
 	 * method to be comatible with structures using fieldIdentifier as array of strings
-	 * TODO - all objects should use fieldConfigCollections 
-	 */ 
+	 * TODO - all objects should use fieldConfigCollections
+	 */
 	public function __toString() {
 		return $this->identifier;
 	}
@@ -160,6 +170,12 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	
 	
 	
+	public function getIsRelation() {
+		return $this->isRelation;
+	}
+	
+	
+	
 	public function getAccessGroups() {
 		return $this->accessGroups;
 	}
@@ -175,6 +191,13 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 	public function getExpandGroupRows() {
 		return $this->expandGroupRows;
 	}
-	
+
+
+	/**
+	 * @return string
+	 */
+	public function getExpandGroupRowsSeparator() {
+		return $this->expandGroupRowsSeparator;
+	}
 }
 ?>

@@ -34,7 +34,7 @@
  * @package Test
  * @subpackage Domain\DataBackend
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackendTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds an instance of data backend class to be tested
@@ -52,11 +52,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackend_testcase extends Tx
 	}
 	
 	
-	
-	public function testInjectBookmarkManager() {
-		$this->dataBackend->injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager'));
+
+	/** @test */
+	public function bookmarkManagerCanBeInjectedVia_injectBookmarkManager() {
+		$this->dataBackend->_injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager', array(), array('testList')));
 	}
 	
 }
-
 ?>

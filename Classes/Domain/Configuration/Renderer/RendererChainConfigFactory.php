@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -34,22 +34,24 @@
  * @subpackage Configuration\Renderer
  */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
-	
+
 	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
 	 */
 	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$rendererChainSettings = $configurationBuilder->getSettingsForConfigObject('rendererChain');
-		$rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder, $rendererChainSettings);
-		
-		ksort($rendererChainSettings);
-		
-		foreach($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
-			$rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($configurationBuilder,  $rendererSettings);	
-			$rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
+
+		if(is_array($rendererChainSettings['rendererConfigs'])) {
+			ksort($rendererChainSettings['rendererConfigs']);
+			$rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder, $rendererChainSettings);
+
+			foreach ($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
+				$rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($configurationBuilder, $rendererSettings);
+				$rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
+			}
 		}
-		
+
 		return $rendererChainConfiguration;
 	}
 }

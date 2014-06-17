@@ -29,22 +29,89 @@
 /**
  * Class implements factory for ExtListContext
  *
+ * TODO refactor this class to be "non-static" anymore
+ *
  * @package ExtlistContext
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
+class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singleton {
+
+
+	/**
+	 * @var Tx_Extbase_Configuration_ConfigurationManager
+	 */
+	protected $configurationMananger;
+
+
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected $objectManager;
+
+
+
+	/**
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	protected $sessionPersistenceManagerBuilder;
+
+
+
+	/**
+	 * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
+	 */
+	protected $instances = array();
+
+
 
 	/**
 	 * Array of listContext Instances
-	 * @var Tx_PtExtlist_Domain_ListContext_ListContext
+	 * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
 	 */
-	protected static $instances = array();
+	protected static $staticInstances = array();
+
 
 
 	/**
 	 * @var array
 	 */
 	protected static $extListTyposcript = NULL;
+
+
+
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected static $staticObjectManager;
+
+
+
+	/**
+	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager){
+		$this->configurationMananger = $configurationManager;
+	}
+
+
+
+	/**
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder){
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager){
+		$this->objectManager = $objectManager;
+	}
+
 
 
 	/**
@@ -55,25 +122,44 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 */
 	public static function getContextByListIdentifier($listIdentifier) {
 
-		if(!array_key_exists($listIdentifier, self::$instances)) {
+		if(!array_key_exists($listIdentifier, self::$staticInstances)) {
+
+			self::$staticObjectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 
 			if($extListBackend === NULL) {
 				$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
-				self::loadLifeCycleManager();
 
-				Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-				$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+				// TODO resolve this properly with Dependency Injection once we have cascading container
+				#Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
+				$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+				$configurationBuilderFactory->setSettings($extListTs);
+				$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
+				#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+
+				self::loadLifeCycleManager($configurationBuilder);
 
 				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
 			}
 
-			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
+			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
 
 		}
 
-		return self::$instances[$listIdentifier];
+		return self::$staticInstances[$listIdentifier];
+	}
+
+
+
+	/**
+	 * Non-static wrapper for getContextByListIdentifier
+	 *
+	 * @param $listIdentifier
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
+	 */
+	public function getContextByListIdentifierNonStatic($listIdentifier) {
+		return self::getContextByListIdentifier($listIdentifier);
 	}
 
 
@@ -87,33 +173,53 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @param $useCache boolean
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = true) {
+	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE) {
 		
-		if(!array_key_exists($listIdentifier, self::$instances) || !$useCache) {
+		if(!array_key_exists($listIdentifier, self::$staticInstances) || !$useCache) {
+
+			self::$staticObjectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			if($useCache) {
 
 				try {
-					$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
+					// TODO Remove this, once we have DI
+					$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+					$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 				} catch (Exception $e) {
 					$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier);
 				}
 
 			} else {
-				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, true);
+				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, TRUE);
 			}
 
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder, !$useCache);
-			self::$instances[$listIdentifier] = self::buildContext($extListBackend);
+			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
 		}
 
-		return self::$instances[$listIdentifier];
+		return self::$staticInstances[$listIdentifier];
 	}
+
+
+
+
+	/**
+	 * Non-static wrapper for getContextByCustomConfiguration
+	 *
+	 * @param array $customTSArray
+	 * @param $listIdentifier
+	 * @param bool $useCache
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
+	 */
+	public function getContextByCustomConfigurationNonStatic(array $customTSArray, $listIdentifier, $useCache = true) {
+		return self::getContextByCustomConfiguration($customTSArray, $listIdentifier, $useCache);
+	}
+
 
 
 	/**
 	 * @static
-	 * @param $extListSettings array
+	 * @param $extListTypoScript array
 	 * @return void
 	 */
 	public static function setExtListTyposSript($extListTypoScript) {
@@ -129,29 +235,34 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @param boolean $resetConfigurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
-	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = false) {
+	protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = FALSE) {
 		$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
-		self::loadLifeCycleManager();
 
-		Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-		return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier, $resetConfigurationBuilder);
+		// TODO remove this, once we have DI
+		$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+		$configurationBuilderFactory->setSettings($extListTs);
+		$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier, $resetConfigurationBuilder);
+
+		self::loadLifeCycleManager($configurationBuilder);
+
+		return $configurationBuilder;
 	}
 
 
 
 	/**
-	 * Build the extlistContext
+	 * Build the extbaseContext
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extlistContext
+	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extbaseContext
 	 */
 	protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$extlistContext = new Tx_PtExtlist_ExtlistContext_ExtlistContext();
+		$extListContext = self::$staticObjectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext');
 
-		$extlistContext->injectDataBackend($dataBackend);
-		$extlistContext->init();
-
-		return $extlistContext;
+		$extListContext->_injectDataBackend($dataBackend);
+		$extListContext->init();
+		
+		return $extListContext;
 	}
 
 
@@ -159,11 +270,18 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	/**
 	 * Read the Session data into the cache
 	 */
-	protected static function loadLifeCycleManager() {
-		$lifecycleManager = Tx_PtExtbase_Lifecycle_ManagerFactory::getInstance();
-		$lifecycleManager->register(Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance());
-		// SET LIFECYCLE TO START -> read session data into cache
-		$lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::START);
+	protected static function loadLifeCycleManager(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		// TODO use DI here once refactoring is finished
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
+		$lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
+		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
+		$lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
+
+		// If we have resetOnEmptySubmit, we reset session data here
+		if ($configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit() && Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->isEmptySubmit()) {
+			$sessionPersistenceManager->resetSessionData();
+		}
 	}
 
 
@@ -189,7 +307,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 		}
 
 		if(!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {
-			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page! 1284655053');
+			throw new Exception('No listconfig with listIdentifier ' . $listIdentifier . ' defined on this page!', 1284655053);
 		}
 
 		$extListTSArray['listIdentifier'] = $listIdentifier;
@@ -222,9 +340,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 * @return array typoscript array
 	 */
 	protected static function getTyposcriptOfCurrentBackendPID() {
-		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager');
+		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager'); /* @var $configurationManager Tx_Extbase_Configuration_BackendConfigurationManager */
 		$completeTS = $configurationManager->getTypoScriptSetup();
-		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
 
 
@@ -236,9 +354,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory {
 	 */
 	protected static function getTyposcriptOfCurrentFrontendPID() {
 
-		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager');
+		$configurationManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager'); /* @var $configurationManager Tx_Extbase_Configuration_FrontendConfigurationManager */
 		$completeTS = $configurationManager->getTypoScriptSetup();
-		return Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
+
 }
-?>

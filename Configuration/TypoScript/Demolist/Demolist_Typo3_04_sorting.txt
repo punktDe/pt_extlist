@@ -15,6 +15,8 @@ plugin.tx_ptextlist.settings {
 	listConfig.demolist_sorting < plugin.tx_ptextlist.prototype.listConfig.default
 	listConfig.demolist_sorting {
 
+		default.cacheRendering = 1
+
 	    # If we set this to 1, list will be reset every time, we open up a page without an extlist action
 	    # base.resetOnEmptySubmit = 1
 
@@ -37,7 +39,7 @@ plugin.tx_ptextlist.settings {
 			baseFromClause (
 				static_countries
 				LEFT JOIN static_territories AS st_subcontinent ON (static_countries.cn_parent_tr_iso_nr = st_subcontinent.tr_iso_nr)
-				LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr) 
+				LEFT JOIN static_territories AS st_continent ON (st_subcontinent.tr_parent_iso_nr = st_continent.tr_iso_nr)
 			)
 
 			baseWhereClause (
@@ -101,7 +103,7 @@ plugin.tx_ptextlist.settings {
 		}
 
 		columns {
-			
+
 			10 {
 				# choose a columnIdentifier
 				columnIdentifier = nameColumn
@@ -156,7 +158,7 @@ plugin.tx_ptextlist.settings {
 
 					10 = TEXT
 					10.data = field:name_en
-					
+
 					/*
 					10.append.noTrimWrap = | (|)|
 					10.wrap3 = |&nbsp;
@@ -165,7 +167,7 @@ plugin.tx_ptextlist.settings {
 					20.value = Details
 					20.typolink.parameter = 1
 					20.typolink.additionalParams.dataWrap = &tx_unseretolleextension_controller_details[countryuid]={field:countryuid}
-					*/ 
+					*/
 				}
 			}
 
@@ -208,7 +210,7 @@ plugin.tx_ptextlist.settings {
 				accessGroups = 3
 			}
 		}
-	
+
 		aggregateData {
 			# methods: sum, min, max, avg
 			sumPhone {
@@ -228,7 +230,7 @@ plugin.tx_ptextlist.settings {
 				method = min
 			}
 		}
-		
+
 		aggregateRows {
 			10 {
 				phoneColumn {
@@ -243,13 +245,13 @@ plugin.tx_ptextlist.settings {
 				}
 			}
 		}
-		
+
 		filters {
 			filterbox1 {
 			    # Use this configuration if you want to do a redirect after a filterbox submits
 			    #redirectOnSubmit{
 			    #    pageId = 10
-			    #    controller = testController 
+			    #    controller = testController
 			    #    action = testAction
 			    #}
 
@@ -289,7 +291,7 @@ plugin.tx_ptextlist.settings {
 						submitOnChange = 0
 						invert = 0
 						invertable = 0
-						
+
 						excludeFilters = filterbox1.filter3
 					}
 
@@ -310,7 +312,7 @@ plugin.tx_ptextlist.settings {
 						invert = 0
 						invertable = 0
 					}
-					
+
 					35 < plugin.tx_ptextlist.prototype.filter.select
 					35 {
 						filterIdentifier = capitalFilter
@@ -327,8 +329,8 @@ plugin.tx_ptextlist.settings {
 					#	fieldIdentifier = continent
 					#}
 				}
-			}	
-			
+			}
+
 			filterbox2 {
 				showSubmit = 0
 				showReset = 0
@@ -352,20 +354,20 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 		tables (
 			static_territories
 		)
-		
+
 		continent {
 			table = static_territories
 			field = tr_name_en
 		}
 	}
-	
+
 	fields {
 		continent {
 			table = static_territories
 			field = tr_name_en
 		}
 	}
-	
+
 	filters {
 		filterbox1 {
 			filterConfigs {
@@ -379,7 +381,7 @@ plugin.tx_ptextlist.settings.listConfig.demoListProxyFilter {
 					showRowCount = 0
 					multiple = 0
 					inactiveOption = [ALL]
-					
+
 					renderObj = TEXT
 					renderObj {
 						dataWrap = {field:allDisplayFields}

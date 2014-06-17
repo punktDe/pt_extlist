@@ -73,7 +73,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	public function testSimpleCriteriaTranslator() {
 		$criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field','value','=');
 		$criteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria);
-		$this->assertTrue($criteriaString == 'field = "value"');
+		$this->assertEquals("field = 'value'", $criteriaString);
 	}
 	
 	
@@ -100,8 +100,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$andCriteriaSimpleComplex = new Tx_PtExtlist_Domain_QueryObject_AndCriteria($this->simpleCriteria3, $andCriteriaSimple);
 		
 		$andCriteriaSimpleComplexString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator::translateCriteria($andCriteriaSimpleComplex);
-		$andCriteriaSimpleComplexTestString = '(field3 = "value3") AND ((field1 = "value1") AND (field2 = "value2"))';
-		$this->assertTrue($andCriteriaSimpleComplexString == $andCriteriaSimpleComplexTestString, 'Test failed with SimpleCriteria AND ComplexCriteria. :: ' . $andCriteriaSimpleComplexString . ' != ' . $andCriteriaSimpleComplexTestString);
+		$andCriteriaSimpleComplexTestString = "(field3 = 'value3') AND ((field1 = 'value1') AND (field2 = 'value2'))";
+		$this->assertEquals($andCriteriaSimpleComplexTestString, $andCriteriaSimpleComplexString);
 	}
 	
 	
@@ -113,9 +113,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$orCriteriaSimple = new Tx_PtExtlist_Domain_QueryObject_OrCriteria($this->simpleCriteria1, $this->simpleCriteria2);
 		
 		$orCriteriaSimpleString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator::translateCriteria($orCriteriaSimple);
-		$orCriteriaSimpleTestString = '(' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($this->simpleCriteria1)
-													 . ') OR (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($this->simpleCriteria2) . ')';
-		$this->assertTrue($andCriteriaSimpleString == $andCriteriaSimpleTestString, 'Test failed with SimpleCriteria OR SimpleCriteria.(' . $orCriteriaSimpleString . '!=' . $orCriteriaSimpleTestString);
+		$orCriteriaSimpleTestString = "(" . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($this->simpleCriteria1)
+													 . ") OR (" . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($this->simpleCriteria2) . ")";
+		$this->assertEquals($orCriteriaSimpleTestString, $orCriteriaSimpleString);
 		
 	}
 	
@@ -135,18 +135,18 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	
 	public function testWrapArrayInBracketsInSimpleCriteriaTranslator() {
 		$wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets(array('tes"t1','test2','test3'));
-		$this->assertEquals($wrappedString, '("tes\"t1", "test2", "test3")');
+		$this->assertEquals('(\'tes\"t1\',\'test2\',\'test3\')', $wrappedString );
 		
 		$wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets('tes"t1');
-		$this->assertEquals($wrappedString, '"tes\"t1"');
+		$this->assertEquals("'tes\\\"t1'", $wrappedString);
 	}
 	
 	
 	
 	public function testTranslateInCriteria() {
-		$inCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', array('test1', 'test2'), 'IN');
+		$inCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', array('test1','test2'), 'IN');
 		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($inCriteria);
-		$this->assertEquals($translatedCriteria, 'test IN ("test1", "test2")');
+		$this->assertEquals($translatedCriteria, "test IN ('test1','test2')");
 	}
 
 
@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fieldConfigCollection, 'searchString');
 		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator::translateCriteria($fullTextCriteria);
 
-		$this->assertEquals('MATCH (table.field, (special)) AGAINST ("searchString")', $translatedCriteria);
+		$this->assertEquals("MATCH (table.field, (special)) AGAINST ('searchString')", $translatedCriteria);
 	}
 
 
@@ -179,7 +179,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fieldConfigCollection, 'searchString', $searchParameter);
 		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator::translateCriteria($fullTextCriteria);
 
-		$this->assertEquals('MATCH (table.field) AGAINST ("searchString" IN BOOLEAN MODE)', $translatedCriteria);
+		$this->assertEquals("MATCH (table.field) AGAINST ('searchString' IN BOOLEAN MODE)", $translatedCriteria);
 	}
 
 
@@ -197,7 +197,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fieldConfigCollection, 'searchString', $searchParameter);
 		$translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator::translateCriteria($fullTextCriteria);
 
-		$this->assertEquals('MATCH (table.field) AGAINST ("*searchString*" IN BOOLEAN MODE)', $translatedCriteria);
+		$this->assertEquals("MATCH (table.field) AGAINST ('*searchString*' IN BOOLEAN MODE)", $translatedCriteria);
 	}
 
 

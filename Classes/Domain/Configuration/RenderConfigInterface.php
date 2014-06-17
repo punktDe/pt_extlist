@@ -61,5 +61,15 @@ interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	 * @returns string template
 	 */
 	public function getRenderTemplate();
+
+
+
+	/**
+	 * Returns true, if rendering should be cached
+	 *
+	 * @return bool True, if rendering should be cached
+	 */
+	public function getCacheRendering();
+
 }
 ?>

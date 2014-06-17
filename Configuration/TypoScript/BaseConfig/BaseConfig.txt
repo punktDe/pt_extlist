@@ -35,7 +35,10 @@ plugin.tx_ptextlist {
         * GP-var data for current request. You can use this switch, if you want a list
         * to be reset to its default settings every time you open up a page.
         */
-        # resetOnEmptySubmit = 1
+        resetOnEmptySubmit = 0
+
+        # If set to 1, it's possible to reset session with GP var 'resetSession'
+        resetSessionOnResetParameter = 0
     }
 }
 
@@ -45,8 +48,8 @@ plugin.tx_ptextlist {
 # Special Pagetype for JSON Views
 # Inherit from this page and set "typeNum" and "settings.listIdentifier"
 #
-EXTLISTJSONBASE = PAGE
-EXTLISTJSONBASE {
+EXTLISTAJAX = PAGE
+EXTLISTAJAX {
 	typeNum =
 
 	10 = COA_INT
@@ -59,9 +62,15 @@ EXTLISTJSONBASE {
 
 			# LIMIT CONTROLLER / ACTION
 			switchableControllerActions {
+
+			    AjaxFilter {
+					1 = getFilterElement
+				}
+
 			    List {
 			        1 = list
 			    }
+
 			}
 
 			settings.listIdentifier = 
@@ -77,3 +86,7 @@ EXTLISTJSONBASE {
 		additionalHeaders = Content-type:application/json
 	}
 }
+
+
+// Clear mapping for Frontend user so that feUserRepository is able to find user records
+config.tx_extbase.persistence.classes.Tx_Extbase_Domain_Model_FrontendUser.mapping.recordType >

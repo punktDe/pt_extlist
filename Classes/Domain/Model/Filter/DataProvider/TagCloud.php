@@ -85,7 +85,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends  Tx_PtExtli
 			$groupDataQuery->addField(sprintf('count("%s") as elementCount', $this->filterField->getTableFieldCombined()));
 		}
 
-		$groupDataQuery->addGroupBy($this->filterField->getIdentifier());
+		$groupDataQuery->addGroupBy($this->filterConfig->getFieldIdentifier()->getItemByIndex(0)->getIdentifier());
 
 		return $groupDataQuery;
 	}

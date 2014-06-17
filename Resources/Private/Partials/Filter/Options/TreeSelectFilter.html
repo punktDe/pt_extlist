@@ -1,0 +1,32 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace ptx=Tx_PtExtbase_ViewHelpers}
+
+<extlist:comment>
+<!--  
+Partial for rendering a tree select filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                      Holds an instance for the group filter object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<div class="outer-wrapper">
+	<label for="{filter.filterIdentifier}" class="filter-label">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+
+		<ptx:tree.selector name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}"
+						 id="{filter.filterIdentifier}"
+						 value="{filter.value}"
+						 nodes="{filter.treeNodes}"
+						 multiple="{filter.multiple}" />
+	</div>
+	<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription"><f:format.html>{filter.filterConfig.description}</f:format.html></div></f:if>
+</div>

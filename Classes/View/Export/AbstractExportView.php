@@ -59,10 +59,18 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 
 
 	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration
+	 */
+	public function setExportConfiguration(Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration) {
+		$this->exportConfiguration = $exportConfiguration;
+	}
+
+
+	/**
 	 * @return void
 	 */
-	protected function initConfiguration() {
-		$this->exportConfiguration = $this->configurationBuilder->buildExportConfiguration();
+	public function initConfiguration() {
+	//	$this->exportConfiguration = $this->configurationBuilder->buildExportConfiguration();
 	}	
 
 	
@@ -115,7 +123,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 				}
 
 				if (headers_sent()) {
-					throw new Exception('Some data has already been output to browser, can\'t send Export file 1283945901');
+					throw new Exception('Some data has already been output to browser, can\'t send Export file.', 1283945901);
 				}
 
 				header('Content-disposition: inline; filename="'.$this->getFilenameFromTs().'"');
@@ -124,16 +132,16 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 			case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
 
 				if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')) {
-					header('Content-Type: application/force-download');
+					header('Content-Type: application/force-download, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));
 				} else {
-					header('Content-Type: application/octet-stream');
+					header('Content-Type: application/octet-stream, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));
 				}
 
 				header('Content-disposition: attachment; filename="'. $this->getFilenameFromTs() .'"');
 				break;
 
 			default:
-				throw new Exception('No valid download handling set for Export file! 1283945902');
+				throw new Exception('No valid download handling set for Export file!', 1283945902);
 		}
 	}
 }

@@ -41,6 +41,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 	
 	
 	public function setup() {
+
+
 		$this->initDefaultConfigurationBuilderMock();
 
 		$this->defaultFilterSettings = array(
@@ -74,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 	/**
 	 * @test
 	 */
-	public function optionsSqlQuerySettingsAreSetCorrctly() {
+	public function optionsSqlQuerySettingsAreSetCorrectly() {
 		$dataProvider = $this->buildAccessibleDataProvider();
 
 
@@ -164,7 +166,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryTest e
 
     	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings,'test');
 
-		$accesibleExplicitDataProvider->injectFilterConfig($filterConfiguration);
+		$accesibleExplicitDataProvider->_injectFilterConfig($filterConfiguration);
 		$accesibleExplicitDataProvider->init();
 
 		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);

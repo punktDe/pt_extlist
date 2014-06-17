@@ -32,21 +32,29 @@
  * 
  * @author Daniel Lienert 
  * @author Michael Knoll
- * @author Christoph Ehscheidt
  * @package Domain
  * @subpackage Model\List
  */
 class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectCollection {
-	
-	
+
 	/**
-	 * Special values for multiple purpose
-	 * @var string
+	 * Special values for multiple purpose. Values are stored as key=>value pair
+	 *
+	 * @var array
 	 */
 	protected $specialValues;
-	
-	
-	
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getColumnIdentifiers() {
+		return array_keys($this->itemsArr);
+	}
+
+
+
 	/**
 	 * Add a new cell to row identified by a given column name
 	 * 
@@ -64,17 +72,17 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	 * Create a new Cell with the Content and add it
 	 * 
 	 * @param string $cellContent
-	 * @param string $columnName
+	 * @param string $columnIdentifier
 	 */
 	public function createAndAddCell($cellContent, $columnIdentifier) {
 		$this->addItem(new Tx_PtExtlist_Domain_Model_List_Cell($cellContent), $columnIdentifier);
 	}
-	
-	
-	
+
+
 	/**
-	 * @param string $columnIdentifier
+	 * @param $columnIdentifier
 	 * @return Tx_PtExtlist_Domain_Model_List_Cell
+	 * @throws Exception
 	 */
 	public function getCell($columnIdentifier) {
 		if(!$this->hasItem($columnIdentifier)) {
@@ -108,9 +116,20 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	
 	/**
 	 * Return the complete value array
+	 * @return array
 	 */
 	public function getSpecialValues() {
 		return $this->specialValues;
+	}
+
+
+
+	/**
+	 * Setter for special values
+	 * @param mixed $specialValues
+	 */
+	public function setSpecialValues($specialValues) {
+		$this->specialValues = $specialValues;
 	}
 	
 	
@@ -144,6 +163,51 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	 */
 	public function getCount() {
 		return $this->count();
+	}
+
+
+
+	/**
+	 * Set Cell Data by array
+	 * Reuse the existing cell objects or create new.
+	 *
+	 * @param $rowArray
+	 */
+	public function setByArray($rowArray) {
+		$this->specialValues = isset($rowArray['specialValues']) ? $rowArray['specialValues'] : NULL;
+
+		$newItemsArray = array();
+
+		foreach($rowArray['columns'] as $columnIdentifier => $cellData) {
+			if(count($this->itemsArr)) {
+				$cell = array_pop($this->itemsArr); /**  @var $cell Tx_PtExtlist_Domain_Model_List_Cell */
+				$cell->setByArray($cellData);
+			} else {
+				$cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+				$cell->setByArray($cellData);
+			}
+
+			$newItemsArray[$columnIdentifier] = $cell;
+		}
+
+		unset($this->itemsArr);
+		$this->itemsArr = $newItemsArray;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getAsArray() {
+
+		$returnArray = array();
+		$returnArray['specialValues'] = $this->specialValues;
+
+		foreach($this->itemsArr as $colName => $item) {
+			$returnArray['columns'][$colName] = $item->getAsArray();
+		}
+
+		return $returnArray;
 	}
 
 }

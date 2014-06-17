@@ -34,7 +34,7 @@
  * @package Test
  * @subpackage Domain\Databackend
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_testcase extends Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest {
+class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTest extends Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest {
 
 
 	public function testSetUp() {
@@ -42,12 +42,14 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_te
 	}
 	
 	
-	
-	public function testCreateDataSource() {
+
+	/** @test */
+	public function createDataSourceCreatesObjectOfExpectedType() {
 		$dataSource = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend::createDataSource($this->configurationBuilder);
-		$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource'));
+		$this->assertTrue($dataSource instanceof Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource, 'Class is ' . get_class($dataSource));
 	}
-	
+
+
 	
 	/** @test */
 	public function buildWherePartWithEnableFields() {
@@ -66,5 +68,4 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend_te
 	}
 	
 }
-
 ?>

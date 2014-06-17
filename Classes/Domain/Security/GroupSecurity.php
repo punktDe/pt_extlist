@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage Security
  */
-class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_Security_SecurityInterface {
+class Tx_PtExtlist_Domain_Security_GroupSecurity
+	implements Tx_PtExtlist_Domain_Security_SecurityInterface, t3lib_Singleton {
 	
 	protected $usergroups;
 	
@@ -71,12 +72,15 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		
 		return $this->compareAccess($groups);
 	}
-	
+
+
+
 	/**
 	 * Evaluates if a filter is accessable by the FE-User(-Group).
-	 * 
-	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
-	 * 
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
+	 *
 	 * @return bool
 	 */
 	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
@@ -102,6 +106,7 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 	 * Check field access 
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+	 * @return bool
 	 */
 	protected function checkFields(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
 
@@ -123,11 +128,13 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		
 		return $this->compareAccess($groups);
 	}
-	
+
+
+
 	/**
 	 * Compare the defined access credentials with internal data (e.g. FE-USER-GROUP)
-	 * 
-	 * @param string $groups
+	 *
+	 * @param array|string $groups
 	 * @return bool
 	 */
 	protected function compareAccess(array $groups) {
@@ -148,5 +155,3 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 		return false;
 	}
 }
-
-?>

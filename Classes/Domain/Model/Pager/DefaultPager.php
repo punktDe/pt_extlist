@@ -32,8 +32,7 @@
  * @package Domain
  * @subpackage Model\Pager
  * @author Michael Knoll 
- * @author Christoph Ehscheidt 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
                	
@@ -221,7 +220,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
 	 */
 	public function getFirstItemIndex() {
-		return ( ($this->currentPage - 1) * $this->itemsPerPage) + 1;
+		$firstItemIndex = ($this->currentPage - 1) * $this->itemsPerPage + 1;
+		return $firstItemIndex > 0 ? $firstItemIndex : 0;
 	}
 	
 	
@@ -329,7 +329,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastPage()
 	 */
 	public function getLastPage() {
-		return ceil((intval($this->totalItemCount)/intval($this->itemsPerPage)));
+		$lastPage = $this->itemsPerPage > 0 ? ceil((intval($this->totalItemCount)/intval($this->itemsPerPage))) : 0;
+		return $lastPage;
 	}
 	
 	
@@ -365,6 +366,36 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 		}
 		
 		return $this->getLastPage();
+	}
+
+
+
+	/**
+	 * Returns true if pager is on first page
+	 *
+	 * @return bool True, if pager is on first page
+	 */
+	public function getIsOnFirstPage() {
+		return ($this->currentPage == $this->getFirstPage());
+	}
+
+
+
+	/**
+	 * Returns true, if pager is on last page
+	 *
+	 * @return bool True, if pager is on last page
+	 */
+	public function getIsOnLastPage() {
+		return ($this->currentPage == $this->getLastPage());
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getItemOffset() {
+		return intval($this->getCurrentPage() - 1) * intval($this->getItemsPerPage());
 	}
 
 }

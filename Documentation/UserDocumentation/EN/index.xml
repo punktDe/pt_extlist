@@ -3,7 +3,7 @@
   <title>
     <inlinemediaobject>
       <imageobject>
-        <imagedata fileref="images/logo_punktde.png" contentwidth="70" format="png" valign="bottom"/>
+        <imagedata fileref="Images/logo_punktde.png" contentwidth="70" format="png" valign="bottom"/>
       </imageobject>
     </inlinemediaobject>
   </title>
@@ -106,46 +106,8 @@
   programming. </para>
   </preface>
   <chapter>
-    <title>Introduction</title>
-    <xi:include href="Sections/Introduction.xml"/>
-  </chapter>
-  <chapter>
-    <title>Examples</title>
-    <xi:include href="Sections/Example.xml"/>
-  </chapter>
-  <chapter>
-    <title>Set up and Configuration</title>
-    <xi:include href="Sections/SettingUpLists.xml"/>
-  </chapter>
-  <chapter>
-    <title>Architecture</title>
-    <para>This section gives you an overview of the architecture of pt_exlist. It shows its design principles and gives you a hint on where to make your hands dirty if you want to extend pt_extlist or use it in third party extensions.</para>
-    <xi:include href="Sections/Architecture.xml"/>
-  </chapter>
-  <chapter>
-    <title>API</title>
-    <xi:include href="Sections/API.xml"/>
-  </chapter>
-  <chapter>
-    <title>Cookbook</title>
-    <xi:include href="Sections/Cookbook.xml"/>
-  </chapter>
-  <chapter>
-    <title>Integrator's Guide</title>
-    <para>This chapter describes pt_extlist&apos;s features from an integrators point of view.</para>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/IntegratorsGuide.xml" encoding="UTF-8"/>
-  </chapter>
-  <chapter>
-    <title>Developer's Guide</title>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/DevelopersGuide.xml" encoding="UTF-8"/>
-  </chapter>
-  <chapter>
     <title>TypoScript Reference (TSRef)</title>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/TypoScriptReference.xml"/>
-  </chapter>
-  <chapter>
-    <title>Changelog</title>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Sections/Changelog.xml"/>
   </chapter>
     <!-- We do not need an appendix yet
   <chapter>

@@ -19,9 +19,13 @@ return array(
     'tx_ptextlist_tests_domain_model_filter_stubs_filterstub' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Model/Filter/Stubs/FilterStub.php',
     'tx_ptextlist_tests_domain_renderer_dummyrenderer' => t3lib_extMgm::extPath('pt_extlist').'Tests/Domain/Renderer/DummyRenderer.php',
     'tx_ptextlist_tests_view_testview' => t3lib_extMgm::extPath('pt_extlist').'Tests/View/TestView.php',
-	 'tx_ptextlist_view_export_abstractexportview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/Export/AbstractExportView.php',
+	'tx_ptextlist_view_export_abstractexportview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/Export/AbstractExportView.php',
     'tx_ptextlist_view_baseview' => t3lib_extMgm::extPath('pt_extlist').'Classes/View/BaseView.php',
-    'user_tx_ptextlist_utility_flexformdataprovider' => t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php',
+    'tx_ptextlist_tests_performance_testdatabackend' => t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataBackend.php',
+    'tx_ptextlist_tests_performance_testdatasource' => t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php',
+	'tx_ptextlist_domain_databackend_datasource_iterationdatasourceinterface' => t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/DataBackend/DataSource/IterationDataSourceInterface.php',
+
+	'user_tx_ptextlist_utility_flexformdataprovider' => t3lib_extMgm::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php',
 
     'tx_ptextbase_configuration_abstractconfigurationbuilder' => t3lib_extMgm::extPath('pt_extbase').'Classes/Configuration/AbstractConfigurationBuilder.php'
 );

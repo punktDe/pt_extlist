@@ -46,10 +46,29 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
 
 	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
+	/**
 	 * Initializes controller
 	 */
 	public function initializeAction() {
-		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
+        parent::initializeAction();
+		$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 
 
@@ -64,21 +83,22 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
 		// Do not show the list if it is empty.
 		// TODO do not use forward here!!!
-		if($list->getListData()->count() <= 0) {
+
+		if($list->count() <= 0) {
 			$this->forward('emptyList');
 		}
 
-		$renderedListData = $this->rendererChain->renderList($list->getListData());
-		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		$renderedAggregateRows = $this->rendererChain->renderAggregateList($list->getAggregateListData());
+		$pagerCollection = $this->dataBackend->getPagerCollection();
+		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
 
 		$this->view->assign('config', $this->configurationBuilder);
 		$this->view->assign('listHeader', $list->getListHeader());
-		$this->view->assign('listCaptions', $renderedCaptions);
-		$this->view->assign('listData', $renderedListData);
-		$this->view->assign('aggregateRows', $renderedAggregateRows);
+		$this->view->assign('listCaptions', $list->getRenderedListHeader());
+		$this->view->assign('listData', $list->getRenderedListData());
+		$this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
 
 		$this->view->assign('filterCollection', $this->dataBackend->getFilterboxCollection());
+		$this->view->assign('pagerCollection', $pagerCollection);
 	}
 
 
@@ -134,4 +154,3 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 	}
     
 }
-?>

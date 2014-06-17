@@ -71,9 +71,9 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 	/**
 	 * Initialize additional class properties
 	 */
-	protected function initConfiguration() {
+	public function initConfiguration() {
 		parent::initConfiguration();
-
+		//echo 's';
 		$this->templatePath = $this->exportConfiguration->getSettings('templatePath');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export! 1284621481'));
 		$this->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($this->templatePath));
@@ -99,9 +99,18 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 	 */
 	public function loadDomPDFClasses() {
 
+		// See https://github.com/dompdf/dompdf/pull/604 for further information on dompdf and problems with composer installation
+		if (file_exists($this->dompdfSourcePath . 'vendor/autoload.php')) {
+			define('DOMPDF_ENABLE_AUTOLOAD', false);
+			define("DOMPDF_ENABLE_REMOTE", true);
+			require_once ($this->dompdfSourcePath . 'dompdf_config.inc.php'); // This sets up some constants
+			require_once($this->dompdfSourcePath . 'vendor/autoload.php');    // This enables autoload of classes
+		} else {
+			// This is for backwards-compatibility with old versions of dompdf
+			// we do NOT disable autoload here, hence all required dependencies should be loaded "the old way"
+			require_once ($this->dompdfSourcePath . 'dompdf_config.inc.php'); // This sets up some constants
+		}
 
-
-		require_once ($this->dompdfSourcePath . 'dompdf_config.inc.php');
 
 		/*
 		$includePath = $this->dompdfSourcePath . 'include/';
@@ -172,7 +181,13 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 		$this->assign('csssFilePath', $this->cssFilePath);
 		$html = parent::render();
 		ob_clean();
-//die($html);
+
+		if((int) t3lib_div::_GET('showHTML') == 1) {
+			$relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], '', $this->cssFilePath);
+			$html = str_replace($this->cssFilePath, $relativePath, $html);
+			die($html);
+		}
+
 		$dompdf = new DOMPDF();
 		$dompdf->set_paper($this->paperSize, $this->paperOrientation);
 		$dompdf->load_html($html);

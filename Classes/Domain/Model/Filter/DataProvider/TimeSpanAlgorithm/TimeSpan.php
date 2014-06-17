@@ -104,7 +104,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan i
 	 * @return string
 	 */
 	public function getJsonValue() {
-		return json_encode(array('start' => $this->getStartDate()->format('Ymd'), 'end' => $this->getEndDate()->format('Ymd')));
+		return json_encode(array(
+			'start' => $this->getStartDate()->format('Ymd'),
+			'end' => $this->getEndDate()->format('Ymd'))
+		);
 	}
 
 

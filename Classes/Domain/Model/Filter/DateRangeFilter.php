@@ -65,13 +65,31 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		if ($this->filterValueFrom == '' || $this->filterValueTo == '') {
 			return NULL;
 		}
-		
+
+		$timestampBoundaries = $this->getCalculatedTimestampBoundaries();
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
-		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $this->filterValueFrom);
-		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $this->filterValueTo);
+		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $timestampBoundaries['filterValueFromTimestamp']);
+		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $timestampBoundaries['filterValueToTimestamp']);
 		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria1, $criteria2);
 		return $criteria;
+	}
+
+
+	/**
+	 * Calculate the timestamp boundaries from the input values
+	 * @return array
+	 */
+	protected function getCalculatedTimestampBoundaries() {
+		$timestampBoundaries = array();
+
+		$filterValueFromDateObject = new DateTime($this->filterValueFrom);
+		$timestampBoundaries['filterValueFromTimestamp'] =  $filterValueFromDateObject->getTimestamp();
+
+		$filterValueToDateObject = new DateTime($this->filterValueTo);
+		$timestampBoundaries['filterValueToTimestamp'] = $filterValueToDateObject->getTimestamp() + (24*60*60) - 1;
+
+		return $timestampBoundaries;
 	}
 
 
@@ -174,7 +192,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @return null|string
 	 */
 	public function getFilterValueFrom() {
-		return $this->filterValueFrom;
+		if ($this->filterValueFrom && $this->filterValueFrom !== '') {
+			return $this->filterValueFrom;
+		} else {
+			return NULL;
+		}
 	}
 
 
@@ -185,7 +207,21 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @return null|string
 	 */
 	public function getFilterValueTo() {
-		return $this->filterValueTo;
+		if ($this->filterValueTo && $this->filterValueTo !== '') {
+			return $this->filterValueTo;
+		} else {
+			return NULL;
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDisplayValue() {
+		$filterValueFromDateObject = new DateTime($this->getFilterValueFrom());
+		$filterValueToDateObject = new DateTime($this->getFilterValueTo());
+		$format = $this->getFilterConfig()->getSettings('displayValueDateFormat');
+		return $filterValueFromDateObject->format($format) . ' - ' . $filterValueToDateObject->format($format);
 	}
 
 }

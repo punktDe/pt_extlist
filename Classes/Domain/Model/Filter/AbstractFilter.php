@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -80,7 +80,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @var array
 	 */
-	protected $sessionFilterData;
+	protected $sessionFilterData = array();
 	
 	
 	
@@ -89,7 +89,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @var array
 	 */
-	protected $gpVarFilterData;
+	protected $gpVarFilterData = array();
 	
 	
 	
@@ -99,7 +99,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
 	 */
 	protected $gpVarAdapter = null;
-	
+
+
+
+	/**
+	 * @var mixed
+	 */
+	protected $filterValue;
 	
 	
 	/**
@@ -162,17 +168,12 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
 	 */
 	protected $filterbox;
-	
-	
-	
+
 	/**
 	 * Constructor for filter
-	 *
-	 * @param String $filterIdentifier     Identifier for filter
 	 */
 	public function __construct() {
 		$this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-		$this->errorMessages = new Tx_PtExtlist_Domain_Model_Messaging_MessageCollection();
 	}
 	
 	
@@ -283,7 +284,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	/**
 	 * Returns filter configuration of this filter
 	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	public function getFilterConfig() {
 		return $this->filterConfig;
@@ -355,12 +356,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function getFilterbox() {
 		return $this->filterbox;
 	}
-    
-    
-	
+
+
+
 	/**
 	 * Initializes the filter
-	 * 
+	 *
+	 * @param bool $initAfterReset
 	 * @return void
 	 */
 	public function init($initAfterReset = false) {
@@ -404,7 +406,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 		$this->initFilter();
 		
 		$this->buildFilterQuery();
-		
 	}
 	
 	
@@ -540,8 +541,6 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 
 	/**
 	 * Template method for validating filter data.
-	 * 
-	 * Method should write error messages to $this->errorMessages array
 	 *
 	 * @return bool True, if filter validates, false, if filter does not validate
 	 */
@@ -572,7 +571,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     	$breadCrumb = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb($this);
     	$breadCrumb->injectBreadCrumbsConfiguration($this->filterConfig->getConfigurationBuilder()->buildBreadCrumbsConfiguration());
         
-        if ($this->getFilterValueForBreadCrumb() != '') {
+        if ($this->getDisplayValue() != '') {
             $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
             
             $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
@@ -599,18 +598,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     protected function getFieldsForBreadcrumb() {
     	return array(
     	   'label' => $this->filterConfig->getLabel(), 
-    	   'value' => $this->getFilterValueForBreadCrumb()
+    	   'value' => $this->getDisplayValue()
     	);
     }
     
     
     
     /**
-     * Returns a string to be shown as filter value in breadcrumb
+     * Returns a string to be shown as filter value (eg. in breadcrumb)
      * 
      * @return string
      */
-    abstract protected function getFilterValueForBreadCrumb();
+    public function getDisplayValue() {
+		 if(is_array($this->filterValue)) {
+			 return implode(', ', $this->filterValue);
+		 } else {
+			 return $this->filterValue;
+		 }
+	 }
     
     
     
@@ -657,8 +662,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     protected function resetGpVarDataForFilter() {
         $this->gpVarFilterData = array();
     }
-    
-    
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getGPVarFilterData() {
+		return $this->gpVarFilterData;
+	}
     
 	/****************************************************************************************************************
      * Methods implementing "Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface"
@@ -672,8 +684,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	public function injectGPVars($gpVars) {
 		$this->gpVarFilterData = $gpVars;
 	}
-	
-	
+
 	
 	/****************************************************************************************************************
 	 * Methods implementing "Tx_PtExtlist_Domain_SessionPersistence_SessionPersistableInterface"

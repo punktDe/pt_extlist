@@ -33,7 +33,7 @@
  * @package Tests
  * @subpackage Domain\DataBackend
  */
-abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_Extbase_BaseTestcase {
+abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_PtExtlist_Tests_BaseTestcase {
    
     /**
      * Holds configuration string for demo TS setup
@@ -95,6 +95,7 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        backendConfig {
 			
 			            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
+			            dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
 			            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
 			            queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 			            
@@ -129,12 +130,11 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        }
 			   }
 			}";
-        $this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
-        $this->typoScriptParser->parse($this->tsConfigString);
-        $this->tsConfig = Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
-        Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($this->tsConfig['plugin']['tx_ptextlist']['settings']);
-        $this->configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance('list1');
+		$this->typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser');
+		$this->typoScriptParser->parse($this->tsConfigString);
+		$this->tsConfig = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+		$this->configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
+
     }
 	
 }
-?>

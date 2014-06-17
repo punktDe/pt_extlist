@@ -54,7 +54,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * 
 	 * @var array GP-Var Data
 	 */
-	protected $headerGPVarData;
+	protected $headerGPVarData = array();
 
 
 
@@ -63,7 +63,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * 
      * @var array
      */
-    protected $headerSessionData;
+    protected $headerSessionData = array();
 	
 	
 	
@@ -80,11 +80,13 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	protected $columnIdentifier;
 
 
+
 	/**
 	 * @var boolean
 	 */
 	protected $isVisible = true;
-	
+
+
 	
 	/**
 	 * @var boolean
@@ -157,6 +159,27 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 
 
 	/**
+	 * Sets the sorting direction of this column.
+	 *
+	 * Which fields are sorted
+	 *
+	 * @param int $sortingDirection One of  Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE
+	 */
+	public function setSorting($sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC) {
+		$this->sortedFields = array();
+		$sortingConfig = $this->columnConfig->getSortingConfig();
+		foreach ($sortingConfig as $fieldConfig) { /* @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $fieldConfig */
+			if ($fieldConfig->getForceDirection()) {
+				$this->sortedFields[$fieldConfig->getField()] = $fieldConfig->getDirection();
+			} else {
+				$this->sortedFields[$fieldConfig->getField()] = $sortingDirection;
+			}
+		}
+	}
+
+
+
+	/**
 	 * Initialize the Column by Configuration
 	 */
 	protected function initByTsConfig() {
@@ -173,10 +196,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 		if (array_key_exists('sortedFields', $this->headerSessionData)) {
 			$this->sortedFields = $this->headerSessionData['sortedFields'];
 		}
-
-		if(array_key_exists('isVisible', $this->headerSessionData)) {
-			$this->isVisible = (bool) $this->headerSessionData['isVisible'];
-		}
 	}
 
 	
@@ -188,56 +207,6 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 		if (array_key_exists('sortingFields', $this->headerGPVarData)) {
 			$this->initByGpVarsSortingFields($this->headerGPVarData['sortingFields']);
 		}
-	}
-
-
-
-	/**
-     * Sets sorting state of header by given sortingFields GP-var string.
-     * String has following format: <fieldIdentifier1>:<sortingDirection1>;<fieldIdentifier2>:<sortingDirection2>
-     *
-     * @param string $sortingFields
-     */
-	protected function initByGpVarsSortingFields($sortingFields) {
-		$this->sortedFields = array();
-		$fieldsAndDirections = explode(';', $sortingFields);
-		foreach ($fieldsAndDirections as $fieldAndSortingDirection) {
-			list($fieldIdentifier, $sortingDirection) = explode(':', $fieldAndSortingDirection);
-			if (in_array($sortingDirection, array(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC))
-					  && $this->sortingFieldConfig->hasItem($fieldIdentifier)
-			) {
-				$this->sortedFields[$fieldIdentifier] = $sortingDirection;
-			}
-		}
-	}
-	
-	
-    /**
-	 * @return string column label
-	 */
-	public function getLabel() {
-		return $this->columnConfig->getLabel();
-	}
-    
-    
-
-	/**
-	 * @return string column identifier
-	 */
-    public function getColumnIdentifier() {
-    	return $this->columnIdentifier;
-    }
-
-
-
-	/**
-	 * Return an array with sorting definitions for this column
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
-	 */
-	public function getSortingStateCollection() {
-		$this->buildSortingStateCollection();
-		return $this->sortingStateCollection;
 	}
 
 
@@ -266,6 +235,56 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 				}
 			}
 		}
+	}
+
+
+
+	/**
+     * Sets sorting state of header by given sortingFields GP-var string.
+     * String has following format: <fieldIdentifier1>:<sortingDirection1>;<fieldIdentifier2>:<sortingDirection2>
+     *
+     * @param string $sortingFields
+     */
+	protected function initByGpVarsSortingFields($sortingFields) {
+		$this->sortedFields = array();
+		$fieldsAndDirections = explode(';', $sortingFields);
+		foreach ($fieldsAndDirections as $fieldAndSortingDirection) {
+			list($fieldIdentifier, $sortingDirection) = explode(':', $fieldAndSortingDirection);
+			if (in_array($sortingDirection, array(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC))
+					  && $this->sortingFieldConfig->hasItem($fieldIdentifier)
+			) {
+				$this->sortedFields[$fieldIdentifier] = $sortingDirection;
+			}
+		}
+	}
+
+
+    /**
+	 * @return string column label
+	 */
+	public function getLabel() {
+		return $this->columnConfig->getLabel();
+	}
+
+
+
+	/**
+	 * @return string column identifier
+	 */
+    public function getColumnIdentifier() {
+    	return $this->columnIdentifier;
+    }
+
+
+
+	/**
+	 * Return an array with sorting definitions for this column
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+	 */
+	public function getSortingStateCollection() {
+		$this->buildSortingStateCollection();
+		return $this->sortingStateCollection;
 	}
 
 
@@ -317,7 +336,15 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 
 
 	/**
-	 * reset session state
+	 * Reset session state
+	 *
+	 * What happens here:
+	 *
+	 * Whenever we get a new sorting, we have to reset all previous sortings (empty session) except the column
+	 * that gets sorting parameters from GP vars. So here we reset sorting from old state to current state given
+	 * in GP vars.
+	 *
+	 * WE DO NOT RESET TO DEFAULT STATE HERE!!! @see resetToDefaultSorting() below!
 	 */
 	public function reset() {
 		$this->resetSorting();
@@ -325,6 +352,19 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 
 		// we must not reset header GP data!
 		$this->init();
+	}
+
+
+
+	/**
+	 * Resets column sorting to default sorting
+	 */
+	public function resetToDefaultSorting() {
+		$this->reset();
+		$defaultSortingConfig = $this->columnConfig->getConfigurationBuilder()->buildListDefaultConfig();
+		if ($defaultSortingConfig->getSortingColumn() === $this->getColumnIdentifier()) {
+			$this->setDefaultSorting($defaultSortingConfig->getSortingDirection());
+		}
 	}
 
 
@@ -352,8 +392,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     
     
 	/**
-	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::injectGPVars()
+	 * @param $GPVars
 	 */
     public function injectGPVars($GPVars) {
     	$this->headerGPVarData = $GPVars;
@@ -376,9 +415,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      * Resets sorting of implementing object.
      */
     public function resetSorting() {
-		 $this->sortedFields = array();
-       unset($this->headerSessionData['sortedFields']);
-		 $this->init();
+		$this->sortedFields = array();
+    	unset($this->headerSessionData['sortedFields']);
+		$this->init();
     }
 
 
@@ -435,13 +474,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	public function persistToSession() {
 		$sessionArray = null;
 
-		$sessionArray['isVisible'] = $this->isVisible;
-
 		if (count($this->sortedFields) > 0) {
 			$sessionArray['sortedFields'] = $this->sortedFields;
 		}
-
-		$sessionArray['foo'] = 'bar';
 
 		return $sessionArray;
 	}

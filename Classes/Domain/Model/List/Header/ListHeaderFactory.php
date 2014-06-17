@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -46,9 +46,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 
 
 	/**
-	 * Build singleton instance of listheader, a collection of header column objects
+	 * Build singleton instance of listHeader, a collection of header column objects
 	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param $resetListHeader boolean
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
@@ -70,9 +70,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 					if ($headerColumn->isSortingActive()) {
 						$listIsSorted = true;
 					}
+
 					$listHeader->addHeaderColumn($headerColumn, $singleColumnConfiguration->getColumnIdentifier());
 				}
 			}
+
+			self::setVisibilityByColumnSelector($configurationBuilder, $listHeader);
 
 			// Check whether we have a sorting from header columns (set by user)
 			// or whether we have to set default sorting
@@ -93,6 +96,19 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory {
 		
 		// We return singleton instance of listHeader
 		return self::$instances[$listIdentifier];
+	}
+
+
+	/**
+	 * @static
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+	 */
+	protected static function setVisibilityByColumnSelector(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
+		if($configurationBuilder->buildColumnSelectorConfiguration()->getEnabled()) {
+			$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($configurationBuilder);
+			$columnSelector->setVisibilityOnListHeader($listHeader);
+		}
 	}
     
 }

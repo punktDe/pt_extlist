@@ -27,15 +27,15 @@
  ***************************************************************/
 
 /**
- * Testcase for abstract groupDataFilter class
+ * Testcase for data provider factory
  *
  * @package Tests
  * @subpackage Domain\Model\Filter\DataProvider
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @author Michael Knoll
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
     
-	
 	protected $defaultFilterSettings;
 	
 	
@@ -44,12 +44,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
 		$this->initDefaultConfigurationBuilderMock();
 	}
 	
-	
-	public function testSetUp() {
+
+
+	/** @test */
+	public function classExists() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory'));
 	}
 
-    public function testCreateInstance() {
+
+
+	/** @test */
+    public function createInstanceReturnsExpectedClass() {
     	$filterSettings = array(
                'filterIdentifier' => 'test', 
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
@@ -59,13 +64,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
                'filterField' => 'field3',
                'invert' => '0'
        	 );
-    	
-   		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+
+
+		// We need to do this to initially create a configuration builder! TODO remove this, once we have proper DI!
+		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+		$dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
+
     	$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings,'test');
     	
     	$dataProviderInstance = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($filterConfiguration);
     	
     	$this->assertTrue(is_a($dataProviderInstance, 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface'));
     }
+
 }
-?>

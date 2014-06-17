@@ -7,7 +7,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="emptyList">Sorry, no list items available.</label>
+			<label index="general.emptyList">Sorry, no list items available.</label>
 
 			<!-- General phrases -->
 			<label index="general.validationError">Validation Error: </label>
@@ -16,6 +16,9 @@
 			<label index="pager.of">of</label>
 			<label index="pager.to">to</label>
 			<label index="pager.showItems">Show item</label>
+
+			<!-- ColumnSelector -->
+            <label index="columnSelector.submitSelector">Select Columns</label>
 
 			<!-- Filterbox -->
 			<label index="filterBox.resetFilters">Reset Filters</label>
@@ -73,7 +76,7 @@
 
 			 <!-- General phrases -->
 			<label index="general.validationError">Fehler: </label>
-			<label index="emptyList">Diese Liste enthält keine Einträge.</label>
+			<label index="general.emptyList">Diese Liste enthält keine Einträge.</label>
 
 			<!-- Pager -->
 			<label index="pager.of">von</label>
@@ -82,6 +85,9 @@
 
 			<!-- Export -->
 			<label index="export.downloadLink">Als %s herunterladen.</label>
+
+            <!-- ColumnSelector -->
+            <label index="columnSelector.submitSelector">Spalten wählen</label>
 
 			<!-- Filterbox -->
 			<label index="filterBox.resetFilters">Filter zurücksetzen</label>

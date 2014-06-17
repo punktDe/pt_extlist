@@ -203,7 +203,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var string
 	 */
 	protected $partialPath;
-	
+
+
+
+	/**
+	 * Holds a partial tha could be used to exchange parts of the filter via ajax
+	 *
+	 * @var string
+	 */
+	protected $ajaxPartialPath;
 	
 	
 	/**
@@ -258,6 +266,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $resetToDefaultValue = false;
 
 
+
 	/**
 	 * @var boolean If the hidden flag is true, the filter is not shown in the filterBox
 	 */
@@ -275,13 +284,30 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 
 
 	/**
+	 * If set to true, we want to cache rendering
+	 *
+	 * @var bool
+	 */
+	protected $cacheRendering;
+
+
+	/**
+	 * A optional filter description
+	 *
+	 * @var string
+	 */
+	protected $description;
+
+
+	/**
 	 * Build the filterconfig object
-	 * 
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param array $settings
 	 * @param string $filterBoxIdentifier
 	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $settings, $filterboxIdentifier) {
-		$settings['filterboxIdentifier'] = $filterboxIdentifier;
+	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $settings, $filterBoxIdentifier) {
+		$settings['filterboxIdentifier'] = $filterBoxIdentifier;
 		parent::__construct($configurationBuilder, $settings);
 	}
 	
@@ -309,11 +335,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setBooleanIfExistsAndNotNothing('resetToDefaultValue');
 		$this->setBooleanIfExistsAndNotNothing('hidden');
 		$this->setBooleanIfExistsAndNotNothing('showRowCount');
+		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
 		
 		$this->setValueIfExists('inactiveValue');
 		$this->setValueIfExists('breadCrumbString');
 		$this->setValueIfExists('label');
-		
+		$this->setValueIfExists('description');
+		$this->setValueIfExists('ajaxPartialPath');
+
 		$this->setValueIfExistsAndNotNothing('defaultValue');
 		if($this->defaultValue) $this->renderDefaultValue();
 		
@@ -335,7 +364,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		}
 		
 		if(array_key_exists('renderObj', $this->settings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+        	$this->renderObj = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
         }
         
 		if(array_key_exists('accessGroups', $this->settings)) {
@@ -668,5 +697,35 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function getShowRowCount() {
 		return $this->showRowCount;
 	}
+
+
+
+	/**
+	 * @return string
+	 */
+	public function getAjaxPartialPath() {
+		return $this->ajaxPartialPath;
+	}
+
+
+
+	/**
+	 * Returns true, if rendering should be cached
+	 *
+	 * @return bool True, if rendering should be cached
+	 */
+	public function getCacheRendering() {
+		return $this->cacheRendering;
+	}
+
+
+
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
 }
 ?>

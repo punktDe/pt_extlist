@@ -67,7 +67,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	/**
 	 * @var boolean
 	 */
-	protected $isSortable = true;
+	protected $isSortable = TRUE;
 
 
 
@@ -82,6 +82,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * @var array
 	 */
 	protected $renderObj;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
+	 */
+	protected $objectMapperConfig = NULL;
 
 
 	
@@ -147,11 +154,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 	/**
-	 * Says if this column is accessable by the current FE-User. Will be injected by the factory.
+	 * Says if this column is accessible by the current FE-User. Will be injected by the factory.
 	 * 
 	 * @var boolean
 	 */
-	protected $accessable = false;
+	protected $accessable = FALSE;
 
 
 	/**
@@ -163,17 +170,40 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 	/**
+	 * @var bool
+	 */
+	protected $showInHeader = TRUE;
+
+
+	/**
 	 * if one of this columns fields is a expanded GroupField, 
 	 * this column has an array as dataStructure
 	 * @var boolean
 	 */
-	protected $containsArrayData = false;
+	protected $containsArrayData = FALSE;
+
 
 
 	/**
 	 * @var bool
 	 */
-	protected $isVisible = true;
+	protected $isVisible = TRUE;
+
+
+
+	/**
+	 * If this is true, the default renderer returns the array of raw fieldValues instead of rendered content
+	 * @var bool
+	 */
+	protected $rawFields;
+
+
+
+	/**
+	 * If this is true, we want to cache rendered cells
+	 * @var bool
+	 */
+	protected $cacheRendering;
 
 	
 	/**
@@ -181,6 +211,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
 	 */
 	protected function init() {
+
+		$headerInclusionUtility = t3lib_div::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
+
 		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
 		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "'.$this->columnIdentifier.'" not given 1277889447');
 		
@@ -196,6 +229,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 		$this->setBooleanIfExistsAndNotNothing('isVisible');
 		$this->setBooleanIfExistsAndNotNothing('isSortable');
+		$this->setBooleanIfExistsAndNotNothing('rawFields');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 		$this->setValueIfExistsAndNotNothing('sortingImageAsc');
 		$this->setValueIfExistsAndNotNothing('sortingImageDesc');
@@ -203,42 +237,49 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('specialCell');
 		$this->setValueIfExistsAndNotNothing('cellCSSClass');
 		$this->setValueIfExistsAndNotNothing('label');
-      $this->setValueIfExistsAndNotNothing('headerThCssClass');
-		
-		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
+		$this->setValueIfExistsAndNotNothing('headerThCssClass');
+		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
+		$this->setBooleanIfExistsAndNotNothing('showInHeader');
+
+		if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
 			asort($this->settings['renderUserFunctions']);
 			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
 		}
-	
-		if(array_key_exists('renderObj', $this->settings)) {
-        	$this->renderObj = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
-        }
 
-        /* Sorting configuration is set as follows:
-            1. We check whether we have 'sortingFields' settings in column configuration
-            2. We check whether we have 'sorting' settings in column configuration
-            3. If we don't have either, we use first field identifier and make this sorting field of column
-        */
+		if (array_key_exists('renderObj', $this->settings)) {
+			$this->renderObj = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+		}
+
+		/* Sorting configuration is set as follows:
+			  1. We check whether we have 'sortingFields' settings in column configuration
+			  2. We check whether we have 'sorting' settings in column configuration
+			  3. If we don't have either, we use first field identifier and make this sorting field of column
+		 */
 		if (array_key_exists('sortingFields', $this->settings)) {
-            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
-        } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
+			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+		} elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
-        } else {
+		} else {
 			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
 		}
 
-		if(array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',',$this->settings['accessGroups']);
+		if (array_key_exists('accessGroups', $this->settings)) {
+			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
 		}
 
-        // Generate relative paths for sorting images
-        $this->sortingImageDefault = substr(t3lib_div::getFileAbsFileName($this->sortingImageDefault), strlen(PATH_site));
-        $this->sortingImageAsc = substr(t3lib_div::getFileAbsFileName($this->sortingImageAsc), strlen(PATH_site));
-        $this->sortingImageDesc = substr(t3lib_div::getFileAbsFileName($this->sortingImageDesc), strlen(PATH_site));
-	}	
-	
-	
-	
+		// Generate relative paths for sorting images
+		$this->sortingImageDefault = $headerInclusionUtility->getFileRelFileName($this->sortingImageDefault);
+		$this->sortingImageAsc = $headerInclusionUtility->getFileRelFileName($this->sortingImageAsc);
+		$this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
+
+		// Build the objectMapperConfig
+		if(array_key_exists('objectMapper', $this->settings)) {
+			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
+		}
+	}
+
+
+
 	/**
 	 * @param boolean $accessable
 	 */
@@ -413,5 +454,44 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		return $this->isVisible;
 	}
 
+	/**
+	 * @return \Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig
+	 */
+	public function getObjectMapperConfig() {
+		return $this->objectMapperConfig;
+	}
+
+	/**
+	 * @param boolean $rawFields
+	 */
+	public function setRawFields($rawFields) {
+		$this->rawFields = $rawFields;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getRawFields() {
+		return $this->rawFields;
+	}
+
+
+
+	/**
+	 * Returns true, if rendering should be cached
+	 *
+	 * @return bool True, if rendering should be cached
+	 */
+	public function getCacheRendering() {
+		return $this->cacheRendering;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getShowInHeader() {
+		return $this->showInHeader;
+	}
 }
 ?>

@@ -74,6 +74,16 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
     	$this->sortingObservers[] = $sortingObserver;
     	$sortingObserver->registerSorter($this);
     }
+
+
+
+	/**
+	 * Removes all registered sorting observers and resets sorting state collection
+	 */
+	public function removeAllSortingObservers() {
+		$this->sortingObservers = array();
+		$this->buildSortingStateCollection();
+	}
     
     
     
@@ -113,6 +123,17 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
 
 
 
+	/**
+	 * Resets all sorting observers to default sorting
+	 */
+	public function resetToDefault() {
+		foreach($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+			$sortingObserver->resetToDefaultSorting();
+		}
+	}
+
+
+
     /**
      * Builds sorting state collection by respecting the registered sorting observers
      * and getting their sorting informations.
@@ -123,13 +144,14 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
         $this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
 
         // Gather sorting states from registered sorting observers
-        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
-            $sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
-            foreach($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
-                $this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
-            }
-        }
-        
+		if (is_array($this->sortingObservers)) {
+			foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+				$sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
+				foreach($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
+					$this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
+				}
+			}
+		}
     }
 
 }

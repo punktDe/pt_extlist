@@ -53,12 +53,13 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * datasource for this backend.
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return mixed
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
-		$repository = t3lib_div::makeInstance($dataBackendSettings['repositoryClassName']);
+		$repository = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get($dataBackendSettings['repositoryClassName']);
 		return $repository;
 	}
 	
@@ -71,19 +72,31 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildListData() {
 		$extbaseQuery = $this->buildExtBaseQuery();
 		$data = $extbaseQuery->execute();
+
 		return $this->dataMapper->getMappedListData($data);
 	}
-	
-	
-	
+
+
+
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getGroupData()
-	 *
+	 * We implement template method for initializing backend
+	 */
+	protected function initBackend() {
+		parent::initBackend();
+		// As pager->getCurrentPage is requested during $this->getTotalItemsCount(),
+		// we have to set it to infinity first and later set correct item count!
+		$this->pagerCollection->setItemCount(PHP_INT_MAX);
+	}
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery
 	 * @param array $excludeFilters
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @return array
 	 */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 		/**
 		 * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
 		 *
@@ -116,7 +129,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		}
 
 		$extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $repository);
-		$extBaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+
+		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
+			$extBaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		}
 
 		$domainObjectsForFilterOptions = $extBaseQuery->execute();
 
@@ -165,14 +181,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * 
 	 * This method is overwritten to make sure that correct type for interpreter is injected
 	 *
+	 * TODO this method is not really required ATM, as all methods in query interpreter are static ATM
+	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
 	 */
-	public function injectQueryInterpreter($queryInterpreter) {
+	public function _injectQueryInterpreter($queryInterpreter) {
 		Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
-		parent::injectQueryInterpreter($queryInterpreter);
+		parent::_injectQueryInterpreter($queryInterpreter);
 	}
-	
-	
+
 	
 	/**
 	 * Builds query for current pager, filter and sorting settings
@@ -189,7 +206,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
 
 		/* @var $extbaseQuery Tx_Extbase_Persistence_Query */
-		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
+			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		}
 
 		return $extbaseQuery;
 	}
@@ -205,7 +224,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     protected function setLimitOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
         if ($this->pagerCollection->isEnabled()) {
             $limitPart = '';
-            $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
+            $pagerOffset = $this->pagerCollection->getItemOffset();
             $pagerLimit = intval($this->pagerCollection->getItemsPerPage());
             $limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
             $limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
@@ -268,6 +287,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Builds extlist query object without regarding pager
 	 *
+	 * @param array $excludeFilters
 	 * @return Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected function buildGenericQueryWithoutPager(array $excludeFilters = array()) {
@@ -281,18 +301,23 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * Builds extlist query object excluding criterias from filters given by parameter
 	 *
 	 * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected function buildGenericQueryExcludingFilters(array $excludeFilters = array()) {
 	    
 		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
 	    
 	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
             	if (!is_array($excludeFilters[$filterbox->getfilterboxIdentifier()]) || !in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
-                    $criterias = $filter->getFilterQuery()->getCriterias();
-                    foreach($criterias as $criteria) {
+
+					$criterias = $filter->getFilterQuery()->getCriterias();
+
+					foreach($criterias as $criteria) {
                     	$query->addCriteria($criteria);
                     }
+
                 }
             }
         }
@@ -310,9 +335,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	protected function buildExtBaseQueryWithoutPager() {
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
 		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
-		    
-		$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
-		    
+
+		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
+			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
+		}
+
 		return $extbaseQuery;
 	}
 	
@@ -324,7 +351,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @return int
 	 */
 	public function getTotalItemsCount() {
-		return $this->buildExtBaseQueryWithoutPager()->count();
+		$count = $this->buildExtBaseQueryWithoutPager()->execute()->count();
+		$this->pagerCollection->setItemCount($count);
+		return $count;
 	}
 	
 	
@@ -343,9 +372,18 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 *
 	 * @param mixed $dataSource
 	 */
-	public function injectDataSource($dataSource) {
+	public function _injectDataSource($dataSource) {
 		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, 'Tx_Extbase_Persistence_Repository', array('message' => 'Given data source must implement Tx_Extbase_Persistence_Repository but did not! 1281545172'));
 		$this->repository = $dataSource;
 	}
 
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
+	 * @throws Exception
+	 */
+	public function getIterationListData() {
+		throw new Exception('The extbase databackend does not support iteration lists yet! Ask a friendly extlist hacker to implement it :)', 1349282023);
+	}
 }
+?>

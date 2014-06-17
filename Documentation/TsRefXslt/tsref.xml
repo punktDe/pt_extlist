@@ -2,25 +2,25 @@
 
 <!DOCTYPE DOC [
 
-    <!ELEMENT DOC (DATATYPES,TSREF)>
-    <!ELEMENT DATATYPES (ENTRY*)>
-    <!ELEMENT TSREF (ENTRY)+>
-    <!ELEMENT ENTRY (DESCRIPTION, DATATYPE*, POSIBLEVALUES*, DEFAULT*, COBJ*, PROTOTYPE*, EXAMPLE*, CHILDREN*, VARIANT* )>
-    <!ELEMENT DESCRIPTION  (#PCDATA)>
-    <!ELEMENT DATATYPE (#PCDATA)>
-    <!ELEMENT PROTOTYPE (#PCDATA)>
-    <!ELEMENT COBJ (#PCDATA)>
-    <!ELEMENT EXAMPLE (#PCDATA)>
-    <!ELEMENT DEFAULT (#PCDATA)>
-    <!ELEMENT POSIBLEVALUES (#PCDATA)>
-    <!ELEMENT CHILDREN (ENTRY*,TYPEREF*)>
-    <!ELEMENT TYPEREF (#PCDATA)>
-    <!ELEMENT VARIANT (ENTRY*)>
+	<!ELEMENT DOC (DATATYPES,TSREF)>
+	<!ELEMENT DATATYPES (ENTRY*)>
+	<!ELEMENT TSREF (ENTRY)+>
+	<!ELEMENT ENTRY (DESCRIPTION, DATATYPE*, POSIBLEVALUES*, DEFAULT*, COBJ*, PROTOTYPE*, EXAMPLE*, CHILDREN*, VARIANT* )>
+	<!ELEMENT DESCRIPTION  (#PCDATA)>
+	<!ELEMENT DATATYPE (#PCDATA)>
+	<!ELEMENT PROTOTYPE (#PCDATA)>
+	<!ELEMENT COBJ (#PCDATA)>
+	<!ELEMENT EXAMPLE (#PCDATA)>
+	<!ELEMENT DEFAULT (#PCDATA)>
+	<!ELEMENT POSIBLEVALUES (#PCDATA)>
+	<!ELEMENT CHILDREN (ENTRY*,TYPEREF*)>
+	<!ELEMENT TYPEREF (#PCDATA)>
+	<!ELEMENT VARIANT (ENTRY*)>
 
-    <!ATTLIST ENTRY KEY CDATA #REQUIRED>
-    <!ATTLIST ENTRY REF CDATA #IMPLIED>
-    <!ATTLIST TYPEREF KEY CDATA #REQUIRED>
-    <!ATTLIST TYPEREF REF CDATA #REQUIRED>
+	<!ATTLIST ENTRY KEY CDATA #REQUIRED>
+	<!ATTLIST ENTRY REF CDATA #IMPLIED>
+	<!ATTLIST TYPEREF KEY CDATA #REQUIRED>
+	<!ATTLIST TYPEREF REF CDATA #REQUIRED>
 
 ]>
 
@@ -118,7 +118,18 @@
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.label" KEY="label">
-			<DESCRIPTION>The label wich is displayed beside the filter.</DESCRIPTION>
+			<DESCRIPTION>The label which is displayed beside the filter.</DESCRIPTION>
+			<DATATYPE>String</DATATYPE>
+			<POSIBLEVALUES></POSIBLEVALUES>
+			<DEFAULT></DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
+		<ENTRY REF="filter.description" KEY="description">
+			<DESCRIPTION>An optional description string, that describes the filters functions.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
 			<POSIBLEVALUES></POSIBLEVALUES>
 			<DEFAULT></DEFAULT>
@@ -276,7 +287,14 @@ renderObj {
 			<VARIANT></VARIANT>
 		</ENTRY>
 		<ENTRY REF="filter.showRowCount" KEY="showRowCount">
-			<DESCRIPTION>Show the rowcount if the select filter is filled with grouped data.</DESCRIPTION>
+			<DESCRIPTION>Show the row count if the select filter is filled with grouped data.
+
+Info for use with MySQL Backend
+In case this list is grouped by any field, showRowCount also implies the following manipulation to the original list query:
+1. ShowRowCount is activated, In this case we have to build the list first and then use this list as source to calculate the selectable rows and the count. This has the drawback, that options are not displayed, if grouped within the list.
+2. ShowRowCount is not activated: In this case, we exchange the original grouping fields with the fields needed by the filter.
+
+            </DESCRIPTION>
 			<DATATYPE>Boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
 			<DEFAULT>1</DEFAULT>
@@ -297,17 +315,17 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-        <ENTRY REF="filter.resetToDefaultValue" KEY="resetToDefaultValue">
-            <DESCRIPTION>If a default value for a filter is set in TypoScript, the filter will be set to this value if it is resetted. If this is set to 0, the filter will be resetted to an empty value.</DESCRIPTION>
-            <DATATYPE>Boolean</DATATYPE>
-            <POSIBLEVALUES>0,1</POSIBLEVALUES>
-            <DEFAULT>0</DEFAULT>
-            <COBJ></COBJ>
-            <PROTOTYPE></PROTOTYPE>
-            <EXAMPLE></EXAMPLE>
-            <CHILDREN></CHILDREN>
-            <VARIANT></VARIANT>
-        </ENTRY>
+		<ENTRY REF="filter.resetToDefaultValue" KEY="resetToDefaultValue">
+			<DESCRIPTION>If a default value for a filter is set in TypoScript, the filter will be set to this value if it is resetted. If this is set to 0, the filter will be resetted to an empty value.</DESCRIPTION>
+			<DATATYPE>Boolean</DATATYPE>
+			<POSIBLEVALUES>0,1</POSIBLEVALUES>
+			<DEFAULT>0</DEFAULT>
+			<COBJ></COBJ>
+			<PROTOTYPE></PROTOTYPE>
+			<EXAMPLE></EXAMPLE>
+			<CHILDREN></CHILDREN>
+			<VARIANT></VARIANT>
+		</ENTRY>
 		<ENTRY REF="filter.inactiveOption" KEY="inactiveOption">
 			<DESCRIPTION>Label of an option that is added to the select list. If this option is selected, the filter is inactive.</DESCRIPTION>
 			<DATATYPE>String</DATATYPE>
@@ -341,7 +359,7 @@ renderObj {
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
-        <ENTRY REF="filter.hidden" KEY="hidden">
+		<ENTRY REF="filter.hidden" KEY="hidden">
 			<DESCRIPTION>Hide the filter completely from the filterBox (don't render any output). This can be used in filters like the proxy filter or any filter that is only set via the extlistContext PHP methods.</DESCRIPTION>
 			<DATATYPE>boolean</DATATYPE>
 			<POSIBLEVALUES>0,1</POSIBLEVALUES>
@@ -364,18 +382,17 @@ renderObj {
 
 # Variant 1: Simple key / value
 options {
-	checkedin = Someone Checked in 
+	checkedin = Someone Checked in
 	noonecheckedin = LLL:EXT:pt_ext/Resources/Private/Language/locallang_db.xml:tx_ext_domain_model_downloads.facility
 }
 
 # Variant 2: Use integer keys to define option order and subKeys key / value to define the options
 10 {
-    key = 1
-    value = LLL:EXT:my_ext/locallang.xml:theLabelOfTheOption
+	key = 1
+	value = LLL:EXT:my_ext/locallang.xml:theLabelOfTheOption
 }
-                
 20 {
-    ...
+	...
 }
 			</EXAMPLE>
 			<CHILDREN></CHILDREN>
@@ -450,7 +467,7 @@ Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter: Save the session vari
 									<CHILDREN></CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
-                                <ENTRY KEY="resetOnEmptySubmit">
+								<ENTRY KEY="resetOnEmptySubmit">
 									<DESCRIPTION>By setting this to "1", a list will be reset if there is no GP-Vars-Data for current request. You can use this, if you want a list to be in its default state every time you open the page on which the list is inserted.</DESCRIPTION>
 									<DATATYPE>Boolean</DATATYPE>
 									<POSIBLEVALUES>1,0</POSIBLEVALUES>
@@ -459,7 +476,6 @@ Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter: Save the session vari
 							</CHILDREN>
 							<VARIANT></VARIANT>
 						</ENTRY>
-						
 						<ENTRY KEY="[yourListId]">
 							<DESCRIPTION>Holds configuration for a single list identifier. This is where the main part of your list configuration has to be set up.</DESCRIPTION>
 							<EXAMPLE><![CDATA[
@@ -503,7 +519,7 @@ plugin.tx_ptextlist.settings {
 									<EXAMPLE></EXAMPLE>
 									<CHILDREN>
 										<ENTRY KEY="sortingColumn">
-											<DESCRIPTION>The default sorting column while no other sortng ist set. Direction can be set with DESC or ASC after the column identifier.</DESCRIPTION>
+											<DESCRIPTION>The default sorting column while no other sorting ist set. Direction can be set with DESC or ASC after the column identifier.</DESCRIPTION>
 											<DATATYPE>String</DATATYPE>
 											<POSIBLEVALUES>Any column identifier</POSIBLEVALUES>
 											<DEFAULT></DEFAULT>
@@ -523,6 +539,28 @@ sortingColumn = capital	DESC
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
+                                <ENTRY KEY="cacheRendering">
+                                    <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                    <DEFAULT></DEFAULT>
+                                    <COBJ></COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE></EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
+                                <ENTRY KEY="useIterationListData">
+                                    <DESCRIPTION>If set to 1 the iterationListData is used instead of the default listData. While the listData provides an array of all data fetched from the database, which is then mapped and rendered completely, the iterationListData fetches, maps and renders a single row at a time. This has the big advantage, that only the memory for a single row object is consumed and only a constant amount of memory is needed, independent from the amoutn of rows. The disadvantage is, that a renderer is only able to process one single row, which makes it impossible to compute an aggregate on the fetched data.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                    <DEFAULT>1</DEFAULT>
+                                    <COBJ></COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE></EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
 								<ENTRY KEY="backendConfig">
 									<DESCRIPTION>Holds the configuration for the data backend to be used with this configuration. Configurable values depend on
 									individual backend, e.g. TYPO3-Backend, MySQL-Backen, ExtBase-Backend etc.</DESCRIPTION>
@@ -660,21 +698,21 @@ LEFT JOIN static_territories AS	st_subcontinent	ON (static_countries.cn_parent_t
 # Example using cObject
 baseWhereClause.cObject = COA
 baseWhereClause.cObject {
-    10 = TEXT
-    10 {
-        data = TSFE:fe_user|user|username
-        noTrimWrap = | ticket.queue_id IN (SELECT queue_id FROM personal_queues WHERE user_id = (SELECT id FROM users WHERE login = "|")) |
-    }
-    20 = TEXT
-    20 {
-        data = TSFE:fe_user|user|username
-        noTrimWrap = | AND ticket.user_id IN (1, (SELECT id FROM users WHERE login = "|")) |
-    }
-    30 = TEXT
-    30 {
-        data = TSFE:fe_user|user|username
-        noTrimWrap = | OR ticket.user_id = (SELECT id FROM users WHERE login = "|") |
-    }
+	10 = TEXT
+	10 {
+		data = TSFE:fe_user|user|username
+		noTrimWrap = | ticket.queue_id IN (SELECT queue_id FROM personal_queues WHERE user_id = (SELECT id FROM users WHERE login = "|")) |
+	}
+	20 = TEXT
+	20 {
+		data = TSFE:fe_user|user|username
+		noTrimWrap = | AND ticket.user_id IN (1, (SELECT id FROM users WHERE login = "|")) |
+	}
+	30 = TEXT
+	30 {
+		data = TSFE:fe_user|user|username
+		noTrimWrap = | OR ticket.user_id = (SELECT id FROM users WHERE login = "|") |
+	}
 }
 
 # Example using  no cObject
@@ -760,6 +798,20 @@ static_territories st_continent
 										</ENTRY>
 									</VARIANT>
 								</ENTRY>
+                                <ENTRY KEY="resetOnEmptySubmit">
+                                    <DESCRIPTION>If this is set to 1, a list will be reset every time there is no
+                                        GP-var data for current request. You can use this switch, if you want a list
+                                        to be reset to its default settings every time you open up a page.</DESCRIPTION>
+                                    <DATATYPE>Boolean</DATATYPE>
+                                    <POSIBLEVALUES>0,1</POSIBLEVALUES>
+                                    <DEFAULT>1</DEFAULT>
+                                    <COBJ>0</COBJ>
+                                    <PROTOTYPE></PROTOTYPE>
+                                    <EXAMPLE>
+                                    </EXAMPLE>
+                                    <CHILDREN></CHILDREN>
+                                    <VARIANT></VARIANT>
+                                </ENTRY>
 								<ENTRY KEY="fields">
 									<DESCRIPTION>Defines raw datasource fields, wich can than combined and processed in to table fields.</DESCRIPTION>
 									<DATATYPE>Associative array</DATATYPE>
@@ -774,7 +826,7 @@ static_territories st_continent
 											<DEFAULT></DEFAULT>
 											<COBJ></COBJ>
 											<PROTOTYPE></PROTOTYPE>
-											<EXAMPLE><![CDATA[<![CDATA[
+											<EXAMPLE><![CDATA[
 name_local {
 	table = static_countries
 	field = cn_short_local
@@ -818,15 +870,15 @@ name_local {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
-                                                <ENTRY KEY="isVisible">
-                                                    <DESCRIPTION>Configures if this column is visible by default. The visibility can be toggled by the columnSelector.</DESCRIPTION>
-                                                    <DATATYPE></DATATYPE>
-                                                    <POSIBLEVALUES></POSIBLEVALUES>
-                                                    <DEFAULT></DEFAULT>
-                                                    <COBJ>0</COBJ>
-                                                    <PROTOTYPE></PROTOTYPE>
-                                                    <EXAMPLE></EXAMPLE>
-                                                </ENTRY>
+												<ENTRY KEY="isVisible">
+													<DESCRIPTION>Configures if this column is visible by default. The visibility can be toggled by the columnSelector.</DESCRIPTION>
+													<DATATYPE></DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<COBJ>0</COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+												</ENTRY>
 												<ENTRY KEY="expandGroupRows">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
@@ -836,6 +888,15 @@ name_local {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="expandGroupRowsSeparator">
+                                                    <DESCRIPTION>Use this to implode and later split the rows. This Separator should never be part of the selected string!</DESCRIPTION>
+                                                    <DATATYPE>String</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT><![CDATA[<extListSeparator>]]></DEFAULT>
+                                                    <COBJ>0</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE>expandGroupRowsSeparator = SomeStringThatNeverOccursInAnyOfTheSelectedFields</EXAMPLE>
+                                                </ENTRY>
 											</CHILDREN>
 										</ENTRY>
 									</CHILDREN>
@@ -928,7 +989,7 @@ sorting = name_local DESC, name_en
 sorting = name_local !DESC, name_en
 ]]></EXAMPLE>
 												</ENTRY>
-                                                <ENTRY KEY="sortingFields">
+												<ENTRY KEY="sortingFields">
 													<DESCRIPTION>Define more sophisticated sorting for a column. Fields, directions, forced sorting and label can be defined individually. Settings in sortingsFields overwrite settings in sorting!</DESCRIPTION>
 													<DATATYPE>Array</DATATYPE>
 													<DEFAULT></DEFAULT>
@@ -936,48 +997,48 @@ sorting = name_local !DESC, name_en
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE><![CDATA[
 sortingFields {
-    10 {
-        field = name_en
-        label = Name
-        direction = asc
-        forceDirection = 0
-    }
-    20 {
-        field = name_local
-        label = Name (lokal)
-        direction = asc
-        forceDirection = 0
-    }
-    30 {
-        field = uno_member
-        label = UNO member
-        direction = asc
-        forceDirection = 0
-    }
+	10 {
+		field = name_en
+		label = Name
+		direction = asc
+		forceDirection = 0
+	}
+	20 {
+		field = name_local
+		label = Name (lokal)
+		direction = asc
+		forceDirection = 0
+	}
+	30 {
+		field = uno_member
+		label = UNO member
+		direction = asc
+		forceDirection = 0
+	}
 }]]></EXAMPLE>
-                                                <CHILDREN>
-                                                    <ENTRY KEY="10,20,30">
-                                                    <DESCRIPTION></DESCRIPTION>
-                                                        <CHILDREN>
-                                                            <ENTRY KEY="field">
-                                                                <DESCRIPTION>Field identifier to set up sorting for.</DESCRIPTION>
-                                                                <DATATYPE>String</DATATYPE>
-                                                            </ENTRY>
-                                                            <ENTRY KEY="label">
-                                                                <DESCRIPTION>Label to be displayed in column header.</DESCRIPTION>
-                                                                <DATATYPE>String</DATATYPE>
-                                                            </ENTRY>
-                                                            <ENTRY KEY="direction">
-                                                                <DESCRIPTION>Direction is used if direction is forced or if column is default sorting column.</DESCRIPTION>
-                                                                <DATATYPE>String</DATATYPE>
-                                                            </ENTRY>
-                                                            <ENTRY KEY="forceDirection">
-                                                                <DESCRIPTION>If set to 1, this field is always sorted using direction set above.</DESCRIPTION>
-                                                                <DATATYPE>Boolean</DATATYPE>
-                                                            </ENTRY>
-                                                        </CHILDREN>
-                                                    </ENTRY>
-                                                </CHILDREN>
+												<CHILDREN>
+													<ENTRY KEY="10,20,30">
+													<DESCRIPTION></DESCRIPTION>
+														<CHILDREN>
+															<ENTRY KEY="field">
+																<DESCRIPTION>Field identifier to set up sorting for.</DESCRIPTION>
+																<DATATYPE>String</DATATYPE>
+															</ENTRY>
+															<ENTRY KEY="label">
+																<DESCRIPTION>Label to be displayed in column header.</DESCRIPTION>
+																<DATATYPE>String</DATATYPE>
+															</ENTRY>
+															<ENTRY KEY="direction">
+																<DESCRIPTION>Direction is used if direction is forced or if column is default sorting column.</DESCRIPTION>
+																<DATATYPE>String</DATATYPE>
+															</ENTRY>
+															<ENTRY KEY="forceDirection">
+																<DESCRIPTION>If set to 1, this field is always sorted using direction set above.</DESCRIPTION>
+																<DATATYPE>Boolean</DATATYPE>
+															</ENTRY>
+														</CHILDREN>
+													</ENTRY>
+												</CHILDREN>
 												</ENTRY>
 												<ENTRY KEY="sortingImageAsc">
 													<DESCRIPTION>Image for ascending ordered column header.</DESCRIPTION>
@@ -1010,6 +1071,13 @@ sortingFields {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="rawFields">
+                                                    <DESCRIPTION>If rawfields is set to 1, the default renderer sets an array of all fields as the value of the column instead of a comma separated list. This array can the now be used in a custom list template.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <COBJ>0</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                </ENTRY>
 												<ENTRY KEY="cellCSSClass">
 													<DESCRIPTION></DESCRIPTION>
 													<DATATYPE></DATATYPE>
@@ -1017,7 +1085,7 @@ sortingFields {
 													<PROTOTYPE></PROTOTYPE>
 													<EXAMPLE></EXAMPLE>
 												</ENTRY>
-                                                <ENTRY KEY="headerThCssClass">
+												<ENTRY KEY="headerThCssClass">
 													<DESCRIPTION>Set CSS class used for th-tag in list header.</DESCRIPTION>
 													<DATATYPE>string</DATATYPE>
 													<COBJ>0</COBJ>
@@ -1026,9 +1094,87 @@ sortingFields {
 headerThCssClass = yourCssClass
 ]]></EXAMPLE>
 												</ENTRY>
+                                                <ENTRY KEY="cacheRendering">
+                                                    <DESCRIPTION>Set to 1 if you want to cache rendering of cells. Can slow down list creation, if values are all different and caching makes no sense.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT></DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
 											</CHILDREN>
 										</ENTRY>
 									</CHILDREN>
+								</ENTRY>
+								<ENTRY KEY="columnSelector">
+									<DESCRIPTION>Configuration for the column selector widget.</DESCRIPTION>
+									<DATATYPE>array</DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<COBJ></COBJ>
+									<PROTOTYPE>plugin.tx_ptextlist.prototype.columnSelector</PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN>
+										<ENTRY KEY="enabled">
+											<DESCRIPTION>Per default the column selector is disabled. You have to enable the selector to avoid illicit unhiding of columns.</DESCRIPTION>
+											<DATATYPE>Boolean</DATATYPE>
+											<POSIBLEVALUES>0,1</POSIBLEVALUES>
+											<DEFAULT>0</DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="hideDefaultVisibleInSelector">
+											<DESCRIPTION>If set to 1, the selector only shows the columns, that are set to visible in the column configuration. If set to 0, all columns are selectable.</DESCRIPTION>
+											<DATATYPE>Boolean</DATATYPE>
+											<POSIBLEVALUES>0,1</POSIBLEVALUES>
+											<DEFAULT>1</DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="persistToSession">
+											<DESCRIPTION>Persist the selected columns to session. If the CS is used only to select the columns for printView, it should not persist its state to session permanently because this would effect the original list also.</DESCRIPTION>
+											<DATATYPE>Boolean</DATATYPE>
+											<POSIBLEVALUES>0,1</POSIBLEVALUES>
+											<DEFAULT>1</DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="onlyShowSelectedColumns">
+											<DESCRIPTION>If enabled, only selected columns are shown in the list. When disabled, the selected columns are added to already visible columns.</DESCRIPTION>
+											<DATATYPE>Boolean</DATATYPE>
+											<POSIBLEVALUES>0,1</POSIBLEVALUES>
+											<DEFAULT>0</DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="partialPath">
+											<DESCRIPTION>Set the partial path</DESCRIPTION>
+											<DATATYPE>array</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+									</CHILDREN>
+									<VARIANT></VARIANT>
 								</ENTRY>
 								<ENTRY KEY="rendererChain">
 									<DESCRIPTION>Holds the renderer configuration.</DESCRIPTION>
@@ -1164,7 +1310,7 @@ aggregateRows {
 			aggregateDataIdentifier = sumPhone
 			renderObj = TEXT
 			renderObj.dataWrap (
-				 &sum;: <b>{field:sumPhone}</b>
+				&sum;: <b>{field:sumPhone}</b>
 			)
 		}
 	}
@@ -1198,7 +1344,6 @@ aggregateRows {
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
-
 								<ENTRY KEY="pager">
 									<DESCRIPTION>Holds all pager configuration</DESCRIPTION>
 									<DATATYPE>Associative array</DATATYPE>
@@ -1282,7 +1427,6 @@ aggregateRows {
 									</CHILDREN>
 									<VARIANT></VARIANT>
 								</ENTRY>
-
 								<ENTRY KEY="filters">
 								<DESCRIPTION>Holds all filterbox configurations.</DESCRIPTION>
 								<DATATYPE>Associative array</DATATYPE>
@@ -1323,7 +1467,7 @@ aggregateRows {
 												<CHILDREN></CHILDREN>
 												<VARIANT></VARIANT>
 											</ENTRY>
-                                            <ENTRY KEY="submitToPage">
+											<ENTRY KEY="submitToPage">
 												<DESCRIPTION>If this is set to a PID or page identifier, the form for this filterbox is directly submitted to this page. This can be helpful, if you do not need a validation of filter, as we don't need a redirect then (faster response times).</DESCRIPTION>
 												<DATATYPE>string|</DATATYPE>
 												<POSIBLEVALUES></POSIBLEVALUES>
@@ -1331,67 +1475,67 @@ aggregateRows {
 												<COBJ>0</COBJ>
 											</ENTRY>
 											<ENTRY KEY="redirectOnSubmit">
-                                                <DESCRIPTION>Redirects to given page id, controller and action if filter submits. Does not redirect if filter does not validate. You always have to set an action and a controller, if you want to redirect to another page only! Use fake names, if there are no controllers / actions you can addresse.</DESCRIPTION>
-                                                <DATATYPE></DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT></DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE><![CDATA[
+												<DESCRIPTION>Redirects to given page id, controller and action if filter submits. Does not redirect if filter does not validate. You always have to set an action and a controller, if you want to redirect to another page only! Use fake names, if there are no controllers / actions you can addresse.</DESCRIPTION>
+												<DATATYPE></DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<COBJ></COBJ>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE><![CDATA[
 redirectOnSubmit{
-    pageId = 10
-    controller = List 
-    action = list
+	pageId = 10
+	controller = List
+	action = list
 }
-                                            ]]></EXAMPLE>
-                                                <CHILDREN>
-                                                    <ENTRY KEY="pageId">
-		                                                <DESCRIPTION>Id of page that you want to redirect to, after filterbox submits (and validates").</DESCRIPTION>
-		                                                <DATATYPE>int</DATATYPE>
-		                                                <POSIBLEVALUES></POSIBLEVALUES>
-		                                                <DEFAULT></DEFAULT>
-		                                                <COBJ></COBJ>
-		                                                <PROTOTYPE></PROTOTYPE>
-		                                                <EXAMPLE></EXAMPLE>
-		                                                <CHILDREN></CHILDREN>
-		                                                <VARIANT></VARIANT>
-		                                            </ENTRY>
-		                                            <ENTRY KEY="controller">
-                                                        <DESCRIPTION>Name of controller that sould be called after filterbox submits (and validates!).</DESCRIPTION>
-                                                        <DATATYPE>string</DATATYPE>
-                                                        <POSIBLEVALUES></POSIBLEVALUES>
-                                                        <DEFAULT></DEFAULT>
-                                                        <COBJ></COBJ>
-                                                        <PROTOTYPE></PROTOTYPE>
-                                                        <EXAMPLE></EXAMPLE>
-                                                        <CHILDREN></CHILDREN>
-                                                        <VARIANT></VARIANT>
-                                                    </ENTRY>
-                                                    <ENTRY KEY="action">
-                                                        <DESCRIPTION>Name of action that should be called on destination page after filterbod submits (and validates).</DESCRIPTION>
-                                                        <DATATYPE>string</DATATYPE>
-                                                        <POSIBLEVALUES></POSIBLEVALUES>
-                                                        <DEFAULT></DEFAULT>
-                                                        <COBJ></COBJ>
-                                                        <PROTOTYPE></PROTOTYPE>
-                                                        <EXAMPLE></EXAMPLE>
-                                                        <CHILDREN></CHILDREN>
-                                                        <VARIANT></VARIANT>
-                                                    </ENTRY>
-                                                </CHILDREN>
-                                                <VARIANT></VARIANT>
-                                            </ENTRY>
-                                            <ENTRY KEY="excludeFilters">
-                                                <DESCRIPTION>Given filters are excluded from filtering of this filterbox. If filters are set here, they are not respected, if this filterbox is submitted. Don't mix up this setting with filter.excludeFilters setting!</DESCRIPTION>
-                                                <DATATYPE>Comma-separated list of filterboxIdentifier.filterIdentifier</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT></DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE><![CDATA[
+											]]></EXAMPLE>
+												<CHILDREN>
+													<ENTRY KEY="pageId">
+														<DESCRIPTION>Id of page that you want to redirect to, after filterbox submits (and validates").</DESCRIPTION>
+														<DATATYPE>int</DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<COBJ></COBJ>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN></CHILDREN>
+														<VARIANT></VARIANT>
+													</ENTRY>
+													<ENTRY KEY="controller">
+														<DESCRIPTION>Name of controller that sould be called after filterbox submits (and validates!).</DESCRIPTION>
+														<DATATYPE>string</DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<COBJ></COBJ>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN></CHILDREN>
+														<VARIANT></VARIANT>
+													</ENTRY>
+													<ENTRY KEY="action">
+														<DESCRIPTION>Name of action that should be called on destination page after filterbod submits (and validates).</DESCRIPTION>
+														<DATATYPE>string</DATATYPE>
+														<POSIBLEVALUES></POSIBLEVALUES>
+														<DEFAULT></DEFAULT>
+														<COBJ></COBJ>
+														<PROTOTYPE></PROTOTYPE>
+														<EXAMPLE></EXAMPLE>
+														<CHILDREN></CHILDREN>
+														<VARIANT></VARIANT>
+													</ENTRY>
+												</CHILDREN>
+												<VARIANT></VARIANT>
+											</ENTRY>
+											<ENTRY KEY="excludeFilters">
+												<DESCRIPTION>Given filters are excluded from filtering of this filterbox. If filters are set here, they are not respected, if this filterbox is submitted. Don't mix up this setting with filter.excludeFilters setting!</DESCRIPTION>
+												<DATATYPE>Comma-separated list of filterboxIdentifier.filterIdentifier</DATATYPE>
+												<POSIBLEVALUES></POSIBLEVALUES>
+												<DEFAULT></DEFAULT>
+												<COBJ></COBJ>
+												<PROTOTYPE></PROTOTYPE>
+												<EXAMPLE><![CDATA[
 excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
-                                            ]]></EXAMPLE>
-                                            </ENTRY>
+											]]></EXAMPLE>
+											</ENTRY>
 											<ENTRY KEY="filterConfigs">
 												<DESCRIPTION>Holds the configuration of the filters of this filter box.</DESCRIPTION>
 												<DATATYPE>Array</DATATYPE>
@@ -1410,31 +1554,32 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 														<PROTOTYPE></PROTOTYPE>
 														<EXAMPLE/>
 														<CHILDREN>
-                                                            <ENTRY KEY="size">
-                                                                <DESCRIPTION>Define the size of the string field.</DESCRIPTION>
-                                                                <DATATYPE>int</DATATYPE>
-                                                                <POSIBLEVALUES/>
-                                                                <DEFAULT></DEFAULT>
-                                                                <COBJ>0</COBJ>
-                                                                <PROTOTYPE></PROTOTYPE>
-                                                                <EXAMPLE></EXAMPLE>
-                                                                <CHILDREN></CHILDREN>
-                                                                <VARIANT></VARIANT>
-                                                            </ENTRY>
-                                                            <ENTRY KEY="maxLength">
-                                                                <DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
-                                                                <DATATYPE>int</DATATYPE>
-                                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                                <DEFAULT></DEFAULT>
-                                                                <COBJ>0</COBJ>
-                                                                <PROTOTYPE></PROTOTYPE>
-                                                                <EXAMPLE></EXAMPLE>
-                                                                <CHILDREN></CHILDREN>
-                                                                <VARIANT></VARIANT>
-                                                            </ENTRY>
-                                                            <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+															<ENTRY KEY="size">
+																<DESCRIPTION>Define the size of the string field.</DESCRIPTION>
+																<DATATYPE>int</DATATYPE>
+																<POSIBLEVALUES/>
+																<DEFAULT></DEFAULT>
+																<COBJ>0</COBJ>
+																<PROTOTYPE></PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN></CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<ENTRY KEY="maxLength">
+																<DESCRIPTION>Define the maximum length of the string field.</DESCRIPTION>
+																<DATATYPE>int</DATATYPE>
+																<POSIBLEVALUES></POSIBLEVALUES>
+																<DEFAULT></DEFAULT>
+																<COBJ>0</COBJ>
+																<PROTOTYPE></PROTOTYPE>
+																<EXAMPLE></EXAMPLE>
+																<CHILDREN></CHILDREN>
+																<VARIANT></VARIANT>
+															</ENTRY>
+															<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 															<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 															<TYPEREF REF="filter.label" KEY="label" />
+															<TYPEREF REF="filter.description" KEY="description" />
 															<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 															<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 															<TYPEREF REF="filter.partialPath" KEY="partialPath" />
@@ -1459,19 +1604,71 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 }
 																]]></EXAMPLE>
 																<CHILDREN>
+                                                                    <ENTRY KEY="exactMatch">
+                                                                        <DESCRIPTION>If set to 1 the filter queries the field by key="value" instead of key like "%value%"</DESCRIPTION>
+                                                                        <DATATYPE>Int</DATATYPE>
+                                                                        <POSIBLEVALUES></POSIBLEVALUES>
+                                                                        <DEFAULT>0</DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
+																	<ENTRY KEY="orToken">
+																		<DESCRIPTION><![CDATA[
+If set to any value, the filterValue is separated at this token, and the single pieces are combined with SQL OR. To separate at a blank, use pipes to define it (orToken = | |).
+																		]]></DESCRIPTION>
+																		<DATATYPE>String</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>
+																			<![CDATA[
+Typoscript:
+
+10 {
+		orToken = |||
+		andToken = &
+}
+
+Search String: test
+Generated SQL: table1.field1 LIKE "%test%"
+
+Search String: test | test2 & test3
+Generated SQL: (table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") AND (table1.field1 LIKE "%test3%"))
+
+																		]]>
+																		</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="andToken">
+																		<DESCRIPTION>If set to any value, the filterValue is separated at this token, and the single pieces are combined with SQL AND. To separate at a blank, use pipes to define it (orToken = | |).</DESCRIPTION>
+																		<DATATYPE>Int</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT>0</DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.invert" KEY="invert" />
 																	<TYPEREF REF="filter.invertable" KEY="invertable" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
-                                                            <ENTRY KEY="fullText">
+															<ENTRY KEY="fullText">
 																<DESCRIPTION>Shows a filter to do a fullText query. The execution is database specific. If you are using a MySQL database, you have to add a fullText index to the relevant fields first.</DESCRIPTION>
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
@@ -1487,7 +1684,7 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 }
 																]]></EXAMPLE>
 																<CHILDREN>
-                                                                    <ENTRY KEY="minWordLength">
+																	<ENTRY KEY="minWordLength">
 																		<DESCRIPTION>The minimum word length, depends on databackend/backend server configuration. The default configuration for mysql servers is a minimum length of 4. Adjust this value to the according configuration of your server to get a error message if the length of the provided search word is below the this value.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
 																		<POSIBLEVALUES></POSIBLEVALUES>
@@ -1498,7 +1695,7 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
-                                                                    <ENTRY KEY="booleanMode">
+																	<ENTRY KEY="booleanMode">
 																		<DESCRIPTION>This is a MySQL specific value. If it is set to 1, the query is executed in boolean mode.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
 																		<POSIBLEVALUES></POSIBLEVALUES>
@@ -1509,7 +1706,7 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
-                                                                    <ENTRY KEY="booleanModeWrapWithStars">
+																	<ENTRY KEY="booleanModeWrapWithStars">
 																		<DESCRIPTION>If the parameter booleanMode is set to 1 and booleanModeWrapWithStars is set to 1 the searchWord is wrapped with stars (if not already done by the user). The effect is, that matches in substrings are also posible.</DESCRIPTION>
 																		<DATATYPE>Int</DATATYPE>
 																		<POSIBLEVALUES></POSIBLEVALUES>
@@ -1520,15 +1717,16 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
-                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-                                                                    <TYPEREF REF="filter.label" KEY="label" />
-                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
-                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
-                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1542,51 +1740,101 @@ excludeFilters = filterbox1.filterIdentifier1, filterbox2.filterIdentifier1
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
 																	<ENTRY KEY="dataProviderClassName">
-                                                                        <DESCRIPTION>ClassName of a dataProvider class that delivers options to select.</DESCRIPTION>
-                                                                        <VARIANT>
-                                                                            <ENTRY KEY="ExplicitSQLQuery">
-                                                                                <DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
-                                                                                <EXAMPLE><![CDATA[
+																		<DESCRIPTION>ClassName of a dataProvider class that delivers options to select.</DESCRIPTION>
+																		<VARIANT>
+																			<ENTRY KEY="ExplicitSQLQuery">
+																				<DESCRIPTION>This data provider allows you to execute a separate query to fetch the options.</DESCRIPTION>
+																				<EXAMPLE><![CDATA[
+
+# Example 1
 selectFilter < plugin.tx_ptextlist.prototype.filter.select {
-    partialPath = Filter/Options/SelectFilter
-    filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
-    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
-    optionsSqlQuery {
-        select = cn_short_local
-        from = static_countries
-        where = delete = 0
-        orderBy =
-        groupBy =
-        limit =
-    }
+	partialPath = Filter/Options/SelectFilter
+	filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+	dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
+	optionsSqlQuery {
+		select = cn_short_local
+		from = static_countries
+		where = delete = 0
+		orderBy =
+		groupBy =
+		limit =
+	}
 }
-                                                                                ]]></EXAMPLE>
-                                                                                <CHILDREN>
-                                                                                    <ENTRY KEY="select">
-                                                                                        <DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
-                                                                                    </ENTRY>
-                                                                                    <ENTRY KEY="from">
-                                                                                        <DESCRIPTION>The FROM part of the query.</DESCRIPTION>
-                                                                                    </ENTRY>
-                                                                                    <ENTRY KEY="where">
-                                                                                        <DESCRIPTION>The WHERE part of the query.</DESCRIPTION>
-                                                                                    </ENTRY>
-                                                                                    <ENTRY KEY="orderBy">
-                                                                                        <DESCRIPTION>The ORDER BY part of the query.</DESCRIPTION>
-                                                                                    </ENTRY>
-                                                                                    <ENTRY KEY="groupBy">
-                                                                                        <DESCRIPTION>The GROUP BY part of the query.</DESCRIPTION>
-                                                                                    </ENTRY>
-                                                                                    <ENTRY KEY="limit">
-                                                                                        <DESCRIPTION>The LIMIT part of the query.</DESCRIPTION>
-                                                                                    </ENTRY>
-                                                                                </CHILDREN>
-                                                                            </ENTRY>
-                                                                        </VARIANT>
-                                                                    </ENTRY>
-                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																			]]></EXAMPLE>
+																				<CHILDREN>
+																					<ENTRY KEY="select">
+																						<DESCRIPTION>The SELECT part of the query.</DESCRIPTION>
+																					</ENTRY>
+																					<ENTRY KEY="from">
+																						<DESCRIPTION>The FROM part of the query.</DESCRIPTION>
+																					</ENTRY>
+																					<ENTRY KEY="where">
+																						<DESCRIPTION>The WHERE part of the query.</DESCRIPTION>
+																					</ENTRY>
+																					<ENTRY KEY="orderBy">
+																						<DESCRIPTION>The ORDER BY part of the query.</DESCRIPTION>
+																					</ENTRY>
+																					<ENTRY KEY="groupBy">
+																						<DESCRIPTION>The GROUP BY part of the query.</DESCRIPTION>
+																					</ENTRY>
+																					<ENTRY KEY="limit">
+																						<DESCRIPTION>The LIMIT part of the query.</DESCRIPTION>
+																					</ENTRY>
+																				</CHILDREN>
+																			</ENTRY>
+																		</VARIANT>
+																		<VARIANT>
+																			<ENTRY KEY="ExplicitData">
+																				<DESCRIPTION>This data provider allows you to define options for a select filter.</DESCRIPTION>
+																				<EXAMPLE><![CDATA[
+
+  filters {
+  		filterbox {
+  			filterConfigs {
+  				10 < plugin.tx_ptextlist.prototype.filter.select
+  				10 {
+  					label = Abgeschlossen?
+  					filterIdentifier = finishedFilter
+  					fieldIdentifier = finished
+ 
+  					inactiveOption = Alle
+  					inactiveValue = ----alle----
+ 
+  					dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
+ 
+  					options {
+  						10 {
+  							key = 0
+  							value = nein
+  						}
+  						20 {
+  							key = 1
+ 						 	value = ja
+  						}
+  					}
+ 
+ 				 	renderObj {
+  						dataWrap = {field:allDisplayFields}
+  					}
+ 
+  					showRowCount = 0
+  				}
+  			}
+  		}
+  }
+																			]]></EXAMPLE>
+																				<CHILDREN>
+																					<ENTRY KEY="options">
+																						<DESCRIPTION>A key/value list of options</DESCRIPTION>
+																					</ENTRY>
+																				</CHILDREN>
+																			</ENTRY>
+																		</VARIANT>
+																	</ENTRY>
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1601,7 +1849,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1617,6 +1865,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1631,7 +1880,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1647,6 +1896,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1660,7 +1910,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1676,6 +1926,7 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1690,22 +1941,36 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
 																	<TYPEREF REF="filter.options" KEY="options" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
-															<ENTRY KEY="firstletter">
+															<ENTRY KEY="firstLetter">
 																<DESCRIPTION></DESCRIPTION>
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
 																<DEFAULT></DEFAULT>
 																<COBJ></COBJ>
-																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.firstletter</PROTOTYPE>
+																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.firstLetter</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
+                                                                    <ENTRY KEY="addLettersIfMissing">
+                                                                        <DESCRIPTION>Comma separated list of letters that have to be in the selection even if no data with this letter was found in the query.</DESCRIPTION>
+                                                                        <DATATYPE>CSV</DATATYPE>
+                                                                        <POSIBLEVALUES>CSV of letters</POSIBLEVALUES>
+                                                                        <DEFAULT></DEFAULT>
+                                                                        <COBJ></COBJ>
+                                                                        <PROTOTYPE></PROTOTYPE>
+                                                                        <EXAMPLE><![CDATA[
+addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V.W,X,Y,Z
+																		]]></EXAMPLE>
+                                                                        <CHILDREN></CHILDREN>
+                                                                        <VARIANT></VARIANT>
+                                                                    </ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
@@ -1717,13 +1982,13 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
-                                                            <ENTRY KEY="dateSelect">
+															<ENTRY KEY="dateSelect">
 																<DESCRIPTION><![CDATA[
-																    Renders a list of date definitions like "August 2011" to select entries in a given file range.
+																	Renders a list of date definitions like "August 2011" to select entries in a given file range.
 																]]></DESCRIPTION>
 																<DATATYPE></DATATYPE>
 																<POSIBLEVALUES></POSIBLEVALUES>
@@ -1732,133 +1997,134 @@ selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 																<PROTOTYPE>plugin.tx_ptextlist.prototype.filter.dateSelectList</PROTOTYPE>
 																<EXAMPLE></EXAMPLE>
 																<CHILDREN>
-                                                                    <ENTRY KEY="fieldIdentifier">
-                                                                        <DESCRIPTION>The fieldIdentifier for a timeSpanFilter (every filter that derives from the abstractTimeSpanFilter) can be set by two different ways.
-                                                                            1. by a comma seperated list of fieldIdentifer as normal.
-                                                                            2. by defining a 2-dimensional list of start and end fields that determines the start and end of an event. See the example for details.</DESCRIPTION>
-                                                                        <DATATYPE>CSV, Array</DATATYPE>
-                                                                        <POSIBLEVALUES>FieldIdentifier</POSIBLEVALUES>
-                                                                        <DEFAULT></DEFAULT>
-                                                                        <COBJ></COBJ>
-                                                                        <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE><![CDATA[
+																	<ENTRY KEY="fieldIdentifier">
+																		<DESCRIPTION>The fieldIdentifier for a timeSpanFilter (every filter that derives from the abstractTimeSpanFilter) can be set by two different ways.
+																			1. by a comma seperated list of fieldIdentifer as normal.
+																			2. by defining a 2-dimensional list of start and end fields that determines the start and end of an event. See the example for details.</DESCRIPTION>
+																		<DATATYPE>CSV, Array</DATATYPE>
+																		<POSIBLEVALUES>FieldIdentifier</POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE><![CDATA[
 # Type 1: define a single date-field
 fieldIdentifier = tstamp, crdate
 
 # Type 2: defined start and end identifier
 fieldIdentifier {
-    10 {
-        start = eventStartDate
-        end = eventEndDate
-    }
-    20 {
-        start = eventStartDate2
-        end = eventEndDate2
-    }
+	10 {
+		start = eventStartDate
+		end = eventEndDate
+	}
+	20 {
+		start = eventStartDate2
+		end = eventEndDate2
+	}
 }
-                                                                        ]]></EXAMPLE>
-                                                                        <CHILDREN></CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
-                                                                     <ENTRY KEY="defaultValue">
-                                                                        <DESCRIPTION>This filter requires a start and an end value as default.</DESCRIPTION>
-                                                                        <DATATYPE>Array</DATATYPE>
-                                                                        <POSIBLEVALUES></POSIBLEVALUES>
-                                                                        <DEFAULT></DEFAULT>
-                                                                        <COBJ></COBJ>
-                                                                        <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE><![CDATA[
+																		]]></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	 <ENTRY KEY="defaultValue">
+																		<DESCRIPTION>This filter requires a start and an end value as default.</DESCRIPTION>
+																		<DATATYPE>Array</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE><![CDATA[
 defaultValue {
-    start = 1234567890
-    end = 234567891
+	start = 1234567890
+	end = 234567891
 }
-                                                                        ]]></EXAMPLE>
-                                                                        <CHILDREN></CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
-                                                                    <ENTRY KEY="dbTimeFormat">
-                                                                        <DESCRIPTION>The filter converts the the time values to the format defined with dbTimeFormat.</DESCRIPTION>
-                                                                        <DATATYPE>String</DATATYPE>
-                                                                        <POSIBLEVALUES><![CDATA[
-                                                                            For MySql the possible Values are:
-                                                                            UnixTimesTamp (Integer):   U
-                                                                            DATETIME: 	Y-m-d H:i:s
-                                                                            DATE: 	Y-m-d
-                                                                            TIMESTAMP: 	Y-m-d H:i:s
-                                                                            TIME: 	H:i:s
-                                                                            YEAR: 	Y
-                                                                        ]]></POSIBLEVALUES>
-                                                                        <DEFAULT></DEFAULT>
-                                                                        <COBJ></COBJ>
-                                                                        <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE>
+																		]]></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="dbTimeFormat">
+																		<DESCRIPTION>The filter converts the the time values to the format defined with dbTimeFormat.</DESCRIPTION>
+																		<DATATYPE>String</DATATYPE>
+																		<POSIBLEVALUES><![CDATA[
+																			For MySql the possible Values are:
+																			UnixTimesTamp (Integer):   U
+																			DATETIME: 	Y-m-d H:i:s
+																			DATE: 	Y-m-d
+																			TIMESTAMP: 	Y-m-d H:i:s
+																			TIME: 	H:i:s
+																			YEAR: 	Y
+																		]]></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE><![CDATA[
 dbTimeFormat = U
-                                                                        </EXAMPLE>
-                                                                        <CHILDREN></CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
-                                                                    <ENTRY KEY="dateIteratorStart">
-                                                                        <DESCRIPTION>Used for dateIterator dataProvider. Start date in unix timestamp format.</DESCRIPTION>
-                                                                        <DATATYPE>Integer</DATATYPE>
-                                                                        <POSIBLEVALUES></POSIBLEVALUES>
-                                                                        <DEFAULT></DEFAULT>
-                                                                        <COBJ>1</COBJ>
-                                                                        <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE>
-                                                                        </EXAMPLE>
-                                                                        <CHILDREN></CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
-                                                                    <ENTRY KEY="dateIteratorEnd">
-                                                                        <DESCRIPTION>Used for dateIterator dataProvider. End date in unix timestamp format.</DESCRIPTION>
-                                                                        <DATATYPE>Integer</DATATYPE>
-                                                                        <POSIBLEVALUES>
+																		]]></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="dateIteratorStart">
+																		<DESCRIPTION>Used for dateIterator dataProvider. Start date in unix timestamp format.</DESCRIPTION>
+																		<DATATYPE>Integer</DATATYPE>
+																		<POSIBLEVALUES></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ>1</COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>
+																		</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="dateIteratorEnd">
+																		<DESCRIPTION>Used for dateIterator dataProvider. End date in unix timestamp format.</DESCRIPTION>
+																		<DATATYPE>Integer</DATATYPE>
+																		<POSIBLEVALUES>
 
-                                                                        </POSIBLEVALUES>
-                                                                        <DEFAULT></DEFAULT>
-                                                                        <COBJ></COBJ>
-                                                                        <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE>
+																		</POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE>
 
-                                                                        </EXAMPLE>
-                                                                        <CHILDREN></CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
-                                                                    <ENTRY KEY="dateIteratorIncrement">
-                                                                        <DESCRIPTION>The step size to increment the dates.</DESCRIPTION>
-                                                                        <DATATYPE>String</DATATYPE>
-                                                                        <POSIBLEVALUES><![CDATA[
-                                                                            'h': by hour
-                                                                            'i': by minute
-                                                                            's': by second
-                                                                            'd': by day
-                                                                            'm': by month
-                                                                            'y': by year
-                                                                        ]]></POSIBLEVALUES>
-                                                                        <DEFAULT></DEFAULT>
-                                                                        <COBJ></COBJ>
-                                                                        <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE>
+																		</EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="dateIteratorIncrement">
+																		<DESCRIPTION>The step size to increment the dates.</DESCRIPTION>
+																		<DATATYPE>String</DATATYPE>
+																		<POSIBLEVALUES><![CDATA[
+																			'h': by hour
+																			'i': by minute
+																			's': by second
+																			'd': by day
+																			'm': by month
+																			'y': by year
+																		]]></POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE><![CDATA[
 dateIteratorIncrement = m
-                                                                        </EXAMPLE>
-                                                                        <CHILDREN></CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
-                                                                    <ENTRY KEY="dateIteratorFormat">
-                                                                        <DESCRIPTION>How the labels for the timeSpan is rendered. You hav to use PHP strftime format to render labels in the according language.</DESCRIPTION>
-                                                                        <DATATYPE>String</DATATYPE>
-                                                                        <POSIBLEVALUES>Strftime format string.</POSIBLEVALUES>
-                                                                        <DEFAULT></DEFAULT>
-                                                                        <COBJ></COBJ>
-                                                                        <PROTOTYPE></PROTOTYPE>
-                                                                        <EXAMPLE>
+																		]]></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
+																	<ENTRY KEY="dateIteratorFormat">
+																		<DESCRIPTION>How the labels for the timeSpan is rendered. You hav to use PHP strftime format to render labels in the according language.</DESCRIPTION>
+																		<DATATYPE>String</DATATYPE>
+																		<POSIBLEVALUES>Strftime format string.</POSIBLEVALUES>
+																		<DEFAULT></DEFAULT>
+																		<COBJ></COBJ>
+																		<PROTOTYPE></PROTOTYPE>
+																		<EXAMPLE><![CDATA[
 dateIteratorFormat = %m.%Y
-                                                                        </EXAMPLE>
-                                                                        <CHILDREN></CHILDREN>
-                                                                        <VARIANT></VARIANT>
-                                                                    </ENTRY>
+																		]]></EXAMPLE>
+																		<CHILDREN></CHILDREN>
+																		<VARIANT></VARIANT>
+																	</ENTRY>
 																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
 																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
 																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
 																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
 																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
@@ -1869,7 +2135,7 @@ dateIteratorFormat = %m.%Y
 																	<TYPEREF REF="filter.showRowCount" KEY="showRowCount" />
 																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
 																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -1937,20 +2203,21 @@ dateIteratorFormat = %m.%Y
 																		<CHILDREN></CHILDREN>
 																		<VARIANT></VARIANT>
 																	</ENTRY>
-                                                                    <TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
-                                                                    <TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
-                                                                    <TYPEREF REF="filter.label" KEY="label" />
-                                                                    <TYPEREF REF="filter.partialPath" KEY="partialPath" />
-                                                                    <TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
-                                                                    <TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
-                                                                    <TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
-                                                                    <TYPEREF REF="filter.invert" KEY="invert" />
-                                                                    <TYPEREF REF="filter.invertable" KEY="invertable" />
-                                                                    <TYPEREF REF="filter.displayFields" KEY="displayFields" />
-                                                                    <TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
-                                                                    <TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
-                                                                    <TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
-                                                                    <TYPEREF KEY="filter.hidden" REF="hidden" />
+																	<TYPEREF REF="filter.filterIdentifier" KEY="filterIdentifier" />
+																	<TYPEREF REF="filter.fieldIdentifier" KEY="fieldIdentifier" />
+																	<TYPEREF REF="filter.label" KEY="label" />
+																	<TYPEREF REF="filter.description" KEY="description" />																	
+																	<TYPEREF REF="filter.partialPath" KEY="partialPath" />
+																	<TYPEREF REF="filter.filterClassName" KEY="filterClassName" />
+																	<TYPEREF REF="filter.defaultValue" KEY="defaultValue" />
+																	<TYPEREF REF="filter.accessGroups" KEY="accessGroups" />
+																	<TYPEREF REF="filter.invert" KEY="invert" />
+																	<TYPEREF REF="filter.invertable" KEY="invertable" />
+																	<TYPEREF REF="filter.displayFields" KEY="displayFields" />
+																	<TYPEREF REF="filter.excludeFilters" KEY="excludeFilters" />
+																	<TYPEREF REF="filter.inactiveOption" KEY="inactiveOption" />
+																	<TYPEREF REF="filter.inactiveValue" KEY="inactiveValue" />
+																	<TYPEREF KEY="filter.hidden" REF="hidden" />
 																</CHILDREN>
 																<VARIANT></VARIANT>
 															</ENTRY>
@@ -2046,237 +2313,282 @@ agregateRowsPartial = EXT:pt_extlist_special/Resources/Private/Partials/SpecialP
 						</ENTRY>
 					</CHILDREN>
 				</ENTRY>
-                <ENTRY KEY="export">
-                    <DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
-                    <DATATYPE>String</DATATYPE>
-                    <POSIBLEVALUES></POSIBLEVALUES>
-                    <DEFAULT></DEFAULT>
-                    <COBJ></COBJ>
-                    <PROTOTYPE></PROTOTYPE>
-                    <EXAMPLE></EXAMPLE>
-                    <CHILDREN></CHILDREN>
-                    <VARIANT>
-                        <ENTRY KEY="export">
-                           <DESCRIPTION>Export configuration section.</DESCRIPTION>
-                           <DATATYPE>Array</DATATYPE>
-                           <POSIBLEVALUES></POSIBLEVALUES>
-                           <DEFAULT></DEFAULT>
-                           <COBJ></COBJ>
-                           <PROTOTYPE></PROTOTYPE>
-                           <EXAMPLE></EXAMPLE>
-                           <CHILDREN>
-                               <ENTRY KEY="exportConfigs">
-                                  <DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
-                                  <DATATYPE>Array</DATATYPE>
-                                  <POSIBLEVALUES></POSIBLEVALUES>
-                                  <DEFAULT></DEFAULT>
-                                  <COBJ></COBJ>
-                                  <PROTOTYPE></PROTOTYPE>
-                                  <EXAMPLE></EXAMPLE>
-                                  <CHILDREN></CHILDREN>
-                                  <VARIANT>
-                                      <ENTRY KEY="csvExport">
-                                          <DESCRIPTION>Export the list as CSV.</DESCRIPTION>
-                                          <DATATYPE>Array</DATATYPE>
-                                          <POSIBLEVALUES></POSIBLEVALUES>
-                                          <DEFAULT></DEFAULT>
-                                          <COBJ></COBJ>
-                                          <PROTOTYPE></PROTOTYPE>
-                                          <EXAMPLE></EXAMPLE>
-                                          <CHILDREN>
-                                            <ENTRY KEY="delimiter">
-                                                <DESCRIPTION>Sets the column delimiter.</DESCRIPTION>
-                                                <DATATYPE>string</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT>;</DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE></EXAMPLE>
-                                                <CHILDREN></CHILDREN>
-                                                <VARIANT></VARIANT>
-                                            </ENTRY>
-                                            <ENTRY KEY="outputEncoding">
-                                                <DESCRIPTION>Sets the output encoding.</DESCRIPTION>
-                                                <DATATYPE>string</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT>ISO-8859-1</DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE></EXAMPLE>
-                                                <CHILDREN></CHILDREN>
-                                                <VARIANT></VARIANT>
-                                            </ENTRY>
-                                          </CHILDREN>
-                                          <VARIANT></VARIANT>
-                                      </ENTRY>
-                                      <ENTRY KEY="fluidTemplateExport">
-                                          <DESCRIPTION>Export the listData in any representation defined by fluid syntax.</DESCRIPTION>
-                                          <DATATYPE>Array</DATATYPE>
-                                          <POSIBLEVALUES></POSIBLEVALUES>
-                                          <DEFAULT></DEFAULT>
-                                          <COBJ></COBJ>
-                                          <PROTOTYPE></PROTOTYPE>
-                                          <EXAMPLE></EXAMPLE>
-                                          <CHILDREN></CHILDREN>
-                                          <VARIANT></VARIANT>
-                                      </ENTRY>
-                                      <ENTRY KEY="excelExport">
-                                          <DESCRIPTION>Excel export</DESCRIPTION>
-                                          <DATATYPE>Array</DATATYPE>
-                                          <POSIBLEVALUES></POSIBLEVALUES>
-                                          <DEFAULT></DEFAULT>
-                                          <COBJ></COBJ>
-                                          <PROTOTYPE></PROTOTYPE>
-                                          <EXAMPLE></EXAMPLE>
-                                          <CHILDREN></CHILDREN>
-                                          <VARIANT></VARIANT>
-                                      </ENTRY>
-                                      <ENTRY KEY="pdfExport">
-                                          <DESCRIPTION>Uses the domPdf library to export the list data as pdf document.</DESCRIPTION>
-                                          <DATATYPE>Array</DATATYPE>
-                                          <POSIBLEVALUES></POSIBLEVALUES>
-                                          <DEFAULT></DEFAULT>
-                                          <COBJ></COBJ>
-                                          <PROTOTYPE></PROTOTYPE>
-                                          <EXAMPLE><![CDATA[
+				<ENTRY KEY="export">
+					<DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
+					<DATATYPE>String</DATATYPE>
+					<POSIBLEVALUES></POSIBLEVALUES>
+					<DEFAULT></DEFAULT>
+					<COBJ></COBJ>
+					<PROTOTYPE></PROTOTYPE>
+					<EXAMPLE></EXAMPLE>
+					<CHILDREN></CHILDREN>
+					<VARIANT>
+						<ENTRY KEY="export">
+							<DESCRIPTION>Export configuration section.</DESCRIPTION>
+							<DATATYPE>Array</DATATYPE>
+							<POSIBLEVALUES></POSIBLEVALUES>
+							<DEFAULT></DEFAULT>
+							<COBJ></COBJ>
+							<PROTOTYPE></PROTOTYPE>
+							<EXAMPLE></EXAMPLE>
+							<CHILDREN>
+								<ENTRY KEY="exportConfigs">
+									<DESCRIPTION>Export configuration templates for different export types.</DESCRIPTION>
+									<DATATYPE>Array</DATATYPE>
+									<POSIBLEVALUES></POSIBLEVALUES>
+									<DEFAULT></DEFAULT>
+									<COBJ></COBJ>
+									<PROTOTYPE></PROTOTYPE>
+									<EXAMPLE></EXAMPLE>
+									<CHILDREN></CHILDREN>
+									<VARIANT>
+										<ENTRY KEY="csvExport">
+											<DESCRIPTION>Export the list as CSV.</DESCRIPTION>
+											<DATATYPE>Array</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="delimiter">
+													<DESCRIPTION>Sets the column delimiter.</DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>;</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="outputEncoding">
+													<DESCRIPTION>Sets the output encoding.</DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>ISO-8859-1</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+											</CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="fluidTemplateExport">
+											<DESCRIPTION>Export the listData in any representation defined by fluid syntax.</DESCRIPTION>
+											<DATATYPE>Array</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN></CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="excelExport">
+											<DESCRIPTION>Excel export</DESCRIPTION>
+											<DATATYPE>Array</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE></EXAMPLE>
+											<CHILDREN>
+                                                <ENTRY KEY="stripTags">
+                                                    <DESCRIPTION>Remove HTML Tags from content.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>1</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="doBodyCellStyling">
+                                                    <DESCRIPTION>Use the cell style configuration from the column configuration to style the body part of the list. This tremendously decreases the render performance. Therefore it is not suitable for big lists > 10k lines.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFilterStates">
+                                                    <DESCRIPTION>Render a block with the filter states of the list to the table header.</DESCRIPTION>
+                                                    <DATATYPE>Boolean</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT>0</DEFAULT>
+                                                    <COBJ></COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+                                                <ENTRY KEY="renderFreeText">
+                                                    <DESCRIPTION>If set, render this free text to the head of the list.</DESCRIPTION>
+                                                    <DATATYPE>String</DATATYPE>
+                                                    <POSIBLEVALUES></POSIBLEVALUES>
+                                                    <DEFAULT></DEFAULT>
+                                                    <COBJ>1</COBJ>
+                                                    <PROTOTYPE></PROTOTYPE>
+                                                    <EXAMPLE></EXAMPLE>
+                                                    <CHILDREN></CHILDREN>
+                                                    <VARIANT></VARIANT>
+                                                </ENTRY>
+											</CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+										<ENTRY KEY="pdfExport">
+											<DESCRIPTION>Uses the domPdf library to export the list data as pdf document.</DESCRIPTION>
+											<DATATYPE>Array</DATATYPE>
+											<POSIBLEVALUES></POSIBLEVALUES>
+											<DEFAULT></DEFAULT>
+											<COBJ></COBJ>
+											<PROTOTYPE></PROTOTYPE>
+											<EXAMPLE><![CDATA[
 pdfExport {
-    viewClassName = Tx_PtExtlist_View_Export_PdfListView
-    fileExtension = pdf
-    templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html
-    cssFilePath =  EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css
+	viewClassName = Tx_PtExtlist_View_Export_PdfListView
+	fileExtension = pdf
+	templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html
+	cssFilePath =  EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css
 
-    headerPartial = Export/PDF/ListHeader
-    bodyPartial = Export/PDF/ListBody
-    aggregateRowsPartial = Export/PDF/AggregateRows
+	headerPartial = Export/PDF/ListHeader
+	bodyPartial = Export/PDF/ListBody
+	aggregateRowsPartial = Export/PDF/AggregateRows
 
-    // DOMPDF Settings
-    dompdfSourcePath = EXT:pt_dompdf/Classes/dompdf
-    paperSize = a4
-    paperOrientation =  portrait
+	// DOMPDF Settings
+	dompdfSourcePath = EXT:pt_dompdf/Classes/dompdf
+	paperSize = a4
+	paperOrientation =  portrait
 }
 ]]>
-                                          </EXAMPLE>
-                                          <CHILDREN>
-                                              <ENTRY KEY="viewClassName">
-                                                <DESCRIPTION></DESCRIPTION>
-                                                <DATATYPE>string</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT>Tx_PtExtlist_View_Export_PdfListView</DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE></EXAMPLE>
-                                                <CHILDREN></CHILDREN>
-                                                <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="fileExtension">
-                                                <DESCRIPTION></DESCRIPTION>
-                                                <DATATYPE>string</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT>pdf</DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE></EXAMPLE>
-                                                <CHILDREN></CHILDREN>
-                                                <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="templatePath">
-                                                <DESCRIPTION></DESCRIPTION>
-                                                <DATATYPE>string</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT>typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html</DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE></EXAMPLE>
-                                                <CHILDREN></CHILDREN>
-                                                <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="cssFilePath">
-                                                <DESCRIPTION></DESCRIPTION>
-                                                <DATATYPE>string</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT>EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css</DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE></EXAMPLE>
-                                                <CHILDREN></CHILDREN>
-                                                <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="headerPartial">
-                                                <DESCRIPTION></DESCRIPTION>
-                                                <DATATYPE>string</DATATYPE>
-                                                <POSIBLEVALUES></POSIBLEVALUES>
-                                                <DEFAULT>Export/PDF/ListHeader</DEFAULT>
-                                                <COBJ></COBJ>
-                                                <PROTOTYPE></PROTOTYPE>
-                                                <EXAMPLE></EXAMPLE>
-                                                <CHILDREN></CHILDREN>
-                                                <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="bodyPartial">
-                                                  <DESCRIPTION></DESCRIPTION>
-                                                  <DATATYPE>string</DATATYPE>
-                                                  <POSIBLEVALUES></POSIBLEVALUES>
-                                                  <DEFAULT>Export/PDF/ListBody</DEFAULT>
-                                                  <COBJ></COBJ>
-                                                  <PROTOTYPE></PROTOTYPE>
-                                                  <EXAMPLE></EXAMPLE>
-                                                  <CHILDREN></CHILDREN>
-                                                  <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="aggregateRowsPartial">
-                                                  <DESCRIPTION></DESCRIPTION>
-                                                  <DATATYPE>Array</DATATYPE>
-                                                  <POSIBLEVALUES></POSIBLEVALUES>
-                                                  <DEFAULT></DEFAULT>
-                                                  <COBJ></COBJ>
-                                                  <PROTOTYPE></PROTOTYPE>
-                                                  <EXAMPLE></EXAMPLE>
-                                                  <CHILDREN></CHILDREN>
-                                                  <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="dompdfSourcePath">
-                                                  <DESCRIPTION>Path to the domPDF Sources.</DESCRIPTION>
-                                                  <DATATYPE>string</DATATYPE>
-                                                  <POSIBLEVALUES></POSIBLEVALUES>
-                                                  <DEFAULT></DEFAULT>
-                                                  <COBJ></COBJ>
-                                                  <PROTOTYPE></PROTOTYPE>
-                                                  <EXAMPLE></EXAMPLE>
-                                                  <CHILDREN></CHILDREN>
-                                                  <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="paperSize">
-                                                  <DESCRIPTION></DESCRIPTION>
-                                                  <DATATYPE>string</DATATYPE>
-                                                  <POSIBLEVALUES>a0-a10, b0-b10, c0-c10, ... </POSIBLEVALUES>
-                                                  <DEFAULT>a4</DEFAULT>
-                                                  <COBJ></COBJ>
-                                                  <PROTOTYPE></PROTOTYPE>
-                                                  <EXAMPLE></EXAMPLE>
-                                                  <CHILDREN></CHILDREN>
-                                                  <VARIANT></VARIANT>
-                                              </ENTRY>
-                                              <ENTRY KEY="paperOrientation">
-                                                  <DESCRIPTION></DESCRIPTION>
-                                                  <DATATYPE>string</DATATYPE>
-                                                  <POSIBLEVALUES></POSIBLEVALUES>
-                                                  <DEFAULT>portrait</DEFAULT>
-                                                  <COBJ></COBJ>
-                                                  <PROTOTYPE></PROTOTYPE>
-                                                  <EXAMPLE></EXAMPLE>
-                                                  <CHILDREN></CHILDREN>
-                                                  <VARIANT></VARIANT>
-                                              </ENTRY>
-                                          </CHILDREN>
-                                          <VARIANT></VARIANT>
-                                      </ENTRY>
-                                  </VARIANT>
-                               </ENTRY>
-                           </CHILDREN>
-                           <VARIANT></VARIANT>
-                        </ENTRY>
-                    </VARIANT>
-                </ENTRY>
+											</EXAMPLE>
+											<CHILDREN>
+												<ENTRY KEY="viewClassName">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>Tx_PtExtlist_View_Export_PdfListView</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="fileExtension">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>pdf</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="templatePath">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/PDF/Default.html</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="cssFilePath">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>EXT:pt_extlist/Resources/Public/CSS/Export/Pdf.css</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="headerPartial">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>Export/PDF/ListHeader</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="bodyPartial">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>Export/PDF/ListBody</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="aggregateRowsPartial">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>Array</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="dompdfSourcePath">
+													<DESCRIPTION>Path to the domPDF Sources.</DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT></DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+													</ENTRY>
+												<ENTRY KEY="paperSize">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES>a0-a10, b0-b10, c0-c10, ... </POSIBLEVALUES>
+													<DEFAULT>a4</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+												<ENTRY KEY="paperOrientation">
+													<DESCRIPTION></DESCRIPTION>
+													<DATATYPE>string</DATATYPE>
+													<POSIBLEVALUES></POSIBLEVALUES>
+													<DEFAULT>portrait</DEFAULT>
+													<COBJ></COBJ>
+													<PROTOTYPE></PROTOTYPE>
+													<EXAMPLE></EXAMPLE>
+													<CHILDREN></CHILDREN>
+													<VARIANT></VARIANT>
+												</ENTRY>
+											</CHILDREN>
+											<VARIANT></VARIANT>
+										</ENTRY>
+									</VARIANT>
+								</ENTRY>
+							</CHILDREN>
+							<VARIANT></VARIANT>
+						</ENTRY>
+					</VARIANT>
+				</ENTRY>
 			</CHILDREN>
 		</ENTRY>
 	</TSREF>

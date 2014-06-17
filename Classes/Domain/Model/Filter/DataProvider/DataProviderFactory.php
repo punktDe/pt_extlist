@@ -43,25 +43,27 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 	 */
 	public static function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
 		$dataProviderClassName = self::determineDataProviderClass($filterConfig);
-		$dataProvider = new $dataProviderClassName();
+		$dataProvider = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get($dataProviderClassName);
 		
 		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataProvider, 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface', array('message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125'));
 		
-		$dataProvider->injectFilterConfig($filterConfig);
+		$dataProvider->_injectFilterConfig($filterConfig);
 
-        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($filterConfig->getListIdentifier());;
-        $dataProvider->injectDataBackend($dataBackend);
+		// TODO fix me, once we make this class non-static
+		$dataBackendFactory = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstance($filterConfig->getConfigurationBuilder()->getSettings());
+        $dataProvider->_injectDataBackend($dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
 
 		$dataProvider->init();
 		return $dataProvider;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Determine the dataProvider to use for filter options
-	 * 
+	 *
 	 * TODO: Test me!
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @return string dataProviderClass
 	 */
 	protected static function determineDataProviderClass(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
@@ -80,6 +82,4 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 		return $dataProviderClassName;
 	}
 	
-	
 }
-?>

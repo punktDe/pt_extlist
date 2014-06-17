@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  Authors: Daniel Lienert, Michael Knoll
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -27,24 +27,37 @@
  ***************************************************************/
 
 /**
- * 
+ * Interface for listData structure
+ *
+ * @author Daniel Lienert
  * @package Domain
- * @subpackage Security
+ * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Security_SecurityFactory {
+interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
 
-	protected static $instance = NULL;
-	
+
 	/**
-	 * @return Tx_PtExtlist_Domain_Security_GroupSecurity
+	 * @param int $id
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
 	 */
-	public static function getInstance() {
-		if(self::$instance === NULL) {
-			self::$instance = new Tx_PtExtlist_Domain_Security_GroupSecurity();
-		}
-		
-		return self::$instance;
-	}
-}
+	public function getRow($id);
 
-?>
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+	 */
+	public function getFirstRow();
+
+
+
+	/**
+	 * Getter for count of items in list data
+	 *
+	 * (Fluid-compatible getter for count() method in collection)
+	 *
+	 * @return int Count of objects in list data
+	 */
+	public function getCount();
+
+}

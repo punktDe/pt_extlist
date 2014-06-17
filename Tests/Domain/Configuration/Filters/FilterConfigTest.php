@@ -42,6 +42,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	
 	
 	public function setup() {
+
+		parent::setup();
+
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$this->filterSettings = array(
 		    'breadCrumbString' => 'breadCrumbString',
@@ -49,6 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		    'filterIdentifier' => 'filterName1',
 		    'filterClassName' => 'test',
 		    'partialPath' => 'partialPath',
+		    'ajaxPartialPath' => 'ajaxPartialPath',
 		    'defaultValue' => 'default',
 			'fieldIdentifier' => 'field1',
 			'invert' => '1',
@@ -156,17 +160,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->fail('No error has been thrown on non-existing partialPath setting');
 	}
 	
-	
+
+
 	public function testGetDefaultValueSingle() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertEquals($filterConfig->getdefaultValue(), 'default');
 	}
-	
-	public function testGetDefaultValueSingleStdWrap() {
-		$this->simulateFrontendEnvironment();
-		
+
+
+	/**
+	 * @test
+	 */
+	public function getDefaultValueSingleStdWrap() {
+		$this->testingFramework->createFakeFrontEnd(0);
+
 		$filterSettings = $this->filterSettings;
-				
+
 		$filterSettings['defaultValue'] = array(
 			'cObject' => array(
 				'value' => 'together',
@@ -175,13 +184,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		);
 
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-		
+
 		$this->assertEquals($filterConfig->getdefaultValue(), 'together');
 	}
 	
 	
 	public function testGetDefaultValueMultiple() {
-		
+
 		$filterSettings = $this->filterSettings;
 		$filterSettings['defaultValue'] = array(
 				10 => 'one',
@@ -195,7 +204,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 	
 	
 	public function testGetDefaultValueMultipleStdWrap() {
-		
+		$this->testingFramework->createFakeFrontEnd(0);
+
 		$filterSettings = $this->filterSettings;
 		$filterSettings['defaultValue'] = array(
 			10 => 'one',
@@ -217,7 +227,16 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertTrue($filterConfig->getPartialPath() == 'partialPath');
 	}
-	
+
+
+	/**
+	 * @test
+	 */
+	public function getAjaxPartialPath() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+		$this->assertTrue($filterConfig->getAjaxPartialPath() == 'ajaxPartialPath');
+	}
+
 	
 	public function testGetInvert() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
@@ -273,9 +292,5 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfig_testcase exte
 		$this->assertEquals($filterConfig->getLabel(), $this->filterSettings['label']);
 	}
 
-	protected function simulateFrontendEnvironment() {
-		$GLOBALS['TSFE'] = new stdClass();
-		$GLOBALS['TSFE']->cObjectDepthCounter = 100;
-	}
 }
 ?>

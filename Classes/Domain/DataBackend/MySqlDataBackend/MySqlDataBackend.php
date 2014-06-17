@@ -94,6 +94,34 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     protected $listQueryParts = NULL;
 
 
+
+	/**
+	 * Holds total item count (cached)
+	 *
+	 * @var int
+	 */
+	protected $totalItemsCount = NULL;
+
+
+
+	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
 	/**
 	 * Factory method for data source
 	 *
@@ -105,10 +133,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
 		$dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory::createInstance($dataSourceConfiguration);
+		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
 
 		return $dataSource;
 	}
+
 
 
 	/**
@@ -123,12 +152,25 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     }
 
 
+
+	/**
+	 * We implement template method for initializing backend
+	 */
+	protected function initBackend() {
+		parent::initBackend();
+		// As pager->getCurrentPage is requested during $this->getTotalItemsCount(),
+		// we have to set it to infty first and later set correct item count!
+		$this->pagerCollection->setItemCount(PHP_INT_MAX);
+	}
+
+
+
 	/**
 	 * Injector for data source
 	 *
 	 * @param mixed $dataSource
 	 */
-	public function injectDataSource($dataSource) {
+	public function _injectDataSource($dataSource) {
 		$this->dataSource = $dataSource;
 	}
 
@@ -140,8 +182,38 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildListData() {
 		$sqlQuery = $this->buildQuery();
-		$rawData = $this->dataSource->executeQuery($sqlQuery);
-		return $this->dataMapper->getMappedListData($rawData);
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, array('query' => $sqlQuery));
+
+		$rawData = $this->dataSource->executeQuery($sqlQuery)->fetchAll();
+
+		$mappedListData = $this->dataMapper->getMappedListData($rawData);
+		unset($rawData);
+
+		return $mappedListData;
+	}
+
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+	 */
+	public function getIterationListData() {
+		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
+
+		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
+
+		$sqlQuery = $this->buildQuery();
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, array('query' => $sqlQuery));
+
+		$dataSource = clone $this->dataSource;
+		$dataSource->executeQuery($sqlQuery);
+
+		$iterationListData = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData'); /** @var $iterationListData Tx_PtExtlist_Domain_Model_List_IterationListData */
+		$iterationListData->_injectDataSource($dataSource);
+		$iterationListData->_injectDataMapper($this->dataMapper);
+		$iterationListData->_injectRenderChain($rendererChain);
+
+		return $iterationListData;
 	}
 
 
@@ -173,7 +245,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$query = implode('', $this->listQueryParts);
 
-		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> listSelect', 'pt_extlist', 1, array('query' => $query));
 		return $query;
 	}
 
@@ -203,7 +274,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 			if($fieldConfiguration->getExpandGroupRows() && $this->baseGroupByClause) {
-        		$selectParts[] = 'group_concat('.Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldConfiguration).') AS ' . $fieldConfiguration->getIdentifier();
+        		$selectParts[] = 'group_concat('.Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldConfiguration).' SEPARATOR "' . $fieldConfiguration->getExpandGroupRowsSeparator() . '") AS ' . $fieldConfiguration->getIdentifier();
         	} else {
         		$selectParts[] = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
         	}
@@ -366,13 +437,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	public function buildLimitPart() {
 		$limitPart = '';
 		if ($this->pagerCollection->isEnabled()) {
-			$pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
+			$pagerOffset = $this->pagerCollection->getItemOffset();
 			$pagerLimit = intval($this->pagerCollection->getItemsPerPage());
 			$limitPart .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
 			$limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
 		}
 		return $limitPart;
 	}
+
 
 
 	/**
@@ -392,23 +464,34 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function getTotalItemsCount() {
 
-		$this->buildQuery();
+		if ($this->totalItemsCount == null) {
+			$this->buildQuery();
 
-		$query = '';
-		$query .= 'SELECT COUNT(*) AS totalItemCount ';
-		$query .= $this->listQueryParts['FROM'];
-		$query .= $this->listQueryParts['WHERE'];
-		$query .= $this->listQueryParts['GROUPBY'];
+			$query = '';
+			$query .= 'SELECT COUNT(*) AS totalItemCount ';
+			$query .= $this->listQueryParts['FROM'];
+			$query .= $this->listQueryParts['WHERE'];
+			$query .= $this->listQueryParts['GROUPBY'];
 
-		$countResult = $this->dataSource->executeQuery($query);
+			$countResult = $this->dataSource->executeQuery($query)->fetchAll();
 
-		if($this->listQueryParts['GROUPBY']) {
-			$count = count($countResult);
-		} else {
-			$count = intval($countResult[0]['totalItemCount']);
+			if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, array('query' => $query));
+
+			if($this->listQueryParts['GROUPBY']) {
+				$this->totalItemsCount = count($countResult);
+			} else {
+				$this->totalItemsCount = intval($countResult[0]['totalItemCount']);
+			}
+
+			$this->pagerCollection->setItemCount($this->totalItemsCount);
+
+			// We have to build query again, as LIMIT is not set correctly above!
+			// TODO fix this! Split build query in buildQueryWithoutPager() and buildQueryPartsFromPager()
+			$this->listQueryParts = null;
+			$this->buildQuery();
 		}
 
-		return $count;
+		return $this->totalItemsCount;
 	}
 
 
@@ -420,58 +503,84 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array()) {
-        $this->buildQuery();
+	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
+		$query = $this->buildGroupDataQuery($groupDataQuery, $excludeFilters, $filterConfig);
 
-    	$selectPart  = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
-    	$fromPart = $this->listQueryParts['FROM'];
-    	$groupPart   = count($groupDataQuery->getGroupBy()) > 0  ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
-    	$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
+		$groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
 
-    	if(count($groupDataQuery->getFrom()) > 0) {
-    		// special from part from filter TODO think about this and implement it!
-    		//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
+		return $groupDataArray;
+	}
 
-    	} elseif($this->listQueryParts['GROUPBY']) {
-    		$selectPart = $this->convertTableFieldToAlias($selectPart);
-    		$groupPart = $this->convertTableFieldToAlias($groupPart);
-    		$sortingPart = $this->convertTableFieldToAlias($sortingPart);
 
-    		$filterWherePart = $this->buildWherePart($excludeFilters);
-    		$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
+	/**
+	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery
+	 * @param array $excludeFilters
+	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+	 * @return string
+	 */
+	protected function buildGroupDataQuery(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+										   Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 
-    		// if the list has a group by clause itself, we have to use the listquery as subquery
-    		$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+		$this->buildQuery();
 
-    		unset($filterWherePart);	// we confined the subquery, so we dont need this in the group query
+		$selectPart = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
+		$fromPart = $this->listQueryParts['FROM'];
+		$groupPart = count($groupDataQuery->getGroupBy()) > 0 ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
+		$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
-    	} else {
-    		$filterWherePart =  $this->buildWherePart($excludeFilters);
-    		if($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
-    	}
+		if (count($groupDataQuery->getFrom()) > 0) {
+			// special from part from filter TODO think about this and implement it!
+			//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
+		}
 
-    	$query =  implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
+		/**
+		 * If this list is grouped. There are two cases
+		 * 1. We want to show the rowCount. In this case we have to build the list first and then use this list as
+		 * 		source to calculate the selectable rows and the count. This has the drawback, that options are not displayed, if grouped within the list.
+		 * 2. We do not need the rowCount. In this case, we exchange the original grouping fields with the fields needed by the filter.
+		 */
 
-    	if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : '.$this->listIdentifier.' -> groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+		if ($this->listQueryParts['GROUPBY'] && $filterConfig->getShowRowCount()) {
 
-        $groupDataArray = $this->dataSource->executeQuery($query);
+			$selectPart = $this->convertTableFieldToAlias($selectPart);
+			$groupPart = $this->convertTableFieldToAlias($groupPart);
+			$sortingPart = $this->convertTableFieldToAlias($sortingPart);
 
-        return $groupDataArray;
-    }
+			$filterWherePart = $this->buildWherePart($excludeFilters);
+			$filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
+
+			// if the list has a group by clause itself, we have to use the listQuery as subQuery
+			$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+
+			unset($filterWherePart); // we confined the subquery, so we dont need this in the group query
+
+		} else {
+			$filterWherePart = $this->buildWherePart($excludeFilters);
+			if ($filterWherePart != '') $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
+		}
+
+		$query = implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
+
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+
+		return $query;
+	}
 
 
 
     /**
      * Aggreagte the list by field and method or special sql
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
      */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$aggregateSQLQuery = $this->buildAggregateSQLByConfigCollection($aggregateConfigCollection);
 
-    	$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery);
+    	$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
 
     	return $aggregates[0];
     }
@@ -482,6 +591,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Build the whole SQL Query for all aggregate fields
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+	 * @return string
      */
     protected function buildAggregateSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$this->buildQuery();
@@ -490,6 +600,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     	$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $this->listQueryParts['WHERE'] . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY';
 
     	$query =  implode(" \n", array($selectPart, $fromPart));
+
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, array('query' => $query));
 
     	return $query;
     }
@@ -500,6 +612,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Build the fields Sql for all fields
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+	 * @return string
      */
     protected function buildAggregateFieldsSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection) {
     	$fieldsSQL = array();
@@ -517,6 +630,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Build the SQL Query for an aggregate
      *
      * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+	 * @return string
      */
     protected function buildAggregateFieldSQLByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
     	$supportedMethods = array('sum', 'avg', 'min', 'max');
@@ -539,6 +653,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Replaces all occurrences of "table.field AS fieldIdentifier" and "table.field"
      *
      * @param string $query
+	 * @return string
      */
     protected function convertTableFieldToAlias($query) {
 

@@ -87,7 +87,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 		$sqlQuerySettings = $this->filterConfig->getSettings('optionsSqlQuery');
 
 		foreach($sqlQuerySettings as $type => $part) {
-			$sqlQuerySettings[$type] = trim($part);
+			if (!is_array($part)) {
+				$sqlQuerySettings[$type] = trim($part);
+			}
 		}
 
 		if($sqlQuerySettings['select']) $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
@@ -114,8 +116,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 * @return array filter options
 	 */
 	public function getRenderedOptions() {
+		$renderedOptions = array();
 		$options = $this->getDataFromSqlServer();
-
 		foreach ($options as $optionData) {
 			$optionKey = $optionData[$this->filterField];
 
@@ -123,10 +125,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 			$renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
 			$renderedOptions[$optionKey]['selected'] = false;
 		}
-
 		return $renderedOptions;
 	}
-
 
 
 	/**
@@ -135,17 +135,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 * @param array $optionData
 	 */
 	protected function renderOptionData($optionData) {
-
-		$option = '';
-
-		foreach($this->displayFields as $displayField) {
-      	$values[] = $optionData[$displayField];
-      }
-
+		$values = array();
+		if (is_array($this->displayFields)) {
+			foreach ($this->displayFields as $displayField) {
+				$values[] = $optionData[$displayField];
+			}
+		}
 		$optionData['allDisplayFields'] = implode(' ', $values);
-
 		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
-
 		return $option;
 	}
 
@@ -166,7 +163,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 			throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider! 1315216209');
 		}
 
-		return $dataSource->executeQuery($query);
+		return $dataSource->executeQuery($query)->fetchAll();
 	}
 }
 ?>

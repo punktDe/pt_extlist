@@ -28,70 +28,121 @@
 
 /**
  * Factory for Configuration Builder
- * 
+ *
  * @package Domain
  * @subpackage Configuration
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTests
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
+
 	/**
-	 * Holds an associative array of instances of configuration builder objects
-	 * Each list identifier holds its own configuration builder object
-	 * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer
 	 */
-	private static $instances = array();
-	
+	private $configurationBuilderInstancesContainer;
+
+
 	
 	/**
 	 * Holds an array of all extList settings
 	 * 
 	 * @var array
 	 */
-	private static $settings = NULL;
-	
-	
-	
+	private $settings = NULL;
+
+
+
 	/**
-	 * Inject all settings of the extension
-	 * 
-	 * @static
-	 * @param array $settings
-	 * @return void
+	 * Holds extbase context to determine FE / BE usage
+	 *
+	 * @var Tx_PtExtlist_Extbase_ExtbaseContext
 	 */
-	public static function injectSettings(array &$settings) {
-		self::$settings = &$settings;
+	private $extbaseContext;
+
+
+
+	/**
+	 * Injects configuration manager (that holds TS settings) for usage with DI
+	 *
+	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
+		$this->settings = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 	}
-	
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer
+	 */
+	public function injectConfigurationBuilderInstancesContainer(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer) {
+		$this->configurationBuilderInstancesContainer = $instancesContainer;
+	}
+
+
+
+	/**
+	 * As we sometimes do not have a configuration manager
+	 * with relevant TS settings, we can set them here manually.
+	 *
+	 * TODO at the moment we need this for extlist context. This should be fixed, once we have bootstrap and new DI
+	 *
+	 * TODO Think about the problem, that this class is a singleton, hence we get the same instance over and over, once it is
+	 * TODO instantiated. BUT settings are likely to change from one request to this instance to another, so we need a possibility to
+	 * TODO get different instances for different settings.
+	 *
+	 * @param array $settings
+	 */
+	public function setSettings(array $settings) {
+		$this->settings = $settings;
+	}
+
+
+
+	/**
+	 * Injects extbase context (for determine FE / BE usage) for usage with DI
+	 *
+	 * @param Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext
+	 */
+	public function injectExtbaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext) {
+		$this->extbaseContext = $extbaseContext;
+	}
+
+
 	
 	/**
 	 * Returns a singleton instance of a configurationBuilder class
 	 *
 	 * @static
 	 * @param $listIdentifier string the listidentifier of the list
-	 * @param $resetConfigurationBuilder boolean
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder 
+	 * @param boolean $resetConfigurationBuilder
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 * @throws Exception
 	 */
-	public static function getInstance($listIdentifier = NULL, $resetConfigurationBuilder = false) {
-		
+	public function getInstance($listIdentifier = NULL, $resetConfigurationBuilder = false) {
 		if($listIdentifier == NULL) {
-			$listIdentifier = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
-										->get('Tx_PtExtlist_Extbase_ExtbaseContext')
-										->getCurrentListIdentifier();
+			$listIdentifier = $this->extbaseContext->getCurrentListIdentifier();
 		}
 
 		if ($listIdentifier == '') {
-			throw new Exception('No list identifier could be found in settings! 1280230579');
+			throw new Exception('No list identifier could be found in settings!', 1280230579);
 		}
 
-		if (!array_key_exists($listIdentifier, self::$instances) || $resetConfigurationBuilder) {
-			
-			if(!is_array(self::$settings['listConfig']) || !array_key_exists($listIdentifier, self::$settings['listConfig'])) {
-				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings! 1288110596');
-			}
-         self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder(self::$settings, $listIdentifier);
-      }
+		if ($resetConfigurationBuilder) {
+			$this->configurationBuilderInstancesContainer->remove($listIdentifier); // Make sure, we overwrite a previously added configuration builder if we want to reset
+		}
 
-      return self::$instances[$listIdentifier];
-	}	
+		if (!$this->configurationBuilderInstancesContainer->contains($listIdentifier)) {
+			if(!is_array($this->settings['listConfig']) || !array_key_exists($listIdentifier, $this->settings['listConfig'])) {
+				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings!', 1288110596);
+			}
+
+			// TODO use object manager to instantiate the configuration builder object
+        	$this->configurationBuilderInstancesContainer->add(new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->settings, $listIdentifier));
+    	}
+
+    	return $this->configurationBuilderInstancesContainer->get($listIdentifier);
+	}
+
 }
-?>

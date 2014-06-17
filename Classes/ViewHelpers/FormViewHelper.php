@@ -36,17 +36,42 @@
  */
 class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormViewHelper {
 
-	
+	/**
+	 * Holds uri for form action
+	 *
+	 * @var string
+	 */
 	protected  $formActionUri;
 	
-	
+
+
+	/**
+	 * Holds instance of session persistence manager builder
+	 *
+	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+	 */
+	protected $sessionPersistenceManagerBuilder;
+
+
+
+	/**
+	 * Injects session persistence manager factory (used by DI)
+	 *
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+	 */
+	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
+		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+	}
+
+
+
 	/**
 	 * Sets the "action" attribute of the form tag
 	 *
 	 * @return void
 	 */
 	protected function setFormActionUri() {
-		if (array_key_exists('actionUri', $this->arguments)) {
+		if (array_key_exists('actionUri', $this->arguments) && !empty($this->arguments['actionUri'])) {
 			$formActionUri = $this->arguments['actionUri'];
 		} else {
 			$uriBuilder = $this->controllerContext->getUriBuilder();
@@ -103,7 +128,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormV
 		
 		if($extBaseContext->isInCachedMode()) {
 			$listIdentifier = $extBaseContext->getCurrentListIdentifier();
-			$stateHash = Tx_PtExtbase_State_Session_SessionPersistenceManagerFactory::getInstance()->getSessionDataHash();
+			$stateHash = $this->sessionPersistenceManagerBuilder->getInstance()->getSessionDataHash();
 			
 			$result .=  '<input type="hidden" name="' . $this->prefixFieldName($listIdentifier.'[state]') . '" value="' . $stateHash . '" />' . chr(10);
 		}
@@ -114,5 +139,6 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormV
 		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[actionName]') . '" value="' . $actionName . '" />' . chr(10);	
 		return $result;
 	}
+
 }
 ?>

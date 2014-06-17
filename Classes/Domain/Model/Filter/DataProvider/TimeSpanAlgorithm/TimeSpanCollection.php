@@ -47,6 +47,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCo
 	public function getJsonValue() {
 		$timeSpans = array();
 		foreach ($this->itemsArr as $timeSpan) {
+			/* @var $timeSpan Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan */
 			$timeSpans[] = $timeSpan->getJsonValue();
 		}
 		$result = "{\"timeSpans\":[" . implode(',', $timeSpans) . "]}";

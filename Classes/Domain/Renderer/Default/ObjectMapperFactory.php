@@ -27,45 +27,23 @@
  ***************************************************************/
 
 /**
- * Class implements a collection of messages
+ * Maps data to a domain object
  * 
- * @author Michael Knoll 
  * @package Domain
- * @subpackage Model\Messaging
+ * @subpackage Renderer\Default
+ * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_Messaging_MessageCollection extends Tx_PtExtbase_Collection_ObjectCollection {
+class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapperFactory {
 
 	/**
-	 * Restricts collection to hold only objects of given type
-	 *
-	 * @var string
+	 * @var Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper
 	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Messaging_Message';
-	
-	
-	
-	/**
-	 * Adds message to collection by given message key
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Messaging_Message $message
-	 * @param string $messageKey
-	 */
-	public function addMessage(Tx_PtExtlist_Domain_Model_Messaging_Message $message, $messageKey=0) {
-		$this->addItem($message, $messageKey);
+	protected static $instance;
+
+
+	public static function getInstance($mapperConfig, $data) {
+
 	}
-	
-	
-	
-	/**
-	 * Returns message for a given id
-	 *
-	 * @param string $messageKey
-	 * @return Tx_PtExtlist_Domain_Model_Messaging_Message
-	 */
-	public function getMessageByKey($messageKey) {
-		if ($this->hasItem($messageKey)) {
-		    return $this->getItemById($messageKey);
-		}
-	}
- 	
+
 }
+?>

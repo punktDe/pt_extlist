@@ -8,9 +8,30 @@
 
 plugin.tx_ptextlist.prototype.filter {
 
+	staticValue {
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter
+		partialPath = Filter/Special/StaticValue
+		filterValue =
+		filterIdentifier =
+		label =
+		description =
+		fieldIdentifier =
+		filterField =
+	}
+
+
+
 	string {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
 		partialPath = Filter/String/StringFilter
+
+		label =
+		description =
+
+		exactMatch = 0
+		orToken =
+		andToken =
+
 		defaultValue =
 		accessGroups =
 
@@ -31,6 +52,9 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/String/StringFilter
 		defaultValue =
 		accessGroups =
+
+		label =
+		description =
 
         # MySQL Specific Parameters
         minWordLength = 4
@@ -54,6 +78,10 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Range/MaxFilter
 		defaultValue =
 		accessGroups =
+
+		label =
+		description =
+
 		#validation.maxValue = 500
 		#validation.minValue = 0
 
@@ -71,6 +99,10 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Range/MinFilter
 		defaultValue =
 		accessGroups =
+
+		label =
+		description =
+
 		#validation.maxValue = 500
 		#validation.minValue = 0
 
@@ -87,6 +119,9 @@ plugin.tx_ptextlist.prototype.filter {
 	    filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
 	    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
 	    partialPath = Filter/Options/SelectFilter
+
+		label =
+		description =
 
 	    dateIteratorStart =
 	    dateIteratorEnd =
@@ -123,6 +158,9 @@ plugin.tx_ptextlist.prototype.filter {
         dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates
         partialPath = Filter/Date/DatePickerFilter
 
+		label =
+		description =
+
 		dbTimeFormat = U
 		regional =
 
@@ -150,6 +188,10 @@ plugin.tx_ptextlist.prototype.filter {
         filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
         partialPath = Filter/Range/DateRangeFilter
 
+		label =
+		description =
+
+		displayValueDateFormat = d.m.Y
 		dbTimeFormat = U
 		regional =
 
@@ -170,14 +212,20 @@ plugin.tx_ptextlist.prototype.filter {
 
 	select {
 		partialPath = Filter/Options/SelectFilter
+		ajaxPartialPath = Filter/Ajax/Options/SelectFilter
+
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		#dataProviderClassName =
 		defaultValue =
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
+
 		multiple = 0
 		excludeFilters =
 		showRowCount = 1
@@ -187,6 +235,11 @@ plugin.tx_ptextlist.prototype.filter {
 		invert = 0
 		invertable = 0
 		accessGroups =
+
+		ajax {
+			enable = 1
+			registerToFilter = filterbox.filterIdentifier
+		}
 
 		renderObj = TEXT
 		renderObj {
@@ -201,6 +254,45 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 
 
+	treeSelect {
+		partialPath = Filter/Options/TreeSelectFilter
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter
+		#dataProviderClassName =
+		defaultValue =
+		filterIdentifier =
+		displayFields =
+		fieldIdentifier =
+
+		label =
+		description =
+
+		multiple = 0
+		excludeFilters =
+		showRowCount = 1
+		submitOnChange = 0
+		inactiveOption =
+		inactiveValue =
+		invert = 0
+		invertable = 0
+		accessGroups =
+
+		treeNodeRepository =
+		treeNamespace =
+		treeMaxDepth =
+		treeRootNode =
+
+		renderObj = TEXT
+		renderObj {
+			dataWrap = ({field:rowCount})
+		}
+
+		breadCrumbString = TEXT
+		breadCrumbString {
+			# Fields that can be used are 'label' and 'value'
+			dataWrap = {field:label} contains {field:value}
+		}
+	}
+
 
 	checkbox {
 		partialPath = Filter/Options/CheckBoxFilter
@@ -211,7 +303,10 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -247,7 +342,10 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -271,7 +369,10 @@ plugin.tx_ptextlist.prototype.filter {
 		}
 	}
 
-
+	link < .button
+	link {
+		partialPath = Filter/Options/LinkFilter
+	}
 
 	radiobutton {
 		partialPath = Filter/Options/RadioButtonFilter
@@ -282,7 +383,10 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -316,8 +420,13 @@ plugin.tx_ptextlist.prototype.filter {
 
 		defaultValue =
 
+		# addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V,W,X,Y,Z
+
 		filterIdentifier =
+
 		label =
+		description =
+
 		fieldIdentifier =
 		displayFields =
 		filterField =
@@ -349,7 +458,10 @@ plugin.tx_ptextlist.prototype.filter {
 		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud
 				
 		filterIdentifier =
-		label = 
+
+		label =
+		description =
+
 		fieldIdentifier =
 		countFieldIdentifier = 
 		

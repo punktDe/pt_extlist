@@ -29,9 +29,10 @@
 /**
  * Testcase for mysql data source
  * 
- * @author Michael Knoll 
- * @package Typo3
- * @subpackage pt_extlist
+ * @author Michael Knoll
+ * @author Daniel Lienert
+ * @package Tests
+ * @subpackage Domain/DataBackend/DataSource
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
 	
@@ -45,13 +46,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
 		$mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
-		$pdo = new PDO();
+		$pdo = new PDO("sqlite::memory:");
 		$mysqlDataSource->injectDbObject($pdo);
 	}
-	
-	
-	
-	public function testExecuteQuery() {
+
+
+	/**
+	 * @test
+	 */
+	public function executeQuery() {
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
@@ -69,14 +72,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
             ->will($this->returnValue($pdoStatementMock));
         
         $mysqlDataSource->injectDbObject($pdoMock);
-        $result = $mysqlDataSource->executeQuery('SELECT * FROM test');
+        $result = $mysqlDataSource->executeQuery('SELECT * FROM test')->fetchAll();
         
-        $this->assertTrue($fakedReturnArray == $result);
+        $this->assertEquals($fakedReturnArray, $result);
 	}
-	
-	
-	
-	public function testErrorOnDbError() {
+
+
+	/**
+	 * @test
+	 */
+	public function errorOnDbError() {
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
         $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
@@ -89,7 +94,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSource_testcase 
         $mysqlDataSource->injectDbObject($pdoMock);
         
         try {
-            $result = $mysqlDataSource->executeQuery('SELECT * FROM test');
+            $result = $mysqlDataSource->executeQuery('SELECT * FROM test')->fetchAll();
         } catch(Exception $e) {
         	return;        
         }

@@ -27,13 +27,14 @@
  ***************************************************************/
 
 /**
- * Class implements data source for typo3 databases
+ * Class implements data source for TYPO3 databases
  * 
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
+class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+	implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
 	
 	/**
 	 * Holds an instance of typo3 db object
@@ -42,45 +43,89 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	 */
 	protected $connection;
 
+
+	/**
+	 * @var pointer		Result pointer / DBAL object
+	 */
+	protected $resource;
+
 	
 	/**
 	 * Injector for database connection object
 	 *
-	 * @param t3lib_DB $dataSource
+	 * @param t3lib_DB $dbObject
 	 */
 	public function injectDbObject($dbObject) {
 		$this->connection = $dbObject;
 	}
-	
-	
+
+
 	/**
-	 * Executes given SQL query
-	 * 
-	 *
-	 * @param string $query SQL query to be executed
+	 * @param $query
+	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
+	 * @throws Exception
 	 */
 	public function executeQuery($query) {
 		
 		try {
-			$res = $this->connection->sql_query($query);
-	        Tx_PtExtbase_Assertions_Assert::isMySQLRessource($res, $this->dbObj);
-	        
-	        $rows = array();
-	        
-	        while (($a_row = $this->connection->sql_fetch_assoc($res)) == true) {
-	            $rows[] = $a_row;
-	        }
-	        
-	        $this->connection->sql_free_result($res);
-	        
-	        return $rows;
-	        
+			$this->resource = $this->connection->sql_query($query);
+	        Tx_PtExtbase_Assertions_Assert::isMySQLRessource($this->resource, $this->dbObj);
+
 		} catch(Exception $e) {
 			throw new Exception('Error while retrieving data from database using typo3 db object.<br> 
 							     Error: ' . $e->getMessage() . ' sql_error says: ' . $this->connection->sql_error() . ' 1280400023<br><br>
 							     SQL QUERY: <br>
-							     </strong><hr>' . nl2br($query) . '<hr><strong>');
+							     </strong><hr>' . nl2br($query) . '<hr><strong>', 1280400023);
 		}
+
+		return $this;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function fetchAll() {
+		$rows = array();
+
+		while (($a_row = $this->connection->sql_fetch_assoc($this->resource)) == true) {
+			$rows[] = $a_row;
+		}
+
+		$this->connection->sql_free_result($this->resource);
+
+		return $rows;
+	}
+
+
+
+	/**
+	 * Return data row as array
+	 *
+	 * @return array
+	 */
+	public function fetchRow() {
+		return $this->connection->sql_fetch_assoc($this->resource);
+	}
+
+
+
+	/**
+	 * Return record count
+	 *
+	 * @return int
+	 */
+	public function count() {
+		return $this->connection->sql_num_rows($this->resource);
+	}
+
+
+
+	/**
+	 * Rewind the cursor to the first row
+	 */
+	public function rewind() {
+		return $this->connection->sql_data_seek($this->resource, 0);
 	}
 }
 ?>

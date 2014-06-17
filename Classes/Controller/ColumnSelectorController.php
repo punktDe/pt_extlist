@@ -43,12 +43,32 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	protected $rendererChain;
 
 
+
+	/**
+	 * Holds an instance of the renderer chain factory
+	 *
+	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+	 */
+	protected $rendererChainFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+	 */
+	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
+		$this->rendererChainFactory = $rendererChainFactory;
+	}
+
+
+
 	/**
 	 * Overwrites initAction for setting properties
 	 * and enabling easy testing
 	 */
-	protected function initializeAction() {
-		$this->rendererChain = Tx_PtExtlist_Domain_Renderer_RendererChainFactory::getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
+	public function initializeAction() {
+        parent::initializeAction();
+		$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
 	}
 
 
@@ -61,9 +81,10 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 	public function showAction() {
 		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
 		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		
+		$columnSelector = Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory::getInstance($this->configurationBuilder);
+
+		$this->view->assign('columnSelector', $columnSelector);
 		$this->view->assign('listHeader', $list->getListHeader());
 		$this->view->assign('listCaptions', $renderedCaptions);
 	}
 }
-?>

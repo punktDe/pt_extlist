@@ -1,0 +1,80 @@
+####################################################
+# This template configures a demolist for use
+# with pt_extlist
+#
+# @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
+# @package Typo3
+# @subpackage pt_extlist
+####################################################
+
+plugin.tx_ptextlist.settings {
+
+	listConfig.demolist_yagitems {
+
+		default.sortingColumn = nameColumn
+
+		# show all items
+		pager.itemsPerPage = 0
+
+		backendConfig < plugin.tx_ptextlist.prototype.backend.typo3
+		backendConfig {
+
+			datasource {
+				# no configuration required here
+			}
+
+			tables (
+				tx_jmgallery_images images
+			)
+		}
+
+		fields {
+			uid {
+				table = images
+				field = uid
+			}
+			pid {
+				table = images
+				field = pid
+			}
+			tstamp {
+				table = images
+				field = tstamp
+			}
+			caption {
+				table = images
+				field = caption
+			}
+			filename {
+				table = images
+				field = caption
+			}
+		}
+
+		columns {
+			10 {
+				label = uid
+				columnIdentifier = uid
+				fieldIdentifier = uid
+			}
+
+			20 {
+				label = pid
+				columnIdentifier = pid
+				fieldIdentifier = pid
+			}
+
+			30 {
+				label = caption
+				columnIdentifier = caption
+				fieldIdentifier = caption
+			}
+		}
+	}
+}
+
+
+plugin.tx_ptextlist.settings.listConfig.demolist_yagcsvexport < plugin.tx_ptextlist.settings.listConfig.demolist_yagitems
+plugin.tx_ptextlist.settings.listConfig.demolist_yagcsvexport {
+	backendConfig.dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3ExportDataBackend_Typo3ExportDataBackend
+}
