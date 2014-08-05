@@ -138,9 +138,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
 	 */
 	protected function setActiveState() {
-		// TODO we don't use this here (so far)
-		// $this->isActive = $this->filterValue != $this->filterConfig->getInactiveValue() ? true : false;
-		$this->isActive = true;
+		$this->isActive = TRUE;
+		if (empty($this->filterValueFrom) && empty($this->filterValueTo)) {
+			$this->isActive = FALSE;
+		}
 	}
 
 
