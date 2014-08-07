@@ -274,6 +274,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		if (count($this->filterValues) > 1){
 			return $this->filterValues;
 		} else {
+			reset($this->filterValues);
 			return current($this->filterValues);
 		}
 	}
