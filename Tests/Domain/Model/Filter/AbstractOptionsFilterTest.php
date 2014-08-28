@@ -52,7 +52,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 	/** @test */
     public function buildFilterQueryBuildsExpectedCriteriasForSingleFilterValue() {
-
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
         $selectFilter->_set('filterValues', array('filterValue' => 'filterValue'));
 		$selectFilter->_set('isActive', TRUE);
@@ -72,7 +71,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 	/** @test */
     public function buildFilterQueryBuildsExpectedCriteriasForMultipleFilterValue() {
-
         $selectFilter = $this->buildAccessibleAbstractGroupDataFilter();
         $selectFilter->_set('filterValues', array('filterValue1', 'filterValue2'));
 		$selectFilter->_set('isActive', TRUE);
@@ -92,7 +90,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 	/** @test */
     public function buildFilterQueryBuildsExpectedCriteriasForSingleFilterValueWhenInverted() {
-
         $filterSettings = array(
             'filterIdentifier' => 'field1',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
@@ -130,7 +127,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
 
 
     public function testAddInactiveOption() {
-
         $settings = array(
             'filterIdentifier' => 'test',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
@@ -178,7 +174,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
                 'displayFields' => 'field1,field2',
                 'filterField' => 'field1'
             ), 'test');
-		$gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter'); /* @var $gpVarAdapterMock Tx_PtExtbase_State_GpVars_GpVarsAdapter */
+		$gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', array(), array(), '', FALSE); /* @var $gpVarAdapterMock Tx_PtExtbase_State_GpVars_GpVarsAdapter */
 
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
