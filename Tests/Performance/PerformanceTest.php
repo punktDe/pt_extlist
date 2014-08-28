@@ -74,6 +74,8 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 	 */
 	public function listDataPerformance($colCount, $rowCount) {
 
+		$this->markTestSkipped('Currently not running on Jenkins, hence skipped.');
+
 		$listSettings = $this->getExtListTypoScript();
 
 		$memoryBefore = memory_get_usage(true);
