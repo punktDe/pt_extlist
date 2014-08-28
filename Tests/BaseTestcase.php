@@ -208,6 +208,9 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 		$dataBackendFactory->injectPagerCollectionFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory'));
 		$dataBackendFactory->injectSorterFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'));
 
+		// TODO we still need this call to resolve the cyclic dependency between databackend factory and filterboxCollectionFactory!
+		$dataBackendFactory->initializeObject();
+
 		return $dataBackendFactory;
 	}
 
