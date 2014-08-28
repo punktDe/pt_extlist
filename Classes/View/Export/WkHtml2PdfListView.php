@@ -132,7 +132,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 
-	private $orient = 'Portrait';
+	protected $orient = 'Portrait';
 
 
 
@@ -156,7 +156,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 
-	private $additionalWkhtmlParams = NULL;
+	protected $additionalWkhtmlParams = NULL;
 
 
 
@@ -188,7 +188,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 	public function initConfiguration() {
 		parent::initConfiguration();
 
-		$this->tempPdfBasePath = PATH_site.'typo3temp';
+		$this->tempPdfBasePath = PATH_site.'typo3temp/';
 
 		$this->cmd = 'wkhtmltopdf';
 		// This method seems not to work to check, whether a command is available in unix
@@ -254,12 +254,12 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 		$addHeader = $addFooter = FALSE;
 
-		if ($this->wkhtmlFooterHtml !== NULL) {
+		if (count($this->wkhtmlFooterHtml) > 0 ) {
 			file_put_contents($htmlDocument . '.footer.html', $this->wkhtmlFooterHtml);
 			$addFooter = TRUE;
 		}
 
-		if ($this->wkhtmlHeaderHtml !== NULL) {
+		if (count($this->wkhtmlHeaderHtml) > 0) {
 			file_put_contents($htmlDocument . '.header.html', $this->wkhtmlHeaderHtml);
 			$addHeader = TRUE;
 		}

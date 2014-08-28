@@ -1,4 +1,4 @@
-jQuery(function($) {
+$(function() {
 	var baseId = "#typo3-ptextlist-filter-daterangedatepicker-" + "###filterIdentifier###".toLowerCase();
 	var altFormat = "yymmdd";
 	var datePickerFromOptions = {

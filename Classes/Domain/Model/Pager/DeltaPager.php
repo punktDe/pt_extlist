@@ -72,13 +72,13 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 		if($this->delta == 0 || $this->delta >= $pageCount) return parent::getPages();
 		
 		$pages = array();
-		
+
 		for($i=1; $i <= $pageCount; $i++) {
-			
+
 			if($i == $pageCount && $this->getUseBackFill()) {
 				$pages['bfi'] = $this->pagerConfiguration->getSettings('fillItem');
 			}
-			
+
 			if(	$i == 1																				// First Element is always visible
 				|| $i <= 1 + $this->firstItemDelta && $this->currentPage == 1						// lastItemDelta before last item is visible
 				|| $i >= $pageCount - $this->lastItemDelta && $this->currentPage == $pageCount		// firstItemDelta after first item is visible
@@ -123,7 +123,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
 	 * @return bool
 	 */
 	protected function fillIsNeeded() {
-		return $this->getPageCount() - (3 + 2 * $this->delta + $this->lastItemDelta + $this->firstItemDelta) > 0;
+		return $this->getPageCount() - (3 + 2 * $this->delta) >= 0;
 	}
 }
 

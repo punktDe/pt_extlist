@@ -129,6 +129,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			
 			if (is_array($filterValues)) {
 				$this->filterValues = array_filter($filterValues);
+
+				if (in_array($this->filterConfig->getInactiveValue(), $this->filterValues)) {
+					$this->filterValues = array($this->filterConfig->getInactiveValue());
+				}
 			} else {
 				$this->filterValues = trim($filterValues) != '' ? array($filterValues => $filterValues) : array();
 			}
@@ -255,7 +259,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			$inactiveValue = $this->filterConfig->getInactiveValue();
 
 			$renderedInactiveOption[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
-        													     'selected' => $selected);
+        													'selected' => $selected);
 
 			$renderedOptions = $renderedInactiveOption + $renderedOptions;
 		}
@@ -274,6 +278,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		if (count($this->filterValues) > 1){
 			return $this->filterValues;
 		} else {
+			reset($this->filterValues);
 			return current($this->filterValues);
 		}
 	}
