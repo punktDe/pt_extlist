@@ -213,6 +213,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
 
 
 	public function testGetDefaultValueMultipleStdWrap() {
+		$this->testingFramework->createFakeFrontEnd(0);
+
 		$filterSettings = $this->filterSettings;
 		$filterSettings['defaultValue'] = array(
 			10 => 'one',
