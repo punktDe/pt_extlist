@@ -177,7 +177,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 
 	public function reset() {}
 
-	public function persistToSession() {}
+	public function _persistToSession() {}
 
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
 
