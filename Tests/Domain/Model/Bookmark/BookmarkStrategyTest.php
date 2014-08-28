@@ -355,7 +355,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 	public function mergeSessionAndBookmarkMergesEmptySessionArrayAndEmptyBookmarkContent(){
 		$this->bookmark->expects($this->once())
 			->method('getContent')
-			->will($this->returnValue(''));
+			->will($this->returnValue('a:0:{}'));
 		$this->bookmark->expects($this->once())
 			->method('getListId')
 			->will($this->returnValue($this->listIdentifier));
