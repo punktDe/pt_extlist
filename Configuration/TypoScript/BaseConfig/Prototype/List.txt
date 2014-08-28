@@ -23,4 +23,6 @@ plugin.tx_ptextlist.prototype.list {
 	useIterationListData = 0
 
 	pagerIdentifier = default
+
+
 }

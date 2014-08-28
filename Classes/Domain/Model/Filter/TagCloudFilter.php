@@ -50,7 +50,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	protected $maxItems;
 
 
-	
+
 	/**
 	 * Minimum font Size 
 	 * @var int
@@ -58,13 +58,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	protected $minSize;
 
 
-	
+
 	/**
 	 * Maximum font Size 
 	 * @var int
 	 */	
 	protected $maxSize;
-	
+
 
 
 	/**
@@ -74,7 +74,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	protected $minColor = array();
 
 
-	
+
 	/**
 	 * Maximum color as integer 
 	 * @var array
@@ -82,16 +82,14 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	protected $maxColor = array();
 
 
-	
+
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
-	protected function initFilter() {
-
-	}
+	protected function initFilter() {}
 
 
-	
+
 	protected function initFilterByTsConfig() {
 		parent::initFilterByTsConfig();
 		
@@ -114,7 +112,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	}
 
 
-	
+
 	/**
 	 * Init the Color range
 	 */
@@ -128,9 +126,9 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 		$this->minColor = array(hexdec(substr($minColorHex,0,2)), hexdec(substr($minColorHex,2,2)), hexdec(substr($minColorHex,4,2)));
 		$this->maxColor  = array(hexdec(substr($maxColorHex,0,2)), hexdec(substr($maxColorHex,2,2)), hexdec(substr($maxColorHex,4,2)));
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns an associative array of options as possible filter values
 	 *
@@ -148,8 +146,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 		return $renderedOptions;
 	}
 
-	
-	
+
+
 	protected function addTagCloudMetaDataToOptions(&$renderedOptions) {
 		$renderedOptions = array_slice($renderedOptions, 0, $this->maxItems, true);
 		
@@ -181,7 +179,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	}
 
 
-	
+
 	/**
 	 * Calculate color
 	 * 
@@ -204,5 +202,5 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 		
 		return $color;
 	}
-	
+
 }

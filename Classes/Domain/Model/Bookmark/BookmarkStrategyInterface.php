@@ -35,7 +35,6 @@
  */
 interface Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface {
 
-
 	/**
 	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
 	 * @param array $sessionData

@@ -46,6 +46,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
 
 
 	public function setup() {
+
+		parent::setup();
+
 		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 		$this->filterSettings = array(
 			'breadCrumbString' => 'breadCrumbString',
@@ -176,6 +179,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
 	 * @test
 	 */
 	public function getDefaultValueSingleStdWrap() {
+		$this->testingFramework->createFakeFrontEnd(0);
 
 		$filterSettings = $this->filterSettings;
 
@@ -209,7 +213,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
 
 
 	public function testGetDefaultValueMultipleStdWrap() {
-
 		$filterSettings = $this->filterSettings;
 		$filterSettings['defaultValue'] = array(
 			10 => 'one',

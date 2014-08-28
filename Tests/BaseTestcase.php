@@ -37,8 +37,12 @@
 abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
 
 	protected $extBaseSettings = array();
-    
-    
+
+	/**
+	 * @var Tx_Phpunit_Framework
+	 */
+	protected $testingFramework;
+
     
     protected $extBaseSettingsString = '
     plugin.tx_ptextlist.settings.persistence.storagePid = 12
@@ -104,7 +108,8 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 		$typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser'); /* @var $typoScriptParser t3lib_TSparser */
         $typoScriptParser->parse($this->extBaseSettingsString);
         $this->extBaseSettings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
-        
+
+		$this->testingFramework = new Tx_Phpunit_Framework('pt_extlist');
 	}
 	
 	

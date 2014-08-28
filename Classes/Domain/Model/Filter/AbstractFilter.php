@@ -79,19 +79,19 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @var array
 	 */
-	protected $sessionFilterData;
-
-
-
+	protected $sessionFilterData = array();
+	
+	
+	
 	/**
 	 * Holds data from GP vars submitted for this filter
 	 *
 	 * @var array
 	 */
-	protected $gpVarFilterData;
-
-
-
+	protected $gpVarFilterData = array();
+	
+	
+	
 	/**
 	 * Get/Post vars adapter
 	 *
@@ -665,6 +665,15 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	protected function resetGpVarDataForFilter() {
 		$this->gpVarFilterData = array();
+	}
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getGPVarFilterData() {
+		return $this->gpVarFilterData;
 	}
 
 

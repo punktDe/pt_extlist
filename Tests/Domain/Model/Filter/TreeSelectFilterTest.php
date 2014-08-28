@@ -74,6 +74,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
 		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
 			$this->configurationBuilderMock,
 			array(
+				'treeNamespace' => 'test',
 				'filterIdentifier' => 'test',
 				'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter',
 				'partialPath' => 'Filter/SelectFilter',
@@ -174,6 +175,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
 		$actual = $this->accessibleFilterProxy->_call('getFilterNodeUIds');
 
 		$this->assertEquals(sort($expected), sort($actual));
+	}
+
+
+
+	/**
+	 * @test
+	 */
+	public function getDisplayValueChecksIfGetNodeByUidReturnsANodeInstance() {
+		$this->accessibleFilterProxy->_set('tree', $this->createDemoTree());
+		$this->accessibleFilterProxy->_set('filterValues', array(NULL));
+		$this->accessibleFilterProxy->getDisplayValue();
 	}
 
 

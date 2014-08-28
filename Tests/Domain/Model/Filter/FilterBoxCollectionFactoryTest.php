@@ -29,23 +29,23 @@
 
 /**
  * Class implements testcase for filterbox collection factory
- * 
- * @author Michael Knoll 
+ *
+ * @author Michael Knoll
  * @package Typo3
  * @subpackage pt_extlist
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-    
-    public function testCreateInstanceByFilterboxConfigurationCollection() {
-    	$this->initDefaultConfigurationBuilderMock();
+
+	public function testCreateInstanceByFilterboxConfigurationCollection() {
+		$this->initDefaultConfigurationBuilderMock();
 
 		// Initialize singleton instance of databackend
 		$dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock, $this->configurationBuilderMock->getListIdentifier());
 
 		$filterboxCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
 		$filterboxCollectionFactory->setDataBackendFactory($dataBackendFactoryMock);
-        $filterboxCollection = $filterboxCollectionFactory->createInstance($this->configurationBuilderMock, false);
+		$filterboxCollection = $filterboxCollectionFactory->createInstance($this->configurationBuilderMock, false);
 		$this->assertSame($this->configurationBuilderMock->getListIdentifier(), $filterboxCollection->getListIdentifier());
-    }
-    
+	}
+
 }

@@ -26,12 +26,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+
 /**
  * Interface for all filter classes
  *
  * @package Domain
  * @subpackage Model\Filter
- * @author Michael Knoll 
+ * @author Michael Knoll
  */
 interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
 	Tx_PtExtbase_State_Session_SessionPersistableInterface,
@@ -43,9 +45,9 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 */
 	public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
-	
-	
-	
+
+
+
 	/**
 	 * Injector for get / post vars adapter
 	 *
@@ -53,13 +55,13 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
 	 */
 	public function _injectGpVarsAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter);
 
-	
-	
+
+
 	/**
-     * Injector for associated data backend
-     *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-     */
+	 * Injector for associated data backend
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+	 */
 	public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
 
 
@@ -71,112 +73,119 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
 	 */
 	public function _injectFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox);
 
-	
-	
+
+
 	/**
 	 * Returns identifier of filter
-	 * 
+	 *
 	 * @return string Identifier of filter
 	 */
 	public function getFilterIdentifier();
-	
-	
-	
+
+
+
 	/**
 	 * Returns identifier of associated list
-	 * 
+	 *
 	 * return @string Identifier of associated list
 	 */
 	public function getListIdentifier();
-	
-	
-	
+
+
+
 	/**
 	 * Returns Identifier of filterbox to which this filter belongs
 	 *
 	 * @return string Identifier of filterbox to which this filter belongs
 	 */
 	public function getFilterBoxIdentifier();
-	
-	
-	
+
+
+
 	/**
 	 * Returns query object for this filter
-	 * 
-     * @return Tx_PtExtlist_Domain_QueryObject_Query Query object that describes criterias for this filter
+	 *
+	 * @return Tx_PtExtlist_Domain_QueryObject_Query Query object that describes criterias for this filter
 	 */
 	public function getFilterQuery();
-	
-	
-	
+
+
+
 	/**
 	 * Initializes filter settings
-	 * 
+	 *
 	 * @return void
 	 */
 	public function init();
-	
-	
-	
+
+
+
 	/**
 	 * Resets filter
 	 *
 	 * @return void
 	 */
 	public function reset();
-	
-	
-	
+
+
+
 	/**
-	 * Checks whether a filter validates. 
-	 * 
+	 * Checks whether a filter validates.
+	 *
 	 * @return bool True, if filter validates
 	 */
 	public function validate();
-	
-	
-	
+
+
+
 	/**
 	 * Returns validation error for this filter
-	 * 
+	 *
 	 * @return string Error message for filter
 	 */
 	public function getErrorMessage();
-	
-	
-	
+
+
+
 	/**
-     * Returns filter configuration of this filter
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
-     */
-    public function getFilterConfig();
-    
-    
-    
-    /**
-     * Returns filter breadcrumb for this filter
-     * 
-     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
-     */
-    public function getFilterBreadCrumb();
-    
-    
-    
-    /**
-     * Returns true, if filter is active
-     * 
-     * @return bool True, if filter is active
-     */
-    public function isActive();
-	
-    
-    
-    /**
-     * Returns the current filter values of this filter
-     * 
-     * @return mixed
-     */
-    public function getValue();
+	 * Returns filter configuration of this filter
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+	 */
+	public function getFilterConfig();
+
+
+
+	/**
+	 * Returns filter breadcrumb for this filter
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+	 */
+	public function getFilterBreadCrumb();
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getGPVarFilterData();
+
+
+
+	/**
+	 * Returns true, if filter is active
+	 *
+	 * @return bool True, if filter is active
+	 */
+	public function isActive();
+
+
+
+	/**
+	 * Returns the current filter values of this filter
+	 *
+	 * @return mixed
+	 */
+	public function getValue();
 
 }

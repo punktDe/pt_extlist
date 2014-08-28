@@ -333,8 +333,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	public function getDisplayValue() {
 		$displayValues = array();
 
-		foreach ($this->filterValues as $value) {
-			$displayValues[] = $this->tree->getNodeByUid($value)->getLabel();
+		foreach($this->filterValues as $value) {
+			$node = $this->tree->getNodeByUid($value);
+			if ($node instanceof Tx_PtExtbase_Tree_Node) {
+				$displayValues[] = $node->getLabel();
+			}
 		}
 
 		return implode(', ', $displayValues);

@@ -107,8 +107,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 
 		$sqlQuerySettings = $this->filterConfig->getSettings('optionsSqlQuery');
 
-		foreach ($sqlQuerySettings as $type => $part) {
-			$sqlQuerySettings[$type] = trim($part);
+		foreach($sqlQuerySettings as $type => $part) {
+			if (!is_array($part)) {
+				$sqlQuerySettings[$type] = trim($part);
+			}
 		}
 
 		if ($sqlQuerySettings['select']) $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
@@ -157,14 +159,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	 */
 	protected function renderOptionData($optionData) {
 		$values = array();
-		foreach ($this->displayFields as $displayField) {
-			$values[] = $optionData[$displayField];
+		if (is_array($this->displayFields)) {
+			foreach ($this->displayFields as $displayField) {
+				$values[] = $optionData[$displayField];
+			}
 		}
-
 		$optionData['allDisplayFields'] = implode(' ', $values);
-
 		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
-
 		return $option;
 	}
 

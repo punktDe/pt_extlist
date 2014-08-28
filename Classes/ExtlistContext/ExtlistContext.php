@@ -325,10 +325,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns rendered list data for this list context
 	 *
+	 * @param bool $buildNew If set to TRUE, the list data is rebuild
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
-	public function getRenderedListData() {
-		return $this->getList()->getRenderedListData();
+	public function getRenderedListData($buildNew = FALSE) {
+		return $this->getList($buildNew)->getRenderedListData();
 	}
 
 
@@ -353,8 +354,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
 	 */
 	public function getFilterByFullFiltername($fullFilterName) {
-		#list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
-		#$filterbox = $this->getFilterBoxCollection()->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
 		$filter = $this->getFilterBoxCollection()->getFilterByFullFiltername($fullFilterName);
 		return $filter;
 	}
@@ -456,6 +455,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	}
 
 
+
 	/**
 	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark Bookmark to be stored to database(This bookmark does not contain session data yet)
 	 */
@@ -492,4 +492,5 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	public function removeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark) {
 		$this->bookmarkManager->removeBookmark($bookmark);
 	}
+
 }

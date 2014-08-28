@@ -90,6 +90,24 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 	/**
+	 * Holds static HTML source to be rendered as footer for output PDF
+	 *
+	 * @var string
+	 */
+	public $wkhtmlFooterHtml;
+
+
+
+	/**
+	 * Holds static HTML source to be rendered as header of output PDF
+	 *
+	 * @var string
+	 */
+	private $wkhtmlHeaderHtml;
+
+
+
+	/**
 	 * Path to fluid template
 	 *
 	 * @var string
@@ -114,7 +132,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 
-	private $orient = 'Portrait';
+	protected $orient = 'Portrait';
 
 
 
@@ -135,6 +153,10 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 
 
 	private $title = '';
+
+
+
+	protected $additionalWkhtmlParams = NULL;
 
 
 
@@ -166,7 +188,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 	public function initConfiguration() {
 		parent::initConfiguration();
 
-		$this->tempPdfBasePath = PATH_site.'typo3temp';
+		$this->tempPdfBasePath = PATH_site.'typo3temp/';
 
 		$this->cmd = 'wkhtmltopdf';
 		// This method seems not to work to check, whether a command is available in unix
@@ -230,7 +252,22 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 	private function runWkHtmlCommand($htmlDocument, $html) {
 		file_put_contents($htmlDocument, $html);
 
-		$wkCommand = '"' . $this->cmd . '"'							// page borders TODO make this configurable!
+		$addHeader = $addFooter = FALSE;
+
+		if (count($this->wkhtmlFooterHtml) > 0 ) {
+			file_put_contents($htmlDocument . '.footer.html', $this->wkhtmlFooterHtml);
+			$addFooter = TRUE;
+		}
+
+		if (count($this->wkhtmlHeaderHtml) > 0) {
+			file_put_contents($htmlDocument . '.header.html', $this->wkhtmlHeaderHtml);
+			$addHeader = TRUE;
+		}
+
+		$wkCommand = '"' . $this->cmd . '"'
+			. ($addFooter ? ' --footer-html ' . $htmlDocument . '.footer.html' : '')
+			. ($addHeader ? ' --header-html ' . $htmlDocument . '.header.html' : '')
+			. (($this->additionalWkhtmlParams !== NULL) ? ' ' . $this->additionalWkhtmlParams : '')
 			. (($this->copies > 1) ? ' --copies ' . $this->copies : '') 		// number of copies
 			. ' --orientation ' . $this->orient 								// orientation
 			. ' --page-size ' . $this->size 									// page size
@@ -256,6 +293,14 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 		$this->status = $this->pdf['stderr'];
 		$this->pdf = $this->pdf['stdout'];
 		unlink($htmlDocument);
+
+		if ($addFooter) {
+			unlink($htmlDocument . '.footer.html');
+		}
+
+		if ($addHeader) {
+			unlink($htmlDocument . '.header.html');
+		}
 
 		return $wkCommand;
 	}
@@ -369,6 +414,12 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 		$this->cssFilePath = t3lib_div::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), array('message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627'));
 
+		$this->additionalWkhtmlParams = $this->exportConfiguration->getSettings('additionalWkhtmlParams');
+
+		$this->wkhtmlHeaderHtml = $this->exportConfiguration->getSettings('wkhtmlHeaderHtml');
+
+
+		$this->wkhtmlFooterHtml = $this->exportConfiguration->getSettings('wkhtmlFooterHtml');
 	}
 
 }

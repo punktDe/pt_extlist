@@ -36,7 +36,6 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 
-
 	/**
 	 * Holds identifier of field that should be filtered
 	 *
@@ -57,6 +56,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 * @var string
 	 */
 	protected $proxyFilterBoxIdentifier;
+
 
 
 
@@ -109,8 +109,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
-	protected function initFilter() {
-	}
+	protected function initFilter() {}
 
 
 
@@ -138,7 +137,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		foreach ($criterias as $criteria) {
 			/* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
 			if (get_class($criteria) != 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria') {
-				throw new Exception('Only simple criterias are supported at the moment in proxy filters. 1302864386');
+				throw new Exception('Only simple criterias are supported at the moment in proxy filters.', 1302864386);
 			}
 
 			$proxyQuery->addCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($this->filterConfig->getFieldIdentifier()->getItemByIndex(0)->getTableFieldCombined(),
@@ -174,33 +173,22 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterBySession()
 	 *
 	 */
-	protected function initFilterBySession() {
-	}
+	protected function initFilterBySession() {}
 
+	public function reset() {}
 
+	public function persistToSession() {}
 
-	public function reset() {
-	}
-
-
-
-	public function _persistToSession() {
-	}
-
-
-
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
-	}
+	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
 
 
 
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
-	 *
 	 */
 	protected function initFilterByTsConfig() {
 		$filterSettings = $this->filterConfig->getSettings();
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterSettings['proxyPath'], array('message' => 'No proxy path to the proxy filter set. 1288033657'));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterSettings['proxyPath'], array('message' => 'No proxy path to the proxy filter set.', 1288033657));
 
 		$this->setProxyConfigFromProxyPath(trim($filterSettings['proxyPath']));
 	}
@@ -211,7 +199,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		list($this->proxyListIdentifier, $this->proxyFilterBoxIdentifier, $this->proxyFilterIdentifier) = explode('.', $proxyPath);
 
 		if (!$this->proxyListIdentifier || !$this->proxyFilterBoxIdentifier || !$this->proxyFilterIdentifier) {
-			throw new Exception("Either proxyListIdentifier, proxyFilterBoxIdentifier or proxyFilterIdentifier not given! 1288352507");
+			throw new Exception("Either proxyListIdentifier, proxyFilterBoxIdentifier or proxyFilterIdentifier not given!", 1288352507);
 		}
 	}
 
@@ -246,7 +234,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 		$realFilterObject = $this->filterFactory->createInstance($realFilterConfig);
 
 		if (!is_a($realFilterObject, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface')) {
-			throw new Exception('The real filter object of type "' . get_class($realFilterObject) . '" is not a filter. 1302854030');
+			throw new Exception('The real filter object of type "' . get_class($realFilterObject) . '" is not a filter.', 1302854030);
 		}
 
 		return $realFilterObject;

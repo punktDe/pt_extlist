@@ -99,7 +99,6 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extend
 		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
 		$dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
 
-
         $accesibleFirstLetterDataProvider->_injectDataBackend($dataBackend);
 		$accesibleFirstLetterDataProvider->_injectFilterConfig($filterConfiguration);
 		$accesibleFirstLetterDataProvider->init();

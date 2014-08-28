@@ -96,5 +96,21 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest extends Tx_PtE
         $baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
         $this->assertEquals($baseConfig->getResetOnEmptySubmit(), false);
     }
+
+	/** @test */
+	public function getResetSessionOnResetParameterReturnsTrueIfSetInSettingsArray() {
+		$this->configArray['resetSessionOnResetParameter'] = '1';
+		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
+		$this->assertEquals($baseConfig->getResetSessionOnResetParameter(), true);
+	}
+
+
+
+	/** @test */
+	public function getResetSessionOnResetParameterReturnsFalseIfNotSetInSettingsArray() {
+		$this->configArray['resetSessionOnResetParameter'] = null;
+		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
+		$this->assertEquals($baseConfig->getResetSessionOnResetParameter(), false);
+	}
 	
 }

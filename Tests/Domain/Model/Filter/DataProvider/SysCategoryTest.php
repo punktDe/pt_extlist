@@ -2,8 +2,8 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
+ *  (c) 2010-2014 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
+ *  Authors: Daniel Lienert
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -26,39 +26,43 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
-
 /**
- * Testcase for pt_list dummy data backend object.
+ * Testcase for sysCategory dataprovider class
  *
- * @author Michael Knoll
- * @author Christoph Ehscheidt
- * @package Test
- * @subpackage Domain\DataBackend
+ * @package Tests
+ * @subpackage Somain\Model\Filter\DataProvider
+ * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackendTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_SysCategoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
-	 * Holds an instance of data backend class to be tested
-	 *
-	 * @var Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
+	 * @var string
 	 */
-	protected $dataBackend;
+	protected $dataProviderClassName = '\PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\SysCategory';
 
+
+	protected $defaultFilterSettings = array(
+               'filterIdentifier' => 'tagCloudTest', 
+               'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
+               'partialPath' => 'Filter/Options/TagCloudFilter',
+               'fieldIdentifier' => 'field1',
+               'displayFields' => 'field1',
+               'filterField' => 'field3',
+               'invert' => '0'
+       		 );
 
 
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
-		$this->dataBackend = new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend($this->configurationBuilderMock);
 	}
-
 
 
 	/**
 	 * @test
 	 */
-	public function bookmarkManagerCanBeInjectedVia_injectBookmarkManager() {
-		$this->dataBackend->_injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager', array(), array('testList')));
+	public function classExists() {
+		$this->assertTrue (class_exists($this->dataProviderClassName), 'CategoryDataProvider ' . $this->dataProviderClassName . ' class not found.');
 	}
 
 }
+?>

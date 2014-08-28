@@ -27,11 +27,8 @@
  ***************************************************************/
 
 /**
- * 
- * TODO: Enter description here !!!
  * @package Domain
  * @subpackage Security
- *
  */
 interface Tx_PtExtlist_Domain_Security_SecurityInterface  {
 

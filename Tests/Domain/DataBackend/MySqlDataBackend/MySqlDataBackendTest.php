@@ -153,7 +153,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$dataBackend->_injectPagerCollection($pagerCollectionMock);
 		$dataBackend->init();
 		$baseWhereClause = $dataBackend->getBaseWhereClause();
-		$this->assertTrue($baseWhereClause == $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['baseWhereClause']);
+		$this->assertEquals($baseWhereClause, $this->tsConfig['plugin']['tx_ptextlist']['settings']['listConfig']['list1']['backendConfig']['baseWhereClause']);
 	}
 	
 	
@@ -168,7 +168,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$filterMock = $this->getFilterMockByCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'testValue', '='));
 		
 		$filterWhereClause = $dataBackend->getWhereClauseFromFilter($filterMock);
-		$this->assertTrue($filterWhereClause == 'test = "testValue"', 'Filter where clause was expected to be <test = "testValue"> but was ' . $filterWhereClause);
+		$this->assertEquals("test = 'testValue'", $filterWhereClause);
 	}
 
 
@@ -253,7 +253,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
         $dataBackend->_injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array($this->configurationBuilder));
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage', 'getItemOffset'), array($this->configurationBuilder));
         $pagerCollectionMock->expects($this->any())
             ->method('getCurrentPage')
             ->will($this->returnValue(10));
@@ -263,6 +263,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
         $pagerCollectionMock->expects($this->once())
             ->method('isEnabled')
             ->will($this->returnValue(true));
+		$pagerCollectionMock->expects($this->once())
+			->method('getItemOffset')
+			->will($this->returnValue(90));
         
         $dataBackend->_injectPagerCollection($pagerCollectionMock);
             
@@ -340,17 +343,20 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$dataSourceMock->expects($this->once())
 			->method('fetchAll')
 			->will($this->returnValue($dataSourceReturnArray));
-            
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array($this->configurationBuilder));
-        $pagerCollectionMock->expects($this->any())
-            ->method('getCurrentPage')
-            ->will($this->returnValue(10));
-        $pagerCollectionMock->expects($this->any())
-            ->method('getItemsPerPage')
-            ->will($this->returnValue(10));
-        $pagerCollectionMock->expects($this->once())
-            ->method('isEnabled')
-            ->will($this->returnValue(true));
+
+		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage', 'getItemOffset'), array($this->configurationBuilder));
+		$pagerCollectionMock->expects($this->any())
+			->method('getCurrentPage')
+			->will($this->returnValue(10));
+		$pagerCollectionMock->expects($this->any())
+			->method('getItemsPerPage')
+			->will($this->returnValue(10));
+		$pagerCollectionMock->expects($this->once())
+			->method('isEnabled')
+			->will($this->returnValue(true));
+		$pagerCollectionMock->expects($this->once())
+			->method('getItemOffset')
+			->will($this->returnValue(90));
 
         $sortingStateCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection', array('getSortingsQuery'), array(), '', FALSE);
         $sortingStateCollectionMock->expects($this->any())->method('getSortingsQuery')->will($this->returnValue(new Tx_PtExtlist_Domain_QueryObject_Query()));
@@ -460,14 +466,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 	
 	
 
-	public function testCreateDataSource() {
-		/* PROBLEM: PDO is not installed on devel server */
-		// hint: Database parameters are taken from current T3 database configuration
-		#$dataSource = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend::createDataSource($this->configurationBuilder);
-		#$this->assertTrue(is_a($dataSource, 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
-	}
-
-
 
 	/** @test */
 	public function convertTableFieldToAliasReturnsExpectedStrings() {
@@ -566,9 +564,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 	
 	
 
-	/** @test */
+	/**
+	 * @test
+	 */
 	public function buildAggregateSqlByConfigCollectionReturnsExpectedSql() {
 		$configOverwrite['listConfig']['test']['aggregateData']['sumField1'] = array('scope' => 'query', 'special' => 'special');
+
 		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL, $configOverwrite);
 		$aggConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory::getInstance($configurationBuilderMock);
 		$dataBackend = $this->getDataBackend($configurationBuilderMock);
@@ -578,14 +579,22 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 
         $dataBackend->_injectFilterboxCollection($filterboxCollectionMock);
 
-		$sql = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
+		$actual = $dataBackend->_call('buildAggregateSQLByConfigCollection', $aggConfigCollection);
 
-		$this->assertEquals('SELECT special AS sumField1, AVG(field2) AS avgField2 
- FROM (SELECT tableName1.fieldName1 AS field1, tableName2.fieldName2 AS field2, (special) AS field3, tableName4.fieldName4 AS field4 
-FROM companies 
-WHERE employees > 0 
-GROUP BY company 
-)  AS AGGREGATEQUERY', $sql);
+		$expected = "SELECT special AS sumField1, AVG(field2) AS avgField2
+ FROM (SELECT tableName1.fieldName1 AS field1, tableName2.fieldName2 AS field2, (special) AS field3, tableName4.fieldName4 AS field4
+FROM companies
+WHERE employees > 0
+GROUP BY company
+)  AS AGGREGATEQUERY";
+
+		$expected = preg_replace('/[\n\r]/',' ',$expected);
+		$expected = trim(preg_replace('/\s\s+/', ' ', $expected));
+
+		$actual = preg_replace('/[\n\r]/',' ',$actual);
+		$actual = trim(preg_replace('/\s\s+/', ' ', $actual));
+
+		$this->assertEquals($expected, $actual);
 	}
 
 

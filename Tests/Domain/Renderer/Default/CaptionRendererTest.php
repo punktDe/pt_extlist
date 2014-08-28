@@ -98,16 +98,15 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 		// we need to give a list to the renderer
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
 		$listHeader->addHeaderColumn($headerColumn, 'test');
-		
-		
+
 		$captions = $this->captionRenderer->renderCaptions($listHeader);
 
-		
+
 		$this->assertEquals('TEST', $captions->getItemByIndex(0)->getValue());
 	}
-	
-	
-	
+
+
+
 	/** @test */
 	public function renderCaptionsCreatesSimpleTsLabels() {
 		$ts = array('10' => array(
@@ -139,9 +138,9 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 		
 		$captions = $captionRenderer->renderCaptions($listHeader);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns configured mocks
 	 *
@@ -160,5 +159,5 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 		
 		return $columnConfig;
 	} 
-	
+
 }

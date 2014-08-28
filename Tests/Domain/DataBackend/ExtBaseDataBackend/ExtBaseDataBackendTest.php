@@ -172,26 +172,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     	}
     	$this->fail('No exception has been thrown when trying to inject wrong type of data source object');
     }
-    
-    
-    
-    public function testGetListData() {
-    	$extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
 
-        $sorterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_Sorter', array('getSortingStateCollection'), array(), '', FALSE);
-        $sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue($sortingStateCollectionMock));
-        $extBaseDataBackend->_injectSorter($sorterMock);
-
-        $mapperMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper', array('getMappedListData'), array(), '', FALSE);
-        $mapperMock->expects($this->any())
-            ->method('getMappedListData')
-            ->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_List()));
-        $extBaseDataBackend->_injectDataMapper($mapperMock);
-        
-        $listData = $extBaseDataBackend->getListData();
-    }
-    
-    
 
 	/** @test */
     public function getTotalItemsCountReturnsExpectedCount() {

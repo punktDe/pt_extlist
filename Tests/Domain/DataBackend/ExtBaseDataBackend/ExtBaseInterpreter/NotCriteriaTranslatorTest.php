@@ -49,10 +49,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $operand2 = $this->getMock('Tx_Extbase_Persistence_QOM_DynamicOperandInterface');
         $extbaseQueryInnerConstraint = new Tx_Extbase_Persistence_QOM_Comparison($operand1, 2, $operand2);
 
-        $extbaseQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint', 'matching', 'logicalAnd', 'logicalNot'));
+        $extbaseQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint', 'matching', 'logicalAnd', 'logicalNot'), array('any'));
         $extbaseQueryMock->expects($this->any())->method('getConstraint')->will($this->returnValue($extbaseQueryInnerConstraint));
 
-        $tmpQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint'), array(), '', FALSE);
+        $tmpQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint'), array('any'), '', FALSE);
         $tmpQueryMock->expects($this->at(0))->method('getConstraint')->will($this->returnValue(null));
 
         $extbaseRepositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array('createQuery'), array(), '', FALSE);

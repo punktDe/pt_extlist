@@ -54,8 +54,8 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 	public function getExtensionSummary($params, &$pObj) {
 		$data = t3lib_div::xml2array($params['row']['pi_flexform']);
 		$this->init($data);
-		
-		if(is_array($data)) {		
+
+		if(is_array($data)) {
 			// PluginMode
 			$firstControllerAction = array_shift(explode(';', $data['data']['sDefault']['lDEF']['switchableControllerActions']['vDEF']));
 			$this->pluginMode = str_replace('->', '_', $firstControllerAction);
@@ -64,15 +64,15 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 			$listIdentifier = $data['data']['sDefault']['lDEF']['settings.listIdentifier']['vDEF'];
 			
 			// Filter
-			$filterBoxIdentifier = $data['data']['filterbox']['lDEF']['settings.filterboxIdentifier']['vDEF'];
+			$filterBoxIdentifier = $data['data']['sDefault']['lDEF']['settings.filterboxIdentifier']['vDEF'];
 			
 			// Export
-			$exportType = array_pop(explode('.',$data['data']['export']['lDEF']['settings.controller.List.export.view']['vDEF']));
-			$exportFileName = $data['data']['export']['lDEF']['settings.prototype.export.fileName']['vDEF'];
-			$exportFileName .= $data['data']['export']['lDEF']['settings.prototype.export.addDateToFilename']['vDEF'] ? '[DATE]' : '';
-			$exportFileName .= '.' . $data['data']['export']['lDEF']['settings.prototype.export.fileExtension']['vDEF'];
-			$exportDownloadType = 'tx_ptextlist_flexform_export.downloadtype.'.$data['data']['export']['lDEF']['settings.prototype.export.downloadType']['vDEF'];
-			$exportListIdentifier = $data['data']['export']['lDEF']['settings.exportListIdentifier']['vDEF'];
+			$exportType = array_pop(explode('.',$data['data']['sDefault']['lDEF']['settings.controller.List.export.view']['vDEF']));
+			$exportFileName = $data['data']['sDefault']['lDEF']['settings.prototype.export.fileName']['vDEF'];
+			$exportFileName .= $data['data']['sDefault']['lDEF']['settings.prototype.export.addDateToFilename']['vDEF'] ? '[DATE]' : '';
+			$exportFileName .= '.' . $data['data']['sDefault']['lDEF']['settings.prototype.export.fileExtension']['vDEF'];
+			$exportDownloadType = 'tx_ptextlist_flexform_export.downloadtype.'.$data['data']['sDefault']['lDEF']['settings.prototype.export.downloadType']['vDEF'];
+			$exportListIdentifier = $data['data']['sDefault']['lDEF']['settings.exportListIdentifier']['vDEF'];
 		}
 		
 		$this->fluidRenderer->assign($this->pluginMode, true);

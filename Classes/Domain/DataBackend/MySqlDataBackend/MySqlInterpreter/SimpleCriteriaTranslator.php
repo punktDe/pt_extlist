@@ -35,15 +35,11 @@
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
 
-
-
 	/**
 	 * translate simple criteria
 	 *
 	 * @param \Tx_PtExtlist_Domain_QueryObject_Criteria|\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
 	 * @return string
-	 * @author Daniel Lienert
-	 * @since 26.07.2010
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
 		return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());
@@ -64,16 +60,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 		if (is_array($value)) {
 			$escapedValues = $connection->fullQuoteArray($value, '');
 			$returnString = '(' . implode(',', $escapedValues) . ')';
-
 		} elseif(is_numeric($value)) {
 			$returnString = $value;
-
 		} else {
 			$returnString = $connection->fullQuoteStr($value, '');
-
 		}
 
 		return $returnString;
 	}
 }
-?>

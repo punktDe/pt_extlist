@@ -67,7 +67,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 		/* @var $dataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
 
 		$dataProvider->_injectFilterConfig($filterConfig);
-        $dataProvider->_injectDataBackend($this->dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
+		$dataProvider->_injectDataBackend($this->dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
 		$dataProvider->init();
 
 		return $dataProvider;
@@ -95,5 +95,5 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataProviderClassName), array('message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558'));
 		return $dataProviderClassName;
 	}
-	
+
 }

@@ -224,7 +224,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     protected function setLimitOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query) {
         if ($this->pagerCollection->isEnabled()) {
             $limitPart = '';
-            $pagerOffset = intval($this->pagerCollection->getCurrentPage() - 1) * intval($this->pagerCollection->getItemsPerPage());
+            $pagerOffset = $this->pagerCollection->getItemOffset();
             $pagerLimit = intval($this->pagerCollection->getItemsPerPage());
             $limitPart .= $pagerOffset > 0 ? $pagerOffset . ':' : '';
             $limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
@@ -308,12 +308,16 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$query = new Tx_PtExtlist_Domain_QueryObject_Query();
 	    
 	    foreach($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+
             foreach($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
             	if (!is_array($excludeFilters[$filterbox->getfilterboxIdentifier()]) || !in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
-                    $criterias = $filter->getFilterQuery()->getCriterias();
-                    foreach($criterias as $criteria) {
+
+					$criterias = $filter->getFilterQuery()->getCriterias();
+
+					foreach($criterias as $criteria) {
                     	$query->addCriteria($criteria);
                     }
+
                 }
             }
         }
