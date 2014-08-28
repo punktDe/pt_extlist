@@ -60,6 +60,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 
 	/**
+	 * TODO probably this is never used --> remove it!
+	 *
 	 * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
 	 */
 	protected $instances = array();
@@ -85,6 +87,15 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @var Tx_Extbase_Object_ObjectManager
 	 */
 	protected static $staticObjectManager;
+
+
+
+	/**
+	 * Resets the cached extlist context instances
+	 */
+	public static function resetInstances() {
+		self::$staticInstances = array();
+	}
 
 
 
