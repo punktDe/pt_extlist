@@ -44,13 +44,6 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements t3lib_Sing
 
 
 	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	private $configurationBuilder;
-
-
-
-	/**
 	 * @param Tx_Extbase_Object_ObjectManager $objectManager
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
@@ -81,13 +74,4 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements t3lib_Sing
 		return $dataMapper;
 	}
 
-
-
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-	}
-	
 }

@@ -308,7 +308,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory extends Tx_PtExtlist_Do
 
 
 	private function getDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->dataMapperFactory->_injectConfigurationBuilder($configurationBuilder);
 		$dataMapper = $this->dataMapperFactory->createDataMapper($configurationBuilder);
 		return $dataMapper;
 	}
