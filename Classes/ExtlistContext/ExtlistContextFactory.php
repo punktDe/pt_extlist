@@ -91,15 +91,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 
 	/**
-	 * Resets the cached extlist context instances
-	 */
-	public static function resetInstances() {
-		self::$staticInstances = array();
-	}
-
-
-
-	/**
 	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager){

@@ -79,8 +79,6 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 		$memoryBefore = memory_get_usage(true);
 		$timeBefore = microtime(true);
 
-		// TODO we are calling a static method on an object here... make this non-static and remove static methods from extlist context factory!
-		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::resetInstances();
 		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
 		//die('here');
 
