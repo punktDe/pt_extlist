@@ -65,20 +65,19 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 
 		$this->listHeader = $listHeaderFactory->createInstance($this->configurationBuilderMock);
 		$this->captionRenderer = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
-
 	}
-	
-	
-	
+
+
+
 	/** @test */
 	public function renderCaptionRendersCaptionsForGivenConfiguration() {
 		// see ConfigurationBuilderMock for column definitions
 		$captions = $this->captionRenderer->renderCaptions($this->listHeader);
 		$this->assertEquals('Column 1', $captions->getItemByIndex(0)->getValue());
 	}
-	
-	
-	
+
+
+
 	/** @test */
 	public function renderCaptionsReturnsLocalizedLabels() {
 		$methods = array('getLabel', 'getColumnIdentifier');
@@ -115,27 +114,27 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 						),
 					'_typoScriptNodeValue' => 'COA'
 					);
-		
+
 		$methods = array('getLabel', 'getColumnIdentifier');
 		$returnMethods['getLabel'] = $ts;
 		$returnMethods['getColumnIdentifier'] = 'bla';
-						
+
 		$headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
-		
+
 		$columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig',array('isAccessable'),array(),'',FALSE);
 		$columnConfigMock->expects($this->any())
 			->method('isAccessable')
 			->will($this->returnValue(true));
-			
+
 		$headerColumn->injectColumnConfig($columnConfigMock);
-		
+
 		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
 		$listHeader->addHeaderColumn($headerColumn, 'bla');
-		
-		
+
+
 		$captionRendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
 		$captionRenderer = new $captionRendererClass(); /* @var $captionRenderer Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer */
-		
+
 		$captions = $captionRenderer->renderCaptions($listHeader);
 	}
 
@@ -152,11 +151,11 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 	protected function getConfiguredMock($className, array $methods, array $returnMethods) {
 		$columnConfig = $this->getMock($className,
 							$methods, array(), '', FALSE);
-							
+
 		foreach($returnMethods as $method => $returnValue) {
 			$columnConfig->expects($this->any())->method($method)->will($this->returnValue($returnValue));
 		}
-		
+
 		return $columnConfig;
 	} 
 
