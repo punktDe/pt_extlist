@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	/**
 	 * @return array
 	 */
-	public function persistToSession() {
+	public function _persistToSession() {
 		return array(
 			'filterValues' => $this->filterValues,
 			'invert' => $this->invert

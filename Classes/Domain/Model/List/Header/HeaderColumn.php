@@ -394,7 +394,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	/**
 	 * @param $GPVars
 	 */
-    public function injectGPVars($GPVars) {
+    public function _injectGPVars($GPVars) {
     	$this->headerGPVarData = $GPVars;
     }
 
@@ -460,7 +460,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 *
 	 * @param array $sessionData Object's state to be persisted to session
 	 */
-	public function injectSessionData(array $sessionData) {
+	public function _injectSessionData(array $sessionData) {
 		$this->headerSessionData = $sessionData;
 	}
 
@@ -471,7 +471,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 *
 	 * @return array|null
 	 */
-	public function persistToSession() {
+	public function _persistToSession() {
 		$sessionArray = null;
 
 		if (count($this->sortedFields) > 0) {

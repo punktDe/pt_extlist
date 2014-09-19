@@ -196,7 +196,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * (non-PHPdoc)
 	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::injectGPVars()
 	 */
-	public function injectGPVars($GPVars) {
+	public function _injectGPVars($GPVars) {
 		if(array_key_exists('page', $GPVars)) {
 			$this->currentPage = (int)$GPVars['page'];
 		}
@@ -208,7 +208,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * (non-PHPdoc)
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::injectSessionData()
 	 */
-	public function injectSessionData(array $sessionData) {
+	public function _injectSessionData(array $sessionData) {
 		if(array_key_exists('page', $sessionData)) {
 			$this->currentPage = (int)$sessionData['page'];
 		}
@@ -220,7 +220,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * (non-PHPdoc)
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 */
-	public function persistToSession() {
+	public function _persistToSession() {
 		if($this->currentPage > 1) {
 			return array('page' => $this->currentPage);
 		} else {

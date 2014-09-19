@@ -54,7 +54,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 
 		$this->assertEquals(0, $headerColumn->getSortingDirectionForField('field1'));
 
-		$headerColumn->injectGPVars(array('sortingFields' => 'field1:1'));
+		$headerColumn->_injectGPVars(array('sortingFields' => 'field1:1'));
 
 		$headerColumn->init();
 
@@ -69,7 +69,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$sorterMock->expects($this->any())->method('getSortingStateCollection')->will($this->returnValue(null));
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
-		$headerColumn->injectGPVars(array('sortingFields' => 'field1:1;field2:1'));
+		$headerColumn->_injectGPVars(array('sortingFields' => 'field1:1;field2:1'));
 		$headerColumn->registerSorter($sorterMock);
 
 		$headerColumn->init();
@@ -82,7 +82,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 
 		// test with forced direction
 		$headerColumn->injectColumnConfig($columnsConfiguration[30]);
-		$headerColumn->injectGPVars(array('sortingState' => -1));
+		$headerColumn->_injectGPVars(array('sortingState' => -1));
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting[1]->getDirection(), 'Sorting for tstamp is forced to desc, but is ascending here');
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$headerColumn->injectColumnConfig($columnsConfiguration[40]);
 		$headerColumn->registerSorter($sorterMock);
 
-		$headerColumn->injectGPVars(array('sortingFields' => 'field4:1'));
+		$headerColumn->_injectGPVars(array('sortingFields' => 'field4:1'));
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be Ascending here');
@@ -146,7 +146,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[20]);
 		$headerColumn->registerSorter($sorterMock);
-		$headerColumn->injectGPVars(array('sortingFields' => 'field1:-1;field2:-1'));
+		$headerColumn->_injectGPVars(array('sortingFields' => 'field1:-1;field2:-1'));
 		$headerColumn->init();
 
 		$sortingStateCollection = $headerColumn->getSortingStateCollection();
@@ -166,7 +166,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
 		$headerColumn->injectColumnConfig($columnsConfiguration[50]);
 		$headerColumn->registerSorter($sorterMock);
-		$headerColumn->injectGPVars(array('sortingFields' => 'field1:1;field2:1'));
+		$headerColumn->_injectGPVars(array('sortingFields' => 'field1:1;field2:1'));
 		$headerColumn->init();
 
 		$sortingStateCollection = $headerColumn->getSortingStateCollection();

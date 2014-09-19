@@ -37,9 +37,9 @@ require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Model/Filter/
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
 	
-	public function persistToSession() {}
+	public function _persistToSession() {}
     #public function getObjectNamespace() {return 'testnamespace';}
-    public function injectSessionData(array $sessionData) {}
+    public function _injectSessionData(array $sessionData) {}
     public function init() {}
     protected function initFilterByTsConfig() {}
     protected function initFilterBySession() {}

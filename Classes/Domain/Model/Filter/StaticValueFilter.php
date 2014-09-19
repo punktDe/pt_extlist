@@ -104,7 +104,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
 	 * This filter is not persisted, the value has to be set
 	 * during the lifecycle
 	 */
-	public function persistToSession() {}
+	public function _persistToSession() {}
 	protected function initFilterByGpVars() {}
 	protected function initFilterBySession() {}
 }

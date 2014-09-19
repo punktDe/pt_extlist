@@ -75,7 +75,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
 		$pager->expects($this->any())->method('getLastPage')->will($this->returnValue(2));
 		$collection->addPager($pager);
 
-		$collection->injectSessionData(array('page' => 2));
+		$collection->_injectSessionData(array('page' => 2));
 		$collection->setItemsPerPage(5);
 
 		// We check whether we still get correct page, if we are "in bound"

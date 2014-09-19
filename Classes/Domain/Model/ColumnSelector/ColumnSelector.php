@@ -81,7 +81,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 *
 	 * @param array $GPVars GP Var data to be injected into the object
 	 */
-	public function injectGPVars($GPVars) {
+	public function _injectGPVars($GPVars) {
 		if(array_key_exists('selectedColumns', $GPVars) && is_array($GPVars['selectedColumns'])) {
 			$this->selectedColumnIdentifiers = $GPVars['selectedColumns'];
 		}
@@ -94,7 +94,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 *
 	 * @return array Object's state to be persisted to session
 	 */
-	public function persistToSession() {
+	public function _persistToSession() {
 		if ($this->configuration->getPersistToSession()) {
 			return array('selectedColumns' => $this->selectedColumnIdentifiers);
 		}
@@ -107,7 +107,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 	 *
 	 * @param array $sessionData Object's state previously persisted to session
 	 */
-	public function injectSessionData(array $sessionData) {
+	public function _injectSessionData(array $sessionData) {
 		if($this->configuration->getPersistToSession()
 				  && array_key_exists('selectedColumns', $sessionData) && is_array($sessionData['selectedColumns'])) {
 			$this->selectedColumnIdentifiers = $sessionData['selectedColumns'];

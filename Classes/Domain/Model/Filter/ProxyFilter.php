@@ -147,7 +147,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
 
 
 
-	public function persistToSession() {}
+	public function _persistToSession() {}
 
 
 

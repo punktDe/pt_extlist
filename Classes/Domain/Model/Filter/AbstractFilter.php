@@ -681,7 +681,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @param array $gpVars
 	 */
-	public function injectGPVars($gpVars) {
+	public function _injectGPVars($gpVars) {
 		$this->gpVarFilterData = $gpVars;
 	}
 
@@ -706,7 +706,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 *
 	 * @param array $sessionData Session data, that was previously stored to session by this filter
 	 */
-	public function injectSessionData(array $sessionData) {
+	public function _injectSessionData(array $sessionData) {
 		$this->sessionFilterData = $sessionData;
 	}
 

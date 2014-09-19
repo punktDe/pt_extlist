@@ -83,7 +83,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
 	/** @test */
     public function sessionDataCanBeInjected() {
     	$filter = $this->getExtendingFilterMock();
-    	$filter->injectSessionData(array('filterValue' => 'filterValueValue'));
+    	$filter->_injectSessionData(array('filterValue' => 'filterValueValue'));
     }
     
     

@@ -298,7 +298,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      *
      * @return array Object's state to be persisted to session
      */
-    public function persistToSession() {
+    public function _persistToSession() {
     	$sessionArray = NULL;
         if ($this->isSubmittedFilterbox) {
             $sessionArray = array('isSubmittedFilterbox' => 1);
@@ -313,7 +313,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      *
      * @param array $sessionData Object's state previously persisted to session
      */
-    public function injectSessionData(array $sessionData) {
+    public function _injectSessionData(array $sessionData) {
         if (array_key_exists('isSubmittedFilterbox', $sessionData) && $sessionData['isSubmittedFilterbox'] == 1) {
             $this->isSubmittedFilterbox = true;
         }
