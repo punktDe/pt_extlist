@@ -27,19 +27,20 @@
  ***************************************************************/
 
 
-
 /**
  * Testcase for header column class
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package Tests
  * @subpackage Model\List\Header
+ * @see Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-	
+class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
+
 
 
 	/** @test */
@@ -60,6 +61,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 
 		$this->assertEquals(1, $headerColumn->getSortingDirectionForField('field1'));
 	}
+
 
 
 	/** @test */
@@ -89,6 +91,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	}
 
 
+
 	/** @test */
 	public function getSortingStateCollectionReturnsCorrectSortingStateCollectionWithoutSortingConfigurations() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
@@ -103,6 +106,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$sorting = $headerColumn->getSortingStateCollection();
 		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be Ascending here');
 	}
+
 
 
 	/** @test */
@@ -121,6 +125,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	}
 
 
+
 	/** @test */
 	public function getSortingStateCollectionReturnsASortingStateCollection() {
 		$columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
@@ -135,6 +140,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$sortingStateCollection = $headerColumn->getSortingStateCollection();
 		$this->assertTrue(is_a($sortingStateCollection, 'Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'));
 	}
+
 
 
 	/** @test */
@@ -155,6 +161,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 		$this->assertEquals($sortingStateCollection[0]->getDirection(), -1);
 		$this->assertEquals($sortingStateCollection[1]->getDirection(), -1);
 	}
+
 
 
 	/** @test */
@@ -179,6 +186,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	}
 
 
+
 	/**
 	 * @test
 	 */
@@ -191,6 +199,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 
 		$this->assertTrue($headerColumn->getIsVisible());
 	}
+
 
 
 	/**
@@ -207,4 +216,3 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumn_testcase extends 
 	}
 
 }
-?>

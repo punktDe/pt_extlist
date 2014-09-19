@@ -1,0 +1,69 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace ptextbase=Tx_PtExtbase_ViewHelpers}
+<extlist:comment>
+<!--  
+Template for bookmarks plugin
+
+Here is a list of objects / variables that can be accessed in this template
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<h2>Bookmarks</h2>
+
+<f:if condition="{bookmarks}">
+	<f:for each="{bookmarks}" as="bookmark">
+		<f:link.action action="restore" arguments="{bookmark : bookmark}">{bookmark.name}</f:link.action>
+		<f:link.action action="delete" arguments="{bookmark: bookmark}">&nbsp;delete</f:link.action><br />
+	</f:for>
+</f:if>
+<br />
+
+
+<f:if condition="{extlist:bookmark.showForm(bookmarkConfig:bookmarkConfig,userLoggedIn:userLoggedIn)}">
+    <f:form method="post" action="save" object="newBookmark" objectName="newBookmark">
+        <label for="name">Name of the bookmark:</label>
+        <f:form.textfield name="name" property="name" id="name" />
+
+        <f:if condition="{bookmarkConfig.createPublicBookmarks}">
+            <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_PUBLIC')}" name="type-public" property="type" id="type-public" /> <label for="type-public">Public</label>
+        </f:if>
+
+        <f:if condition="{bookmarkConfig.createPrivateBookmarks}">
+            <f:if condition="{userLoggedIn}">
+                <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_PRIVATE')}" name="type-private" property="type" id="type-private" /> <label for="type-private">Private</label>
+            </f:if>
+        </f:if>
+
+        <f:if condition="{bookmarkConfig.createGroupBookmarks}">
+            <f:if condition="{feGroups}">
+                <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_GROUP')}" name="type-group" property="type" id="type-group" /> <label for="type-group">Group</label>
+                <f:form.select property="feGroup" options="{feGroups}" optionLabelField="title" />
+            </f:if>
+        </f:if>
+
+        <f:form.submit value="save" />
+    </f:form>
+
+    <script>
+        (function($){
+            $(document).ready(function(){
+                var createPrivateBookmark = $('#type-private');
+                var createPublicBookmark = $('#type-public');
+                var createGroupBookmark = $('#type-group');
+                if(createPrivateBookmark.length > 0){
+                    createPrivateBookmark.attr('checked', 'checked');
+                } else if(createPublicBookmark.length > 0){
+                    createPublicBookmark.attr('checked', 'checked');
+                } else if(createGroupBookmark.length > 0){
+                    createGroupBookmark.attr('checked', 'checked');
+                }
+            });
+        })(jQuery);
+    </script>
+</f:if>

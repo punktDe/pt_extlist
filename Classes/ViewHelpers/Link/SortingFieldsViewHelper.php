@@ -85,5 +85,3 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends Tx_Fluid_Vi
 	}
     
 }
-
-?>

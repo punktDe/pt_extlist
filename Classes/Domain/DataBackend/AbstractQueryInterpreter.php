@@ -83,5 +83,3 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
     abstract static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query);
 	
 }
-
-?>

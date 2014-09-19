@@ -64,5 +64,3 @@ class Tx_PtExtlist_Tests_Controller_ListControllerTestcase extends Tx_PtExtlist_
     }
     
 }
-
-?>

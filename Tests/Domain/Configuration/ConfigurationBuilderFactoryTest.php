@@ -48,9 +48,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
 			),
 			'column' => array(
 				'xy' => 'z',
-			),
-			'bookmarks' => array(
-			),
+			)
 		),
 		'listConfig' => array(
 			'test' => array(
@@ -112,9 +110,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
 					'showPublicBookmarks' => '1',
 					'showUserBookmarks' => '1',
 					'showGroupBookmarks' => '1',
-					'bookmarksPid' => '1,2,3',
-					'feUsersAllowedToEdit' => '2,3,4',
-					'feGroupsAllowedToEdit' => '3,4,5',
+					'bookmarksPid' => '1',
 					'groupIdsToShowBookmarksFor' => '4,5,6'
 				),
 

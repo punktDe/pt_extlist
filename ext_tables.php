@@ -61,10 +61,10 @@ foreach ($pluginModes as $ident => $label) {
 
 
 /**
- * Configuration for Bookmarks table
+ * Configuration for Bookmark table
  */
-t3lib_extMgm::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmarks_bookmark');
-$TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array (
+t3lib_extMgm::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmark_bookmark');
+$TCA['tx_ptextlist_domain_model_bookmark_bookmark'] = array (
     'ctrl' => array (
         'title'             => 'Bookmark', 
         'label'             => 'name',
@@ -79,7 +79,7 @@ $TCA['tx_ptextlist_domain_model_bookmarks_bookmark'] = array (
             'disabled' => 'hidden'
         ),
         'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Tca.php', 
-        'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmars_bookmark.png'
+        'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
     )
 );
 ?>

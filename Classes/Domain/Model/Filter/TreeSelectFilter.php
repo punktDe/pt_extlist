@@ -28,10 +28,11 @@
 
 /**
  * Class implements a tree select filter
- * 
+ *
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {
 
@@ -41,11 +42,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	protected $tree;
 
 
+
 	/**
 	 * SingleSelect or multi-select checkbox tree
 	 * @var integer
 	 */
 	protected $multiple;
+
 
 
 	/**
@@ -54,10 +57,12 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	protected $treeNodeRepository;
 
 
+
 	/**
 	 * @var string
 	 */
 	protected $treeNamespace;
+
 
 
 	/**
@@ -66,10 +71,12 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	protected $treeMaxDepth;
 
 
+
 	/**
 	 * @var int
 	 */
 	protected $treeRootNode = NULL;
+
 
 
 	/**
@@ -78,10 +85,12 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	protected $options;
 
 
+
 	/**
 	 * @var bool
 	 */
 	protected $treeRespectEnableFields = TRUE;
+
 
 
 	/**
@@ -120,7 +129,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 		}
 
 		$this->treeNodeRepository = $this->filterConfig->getSettings('treeNodeRepository');
-		if(!$this->treeNodeRepository || !class_exists($this->treeNodeRepository)) {
+		if (!$this->treeNodeRepository || !class_exists($this->treeNodeRepository)) {
 			throw new Exception('The treeNodeRepository with className ' . $this->treeRepository . ' could no be found. ', 1328459171);
 		}
 
@@ -130,13 +139,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 			$this->treeMaxDepth = $this->filterConfig->getSettings('treeMaxDepth');
 		}
 
-		if(array_key_exists('treeRootNode', $this->filterConfig->getSettings())) {
-			$this->treeRootNode = (int) $this->filterConfig->getSettings('treeRootNode');
+		if (array_key_exists('treeRootNode', $this->filterConfig->getSettings())) {
+			$this->treeRootNode = (int)$this->filterConfig->getSettings('treeRootNode');
 		}
 
 
-		if(array_key_exists('treeRespectEnableFields', $this->filterConfig->getSettings())) {
-			$this->treeRespectEnableFields = (int) $this->filterConfig->getSettings('treeRespectEnableFields') === 1 ? TRUE : FALSE;
+		if (array_key_exists('treeRespectEnableFields', $this->filterConfig->getSettings())) {
+			$this->treeRespectEnableFields = (int)$this->filterConfig->getSettings('treeRespectEnableFields') === 1 ? TRUE : FALSE;
 		}
 	}
 
@@ -165,7 +174,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	protected function getFilterNodeUIds() {
 		$treeNodeUIds = array();
 
-		foreach($this->filterValues as $filterValue) {
+		foreach ($this->filterValues as $filterValue) {
 			$treeNodeUIds = array_merge($treeNodeUIds, $this->getSubTreeUIDs($filterValue));
 			$treeNodeUIds[] = $filterValue;
 		}
@@ -248,6 +257,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		$treeRepository = $treeRepositoryBuilder->buildTreeRepository();
 
+		// TODO this method does not exist in current treeRepository!
+		if (method_exists($treeRepository, 'setRespectEnableFields')) {
+			$treeRepository->setRespectEnableFields($this->treeRespectEnableFields);
+		}
+
 		$this->tree = $treeRepository->loadTreeByNamespace($this->treeNamespace);
 	}
 
@@ -273,14 +287,15 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 */
 	public function alterNodeArrayOnLastVisit($node, $currentNode) {
 
-		foreach($currentNode['children'] as $child) {
+		foreach ($currentNode['children'] as $child) {
 			$currentNode['rowCount'] += $child['rowCount'];
 		}
 
-		$currentNode['text'] .= sprintf(' (%s)',(int) $currentNode['rowCount']);
+		$currentNode['text'] .= sprintf(' (%s)', (int)$currentNode['rowCount']);
 
 		return $currentNode;
 	}
+
 
 
 	/**
@@ -289,18 +304,18 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 * @return array
 	 */
 	public function getValue() {
-		if(count($this->filterValues) > 1) {
+		if (count($this->filterValues) > 1) {
 			return implode(', ', $this->filterValues);
 		} else {
 			reset($this->filterValues);
-			return(current($this->filterValues));
+			return (current($this->filterValues));
 		}
 	}
-	
-	
-	
+
+
+
 	/**
-	 * 
+	 *
 	 * Multiple or dropdown select
 	 * @return integer
 	 */
@@ -342,12 +357,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 		$treeNode = $this->tree->getNodeByUid($nodeUid);
 
-		if($treeNode instanceof Tx_PtExtbase_Tree_Node) {
+		if ($treeNode instanceof Tx_PtExtbase_Tree_Node) {
 
 			$subTreeNodes = $treeNode->getSubNodes();
 			$subtreeNodeIdArray = array();
 
-			foreach($subTreeNodes as $subTreeNode) { /** @var Tx_PtExtbase_Tree_Node $subTreeNode */
+			foreach ($subTreeNodes as $subTreeNode) {
+				/** @var Tx_PtExtbase_Tree_Node $subTreeNode */
 				$subtreeNodeIdArray[] = $subTreeNode->getUid();
 			}
 		} else {

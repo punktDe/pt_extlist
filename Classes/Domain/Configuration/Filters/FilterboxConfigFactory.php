@@ -33,6 +33,8 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Filters
+ * @see class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
 
@@ -56,5 +58,5 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
 		
 		return $filterboxConfiguration;
 	}
+
 }
-?>

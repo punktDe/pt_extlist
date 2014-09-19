@@ -92,4 +92,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperC
 		$this->assertEquals($mapping, $objectMapperConfig->getMapping());
 	}
 }
-?>

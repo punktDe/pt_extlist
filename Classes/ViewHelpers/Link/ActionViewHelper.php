@@ -80,4 +80,3 @@ class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends Tx_Fluid_ViewHelpe
 	}
 	
 }
-?>

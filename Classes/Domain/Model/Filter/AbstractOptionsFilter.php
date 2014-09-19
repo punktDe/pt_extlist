@@ -45,14 +45,32 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected $filterValues = array();
 
 
-    /**
-     * Array with selectable filter options
-     *
-     * @var array
-     */
-    protected $options = NULL;
 
-	
+	/**
+	 * Array with selectable filter options
+	 *
+	 * @var array
+	 */
+	protected $options = NULL;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+	 */
+	protected $dataProviderFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
+	 */
+	public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory) {
+		$this->dataProviderFactory = $dataProviderFactory;
+	}
+
+
+
 	/**
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 * @return array
@@ -61,23 +79,24 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 		return array('filterValues' => $this->filterValues, 'invert' => $this->invert);
 	}
 
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
 	 */
 	public function reset() {
-		$this->filterValues = array();  // We need an empty array here, to overwrite a TS default value after reset
+		$this->filterValues = array(); // We need an empty array here, to overwrite a TS default value after reset
 		parent::reset();
 	}
-	
-	
+
+
 
 	/**
 	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
 	 */
-	protected function initFilter() {}
+	protected function initFilter() {
+	}
 
 
 
@@ -115,7 +134,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 			$this->isActive = false;
 		}
 	}
-	
+
 
 
 	/**
@@ -126,7 +145,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
 			$filterValues = $this->gpVarFilterData['filterValues'];
-			
+
 			if (is_array($filterValues)) {
 				$this->filterValues = array_filter($filterValues);
 
@@ -173,7 +192,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 */
 	protected function setDefaultValuesFromTSConfig($defaultValue) {
 		if (is_array($defaultValue)) {
-			foreach($defaultValue as $value) {
+			foreach ($defaultValue as $value) {
 				$this->filterValues[$value] = $value;
 			}
 		} else {
@@ -183,26 +202,27 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
 
-    /**
-     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
-     */
-    protected function buildDataProvider() {
-        return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
-    }
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+	 */
+	protected function buildDataProvider() {
+		return $this->dataProviderFactory->createInstance($this->filterConfig);
+	}
 
 
-    /**
-     * Get cached renderes options from data provider
-     *
-     * @return array|null
-     */
-    protected function getOptionsFromDataProvider() {
-        if($this->options === NULL) {
-            $this->options = $this->buildDataProvider()->getRenderedOptions();
-        }
 
-        return $this->options;
-    }
+	/**
+	 * Get cached renderes options from data provider
+	 *
+	 * @return array|null
+	 */
+	protected function getOptionsFromDataProvider() {
+		if ($this->options === NULL) {
+			$this->options = $this->buildDataProvider()->getRenderedOptions();
+		}
+
+		return $this->options;
+	}
 
 
 
@@ -227,7 +247,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @param array $renderedOptions
 	 */
 	protected function setSelectedOptions(&$renderedOptions) {
-		foreach($this->filterValues as $filterValue) {
+		foreach ($this->filterValues as $filterValue) {
 			if (!is_array($filterValue) && array_key_exists($filterValue, $renderedOptions)) {
 				$renderedOptions[$filterValue]['selected'] = true;
 			}
@@ -245,7 +265,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	protected function addInactiveOption(&$renderedOptions) {
 
 		if ($renderedOptions == NULL) $renderedOptions = array();
-		
+
 		if ($this->filterConfig->getInactiveOption()) {
 
 			unset($renderedOptions[$this->filterConfig->getInactiveValue()]);
@@ -258,8 +278,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 			$inactiveValue = $this->filterConfig->getInactiveValue();
 
-			$renderedInactiveOption[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
-        													'selected' => $selected);
+			$renderedInactiveOption[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(), 'selected' => $selected);
 
 			$renderedOptions = $renderedInactiveOption + $renderedOptions;
 		}
@@ -275,7 +294,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @return mixed String for single value, array for multiple values
 	 */
 	public function getValue() {
-		if (count($this->filterValues) > 1){
+		if (count($this->filterValues) > 1) {
 			return $this->filterValues;
 		} else {
 			reset($this->filterValues);
@@ -291,17 +310,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 	 * @return string
 	 */
 	public function getDisplayValue() {
-        $options = $this->getOptions();
-        $displayValues = array();
+		$options = $this->getOptions();
+		$displayValues = array();
 
-        foreach($options as $key => $option) {
-            if($option['selected'] === TRUE) {
-                $displayValues[] = $option['value'];
-            }
-        }
+		foreach ($options as $key => $option) {
+			if ($option['selected'] === TRUE) {
+				$displayValues[] = $option['value'];
+			}
+		}
 
 		return implode(', ', $displayValues);
 	}
 
 }
-?>

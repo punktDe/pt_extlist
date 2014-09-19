@@ -26,11 +26,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+
 /**
- * Testcase for pt_list dummy data backend object. 
- * 
- * @author Michael Knoll 
- * @author Christoph Ehscheidt 
+ * Testcase for pt_list dummy data backend object.
+ *
+ * @author Michael Knoll
+ * @author Christoph Ehscheidt
  * @package Test
  * @subpackage Domain\DataBackend
  */
@@ -42,21 +44,21 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackendTest extends Tx_PtEx
 	 * @var Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
 	 */
 	protected $dataBackend;
-	
-	
-	
+
+
+
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
-  
 		$this->dataBackend = new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend($this->configurationBuilderMock);
 	}
-	
-	
 
-	/** @test */
+
+
+	/**
+	 * @test
+	 */
 	public function bookmarkManagerCanBeInjectedVia_injectBookmarkManager() {
-		$this->dataBackend->_injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager', array(), array('testList')));
+		$this->dataBackend->_injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', array(), array('testList')));
 	}
-	
+
 }
-?>

@@ -28,81 +28,87 @@
 
 /**
  * Class implements field aggregator
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\List\Aggregates
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest
  */
 class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
-	
+
 	/**
 	 * Array of fielddata by column
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $fieldData = array();
-	
-	
+
+
+
 	/**
 	 * Reference to the data Backend
-	 * 
+	 *
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
 	 */
 	protected $dataBackend;
-	
-	
-	
+
+
+
 	/**
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 */
 	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
 		$this->dataBackend = $dataBackend;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Return a aggregated column by method
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+	 * @throws Exception
+	 * @return number
 	 */
 	public function getAggregateByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
 		$fieldIdentifier = $aggregateConfig->getFieldIdentifier()->getIdentifier();
-		
-		if(!is_array($this->fieldData[$fieldIdentifier])) {
+
+		if (!is_array($this->fieldData[$fieldIdentifier])) {
 			$this->buildFieldData($fieldIdentifier);
 		}
-		
+
 		$methodName = 'getField' . ucfirst($aggregateConfig->getMethod());
-		if(!method_exists($this, $methodName)) {
+		if (!method_exists($this, $methodName)) {
 			throw new Exception('The array aggregate Method "' . $aggregateConfig->getMethod() . '" is not implemented 1282905192');
 		}
-		
+
 		return $this->$methodName($fieldIdentifier);
 	}
-	
-	
+
+
+
 	/**
-	 * Convert the list structure of "rows->columns->data" to an array 
+	 * Convert the list structure of "rows->columns->data" to an array
 	 * of 'columns->rows->data' for easy aggregate
-	 * 
+	 *
 	 * @param string $fieldIdentifier
 	 * @return array
 	 */
-	protected function buildFieldData($fieldIdentifier) {	
+	protected function buildFieldData($fieldIdentifier) {
 		$fieldData[$fieldIdentifier] = array();
-	
-		foreach($this->dataBackend->getListData() as $row) {
+
+		foreach ($this->dataBackend->getListData() as $row) {
 			$this->fieldData[$fieldIdentifier][] = $row[$fieldIdentifier]->getValue();
-		}	
+		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * sum all values of a column
-	 * 
+	 *
 	 * @param string $fieldIdentifier
+	 * @return number
 	 */
 	protected function getFieldSum($fieldIdentifier) {
 		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
@@ -111,12 +117,14 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 
 		return array_sum($this->fieldData[$fieldIdentifier]);
 	}
-	
-	
+
+
+
 	/**
 	 * get the average of all values of a column
-	 * 
+	 *
 	 * @param string $fieldIdentifier
+	 * @return float
 	 */
 	protected function getFieldAvg($fieldIdentifier) {
 		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
@@ -125,12 +133,14 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 
 		return array_sum($this->fieldData[$fieldIdentifier])/count($this->fieldData[$fieldIdentifier]);
 	}
-	
-	
+
+
+
 	/**
 	 * maximum of all values of a column
-	 * 
+	 *
 	 * @param string $fieldIdentifier
+	 * @return number
 	 */
 	protected function getFieldMax($fieldIdentifier) {
 		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
@@ -139,12 +149,14 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 
 		return max($this->fieldData[$fieldIdentifier]);
 	}
-	
-	
+
+
+
 	/**
 	 * minimum of all values of a column
-	 * 
+	 *
 	 * @param string $fieldIdentifier
+	 * @return number
 	 */
 	protected function getFieldMin($fieldIdentifier) {
 		if (!array_key_exists($fieldIdentifier, $this->fieldData) || !is_array($this->fieldData[$fieldIdentifier])) {
@@ -153,5 +165,5 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator {
 
 		return min($this->fieldData[$fieldIdentifier]);
 	}
+
 }
-?>

@@ -33,8 +33,9 @@
  * @author Michael Knoll 
  * @package Tests
  * @subpackage Domain\Model\Filter
+ * @see Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $configurationBuilderMock = null;
 	
@@ -45,9 +46,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
 	}
 	
 	
-	
-	public function testSetUp() {
-		$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($this->configurationBuilderMock);
+
+	/** @test */
+	public function assertThatClassExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection');
 	}
 	
 	
@@ -127,4 +129,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollection_testcase extend
     }
 
 }
-?>

@@ -31,11 +31,11 @@
 /**
  * Testcase for mysql query interpreter criterias
  * 
- * @package Typo3
- * @subpackage pt_extlist
+ * @package Tests
+ * @subpackage Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $simpleCriteria1;
 	
@@ -56,8 +56,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
 	}
 	
 	
-	
-	public function testSetup() {
+
+	/** @test */
+	public function assertClassesExist() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator'));
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator'));
@@ -211,4 +212,3 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     }
 
 }
-?>

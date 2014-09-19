@@ -32,6 +32,7 @@
  * @package pt_extlist
  * @subpackage Tests\Domain\Model\Sorting
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_Sorting_Sorter
  */
 class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
@@ -55,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
 	public function injectSorterConfigurationAcceptsSorterConfiguration() {
 		$sortingConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig', array(), array(), '', FALSE);
 		$sorter = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
-		$sorter->injectSorterConfig($sortingConfiguration);
+		$sorter->_injectSorterConfig($sortingConfiguration);
 	}
 
 
@@ -128,4 +129,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
     }
 	
 }
-?>

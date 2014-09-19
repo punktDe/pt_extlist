@@ -47,6 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 	}
 
 
+
 	/**
 	 * @test
 	 */
@@ -65,12 +66,13 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 		    ->method('getListHeader')
 		    ->will($this->returnValue($listHeader));
 		    
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($backendMock, $this->configurationBuilderMock);
+		$list = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+					->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
+					->createList($backendMock, $this->configurationBuilderMock);
 		
 		$this->assertEquals($listData, $list->getListData());
 		$this->assertNotNull($list->getListHeader());
 	}
-
 
 
 
@@ -96,11 +98,12 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 			->method('getAggregateListData')
 			->will($this->returnValue($aggregateListData));
 
-		$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($backendMock, $this->configurationBuilderMock);
+		$list = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')
+						->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
+						->createList($backendMock, $this->configurationBuilderMock);
 
 		$this->assertEquals($iterationListData, $list->getIterationListData());
 		$this->assertNotNull($list->getListHeader());
 	}
-}
 
-?>
+}

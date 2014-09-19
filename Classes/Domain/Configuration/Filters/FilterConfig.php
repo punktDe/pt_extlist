@@ -33,7 +33,8 @@
  * @package Domain
  * @subpackage Configuration\Filters
  * @author Daniel Lienert 
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
 															 implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
@@ -155,7 +156,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	/**
 	 * TODO ry21 what does this property do?
 	 *
-	 * @var unknown_type
+	 * @var array
 	 */
 	protected $onValidated = array();
 	
@@ -173,7 +174,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	/**
 	 * If this is set to true, the filter has the ability to be inverted
 	 *
-	 * @var truefalse
+	 * @var bool
 	 */
 	protected $invertable = false;
 	
@@ -215,7 +216,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	
 	
 	/**
-	 * cObj config array to render every filteroption
+	 * cObj config array to render every filter option
 	 * in typoscript object array notation
 	 * @var array
 	 */
@@ -540,7 +541,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     
     
     /**
-     * @return unknown
+     * @return string
      */
     public function getLabel() {
         return $this->label;
@@ -728,4 +729,3 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	}
 
 }
-?>

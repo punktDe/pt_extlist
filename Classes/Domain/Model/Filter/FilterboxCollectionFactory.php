@@ -28,44 +28,84 @@
 
 /**
  * Implements factory for filterbox collections
- * 
- * @author Daniel Lienert, Michael Knoll
+ *
+ * @author Daniel Lienert
+ * @author Michael Knoll
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory {
-	
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactory
+	implements t3lib_Singleton {
+
 	/**
 	 * Holds singleton instances of FilterboxCollections for each list identifier
 	 *
 	 * @var array<Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection>
 	 */
-	private static $instances = array();
-	
-	
+	private $instances = array();
+
+
+
 	/**
-	 * Factory method for creating filterbox collection for a given filterbox config collection
-	 * and a given list identifier
+	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
+	 */
+	private $filterboxFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+	 */
+	private $dataBackendFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory $filterboxFactory
+	 */
+	public function injectFilterboxFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory $filterboxFactory) {
+		$this->filterboxFactory = $filterboxFactory;
+	}
+
+
+
+	/**
+	 * We can not use DI here, since we would get cyclic dependency!
+	 *
+	 * TODO think about how we get rid of this cyclic dependency!
+	 *
+	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+	 */
+	public function setDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory) {
+		$this->dataBackendFactory = $dataBackendFactory;
+		$this->filterboxFactory->setDataBackendFactory($this->dataBackendFactory);
+	}
+
+
+
+	/**
+	 * Factory method for creating filterbox collection for a given configuration builder
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param boolean $resetFilterBoxCollection
 	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetFilterBoxCollection) {
-		if (self::$instances[$configurationBuilder->getListIdentifier()] === null || $resetFilterBoxCollection === TRUE) {
-			$filterboxConfigCollection = $configurationBuilder->buildFilterConfiguration(); 
-			$filterboxCollection = new Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection($configurationBuilder);
-			
-			foreach($filterboxConfigCollection as $filterboxConfiguration) { /* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig */
-				$filterbox = Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::createInstance($filterboxConfiguration);
+	public function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetFilterBoxCollection) {
+		if ($this->instances[$configurationBuilder->getListIdentifier()] === null || $resetFilterBoxCollection === TRUE) {
+			$filterboxConfigCollection = $configurationBuilder->buildFilterConfiguration();
+			$filterboxCollection = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', $configurationBuilder); /* @var $filterboxCollection Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection */
+
+			foreach ($filterboxConfigCollection as $filterboxConfiguration) {
+				/* @var $filterboxConfiguration Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig */
+				$filterbox = $this->filterboxFactory->createInstance($filterboxConfiguration);
 				$filterboxCollection->addFilterBox($filterbox, $filterbox->getfilterboxIdentifier());
 			}
-			
-			self::$instances[$configurationBuilder->getListIdentifier()] = $filterboxCollection;
-		}
-		return self::$instances[$configurationBuilder->getListIdentifier()];
-	}
-		
-}
 
-?>
+			$this->instances[$configurationBuilder->getListIdentifier()] = $filterboxCollection;
+		}
+
+		return $this->instances[$configurationBuilder->getListIdentifier()];
+	}
+
+}

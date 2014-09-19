@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage QueryObject
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_QueryObject_QueryTest
  */
 class Tx_PtExtlist_Domain_QueryObject_Query {
  	
@@ -200,11 +201,12 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	}
 
 
-	
+
 	/**
 	 * Sets limit. Possible formats are 'd' or 'd:d'
 	 *
 	 * @param string $limit Limit for query
+	 * @throws Exception
 	 */
 	public function setLimit($limit) {
 		if ($limit == '') {
@@ -240,15 +242,16 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	public function getLimit() {
 		return $this->limit;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Adds a sorting for a given field and a given direction to array of sortings.
 	 * Direction may be either self::SORTINGSTATE_DESC oder self::SORTINGSTATE_ASC
 	 *
 	 * @param string $field Field to be sorted
 	 * @param integer $direction Direction of sorting
+	 * @throws Exception
 	 */
 	public function addSorting($field, $direction = self::SORTINGSTATE_ASC) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, array('message' => 'field must not be empty! 1280060692'));
@@ -309,4 +312,3 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	}
 	
 }
-?>

@@ -28,77 +28,78 @@
 
 /**
  * Class implements a Builder for all configurations required in pt_extlist.
- * 
+ *
  * @package Domain
  * @subpackage Configuration
- * 
- * @author Daniel Lienert 
- * @author Michael Knoll 
- * @author Christoph Ehscheidt 
+ *
+ * @author Daniel Lienert
+ * @author Michael Knoll
+ * @author Christoph Ehscheidt
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest
  */
 class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbase_Configuration_AbstractConfigurationBuilder {
-	
+
 	/**
 	 * Holds settings to build configuration objects
 	 *
 	 * @var array
 	 */
 	protected $configurationObjectSettings = array(
-	    'aggregateData' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
-	    'aggregateRows' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
-	    'base' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'),
-	    'bookmarks' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfigFactory',
-	    		  'prototype' => 'bookmarks'),
-	    'columns' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'),
-		 'columnSelector' =>
-		 	array('factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory',
-			 		'prototype' => 'columnSelector'),
-	    'dataBackend' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory',
-	    	      'tsKey' => 'backendConfig'),
-	    'export' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'),
-	    'fields' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
-	    'filter' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory',
-	    		  'tsKey' => 'filters'),
-	    'list' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory',
-	    		  'prototype' => 'list',
-	    		  'tsKey' => NULL),
-	    'listDefault' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory',
-	    		  'tsKey' => 'default'),
-	    'pager' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory',
-	    		   'prototype' => 'pager'),
-	    'rendererChain' =>
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
-	    		  'prototype' => 'rendererChain'),
-	    'breadCrumbs' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
-	    	      'tsKey' => 'breadCrumbs'),
-	    'sorter' => 
-	    	array('factory' => 'Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory',
-                  'tsKey' => 'sorter')
+		'aggregateData' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
+		'aggregateRows' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
+		'base' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'),
+		'bookmarks' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory',
+			'prototype' => 'bookmarks'),
+		'columns' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'),
+		'columnSelector' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory',
+			'prototype' => 'columnSelector'),
+		'dataBackend' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory',
+			'tsKey' => 'backendConfig'),
+		'export' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'),
+		'fields' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
+		'filter' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory',
+			'tsKey' => 'filters'),
+		'list' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory',
+			'prototype' => 'list',
+			'tsKey' => NULL),
+		'listDefault' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory',
+			'tsKey' => 'default'),
+		'pager' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory',
+			'prototype' => 'pager'),
+		'rendererChain' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
+			'prototype' => 'rendererChain'),
+		'breadCrumbs' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
+			'tsKey' => 'breadCrumbs'),
+		'sorter' =>
+		array('factory' => 'Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory',
+			'tsKey' => 'sorter')
 	);
-	
-	
-	
+
+
+
 	/**
 	 * Non-merged settings of plugin
 	 * @var array
 	 */
 	protected $origSettings;
 
-	
-	
+
+
 	/**
 	 * Holds list identifier of current list
 	 * @var string
@@ -113,15 +114,15 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 * @param array $settings  Settings of extension
 	 * @param string $listIdentifier
 	 */
-	public function __construct(array $settings, $listIdentifier = NULL) {	
+	public function __construct(array $settings, $listIdentifier = NULL) {
 		$this->setPrototypeSettings($settings);
 		$this->setListIdentifier($settings, $listIdentifier);
 		$this->origSettings = $settings;
 		$this->mergeAndSetGlobalAndLocalConf();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Check and set the prototype settings
 	 * @param array $settings
@@ -138,16 +139,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 *
 	 * @param array $settings
 	 * @param string $listIdentifier
-	 * @throws Exception
+	 * @throws Exception if no list configuration can be found for list identifier
 	 */
 	protected function setListIdentifier($settings, $listIdentifier = NULL) {
-		
-		if(!$listIdentifier) {
+
+		if (!$listIdentifier) {
 			$listIdentifier = $settings['listIdentifier'];
 		}
-		
-		if(!array_key_exists($listIdentifier, $settings['listConfig'])) {
-			if(count($settings['listConfig']) > 0) {
+
+		if (!array_key_exists($listIdentifier, $settings['listConfig'])) {
+			if (count($settings['listConfig']) > 0) {
 				$helpListIdentifier = 'Available list configurations on this page are: ' . implode(', ', array_keys($settings['listConfig'])) . '.';
 			} else {
 				$helpListIdentifier = 'No list configurations available on this page.';
@@ -155,8 +156,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 			throw new Exception('No list configuration can be found for list identifier "' . $listIdentifier . '" 1278419536' . '<br>' . $helpListIdentifier);
 		}
 
-        $this->listIdentifier = $listIdentifier;    
-	}		
+		$this->listIdentifier = $listIdentifier;
+	}
 
 
 
@@ -180,92 +181,93 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	}
 
 
-    
-    /**
-     * Returns identifier of list
-     *
-     * @return String
-     */
-    public function getListIdentifier() {
-        return $this->listIdentifier;
-    }
-    
-    
-    
-    /**
-     * Returns configuration object for filterbox identifier
-     *
-     * @param string $filterboxIdentifier
-	 * @return mixed
+
+	/**
+	 * Returns identifier of list
+	 *
+	 * @return String
 	 */
-    public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
-    	Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
-    	return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
-    }
-    
-    
-    
-   /**
-	 * Returns a singleton instance of databackend configuration 
+	public function getListIdentifier() {
+		return $this->listIdentifier;
+	}
+
+
+
+	/**
+	 * Returns configuration object for filterbox identifier
+	 *
+	 * @param string $filterboxIdentifier
+	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+	 */
+	public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier) {
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
+		return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
+	}
+
+
+
+	/**
+	 * Returns a singleton instance of databackend configuration
 	 * @return Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
 	 */
 	public function buildDataBackendConfiguration() {
 		return $this->buildConfigurationGeneric('dataBackend');
 	}
-	
-	
-	
-    /**
-     * Returns a singleton instance of a fields configuration collection for current list configuration
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-     */
-    public function buildFieldsConfiguration() {
-    	return $this->buildConfigurationGeneric('fields');
-    }
 
 
-    
-    /**
-     * Returns a singleton instance of a aggregateData configuration collection for current list configuration
-     * 
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
-     */
-    public function buildAggregateDataConfig() {
-    	return $this->buildConfigurationGeneric('aggregateData');
-    }
-    
-    
-    
-    /**
-     * return a singelton instance of aggregate row collection 
-     * 
-     * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
-     */
-    public function buildAggregateRowsConfig() {
-    	return $this->buildConfigurationGeneric('aggregateRows');
-    }
-    
-    
-    
-    /**
-     * return a singleton instance of export configuratrion
-     * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
-     */
-    public function buildExportConfiguration() {
-    	return $this->buildConfigurationGeneric('export');
-    }
-    
-    
-    
-    /**
-     * Returns a singleton instance of columns configuration collection for current list configuration
-     *
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
-     */
-    public function buildColumnsConfiguration() {
-    	return $this->buildConfigurationGeneric('columns');
-    }
+
+	/**
+	 * Returns a singleton instance of a fields configuration collection for current list configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	public function buildFieldsConfiguration() {
+		return $this->buildConfigurationGeneric('fields');
+	}
+
+
+
+	/**
+	 * Returns a singleton instance of a aggregateData configuration collection for current list configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+	 */
+	public function buildAggregateDataConfig() {
+		return $this->buildConfigurationGeneric('aggregateData');
+	}
+
+
+
+	/**
+	 * return a singelton instance of aggregate row collection
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
+	 */
+	public function buildAggregateRowsConfig() {
+		return $this->buildConfigurationGeneric('aggregateRows');
+	}
+
+
+
+	/**
+	 * return a singleton instance of export configuratrion
+	 * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+	 */
+	public function buildExportConfiguration() {
+		return $this->buildConfigurationGeneric('export');
+	}
+
+
+
+	/**
+	 * Returns a singleton instance of columns configuration collection for current list configuration
+	 *
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+	 */
+	public function buildColumnsConfiguration() {
+		return $this->buildConfigurationGeneric('columns');
+	}
+
 
 
 	/**
@@ -278,6 +280,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	}
 
 
+
 	/**
 	 * Returns a singleton instance of the renderer chain configuration object.
 	 *
@@ -286,6 +289,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	public function buildRendererChainConfiguration() {
 		return $this->buildConfigurationGeneric('rendererChain');
 	}
+
 
 
 	/**
@@ -298,14 +302,16 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	}
 
 
+
 	/**
-	 * Returns bookmarks configuration
+	 * Returns bookmark configuration
 	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Bookmarks_BookmarksConfig
+	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
 	 */
-	public function buildBookmarksConfiguration() {
+	public function buildBookmarkConfiguration() {
 		return $this->buildConfigurationGeneric('bookmarks');
 	}
+
 
 
 	/**
@@ -314,6 +320,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	public function buildListDefaultConfig() {
 		return $this->buildConfigurationGeneric('listDefault');
 	}
+
 
 
 	/**
@@ -326,6 +333,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	}
 
 
+
 	/**
 	 * Returns a list configuration object
 	 *
@@ -334,6 +342,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	public function buildListConfiguration() {
 		return $this->buildConfigurationGeneric('list');
 	}
+
 
 
 	/**
@@ -346,6 +355,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	}
 
 
+
 	/**
 	 * Returns a sorter configuration object
 	 *
@@ -356,6 +366,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	}
 
 
+
 	/**
 	 * Returns a columnSelector configuration object
 	 *
@@ -364,5 +375,5 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	public function buildColumnSelectorConfiguration() {
 		return $this->buildConfigurationGeneric('columnSelector');
 	}
-    
+
 }

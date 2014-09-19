@@ -34,7 +34,7 @@
  * @package Tests
  * @author Michael Knoll 
  */
-abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_BaseTestCase {
+abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
 
 	protected $extBaseSettings = array();
 
@@ -203,6 +203,10 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_Extbase_Tests_Unit_Bas
 		$dataBackendFactory->injectObjectManager($objectManagerMock);
 		$dataBackendFactory->injectConfigurationBuilderFactory($configurationBuilderFactory);
 		$dataBackendFactory->injectInstancesContainer($instancesContainer);
+		$dataBackendFactory->injectMapperFactory($this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
+		$dataBackendFactory->injectFilterboxCollectionFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'));
+		$dataBackendFactory->injectPagerCollectionFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory'));
+		$dataBackendFactory->injectSorterFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'));
 
 		return $dataBackendFactory;
 	}

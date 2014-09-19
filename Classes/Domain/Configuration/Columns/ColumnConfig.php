@@ -27,14 +27,16 @@
  ***************************************************************/
 
 /**
- * Column Config Object 
- * 
- * @author Daniel Lienert 
+ * Column Config Object
+ *
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Configuration\Columns
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
-															 implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
+class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+	extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+	implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
 
 	/**
 	 * @var string
@@ -43,24 +45,24 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 
-	/** 
+	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
 
 
 
-	/** 
+	/**
 	 * @var string
 	 */
 	protected $label = '';
 
 
 
-	/** 
+	/**
 	 * @var array
 	 */
-	protected $accessGroups;	
+	protected $accessGroups;
 
 
 
@@ -91,13 +93,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $objectMapperConfig = NULL;
 
 
-	
+
 	/**
 	 * Path to fluid template
 	 * @var string
 	 */
 	protected $renderTemplate;
-	
+
 
 
 	/**
@@ -106,19 +108,19 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $specialCell = NULL;
 
 
-	
+
 	/**
 	 * @var string
 	 */
 	protected $cellCSSClass = NULL;
-	
+
 
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	protected $sortingConfigCollection = NULL;
-	
+
 
 
 	/**
@@ -128,7 +130,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $sortingState = 0;
 
 
-	
+
 	/**
 	 * Image to show as sorting link.
 	 * @var string
@@ -136,7 +138,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $sortingImageDefault = '';
 
 
-	
+
 	/**
 	 * Image to show as sorting link.
 	 * @var string
@@ -144,21 +146,22 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	protected $sortingImageAsc = '';
 
 
-	
+
 	/**
 	 * Image to show as sorting link.
 	 * @var string
 	 */
 	protected $sortingImageDesc = '';
-	
+
 
 
 	/**
 	 * Says if this column is accessible by the current FE-User. Will be injected by the factory.
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected $accessable = FALSE;
+
 
 
 	/**
@@ -176,7 +179,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 	/**
-	 * if one of this columns fields is a expanded GroupField, 
+	 * if one of this columns fields is a expanded GroupField,
 	 * this column has an array as dataStructure
 	 * @var boolean
 	 */
@@ -205,7 +208,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	 */
 	protected $cacheRendering;
 
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
@@ -215,13 +219,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$headerInclusionUtility = t3lib_div::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
 
 		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
-		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "'.$this->columnIdentifier.'" not given 1277889447');
-		
+		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "' . $this->columnIdentifier . '" not given 1277889447');
+
 		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
 		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
-		
-		foreach($this->fieldIdentifier as $fieldConfig) {
-			if($fieldConfig->getExpandGroupRows()) {
+
+		foreach ($this->fieldIdentifier as $fieldConfig) {
+			if ($fieldConfig->getExpandGroupRows()) {
 				$this->containsArrayData = true;
 				break;
 			}
@@ -273,7 +277,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		$this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
 
 		// Build the objectMapperConfig
-		if(array_key_exists('objectMapper', $this->settings)) {
+		if (array_key_exists('objectMapper', $this->settings)) {
 			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
 		}
 	}
@@ -286,60 +290,60 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	public function setAccessable($accessable) {
 		$this->accessable = $accessable;
 	}
-	
-	
-	
+
+
+
 	public function isAccessable() {
 		return $this->accessable;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @return string columnIdentifier
 	 */
 	public function getColumnIdentifier() {
 		return $this->columnIdentifier;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
 	 */
 	public function getFieldIdentifier() {
 		return $this->fieldIdentifier;
-	} 
-	
-	
-	
+	}
+
+
+
 	/**
 	 * @return string label
 	 */
 	public function getLabel() {
 		return $this->label;
-	}	
-	
-	
-	
+	}
+
+
+
 	/**
 	 * @param string $label
 	 */
 	public function setLabel($label) {
 		$this->label = $label;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @return bool
 	 */
 	public function getIsSortable() {
 		return (bool)$this->isSortable;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @return array
 	 */
@@ -348,7 +352,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
-    
+
 	/**
 	 * @return array
 	 */
@@ -358,12 +362,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 
 
 
-	/** 
+	/**
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public function getSortingConfig() {
 		return $this->sortingConfigCollection;
 	}
+
 
 
 	/**
@@ -375,6 +380,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
+
 	/**
 	 * Return the ASC image path to show for sorting link.
 	 * @return string
@@ -382,6 +388,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	public function getSortingImageAsc() {
 		return $this->sortingImageAsc;
 	}
+
 
 
 	/**
@@ -393,6 +400,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
+
 	/**
 	 * Returns the special cell user function path
 	 * @return string
@@ -400,6 +408,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	public function getSpecialCell() {
 		return $this->specialCell;
 	}
+
 
 
 	/**
@@ -411,6 +420,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
+
 	/**
 	 * Indicates if the data for this columns cells are arrays
 	 * @return boolean
@@ -418,6 +428,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	public function getContainsArrayData() {
 		return $this->containsArrayData;
 	}
+
 
 
 	/**
@@ -428,12 +439,14 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
+
 	/**
 	 * @return string;
 	 */
 	public function getCellCSSClass() {
 		return $this->cellCSSClass;
 	}
+
 
 
 	/**
@@ -454,12 +467,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		return $this->isVisible;
 	}
 
+
+
 	/**
-	 * @return \Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapperConfig
+	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
 	 */
 	public function getObjectMapperConfig() {
 		return $this->objectMapperConfig;
 	}
+
+
 
 	/**
 	 * @param boolean $rawFields
@@ -467,6 +484,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	public function setRawFields($rawFields) {
 		$this->rawFields = $rawFields;
 	}
+
+
 
 	/**
 	 * @return boolean
@@ -487,6 +506,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 	}
 
 
+
 	/**
 	 * @return boolean
 	 */
@@ -494,4 +514,3 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig extends Tx_PtExtlis
 		return $this->showInHeader;
 	}
 }
-?>

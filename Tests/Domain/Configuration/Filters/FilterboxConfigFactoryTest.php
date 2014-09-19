@@ -31,14 +31,13 @@
  * 
  * @package Typo3
  * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
     public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory does not exist!'));
+    	$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory does not exist!');
     }
-	
-}
 
-?>
+}

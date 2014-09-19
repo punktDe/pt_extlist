@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Columns
- * @author Daniel Lienert <linert@punkt.de>
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a column config object
@@ -239,4 +240,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfig_testcase exte
 	}
 
 }
-?>

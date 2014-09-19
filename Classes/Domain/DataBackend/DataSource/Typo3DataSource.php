@@ -32,6 +32,7 @@
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_Typo3DataSourceTest
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
 	implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
@@ -44,10 +45,12 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	protected $connection;
 
 
+
 	/**
 	 * @var pointer		Result pointer / DBAL object
 	 */
 	protected $resource;
+
 
 	
 	/**
@@ -58,6 +61,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	public function injectDbObject($dbObject) {
 		$this->connection = $dbObject;
 	}
+
 
 
 	/**
@@ -80,6 +84,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 
 		return $this;
 	}
+
 
 
 	/**
@@ -127,5 +132,5 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	public function rewind() {
 		return $this->connection->sql_data_seek($this->resource, 0);
 	}
+
 }
-?>

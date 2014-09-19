@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage Configuration\Base
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
 
@@ -135,4 +136,3 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 	}
     
 }
-?>

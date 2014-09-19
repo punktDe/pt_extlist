@@ -26,6 +26,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+
 /**
  * A collection to manage a bunch of pagers.
  *
@@ -33,10 +35,10 @@
  * @author Christoph Ehscheidt
  * @package Domain
  * @subpackage Model\Pager
+ * @see Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Collection_Collection 
-			implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
-
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Collection_Collection
+	implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
@@ -80,16 +82,16 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 		$this->configurationBuilder = $configurationBuilder;
 	}
 
-	
-	
+
+
 	/**
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistanceManager
+	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
 	 */
 	public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager) {
-		$this->sessionPersistenceManager = $sessionPersistenceManager;		
+		$this->sessionPersistenceManager = $sessionPersistenceManager;
 	}
-	
-	
+
+
 
 	/**
 	 * Adds a pager to the collection.
@@ -97,14 +99,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
-
 		$pager->setCurrentPage($this->currentPage);
-
 		// As if one pager is enabled, the collection is marked a enabled.
-		if($pager->isEnabled()) {
+		if ($pager->isEnabled()) {
 			$this->enabled = true;
 		}
-
 		$this->addItem($pager, $pager->getPagerIdentifier());
 	}
 
@@ -116,9 +115,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @param int $pageIndex
 	 */
 	public function setCurrentPage($pageIndex) {
-		$this->currentPage = (int) $pageIndex;
-
-		foreach($this->itemsArr as $pager) { /* @var $pager Tx_PtExtlist_Domain_Model_Pager_PagerInterface */
+		$this->currentPage = (int)$pageIndex;
+		foreach ($this->itemsArr as $pager) {	/* @var $pager Tx_PtExtlist_Domain_Model_Pager_PagerInterface */
 			$pager->setCurrentPage($pageIndex);
 		}
 	}
@@ -152,6 +150,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns true if any of the pages is enabled.
+	 *
 	 * @return boolean
 	 */
 	public function isEnabled() {
@@ -176,14 +175,16 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @param int $itemCount The amount of items.
 	 */
 	public function setItemCount($itemCount) {
-		foreach($this as $pager) { /** @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager */
+		foreach ($this as $pager) {		/** @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager */
 			$pager->setItemCount($itemCount);
 		}
 	}
 
 
+
 	/**
 	 * (non-PHPdoc)
+	 *
 	 * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
 	 */
 	public function getObjectNamespace() {
@@ -194,10 +195,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::injectGPVars()
+	 *
+	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::_injectGPVars()
 	 */
 	public function _injectGPVars($GPVars) {
-		if(array_key_exists('page', $GPVars)) {
+		if (array_key_exists('page', $GPVars)) {
 			$this->currentPage = (int)$GPVars['page'];
 		}
 	}
@@ -206,10 +208,11 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::injectSessionData()
+	 *
+	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::_injectSessionData()
 	 */
 	public function _injectSessionData(array $sessionData) {
-		if(array_key_exists('page', $sessionData)) {
+		if (array_key_exists('page', $sessionData)) {
 			$this->currentPage = (int)$sessionData['page'];
 		}
 	}
@@ -218,19 +221,21 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * (non-PHPdoc)
+	 *
 	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
 	 */
 	public function _persistToSession() {
-		if($this->currentPage > 1) {
+		if ($this->currentPage > 1) {
 			return array('page' => $this->currentPage);
 		} else {
 			/*
-			 *  Page 1 is default therefore we dont need it in the sesssion
+			 *  Page 1 is default therefore we don't need it in the session
 			 *
 			 *  Don't change this, this belongs to RealUrl configuration if everything is
 			 *  put into URL.
 			 */
 			$this->sessionPersistenceManager->removeSessionDataByNamespace($this->getObjectNamespace());
+			return NULL;
 		}
 	}
 
@@ -242,9 +247,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * Delegate to the first pager in this collection.
 	 *
 	 **********************************************************/
-
 	/**
 	 * Returns the index of the first page.
+	 *
 	 * @return int Index of first page
 	 */
 	public function getFirstItemIndex() {
@@ -255,6 +260,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns the index of the last page.
+	 *
 	 * @return int Index of last page
 	 */
 	public function getLastItemIndex() {
@@ -263,10 +269,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 
 
-
-
 	/**
 	 * Returns the total item count.
+	 *
 	 * @return int The total item count.
 	 */
 	public function getItemCount() {
@@ -277,6 +282,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns the items per page.
+	 *
 	 * @return int Amount of items per page.
 	 */
 	public function getItemsPerPage() {
@@ -291,7 +297,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @param int $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage) {
-		foreach($this->itemsArr as $pager) {
+		foreach ($this->itemsArr as $pager) {	/* @var $pager Tx_PtExtlist_Domain_Model_Pager_DefaultPager */
 			$pager->setItemsPerPage($itemsPerPage);
 		}
 	}
@@ -313,11 +319,13 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns an array with the index=>pageNumber pairs
+	 *
 	 * @return array PageNumbers
 	 */
 	public function getPages() {
 		return $this->getItemByIndex(0)->getPages();
 	}
+
 
 
 	/**
@@ -328,10 +336,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
 	 */
 	public function getPagerByIdentifier($pagerIdentifier) {
-		if(!$this->hasItem($pagerIdentifier)) {
-			throw  new Exception('No pager configuration with id '.$pagerIdentifier.' found. 1282216891');
+		if (!$this->hasItem($pagerIdentifier)) {
+			throw  new Exception('No pager configuration with id ' . $pagerIdentifier . ' found. 1282216891');
 		}
-
 		return $this->getItemById($pagerIdentifier);
 	}
 
@@ -348,6 +355,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns the last page index
+	 *
 	 * @return int Index of last page
 	 */
 	public function getLastPage() {
@@ -358,6 +366,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns the first page index
+	 *
 	 * @return int Index of first page
 	 */
 	public function getFirstPage() {
@@ -368,6 +377,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns the previous page index
+	 *
 	 * @return int Index of previous page
 	 */
 	public function getPreviousPage() {
@@ -378,6 +388,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 	/**
 	 * Returns the last next index
+	 *
 	 * @return int Index of next page
 	 */
 	public function getNextPage() {
@@ -385,4 +396,3 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	}
 
 }
-?>

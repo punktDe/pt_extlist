@@ -36,6 +36,22 @@
 class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter {
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+	 */
+	protected $dataProviderFactory;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
+	 */
+	public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory) {
+		$this->dataProviderFactory = $dataProviderFactory;
+	}
+
+
+
+	/**
 	 * @return void
 	 */
 	public function initFilterByGpVars() {
@@ -76,7 +92,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
 	 */
 	public function getOptions() {
-		$dataProvider = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::createInstance($this->filterConfig);
+		$dataProvider = $this->dataProviderFactory->createInstance($this->filterConfig);
 		return $dataProvider->getRenderedOptions();
 	}
 
@@ -119,5 +135,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
 		return "{" . $result . "}";
 	}
 
+
+
+	/**
+	 * @return array
+	 */
+	public function _persistToSession() {
+		return array();
+	}
+
 }
-?>

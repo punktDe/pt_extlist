@@ -131,5 +131,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
 	}
 	
 }
-
-?>

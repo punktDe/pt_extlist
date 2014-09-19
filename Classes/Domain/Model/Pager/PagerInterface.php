@@ -26,27 +26,30 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+
 /**
  * Interface for pager
- * 
+ *
  * @package Domain
  * @subpackage Model\Pager
- * @author Michael Knoll 
- * @author Christoph Ehscheidt 
+ * @author Michael Knoll
+ * @author Christoph Ehscheidt
  */
 interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
-	
+
 	/**
 	 * Checks if this page browser is enabled
+	 *
 	 * @return boolean true if enabled
 	 */
 	public function isEnabled();
 
 
-	
+
 	/**
 	 * Returns the pager identifier.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getPagerIdentifier();
@@ -55,134 +58,152 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 
 	/**
 	 * Returns the current page index.
+	 *
 	 * @return int The current page index
 	 */
 	public function getCurrentPage();
-	
-	
-	
+
+
+
 	/**
 	 * Returns the index of the first page.
+	 *
 	 * @return int Index of first page
 	 */
 	public function getFirstItemIndex();
-	
-	
-	
+
+
+
 	/**
 	 * Returns the index of the last page.
+	 *
 	 * @return int Index of last page
 	 */
 	public function getLastItemIndex();
-	
-	
-	
+
+
+
 	/**
 	 * Sets the current page
+	 *
 	 * @param int $page A page index
 	 */
 	public function setCurrentPage($page);
-	
-	
-	
+
+
+
 	/**
 	 * Sets the total item count.
 	 * Could be used by a list to inject the amount of rows.
-	 * 
+	 *
 	 * @param int $itemCount The amount of items.
 	 */
 	public function setItemCount($itemCount);
-	
-	
-	
+
+
+
 	/**
 	 * Returns the total item count.
+	 *
 	 * @return int The total item count.
 	 */
 	public function getItemCount();
-	
-	
-	
+
+
+
 	/**
 	 * Returns the items per page.
+	 *
 	 * @return int Amount of items per page.
 	 */
 	public function getItemsPerPage();
 
 
+
 	/**
 	 * Sets the items per page
+	 *
 	 * @param int $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage);
 
-	
+
+
 	/**
 	 * Returns an array with the index=>pageNumber pairs
+	 *
 	 * @return array PageNumbers
 	 */
 	public function getPages();
-	
-	
-	
+
+
+
 	/**
 	 * Let you know if you should display a first page link
+	 *
 	 * @return boolean
 	 */
 	public function getShowFirstLink();
-	
-	
-	
+
+
+
 	/**
 	 * Let you know if you should display a last page link
+	 *
 	 * @return boolean
 	 */
 	public function getShowLastLink();
-	
-	
-	
+
+
+
 	/**
 	 * Let you know if you should display a next page link
+	 *
 	 * @return boolean
 	 */
 	public function getShowNextLink();
-	
-	
-	
+
+
+
 	/**
 	 * Let you know if you should display a previous page link
+	 *
 	 * @return boolean
 	 */
 	public function getShowPreviousLink();
-	
-	
-	
+
+
+
 	/**
 	 * Returns the last page index
+	 *
 	 * @return int Index of last page
 	 */
 	public function getLastPage();
-	
-	
-	
+
+
+
 	/**
 	 * Returns the first page index
+	 *
 	 * @return int Index of first page
 	 */
 	public function getFirstPage();
-	
-	
-	
+
+
+
 	/**
 	 * Returns the previous page index
+	 *
 	 * @return int Index of previous page
 	 */
 	public function getPreviousPage();
-	
-	
-	
+
+
+
 	/**
 	 * Returns the last next index
+	 *
 	 * @return int Index of next page
 	 */
 	public function getNextPage();
@@ -214,4 +235,3 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 */
 	public function getItemOffset();
 }
-?>

@@ -29,11 +29,12 @@
 /**
  * Testcase for and criteria
  *
- * @package Typo3
- * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @package pt_extlist
+ * @subpackage Tests\Domain\QueryObject
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_QueryObject_AndCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
      
 	public function testSetup() {
 		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_AndCriteria'));
@@ -60,4 +61,3 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteria_testcase extends Tx_PtEx
 	
 	
 }
-?>

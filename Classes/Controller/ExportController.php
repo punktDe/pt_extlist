@@ -52,6 +52,29 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+	 */
+	protected $listFactory;
+
+
+
+	/**
+	 * @var Tx_PtExtlist_View_Export_AbstractExportView
+	 */
+	protected $view;
+
+
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+	 */
+	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
+		$this->listFactory = $listFactory;
+	}
+
+
+
+	/**
 	 * @return void
 	 */
 	public function initializeAction() {
@@ -59,7 +82,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
 		$this->exportListIdentifier = $this->settings['exportListIdentifier'];
 		if(!$this->exportListIdentifier) $this->exportListIdentifier = $this->listIdentifier;
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No exportListidentifier set.', 1316446015));
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No export list identifier set.', 1316446015));
 	}
 
 
@@ -83,14 +106,14 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 	public function downloadAction() {
 
 		if($this->listIdentifier == $this->exportListIdentifier || !$this->exportListIdentifier) {
-			$list = Tx_PtExtlist_Domain_Model_List_ListFactory::createList($this->dataBackend, $this->configurationBuilder);
+			$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 		} else {
 			$exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
 			
 			if(!is_array($exportListConfiguration)) {
 				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
 			}
-			
+
 			$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
 			
 			$list = $extListContext->getList(true);

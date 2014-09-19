@@ -33,6 +33,7 @@
  * 
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreterTest
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter  {
 
@@ -120,15 +121,16 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 
 		return $extbaseQuery;
 	}
-	
-	
-	
+
+
+
 	/**
-	 * Translates given criteria and adds it to extbase query criterias 
+	 * Translates given criteria and adds it to extbase query criterias
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
 	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
 	 * @param Tx_Extbase_Persistence_Repository $repository
+	 * @throws Exception
 	 * @return Tx_Extbase_Persistence_Query
 	 */
 	public static function setCriteriaOnExtBaseQueryByCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria, Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_Repository $repository) {
@@ -219,4 +221,3 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	}
 
 }
-?>

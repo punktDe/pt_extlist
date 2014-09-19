@@ -8,38 +8,35 @@
 
 plugin.tx_ptextlist {
 
-    /*
-    * This configuration is needed to achieve the behaviour of extbase 1.3.0 in extbase 1.4.1
-    * concerning default controller/actions configured with switchableControllerActions.
-    */
-    mvc.callDefaultActionIfActionCantBeResolved = 1
+	/*
+	* This configuration is needed to achieve the behaviour of extbase 1.3.0 in extbase 1.4.1
+	* concerning default controller/actions configured with switchableControllerActions.
+	*/
+	mvc.callDefaultActionIfActionCantBeResolved = 1
 
-    settings.base {
+	settings.base {
 	
-        /*
-        * Defined class es are:
-        * Tx_PtExtbase_State_Session_Storage_SessionAdapter			Use the TYPO3 browser session
-        * Tx_PtExtbase_State_Session_Storage_FeUserSessionAdapter 	use the TYPO3 fe_user specific session
-        */
-        uncachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter
+		/*
+		* Defined class es are:
+		* Tx_PtExtbase_State_Session_Storage_SessionAdapter			Use the TYPO3 browser session
+		* Tx_PtExtbase_State_Session_Storage_FeUserSessionAdapter 	use the TYPO3 fe_user specific session
+		*/
+		uncachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter
 
-        /*
-        * Defined class es are:
-        * Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter			Save the session data into the databae and add an identifier to the get parameter
-        * Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter		Add all session parameters to the get parameter
-        */
-        cachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_NullStorageAdapter
+		/*
+		* Defined class es are:
+		* Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter			Save the session data into the databae and add an identifier to the get parameter
+		* Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter		Add all session parameters to the get parameter
+		*/
+		cachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_NullStorageAdapter
 
-        /*
-        * If this is set to 1, a list will be reset every time there is no
-        * GP-var data for current request. You can use this switch, if you want a list
-        * to be reset to its default settings every time you open up a page.
-        */
-        resetOnEmptySubmit = 0
-
-        # If set to 1, it's possible to reset session with GP var 'resetSession'
-        resetSessionOnResetParameter = 0
-    }
+		/*
+		* If this is set to 1, a list will be reset every time there is no
+		* GP-var data for current request. You can use this switch, if you want a list
+		* to be reset to its default settings every time you open up a page.
+		*/
+		# resetOnEmptySubmit = 1
+	}
 }
 
 
@@ -53,36 +50,36 @@ EXTLISTAJAX {
 	typeNum =
 
 	10 = COA_INT
-    10 {
-        10 = USER_INT
-        10 {
-            userFunc = tx_extbase_core_bootstrap->run
-            extensionName = PtExtlist
-            pluginName = Pi1
+	10 {
+		10 = USER_INT
+		10 {
+			userFunc = tx_extbase_core_bootstrap->run
+			extensionName = PtExtlist
+			pluginName = Pi1
 
 			# LIMIT CONTROLLER / ACTION
 			switchableControllerActions {
 
-			    AjaxFilter {
+				AjaxFilter {
 					1 = getFilterElement
 				}
 
-			    List {
-			        1 = list
-			    }
+				List {
+					1 = list
+				}
 
 			}
 
 			settings.listIdentifier = 
-        }
-    }
+		}
+	}
 
 	config {
 		disableAllHeaderCode = 1
 		xhtml_cleaning = 0
 		admPanel = 0
-	    debug = 0
-	    no_cache = 1
+		debug = 0
+		no_cache = 1
 		additionalHeaders = Content-type:application/json
 	}
 }
@@ -90,3 +87,18 @@ EXTLISTAJAX {
 
 // Clear mapping for Frontend user so that feUserRepository is able to find user records
 config.tx_extbase.persistence.classes.Tx_Extbase_Domain_Model_FrontendUser.mapping.recordType >
+
+
+// Is needed for Bookmarks to work, because they use the extbase feUser object
+config.tx_extbase.persistence.classes {
+	Tx_Extbase_Domain_Model_FrontendUser {
+		mapping {
+			tableName = fe_users
+		}
+	}
+	Tx_Extbase_Domain_Model_FrontendUserGroup {
+		mapping {
+			tableName = fe_groups
+		}
+	}
+}

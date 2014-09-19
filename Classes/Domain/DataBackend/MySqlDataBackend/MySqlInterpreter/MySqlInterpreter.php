@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterTest
  */
 class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
 
@@ -55,6 +56,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 * Translates query's criterias into SQL string (without "WHERE")
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 * @return string
 	 */
 	public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 		$criteriaArray = array();
@@ -66,12 +68,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 		return $criteriaString;
 	}
 
-	
-	
+
+
 	/**
 	 * Translates given criteria into  SQL WHERE string (without 'WHERE')
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+	 * @throws Exception
 	 * @return string
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
@@ -92,6 +95,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 * Returns SQL limit string without "LIMIT"
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 * @return string
 	 */
 	public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query) {
         $limit = $query->getLimit();
@@ -105,6 +109,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	 * Returns SQL sortings string without "ORDER BY"
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+	 * @return string
 	 */
 	public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query) {
 		
@@ -185,5 +190,3 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 	}
 	
 }
-
-?>

@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Data\Fields
- * @author Daniel Lienert <linert@punkt.de>
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a field config object
@@ -151,4 +152,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfig_testcase e
         $this->fail();
     }	
 }
-?>

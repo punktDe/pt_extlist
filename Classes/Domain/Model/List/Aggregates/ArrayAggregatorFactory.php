@@ -48,4 +48,3 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory {
 		return $arrayAgregator;
 	}
 }
-?>

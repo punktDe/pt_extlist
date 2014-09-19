@@ -121,5 +121,3 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper
     }
 
 }
-
-?>

@@ -35,4 +35,3 @@ class Tx_PtExtlist_Extbase_ExtbaseContext extends Tx_PtExtbase_Extbase_AbstractE
 	// This class is empty, we extend abstract base class to still have singleton
 	
 }
-?>

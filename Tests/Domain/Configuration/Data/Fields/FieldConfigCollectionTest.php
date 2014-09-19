@@ -31,9 +31,10 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Data\Fields
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * Holds a dummy configuration for a aggregate config collection object
@@ -69,9 +70,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
 	}
 	
 	
-	
-	public function testSetup() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+
+	/** @test */
+	public function classExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection');
 	}
 	
 	
@@ -125,4 +127,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollection_
 		$this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field3'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
 	}
 }
-?>

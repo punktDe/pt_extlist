@@ -132,4 +132,3 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
     }
 
 }
-?>

@@ -87,7 +87,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
 
 	/** @test */
 	public function renderCaptionRendersCaptionForGivenConfiguration() {
-		$listHeader = Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::createInstance($this->configurationBuilderMock);
+		$listHeaderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory');
+		$listHeader = $listHeaderFactory->createInstance($this->configurationBuilderMock);
 
 		$captions = $this->renderer->renderCaptions($listHeader);
 

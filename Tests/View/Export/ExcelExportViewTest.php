@@ -32,19 +32,22 @@
  * @package Tests
  * @subpackage View\Export
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_View_Export_ExcelListView
  */
-class Tx_PtExtlist_Tests_View_List_ExcelListView_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
-
+class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * @var string
 	 */
 	protected $proxyClass;
 
+
+
 	/**
 	 * @var Tx_PtExtlist_View_Export_ExcelListView
 	 */
 	protected $proxy;
+
 
 
 	public function setUp() {
@@ -66,9 +69,11 @@ class Tx_PtExtlist_Tests_View_List_ExcelListView_testcase extends Tx_PtExtlist_T
 	}
 
 
+
 	public function tearDown() {
 		unset($this->proxy);
 	}
+
 
 	
 	/**
@@ -76,23 +81,23 @@ class Tx_PtExtlist_Tests_View_List_ExcelListView_testcase extends Tx_PtExtlist_T
 	 */
 	public function renderCallsAllParts() {
 
-		/** @var $viewMock Tx_PtExtlist_View_Export_ExcelListView */
 		$viewMock = $this->getMockBuilder('Tx_PtExtlist_View_Export_ExcelListView')
 				  ->setMethods(array('renderPreHeaderRows','renderHeader','renderBody', 'renderPostBodyRows', 'clearOutputBufferAndSendHeaders', 'saveOutputAndExit'))
 					->getMock();
-
-
-		$viewMock->setConfigurationBuilder($this->configurationBuilderMock);
-		$exportSettings = $this->configurationBuilderMock->getSettings('export');
-		$viewMock->setExportConfiguration(new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilderMock, $exportSettings['exportConfigs']['test']));
 
 		$viewMock->expects($this->once())->method('renderPreHeaderRows');
 		$viewMock->expects($this->once())->method('renderHeader');
 		$viewMock->expects($this->once())->method('renderBody');
 		$viewMock->expects($this->once())->method('renderPostBodyRows');
-		
+		/** @var $viewMock Tx_PtExtlist_View_Export_ExcelListView */
+
+		$viewMock->setConfigurationBuilder($this->configurationBuilderMock);
+		$exportSettings = $this->configurationBuilderMock->getSettings('export');
+		$viewMock->setExportConfiguration(new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilderMock, $exportSettings['exportConfigs']['test']));
+
 		$viewMock->render();
 	}
+
 
 
 	/**
@@ -104,7 +109,8 @@ class Tx_PtExtlist_Tests_View_List_ExcelListView_testcase extends Tx_PtExtlist_T
 
 		$this->assertEquals($expected, $this->proxy->_call('buildBorderStyle', $settings));
 	}
-	
+
+
 	
 	/**
 	 * @test
@@ -120,5 +126,3 @@ class Tx_PtExtlist_Tests_View_List_ExcelListView_testcase extends Tx_PtExtlist_T
 		$this->assertEquals($expected, $this->proxy->_call('getExcelSettingsByColumnIdentifier', 'column1'));
 	}
 }
-
-?>

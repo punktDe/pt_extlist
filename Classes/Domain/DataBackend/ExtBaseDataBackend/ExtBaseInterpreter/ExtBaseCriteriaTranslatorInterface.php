@@ -48,5 +48,3 @@ interface Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_
 	       Tx_Extbase_Persistence_Repository $extbaseRepository);
 	
 }
- 
-?>

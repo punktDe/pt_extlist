@@ -32,20 +32,22 @@
  *
  * @package Tests
  * @subpackage Domain\Configuration\Renderer
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 
 	public function setup() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
-	
+
+
+
 	public function testGetRendererConfiguration() {
 		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getInstance($this->configurationBuilderMock);
 
 		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig);
 	}
-}
 
-?>
+}

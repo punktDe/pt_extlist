@@ -36,23 +36,9 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest
  */
-class Tx_PtExtlist_Domain_Renderer_RendererFactory implements t3lib_Singleton {
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManager
-	 */
-	protected $objectManager;
-
-
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-
+class Tx_PtExtlist_Domain_Renderer_RendererFactory
+	extends Tx_PtExtlist_Domain_AbstractComponentFactory
+	implements t3lib_Singleton {
 
 	/**
 	 * Build and return the renderer

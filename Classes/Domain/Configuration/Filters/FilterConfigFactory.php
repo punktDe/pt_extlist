@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage Configuration\Filters
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	
@@ -44,14 +45,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 
 
 	/**
-	 * Sets accessable flag for filter
+	 * Sets accessible flag for filter
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$security = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
+		$security = $objectManager->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
 		$accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
 		$filterConfig->setAccessable($accessable);
 		

@@ -75,4 +75,3 @@ interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtE
 	//Todo add cell css
 	
 }
-?>

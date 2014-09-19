@@ -143,4 +143,3 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends Tx_
 	}
 	
 }
-?>

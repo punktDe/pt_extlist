@@ -184,4 +184,3 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 	}
 
 }
-?>

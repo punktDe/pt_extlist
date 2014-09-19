@@ -31,15 +31,18 @@
  *
  * @package Tests
  * @subpackage Domain\Model\BreadCrumbs
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory'));
+	/** @test */
+	public function assertThatClassExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory');
 	}
 	
-	
+
+
 	public function testGetSingletonInstancesByConfigurationBuilder() {
 		// TODO: reactivate this test if the BUG in TYPO3 that causes an error is fixed
 		
@@ -62,5 +65,3 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory_te
 	}
 	
 }
-
-?>

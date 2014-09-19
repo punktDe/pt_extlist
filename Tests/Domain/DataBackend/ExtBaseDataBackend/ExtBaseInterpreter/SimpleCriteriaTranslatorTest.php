@@ -29,11 +29,12 @@
 /**
  * Testcase for simple criteria translator for extbase backend interpreter
  *
- * @package Typo3
- * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @package Tests
+ * @subpackage Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $repositoryMock;
 	
@@ -178,4 +179,3 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 	}
 	
 }
-?>

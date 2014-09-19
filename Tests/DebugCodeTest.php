@@ -32,7 +32,7 @@
  * @author Daniel Lienert 
  * @package Tests
  */
-class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
 
 	protected $extensionName = 'pt_extlist';
 
@@ -68,4 +68,3 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_Extbase_Tests_Unit_BaseTestCas
 	}
 	
 }
-?>

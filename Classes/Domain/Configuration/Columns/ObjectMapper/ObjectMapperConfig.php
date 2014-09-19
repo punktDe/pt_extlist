@@ -29,7 +29,7 @@
 
 /**
  * Class implementing configuration for the objectMapper
- * 
+ *
  * @package Domain
  * @subpackage Configuration\Column
  * @author Daniel Lienert
@@ -43,10 +43,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig 
 	protected $class;
 
 
+
 	/**
 	 * @var array
 	 */
 	protected $mapping;
+
 
 
 	/**
@@ -54,14 +56,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig 
 	 */
 	protected function init() {
 		$this->setRequiredValue('class', 'No class for target object given. 1328218072');
-		if(!class_exists($this->class)) {
+		if (!class_exists($this->class)) {
 			throw new Exception('The class ' . $this->class . ' could not be loaded. 1328218148');
 		}
 
-		if(array_key_exists('mapping',$this->settings) && is_array($this->settings['mapping'])) {
+		if (array_key_exists('mapping', $this->settings) && is_array($this->settings['mapping'])) {
 			$this->mapping = $this->settings['mapping'];
 		}
 	}
+
+
 
 	/**
 	 * @param string $class
@@ -70,12 +74,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig 
 		$this->class = $class;
 	}
 
+
+
 	/**
 	 * @return string
 	 */
 	public function getClass() {
 		return $this->class;
 	}
+
+
 
 	/**
 	 * @param array $mapping
@@ -84,11 +92,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig 
 		$this->mapping = $mapping;
 	}
 
+
+
 	/**
 	 * @return array
 	 */
 	public function getMapping() {
 		return $this->mapping;
 	}
+
 }
-?>

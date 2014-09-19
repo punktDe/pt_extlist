@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<phpunit processIsolation="false">
+    <testsuites>
+        <testsuite name="pt_extlist Unit Tests">
+            <directory suffix="Test.php">../../Tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory>../../pt_extlist/Classes</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="junit" target="../../PhpUnit/Reports/UnitTests.xml" logIncompleteSkipped="false"/>
+        <log type="coverage-html" target="../../PhpUnit/Reports/UnitTests/CodeCoverage" />
+        <log type="coverage-clover" target="../../PhpUnit/Reports/UnitTests/CodeCoverage.xml"/>
+    </logging>
+</phpunit>

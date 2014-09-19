@@ -26,6 +26,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * Class implements a testcase for the pager collection
+ *
+ * @see Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+ */
 class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setUp() {
@@ -34,35 +39,36 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
 
 
 
-	public function testAddPager() {
+	/** @test */
+	public function pagerCanBeAddedToPagerCollection() {
 		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($this->configurationBuilderMock);
-		
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(),'',false, false, true);
+
+		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(), '', false, false, true);
 
 		$collection->addPager($pager);
 	}
 
 
-	
+
 	/** @test */
 	public function setPageByItemIndex() {
 		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($this->configurationBuilderMock);
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage','getItemCount','getLastPage'), array(),'', false,false);
+		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage', 'getItemCount', 'getLastPage'), array(), '', false, false);
 		$pager->expects($this->any())->method('getItemCount')->will($this->returnValue(1000));
 		$pager->expects($this->any())->method('getLastPage')->will($this->returnValue(200));
 		$collection->addPager($pager);
 
-		
+
 		$collection->setItemsPerPage(5);
-		
+
 		$collection->setPageByRowIndex(0);
-		$this->assertEquals(1,$collection->getCurrentPage());
-		
+		$this->assertEquals(1, $collection->getCurrentPage());
+
 		$collection->setPageByRowIndex(4);
-		$this->assertEquals(1,$collection->getCurrentPage());
-		
+		$this->assertEquals(1, $collection->getCurrentPage());
+
 		$collection->setPageByRowIndex(5);
-		$this->assertEquals(2,$collection->getCurrentPage());
+		$this->assertEquals(2, $collection->getCurrentPage());
 	}
 
 
@@ -70,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
 	/** @test */
 	public function pagerCollectionReturnsFirstPageIfCurrentPageIsOutOfItemCount() {
 		$collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($this->configurationBuilderMock);
-		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage','getItemCount', 'getLastPage'), array(),'', false,false);
+		$pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage', 'getItemCount', 'getLastPage'), array(), '', false, false);
 		$pager->expects($this->any())->method('getItemCount')->will($this->returnValue(10));
 		$pager->expects($this->any())->method('getLastPage')->will($this->returnValue(2));
 		$collection->addPager($pager);
@@ -87,4 +93,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
 	}
 
 }
-?>

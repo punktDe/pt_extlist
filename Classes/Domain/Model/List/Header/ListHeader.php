@@ -35,6 +35,7 @@
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List\Header
+ * @see Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderTest
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
     extends Tx_PtExtlist_Domain_Model_List_Row
@@ -144,4 +145,3 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	}
 
 }
-?>

@@ -28,40 +28,43 @@
 
 /**
  * Implements data provider for grouped list data
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter\DataProvider
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends  Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData {
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData {
 
 	/**
 	 * ElementCountField is either a rowcount or an explicitly defined count field
-	 * 
+	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 */
 	protected $elementCountField = NULL;
-	
-	
-	
+
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData::initDataProviderByTsConfig()
 	 */
 	protected function initDataProviderByTsConfig($filterSettings) {
 		parent::initDataProviderByTsConfig($filterSettings);
-		
-		if(array_key_exists('countFieldIdentifier', $filterSettings) && $filterSettings['countFieldIdentifier']) {
+
+		if (array_key_exists('countFieldIdentifier', $filterSettings) && $filterSettings['countFieldIdentifier']) {
 			$this->elementCountField = $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($filterSettings['countFieldIdentifier']);
 		}
-		
-	}	
-	
-	
+
+	}
+
+
+
 	/**
 	 * Build the group data query to retrieve the group data
-	 * 
+	 *
 	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+	 * @return \Tx_PtExtlist_Domain_QueryObject_Query
 	 */
 	protected function buildGroupDataQuery($fields) {
 		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
@@ -89,5 +92,5 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends  Tx_PtExtli
 
 		return $groupDataQuery;
 	}
+
 }
-?>

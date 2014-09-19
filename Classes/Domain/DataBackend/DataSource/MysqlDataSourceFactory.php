@@ -81,4 +81,3 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory {
 		return $pdo;
 	}
 }
-?>

@@ -72,4 +72,3 @@ interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 	public function getCacheRendering();
 
 }
-?>

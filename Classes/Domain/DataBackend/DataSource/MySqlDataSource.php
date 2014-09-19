@@ -32,6 +32,7 @@
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
 	implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
@@ -142,5 +143,3 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 
 
 }
-
-?>

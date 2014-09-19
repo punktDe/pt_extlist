@@ -114,5 +114,3 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
 	
 	
 }
-
-?>

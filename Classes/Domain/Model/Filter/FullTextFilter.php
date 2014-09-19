@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage Model\Filter
  * @author Daniel Lienert 
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FullTextFilterTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
@@ -104,8 +105,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
 
 	/**
 	 * Not called
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
 	 * @return void
 	 */
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
+
 }
-?>

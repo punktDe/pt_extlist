@@ -118,5 +118,3 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
         return Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
     }
 }
-
-?>

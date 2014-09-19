@@ -31,7 +31,8 @@
  * 
  * @package Domain
  * @subpackage DataBackend\Mapper
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest
  */
 class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
 
@@ -44,14 +45,13 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	 */
 	public function getMappedListData($domainObjects) {
 		
-		Tx_PtExtbase_Assertions_Assert::isNotNull($this->mapperConfiguration, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
+		Tx_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
 		
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		
 		foreach($domainObjects as $domainObject) {
 			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
-
-			foreach($this->mapperConfiguration as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+			foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
 				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
 				
 				if($property == '__object__') {
@@ -124,15 +124,16 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 
 	    return $value;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns property value for given object and property name.
 	 * Throws exception on non-existing getter method for property.
 	 *
 	 * @param mixed $object
 	 * @param string $property
+	 * @throws Exception if trying to call a non-existing method on the object to be mapped
 	 * @return mixed
 	 */
 	protected function getPropertyValueSafely($object, $property) {
@@ -147,18 +148,19 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 			Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns an object for given object path.
-	 * 
+	 *
 	 * Example: objectPath = object1.object2.object3.property will return object3
-	 * 
+	 *
 	 * TODO refactor me!
 	 *
 	 * @param mixed $object
 	 * @param string $objectPath
+	 * @throws Exception if trying to call a non-existing method on the object to be mapped
 	 * @return mixed
 	 */
 	public function resolveObjectPath($object, $objectPath) {
@@ -188,4 +190,3 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 	}
 	
 }
-?>

@@ -135,4 +135,3 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
 	}
 	
 }
-?>

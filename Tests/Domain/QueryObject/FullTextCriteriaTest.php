@@ -29,11 +29,12 @@
 /**
  * Testcase for fullText criteria
  *
- * @package Typo3
- * @subpackage pt_extlist
+ * @package pt_extlist
+ * @subpackage Domain\QueryObject
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
@@ -101,5 +102,3 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteria_testcase extends Tx
 	}
 	
 }
- 
-?>

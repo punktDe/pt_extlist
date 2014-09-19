@@ -31,9 +31,10 @@
  * 
  * @package Tests
  * @subpackage pt_extlist
- * @author Christoph Ehscheidt 
+ * @author Christoph Ehscheidt
+ * @see Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactory_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	/**
 	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -64,4 +65,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFact
 	}
 	
 }
-?>

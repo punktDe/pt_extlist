@@ -77,4 +77,3 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
 	public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex);
 
 }
-?>

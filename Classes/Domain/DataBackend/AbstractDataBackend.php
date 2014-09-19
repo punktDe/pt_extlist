@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage DataBackend
  * @author Michael Knoll 
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 	
@@ -142,7 +143,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     /**
      * Holds an instance of bookmark manager
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager
+     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -300,9 +301,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     /**
      * Injector for bookmark manager
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
      */
-    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmarks_BookmarkManager $bookmarkManager) {
+    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager) {
     	$this->bookmarkManager = $bookmarkManager;
     }
 
@@ -468,4 +469,3 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 
 }
-?>

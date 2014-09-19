@@ -105,4 +105,3 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 		$this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);		
 	}
 }
-?>

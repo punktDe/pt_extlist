@@ -120,5 +120,3 @@ class Tx_PtExtlist_Domain_Model_Filter_MinFilter extends Tx_PtExtlist_Domain_Mod
 	}
 
 }
-
-?>

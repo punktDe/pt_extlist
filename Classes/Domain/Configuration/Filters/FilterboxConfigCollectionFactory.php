@@ -31,6 +31,7 @@
  *
  * @package Domain
  * @subpackage Configuration\Filters
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory {
 	
@@ -54,4 +55,3 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
 		return $filterBoxConfigCollection;
 	}
 }
-?>

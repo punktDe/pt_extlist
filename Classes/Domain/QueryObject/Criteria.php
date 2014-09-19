@@ -32,7 +32,8 @@
  *
  * @package Domain
  * @subpackage QueryObject
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_QueryObject_CriteriaTest
  */
 class Tx_PtExtlist_Domain_QueryObject_Criteria {
 
@@ -197,7 +198,6 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
 	 * @static
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields
 	 * @param string $searchString
-	 * @param boolean $useBooleanMode
 	 * @param array $searchParameter
 	 * @return Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
 	 */
@@ -222,4 +222,3 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria {
     }
     
 }
-?>

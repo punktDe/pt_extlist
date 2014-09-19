@@ -32,7 +32,8 @@
  * @package Domain
  * @subpackage Renderer\Strategy
  * @author Michael Knoll
- * @author Daniel Lienert 
+ * @author Daniel Lienert
+ * @see Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest
  */
 class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements t3lib_Singleton {
 
@@ -43,11 +44,11 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements t3lib_Sing
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
 	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array(message => 'No header data available. 1280408235'));
+		Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array('message' => 'No header data available. 1280408235'));
 		
 		$renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
 
-		foreach($listHeader as $headerColumn) {
+		foreach($listHeader as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
 			if($headerColumn->getColumnConfig()->isAccessable() && $headerColumn->getIsVisible()) {
 				$label = $this->renderColumnLabel($headerColumn);
@@ -62,7 +63,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements t3lib_Sing
 
 	/**
 	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn
-	 * @return rendered|string
+	 * @return string
 	 */
 	public function renderColumnLabel(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
 		$label = $headerColumn->getLabel();
@@ -77,4 +78,3 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements t3lib_Sing
 	}
 	
 }
-?>

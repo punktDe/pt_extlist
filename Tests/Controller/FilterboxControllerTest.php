@@ -233,4 +233,3 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 	}
 
 }
-?>

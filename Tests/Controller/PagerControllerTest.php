@@ -79,4 +79,3 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
 		$pagerControllerMock->showAction();
 	}
 }
-?>

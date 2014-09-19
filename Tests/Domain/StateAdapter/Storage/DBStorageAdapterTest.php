@@ -44,4 +44,3 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_Storage_DBStorageAdapter_testcaste 
 	}
 	
 }
-?>

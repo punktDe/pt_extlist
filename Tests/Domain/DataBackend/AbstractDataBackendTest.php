@@ -32,18 +32,20 @@
  * @package Tests
  * @subpackage Domain\DataBackend
  * @author Christoph Ehscheidt 
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackend_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
 	}
 	
-	
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend'));
-    }
-}
 
-?>
+
+	/** @test */
+    public function assertThatClassExists() {
+    	$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend');
+    }
+
+}

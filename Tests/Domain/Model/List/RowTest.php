@@ -33,8 +33,9 @@
  * @author Michael Knoll 
  * @package Tests
  * @subpackage Domain\List
+ * @see Tx_PtExtlist_Domain_Model_List_Row
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	protected $dataArray = array(
 		'specialValues' => array(
@@ -62,9 +63,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_PtExtlist_Tes
 
 
 
-	public function testSetUp() {
-		$row = new Tx_PtExtlist_Domain_Model_List_Row();
+	/** @test */
+	public function assertThatClassExists() {
+		$this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Row');
 	}
+
 
 
 	/**
@@ -146,5 +149,3 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Row_testcase extends Tx_PtExtlist_Tes
 	}
 	
 }
-
-?>

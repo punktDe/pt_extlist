@@ -33,6 +33,7 @@
  *
  * @package ExtlistContext
  * @author Daniel Lienert
+ * @see Tx_PtExtlist_ExtlistContext_ExtlistContextFactoryTest
  */
 class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singleton {
 
@@ -59,6 +60,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 
 
 	/**
+	 * TODO probably this is never used --> remove it!
+	 *
 	 * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
 	 */
 	protected $instances = array();
@@ -123,28 +126,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	public static function getContextByListIdentifier($listIdentifier) {
 
 		if(!array_key_exists($listIdentifier, self::$staticInstances)) {
-
 			self::$staticObjectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
-
-			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
-
-			if($extListBackend === NULL) {
-				$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
-
-				// TODO resolve this properly with Dependency Injection once we have cascading container
-				#Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::injectSettings($extListTs);
-				$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
-				$configurationBuilderFactory->setSettings($extListTs);
-				$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
-				#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-
-				self::loadLifeCycleManager($configurationBuilder);
-
-				$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
-			}
-
-			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
-
+			$extListTs = self::getExtListTyposcriptSettings($listIdentifier);
+			self::getContextByCustomConfiguration($extListTs['listConfig'][$listIdentifier], $listIdentifier);
 		}
 
 		return self::$staticInstances[$listIdentifier];
@@ -163,7 +147,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	}
 
 
-	
 	/**
 	 * Get the databackend by a custom list configuration ts array
 	 * The Typoscript is identified by the given listIdentifier and merged with the extlist configuration
@@ -171,9 +154,10 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	 * @param array $customTSArray Custom typoscript list configuration in extBase format
 	 * @param string $listIdentifier a listIdentifier to identify the custom list
 	 * @param $useCache boolean
+	 * @param null|int $bookmarkUidToRestore
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE) {
+	public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = TRUE, $bookmarkUidToRestore = NULL) {
 		
 		if(!array_key_exists($listIdentifier, self::$staticInstances) || !$useCache) {
 
@@ -193,6 +177,13 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 				$configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier, TRUE);
 			}
 
+			if($bookmarkUidToRestore){
+				$bookmarkManagerFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'); /* @var $bookmarkManagerFactory Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory */
+				$bookmarkManager = $bookmarkManagerFactory->getInstanceByConfigurationBuilder($configurationBuilder);
+				$bookmarkManager->restoreBookmarkByUid($bookmarkUidToRestore);
+			}
+
+
 			$extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder, !$useCache);
 			self::$staticInstances[$listIdentifier] = self::buildContext($extListBackend);
 		}
@@ -201,18 +192,17 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 	}
 
 
-
-
 	/**
 	 * Non-static wrapper for getContextByCustomConfiguration
 	 *
 	 * @param array $customTSArray
 	 * @param $listIdentifier
 	 * @param bool $useCache
+	 * @param null|int $bookmarkUidToRestore
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
-	public function getContextByCustomConfigurationNonStatic(array $customTSArray, $listIdentifier, $useCache = true) {
-		return self::getContextByCustomConfiguration($customTSArray, $listIdentifier, $useCache);
+	public function getContextByCustomConfigurationNonStatic(array $customTSArray, $listIdentifier, $useCache = true, $bookmarkUidToRestore = NULL) {
+		return self::getContextByCustomConfiguration($customTSArray, $listIdentifier, $useCache, $bookmarkUidToRestore);
 	}
 
 

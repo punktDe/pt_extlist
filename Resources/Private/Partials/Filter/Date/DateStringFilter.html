@@ -1,0 +1,54 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--
+Partial for rendering a date range filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+@package Domain
+@subpackage Filter
+@author Michael Knoll <knoll@punkt.de>
+-->
+</extlist:comment>
+
+<div class="outer-wrapper">
+	<label class="filter-label">
+		{filter.label}
+	</label>
+	<div class="outer-field-wrapper">
+		<div class="field-wrapper type-text">
+            <div id="previousMonth" class="dateStringFilterValue">Vormonat</div>
+            <div id="previous2Month" class="dateStringFilterValue">Vor(2)monat</div>
+            <div id="previous3Month" class="dateStringFilterValue">Vor(3)monat</div>
+            <div id="previousHalfYear" class="dateStringFilterValue">letztes Halbjahr</div>
+            <div id="previousYear" class="dateStringFilterValue">Vorjahr</div>
+			<f:form.hidden id="dateStringFilter" property="filterValue" value="{filter.filterValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValue')}" /><br />
+		</div>
+	</div>
+
+    <script>
+        (function($){
+        $(document).ready(function() {
+            var value = $('#dateStringFilter').val();
+            if(value){
+                var field = $('#'+value);
+                if(field){
+                    field.addClass('dateStringFilterActive');
+                }
+            }
+            $('.dateStringFilterValue').click(function(){
+                $('#dateStringFilter').val($(this).attr('id'));
+                $('.dateStringFilterValue').removeClass('dateStringFilterActive');
+                $(this).addClass('dateStringFilterActive');
+            });
+        });
+        })(jQuery);
+    </script>
+	<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
+
+	<f:if condition="{filter.validate} == 0">
+		<div class="error">
+			<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}
+		</div>
+	</f:if>
+</div>

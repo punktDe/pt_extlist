@@ -44,6 +44,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	protected $filterValue = '';
 
 
+
 	/**
 	 * Returns raw value of filter (NOT FILTER QUERY!!!)
 	 *
@@ -52,6 +53,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	public function getFilterValue() {
 		return $this->filterValue;
 	}
+
 
 
 	/**
@@ -64,12 +66,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
+
 	/**
 	 * @return string
 	 */
 	public function getValue() {
 		return $this->filterValue;
 	}
+
 
 
 	/**
@@ -80,6 +84,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	public function getFieldIdentifier() {
 		return $this->fieldIdentifierCollection;
 	}
+
 
 
 	/**
@@ -94,14 +99,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 
 
 
-    /**
-     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
-     */
+	/**
+	 * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+	 */
 	public function reset() {
 		$this->filterValue = '';
 		parent::reset();
 
-        return $this;
+		return $this;
 	}
 
 
@@ -116,6 +121,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
+
 	/**
 	 * Template method for initializing filter by get / post vars
 	 */
@@ -126,6 +132,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
+
 	/**
 	 * Template method for initializing filter by session data
 	 */
@@ -134,12 +141,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
+
 	/**
 	 * Template method for initializing filter by TS configuration
 	 */
 	protected function initFilterByTsConfig() {
 		$this->filterValue = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
 	}
+
 
 
 	/**
@@ -151,6 +160,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
@@ -160,12 +170,13 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	}
 
 
-    /**
-     * Returns filter value for breadcrumb
-     *
-     * @return string
-     */
-    public function getDisplayValue() {
-    	return $this->filterValue;
-    }
+
+	/**
+	 * Returns filter value for breadcrumb
+	 *
+	 * @return string
+	 */
+	public function getDisplayValue() {
+		return $this->filterValue;
+	}
 }

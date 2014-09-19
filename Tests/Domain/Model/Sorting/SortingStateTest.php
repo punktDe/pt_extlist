@@ -98,4 +98,3 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtl
     }
 
 }
-?>

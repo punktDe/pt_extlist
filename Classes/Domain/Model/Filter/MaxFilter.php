@@ -120,5 +120,3 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
 	}
 
 }
-
-?>

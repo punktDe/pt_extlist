@@ -215,7 +215,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 								'fieldIdentifier' => 'field4',
 								'label' => 'Column 6',
 								'objectMapper' => array(
-									'class' => 'Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark',
+									'class' => 'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark',
 									'mapping' => array(
 										'label' => 'name'
 									)
@@ -313,5 +313,3 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
     }
     
 }
-
-?>

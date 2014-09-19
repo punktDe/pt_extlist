@@ -167,5 +167,3 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
 	}
 	
 }
-
-?>

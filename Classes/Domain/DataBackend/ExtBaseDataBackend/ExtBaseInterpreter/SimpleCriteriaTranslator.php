@@ -31,7 +31,8 @@
  *
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see
  */
 class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator 
     implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {

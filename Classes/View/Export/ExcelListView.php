@@ -40,6 +40,7 @@ require_once('PHPExcel/PHPExcel.php');
  * @author Daniel Lienert
  * @package View
  * @subpackage Export
+ * @see Tx_PtExtlist_Tests_View_List_ExcelListViewTest
  */
 class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_AbstractExportView {
 
@@ -51,10 +52,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected $objPHPExcel;
 
 
+
 	/**
 	 * @var PHPExcel_Worksheet
 	 */
 	protected $activeSheet;
+
 
 
 	/**
@@ -65,10 +68,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected $templateVariableContainer;
 
 
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
 	 */
 	protected $columnConfigCollection;
+
 
 
 	/**
@@ -78,10 +83,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected $rowNumber = 1;
 
 
-	/*
-	 * array
+
+	/**
+	 * @var array
 	 */
 	protected $bodyCellStyleCache;
+
 
 
 	/**
@@ -90,10 +97,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected $fileFormat = 'Excel5';
 
 
+
 	/**
 	 * @var bool
 	 */
 	protected $doBodyCellStyling = true;
+
 
 
 	/**
@@ -102,10 +111,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected $stripTags = true;
 
 
+
 	/**
 	 * @var bool
 	 */
 	protected $renderFilterStates = false;
+
 
 
 	/**
@@ -124,8 +135,8 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 		$this->clearOutputBufferAndSendHeaders();
 
-		if($this->freeText) $this->renderFreeText();
-		if($this->renderFilterStates === TRUE) $this->renderFilterStates();
+		if ($this->freeText) $this->renderFreeText();
+		if ($this->renderFilterStates === TRUE) $this->renderFilterStates();
 
 		$this->renderPreHeaderRows();
 
@@ -151,19 +162,19 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		// File format can be changed in FlexForm in 'fileFormat' field.
 		// possible values: 'Excel2007', 'Excel5'
 		// if no value is given, 'Excel5' is taken.
-		if(array_key_exists('fileFormat', $settings) && trim($settings['fileFormat']) ) {
+		if (array_key_exists('fileFormat', $settings) && trim($settings['fileFormat'])) {
 			$this->fileFormat = $settings['fileFormat'];
 		}
 
-		if(array_key_exists('stripTags', $settings)) {
+		if (array_key_exists('stripTags', $settings)) {
 			$this->stripTags = $settings['stripTags'] == '1' ? true : false;
 		}
 
-		if(array_key_exists('doBodyCellStyling', $settings)) {
+		if (array_key_exists('doBodyCellStyling', $settings)) {
 			$this->doBodyCellStyling = $settings['doBodyCellStyling'] == '1' ? true : false;
 		}
 
-		if(array_key_exists('renderFilterStates', $settings)) {
+		if (array_key_exists('renderFilterStates', $settings)) {
 			$this->renderFilterStates = $settings['renderFilterStates'] == '1' ? true : false;
 		}
 
@@ -171,6 +182,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 			$this->freeText = $settings['freeText'];
 		}
 	}
+
 
 
 	/**
@@ -229,8 +241,10 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		$this->activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(array('font' => array('bold' => TRUE)));
 		$this->rowNumber++;
 
-		foreach($filterBoxCollection as $filterBox) { /** @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
-			foreach($filterBox as $filter) { /** @var $filter Tx_PtExtlist_Domain_Model_Filter_AbstractFilter */
+		foreach ($filterBoxCollection as $filterBox) {
+			/** @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+			foreach ($filterBox as $filter) {
+				/** @var $filter Tx_PtExtlist_Domain_Model_Filter_AbstractFilter */
 				$activeSheet->setCellValueByColumnAndRow(
 					0,
 					$this->rowNumber,
@@ -257,7 +271,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 		$filterValue = $filter->getDisplayValue();
 
-		if(!$filterValue) {
+		if (!$filterValue) {
 			$filterValue = '...';
 		}
 
@@ -269,7 +283,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	/**
 	 * Overwrite this to render post body rows
 	 */
-	protected function renderPostBodyRows() {}
+	protected function renderPostBodyRows() {
+	}
+
 
 
 	/**
@@ -317,16 +333,18 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		$activeSheet = $this->objPHPExcel->getActiveSheet();
 
 		// Rows
-		foreach ($this->templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
-			foreach ($listRow as $columnIdentifier => $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+		foreach ($this->templateVariableContainer['listData'] as $listRow) {
+			/* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+			foreach ($listRow as $columnIdentifier => $listCell) {
+				/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 
 				$cellValue = $listCell->getValue();
-				if($this->stripTags) $cellValue = strip_tags($cellValue);
+				if ($this->stripTags) $cellValue = strip_tags($cellValue);
 
 				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($cellValue);
 
 
-				if($this->doBodyCellStyling) $this->doCellStyling($columnNumber, $columnIdentifier, 'body');
+				if ($this->doBodyCellStyling) $this->doCellStyling($columnNumber, $columnIdentifier, 'body');
 
 				unset($listCell);
 				$columnNumber++;
@@ -350,14 +368,16 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		$activeSheet = $this->objPHPExcel->getActiveSheet();
 
 		// Rows
-		foreach ($this->templateVariableContainer['aggregateRows'] as $aggregateRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+		foreach ($this->templateVariableContainer['aggregateRows'] as $aggregateRow) {
+			/* @var $row Tx_PtExtlist_Domain_Model_List_Row */
 
 			$columnNumber = 0;
 
-			foreach ($aggregateRow as $columnIdentifier => $aggregateCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+			foreach ($aggregateRow as $columnIdentifier => $aggregateCell) {
+				/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 
 				$cellValue = $aggregateCell->getValue();
-				if($this->stripTags) $cellValue = strip_tags($cellValue);
+				if ($this->stripTags) $cellValue = strip_tags($cellValue);
 
 				$activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setValue($cellValue);
 
@@ -379,6 +399,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 * @return array
 	 */
 	protected function getExcelSettingsByColumnIdentifier($columnIdentifier) {
+		$excelSettings = NULL;
 		if ($this->columnConfigCollection->hasIdentifier($columnIdentifier)) {
 			$excelSettings = $this->columnConfigCollection->getColumnConfigByIdentifier($columnIdentifier)->getSettings('excelExport');
 			if (!is_array($excelSettings)) $excelSettings = array();
@@ -387,7 +408,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		return $excelSettings;
 	}
 
-	
+
 
 	/**
 	 * @param $columnNumber
@@ -397,17 +418,17 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	protected function doCellStyling($columnNumber, $columnIdentifier, $type) {
 
 		$excelSettings = $this->getExcelSettingsByColumnIdentifier($columnIdentifier);
-		if(!is_array($excelSettings[$type])) return;
+		if (!is_array($excelSettings[$type])) return;
 		$settings = $excelSettings[$type];
 
-		if($settings['dataType']) $this->activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setDataType($settings['dataType']);
+		if ($settings['dataType']) $this->activeSheet->getCellByColumnAndRow($columnNumber, $this->rowNumber)->setDataType($settings['dataType']);
 
-		if($settings['wrapText']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setWrapText($settings['wrapText']);
-		if($settings['vertical']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setVertical($settings['vertical']);
-		if($settings['shrinkToFit']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setShrinkToFit($settings['shrinkToFit']);
+		if ($settings['wrapText']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setWrapText($settings['wrapText']);
+		if ($settings['vertical']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setVertical($settings['vertical']);
+		if ($settings['shrinkToFit']) $this->activeSheet->getStyleByColumnAndRow($columnNumber, $this->rowNumber)->getAlignment()->setShrinkToFit($settings['shrinkToFit']);
 
-		if($type == 'body') {
-			if(!array_key_exists($columnIdentifier, $this->bodyCellStyleCache)) {
+		if ($type == 'body') {
+			if (!array_key_exists($columnIdentifier, $this->bodyCellStyleCache)) {
 				$this->bodyCellStyleCache[$columnIdentifier] = $this->buildStyleArray($settings);
 			}
 
@@ -427,21 +448,21 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 		$style = array();
 
-		if(array_key_exists('borders', $styleSettings)) {
+		if (array_key_exists('borders', $styleSettings)) {
 			$style['borders']['bottom'] = $this->buildBorderStyle($styleSettings['borders']['bottom']);
 			$style['borders']['left'] = $this->buildBorderStyle($styleSettings['borders']['left']);
 			$style['borders']['top'] = $this->buildBorderStyle($styleSettings['borders']['top']);
 			$style['borders']['right'] = $this->buildBorderStyle($styleSettings['borders']['right']);
 		}
 
-		if(array_key_exists('fill', $styleSettings)) {
+		if (array_key_exists('fill', $styleSettings)) {
 			$style['fill'] = array(
 				'type' => $styleSettings['fill']['type'],
 				'color' => array('rgb' => $styleSettings['fill']['color'])
 			);
 		}
 
-		if(array_key_exists('font', $styleSettings)) {
+		if (array_key_exists('font', $styleSettings)) {
 			$style['font'] = $styleSettings['font'];
 		}
 
@@ -460,6 +481,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 			'color' => array('rgb' => $borderStyleSettings['color']),
 		);
 	}
+
 
 
 	/**
@@ -488,6 +510,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	}
 
 
+
 	/**
 	 * Checks requirements of Excel export to be working
 	 *
@@ -497,14 +520,14 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	private function checkRequirements() {
 		if (!class_exists('PHPExcel')) {
 			throw new Exception('Library PHPExcel is required for using Excel export. You can get PHPExcel from http://phpexcel.codeplex.com 1316565593');
-			exit();
 		}
 
 		if (!class_exists('XMLWriter')) {
 			throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled 1316565594');
-			exit();
 		}
 	}
+
+
 
 	/**
 	 * Get Content-Type application for Excelsheet in Browsermode dependent from File Format
@@ -523,8 +546,4 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 		return $contentTypeForApplication;
 	}
 
-
-
 }
-
-?>

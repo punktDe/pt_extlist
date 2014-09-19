@@ -51,4 +51,3 @@ class Tx_PtExtlist_ViewHelpers_CommentViewHelper extends Tx_Fluid_Core_ViewHelpe
 		}
 	}
 }
-?>

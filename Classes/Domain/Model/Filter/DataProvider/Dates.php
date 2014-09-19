@@ -67,9 +67,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	}
 
 
+
 	/**
 	 * Build the dateFieldConfigArray
 	 *
+	 * @throws Exception on wrong configuration for time span filter
 	 * @return void
 	 */
 	protected function buildDateFieldConfigArray() {
@@ -126,6 +128,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	/**
 	 * Returns associative array of exclude filters for given TS configuration
 	 *
+	 * @throws Exception on wrong configuration of exclude filters
 	 * @return array Array with exclude filters. Encoded as (array('filterboxIdentifier' => array('excludeFilter1','excludeFilter2',...)))
 	 */
 	protected function buildExcludeFiltersArray() {
@@ -228,4 +231,3 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	}
 
 }
-?>

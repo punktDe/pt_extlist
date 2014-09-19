@@ -29,11 +29,12 @@
 /**
  * Testcase for simple criteria
  *
- * @package Typo3
- * @subpackage pt_extlist
- * @author Michael Knoll 
+ * @package pt_extlist
+ * @subpackage Tests\Domain\QueryObject
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteria_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
 	
 	protected $simpleCriteria = null;
 	
@@ -83,5 +84,3 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteria_testcase extends Tx_P
 	}
 	
 }
- 
-?>

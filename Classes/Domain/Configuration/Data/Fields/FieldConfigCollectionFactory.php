@@ -31,11 +31,11 @@
  *
  * @package Domain
  * @subpackage Configuration\Data\Fields
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory {
 	
-
 	/**
 	 * Returns an instance of a field config collection for given field settings
 	 *
@@ -47,12 +47,13 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
 		$fieldConfigCollection = self::buildFieldConfigCollection($configurationBuilder, $fieldsSettings);
 	    return $fieldConfigCollection;	
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Builds a collection of field config objects for a given settings array
 	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
 	 * @param array $fieldSettingsArray
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
@@ -60,13 +61,10 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
 		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
 		foreach ($fieldSettingsArray as $fieldIdentifier => $fieldSettings) {
 			$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($configurationBuilder, $fieldIdentifier, $fieldSettings);
+			//$fieldConfigCollection->addItem($fieldConfig, $fieldConfig->getIdentifier());
 			$fieldConfigCollection->addFieldConfig($fieldConfig);
 		}
 		return $fieldConfigCollection;
 	}
 	
-	
-	
 }
-
-?>

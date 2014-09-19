@@ -32,13 +32,13 @@
  * @package Tests
  * @subpackage Domain\Configuration\Sorting
  * @author Michael Knoll
+ * @see Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Sorting_SortingConfig_testcase extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Sorting_SortingConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
      
 	/** @test */
 	public function classExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig'));
+		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig');
 	}
 	
 }
-?>

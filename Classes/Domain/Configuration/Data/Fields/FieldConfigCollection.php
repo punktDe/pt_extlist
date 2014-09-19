@@ -28,22 +28,23 @@
 
 /**
  * Class implements a collection of field configurations.
- * 
+ *
  * @package Domain
  * @subpackage Configuration\Data\Fields
- * @author Michael Knoll 
+ * @author Michael Knoll
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionTest
  */
 class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-	
+
 	/**
 	 * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
 	 *
 	 * @var string
 	 */
 	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig';
-	
-	
-	
+
+
+
 	/**
 	 * Adds a field configuration object to collection
 	 *
@@ -52,14 +53,15 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
 	public function addFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfig) {
 		$this->addItem($fieldConfig, $fieldConfig->getIdentifier());
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns a field configuration object for a given identifier
 	 *
 	 * @param string $identifier
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+	 * @throws Exception
 	 */
 	public function getFieldConfigByIdentifier($identifier) {
 		if ($this->hasItem($identifier)) {
@@ -68,27 +70,26 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
 			throw new Exception('Field configuration for key ' . $identifier . ' does not exist!', 1280772114);
 		}
 	}
-	
-	
+
+
+
 	/**
-	 * get part of the collection with entrys selected by the array 
-	 * 
+	 * get part of the collection with entrys selected by the array
+	 *
 	 * @param array $fieldIdentifierList
 	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection;
 	 */
 	public function extractCollectionByIdentifierList(array $fieldIdentifierList) {
-		
-		if(current($fieldIdentifierList) == '*') return $this;
-		
+
+		if (current($fieldIdentifierList) == '*') return $this;
+
 		$collection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		foreach($fieldIdentifierList as $fieldIdentifier) {
+		foreach ($fieldIdentifierList as $fieldIdentifier) {
 			$collection->addFieldConfig($this->getFieldConfigByIdentifier($fieldIdentifier));
 		}
-		
+
 		return $collection;
 	}
-	
-	
-}
 
-?>
+
+}

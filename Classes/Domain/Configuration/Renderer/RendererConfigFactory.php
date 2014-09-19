@@ -32,6 +32,7 @@
  * @author Daniel Lienet 
  * @package Domain
  * @subpackage Configuration\Renderer
+ * @see Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactoryTest
  */
 class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 
@@ -49,5 +50,3 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory {
 	}
 	
 }
-
-?>
