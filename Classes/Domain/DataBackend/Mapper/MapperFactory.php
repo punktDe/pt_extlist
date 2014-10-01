@@ -62,12 +62,13 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements t3lib_Sing
 		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
 		$dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 
-		$dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder);
+		$dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder); /** @var Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper $dataMapper */
 		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
 		// Check whether mapper implements interface
 		Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
 
+		$dataMapper->_injectConfigurationBuilder($configurationBuilder);
 		$dataMapper->_injectMapperConfiguration($mapperConfiguration);
 		$dataMapper->init();
 
