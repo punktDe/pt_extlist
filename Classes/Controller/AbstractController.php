@@ -153,6 +153,13 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
+	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+	 */
+	protected $getPostVarAdapterFactory;
+
+
+
+	/**
 	 * Constructor for all plugin controllers
 	 *
 	 * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager Lifecycle manager to be injected via DI
@@ -229,6 +236,15 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
+	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory
+	 */
+	public function injectGetPostVarAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory) {
+		$this->getPostVarAdapterFactory = $getPostVarAdapterFactory;
+	}
+
+
+
+	/**
 	 * @return void
 	 */
 	public function initializeAction() {
@@ -297,11 +313,14 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 		}
 	}
 
+	
 
-
+	/**
+	 * @return void
+	 */
 	protected function resetSessionOnResetParameter() {
 		if ($this->configurationBuilder->buildBaseConfiguration()->getResetSessionOnResetParameter()
-			&& Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->getParametersByNamespace($this->listIdentifier . '.resetSession')
+			&& $this->getPostVarAdapterFactory->getInstance()->getParametersByNamespace($this->listIdentifier . '.resetSession')
 		) {
 			$this->sessionPersistenceManager->resetSessionData();
 		}
