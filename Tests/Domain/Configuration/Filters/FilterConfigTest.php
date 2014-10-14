@@ -259,6 +259,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
 
 
 
+	public function testGetDisableFilterQuery() {
+		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+		$this->assertEquals(false, $filterConfig->getDisableFilterQuery());
+	}
+
+
+
 	public function testGetInvertable() {
 		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
 		$this->assertEquals(true, $filterConfig->getInvertable());
