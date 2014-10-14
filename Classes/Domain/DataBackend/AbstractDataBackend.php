@@ -28,97 +28,91 @@
 
 /**
  * Abstract class as base class for all data backends
- * 
+ *
  * @package Domain
  * @subpackage DataBackend
- * @author Michael Knoll 
+ * @author Michael Knoll
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
-	
+
 	/**
 	 * Holds backend configuration for current backend
 	 *
 	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration
 	 */
 	protected $backendConfiguration;
-	
-	
-	
+
+
 	/**
 	 * @var string List identifier of list this data backend belongs to
 	 */
 	protected $listIdentifier;
-	
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
 	 */
 	protected $dataMapper;
-	
-	
-	
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 */
 	protected $configurationBuilder;
-	
-	
-	
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Query_QueryBuilderInterface
 	 */
 	protected $queryBuilder;
-	
-	
-	
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
 	 */
 	protected $filterboxCollection;
-	
-	
-	
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	protected $listHeader;
-	
-	
-	
+
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $listData = NULL;
 
-	
-	
+
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	protected $aggregateListData;
 
 
-	
-    /**
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
-     */
+	/**
+	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+	 */
 	protected $pagerCollection;
 
+	/**
+	 * @var Tx_Extbase_Object_ObjectManager
+	 */
+	protected $objectManager;
 
-	
+
 	/**
 	 * Holds an instance for data source
 	 *
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
 	 */
 	protected $dataSource;
-	
-	
-	
+
+
 	/**
 	 * Holds an instance of a field collection where field configurations can be found
 	 *
@@ -126,50 +120,34 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	 */
 	protected $fieldConfigurationCollection = array();
 
-	
-    
-    /**
-     * Holds an instance of a query interpreter to be used for
-     * query objects
-     *
-     * TODO using abstract class as type here makes no sense!
-     *
-     * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
-     */
-    protected $queryInterpreter;
-    
-    
-    
-    /**
-     * Holds an instance of bookmark manager
-     *
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
-     */
-    protected $bookmarkManager;
 
-
-
-    /**
-     * Holds an instance of a sorter
-     *
-     * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
-     */
-    protected $sorter;
-
-	
-		
 	/**
-	 * Per default, a data backend does not require a data source, so we return null here
+	 * Holds an instance of a query interpreter to be used for
+	 * query objects
 	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return unknown
+	 * TODO using abstract class as type here makes no sense!
+	 *
+	 * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
 	 */
-	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return null;
-	}
-	
-	
-	
+	protected $queryInterpreter;
+
+
+	/**
+	 * Holds an instance of bookmark manager
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+	 */
+	protected $bookmarkManager;
+
+
+	/**
+	 * Holds an instance of a sorter
+	 *
+	 * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
+	 */
+	protected $sorter;
+
+
 	/**
 	 * Constructor for data backend
 	 *
@@ -180,58 +158,76 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		$this->listIdentifier = $configurationBuilder->getListIdentifier();
 	}
 
-	
-	
+
+	/**
+	 * Per default, a data backend does not require a data source, so we return null here
+	 *
+	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+	 * @return unknown
+	 */
+	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+		return null;
+	}
+
+
 	/**
 	 * Injects backend configuration for current backend
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration
 	 */
-    public function _injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration) {
-        $this->backendConfiguration = $backendConfiguration;
-    }
-	
-    
-    
-    /**
-     * Init method
-     * 
-     */
-    public function init() {
-    	$this->initBackendByTsConfig();
-    	$this->initBackend();
-    }
-    
-    
-    
-    /**
-     * Init method to be overwritten in the 
-     * concrete backends
-     * 
-     */
-    protected function initBackend() {}    
-    
+	public function _injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration) {
+		$this->backendConfiguration = $backendConfiguration;
+	}
 
 
-    /**
-     * Init the backend specific configuration from TS config
-     * 
-     */
-    protected function initBackendByTsConfig() {}	
+	/**
+	 * Init method
+	 *
+	 */
+	public function init() {
+		$this->initBackendByTsConfig();
+		$this->initBackend();
+	}
 
 
-	
+	/**
+	 * Init method to be overwritten in the
+	 * concrete backends
+	 *
+	 */
+	protected function initBackend() {
+	}
+
+
+	/**
+	 * Init the backend specific configuration from TS config
+	 *
+	 */
+	protected function initBackendByTsConfig() {
+	}
+
+
+	/**
+	 * inject the objectManager
+	 *
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 * @return void
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
 	/**
 	 * Injector for data mapper
 	 *
-	 * @param Tx_PtExtlist_Domain_DataBackend_MapperInterface $mapper
+	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper
 	 */
 	public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper) {
 		$this->dataMapper = $mapper;
 	}
-	
-	
-	
+
+
 	/**
 	 * Injector for field configuration collection
 	 *
@@ -240,9 +236,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function _injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigurationCollection) {
 		$this->fieldConfigurationCollection = $fieldConfigurationCollection;
 	}
-	
-	
-	
+
+
 	/**
 	 * Injector for filter box collection
 	 *
@@ -251,20 +246,18 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function _injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection) {
 		$this->filterboxCollection = $filterboxCollection;
 	}
-	
-	
-	
+
+
 	/**
 	 * Injector for pager collection
-	 * 
+	 *
 	 * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection
-	 */	
+	 */
 	public function _injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection) {
 		$this->pagerCollection = $pagerCollection;
 	}
 
 
-	
 	/**
 	 * Injector for data source
 	 *
@@ -273,52 +266,47 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function _injectDataSource($dataSource) {
 		$this->dataSource = $dataSource;
 	}
-	
-	
-	
+
+
 	/**
-	 * Injector for List Header 
-	 * 
+	 * Injector for List Header
+	 *
 	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	public function _injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		$this->listHeader = $listHeader;
 	}
-    
-    
-    
-    /**
-     * Injector for query interpreter
-     *
-     * @param mixed $queryInterpreter
-     */
-    public function _injectQueryInterpreter($queryInterpreter) {
-        $this->queryInterpreter = $queryInterpreter;
-    }
-    
-    
-    
-    /**
-     * Injector for bookmark manager
-     *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
-     */
-    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager) {
-    	$this->bookmarkManager = $bookmarkManager;
-    }
 
-    
 
-    /**
-     * Injector for sorter
+	/**
+	 * Injector for query interpreter
 	 *
-     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
-     * @return void
-     */
-    public function _injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter) {
-        $this->sorter = $sorter;
-    }
+	 * @param mixed $queryInterpreter
+	 */
+	public function _injectQueryInterpreter($queryInterpreter) {
+		$this->queryInterpreter = $queryInterpreter;
+	}
 
+
+	/**
+	 * Injector for bookmark manager
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
+	 */
+	public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager) {
+		$this->bookmarkManager = $bookmarkManager;
+	}
+
+
+	/**
+	 * Injector for sorter
+	 *
+	 * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+	 * @return void
+	 */
+	public function _injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter) {
+		$this->sorter = $sorter;
+	}
 
 
 	/**
@@ -329,16 +317,15 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getListIdentifier() {
 		return $this->configurationBuilder->getListIdentifier();
 	}
-	
-    
-    
-    /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder;
-     */
-    public function getConfigurationBuilder() {
-    	return $this->configurationBuilder;
-    }
-    
+
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder;
+	 */
+	public function getConfigurationBuilder() {
+		return $this->configurationBuilder;
+	}
+
 
 	/**
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
@@ -348,7 +335,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 
 
-	
 	/**
 	 * Returns filterbox collection attached to this data backend
 	 *
@@ -357,19 +343,17 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getFilterboxCollection() {
 		return $this->filterboxCollection;
 	}
-	
-	
-	
+
+
 	/**
 	 * Returns the pager collection attached to this data backend.
-	 * 
+	 *
 	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection The pager collection attached to this data backend.
 	 */
 	public function getPagerCollection() {
 		return $this->pagerCollection;
 	}
-	
-	
+
 
 	/**
 	 * Returns the listHeader with sorting informations
@@ -378,32 +362,29 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getListHeader() {
 		return $this->listHeader;
 	}
-	
-	
-	
+
+
 	/**
 	 * Returns raw list data
 	 *
 	 * @return array Array of raw list data
 	 */
 	public function getListData() {
-		if($this->listData === null) {
-            // TODO: buildListData() should set listData on backend itself!
+		if ($this->listData === null) {
+			// TODO: buildListData() should set listData on backend itself!
 			$this->listData = $this->buildListData();
 		}
-        
+
 		return $this->listData;
 	}
-	
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * Build the listData and cache it in $this->listData
 	 */
 	abstract protected function buildListData();
-	
-	
+
 
 	/**
 	 * ResetlisData and query
@@ -412,9 +393,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		unset($this->listData);
 		unset($this->listQueryParts);
 	}
-	
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregateListData()
@@ -423,9 +403,8 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	public function getAggregateListData() {
 		return Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
 	}
-	
-	
-	
+
+
 	/**
 	 * Returns associated field config collection
 	 *
@@ -436,16 +415,14 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	}
 
 
-
-    /**
-     * Returns sorter registered for this data backend
-     * 
-     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
-     */
-    public function getSorter() {
-        return $this->sorter;
-    }
-
+	/**
+	 * Returns sorter registered for this data backend
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+	 */
+	public function getSorter() {
+		return $this->sorter;
+	}
 
 
 	/**
@@ -457,7 +434,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 		$this->sorter->reset();
 		$this->resetListDataCache();
 	}
-
 
 
 	/**

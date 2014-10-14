@@ -79,7 +79,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 *
 	 * @var boolean
 	 */
-	protected $disableFilterQuery = false;
+	protected $disableFilterQuery = FALSE;
 
 
 	/**
@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 *
 	 * @var bool
 	 */
-	protected $resetListSortingStateOnSubmit = false;
+	protected $resetListSortingStateOnSubmit = FALSE;
 
 
 
@@ -146,7 +146,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 *
 	 * @var boolean
 	 */
-	protected $submitOnChange = false;
+	protected $submitOnChange = FALSE;
 
 
 
@@ -173,7 +173,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 *
 	 * @var boolean
 	 */
-	protected $invert = false;
+	protected $invert = FALSE;
 
 
 
@@ -182,7 +182,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 *
 	 * @var bool
 	 */
-	protected $invertable = false;
+	protected $invertable = FALSE;
 
 
 
@@ -270,14 +270,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 *
 	 * @var bool
 	 */
-	protected $resetToDefaultValue = false;
+	protected $resetToDefaultValue = FALSE;
 
 
 
 	/**
 	 * @var boolean If the hidden flag is true, the filter is not shown in the filterBox
 	 */
-	protected $hidden = false;
+	protected $hidden = FALSE;
 
 
 
@@ -286,7 +286,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 *
 	 * @var boolean
 	 */
-	protected $showRowCount = true;
+	protected $showRowCount = FALSE;
 
 
 
