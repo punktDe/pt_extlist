@@ -45,8 +45,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory  {
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
 	 */
 	public static function createInstance($dataSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-		$dataSource = new $dataSourceClassName($dataSourceConfiguration);
+		$dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource $dataSource */
 		$dataSource->injectDbObject(self::createDataObject());
+		$dataSource->initialize();
 		return $dataSource;
 	}
 

@@ -33,7 +33,6 @@
  *
  * @package Domain
  * @subpackage DataBackend\DataSource
- * @author Christoph Ehscheidt
  * @author Daniel Lienert
  */
 abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
@@ -55,5 +54,11 @@ abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
 		$this->dataSourceConfiguration = $dataSourceConfiguration;
 	}
+
+
+	/**
+	 * Template method to initialize the dataSource
+	 */
+	public function initialize() {}
 
 }

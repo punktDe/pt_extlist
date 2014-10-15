@@ -33,7 +33,7 @@
  * @subpackage
  * @see
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderBaseTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
+abstract class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderBaseTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
 
 	/**
 	 * @var array

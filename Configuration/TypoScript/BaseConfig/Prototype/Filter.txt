@@ -17,8 +17,8 @@ plugin.tx_ptextlist.prototype.filter {
 		description =
 		fieldIdentifier =
 		filterField =
+		disableFilterQuery =
 	}
-
 
 
 	string {
@@ -35,14 +35,17 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 		accessGroups =
 
-		maxLength = 
-		size = 
+		maxLength =
+		size =
 
 		breadCrumbString = TEXT
 		breadCrumbString {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} equals {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -69,6 +72,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = Searchstring: {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -90,6 +96,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
 			dataWrap = {field:label} is less than {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -111,6 +120,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
 			dataWrap = {field:label} is bigger than {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -149,6 +161,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used here are 'label', 'value', 'minValue' and 'maxValue' (if there are set before!)
 			dataWrap = {field:label} is between {field:fromValue} and {field:toValue}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -180,6 +195,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} equals {field:value}
 		}
+
+		disableFilterQuery =
+
     }
 
 
@@ -206,6 +224,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} equals {field:value}
 		}
+
+		disableFilterQuery =
+
     }
 
 
@@ -251,6 +272,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} contains {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -291,6 +315,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} contains {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -329,8 +356,11 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} contains {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
-	
+
 
 
 	button {
@@ -367,6 +397,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} contains {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 	link < .button
@@ -409,6 +442,9 @@ plugin.tx_ptextlist.prototype.filter {
 		breadCrumbString {
 			dataWrap = {field:label} equals {field:value}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -448,6 +484,9 @@ plugin.tx_ptextlist.prototype.filter {
 			# Fields that can be used are 'label' and 'value'
 			dataWrap = {field:label} starts with '{field:value}'
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -456,28 +495,31 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Options/TagCloudFilter
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter
 		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud
-				
+
 		filterIdentifier =
 
 		label =
 		description =
 
 		fieldIdentifier =
-		countFieldIdentifier = 
-		
+		countFieldIdentifier =
+
 		maxItems = 20
-		
+
 		minColor = #1c448d
 		maxColor = #b8cffa
-		
-		# minSize / maxSize as fontSize in pixel 
+
+		# minSize / maxSize as fontSize in pixel
 		minSize = 9
 		maxSize = 24
-		
+
 		renderObj = TEXT
 		renderObj {
 			dataWrap = {field:allDisplayFields}
 		}
+
+		disableFilterQuery =
+
 	}
 
 
@@ -485,8 +527,11 @@ plugin.tx_ptextlist.prototype.filter {
 	proxy {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_ProxyFilter
 		partialPath = Filter/Special/ProxyFilter
-		proxyPath = 
+		proxyPath =
 		fieldIdentifier =
 		hidden = 1
+
+		disableFilterQuery =
+
 	}
 }

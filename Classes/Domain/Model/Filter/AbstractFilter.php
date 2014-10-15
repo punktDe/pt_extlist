@@ -485,6 +485,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 	 */
 	protected function buildFilterQuery() {
 
+		if($this->filterConfig->getDisableFilterQuery()) return;
+
 		$criteria = null;
 
 		if ($this->isActive) {

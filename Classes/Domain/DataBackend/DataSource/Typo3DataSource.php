@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 
 
 	/**
-	 * @var pointer		Result pointer / DBAL object
+	 * @var pointer	Result pointer / DBAL object
 	 */
 	protected $resource;
 
@@ -62,6 +62,26 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 		$this->connection = $dbObject;
 	}
 
+
+	public function initialize() {
+		$this->executePrepareStatements();
+	}
+
+
+	/**
+	 * Executes a list of prepare statements on database connect
+	 */
+	protected function executePrepareStatements() {
+		$prepareStatements = $this->dataSourceConfiguration->getSettings('prepareStatements');
+
+		if(is_array($prepareStatements)) {
+			foreach($prepareStatements as $prepareStatement) {
+				$this->connection->sql_query($prepareStatement);
+			}
+		} else {
+			$this->connection->sql_query($prepareStatements);
+		}
+	}
 
 
 	/**

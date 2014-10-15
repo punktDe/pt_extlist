@@ -20,6 +20,7 @@ plugin.tx_ptextlist.prototype.backend {
 			username =
 			password =
 			databaseName =
+			prepareStatements =
 		}
 	}
 
@@ -30,6 +31,10 @@ plugin.tx_ptextlist.prototype.backend {
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 
 		useEnableFields = 1
+
+		dataSource {
+			prepareStatements =
+		}
 	}
 
 	extbase {
@@ -40,5 +45,4 @@ plugin.tx_ptextlist.prototype.backend {
 		repositoryClassName =
 		respectStoragePage = 0
 	}
-
 }
