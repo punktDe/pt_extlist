@@ -28,12 +28,19 @@
 
 /**
  *
+ * example: {extlist:Sql.Filter(filter:filter.filterbox.roleFilter,filterField:'compcheck.role_uid')}
+ *
  * @author Daniel Lienert
  * @package ViewHelpers
  */
 class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
-
+	/**
+	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+	 * @param string $filterField
+	 *
+	 * @return string
+	 */
 	public function render(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterField = '') {
 
 		if(!$filter->isActive()) {
