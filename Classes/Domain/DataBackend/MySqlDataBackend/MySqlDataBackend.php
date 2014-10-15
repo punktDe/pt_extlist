@@ -246,6 +246,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			return $query;
 		}
 
+		$query = '{namespace extlist=Tx_PtExtlist_ViewHelpers} {namespace ptx=Tx_PtExtbase_ViewHelpers}' . $query;
+
 		$fluidView = $this->objectManager->get('Tx_Fluid_View_StandaloneView'); /** @var Tx_Fluid_View_StandaloneView $fluidView */
 		$fluidView->setTemplateSource($query);
 		$fluidView->assignMultiple(array(
