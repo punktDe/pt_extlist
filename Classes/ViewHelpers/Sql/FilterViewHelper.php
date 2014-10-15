@@ -53,7 +53,7 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends Tx_Fluid_Core_ViewHe
 		if(is_array($filterValue)) {
 			return sprintf('%s in (%s)', $filterField, implode(', ', $filterValue));
 		} else {
-			return sprintf('%s = %s', $filterField, $filterValue);
+			return sprintf('%s = %s', $filterField, implode(', ', $filterValue));
 		}
 	}
 }
