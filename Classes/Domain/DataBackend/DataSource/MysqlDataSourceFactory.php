@@ -76,8 +76,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory {
 			throw new Exception('Unable to establish MYSQL Databse Connection: ' . $e->getMessage(),  1281215132);
 		}
 
-
-
 		return $pdo;
 	}
 }
