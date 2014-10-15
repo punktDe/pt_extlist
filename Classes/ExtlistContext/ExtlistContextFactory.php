@@ -266,10 +266,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements t3lib_Singlet
 		$lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 		$sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
+		$getPostVarAdapterFactory = $objectManager->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+		$getPostVarAdapter = $getPostVarAdapterFactory->getInstance();
 		$lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
 
 		// If we have resetOnEmptySubmit, we reset session data here
-		if ($configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit() && Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::getInstance()->isEmptySubmit()) {
+		if ($configurationBuilder->buildBaseConfiguration()->getResetOnEmptySubmit() && $getPostVarAdapter->isEmptySubmit()) {
 			$sessionPersistenceManager->resetSessionData();
 		}
 	}
