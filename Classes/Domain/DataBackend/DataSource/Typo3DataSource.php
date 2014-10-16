@@ -76,10 +76,10 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 
 		if(is_array($prepareStatements)) {
 			foreach($prepareStatements as $prepareStatement) {
-				$this->connection->sql_query($prepareStatement);
+				if(trim($prepareStatement)) $this->executeQuery($prepareStatement);
 			}
 		} else {
-			$this->connection->sql_query($prepareStatements);
+			if(trim($prepareStatements)) $this->executeQuery($prepareStatements);
 		}
 	}
 
