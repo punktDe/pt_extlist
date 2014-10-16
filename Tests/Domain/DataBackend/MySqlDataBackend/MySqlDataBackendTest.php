@@ -117,7 +117,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 	/**
 	 * @test
 	 */
-	public function buildQueryUsesFluidProcessorIfFluidInlineFluidSyntaxWasFund() {
+	public function buildQueryUsesFluidProcessorIfFluidInlineFluidSyntaxWasFound() {
 		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 
 		$dataBackend = $this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',$this->configurationBuilder);
@@ -135,8 +135,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 
 		$dataBackend->_injectfilterboxCollection($filterboxCollection);
 
-		$query = 'SELECT * FROM test WHERE uid = 20';
-		$expected = 'SELECT * FROM test WHERE uid = 20';
+		$query = 'SELECT * FROM test WHERE uid = 10';
+		$expected = 'SELECT * FROM test WHERE uid = 10';
 
 		$this->assertEquals($expected, $dataBackend->processQueryWithFluid($query));
 
