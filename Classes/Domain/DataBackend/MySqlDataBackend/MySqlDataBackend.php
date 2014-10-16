@@ -79,6 +79,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	protected $baseGroupByClause;
 
+	/**
+	 * Indicates if prepare Statements are already executed
+	 *
+	 * @var boolean
+	 */
+	protected $prepareStatementsExecuted = FALSE;
 
 	/**
 	 * Array of complete query list query parts with MYSQL keywords
@@ -212,6 +218,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildQuery() {
 
+		$this->executePrepareStatements();
+
 		if (!is_array($this->listQueryParts)) {
 			$selectPart = $this->buildSelectPart();
 			$fromPart = $this->buildFromPart();
@@ -220,17 +228,15 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 			$limitPart = $this->buildLimitPart();
 			$groupByPart = $this->buildGroupByPart();
 
-			$this->listQueryParts['SELECT'] = $selectPart != '' ? 'SELECT ' . $selectPart . " \n" : '';
-			$this->listQueryParts['FROM'] = $fromPart != '' ? 'FROM ' . $fromPart . " \n" : '';
-			$this->listQueryParts['WHERE'] = $wherePart != '' ? 'WHERE ' . $wherePart . " \n" : '';
-			$this->listQueryParts['GROUPBY'] = $groupByPart != '' ? 'GROUP BY ' . $groupByPart . " \n" : '';
+			$this->listQueryParts['SELECT'] = $selectPart != '' ? 'SELECT ' . $this->processQueryWithFluid($selectPart) . " \n" : '';
+			$this->listQueryParts['FROM'] = $fromPart != '' ? 'FROM ' . $this->processQueryWithFluid($fromPart) . " \n" : '';
+			$this->listQueryParts['WHERE'] = $wherePart != '' ? 'WHERE ' . $this->processQueryWithFluid($wherePart) . " \n" : '';
+			$this->listQueryParts['GROUPBY'] = $groupByPart != '' ? 'GROUP BY ' . $this->processQueryWithFluid($groupByPart) . " \n" : '';
 			$this->listQueryParts['ORDERBY'] = $orderByPart != '' ? 'ORDER BY ' . $orderByPart . " \n" : '';
 			$this->listQueryParts['LIMIT'] = $limitPart != '' ? 'LIMIT ' . $limitPart . " \n" : '';
 		}
 
 		$query = implode('', $this->listQueryParts);
-
-		$query = $this->processQueryWithFluid($query);
 
 		return $query;
 	}
@@ -258,6 +264,30 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		return $fluidView->render();
 	}
+
+
+	/**
+	 *
+	 * Executes a list of prepare statements on database connect
+	 */
+	protected function executePrepareStatements() {
+
+		if($this->prepareStatementsExecuted === TRUE) return;
+
+		$prepareStatements = $this->backendConfiguration->getSettings('prepareStatements');
+
+		if(is_array($prepareStatements)) {
+			foreach($prepareStatements as $prepareStatement) {
+
+				if(trim($prepareStatement)) $this->dataSource->executeQuery($this->processQueryWithFluid($prepareStatement));
+			}
+		} else {
+			if(trim($prepareStatements)) $this->dataSource->executeQuery($this->processQueryWithFluid($prepareStatements));
+		}
+
+		$this->prepareStatementsExecuted = TRUE;
+	}
+
 
 
 	/**
@@ -573,6 +603,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$query = implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
 
 		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('query' => $query));
+
+		$query = $this->processQueryWithFluid($query);
 
 		return $query;
 	}

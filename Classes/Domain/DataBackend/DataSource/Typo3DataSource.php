@@ -62,28 +62,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 		$this->connection = $dbObject;
 	}
 
-
-	public function initialize() {
-		$this->executePrepareStatements();
-	}
-
-
-	/**
-	 * Executes a list of prepare statements on database connect
-	 */
-	protected function executePrepareStatements() {
-		$prepareStatements = $this->dataSourceConfiguration->getSettings('prepareStatements');
-
-		if(is_array($prepareStatements)) {
-			foreach($prepareStatements as $prepareStatement) {
-				if(trim($prepareStatement)) $this->executeQuery($prepareStatement);
-			}
-		} else {
-			if(trim($prepareStatements)) $this->executeQuery($prepareStatements);
-		}
-	}
-
-
 	/**
 	 * @param $query
 	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
