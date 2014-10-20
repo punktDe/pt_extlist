@@ -28,8 +28,8 @@
 
 /**
  * Testcase for header column class
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package Tests
  */
 class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
@@ -50,13 +50,13 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractB
 	/**
 	 * @test
 	 * @dataProvider debugStringDataProvider
-	 * 
+	 *
 	 * @var $debugCommand
 	 */
 	public function checkForForgottenDebugCode($debugCommand) {
 		$searchPath = t3lib_extMgm::extPath($this->extensionName);
 
-		$command = 'fgrep -i -r ' . escapeshellarg($debugCommand) . ' ' . escapeshellarg($searchPath) . '| grep ".php"';
+		$command = 'fgrep -i -r ' . escapeshellarg($debugCommand) . ' ' . escapeshellarg($searchPath) . '| grep ".php:"';
 		$result = `$command`;
 		$lines = explode("\n", trim($result));
 
@@ -66,5 +66,5 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractB
 			}
 		}
 	}
-	
+
 }
