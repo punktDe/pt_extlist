@@ -48,7 +48,6 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends Tx_Fluid_Core_ViewHe
 		}
 
 		if(is_array($filterField) && $filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter){
-			var_dump($filterField);
 			return sprintf('%s >= %s AND %s <= %s',$filterField[0], strtotime($filter->getFilterValueFrom()), $filterField[1],strtotime($filter->getFilterValueTo()));
 
 		}
