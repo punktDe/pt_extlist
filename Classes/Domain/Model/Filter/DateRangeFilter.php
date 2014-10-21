@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * Calculate the timestamp boundaries from the input values
 	 * @return array
 	 */
-	protected function getCalculatedTimestampBoundaries() {
+	public function getCalculatedTimestampBoundaries() {
 		$timestampBoundaries = array();
 
 		$filterValueFromDateObject = new DateTime($this->filterValueFrom);
@@ -208,6 +208,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @return null|string
 	 */
 	public function getFilterValueTo() {
+
 		if ($this->filterValueTo && $this->filterValueTo !== '') {
 			return $this->filterValueTo;
 		} else {

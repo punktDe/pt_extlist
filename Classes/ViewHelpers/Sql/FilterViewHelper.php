@@ -38,13 +38,14 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends Tx_Fluid_Core_ViewHe
 	/**
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
 	 * @param string $filterField
+	 * @param string $notActiveQuery
 	 *
 	 * @return string
 	 */
-	public function render(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterField = '') {
+	public function render(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterField = '', $notActiveQuery = '1=1') {
 
 		if(!$filter->isActive()) {
-			return '1 = 1';
+			return $notActiveQuery;
 		}
 
 		if(is_array($filterField) && $filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter){
@@ -58,7 +59,7 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends Tx_Fluid_Core_ViewHe
 
 
 		$filterValue = $filter->getValue();
-		$filterField = $filterField ? $filterField : $filter->getFilterConfig()->getFieldIdentifier();
+		$filterField = $filterField ? $filterField : Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
 
 		if(is_array($filterValue)) {
 			return sprintf('%s in (%s)', $filterField, implode(', ', $filterValue));
