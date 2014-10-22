@@ -195,10 +195,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 
 		$sqlQuery = $this->buildQuery();
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
 
 		$dataSource = clone $this->dataSource;
 		$dataSource->executeQuery($sqlQuery);
+
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
 
 		$iterationListData = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData');
 		/** @var $iterationListData Tx_PtExtlist_Domain_Model_List_IterationListData */
