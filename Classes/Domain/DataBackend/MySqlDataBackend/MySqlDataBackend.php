@@ -174,9 +174,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 */
 	public function buildListData() {
 		$sqlQuery = $this->buildQuery();
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
 
 		$rawData = $this->dataSource->executeQuery($sqlQuery)->fetchAll();
+
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
 
 		$mappedListData = $this->dataMapper->getMappedListData($rawData);
 		unset($rawData);
