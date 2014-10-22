@@ -257,7 +257,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$fluidView = $this->objectManager->get('Tx_Fluid_View_StandaloneView'); /** @var Tx_Fluid_View_StandaloneView $fluidView */
 		$fluidView->setTemplateSource($query);
 		$fluidView->assignMultiple(array(
-			'filter' => $this->filterboxCollection,
+			'filters' => $this->filterboxCollection,
 			'pager' => $this->pagerCollection,
 			'sorter' => $this->sorter
 		));

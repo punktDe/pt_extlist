@@ -28,7 +28,7 @@
 
 /**
  *
- * example: {extlist:Sql.Filter(filter:filter.filterbox.roleFilter,filterField:'compcheck.role_uid')}
+ * example: {extlist:Sql.Filter(filter:filters.filterbox.roleFilter,filterField:'compcheck.role_uid')}
  *
  * @author Daniel Lienert
  * @package ViewHelpers
