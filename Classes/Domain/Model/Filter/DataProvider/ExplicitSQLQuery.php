@@ -178,15 +178,16 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 	protected function getDataFromSqlServer() {
 		$query = $this->dbObj->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
 
-		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('query' => $query));
-
 		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
 
 		if (!method_exists($dataSource, 'executeQuery')) {
-			throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider! 1315216209');
+			throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider!', 1315216209);
 		}
 
-		// TODO: make sure, this method exists and add it to a proper data source interface for type checking!
-		return $dataSource->executeQuery($query)->fetchAll();
+		$data =  $dataSource->executeQuery($query)->fetchAll();
+
+		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query));
+
+		return $data;
 	}
 }

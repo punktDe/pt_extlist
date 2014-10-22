@@ -549,6 +549,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
 
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
+
 		return $groupDataArray;
 	}
 
@@ -560,7 +562,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	 * @return string
 	 */
 	protected function buildGroupDataQuery(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
-										   Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
+											Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
 
 		$this->buildQuery();
 
@@ -569,10 +571,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$groupPart = count($groupDataQuery->getGroupBy()) > 0 ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
 		$sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
-		if (count($groupDataQuery->getFrom()) > 0) {
-			// special from part from filter TODO think about this and implement it!
-			//$fromPart = ' FROM ' . $this->queryInterpreter->getFromPart($groupDataQuery);
-		}
 
 		/**
 		 * If this list is grouped. There are two cases
@@ -602,7 +600,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$query = implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
 
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
 
 		$query = $this->processQueryWithFluid($query);
 
@@ -619,6 +616,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$aggregateSQLQuery = $this->buildAggregateSQLByConfigCollection($aggregateConfigCollection);
 
 		$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
+
+		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery));
 
 		return $aggregates[0];
 	}
@@ -637,8 +636,6 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $this->listQueryParts['WHERE'] . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY';
 
 		$query = implode(" \n", array($selectPart, $fromPart));
-
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
 
 		return $query;
 	}
