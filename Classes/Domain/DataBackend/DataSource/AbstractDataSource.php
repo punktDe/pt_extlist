@@ -43,7 +43,18 @@ abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
 	 */
 	protected $dataSourceConfiguration;
-	
+
+
+	/**
+	 * @var float
+	 */
+	protected $lastQueryDuration;
+
+
+	/**
+	 * @var float
+	 */
+	protected $queryStartTime;
 
 
 	/**
@@ -61,4 +72,22 @@ abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
 	 */
 	public function initialize() {}
 
+
+	protected function startTimeMeasure() {
+		$this->queryStartTime = round(microtime(TRUE) * 1000);
+	}
+
+
+	protected function stopTimeMeasure() {
+		$this->lastQueryDuration = round(microtime(TRUE) * 1000) - $this->queryStartTime;
+		$this->queryStartTime = 0;
+	}
+
+
+	/**
+	 * @return float
+	 */
+	public function getLastQueryExecutionTime() {
+		return $this->lastQueryDuration;
+	}
 }

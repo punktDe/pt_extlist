@@ -84,8 +84,10 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 		
 		try {
 			/* @var $statement PDOStatement */
-		    $this->statement = $this->connection->prepare($query);
-		    $this->statement->execute();
+			$this->startTimeMeasure();
+			$this->statement = $this->connection->prepare($query);
+			$this->statement->execute();
+			$this->stopTimeMeasure();
 		} catch(Exception $e) {
 			throw new Exception('Error while trying to execute query on database! SQL-Statement: ' . $query . 
 			    ' - Error message from PDO: ' . $e->getMessage() .
