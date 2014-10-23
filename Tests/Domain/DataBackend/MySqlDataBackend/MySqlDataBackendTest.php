@@ -120,7 +120,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 	public function buildQueryUsesFluidProcessorIfFluidInlineFluidSyntaxWasFound() {
 		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('setItemCount'), array(), '', false, false);
 
-		$dataBackend = $this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',$this->configurationBuilder);
+		$dataBackend = $this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',$this->configurationBuilder); /**  */
 		$dataBackend->_injectPagerCollection($pagerCollectionMock);
 		$dataBackend->_injectQueryInterpreter(new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter());
 
@@ -141,7 +141,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
 		$this->assertEquals($expected, $dataBackend->processQueryWithFluid($query));
 
 
-		$query = 'SELECT * FROM test WHERE uid = {filter.theBox.theFilter.value}';
+		$query = 'SELECT * FROM test WHERE uid = {filters.theBox.theFilter.value}';
 		$expected = 'SELECT * FROM test WHERE uid = 20';
 
 		$this->assertEquals($expected, $dataBackend->processQueryWithFluid($query));
