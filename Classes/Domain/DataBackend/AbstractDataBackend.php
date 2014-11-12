@@ -367,7 +367,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * Returns raw list data
 	 *
-	 * @return array Array of raw list data
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
 		if ($this->listData === null) {

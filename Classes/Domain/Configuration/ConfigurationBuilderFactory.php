@@ -135,7 +135,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 
 		if (!$this->configurationBuilderInstancesContainer->contains($listIdentifier)) {
 			if(!is_array($this->settings['listConfig']) || !array_key_exists($listIdentifier, $this->settings['listConfig'])) {
-				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings!', 1288110596);
+				throw new Exception('No list with listIdentifier ' . $listIdentifier . ' could be found in settings! Available are: ' . implode(', ',array_keys($this->settings['listConfig'])), 1288110596);
 			}
 
 			// TODO use object manager to instantiate the configuration builder object
