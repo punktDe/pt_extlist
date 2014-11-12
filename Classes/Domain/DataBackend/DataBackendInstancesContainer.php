@@ -101,4 +101,12 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements t
 		}
 	}
 
+
+	/**
+	 * Clear all instances of this container
+	 */
+	public function clear() {
+		$this->instances = array();
+	}
+
 }
