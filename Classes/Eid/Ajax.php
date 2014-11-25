@@ -42,7 +42,9 @@ $GLOBALS['TSFE'] = $TSFE;
 
 $typoscriptInclude = '<INCLUDE_TYPOSCRIPT:source="FILE:EXT:pt_extlist/Configuration/TypoScript/setup.txt">';
 
-require_once(PATH_t3lib . 'class.t3lib_tsparser.php');
+
+//require_once(PATH_t3lib . 'class.t3lib_tsparser.php');
+
 $tsParser = t3lib_div::makeInstance('t3lib_TSparser'); /* @var $tsParser t3lib_TSparser */
 $externalTSFileContent = $tsParser->checkIncludeLines($typoscriptInclude);
 $tsParser->parse($externalTSFileContent);
