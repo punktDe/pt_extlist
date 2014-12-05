@@ -24,9 +24,9 @@ if (TYPO3_MODE == 'BE') {
 /**
  * Load static templates for Typoscript settings
  */
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '[pt_extlist] Basic settings');
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Export', '[pt_extlist] Export settings');
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_extlist] Demolist Package');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '[pt_extlist] Basic settings');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Export', '[pt_extlist] Export settings');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_extlist] Demolist Package');
 
 $pluginModes = array(
 	'Pi1' => 'ExtList',
@@ -38,48 +38,16 @@ foreach ($pluginModes as $ident => $label) {
 	/**
 	 * Register plugin in ExtBase
 	 */
-	Tx_Extbase_Utility_Extension::registerPlugin(
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 		$_EXTKEY,           // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
 		$ident,				// A unique name of the plugin in UpperCamelCase
 		$label	    // A title shown in the backend dropdown field
 	);
 	
-	/**
-	 * Register plugin as page content
-	 */
-	$extensionName = t3lib_div::underscoredToUpperCamelCase($_EXTKEY);
-	$pluginSignature = strtolower($extensionName) . '_' . strtolower($ident);
-	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature]='layout,select_key,pages';
-	
-	
-	/**
-	 * Register flexform
-	 */
-	t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Flexform.xml');
 }
 
 
-/**
- * Configuration for Bookmark table
- */
-t3lib_extMgm::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmark_bookmark');
-$TCA['tx_ptextlist_domain_model_bookmark_bookmark'] = array (
-    'ctrl' => array (
-        'title'             => 'Bookmark', 
-        'label'             => 'name',
-        'tstamp'            => 'tstamp',
-        'crdate'            => 'crdate',
-        'origUid'           => 't3_origuid',
-        'languageField'     => 'sys_language_uid',
-        'transOrigPointerField'     => 'l18n_parent',
-        'transOrigDiffSourceField'  => 'l18n_diffsource',
-        'delete'            => 'deleted',
-        'enablecolumns'     => array(
-            'disabled' => 'hidden'
-        ),
-        'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Tca.php', 
-        'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
-    )
-);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmark_bookmark');
+
 ?>
