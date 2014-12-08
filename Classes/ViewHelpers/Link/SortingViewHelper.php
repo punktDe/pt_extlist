@@ -105,7 +105,7 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends Tx_Fluid_ViewHelp
      * that has no forced direction and has a current sorting set in header.
      *
      * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
-     * @return int Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC
+     * @return integer Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC
      */
     protected function getSortingDirectionForHeader(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
         $sortingFieldConfigForHeader = $header->getColumnConfig()->getSortingConfig();

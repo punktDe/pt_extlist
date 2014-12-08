@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	/**
 	 * Holds PID of folder for bookmarks. This can be set via settings.bookmarks.bookmarksPid
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $bookmarkStoragePid = 0;
 
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
     /**
      * Setter for storage pid for bookmarks
      *
-     * @param int $bookmarkStoragePid
+     * @param integer $bookmarkStoragePid
      */
     public function setBookmarkStoragePid($bookmarkStoragePid) {
     	$this->bookmarkStoragePid = $bookmarkStoragePid;

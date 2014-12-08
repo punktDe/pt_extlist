@@ -66,14 +66,14 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $treeMaxDepth;
 
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $treeRootNode = NULL;
 

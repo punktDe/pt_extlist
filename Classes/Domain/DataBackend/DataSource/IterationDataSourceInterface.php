@@ -46,7 +46,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterfac
 	/**
 	 * Return record count
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function count();
 

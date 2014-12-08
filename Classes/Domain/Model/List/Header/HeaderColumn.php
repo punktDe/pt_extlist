@@ -167,7 +167,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 *
 	 * Which fields are sorted
 	 *
-	 * @param int $sortingDirection One of  Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE
+	 * @param integer $sortingDirection One of  Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE
 	 */
 	public function setSorting($sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC) {
 		$this->sortedFields = array();
@@ -295,7 +295,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * Returns sorting direction for given field identifier
 	 *
 	 * @param string $fieldIdentifier Field identifier to get current sorting for
-	 * @return int Sorting direction
+	 * @return integer Sorting direction
 	 */
 	public function getSortingDirectionForField($fieldIdentifier) {
 		if (array_key_exists($fieldIdentifier, $this->sortedFields)) {
@@ -446,7 +446,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 * and set sorting of each field according to given direction, as
 	 * long as there is no forced direction for field.
 	 *
-	 * @param int $sortingDirection
+	 * @param integer $sortingDirection
 	 * @return void
 	 */
 	public function setDefaultSorting($sortingDirection) {

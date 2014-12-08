@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
 	 * Adds a given field and direction to sorting state
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field
-	 * @param int $direction
+	 * @param integer $direction
 	 */
 	public function addSortingByFieldAndDirection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field, $direction) {
 		$sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($field, $direction);

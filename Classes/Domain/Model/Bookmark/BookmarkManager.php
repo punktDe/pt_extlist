@@ -185,7 +185,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 
 
 	/**
-	 * @param int $bookmarkUid
+	 * @param integer $bookmarkUid
 	 * @throws InvalidArgumentException
 	 */
 	public function restoreBookmarkByUid($bookmarkUid){

@@ -197,7 +197,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 *
 	 * @param array $config
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	protected function getCurrentPID($config) {
 		return (int)$config['row']['pid'];

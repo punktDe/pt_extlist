@@ -162,7 +162,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
 	 * @param $iterationDate
 	 * @param $timeSpanComponents
 	 * @param $iterator
-	 * @return int
+	 * @return integer
 	 */
 	protected function makeTime($iterationDate, $timeSpanComponents, $iterator) {
 		$time = mktime(

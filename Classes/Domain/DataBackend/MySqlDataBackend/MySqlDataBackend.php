@@ -97,7 +97,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	/**
 	 * Holds total item count (cached)
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $totalItemsCount = NULL;
 
@@ -500,7 +500,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	/**
 	 * Returns number of records for current settings without pager
 	 *
-	 * @return int Total number of records for current settings
+	 * @return integer Total number of records for current settings
 	 */
 	public function getTotalItemsCount() {
 

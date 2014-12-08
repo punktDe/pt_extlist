@@ -108,7 +108,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
     /**
      * Getter for sorting direction
      *
-     * @return int
+     * @return integer
      */
 	public function getDirection() {
 		return $this->direction;

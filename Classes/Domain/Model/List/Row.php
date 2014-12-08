@@ -161,7 +161,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectC
 	 *
 	 * This is a helper method for fluid, as count is prefixed with 'get'
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getCount() {
 		return $this->count();

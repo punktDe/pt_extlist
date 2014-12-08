@@ -38,7 +38,7 @@
 class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $minWordLength;
 

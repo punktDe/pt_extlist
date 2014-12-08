@@ -348,7 +348,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getTotalItemsCount()
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getTotalItemsCount() {
 		$count = $this->buildExtBaseQueryWithoutPager()->execute()->count();

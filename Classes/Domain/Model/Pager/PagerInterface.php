@@ -59,7 +59,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the current page index.
 	 *
-	 * @return int The current page index
+	 * @return integer The current page index
 	 */
 	public function getCurrentPage();
 
@@ -68,7 +68,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the index of the first page.
 	 *
-	 * @return int Index of first page
+	 * @return integer Index of first page
 	 */
 	public function getFirstItemIndex();
 
@@ -77,7 +77,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the index of the last page.
 	 *
-	 * @return int Index of last page
+	 * @return integer Index of last page
 	 */
 	public function getLastItemIndex();
 
@@ -86,7 +86,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Sets the current page
 	 *
-	 * @param int $page A page index
+	 * @param integer $page A page index
 	 */
 	public function setCurrentPage($page);
 
@@ -96,7 +96,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	 * Sets the total item count.
 	 * Could be used by a list to inject the amount of rows.
 	 *
-	 * @param int $itemCount The amount of items.
+	 * @param integer $itemCount The amount of items.
 	 */
 	public function setItemCount($itemCount);
 
@@ -105,7 +105,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the total item count.
 	 *
-	 * @return int The total item count.
+	 * @return integer The total item count.
 	 */
 	public function getItemCount();
 
@@ -114,7 +114,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the items per page.
 	 *
-	 * @return int Amount of items per page.
+	 * @return integer Amount of items per page.
 	 */
 	public function getItemsPerPage();
 
@@ -123,7 +123,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Sets the items per page
 	 *
-	 * @param int $itemsPerPage
+	 * @param integer $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage);
 
@@ -177,7 +177,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the last page index
 	 *
-	 * @return int Index of last page
+	 * @return integer Index of last page
 	 */
 	public function getLastPage();
 
@@ -186,7 +186,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the first page index
 	 *
-	 * @return int Index of first page
+	 * @return integer Index of first page
 	 */
 	public function getFirstPage();
 
@@ -195,7 +195,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the previous page index
 	 *
-	 * @return int Index of previous page
+	 * @return integer Index of previous page
 	 */
 	public function getPreviousPage();
 
@@ -204,7 +204,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Returns the last next index
 	 *
-	 * @return int Index of next page
+	 * @return integer Index of next page
 	 */
 	public function getNextPage();
 
@@ -231,7 +231,7 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	/**
 	 * Return the calculated item offset
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getItemOffset();
 }

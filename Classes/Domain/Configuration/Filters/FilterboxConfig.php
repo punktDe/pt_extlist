@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	/**
 	 * Holds ID of page to which should be redirected after filterbox submits
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $redirectOnSubmitPageId = null;
 	
@@ -344,7 +344,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
 	/**
 	 * Returns page id of page to which should be redirected after filterbox submits
 	 * 
-	 * @return int
+	 * @return integer
 	 */
 	public function getRedirectOnSubmitPageId() {
 		return $this->redirectOnSubmitPageId;

@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * Holds the current page index.
 	 * New pagers need to know the current page.
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $currentPage = 1;
 
@@ -112,7 +112,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Sets the current page index to all pagers.
 	 *
-	 * @param int $pageIndex
+	 * @param integer $pageIndex
 	 */
 	public function setCurrentPage($pageIndex) {
 		$this->currentPage = (int)$pageIndex;
@@ -136,7 +136,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the current page which is valid for all pagers.
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getCurrentPage() {
 		// If number of items has changed between to requests, we can check here, whether we still have enough items to be on recent page
@@ -172,7 +172,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 * Sets the total item count for each pager in the collection.
 	 * Could be used by a list to inject the amount of rows.
 	 *
-	 * @param int $itemCount The amount of items.
+	 * @param integer $itemCount The amount of items.
 	 */
 	public function setItemCount($itemCount) {
 		foreach ($this as $pager) {		/** @var Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager */
@@ -250,7 +250,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the index of the first page.
 	 *
-	 * @return int Index of first page
+	 * @return integer Index of first page
 	 */
 	public function getFirstItemIndex() {
 		return $this->getItemByIndex(0)->getFirstItemIndex();
@@ -261,7 +261,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the index of the last page.
 	 *
-	 * @return int Index of last page
+	 * @return integer Index of last page
 	 */
 	public function getLastItemIndex() {
 		return $this->getItemByIndex(0)->getLastItemIndex();
@@ -272,7 +272,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the total item count.
 	 *
-	 * @return int The total item count.
+	 * @return integer The total item count.
 	 */
 	public function getItemCount() {
 		return $this->getItemByIndex(0)->getItemCount();
@@ -283,7 +283,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the items per page.
 	 *
-	 * @return int Amount of items per page.
+	 * @return integer Amount of items per page.
 	 */
 	public function getItemsPerPage() {
 		return $this->getItemByIndex(0)->getItemsPerPage();
@@ -294,7 +294,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Set itmesPerPage
 	 *
-	 * @param int $itemsPerPage
+	 * @param integer $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage) {
 		foreach ($this->itemsArr as $pager) {	/* @var $pager Tx_PtExtlist_Domain_Model_Pager_DefaultPager */
@@ -307,7 +307,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Set the page by row index
 	 *
-	 * @param int $rowIndex
+	 * @param integer $rowIndex
 	 */
 	public function setPageByRowIndex($rowIndex) {
 		$rowIndex++; // rowindex = 0 means item 1
@@ -345,7 +345,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 
 
 	/**
-	 * @return int the item offset
+	 * @return integer the item offset
 	 */
 	public function getItemOffset() {
 		return $this->getItemByIndex(0)->getItemOffset();
@@ -356,7 +356,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the last page index
 	 *
-	 * @return int Index of last page
+	 * @return integer Index of last page
 	 */
 	public function getLastPage() {
 		return $this->getItemByIndex(0)->getLastPage();
@@ -367,7 +367,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the first page index
 	 *
-	 * @return int Index of first page
+	 * @return integer Index of first page
 	 */
 	public function getFirstPage() {
 		return $this->getItemByIndex(0)->getFirstPage();
@@ -378,7 +378,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the previous page index
 	 *
-	 * @return int Index of previous page
+	 * @return integer Index of previous page
 	 */
 	public function getPreviousPage() {
 		return $this->getItemByIndex(0)->getPreviousPage();
@@ -389,7 +389,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	/**
 	 * Returns the last next index
 	 *
-	 * @return int Index of next page
+	 * @return integer Index of next page
 	 */
 	public function getNextPage() {
 		return $this->getItemByIndex(0)->getNextPage();

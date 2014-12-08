@@ -296,8 +296,8 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
      * DESC will become ASC
      * everything else will become ASC
 	 *
-	 * @param int $sortingState
-	 * @return int The inverted sorting state.
+	 * @param integer $sortingState
+	 * @return integer The inverted sorting state.
 	 */
 	public static function invertSortingState($sortingState) {
 		switch($sortingState) {

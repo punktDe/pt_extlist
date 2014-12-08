@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $index = 0;
 
@@ -101,7 +101,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 	/**
 	 * Alias function for count to be accessible in fluid
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getCount() {
 		return $this->count();
@@ -110,7 +110,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function count() {
 		return $this->dataSource->count();

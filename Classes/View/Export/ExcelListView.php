@@ -78,7 +78,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 	/**
 	 * Current rowNumber
-	 * @var int
+	 * @var integer
 	 */
 	protected $rowNumber = 1;
 
