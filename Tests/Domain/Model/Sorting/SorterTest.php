@@ -88,10 +88,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
         $sortingStateCollection = $sorter->getSortingStateCollection();
 
         $this->assertEquals($sortingStateCollection->count(), 4);
-        $this->assertEquals($sortingStateCollection[0], $sortingStateMock1);
-        $this->assertEquals($sortingStateCollection[1], $sortingStateMock2);
-        $this->assertEquals($sortingStateCollection[2], $sortingStateMock3);
-        $this->assertEquals($sortingStateCollection[3], $sortingStateMock4);
+        $this->assertEquals($sortingStateCollection->getItemByIndex(0), $sortingStateMock1);
+        $this->assertEquals($sortingStateCollection->getItemByIndex(1), $sortingStateMock2);
+        $this->assertEquals($sortingStateCollection->getItemByIndex(2), $sortingStateMock3);
+        $this->assertEquals($sortingStateCollection->getItemByIndex(3), $sortingStateMock4);
     }
 
 

@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
 	 * @param array $sessionArray
 	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
 	 */
-	public static function getIstanceBySessionArray(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionArray) {
+	public static function getInstanceBySessionArray(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionArray) {
 		$sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
 		foreach($sessionArray as $sortingStateSessionArray) {
 			$sortingStateCollection->addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceBySessionArray($configurationBuilder, $sortingStateSessionArray));
@@ -81,6 +81,16 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtb
 		$this->addItem($sortingState, $sortingState->getField()->getIdentifier());
 	}
 
+
+	/**
+	 * @param $sortingStateIdentifier
+	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
+	 */
+	public function getSortingState($sortingStateIdentifier) {
+		if($this->hasItem($sortingStateIdentifier)) {
+			return $this->getItemById($sortingStateIdentifier);
+		}
+	}
 
 	/**
 	 * Returns an array of field configs that are contained by this sorting state collection
