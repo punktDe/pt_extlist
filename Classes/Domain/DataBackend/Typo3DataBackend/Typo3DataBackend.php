@@ -87,11 +87,11 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * @return string whereClause part with TYPO3 enablefields criterias
 	 */
 	protected function getTypo3SpecialFieldsWhereClause() {
-		$typo3Tables = t3lib_div::trimExplode(',', $this->backendConfiguration->getDataBackendSettings('tables'), true);
+		$typo3Tables = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->backendConfiguration->getDataBackendSettings('tables'), true);
 		$specialFieldsWhereClause = '';
 
 		foreach($typo3Tables as $typo3Table) {
-			list($table, $alias) = t3lib_div::trimExplode(' ', $typo3Table, true);
+			list($table, $alias) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $typo3Table, true);
 			$alias = trim($alias);
 
 			if (is_array($GLOBALS['TCA'][$table])) {

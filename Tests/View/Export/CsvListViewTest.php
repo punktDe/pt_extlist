@@ -135,7 +135,7 @@ class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_Ba
 
 
 	protected function createTemplateVariableContainer() {
-		$templateVariableContainer = new Tx_Fluid_Core_ViewHelper_TemplateVariableContainer();
+		$templateVariableContainer = new \TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer();
 
 
 		$header = new Tx_PtExtlist_Domain_Model_List_Row();

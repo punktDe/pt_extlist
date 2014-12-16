@@ -48,8 +48,8 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 
 	
 	public function SetUp() {
-		$this->baseConfigTSFile = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
-		$this->prototypePath = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/BaseConfig/Prototype/';
+		$this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
+		$this->prototypePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/BaseConfig/Prototype/';
 		$this->prototypeFiles = $this->loadProttypeFileNamesAsArray();	
 	}
 
@@ -122,7 +122,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 		$TSString .=$this->loadTestList();
 		
 	
-		$parserInstance = t3lib_div::makeInstance('t3lib_tsparser');
+		$parserInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_tsparser');
 		$parserInstance->parse($TSString);
  		
 		//$cObj = t3lib_div::makeInstance('tslib_cObj');
@@ -167,7 +167,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 
 	
 	protected function loadTestList() {
-		return $this->loadTSFile(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Typoscript/testlist.txt');
+		return $this->loadTSFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Tests/Typoscript/testlist.txt');
 	}
 
 

@@ -172,7 +172,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 		$settingsToBeMerged = $this->origSettings;
 		unset($settingsToBeMerged['listConfig']);
 		if (is_array($this->origSettings['listConfig'][$this->listIdentifier])) {
-			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
+			$mergedSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule(
 				$settingsToBeMerged,
 				$this->origSettings['listConfig'][$this->listIdentifier]
 			);

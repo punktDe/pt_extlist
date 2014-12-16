@@ -1,6 +1,6 @@
 <?php
 
-class Tx_PtExtlist_ViewHelpers_Bookmark_ShowFormViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_Bookmark_ShowFormViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

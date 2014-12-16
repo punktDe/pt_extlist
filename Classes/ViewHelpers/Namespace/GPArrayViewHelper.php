@@ -46,7 +46,7 @@
  * @subpackage NameSpace
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest
  */
-class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Holds instance of session persistence manager builder
@@ -125,11 +125,11 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 */
 	public function getArgumentArray($argumentString) {
 		$argumentArray = array();
-		$argumentChunks = t3lib_div::trimExplode(',', $argumentString);
+		$argumentChunks = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $argumentString);
 		
 		foreach($argumentChunks as $argument) {
 			if(strstr($argument, ':')) {
-				list($key, $value) = t3lib_div::trimExplode(':', $argument);
+				list($key, $value) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(':', $argument);
 				$argumentArray = Tx_PtExtbase_Utility_NameSpace::saveDataInNamespaceTree($key, $argumentArray, $value);	
 			} else {
 				$key = $argument;
@@ -168,7 +168,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends Tx_Fluid_Core
 	 * @return array The built array filled with the given value.
 	 */
 	public function buildNamespaceValueArray($nameSpace, $key, $value) {	
-		$nameSpaceChunks =  t3lib_div::trimExplode('.', $nameSpace);
+		$nameSpaceChunks =  \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('.', $nameSpace);
 		
 		$returnArray = array();
 		$pointer = &$returnArray;

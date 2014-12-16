@@ -183,7 +183,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	protected function getColumnCollection() {
-		$listHeaderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+		$listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
 		$listHeader = $listHeaderFactory->createInstance($this->rendererConfiguration->getConfigurationBuilder());
 		return $listHeader;
 	}

@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactory
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Holds singleton instances of FilterboxCollections for each list identifier

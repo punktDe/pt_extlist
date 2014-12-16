@@ -47,8 +47,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotC
 	 */
     public static function translateCriteria(
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-           Tx_Extbase_Persistence_Query $extbaseQuery,
-           Tx_Extbase_Persistence_Repository $extbaseRepository) {
+           \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
+           \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository) {
 
         // translate NOT criteria by creating a new extbase query
         $tmpQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria(

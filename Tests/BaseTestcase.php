@@ -105,7 +105,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 	
 	
 	public function setup() {
-		$typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser'); /* @var $typoScriptParser t3lib_TSparser */
+		$typoScriptParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_TSparser'); /* @var $typoScriptParser t3lib_TSparser */
         $typoScriptParser->parse($this->extBaseSettingsString);
         $this->extBaseSettings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
 
@@ -191,7 +191,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 		$configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
 		$configurationBuilderFactory->getInstance($listIdentifier);
 
-		$instancesContainer = t3lib_div::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
+		$instancesContainer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
 
 		$objectManagerMock = $this->getMock('Tx_Extbase_Object_ObjectManager', array('get'), array(), '', FALSE);
 		$objectManagerMock->expects($this->any())

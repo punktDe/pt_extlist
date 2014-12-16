@@ -107,7 +107,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends T
 
 	
 	public function testGetAccessGroups() {
-		$this->assertEquals($this->columnConfig->getAccessGroups(), t3lib_div::trimExplode(',',$this->columnSettings['accessGroups']));
+		$this->assertEquals($this->columnConfig->getAccessGroups(), \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',',$this->columnSettings['accessGroups']));
 	}
 	
 

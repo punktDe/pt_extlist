@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
 	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
 	 */
 	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
 		$security = $objectManager->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
 		$accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
 		$filterConfig->setAccessable($accessable);

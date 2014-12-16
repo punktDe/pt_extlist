@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 	
 	/**
 	 * Holds an array of instances for each list identifier

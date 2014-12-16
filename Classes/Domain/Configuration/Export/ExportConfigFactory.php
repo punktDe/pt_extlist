@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
 		$selectedViewSettingsKey = $controllerSettings['Export']['download']['view'];
 		$exportSettingsPath = explode('.',$selectedViewSettingsKey);
 
-		$exportSettings = Tx_Extbase_Utility_Arrays::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
+		$exportSettings = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
 		
 		/* In this case we have to merge the prototype settings again because the prototype settings are filled from flexform....
 		 * This smells ... 

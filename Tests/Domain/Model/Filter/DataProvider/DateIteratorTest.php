@@ -151,7 +151,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	 */
 	public function initThrowsExceptionOnConfigurationError($settings) {
 
-		$filterSettings = t3lib_div::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
+		$filterSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
 
 		try {
 			$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
@@ -170,7 +170,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	 */
 	public function getRenderedOptions($settings, $result) {
 
-		$filterSettings = t3lib_div::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
+		$filterSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
 
 		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
 
@@ -185,7 +185,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	 * @dataProvider settingsDataProvider
 	 */
 	public function buildTimeStampList($settings, $result) {
-		$filterSettings = t3lib_div::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
+		$filterSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
 
 		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
 		$resultArray = $dataProvider->_call('buildTimeStampList');

@@ -285,7 +285,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	public static function renderValueByTemplate(array $data, $templatePath) {
 		if(!file_exists($templatePath)) {
-			$templatePath = t3lib_div::getFileAbsFileName($templatePath);
+			$templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePath);
 		}
 
 		self::getFluidRenderer()->setTemplatePathAndFilename($templatePath);
@@ -316,7 +316,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 			
 			$rendererUserFunc = is_array($rendererUserFuncConfig) && array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig;
 
-			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef, NULL);
+			$content = \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($rendererUserFunc, $params, $dummRef, NULL);
 		}
 
 		return $content;
@@ -337,7 +337,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 					$GLOBALS['TSFE']->newCObj();
 				}
 			} else {
-				t3lib_div::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
+				\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
 				$GLOBALS['TSFE']->newCObj();
 			}
 
@@ -358,7 +358,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 
 		if(!self::$fluidRenderer) {
 
-			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager');
 
 			self::$fluidRenderer = $objectManager->get('Tx_Fluid_View_TemplateView');
 			

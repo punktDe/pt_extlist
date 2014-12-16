@@ -151,7 +151,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		}
 
 		if (!empty($rendererUserFunc)) {
-			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $cell, '');
+			$specialValues = \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($rendererUserFunc, $cell, '');
 			$cell->setSpecialValues($specialValues);
 		}
 	}

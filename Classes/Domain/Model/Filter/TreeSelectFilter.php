@@ -109,7 +109,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 * @return void
 	 */
 	public function initFilter() {
-		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /** @var Tx_Extbase_Object_ObjectManager $objectManager */
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager'); /** @var Tx_Extbase_Object_ObjectManager $objectManager */
 		$this->treeContext = $this->objectManager->get('Tx_PtExtbase_Tree_TreeContext');
 		$this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
 		$this->buildTree();
@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 */
 	protected function initFilterByGpVars() {
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
-			$this->filterValues = t3lib_div::trimExplode(',', $this->gpVarFilterData['filterValues']);
+			$this->filterValues = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->gpVarFilterData['filterValues']);
 		}
 	}
 

@@ -34,7 +34,7 @@
  * @package Domain
  * @subpackage StateAdapter
  */
-class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory

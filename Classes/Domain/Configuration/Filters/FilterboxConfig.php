@@ -268,7 +268,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExt
      * @return void
      */
     protected function setExcludeFilters($excludeFiltersString) {
-        $excludeFilters = t3lib_div::trimExplode(',',$excludeFiltersString);
+        $excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',',$excludeFiltersString);
         foreach($excludeFilters as $excludedFilter) {
             list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
             Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416'));

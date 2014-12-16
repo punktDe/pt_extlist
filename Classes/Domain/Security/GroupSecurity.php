@@ -33,7 +33,7 @@
  * @subpackage Security
  * @see Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest
  */
-class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_Security_SecurityInterface, t3lib_Singleton {
+class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_Security_SecurityInterface, \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Comma separated list of user groups
@@ -157,7 +157,7 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 			$group = trim($group);
 			if (empty($group)) return true;
 
-			$groupArray = t3lib_div::trimExplode(',', $this->userGroups);
+			$groupArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->userGroups);
 
 			foreach ($groupArray as $groupData) {
 

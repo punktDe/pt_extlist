@@ -58,15 +58,15 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlProfilingDataSource extend
 		$this->postProcessHookObjects = array();
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'])) {
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'] as $classRef) {
-				$hookObject = t3lib_div::getUserObj($classRef);
+				$hookObject = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj($classRef);
 
-				if (!($hookObject instanceof t3lib_DB_preProcessQueryHook || $hookObject instanceof t3lib_DB_postProcessQueryHook)) {
+				if (!($hookObject instanceof \TYPO3\CMS\Core\Database\PreProcessQueryHookInterface || $hookObject instanceof \TYPO3\CMS\Core\Database\PostProcessQueryHookInterface)) {
 					throw new UnexpectedValueException('$hookObject must either implement interface t3lib_DB_preProcessQueryHook or interface t3lib_DB_postProcessQueryHook', 1299158548);
 				}
-				if ($hookObject instanceof t3lib_DB_preProcessQueryHook) {
+				if ($hookObject instanceof \TYPO3\CMS\Core\Database\PreProcessQueryHookInterface) {
 					$this->preProcessHookObjects[] = $hookObject;
 				}
-				if ($hookObject instanceof t3lib_DB_postProcessQueryHook) {
+				if ($hookObject instanceof \TYPO3\CMS\Core\Database\PostProcessQueryHookInterface) {
 					$this->postProcessHookObjects[] = $hookObject;
 				}
 			}

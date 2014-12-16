@@ -47,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtE
 	 */
 	public function setUp() {
 		$this->initDefaultConfigurationBuilderMock();
-		$this->rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
+		$this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
 	}
 	
 	

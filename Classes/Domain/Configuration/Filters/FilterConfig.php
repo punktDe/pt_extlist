@@ -359,15 +359,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 
 		if($this->configValueExiststAndNotNothing('inactiveOption')) {
 			$this->inactiveOption = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
-			if(t3lib_div::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
-				$this->inactiveOption = Tx_Extbase_Utility_Localization::translate($this->inactiveOption, '');
+			if(\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
+				$this->inactiveOption = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->inactiveOption, '');
 			}
 		}
 
 		if($this->configValueExiststAndNotNothing('label')) {
 			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
-			if(t3lib_div::isFirstPartOfStr($this->label, 'LLL:')) {
-				$this->label = Tx_Extbase_Utility_Localization::translate($this->label, '');
+			if(\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($this->label, 'LLL:')) {
+				$this->label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->label, '');
 			}
 		}
 
@@ -376,7 +376,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
         }
 
 		if(array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
+			$this->accessGroups = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->settings['accessGroups']);
 		}
 	}
 
@@ -404,7 +404,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 			}
 
 		} else {
-			$fieldIdentifierList = t3lib_div::trimExplode(',', $fieldIdentifier);
+			$fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fieldIdentifier);
 		}
 
 		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);

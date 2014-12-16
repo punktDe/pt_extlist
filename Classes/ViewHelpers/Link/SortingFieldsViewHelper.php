@@ -37,7 +37,7 @@
  * @subpackage Link
  * @author Michael Knoll
  */
-class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
+class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 	/**
 	 * Holds instance of session persistence manager builder

@@ -44,7 +44,7 @@ interface Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_
 	 */
 	public static function translateCriteria(
 	       Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-	       Tx_Extbase_Persistence_Query $extbaseQuery,
-	       Tx_Extbase_Persistence_Repository $extbaseRepository);
+		   \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
+		   \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository);
 	
 }

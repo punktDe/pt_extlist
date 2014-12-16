@@ -25,8 +25,8 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Div.php';
-require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
+require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Div.php';
+require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
 
 /**
  * Utilitty to get selectable options from typoscript
@@ -164,7 +164,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 * @return string
 	 */
 	protected function getFlexformValue($optionName, $config) {
-		$flexformContent = t3lib_div::xml2array($config['row']['pi_flexform']);
+		$flexformContent = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($config['row']['pi_flexform']);
 		if (is_array($flexformContent)
 			&& array_key_exists('data', $flexformContent)
 			&& array_key_exists('sDefault', $flexformContent['data'])
@@ -245,7 +245,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 */
 	protected function getTSArrayByPath($typoScriptPath) {
 		$pathArray = explode('.', $typoScriptPath);
-		$outTSArray = Tx_Extbase_Utility_Arrays::getValueByPath($this->extListTypoScript, $pathArray);
+		$outTSArray = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($this->extListTypoScript, $pathArray);
 		if (!is_array($outTSArray)) {
 			$outTSArray = array();
 		}

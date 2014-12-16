@@ -52,7 +52,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 	 * @param unknown_type $pObj
 	 */
 	public function getExtensionSummary($params, &$pObj) {
-		$data = t3lib_div::xml2array($params['row']['pi_flexform']);
+		$data = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($params['row']['pi_flexform']);
 		$this->init($data);
 
 		if(is_array($data)) {
@@ -97,10 +97,10 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 	 */
 	protected function init($data) {
 		
-		$templatePathAndFilename = t3lib_div::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
+		$templatePathAndFilename = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
 				
 		// Fluid
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager');
 		$this->fluidRenderer = $objectManager->create('Tx_Fluid_View_StandaloneView');
 		$this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);		
 	}

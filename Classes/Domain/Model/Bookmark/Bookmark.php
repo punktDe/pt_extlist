@@ -36,7 +36,7 @@
  * @see Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
-    extends Tx_Extbase_DomainObject_AbstractEntity 
+    extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     implements Tx_PtExtbase_State_IdentifiableInterface {
 
 

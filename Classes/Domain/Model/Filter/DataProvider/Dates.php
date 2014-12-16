@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 	 */
 	protected function initDataProviderByTsConfig($filterSettings) {
 		if (array_key_exists('excludeFilters', $filterSettings) && trim($filterSettings['excludeFilters'])) {
-			$this->excludeFilters = t3lib_div::trimExplode(',', $filterSettings['excludeFilters']);
+			$this->excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $filterSettings['excludeFilters']);
 		}
 		$this->buildDateFieldConfigArray();
 	}

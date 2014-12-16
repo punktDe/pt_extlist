@@ -222,7 +222,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 		$relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], 'http://' . $_SERVER['HTTP_HOST'], $this->cssFilePath);
 		$html = str_replace($this->cssFilePath, $relativePath, $html);
 
-		if ((int)t3lib_div::_GET('showHTML') == 1) {
+		if ((int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('showHTML') == 1) {
 			die($html);
 		}
 
@@ -398,7 +398,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 	private function initTypoScriptSettings() {
 		$this->fluidTemplatePath = $this->exportConfiguration->getSettings('templatePath');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fluidTemplatePath, array('message' => 'No template path given for fluid export! 1284621481'));
-		$this->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($this->fluidTemplatePath));
+		$this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->fluidTemplatePath));
 
 		// TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further information on parameters!
 		// --page-size	<Size>	Set paper size to: A4, Letter, etc. (default A4)
@@ -411,7 +411,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
 		Tx_PtExtbase_Assertions_Assert::isInArray($this->orient, array('portrait', 'landscape'), array('message' => 'The Orientation must either be portrait or landscape! 1322585560'));
 
 
-		$this->cssFilePath = t3lib_div::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
+		$this->cssFilePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), array('message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627'));
 
 		$this->additionalWkhtmlParams = $this->exportConfiguration->getSettings('additionalWkhtmlParams');

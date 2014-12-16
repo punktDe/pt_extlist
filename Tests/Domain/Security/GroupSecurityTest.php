@@ -492,7 +492,7 @@ class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_
 
 
 	protected function buildFieldCollection($fields) {
-		$fieldIdentifierList = t3lib_div::trimExplode(',', $fields);
+		$fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fields);
 		return $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 	}
 

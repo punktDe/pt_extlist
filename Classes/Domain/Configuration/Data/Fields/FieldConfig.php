@@ -119,7 +119,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
 		$this->setValueIfExists('expandGroupRowsSeparator');
 		
 		if(array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
+			$this->accessGroups = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->settings['accessGroups']);
 		}
 	}
 	
