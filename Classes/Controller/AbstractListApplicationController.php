@@ -253,12 +253,11 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
 
 	/**
-	 * @param $exportIdentifier string
+	 * @param string $exportIdentifier
 	 * @return string
 	 * @throws Exception
 	 */
 	public function downloadAction($exportIdentifier) {
-
 		$exportSettingsPath = $this->extlistTypoScriptSettingsPath . '.export.exportConfigs.' . $exportIdentifier;
 		$exportSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
 
