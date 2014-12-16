@@ -90,7 +90,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan i
 	/**
 	 * Implementing SortableEntityInterface
 	 * 
-	 * @return int Timestamp
+	 * @return integer Timestamp
 	 */
 	public function getSortingValue() {
 		return $this->getStartDate()->format('U');

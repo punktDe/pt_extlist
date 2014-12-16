@@ -77,8 +77,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	 *
 	 * @param \Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $data The table data.
-	 * @param int $columnIndex Current column index.
-	 * @param int $rowIndex Current row index.
+	 * @param integer $columnIndex Current column index.
+	 * @param integer $rowIndex Current row index.
 	 *
 	 * @internal param string $columnIdentifier The columnIdentifier.
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
@@ -151,7 +151,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		}
 
 		if (!empty($rendererUserFunc)) {
-			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $cell, '');
+			$specialValues = \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($rendererUserFunc, $cell, '');
 			$cell->setSpecialValues($specialValues);
 		}
 	}

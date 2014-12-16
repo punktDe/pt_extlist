@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateCollectionTest extends
         $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder',array('buildFieldsConfiguration'), array(), '', FALSE);
         $configurationBuilderMock->expects($this->any())->method('buildFieldsConfiguration')->will($this->returnValue($fieldsConfigurationMock));
 
-        $sortingStateCollection = Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection::getIstanceBySessionArray($configurationBuilderMock, $dummyArray);
+        $sortingStateCollection = Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection::getInstanceBySessionArray($configurationBuilderMock, $dummyArray);
 
         $this->assertTrue(is_a($sortingStateCollection, 'Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'));
         $this->assertEquals($sortingStateCollection->count(), 2);
@@ -69,7 +69,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateCollectionTest extends
 
     /** @test */
     public function addSortingStateAddsSortingStateToCollection() {
-        $sortingStateCollectionMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'), array('dummy'), array(), '', FALSE);
+        $sortingStateCollectionMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection'), array('dummy'), array(), '', FALSE); /** @var  $sortingStateCollectionMock Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection */
         $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', FALSE);
         $fieldConfigurationMock->expects($this->any())->method('getIdentifier')->will($this->returnValue('field1'));
         $sortingStateMock = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingState', array('getField', 'getDirection'), array(), '', FALSE);
@@ -78,8 +78,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateCollectionTest extends
 
         $sortingStateCollectionMock->addSortingState($sortingStateMock);
 
-        $sortingStatesArray = $sortingStateCollectionMock->_get('itemsArr');
-        $this->assertEquals($sortingStatesArray[0], $sortingStateMock);
+        $this->assertEquals($sortingStateCollectionMock->getItemByIndex(0), $sortingStateMock);
     }
 
 
@@ -95,8 +94,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateCollectionTest extends
 
         $sortingStatesArray = $sortingStateCollectionMock->_get('itemsArr');
 
-        $this->assertEquals($sortingStatesArray[0]->getField(), $fieldConfigurationMock);
-        $this->assertEquals($sortingStatesArray[0]->getDirection(), $sortingDirection);
+        $this->assertEquals(current($sortingStatesArray)->getField(), $fieldConfigurationMock);
+        $this->assertEquals(current($sortingStatesArray)->getDirection(), $sortingDirection);
     }
 
 

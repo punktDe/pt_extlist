@@ -35,7 +35,7 @@
  */
 class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Holds singleton instances of column selectors for each list

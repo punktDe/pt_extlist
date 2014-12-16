@@ -33,7 +33,7 @@
  * @subpackage 
  * @see 
  */
-interface Tx_PtExtlist_View_ConfigurableViewInterface extends Tx_Extbase_MVC_View_ViewInterface {
+interface Tx_PtExtlist_View_ConfigurableViewInterface extends \TYPO3\CMS\Extbase\Mvc\View\ViewInterface {
 
 	/**
 	 * Injects configuration builder via setter.

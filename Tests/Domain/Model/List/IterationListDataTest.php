@@ -1,6 +1,6 @@
 <?php
 
-require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php');
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php');
 
 /***************************************************************
  *  Copyright notice
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtEx
 
 
 	public function setUp() {
-		$this->rendererChainFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
+		$this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
 		$this->fixture = $this->getIterationListDataObject(10, 10);
 	}
 

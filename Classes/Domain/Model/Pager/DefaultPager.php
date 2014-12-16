@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * The current page.
 	 * Basis of all calculations.
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $currentPage = 1;
 
@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	/**
 	 * Amount of items to display per page.
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $itemsPerPage;
 
@@ -78,7 +78,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	/**
 	 * The current amount of all items available for the list.
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $totalItemCount;
 
@@ -187,7 +187,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	/**
 	 * Set the ItemsPerPage
 	 *
-	 * @param int $itemsPerPage
+	 * @param integer $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage) {
 		$this->itemsPerPage = $itemsPerPage;
@@ -267,7 +267,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 	/**
 	 *
-	 * @return int $pageCount
+	 * @return integer $pageCount
 	 */
 	public function getPageCount() {
 		return ceil(intval($this->totalItemCount) / intval($this->itemsPerPage));
@@ -394,7 +394,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function getItemOffset() {
 		return intval($this->getCurrentPage() - 1) * intval($this->getItemsPerPage());

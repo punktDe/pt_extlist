@@ -58,7 +58,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	/**
 	 * Holds index of row (number of row in list)
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $rowIndex;
 	
@@ -67,7 +67,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	/**
 	 * Holds index of column (number of column in row)
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $columnIndex;
 
@@ -158,7 +158,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	/**
 	 * Setter for row index
 	 *
-	 * @param int $rowIndex
+	 * @param integer $rowIndex
 	 */
 	public function setRowIndex($rowIndex) {
 		$this->rowIndex = $rowIndex;
@@ -169,7 +169,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	/**
 	 * Getter for row index
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getRowIndex() {
 		return $this->rowIndex;
@@ -180,7 +180,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	/**
 	 * Setter for column index
 	 *
-	 * @param int $columnIndex
+	 * @param integer $columnIndex
 	 */
 	public function setColumnIndex($columnIndex) {
 		$this->columnIndex = $columnIndex;
@@ -191,7 +191,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell {
 	/**
 	 * Getter for column index
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getColumnIndex() {
 		return $this->columnIndex;

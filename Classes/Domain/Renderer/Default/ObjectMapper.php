@@ -33,7 +33,7 @@
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/**
@@ -46,7 +46,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements t3lib_Singlet
 	/**
 	 * @param Tx_Extbase_Property_Mapper $mapper
 	 */
-	public function injectMapper(Tx_Extbase_Property_Mapper $mapper) {
+	public function injectMapper(\TYPO3\CMS\Extbase\Property\Mapper $mapper) {
 		$this->mapper = $mapper;
 	}
 

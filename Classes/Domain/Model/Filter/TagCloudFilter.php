@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 
 	/**
 	 * Maximum of elements to display 
-	 * @var int
+	 * @var integer
 	 */
 	protected $maxItems;
 
@@ -53,7 +53,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 
 	/**
 	 * Minimum font Size 
-	 * @var int
+	 * @var integer
 	 */	
 	protected $minSize;
 
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 
 	/**
 	 * Maximum font Size 
-	 * @var int
+	 * @var integer
 	 */	
 	protected $maxSize;
 
@@ -183,8 +183,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 	/**
 	 * Calculate color
 	 * 
-	 * @param int $tagCount
-	 * @param int $iterator
+	 * @param integer $tagCount
+	 * @param integer $iterator
 	 * @return string
 	 */
 	protected function calculateColor($tagCount, $iterator) {

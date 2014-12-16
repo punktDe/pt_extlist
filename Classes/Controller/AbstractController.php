@@ -175,7 +175,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	/**
 	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager) {
 		parent::injectConfigurationManager($configurationManager);
 	}
 
@@ -220,7 +220,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	/**
 	 * @param Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository
 	 */
-	public function injectFeUserRepository(Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository) {
+	public function injectFeUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository) {
 		$this->feUserRepository = $feUserRepository;
 	}
 
@@ -334,7 +334,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	protected function buildSessionPersistenceManager() {
 		// Determine class name of session storage class to use for session persistence
 		if (TYPO3_MODE === 'FE') {
-			$sessionPersistenceStorageAdapterClassName = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
+			$sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
 				? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter() // We are in cached mode
 				: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter(); // We are in uncached mode
 		} else {
@@ -351,7 +351,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @param Tx_Extbase_MVC_View_ViewInterface $view
 	 * @return void
 	 */
-	protected function setViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+	protected function setViewConfiguration(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view) {
 		parent::setViewConfiguration($view);
 		$this->setCustomPathsInView($view);
 	}
@@ -368,7 +368,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @return void
 	 * @api
 	 */
-	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
+	protected function initializeView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view) {
 		$this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
 		if (method_exists($view, 'setConfigurationBuilder')) {
 			/* @var $view Tx_PtExtlist_View_ConfigurableViewInterface */
@@ -423,7 +423,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 *
 	 * @see Classes/MVC/Controller/Tx_Extbase_MVC_Controller_ActionController::processRequest()
 	 */
-	public function processRequest(Tx_Extbase_MVC_RequestInterface $request, Tx_Extbase_MVC_ResponseInterface $response) {
+	public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response) {
 		parent::processRequest($request, $response);
 		if (TYPO3_MODE === 'BE') {
 			// if we are in BE mode, this ist the last line called
@@ -439,7 +439,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	 * @param Tx_Extbase_MVC_View_ViewInterface $view
 	 * @throws Exception
 	 */
-	protected function setCustomPathsInView(Tx_Extbase_MVC_View_ViewInterface $view) {
+	protected function setCustomPathsInView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view) {
 		// TODO we do not get global settings from pt_extlist merged into list_identifier settings here. fix this.
 		// Get template for current action from settings for list identifier
 		$templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
@@ -452,11 +452,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 			$templatePathAndFilename = $this->templatePathAndFileName;
 		}
 		if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
-			if (file_exists(t3lib_div::getFileAbsFileName($templatePathAndFilename))) {
+			if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename))) {
 				/* @var $view Tx_PtExtlist_View_BaseView */
-				$view->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePathAndFilename));
+				$view->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename));
 			} else {
-				throw new Exception('Given template path and filename could not be found or resolved: ' . t3lib_div::getFileAbsFileName($templatePathAndFilename), 1284655110);
+				throw new Exception('Given template path and filename could not be found or resolved: ' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename), 1284655110);
 			}
 		}
 	}

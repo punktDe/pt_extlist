@@ -35,7 +35,7 @@
  * @subpackage Domain\Model\Sorting
  * @see Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/**
@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory implements t3lib_Singleton
 	/**
 	 * @param Tx_Extbase_Object_ObjectManager $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 

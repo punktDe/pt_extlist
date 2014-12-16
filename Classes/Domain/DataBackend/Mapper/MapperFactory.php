@@ -34,7 +34,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * @var Tx_Extbase_Object_ObjectManager
@@ -46,7 +46,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements t3lib_Sing
 	/**
 	 * @param Tx_Extbase_Object_ObjectManager $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 

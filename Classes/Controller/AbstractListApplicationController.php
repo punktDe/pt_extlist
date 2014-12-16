@@ -228,7 +228,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 
 		if ($list->count() == 0) {
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('general.emptyList', 'PtExtlist'), '', t3lib_FlashMessage::INFO);
+			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('general.emptyList', 'PtExtlist'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO);
 		}
 
 		$this->view->assign('config', $this->configurationBuilder);

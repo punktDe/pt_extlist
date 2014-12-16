@@ -273,7 +273,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 */
 	public function addSortingArray(array $sortingArray) {
 		// TODO assert that content of array is correct! 
-		$this->sortings =  t3lib_div::array_merge_recursive_overrule($this->sortings, $sortingArray);
+		$this->sortings =  \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->sortings, $sortingArray);
 	}
 	
 	
@@ -296,8 +296,8 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
      * DESC will become ASC
      * everything else will become ASC
 	 *
-	 * @param int $sortingState
-	 * @return int The inverted sorting state.
+	 * @param integer $sortingState
+	 * @return integer The inverted sorting state.
 	 */
 	public static function invertSortingState($sortingState) {
 		switch($sortingState) {

@@ -35,7 +35,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest
  */
-class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Renders captions
@@ -70,8 +70,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements t3lib_Sing
 
 		$label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
 
-		if(t3lib_div::isFirstPartOfStr($label, 'LLL:')) {
-			$label = Tx_Extbase_Utility_Localization::translate($label, '');
+		if(\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($label, 'LLL:')) {
+			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($label, '');
 		}
 
 		return $label;

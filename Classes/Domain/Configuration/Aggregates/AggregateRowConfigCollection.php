@@ -54,7 +54,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection 
 	
 	
 	/** 
-	 * @param int $rowId
+	 * @param integer $rowId
 	 * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig
 	 */
 	public function getAggregateRowConfig($rowId) {

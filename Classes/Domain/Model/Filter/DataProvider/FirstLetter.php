@@ -130,7 +130,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
 	protected function getMissingLetters() {
 		$missingLettersString = $this->filterConfig->getSettings('addLettersIfMissing');
 		if ($missingLettersString) {
-			return t3lib_div::trimExplode(',', $missingLettersString);
+			return \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $missingLettersString);
 		} else {
 			return NULL;
 		}

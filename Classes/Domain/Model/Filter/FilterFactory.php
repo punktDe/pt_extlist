@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
@@ -48,7 +48,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
 	/**
 	 * @param Tx_Extbase_Object_ObjectManager $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 

@@ -33,7 +33,7 @@
  * @author Daniel Lienert
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter

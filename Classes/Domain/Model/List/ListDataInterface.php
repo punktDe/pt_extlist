@@ -37,7 +37,7 @@ interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
 
 
 	/**
-	 * @param int $id
+	 * @param integer $id
 	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
 	 */
 	public function getRow($id);
@@ -56,7 +56,7 @@ interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
 	 *
 	 * (Fluid-compatible getter for count() method in collection)
 	 *
-	 * @return int Count of objects in list data
+	 * @return integer Count of objects in list data
 	 */
 	public function getCount();
 

@@ -1,6 +1,6 @@
 <?php
 
-$extensionBasePath = t3lib_extMgm::extPath('pt_extlist');
+$extensionBasePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist');
 
 /**
  * All ExtBase-conform files are included automatically. 
@@ -31,5 +31,5 @@ return array(
 
 	'user_tx_ptextlist_utility_flexformdataprovider' => $extensionBasePath.'Classes/Utility/FlexformDataProvider.php',
 
-    'tx_ptextbase_configuration_abstractconfigurationbuilder' => t3lib_extMgm::extPath('pt_extbase').'Classes/Configuration/AbstractConfigurationBuilder.php'
+    'tx_ptextbase_configuration_abstractconfigurationbuilder' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase').'Classes/Configuration/AbstractConfigurationBuilder.php'
 );

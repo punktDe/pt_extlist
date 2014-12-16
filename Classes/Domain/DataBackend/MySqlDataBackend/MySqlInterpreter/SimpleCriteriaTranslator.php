@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
 	 * Returns string as escaped string if no array is given
 	 *
 	 * @param mixed $value
-	 * @return int|mixed|string
+	 * @return integer|mixed|string
 	 */
 	public static function wrapArrayInBrackets($value) {
 		$connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */

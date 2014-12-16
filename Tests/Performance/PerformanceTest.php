@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 
 
 	public function setUp() {
-		$this->baseConfigTSFile = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
+		$this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
 	}
 
 
@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 		$tSString = $this->readTSString($this->baseConfigTSFile);
 		$tSString .= $this->readTSString($extListConfigFile);
 
-		$parserInstance = t3lib_div::makeInstance('t3lib_tsparser');
+		$parserInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_tsparser');
 		/** @var $parserInstance t3lib_tsparser */
 		$tSString = $parserInstance->checkIncludeLines($tSString);
 		$parserInstance->parse($tSString);

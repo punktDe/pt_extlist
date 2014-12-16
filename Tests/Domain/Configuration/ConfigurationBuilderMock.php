@@ -303,7 +303,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 			);
     		
 	        if(is_array($overwriteSettings)) {
-	        	$settings = t3lib_div::array_merge_recursive_overrule($settings, $overwriteSettings);
+	        	$settings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($settings, $overwriteSettings);
 	        }
 	        
             $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);

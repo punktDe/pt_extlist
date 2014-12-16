@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 
 
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function count() {
 		return $this->statement->rowCount();

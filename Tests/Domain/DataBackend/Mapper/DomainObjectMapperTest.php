@@ -106,11 +106,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
 
 
 	protected function createMappingTestData() {
-		$objectCollection = new Tx_Extbase_Persistence_ObjectStorage();
-		$feGroup1 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 1');
-		$feGroup2 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 2');
-		$feGroup3 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 3');
-		$feGroup4 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 4');
+		$objectCollection = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$feGroup1 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 1');
+		$feGroup2 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 2');
+		$feGroup3 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 3');
+		$feGroup4 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 4');
 		$objectCollection->attach($feGroup1);
 		$objectCollection->attach($feGroup2);
 		$objectCollection->attach($feGroup3);

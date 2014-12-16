@@ -103,7 +103,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 	/**
 	 * @param Tx_Extbase_Persistence_Manager $persistenceManager
 	 */
-	public function injectPersistenceManager (Tx_Extbase_Persistence_Manager $persistenceManager){
+	public function injectPersistenceManager (\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager){
 		$this->persistenceManager = $persistenceManager;
 	}
 
@@ -112,7 +112,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 	/**
 	 * @param Tx_Extbase_Domain_Repository_FrontendUserGroupRepository $feUserGroupRepository
 	 */
-	public function injectFeUserGroupRepository (Tx_Extbase_Domain_Repository_FrontendUserGroupRepository $feUserGroupRepository){
+	public function injectFeUserGroupRepository (\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository $feUserGroupRepository){
 		$this->feUserGroupRepository = $feUserGroupRepository;
 	}
 
@@ -146,7 +146,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
 		$this->view->assign('feGroups', $feGroups);
 
-        $allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
+        $allBookmarks = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         
         if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
             $publicBookmarks = $this->bookmarkRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
@@ -322,7 +322,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
      * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
      * @param array $arrayToBeAdded
      */
-    protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, $arrayToBeAdded) {
+    protected function addObjectsToObjectStorageByArray(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage, $arrayToBeAdded) {
         foreach ($arrayToBeAdded as $key => $value) {
             $objectStorage->attach($value, $key);
         }

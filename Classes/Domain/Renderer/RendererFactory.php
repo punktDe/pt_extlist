@@ -38,7 +38,7 @@
  */
 class Tx_PtExtlist_Domain_Renderer_RendererFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactory
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Build and return the renderer

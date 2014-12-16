@@ -131,7 +131,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
 	 * @test
 	 */
 	public function injectBookmarkRepository(){
-		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository');
+		$bookmarkRepositoryMock = $this->getMock('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository', $methods = array(), $arguments = array(), $mockClassName = '', $callOriginalConstructor = FALSE);
 
 		$this->proxy->injectBookmarkRepository($bookmarkRepositoryMock);
 		$this->assertEquals($bookmarkRepositoryMock, $this->proxy->_get('bookmarkRepository'));

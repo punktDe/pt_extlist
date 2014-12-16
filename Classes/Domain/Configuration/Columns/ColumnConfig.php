@@ -216,12 +216,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
 	protected function init() {
 
-		$headerInclusionUtility = t3lib_div::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
+		$headerInclusionUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
 
 		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
 		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "' . $this->columnIdentifier . '" not given 1277889447');
 
-		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
+		$fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->settings['fieldIdentifier']);
 		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 
 		foreach ($this->fieldIdentifier as $fieldConfig) {
@@ -268,7 +268,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 		}
 
 		if (array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
+			$this->accessGroups = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->settings['accessGroups']);
 		}
 
 		// Generate relative paths for sorting images

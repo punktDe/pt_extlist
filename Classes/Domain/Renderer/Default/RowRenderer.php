@@ -127,7 +127,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 *
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow Row to be rendered
 	 * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
-	 * @param int $rowIndex Index of rendered row
+	 * @param integer $rowIndex Index of rendered row
 	 * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregate row
 	 */
 	public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow,
@@ -169,8 +169,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $data
-	 * @param int $columnIndex
-	 * @param int $rowIndex
+	 * @param integer $columnIndex
+	 * @param integer $rowIndex
 	 * @return Tx_PtExtlist_Domain_Model_List_Cell
 	 */
 	protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex) {
@@ -183,7 +183,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer {
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	protected function getColumnCollection() {
-		$listHeaderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+		$listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
 		$listHeader = $listHeaderFactory->createInstance($this->rendererConfiguration->getConfigurationBuilder());
 		return $listHeader;
 	}

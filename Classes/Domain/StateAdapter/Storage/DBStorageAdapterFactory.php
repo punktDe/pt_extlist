@@ -78,14 +78,14 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 					$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_ptextlist']['backend'],
 					$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_ptextlist']['options']
 				);
-			} catch(t3lib_cache_exception_DuplicateIdentifier $e) {
+			} catch(\TYPO3\CMS\Core\Cache\Exception\DuplicateIdentifierException $e) {
 				// do nothing, the cache already exists
 			}
 			
 			// Initialize the cache
 			try {
 				$cache = $GLOBALS['typo3CacheManager']->getCache('tx_ptextlist');
-			} catch(t3lib_cache_exception_NoSuchCache $e) {
+			} catch(\TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException $e) {
 				throw new Exception('Unable to load Cache! 1299942198');
 			}
 		
@@ -101,7 +101,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 	 * @return string hash 
 	 */
 	protected static function getStateHash() {
-		$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+		$getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 		$getPostVarAdapter = $getPostVarsAdapterFactory->getInstance();
 		$stateHash = $getPostVarAdapter->getParametersByNamespace('state');
 		return $stateHash;	

@@ -48,8 +48,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCr
 	 */
 	public static function translateCriteria(
 		Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-		Tx_Extbase_Persistence_Query $extbaseQuery,
-		Tx_Extbase_Persistence_Repository $extbaseRepository) {
+		\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
+		\TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository) {
 
 		if (!is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_OrCriteria')) {
 			throw new Exception('Given criteria is not of type Tx_PtExtlist_Domain_QueryObject_Criteria --> cannot be translated by or criteria translator! 1326466193');

@@ -35,7 +35,7 @@
  * @subpackage DataBackend
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendInstancesContainerTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Holds an array of data backend instances as list-identifier based singletons

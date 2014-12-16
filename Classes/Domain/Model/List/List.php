@@ -165,7 +165,7 @@ class Tx_PtExtlist_Domain_Model_List_List {
 
 
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function count() {
 		if($this->useIterationListData) {
