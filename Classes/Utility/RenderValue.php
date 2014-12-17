@@ -359,9 +359,9 @@ class Tx_PtExtlist_Utility_RenderValue {
 
 		if(!self::$fluidRenderer) {
 
-			$objectManager = GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager');
+			$objectManager = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
 
-			self::$fluidRenderer = $objectManager->get('Tx_Fluid_View_TemplateView');
+			self::$fluidRenderer = $objectManager->get('\TYPO3\CMS\Fluid\View\TemplateView');
 			
 			$controllerContext = $objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getControllerContext();
 			self::$fluidRenderer->setControllerContext($controllerContext);

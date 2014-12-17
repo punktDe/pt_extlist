@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 		$tSString = $this->readTSString($this->baseConfigTSFile);
 		$tSString .= $this->readTSString($extListConfigFile);
 
-		$parserInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_tsparser');
+		$parserInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
 		/** @var $parserInstance t3lib_tsparser */
 		$tSString = $parserInstance->checkIncludeLines($tSString);
 		$parserInstance->parse($tSString);

@@ -105,7 +105,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 	
 	
 	public function setup() {
-		$typoScriptParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_TSparser'); /* @var $typoScriptParser t3lib_TSparser */
+		$typoScriptParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
         $typoScriptParser->parse($this->extBaseSettingsString);
         $this->extBaseSettings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
 
