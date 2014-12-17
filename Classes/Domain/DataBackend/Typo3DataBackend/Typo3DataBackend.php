@@ -95,7 +95,7 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 			$alias = trim($alias);
 
 			if (is_array($GLOBALS['TCA'][$table])) {
-				$specialFieldsWhereClauseSnippet = Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($table);
+				$specialFieldsWhereClauseSnippet = Tx_PtExtbase_Div::getCobj()->enableFields($table);
 
 				if($alias) {
 					// Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after

@@ -151,9 +151,9 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
 		
 		$aggregatesForPage = $this->getAggregatesForPage($aggregateDataConfigCollection->extractCollectionByScope('page'));
 		$aggregatesForQuery = $this->getAggregatesForQuery($aggregateDataConfigCollection->extractCollectionByScope('query'));
-		$aggregates = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($aggregatesForQuery, $aggregatesForPage);
+		\TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($aggregatesForQuery, $aggregatesForPage);
 
-		foreach($aggregates as $key => $value) {
+		foreach($aggregatesForQuery as $key => $value) {
 			$dataRow->createAndAddCell($value, $key);
 		}
 		
