@@ -101,7 +101,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory {
 	 * @return string hash 
 	 */
 	protected static function getStateHash() {
-		$getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+		$getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 		$getPostVarAdapter = $getPostVarsAdapterFactory->getInstance();
 		$stateHash = $getPostVarAdapter->getParametersByNamespace('state');
 		return $stateHash;	

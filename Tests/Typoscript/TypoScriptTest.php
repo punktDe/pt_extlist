@@ -122,7 +122,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 		$TSString .=$this->loadTestList();
 		
 	
-		$parserInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_tsparser');
+		$parserInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
 		$parserInstance->parse($TSString);
  		
 		//$cObj = t3lib_div::makeInstance('tslib_cObj');

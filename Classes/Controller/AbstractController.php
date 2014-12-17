@@ -334,7 +334,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 	protected function buildSessionPersistenceManager() {
 		// Determine class name of session storage class to use for session persistence
 		if (TYPO3_MODE === 'FE') {
-			$sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
+			$sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
 				? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter() // We are in cached mode
 				: $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter(); // We are in uncached mode
 		} else {

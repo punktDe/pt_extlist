@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExt
 
 		// Register headerColumn in sorter
 		// TODO we cannot use DI here since this would lead to cyclic dependencies
-		$sorterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'); /* @var $sorterFactory Tx_PtExtlist_Domain_Model_Sorting_SorterFactory */
+		$sorterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'); /* @var $sorterFactory Tx_PtExtlist_Domain_Model_Sorting_SorterFactory */
 		$sorter = $sorterFactory->getInstance($columnConfiguration->getConfigurationBuilder());
 		$sorter->registerSortingObserver($headerColumn);
 

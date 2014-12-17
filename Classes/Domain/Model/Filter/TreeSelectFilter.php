@@ -109,7 +109,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 * @return void
 	 */
 	public function initFilter() {
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager'); /** @var Tx_Extbase_Object_ObjectManager $objectManager */
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager'); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
 		$this->treeContext = $this->objectManager->get('Tx_PtExtbase_Tree_TreeContext');
 		$this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
 		$this->buildTree();
