@@ -93,14 +93,14 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 
 
 	/**
-	 * @var Tx_Extbase_Domain_Model_FrontendUser
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
 	protected $feUser;
 
 
 
 	/**
-	 * @var Tx_Extbase_Domain_Repository_FrontendUserRepository
+	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
 	 */
 	protected $feUserRepository;
 
@@ -151,7 +151,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 
 
 	/**
-	 * @param Tx_Extbase_Domain_Repository_FrontendUserRepository $feUserRepository
+	 * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository
 	 */
 	public function injectFeUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository) {
 		$this->feUserRepository = $feUserRepository;
@@ -171,7 +171,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 	/**
 	 * Determines if request holds a bookmark to restore and in case there is forwards it to restoreBookmark
 	 *
-	 * @param Tx_Extbase_MVC_RequestInterface $request
+	 * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
 	 */
 	public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request){
 		if($request->hasArgument('action') && $request->hasArgument('controller')) {
@@ -250,7 +250,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 
 
 	/**
-	 * @return Tx_Extbase_Persistence_ObjectStorage
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	public function getBookmarksForCurrentConfigAndFeUser(){
 		$allBookmarks = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -277,7 +277,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager {
 	/**
 	 * Adds given elements of an array to given object storage
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage
 	 * @param array $arrayToBeAdded
 	 */
 	protected function addObjectsToObjectStorageByArray(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage, $arrayToBeAdded) {

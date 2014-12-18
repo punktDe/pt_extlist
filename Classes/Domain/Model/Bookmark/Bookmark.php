@@ -57,7 +57,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Frontend user that saved bookmark
 	 *
-	 * @var Tx_Extbase_Domain_Model_FrontendUser
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
 	protected $feUser;
 	
@@ -66,7 +66,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
      * Frontend group bookmark should be shown to
      *
-     * @var Tx_Extbase_Domain_Model_FrontendUserGroup
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
 	protected $feGroup;
 	
@@ -176,7 +176,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	
 	
 	/**
-	 * @return Tx_Extbase_Domain_Model_FrontendUser
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
 	public function getFeUser() {
 		return $this->feUser;
@@ -187,7 +187,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Returns FE group to which this bookmark should be shown to
 	 *
-	 * @return Tx_Extbase_Domain_Model_FrontendUserGroup
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
 	 */
 	public function getFeGroup() {
 		return $this->feGroup;
@@ -263,7 +263,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	
 	
 	/**
-	 * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
 	 */
 	public function setFeUser($feUser) {
 		$this->feUser = $feUser;
@@ -274,7 +274,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Setter for fe group to which this bookmark should be shown to
 	 *
-	 * @param Tx_Extbase_Domain_Model_FrontendUserGroup $feGroup
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup
 	 */
 	public function setFeGroup($feGroup) {
 		$this->feGroup = $feGroup;

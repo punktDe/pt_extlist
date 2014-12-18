@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
-	/** @var  Tx_Extbase_Persistence_Repository */
+	/** @var  \TYPO3\CMS\Extbase\Persistence\Repository */
     protected $repositoryMock;
     
     

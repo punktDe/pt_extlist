@@ -39,14 +39,14 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
 
 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManager
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
 	 */
 	protected $configurationMananger;
 
 
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManager
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager;
 
@@ -84,14 +84,14 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManager
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected static $staticObjectManager;
 
 
 
 	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager
 	 */
 	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager){
 		$this->configurationMananger = $configurationManager;
@@ -109,9 +109,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager){
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager){
 		$this->objectManager = $objectManager;
 	}
 
@@ -332,7 +332,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 	 * @return array typoscript array
 	 */
 	protected static function getTyposcriptOfCurrentBackendPID() {
-		$configurationManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager'); /* @var $configurationManager Tx_Extbase_Configuration_BackendConfigurationManager */
+		$configurationManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_Extbase_Configuration_BackendConfigurationManager'); /* @var $configurationManager \TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager */
 		$completeTS = $configurationManager->getTypoScriptSetup();
 		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
@@ -346,7 +346,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 	 */
 	protected static function getTyposcriptOfCurrentFrontendPID() {
 
-		$configurationManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager'); /* @var $configurationManager Tx_Extbase_Configuration_FrontendConfigurationManager */
+		$configurationManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_Extbase_Configuration_FrontendConfigurationManager'); /* @var $configurationManager \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager */
 		$completeTS = $configurationManager->getTypoScriptSetup();
 		return Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
 	}
