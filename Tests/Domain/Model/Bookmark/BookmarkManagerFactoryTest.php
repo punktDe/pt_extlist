@@ -182,7 +182,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
 			->method('setBookmarkStoragePid')
 			->with(30);
 
-		$objectManagerMock = $this->getMockBuilder('Tx_Extbase_Object_ObjectManager')
+		$objectManagerMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Object\ObjectManager')
 			->setMethods(array('get'))
 			->disableOriginalConstructor()
 			->getMock();

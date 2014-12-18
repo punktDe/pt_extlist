@@ -48,17 +48,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 
 		$this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 		
-		$operand1 = $this->getMock('Tx_Extbase_Persistence_QOM_DynamicOperandInterface');
-        $operand2 = $this->getMock('Tx_Extbase_Persistence_QOM_DynamicOperandInterface');
+		$operand1 = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\DynamicOperandInterface');
+        $operand2 = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\DynamicOperandInterface');
         $extbaseQueryInnerConstraint = new \TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison($operand1, 2, $operand2);
 
-        $extbaseQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint', 'matching', 'logicalAnd', 'logicalNot'), array('any'));
+        $extbaseQueryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array('getConstraint', 'matching', 'logicalAnd', 'logicalNot'), array('any'));
         $extbaseQueryMock->expects($this->any())->method('getConstraint')->will($this->returnValue($extbaseQueryInnerConstraint));
 
-        $tmpQueryMock = $this->getMock('Tx_Extbase_Persistence_Query', array('getConstraint'), array('any'), '', FALSE);
+        $tmpQueryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array('getConstraint'), array('any'), '', FALSE);
         $tmpQueryMock->expects($this->at(0))->method('getConstraint')->will($this->returnValue(null));
 
-        $extbaseRepositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array('createQuery'), array(), '', FALSE);
+        $extbaseRepositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', array('createQuery'), array(), '', FALSE);
         $extbaseRepositoryMock->expects($this->once())->method('createQuery')->will($this->returnValue($tmpQueryMock));
 
         $notCriteriaInnerCriteria = Tx_PtExtlist_Domain_QueryObject_SimpleCriteria::equals('test', 1);
@@ -67,7 +67,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $notCriteria->expects($this->any())->method('getCriteria')->will($this->returnValue($notCriteriaInnerCriteria));
 
         $translatedQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator::translateCriteria($notCriteria, $extbaseQueryMock, $extbaseRepositoryMock);
-        $this->assertTrue(is_a($translatedQuery->getConstraint(), 'Tx_Extbase_Persistence_QOM_Comparison'));
+        $this->assertTrue(is_a($translatedQuery->getConstraint(), '\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison'));
         $translatedConstraint = $translatedQuery->getConstraint();
         $this->assertEquals($translatedConstraint->getOperator(), 2);
     }

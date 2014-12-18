@@ -80,11 +80,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
 	public function resolveObjectPathResolvesPathAsExpected() {
 		$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
 		$domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
-		$rightObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getName'), array(), '', FALSE);
+		$rightObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getName'), array(), '', FALSE);
 		$rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
-		$groupObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getRight'), array(), '', FALSE);
+		$groupObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getRight'), array(), '', FALSE);
 		$groupObjectMock->expects($this->any())->method('getRight')->will($this->returnValue($rightObjectMock));
-		$userObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser', array('getGroup'), array(), '', FALSE);
+		$userObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser', array('getGroup'), array(), '', FALSE);
 		$userObjectMock->expects($this->any())->method('getGroup')->will($this->returnValue($groupObjectMock));
 		$objectPath = 'group.right.name';
 

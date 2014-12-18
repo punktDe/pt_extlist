@@ -373,7 +373,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	 * @param mixed $dataSource
 	 */
 	public function _injectDataSource($dataSource) {
-		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, 'Tx_Extbase_Persistence_Repository', array('message' => 'Given data source must implement Tx_Extbase_Persistence_Repository but did not! 1281545172'));
+		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', array('message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172'));
 		$this->repository = $dataSource;
 	}
 

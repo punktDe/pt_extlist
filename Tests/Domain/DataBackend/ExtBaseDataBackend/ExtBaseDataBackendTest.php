@@ -155,7 +155,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     
     public function testInjectDataSource() {
-    	$dataSourceMock = $this->getMock('Tx_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array(), '', FALSE);
+    	$dataSourceMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository', array(), array(), '', FALSE);
     	$extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
     	$extBaseDataBackend->_injectDataSource($dataSourceMock);
     }
@@ -226,10 +226,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $queryObjectMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', array('getCriterias'), array(), '', FALSE);
         $queryObjectMock->expects($this->any())->method('getCriterias')->will($this->returnValue(array()));
         
-        $extbaseQueryObjectMock = $this->getMock('Tx_Extbase_Persistence_Query', array('execute','getObjectDataByQuery'), array(), '', FALSE);
+        $extbaseQueryObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array('execute','getObjectDataByQuery'), array(), '', FALSE);
         $extbaseQueryObjectMock->expects($this->any())->method('execute')->will($this->returnValue($returnArray));
         
-        $repositoryMock = $this->getMock('Tx_Extbase_Persistence_Repository', array(), array('createQuery'), '', FALSE);
+        $repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', array(), array('createQuery'), '', FALSE);
         $repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($extbaseQueryObjectMock));
         
         $extBaseDataBackend->_injectDataSource($repositoryMock);
