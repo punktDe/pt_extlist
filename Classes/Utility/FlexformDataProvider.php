@@ -25,8 +25,11 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Div.php';
-require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+require_once ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Div.php';
+require_once ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
 
 /**
  * Utilitty to get selectable options from typoscript
@@ -164,7 +167,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 * @return string
 	 */
 	protected function getFlexformValue($optionName, $config) {
-		$flexformContent = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($config['row']['pi_flexform']);
+		$flexformContent = GeneralUtility::xml2array($config['row']['pi_flexform']);
 		if (is_array($flexformContent)
 			&& array_key_exists('data', $flexformContent)
 			&& array_key_exists('sDefault', $flexformContent['data'])
@@ -211,7 +214,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	protected function loadExtListTyposcriptArray() {
 		if (is_null($this->extListTypoScript)) {
 			$extListTS = Tx_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
-			$this->extListTypoScript = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
+			$this->extListTypoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($extListTS);
 		}
 	}
 
