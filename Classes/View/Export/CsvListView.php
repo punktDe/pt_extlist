@@ -59,7 +59,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 
 
 	/**
-	 * @var Tx_Fluid_Core_ViewHelper_TemplateVariableContainer
+	 * @var \TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer
 	 */
 	protected $templateVariableContainer;
 

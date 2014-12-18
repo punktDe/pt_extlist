@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest extends Tx_PtExtli
 		$breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
 		
 		$mockView = $this->getMock(
-            'Tx_Fluid_Core_View_TemplateView',
+            '\TYPO3\CMS\Fluid\View\TemplateView',
             array('assign'), array(), '', FALSE);
         $mockView->expects($this->once())->method('assign')->with('breadcrumbs', $breadCrumbCollection);
     

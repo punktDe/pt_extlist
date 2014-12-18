@@ -101,7 +101,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 				
 		// Fluid
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-		$this->fluidRenderer = $objectManager->create('Tx_Fluid_View_StandaloneView');
+		$this->fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);		
 	}
 }

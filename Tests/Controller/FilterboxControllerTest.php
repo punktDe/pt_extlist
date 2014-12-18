@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 		$mockFilterbox = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array(), array(), '', FALSE);
 
 		$mockView = $this->getMock(
-			'Tx_Fluid_Core_View_TemplateView',
+			'\TYPO3\CMS\Fluid\View\TemplateView',
 			array('assign'), array(), '', FALSE);
 		//$mockView->expects($this->once())->method('assign')->with('filterbox', $mockFilterbox);
 
@@ -104,7 +104,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 		$filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('resetIsSubmittedFilterbox'), array(), '', FALSE);
 		$filterboxCollectionMock->expects($this->once())->method('resetIsSubmittedFilterbox');
 
-		$viewMock = $this->getMock('Tx_Fluid_Core_View_TemplateView', array('assign'), array(), '', FALSE);
+		$viewMock = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView', array('assign'), array(), '', FALSE);
 		$viewMock->expects($this->once())->method('assign')->with('filtersDontValidate', true);
 
 		$pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', FALSE);

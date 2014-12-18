@@ -38,14 +38,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Tx_PtExtlist_Utility_RenderValue {
 
 	/**
-	 * @var tslib_cObj
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	protected static $cObj;
 
 
 
 	/**
-	 * @var Tx_Fluid_View_TemplateView
+	 * @var \TYPO3\CMS\Fluid\View\TemplateView
 	 */
 	protected static $fluidRenderer;
 
@@ -328,13 +328,13 @@ class Tx_PtExtlist_Utility_RenderValue {
 	/**
 	 * return the cObj object
 	 *
-	 * @return tslib_cObj;
+	 * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 * @deprecated Use Tx_PtExtbase_Div::getCobj instead
 	 */
 	public static function getCobj() {
 		if(!self::$cObj || !is_object(self::$cObj)) {
 			if(TYPO3_MODE == 'FE') {
-				if(!is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
+				if(!is_a($GLOBALS['TSFE']->cObj,'\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')) {
 					$GLOBALS['TSFE']->newCObj();
 				}
 			} else {
@@ -353,7 +353,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	/**
 	 * Build a fluid renderer object
 	 *
-	 * @return Tx_Fluid_View_TemplateView
+	 * @return TYPO3\CMS\Fluid\View\TemplateView
 	 */
 	protected static function getFluidRenderer() {
 

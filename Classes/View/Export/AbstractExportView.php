@@ -80,7 +80,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 
 	/**
 	 * (non-PHPdoc)
-	 * @see Classes/View/Tx_Fluid_View_TemplateView::canRender()
+	 * @see \TYPO3\CMS\Fluid\View\TemplateView::canRender()
 	 */
 	public function canRender(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext) {
 		return true;
