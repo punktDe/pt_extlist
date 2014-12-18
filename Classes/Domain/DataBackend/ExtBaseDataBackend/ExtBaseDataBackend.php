@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Holds a repository for creating domain objects
 	 *
-	 * @var Tx_Extbase_Persistence_Repository
+	 * @var \TYPO3\CMS\Extbase\Persistence\Repository
 	 */
 	protected $repository;
 	
@@ -100,7 +100,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		/**
 		 * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
 		 *
-		 * additionalTables = Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
+		 * additionalTables = \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
 		 * --> this is used to register a different repository than backend uses to create and execute query for group data
 		 *
 		 * displayFields = grouptitle
@@ -194,7 +194,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Builds query for current pager, filter and sorting settings
 	 *
-	 * @return Tx_Extbase_Persistence_Query
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
 	protected function buildExtBaseQuery() {
 		// Create extlist query object for current request
@@ -205,7 +205,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		// Create Extbase query for current request by translating extlist query
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
 
-		/* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		/* @var $extbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
 		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
 			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
 		}
@@ -330,11 +330,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Builds ExtBase query object without regarding pager
 	 *
-	 * @return Tx_Extbase_Persistence_Query
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
 	protected function buildExtBaseQueryWithoutPager() {
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
-		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
 
 		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
 			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
@@ -368,7 +368,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	
 	
 	/**
-	 * Injector for data source. Expects Tx_Extbase_Persistence_Repository to be given as datasource
+	 * Injector for data source. Expects \TYPO3\CMS\Extbase\Persistence\Repository to be given as datasource
 	 *
 	 * @param mixed $dataSource
 	 */

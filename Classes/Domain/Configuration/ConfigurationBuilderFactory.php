@@ -65,7 +65,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	/**
 	 * Injects configuration manager (that holds TS settings) for usage with DI
 	 *
-	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager
 	 */
 	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager) {
 		$this->settings = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);

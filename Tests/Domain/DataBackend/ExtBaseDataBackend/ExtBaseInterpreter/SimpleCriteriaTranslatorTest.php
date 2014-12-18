@@ -188,7 +188,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 	 * Creates query mock with given methods
 	 *
 	 * @param array $mockedMethods Methods to be mocked
-	 * @return Tx_Extbase_Persistence_Query
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
 	protected function getQueryMockWithMatchingCall(array $mockedMethods = array()) {
 		$query = $this->getMock('Tx_Extbase_Persistence_Query', $mockedMethods, array(), '', FALSE);

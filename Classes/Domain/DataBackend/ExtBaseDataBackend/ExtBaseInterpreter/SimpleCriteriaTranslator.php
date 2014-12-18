@@ -109,9 +109,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
 	/**
 	 * Adds given constraint to given query. Uses logical AND if there is already a constraint registered in query
 	 *
-	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
-	 * @param Tx_Extbase_Persistence_QOM_ConstraintInterface $constraint
-	 * @return Tx_Extbase_Persistence_Query
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
 	protected static function addConstraint(\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint) {
 		if ($extbaseQuery->getConstraint() != null) {

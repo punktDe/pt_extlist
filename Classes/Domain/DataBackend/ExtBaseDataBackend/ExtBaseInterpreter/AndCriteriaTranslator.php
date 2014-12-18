@@ -41,9 +41,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndC
      * Translates a query an manipulates given query object
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
-     * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
-     * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
-	 * @return Tx_Extbase_Persistence_Query
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
+     * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
     public static function translateCriteria(
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
