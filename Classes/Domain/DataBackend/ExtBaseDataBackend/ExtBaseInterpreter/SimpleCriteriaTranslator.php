@@ -46,6 +46,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+	 *
+	 * @throws \Exception
      */
     public static function translateCriteria(
             Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,

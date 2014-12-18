@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Testcase for basic typoscript Settings
@@ -122,7 +123,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 		$TSString .=$this->loadTestList();
 		
 	
-		$parserInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+		$parserInstance = GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
 		$parserInstance->parse($TSString);
  		
 		//$cObj = t3lib_div::makeInstance('tslib_cObj');
@@ -130,7 +131,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 		
 		$tsSettings = $parserInstance->setup;
 
-		$settings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
+		$settings =  GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
 		
 		$settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
 		

@@ -272,8 +272,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	 * @param $sortingArray array
 	 */
 	public function addSortingArray(array $sortingArray) {
-		// TODO assert that content of array is correct! 
-		$this->sortings =  \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->sortings, $sortingArray);
+		\TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($this->sortings, $sortingArray);
 	}
 	
 	

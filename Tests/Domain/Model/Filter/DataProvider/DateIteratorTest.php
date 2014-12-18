@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * Testcase for abstract groupDataFilter class
@@ -150,8 +151,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	 * @dataProvider incorrectSettingsDataProvider
 	 */
 	public function initThrowsExceptionOnConfigurationError($settings) {
-
-		$filterSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
+		$filterSettings = $this->defaultFilterSettings;
+		ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
 
 		try {
 			$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
@@ -170,7 +171,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	 */
 	public function getRenderedOptions($settings, $result) {
 
-		$filterSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
+		$filterSettings = $this->defaultFilterSettings;
+		ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
 
 		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
 
@@ -185,7 +187,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 	 * @dataProvider settingsDataProvider
 	 */
 	public function buildTimeStampList($settings, $result) {
-		$filterSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->defaultFilterSettings, $settings);
+		$filterSettings = $this->defaultFilterSettings;
+		ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
 
 		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
 		$resultArray = $dataProvider->_call('buildTimeStampList');

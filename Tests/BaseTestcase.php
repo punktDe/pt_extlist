@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class implements a base testcase for pt_extlist testcases
@@ -105,9 +106,10 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 	
 	
 	public function setup() {
-		$typoScriptParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
+		$typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
         $typoScriptParser->parse($this->extBaseSettingsString);
-        $this->extBaseSettings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
+
+        $this->extBaseSettings = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
 
 		$this->testingFramework = new Tx_Phpunit_Framework('pt_extlist');
 	}
@@ -191,7 +193,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 		$configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
 		$configurationBuilderFactory->getInstance($listIdentifier);
 
-		$instancesContainer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
+		$instancesContainer = GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
 
 		$objectManagerMock = $this->getMock('Tx_Extbase_Object_ObjectManager', array('get'), array(), '', FALSE);
 		$objectManagerMock->expects($this->any())

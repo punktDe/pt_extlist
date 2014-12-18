@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class contains utility functions to access extlist objects
@@ -54,7 +55,8 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 			self::loadLifeCycleManager();
 
 			// TODO Remove this, once we have DI
-			$configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+
+			$configurationBuilderFactory = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilderFactory->setSettings($extListTs);
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 
@@ -77,13 +79,16 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	public static function getDataBackendByCustomConfiguration(array $customTSArray, $listIdentifier) {
 
 		try {
-			$configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+
+			$configurationBuilderFactory = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 		} catch (Exception $e) {
 			$extListTs = self::getExtListTyposcriptSettings($listIdentifier, $customTSArray);
 			self::loadLifeCycleManager();
 
 			// TODO Remove this, once we have DI
+
+			$configurationBuilderFactory = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilderFactory->setSettings($extListTs);
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
@@ -101,7 +106,8 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	 * @return \Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public static function getListByDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')
+
+		return GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')
 				->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
 				->createList($dataBackend, $dataBackend->getConfigurationBuilder());
 	}
@@ -114,7 +120,8 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 	protected static function loadLifeCycleManager() {
 
 		// TODO use DI here once refactoring is finished
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+
+		$objectManager = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager Tx_Extbase_Object_ObjectManager */
 		$lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
 
 		$sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
@@ -142,7 +149,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin {
 		if(!is_array($extListTSArray['listConfig'])) $extListTSArray['listConfig'] = array();
 
 		if(is_array($customTSArray)) {
-			$extListTSArray['listConfig'] = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
+			\TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
 		}
 
 		if(!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {

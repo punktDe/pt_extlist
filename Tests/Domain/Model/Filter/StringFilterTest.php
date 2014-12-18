@@ -363,13 +363,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilterTest extends Tx_PtExtli
 			'fieldIdentifier' => 'field1',
 			'partialPath' => 'Filter/StringFilter'
 		);
-		$settings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($settings, $additionalSettings);
+		\TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($settings, $additionalSettings);
 
 		$accessibleFilterClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
 		$filter = new $accessibleFilterClass();
 		/** @var Tx_PtExtlist_Domain_Model_Filter_StringFilter $filter */
 
-		$filter->_injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+		$filter->_injectFilterConfig(new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig (
 			$this->configurationBuilderMock,
 			$settings, 'test'));
 
