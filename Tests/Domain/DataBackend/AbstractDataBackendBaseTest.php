@@ -26,57 +26,54 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Base testcase for testing data backends
- * 
- * @author Michael Knoll 
+ *
+ * @author Michael Knoll
  * @package Tests
  * @subpackage Domain\DataBackend
  */
 abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_PtExtlist_Tests_BaseTestcase {
-   
-    /**
-     * Holds configuration string for demo TS setup
-     *
-     * @var string
-     */
-    protected $tsConfigString;
 
-    
-    
-    
-    /**
-     * Holds array with demo ts config
-     *
-     * @var unknown_type
-     */
-    protected $tsConfig;
-    
-        
-    
-    /**
-     * Holds an instance of TS parser
-     *
-     * @var t3lib_TSparser
-     */
-    protected $typoScriptParser;
-    
-    
-    
-    /**
-     * Holds an instance of extlist configuration builder
-     *
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     */
-    protected $configurationBuilder;
-    
-    
-    
-    /**
-     * Setup test by loading some demo ts settings
-     */
-    public function setup() {
-    	$this->tsConfigString = 
+	/**
+	 * Holds configuration string for demo TS setup
+	 *
+	 * @var string
+	 */
+	protected $tsConfigString;
+
+
+	/**
+	 * Holds array with demo ts config
+	 *
+	 * @var unknown_type
+	 */
+	protected $tsConfig;
+
+
+	/**
+	 * Holds an instance of TS parser
+	 *
+	 * @var \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
+	 */
+	protected $typoScriptParser;
+
+
+	/**
+	 * Holds an instance of extlist configuration builder
+	 *
+	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+	 */
+	protected $configurationBuilder;
+
+
+	/**
+	 * Setup test by loading some demo ts settings
+	 */
+	public function setup() {
+		$this->tsConfigString =
 			"plugin.tx_ptextlist.settings {
 			
 			    prototype {
@@ -103,7 +100,7 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			                host = " . TYPO3_db_host . "
 			                username = " . TYPO3_db_username . "
 			                password = " . TYPO3_db_password . "
-			                database = " . TYPO3_db ."
+			                database = " . TYPO3_db . "
 			            }
 			            
 			            tables (
@@ -130,11 +127,11 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        }
 			   }
 			}";
-		$this->typoScriptParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+		$this->typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
 		$this->typoScriptParser->parse($this->tsConfigString);
-		$this->tsConfig = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+		$this->tsConfig = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
 		$this->configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
 
-    }
-	
+	}
+
 }
