@@ -51,7 +51,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 			$mockController = $this->getMock(
 				$this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
 				array('dummy'), array(), '', FALSE);
-			$mockController->injectConfigurationmanager($this->objectManager->get('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager'));
+			$mockController->injectConfigurationmanager($this->objectManager->get('TYPO3\CMS\Extbase\Configuration\ConfigurationManager'));
 			$this->fail('No exception has been thrown, when no filterbox identifier has been set!');
 		} catch (Exception $e) {
 			return;

@@ -73,7 +73,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
 	 * 
 	 */
 	public function init() {
-		$this->cacheTag = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getExtensionName();
+		$this->cacheTag = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getExtensionName();
 	}
 	
 	

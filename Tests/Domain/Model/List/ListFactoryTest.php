@@ -66,7 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 		    ->method('getListHeader')
 		    ->will($this->returnValue($listHeader));
 		    
-		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')
+		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
 					->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
 					->createList($backendMock, $this->configurationBuilderMock);
 		
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
 			->method('getAggregateListData')
 			->will($this->returnValue($aggregateListData));
 
-		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')
+		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
 						->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
 						->createList($backendMock, $this->configurationBuilderMock);
 
