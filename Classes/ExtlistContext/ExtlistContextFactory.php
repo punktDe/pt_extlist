@@ -155,7 +155,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 	 *
 	 * @param array $customTSArray Custom typoscript list configuration in extBase format
 	 * @param string $listIdentifier a listIdentifier to identify the custom list
-	 * @param $useCache boolean
+	 * @param boolean $useCache
 	 * @param null|int $bookmarkUidToRestore
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext
 	 */
@@ -211,7 +211,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
 	/**
 	 * @static
-	 * @param $extListTypoScript array
+	 * @param array $extListTypoScript
 	 * @return void
 	 */
 	public static function setExtListTyposSript($extListTypoScript) {

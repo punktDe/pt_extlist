@@ -268,8 +268,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
-	 * @param $node Tx_PtExtbase_Tree_Node
-	 * @param $nodeArray array
+	 * @param Tx_PtExtbase_Tree_Node $node
+	 * @param array $nodeArray
 	 * @return array
 	 */
 	public function alterNodeArrayOnFirstVisit($node, $nodeArray) {
@@ -281,8 +281,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
-	 * @param $node Tx_PtExtbase_Tree_Node
-	 * @param $currentNode array
+	 * @param Tx_PtExtbase_Tree_Node $node
+	 * @param array $currentNode
 	 * @return array
 	 */
 	public function alterNodeArrayOnLastVisit($node, $currentNode) {

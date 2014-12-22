@@ -98,8 +98,8 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
 	/**
 	 * @abstract
-	 * @param $startField Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
-	 * @param $endField Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $startField
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $endField
 	 * @return void
 	 */
 	abstract protected function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $startField, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $endField);

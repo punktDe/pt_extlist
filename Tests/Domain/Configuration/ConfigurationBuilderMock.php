@@ -49,8 +49,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	
     /**
      * Returns a singleton instance of this class
-     * @param $settings The current settings for this extension.
-	 * @param $overwriteSettings Overwrite the default settings
+     * @param array $settings The current settings for this extension.
+	 * @param array $overwriteSettings Overwrite the default settings
      * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
      */
 	public static function getInstance($settings = null, $overwriteSettings = null) {

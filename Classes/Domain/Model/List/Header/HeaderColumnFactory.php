@@ -39,7 +39,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExt
 	/**
 	 * build an instance of a header column by columnConfiguration 
 	 * 
-	 * @param $columnConfiguration Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	 */
 	public function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {

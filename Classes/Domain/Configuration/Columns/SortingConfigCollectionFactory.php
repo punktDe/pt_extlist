@@ -36,7 +36,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	/**
 	 * Parse the sorting config string and build sorting config objects
      *
-	 * @param $sortingSettings string
+	 * @param string $sortingSettings
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public static function getInstanceBySortingSettings($sortingSettings) {

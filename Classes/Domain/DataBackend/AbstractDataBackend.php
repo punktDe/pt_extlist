@@ -271,7 +271,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * Injector for List Header
 	 *
-	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
 	public function _injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		$this->listHeader = $listHeader;

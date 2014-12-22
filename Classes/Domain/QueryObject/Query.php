@@ -269,7 +269,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query {
 	/**
 	 * Add an array of fields and sorting direction to the array of sortings
 	 * 
-	 * @param $sortingArray array
+	 * @param array $sortingArray
 	 */
 	public function addSortingArray(array $sortingArray) {
 		\TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($this->sortings, $sortingArray);

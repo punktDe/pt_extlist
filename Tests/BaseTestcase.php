@@ -141,7 +141,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
     /**
      * Returns mock object for given class name with methods given in override methods overwritten in returned object.
      *
-     * @param $className Name of class to be mocked
+     * @param string $className Name of class to be mocked
      * @param array $overrideMethods Methods to be overwritten in mocked class
      * @return PHPUnit_Framework_MockObject_MockObject Mock instance of $className
      */
