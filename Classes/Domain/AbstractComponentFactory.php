@@ -34,16 +34,16 @@
 abstract class Tx_PtExtlist_Domain_AbstractComponentFactory {
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManager
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
 	 */
 	protected $objectManager;
 
 
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 

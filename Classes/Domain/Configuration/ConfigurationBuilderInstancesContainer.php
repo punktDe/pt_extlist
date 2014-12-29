@@ -37,7 +37,7 @@
  * @subpackage  Configuration
  * @see
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer implements t3lib_Singleton {
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Holds an array of data backend instances as list-identifier based singletons

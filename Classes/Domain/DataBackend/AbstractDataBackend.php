@@ -100,7 +100,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	protected $pagerCollection;
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManager
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
 	 */
 	protected $objectManager;
 
@@ -210,10 +210,10 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * inject the objectManager
 	 *
-	 * @param Tx_Extbase_Object_ObjectManager $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager
 	 * @return void
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManager $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -271,7 +271,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * Injector for List Header
 	 *
-	 * @param $listHeader Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
 	 */
 	public function _injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
 		$this->listHeader = $listHeader;
@@ -367,7 +367,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 	/**
 	 * Returns raw list data
 	 *
-	 * @return array Array of raw list data
+	 * @return Tx_PtExtlist_Domain_Model_List_ListData
 	 */
 	public function getListData() {
 		if ($this->listData === null) {

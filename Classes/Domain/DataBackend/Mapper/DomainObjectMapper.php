@@ -103,7 +103,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 		// if property is aggregated object, resolve object path
 		$resolvedObject = $this->resolveObjectPath($domainObject, $property);
 
-		if (get_class($resolvedObject) == 'Tx_Extbase_Persistence_ObjectStorage'
+		if (get_class($resolvedObject) == '\TYPO3\CMS\Extbase\Persistence\ObjectStorage'
 			|| get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage'
 			|| get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\ObjectStorage'
 		) {

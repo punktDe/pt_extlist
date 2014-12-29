@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * Class implements a Builder for all configurations required in pt_extlist.
@@ -169,14 +170,12 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbas
 	 * @return void
 	 */
 	protected function mergeAndSetGlobalAndLocalConf() {
-		$settingsToBeMerged = $this->origSettings;
-		unset($settingsToBeMerged['listConfig']);
+		$this->settings = $this->origSettings;
+
+		unset($this->settings['listConfig']);
+
 		if (is_array($this->origSettings['listConfig'][$this->listIdentifier])) {
-			$mergedSettings = t3lib_div::array_merge_recursive_overrule(
-				$settingsToBeMerged,
-				$this->origSettings['listConfig'][$this->listIdentifier]
-			);
-			$this->settings = $mergedSettings;
+			ArrayUtility::mergeRecursiveWithOverrule($this->settings, $this->origSettings['listConfig'][$this->listIdentifier]);
 		}
 	}
 

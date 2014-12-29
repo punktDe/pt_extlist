@@ -117,7 +117,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
 	/**
 	 * Return record count
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function count() {
 		return $this->connection->sql_num_rows($this->resource);

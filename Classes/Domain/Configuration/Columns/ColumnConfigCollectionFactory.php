@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory {
 		ksort($columnSettings);
 		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
 
-		$security = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
+		$security = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
 
 		foreach ($columnSettings as $columnId => $columnSetting) {
 			$columnSettingMergedWithPrototype = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');

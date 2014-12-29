@@ -38,7 +38,7 @@
  * @package ViewHelpers
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Define arguments

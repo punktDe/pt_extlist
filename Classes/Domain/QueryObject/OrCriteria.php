@@ -56,8 +56,8 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
 
 
 	/**
-	 * @param $firstCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
-	 * @param $secondCriteria Tx_PtExtlist_Domain_QueryObject_Criteria
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria
 	 * @return \Tx_PtExtlist_Domain_QueryObject_OrCriteria
 	 */
 	public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria) {

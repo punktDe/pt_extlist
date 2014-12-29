@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Column Config Object
@@ -216,12 +217,12 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
 	protected function init() {
 
-		$headerInclusionUtility = t3lib_div::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
+		$headerInclusionUtility = GeneralUtility::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
 
 		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
 		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "' . $this->columnIdentifier . '" not given 1277889447');
 
-		$fieldIdentifierList = t3lib_div::trimExplode(',', $this->settings['fieldIdentifier']);
+		$fieldIdentifierList = GeneralUtility::trimExplode(',', $this->settings['fieldIdentifier']);
 		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 
 		foreach ($this->fieldIdentifier as $fieldConfig) {
@@ -251,7 +252,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 		}
 
 		if (array_key_exists('renderObj', $this->settings)) {
-			$this->renderObj = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+			$this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
 		}
 
 		/* Sorting configuration is set as follows:
@@ -268,7 +269,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 		}
 
 		if (array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
+			$this->accessGroups = GeneralUtility::trimExplode(',', $this->settings['accessGroups']);
 		}
 
 		// Generate relative paths for sorting images

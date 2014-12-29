@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Performance Testcase
@@ -50,7 +51,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 
 
 	public function setUp() {
-		$this->baseConfigTSFile = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
+		$this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
 	}
 
 
@@ -162,7 +163,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 		$tSString = $this->readTSString($this->baseConfigTSFile);
 		$tSString .= $this->readTSString($extListConfigFile);
 
-		$parserInstance = t3lib_div::makeInstance('t3lib_tsparser');
+		$parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
 		/** @var $parserInstance t3lib_tsparser */
 		$tSString = $parserInstance->checkIncludeLines($tSString);
 		$parserInstance->parse($tSString);
@@ -170,7 +171,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
 
 		$tsSettings = $parserInstance->setup;
 
-		$typoScript = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
+		$typoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
 
 		return $typoScript['plugin']['tx_ptextlist'];
 	}

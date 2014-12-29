@@ -62,6 +62,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 	 */
 	public function setFilterValue($filterValue) {
 		$this->filterValue = $filterValue;
+		$this->setActiveState();
 		return $this;
 	}
 

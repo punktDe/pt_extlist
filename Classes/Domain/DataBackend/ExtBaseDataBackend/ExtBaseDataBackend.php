@@ -40,7 +40,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Holds a repository for creating domain objects
 	 *
-	 * @var Tx_Extbase_Persistence_Repository
+	 * @var \TYPO3\CMS\Extbase\Persistence\Repository
 	 */
 	protected $repository;
 	
@@ -59,7 +59,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		$dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
-		$repository = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get($dataBackendSettings['repositoryClassName']);
+		$repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get($dataBackendSettings['repositoryClassName']);
 		return $repository;
 	}
 	
@@ -100,7 +100,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		/**
 		 * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
 		 *
-		 * additionalTables = Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
+		 * additionalTables = \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
 		 * --> this is used to register a different repository than backend uses to create and execute query for group data
 		 *
 		 * displayFields = grouptitle
@@ -121,8 +121,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 			$repositoryClassName = $fromArray[0];
 			Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
 
-			$repository = t3lib_div::makeInstance($repositoryClassName);
-			Tx_PtExtbase_Assertions_Assert::isTrue($repository instanceof Tx_Extbase_Persistence_Repository, array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));
+			$repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($repositoryClassName);
+			Tx_PtExtbase_Assertions_Assert::isTrue($repository instanceof \TYPO3\CMS\Extbase\Persistence\Repository, array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));
 
 		} else {
 			$repository = $this->repository;
@@ -194,7 +194,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Builds query for current pager, filter and sorting settings
 	 *
-	 * @return Tx_Extbase_Persistence_Query
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
 	protected function buildExtBaseQuery() {
 		// Create extlist query object for current request
@@ -205,7 +205,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 		// Create Extbase query for current request by translating extlist query
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
 
-		/* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		/* @var $extbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
 		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
 			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
 		}
@@ -330,11 +330,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * Builds ExtBase query object without regarding pager
 	 *
-	 * @return Tx_Extbase_Persistence_Query
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
 	protected function buildExtBaseQueryWithoutPager() {
 		$extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
-		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery Tx_Extbase_Persistence_Query */
+		    $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
 
 		if ($this->backendConfiguration->getSettings('respectStoragePage') == 0 ) {
 			$extbaseQuery->getQuerySettings()->setRespectStoragePage(FALSE);
@@ -348,7 +348,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	/**
 	 * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getTotalItemsCount()
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getTotalItemsCount() {
 		$count = $this->buildExtBaseQueryWithoutPager()->execute()->count();
@@ -368,12 +368,12 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 	
 	
 	/**
-	 * Injector for data source. Expects Tx_Extbase_Persistence_Repository to be given as datasource
+	 * Injector for data source. Expects \TYPO3\CMS\Extbase\Persistence\Repository to be given as datasource
 	 *
 	 * @param mixed $dataSource
 	 */
 	public function _injectDataSource($dataSource) {
-		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, 'Tx_Extbase_Persistence_Repository', array('message' => 'Given data source must implement Tx_Extbase_Persistence_Repository but did not! 1281545172'));
+		Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', array('message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172'));
 		$this->repository = $dataSource;
 	}
 

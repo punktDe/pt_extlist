@@ -44,13 +44,17 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
      * TODO use AND to connect more than one constraint
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
-     * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
-     * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
+     * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+	 *
+	 * @throws \Exception
      */
     public static function translateCriteria(
             Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-            Tx_Extbase_Persistence_Query $extbaseQuery,
-            Tx_Extbase_Persistence_Repository $extbaseRepository) {
+			\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
+			\TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository) {
 
         Tx_PtExtbase_Assertions_Assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
       	    array('message' => 'Criteria is not a simple criteria! 1281724991'));
@@ -105,11 +109,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
 	/**
 	 * Adds given constraint to given query. Uses logical AND if there is already a constraint registered in query
 	 *
-	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
-	 * @param Tx_Extbase_Persistence_QOM_ConstraintInterface $constraint
-	 * @return Tx_Extbase_Persistence_Query
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
-	protected static function addConstraint(Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_QOM_ConstraintInterface $constraint) {
+	protected static function addConstraint(\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint) {
 		if ($extbaseQuery->getConstraint() != null) {
 			$extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(), $constraint));
 		} else {

@@ -66,14 +66,14 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $treeMaxDepth;
 
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $treeRootNode = NULL;
 
@@ -94,7 +94,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManager
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
 	 */
 	protected $objectManager;
 
@@ -109,7 +109,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 * @return void
 	 */
 	public function initFilter() {
-		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'); /** @var Tx_Extbase_Object_ObjectManager $objectManager */
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
 		$this->treeContext = $this->objectManager->get('Tx_PtExtbase_Tree_TreeContext');
 		$this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
 		$this->buildTree();
@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 	 */
 	protected function initFilterByGpVars() {
 		if (array_key_exists('filterValues', $this->gpVarFilterData)) {
-			$this->filterValues = t3lib_div::trimExplode(',', $this->gpVarFilterData['filterValues']);
+			$this->filterValues = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->gpVarFilterData['filterValues']);
 		}
 	}
 
@@ -268,8 +268,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
-	 * @param $node Tx_PtExtbase_Tree_Node
-	 * @param $nodeArray array
+	 * @param Tx_PtExtbase_Tree_Node $node
+	 * @param array $nodeArray
 	 * @return array
 	 */
 	public function alterNodeArrayOnFirstVisit($node, $nodeArray) {
@@ -281,8 +281,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
 	/**
-	 * @param $node Tx_PtExtbase_Tree_Node
-	 * @param $currentNode array
+	 * @param Tx_PtExtbase_Tree_Node $node
+	 * @param array $currentNode
 	 * @return array
 	 */
 	public function alterNodeArrayOnLastVisit($node, $currentNode) {

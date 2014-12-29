@@ -87,15 +87,15 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
 	 * @return string whereClause part with TYPO3 enablefields criterias
 	 */
 	protected function getTypo3SpecialFieldsWhereClause() {
-		$typo3Tables = t3lib_div::trimExplode(',', $this->backendConfiguration->getDataBackendSettings('tables'), true);
+		$typo3Tables = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->backendConfiguration->getDataBackendSettings('tables'), true);
 		$specialFieldsWhereClause = '';
 
 		foreach($typo3Tables as $typo3Table) {
-			list($table, $alias) = t3lib_div::trimExplode(' ', $typo3Table, true);
+			list($table, $alias) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $typo3Table, true);
 			$alias = trim($alias);
 
 			if (is_array($GLOBALS['TCA'][$table])) {
-				$specialFieldsWhereClauseSnippet = Tx_PtExtlist_Utility_RenderValue::getCobj()->enableFields($table);
+				$specialFieldsWhereClauseSnippet = Tx_PtExtbase_Div::getCobj()->enableFields($table);
 
 				if($alias) {
 					// Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after

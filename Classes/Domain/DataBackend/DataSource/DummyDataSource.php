@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
 	/**
 	 * TODO remove function!
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function countItems() {
 		return count($this->dummyArray);

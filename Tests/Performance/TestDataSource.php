@@ -37,13 +37,13 @@
 class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $rowCount = 10;
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $colCount = 10;
 
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Doma
 	/**
 	 * Return record count
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function count() {
 		return count($this->data);

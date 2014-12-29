@@ -80,11 +80,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
 	public function resolveObjectPathResolvesPathAsExpected() {
 		$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
 		$domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
-		$rightObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getName'), array(), '', FALSE);
+		$rightObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getName'), array(), '', FALSE);
 		$rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
-		$groupObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup', array('getRight'), array(), '', FALSE);
+		$groupObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getRight'), array(), '', FALSE);
 		$groupObjectMock->expects($this->any())->method('getRight')->will($this->returnValue($rightObjectMock));
-		$userObjectMock = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser', array('getGroup'), array(), '', FALSE);
+		$userObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser', array('getGroup'), array(), '', FALSE);
 		$userObjectMock->expects($this->any())->method('getGroup')->will($this->returnValue($groupObjectMock));
 		$objectPath = 'group.right.name';
 
@@ -106,11 +106,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
 
 
 	protected function createMappingTestData() {
-		$objectCollection = new Tx_Extbase_Persistence_ObjectStorage();
-		$feGroup1 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 1');
-		$feGroup2 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 2');
-		$feGroup3 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 3');
-		$feGroup4 = new Tx_Extbase_Domain_Model_FrontendUserGroup('group 4');
+		$objectCollection = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$feGroup1 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 1');
+		$feGroup2 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 2');
+		$feGroup3 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 3');
+		$feGroup4 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 4');
 		$objectCollection->attach($feGroup1);
 		$objectCollection->attach($feGroup2);
 		$objectCollection->attach($feGroup3);

@@ -56,9 +56,9 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory {
 
 			// TODO resolve this properly with Dependency Injection once we have cascading container
 			#$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-			$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+			$configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 			$configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
-			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+			$getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 
 			self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Link_LinkManager();
 			self::$instances[$listIdentifier]->injectGetPostVarAdapater($getPostVarsAdapterFactory->getInstance());

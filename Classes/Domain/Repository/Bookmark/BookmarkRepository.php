@@ -34,12 +34,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepositoryTest
  */
-class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	
 	/**
 	 * Holds PID of folder for bookmarks. This can be set via settings.bookmarks.bookmarksPid
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $bookmarkStoragePid = 0;
 
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
     /**
      * Setter for storage pid for bookmarks
      *
-     * @param int $bookmarkStoragePid
+     * @param integer $bookmarkStoragePid
      */
     public function setBookmarkStoragePid($bookmarkStoragePid) {
     	$this->bookmarkStoragePid = $bookmarkStoragePid;
@@ -72,11 +72,11 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
     /**
      * Returns collection of private bookmarks for given feUser and list identifier
      *
-     * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
      * @param string $listIdentifier
-     * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
      */	
-	public function findPrivateBookmarksByFeUserAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $listIdentifier) {
+	public function findPrivateBookmarksByFeUserAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $listIdentifier) {
 		$feUserUid = $feUser->getUid();
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117065'));
 		if ($feUserUid > 0) {
@@ -100,7 +100,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	 * Returns collection of PUBLIC bookmarks for given list identifier
 	 *
 	 * @param string $listIdentifier
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
 	 */
 	public function findPublicBookmarksByListIdentifier($listIdentifier) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117066'));
@@ -118,15 +118,15 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	/**
 	 * Returns collection of bookmarks for fe groups for all fe groups given user belongs to and a given list identifier
 	 *
-	 * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
 	 * @param string $listIdentifier
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
 	 */
-	public function findGroupBookmarksByFeUserAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $listIdentifier) {
+	public function findGroupBookmarksByFeUserAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $listIdentifier) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117068'));
-		$groupBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
+		$groupBookmarks = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$feUserGroups = $feUser->getUsergroup();
-		foreach($feUserGroups as $feUserGroup) { /* @var $feUserGroup Tx_Extbase_Domain_Model_FrontendUserGroup */
+		foreach($feUserGroups as $feUserGroup) { /* @var $feUserGroup \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup */
 			$this->addObjectsToObjectStorageByArray($groupBookmarks, $this->findGroupBookmarksByFeGroupAndListIdentifier($feUserGroup, $listIdentifier));
 		}
 		return $groupBookmarks;
@@ -137,11 +137,11 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	/**
 	 * Returns collection of bookmarks for fe groups for a given fe group and list identifier
 	 *
-	 * @param Tx_Extbase_Domain_Model_FrontendUserGroup $feGroup
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup
 	 * @param string $listIdentifier
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
 	 */
-	public function findGroupBookmarksByFeGroupAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUserGroup $feGroup, $listIdentifier) {
+	public function findGroupBookmarksByFeGroupAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup, $listIdentifier) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117067'));
 		$query = $this->createQuery();
 		$query->setOrderings(array('name'=>'ASC'));
@@ -158,10 +158,10 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	/**
 	 * Adds given elements of an array to given object storage
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage
 	 * @param array $arrayToBeAdded
 	 */
-	protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, $arrayToBeAdded) {
+	protected function addObjectsToObjectStorageByArray(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage, $arrayToBeAdded) {
 		foreach ($arrayToBeAdded as $key => $value) {
 			$objectStorage->attach($value, $key);
 		}
@@ -177,20 +177,20 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends Tx_Extb
 	 *     Groups to be shown (3,4)
 	 *     ==> all bookmarks for groups 3,4 are returned
 	 *
-	 * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
 	 * @param string $groupIds Comma-separated list of group uids
 	 * @param string $listIdentifier
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
 	 */
-	public function findBookmarksByFeUserGroupIdsAndListIdentifier(Tx_Extbase_Domain_Model_FrontendUser $feUser, $groupIds, $listIdentifier) {
+	public function findBookmarksByFeUserGroupIdsAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $groupIds, $listIdentifier) {
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, array('message' => 'List identifier must not be empty! 1283117069'));
 		if (!is_array($groupIds)) {
 			$groupIds = explode(',', $groupIds);
 		}
 		
-		$groupBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
+		$groupBookmarks = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$feUserGroups = $feUser->getUsergroups();
-        foreach($feUserGroups as $feUserGroup) { /* @var $feUserGroup Tx_Extbase_Domain_Model_FrontendUserGroup */
+        foreach($feUserGroups as $feUserGroup) { /* @var $feUserGroup \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup */
             if (in_array($feUserGroup->getUid(), $groupIds)) {
             	$bookmarks = $this->findGroupBookmarksByFeGroupAndListIdentifier($feUserGroup, $listIdentifier);
             	foreach($bookmarks as $bookmark) {

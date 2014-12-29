@@ -80,7 +80,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
 
 
 	/**
-	 * @param $renderedOptions array
+	 * @param array $renderedOptions
 	 * @return array
 	 */
 	protected function convertOptionsToSelectOptions(&$renderedOptions) {

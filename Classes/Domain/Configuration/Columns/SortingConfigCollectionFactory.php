@@ -36,7 +36,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 	/**
 	 * Parse the sorting config string and build sorting config objects
      *
-	 * @param $sortingSettings string
+	 * @param string $sortingSettings
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
 	 */
 	public static function getInstanceBySortingSettings($sortingSettings) {
@@ -45,10 +45,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 
         // We create new sortingConfigCollection for column that can only be sorted as a whole
 		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
-		$sortingFields = t3lib_div::trimExplode(',', $sortingSettings);
+		$sortingFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $sortingSettings);
 		foreach($sortingFields as $sortingField) {
 			
-			$sortingFieldOptions = t3lib_div::trimExplode(' ', $sortingField);
+			$sortingFieldOptions = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $sortingField);
 			$fieldName  = $sortingFieldOptions[0];
 			
 			if($fieldName) {

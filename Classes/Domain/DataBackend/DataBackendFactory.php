@@ -114,7 +114,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory extends Tx_PtExtlist_Do
 	 * @return \Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
 	 */
 	public static function getInstance(array $settings = NULL) {
-		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 		$instance = $objectManager->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory'); /* @var $instance Tx_PtExtlist_Domain_DataBackend_DataBackendFactory */
 		return $instance;
 	}
@@ -256,7 +256,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory extends Tx_PtExtlist_Do
 
 	private static function createStaticInstance() {
 		if (self::$dataBackendFactoryInstance === NULL) {
-			self::$dataBackendFactoryInstance = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory');
+			self::$dataBackendFactoryInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory');
 		}
 	}
 

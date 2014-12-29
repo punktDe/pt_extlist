@@ -89,12 +89,12 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * Translates a query into an extbase query
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-	 * @param Tx_Extbase_Persistence_Repository $repository
-	 * @return Tx_Extbase_Persistence_Query
+	 * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
-	public static function interpretQueryByRepository(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Repository $repository) {
+	public static function interpretQueryByRepository(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Repository $repository) {
 	       	
-		$emptyExtbaseQuery = $repository->createQuery(); /* @var $emptyExtbaseQuery Tx_Extbase_Persistence_Query */
+		$emptyExtbaseQuery = $repository->createQuery(); /* @var $emptyExtbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
 		
 		$constrainedExtbaseQuery = self::setAllCriteriasOnExtBaseQueryByQueryObject($query, $emptyExtbaseQuery, $repository);
 		$limitedExtbaseQuery = self::setLimitOnExtBaseQueryByQueryObject($query, $constrainedExtbaseQuery);
@@ -109,11 +109,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * Sets criterias from given query object on given extbase query object. Returns manipulated extbase query object
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
-     * @param Tx_Extbase_Persistence_Repository $repository
-	 * @return Tx_Extbase_Persistence_Query
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
+     * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
-	public static function setAllCriteriasOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_Repository $repository) {
+	public static function setAllCriteriasOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Repository $repository) {
 
         foreach($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
             $extbaseQuery = self::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQuery, $repository);
@@ -128,12 +128,12 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * Translates given criteria and adds it to extbase query criterias
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
-	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
-	 * @param Tx_Extbase_Persistence_Repository $repository
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
+	 * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
 	 * @throws Exception
-	 * @return Tx_Extbase_Persistence_Query
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
-	public static function setCriteriaOnExtBaseQueryByCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria, Tx_Extbase_Persistence_Query $extbaseQuery, Tx_Extbase_Persistence_Repository $repository) {
+	public static function setCriteriaOnExtBaseQueryByCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Repository $repository) {
 		$criteriaClass = get_class($criteria);
 		switch ($criteriaClass) {
 			case 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria':
@@ -166,10 +166,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * Sets a limit on an extbase query by given query object. Returns manipulated extbase query.
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-	 * @param Tx_Extbase_Persistence_Query $extbaseQuery
-	 * @return Tx_Extbase_Persistence_Query
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
-	public static function setLimitOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery) {
+	public static function setLimitOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery) {
         if ($query->getLimit() != '') {
             list($offset, $limit) = explode(':', $query->getLimit());
             if (!$limit > 0) {
@@ -188,15 +188,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
 	 * Sets sortings on an extbase query by given query object. Returns manipulated extbase query.
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query object to get sortings from
-	 * @param Tx_Extbase_Persistence_Query $extbaseQuery Query object to set sortings on
-	 * @return Tx_Extbase_Persistence_Query Manipulated ExtBase query object
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query object to set sortings on
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query Manipulated ExtBase query object
 	 */
-	public static function setSortingOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, Tx_Extbase_Persistence_Query $extbaseQuery) {
+	public static function setSortingOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery) {
         $sortings = $query->getSortings();
 		$extBaseSortings = array();
 
 		foreach ($sortings as $field => $direction) { /* sorting is array('field' => 'Direction: 1 | -1') */
-			$extBaseDirection = $direction == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC ? Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING;
+			$extBaseDirection = $direction == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC ? \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING : \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
 		   $extBaseSortings[$field] = $extBaseDirection;
 		}
 		

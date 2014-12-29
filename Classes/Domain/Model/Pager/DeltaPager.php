@@ -35,21 +35,21 @@
 class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Model_Pager_DefaultPager {
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $delta;
 
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $firstItemDelta = 0;
 
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $lastItemDelta = 0;
 

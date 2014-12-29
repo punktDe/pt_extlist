@@ -41,15 +41,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCr
 	 * Translates a query an manipulates given query object
 	 *
 	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
-	 * @param Tx_Extbase_Persistence_Query $extbaseQuery Query to add criteria to
-	 * @param Tx_Extbase_Persistence_Repository $extbaseRepository Associated repository
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
+	 * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
 	 * @throws Exception
-	 * @return \Tx_Extbase_Persistence_Query
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
 	 */
 	public static function translateCriteria(
 		Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-		Tx_Extbase_Persistence_Query $extbaseQuery,
-		Tx_Extbase_Persistence_Repository $extbaseRepository) {
+		\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
+		\TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository) {
 
 		if (!is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_OrCriteria')) {
 			throw new Exception('Given criteria is not of type Tx_PtExtlist_Domain_QueryObject_Criteria --> cannot be translated by or criteria translator! 1326466193');

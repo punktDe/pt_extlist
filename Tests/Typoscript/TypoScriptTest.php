@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Testcase for basic typoscript Settings
@@ -48,8 +49,8 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 
 	
 	public function SetUp() {
-		$this->baseConfigTSFile = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
-		$this->prototypePath = t3lib_extMgm::extPath('pt_extlist') . 'Configuration/TypoScript/BaseConfig/Prototype/';
+		$this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
+		$this->prototypePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/BaseConfig/Prototype/';
 		$this->prototypeFiles = $this->loadProttypeFileNamesAsArray();	
 	}
 
@@ -122,7 +123,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 		$TSString .=$this->loadTestList();
 		
 	
-		$parserInstance = t3lib_div::makeInstance('t3lib_tsparser');
+		$parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
 		$parserInstance->parse($TSString);
  		
 		//$cObj = t3lib_div::makeInstance('tslib_cObj');
@@ -130,7 +131,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 		
 		$tsSettings = $parserInstance->setup;
 
-		$settings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($tsSettings);
+		$settings =  GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
 		
 		$settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
 		
@@ -167,7 +168,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 
 	
 	protected function loadTestList() {
-		return $this->loadTSFile(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Typoscript/testlist.txt');
+		return $this->loadTSFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Tests/Typoscript/testlist.txt');
 	}
 
 

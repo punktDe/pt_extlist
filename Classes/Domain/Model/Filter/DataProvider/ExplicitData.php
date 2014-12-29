@@ -57,8 +57,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
 		foreach ($this->tsOptions as $key => $option) {
 			if(is_array($option)) {
 
-				if(t3lib_div::isFirstPartOfStr($option['value'], 'LLL:')) {
-					$optionData['allDisplayFields'] = Tx_Extbase_Utility_Localization::translate($option['value'], '');
+				if(\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($option['value'], 'LLL:')) {
+					$optionData['allDisplayFields'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($option['value'], '');
 				} else {
 					$optionData['allDisplayFields'] = $option['value'];
 				}
@@ -66,8 +66,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
 				$optionKey = $option['key'];
 			} else {
 				$optionKey = $key;
-				if(t3lib_div::isFirstPartOfStr($option, 'LLL:')) {
-					$optionData['allDisplayFields'] = Tx_Extbase_Utility_Localization::translate($option, '');
+				if(\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($option, 'LLL:')) {
+					$optionData['allDisplayFields'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($option, '');
 				} else {
 					$optionData['allDisplayFields'] = trim($option);
 				}

@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Default renderer for a cell in a row in list data
@@ -77,8 +78,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 	 *
 	 * @param \Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
 	 * @param Tx_PtExtlist_Domain_Model_List_Row $data The table data.
-	 * @param int $columnIndex Current column index.
-	 * @param int $rowIndex Current row index.
+	 * @param integer $columnIndex Current column index.
+	 * @param integer $rowIndex Current row index.
 	 *
 	 * @internal param string $columnIdentifier The columnIdentifier.
 	 * @return Tx_Pt_extlist_Domain_Model_List_Cell
@@ -124,7 +125,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		$cellCSSConfig = $columnConfig->getCellCSSClass();
 		
 		if(is_array($cellCSSConfig)) {
-			$renderObj = 			array_key_exists('renderObj', $cellCSSConfig) 			? Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : NULL;
+			$renderObj = 			array_key_exists('renderObj', $cellCSSConfig) 			? GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : NULL;
 			$renderUserFunction = 	array_key_exists('renderUserFunction', $cellCSSConfig) 	? $cellCSSConfig['renderUserFunction'] : NULL;
 			
 			return Tx_PtExtlist_Utility_RenderValue::render($fieldSet, $renderObj, $renderUserFunction);
@@ -151,7 +152,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer {
 		}
 
 		if (!empty($rendererUserFunc)) {
-			$specialValues = t3lib_div::callUserFunction($rendererUserFunc, $cell, '');
+			$specialValues = GeneralUtility::callUserFunction($rendererUserFunc, $cell, '');
 			$cell->setSpecialValues($specialValues);
 		}
 	}

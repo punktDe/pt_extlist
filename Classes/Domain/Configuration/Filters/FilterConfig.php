@@ -25,19 +25,21 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 
 /**
  * Class implementing configuration for filter
- * 
+ *
  * @package Domain
  * @subpackage Configuration\Filters
- * @author Daniel Lienert 
+ * @author Daniel Lienert
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
-															 implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
+	implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
 
 	/**
 	 * Identifier of filterbox to which this filter belongs to
@@ -45,7 +47,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var string
 	 */
 	protected $filterboxIdentifier;
-
 
 
 	/**
@@ -56,14 +57,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $filterClassName;
 
 
-
 	/**
 	 * Identifier of this filter
 	 *
 	 * @var string
 	 */
 	protected $filterIdentifier;
-
 
 
 	/**
@@ -90,13 +89,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $label;
 
 
-
 	/**
 	 * If set, it is the label for an inactive option added to the filter
 	 * @var string
 	 */
 	protected $inactiveOption = '';
-
 
 
 	/**
@@ -106,12 +103,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $inactiveValue = '';
 
 
-
 	/**
 	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
 	 */
 	protected $fieldIdentifier;
-
 
 
 	/**
@@ -122,14 +117,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $accessGroups = array();
 
 
-
 	/**
 	 * If true, sorting state is reset if filter is submitted
 	 *
 	 * @var bool
 	 */
 	protected $resetListSortingStateOnSubmit = FALSE;
-
 
 
 	/**
@@ -140,14 +133,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $resetFilters = array();
 
 
-
 	/**
 	 * Submit filter by javascript on change
 	 *
 	 * @var boolean
 	 */
 	protected $submitOnChange = FALSE;
-
 
 
 	/**
@@ -158,14 +149,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $dependsOn;
 
 
-
 	/**
 	 * TODO ry21 what does this property do?
 	 *
 	 * @var array
 	 */
 	protected $onValidated = array();
-
 
 
 	/**
@@ -176,14 +165,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $invert = FALSE;
 
 
-
 	/**
 	 * If this is set to true, the filter has the ability to be inverted
 	 *
 	 * @var bool
 	 */
 	protected $invertable = FALSE;
-
 
 
 	/**
@@ -194,7 +181,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $isActive = 1;
 
 
-
 	/**
 	 * Holds all settings passed by TS
 	 *
@@ -203,14 +189,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $settings = array();
 
 
-
 	/**
 	 * Holds path to partial for filter template
 	 *
 	 * @var string
 	 */
 	protected $partialPath;
-
 
 
 	/**
@@ -229,13 +213,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $renderObj = NULL;
 
 
-
 	/**
 	 * renderuserFunction configuration to render everey filteroption
 	 * @var array
 	 */
 	protected $renderUserFunctions = NULL;
-
 
 
 	/**
@@ -245,14 +227,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $renderTemplate;
 
 
-
 	/**
 	 * This flag indicates if this filter is accessable for the current user.
 	 * Will be injected from the factory.
 	 * @var bool
 	 */
 	protected $accessable = FALSE;
-
 
 
 	/**
@@ -264,7 +244,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $breadCrumbString;
 
 
-
 	/**
 	 * If set to true, filter will set default value given in TS after resetting
 	 *
@@ -273,12 +252,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected $resetToDefaultValue = FALSE;
 
 
-
 	/**
 	 * @var boolean If the hidden flag is true, the filter is not shown in the filterBox
 	 */
 	protected $hidden = FALSE;
-
 
 
 	/**
@@ -287,7 +264,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	 * @var boolean
 	 */
 	protected $showRowCount = FALSE;
-
 
 
 	/**
@@ -317,7 +293,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$settings['filterboxIdentifier'] = $filterBoxIdentifier;
 		parent::__construct($configurationBuilder, $settings);
 	}
-
 
 
 	/**
@@ -352,34 +327,33 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setValueIfExists('ajaxPartialPath');
 
 		$this->setValueIfExistsAndNotNothing('defaultValue');
-		if($this->defaultValue) $this->renderDefaultValue();
+		if ($this->defaultValue) $this->renderDefaultValue();
 
 		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 
-		if($this->configValueExiststAndNotNothing('inactiveOption')) {
+		if ($this->configValueExiststAndNotNothing('inactiveOption')) {
 			$this->inactiveOption = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
-			if(t3lib_div::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
-				$this->inactiveOption = Tx_Extbase_Utility_Localization::translate($this->inactiveOption, '');
+			if (GeneralUtility::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
+				$this->inactiveOption = LocalizationUtility::translate($this->inactiveOption, '');
 			}
 		}
 
-		if($this->configValueExiststAndNotNothing('label')) {
+		if ($this->configValueExiststAndNotNothing('label')) {
 			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
-			if(t3lib_div::isFirstPartOfStr($this->label, 'LLL:')) {
-				$this->label = Tx_Extbase_Utility_Localization::translate($this->label, '');
+			if (GeneralUtility::isFirstPartOfStr($this->label, 'LLL:')) {
+				$this->label = LocalizationUtility::translate($this->label, '');
 			}
 		}
 
-		if(array_key_exists('renderObj', $this->settings)) {
-        	$this->renderObj = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
-        }
+		if (array_key_exists('renderObj', $this->settings)) {
+			$this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+		}
 
-		if(array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = t3lib_div::trimExplode(',', $this->settings['accessGroups']);
+		if (array_key_exists('accessGroups', $this->settings)) {
+			$this->accessGroups = GeneralUtility::trimExplode(',', $this->settings['accessGroups']);
 		}
 	}
-
 
 
 	/**
@@ -392,10 +366,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 
 		$fieldIdentifierList = array();
 
-		if(is_array($fieldIdentifier)) {
+		if (is_array($fieldIdentifier)) {
 
-			foreach($fieldIdentifier as $firstLevel) {
-				if(is_array($firstLevel)) {
+			foreach ($fieldIdentifier as $firstLevel) {
+				if (is_array($firstLevel)) {
 					$fieldIdentifierList = array_merge($fieldIdentifierList, array_values($firstLevel));
 				} else {
 					$fieldIdentifierList[] = $firstLevel;
@@ -404,12 +378,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 			}
 
 		} else {
-			$fieldIdentifierList = t3lib_div::trimExplode(',', $fieldIdentifier);
+			$fieldIdentifierList = GeneralUtility::trimExplode(',', $fieldIdentifier);
 		}
 
 		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 	}
-
 
 
 	/**
@@ -418,18 +391,18 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	protected function renderDefaultValue() {
 
 		// no array - nothing to do
-		if(!is_array($this->defaultValue)) return;
+		if (!is_array($this->defaultValue)) return;
 
 		// array but no cOBJ - defines multivalue default
-		if(!$this->defaultValue['cObject']) {
+		if (!$this->defaultValue['cObject']) {
 
-			foreach($this->defaultValue as $key => $defaultValue) {
-				if(is_array($defaultValue)) {
+			foreach ($this->defaultValue as $key => $defaultValue) {
+				if (is_array($defaultValue)) {
 					$this->defaultValue[$key] = Tx_PtExtlist_Utility_RenderValue::renderCObjectWithPlainArray($defaultValue);
 				}
 			}
 
-			if(array_key_exists('_typoScriptNodeValue', $this->defaultValue)) unset($this->defaultValue['_typoScriptNodeValue']);
+			if (array_key_exists('_typoScriptNodeValue', $this->defaultValue)) unset($this->defaultValue['_typoScriptNodeValue']);
 
 			return;
 		}
@@ -440,55 +413,50 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	}
 
 
-
-    /**
-     * Returns partial path for filter template
-     *
-     * @return string
-     */
-    public function getPartialPath() {
-    	return $this->partialPath;
-    }
-
+	/**
+	 * Returns partial path for filter template
+	 *
+	 * @return string
+	 */
+	public function getPartialPath() {
+		return $this->partialPath;
+	}
 
 
-    /**
-     * Returns identifier of filterbox to which this filter belongs to
-     *
-     * @return string Identifier of filterbox to which this filter belongs to
-     */
-    public function getFilterboxIdentifier() {
-    	return $this->filterboxIdentifier;
-    }
+	/**
+	 * Returns identifier of filterbox to which this filter belongs to
+	 *
+	 * @return string Identifier of filterbox to which this filter belongs to
+	 */
+	public function getFilterboxIdentifier() {
+		return $this->filterboxIdentifier;
+	}
 
 
-
-    /**
-     * Returns class name of class implementing this filter
-     *
-     * @return string Class name of class implementing this filter
-     */
+	/**
+	 * Returns class name of class implementing this filter
+	 *
+	 * @return string Class name of class implementing this filter
+	 */
 	public function getFilterClassName() {
 		return $this->filterClassName;
 	}
 
 
-
-    /**
-     * @return array of group IDs
-     */
-    public function getAccessGroups() {
-        return $this->accessGroups;
-    }
-
+	/**
+	 * @return array of group IDs
+	 */
+	public function getAccessGroups() {
+		return $this->accessGroups;
+	}
 
 
-    /**
-     * @return unknown
-     */
-    public function getDependsOn() {
-        return $this->dependsOn;
-    }
+	/**
+	 * @return unknown
+	 */
+	public function getDependsOn() {
+		return $this->dependsOn;
+	}
 
 	/**
 	 * @return boolean
@@ -496,143 +464,129 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function getDisableFilterQuery() {
 		return $this->disableFilterQuery;
 	}
-    
-    /**
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-     */
-    public function getFieldIdentifier() {
-        return $this->fieldIdentifier;
-    }
-    
-    
-    
-    /**
-     * @return unknown
-     */
-    public function getFilterIdentifier() {
-        return $this->filterIdentifier;
-    }
-    
-    
-    
-    /**
-     * Get the default value
-     * @return string
-     */
-    public function getDefaultValue() {
-    	return $this->defaultValue;
-    }  
-    
-    
-    
-    /**
-     * @return boolean
-     */
-    public function getInvert() {
-        return $this->invert;
-    }
-    
-    
-    
-    /**
-     * @return boolean
-     */
-    public function getInvertable() {
-    	return $this->invertable;
-    }
-    
-    
-    
-    /**
-     * @return boolean
-     */
-    public function getIsActive() {
-        return $this->isActive;
-    }
-    
-    
-    
-    /**
-     * @return string
-     */
-    public function getLabel() {
-        return $this->label;
-    }
-    
-    
-    
-    /**
-     * @return unknown
-     */
-    public function getOnValidated() {
-        return $this->onValidated;
-    }
-    
-    
-    
-    /**
-     * @return boolean
-     */
-    public function getResetFilters() {
-        return $this->resetFilters;
-    }
-    
-    
-    
+
+	/**
+	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+	 */
+	public function getFieldIdentifier() {
+		return $this->fieldIdentifier;
+	}
+
+
+	/**
+	 * @return unknown
+	 */
+	public function getFilterIdentifier() {
+		return $this->filterIdentifier;
+	}
+
+
+	/**
+	 * Get the default value
+	 * @return string
+	 */
+	public function getDefaultValue() {
+		return $this->defaultValue;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getInvert() {
+		return $this->invert;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getInvertable() {
+		return $this->invertable;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getIsActive() {
+		return $this->isActive;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLabel() {
+		return $this->label;
+	}
+
+
+	/**
+	 * @return unknown
+	 */
+	public function getOnValidated() {
+		return $this->onValidated;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getResetFilters() {
+		return $this->resetFilters;
+	}
+
+
 	/**
 	 * cObj configuration
-     * @return array
-     */
-    public function getRenderObj() {
-        return $this->renderObj;
-    }
-    
-    
-    
-    /**
-     * @return string renderTemplate
-     */
-    public function getRenderTemplate() {
-    	return $this->renderTemplate;
-    }
-    
-    
-    /**
-     * @return boolean
-     */
-    public function getResetListSortingStateOnSubmit() {
-        return $this->resetListSortingStateOnSubmit;
-    }
-    
+	 * @return array
+	 */
+	public function getRenderObj() {
+		return $this->renderObj;
+	}
 
-    
+
 	/**
-     * @return string
-     */
-    public function getInactiveOption() {
-        return $this->inactiveOption;
-    }
-    
-    
-    
+	 * @return string renderTemplate
+	 */
+	public function getRenderTemplate() {
+		return $this->renderTemplate;
+	}
+
+
 	/**
-     * @return string
-     */
-    public function getInactiveValue() {
-        return $this->inactiveValue;
-    }
-    
-    
-    
-    /**
-     * @return boolean
-     */
-    public function getSubmitOnChange() {
-    	return $this->submitOnChange;
-    }
-    
-    
-    
+	 * @return boolean
+	 */
+	public function getResetListSortingStateOnSubmit() {
+		return $this->resetListSortingStateOnSubmit;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getInactiveOption() {
+		return $this->inactiveOption;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getInactiveValue() {
+		return $this->inactiveValue;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getSubmitOnChange() {
+		return $this->submitOnChange;
+	}
+
+
 	/**
 	 * @return array
 	 */
@@ -640,10 +594,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		return $this->renderUserFunctions;
 	}
 
-	
-	
+
 	/**
-	 * Returns bread crumb string to be shown as 
+	 * Returns bread crumb string to be shown as
 	 * message for this filter
 	 *
 	 * @return string
@@ -651,9 +604,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function getBreadCrumbString() {
 		return $this->breadCrumbString;
 	}
-	
-	
-	
+
+
 	/**
 	 * Returns true, if filter should reset to default TS value after resetting
 	 *
@@ -662,21 +614,19 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function getResetToDefaultValue() {
 		return $this->resetToDefaultValue;
 	}
-	
-	
-	
+
+
 	/**
 	 * @param bool $accessable
 	 */
 	public function setAccessable($accessable) {
-		$this->accessable = (bool) $accessable;
+		$this->accessable = (bool)$accessable;
 	}
 
-	
-	
+
 	/**
 	 * Returns the accessable flag.
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function isAccessable() {
@@ -692,14 +642,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	}
 
 
-	
 	/**
 	 * @return bool
 	 */
 	public function getVisible() {
 		return !$this->hidden;
 	}
-
 
 
 	/**
@@ -712,14 +660,12 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	}
 
 
-
 	/**
 	 * @return string
 	 */
 	public function getAjaxPartialPath() {
 		return $this->ajaxPartialPath;
 	}
-
 
 
 	/**
@@ -730,7 +676,6 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 	public function getCacheRendering() {
 		return $this->cacheRendering;
 	}
-
 
 
 	/**

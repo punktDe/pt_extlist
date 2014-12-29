@@ -61,7 +61,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 
 
 	/**
-	 * @param $id int
+	 * @param integer $id
 	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */
@@ -87,7 +87,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends T
 
 
 	/**
-	 * @param $identifier string
+	 * @param string $identifier
 	 * @throws Exception
 	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 	 */

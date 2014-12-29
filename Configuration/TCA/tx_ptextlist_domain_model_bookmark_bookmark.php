@@ -1,12 +1,20 @@
 <?php
-if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
-
-
-/**
- * Configuration for bookmark table
- */
-$TCA['tx_ptextlist_domain_model_bookmark_bookmark'] = array(
-    'ctrl' => $TCA['tx_ptextlist_domain_model_bookmark_bookmark']['ctrl'],
+return array(
+    'ctrl' => array (
+		'title'             => 'Bookmark',
+		'label'             => 'name',
+		'tstamp'            => 'tstamp',
+		'crdate'            => 'crdate',
+		'origUid'           => 't3_origuid',
+		'languageField'     => 'sys_language_uid',
+		'transOrigPointerField'     => 'l18n_parent',
+		'transOrigDiffSourceField'  => 'l18n_diffsource',
+		'delete'            => 'deleted',
+		'enablecolumns'     => array(
+			'disabled' => 'hidden'
+		),
+		'iconfile'          => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('pt_extlist') . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
+	),
     'interface' => array(
         'showRecordFieldList' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content'
     ),

@@ -88,10 +88,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
 	protected function setDisplayFieldsByTSConfig($displayFieldSettings) {
 
 		if ($displayFieldSettings) {
-			$displayFields = t3lib_div::trimExplode(',', $displayFieldSettings);
+			$displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $displayFieldSettings);
 			$this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($displayFields);
 		} else {
-			$fieldIdentifierList = t3lib_div::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
+			$fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
 			$this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($fieldIdentifierList);
 		}
 	}
@@ -239,7 +239,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
 		$this->setDisplayFieldsByTSConfig(trim($filterSettings['displayFields']));
 
 		if (array_key_exists('excludeFilters', $filterSettings) && trim($filterSettings['excludeFilters'])) {
-			$this->excludeFilters = t3lib_div::trimExplode(',', $filterSettings['excludeFilters']);
+			$this->excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $filterSettings['excludeFilters']);
 		}
 
 		if (array_key_exists('additionalTables', $filterSettings)) {

@@ -98,16 +98,17 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
     }
 
 
-
-    /**
-     * Returns current sorting state collection of this sorter
-     *
-     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
-     */
-    public function getSortingStateCollection() {
-        $this->buildSortingStateCollection();
-        return $this->sortingStateCollection;
-    }
+	/**
+	 * Returns current sorting state collection of this sorter
+	 *
+	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+	 */
+	public function getSortingStateCollection() {
+		if ($this->sortingStateCollection == NULL) {
+			$this->buildSortingStateCollection();
+		}
+		return $this->sortingStateCollection;
+	}
 
 
 

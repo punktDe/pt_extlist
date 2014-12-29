@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactory
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Holds an array of instances for each list identifier
@@ -57,7 +57,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
 		if (!array_key_exists($configurationBuilder->getListIdentifier(), $this->instances)
 			|| $this->instances[$configurationBuilder->getListIdentifier()] == null) {
 
-			$filterboxCollectionFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
+			$filterboxCollectionFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
 		
 			$filterboxCollection = $filterboxCollectionFactory->createInstance($configurationBuilder, FALSE);
 			$breadCrumbCollection = $this->getInstanceByFilterboxCollection($configurationBuilder, $filterboxCollection);
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
 			$breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
 			$breadCrumbCollection->injectConfigurationBuilder($configurationBuilder);
 
-			$getPostVarsAdapterFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+			$getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 
 			$gpVarsAdapter = $getPostVarsAdapterFactory->getInstance();
 			$gpVarsAdapter->injectParametersInObject($breadCrumbCollection);

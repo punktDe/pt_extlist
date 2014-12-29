@@ -656,7 +656,7 @@ GROUP BY company
 		$dataBackend->_injectDataMapper($dataMapperMock);
 
 		// TODO should we also mock this?!?
-		$dataBackend->injectRendererChainFactory(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
+		$dataBackend->injectRendererChainFactory(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
 
 		$dataBackend->init();
 

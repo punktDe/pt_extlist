@@ -65,10 +65,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	/**
 	 * Injects configuration manager (that holds TS settings) for usage with DI
 	 *
-	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
-		$this->settings = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager) {
+		$this->settings = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 	}
 
 
@@ -115,7 +115,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	 * Returns a singleton instance of a configurationBuilder class
 	 *
 	 * @static
-	 * @param $listIdentifier string the listidentifier of the list
+	 * @param string $listIdentifier the listidentifier of the list
 	 * @param boolean $resetConfigurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 * @throws Exception
@@ -135,7 +135,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 
 		if (!$this->configurationBuilderInstancesContainer->contains($listIdentifier)) {
 			if(!is_array($this->settings['listConfig']) || !array_key_exists($listIdentifier, $this->settings['listConfig'])) {
-				throw new Exception('No list with listIdentifier '.$listIdentifier.' could be found in settings!', 1288110596);
+				throw new Exception('No list with listIdentifier ' . $listIdentifier . ' could be found in settings! Available are: ' . implode(', ',array_keys($this->settings['listConfig'])), 1288110596);
 			}
 
 			// TODO use object manager to instantiate the configuration builder object

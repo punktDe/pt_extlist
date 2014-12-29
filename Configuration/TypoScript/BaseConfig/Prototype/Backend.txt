@@ -40,7 +40,7 @@ plugin.tx_ptextlist.prototype.backend {
 	extbase {
 		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
 		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
-		dataSourceClass = Tx_Extbase_Persistence_Repository
+		dataSourceClass = \TYPO3\CMS\Extbase\Persistence\Repository
 		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
 		repositoryClassName =
 		respectStoragePage = 0

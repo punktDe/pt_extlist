@@ -34,7 +34,7 @@
  * @author Daniel Lienert 
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormViewHelper {
+class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper {
 
 	/**
 	 * Holds uri for form action
@@ -124,7 +124,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormV
 		}
 		
 		
-		$extBaseContext = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+		$extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
 		
 		if($extBaseContext->isInCachedMode()) {
 			$listIdentifier = $extBaseContext->getCurrentListIdentifier();

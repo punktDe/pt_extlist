@@ -49,8 +49,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 	
     /**
      * Returns a singleton instance of this class
-     * @param $settings The current settings for this extension.
-	 * @param $overwriteSettings Overwrite the default settings
+     * @param array $settings The current settings for this extension.
+	 * @param array $overwriteSettings Overwrite the default settings
      * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
      */
 	public static function getInstance($settings = null, $overwriteSettings = null) {
@@ -301,15 +301,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 					)
 				)
 			);
-    		
-	        if(is_array($overwriteSettings)) {
-	        	$settings = t3lib_div::array_merge_recursive_overrule($settings, $overwriteSettings);
-	        }
-	        
-            $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
-            $configurationBuilderMock->settings = $configurationBuilderMock->origSettings['listConfig'][$configurationBuilderMock->origSettings['listIdentifier']];
-    	}
-    	return $configurationBuilderMock;
-    }
-    
+
+			if (is_array($overwriteSettings)) {
+				\TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($settings, $overwriteSettings);
+			}
+
+			$configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
+			$configurationBuilderMock->settings = $configurationBuilderMock->origSettings['listConfig'][$configurationBuilderMock->origSettings['listIdentifier']];
+		}
+		return $configurationBuilderMock;
+	}
+
 }

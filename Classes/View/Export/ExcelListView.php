@@ -26,7 +26,6 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once('PHPExcel/PHPExcel.php');
 
 /**
  * Implements a view for rendering Excel sheets from list data
@@ -63,7 +62,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	/**
 	 * Holds an instance of FLUID template variable container
 	 *
-	 * @var Tx_Fluid_Core_ViewHelper_TemplateVariableContainer
+	 * @var \TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer
 	 */
 	protected $templateVariableContainer;
 
@@ -78,7 +77,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 	/**
 	 * Current rowNumber
-	 * @var int
+	 * @var integer
 	 */
 	protected $rowNumber = 1;
 
@@ -472,7 +471,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * @param $borderStyleSettings string
+	 * @param string $borderStyleSettings
 	 * @return array
 	 */
 	protected function buildBorderStyle($borderStyleSettings) {
@@ -502,7 +501,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * @param $objWriter PHPExcel_Writer_IWriter
+	 * @param PHPExcel_Writer_IWriter $objWriter
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
 		$objWriter->save('php://output');
@@ -518,12 +517,16 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 	 * @return void
 	 */
 	private function checkRequirements() {
-		if (!class_exists('PHPExcel')) {
-			throw new Exception('Library PHPExcel is required for using Excel export. You can get PHPExcel from http://phpexcel.codeplex.com 1316565593');
+		$phpExcelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist', 'Classes/Foreign/PHPExcel/Classes/PHPExcel.php');
+
+		if (!file_exists($phpExcelPath)) {
+			throw new Exception('Library PHPExcel is required for using Excel export. Run "git submodule update --init" in extension root directory', 1418830027);
 		}
 
+		require_once($phpExcelPath);
+
 		if (!class_exists('XMLWriter')) {
-			throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled 1316565594');
+			throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled', 1316565594);
 		}
 	}
 

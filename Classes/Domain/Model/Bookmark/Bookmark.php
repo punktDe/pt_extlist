@@ -36,7 +36,7 @@
  * @see Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
-    extends Tx_Extbase_DomainObject_AbstractEntity 
+    extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     implements Tx_PtExtbase_State_IdentifiableInterface {
 
 
@@ -57,7 +57,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Frontend user that saved bookmark
 	 *
-	 * @var Tx_Extbase_Domain_Model_FrontendUser
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
 	protected $feUser;
 	
@@ -66,7 +66,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
      * Frontend group bookmark should be shown to
      *
-     * @var Tx_Extbase_Domain_Model_FrontendUserGroup
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
 	protected $feGroup;
 	
@@ -102,7 +102,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Date on which bookmark was created (timestamp)
 	 *
-	 * @var int
+	 * @var integer
 	 */
     protected $createDate;	
     
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     /**
      * Type of bookmark (public, private, group)
      *
-     * @var int
+     * @var integer
      */
     protected $type;
     
@@ -120,7 +120,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     /**
      * PID of bookmark
      *
-     * @var int
+     * @var integer
      */
     protected $pid;
 	
@@ -140,7 +140,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Getter for PID
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getPid() {
 		return $this->pid;
@@ -158,7 +158,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	
 	
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function getCreateDate() {
 		return $this->createDate;
@@ -176,7 +176,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	
 	
 	/**
-	 * @return Tx_Extbase_Domain_Model_FrontendUser
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
 	public function getFeUser() {
 		return $this->feUser;
@@ -187,7 +187,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Returns FE group to which this bookmark should be shown to
 	 *
-	 * @return Tx_Extbase_Domain_Model_FrontendUserGroup
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
 	 */
 	public function getFeGroup() {
 		return $this->feGroup;
@@ -216,7 +216,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Getter for type property
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getType() {
 		return $this->type;
@@ -227,7 +227,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     /**
      * Setter for PID
      *
-     * @param int $pid
+     * @param integer $pid
      */
     public function setPid($pid) {
         $this->pid = $pid;
@@ -245,7 +245,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	
 	
 	/**
-	 * @param int $date
+	 * @param integer $date
 	 */
 	public function setCreateDate($date) {
 		$this->createDate = $date;
@@ -263,7 +263,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	
 	
 	/**
-	 * @param Tx_Extbase_Domain_Model_FrontendUser $feUser
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
 	 */
 	public function setFeUser($feUser) {
 		$this->feUser = $feUser;
@@ -274,7 +274,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Setter for fe group to which this bookmark should be shown to
 	 *
-	 * @param Tx_Extbase_Domain_Model_FrontendUserGroup $feGroup
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup
 	 */
 	public function setFeGroup($feGroup) {
 		$this->feGroup = $feGroup;
@@ -302,7 +302,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
 	/**
 	 * Setter for type property
 	 *
-	 * @param int $type
+	 * @param integer $type
 	 */
 	public function setType($type) {
 		$this->type = $type;

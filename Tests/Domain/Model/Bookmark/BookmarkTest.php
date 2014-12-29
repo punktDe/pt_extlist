@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
 	 * @test
 	 */
 	public function getFeGroupGetsFeGroup() {
-		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+		$expected = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup');
         $this->proxy->_set('feGroup', $expected);
 		$actual = $this->proxy->getFeGroup();
         $this->assertEquals($expected, $actual);
@@ -174,7 +174,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
 	 * @test
 	 */
 	public function setFeGroupSetsFegroup() {
-		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUserGroup');
+		$expected = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup');
 		$this->proxy->setFeGroup($expected);
 		$actual = $this->proxy->_get('feGroup');
 		$this->assertEquals($expected, $actual);
@@ -186,7 +186,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
 	 * @test
 	 */
 	public function getFeUserGetsFeUser() {
-		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+		$expected = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser');
         $this->proxy->_set('feUser', $expected);
 		$actual = $this->proxy->getFeUser();
         $this->assertEquals($expected, $actual);
@@ -198,7 +198,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
 	 * @test
 	 */
 	public function setFeUserSetsFeUser() {
-		$expected = $this->getMock('Tx_Extbase_Domain_Model_FrontendUser');
+		$expected = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser');
 		$this->proxy->setFeUser($expected);
 		$actual = $this->proxy->_get('feUser');
 		$this->assertEquals($expected, $actual);

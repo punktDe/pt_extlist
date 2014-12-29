@@ -1,6 +1,6 @@
 <?php
 
-require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php');
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Tests/Performance/TestDataSource.php');
 
 /***************************************************************
  *  Copyright notice
@@ -40,14 +40,14 @@ require_once(t3lib_extMgm::extPath('pt_extlist') . 'Tests/Performance/TestDataSo
 class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $rowCount = 20;
 
 
 
 	/**
-	 * @var int
+	 * @var integer
 	 */
 	protected $colCount = 5;
 
@@ -131,7 +131,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 	/**
 	 * Returns the number of items for current settings without pager settings
 	 *
-	 * @return int Total number of items for current data set
+	 * @return integer Total number of items for current data set
 	 */
 	public function getTotalItemsCount() {
 		// TODO: Implement getTotalItemsCount() method.
@@ -162,7 +162,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 
 
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function getRowCount() {
 		return $this->rowCount;
@@ -171,7 +171,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 
 
 	/**
-	 * @param int $colCount
+	 * @param integer $colCount
 	 * @return $this
 	 */
 	public function setColCount($colCount) {
@@ -182,7 +182,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 
 
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function getColCount() {
 		return $this->colCount;

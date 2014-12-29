@@ -49,7 +49,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds an instance of persistence manager
      *
-     * @var Tx_Extbase_Persistence_Manager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
     
@@ -85,7 +85,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 	/**
 	 * Holds an instance of the FE-UserGroup Repository
 	 *
-	 * @var Tx_Extbase_Domain_Repository_FrontendUserGroupRepository
+	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
 	 */
 	protected $feUserGroupRepository;
 
@@ -101,18 +101,18 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
 
 	/**
-	 * @param Tx_Extbase_Persistence_Manager $persistenceManager
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
 	 */
-	public function injectPersistenceManager (Tx_Extbase_Persistence_Manager $persistenceManager){
+	public function injectPersistenceManager (\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager){
 		$this->persistenceManager = $persistenceManager;
 	}
 
 
 
 	/**
-	 * @param Tx_Extbase_Domain_Repository_FrontendUserGroupRepository $feUserGroupRepository
+	 * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository $feUserGroupRepository
 	 */
-	public function injectFeUserGroupRepository (Tx_Extbase_Domain_Repository_FrontendUserGroupRepository $feUserGroupRepository){
+	public function injectFeUserGroupRepository (\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository $feUserGroupRepository){
 		$this->feUserGroupRepository = $feUserGroupRepository;
 	}
 
@@ -146,7 +146,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
 		$this->view->assign('feGroups', $feGroups);
 
-        $allBookmarks = new Tx_Extbase_Persistence_ObjectStorage();
+        $allBookmarks = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         
         if ($this->bookmarkConfiguration->getShowPublicBookmarks()) {
             $publicBookmarks = $this->bookmarkRepository->findPublicBookmarksByListIdentifier($this->listIdentifier);
@@ -251,7 +251,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
         // Assign groups for group bookmarks
         $groups = array('0' => ' ');
         if ($this->feUser != null && $this->userIsAllowedToCreateGroupBookmarks()) {
-           foreach($this->feUser->getUsergroups() as $userGroup) { /* @var $userGroup Tx_Extbase_Domain_Model_FrontendUserGroup */ 
+           foreach($this->feUser->getUsergroups() as $userGroup) { /* @var $userGroup \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup */
                   $groups[$userGroup->getUid()] = $userGroup->getTitle();
            }
            $this->view->assign('groups', $groups);
@@ -319,10 +319,10 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Adds given elements of an array to given object storage
      *
-     * @param Tx_Extbase_Persistence_ObjectStorage $objectStorage
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage
      * @param array $arrayToBeAdded
      */
-    protected function addObjectsToObjectStorageByArray(Tx_Extbase_Persistence_ObjectStorage $objectStorage, $arrayToBeAdded) {
+    protected function addObjectsToObjectStorageByArray(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage, $arrayToBeAdded) {
         foreach ($arrayToBeAdded as $key => $value) {
             $objectStorage->attach($value, $key);
         }

@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class implements a base testcase for pt_extlist testcases
@@ -105,9 +106,10 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 	
 	
 	public function setup() {
-		$typoScriptParser = t3lib_div::makeInstance('t3lib_TSparser'); /* @var $typoScriptParser t3lib_TSparser */
+		$typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
         $typoScriptParser->parse($this->extBaseSettingsString);
-        $this->extBaseSettings = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
+
+        $this->extBaseSettings = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
 
 		$this->testingFramework = new Tx_Phpunit_Framework('pt_extlist');
 	}
@@ -139,7 +141,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
     /**
      * Returns mock object for given class name with methods given in override methods overwritten in returned object.
      *
-     * @param $className Name of class to be mocked
+     * @param string $className Name of class to be mocked
      * @param array $overrideMethods Methods to be overwritten in mocked class
      * @return PHPUnit_Framework_MockObject_MockObject Mock instance of $className
      */
@@ -180,8 +182,8 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 		if (!$listIdentifier) {
 			throw new Exception('No list identifier was given and no list identifier could be found in given TS settings. 1363856864');
 		}
-		$configurationManagerMock = $this->getMock('Tx_Extbase_Configuration_ConfigurationManager', array('getConfiguration'), array(), '', FALSE);
-		$configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($typoScriptSettingsForListIdentifier)); /* @var $configurationManagerMock Tx_Extbase_Configuration_ConfigurationManager */
+		$configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', FALSE);
+		$configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($typoScriptSettingsForListIdentifier)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
 
 		$configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
 
@@ -191,13 +193,13 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_A
 		$configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
 		$configurationBuilderFactory->getInstance($listIdentifier);
 
-		$instancesContainer = t3lib_div::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
+		$instancesContainer = GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
 
-		$objectManagerMock = $this->getMock('Tx_Extbase_Object_ObjectManager', array('get'), array(), '', FALSE);
+		$objectManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Object\ObjectManager', array('get'), array(), '', FALSE);
 		$objectManagerMock->expects($this->any())
 				->method('get')
 				->with('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', $configurationBuilderFactory->getInstance($listIdentifier))
-				->will($this->returnValue(new Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend($configurationBuilderFactory->getInstance($listIdentifier)))); /* @var $objectManagerMock Tx_Extbase_Object_ObjectManager */
+				->will($this->returnValue(new Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend($configurationBuilderFactory->getInstance($listIdentifier)))); /* @var $objectManagerMock \TYPO3\CMS\Extbase\Object\ObjectManager */
 
 		$dataBackendFactory = new Tx_PtExtlist_Domain_DataBackend_DataBackendFactory();
 		$dataBackendFactory->injectObjectManager($objectManagerMock);

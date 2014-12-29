@@ -252,7 +252,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
 		
     	$pagerSettings = $pagerSettingsAll['pagerConfigs']['default'];
 		$pagerSettings['itemsPerPage'] = 10;   
-		$pagerConfigurationArray = t3lib_div::array_merge_recursive_overrule( $pagerSettings, $pagerConfigurationArray);
+		$pagerConfigurationArray = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule( $pagerSettings, $pagerConfigurationArray);
     	
     	$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getPagerSettings', 'getListIdentifier'), array(array()), '', FALSE);
     	$configurationBuilderMock->expects($this->any())

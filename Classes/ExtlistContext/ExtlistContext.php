@@ -237,7 +237,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	 * by changed configuration.
 	 *
 	 * @param string $sortingColumn Column identifier of column by which list should be sorted.
-	 * @param int $sortingDirection Sorting direction (one of Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE)
+	 * @param integer $sortingDirection Sorting direction (one of Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE)
 	 * @param bool $rebuildListCache If set to false, the list cache has to be re-calculated manually (e.g. by calling $extlistcontext->getList(TRUE))
 	 * @throws Exception, if given column identifier does not exist in this list
 	 */
@@ -289,7 +289,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext {
 	/**
 	 * Returns list object of this list context
 	 *
-	 * @param $buildNew boolean
+	 * @param boolean $buildNew
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public function getList($buildNew = false) {

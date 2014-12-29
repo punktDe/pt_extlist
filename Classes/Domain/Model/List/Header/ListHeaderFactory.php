@@ -37,7 +37,7 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 
     /**
      * Holds an array of singleton instances for each list identifier
@@ -84,7 +84,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
 	 * Build singleton instance of listHeader, a collection of header column objects
 	 * 
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param $resetListHeader boolean
+	 * @param boolean $resetListHeader
 	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
 	 */
 	public function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetListHeader = false) {

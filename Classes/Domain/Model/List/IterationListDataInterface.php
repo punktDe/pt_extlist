@@ -59,13 +59,13 @@ interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface extends Iter
 	/**
 	 * Alias function for count to be accessible in fluid
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getCount();
 
 
 	/**
-	 * @return int
+	 * @return integer
 	 */
 	public function count();
 

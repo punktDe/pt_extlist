@@ -25,8 +25,11 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Div.php';
-require_once t3lib_extMgm::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+require_once ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Div.php';
+require_once ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
 
 /**
  * Utilitty to get selectable options from typoscript
@@ -140,8 +143,8 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 
 
 	/**
-	 * @param $subpartName string
-	 * @param $config array
+	 * @param string $subpartName
+	 * @param array $config
 	 *
 	 * @return array
 	 */
@@ -158,13 +161,13 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 
 
 	/**
-	 * @param $optionName string
-	 * @param $config array
+	 * @param string $optionName
+	 * @param array $config
 	 *
 	 * @return string
 	 */
 	protected function getFlexformValue($optionName, $config) {
-		$flexformContent = t3lib_div::xml2array($config['row']['pi_flexform']);
+		$flexformContent = GeneralUtility::xml2array($config['row']['pi_flexform']);
 		if (is_array($flexformContent)
 			&& array_key_exists('data', $flexformContent)
 			&& array_key_exists('sDefault', $flexformContent['data'])
@@ -197,7 +200,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 *
 	 * @param array $config
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	protected function getCurrentPID($config) {
 		return (int)$config['row']['pid'];
@@ -211,7 +214,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	protected function loadExtListTyposcriptArray() {
 		if (is_null($this->extListTypoScript)) {
 			$extListTS = Tx_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
-			$this->extListTypoScript = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertTypoScriptArrayToPlainArray($extListTS);
+			$this->extListTypoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($extListTS);
 		}
 	}
 
@@ -245,7 +248,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 */
 	protected function getTSArrayByPath($typoScriptPath) {
 		$pathArray = explode('.', $typoScriptPath);
-		$outTSArray = Tx_Extbase_Utility_Arrays::getValueByPath($this->extListTypoScript, $pathArray);
+		$outTSArray = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($this->extListTypoScript, $pathArray);
 		if (!is_array($outTSArray)) {
 			$outTSArray = array();
 		}

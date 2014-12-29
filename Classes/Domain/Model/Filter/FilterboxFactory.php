@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
 	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-	implements t3lib_Singleton {
+	implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterFactory

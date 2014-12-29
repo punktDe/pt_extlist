@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Aggregate Column Config Object 
@@ -110,7 +111,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		$this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
 		
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array('message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619'));
-		$this->aggregateDataIdentifier = t3lib_div::trimExplode(',', $this->settings['aggregateDataIdentifier']);
+		$this->aggregateDataIdentifier = GeneralUtility::trimExplode(',', $this->settings['aggregateDataIdentifier']);
 		
 		// optional
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
@@ -123,7 +124,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 		}
 
 		if (array_key_exists('renderObj', $this->settings)) {
-			$this->renderObj = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+			$this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
 		}
 	}
 

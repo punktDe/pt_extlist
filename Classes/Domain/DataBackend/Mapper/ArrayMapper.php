@@ -70,10 +70,14 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	protected function mapWithoutConfiguration(array &$arrayData) {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
 		foreach ($arrayData as &$row) {
+
+			$row = $this->processRowForMapping($row);
 			$mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+
 			foreach ($row as $columnName => $value) {
 				$mappedRow->createAndAddCell($value, $columnName);
 			}
+
 			$listData->addRow($mappedRow);
 		}
 		return $listData;
@@ -89,8 +93,9 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 	 */
 	protected function mapWithConfiguration(array &$arrayData) {
 		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+
 		foreach ($arrayData as $row) {
-			$mappedRow = $this->mapRowWithConfiguration($row);
+			$mappedRow = $this->mapRowWithConfiguration($this->processRowForMapping($row));
 			$listData->addRow($mappedRow);
 		}
 
@@ -158,10 +163,19 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 			}
 
 		} else {
-			throw new Exception('Array key ' . $mapping->getIdentifier() . 'does not exist in row. Perhaps wrong mapping configuration?', 1280317751);
+			return $this->handleMappingError($mapping, $row);
 		}
 	}
 
+
+	/**
+	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping
+	 * @param array $row
+	 * @throws Exception
+	 */
+	protected function handleMappingError(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping, array $row) {
+		throw new Exception('Array key ' . $mapping->getIdentifier() . ' does not exist in row. Perhaps wrong mapping configuration?', 1280317751);
+	}
 
 
 	/**
@@ -175,4 +189,12 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 		return explode($mapping->getExpandGroupRowsSeparator(), $row[$mapping->getIdentifier()]);
 	}
 
+
+	/**
+	 * @param array $row
+	 * @return array
+	 */
+	protected function processRowForMapping(array &$row) {
+		return $row;
+	}
 }

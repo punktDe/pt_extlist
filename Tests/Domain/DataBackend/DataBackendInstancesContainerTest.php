@@ -45,8 +45,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendInstancesContainerTest ex
 
 	/** @test */
 	public function classIsInstantiatedAsSingleton() {
-		$instancesContainer1 = t3lib_div::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
-		$instancesContainer2 = t3lib_div::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
+		$instancesContainer1 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
+		$instancesContainer2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
 		$this->assertEquals($instancesContainer1, $instancesContainer2);
 	}
 

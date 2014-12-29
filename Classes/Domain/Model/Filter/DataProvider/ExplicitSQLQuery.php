@@ -122,7 +122,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 
 
 		$this->filterField = trim($this->filterConfig->getSettings('filterField'));
-		$this->displayFields = t3lib_div::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
+		$this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
 
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, array('info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957'));
 		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, array('info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958'));
@@ -186,7 +186,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 
 		$data =  $dataSource->executeQuery($query)->fetchAll();
 
-		if (TYPO3_DLOG) t3lib_div::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query));
+		if (TYPO3_DLOG) \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query));
 
 		return $data;
 	}

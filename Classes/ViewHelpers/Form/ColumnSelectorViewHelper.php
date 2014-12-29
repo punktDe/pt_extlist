@@ -33,7 +33,7 @@
  * @package ViewHelpers
  * @subpackage NameSpace
  */
-class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_ViewHelpers_Form_SelectViewHelper {
+class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
 
 
 	/**
@@ -54,10 +54,10 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 	 */
 	public function initialize() {
 		parent::initialize();
-		$this->captionRenderer = t3lib_div::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
+		$this->captionRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
 
 		// TODO Remove this, once we have DI
-		$configurationBuilderFactory = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+		$configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
 		$configurationBuilder = $configurationBuilderFactory->getInstance();
 
 		$this->columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();
@@ -123,7 +123,7 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends Tx_Fluid_Vi
 			$arg['name'] = $this->arguments['name'];
 			$arg['options'] = $options;
 			$arg['value'] = $selectedOptions;
-			$this->arguments = new Tx_Fluid_Core_ViewHelper_Arguments($arg);
+			$this->arguments = new \TYPO3\CMS\Fluid\Core\ViewHelper\Arguments($arg);
 
 		} else {
 			$this->arguments['options'] = $options;

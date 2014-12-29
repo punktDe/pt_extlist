@@ -76,18 +76,18 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest extends Tx_Pt
 
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be ascending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting->getItemByIndex(1)->getDirection(), 'Sorting has to be ascending here');
 
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[1]->getDirection(), 'Sorting has to be ascending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting->getItemByIndex(1)->getDirection(), 'Sorting has to be ascending here');
 
 		// test with forced direction
 		$headerColumn->injectColumnConfig($columnsConfiguration[30]);
 		$headerColumn->_injectGPVars(array('sortingState' => -1));
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting[1]->getDirection(), 'Sorting for tstamp is forced to desc, but is ascending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC, $sorting->getItemByIndex(1)->getDirection(), 'Sorting for tstamp is forced to desc, but is ascending here');
 	}
 
 
@@ -104,7 +104,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest extends Tx_Pt
 		$headerColumn->_injectGPVars(array('sortingFields' => 'field4:1'));
 		$headerColumn->init();
 		$sorting = $headerColumn->getSortingStateCollection();
-		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting[0]->getDirection(), 'Sorting has to be Ascending here');
+		$this->assertEquals(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $sorting->getItemByIndex(0)->getDirection(), 'Sorting has to be Ascending here');
 	}
 
 
@@ -158,8 +158,8 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest extends Tx_Pt
 		$sortingStateCollection = $headerColumn->getSortingStateCollection();
 
 		$this->assertEquals($sortingStateCollection->count(), 2);
-		$this->assertEquals($sortingStateCollection[0]->getDirection(), -1);
-		$this->assertEquals($sortingStateCollection[1]->getDirection(), -1);
+		$this->assertEquals($sortingStateCollection->getSortingState('field1')->getDirection(), -1);
+		$this->assertEquals($sortingStateCollection->getSortingState('field1')->getDirection(), -1);
 	}
 
 
@@ -179,10 +179,10 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest extends Tx_Pt
 		$sortingStateCollection = $headerColumn->getSortingStateCollection();
 
 		$this->assertEquals($sortingStateCollection->count(), 2);
-		$this->assertEquals($sortingStateCollection[0]->getDirection(), -1);
-		$this->assertEquals($sortingStateCollection[0]->getField()->getIdentifier(), 'field1');
-		$this->assertEquals($sortingStateCollection[1]->getDirection(), 1);
-		$this->assertEquals($sortingStateCollection[1]->getField()->getIdentifier(), 'field2');
+		$this->assertEquals($sortingStateCollection->getSortingState('field1')->getDirection(), -1);
+		$this->assertEquals($sortingStateCollection->getItemByIndex(0)->getField()->getIdentifier(), 'field1');
+		$this->assertEquals($sortingStateCollection->getItemByIndex(1)->getDirection(), 1);
+		$this->assertEquals($sortingStateCollection->getItemByIndex(1)->getField()->getIdentifier(), 'field2');
 	}
 
 

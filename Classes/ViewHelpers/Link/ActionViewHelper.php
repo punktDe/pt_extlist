@@ -33,7 +33,7 @@
  * @package ViewHelpers
  * @subpackage Link
  */
-class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
+class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 	/**
 	 * Holds instance of session persistence manager builder

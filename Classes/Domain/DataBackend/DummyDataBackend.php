@@ -96,7 +96,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
 	/**
 	 * Returns count of items 
 	 *
-	 * @return int Total count of items
+	 * @return integer Total count of items
 	 */
 	public function getTotalItemsCount() {
 		return 10;

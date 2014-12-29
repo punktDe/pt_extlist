@@ -134,7 +134,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
     /**
      * Returns the number of items for current settings without pager settings
      *
-     * @return int Total number of items for current data set
+     * @return integer Total number of items for current data set
      */
     public function getTotalItemsCount();
 

@@ -214,7 +214,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 * @test
 	 */
 	public function processRequestWithoutArgumentActionDoesNotCallBookmarkRepository() {
-		$requestMock = $this->getMockBuilder('Tx_Extbase_MVC_Request')
+		$requestMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Mvc\Request')
 			->setMethods(array('hasArgument'))
 			->disableOriginalConstructor()
 			->getMock();
@@ -238,7 +238,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 * @test
 	 */
 	public function processRequestWithoutArgumentControllerDoesNotCallBookmarkRepository(){
-		$requestMock = $this->getMockBuilder('Tx_Extbase_MVC_Request')
+		$requestMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Mvc\Request')
 			->setMethods(array('hasArgument'))
 			->disableOriginalConstructor()
 			->getMock();
@@ -263,7 +263,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 * @test
 	 */
 	public function processRequestWithWrongArgumentActionDoesNotCallBookmarkRepository(){
-		$requestMock = $this->getMockBuilder('Tx_Extbase_MVC_Request')
+		$requestMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Mvc\Request')
 			->setMethods(array('hasArgument', 'getArgument'))
 			->disableOriginalConstructor()
 			->getMock();
@@ -292,7 +292,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 * @test
 	 */
 	public function processRequestWithWrongArgumentControllerDoesNotCallBookmarkRepository(){
-		$requestMock = $this->getMockBuilder('Tx_Extbase_MVC_Request')
+		$requestMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Mvc\Request')
 			->setMethods(array('hasArgument', 'getArgument'))
 			->disableOriginalConstructor()
 			->getMock();
@@ -321,7 +321,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 * @test
 	 */
 	public function processRequestWithAlreadyRestoredBookmarkDoesNotCallBookmarkRepository(){
-		$requestMock = $this->getMockBuilder('Tx_Extbase_MVC_Request')
+		$requestMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Mvc\Request')
 			->setMethods(array('hasArgument', 'getArgument'))
 			->disableOriginalConstructor()
 			->getMock();
@@ -351,7 +351,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 * @test
 	 */
 	public function processRequestWithWithoutArgumentBookmarkDoesNotCallBookmarkRepository(){
-		$requestMock = $this->getMockBuilder('Tx_Extbase_MVC_Request')
+		$requestMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Mvc\Request')
 			->setMethods(array('hasArgument', 'getArgument'))
 			->disableOriginalConstructor()
 			->getMock();
@@ -380,7 +380,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
 	 * @test
 	 */
 	public function processRequestProcessesRequest(){
-		$requestMock = $this->getMockBuilder('Tx_Extbase_MVC_Request')
+		$requestMock = $this->getMockBuilder('\TYPO3\CMS\Extbase\Mvc\Request')
 			->setMethods(array('hasArgument', 'getArgument'))
 			->disableOriginalConstructor()
 			->getMock();

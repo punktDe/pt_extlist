@@ -54,7 +54,7 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractB
 	 * @var $debugCommand
 	 */
 	public function checkForForgottenDebugCode($debugCommand) {
-		$searchPath = t3lib_extMgm::extPath($this->extensionName);
+		$searchPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($this->extensionName);
 
 		$command = 'fgrep -i -r ' . escapeshellarg($debugCommand) . ' ' . escapeshellarg($searchPath) . '| grep ".php:"';
 		$result = `$command`;

@@ -33,7 +33,7 @@
  * @package ViewHelpers
  * @subpackage Uri
  */
-class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Holds instance of session persistence manager builder

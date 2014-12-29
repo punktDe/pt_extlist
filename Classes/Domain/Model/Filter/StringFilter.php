@@ -193,17 +193,17 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 		 * Explode to array structure
 		 */
 		if ($this->orToken && !$this->andToken) {
-			$valueArray = t3lib_div::trimExplode($this->orToken, $filterValue);
+			$valueArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->orToken, $filterValue);
 			foreach ($valueArray as &$value) {
 				$value = array($value);
 			}
 		} elseif (!$this->orToken && $this->andToken) {
-			$valueArray = array(t3lib_div::trimExplode($this->andToken, $filterValue));
+			$valueArray = array(\TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->andToken, $filterValue));
 		} elseif ($this->orToken && $this->andToken) {
-			$valueArray = t3lib_div::trimExplode($this->orToken, $filterValue);
+			$valueArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->orToken, $filterValue);
 
 			foreach ($valueArray as &$orValue) {
-				$orValue = t3lib_div::trimExplode($this->andToken, $orValue);
+				$orValue = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->andToken, $orValue);
 			}
 
 		} else {

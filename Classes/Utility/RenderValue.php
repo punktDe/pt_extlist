@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Utility to render values by renderObject or renderUserFunction
@@ -37,14 +38,14 @@
 class Tx_PtExtlist_Utility_RenderValue {
 
 	/**
-	 * @var tslib_cObj
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	protected static $cObj;
 
 
 
 	/**
-	 * @var Tx_Fluid_View_TemplateView
+	 * @var \TYPO3\CMS\Fluid\View\TemplateView
 	 */
 	protected static $fluidRenderer;
 
@@ -242,8 +243,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function renderValueByRenderObject(array $data, array $renderObjectConfig, $currentData = NULL) {
 		$renderObjectConfig['renderObj.']['setCurrent'] = $currentData;
 
-		self::getCobj()->start($data);
-		return self::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
+		Tx_PtExtbase_Div::getCobj()->start($data);
+		return Tx_PtExtbase_Div::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
 	}
 	
 	
@@ -270,8 +271,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 * @return string The rendered data
 	 */
 	public static function renderDataByConfigArray($data, $configArray) {
-		self::getCobj()->start($data);
-		return self::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
+		Tx_PtExtbase_Div::getCobj()->start($data);
+		return Tx_PtExtbase_Div::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
 	}
 
 
@@ -285,7 +286,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 	 */
 	public static function renderValueByTemplate(array $data, $templatePath) {
 		if(!file_exists($templatePath)) {
-			$templatePath = t3lib_div::getFileAbsFileName($templatePath);
+			$templatePath = GeneralUtility::getFileAbsFileName($templatePath);
 		}
 
 		self::getFluidRenderer()->setTemplatePathAndFilename($templatePath);
@@ -316,7 +317,7 @@ class Tx_PtExtlist_Utility_RenderValue {
 			
 			$rendererUserFunc = is_array($rendererUserFuncConfig) && array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig;
 
-			$content = t3lib_div::callUserFunction($rendererUserFunc, $params, $dummRef, NULL);
+			$content = GeneralUtility::callUserFunction($rendererUserFunc, $params, $dummRef, NULL);
 		}
 
 		return $content;
@@ -327,17 +328,17 @@ class Tx_PtExtlist_Utility_RenderValue {
 	/**
 	 * return the cObj object
 	 *
-	 * @return tslib_cObj;
+	 * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 * @deprecated Use Tx_PtExtbase_Div::getCobj instead
 	 */
 	public static function getCobj() {
 		if(!self::$cObj || !is_object(self::$cObj)) {
 			if(TYPO3_MODE == 'FE') {
-				if(!is_a($GLOBALS['TSFE']->cObj,'tslib_cObj')) {
+				if(!is_a($GLOBALS['TSFE']->cObj,'\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')) {
 					$GLOBALS['TSFE']->newCObj();
 				}
 			} else {
-				t3lib_div::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
+				GeneralUtility::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
 				$GLOBALS['TSFE']->newCObj();
 			}
 
@@ -352,15 +353,15 @@ class Tx_PtExtlist_Utility_RenderValue {
 	/**
 	 * Build a fluid renderer object
 	 *
-	 * @return Tx_Fluid_View_TemplateView
+	 * @return TYPO3\CMS\Fluid\View\TemplateView
 	 */
 	protected static function getFluidRenderer() {
 
 		if(!self::$fluidRenderer) {
 
-			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+			$objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 
-			self::$fluidRenderer = $objectManager->get('Tx_Fluid_View_TemplateView');
+			self::$fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\TemplateView');
 			
 			$controllerContext = $objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getControllerContext();
 			self::$fluidRenderer->setControllerContext($controllerContext);
@@ -382,8 +383,8 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function stdWrapIfPlainArray($tsConfigValue) {
 		if(!is_array($tsConfigValue)) return $tsConfigValue;
 
-		$tsArray = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
-		$content = self::getCobj()->cObjGetSingle($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
+		$tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
+		$content = Tx_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'],$tsArray['tsConfigArray.']);
 
 		return $content;
 	}
@@ -399,9 +400,9 @@ class Tx_PtExtlist_Utility_RenderValue {
 	public static function renderCObjectWithPlainArray($tsConfigValue) {
 		if(!is_array($tsConfigValue) && array_key_exists('cObject', $tsConfigValue)) return $tsConfigValue;
 		
-		$tsArray = Tx_PtExtbase_Compatibility_Extbase_Service_TypoScript::convertPlainArrayToTypoScriptArray($tsConfigValue);
+		$tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray($tsConfigValue);
 
-		return self::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
+		return Tx_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
 	}
 
 }

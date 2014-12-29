@@ -50,8 +50,8 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
      *
      * @static
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     * @param $fieldIdentifier Field identifier for field to be sorted
-     * @param $sortingDirection Sorting direction by which to sort given field
+     * @param string $fieldIdentifier Field identifier for field to be sorted
+     * @param integer $sortingDirection Sorting direction by which to sort given field
      * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
      */
     public static function getInstanceByFieldIdentifierAndSortingDirection($configurationBuilder, $fieldIdentifier, $sortingDirection) {
@@ -73,7 +73,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
 	/**
 	 * Holds direction of sorting state
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $direction;
 	
@@ -89,7 +89,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
 	 * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC
 	 *
 	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field
-	 * @param int $direction
+	 * @param integer $direction
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field, $direction) {
         if (!($direction != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE 
@@ -118,7 +118,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
 	/**
 	 * Getter for direction of this sorting state
 	 *
-	 * @return int
+	 * @return integer
 	 */
 	public function getDirection() {
 		return $this->direction;

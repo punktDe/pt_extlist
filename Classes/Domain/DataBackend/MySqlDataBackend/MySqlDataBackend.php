@@ -97,7 +97,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	/**
 	 * Holds total item count (cached)
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $totalItemsCount = NULL;
 
@@ -177,7 +177,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$rawData = $this->dataSource->executeQuery($sqlQuery)->fetchAll();
 
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
+		if (TYPO3_DLOG) \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
 
 		$mappedListData = $this->dataMapper->getMappedListData($rawData);
 		unset($rawData);
@@ -199,9 +199,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 		$dataSource = clone $this->dataSource;
 		$dataSource->executeQuery($sqlQuery);
 
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
+		if (TYPO3_DLOG) \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
 
-		$iterationListData = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData');
+		$iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData');
 		/** @var $iterationListData Tx_PtExtlist_Domain_Model_List_IterationListData */
 		$iterationListData->_injectDataSource($dataSource);
 		$iterationListData->_injectDataMapper($this->dataMapper);
@@ -256,7 +256,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$query = '{namespace extlist=Tx_PtExtlist_ViewHelpers}{namespace ptx=Tx_PtExtbase_ViewHelpers}' . $query;
 
-		$fluidView = $this->objectManager->get('Tx_Fluid_View_StandaloneView'); /** @var Tx_Fluid_View_StandaloneView $fluidView */
+		$fluidView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView'); /** @var \TYPO3\CMS\Fluid\View\StandaloneView $fluidView */
 		$fluidView->setTemplateSource($query);
 		$fluidView->assignMultiple(array(
 			'filters' => $this->filterboxCollection,
@@ -500,7 +500,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 	/**
 	 * Returns number of records for current settings without pager
 	 *
-	 * @return int Total number of records for current settings
+	 * @return integer Total number of records for current settings
 	 */
 	public function getTotalItemsCount() {
 
@@ -515,7 +515,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 			$countResult = $this->dataSource->executeQuery($query)->fetchAll();
 
-			if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
+			if (TYPO3_DLOG) \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
 
 			if ($this->listQueryParts['GROUPBY']) {
 				$this->totalItemsCount = count($countResult);
@@ -551,7 +551,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
 
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
+		if (TYPO3_DLOG) \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
 
 		return $groupDataArray;
 	}
@@ -619,7 +619,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 		$aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
 
-		if (TYPO3_DLOG) t3lib_div::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery));
+		if (TYPO3_DLOG) \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery));
 
 		return $aggregates[0];
 	}
