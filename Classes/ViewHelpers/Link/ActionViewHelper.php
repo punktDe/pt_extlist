@@ -78,5 +78,4 @@ class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends \TYPO3\CMS\Fluid\V
 		$this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($arguments);
 		return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
 	}
-	
 }
