@@ -50,8 +50,8 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState {
      *
      * @static
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     * @param $fieldIdentifier Field identifier for field to be sorted
-     * @param $sortingDirection Sorting direction by which to sort given field
+     * @param string $fieldIdentifier Field identifier for field to be sorted
+     * @param integer $sortingDirection Sorting direction by which to sort given field
      * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
      */
     public static function getInstanceByFieldIdentifierAndSortingDirection($configurationBuilder, $fieldIdentifier, $sortingDirection) {

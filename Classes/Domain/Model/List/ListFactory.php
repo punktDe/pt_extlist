@@ -76,7 +76,7 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory
 	 *
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param $resetList boolean
+	 * @param boolean $resetList
 	 * @return Tx_PtExtlist_Domain_Model_List_List
 	 */
 	public function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetList = false) {

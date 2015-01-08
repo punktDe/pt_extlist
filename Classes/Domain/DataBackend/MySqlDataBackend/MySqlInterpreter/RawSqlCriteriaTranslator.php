@@ -38,7 +38,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCr
 	/**
 	 * translate raw sql criteria
 	 * 
-	 * @param $criteria Tx_PtExtlist_Domain_QueryObject_Criteria
+	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
 	 * @return string
 	 */
 	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {

@@ -143,8 +143,8 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 
 
 	/**
-	 * @param $subpartName string
-	 * @param $config array
+	 * @param string $subpartName
+	 * @param array $config
 	 *
 	 * @return array
 	 */
@@ -161,8 +161,8 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 
 
 	/**
-	 * @param $optionName string
-	 * @param $config array
+	 * @param string $optionName
+	 * @param array $config
 	 *
 	 * @return string
 	 */

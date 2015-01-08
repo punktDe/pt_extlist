@@ -115,7 +115,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory {
 	 * Returns a singleton instance of a configurationBuilder class
 	 *
 	 * @static
-	 * @param $listIdentifier string the listidentifier of the list
+	 * @param string $listIdentifier the listidentifier of the list
 	 * @param boolean $resetConfigurationBuilder
 	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
 	 * @throws Exception

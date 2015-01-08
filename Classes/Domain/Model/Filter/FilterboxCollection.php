@@ -82,8 +82,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
     /**
      * Add Filterbox to Collection
      *  
-     * @param $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox
-     * @param $filterBoxIdentifier string
+     * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterBox
+     * @param string $filterBoxIdentifier
      * @author Daniel Lienert 
      */
     public function addFilterBox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterBox, $filterBoxIdentifier) {

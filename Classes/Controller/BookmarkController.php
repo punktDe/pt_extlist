@@ -244,7 +244,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
      * Action for creating a new bookmark
      *
      * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
-     * @dontvalidate $bookmark
+     * @@ignorevalidation $bookmark
      * @return string The rendered new action
      */
     public function newAction(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark=null) {

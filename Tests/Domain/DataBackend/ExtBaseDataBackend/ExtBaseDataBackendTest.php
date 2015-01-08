@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
                         'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
                         'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                         'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-						'dataSourceClass' => 'Tx_Extbase_Persistence_Repository',
+						'dataSourceClass' => '\TYPO3\CMS\Extbase\Persistence\Repository',
                         
                     )
                 ),

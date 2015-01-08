@@ -471,7 +471,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * @param $borderStyleSettings string
+	 * @param string $borderStyleSettings
 	 * @return array
 	 */
 	protected function buildBorderStyle($borderStyleSettings) {
@@ -501,7 +501,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
 	/**
-	 * @param $objWriter PHPExcel_Writer_IWriter
+	 * @param PHPExcel_Writer_IWriter $objWriter
 	 */
 	protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter) {
 		$objWriter->save('php://output');

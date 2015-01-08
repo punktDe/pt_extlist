@@ -136,7 +136,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 	/**
 	 * Det the Columnheader Configuration
 	 *
-	 * @param $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig
 	 */
 	public function injectColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
 		$this->columnConfig = $columnConfig;
