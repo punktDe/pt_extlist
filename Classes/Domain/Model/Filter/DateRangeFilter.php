@@ -83,11 +83,18 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	public function getCalculatedTimestampBoundaries() {
 		$timestampBoundaries = array();
 
-		$filterValueFromDateObject = new DateTime($this->filterValueFrom);
-		$timestampBoundaries['filterValueFromTimestamp'] =  $filterValueFromDateObject->getTimestamp();
+		$filterValueFromDateObject = DateTime::createFromFormat('Y-M-D', $this->filterValueFrom);
+		if ($filterValueFromDateObject === FALSE) {
+			$filterValueFromDateObject = new DateTime($this->filterValueFrom);
+		}
+		$timestampBoundaries['filterValueFromTimestamp'] = $filterValueFromDateObject->getTimestamp();
 
-		$filterValueToDateObject = new DateTime($this->filterValueTo);
-		$timestampBoundaries['filterValueToTimestamp'] = $filterValueToDateObject->getTimestamp() + (24*60*60) - 1;
+
+		$filterValueToDateObject = DateTime::createFromFormat('Y-M-D', $this->filterValueTo);
+		if ($filterValueToDateObject === FALSE) {
+			$filterValueToDateObject = new DateTime($this->filterValueTo);
+		}
+		$timestampBoundaries['filterValueToTimestamp'] = $filterValueToDateObject->getTimestamp() + (24 * 60 * 60) - 1;
 
 		return $timestampBoundaries;
 	}
@@ -223,8 +230,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		$displayValue = '-';
 
 		if ($this->filterValueFrom != '' && $this->filterValueTo != '') {
-			$filterValueFromDateObject = new DateTime($this->getFilterValueFrom());
-			$filterValueToDateObject = new DateTime($this->getFilterValueTo());
+
+			$filterValueFromDateObject = DateTime::createFromFormat('Y-M-D', $this->getFilterValueFrom());
+			$filterValueToDateObject = DateTime::createFromFormat('Y-M-D', $this->getFilterValueTo());
 			$format = $this->getFilterConfig()->getSettings('displayValueDateFormat');
 			$displayValue = $filterValueFromDateObject->format($format) . ' - ' . $filterValueToDateObject->format($format);
 		}
