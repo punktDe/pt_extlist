@@ -534,4 +534,26 @@ plugin.tx_ptextlist.prototype.filter {
 		disableFilterQuery =
 
 	}
+
+	pageTree {
+		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+		partialPath = Filter/Special/PageTreeFilter
+		dataProviderClassName = \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\PageTree
+
+		filterIdentifier =
+
+		label =
+		description =
+		inactiveOption =
+		inactiveValue =
+
+		fieldIdentifier =
+
+		rootPageUid =
+
+		renderObj = TEXT
+		renderObj {
+			dataWrap = {field:allDisplayFields}
+		}
+	}
 }
