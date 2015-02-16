@@ -43,8 +43,17 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
 	protected $rootPageUid;
 
 	/**
+	 * @var boolean
+	 */
+	protected $respectEnableFields;
+
+	/**
+	 * @var
+	 */
+	protected $respectDeletedField;
+
+	/**
 	 * @var \Tx_PtExtbase_Domain_Repository_PageRepository
-	 * @inject
 	 */
 	protected $pageRepository;
 
@@ -53,6 +62,8 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
 	 */
 	public function init() {
 		$this->rootPageUid = $this->filterConfig->getSettings('rootPageUid');
+		$this->respectEnableFields = $this->filterConfig->getSettings('respectEnableFields');
+		$this->respectDeletedField = $this->filterConfig->getSettings('respectDeletedField');
 	}
 
 	/**
@@ -61,7 +72,7 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
 	 * @return array filter options
 	 */
 	public function getRenderedOptions() {
-		$pageTree = $this->pageRepository->getPageTreeFromRootPageUid($this->rootPageUid);
+		$pageTree = $this->pageRepository->getPageTreeFromRootPageUid($this->rootPageUid, $this->respectEnableFields, $this->respectDeletedField);
 
 		$valueData = $this->getPageDataFromTreeLevel($pageTree);
 

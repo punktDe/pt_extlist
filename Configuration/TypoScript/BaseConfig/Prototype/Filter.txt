@@ -550,6 +550,8 @@ plugin.tx_ptextlist.prototype.filter {
 		fieldIdentifier =
 
 		rootPageUid =
+		respectEnableFields = 1
+		respectDeleteField = 1
 
 		renderObj = TEXT
 		renderObj {
