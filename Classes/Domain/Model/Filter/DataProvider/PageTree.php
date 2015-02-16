@@ -54,6 +54,7 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
 
 	/**
 	 * @var \Tx_PtExtbase_Domain_Repository_PageRepository
+	 * @inject
 	 */
 	protected $pageRepository;
 
