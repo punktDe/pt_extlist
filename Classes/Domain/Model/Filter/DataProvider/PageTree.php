@@ -91,7 +91,7 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
 
 		foreach ($pageTree as $pageUid => $pageData) {
 			$valueData[$pageUid] = array(
-				'value' => str_repeat(' - ', $depth) . $pageData['pageObject']->getTitle()
+				'value' => sprintf('%s%s (%s)', str_repeat(' - ', $depth), $pageData['pageObject']->getTitle(), $pageData['pageObject']->getUid())
 			);
 
 			if (count($pageData['subPages'])) {
