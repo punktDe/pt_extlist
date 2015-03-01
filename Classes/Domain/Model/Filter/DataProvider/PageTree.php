@@ -89,10 +89,16 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
 	protected function getPageDataFromTreeLevel($pageTree, $depth = 0) {
 		$valueData = array();
 
+
 		foreach ($pageTree as $pageUid => $pageData) {
-			$valueData[$pageUid] = array(
-				'value' => sprintf('%s%s (%s)', str_repeat(' - ', $depth), $pageData['pageObject']->getTitle(), $pageData['pageObject']->getUid())
-			);
+
+			$pageObject = $pageData['pageObject'];
+
+			if($pageObject instanceOf \Tx_PtExtbase_Domain_Model_Page) {
+				$valueData[$pageUid] = array(
+					'value' => sprintf('%s%s (%s)', str_repeat(' - ', $depth), $pageObject->getTitle(), $pageObject->getUid())
+				);
+			}
 
 			if (count($pageData['subPages'])) {
 				$subPageArray = $this->getPageDataFromTreeLevel($pageData['subPages'], $depth+1);

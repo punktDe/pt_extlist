@@ -137,42 +137,52 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	}
 
 
-
 	/**
-	 *
-	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPagerIdentifier()
+	 * @return string
 	 */
 	public function getPagerIdentifier() {
 		return $this->pagerIdentifier;
 	}
 
 
-
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getCurrentPage()
+	 * @return int
 	 */
 	public function getCurrentPage() {
 		return $this->currentPage;
 	}
 
 
-
 	/**
-	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::setCurrentPage()
+	 * @param int $page
 	 */
 	public function setCurrentPage($page) {
 		$this->currentPage = $page;
 	}
 
 
-
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::isEnabled()
+	 * @return bool
 	 */
 	public function isEnabled() {
-		return $this->enabled;
+		return $this->enabled && $this->itemsPerPage > 0;
 	}
 
+
+	/**
+	 * @return bool
+	 */
+	public function isNeeded() {
+		return $this->getItemCount() > $this->getItemsPerPage();
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function getNeedsToBeVisible() {
+		return $this->isNeeded() && $this->isEnabled();
+	}
 
 
 	/**
@@ -190,7 +200,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @param integer $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage) {
-		$this->itemsPerPage = $itemsPerPage;
+		$this->itemsPerPage = (int) $itemsPerPage;
 	}
 
 
@@ -211,16 +221,15 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	/**
 	 * Returns pager configuration
 	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration
+	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
 	 */
 	public function getPagerConfiguration() {
 		return $this->pagerConfiguration;
 	}
 
 
-
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstItemIndex()
+	 * @return int
 	 */
 	public function getFirstItemIndex() {
 		$firstItemIndex = ($this->currentPage - 1) * $this->itemsPerPage + 1;
@@ -228,27 +237,28 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	}
 
 
-
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastItemIndex()
+	 * @return int
 	 */
 	public function getLastItemIndex() {
-		return (($this->currentPage - 1) * $this->itemsPerPage) + $this->itemsPerPage;
+		if($this->itemsPerPage == 0) {
+			return $this->totalItemCount;
+		} else {
+			return (($this->currentPage - 1) * $this->itemsPerPage) + $this->itemsPerPage;
+		}
 	}
 
 
-
 	/**
-	 * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::setItemsCount()
+	 * @param int $itemCount
 	 */
 	public function setItemCount($itemCount) {
-		$this->totalItemCount = $itemCount;
+		$this->totalItemCount = (int) $itemCount;
 	}
 
 
-
 	/**
-	 * @see Tx_PtExtlist_Domain_DataBackend_DataSource_DataSourceObserverInterface
+	 * @param $itemCount
 	 */
 	public function updateItemCount($itemCount) {
 		$this->setItemCount($itemCount);
@@ -266,10 +276,11 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
 	/**
-	 *
 	 * @return integer $pageCount
 	 */
 	public function getPageCount() {
+		if($this->totalItemCount === 0) return 0;
+		if($this->itemsPerPage === 0) return 1;
 		return ceil(intval($this->totalItemCount) / intval($this->itemsPerPage));
 	}
 
@@ -288,9 +299,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowFirstLink()
 	 */
 	public function getShowFirstLink() {
-		if ($this->settings['showFirstLink'] == 1)
-			return true;
-		return false;
+		return $this->settings['showFirstLink'] == 1;
 	}
 
 
@@ -299,9 +308,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowLastLink()
 	 */
 	public function getShowLastLink() {
-		if ($this->settings['showLastLink'] == 1)
-			return true;
-		return false;
+		return $this->settings['showLastLink'] == 1;
 	}
 
 
@@ -310,9 +317,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowNextLink()
 	 */
 	public function getShowNextLink() {
-		if ($this->settings['showNextLink'] == 1)
-			return true;
-		return false;
+		return $this->settings['showNextLink'] == 1;
 	}
 
 
@@ -321,9 +326,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowPreviousLink()
 	 */
 	public function getShowPreviousLink() {
-		if ($this->settings['showPreviousLink'] == 1)
-			return true;
-		return false;
+		return $this->settings['showPreviousLink'] == 1;
 	}
 
 
@@ -399,5 +402,4 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	public function getItemOffset() {
 		return intval($this->getCurrentPage() - 1) * intval($this->getItemsPerPage());
 	}
-
 }

@@ -62,7 +62,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 *
 	 * @var boolean
 	 */
-	protected $enabled = false;
+	protected $enabled = FALSE;
 
 
 
@@ -100,10 +100,16 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
 		$pager->setCurrentPage($this->currentPage);
-		// As if one pager is enabled, the collection is marked a enabled.
+<<<<<<< HEAD
+		// If one pager is enabled, the collection is marked enabled.
+
+=======
+		// As if one pager is enabled, the collection is marked as enabled.
+>>>>>>> 35d0b148022b2078eae4444a20dd70eabb8aec6a
 		if ($pager->isEnabled()) {
-			$this->enabled = true;
+			$this->enabled = TRUE;
 		}
+
 		$this->addItem($pager, $pager->getPagerIdentifier());
 	}
 
@@ -192,11 +198,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	}
 
 
-
 	/**
-	 * (non-PHPdoc)
-	 *
-	 * @see Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface::_injectGPVars()
+	 * @param array $GPVars
 	 */
 	public function _injectGPVars($GPVars) {
 		if (array_key_exists('page', $GPVars)) {
@@ -205,11 +208,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	}
 
 
-
 	/**
-	 * (non-PHPdoc)
-	 *
-	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::_injectSessionData()
+	 * @param array $sessionData
 	 */
 	public function _injectSessionData(array $sessionData) {
 		if (array_key_exists('page', $sessionData)) {
