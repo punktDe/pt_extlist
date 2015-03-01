@@ -200,7 +200,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @param integer $itemsPerPage
 	 */
 	public function setItemsPerPage($itemsPerPage) {
-		$this->itemsPerPage = $itemsPerPage;
+		$this->itemsPerPage = (int) $itemsPerPage;
 	}
 
 
@@ -253,7 +253,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @param int $itemCount
 	 */
 	public function setItemCount($itemCount) {
-		$this->totalItemCount = $itemCount;
+		$this->totalItemCount = (int) $itemCount;
 	}
 
 
@@ -279,6 +279,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @return integer $pageCount
 	 */
 	public function getPageCount() {
+		if($this->totalItemCount === 0) return 0;
+		if($this->itemsPerPage === 0) return 1;
 		return ceil(intval($this->totalItemCount) / intval($this->itemsPerPage));
 	}
 
