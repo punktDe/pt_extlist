@@ -100,12 +100,8 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 */
 	public function addPager(Tx_PtExtlist_Domain_Model_Pager_PagerInterface $pager) {
 		$pager->setCurrentPage($this->currentPage);
-<<<<<<< HEAD
-		// If one pager is enabled, the collection is marked enabled.
 
-=======
-		// As if one pager is enabled, the collection is marked as enabled.
->>>>>>> 35d0b148022b2078eae4444a20dd70eabb8aec6a
+		// If one pager is enabled, the collection is marked enabled.
 		if ($pager->isEnabled()) {
 			$this->enabled = TRUE;
 		}
