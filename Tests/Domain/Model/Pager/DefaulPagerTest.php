@@ -101,8 +101,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
 	 * @param $isNeeded
 	 */
 	public function isNeeded($itemsPerPage, $totalItemCount, $isNeeded) {
-		$this->pager->_set('itemPerPage', $itemsPerPage);
-		$this->pager->_set('totalItemCount', $totalItemCount);
+		$this->pager->setItemsPerPage($itemsPerPage);
+		$this->pager->setItemCount($totalItemCount);
 
 		$this->assertEquals($isNeeded, $this->pager->isNeeded());
 	}

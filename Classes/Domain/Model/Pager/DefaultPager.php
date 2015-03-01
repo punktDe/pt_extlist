@@ -173,7 +173,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 	 * @return bool
 	 */
 	public function isNeeded() {
-		return $this->getItemCount() >= $this->getItemsPerPage();
+		return $this->getItemCount() > $this->getItemsPerPage();
 	}
 
 
