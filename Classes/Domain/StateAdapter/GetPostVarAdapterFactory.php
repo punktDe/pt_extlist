@@ -49,14 +49,6 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO
 	protected $extbaseContext;
 
 
-
-	/**
-	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
-	 */
-	protected $gpVarsAdapterInstance;
-
-
-
 	/**
 	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory
 	 */
@@ -74,20 +66,13 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO
 	}
 
 
-
-	public function initializeObject() {
-		$this->gpVarsAdapterInstance = $this->gpVarsAdapterFactory->getInstance($this->extbaseContext->getExtensionNamespace());
-	}
-
-
-
     /**
 	 * Factory method for GET/POST Var Adapter.
 	 * 
 	 * @return Tx_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
 	 */
 	public function getInstance() {
-		return $this->gpVarsAdapterInstance;
+		return  $this->gpVarsAdapterFactory->getInstance($this->extbaseContext->getExtensionNamespace());
 	}
 
 }
