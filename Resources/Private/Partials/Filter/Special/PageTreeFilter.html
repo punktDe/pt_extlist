@@ -1,0 +1,45 @@
+{namespace extlist=Tx_PtExtlist_ViewHelpers}
+<extlist:comment>
+<!--  
+Partial for rendering a select filter
+
+Here is a list of objects / variables that can be accessed in this partial
+
+Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                      Holds an instance for the group filter object
+
+
+@package Typo3
+@subpackage pt_extlist
+@author Michael Knoll <knoll@punkt.de>
+@author Daniel Lienert <lienert@punkt.de>
+-->
+</extlist:comment>
+
+<div class="outer-wrapper">
+	<f:if condition="{filter.label}">
+		<label for="{filter.filterIdentifier}" class="filter-label">
+			{filter.label}
+		</label>
+	</f:if>
+	<div class="outer-field-wrapper">
+		<div class="field-wrapper type-select">
+			<f:form.select id="{filter.filterIdentifier}" multiple="{filter.multiple}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}" options="{filter.options}" value="{filter.value}" additionalAttributes="{f:if(condition:'{filter.filterConfig.submitOnChange}', then: {onchange: 'onchange:submit();'}, else: {onchange: ''})}" />
+		</div>
+
+		<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
+
+		<f:if condition="{filter.filterConfig.invertable}">
+			<div class="field-wrapper type-select">
+				<f:form.checkbox name="{extlist:namespace.FormElementName(object:filter, property:'invert')}" value="1" checked="{filter.invert}" />
+				<label>
+					<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:filter.invert" />
+				</label>
+			</div>
+		</f:if>
+		<f:if condition="{filter.validate} == 0">
+			<div class="error">
+				<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:general.validationError" />{filter.errorMessage}
+			</div>
+		</f:if>
+	</div>
+</div>

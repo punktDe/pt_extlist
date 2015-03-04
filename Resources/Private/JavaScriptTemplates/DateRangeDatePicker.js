@@ -1,6 +1,6 @@
 $(function() {
 	var baseId = "#typo3-ptextlist-filter-daterangedatepicker-" + "###filterIdentifier###".toLowerCase();
-	var altFormat = "yymmdd";
+	var altFormat = "yy-mm-dd";
 	var datePickerFromOptions = {
 		altFormat: altFormat,
 		altField: baseId + "-daterangefrom"

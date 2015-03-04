@@ -250,7 +250,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 	 * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extbaseContext
 	 */
 	protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$extListContext = self::$staticObjectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext');
+		$extListContext = self::$staticObjectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext'); /* @var Tx_PtExtlist_ExtlistContext_ExtlistContext $extListContext */
 
 		$extListContext->_injectDataBackend($dataBackend);
 		$extListContext->init();

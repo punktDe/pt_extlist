@@ -76,31 +76,29 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
 	 * 
 	 * @var integer
 	 */
-	protected $itemsPerPage;
+	protected $itemsPerPage = 10;
 	
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
-	 */
+
+
 	protected function init() {
 		
 		$this->setRequiredValue('pagerIdentifier', 'No Pager Identifier given');
 
 		$this->setRequiredValue('pagerClassName', 'No class name given for pager "' . $this->pagerIdentifier . '" 1280408323');
-		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->pagerClassName), array('message' => 'Given pager class ' . $pagerSettings['pagerClassName'] . ' does not exist or is not loaded! 1279541306'));
-		
+		if(!class_exists($this->pagerClassName)) {
+			throw new \Exception(sprintf('Given pager class %s does not exist or is not loaded!', $this->pagerClassName), 1279541306);
+		}
+
 		$this->setBooleanIfExistsAndNotNothing('enabled');
 		$this->setValueIfExistsAndNotNothing('templatePath');
 		$this->setValueIfExistsAndNotNothing('itemsPerPage');
 	}
-	
-	
-	/** 
-	 * Enter description here ...
+
+
+	/**
 	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param string $pagerIdentifier
-	 * @param array $pagerSettings
+	 * @param array $pagerIdentifier
+	 * @param array $settings
 	 */
 	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $settings) {
 		$settings['pagerIdentifier'] = $pagerIdentifier;

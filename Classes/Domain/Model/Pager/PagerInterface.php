@@ -46,6 +46,14 @@ interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface {
 	public function isEnabled();
 
 
+	/**
+	 * Returns if a pager is needed, depending
+	 * on the page size and the row count of the list data.
+	 *
+	 * @return bool
+	 */
+	public function isNeeded();
+
 
 	/**
 	 * Returns the pager identifier.

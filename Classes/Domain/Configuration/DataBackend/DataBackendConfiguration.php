@@ -109,7 +109,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
 	 * @param string $dataMapperClassName
 	 */
 	protected function checkAndSetDataMapperClass($dataMapperClassName) {
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataMapperClassName, array('message' => 'dataMaperClass must not be empty! 1281178475'));   
+		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataMapperClassName, array('message' => 'dataMapperClass must not be empty! 1281178475'));
 		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataMapperClassName), array('message' =>' Datamapper class ' . $dataMapperClassName . ' does not exist! 1281178476'));
 		$this->dataMapperClass = $dataMapperClassName;
 	}

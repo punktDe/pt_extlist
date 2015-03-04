@@ -173,15 +173,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
 	/**
-	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager
-	 */
-	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager) {
-		parent::injectConfigurationManager($configurationManager);
-	}
-
-
-
-	/**
 	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
 	 */
 	public function injectDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory) {
