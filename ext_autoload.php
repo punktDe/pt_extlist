@@ -28,6 +28,7 @@ return array(
     'tx_ptextlist_tests_performance_testdatasource' => $extensionBasePath . 'Tests/Performance/TestDataSource.php',
 	'tx_ptextlist_domain_databackend_datasource_iterationdatasourceinterface' => $extensionBasePath . 'Classes/Domain/DataBackend/DataSource/IterationDataSourceInterface.php',
 	'tx_ptextlist_tests_domain_model_filter_dataprovider_abstractdataproviderbasetestcase' => $extensionBasePath . 'Tests/Domain/Model/Filter/DataProvider/AbstractDataProviderBaseTestcase.php',
+	'tx_ptextlist_foreign_phpexcel' => $extensionBasePath . 'Classes/Foreign/PHPExcel',
 
 	'user_tx_ptextlist_utility_flexformdataprovider' => $extensionBasePath.'Classes/Utility/FlexformDataProvider.php',
 
