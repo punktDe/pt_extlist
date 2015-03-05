@@ -43,7 +43,7 @@ class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controll
 	 */
 	public function getFilterElementAction($fullQualifiedFilterIdentifier) {
 		$filterConfig = $this->getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier);
-		$filter = Tx_PtExtlist_Domain_Model_Filter_FilterFactory::createInstance($filterConfig);
+		$filter = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterFactory')->createInstance($filterConfig);
 		
 		$this->view->assign('filter', $filter);
 	}
