@@ -76,7 +76,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
 	 * 
 	 * @var integer
 	 */
-	protected $itemsPerPage = 10;
+	protected $itemsPerPage;
 	
 
 
