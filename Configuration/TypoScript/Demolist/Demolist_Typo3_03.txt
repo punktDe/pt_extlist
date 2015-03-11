@@ -3,7 +3,7 @@
 # with pt_extlist
 #
 # You have to add a fullText index to the table to get the demo runnig. Use the following query:
-# ALTER TABLE `t3develop`.`cache_extensions` ADD FULLTEXT `FullText` (`extkey` ,`title` ,`description` ,`authorname` ,`uploadcomment` )
+# ALTER TABLE `t3develop`.`tx_extensionmanager_domain_model_extension` ADD FULLTEXT `FullText` (`extkey` ,`title` ,`description` ,`authorname` ,`uploadcomment` )
 #
 # @author Michael Knoll <knoll@punkt.de>, Daniel Lienert <lienert@punkt.de>
 # @package Typo3
@@ -19,11 +19,11 @@ plugin.tx_ptextlist.settings {
 		backendConfig {
 
 			tables (
-				cache_extensions
+				tx_extensionmanager_domain_model_extension
 			)
 
 			baseGroupByClause (
-                extkey
+                extension_key
             )
 		}
 
@@ -31,32 +31,32 @@ plugin.tx_ptextlist.settings {
 		fields {
 
 			extkey {
-				table = cache_extensions
-				field = extkey
+				table = tx_extensionmanager_domain_model_extension
+				field = extension_key
 			}
 
 			title {
-				table = cache_extensions
+				table = tx_extensionmanager_domain_model_extension
 				field = title
 			}
 
 			description {
-				table = cache_extensions
+				table = tx_extensionmanager_domain_model_extension
 				field = description
 			}
 
 			authorname {
-				table = cache_extensions
-				field = authorname
+				table = tx_extensionmanager_domain_model_extension
+				field = author_name
 			}
 
 			uploadcomment {
-				table = cache_extensions
-				field = uploadcomment
+				table = tx_extensionmanager_domain_model_extension
+				field = update_comment
 			}
 
 			category {
-			    table = cache_extensions
+			    table = tx_extensionmanager_domain_model_extension
 			    field = category
 			}
 		}
@@ -96,7 +96,7 @@ plugin.tx_ptextlist.settings {
 
 		}
 
-	    pager.itemsPerPage = 100
+	    pager.itemsPerPage = 30
 
 		filters {
 			filterBox1 {
