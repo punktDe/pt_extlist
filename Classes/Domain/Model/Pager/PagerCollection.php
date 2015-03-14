@@ -199,7 +199,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 */
 	public function _injectGPVars($GPVars) {
 		if (array_key_exists('page', $GPVars)) {
-			$this->currentPage = (int)$GPVars['page'];
+			$this->currentPage = (int) $GPVars['page'] > 0 ? (int) $GPVars['page'] : 1;
 		}
 	}
 
@@ -209,7 +209,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Colle
 	 */
 	public function _injectSessionData(array $sessionData) {
 		if (array_key_exists('page', $sessionData)) {
-			$this->currentPage = (int)$sessionData['page'];
+			$this->currentPage = (int) $sessionData['page'] > 0 ? (int) $sessionData['page'] : 1;
 		}
 	}
 
