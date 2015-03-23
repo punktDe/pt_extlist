@@ -87,7 +87,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
 	/**
 	 * Returns identifier of associated list
 	 *
-	 * return @string Identifier of associated list
+	 * @return string Identifier of associated list
 	 */
 	public function getListIdentifier();
 
