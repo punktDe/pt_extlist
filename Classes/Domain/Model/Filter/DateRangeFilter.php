@@ -52,6 +52,26 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	protected $filterValueTo = null;
 
 
+	/**
+	 *
+	 * Holds the value of the From filter value (value to start date range) before manipulation
+	 * manipulation is necessary if filter value is empty
+	 *
+	 * @var string
+	 */
+	protected $originalFilterValueFrom = null;
+
+
+
+	/**
+	 * Holds the value of the To filter value (value to start date range) before manipulation
+	 * manipulation is necessary if filter value is empty
+	 *
+	 * @var string
+	 */
+	protected $originalFilterValueTo = null;
+
+
 
 	/**
 	 * Creates filter query from filter value and settings
@@ -61,9 +81,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 */
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
 
-		if ($this->filterValueFrom == '' || $this->filterValueTo == '') {
-			return NULL;
-		}
+		$this->storeAndManipulateOriginalFilterValuesIfNecessary();
+
+		$this->filterValueFrom = ($this->filterValueFrom == '') ? date('d.m.Y', mktime(0, 0, 0, 1, 1, 1970)) : $this->filterValueFrom;
+		$this->filterValueTo = ($this->filterValueTo == '') ? date('d.m.Y') : $this->filterValueTo;
 
 		$timestampBoundaries = $this->getCalculatedTimestampBoundaries();
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
@@ -71,6 +92,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		$criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $timestampBoundaries['filterValueFromTimestamp']);
 		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $timestampBoundaries['filterValueToTimestamp']);
 		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria1, $criteria2);
+
+		$this->resetOriginalFilterValues();
+
 		return $criteria;
 	}
 
@@ -98,6 +122,29 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		return $timestampBoundaries;
 	}
 
+
+	/**
+	 * Store original filter values and manipulate them if value is empty
+	 * this makes it possible to fill only one filter value
+	 *
+	 * @return void
+	 */
+	protected function storeAndManipulateOriginalFilterValuesIfNecessary() {
+		$this->originalFilterValueFrom = $this->filterValueFrom;
+		$this->originalFilterValueTo = $this->filterValueTo;
+
+		$this->filterValueFrom = ($this->filterValueFrom == '') ? date('d.m.Y', mktime(0, 0, 0, 1, 1, 1970)) : $this->filterValueFrom;
+		$this->filterValueTo = ($this->filterValueTo == '') ? date('d.m.Y') : $this->filterValueTo;
+	}
+
+
+	/**
+	 * @return void
+	 */
+	protected function resetOriginalFilterValues() {
+		$this->filterValueFrom = $this->originalFilterValueFrom;
+		$this->filterValueTo = $this->originalFilterValueTo;
+	}
 
 
 	/**
