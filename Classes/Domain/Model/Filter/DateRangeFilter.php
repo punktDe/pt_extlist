@@ -81,11 +81,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 */
 	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
 
-		$this->storeAndManipulateOriginalFilterValuesIfNecessary();
-
-		$this->filterValueFrom = ($this->filterValueFrom == '') ? date('d.m.Y', mktime(0, 0, 0, 1, 1, 1970)) : $this->filterValueFrom;
-		$this->filterValueTo = ($this->filterValueTo == '') ? date('d.m.Y') : $this->filterValueTo;
-
 		$timestampBoundaries = $this->getCalculatedTimestampBoundaries();
 		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
@@ -93,7 +88,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		$criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $timestampBoundaries['filterValueToTimestamp']);
 		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria1, $criteria2);
 
-		$this->resetOriginalFilterValues();
 
 		return $criteria;
 	}
@@ -104,20 +98,25 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 	 * @return array
 	 */
 	public function getCalculatedTimestampBoundaries() {
+
+		$this->storeAndManipulateOriginalFilterValuesIfNecessary();
+
 		$timestampBoundaries = array();
 
-		$filterValueFromDateObject = DateTime::createFromFormat('Y-M-D', $this->filterValueFrom);
+		$filterValueFromDateObject = DateTime::createFromFormat('Y-m-d', $this->filterValueFrom);
 		if ($filterValueFromDateObject === FALSE) {
 			$filterValueFromDateObject = new DateTime($this->filterValueFrom);
 		}
 		$timestampBoundaries['filterValueFromTimestamp'] = $filterValueFromDateObject->getTimestamp();
 
 
-		$filterValueToDateObject = DateTime::createFromFormat('Y-M-D', $this->filterValueTo);
+		$filterValueToDateObject = DateTime::createFromFormat('Y-m-d', $this->filterValueTo);
 		if ($filterValueToDateObject === FALSE) {
 			$filterValueToDateObject = new DateTime($this->filterValueTo);
 		}
 		$timestampBoundaries['filterValueToTimestamp'] = $filterValueToDateObject->getTimestamp() + (24 * 60 * 60) - 1;
+
+		$this->resetOriginalFilterValues();
 
 		return $timestampBoundaries;
 	}
@@ -133,8 +132,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		$this->originalFilterValueFrom = $this->filterValueFrom;
 		$this->originalFilterValueTo = $this->filterValueTo;
 
-		$this->filterValueFrom = ($this->filterValueFrom == '') ? date('d.m.Y', mktime(0, 0, 0, 1, 1, 1970)) : $this->filterValueFrom;
-		$this->filterValueTo = ($this->filterValueTo == '') ? date('d.m.Y') : $this->filterValueTo;
+		$this->filterValueFrom = ($this->filterValueFrom == '') ? date('Y-m-d', mktime(0, 0, 0, 1, 1, 1970)) : $this->filterValueFrom;
+		$this->filterValueTo = ($this->filterValueTo == '') ? date('Y-m-d') : $this->filterValueTo;
 	}
 
 
@@ -277,8 +276,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 
 		if ($this->filterValueFrom != '' && $this->filterValueTo != '') {
 
-			$filterValueFromDateObject = DateTime::createFromFormat('Y-M-D', $this->getFilterValueFrom());
-			$filterValueToDateObject = DateTime::createFromFormat('Y-M-D', $this->getFilterValueTo());
+			$filterValueFromDateObject = DateTime::createFromFormat('Y-m-d', $this->getFilterValueFrom());
+			$filterValueToDateObject = DateTime::createFromFormat('Y-m-d', $this->getFilterValueTo());
 			$format = $this->getFilterConfig()->getSettings('displayValueDateFormat');
 			$displayValue = $filterValueFromDateObject->format($format) . ' - ' . $filterValueToDateObject->format($format);
 		}
