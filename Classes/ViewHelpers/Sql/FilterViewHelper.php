@@ -49,12 +49,11 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Cor
 		}
 
 		if(is_array($filterField) && $filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter){
-			return sprintf('%s >= %s AND %s <= %s',$filterField[0], strtotime($filter->getFilterValueFrom()), $filterField[1],strtotime($filter->getFilterValueTo()));
-
+			return sprintf('%s >= %s AND %s <= %s',$filterField[0], $filter->getCalculatedTimestampBoundaries()['filterValueFromTimestamp'], $filterField[1],$filter->getCalculatedTimestampBoundaries()['filterValueToTimestamp']);
 		}
 
 		if($filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter){
-			return sprintf('%s >= %s AND %1$s <= %s',$filterField, strtotime($filter->getFilterValueFrom()),strtotime($filter->getFilterValueTo()));
+			return sprintf('%s >= %s AND %1$s <= %s',$filterField, $filter->getCalculatedTimestampBoundaries()['filterValueFromTimestamp'],$filter->getCalculatedTimestampBoundaries()['filterValueToTimestamp']);
 		}
 
 
