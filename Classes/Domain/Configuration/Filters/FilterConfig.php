@@ -332,14 +332,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 		$this->setValueIfExistsAndNotNothing('renderUserFunctions');
 		$this->setValueIfExistsAndNotNothing('renderTemplate');
 
-		if ($this->configValueExiststAndNotNothing('inactiveOption')) {
+		if ($this->configValueExistsAndNotNothing('inactiveOption')) {
 			$this->inactiveOption = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
 			if (GeneralUtility::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
 				$this->inactiveOption = LocalizationUtility::translate($this->inactiveOption, '');
 			}
 		}
 
-		if ($this->configValueExiststAndNotNothing('label')) {
+		if ($this->configValueExistsAndNotNothing('label')) {
 			$this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
 			if (GeneralUtility::isFirstPartOfStr($this->label, 'LLL:')) {
 				$this->label = LocalizationUtility::translate($this->label, '');
