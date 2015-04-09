@@ -44,26 +44,29 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Cor
 	 */
 	public function render(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterField = '', $notActiveQuery = '1=1') {
 
-		if(!$filter->isActive()) {
+		if (!$filter->isActive()) {
 			return $notActiveQuery;
 		}
 
-		if(is_array($filterField) && $filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter){
-			return sprintf('%s >= %s AND %s <= %s',$filterField[0], $filter->getCalculatedTimestampBoundaries()['filterValueFromTimestamp'], $filterField[1],$filter->getCalculatedTimestampBoundaries()['filterValueToTimestamp']);
-		}
+		if ($filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter) {
 
-		if($filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter){
-			return sprintf('%s >= %s AND %1$s <= %s',$filterField, $filter->getCalculatedTimestampBoundaries()['filterValueFromTimestamp'],$filter->getCalculatedTimestampBoundaries()['filterValueToTimestamp']);
-		}
+			$calculatedTimestampBoundaries = $filter->getCalculatedTimestampBoundaries();
 
+			if (is_array($filterField)) {
+				return sprintf('%s >= %s AND %s <= %s', $filterField[0], $calculatedTimestampBoundaries['filterValueFromTimestamp'], $filterField[1], $calculatedTimestampBoundaries['filterValueToTimestamp']);
+			} else {
+				return sprintf('%s >= %s AND %1$s <= %s', $filterField, $calculatedTimestampBoundaries['filterValueFromTimestamp'], $calculatedTimestampBoundaries['filterValueToTimestamp']);
+			}
+		}
 
 		$filterValue = $filter->getValue();
 		$filterField = $filterField ? $filterField : Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
 
-		if(is_array($filterValue)) {
+		if (is_array($filterValue)) {
 			return sprintf('%s in (%s)', $filterField, implode(', ', $filterValue));
 		} else {
 			return sprintf('%s = %s', $filterField, $filterValue);
 		}
+		
 	}
 }
