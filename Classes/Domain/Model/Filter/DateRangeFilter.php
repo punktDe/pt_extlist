@@ -103,14 +103,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 
 		$timestampBoundaries = array();
 
-		$filterValueFromDateObject = DateTime::createFromFormat('Y-m-d', $this->filterValueFrom);
+		$filterValueFromDateObject = DateTime::createFromFormat('Y-m-d/', $this->filterValueFrom);
 		if ($filterValueFromDateObject === FALSE) {
 			$filterValueFromDateObject = new DateTime($this->filterValueFrom);
 		}
 		$timestampBoundaries['filterValueFromTimestamp'] = $filterValueFromDateObject->getTimestamp();
 
-
-		$filterValueToDateObject = DateTime::createFromFormat('Y-m-d', $this->filterValueTo);
+		$filterValueToDateObject = DateTime::createFromFormat('Y-m-d/', $this->filterValueTo);
 		if ($filterValueToDateObject === FALSE) {
 			$filterValueToDateObject = new DateTime($this->filterValueTo);
 		}
