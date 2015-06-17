@@ -34,7 +34,7 @@ plugin.tx_ptextlist.prototype.pager {
 
 			delta = 3
 			firstItemDelta = 0
-			lastItemDelta = 0
+			lastItemDelta = 1
 
 			fillItem = ...
 		}
