@@ -55,13 +55,20 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DateRangeFilterTest extends Tx_PtEx
 		return array(
 			'sameDate' => array(
 				'userDateFromValue' => '20101027',
-				'$userDateToValue'  => '20101027',
+				'userDateToValue'  => '20101027',
 				'timestampBoundaries' => array(
 					'filterValueFromTimestamp' => 1288130400,
 					'filterValueToTimestamp' => 1288216799
 				)
-
-			)
+			),
+			'sameDateDefaultFormat' => array(
+				'userDateFromValue' => '2010-10-27',
+				'userDateToValue'  => '2010-10-27',
+				'timestampBoundaries' => array(
+					'filterValueFromTimestamp' => 1288130400,
+					'filterValueToTimestamp' => 1288216799
+				)
+			),
 		);
 	}
 

@@ -103,17 +103,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 
 		$timestampBoundaries = array();
 
-		$filterValueFromDateObject = DateTime::createFromFormat('Y-m-d', $this->filterValueFrom);
-		if ($filterValueFromDateObject === FALSE) {
-			$filterValueFromDateObject = new DateTime($this->filterValueFrom);
-		}
+		$filterValueFromDateObject = $this->buildDateObjectFromFilterValue($this->filterValueFrom);
 		$timestampBoundaries['filterValueFromTimestamp'] = $filterValueFromDateObject->getTimestamp();
 
-
-		$filterValueToDateObject = DateTime::createFromFormat('Y-m-d', $this->filterValueTo);
-		if ($filterValueToDateObject === FALSE) {
-			$filterValueToDateObject = new DateTime($this->filterValueTo);
-		}
+		$filterValueToDateObject = $this->buildDateObjectFromFilterValue($this->filterValueTo);
 		$timestampBoundaries['filterValueToTimestamp'] = $filterValueToDateObject->getTimestamp() + (24 * 60 * 60) - 1;
 
 		$this->resetOriginalFilterValues();
@@ -226,8 +219,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 		return $sessionArray;
 	}
 
-	
-	
+
+
 	/**
 	 * Reset this filter
 	 */
@@ -276,13 +269,27 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 
 		if ($this->filterValueFrom != '' && $this->filterValueTo != '') {
 
-			$filterValueFromDateObject = DateTime::createFromFormat('Y-m-d', $this->getFilterValueFrom());
-			$filterValueToDateObject = DateTime::createFromFormat('Y-m-d', $this->getFilterValueTo());
+			$filterValueFromDateObject = $this->buildDateObjectFromFilterValue($this->getFilterValueFrom());
+			$filterValueToDateObject = $this->buildDateObjectFromFilterValue($this->getFilterValueTo());
 			$format = $this->getFilterConfig()->getSettings('displayValueDateFormat');
 			$displayValue = $filterValueFromDateObject->format($format) . ' - ' . $filterValueToDateObject->format($format);
 		}
 
 		return $displayValue;
+	}
+
+	/**
+	 * @param $filterValue
+	 *
+	 * @return DateTime
+	 */
+	protected function buildDateObjectFromFilterValue($filterValue) {
+		$filterValueDateObject = DateTime::createFromFormat('Y-m-d/', $filterValue);
+		if ($filterValueDateObject === FALSE) {
+			$filterValueDateObject = new DateTime($filterValue);
+		}
+
+		return $filterValueDateObject;
 	}
 
 }
