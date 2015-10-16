@@ -52,11 +52,11 @@ $GLOBALS['TSFE']->tmpl->setup = $tsParser->setup;
 $GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 
 $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtbase_Utility_AjaxDispatcher'); /* @var $dispatcher Tx_PtExtbase_Utility_AjaxDispatcher */
-$dispatcher->initCallArguments();
 $dispatcher->setExtensionName('PtExtlist');
 $dispatcher->setPluginName('');
 $dispatcher->setControllerName('');
 $dispatcher->setActionName(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('action'));
+$dispatcher->initCallArguments();
 
 header('Content-Type: text/html; charset=' . $TSFE->renderCharset);
 echo $dispatcher->dispatch();
