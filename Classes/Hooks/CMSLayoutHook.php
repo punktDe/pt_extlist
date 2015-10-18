@@ -22,6 +22,7 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class implements hook for tx_cms_layout
@@ -52,7 +53,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 	 * @param unknown_type $pObj
 	 */
 	public function getExtensionSummary($params, &$pObj) {
-		$data = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($params['row']['pi_flexform']);
+		$data = GeneralUtility::xml2array($params['row']['pi_flexform']);
 		$this->init($data);
 
 		if(is_array($data)) {
@@ -97,10 +98,10 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
 	 */
 	protected function init($data) {
 		
-		$templatePathAndFilename = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
+		$templatePathAndFilename = GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
 				
 		// Fluid
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+		$objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 		$this->fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);		
 	}
