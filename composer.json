@@ -1,7 +1,7 @@
 {
   "name": "punktde/pt_extlist",
   "type": "typo3-cms-extension",
-  "description": "Collection of tools for Extbase Extension development",
+  "description": "List generator for TYPO3 based on Extbase. See http://extlist.punkt.de for further details.",
   "keywords": [
     "TYPO3",
     "extension"
@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PunktDe\\PtExtbase\\": "Classes"
+      "PunktDe\\PtExtlist\\": "Classes"
     }
   },
   "replace": {
