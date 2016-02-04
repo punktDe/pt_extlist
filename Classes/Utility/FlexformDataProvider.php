@@ -149,7 +149,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 	 * @return array
 	 */
 	protected function getTypoScriptOptionsOfList($subpartName, $config) {
-		$options = NULL;
+		$options = [];
 		$activeListIdentifier = $this->getFlexformValue('settings.listIdentifier', $config);
 		if ($activeListIdentifier !== NULL) {
 			$options = $this->getTypoScriptKeyList('settings.listConfig.' . $activeListIdentifier . '.' . $subpartName);
@@ -197,13 +197,14 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider {
 
 	/**
 	 * get the current pid from config array
+     * remove (int)$config['row']['pid'] as soon 6.2 is no longer supported
 	 *
 	 * @param array $config
 	 *
 	 * @return integer
 	 */
 	protected function getCurrentPID($config) {
-		return (int)$config['row']['pid'];
+		return isset($config['flexParentDatabaseRow']['pid']) ? (int)$config['flexParentDatabaseRow']['pid'] : (int)$config['row']['pid'];
 	}
 
 
