@@ -33,12 +33,16 @@
   * @subpackage pt_extlist
   * @author Michael Knoll 
   */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock extends Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig  {
-
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier = null, $settings = null) {
-		if ($filterboxIdentifier == null) $filterboxIdentifier = 'test';
-		if ($settings == null) $settings = array();
-		parent::__construct($configurationBuilder, $filterboxIdentifier, $settings);
-	}
-
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock extends Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+{
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier = null, $settings = null)
+    {
+        if ($filterboxIdentifier == null) {
+            $filterboxIdentifier = 'test';
+        }
+        if ($settings == null) {
+            $settings = array();
+        }
+        parent::__construct($configurationBuilder, $filterboxIdentifier, $settings);
+    }
 }

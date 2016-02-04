@@ -34,53 +34,56 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-
-	/**
-	 * ListIdentifier of the default sorting column
-	 *
-	 * @var string
-	 */
-	protected $sortingColumn;
-
-
-	
-	/**
-	 * The sorting direction of default sorting column
-	 * 
-	 * @var integer
-	 */
-	protected $sortingDirection;
+class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+{
+    /**
+     * ListIdentifier of the default sorting column
+     *
+     * @var string
+     */
+    protected $sortingColumn;
 
 
-	
-	/**
-	 * Set the properties
-	 */
-	protected function init() {
-		$this->setValueIfExistsAndNotNothing('sortingColumn');
-		if($this->sortingColumn) {
-			list($this->sortingColumn, $direction) = explode(' ', $this->sortingColumn);
-			
-			$this->sortingDirection = strtoupper($direction) == 'DESC' ? -1 : 1;
-		}
-	}
-	
-	
-	
-	/**
-	 * @return string defaultSortingColumn
-	 */
-	public function getSortingColumn() {
-		return trim($this->sortingColumn);
-	}
+    
+    /**
+     * The sorting direction of default sorting column
+     * 
+     * @var integer
+     */
+    protected $sortingDirection;
+
+
+    
+    /**
+     * Set the properties
+     */
+    protected function init()
+    {
+        $this->setValueIfExistsAndNotNothing('sortingColumn');
+        if ($this->sortingColumn) {
+            list($this->sortingColumn, $direction) = explode(' ', $this->sortingColumn);
+            
+            $this->sortingDirection = strtoupper($direction) == 'DESC' ? -1 : 1;
+        }
+    }
+    
+    
+    
+    /**
+     * @return string defaultSortingColumn
+     */
+    public function getSortingColumn()
+    {
+        return trim($this->sortingColumn);
+    }
 
 
 
-	/**
-	 * @return integer
-	 */
-	public function getSortingDirection() {
-		return $this->sortingDirection;
-	}
+    /**
+     * @return integer
+     */
+    public function getSortingDirection()
+    {
+        return $this->sortingDirection;
+    }
 }

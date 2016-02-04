@@ -34,32 +34,32 @@
  * @author Daniel Lienert
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
-	
-	/**
-	 * Holds name of field for this sorting configuration
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig
+{
+    /**
+     * Holds name of field for this sorting configuration
      *
-	 * @var string
-	 */
-	protected $field; 
+     * @var string
+     */
+    protected $field;
 
 
 
-	/**
-	 * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC / SORTINGSTATE_DESC / SORTINGSTATE_NONE
+    /**
+     * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC / SORTINGSTATE_DESC / SORTINGSTATE_NONE
      *
-	 * @var integer 
-	 */
-	protected $direction;
+     * @var integer 
+     */
+    protected $direction;
 
 
 
-	/**
-	 * if this is set to true, the direction cannot be changed 
-	 * 
-	 * @var bool
-	 */
-	protected $forceDirection;
+    /**
+     * if this is set to true, the direction cannot be changed 
+     * 
+     * @var bool
+     */
+    protected $forceDirection;
 
 
 
@@ -69,10 +69,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
      * @var string
      */
     protected $label;
-	
-	
-	// TODO: implement sorting order
-	
+    
+    
+    // TODO: implement sorting order
+
 
     /**
      * Constructor for sorting configuration
@@ -81,15 +81,16 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
      * @param $direction
      * @param $forceDirection
      */
-	public function __construct($field, $direction, $forceDirection, $label='') {
+    public function __construct($field, $direction, $forceDirection, $label='')
+    {
         // TODO assert that direction is 1 / 0 / -1
-		$this->direction = $direction;
-		$this->field = $field; 
-		$this->forceDirection = $forceDirection;
+        $this->direction = $direction;
+        $this->field = $field;
+        $this->forceDirection = $forceDirection;
         $this->label = $label;
-	}
-	
-	
+    }
+    
+    
 
     /**
      * Setter for sorting direction
@@ -97,44 +98,48 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
      * @param $direction
      * @return void
      */
-	public function setDirection($direction) {
-		if($this->forceDirection == false) {
-			$this->direction = $direction;
-		}
-	}
-	
-	
+    public function setDirection($direction)
+    {
+        if ($this->forceDirection == false) {
+            $this->direction = $direction;
+        }
+    }
+    
+    
 
     /**
      * Getter for sorting direction
      *
      * @return integer
      */
-	public function getDirection() {
-		return $this->direction;
-	}
-	
-	
+    public function getDirection()
+    {
+        return $this->direction;
+    }
+    
+    
 
     /**
      * Returns true if direction is forced for sorted field
      *
      * @return bool
      */
-	public function getForceDirection() {
-		return $this->forceDirection;
-	}
-	
-	
+    public function getForceDirection()
+    {
+        return $this->forceDirection;
+    }
+    
+    
 
     /**
      * Name of field for which this sorting configuration is set
      *
      * @return string
      */
-	public function getField() {
-		return $this->field;
-	}
+    public function getField()
+    {
+        return $this->field;
+    }
 
 
 
@@ -143,8 +148,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig {
      * 
      * @return string
      */
-    public function getLabel() {
+    public function getLabel()
+    {
         return $this->label;
     }
-    
 }

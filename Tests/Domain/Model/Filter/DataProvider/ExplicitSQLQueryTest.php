@@ -33,120 +33,121 @@
  * @subpackage Model/Filter/DataProvider
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTestcase extends Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderBaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTestcase extends Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderBaseTestcase
+{
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
 
-	public function setup() {
-
-
-		$this->initDefaultConfigurationBuilderMock();
-
-		$this->defaultFilterSettings = array(
-			'filterIdentifier' => 'test',
-			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-			'partialPath' => 'Filter/SelectFilter',
-			'fieldIdentifier' => 'field1',
-			'displayFields' => 'field1,field2',
-			'filterField' => 'field3',
-			'invert' => '0',
-			'optionsSqlQuery' => array('select' => 'username, email',
-				'from' => 'be_users',
-				'where' => 'deleted = 0',
-				'orderBy' => 'username',
-				'groupBy' => 'username',
-				'limit' => 10
-			)
-		);
-	}
-
-
-
-	/**
-	 * @test
-	 */
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery'));
-	}
+        $this->defaultFilterSettings = array(
+            'filterIdentifier' => 'test',
+            'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+            'partialPath' => 'Filter/SelectFilter',
+            'fieldIdentifier' => 'field1',
+            'displayFields' => 'field1,field2',
+            'filterField' => 'field3',
+            'invert' => '0',
+            'optionsSqlQuery' => array('select' => 'username, email',
+                'from' => 'be_users',
+                'where' => 'deleted = 0',
+                'orderBy' => 'username',
+                'groupBy' => 'username',
+                'limit' => 10
+            )
+        );
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function optionsSqlQuerySettingsAreSetCorrectly() {
-		$dataProvider = $this->buildAccessibleDataProvider();
-
-
-		$this->assertEquals($dataProvider->_get('selectPart'), 'username, email');
-		$this->assertEquals($dataProvider->_get('wherePart'), 'deleted = 0');
-		$this->assertEquals($dataProvider->_get('fromPart'), 'be_users');
-		$this->assertEquals($dataProvider->_get('orderByPart'), 'username');
-		$this->assertEquals($dataProvider->_get('groupByPart'), 'username');
-		$this->assertEquals($dataProvider->_get('limitPart'), 10);
-
-		$this->assertEquals($dataProvider->_get('filterField'), 'field3');
-		$this->assertEquals($dataProvider->_get('displayFields'), array('field1', 'field2'));
-	}
+    /**
+     * @test
+     */
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery'));
+    }
 
 
 
-	/**
-	 * @return array
-	 */
-	public function faultySettingsDataProvider() {
+    /**
+     * @test
+     */
+    public function optionsSqlQuerySettingsAreSetCorrectly()
+    {
+        $dataProvider = $this->buildAccessibleDataProvider();
 
-		$defaultFilterSettings = array(
-			'filterIdentifier' => 'test',
-			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-			'partialPath' => 'Filter/SelectFilter',
-			'fieldIdentifier' => 'field1',
-			'displayFields' => 'field1,field2',
-			'filterField' => 'field3',
-			'invert' => '0',
-			'optionsSqlQuery' => array('select' => 'username, email',
-				'from' => 'be_users',
-				'where' => 'deleted = 0',
-				'orderBy' => 'username',
-				'groupBy' => 'username',
-				'limit' => 10
-			)
-		);
 
-		$faultySettings = array();
-		$faultySettings['SelectPartIsMissing'] = array('faultySettings' => $defaultFilterSettings);
-		unset($faultySettings['SelectPartIsMissing']['faultySettings']['optionsSqlQuery']['select']);
+        $this->assertEquals($dataProvider->_get('selectPart'), 'username, email');
+        $this->assertEquals($dataProvider->_get('wherePart'), 'deleted = 0');
+        $this->assertEquals($dataProvider->_get('fromPart'), 'be_users');
+        $this->assertEquals($dataProvider->_get('orderByPart'), 'username');
+        $this->assertEquals($dataProvider->_get('groupByPart'), 'username');
+        $this->assertEquals($dataProvider->_get('limitPart'), 10);
 
-		$faultySettings['FromPartIsMissing'] = array('faultySettings' => $defaultFilterSettings);
-		unset($faultySettings['FromPartIsMissing']['faultySettings']['optionsSqlQuery']['from']);
-
-		return $faultySettings;
-	}
+        $this->assertEquals($dataProvider->_get('filterField'), 'field3');
+        $this->assertEquals($dataProvider->_get('displayFields'), array('field1', 'field2'));
+    }
 
 
 
-	/**
-	 * @test
-	 * @dataProvider faultySettingsDataProvider
-	 */
-	public function throwExceptionOnMissingParameter($faultySettings) {
-		try {
-			$dataProvider = $this->buildAccessibleDataProvider($faultySettings);
-		} catch (Exception $e) {
-			return;
-		}
+    /**
+     * @return array
+     */
+    public function faultySettingsDataProvider()
+    {
+        $defaultFilterSettings = array(
+            'filterIdentifier' => 'test',
+            'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+            'partialPath' => 'Filter/SelectFilter',
+            'fieldIdentifier' => 'field1',
+            'displayFields' => 'field1,field2',
+            'filterField' => 'field3',
+            'invert' => '0',
+            'optionsSqlQuery' => array('select' => 'username, email',
+                'from' => 'be_users',
+                'where' => 'deleted = 0',
+                'orderBy' => 'username',
+                'groupBy' => 'username',
+                'limit' => 10
+            )
+        );
 
-		$this->fail('No Exception is thrown.');
-	}
+        $faultySettings = array();
+        $faultySettings['SelectPartIsMissing'] = array('faultySettings' => $defaultFilterSettings);
+        unset($faultySettings['SelectPartIsMissing']['faultySettings']['optionsSqlQuery']['select']);
+
+        $faultySettings['FromPartIsMissing'] = array('faultySettings' => $defaultFilterSettings);
+        unset($faultySettings['FromPartIsMissing']['faultySettings']['optionsSqlQuery']['from']);
+
+        return $faultySettings;
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function getDataFromSqlServerReturnsData() {
-		$dataProvider = $this->buildAccessibleDataProvider();
-		$data = $dataProvider->_call('getDataFromSqlServer');
-		$this->assertTrue(count($data) > 0);
-	}
+    /**
+     * @test
+     * @dataProvider faultySettingsDataProvider
+     */
+    public function throwExceptionOnMissingParameter($faultySettings)
+    {
+        try {
+            $dataProvider = $this->buildAccessibleDataProvider($faultySettings);
+        } catch (Exception $e) {
+            return;
+        }
 
+        $this->fail('No Exception is thrown.');
+    }
+
+
+
+    /**
+     * @test
+     */
+    public function getDataFromSqlServerReturnsData()
+    {
+        $dataProvider = $this->buildAccessibleDataProvider();
+        $data = $dataProvider->_call('getDataFromSqlServer');
+        $this->assertTrue(count($data) > 0);
+    }
 }
-

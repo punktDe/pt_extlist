@@ -33,31 +33,29 @@
  * @package Domain
  * @subpackage Model\List
  */
-interface Tx_PtExtlist_Domain_Model_List_ListDataInterface {
-
-
-	/**
-	 * @param integer $id
-	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 */
-	public function getRow($id);
-
-
-
-	/**
-	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 */
-	public function getFirstRow();
+interface Tx_PtExtlist_Domain_Model_List_ListDataInterface
+{
+    /**
+     * @param integer $id
+     * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+     */
+    public function getRow($id);
 
 
 
-	/**
-	 * Getter for count of items in list data
-	 *
-	 * (Fluid-compatible getter for count() method in collection)
-	 *
-	 * @return integer Count of objects in list data
-	 */
-	public function getCount();
+    /**
+     * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+     */
+    public function getFirstRow();
 
+
+
+    /**
+     * Getter for count of items in list data
+     *
+     * (Fluid-compatible getter for count() method in collection)
+     *
+     * @return integer Count of objects in list data
+     */
+    public function getCount();
 }

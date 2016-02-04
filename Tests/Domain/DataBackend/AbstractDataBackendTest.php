@@ -35,17 +35,18 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-	
-
-
-	/** @test */
-    public function assertThatClassExists() {
-    	$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend');
+class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
     }
+    
 
+
+    /** @test */
+    public function assertThatClassExists()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend');
+    }
 }

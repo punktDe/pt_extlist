@@ -34,39 +34,40 @@
  * @author Michael Knoll 
  */
 class Tx_PtExtlist_Domain_Renderer_RendererChainFactory
-	extends Tx_PtExtlist_Domain_AbstractComponentFactory
-	implements \TYPO3\CMS\Core\SingletonInterface {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererFactory
-	 */
-	protected $rendererFactory;
-
-
-
-	/**
-	 * @param Tx_PtExtlist_Domain_Renderer_RendererFactory $rendererFactory
-	 */
-	public function injectRendererFactory(Tx_PtExtlist_Domain_Renderer_RendererFactory $rendererFactory) {
-		$this->rendererFactory = $rendererFactory;
-	}
+    extends Tx_PtExtlist_Domain_AbstractComponentFactory
+    implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Renderer_RendererFactory
+     */
+    protected $rendererFactory;
 
 
 
-	/**
-	 * Creates an instance of renderer chain object for given renderer chain configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration
-	 * @return Tx_PtExtlist_Domain_Renderer_RendererChain
-	 */
-	public function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration) {
-		$rendererChain = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererChain', $rendererChainConfiguration);
-		//$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
-		foreach ($rendererChainConfiguration as $rendererConfiguration) {
-			$renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
-			$rendererChain->addRenderer($renderer);
-		}
-		return $rendererChain;
-	}
-	
+    /**
+     * @param Tx_PtExtlist_Domain_Renderer_RendererFactory $rendererFactory
+     */
+    public function injectRendererFactory(Tx_PtExtlist_Domain_Renderer_RendererFactory $rendererFactory)
+    {
+        $this->rendererFactory = $rendererFactory;
+    }
+
+
+
+    /**
+     * Creates an instance of renderer chain object for given renderer chain configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration
+     * @return Tx_PtExtlist_Domain_Renderer_RendererChain
+     */
+    public function getRendererChain(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration)
+    {
+        $rendererChain = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererChain', $rendererChainConfiguration);
+        //$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
+        foreach ($rendererChainConfiguration as $rendererConfiguration) {
+            $renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
+            $rendererChain->addRenderer($renderer);
+        }
+        return $rendererChain;
+    }
 }

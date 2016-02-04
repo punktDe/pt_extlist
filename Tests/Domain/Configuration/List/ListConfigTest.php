@@ -34,45 +34,50 @@
  * @author Daniel Lienert
  * @see  Tx_PtExtlist_Domain_Configuration_List_ListConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Holds an instance of list configuration
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
+     */
+    protected $listConfiguration;
+    
+    
+    
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $this->listConfiguration = $this->configurationBuilderMock->buildListConfiguration();
+    }
+        
+    
+    
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_List_ListConfig');
+    }
+    
+    public function testGetHeaderPartial()
+    {
+        $this->assertEquals($this->listConfiguration->getHeaderPartial(), 'List/ListHeader');
+    }
 
-	/**
-	 * Holds an instance of list configuration
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
-	 */
-	protected $listConfiguration;
-	
-	
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-		$this->listConfiguration = $this->configurationBuilderMock->buildListConfiguration();
-	}
-		
-	
-	
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_List_ListConfig');
-	}
-	
-	public function testGetHeaderPartial() {
-		$this->assertEquals($this->listConfiguration->getHeaderPartial(), 'List/ListHeader');
-	}
+    public function testGetBodyPartial()
+    {
+        $this->assertEquals($this->listConfiguration->getBodyPartial(), 'List/ListBody');
+    }
+    
+    public function testGetAggregateRowsPartial()
+    {
+        $this->assertEquals($this->listConfiguration->getAggregateRowsPartial(), 'List/AggregateRows');
+    }
 
-	public function testGetBodyPartial() {
-		$this->assertEquals($this->listConfiguration->getBodyPartial(), 'List/ListBody');
-	}
-	
-	public function testGetAggregateRowsPartial() {
-		$this->assertEquals($this->listConfiguration->getAggregateRowsPartial(), 'List/AggregateRows');
-	}
-
-	/**
-	 * @test
-	 */
-	public function getUseIterationListData() {
-		$this->assertTrue($this->listConfiguration->getUseIterationListData());
-	}
-	
+    /**
+     * @test
+     */
+    public function getUseIterationListData()
+    {
+        $this->assertTrue($this->listConfiguration->getUseIterationListData());
+    }
 }

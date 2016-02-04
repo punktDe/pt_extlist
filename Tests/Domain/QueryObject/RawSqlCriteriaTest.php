@@ -34,13 +34,13 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/** @test */
-	public function getRawSqlStringReturnsSqlStringGivenInConstructor() {
-		$fakeRawSqlString = "THIS IS A FAKE RAW SQL QUERY";
+class Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /** @test */
+    public function getRawSqlStringReturnsSqlStringGivenInConstructor()
+    {
+        $fakeRawSqlString = "THIS IS A FAKE RAW SQL QUERY";
         $rawSqlCriteria = new Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria($fakeRawSqlString);
         $this->assertEquals($rawSqlCriteria->getRawSqlString(), $fakeRawSqlString);
-	}
-
+    }
 }

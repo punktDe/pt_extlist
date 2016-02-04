@@ -34,466 +34,481 @@
  * @subpackage Security
  * @see Tx_PtExtlist_Domain_Security_GroupSecurity
  */
-class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $filterConfigMock;
 
-	protected $filterConfigMock;
 
 
+    protected $securityMock;
 
-	protected $securityMock;
 
 
+    public function setUp()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 
-	public function setUp() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $settings = $this->configurationBuilderMock->getSettings();
 
-		$settings = $this->configurationBuilderMock->getSettings();
+        $settings['prototype'] = array();
+        $settings['listIdentifier'] = 'test';
 
-		$settings['prototype'] = array();
-		$settings['listIdentifier'] = 'test';
+        $settings['listConfig']['test']['fields']['field1']['accessGroups'] = 'foo, bar';
+        $settings['listConfig']['test']['fields']['field3']['accessGroups'] = 'foobar';
+        $settings['listConfig']['test']['fields']['field4']['accessGroups'] = 'whatever';
+        $settings['listConfig']['test']['fields']['field4']['table'] = 'whatever';
+        $settings['listConfig']['test']['fields']['field4']['field'] = 'whatever';
+        $settings['listConfig']['test']['fields']['field5']['accessGroups'] = '';
+        $settings['listConfig']['test']['fields']['field5']['table'] = 'whatever';
+        $settings['listConfig']['test']['fields']['field5']['field'] = 'whatever';
 
-		$settings['listConfig']['test']['fields']['field1']['accessGroups'] = 'foo, bar';
-		$settings['listConfig']['test']['fields']['field3']['accessGroups'] = 'foobar';
-		$settings['listConfig']['test']['fields']['field4']['accessGroups'] = 'whatever';
-		$settings['listConfig']['test']['fields']['field4']['table'] = 'whatever';
-		$settings['listConfig']['test']['fields']['field4']['field'] = 'whatever';
-		$settings['listConfig']['test']['fields']['field5']['accessGroups'] = '';
-		$settings['listConfig']['test']['fields']['field5']['table'] = 'whatever';
-		$settings['listConfig']['test']['fields']['field5']['field'] = 'whatever';
 
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($settings);
 
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($settings);
+        $this->filterConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', array('getAccessGroups', 'getFieldIdentifier'), array($this->configurationBuilderMock), '', false);
 
-		$this->filterConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', array('getAccessGroups', 'getFieldIdentifier'), array($this->configurationBuilderMock), '', FALSE);
+        $this->securityMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Security_GroupSecurity', array('dummy'), array(), '', false);
+    }
 
-		$this->securityMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Security_GroupSecurity', array('dummy'), array(), '', FALSE);
-	}
 
 
+    public function testGroups()
+    {
+        $collection = $this->configurationBuilderMock->buildFieldsConfiguration();
+        $groups = $collection->getItemById('field1')->getAccessGroups();
+        $this->assertEquals('foo', $groups[0]);
+        $this->assertEquals('bar', $groups[1]);
+    }
 
-	public function testGroups() {
-		$collection = $this->configurationBuilderMock->buildFieldsConfiguration();
-		$groups = $collection->getItemById('field1')->getAccessGroups();
-		$this->assertEquals('foo', $groups[0]);
-		$this->assertEquals('bar', $groups[1]);
-	}
 
 
+    public function testNoAccessSet()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field2')));
 
-	public function testNoAccessSet() {
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field2')));
+        $this->assertTrue($access);
+    }
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
 
-		$this->assertTrue($access);
-	}
 
+    public function testFieldAccess()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
 
-	public function testFieldAccess() {
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
+        $this->securityMock->_set('userGroups', 'foo');
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
 
+        $this->securityMock->_set('userGroups', 'bar');
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->securityMock->_set('userGroups', 'foo');
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
 
-		$this->securityMock->_set('userGroups', 'bar');
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
 
-	}
+    public function testMoreFieldsAccess()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1,field3')));
 
 
+        $this->securityMock->_set('userGroups', 'foobar, bar');
 
-	public function testMoreFieldsAccess() {
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1,field3')));
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
 
-		$this->securityMock->_set('userGroups', 'foobar, bar');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
+    public function testFieldDenied()
+    {
+        $this->filterConfigMock
+                ->expects($this->once())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
+        $this->securityMock->_set('userGroups', 'whatever');
 
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
-	public function testFieldDenied() {
-		$this->filterConfigMock
-				->expects($this->once())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
 
-		$this->securityMock->_set('userGroups', 'whatever');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
+    public function testMoreFieldsDenied()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1,field3')));
 
 
+        $this->securityMock->_set('userGroups', 'foobar,whatever');
 
-	public function testMoreFieldsDenied() {
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1,field3')));
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
 
-		$this->securityMock->_set('userGroups', 'foobar,whatever');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
+    public function testFilterAccess()
+    {
+        // Field2 doesn't have a accessRule
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field2')));
 
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foobar')));
 
+        $this->securityMock->_set('userGroups', 'foobar');
 
-	public function testFilterAccess() {
-		// Field2 doesn't have a accessRule
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field2')));
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foobar')));
 
-		$this->securityMock->_set('userGroups', 'foobar');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
+    public function testFilterDenied()
+    {
+        // Field2 doesn't have a accessRule
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field2')));
 
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foobar')));
 
+        $this->securityMock->_set('userGroups', 'noaccess');
 
-	public function testFilterDenied() {
-		// Field2 doesn't have a accessRule
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field2')));
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foobar')));
 
-		$this->securityMock->_set('userGroups', 'noaccess');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
+    public function testFilterAndFieldSameGroupsAccess()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foo')));
 
+        $this->securityMock->_set('userGroups', 'foo');
 
-	public function testFilterAndFieldSameGroupsAccess() {
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foo')));
 
-		$this->securityMock->_set('userGroups', 'foo');
+    public function testFilterAndFieldDifferentGroupsAccess()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foobar')));
 
+        $this->securityMock->_set('userGroups', 'foo,foobar');
 
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-	public function testFilterAndFieldDifferentGroupsAccess() {
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foobar')));
+    public function testFilterAndFieldSameGroupsDenied()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
-		$this->securityMock->_set('userGroups', 'foo,foobar');
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foo')));
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
+        $this->securityMock->_set('userGroups', 'foobar');
 
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
 
-	public function testFilterAndFieldSameGroupsDenied() {
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
+    public function testFilterAndFieldDifferentGroupsDeniedCausedByOnlyOneGroup()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foo')));
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foobar')));
 
-		$this->securityMock->_set('userGroups', 'foobar');
+        $this->securityMock->_set('userGroups', 'foo');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
 
 
-	public function testFilterAndFieldDifferentGroupsDeniedCausedByOnlyOneGroup() {
+    public function testFilterAndFieldDifferentGroupsDeniedCausedByWrongGroups()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('bar')));
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foobar')));
+        $this->securityMock->_set('userGroups', 'foo,foobar');
 
-		$this->securityMock->_set('userGroups', 'foo');
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
 
 
+    public function testFilterAndFieldSameGroupsDeniedCausedByWrongGroups()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field1')));
 
-	public function testFilterAndFieldDifferentGroupsDeniedCausedByWrongGroups() {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foo')));
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
+        $this->securityMock->_set('userGroups', 'foobar');
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('bar')));
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
-		$this->securityMock->_set('userGroups', 'foo,foobar');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
 
+    public function testEmptyAccessGroups()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field5')));
 
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array(' ')));
 
-	public function testFilterAndFieldSameGroupsDeniedCausedByWrongGroups() {
+        $this->securityMock->_set('userGroups', 'foobar');
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field1')));
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foo')));
 
-		$this->securityMock->_set('userGroups', 'foobar');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
+    public function testEmptyAccessGroupsSpaces()
+    {
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($this->buildFieldCollection('field5')));
 
+        $this->filterConfigMock
+                ->expects($this->any())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array(' ')));
 
+        $this->securityMock->_set('userGroups', 'foobar');
 
-	public function testEmptyAccessGroups() {
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field5')));
+        $access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array(' ')));
 
-		$this->securityMock->_set('userGroups', 'foobar');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
+    public function testColumnAccess()
+    {
+        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('special' => 'test')));
 
+        $columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', false);
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($fieldConfigCollection));
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foo')));
 
+        $this->securityMock->_set('userGroups', 'foo');
 
-	public function testEmptyAccessGroupsSpaces() {
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($this->buildFieldCollection('field5')));
+        $access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->filterConfigMock
-				->expects($this->any())
-				->method('getAccessGroups')
-				->will($this->returnValue(array(' ')));
 
-		$this->securityMock->_set('userGroups', 'foobar');
 
-		$access = $this->securityMock->isAccessableFilter($this->filterConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
+    public function testColumnDenied()
+    {
+        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('special' => 'test')));
 
+        $columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', false);
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($fieldConfigCollection));
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foo')));
 
+        $this->securityMock->_set('userGroups', 'foobar');
 
-	public function testColumnAccess() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('special' => 'test')));
+        $access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
-		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', FALSE);
-		$columnConfigMock
-				->expects($this->once())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($fieldConfigCollection));
-		$columnConfigMock
-				->expects($this->once())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foo')));
 
-		$this->securityMock->_set('userGroups', 'foo');
 
-		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
+    public function testColumnAndFieldSameGroupsAccess()
+    {
+        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
 
+        $columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', false);
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($fieldConfigCollection));
 
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foo')));
 
-	public function testColumnDenied() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('special' => 'test')));
+        $this->securityMock->_set('userGroups', 'foo');
 
-		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', FALSE);
-		$columnConfigMock
-				->expects($this->once())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($fieldConfigCollection));
-		$columnConfigMock
-				->expects($this->once())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foo')));
+        $access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->securityMock->_set('userGroups', 'foobar');
 
-		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
 
+    public function testColumnAndFieldDeniedCausedByDifferentGroups()
+    {
+        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
 
+        $columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', false);
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($fieldConfigCollection));
 
-	public function testColumnAndFieldSameGroupsAccess() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foobar')));
 
-		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', FALSE);
-		$columnConfigMock
-				->expects($this->once())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($fieldConfigCollection));
+        $this->securityMock->_set('userGroups', 'foo');
 
-		$columnConfigMock
-				->expects($this->once())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foo')));
+        $access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
-		$this->securityMock->_set('userGroups', 'foo');
 
-		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
 
+    public function testColumnAndFieldDifferentGroupsAccess()
+    {
+        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
 
+        $columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', false);
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($fieldConfigCollection));
 
-	public function testColumnAndFieldDeniedCausedByDifferentGroups() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getAccessGroups')
+                ->will($this->returnValue(array('foobar', 'whatever')));
 
-		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', FALSE);
-		$columnConfigMock
-				->expects($this->once())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($fieldConfigCollection));
+        $this->securityMock->_set('userGroups', 'foo,foobar');
 
-		$columnConfigMock
-				->expects($this->once())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foobar')));
+        $access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+        $this->assertTrue($access);
+    }
 
-		$this->securityMock->_set('userGroups', 'foo');
 
-		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
 
+    public function testColumnAndFieldDifferentGroupsDeniedCausedByOnlyOneGroup()
+    {
+        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
 
+        $columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', false);
+        $columnConfigMock
+                ->expects($this->once())
+                ->method('getFieldIdentifier')
+                ->will($this->returnValue($fieldConfigCollection));
 
-	public function testColumnAndFieldDifferentGroupsAccess() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
+        $columnConfigMock
+                ->expects($this->never())
+                ->method('getAccessGroups');
 
-		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', FALSE);
-		$columnConfigMock
-				->expects($this->once())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($fieldConfigCollection));
 
-		$columnConfigMock
-				->expects($this->once())
-				->method('getAccessGroups')
-				->will($this->returnValue(array('foobar', 'whatever')));
+        $this->securityMock->_set('userGroups', 'foobar');
 
-		$this->securityMock->_set('userGroups', 'foo,foobar');
+        $access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
+        $this->assertFalse($access);
+    }
 
-		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
-		$this->assertTrue($access);
-	}
 
 
-
-	public function testColumnAndFieldDifferentGroupsDeniedCausedByOnlyOneGroup() {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('special' => 'test', 'accessGroups' => 'foo, bar')));
-
-		$columnConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('getFieldIdentifier', 'getAccessGroups'), array(), '', FALSE);
-		$columnConfigMock
-				->expects($this->once())
-				->method('getFieldIdentifier')
-				->will($this->returnValue($fieldConfigCollection));
-
-		$columnConfigMock
-				->expects($this->never())
-				->method('getAccessGroups');
-
-
-		$this->securityMock->_set('userGroups', 'foobar');
-
-		$access = $this->securityMock->isAccessableColumn($columnConfigMock, $this->configurationBuilderMock);
-		$this->assertFalse($access);
-	}
-
-
-
-	protected function buildFieldCollection($fields) {
-		$fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fields);
-		return $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
-	}
-
+    protected function buildFieldCollection($fields)
+    {
+        $fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fields);
+        return $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+    }
 }

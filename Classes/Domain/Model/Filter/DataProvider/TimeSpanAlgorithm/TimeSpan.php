@@ -33,90 +33,96 @@
  * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan implements Tx_PtExtbase_Collection_SortableEntityInterface {
-
-	/**
-	 * @var DateTime
-	 */
-	protected $startDate;
-
-
-
-	/**
-	 * @var DateTime
-	 */
-	protected $endDate;
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan implements Tx_PtExtbase_Collection_SortableEntityInterface
+{
+    /**
+     * @var DateTime
+     */
+    protected $startDate;
 
 
 
-	/**
-	 * @param DateTime $startDate
-	 * @return void
-	 */
-	public function setStartDate($startDate) {
-		$this->startDate = $startDate;
-	}
+    /**
+     * @var DateTime
+     */
+    protected $endDate;
 
 
 
-	/**
-	 * @return DateTime
-	 */
-	public function getStartDate() {
-		return $this->startDate;
-	}
+    /**
+     * @param DateTime $startDate
+     * @return void
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+    }
 
 
 
-	/**
-	 * @param DateTime $endDate
-	 * @return void
-	 */
-	public function setEndDate($endDate) {
-		$this->endDate = $endDate;
-	}
+    /**
+     * @return DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
 
 
 
-	/**
-	 * @return DateTime
-	 */
-	public function getEndDate() {
-		return $this->endDate;
-	}
-
-
-	
-	/**
-	 * Implementing SortableEntityInterface
-	 * 
-	 * @return integer Timestamp
-	 */
-	public function getSortingValue() {
-		return $this->getStartDate()->format('U');
-	}
+    /**
+     * @param DateTime $endDate
+     * @return void
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+    }
 
 
 
-	/**
-	 * Return value as JSON string
-	 *
-	 * @return string
-	 */
-	public function getJsonValue() {
-		return json_encode(array(
-			'start' => $this->getStartDate()->format('Ymd'),
-			'end' => $this->getEndDate()->format('Ymd'))
-		);
-	}
+    /**
+     * @return DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+
+    
+    /**
+     * Implementing SortableEntityInterface
+     * 
+     * @return integer Timestamp
+     */
+    public function getSortingValue()
+    {
+        return $this->getStartDate()->format('U');
+    }
 
 
 
- 	/**
-	 * @return string
-	 */
-	public function __toString() {
-		return $this->getJsonValue();
-	}
+    /**
+     * Return value as JSON string
+     *
+     * @return string
+     */
+    public function getJsonValue()
+    {
+        return json_encode(array(
+            'start' => $this->getStartDate()->format('Ymd'),
+            'end' => $this->getEndDate()->format('Ymd'))
+        );
+    }
 
+
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getJsonValue();
+    }
 }

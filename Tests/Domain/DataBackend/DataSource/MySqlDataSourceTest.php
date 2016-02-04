@@ -35,30 +35,33 @@
  * @subpackage Domain/DataBackend/DataSource
  * @see Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /** @test */
+    public function assertThatClassExists()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
+    }
+    
+    
+    
+    public function testInjectDataSource()
+    {
+        $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
+        $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
+        $pdo = new PDO("sqlite::memory:");
+        $mysqlDataSource->injectDbObject($pdo);
+    }
 
-	/** @test */
-	public function assertThatClassExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
-	}
-	
-	
-	
-	public function testInjectDataSource() {
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
-		$mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
-		$pdo = new PDO("sqlite::memory:");
-		$mysqlDataSource->injectDbObject($pdo);
-	}
 
-
-	/**
-	 * @test
-	 */
-	public function executeQuery() {
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
+    /**
+     * @test
+     */
+    public function executeQuery()
+    {
+        $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
         
         $fakedReturnArray = array('test' => 'test');
@@ -77,14 +80,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
         $result = $mysqlDataSource->executeQuery('SELECT * FROM test')->fetchAll();
         
         $this->assertEquals($fakedReturnArray, $result);
-	}
+    }
 
 
-	/**
-	 * @test
-	 */
-	public function errorOnDbError() {
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+    /**
+     * @test
+     */
+    public function errorOnDbError()
+    {
+        $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
         $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
         
@@ -97,12 +101,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
         
         try {
             $result = $mysqlDataSource->executeQuery('SELECT * FROM test')->fetchAll();
-        } catch(Exception $e) {
-        	return;        
+        } catch (Exception $e) {
+            return;
         }
         $this->fail('No exception has been thrown on DB error!');
-	}
-	
+    }
 }
 
 
@@ -114,16 +117,17 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
  * @package Typo3
  * @subpackage pt_extlist
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_PDOErrorMock {
-	
-	public function execute() {
-		throw new Exception("STUB Exception");
-	}
-	
-	
-	
-	public function errorInfo() {
-		return '';
-	}
-	
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_PDOErrorMock
+{
+    public function execute()
+    {
+        throw new Exception("STUB Exception");
+    }
+    
+    
+    
+    public function errorInfo()
+    {
+        return '';
+    }
 }

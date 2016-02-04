@@ -33,34 +33,38 @@
  * @subpackage Controller
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Controller_ListControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
-    
-   public function testSetup() {
-   	    $this->assertTrue(class_exists('Tx_PtExtlist_Controller_ListController'), 'Class Tx_PtExtlist_Controller_ListController does not exist!');
+class Tx_PtExtlist_Tests_Controller_ListControllerTestcase extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Controller_ListController'), 'Class Tx_PtExtlist_Controller_ListController does not exist!');
     }
     
     
     
-    public function testSortingAction() {
-    	$this->markTestIncomplete();
+    public function testSortingAction()
+    {
+        $this->markTestIncomplete();
     }
     
     
     
-    public function testEmptyListAction() {
-    	$this->markTestIncomplete();
+    public function testEmptyListAction()
+    {
+        $this->markTestIncomplete();
     }
     
     
     
-    public function testListAction() {
-    	$this->markTestIncomplete();
+    public function testListAction()
+    {
+        $this->markTestIncomplete();
     }
     
     
     
-    public function testExportAction() {
-    	$this->markTestIncomplete();
+    public function testExportAction()
+    {
+        $this->markTestIncomplete();
     }
-    
 }

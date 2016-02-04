@@ -34,179 +34,190 @@
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest
  */
-class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_Domain_Model_List_IterationListDataInterface {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface
-	 */
-	protected $dataSource;
-
-
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	protected $currentRow = NULL;
+class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+{
+    /**
+     * @var Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface
+     */
+    protected $dataSource;
 
 
 
-	/**
-	 * @var integer
-	 */
-	protected $index = 0;
+    /**
+     * @var Tx_PtExtlist_Domain_Model_List_Row
+     */
+    protected $currentRow = null;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
-	 */
-	protected $dataMapper;
+    /**
+     * @var integer
+     */
+    protected $index = 0;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
-	 */
-	protected $renderChain;
+    /**
+     * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
+     */
+    protected $dataMapper;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
-	 */
-	public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface $dataSource) {
-		$this->dataSource = $dataSource;
-	}
+    /**
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     */
+    protected $renderChain;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
-	 */
-	public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper) {
-		$this->dataMapper = $dataMapper;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
+     */
+    public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface $dataSource)
+    {
+        $this->dataSource = $dataSource;
+    }
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
-	 */
-	public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain) {
-		$this->renderChain = $renderChain;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
+     */
+    public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper)
+    {
+        $this->dataMapper = $dataMapper;
+    }
 
 
 
-	/**
-	 * Alias function for count to be accessible in fluid
-	 *
-	 * @return integer
-	 */
-	public function getCount() {
-		return $this->count();
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
+     */
+    public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain)
+    {
+        $this->renderChain = $renderChain;
+    }
 
 
 
-	/**
-	 * @return integer
-	 */
-	public function count() {
-		return $this->dataSource->count();
-	}
+    /**
+     * Alias function for count to be accessible in fluid
+     *
+     * @return integer
+     */
+    public function getCount()
+    {
+        return $this->count();
+    }
 
 
 
-	/**
-	 * Processes the current row (array data structure):
-	 *    1. build a row data structure
-	 *  2. render this data structure using the row renderer of the default renderer
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	protected function getProcessedCurrentRow() {
-		if ($this->currentRow !== FALSE) {
-			return $this->renderChain->renderSingleRow($this->dataMapper->getMappedRow($this->currentRow), $this->index);
-		} else {
-			return FALSE;
-		}
-	}
+    /**
+     * @return integer
+     */
+    public function count()
+    {
+        return $this->dataSource->count();
+    }
 
 
 
-	/**
-	 * Iterator Interface
-	 ***********************************************************************/
-
-
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Return the current element
-	 * @link http://php.net/manual/en/iterator.current.php
-	 * @return mixed Can return any type.
-	 */
-	public function current() {
-		if ($this->currentRow === NULL) {
-			$this->currentRow = $this->dataSource->fetchRow();
-		}
-
-		return $this->getProcessedCurrentRow();
-	}
+    /**
+     * Processes the current row (array data structure):
+     *    1. build a row data structure
+     *  2. render this data structure using the row renderer of the default renderer
+     *
+     * @return Tx_PtExtlist_Domain_Model_List_Row
+     */
+    protected function getProcessedCurrentRow()
+    {
+        if ($this->currentRow !== false) {
+            return $this->renderChain->renderSingleRow($this->dataMapper->getMappedRow($this->currentRow), $this->index);
+        } else {
+            return false;
+        }
+    }
 
 
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Move forward to next element
-	 * @link http://php.net/manual/en/iterator.next.php
-	 * @return void Any returned value is ignored.
-	 */
-	public function next() {
-		$this->currentRow = $this->dataSource->fetchRow();
-		$this->index++;
-	}
+    /**
+     * Iterator Interface
+     ***********************************************************************/
+
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Return the current element
+     * @link http://php.net/manual/en/iterator.current.php
+     * @return mixed Can return any type.
+     */
+    public function current()
+    {
+        if ($this->currentRow === null) {
+            $this->currentRow = $this->dataSource->fetchRow();
+        }
+
+        return $this->getProcessedCurrentRow();
+    }
 
 
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Return the key of the current element
-	 * @link http://php.net/manual/en/iterator.key.php
-	 * @return mixed scalar on success, or null on failure.
-	 */
-	public function key() {
-		return $this->index;
-	}
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Move forward to next element
+     * @link http://php.net/manual/en/iterator.next.php
+     * @return void Any returned value is ignored.
+     */
+    public function next()
+    {
+        $this->currentRow = $this->dataSource->fetchRow();
+        $this->index++;
+    }
 
 
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Checks if current position is valid
-	 * @link http://php.net/manual/en/iterator.valid.php
-	 * @return boolean The return value will be casted to boolean and then evaluated.
-	 * Returns true on success or false on failure.
-	 */
-	public function valid() {
-		if ($this->index < $this->count()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Return the key of the current element
+     * @link http://php.net/manual/en/iterator.key.php
+     * @return mixed scalar on success, or null on failure.
+     */
+    public function key()
+    {
+        return $this->index;
+    }
 
 
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Rewind the Iterator to the first element
-	 * @link http://php.net/manual/en/iterator.rewind.php
-	 * @return void Any returned value is ignored.
-	 */
-	public function rewind() {
-		$this->dataSource->rewind();
-		$this->index = 0;
-		$this->currentRow = NULL;
-	}
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Checks if current position is valid
+     * @link http://php.net/manual/en/iterator.valid.php
+     * @return boolean The return value will be casted to boolean and then evaluated.
+     * Returns true on success or false on failure.
+     */
+    public function valid()
+    {
+        if ($this->index < $this->count()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Rewind the Iterator to the first element
+     * @link http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
+     */
+    public function rewind()
+    {
+        $this->dataSource->rewind();
+        $this->index = 0;
+        $this->currentRow = null;
+    }
 }

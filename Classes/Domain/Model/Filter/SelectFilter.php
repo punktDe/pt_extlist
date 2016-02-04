@@ -35,68 +35,71 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
-	
-	/**
-	 * Multiple or dropdown
-	 * @var integer
-	 */
-	protected $multiple;
-	
-	
+class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+{
+    /**
+     * Multiple or dropdown
+     * @var integer
+     */
+    protected $multiple;
+    
+    
 
-	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
-	 *
-	 */
-	protected function initFilterByTsConfig() {
-		
-		parent::initFilterByTsConfig();
-	    
-		if ($this->filterConfig->getSettings('multiple')) {
-        	$this->multiple = $this->filterConfig->getSettings('multiple');
-      }
-	}
-	
-	
-	
+    /**
+     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
+     *
+     */
+    protected function initFilterByTsConfig()
+    {
+        parent::initFilterByTsConfig();
+        
+        if ($this->filterConfig->getSettings('multiple')) {
+            $this->multiple = $this->filterConfig->getSettings('multiple');
+        }
+    }
+    
+    
+    
     /**
      * @return array
      */
-	public function getOptions() {
-		$options = parent::getOptions();
+    public function getOptions()
+    {
+        $options = parent::getOptions();
 
-		$selectOptions = array();
-		foreach($options as $optionKey => $optionValue) {
-			$selectOptions[$optionKey] = $optionValue['value'];
-		}
+        $selectOptions = array();
+        foreach ($options as $optionKey => $optionValue) {
+            $selectOptions[$optionKey] = $optionValue['value'];
+        }
 
-		return $selectOptions;
-	}
-	
-	
-	
-	/**
-	 * Returns value of selected option, return an array always
-	 *
-	 * @return array
-	 */
-	public function getValue() {
-		// Set internal pointer to first element of array
-		reset($this->filterValues);
-		return $this->multiple ? $this->filterValues : current($this->filterValues);
-	}
-	
-	
-	
-	/**
-	 * 
-	 * Multiple or dropdown select
-	 * @return integer
-	 */
-	public function getMultiple() {
-		return $this->multiple;
-	}
+        return $selectOptions;
+    }
+    
+    
+    
+    /**
+     * Returns value of selected option, return an array always
+     *
+     * @return array
+     */
+    public function getValue()
+    {
+        // Set internal pointer to first element of array
+        reset($this->filterValues);
+        return $this->multiple ? $this->filterValues : current($this->filterValues);
+    }
+    
+    
+    
+    /**
+     * 
+     * Multiple or dropdown select
+     * @return integer
+     */
+    public function getMultiple()
+    {
+        return $this->multiple;
+    }
 
 
 
@@ -105,17 +108,17 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
      *
      * @return string
      */
-    public function getDisplayValue() {
+    public function getDisplayValue()
+    {
         $options = parent::getOptions();
         $displayValues = array();
 
-        foreach($options as $option) {
-            if($option['selected'] === TRUE) {
+        foreach ($options as $option) {
+            if ($option['selected'] === true) {
                 $displayValues[] = $option['value'];
             }
         }
 
         return implode(', ', $displayValues);
     }
-
 }

@@ -33,53 +33,57 @@
  * @subpackage Domain\Renderer\Default
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Sets up testcase
+     */
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
-	/**
-	 * Sets up testcase
-	 */
-	public function setUp() {
-    	$this->initDefaultConfigurationBuilderMock();
-	}
-
-	
-	
-	/** @test */
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_Default_RowRenderer'));
+    
+    
+    /** @test */
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_Default_RowRenderer'));
     }
     
     
     
     /** @test */
-    public function getRendererConfigurationReturnsConfigurationAfterInjection() {
-    	$rendererConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(),'', FALSE);
-    	$rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
-    	$rowRenderer->injectRendererConfiguration($rendererConfigurationMock);
-    	$this->assertEquals($rendererConfigurationMock, $rowRenderer->getRendererConfiguration());
+    public function getRendererConfigurationReturnsConfigurationAfterInjection()
+    {
+        $rendererConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(), '', false);
+        $rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
+        $rowRenderer->injectRendererConfiguration($rendererConfigurationMock);
+        $this->assertEquals($rendererConfigurationMock, $rowRenderer->getRendererConfiguration());
     }
-	
+    
     
     
     /** @test */
-    public function renderRowRendersRowForGivenConfiguration() {
-    	$row = new Tx_PtExtlist_Domain_Model_List_Row();
+    public function renderRowRendersRowForGivenConfiguration()
+    {
+        $row = new Tx_PtExtlist_Domain_Model_List_Row();
         $row->createAndAddCell('val1', 'field1');
         $row->createAndAddCell('val2', 'field2');
         $row->createAndAddCell('val3', 'field3');
         $row->createAndAddCell('val4', 'field4');
         
-        $cellRenderer = $this->getMock('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer', array(), array(), '', FALSE);
+        $cellRenderer = $this->getMock('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer', array(), array(), '', false);
         $cellRenderer->expects($this->any())->method('renderCell')->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_Cell('test')));
         $rowRenderer = $this->getRowRenderer();
         $rowRenderer->injectCellRenderer($cellRenderer);
         
         $renderedRow = $rowRenderer->renderRow($row, 1);
         
-        foreach($renderedRow as $cell) { /* @var $cell Tx_PtExtlist_Domain_Model_List_Cell */
-        	$this->assertEquals($cell->getValue(), 'test');
+        foreach ($renderedRow as $cell) { /* @var $cell Tx_PtExtlist_Domain_Model_List_Cell */
+            $this->assertEquals($cell->getValue(), 'test');
         }
-    } 
+    }
     
     
     
@@ -87,11 +91,11 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
      * Returns a row renderer for testing
      *
      */
-    protected function getRowRenderer() {
-    	$rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, array('rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer'));
-    	$renderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
-    	$renderer->injectRendererConfiguration($rendererConfiguration);
-    	return $renderer;
+    protected function getRowRenderer()
+    {
+        $rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, array('rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer'));
+        $renderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
+        $renderer->injectRendererConfiguration($rendererConfiguration);
+        return $renderer;
     }
-    
 }

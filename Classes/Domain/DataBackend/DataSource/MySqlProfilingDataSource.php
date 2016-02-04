@@ -34,60 +34,59 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlProfilingDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource {
+class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlProfilingDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+{
+    private static $queryCounter = 1;
 
 
-	static private $queryCounter = 1;
-
-
-	/**
-	 * @var array
-	 */
-	protected $preProcessHookObjects;
-
-
-
-	/**
-	 * @var array
-	 */
-	protected $postProcessHookObjects;
-
-
-	public function __construct() {
-		$this->preProcessHookObjects = array();
-		$this->postProcessHookObjects = array();
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'])) {
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'] as $classRef) {
-				$hookObject = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj($classRef);
-
-				if (!($hookObject instanceof \TYPO3\CMS\Core\Database\PreProcessQueryHookInterface || $hookObject instanceof \TYPO3\CMS\Core\Database\PostProcessQueryHookInterface)) {
-					throw new UnexpectedValueException('$hookObject must either implement interface t3lib_DB_preProcessQueryHook or interface t3lib_DB_postProcessQueryHook', 1299158548);
-				}
-				if ($hookObject instanceof \TYPO3\CMS\Core\Database\PreProcessQueryHookInterface) {
-					$this->preProcessHookObjects[] = $hookObject;
-				}
-				if ($hookObject instanceof \TYPO3\CMS\Core\Database\PostProcessQueryHookInterface) {
-					$this->postProcessHookObjects[] = $hookObject;
-				}
-			}
-		}
-	}
+    /**
+     * @var array
+     */
+    protected $preProcessHookObjects;
 
 
 
-	public function executeQuery($query) {
-		// Added to log select queries
-		foreach($this->preProcessHookObjects as $preProcessHookObject) { /* @var $preProcessHookObject Tx_SandstormmediaPlumber_Hooks_Hook */
-			$preProcessHookObject->extlist_preProcessAction(self::$queryCounter++ . ' ' . $query);
-		}
-		$result = parent::executeQuery($query);
-
-		// Added to log select queries
-		foreach($this->postProcessHookObjects as $postProcessHookObject) { /* @var $postProcessHookObject Tx_SandstormmediaPlumber_Hooks_Hook */
-			$postProcessHookObject->extlist_postProcessAction();
-		}
-		return $result;
-	}
+    /**
+     * @var array
+     */
+    protected $postProcessHookObjects;
 
 
+    public function __construct()
+    {
+        $this->preProcessHookObjects = array();
+        $this->postProcessHookObjects = array();
+        if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'])) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'] as $classRef) {
+                $hookObject = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj($classRef);
+
+                if (!($hookObject instanceof \TYPO3\CMS\Core\Database\PreProcessQueryHookInterface || $hookObject instanceof \TYPO3\CMS\Core\Database\PostProcessQueryHookInterface)) {
+                    throw new UnexpectedValueException('$hookObject must either implement interface t3lib_DB_preProcessQueryHook or interface t3lib_DB_postProcessQueryHook', 1299158548);
+                }
+                if ($hookObject instanceof \TYPO3\CMS\Core\Database\PreProcessQueryHookInterface) {
+                    $this->preProcessHookObjects[] = $hookObject;
+                }
+                if ($hookObject instanceof \TYPO3\CMS\Core\Database\PostProcessQueryHookInterface) {
+                    $this->postProcessHookObjects[] = $hookObject;
+                }
+            }
+        }
+    }
+
+
+
+    public function executeQuery($query)
+    {
+        // Added to log select queries
+        foreach ($this->preProcessHookObjects as $preProcessHookObject) { /* @var $preProcessHookObject Tx_SandstormmediaPlumber_Hooks_Hook */
+            $preProcessHookObject->extlist_preProcessAction(self::$queryCounter++ . ' ' . $query);
+        }
+        $result = parent::executeQuery($query);
+
+        // Added to log select queries
+        foreach ($this->postProcessHookObjects as $postProcessHookObject) { /* @var $postProcessHookObject Tx_SandstormmediaPlumber_Hooks_Hook */
+            $postProcessHookObject->extlist_postProcessAction();
+        }
+        return $result;
+    }
 }

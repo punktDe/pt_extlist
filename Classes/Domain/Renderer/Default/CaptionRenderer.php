@@ -35,46 +35,47 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest
  */
-class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements \TYPO3\CMS\Core\SingletonInterface {
+class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * Renders captions
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     */
+    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    {
+        Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array('message' => 'No header data available. 1280408235'));
+        
+        $renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
 
-	/**
-	 * Renders captions
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array('message' => 'No header data available. 1280408235'));
-		
-		$renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
+        foreach ($listHeader as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
-		foreach($listHeader as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+            if ($headerColumn->getColumnConfig()->isAccessable() && $headerColumn->getIsVisible()) {
+                $label = $this->renderColumnLabel($headerColumn);
+                $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
+            }
+        }
 
-			if($headerColumn->getColumnConfig()->isAccessable() && $headerColumn->getIsVisible()) {
-				$label = $this->renderColumnLabel($headerColumn);
-			   $renderedListHeader->createAndAddCell($label, $headerColumn->getColumnIdentifier());
-			}
-		}
-
-		return $renderedListHeader;
-	}
+        return $renderedListHeader;
+    }
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn
-	 * @return string
-	 */
-	public function renderColumnLabel(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn) {
-		$label = $headerColumn->getLabel();
+    /**
+     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn
+     * @return string
+     */
+    public function renderColumnLabel(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn)
+    {
+        $label = $headerColumn->getLabel();
 
-		$label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
+        $label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
 
-		if(\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($label, 'LLL:')) {
-			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($label, '');
-		}
+        if (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($label, 'LLL:')) {
+            $label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($label, '');
+        }
 
-		return $label;
-	}
-	
+        return $label;
+    }
 }

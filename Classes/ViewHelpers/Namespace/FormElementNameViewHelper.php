@@ -34,59 +34,60 @@
  * @subpackage NameSpace
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest
  */
-class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+{
+    /**
+     * render a key/value GET/POST-string within the namespace of the given object
+     *
+     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param string $property, single property or propertyPath separated by '.'
+     * @param boolean $addExtPrefix
+     * @return string
+     */
+    public function render(Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix = false)
+    {
+        $formElementNameSpace = '';
+
+        if ($addExtPrefix == true) {
+            $formElementNameSpace .= 'tx_ptextlist_pi1.';
+        }
+
+        $formElementNameSpace .= $this->getObjectNameSpace($object) . '.';
+        $formElementNameSpace .= $property;
+
+        $nameChunks = explode('.', $formElementNameSpace);
+        return $this->buildBracketedStringFromArray($nameChunks);
+    }
 
 
-	/**
-	 * render a key/value GET/POST-string within the namespace of the given object
-	 *
-	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
-	 * @param string $property, single property or propertyPath separated by '.'
-	 * @param boolean $addExtPrefix
-	 * @return string
-	 */
-	public function render(Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix = false) {
+    /**
+     * @param array $nameChunks
+     * @return mixed|string
+     */
+    protected function buildBracketedStringFromArray(array $nameChunks)
+    {
+        $result = '';
+        $result = array_shift($nameChunks);
 
-		$formElementNameSpace = '';
+        foreach ($nameChunks as $nameChunk) {
+            if ($nameChunk) {
+                $result .= '[' . $nameChunk . ']';
+            }
+        }
 
-		if($addExtPrefix == true) {
-			$formElementNameSpace .= 'tx_ptextlist_pi1.';
-		}
-
-		$formElementNameSpace .= $this->getObjectNameSpace($object) . '.';
-		$formElementNameSpace .= $property;
-
-		$nameChunks = explode('.', $formElementNameSpace);
-		return $this->buildBracketedStringFromArray($nameChunks);
-	}
+        return $result;
+    }
 
 
-	/**
-	 * @param array $nameChunks
-	 * @return mixed|string
-	 */
-	protected function buildBracketedStringFromArray(array $nameChunks) {
-		$result = '';
-		$result = array_shift($nameChunks);
+    /**
+     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @return String
+     */
+    public function getObjectNameSpace(Tx_PtExtbase_State_IdentifiableInterface $object)
+    {
+        $nameSpace = $object->getObjectNamespace();
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
 
-		foreach($nameChunks as $nameChunk) {
-			if($nameChunk) {
-				$result .= '[' . $nameChunk . ']';
-			}
-		}
-
-		return $result;
-	}
-
-
-	/**
-	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
-	 * @return String
-	 */
-	public function getObjectNameSpace(Tx_PtExtbase_State_IdentifiableInterface $object) {
-		$nameSpace = $object->getObjectNamespace();
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
-
-		return $nameSpace;
-	}
+        return $nameSpace;
+    }
 }

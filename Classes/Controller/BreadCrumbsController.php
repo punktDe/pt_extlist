@@ -34,106 +34,112 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest
  */
-class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController {
-
-	/**
-	 * Holds an instance of filterbox collection processed by this controller
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
-	 */
-	protected $filterboxCollection;
-	
-	
-	
-	/**
+class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController
+{
+    /**
+     * Holds an instance of filterbox collection processed by this controller
+     *
+     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     */
+    protected $filterboxCollection;
+    
+    
+    
+    /**
      * Holds a pagerCollection.
      * 
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
-	protected $pagerCollection = NULL;
+    protected $pagerCollection = null;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
-	 */
-	protected $breadCrumbsCollectionFactory;
+    /**
+     * @var Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
+     */
+    protected $breadCrumbsCollectionFactory;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory
-	 */
-	public function injectBreadCrumbsCollectionFactory(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory) {
-		$this->breadCrumbsCollectionFactory = $breadCrumbsCollectionFactory;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory
+     */
+    public function injectBreadCrumbsCollectionFactory(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory)
+    {
+        $this->breadCrumbsCollectionFactory = $breadCrumbsCollectionFactory;
+    }
 
 
 
-	/**
-	 * Overwrites initAction for setting properties
-	 * and enabling easy testing
-	 */
-	public function initializeAction() {
+    /**
+     * Overwrites initAction for setting properties
+     * and enabling easy testing
+     */
+    public function initializeAction()
+    {
         parent::initializeAction();
-		$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
-	}
+        $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
+    }
 
 
 
-	/**
-	 * Renders index action for breadcrumbs controller
-	 *
-	 * @return string The rendered index action
-	 */
-	public function indexAction() {
-		$breadcrumbs = $this->breadCrumbsCollectionFactory->getInstanceByFilterboxCollection(
-			$this->configurationBuilder,
-			$this->filterboxCollection
-		);
-		
-		// Ugly hack, to check whether there really exists a breadcrumb 
-		$breadcrumbsHaveMessage = false;
-		foreach ($breadcrumbs as $breadcrumb) { /* @var $breadcrumb Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb */
-			if ($breadcrumb->getMessage() != '') $breadcrumbsHaveMessage = true;
-		}
-		
-		if ($breadcrumbsHaveMessage) {
-		    $this->view->assign('breadcrumbs', $breadcrumbs);
-		}
-	}
+    /**
+     * Renders index action for breadcrumbs controller
+     *
+     * @return string The rendered index action
+     */
+    public function indexAction()
+    {
+        $breadcrumbs = $this->breadCrumbsCollectionFactory->getInstanceByFilterboxCollection(
+            $this->configurationBuilder,
+            $this->filterboxCollection
+        );
+        
+        // Ugly hack, to check whether there really exists a breadcrumb 
+        $breadcrumbsHaveMessage = false;
+        foreach ($breadcrumbs as $breadcrumb) { /* @var $breadcrumb Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb */
+            if ($breadcrumb->getMessage() != '') {
+                $breadcrumbsHaveMessage = true;
+            }
+        }
+        
+        if ($breadcrumbsHaveMessage) {
+            $this->view->assign('breadcrumbs', $breadcrumbs);
+        }
+    }
 
 
 
-	/**
-	 * Resets given filter and forwards to index action
-	 *
-	 * @return string The rendered reset filter action
-	 */
-	public function resetFilterAction() {
-		$breadcrumbs = $this->breadCrumbsCollectionFactory->getInstanceByFilterboxCollection(
-			$this->configurationBuilder,
-			$this->filterboxCollection
-		);
+    /**
+     * Resets given filter and forwards to index action
+     *
+     * @return string The rendered reset filter action
+     */
+    public function resetFilterAction()
+    {
+        $breadcrumbs = $this->breadCrumbsCollectionFactory->getInstanceByFilterboxCollection(
+            $this->configurationBuilder,
+            $this->filterboxCollection
+        );
 
-		$breadcrumbs->resetFilters();
-		$this->resetPagers();
+        $breadcrumbs->resetFilters();
+        $this->resetPagers();
 
-		$this->redirect('index');
-	}
-	
-	
-	
+        $this->redirect('index');
+    }
+    
+    
+    
     /**
      * Reset all pagers for this list.
      */
-    protected function resetPagers(){
+    protected function resetPagers()
+    {
         // Reset pagers
-        if($this->pagerCollection === NULL) {
+        if ($this->pagerCollection === null) {
             // Only get pagerCollection if it's not set already. Important for testing. 
             $this->pagerCollection = $this->dataBackend->getPagerCollection();
         }
         $this->pagerCollection->reset();
     }
-
 }

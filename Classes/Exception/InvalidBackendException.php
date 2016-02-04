@@ -31,6 +31,6 @@
  *
  * @package Exception
  */
-class Tx_PtExtlist_Exception_InvalidBackendException extends \TYPO3\CMS\Extbase\Exception {
-	
+class Tx_PtExtlist_Exception_InvalidBackendException extends \TYPO3\CMS\Extbase\Exception
+{
 }

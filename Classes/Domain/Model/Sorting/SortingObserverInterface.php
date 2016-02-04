@@ -33,38 +33,37 @@
  * @package pt_extlist
  * @subpackage Domain\Model\Sorting
  */
-interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface {
-	
-	/**
-	 * Registers a sorter which observes implementing object.
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
-	 */
-	public function registerSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
-	
-	
-	
-	/**
-	 * Returns sorting of implementing object.
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection Collection of sorting states
-	 */
-	public function getSortingStateCollection();
-	
-	
-	
-	/**
-	 * Resets sorting of implementing object.
-	 *
-	 * DOES NOT RESET TO DEFAULT SORTING!!!
-	 */
-	public function resetSorting();
+interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface
+{
+    /**
+     * Registers a sorter which observes implementing object.
+     *
+     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     */
+    public function registerSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
+    
+    
+    
+    /**
+     * Returns sorting of implementing object.
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection Collection of sorting states
+     */
+    public function getSortingStateCollection();
+    
+    
+    
+    /**
+     * Resets sorting of implementing object.
+     *
+     * DOES NOT RESET TO DEFAULT SORTING!!!
+     */
+    public function resetSorting();
 
 
 
-	/**
-	 * Resets sorting of implementing object to default sorting.
-	 */
-	public function resetToDefaultSorting();
-	
+    /**
+     * Resets sorting of implementing object to default sorting.
+     */
+    public function resetToDefaultSorting();
 }

@@ -1,5 +1,7 @@
 <?php
-if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
+if (!defined('TYPO3_MODE')) {
+    die('Access denied.');
+}
 
 /**
  * Configure the Plugin to call the
@@ -10,37 +12,37 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
  * if no other settings are given.
  */
 
-$controllerActions = array(															// An array holding the controller-action-combinations that are accessible 
-	'List' => 'list,sort', // The first controller and its first action will be the default
-	'Export'=>'showLink,download',
-	'Filterbox' => 'show,submit,reset,resetFilter',
-	'Pager' => 'show',
-	'Bookmark' => 'show,save,delete,restore',
-	'BreadCrumbs' => 'index,resetFilter',
-	'ColumnSelector' => 'show',
-	'AjaxFilter' => 'getFilterElement'
+$controllerActions = array(                                                            // An array holding the controller-action-combinations that are accessible 
+    'List' => 'list,sort', // The first controller and its first action will be the default
+    'Export'=>'showLink,download',
+    'Filterbox' => 'show,submit,reset,resetFilter',
+    'Pager' => 'show',
+    'Bookmark' => 'show,save,delete,restore',
+    'BreadCrumbs' => 'index,resetFilter',
+    'ColumnSelector' => 'show',
+    'AjaxFilter' => 'getFilterElement'
 );
 
 
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
-	'Pi1',																			// A unique name of the plugin in UpperCamelCase
-	$controllerActions,
-	$controllerActions
+    $_EXTKEY,                                                                        // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
+    'Pi1',                                                                            // A unique name of the plugin in UpperCamelCase
+    $controllerActions,
+    $controllerActions
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY,																		// The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
-	'Cached',																		// A unique name of the plugin in UpperCamelCase
-	$controllerActions,
-	array()
+    $_EXTKEY,                                                                        // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
+    'Cached',                                                                        // A unique name of the plugin in UpperCamelCase
+    $controllerActions,
+    array()
 );
 
 
-if(TYPO3_MODE == 'BE') {
-	// Hooks
-	$TYPO3_CONF_VARS['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['ptextlist_pi1']['pt_extlist'] = 'EXT:pt_extlist/Classes/Hooks/CMSLayoutHook.php:user_Tx_PtExtlist_Hooks_CMSLayoutHook->getExtensionSummary';
+if (TYPO3_MODE == 'BE') {
+    // Hooks
+    $TYPO3_CONF_VARS['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['ptextlist_pi1']['pt_extlist'] = 'EXT:pt_extlist/Classes/Hooks/CMSLayoutHook.php:user_Tx_PtExtlist_Hooks_CMSLayoutHook->getExtensionSummary';
 }
 
 require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist').'Classes/Utility/FlexformDataProvider.php';
@@ -50,4 +52,3 @@ require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * Register LifeCycle Manager
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_eofe'][] = 'EXT:pt_extbase/Classes/Lifecycle/HookManager.php:tx_PtExtbase_Lifecycle_HookManager->updateEnd';
-?>

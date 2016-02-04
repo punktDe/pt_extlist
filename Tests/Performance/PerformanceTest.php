@@ -34,165 +34,166 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Performance
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * @var string
-	 */
-	protected $baseConfigTSFile;
-
-
-
-	/**
-	 * @var array
-	 */
-	protected $listConfiguration = array();
+class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var string
+     */
+    protected $baseConfigTSFile;
 
 
 
-	public function setUp() {
-		$this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
-	}
+    /**
+     * @var array
+     */
+    protected $listConfiguration = array();
 
 
 
-	/**
-	 * @return array
-	 */
-	public function performanceDataProvider() {
-		return array(
-			'performance 5:1 - Framework only' => array(5, 1),
-			//'performance 5:10000' => array(5,10000),
-			//'performance 5:40000' => array(5,40000),
-		);
-	}
+    public function setUp()
+    {
+        $this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
+    }
 
 
 
-	/**
-	 * @dataProvider performanceDataProvider
-	 * @test
-	 */
-	public function listDataPerformance($colCount, $rowCount) {
-
-		$this->markTestSkipped('Currently not running on Jenkins, hence skipped.');
-
-		$listSettings = $this->getExtListTypoScript();
-
-		$memoryBefore = memory_get_usage(true);
-		$timeBefore = microtime(true);
-
-		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
-		//die('here');
-
-		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
-		$extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
-		$list = $extListContext->getList(TRUE);
-		$renderedListData = $extListContext->getRendererChain()->renderList($list->getListData());
+    /**
+     * @return array
+     */
+    public function performanceDataProvider()
+    {
+        return array(
+            'performance 5:1 - Framework only' => array(5, 1),
+            //'performance 5:10000' => array(5,10000),
+            //'performance 5:40000' => array(5,40000),
+        );
+    }
 
 
-		$usedMemory = memory_get_usage(true) - $memoryBefore;
-		$readableMemoryUsage = $usedMemory / (1024 * 1024);
-		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024 * 1024);
 
-		$usedMicroseconds = microtime(true) - $timeBefore;
+    /**
+     * @dataProvider performanceDataProvider
+     * @test
+     */
+    public function listDataPerformance($colCount, $rowCount)
+    {
+        $this->markTestSkipped('Currently not running on Jenkins, hence skipped.');
 
-		$info = sprintf("
+        $listSettings = $this->getExtListTypoScript();
+
+        $memoryBefore = memory_get_usage(true);
+        $timeBefore = microtime(true);
+
+        Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
+        //die('here');
+
+        $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
+        $extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
+        $list = $extListContext->getList(true);
+        $renderedListData = $extListContext->getRendererChain()->renderList($list->getListData());
+
+
+        $usedMemory = memory_get_usage(true) - $memoryBefore;
+        $readableMemoryUsage = $usedMemory / (1024 * 1024);
+        $readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024 * 1024);
+
+        $usedMicroseconds = microtime(true) - $timeBefore;
+
+        $info = sprintf("
 			Memory Usage: %s MB <br />
 			Memory Peak Usage %s MB <br />
 			Processing Time: %s Mircroseconds.", $readableMemoryUsage, $readableMemoryPeakUsage, $usedMicroseconds);
 
-		//die($info);
+        //die($info);
 
-		$this->assertTrue(true);
-	}
+        $this->assertTrue(true);
+    }
 
 
 
-	/**
-	 * @test
-	 * @dataProvider performanceDataProvider
-	 * @param $colCount
-	 * @param $rowCount
-	 */
-	public function iterationListDataPerformance($colCount, $rowCount) {
-		$listSettings = $this->getExtListTypoScript();
+    /**
+     * @test
+     * @dataProvider performanceDataProvider
+     * @param $colCount
+     * @param $rowCount
+     */
+    public function iterationListDataPerformance($colCount, $rowCount)
+    {
+        $listSettings = $this->getExtListTypoScript();
 
-		$memoryBefore = memory_get_usage(true);
-		$timeBefore = microtime(true);
+        $memoryBefore = memory_get_usage(true);
+        $timeBefore = microtime(true);
 
-		// TODO we are calling a static method on an object here... make this non-static and remove static methods from extlist context factory!
-		Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
-		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
-		$extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
+        // TODO we are calling a static method on an object here... make this non-static and remove static methods from extlist context factory!
+        Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::setExtListTyposSript($listSettings);
+        $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier('performanceTestList');
+        $extListContext->getDataBackend()->setColCount($colCount)->setRowCount($rowCount);
 
-		$iterationListData = $extListContext->getDataBackend()->getIterationListData();
+        $iterationListData = $extListContext->getDataBackend()->getIterationListData();
 
-		$iterationListData->current();
+        $iterationListData->current();
 
-		/**
-		 * This loop renders the complete data set
-		 */
-		foreach ($iterationListData as $row) {
-			/**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
-		}
+        /**
+         * This loop renders the complete data set
+         */
+        foreach ($iterationListData as $row) {
+            /**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
+        }
 
-		$usedMemory = memory_get_usage(true) - $memoryBefore;
-		$readableMemoryUsage = $usedMemory / (1024 * 1024);
-		$readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024 * 1024);
+        $usedMemory = memory_get_usage(true) - $memoryBefore;
+        $readableMemoryUsage = $usedMemory / (1024 * 1024);
+        $readableMemoryPeakUsage = memory_get_peak_usage(true) / (1024 * 1024);
 
-		$usedMicroseconds = microtime(true) - $timeBefore;
+        $usedMicroseconds = microtime(true) - $timeBefore;
 
-		$info = sprintf("
+        $info = sprintf("
 			Memory Usage: %s MB <br />
 			Memory Peak Usage %s MB <br />
 			Processing Time: %s Mircroseconds.", $readableMemoryUsage, $readableMemoryPeakUsage, $usedMicroseconds);
 
-		//die($info);
+        //die($info);
 
-		$this->assertTrue(true);
-
-	}
-
-
-
-	protected function getExtListTypoScript() {
-
-		$extListConfigFile = __DIR__ . '/TestListConfiguration.ts';
-
-		$tSString = $this->readTSString($this->baseConfigTSFile);
-		$tSString .= $this->readTSString($extListConfigFile);
-
-		$parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
-		/** @var $parserInstance t3lib_tsparser */
-		$tSString = $parserInstance->checkIncludeLines($tSString);
-		$parserInstance->parse($tSString);
-
-
-		$tsSettings = $parserInstance->setup;
-
-		$typoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
-
-		return $typoScript['plugin']['tx_ptextlist'];
-	}
+        $this->assertTrue(true);
+    }
 
 
 
-	/**
-	 * Read the list configuration from  file
-	 *
-	 * @param $pathAndFileName
-	 * @return string
-	 */
-	protected function readTSString($pathAndFileName) {
+    protected function getExtListTypoScript()
+    {
+        $extListConfigFile = __DIR__ . '/TestListConfiguration.ts';
 
-		$typoScriptArray = file($pathAndFileName);
+        $tSString = $this->readTSString($this->baseConfigTSFile);
+        $tSString .= $this->readTSString($extListConfigFile);
 
-		if ($typoScriptArray === FALSE) {
-			$this->fail('Could not read from file ' . $pathAndFileName);
-		}
+        $parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+        /** @var $parserInstance t3lib_tsparser */
+        $tSString = $parserInstance->checkIncludeLines($tSString);
+        $parserInstance->parse($tSString);
 
-		return implode("\n", $typoScriptArray);
-	}
 
+        $tsSettings = $parserInstance->setup;
+
+        $typoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
+
+        return $typoScript['plugin']['tx_ptextlist'];
+    }
+
+
+
+    /**
+     * Read the list configuration from  file
+     *
+     * @param $pathAndFileName
+     * @return string
+     */
+    protected function readTSString($pathAndFileName)
+    {
+        $typoScriptArray = file($pathAndFileName);
+
+        if ($typoScriptArray === false) {
+            $this->fail('Could not read from file ' . $pathAndFileName);
+        }
+
+        return implode("\n", $typoScriptArray);
+    }
 }

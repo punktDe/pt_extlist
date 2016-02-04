@@ -34,37 +34,37 @@
  * @package Test
  * @subpackage Domain\Databackend
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTest extends Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest {
+class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTest extends Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
+{
+    public function testSetUp()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend'));
+    }
+    
+    
+
+    /** @test */
+    public function createDataSourceCreatesObjectOfExpectedType()
+    {
+        $dataSource = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend::createDataSource($this->configurationBuilder);
+        $this->assertTrue($dataSource instanceof Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource, 'Class is ' . get_class($dataSource));
+    }
 
 
-	public function testSetUp() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend'));
-	}
-	
-	
+    
+    /** @test */
+    public function buildWherePartWithEnableFields()
+    {
+        $backendMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getWhereClauseFromFilterboxes', 'getTypo3SpecialFieldsWhereClause'), array($this->configurationBuilder));
 
-	/** @test */
-	public function createDataSourceCreatesObjectOfExpectedType() {
-		$dataSource = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend::createDataSource($this->configurationBuilder);
-		$this->assertTrue($dataSource instanceof Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource, 'Class is ' . get_class($dataSource));
-	}
-
-
-	
-	/** @test */
-	public function buildWherePartWithEnableFields() {
-			
-		$backendMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getWhereClauseFromFilterboxes','getTypo3SpecialFieldsWhereClause'), array($this->configurationBuilder));
-
-		$backendMock->_set('backendConfiguration', $this->configurationBuilder->buildDataBackendConfiguration());
-		
-		$backendMock->expects($this->once())
-		    ->method('getWhereClauseFromFilterboxes')
-		    ->will($this->returnValue(''));
-		$backendMock->expects($this->once())
-		    ->method('getTypo3SpecialFieldsWhereClause');
-		    
-		$wherePart = $backendMock->buildWherePart();
-	}
-	
+        $backendMock->_set('backendConfiguration', $this->configurationBuilder->buildDataBackendConfiguration());
+        
+        $backendMock->expects($this->once())
+            ->method('getWhereClauseFromFilterboxes')
+            ->will($this->returnValue(''));
+        $backendMock->expects($this->once())
+            ->method('getTypo3SpecialFieldsWhereClause');
+            
+        $wherePart = $backendMock->buildWherePart();
+    }
 }

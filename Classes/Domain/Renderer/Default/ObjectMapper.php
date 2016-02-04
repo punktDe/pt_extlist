@@ -33,60 +33,58 @@
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements \TYPO3\CMS\Core\SingletonInterface {
-
-
-	/**
-	 * @var Tx_Extbase_Property_Mapper
-	 */
-	protected $mapper;
-
-
-
-	/**
-	 * @param Tx_Extbase_Property_Mapper $mapper
-	 */
-	public function injectMapper(\TYPO3\CMS\Extbase\Property\Mapper $mapper) {
-		$this->mapper = $mapper;
-	}
-
-
-	/**
-	 * @param $data
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig $configuration
-	 * @return object
-	 */
-	public function convert($data, $configuration) {
-
-		if($configuration->getMapping()) {
-			$this->applyKeyMapping($configuration->getMapping(), $data);
-		}
-
-		$mappedObject = $this->mapper->map(array(), $data, $configuration->getClass());
-
-		if($mappedObject === NULL) {
-			throw new Exception('The data could mot be mapped to the object of class' . $configuration->getClass() .
-					  '. Reason: '. implode(', ', $this->mapper->getMappingResults()->getErrors()));
-		}
-
-		return $mappedObject;
-	}
+class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * @var Tx_Extbase_Property_Mapper
+     */
+    protected $mapper;
 
 
 
-	/**
-	 * @param array $mapping
-	 * @param array $data
-	 */
-	protected function applyKeyMapping(array $mapping, array &$data) {
-		
-		foreach($mapping as $oldKey => $newKey) {
-			if(array_key_exists($oldKey, $data)) {
-				$data[$newKey] = $data[$oldKey];
-				unset($data[$oldKey]);
-			}
-		}
-	}
+    /**
+     * @param Tx_Extbase_Property_Mapper $mapper
+     */
+    public function injectMapper(\TYPO3\CMS\Extbase\Property\Mapper $mapper)
+    {
+        $this->mapper = $mapper;
+    }
 
 
+    /**
+     * @param $data
+     * @param Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig $configuration
+     * @return object
+     */
+    public function convert($data, $configuration)
+    {
+        if ($configuration->getMapping()) {
+            $this->applyKeyMapping($configuration->getMapping(), $data);
+        }
+
+        $mappedObject = $this->mapper->map(array(), $data, $configuration->getClass());
+
+        if ($mappedObject === null) {
+            throw new Exception('The data could mot be mapped to the object of class' . $configuration->getClass() .
+                      '. Reason: '. implode(', ', $this->mapper->getMappingResults()->getErrors()));
+        }
+
+        return $mappedObject;
+    }
+
+
+
+    /**
+     * @param array $mapping
+     * @param array $data
+     */
+    protected function applyKeyMapping(array $mapping, array &$data)
+    {
+        foreach ($mapping as $oldKey => $newKey) {
+            if (array_key_exists($oldKey, $data)) {
+                $data[$newKey] = $data[$oldKey];
+                unset($data[$oldKey]);
+            }
+        }
+    }
 }

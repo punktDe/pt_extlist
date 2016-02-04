@@ -34,19 +34,19 @@
  * @author Daniel Lienert 
  */
 
-class Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory {
-	
-	/**
-	 * Returns a instance of a base configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
-		$baseSettings = $configurationBuilder->getSettingsForConfigObject('base');
-		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($configurationBuilder, $baseSettings);
-		
-		return $baseConfig;
-	}
+class Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory
+{
+    /**
+     * Returns a instance of a base configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $baseSettings = $configurationBuilder->getSettingsForConfigObject('base');
+        $baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($configurationBuilder, $baseSettings);
+        
+        return $baseConfig;
+    }
 }

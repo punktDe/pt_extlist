@@ -35,300 +35,320 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $filterSettings = array();
-
-
-
-	protected $configurationBuilderMock = null;
-
-
-
-	public function setup() {
-
-		parent::setup();
-
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$this->filterSettings = array(
-			'breadCrumbString' => 'breadCrumbString',
-			'label' => 'testLabel',
-			'filterIdentifier' => 'filterName1',
-			'filterClassName' => 'test',
-			'partialPath' => 'partialPath',
-			'ajaxPartialPath' => 'ajaxPartialPath',
-			'defaultValue' => 'default',
-			'fieldIdentifier' => 'field1',
-			'invert' => '1',
-			'invertable' => '1',
-			'inactiveOption' => '[All]',
-			'inactiveValue' => 'inactiveValue',
-			'submitOnChange' => '1',
-			'renderObj' => array(
-				'dataWrap' => '{field:allDisplayFields}',
-				'_typoScriptNodeValue' => 'TEXT',
-			),
-			'renderUserFunctions' => array(
-				10 => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer',
-			),
-			'accessGroups' => '1,2,3',
-		);
-	}
-
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $filterSettings = array();
+
+
+
+    protected $configurationBuilderMock = null;
+
+
+
+    public function setup()
+    {
+        parent::setup();
+
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $this->filterSettings = array(
+            'breadCrumbString' => 'breadCrumbString',
+            'label' => 'testLabel',
+            'filterIdentifier' => 'filterName1',
+            'filterClassName' => 'test',
+            'partialPath' => 'partialPath',
+            'ajaxPartialPath' => 'ajaxPartialPath',
+            'defaultValue' => 'default',
+            'fieldIdentifier' => 'field1',
+            'invert' => '1',
+            'invertable' => '1',
+            'inactiveOption' => '[All]',
+            'inactiveValue' => 'inactiveValue',
+            'submitOnChange' => '1',
+            'renderObj' => array(
+                'dataWrap' => '{field:allDisplayFields}',
+                '_typoScriptNodeValue' => 'TEXT',
+            ),
+            'renderUserFunctions' => array(
+                10 => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer',
+            ),
+            'accessGroups' => '1,2,3',
+        );
+    }
+
+
+
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig');
+    }
+
+
+
+    /**
+     * @return array
+     */
+    public function fieldIdentifierDataProvider()
+    {
+        return array(
+            'singleFieldIdentifier' => array(
+                'fieldIdentifier' => 'field1',
+                'result' => array('field1')
+            ),
+            'listOfFieldIdentifier' => array(
+                'fieldIdentifier' => 'field1, field2',
+                'result' => array('field1', 'field2')
+            ),
+            'arrayOfFieldIdentifier' => array(
+                'fieldIdentifier' => array('10' => 'field3', '20' => 'field4'),
+                'result' => array('field3', 'field4')
+            ),
+            'fieldIdentifierForTimeSpanFilter' => array(
+                'fieldIdentifier' => array(
+                    10 => array(
+                        'start' => 'field1',
+                        'end' => 'field2'
+                    ),
+                    20 => array(
+                        'start' => 'field3',
+                        'end' => 'field4'
+                    )
+                ),
+                'result' => array('field1', 'field2', 'field3', 'field4')
+            )
+        );
+    }
+
+
+
+    /**
+     * @param $fieldIdentifier
+     * @param $result
+     * @return void
+     * @test
+     * @dataProvider fieldIdentifierDataProvider
+     */
+    public function processAndSetFieldIdentifier($fieldIdentifier, $result)
+    {
+        $filterSettings = $this->filterSettings;
+        $filterSettings['fieldIdentifier'] = $fieldIdentifier;
+
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig');
+        $accessibleFilterConfig = new $accessibleClassName($this->configurationBuilderMock, $filterSettings, 'test');
+
+        $accessibleFilterConfig->_call('processAndSetFieldIdentifier', $fieldIdentifier);
 
-
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig');
-	}
-
-
-
-	/**
-	 * @return array
-	 */
-	public function fieldIdentifierDataProvider() {
-		return array(
-			'singleFieldIdentifier' => array(
-				'fieldIdentifier' => 'field1',
-				'result' => array('field1')
-			),
-			'listOfFieldIdentifier' => array(
-				'fieldIdentifier' => 'field1, field2',
-				'result' => array('field1', 'field2')
-			),
-			'arrayOfFieldIdentifier' => array(
-				'fieldIdentifier' => array('10' => 'field3', '20' => 'field4'),
-				'result' => array('field3', 'field4')
-			),
-			'fieldIdentifierForTimeSpanFilter' => array(
-				'fieldIdentifier' => array(
-					10 => array(
-						'start' => 'field1',
-						'end' => 'field2'
-					),
-					20 => array(
-						'start' => 'field3',
-						'end' => 'field4'
-					)
-				),
-				'result' => array('field1', 'field2', 'field3', 'field4')
-			)
-		);
-	}
+        $realResult = $accessibleFilterConfig->_get('fieldIdentifier');
+        $resultTestList = array();
+        foreach ($realResult as $field) {
+            $resultTestList[] = $field->getIdentifier();
+        }
 
+        $this->assertEquals($resultTestList, $result);
+    }
 
 
-	/**
-	 * @param $fieldIdentifier
-	 * @param $result
-	 * @return void
-	 * @test
-	 * @dataProvider fieldIdentifierDataProvider
-	 */
-	public function processAndSetFieldIdentifier($fieldIdentifier, $result) {
-
-		$filterSettings = $this->filterSettings;
-		$filterSettings['fieldIdentifier'] = $fieldIdentifier;
-
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig');
-		$accessibleFilterConfig = new $accessibleClassName($this->configurationBuilderMock, $filterSettings, 'test');
-
-		$accessibleFilterConfig->_call('processAndSetFieldIdentifier', $fieldIdentifier);
 
-		$realResult = $accessibleFilterConfig->_get('fieldIdentifier');
-		$resultTestList = array();
-		foreach ($realResult as $field) {
-			$resultTestList[] = $field->getIdentifier();
-		}
+    public function testExceptionOnEmptyFilterIdentifier()
+    {
+        try {
+            $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array(), 'testFilterbox');
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail();
+    }
 
-		$this->assertEquals($resultTestList, $result);
-	}
 
 
+    public function testExceptionOnEmptyPartialPath()
+    {
+        try {
+            $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('filterIdentifier' => 'test', 'filterClassName' => 'test'), 'test');
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail('No error has been thrown on non-existing partialPath setting');
+    }
 
-	public function testExceptionOnEmptyFilterIdentifier() {
-		try {
-			$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array(), 'testFilterbox');
-		} catch (Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
 
 
+    public function testGetDefaultValueSingle()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals($filterConfig->getdefaultValue(), 'default');
+    }
 
-	public function testExceptionOnEmptyPartialPath() {
-		try {
-			$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('filterIdentifier' => 'test', 'filterClassName' => 'test'), 'test');
-		} catch (Exception $e) {
-			return;
-		}
-		$this->fail('No error has been thrown on non-existing partialPath setting');
-	}
 
 
+    /**
+     * @test
+     */
+    public function getDefaultValueSingleStdWrap()
+    {
+        $this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
+        $this->testingFramework->createFakeFrontEnd(0);
 
-	public function testGetDefaultValueSingle() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals($filterConfig->getdefaultValue(), 'default');
-	}
+        $filterSettings = $this->filterSettings;
 
+        $filterSettings['defaultValue'] = array(
+            'cObject' => array(
+                'value' => 'together',
+                '_typoScriptNodeValue' => 'TEXT'
+            )
+        );
 
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
-	/**
-	 * @test
-	 */
-	public function getDefaultValueSingleStdWrap() {
-		$this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
-		$this->testingFramework->createFakeFrontEnd(0);
+        $this->assertEquals($filterConfig->getdefaultValue(), 'together');
+    }
 
-		$filterSettings = $this->filterSettings;
 
-		$filterSettings['defaultValue'] = array(
-			'cObject' => array(
-				'value' => 'together',
-				'_typoScriptNodeValue' => 'TEXT'
-			)
-		);
 
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+    public function testGetDefaultValueMultiple()
+    {
+        $this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
+        $filterSettings = $this->filterSettings;
+        $filterSettings['defaultValue'] = array(
+            10 => 'one',
+            20 => 'two',
+            '_typoScriptNodeValue' => '',
+        );
 
-		$this->assertEquals($filterConfig->getdefaultValue(), 'together');
-	}
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+        $this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'two'));
+    }
 
 
 
-	public function testGetDefaultValueMultiple() {
-		$this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
-		$filterSettings = $this->filterSettings;
-		$filterSettings['defaultValue'] = array(
-			10 => 'one',
-			20 => 'two',
-			'_typoScriptNodeValue' => '',
-		);
+    public function testGetDefaultValueMultipleStdWrap()
+    {
+        $this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
+        $this->testingFramework->createFakeFrontEnd(0);
 
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-		$this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'two'));
-	}
+        $filterSettings = $this->filterSettings;
+        $filterSettings['defaultValue'] = array(
+            10 => 'one',
+            20 => array(
+                'cObject' => array(
+                    'value' => 'together',
+                    '_typoScriptNodeValue' => 'TEXT',
+                )
+            ),
+            '_typoScriptNodeValue' => '',
+        );
 
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+        $this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'together'));
+    }
 
 
-	public function testGetDefaultValueMultipleStdWrap() {
-		$this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
-		$this->testingFramework->createFakeFrontEnd(0);
 
-		$filterSettings = $this->filterSettings;
-		$filterSettings['defaultValue'] = array(
-			10 => 'one',
-			20 => array(
-				'cObject' => array(
-					'value' => 'together',
-					'_typoScriptNodeValue' => 'TEXT',
-				)
-			),
-			'_typoScriptNodeValue' => '',
-		);
+    public function testGetPartialPath()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertTrue($filterConfig->getPartialPath() == 'partialPath');
+    }
 
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-		$this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'together'));
-	}
 
 
+    /**
+     * @test
+     */
+    public function getAjaxPartialPath()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertTrue($filterConfig->getAjaxPartialPath() == 'ajaxPartialPath');
+    }
 
-	public function testGetPartialPath() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertTrue($filterConfig->getPartialPath() == 'partialPath');
-	}
 
 
+    public function testGetInvert()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals(true, $filterConfig->getInvert());
+    }
 
-	/**
-	 * @test
-	 */
-	public function getAjaxPartialPath() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertTrue($filterConfig->getAjaxPartialPath() == 'ajaxPartialPath');
-	}
 
 
+    public function testGetDisableFilterQuery()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals(false, $filterConfig->getDisableFilterQuery());
+    }
 
-	public function testGetInvert() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals(true, $filterConfig->getInvert());
-	}
 
 
+    public function testGetInvertable()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals(true, $filterConfig->getInvertable());
+    }
 
-	public function testGetDisableFilterQuery() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals(false, $filterConfig->getDisableFilterQuery());
-	}
 
 
+    public function testGetInactiveOption()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals('[All]', $filterConfig->getInactiveOption());
+    }
 
-	public function testGetInvertable() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals(true, $filterConfig->getInvertable());
-	}
 
 
+    public function testGetSubmitOnChange()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals(true, $filterConfig->getSubmitOnChange());
+    }
 
-	public function testGetInactiveOption() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals('[All]', $filterConfig->getInactiveOption());
-	}
 
 
+    public function testGetInactiveValue()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals('inactiveValue', $filterConfig->getInactiveValue());
+    }
 
-	public function testGetSubmitOnChange() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals(true, $filterConfig->getSubmitOnChange());
-	}
 
 
+    public function testGetRenderObj()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $renderObj = $filterConfig->getRenderObj();
+        $refArray['renderObj'] = 'TEXT';
+        $refArray['renderObj.']['dataWrap'] = '{field:allDisplayFields}';
 
-	public function testGetInactiveValue() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals('inactiveValue', $filterConfig->getInactiveValue());
-	}
+        $this->assertEquals($refArray, $renderObj);
+    }
 
 
 
-	public function testGetRenderObj() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$renderObj = $filterConfig->getRenderObj();
-		$refArray['renderObj'] = 'TEXT';
-		$refArray['renderObj.']['dataWrap'] = '{field:allDisplayFields}';
+    public function testGetRenderUserFunction()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals($this->filterSettings['renderUserFunctions'], $filterConfig->getRenderUserFunctions());
+    }
 
-		$this->assertEquals($refArray, $renderObj);
-	}
 
 
+    public function testGetAccess()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals(array(1, 2, 3), $filterConfig->getAccessGroups());
+    }
 
-	public function testGetRenderUserFunction() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals($this->filterSettings['renderUserFunctions'], $filterConfig->getRenderUserFunctions());
-	}
 
 
+    public function testGetBreadCrumbString()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals($filterConfig->getBreadCrumbString(), $this->filterSettings['breadCrumbString']);
+    }
 
-	public function testGetAccess() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals(array(1, 2, 3), $filterConfig->getAccessGroups());
-	}
 
 
-
-	public function testGetBreadCrumbString() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals($filterConfig->getBreadCrumbString(), $this->filterSettings['breadCrumbString']);
-	}
-
-
-
-	public function testGetLabel() {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-		$this->assertEquals($filterConfig->getLabel(), $this->filterSettings['label']);
-	}
-
+    public function testGetLabel()
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
+        $this->assertEquals($filterConfig->getLabel(), $this->filterSettings['label']);
+    }
 }

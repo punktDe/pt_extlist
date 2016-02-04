@@ -34,44 +34,43 @@
  * @author Daniel Lienert 
  */
 
-class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory {
-	
-	/**
-	 * Returns a instance of a export configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
-		$exportSettings = self::getExportSettingsForCurrentView($configurationBuilder);
-		$exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($configurationBuilder, $exportSettings);
-		
-		return $exportConfig;
-	}
-	
-	
-	/**
-	 * Get the settings 
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return array
-	 */
-	protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
-		$allExportSettings = $configurationBuilder->getSettingsForConfigObject('export');
-		$controllerSettings = $configurationBuilder->getSettings('controller');
-		$selectedViewSettingsKey = $controllerSettings['Export']['download']['view'];
-		$exportSettingsPath = explode('.',$selectedViewSettingsKey);
+class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
+{
+    /**
+     * Returns a instance of a export configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $exportSettings = self::getExportSettingsForCurrentView($configurationBuilder);
+        $exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($configurationBuilder, $exportSettings);
+        
+        return $exportConfig;
+    }
+    
+    
+    /**
+     * Get the settings 
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return array
+     */
+    protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $allExportSettings = $configurationBuilder->getSettingsForConfigObject('export');
+        $controllerSettings = $configurationBuilder->getSettings('controller');
+        $selectedViewSettingsKey = $controllerSettings['Export']['download']['view'];
+        $exportSettingsPath = explode('.', $selectedViewSettingsKey);
 
-		$exportSettings = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
-		
-		/* In this case we have to merge the prototype settings again because the prototype settings are filled from flexform....
-		 * This smells ... 
-		 * TODO: find a better way .... 
-		 */
-		
-		return $configurationBuilder->getMergedSettingsWithPrototype($exportSettings, 'export');
-	}
-
+        $exportSettings = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
+        
+        /* In this case we have to merge the prototype settings again because the prototype settings are filled from flexform....
+         * This smells ... 
+         * TODO: find a better way .... 
+         */
+        
+        return $configurationBuilder->getMergedSettingsWithPrototype($exportSettings, 'export');
+    }
 }

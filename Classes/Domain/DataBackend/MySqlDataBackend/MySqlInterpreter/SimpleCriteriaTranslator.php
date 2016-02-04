@@ -33,39 +33,41 @@
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
+class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+{
+    /**
+     * translate simple criteria
+     *
+     * @param \Tx_PtExtlist_Domain_QueryObject_Criteria|\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return string
+     */
+    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    {
+        return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());
+    }
 
-	/**
-	 * translate simple criteria
-	 *
-	 * @param \Tx_PtExtlist_Domain_QueryObject_Criteria|\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
-	 * @return string
-	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-		return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());
-	}
 
 
+    /**
+     * Wraps an array in ("<array[0]>",...,"<array[n]>") and escapes values.
+     * Returns string as escaped string if no array is given
+     *
+     * @param mixed $value
+     * @return integer|mixed|string
+     */
+    public static function wrapArrayInBrackets($value)
+    {
+        $connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
 
-	/**
-	 * Wraps an array in ("<array[0]>",...,"<array[n]>") and escapes values.
-	 * Returns string as escaped string if no array is given
-	 *
-	 * @param mixed $value
-	 * @return integer|mixed|string
-	 */
-	public static function wrapArrayInBrackets($value) {
-		$connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
+        if (is_array($value)) {
+            $escapedValues = $connection->fullQuoteArray($value, '');
+            $returnString = '(' . implode(',', $escapedValues) . ')';
+        } elseif (is_numeric($value)) {
+            $returnString = $value;
+        } else {
+            $returnString = $connection->fullQuoteStr($value, '');
+        }
 
-		if (is_array($value)) {
-			$escapedValues = $connection->fullQuoteArray($value, '');
-			$returnString = '(' . implode(',', $escapedValues) . ')';
-		} elseif(is_numeric($value)) {
-			$returnString = $value;
-		} else {
-			$returnString = $connection->fullQuoteStr($value, '');
-		}
-
-		return $returnString;
-	}
+        return $returnString;
+    }
 }

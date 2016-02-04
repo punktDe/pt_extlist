@@ -33,78 +33,90 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
-
-	/**
-	 * Holds the current filter value
-	 *
-	 * @var string
-	 */
-	protected $filterValue = NULL;
-
-
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-	 * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
-	 */
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
-		$fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
-		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue);
-
-		return $criteria;
-	}
+class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+{
+    /**
+     * Holds the current filter value
+     *
+     * @var string
+     */
+    protected $filterValue = null;
 
 
-	/**
-	 * Template method for initializing filter by TS configuration
-	 */
-	protected function initFilterByTsConfig() {
-		$filterValue = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('filterValue'));
-		$this->filterValue = $filterValue;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     */
+    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    {
+        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue);
+
+        return $criteria;
+    }
 
 
-	/**
-	 * Template method for initializing filter after setting all data
-	 */
-	protected function initFilter() {
-		// TODO: Implement initFilter() method.
-	}
+    /**
+     * Template method for initializing filter by TS configuration
+     */
+    protected function initFilterByTsConfig()
+    {
+        $filterValue = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('filterValue'));
+        $this->filterValue = $filterValue;
+    }
 
 
-	/**
-	 * Sets the active state of this filter
-	 */
-	protected function setActiveState() {
-		$this->isActive = $this->filterValue ? TRUE : FALSE;
-	}
+    /**
+     * Template method for initializing filter after setting all data
+     */
+    protected function initFilter()
+    {
+        // TODO: Implement initFilter() method.
+    }
 
 
-	/**
-	 * Returns the current filtervalues of this filter
-	 *
-	 * @return variant
-	 */
-	public function getValue() {
-		return $this->filterValue;
-	}
+    /**
+     * Sets the active state of this filter
+     */
+    protected function setActiveState()
+    {
+        $this->isActive = $this->filterValue ? true : false;
+    }
 
 
-	/**
-	 * @param $filterValue
-	 * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
-	 */
-	public function setFilterValue($filterValue) {
-		$this->filterValue = $filterValue;
-		return $this;
-	}
+    /**
+     * Returns the current filtervalues of this filter
+     *
+     * @return variant
+     */
+    public function getValue()
+    {
+        return $this->filterValue;
+    }
 
 
-	/**
-	 * This filter is not persisted, the value has to be set
-	 * during the lifecycle
-	 */
-	public function _persistToSession() {}
-	protected function initFilterByGpVars() {}
-	protected function initFilterBySession() {}
+    /**
+     * @param $filterValue
+     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     */
+    public function setFilterValue($filterValue)
+    {
+        $this->filterValue = $filterValue;
+        return $this;
+    }
+
+
+    /**
+     * This filter is not persisted, the value has to be set
+     * during the lifecycle
+     */
+    public function _persistToSession()
+    {
+    }
+    protected function initFilterByGpVars()
+    {
+    }
+    protected function initFilterBySession()
+    {
+    }
 }

@@ -34,115 +34,122 @@
  * @subpackage Domain\Model\Filter
  * @see Tx_PtExtlist_Domain_Model_Filter_Filterbox
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	protected $filterBoxConfigurationMock = null;
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $filterBoxConfigurationMock = null;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilderMock = null;
-	
-	
-	
-	protected $filterboxSettings = array();
-	
-	
-	
-	public function setup() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$this->filterBoxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock($this->configurationBuilderMock, 'hirschIdentifier', array());
-	}
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    protected $configurationBuilderMock = null;
     
-	
-	
-	public function testSetup() {
-		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-		$filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
-		$this->assertEquals( 'hirschIdentifier', $filterbox->getfilterboxIdentifier());
-		$this->assertEquals('test', $filterbox->getListIdentifier());
-	}
-	
-	
+    
+    
+    protected $filterboxSettings = array();
+    
+    
+    
+    public function setup()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $this->filterBoxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock($this->configurationBuilderMock, 'hirschIdentifier', array());
+    }
+    
+    
+    
+    public function testSetup()
+    {
+        $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+        $filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
+        $this->assertEquals('hirschIdentifier', $filterbox->getfilterboxIdentifier());
+        $this->assertEquals('test', $filterbox->getListIdentifier());
+    }
+    
+    
 
     /** @test */
-	public function resetResetsFiltersOfThisBoxAndSetsIsSubmittedFilterboxToFalse() {
-		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-		$filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
+    public function resetResetsFiltersOfThisBoxAndSetsIsSubmittedFilterboxToFalse()
+    {
+        $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+        $filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
         $filterbox->isSubmittedFilterbox();
-		$filter = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('reset'), array(), '', FALSE);
-		$filter->expects($this->once())
-		  ->method('reset');
-		$filterbox->addItem($filter, 'testfilter');
-		$filterbox->reset();
+        $filter = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('reset'), array(), '', false);
+        $filter->expects($this->once())
+          ->method('reset');
+        $filterbox->addItem($filter, 'testfilter');
+        $filterbox->reset();
         $this->assertEquals($filterbox->isSubmittedFilterbox(), false);
-	}
-	
-	
+    }
+    
+    
 
     /** @test */
-	public function classImplementsSessionPersistableInterface() {
-		$filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-		$filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
-		$this->assertTrue(is_a($filterbox, 'Tx_PtExtbase_State_Session_SessionPersistableInterface'), 'Filterbox does not implement Tx_PtExtbase_State_Session_SessionPersistableInterface!');
-		$this->assertTrue($filterbox->getObjectNamespace() == $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier() . '.' . Tx_PtExtlist_Domain_Model_Filter_Filterbox::OBJECT_NAMESPACE_SUFFIX);
-	}
-	
-	
+    public function classImplementsSessionPersistableInterface()
+    {
+        $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+        $filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
+        $this->assertTrue(is_a($filterbox, 'Tx_PtExtbase_State_Session_SessionPersistableInterface'), 'Filterbox does not implement Tx_PtExtbase_State_Session_SessionPersistableInterface!');
+        $this->assertTrue($filterbox->getObjectNamespace() == $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier() . '.' . Tx_PtExtlist_Domain_Model_Filter_Filterbox::OBJECT_NAMESPACE_SUFFIX);
+    }
+    
+    
 
-	/** @test */
-	public function filterboxValiedatesOnValidatingFilters() {
-		$validatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-		$validatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
-		$validatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', FALSE);
-		$validatingFilterMock->expects($this->once())
-		    ->method('validate')
-		    ->will($this->returnValue(true));
-		$validatingFilterboxMock->addItem($validatingFilterMock);
-		$this->assertTrue($validatingFilterboxMock->validate());
-	}
+    /** @test */
+    public function filterboxValiedatesOnValidatingFilters()
+    {
+        $validatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+        $validatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
+        $validatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', false);
+        $validatingFilterMock->expects($this->once())
+            ->method('validate')
+            ->will($this->returnValue(true));
+        $validatingFilterboxMock->addItem($validatingFilterMock);
+        $this->assertTrue($validatingFilterboxMock->validate());
+    }
 
 
 
-	/** @test */
-	public function filterboxDoesNotValidateOnNonValidatingFilters() {
-		$notValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-		$notValidatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
-		$notValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', FALSE);
+    /** @test */
+    public function filterboxDoesNotValidateOnNonValidatingFilters()
+    {
+        $notValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
+        $notValidatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
+        $notValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', false);
         $notValidatingFilterMock->expects($this->once())
             ->method('validate')
             ->will($this->returnValue(false));
         $notValidatingFilterboxMock->addItem($notValidatingFilterMock);
         $this->assertFalse($notValidatingFilterboxMock->validate());
-	}
+    }
 
 
 
-	/** @test */
-	public function getAccessibleFilterboxReturnsExpectedFilterbox() {
-		$dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-		$filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory'); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
-		$filterboxFactory->setDataBackendFactory($dataBackendFactoryMock);
+    /** @test */
+    public function getAccessibleFilterboxReturnsExpectedFilterbox()
+    {
+        $dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+        $filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory'); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
+        $filterboxFactory->setDataBackendFactory($dataBackendFactoryMock);
 
-		$filterbox = $filterboxFactory->createInstance($this->filterBoxConfigurationMock);
-		$accessibleFilterbox = $filterbox->getAccessableFilterbox();
-		
-		$this->assertTrue(is_a($accessibleFilterbox, 'Tx_PtExtlist_Domain_Model_Filter_Filterbox'));
-	}
-	
-	
+        $filterbox = $filterboxFactory->createInstance($this->filterBoxConfigurationMock);
+        $accessibleFilterbox = $filterbox->getAccessableFilterbox();
+        
+        $this->assertTrue(is_a($accessibleFilterbox, 'Tx_PtExtlist_Domain_Model_Filter_Filterbox'));
+    }
+    
+    
 
-	/** @test */
-	public function getFilterByFilterIdentifierReturnsExpectedFilter() {
-		$dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-		$filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory'); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
-		$filterboxFactory->setDataBackendFactory($dataBackendFactoryMock);
+    /** @test */
+    public function getFilterByFilterIdentifierReturnsExpectedFilter()
+    {
+        $dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+        $filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory'); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
+        $filterboxFactory->setDataBackendFactory($dataBackendFactoryMock);
 
-		$filterbox = $filterboxFactory->createInstance($this->configurationBuilderMock->buildFilterConfiguration()->getFilterBoxConfig('testfilterbox'));
+        $filterbox = $filterboxFactory->createInstance($this->configurationBuilderMock->buildFilterConfiguration()->getFilterBoxConfig('testfilterbox'));
 
-		$this->assertSame('testfilterbox', $filterbox->getFilterByFilterIdentifier('filter1')->getFilterBoxIdentifier());
-	}
-	
+        $this->assertSame('testfilterbox', $filterbox->getFilterByFilterIdentifier('filter1')->getFilterBoxIdentifier());
+    }
 }

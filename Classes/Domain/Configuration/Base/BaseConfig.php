@@ -34,22 +34,22 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-
-	/**
-	 * Session storage adapter for a uncached plugin
-	 * @var string
-	 */
-	protected $uncachedSessionStorageAdapter;
+class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+{
+    /**
+     * Session storage adapter for a uncached plugin
+     * @var string
+     */
+    protected $uncachedSessionStorageAdapter;
 
     
-	
-	/**
-	 * Session storage adapter for a cached plugin
-	 * 
-	 * @var string
-	 */
-	protected $cachedSessionStorageAdapter;
+    
+    /**
+     * Session storage adapter for a cached plugin
+     * 
+     * @var string
+     */
+    protected $cachedSessionStorageAdapter;
 
 
 
@@ -58,22 +58,22 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
      * 
      * @var bool
      */
-    protected $resetOnEmptySubmit = FALSE;
+    protected $resetOnEmptySubmit = false;
 
-	/**
-	 * True, if we want to make it possible to reset session data on GPVar 'resetSession'
-	 *
-	 * @var bool
-	 */
-	protected $resetSessionOnResetParameter = FALSE;
-	
-	
-	
-	/**
-	 * @var bool
-	 */
-	protected $useSession;
-	
+    /**
+     * True, if we want to make it possible to reset session data on GPVar 'resetSession'
+     *
+     * @var bool
+     */
+    protected $resetSessionOnResetParameter = false;
+    
+    
+    
+    /**
+     * @var bool
+     */
+    protected $useSession;
+    
 
 
     /**
@@ -82,40 +82,44 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
      * 
      * @return void
      */
-	protected function init() {
-		$this->setBooleanIfExistsAndNotNothing('resetOnEmptySubmit');
-		$this->setBooleanIfExistsAndNotNothing('resetSessionOnResetParameter');
-		$this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
-		$this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
-		$this->useSession = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() ? false : true;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getCachedSessionStorageAdapter() {
-		return $this->cachedSessionStorageAdapter;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getUncachedSessionStorageAdapter() {
-		return $this->uncachedSessionStorageAdapter;	
-	}
-	
-	
-	
-	/**
-	 * @return bool
-	 */
-	public function getUseSession() {
-		return $this->useSession;
-	}
+    protected function init()
+    {
+        $this->setBooleanIfExistsAndNotNothing('resetOnEmptySubmit');
+        $this->setBooleanIfExistsAndNotNothing('resetSessionOnResetParameter');
+        $this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
+        $this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
+        $this->useSession = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() ? false : true;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getCachedSessionStorageAdapter()
+    {
+        return $this->cachedSessionStorageAdapter;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getUncachedSessionStorageAdapter()
+    {
+        return $this->uncachedSessionStorageAdapter;
+    }
+    
+    
+    
+    /**
+     * @return bool
+     */
+    public function getUseSession()
+    {
+        return $this->useSession;
+    }
 
 
 
@@ -124,15 +128,16 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
      * 
      * @return bool
      */
-    public function getResetOnEmptySubmit() {
+    public function getResetOnEmptySubmit()
+    {
         return $this->resetOnEmptySubmit;
     }
 
-	/**
-	 * @return boolean
-	 */
-	public function getResetSessionOnResetParameter() {
-		return $this->resetSessionOnResetParameter;
-	}
-    
+    /**
+     * @return boolean
+     */
+    public function getResetSessionOnResetParameter()
+    {
+        return $this->resetSessionOnResetParameter;
+    }
 }

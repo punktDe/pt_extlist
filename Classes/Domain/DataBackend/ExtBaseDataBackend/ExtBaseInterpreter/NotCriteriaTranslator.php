@@ -34,21 +34,22 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslatorTest
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator 
-    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {
-	
-	/**
+class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator
+    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface
+{
+    /**
      * Translates a query an manipulates given query object
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
-	 */
+     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     */
     public static function translateCriteria(
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
            \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
-           \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository) {
+           \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository)
+    {
 
         // translate NOT criteria by creating a new extbase query
         $tmpQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria(
@@ -62,11 +63,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotC
             $extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(),
                 $extbaseQuery->logicalNot($tmpQuery->getConstraint())));
         } else {
-        	$extbaseQuery->matching($extbaseQuery->logicalNot($tmpQuery->getConstraint()));
+            $extbaseQuery->matching($extbaseQuery->logicalNot($tmpQuery->getConstraint()));
         }
 
         return $extbaseQuery;
-
-	}
-	 
+    }
 }

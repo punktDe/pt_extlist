@@ -37,14 +37,14 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
-
-	/**
-	 * Returns translated criteria(s)
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-	 */
-    abstract static public function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query);
+abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+{
+    /**
+     * Returns translated criteria(s)
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     */
+    abstract public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query);
     
     
     
@@ -53,7 +53,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $query
      */
-    abstract static public function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query);
     
     
     
@@ -62,7 +62,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $query
      */
-    abstract static public function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query);
     
     
     
@@ -71,7 +71,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $query
      */
-    abstract static public function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query);
     
     
     
@@ -80,6 +80,5 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
      */
-    abstract static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query);
-	
+    abstract public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query);
 }

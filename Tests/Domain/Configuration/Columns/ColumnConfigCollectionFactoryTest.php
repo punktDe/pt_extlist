@@ -34,34 +34,36 @@
  * @author Christoph Ehscheidt
  * @see Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	/**
-	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
-	 */
-	protected $configurationBuilderMock;
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
+     */
+    protected $configurationBuilderMock;
 
-	
-	
-	public function setup() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-	}
-	
-	
-	
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'));
-	}
-	
-	
-	
-	public function testGetColumnConfigCollection() {
-		$columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getInstance($this->configurationBuilderMock);
-		$this->assertTrue(is_a($columnConfigCollection, 'Tx_PtExtbase_Collection_ObjectCollection'));
-		
-		
-		$columnConfig1 = $columnConfigCollection->getColumnConfigById(10);
-		$this->assertEquals($columnConfig1->getColumnIdentifier(), 'column1');
-	}
-	
+    
+    
+    public function setup()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+    }
+    
+    
+    
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'));
+    }
+    
+    
+    
+    public function testGetColumnConfigCollection()
+    {
+        $columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getInstance($this->configurationBuilderMock);
+        $this->assertTrue(is_a($columnConfigCollection, 'Tx_PtExtbase_Collection_ObjectCollection'));
+        
+        
+        $columnConfig1 = $columnConfigCollection->getColumnConfigById(10);
+        $this->assertEquals($columnConfig1->getColumnIdentifier(), 'column1');
+    }
 }

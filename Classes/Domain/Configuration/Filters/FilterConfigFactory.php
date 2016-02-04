@@ -34,30 +34,31 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory {
-	
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings) {
-		$filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($configurationBuilder,$filterSettings,$filterboxIdentifier);
-		$filterConfig = self::setAccessableFlag($filterConfig, $configurationBuilder);
-		return $filterConfig;
-	}
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory
+{
+    public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings)
+    {
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($configurationBuilder, $filterSettings, $filterboxIdentifier);
+        $filterConfig = self::setAccessableFlag($filterConfig, $configurationBuilder);
+        return $filterConfig;
+    }
 
 
 
-	/**
-	 * Sets accessible flag for filter
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
-	 */
-	protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-		$security = $objectManager->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
-		$accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
-		$filterConfig->setAccessable($accessable);
-		
-		return $filterConfig;
-	}
-	
+    /**
+     * Sets accessible flag for filter
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     */
+    protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+        $security = $objectManager->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
+        $accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
+        $filterConfig->setAccessable($accessable);
+        
+        return $filterConfig;
+    }
 }

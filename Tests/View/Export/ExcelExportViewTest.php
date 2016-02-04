@@ -34,95 +34,97 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_View_Export_ExcelListView
  */
-class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * @var string
-	 */
-	protected $proxyClass;
-
-
-
-	/**
-	 * @var Tx_PtExtlist_View_Export_ExcelListView
-	 */
-	protected $proxy;
+class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var string
+     */
+    protected $proxyClass;
 
 
 
-	public function setUp() {
-		if(!file_exists('PHPExcel/PHPExcel.php')) {
-			$this->markTestSkipped('PHPExcel is not available!');
-		}
-
-		$this->initDefaultConfigurationBuilderMock();
-
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_View_Export_ExcelListView');
-		$this->proxy = new $this->proxyClass();
-
-		$this->proxy->setConfigurationBuilder($this->configurationBuilderMock);
-
-		$exportSettings = $this->configurationBuilderMock->getSettings('export');
-		$this->proxy->setExportConfiguration(new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilderMock, $exportSettings['exportConfigs']['test']));
-
-
-	}
+    /**
+     * @var Tx_PtExtlist_View_Export_ExcelListView
+     */
+    protected $proxy;
 
 
 
-	public function tearDown() {
-		unset($this->proxy);
-	}
+    public function setUp()
+    {
+        if (!file_exists('PHPExcel/PHPExcel.php')) {
+            $this->markTestSkipped('PHPExcel is not available!');
+        }
 
+        $this->initDefaultConfigurationBuilderMock();
 
-	
-	/**
-	 * @test
-	 */
-	public function renderCallsAllParts() {
+        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_View_Export_ExcelListView');
+        $this->proxy = new $this->proxyClass();
 
-		$viewMock = $this->getMockBuilder('Tx_PtExtlist_View_Export_ExcelListView')
-				  ->setMethods(array('renderPreHeaderRows','renderHeader','renderBody', 'renderPostBodyRows', 'clearOutputBufferAndSendHeaders', 'saveOutputAndExit'))
-					->getMock();
+        $this->proxy->setConfigurationBuilder($this->configurationBuilderMock);
 
-		$viewMock->expects($this->once())->method('renderPreHeaderRows');
-		$viewMock->expects($this->once())->method('renderHeader');
-		$viewMock->expects($this->once())->method('renderBody');
-		$viewMock->expects($this->once())->method('renderPostBodyRows');
-		/** @var $viewMock Tx_PtExtlist_View_Export_ExcelListView */
-
-		$viewMock->setConfigurationBuilder($this->configurationBuilderMock);
-		$exportSettings = $this->configurationBuilderMock->getSettings('export');
-		$viewMock->setExportConfiguration(new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilderMock, $exportSettings['exportConfigs']['test']));
-
-		$viewMock->render();
-	}
+        $exportSettings = $this->configurationBuilderMock->getSettings('export');
+        $this->proxy->setExportConfiguration(new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilderMock, $exportSettings['exportConfigs']['test']));
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function buildBorderStyle() {
-		$settings = array('style' => '1006A3', 'color' => '1006A3');
-		$expected = array('style' => '1006A3', 'color' => array('rgb' => '1006A3'));
-
-		$this->assertEquals($expected, $this->proxy->_call('buildBorderStyle', $settings));
-	}
+    public function tearDown()
+    {
+        unset($this->proxy);
+    }
 
 
-	
-	/**
-	 * @test
-	 */
-	public function getExcelSettingsByColumnIdentifier() {
-		$this->proxy->_call('init');
+    
+    /**
+     * @test
+     */
+    public function renderCallsAllParts()
+    {
+        $viewMock = $this->getMockBuilder('Tx_PtExtlist_View_Export_ExcelListView')
+                  ->setMethods(array('renderPreHeaderRows', 'renderHeader', 'renderBody', 'renderPostBodyRows', 'clearOutputBufferAndSendHeaders', 'saveOutputAndExit'))
+                    ->getMock();
 
-		$expected = array(
-			'wrap' => 0,
-			'vertical' => 'top'
-		);
+        $viewMock->expects($this->once())->method('renderPreHeaderRows');
+        $viewMock->expects($this->once())->method('renderHeader');
+        $viewMock->expects($this->once())->method('renderBody');
+        $viewMock->expects($this->once())->method('renderPostBodyRows');
+        /** @var $viewMock Tx_PtExtlist_View_Export_ExcelListView */
 
-		$this->assertEquals($expected, $this->proxy->_call('getExcelSettingsByColumnIdentifier', 'column1'));
-	}
+        $viewMock->setConfigurationBuilder($this->configurationBuilderMock);
+        $exportSettings = $this->configurationBuilderMock->getSettings('export');
+        $viewMock->setExportConfiguration(new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilderMock, $exportSettings['exportConfigs']['test']));
+
+        $viewMock->render();
+    }
+
+
+
+    /**
+     * @test
+     */
+    public function buildBorderStyle()
+    {
+        $settings = array('style' => '1006A3', 'color' => '1006A3');
+        $expected = array('style' => '1006A3', 'color' => array('rgb' => '1006A3'));
+
+        $this->assertEquals($expected, $this->proxy->_call('buildBorderStyle', $settings));
+    }
+
+
+    
+    /**
+     * @test
+     */
+    public function getExcelSettingsByColumnIdentifier()
+    {
+        $this->proxy->_call('init');
+
+        $expected = array(
+            'wrap' => 0,
+            'vertical' => 'top'
+        );
+
+        $this->assertEquals($expected, $this->proxy->_call('getExcelSettingsByColumnIdentifier', 'column1'));
+    }
 }

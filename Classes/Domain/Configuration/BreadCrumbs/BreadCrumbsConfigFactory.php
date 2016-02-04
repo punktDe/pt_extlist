@@ -34,16 +34,16 @@
  * @author Michael Knoll
  */
 
-class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory {
-	
-	/**
-	 * Returns a instance of the breadcrumbs configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
-	}
-	
+class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory
+{
+    /**
+     * Returns a instance of the breadcrumbs configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        return new Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
+    }
 }

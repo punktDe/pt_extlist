@@ -34,34 +34,35 @@
  * @subpackage Configuration\BreadCrumbs
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-
-	/**
-	 * Holds configuration for showing reset links
-	 *
-	 * @var bool
-	 */
-	protected $showResetLinks;
-	
-	
-	
-	/**
-	 * Initialization for config object
-	 */
-	public function init() {		
-		// optional
-		$this->setBooleanIfExistsAndNotNothing('showResetLinks');
-	}
-	
-	
-	
-	/**
-	 * Getter for 'showResetLinks' configuration
-	 *
-	 * @return bool
-	 */
-	public function getShowResetLinks() {
-		return $this->showResetLinks;
-	}
-    	
+class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+{
+    /**
+     * Holds configuration for showing reset links
+     *
+     * @var bool
+     */
+    protected $showResetLinks;
+    
+    
+    
+    /**
+     * Initialization for config object
+     */
+    public function init()
+    {
+        // optional
+        $this->setBooleanIfExistsAndNotNothing('showResetLinks');
+    }
+    
+    
+    
+    /**
+     * Getter for 'showResetLinks' configuration
+     *
+     * @return bool
+     */
+    public function getShowResetLinks()
+    {
+        return $this->showResetLinks;
+    }
 }

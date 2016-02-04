@@ -34,56 +34,55 @@
  * @entity
  * @see Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest
  */
-class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy implements Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface {
+class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy implements Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface
+{
+    /**
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param array $sessionData
+     * @return array merged SessionData
+     */
+    public function mergeSessionAndBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, array $sessionData)
+    {
+        $contentArray = unserialize($bookmark->getContent());
+        $listIdentifier = $bookmark->getListId();
+
+        if (array_key_exists($listIdentifier, $contentArray)) {
+            $sessionData[$listIdentifier] = array();
+
+            if (array_key_exists('headerColumns', $contentArray[$listIdentifier])) {
+                $sessionData[$listIdentifier]['headerColumns'] = $contentArray[$listIdentifier]['headerColumns'];
+            }
+
+            if (array_key_exists('filters', $contentArray[$listIdentifier])) {
+                $sessionData[$listIdentifier]['filters'] = $contentArray[$listIdentifier]['filters'];
+            }
+        }
+
+        return $sessionData;
+    }
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
-	 * @param array $sessionData
-	 * @return array merged SessionData
-	 */
-	public function mergeSessionAndBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, array $sessionData){
-		$contentArray = unserialize($bookmark->getContent());
-		$listIdentifier = $bookmark->getListId();
+    /**
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param array $sessionData
+     * @return void
+     */
+    public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionData)
+    {
+        $listIdentifier = $configurationBuilder->getListIdentifier();
+        $bookmarkContentArray = array();
 
-		if(array_key_exists($listIdentifier, $contentArray)) {
-			$sessionData[$listIdentifier] = array();
+        if (array_key_exists($listIdentifier, $sessionData)) {
+            if (array_key_exists('headerColumns', $sessionData[$listIdentifier])) {
+                $bookmarkContentArray[$listIdentifier]['headerColumns'] = $sessionData[$listIdentifier]['headerColumns'];
+            }
 
-			if(array_key_exists('headerColumns', $contentArray[$listIdentifier])) {
-				$sessionData[$listIdentifier]['headerColumns'] = $contentArray[$listIdentifier]['headerColumns'];
-			}
+            if (array_key_exists('filters', $sessionData[$listIdentifier])) {
+                $bookmarkContentArray[$listIdentifier]['filters'] = $sessionData[$listIdentifier]['filters'];
+            }
+        }
 
-			if(array_key_exists('filters', $contentArray[$listIdentifier])) {
-				$sessionData[$listIdentifier]['filters'] = $contentArray[$listIdentifier]['filters'];
-			}
-		}
-
-		return $sessionData;
-	}
-
-
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param array $sessionData
-	 * @return void
-	 */
-	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionData) {
-
-		$listIdentifier = $configurationBuilder->getListIdentifier();
-		$bookmarkContentArray = array();
-
-		if(array_key_exists($listIdentifier, $sessionData)) {
-
-			if(array_key_exists('headerColumns', $sessionData[$listIdentifier])) {
-				$bookmarkContentArray[$listIdentifier]['headerColumns'] = $sessionData[$listIdentifier]['headerColumns'];
-			}
-
-			if(array_key_exists('filters', $sessionData[$listIdentifier])) {
-				$bookmarkContentArray[$listIdentifier]['filters'] = $sessionData[$listIdentifier]['filters'];
-			}
-		}
-
-		$bookmark->setContent(serialize($bookmarkContentArray));
-	}
+        $bookmark->setContent(serialize($bookmarkContentArray));
+    }
 }

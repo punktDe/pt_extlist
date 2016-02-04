@@ -33,14 +33,13 @@
  * @subpackage 
  * @see 
  */
-interface Tx_PtExtlist_View_ConfigurableViewInterface extends \TYPO3\CMS\Extbase\Mvc\View\ViewInterface {
-
-	/**
-	 * Injects configuration builder via setter.
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return mixed
-	 */
-	public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
-
+interface Tx_PtExtlist_View_ConfigurableViewInterface extends \TYPO3\CMS\Extbase\Mvc\View\ViewInterface
+{
+    /**
+     * Injects configuration builder via setter.
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return mixed
+     */
+    public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
 }

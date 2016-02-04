@@ -34,18 +34,18 @@
  * @author Daniel Lienert 
  */
 
-class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory {
-	
-	/**
-	 * Returns a instance of a bookmark configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
-		$bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig($configurationBuilder, $bookmarksSettings);
-		return $bookmarkConfig;
-	}
-
+class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory
+{
+    /**
+     * Returns a instance of a bookmark configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
+        $bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig($configurationBuilder, $bookmarksSettings);
+        return $bookmarkConfig;
+    }
 }

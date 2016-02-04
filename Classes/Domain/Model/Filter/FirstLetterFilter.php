@@ -33,22 +33,22 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {	
-
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::buildFilterCriteria()
-	 */
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
-		
-		$criteria = NULL;
-		$columnName = $fieldIdentifier->getTableFieldCombined();
-		$filterValues = array_filter($this->filterValues);
-		
-		if(count($filterValues)) {
-			$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($columnName, current($filterValues).'%');
-		}
-		
-		return $criteria;
-	}
+class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+{
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::buildFilterCriteria()
+     */
+    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    {
+        $criteria = null;
+        $columnName = $fieldIdentifier->getTableFieldCombined();
+        $filterValues = array_filter($this->filterValues);
+        
+        if (count($filterValues)) {
+            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($columnName, current($filterValues).'%');
+        }
+        
+        return $criteria;
+    }
 }

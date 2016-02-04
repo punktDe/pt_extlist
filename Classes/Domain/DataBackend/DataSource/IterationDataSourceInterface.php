@@ -33,26 +33,26 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-interface Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
-
-	/**
-	 * Return data row as array
-	 *
-	 * @return array
-	 */
-	public function fetchRow();
-
-
-	/**
-	 * Return record count
-	 *
-	 * @return integer
-	 */
-	public function count();
+interface Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+{
+    /**
+     * Return data row as array
+     *
+     * @return array
+     */
+    public function fetchRow();
 
 
-	/**
-	 * Rewind the cursor to the first row
-	 */
-	public function rewind();
+    /**
+     * Return record count
+     *
+     * @return integer
+     */
+    public function count();
+
+
+    /**
+     * Rewind the cursor to the first row
+     */
+    public function rewind();
 }

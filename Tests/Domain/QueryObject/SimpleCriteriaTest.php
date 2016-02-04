@@ -34,53 +34,59 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	protected $simpleCriteria = null;
-	
-	
-	public function setup() {
-		$this->simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testfield', 'testvalue', '>');
-	}
-	
-	
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
-	}
-	
-	
-	
-	public function testConstruct() {
-		$simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testfield', 'testvalue', '>');
-		$this->assertTrue(is_a($simpleCriteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
-	}
-	
-	
-	
-	public function testGetField() {
-		$this->assertTrue($this->simpleCriteria->getField() == 'testfield');
-	}
-	
-	
-	
-	public function testGetValue() {
-		$this->assertTrue($this->simpleCriteria->getValue() == 'testvalue');
-	}
-	
-	
-	
-	public function testGetOperator() {
-		$this->assertTrue($this->simpleCriteria->getOperator() == '>');
-	}
-	
-	
-	
-	public function testIsEqualTo() {
-		$criteriaReference = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'value', '=');
-		$criteriaEqual = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'value', '=');
-		$criteriaInEqual = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
-		$this->assertTrue($criteriaReference->isEqualTo($criteriaEqual));
-		$this->assertTrue(!($criteriaReference->isEqualTo($criteriaInEqual)));
-	}
-	
+class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $simpleCriteria = null;
+    
+    
+    public function setup()
+    {
+        $this->simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testfield', 'testvalue', '>');
+    }
+    
+    
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+    }
+    
+    
+    
+    public function testConstruct()
+    {
+        $simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('testfield', 'testvalue', '>');
+        $this->assertTrue(is_a($simpleCriteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+    }
+    
+    
+    
+    public function testGetField()
+    {
+        $this->assertTrue($this->simpleCriteria->getField() == 'testfield');
+    }
+    
+    
+    
+    public function testGetValue()
+    {
+        $this->assertTrue($this->simpleCriteria->getValue() == 'testvalue');
+    }
+    
+    
+    
+    public function testGetOperator()
+    {
+        $this->assertTrue($this->simpleCriteria->getOperator() == '>');
+    }
+    
+    
+    
+    public function testIsEqualTo()
+    {
+        $criteriaReference = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'value', '=');
+        $criteriaEqual = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'value', '=');
+        $criteriaInEqual = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
+        $this->assertTrue($criteriaReference->isEqualTo($criteriaEqual));
+        $this->assertTrue(!($criteriaReference->isEqualTo($criteriaInEqual)));
+    }
 }

@@ -36,84 +36,88 @@
  * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm {
-
-	/**
-	 * @var Tx_PtExtbase_Collection_SortableObjectCollection
-	 */
-	protected $timeSpans;
-
-
-
-	/**
-	 * @var Tx_PtExtbase_Collection_SortableObjectCollection
-	 */
-	protected $condensedTimeSpans;
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm
+{
+    /**
+     * @var Tx_PtExtbase_Collection_SortableObjectCollection
+     */
+    protected $timeSpans;
 
 
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->condensedTimeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
-	}
-
-	
-
-	/**
-	 * Process algorithm
-	 *
-	 * @return \Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection
-	 */
-	public function process() {
-		$this->timeSpans->sort();
-		foreach ($this->timeSpans as $timeSpan) { /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $timeSpan */
-			if (count($this->condensedTimeSpans) > 0) {
-				$item = $this->condensedTimeSpans->pop(); /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $item */
-				if ($timeSpan->getStartDate()->format('U') <= $item->getEndDate()->format('U')
-				    && $timeSpan->getEndDate()->format('U') >= $item->getEndDate()->format('U')) {
-					$item->setEndDate($timeSpan->getEndDate());
-					$this->condensedTimeSpans->push($item);
-				} elseif ($item->getEndDate()->format('U') < $timeSpan->getStartDate()->format('U')) {
-					$this->condensedTimeSpans->push($item);
-					$this->condensedTimeSpans->push($timeSpan);
-				} else {
-					$this->condensedTimeSpans->push($item);
-				}
-			} else {
-				$this->condensedTimeSpans->push($timeSpan);
-			}
-		}
-		return $this->condensedTimeSpans;
-	}
-
-
-	
-	/**
-	 * @param \Tx_PtExtbase_Collection_SortableObjectCollection $timeSpans
-	 * @return void
-	 */
-	public function setTimeSpans($timeSpans){
-		$this->timeSpans = $timeSpans;
-	}
+    /**
+     * @var Tx_PtExtbase_Collection_SortableObjectCollection
+     */
+    protected $condensedTimeSpans;
 
 
 
-	/**
-	 * @return \Tx_PtExtbase_Collection_SortableObjectCollection
-	 */
-	public function getTimeSpans(){
-		return $this->timeSpans;
-	}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->condensedTimeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
+    }
+
+    
+
+    /**
+     * Process algorithm
+     *
+     * @return \Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection
+     */
+    public function process()
+    {
+        $this->timeSpans->sort();
+        foreach ($this->timeSpans as $timeSpan) { /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $timeSpan */
+            if (count($this->condensedTimeSpans) > 0) {
+                $item = $this->condensedTimeSpans->pop(); /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $item */
+                if ($timeSpan->getStartDate()->format('U') <= $item->getEndDate()->format('U')
+                    && $timeSpan->getEndDate()->format('U') >= $item->getEndDate()->format('U')) {
+                    $item->setEndDate($timeSpan->getEndDate());
+                    $this->condensedTimeSpans->push($item);
+                } elseif ($item->getEndDate()->format('U') < $timeSpan->getStartDate()->format('U')) {
+                    $this->condensedTimeSpans->push($item);
+                    $this->condensedTimeSpans->push($timeSpan);
+                } else {
+                    $this->condensedTimeSpans->push($item);
+                }
+            } else {
+                $this->condensedTimeSpans->push($timeSpan);
+            }
+        }
+        return $this->condensedTimeSpans;
+    }
+
+
+    
+    /**
+     * @param \Tx_PtExtbase_Collection_SortableObjectCollection $timeSpans
+     * @return void
+     */
+    public function setTimeSpans($timeSpans)
+    {
+        $this->timeSpans = $timeSpans;
+    }
 
 
 
-	/**
-	 * @return \Tx_PtExtbase_Collection_SortableObjectCollection
-	 */
-	public function getCondensedTimeSpans(){
-		return $this->condensedTimeSpans;
-	}
+    /**
+     * @return \Tx_PtExtbase_Collection_SortableObjectCollection
+     */
+    public function getTimeSpans()
+    {
+        return $this->timeSpans;
+    }
 
+
+
+    /**
+     * @return \Tx_PtExtbase_Collection_SortableObjectCollection
+     */
+    public function getCondensedTimeSpans()
+    {
+        return $this->condensedTimeSpans;
+    }
 }

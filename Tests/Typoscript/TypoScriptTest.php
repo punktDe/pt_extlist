@@ -34,154 +34,166 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Tests
  * @subpackage Typoscript
  */
-class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	protected $prototypePath;
+class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $prototypePath;
 
 
-	
-	protected $baseConfigTSFile;
-
-
-
-	protected $prototypeFiles;
-
-
-	
-	public function SetUp() {
-		$this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
-		$this->prototypePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/BaseConfig/Prototype/';
-		$this->prototypeFiles = $this->loadProttypeFileNamesAsArray();	
-	}
-
-
-		
-	public function testTsInclusion() {
-		$TSIncludeString = $this->loadTSFile($this->baseConfigTSFile);
-		$tsFileArray = $this->loadProttypeFileNamesAsArray();
-		
-		foreach($tsFileArray as $tsFile) {
-			$includeCommand = '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/'.$tsFile.'">';
-			$this->assertTrue(strpos($TSIncludeString, $includeCommand) > 0, 'The Prototype File ' . $tsFile . ' is not included in BasicSettings file ' . $this->baseConfigTSFile. ' (' . $includeCommand . ')');
-		}
-	}
-	
-	
-	
-	public function testConfigurationBuilderWithTypo3Backend() {
-		$settings = $this->buildTypoScriptConfigForConfigBuilder('t3BackendTestList');
-		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
-		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
-		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
-	}
-	
-	
-	
-	public function testConfigurationBuilderWithMysqlBackend() {
-		$settings = $this->buildTypoScriptConfigForConfigBuilder('mysqlBackendTestList');
-		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
-		$dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
-		$this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
-	}
-
-	
-	
-	public function testBuildColumnsConfiguration() {
-		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
-	}
-	
-	
-	
-	public function testBuildRendererConfiguration() {
-		$this->markTestIncomplete('TODO refactor all rendering');
-		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
-		$configurationBuilder->buildRendererConfiguration();
-	}
-
-
-	
-	public function testBuildPagerConfiguration() {
-		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
-		$configurationBuilder->buildPagerConfiguration();
-	}
-
-
-	
-	public function testBuildFilterBoxConfiguration() {
-		$settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-		$configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
-		$configurationBuilder->buildFilterConfiguration();
-	}
-
-
-	
-	protected function buildTypoScriptConfigForConfigBuilder($listIdentifier) {
-		$TSString = $this->loadAllPrototypeTS();
-		$TSString .=$this->loadTestList();
-		
-	
-		$parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
-		$parserInstance->parse($TSString);
- 		
-		//$cObj = t3lib_div::makeInstance('tslib_cObj');
-		//$output = $cObj->COBJ_ARRAY($parserInstance->setup);
-		
-		$tsSettings = $parserInstance->setup;
-
-		$settings =  GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
-		
-		$settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
-		
-		return $settings['plugin']['tx_ptextlist']['settings'];
-	}
-	
-	
-	
-	protected function loadAllPrototypeTS() {
-		$tsFileArray = $this->prototypeFiles;
-		$TSString = '';
-		
-		foreach($tsFileArray as $tsFile) {
-			$TSString .= $this->loadTSFile($this->prototypePath . $tsFile);
-		}
-		
-		return $TSString;
-	}
+    
+    protected $baseConfigTSFile;
 
 
 
-	protected function loadProttypeFileNamesAsArray() {
-		$dirHandler = dir($this->prototypePath);
-		while (false !== ($entry = $dirHandler->read())) {
-		  if($entry != '.' && $entry != '..') {
-		  	$entries[] = $entry;
-		  }
-		}
-		$dirHandler->close();
-		
-		return $entries;
-	}
+    protected $prototypeFiles;
 
 
-	
-	protected function loadTestList() {
-		return $this->loadTSFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Tests/Typoscript/testlist.txt');
-	}
+    
+    public function SetUp()
+    {
+        $this->baseConfigTSFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/setup.txt';
+        $this->prototypePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Configuration/TypoScript/BaseConfig/Prototype/';
+        $this->prototypeFiles = $this->loadProttypeFileNamesAsArray();
+    }
 
 
-	
-	protected function loadTSFile($filePath) {
-		$handle = fopen ($filePath, "r");
-		$buffer = '';
-		while (!feof($handle)) {
-		    $buffer .= fgets($handle, 4096);
-		}
-		fclose ($handle);
-		
-		return $buffer;
-	}
+        
+    public function testTsInclusion()
+    {
+        $TSIncludeString = $this->loadTSFile($this->baseConfigTSFile);
+        $tsFileArray = $this->loadProttypeFileNamesAsArray();
+        
+        foreach ($tsFileArray as $tsFile) {
+            $includeCommand = '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pt_extlist/Configuration/TypoScript/BaseConfig/Prototype/'.$tsFile.'">';
+            $this->assertTrue(strpos($TSIncludeString, $includeCommand) > 0, 'The Prototype File ' . $tsFile . ' is not included in BasicSettings file ' . $this->baseConfigTSFile. ' (' . $includeCommand . ')');
+        }
+    }
+    
+    
+    
+    public function testConfigurationBuilderWithTypo3Backend()
+    {
+        $settings = $this->buildTypoScriptConfigForConfigBuilder('t3BackendTestList');
+        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
+        $this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
+    }
+    
+    
+    
+    public function testConfigurationBuilderWithMysqlBackend()
+    {
+        $settings = $this->buildTypoScriptConfigForConfigBuilder('mysqlBackendTestList');
+        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
+        $this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
+    }
 
+    
+    
+    public function testBuildColumnsConfiguration()
+    {
+        $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
+        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+    }
+    
+    
+    
+    public function testBuildRendererConfiguration()
+    {
+        $this->markTestIncomplete('TODO refactor all rendering');
+        $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
+        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder->buildRendererConfiguration();
+    }
+
+
+    
+    public function testBuildPagerConfiguration()
+    {
+        $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
+        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder->buildPagerConfiguration();
+    }
+
+
+    
+    public function testBuildFilterBoxConfiguration()
+    {
+        $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
+        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder->buildFilterConfiguration();
+    }
+
+
+    
+    protected function buildTypoScriptConfigForConfigBuilder($listIdentifier)
+    {
+        $TSString = $this->loadAllPrototypeTS();
+        $TSString .=$this->loadTestList();
+        
+    
+        $parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+        $parserInstance->parse($TSString);
+        
+        //$cObj = t3lib_div::makeInstance('tslib_cObj');
+        //$output = $cObj->COBJ_ARRAY($parserInstance->setup);
+
+        $tsSettings = $parserInstance->setup;
+
+        $settings =  GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
+        
+        $settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
+        
+        return $settings['plugin']['tx_ptextlist']['settings'];
+    }
+    
+    
+    
+    protected function loadAllPrototypeTS()
+    {
+        $tsFileArray = $this->prototypeFiles;
+        $TSString = '';
+        
+        foreach ($tsFileArray as $tsFile) {
+            $TSString .= $this->loadTSFile($this->prototypePath . $tsFile);
+        }
+        
+        return $TSString;
+    }
+
+
+
+    protected function loadProttypeFileNamesAsArray()
+    {
+        $dirHandler = dir($this->prototypePath);
+        while (false !== ($entry = $dirHandler->read())) {
+            if ($entry != '.' && $entry != '..') {
+                $entries[] = $entry;
+            }
+        }
+        $dirHandler->close();
+        
+        return $entries;
+    }
+
+
+    
+    protected function loadTestList()
+    {
+        return $this->loadTSFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Tests/Typoscript/testlist.txt');
+    }
+
+
+    
+    protected function loadTSFile($filePath)
+    {
+        $handle = fopen($filePath, "r");
+        $buffer = '';
+        while (!feof($handle)) {
+            $buffer .= fgets($handle, 4096);
+        }
+        fclose($handle);
+        
+        return $buffer;
+    }
 }

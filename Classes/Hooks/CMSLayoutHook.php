@@ -30,79 +30,80 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Hooks
  * @author Daniel Lienert <daniel@lienert.cc>
  */
-class user_Tx_PtExtlist_Hooks_CMSLayoutHook {
-	
-	/**
-	 * Plugin mode determined from switchableControllerAction
-	 * @var string
-	 */
-	protected $pluginMode;
-	
-	
-	/**
-	 * @var unknown_type
-	 */
-	protected $fluidRenderer;
-	
-	
-	
-	/**
-	 * Render the Plugin Info
-	 * 
-	 * @param unknown_type $params
-	 * @param unknown_type $pObj
-	 */
-	public function getExtensionSummary($params, &$pObj) {
-		$data = GeneralUtility::xml2array($params['row']['pi_flexform']);
-		$this->init($data);
+class user_Tx_PtExtlist_Hooks_CMSLayoutHook
+{
+    /**
+     * Plugin mode determined from switchableControllerAction
+     * @var string
+     */
+    protected $pluginMode;
+    
+    
+    /**
+     * @var unknown_type
+     */
+    protected $fluidRenderer;
+    
+    
+    
+    /**
+     * Render the Plugin Info
+     * 
+     * @param unknown_type $params
+     * @param unknown_type $pObj
+     */
+    public function getExtensionSummary($params, &$pObj)
+    {
+        $data = GeneralUtility::xml2array($params['row']['pi_flexform']);
+        $this->init($data);
 
-		if(is_array($data)) {
-			// PluginMode
-			$firstControllerAction = array_shift(explode(';', $data['data']['sDefault']['lDEF']['switchableControllerActions']['vDEF']));
-			$this->pluginMode = str_replace('->', '_', $firstControllerAction);
-			
-			// List
-			$listIdentifier = $data['data']['sDefault']['lDEF']['settings.listIdentifier']['vDEF'];
-			
-			// Filter
-			$filterBoxIdentifier = $data['data']['sDefault']['lDEF']['settings.filterboxIdentifier']['vDEF'];
-			
-			// Export
-			$exportType = array_pop(explode('.',$data['data']['sDefault']['lDEF']['settings.controller.List.export.view']['vDEF']));
-			$exportFileName = $data['data']['sDefault']['lDEF']['settings.prototype.export.fileName']['vDEF'];
-			$exportFileName .= $data['data']['sDefault']['lDEF']['settings.prototype.export.addDateToFilename']['vDEF'] ? '[DATE]' : '';
-			$exportFileName .= '.' . $data['data']['sDefault']['lDEF']['settings.prototype.export.fileExtension']['vDEF'];
-			$exportDownloadType = 'tx_ptextlist_flexform_export.downloadtype.'.$data['data']['sDefault']['lDEF']['settings.prototype.export.downloadType']['vDEF'];
-			$exportListIdentifier = $data['data']['sDefault']['lDEF']['settings.exportListIdentifier']['vDEF'];
-		}
-		
-		$this->fluidRenderer->assign($this->pluginMode, true);
-		$this->fluidRenderer->assign('listIdentifier', $listIdentifier);		
-		
-		$this->fluidRenderer->assign('filterBoxIdentifier', $filterBoxIdentifier);
+        if (is_array($data)) {
+            // PluginMode
+            $firstControllerAction = array_shift(explode(';', $data['data']['sDefault']['lDEF']['switchableControllerActions']['vDEF']));
+            $this->pluginMode = str_replace('->', '_', $firstControllerAction);
+            
+            // List
+            $listIdentifier = $data['data']['sDefault']['lDEF']['settings.listIdentifier']['vDEF'];
+            
+            // Filter
+            $filterBoxIdentifier = $data['data']['sDefault']['lDEF']['settings.filterboxIdentifier']['vDEF'];
+            
+            // Export
+            $exportType = array_pop(explode('.', $data['data']['sDefault']['lDEF']['settings.controller.List.export.view']['vDEF']));
+            $exportFileName = $data['data']['sDefault']['lDEF']['settings.prototype.export.fileName']['vDEF'];
+            $exportFileName .= $data['data']['sDefault']['lDEF']['settings.prototype.export.addDateToFilename']['vDEF'] ? '[DATE]' : '';
+            $exportFileName .= '.' . $data['data']['sDefault']['lDEF']['settings.prototype.export.fileExtension']['vDEF'];
+            $exportDownloadType = 'tx_ptextlist_flexform_export.downloadtype.'.$data['data']['sDefault']['lDEF']['settings.prototype.export.downloadType']['vDEF'];
+            $exportListIdentifier = $data['data']['sDefault']['lDEF']['settings.exportListIdentifier']['vDEF'];
+        }
+        
+        $this->fluidRenderer->assign($this->pluginMode, true);
+        $this->fluidRenderer->assign('listIdentifier', $listIdentifier);
+        
+        $this->fluidRenderer->assign('filterBoxIdentifier', $filterBoxIdentifier);
 
-		$this->fluidRenderer->assign('exportType', $exportType);
-		$this->fluidRenderer->assign('exportFileName', $exportFileName);
-		$this->fluidRenderer->assign('exportDownloadType', $exportDownloadType);
-		$this->fluidRenderer->assign('exportListIdentifier', $exportListIdentifier);
-		$this->fluidRenderer->assign('caLabel', 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_controllerAction.' . $this->pluginMode);
- 		return $this->fluidRenderer->render();
-	}
-	
-	
-	
-	/**
-	 * Init some values
-	 * 
-	 * @param array $data
-	 */
-	protected function init($data) {
-		
-		$templatePathAndFilename = GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
-				
-		// Fluid
-		$objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-		$this->fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
-		$this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);		
-	}
+        $this->fluidRenderer->assign('exportType', $exportType);
+        $this->fluidRenderer->assign('exportFileName', $exportFileName);
+        $this->fluidRenderer->assign('exportDownloadType', $exportDownloadType);
+        $this->fluidRenderer->assign('exportListIdentifier', $exportListIdentifier);
+        $this->fluidRenderer->assign('caLabel', 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_ptextlist_flexform_controllerAction.' . $this->pluginMode);
+        return $this->fluidRenderer->render();
+    }
+    
+    
+    
+    /**
+     * Init some values
+     * 
+     * @param array $data
+     */
+    protected function init($data)
+    {
+        $templatePathAndFilename = GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
+                
+        // Fluid
+        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        $this->fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+        $this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);
+    }
 }

@@ -33,65 +33,69 @@
  * @author Christoph Ehscheidt 
  * @package Controller
  */
-class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController {
+class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController
+{
+    /**
+     * Holds the pager collection.
+     * 
+     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     */
+    protected $pagerCollection;
+    
+    
+    
+    /**
+     * The pager identifier of the pager configured for this view.
+     * 
+     * @var string
+     */
+    protected $pagerIdentifier;
+    
+    
+    
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::initializeAction()
+     */
+    public function initializeAction()
+    {
+        parent::initializeAction();
+        $this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
+        $this->templatePathAndFileName = $this->configurationBuilder->buildPagerConfiguration()->getPagerConfig($this->pagerIdentifier)->getTemplatePath();
+        $this->pagerCollection = $this->getPagerCollectionInstance();
+    }
+        
+    
+    
+    /**
+     * Shows a pager as a frontend plugin
+     *
+     * @return string Rendered pager action HTML source
+     */
+    public function showAction()
+    {
+        // Do not show pager when nothing to page.
+        if ($this->pagerCollection->getItemCount() <= 0) {
+            return '';
+        }
 
-	/**
-	 * Holds the pager collection.
-	 * 
-	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
-	 */
-	protected $pagerCollection;
-	
-	
-	
-	/**
-	 * The pager identifier of the pager configured for this view.
-	 * 
-	 * @var string
-	 */
-	protected $pagerIdentifier;
-	
-	
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::initializeAction()
-	 */
-	public function initializeAction() {
-		parent::initializeAction();
-		$this->pagerIdentifier = (empty($this->settings['pagerIdentifier']) ? 'default' : $this->settings['pagerIdentifier']);
-		$this->templatePathAndFileName = $this->configurationBuilder->buildPagerConfiguration()->getPagerConfig($this->pagerIdentifier)->getTemplatePath();
-		$this->pagerCollection = $this->getPagerCollectionInstance();
-	}
-		
-	
-	
-	/**
-	 * Shows a pager as a frontend plugin
-	 *
-	 * @return string Rendered pager action HTML source
-	 */
-	public function showAction() {
-		// Do not show pager when nothing to page.
-		if($this->pagerCollection->getItemCount() <= 0) return '';
+        $pager = $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier);
+        
+        $this->view->assign('pagerCollection', $this->pagerCollection);
+        $this->view->assign('pager', $pager);
+    }
 
-		$pager = $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier);
-		
-		$this->view->assign('pagerCollection', $this->pagerCollection);
-		$this->view->assign('pager', $pager);
-	}
-
-	
-	
-	/**
-	 * Returns an initialized pager object
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
-	 */
-	protected function getPagerCollectionInstance() {
-		$pagerCollection = $this->dataBackend->getPagerCollection();
-		$pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
-		return $pagerCollection;
-	}
-
+    
+    
+    /**
+     * Returns an initialized pager object
+     * 
+     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     */
+    protected function getPagerCollectionInstance()
+    {
+        $pagerCollection = $this->dataBackend->getPagerCollection();
+        $pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+        return $pagerCollection;
+    }
 }

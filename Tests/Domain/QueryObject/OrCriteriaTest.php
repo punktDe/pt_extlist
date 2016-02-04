@@ -34,29 +34,31 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_QueryObject_OrCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_OrCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
-     
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_QueryObject_OrCriteria');
-	}
-	
-	
-	
-	public function testConstruct() {
-		$firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
-		$secondCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '20', '<');
-		$orCriteria = new Tx_PtExtlist_Domain_QueryObject_OrCriteria($firstCriteria, $secondCriteria);
-		$this->assertTrue(is_a($orCriteria, 'Tx_PtExtlist_Domain_QueryObject_OrCriteria'));
-	}
-	
-	
-	
-	public function testGetter() {
-		$firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
+class Tx_PtExtlist_Tests_Domain_QueryObject_OrCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_QueryObject_OrCriteria');
+    }
+    
+    
+    
+    public function testConstruct()
+    {
+        $firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
+        $secondCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '20', '<');
+        $orCriteria = new Tx_PtExtlist_Domain_QueryObject_OrCriteria($firstCriteria, $secondCriteria);
+        $this->assertTrue(is_a($orCriteria, 'Tx_PtExtlist_Domain_QueryObject_OrCriteria'));
+    }
+    
+    
+    
+    public function testGetter()
+    {
+        $firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
         $secondCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '20', '<');
         $orCriteria = new Tx_PtExtlist_Domain_QueryObject_OrCriteria($firstCriteria, $secondCriteria);
         $this->assertTrue($orCriteria->getFirstCriteria() === $firstCriteria);
         $this->assertTrue($orCriteria->getSecondCriteria() === $secondCriteria);
-	}
-
+    }
 }

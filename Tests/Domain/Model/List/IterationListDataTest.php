@@ -39,167 +39,176 @@ require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * @subpackage Model\List
  * @see Tx_PtExtlist_Domain_Model_List_IterationListData
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_IterationListData
-	 */
-	protected $fixture;
-
-
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
-	 */
-	protected $rendererChainFactory;
+class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Model_List_IterationListData
+     */
+    protected $fixture;
 
 
 
-	public function setUp() {
-		$this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
-		$this->fixture = $this->getIterationListDataObject(10, 10);
-	}
+    /**
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     */
+    protected $rendererChainFactory;
 
 
 
-	/**
-	 * @param $rows
-	 * @param $cols
-	 * @return Tx_PtExtlist_Domain_Model_List_IterationListData
-	 */
-	protected function getIterationListDataObject($rows, $cols) {
-		$this->initDefaultConfigurationBuilderMock();
-
-		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($rows, $cols);
-		$dataMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
-
-		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
-		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
-
-		$fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
-		$fixture->_injectDataSource($dataSource);
-		$fixture->_injectDataMapper($dataMapper);
-		$fixture->_injectRenderChain($rendererChain);
-
-		return $fixture;
-	}
+    public function setUp()
+    {
+        $this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
+        $this->fixture = $this->getIterationListDataObject(10, 10);
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function count() {
-		$this->setUp();
+    /**
+     * @param $rows
+     * @param $cols
+     * @return Tx_PtExtlist_Domain_Model_List_IterationListData
+     */
+    protected function getIterationListDataObject($rows, $cols)
+    {
+        $this->initDefaultConfigurationBuilderMock();
 
-		$count = $this->fixture->count();
-		$this->assertEquals(10, $count);
-	}
+        $dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($rows, $cols);
+        $dataMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
 
+        $rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
+        $rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 
+        $fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+        $fixture->_injectDataSource($dataSource);
+        $fixture->_injectDataMapper($dataMapper);
+        $fixture->_injectRenderChain($rendererChain);
 
-	/**
-	 * @test
-	 */
-	public function isIteratable() {
-		$this->assertInstanceOf('Iterator', $this->fixture);
-	}
-
-
-
-	public function rowCountProvider() {
-		return array(
-			'0 rows' => array('rows' => 0),
-			'1 row' => array('rows' => 1),
-			'1000 rows' => array('rows' => 1000),
-		);
-	}
+        return $fixture;
+    }
 
 
 
-	/**
-	 * @dataProvider rowCountProvider
-	 * @test
-	 */
-	public function validCountOfIterations($rows) {
-		$this->fixture = $this->getIterationListDataObject($rows, 10);
+    /**
+     * @test
+     */
+    public function count()
+    {
+        $this->setUp();
 
-		$counter = 0;
-
-		foreach ($this->fixture as $row) {
-			$counter++;
-		}
-
-		$this->assertEquals($rows, $counter, 'We should have ' . $rows . ' iterations');
-	}
+        $count = $this->fixture->count();
+        $this->assertEquals(10, $count);
+    }
 
 
 
-	/**
-	 * @dataProvider rowCountProvider
-	 * @test
-	 */
-	public function IterationsReturnRows($rows) {
-		$this->fixture = $this->getIterationListDataObject($rows, 10);
-
-		$counter = 0;
-
-		foreach ($this->fixture as $row) {
-			$counter++;
-			$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row, 'Returned false in Iteration ' . $counter);
-		}
-	}
+    /**
+     * @test
+     */
+    public function isIteratable()
+    {
+        $this->assertInstanceOf('Iterator', $this->fixture);
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function rewindSetsKeyToZero() {
-		$this->setUp();
-
-		foreach ($this->fixture as $row) {
-		}
-
-		$this->fixture->rewind();
-
-		$this->assertEquals(0, $this->fixture->key());
-	}
+    public function rowCountProvider()
+    {
+        return array(
+            '0 rows' => array('rows' => 0),
+            '1 row' => array('rows' => 1),
+            '1000 rows' => array('rows' => 1000),
+        );
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function validCountOfIterationsAfterRewind() {
-		$this->setUp();
+    /**
+     * @dataProvider rowCountProvider
+     * @test
+     */
+    public function validCountOfIterations($rows)
+    {
+        $this->fixture = $this->getIterationListDataObject($rows, 10);
 
-		foreach ($this->fixture as $row) {
-		}
+        $counter = 0;
 
-		$counter = 0;
+        foreach ($this->fixture as $row) {
+            $counter++;
+        }
 
-		$this->fixture->rewind();
-
-		foreach ($this->fixture as $row) {
-			$counter++;
-		}
-
-		$this->assertEquals(10, $counter, 'We should have 10 iterations');
-	}
+        $this->assertEquals($rows, $counter, 'We should have ' . $rows . ' iterations');
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function currentReturnsRowObject() {
-		$this->setUp();
+    /**
+     * @dataProvider rowCountProvider
+     * @test
+     */
+    public function IterationsReturnRows($rows)
+    {
+        $this->fixture = $this->getIterationListDataObject($rows, 10);
 
-		$row = $this->fixture->current();
+        $counter = 0;
 
-		$this->assertTrue(is_object($row));
-		$this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row);
-	}
+        foreach ($this->fixture as $row) {
+            $counter++;
+            $this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row, 'Returned false in Iteration ' . $counter);
+        }
+    }
 
+
+
+    /**
+     * @test
+     */
+    public function rewindSetsKeyToZero()
+    {
+        $this->setUp();
+
+        foreach ($this->fixture as $row) {
+        }
+
+        $this->fixture->rewind();
+
+        $this->assertEquals(0, $this->fixture->key());
+    }
+
+
+
+    /**
+     * @test
+     */
+    public function validCountOfIterationsAfterRewind()
+    {
+        $this->setUp();
+
+        foreach ($this->fixture as $row) {
+        }
+
+        $counter = 0;
+
+        $this->fixture->rewind();
+
+        foreach ($this->fixture as $row) {
+            $counter++;
+        }
+
+        $this->assertEquals(10, $counter, 'We should have 10 iterations');
+    }
+
+
+
+    /**
+     * @test
+     */
+    public function currentReturnsRowObject()
+    {
+        $this->setUp();
+
+        $row = $this->fixture->current();
+
+        $this->assertTrue(is_object($row));
+        $this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row);
+    }
 }

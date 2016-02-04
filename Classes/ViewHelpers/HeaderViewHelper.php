@@ -38,57 +38,59 @@
  * @package ViewHelpers
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+{
+    /**
+     * Define arguments
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('exclude', 'array', 'Define identifiers to exclude from the headers', false, array());
+    }
 
-	/**
-	 * Define arguments
-	 */
-	public function initializeArguments() {
-		$this->registerArgument('exclude', 'array', 'Define identifiers to exclude from the headers', FALSE, array());
-	}
 
+    /**
+     * Renders SortingViewHelper
+     *
+     * Sets additional template variables for children of this viewhelper.
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
+     * @param Tx_PtExtlist_Domain_Model_List_Row $captions
+     * @param string $headerKey
+     * @param string $captionKey
+     */
+    public function render(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption")
+    {
+        if ($headers === null || $captions === null) {
+            return '';
+        }
 
-	/**
-	 * Renders SortingViewHelper
-	 *
-	 * Sets additional template variables for children of this viewhelper.
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $captions
-	 * @param string $headerKey
-	 * @param string $captionKey
-	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption") {
-		if ($headers === NULL || $captions === NULL) {
-			return '';
-		}
+        $output = '';
 
-		$output = '';
+        foreach ($headers as $header) {
+            /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
-		foreach ($headers as $header) {
-			/* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+            if ($captions->hasItem($header->getColumnIdentifier()) && !in_array($header->getColumnIdentifier(), $this->arguments['exclude'])) {
 
-			if($captions->hasItem($header->getColumnIdentifier()) && !in_array($header->getColumnIdentifier(), $this->arguments['exclude']) ) {
+                // Set additional variables in template vars for child elements
+                $this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));
+                $this->templateVariableContainer->add('header', $header);
+                $this->templateVariableContainer->add('sortable', $header->isSortable());
+                $this->templateVariableContainer->add('sortingFields', $this->buildSortingFieldParams($header));
+                $this->templateVariableContainer->add('sortColumnAtOnce', $header->getSortingConfig()->getColumnSorting());
 
-				// Set additional variables in template vars for child elements
-				$this->templateVariableContainer->add($captionKey, $captions->getItemById($header->getColumnIdentifier()));
-				$this->templateVariableContainer->add('header', $header);
-				$this->templateVariableContainer->add('sortable', $header->isSortable());
-				$this->templateVariableContainer->add('sortingFields', $this->buildSortingFieldParams($header));
-				$this->templateVariableContainer->add('sortColumnAtOnce', $header->getSortingConfig()->getColumnSorting());
+                $output .= $this->renderChildren();
 
-				$output .= $this->renderChildren();
+                $this->templateVariableContainer->remove('sortColumnAtOnce');
+                $this->templateVariableContainer->remove('sortingFields');
+                $this->templateVariableContainer->remove($captionKey);
+                $this->templateVariableContainer->remove($headerKey);
+                $this->templateVariableContainer->remove('sortable');
+            }
+        }
 
-				$this->templateVariableContainer->remove('sortColumnAtOnce');
-				$this->templateVariableContainer->remove('sortingFields');
-				$this->templateVariableContainer->remove($captionKey);
-				$this->templateVariableContainer->remove($headerKey);
-				$this->templateVariableContainer->remove('sortable');
-			}
-		}
-
-		return $output;
-	}
+        return $output;
+    }
 
 
 
@@ -101,7 +103,8 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
      * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
      * @return array
      */
-    protected function buildSortingFieldParams(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
+    protected function buildSortingFieldParams(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header)
+    {
         $sortingFieldsParams = array();
 
         foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
@@ -119,5 +122,4 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
 
         return $sortingFieldsParams;
     }
-
 }

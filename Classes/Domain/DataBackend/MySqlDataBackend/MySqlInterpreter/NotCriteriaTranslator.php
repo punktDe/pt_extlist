@@ -34,16 +34,16 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
-
-	/**
-	 * translate NOT criteria to string
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Tx_PtExtlist_Domain_QueryObject_NotCriteria
-	 * @return string
-	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria  $criteria) {
-	    return 'NOT (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getCriteria()) . ')';
-	}
-
+class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+{
+    /**
+     * translate NOT criteria to string
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Tx_PtExtlist_Domain_QueryObject_NotCriteria
+     * @return string
+     */
+    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria  $criteria)
+    {
+        return 'NOT (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getCriteria()) . ')';
+    }
 }

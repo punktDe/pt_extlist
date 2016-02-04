@@ -37,14 +37,14 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
-	 
-	/**
-	 * Holds raw SQL string of criteria
-	 *
-	 * @var string
-	 */
-	protected $rawSqlString;
+class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+{
+    /**
+     * Holds raw SQL string of criteria
+     *
+     * @var string
+     */
+    protected $rawSqlString;
 
 
 
@@ -56,10 +56,11 @@ class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain
      *
      * @param string $rawSqlString
      */
-    public function __construct($rawSqlString) {
+    public function __construct($rawSqlString)
+    {
         $this->rawSqlString = $rawSqlString;
     }
-	
+    
 
 
     /**
@@ -67,8 +68,8 @@ class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain
      * 
      * @return string
      */
-    public function getRawSqlString() {
+    public function getRawSqlString()
+    {
         return $this->rawSqlString;
     }
-    
 }

@@ -33,101 +33,105 @@
  * @package Controller
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_AbstractController {
-
-	/**
-	 * Reset ConfigurationBuilder for actions in this Controller
-	 *
-	 * @var bool
-	 */
-	protected $resetConfigurationBuilder = TRUE;
-
-
-
-	/**
-	 * @var string
-	 */
-	protected $exportListIdentifier;
+class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_AbstractController
+{
+    /**
+     * Reset ConfigurationBuilder for actions in this Controller
+     *
+     * @var bool
+     */
+    protected $resetConfigurationBuilder = true;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
-	 */
-	protected $listFactory;
+    /**
+     * @var string
+     */
+    protected $exportListIdentifier;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_View_Export_AbstractExportView
-	 */
-	protected $view;
+    /**
+     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     */
+    protected $listFactory;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
-	 */
-	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
-		$this->listFactory = $listFactory;
-	}
+    /**
+     * @var Tx_PtExtlist_View_Export_AbstractExportView
+     */
+    protected $view;
 
 
 
-	/**
-	 * @return void
-	 */
-	public function initializeAction() {
-		parent::initializeAction();
-
-		$this->exportListIdentifier = $this->settings['exportListIdentifier'];
-		if(!$this->exportListIdentifier) $this->exportListIdentifier = $this->listIdentifier;
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No export list identifier set.', 1316446015));
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     */
+    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    {
+        $this->listFactory = $listFactory;
+    }
 
 
 
-	/**
-	 * @return void
-	 */
-	public function showLinkAction() {
-		$fileExtension = $this->configurationBuilder->buildExportConfiguration()->getFileExtension();
-		$this->view->assign('fileExtension', $fileExtension);
-	}
+    /**
+     * @return void
+     */
+    public function initializeAction()
+    {
+        parent::initializeAction();
+
+        $this->exportListIdentifier = $this->settings['exportListIdentifier'];
+        if (!$this->exportListIdentifier) {
+            $this->exportListIdentifier = $this->listIdentifier;
+        }
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No export list identifier set.', 1316446015));
+    }
 
 
 
-	/**
-	 * Returns download for given parameters
-	 *
-	 * @return string
-	 * @throws Exception
-	 */
-	public function downloadAction() {
+    /**
+     * @return void
+     */
+    public function showLinkAction()
+    {
+        $fileExtension = $this->configurationBuilder->buildExportConfiguration()->getFileExtension();
+        $this->view->assign('fileExtension', $fileExtension);
+    }
 
-		if($this->listIdentifier == $this->exportListIdentifier || !$this->exportListIdentifier) {
-			$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
-		} else {
-			$exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
-			
-			if(!is_array($exportListConfiguration)) {
-				throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
-			}
 
-			$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
-			
-			$list = $extListContext->getList(true);
-		}
 
-		$this->view->setExportConfiguration($this->configurationBuilder->buildExportConfiguration());
-		$this->view->initConfiguration();
+    /**
+     * Returns download for given parameters
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function downloadAction()
+    {
+        if ($this->listIdentifier == $this->exportListIdentifier || !$this->exportListIdentifier) {
+            $list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
+        } else {
+            $exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
+            
+            if (!is_array($exportListConfiguration)) {
+                throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
+            }
 
-		$this->view->assign('listHeader', $list->getListHeader());
-		$this->view->assign('listCaptions', $list->getRenderedListHeader());
-		$this->view->assign('listData', $list->getRenderedListData());
-		$this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
+            $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
+            
+            $list = $extListContext->getList(true);
+        }
 
-		return $this->view->render();
-	}
+        $this->view->setExportConfiguration($this->configurationBuilder->buildExportConfiguration());
+        $this->view->initConfiguration();
 
+        $this->view->assign('listHeader', $list->getListHeader());
+        $this->view->assign('listCaptions', $list->getRenderedListHeader());
+        $this->view->assign('listData', $list->getRenderedListData());
+        $this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
+
+        return $this->view->render();
+    }
 }

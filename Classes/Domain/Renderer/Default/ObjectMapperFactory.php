@@ -33,16 +33,15 @@
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapperFactory {
+class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapperFactory
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper
+     */
+    protected static $instance;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper
-	 */
-	protected static $instance;
 
-
-	public static function getInstance($mapperConfig, $data) {
-
-	}
-
+    public static function getInstance($mapperConfig, $data)
+    {
+    }
 }

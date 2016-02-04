@@ -34,18 +34,19 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    // TODO : Implement the required Tests
 
-	// TODO : Implement the required Tests
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-		
-	
-	
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection');
-	}
-	
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+        
+    
+    
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection');
+    }
 }

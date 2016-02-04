@@ -31,45 +31,45 @@
  * @subpackage 		Configuration\Columns  
  * @author         	Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
-	
-	/**
-	 * Parse the sorting config string and build sorting config objects
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory
+{
+    /**
+     * Parse the sorting config string and build sorting config objects
      *
-	 * @param string $sortingSettings
-	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
-	 */
-	public static function getInstanceBySortingSettings($sortingSettings) {
-		$nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
-									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+     * @param string $sortingSettings
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     */
+    public static function getInstanceBySortingSettings($sortingSettings)
+    {
+        $nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+                                       'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 
         // We create new sortingConfigCollection for column that can only be sorted as a whole
-		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
-		$sortingFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $sortingSettings);
-		foreach($sortingFields as $sortingField) {
-			
-			$sortingFieldOptions = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $sortingField);
-			$fieldName  = $sortingFieldOptions[0];
-			
-			if($fieldName) {
-				$tempSortingDir = strtolower($sortingFieldOptions[1]);	
-				$sortingDir = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
-				$forceSortingDir = false;
+        $sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
+        $sortingFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $sortingSettings);
+        foreach ($sortingFields as $sortingField) {
+            $sortingFieldOptions = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $sortingField);
+            $fieldName  = $sortingFieldOptions[0];
+            
+            if ($fieldName) {
+                $tempSortingDir = strtolower($sortingFieldOptions[1]);
+                $sortingDir = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
+                $forceSortingDir = false;
 
-				if(in_array($tempSortingDir, array('asc','desc'))) {
-					$sortingDir = $nameToConstantMapping[$tempSortingDir];
-				} elseif(in_array($tempSortingDir, array('!asc','!desc'))) {
-					$forceSortingDir = true;
-					$sortingDir = $nameToConstantMapping[substr($tempSortingDir,1)];
-				}
+                if (in_array($tempSortingDir, array('asc', 'desc'))) {
+                    $sortingDir = $nameToConstantMapping[$tempSortingDir];
+                } elseif (in_array($tempSortingDir, array('!asc', '!desc'))) {
+                    $forceSortingDir = true;
+                    $sortingDir = $nameToConstantMapping[substr($tempSortingDir, 1)];
+                }
 
-				$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldName, $sortingDir, $forceSortingDir);
-				$sortingConfigCollection->addSortingField($sortingConfig, $fieldName);
-			}
-		}
+                $sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldName, $sortingDir, $forceSortingDir);
+                $sortingConfigCollection->addSortingField($sortingConfig, $fieldName);
+            }
+        }
 
-		return $sortingConfigCollection;
-	}
+        return $sortingConfigCollection;
+    }
 
 
 
@@ -80,14 +80,15 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
      * @param array $sortingFieldsSettings TypoScript settings for column.sortingFields
      * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
      */
-    public static function getInstanceBySortingFieldsSettings(array $sortingFieldsSettings) {
+    public static function getInstanceBySortingFieldsSettings(array $sortingFieldsSettings)
+    {
         $nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
-									   'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+                                       'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 
         // We create sortingConfigCollection that can handle sorting of individual fields
         $sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(false);
 
-        foreach($sortingFieldsSettings as $fieldNumber => $sortingFieldSetting) {
+        foreach ($sortingFieldsSettings as $fieldNumber => $sortingFieldSetting) {
             $fieldIdentifier = $sortingFieldSetting['field'];
             $sortingDirection = $nameToConstantMapping[strtolower($sortingFieldSetting['direction'])];
             $forceSortingDirection = $sortingFieldSetting['forceDirection'];
@@ -108,22 +109,22 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory {
 
 
 
-	/**
-	 * Generate an array by field configuration - direction is NULL here
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
-	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
-	 */
-	public static function getInstanceByFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
+    /**
+     * Generate an array by field configuration - direction is NULL here
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     */
+    public static function getInstanceByFieldConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection)
+    {
         // We create a sorting field configuration that only sorts a whole column at once (hence param is true)
-		$sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
-		foreach($fieldConfigCollection as $fieldConfig) {
+        $sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
+        foreach ($fieldConfigCollection as $fieldConfig) {
             // We create sorting config with descending sorting as default sorting
-			$sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldConfig->getIdentifier(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, false);
-			$sortingConfigCollection->addSortingField($sortingConfig, $fieldConfig->getIdentifier());
-		}
-		
-		return $sortingConfigCollection;
-	}
-	
+            $sortingConfig = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig($fieldConfig->getIdentifier(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, false);
+            $sortingConfigCollection->addSortingField($sortingConfig, $fieldConfig->getIdentifier());
+        }
+        
+        return $sortingConfigCollection;
+    }
 }

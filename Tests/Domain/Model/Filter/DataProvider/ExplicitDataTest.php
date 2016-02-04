@@ -36,73 +36,78 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $defaultFilterSettings;
-
-
-
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-		$this->defaultFilterSettings = array(
-			'filterIdentifier' => 'test',
-			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-			'partialPath' => 'Filter/SelectFilter',
-			'fieldIdentifier' => 'field1',
-			'displayFields' => 'field1,field2',
-			'filterField' => 'field3',
-			'invert' => '0',
-			'options' => array('x' => 'test',
-				'y' => 'hallo'
-			)
-		);
-	}
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $defaultFilterSettings;
 
 
 
-	/** @test */
-	public function getRenderedOptionsReturnsExpectedValue() {
-		$explicitDataProvider = $this->buildAccessibleExplicitDataProvider();
-		$options = $explicitDataProvider->getRenderedOptions();
-		$this->assertEquals(2, count($options));
-		$this->assertEquals(array('value' => 'test', 'selected' => false), $options['x']);
-	}
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $this->defaultFilterSettings = array(
+            'filterIdentifier' => 'test',
+            'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+            'partialPath' => 'Filter/SelectFilter',
+            'fieldIdentifier' => 'field1',
+            'displayFields' => 'field1,field2',
+            'filterField' => 'field3',
+            'invert' => '0',
+            'options' => array('x' => 'test',
+                'y' => 'hallo'
+            )
+        );
+    }
 
 
 
-	/** @test */
-	public function getRenderedOptionsComplex() {
-		$filterSettings = $this->defaultFilterSettings;
-		unset($filterSettings['options']);
-		$filterSettings['options'][10]['key'] = 'theKey';
-		$filterSettings['options'][10]['value'] = 'theLabel';
-		$explicitDataProvider = $this->buildAccessibleExplicitDataProvider($filterSettings);
-		$options = $explicitDataProvider->getRenderedOptions();
-		$this->assertEquals(array('value' => 'theLabel', 'selected' => false), $options['theKey']);
-	}
+    /** @test */
+    public function getRenderedOptionsReturnsExpectedValue()
+    {
+        $explicitDataProvider = $this->buildAccessibleExplicitDataProvider();
+        $options = $explicitDataProvider->getRenderedOptions();
+        $this->assertEquals(2, count($options));
+        $this->assertEquals(array('value' => 'test', 'selected' => false), $options['x']);
+    }
 
 
 
-	/**
-	 * Build the dataprovider
-	 *
-	 * @param array $filterSettings
-	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
-	 */
-	protected function buildAccessibleExplicitDataProvider($filterSettings = NULL) {
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData');
-		$accessibleExplicitDataProvider = new $accessibleClassName;
-		/* @var $accessibleExplicitDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
-		if (!$filterSettings) $filterSettings = $this->defaultFilterSettings;
-		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-		// We need to do this to initially create a configuration builder! TODO remove this, once we have proper DI!
-		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-		// Create singleton instance of dataBackendFactory for corresponding configuration
-		$dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
-		$accessibleExplicitDataProvider->_injectFilterConfig($filterConfiguration);
-		$accessibleExplicitDataProvider->_injectDataBackend($dataBackend);
-		$accessibleExplicitDataProvider->init();
-		return $accessibleExplicitDataProvider;
-	}
+    /** @test */
+    public function getRenderedOptionsComplex()
+    {
+        $filterSettings = $this->defaultFilterSettings;
+        unset($filterSettings['options']);
+        $filterSettings['options'][10]['key'] = 'theKey';
+        $filterSettings['options'][10]['value'] = 'theLabel';
+        $explicitDataProvider = $this->buildAccessibleExplicitDataProvider($filterSettings);
+        $options = $explicitDataProvider->getRenderedOptions();
+        $this->assertEquals(array('value' => 'theLabel', 'selected' => false), $options['theKey']);
+    }
 
+
+
+    /**
+     * Build the dataprovider
+     *
+     * @param array $filterSettings
+     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData
+     */
+    protected function buildAccessibleExplicitDataProvider($filterSettings = null)
+    {
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData');
+        $accessibleExplicitDataProvider = new $accessibleClassName;
+        /* @var $accessibleExplicitDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
+        if (!$filterSettings) {
+            $filterSettings = $this->defaultFilterSettings;
+        }
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+        // We need to do this to initially create a configuration builder! TODO remove this, once we have proper DI!
+        $dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+        // Create singleton instance of dataBackendFactory for corresponding configuration
+        $dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
+        $accessibleExplicitDataProvider->_injectFilterConfig($filterConfiguration);
+        $accessibleExplicitDataProvider->_injectDataBackend($dataBackend);
+        $accessibleExplicitDataProvider->init();
+        return $accessibleExplicitDataProvider;
+    }
 }

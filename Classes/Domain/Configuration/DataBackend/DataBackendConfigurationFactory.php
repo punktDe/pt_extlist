@@ -33,12 +33,12 @@
  * @subpackage Configuration\DataBackend
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory {
+class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory
+{
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $dataBackendConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration($configurationBuilder);
 
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration($configurationBuilder);
-
-		return $dataBackendConfig;
-	}
-
+        return $dataBackendConfig;
+    }
 }

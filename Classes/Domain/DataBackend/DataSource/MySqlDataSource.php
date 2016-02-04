@@ -35,113 +35,114 @@
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest
  */
 class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
-	implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
-
-	/**
-	 * Holds an instance of PDO for database connection
-	 *
-	 * @var PDO
-	 */
-	protected $connection;
-
-
-	/**
-	 * @var PDOStatement
-	 */
-	protected $statement;
-
-	
-	
-	/**
-	 * Constructor for datasource
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration) {
-		$this->dataSourceConfiguration = $configuration;
-	}
-	
-	
-	
-	/**
-	 * Injector for database connection object
-	 *
-	 * @param PDO $dbObject
-	 */
-	public function injectDbObject($dbObject) {
-		$this->connection = $dbObject;
-	}
+    implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+{
+    /**
+     * Holds an instance of PDO for database connection
+     *
+     * @var PDO
+     */
+    protected $connection;
 
 
-	/**
-	 * Executes a query using current database connection
-	 *
-	 * @param $query
-	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
-	 * @throws Exception
-	 */
-	public function executeQuery($query) {
-		
-		try {
-			/* @var $statement PDOStatement */
-			$this->startTimeMeasure();
-			$this->statement = $this->connection->prepare($query);
-			$this->statement->execute();
-			$this->stopTimeMeasure();
-		} catch(Exception $e) {
-			throw new Exception('Error while trying to execute query on database! SQL-Statement: ' . $query . 
-			    ' - Error message from PDO: ' . $e->getMessage() .
-			    '. Further information from PDO_errorInfo: ' . $this->statement->errorInfo(), 1280322659);
-		}
+    /**
+     * @var PDOStatement
+     */
+    protected $statement;
 
-		return $this;
-	}
-
-
-	/**
-	 * @return array
-	 * @throws Exception
-	 */
-	public function fetchAll() {
-
-		if($this->statement instanceof PDOStatement) {
-			return $this->statement->fetchall(PDO::FETCH_ASSOC);
-		} else {
-			Throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951370);
-		}
-	}
+    
+    
+    /**
+     * Constructor for datasource
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration
+     */
+    public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration)
+    {
+        $this->dataSourceConfiguration = $configuration;
+    }
+    
+    
+    
+    /**
+     * Injector for database connection object
+     *
+     * @param PDO $dbObject
+     */
+    public function injectDbObject($dbObject)
+    {
+        $this->connection = $dbObject;
+    }
 
 
-	/**
-	 * @return mixed
-	 * @throws Exception
-	 */
-	public function fetchRow() {
+    /**
+     * Executes a query using current database connection
+     *
+     * @param $query
+     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+     * @throws Exception
+     */
+    public function executeQuery($query)
+    {
+        try {
+            /* @var $statement PDOStatement */
+            $this->startTimeMeasure();
+            $this->statement = $this->connection->prepare($query);
+            $this->statement->execute();
+            $this->stopTimeMeasure();
+        } catch (Exception $e) {
+            throw new Exception('Error while trying to execute query on database! SQL-Statement: ' . $query .
+                ' - Error message from PDO: ' . $e->getMessage() .
+                '. Further information from PDO_errorInfo: ' . $this->statement->errorInfo(), 1280322659);
+        }
 
-		if($this->statement instanceof PDOStatement) {
-			return $this->statement->fetch(PDO::FETCH_ASSOC);
-		} else {
-			Throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
-		}
-
-	}
-
-
-	/**
-	 * @return integer
-	 */
-	public function count() {
-		return $this->statement->rowCount();
-	}
-
-
-
-	/**
-	 * @return mixed
-	 */
-	public function rewind() {
-		return $this->statement->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_FIRST);
-	}
+        return $this;
+    }
 
 
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function fetchAll()
+    {
+        if ($this->statement instanceof PDOStatement) {
+            return $this->statement->fetchall(PDO::FETCH_ASSOC);
+        } else {
+            throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951370);
+        }
+    }
+
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function fetchRow()
+    {
+        if ($this->statement instanceof PDOStatement) {
+            return $this->statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
+        }
+    }
+
+
+    /**
+     * @return integer
+     */
+    public function count()
+    {
+        return $this->statement->rowCount();
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function rewind()
+    {
+        return $this->statement->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_FIRST);
+    }
 }

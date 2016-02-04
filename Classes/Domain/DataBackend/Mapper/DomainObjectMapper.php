@@ -34,159 +34,163 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper {
+class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper
+{
+    /**
+     * Returns list data structure for given domain objects.
+     * Uses configuration currently set in mapper.
+     *
+     * @param mixed $domainObjects
+     * @return Tx_PtExtlist_Domain_Model_List_ListData List data generated for given mapping configuration
+     */
+    public function getMappedListData($domainObjects)
+    {
+        Tx_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
+        
+        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        
+        foreach ($domainObjects as $domainObject) {
+            $listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
+            foreach ($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+                $property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
+                
+                if ($property == '__object__') {
+                    $value = $domainObject;
+                } else {
+                    $value = $this->getObjectPropertyValueByProperty($domainObject, $property);
+                }
+                
+                $listDataRow->createAndAddCell($value, $fieldConfiguration->getIdentifier());
+            }
 
-	/**
-	 * Returns list data structure for given domain objects.
-	 * Uses configuration currently set in mapper.
-	 *
-	 * @param mixed $domainObjects
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData List data generated for given mapping configuration
-	 */
-	public function getMappedListData($domainObjects) {
-		
-		Tx_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
-		
-		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
-		
-		foreach($domainObjects as $domainObject) {
-			$listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
-			foreach($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
-				$property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
-				
-				if($property == '__object__') {
-					$value = $domainObject;
-				} else {
-					$value = $this->getObjectPropertyValueByProperty($domainObject, $property);
-				}
-				
-				$listDataRow->createAndAddCell($value, $fieldConfiguration->getIdentifier());
-			}
-
-			$listData->addRow($listDataRow);
-		}
-		
-		return $listData;
-	}
-	
-	
-	
-	/**
-	 * Returns property name for given fieldConfiguration
-	 * 
-	 * If __self__ is referenced, only field name is returned. 
-	 * If another domain object is referenced, domain object name (table) is prepended
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
-	 * @return string
-	 */
-	protected function getPropertyNameByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
+            $listData->addRow($listDataRow);
+        }
+        
+        return $listData;
+    }
+    
+    
+    
+    /**
+     * Returns property name for given fieldConfiguration
+     * 
+     * If __self__ is referenced, only field name is returned. 
+     * If another domain object is referenced, domain object name (table) is prepended
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+     * @return string
+     */
+    protected function getPropertyNameByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration)
+    {
         if ($fieldConfiguration->getTable() != '__self__') {  // __self__ references current domain object
             $property = $fieldConfiguration->getTableFieldCombined();
         } else {
-        	$property = $fieldConfiguration->getField();
+            $property = $fieldConfiguration->getField();
         }
         return $property;
-	}
-	
-	
-	
-	/**
-	 * Returns value of a property for a given domain object and property name.
-	 * Requires properties to be accessible via getters
-	 *
-	 * @param mixed $domainObject Object to get property value from
-	 * @param string $property Name of property to get value from
-	 * @return mixed Value of property
-	 */
-	public function getObjectPropertyValueByProperty($domainObject, $property) {
-		// if property is aggregated object, resolve object path
-		$resolvedObject = $this->resolveObjectPath($domainObject, $property);
+    }
+    
+    
+    
+    /**
+     * Returns value of a property for a given domain object and property name.
+     * Requires properties to be accessible via getters
+     *
+     * @param mixed $domainObject Object to get property value from
+     * @param string $property Name of property to get value from
+     * @return mixed Value of property
+     */
+    public function getObjectPropertyValueByProperty($domainObject, $property)
+    {
+        // if property is aggregated object, resolve object path
+        $resolvedObject = $this->resolveObjectPath($domainObject, $property);
 
-		if (get_class($resolvedObject) == '\TYPO3\CMS\Extbase\Persistence\ObjectStorage'
-			|| get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage'
-			|| get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\ObjectStorage'
-		) {
-			// property is collection of objects
-	    	list($objectName, $propertyName) = explode('.', $property);
-	    	$value = array();
-	    	foreach($resolvedObject as $object) {
-	    		$value[] = $this->getPropertyValueSafely($object, $propertyName);
-	    	}
-	    } else {
-	    	// property is scalar value
-			if (count(explode('.', $property)) > 1) {
-				// check, whether we have '.' in property and get last part
-				$property = array_pop(explode('.', $property));
-			}
-	    	$value = $this->getPropertyValueSafely($resolvedObject, $property);
-	    }
-
-	    return $value;
-	}
-
-
-
-	/**
-	 * Returns property value for given object and property name.
-	 * Throws exception on non-existing getter method for property.
-	 *
-	 * @param mixed $object
-	 * @param string $property
-	 * @throws Exception if trying to call a non-existing method on the object to be mapped
-	 * @return mixed
-	 */
-	protected function getPropertyValueSafely($object, $property) {
-		$getterMethodName = 'get' . ucfirst($property);
-
-		if(!$object) return NULL;
-
-		if (method_exists($object, $getterMethodName)) {
-			return $object->$getterMethodName();
-		} else {
-			throw new Exception('Trying to get a property ' . $property . ' on a domain object of type ' . get_class($object) . ' that does not implement a getter for this property.
-			Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
-		}
-	}
-
-
-
-	/**
-	 * Returns an object for given object path.
-	 *
-	 * Example: objectPath = object1.object2.object3.property will return object3
-	 *
-	 * TODO refactor me!
-	 *
-	 * @param mixed $object
-	 * @param string $objectPath
-	 * @throws Exception if trying to call a non-existing method on the object to be mapped
-	 * @return mixed
-	 */
-	public function resolveObjectPath($object, $objectPath) {
-		$objectPathParts = explode('.', $objectPath);
-
-		if (count($objectPathParts) == 1) {
-			return $object;
-		}
-
-	    $getterMethodName = 'get' . ucfirst($objectPathParts[0]);
-
-		if (count($objectPathParts) > 2) {     // Recursive method call for resolving longer object paths
-			if (method_exists($object, $getterMethodName)) {
-				array_shift($objectPathParts);
-				return $this->resolveObjectPath($object->$getterMethodName(), implode('.',$objectPathParts)); 
-			} else {
-				throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
-			}
-		} else {      // Return last object in object path
-			if (method_exists($object, $getterMethodName)) {
-                return $object->$getterMethodName();
-			} else {
-				throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
-			}
+        if (get_class($resolvedObject) == '\TYPO3\CMS\Extbase\Persistence\ObjectStorage'
+            || get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage'
+            || get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\ObjectStorage'
+        ) {
+            // property is collection of objects
+            list($objectName, $propertyName) = explode('.', $property);
+            $value = array();
+            foreach ($resolvedObject as $object) {
+                $value[] = $this->getPropertyValueSafely($object, $propertyName);
+            }
+        } else {
+            // property is scalar value
+            if (count(explode('.', $property)) > 1) {
+                // check, whether we have '.' in property and get last part
+                $property = array_pop(explode('.', $property));
+            }
+            $value = $this->getPropertyValueSafely($resolvedObject, $property);
         }
 
-	}
-	
+        return $value;
+    }
+
+
+
+    /**
+     * Returns property value for given object and property name.
+     * Throws exception on non-existing getter method for property.
+     *
+     * @param mixed $object
+     * @param string $property
+     * @throws Exception if trying to call a non-existing method on the object to be mapped
+     * @return mixed
+     */
+    protected function getPropertyValueSafely($object, $property)
+    {
+        $getterMethodName = 'get' . ucfirst($property);
+
+        if (!$object) {
+            return null;
+        }
+
+        if (method_exists($object, $getterMethodName)) {
+            return $object->$getterMethodName();
+        } else {
+            throw new Exception('Trying to get a property ' . $property . ' on a domain object of type ' . get_class($object) . ' that does not implement a getter for this property.
+			Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
+        }
+    }
+
+
+
+    /**
+     * Returns an object for given object path.
+     *
+     * Example: objectPath = object1.object2.object3.property will return object3
+     *
+     * TODO refactor me!
+     *
+     * @param mixed $object
+     * @param string $objectPath
+     * @throws Exception if trying to call a non-existing method on the object to be mapped
+     * @return mixed
+     */
+    public function resolveObjectPath($object, $objectPath)
+    {
+        $objectPathParts = explode('.', $objectPath);
+
+        if (count($objectPathParts) == 1) {
+            return $object;
+        }
+
+        $getterMethodName = 'get' . ucfirst($objectPathParts[0]);
+
+        if (count($objectPathParts) > 2) {     // Recursive method call for resolving longer object paths
+            if (method_exists($object, $getterMethodName)) {
+                array_shift($objectPathParts);
+                return $this->resolveObjectPath($object->$getterMethodName(), implode('.', $objectPathParts));
+            } else {
+                throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
+            }
+        } else {      // Return last object in object path
+            if (method_exists($object, $getterMethodName)) {
+                return $object->$getterMethodName();
+            } else {
+                throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
+            }
+        }
+    }
 }

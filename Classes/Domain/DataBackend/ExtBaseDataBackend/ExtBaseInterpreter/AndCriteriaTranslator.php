@@ -34,22 +34,23 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslatorTest
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator 
-    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {
-	
-	/**
+class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator
+    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface
+{
+    /**
      * Translates a query an manipulates given query object
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
-	 */
+     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     */
     public static function translateCriteria(
            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
            \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
-           \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository) {
-           	
+           \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository)
+    {
+               
         /**
          * This is a little ugly here:
          * 
@@ -68,12 +69,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndC
         $tmpQuery2 = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria->getSecondCriteria(), $tmpQuery2, $extbaseRepository);
         // put both translated criterias together again in a single extbase query
         if ($extbaseQuery->getConstraint()) {
-            $extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(), 
+            $extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(),
                 $extbaseQuery->logicalAnd($tmpQuery1->getConstraint(), $tmpQuery2->getConstraint())));
         } else {
-        	$extbaseQuery->matching($extbaseQuery->logicalAnd($tmpQuery1->getConstraint(), $tmpQuery2->getConstraint()));
+            $extbaseQuery->matching($extbaseQuery->logicalAnd($tmpQuery1->getConstraint(), $tmpQuery2->getConstraint()));
         }
-        return $extbaseQuery;   
-	}
-	
+        return $extbaseQuery;
+    }
 }

@@ -34,45 +34,47 @@
  * @package Domain
  * @subpackage StateAdapter
  */
-class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO3\CMS\Core\SingletonInterface {
+class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * @var Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory
+     */
+    protected $gpVarsAdapterFactory;
 
-	/**
-	 * @var Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory
-	 */
-	protected $gpVarsAdapterFactory;
-
-
-
-	/**
-	 * @var Tx_PtExtlist_Extbase_ExtbaseContext
-	 */
-	protected $extbaseContext;
-
-
-	/**
-	 * @param Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory
-	 */
-	public function injectGpVarsAdapterFactory(Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory) {
-		$this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
-	}
-
-
-
-	/**
-	 * @param Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext
-	 */
-	public function injectExtbaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext) {
-		$this->extbaseContext = $extbaseContext;
-	}
 
 
     /**
-	 * Factory method for GET/POST Var Adapter.
-	 * 
-	 * @return Tx_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
-	 */
-	public function getInstance() {
-		return  $this->gpVarsAdapterFactory->getInstance($this->extbaseContext->getExtensionNamespace());
-	}
+     * @var Tx_PtExtlist_Extbase_ExtbaseContext
+     */
+    protected $extbaseContext;
 
+
+    /**
+     * @param Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory
+     */
+    public function injectGpVarsAdapterFactory(Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory)
+    {
+        $this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
+    }
+
+
+
+    /**
+     * @param Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext
+     */
+    public function injectExtbaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext)
+    {
+        $this->extbaseContext = $extbaseContext;
+    }
+
+
+    /**
+     * Factory method for GET/POST Var Adapter.
+     * 
+     * @return Tx_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
+     */
+    public function getInstance()
+    {
+        return  $this->gpVarsAdapterFactory->getInstance($this->extbaseContext->getExtensionNamespace());
+    }
 }

@@ -36,20 +36,20 @@
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigFactoryTest
  */
 
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory {
-	
-	/**
-	 * Returns a instance of a pager configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param string pagerIdentifier
-	 * @param array $pagerSettings
-	 * @return \Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $pagerSettings) {
-					
-		$pagerConfig = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig($configurationBuilder, $pagerIdentifier, $pagerSettings);
-		
-		return $pagerConfig;
-	}
+class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory
+{
+    /**
+     * Returns a instance of a pager configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param string pagerIdentifier
+     * @param array $pagerSettings
+     * @return \Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $pagerSettings)
+    {
+        $pagerConfig = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig($configurationBuilder, $pagerIdentifier, $pagerSettings);
+        
+        return $pagerConfig;
+    }
 }

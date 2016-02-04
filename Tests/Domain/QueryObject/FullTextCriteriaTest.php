@@ -34,71 +34,76 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
+     */
+    protected $fullTextCriteria = null;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
-	 */
-	protected $fullTextCriteria = null;
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	protected $fieldConfigCollection;
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     */
+    protected $fieldConfigCollection;
 
 
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
 
-		$fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test1', array('field' => 'field', 'table' => 'table'));
-		$fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'test2', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
+        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', array('field' => 'field', 'table' => 'table'));
+        $fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test2', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
 
-		$this->fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$this->fieldConfigCollection->addFieldConfig($fieldConfig1);
-		$this->fieldConfigCollection->addFieldConfig($fieldConfig2);
+        $this->fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $this->fieldConfigCollection->addFieldConfig($fieldConfig1);
+        $this->fieldConfigCollection->addFieldConfig($fieldConfig2);
 
-		$this->fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
-	}
-	
+        $this->fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
+    }
+    
 
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'));
-	}
-	
-	
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'));
+    }
+    
+    
 
-	public function testConstruct() {
-		$fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
-		$this->assertTrue(is_a($fullTextCriteria, 'Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'));
-	}
-	
-	
+    public function testConstruct()
+    {
+        $fullTextCriteria = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
+        $this->assertTrue(is_a($fullTextCriteria, 'Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'));
+    }
+    
+    
 
-	/**
-	 * @test
-	 */
-	public function getFields() {
-		$this->assertTrue(is_a($this->fullTextCriteria->getFields(), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
-	}
-	
-	
-	/**
-	 * @test
-	 */
-	public function getSearchString() {
-		$this->assertTrue($this->fullTextCriteria->getSearchString() == 'searchString');
-	}
+    /**
+     * @test
+     */
+    public function getFields()
+    {
+        $this->assertTrue(is_a($this->fullTextCriteria->getFields(), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
+    }
+    
+    
+    /**
+     * @test
+     */
+    public function getSearchString()
+    {
+        $this->assertTrue($this->fullTextCriteria->getSearchString() == 'searchString');
+    }
 
-	
-	/**
-	 * @test
-	 */
-	public function isEqualTo() {
-		$criteriaReference = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
-		$criteriaEqual = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
-		$criteriaInEqual = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'anOtherSearchString');
-		$this->assertTrue($criteriaReference->isEqualTo($criteriaEqual), 'Equal Criteria is not equal! ;)');
-		$this->assertTrue(!($criteriaReference->isEqualTo($criteriaInEqual, 'Not Equal Criteria is equal! ;)')));
-	}
-	
+    
+    /**
+     * @test
+     */
+    public function isEqualTo()
+    {
+        $criteriaReference = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
+        $criteriaEqual = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'searchString');
+        $criteriaInEqual = new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($this->fieldConfigCollection, 'anOtherSearchString');
+        $this->assertTrue($criteriaReference->isEqualTo($criteriaEqual), 'Equal Criteria is not equal! ;)');
+        $this->assertTrue(!($criteriaReference->isEqualTo($criteriaInEqual, 'Not Equal Criteria is equal! ;)')));
+    }
 }

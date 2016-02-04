@@ -34,40 +34,42 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-	
-	protected $listIdentifier;
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig';
-	
-	
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-	}
-	
-	
-	
-	/**
-	 * Add pagerconig to list
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfig
-	 * @param string $pagerIdentifier
-	 */
-	public function addPagerConfig(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfig, $pagerIdentifier) {
-		$this->addItem($pagerConfig, $pagerIdentifier);
-	}
-	
-	
-	
-	/**
-	 * @param string $pagerIdentifier
-	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
-	 */
-	public function getPagerConfig($pagerIdentifier) {
-		return $this->getItemById($pagerIdentifier);
-	}
-	
+class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+{
+    protected $listIdentifier;
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig';
+    
+    
+    
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $this->listIdentifier = $configurationBuilder->getListIdentifier();
+    }
+    
+    
+    
+    /**
+     * Add pagerconig to list
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfig
+     * @param string $pagerIdentifier
+     */
+    public function addPagerConfig(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfig, $pagerIdentifier)
+    {
+        $this->addItem($pagerConfig, $pagerIdentifier);
+    }
+    
+    
+    
+    /**
+     * @param string $pagerIdentifier
+     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+     */
+    public function getPagerConfig($pagerIdentifier)
+    {
+        return $this->getItemById($pagerIdentifier);
+    }
 }

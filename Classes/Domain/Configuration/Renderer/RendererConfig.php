@@ -32,57 +32,59 @@
  * @package Domain
  * @subpackage Configuration\Renderer
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+{
+    /**
+     * @var boolean 
+     */
+    protected $enabled;
 
-	/**
-	 * @var boolean 
-	 */
-	protected $enabled;
+    
+    
+    /**
+     * Name of the renderer Class name
+     * @var string
+     */
+    protected $rendererClassName;
+    
+    
+    
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_Renderer_RenderConfigCollection
+     */
+    protected $renderConfigCollection;
+    
+    
+    
+    /**
+     * (non-PHPdoc)
+     * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
+     */
+    protected function init()
+    {
+        $this->setBooleanIfExistsAndNotNothing('enabled');
+        
+        $this->setRequiredValue('rendererClassName', 'No class name given for renderer. 1280408323');
+        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->rendererClassName), array('message' => 'Given renderer class ' . $this->rendererClassName . ' does not exist or is not loaded! 1279541306'));
+    }
 
-	
-	
-	/**
-	 * Name of the renderer Class name
-	 * @var string
-	 */
-	protected $rendererClassName;
-	
-	
-	
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Renderer_RenderConfigCollection
-	 */
-	protected $renderConfigCollection;
-	
-	
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
-	 */
-	protected function init() {
-
-		$this->setBooleanIfExistsAndNotNothing('enabled');
-		
-		$this->setRequiredValue('rendererClassName', 'No class name given for renderer. 1280408323');
-		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->rendererClassName), array('message' => 'Given renderer class ' . $this->rendererClassName . ' does not exist or is not loaded! 1279541306'));
-	}
-
-	
-	
-	/**
-	 * @return boolean enables
-	 */
-	public function isEnabled() {
-		return $this->enabled;
-	}
-	
-	
-	
-	/**
-	 * @return string rendererClassName
-	 */
-	public function getRendererClassName() {
-		return $this->rendererClassName;
-	}
+    
+    
+    /**
+     * @return boolean enables
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+    
+    
+    
+    /**
+     * @return string rendererClassName
+     */
+    public function getRendererClassName()
+    {
+        return $this->rendererClassName;
+    }
 }

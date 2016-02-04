@@ -33,16 +33,16 @@
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
-
-	/**
-	 * translate raw sql criteria
-	 * 
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
-	 * @return string
-	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+{
+    /**
+     * translate raw sql criteria
+     * 
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+     * @return string
+     */
+    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    {
         return $criteria->getRawSqlString();
-	}
-    
+    }
 }

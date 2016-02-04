@@ -33,23 +33,23 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
+abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+{
+    /**
+     * Filter configuration object
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     */
+    protected $filterConfig;
+
+
 
     /**
-	 * Filter configuration object
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
-	 */
-	protected $filterConfig;
-
-
-
-	/**
-	 * Holds a reference to solr dataBackend
-	 *
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
-	 */
-	protected $dataBackend;
+     * Holds a reference to solr dataBackend
+     *
+     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     */
+    protected $dataBackend;
 
 
 
@@ -59,39 +59,40 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvide
      * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
      * @return void
      */
-    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
+    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    {
         $this->dataBackend = $dataBackend;
     }
 
 
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
-	 */
-	public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		$this->filterConfig = $filterConfig;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
+     */
+    public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig)
+    {
+        $this->filterConfig = $filterConfig;
+    }
 
 
 
-	/**
-	 * Render a single option line by cObject or default
-	 *
-	 * @param array $optionData
-	 * @return string $option;
-	 */
-	protected function renderOptionData($optionData) {
-
-		foreach($this->displayFields as $displayField) {
-        	$values[] = $optionData[$displayField->getIdentifier()];
+    /**
+     * Render a single option line by cObject or default
+     *
+     * @param array $optionData
+     * @return string $option;
+     */
+    protected function renderOptionData($optionData)
+    {
+        foreach ($this->displayFields as $displayField) {
+            $values[] = $optionData[$displayField->getIdentifier()];
         }
 
-		$optionData['allDisplayFields'] = implode(' ', $values);
+        $optionData['allDisplayFields'] = implode(' ', $values);
 
-		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        $option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
 
-		return $option;
-	}
-
+        return $option;
+    }
 }

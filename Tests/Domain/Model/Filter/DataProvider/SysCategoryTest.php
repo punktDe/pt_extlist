@@ -33,36 +33,36 @@
  * @subpackage Somain\Model\Filter\DataProvider
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_SysCategoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_SysCategoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var string
+     */
+    protected $dataProviderClassName = '\PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\SysCategory';
 
-	/**
-	 * @var string
-	 */
-	protected $dataProviderClassName = '\PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\SysCategory';
 
-
-	protected $defaultFilterSettings = array(
-               'filterIdentifier' => 'tagCloudTest', 
+    protected $defaultFilterSettings = array(
+               'filterIdentifier' => 'tagCloudTest',
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
                'partialPath' => 'Filter/Options/TagCloudFilter',
                'fieldIdentifier' => 'field1',
                'displayFields' => 'field1',
                'filterField' => 'field3',
                'invert' => '0'
-       		 );
+                );
 
 
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
 
-	/**
-	 * @test
-	 */
-	public function classExists() {
-		$this->assertTrue (class_exists($this->dataProviderClassName), 'CategoryDataProvider ' . $this->dataProviderClassName . ' class not found.');
-	}
-
+    /**
+     * @test
+     */
+    public function classExists()
+    {
+        $this->assertTrue(class_exists($this->dataProviderClassName), 'CategoryDataProvider ' . $this->dataProviderClassName . ' class not found.');
+    }
 }
-?>

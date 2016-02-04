@@ -34,173 +34,188 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
-	 */
-	protected $dataProviderFactory;
-
-
-
-	/**
-	 * Maximum of elements to display 
-	 * @var integer
-	 */
-	protected $maxItems;
+class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+     */
+    protected $dataProviderFactory;
 
 
 
-	/**
-	 * Minimum font Size 
-	 * @var integer
-	 */	
-	protected $minSize;
+    /**
+     * Maximum of elements to display 
+     * @var integer
+     */
+    protected $maxItems;
 
 
 
-	/**
-	 * Maximum font Size 
-	 * @var integer
-	 */	
-	protected $maxSize;
+    /**
+     * Minimum font Size 
+     * @var integer
+     */
+    protected $minSize;
 
 
 
-	/**
-	 * Minimum color as integer 
-	 * @var array
-	 */
-	protected $minColor = array();
+    /**
+     * Maximum font Size 
+     * @var integer
+     */
+    protected $maxSize;
 
 
 
-	/**
-	 * Maximum color as integer 
-	 * @var array
-	 */
-	protected $maxColor = array();
+    /**
+     * Minimum color as integer 
+     * @var array
+     */
+    protected $minColor = array();
 
 
 
-	/**
-	 * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
-	 */
-	protected function initFilter() {}
+    /**
+     * Maximum color as integer 
+     * @var array
+     */
+    protected $maxColor = array();
 
 
 
-	protected function initFilterByTsConfig() {
-		parent::initFilterByTsConfig();
-		
-		$this->maxItems = (int) $this->filterConfig->getSettings('maxItems');
-		
-		$this->minSize = (int) $this->filterConfig->getSettings('minSize');
-		$this->maxSize = (int) $this->filterConfig->getSettings('maxSize');
-		
-		$this->initColors();
-	}
+    /**
+     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     */
+    protected function initFilter()
+    {
+    }
 
 
 
-	/**
-	 * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
-	 * @return array
-	 */
-	public function _persistToSession() {
-		return array('filterValues' => current($this->filterValues), 'invert' => $this->invert);
-	}
+    protected function initFilterByTsConfig()
+    {
+        parent::initFilterByTsConfig();
+        
+        $this->maxItems = (int) $this->filterConfig->getSettings('maxItems');
+        
+        $this->minSize = (int) $this->filterConfig->getSettings('minSize');
+        $this->maxSize = (int) $this->filterConfig->getSettings('maxSize');
+        
+        $this->initColors();
+    }
 
 
 
-	/**
-	 * Init the Color range
-	 */
-	protected function initColors() {
-		$minColorHex = $this->filterConfig->getSettings('minColor');
-		if(substr($minColorHex,0,1) == '#') $minColorHex = substr($minColorHex, 1);
-		
-		$maxColorHex = $this->filterConfig->getSettings('maxColor');
-		if(substr($maxColorHex,0,1) == '#') $maxColorHex = substr($maxColorHex, 1);
-		
-		$this->minColor = array(hexdec(substr($minColorHex,0,2)), hexdec(substr($minColorHex,2,2)), hexdec(substr($minColorHex,4,2)));
-		$this->maxColor  = array(hexdec(substr($maxColorHex,0,2)), hexdec(substr($maxColorHex,2,2)), hexdec(substr($maxColorHex,4,2)));
-	}
+    /**
+     * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
+     * @return array
+     */
+    public function _persistToSession()
+    {
+        return array('filterValues' => current($this->filterValues), 'invert' => $this->invert);
+    }
 
 
 
-	/**
-	 * Returns an associative array of options as possible filter values
-	 *
-	 * @return array
-	 */
-	public function getOptions() {
-		$dataProvider = $this->dataProviderFactory->createInstance($this->filterConfig);
-
-		$renderedOptions = $dataProvider->getRenderedOptions();
-		
-		$this->addTagCloudMetaDataToOptions($renderedOptions);
-		$this->addInactiveOption($renderedOptions);
-		$this->setSelectedOptions($renderedOptions);
-
-		return $renderedOptions;
-	}
-
-
-
-	protected function addTagCloudMetaDataToOptions(&$renderedOptions) {
-		$renderedOptions = array_slice($renderedOptions, 0, $this->maxItems, true);
-		
-		$tagCount =  count($renderedOptions);
-		
-		$firstItem = current($renderedOptions);
-		$maxItemCount = $firstItem['elementCount'];
-		
-		$lastItem = end($renderedOptions);
-		$minItemCount = $lastItem['elementCount'];
-
-		 
-		$iterator = 0;
-		foreach($renderedOptions as $key => $option) {
-			$renderedOptions[$key]['fontSize'] = $this->calculateSize($minItemCount, $maxItemCount, $option['elementCount']);
-			$renderedOptions[$key]['color'] = $this->calculateColor($tagCount, $iterator);
-			$iterator++; 
-		}
-	}
+    /**
+     * Init the Color range
+     */
+    protected function initColors()
+    {
+        $minColorHex = $this->filterConfig->getSettings('minColor');
+        if (substr($minColorHex, 0, 1) == '#') {
+            $minColorHex = substr($minColorHex, 1);
+        }
+        
+        $maxColorHex = $this->filterConfig->getSettings('maxColor');
+        if (substr($maxColorHex, 0, 1) == '#') {
+            $maxColorHex = substr($maxColorHex, 1);
+        }
+        
+        $this->minColor = array(hexdec(substr($minColorHex, 0, 2)), hexdec(substr($minColorHex, 2, 2)), hexdec(substr($minColorHex, 4, 2)));
+        $this->maxColor  = array(hexdec(substr($maxColorHex, 0, 2)), hexdec(substr($maxColorHex, 2, 2)), hexdec(substr($maxColorHex, 4, 2)));
+    }
 
 
 
-	protected function calculateSize($minItemCount, $maxItemCount, $itemCount) {
-		$sizeRange = $this->maxSize - $this->minSize;
-		$countRange = $maxItemCount - $minItemCount;
-		
-		$sizePerCount = $sizeRange / $countRange;
-		return $this->minSize + (int) ($itemCount * $sizePerCount);
-	}
+    /**
+     * Returns an associative array of options as possible filter values
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        $dataProvider = $this->dataProviderFactory->createInstance($this->filterConfig);
+
+        $renderedOptions = $dataProvider->getRenderedOptions();
+        
+        $this->addTagCloudMetaDataToOptions($renderedOptions);
+        $this->addInactiveOption($renderedOptions);
+        $this->setSelectedOptions($renderedOptions);
+
+        return $renderedOptions;
+    }
 
 
 
-	/**
-	 * Calculate color
-	 * 
-	 * @param integer $tagCount
-	 * @param integer $iterator
-	 * @return string
-	 */
-	protected function calculateColor($tagCount, $iterator) {
-		
-		$color = '#';
-		
-		for($i = 0; $i<3; $i++) {
-			$delta = ($this->maxColor[$i] - $this->minColor[$i]) / $tagCount;
-			
-			$newColor = round($this->minColor[$i] + $iterator * $delta);
-			if ($newColor < 0) $newColor = 0;
-			if ($newColor > 255) $newColor = 255;
-			$color .= str_pad(dechex($newColor),'0',STR_PAD_LEFT);
-		}
-		
-		return $color;
-	}
+    protected function addTagCloudMetaDataToOptions(&$renderedOptions)
+    {
+        $renderedOptions = array_slice($renderedOptions, 0, $this->maxItems, true);
+        
+        $tagCount =  count($renderedOptions);
+        
+        $firstItem = current($renderedOptions);
+        $maxItemCount = $firstItem['elementCount'];
+        
+        $lastItem = end($renderedOptions);
+        $minItemCount = $lastItem['elementCount'];
 
+         
+        $iterator = 0;
+        foreach ($renderedOptions as $key => $option) {
+            $renderedOptions[$key]['fontSize'] = $this->calculateSize($minItemCount, $maxItemCount, $option['elementCount']);
+            $renderedOptions[$key]['color'] = $this->calculateColor($tagCount, $iterator);
+            $iterator++;
+        }
+    }
+
+
+
+    protected function calculateSize($minItemCount, $maxItemCount, $itemCount)
+    {
+        $sizeRange = $this->maxSize - $this->minSize;
+        $countRange = $maxItemCount - $minItemCount;
+        
+        $sizePerCount = $sizeRange / $countRange;
+        return $this->minSize + (int) ($itemCount * $sizePerCount);
+    }
+
+
+
+    /**
+     * Calculate color
+     * 
+     * @param integer $tagCount
+     * @param integer $iterator
+     * @return string
+     */
+    protected function calculateColor($tagCount, $iterator)
+    {
+        $color = '#';
+        
+        for ($i = 0; $i<3; $i++) {
+            $delta = ($this->maxColor[$i] - $this->minColor[$i]) / $tagCount;
+            
+            $newColor = round($this->minColor[$i] + $iterator * $delta);
+            if ($newColor < 0) {
+                $newColor = 0;
+            }
+            if ($newColor > 255) {
+                $newColor = 255;
+            }
+            $color .= str_pad(dechex($newColor), '0', STR_PAD_LEFT);
+        }
+        
+        return $color;
+    }
 }

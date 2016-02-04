@@ -33,14 +33,14 @@
  * @package Tests
  * @subpackage Domain\StateAdapter\Storage
  */
-class Tx_PtExtlist_Tests_Domain_StateAdapter_Storage_DBStorageAdapter_testcaste extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_StateAdapter_Storage_DBStorageAdapter_testcaste extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setup()
+    {
+    }
 
-	public function setup() {
-		
-	}
-
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter'));
-	}
-	
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter'));
+    }
 }

@@ -33,31 +33,33 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider  {
-
-	/**
-	 * array of options
-	 * 
-	 * @var array
-	 */
-	protected $options;
+class Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider
+{
+    /**
+     * array of options
+     * 
+     * @var array
+     */
+    protected $options;
 
 
     /**
      * @param $renderedOptions
      */
-    public function setOptions($options) {
+    public function setOptions($options)
+    {
         $this->options = $options;
     }
 
 
-	/**
+    /**
      * @return array
      */
-	public function getRenderedOptions() {
-		$renderedOptions = array();
+    public function getRenderedOptions()
+    {
+        $renderedOptions = array();
 
-        foreach($this->options as $key => $value) {
+        foreach ($this->options as $key => $value) {
             $renderedOptions[$key] = array(
                 'value' => $value,
                 'selected' => false,
@@ -65,5 +67,5 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider  {
         }
 
         return $renderedOptions;
-	}
+    }
 }

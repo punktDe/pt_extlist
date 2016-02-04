@@ -34,50 +34,57 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $exportConfiguration;
-
-
-
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-		$this->exportConfiguration = $this->configurationBuilderMock->buildExportConfiguration();
-	}
+class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $exportConfiguration;
 
 
 
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfig');
-	}
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $this->exportConfiguration = $this->configurationBuilderMock->buildExportConfiguration();
+    }
 
 
 
-	public function testGetFileName() {
-		$this->assertEquals('testfile', $this->exportConfiguration->getFileName());
-	}
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfig');
+    }
 
 
 
-	public function testGetDownloadtype() {
-		$this->assertEquals('D', $this->exportConfiguration->getDownloadtype());
-	}
+    public function testGetFileName()
+    {
+        $this->assertEquals('testfile', $this->exportConfiguration->getFileName());
+    }
 
 
 
-	public function testGetAddDateToFilename() {
-		$this->assertEquals(true, $this->exportConfiguration->getAddDateToFilename());
-	}
+    public function testGetDownloadtype()
+    {
+        $this->assertEquals('D', $this->exportConfiguration->getDownloadtype());
+    }
 
 
 
-	public function testGetViewClassName() {
-		$this->assertEquals('Tx_PtExtlist_View_Export_CsvListView', $this->exportConfiguration->getViewClassName());
-	}
+    public function testGetAddDateToFilename()
+    {
+        $this->assertEquals(true, $this->exportConfiguration->getAddDateToFilename());
+    }
 
 
 
-	public function testGetFileExtension() {
-		$this->assertEquals('ext', $this->exportConfiguration->getFileExtension());
-	}
+    public function testGetViewClassName()
+    {
+        $this->assertEquals('Tx_PtExtlist_View_Export_CsvListView', $this->exportConfiguration->getViewClassName());
+    }
+
+
+
+    public function testGetFileExtension()
+    {
+        $this->assertEquals('ext', $this->exportConfiguration->getFileExtension());
+    }
 }

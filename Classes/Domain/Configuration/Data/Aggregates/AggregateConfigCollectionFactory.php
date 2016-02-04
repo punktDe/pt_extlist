@@ -36,37 +36,37 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory {
-	
+class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory
+{
+    /**
+     * Returns an instance of a aggregate config collection for given aggregate settings
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $aggregateConfigCollection = self::buildAggregateConfigCollection($configurationBuilder);
+        return $aggregateConfigCollection;
+    }
 
-	/**
-	 * Returns an instance of a aggregate config collection for given aggregate settings
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$aggregateConfigCollection = self::buildAggregateConfigCollection($configurationBuilder);
-	    return $aggregateConfigCollection;	
-	}
 
 
-
-	/**
-	 * Builds a collection of aggregate config objects for a given settings array
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	protected static function buildAggregateConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
-		$aggregateSettingsArray = $configurationBuilder->getSettingsForConfigObject('aggregateData');
-		
-		foreach($aggregateSettingsArray as $aggregateIdentifier => $aggregateSettings) {
-			$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig($aggregateIdentifier, $aggregateSettings, $configurationBuilder);
-			$aggregateConfigCollection->addAggregateConfig($aggregateConfig);
-		}
-		return $aggregateConfigCollection;
-	}
-
+    /**
+     * Builds a collection of aggregate config objects for a given settings array
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    protected static function buildAggregateConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
+        $aggregateSettingsArray = $configurationBuilder->getSettingsForConfigObject('aggregateData');
+        
+        foreach ($aggregateSettingsArray as $aggregateIdentifier => $aggregateSettings) {
+            $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig($aggregateIdentifier, $aggregateSettings, $configurationBuilder);
+            $aggregateConfigCollection->addAggregateConfig($aggregateConfig);
+        }
+        return $aggregateConfigCollection;
+    }
 }

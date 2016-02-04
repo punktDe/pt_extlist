@@ -33,40 +33,41 @@
  * @subpackage
  * @see
  */
-abstract class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderBaseTestcase extends Tx_PtExtlist_Tests_BaseTestcase {
+abstract class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataProviderBaseTestcase extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var array
+     */
+    protected $defaultFilterSettings;
 
-	/**
-	 * @var array
-	 */
-	protected $defaultFilterSettings;
 
 
+    /**
+     * Build the dataprovider
+     *
+     * @param array $filterSettings
+     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
+     */
+    protected function buildAccessibleDataProvider($filterSettings = null)
+    {
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery');
+        $accessibleExplicitDataProvider = new $accessibleClassName;
+        /* @var $accessibleExplicitDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery */
 
-	/**
-	 * Build the dataprovider
-	 *
-	 * @param array $filterSettings
-	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
-	 */
-	protected function buildAccessibleDataProvider($filterSettings = NULL) {
+        if (!$filterSettings) {
+            $filterSettings = $this->defaultFilterSettings;
+        }
 
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery');
-		$accessibleExplicitDataProvider = new $accessibleClassName;
-		/* @var $accessibleExplicitDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery */
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
-		if (!$filterSettings) $filterSettings = $this->defaultFilterSettings;
+        $accessibleExplicitDataProvider->_injectFilterConfig($filterConfiguration);
+        $accessibleExplicitDataProvider->init();
 
-		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+        // We need to do this to initially create a configuration builder! TODO remove this, once we have proper DI!
+        $dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+        // Create singleton instance of dataBackendFactory for corresponding configuration
+        $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
 
-		$accessibleExplicitDataProvider->_injectFilterConfig($filterConfiguration);
-		$accessibleExplicitDataProvider->init();
-
-		// We need to do this to initially create a configuration builder! TODO remove this, once we have proper DI!
-		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-		// Create singleton instance of dataBackendFactory for corresponding configuration
-		$dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
-
-		return $accessibleExplicitDataProvider;
-	}
-
+        return $accessibleExplicitDataProvider;
+    }
 }

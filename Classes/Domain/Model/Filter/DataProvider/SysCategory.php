@@ -39,69 +39,71 @@ use \PunktDe\PtExtbase\Domain\Repository;
  *
  */
 
-class SysCategory extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
-
-	/**
-	 * @var \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
-	 * @inject
-	 */
-	protected $categoryRepository;
-
-
-	/**
-	 * @var integer
-	 */
-	protected $categoryPid;
+class SysCategory extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+{
+    /**
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
+     * @inject
+     */
+    protected $categoryRepository;
 
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
-	 */
-	public function init() {
-		$this->initDataProviderByTsConfig($this->filterConfig->getSettings());
-	}
+    /**
+     * @var integer
+     */
+    protected $categoryPid;
+
+
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     */
+    public function init()
+    {
+        $this->initDataProviderByTsConfig($this->filterConfig->getSettings());
+    }
 
 
 
-	/**
-	 * Init the dataProvider by TS-conifg
-	 *
-	 * @param array $filterSettings
-	 * @throws \Exception
-	 */
-	protected function initDataProviderByTsConfig($filterSettings) {
-
-		if(!array_key_exists('categoryPid', $filterSettings)) throw new \Exception('Please define the categoryPid within the category filter', 1391012707);
-		$this->categoryPid = (int) $filterSettings['categoryPid'];
-	}
-
-
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
-	 */
-	public function getRenderedOptions() {
-
-		$categories = $this->getCategoryRecords();
-
-		foreach($categories as $category) { /** @var  \TYPO3\CMS\Extbase\Domain\Model\Category $category */
-			$optionKey = $category->getUid();
-
-			$renderedOptions[$optionKey]['value'] = $category->getTitle();
-			$renderedOptions[$optionKey]['selected'] = false;
-		}
-
-		return $renderedOptions;
-	}
+    /**
+     * Init the dataProvider by TS-conifg
+     *
+     * @param array $filterSettings
+     * @throws \Exception
+     */
+    protected function initDataProviderByTsConfig($filterSettings)
+    {
+        if (!array_key_exists('categoryPid', $filterSettings)) {
+            throw new \Exception('Please define the categoryPid within the category filter', 1391012707);
+        }
+        $this->categoryPid = (int) $filterSettings['categoryPid'];
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	protected function getCategoryRecords() {
-		return $this->categoryRepository->findByPid($this->categoryPid);
-	}
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     */
+    public function getRenderedOptions()
+    {
+        $categories = $this->getCategoryRecords();
 
+        foreach ($categories as $category) { /** @var  \TYPO3\CMS\Extbase\Domain\Model\Category $category */
+            $optionKey = $category->getUid();
+
+            $renderedOptions[$optionKey]['value'] = $category->getTitle();
+            $renderedOptions[$optionKey]['selected'] = false;
+        }
+
+        return $renderedOptions;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    protected function getCategoryRecords()
+    {
+        return $this->categoryRepository->findByPid($this->categoryPid);
+    }
 }
-?>

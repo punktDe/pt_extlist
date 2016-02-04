@@ -34,45 +34,46 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements \TYPO3\CMS\Core\SingletonInterface {
-
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 */
-	private $objectManager;
-
-
-
-	/**
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
+class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     */
+    private $objectManager;
 
 
-	
-	/**
-	 * Returns an instance of a data mapper for a given data mapper class name.
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return mixed
-	 */
-	public function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
-		$dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 
-		$dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder); /** @var Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper $dataMapper */
-		$mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
+    /**
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     */
+    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
-		// Check whether mapper implements interface
-		Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
 
-		$dataMapper->_injectConfigurationBuilder($configurationBuilder);
-		$dataMapper->_injectMapperConfiguration($mapperConfiguration);
-		$dataMapper->init();
+    
+    /**
+     * Returns an instance of a data mapper for a given data mapper class name.
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return mixed
+     */
+    public function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
+        $dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 
-		return $dataMapper;
-	}
+        $dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder); /** @var Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper $dataMapper */
+        $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
+        // Check whether mapper implements interface
+        Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
+
+        $dataMapper->_injectConfigurationBuilder($configurationBuilder);
+        $dataMapper->_injectMapperConfiguration($mapperConfiguration);
+        $dataMapper->init();
+
+        return $dataMapper;
+    }
 }

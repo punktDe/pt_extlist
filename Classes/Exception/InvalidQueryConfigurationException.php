@@ -31,6 +31,6 @@
  *
  * @package Exception
  */
-class Tx_PtExtlist_Exception_InvalidQueryConfigurationException extends Exception {
-	
+class Tx_PtExtlist_Exception_InvalidQueryConfigurationException extends Exception
+{
 }

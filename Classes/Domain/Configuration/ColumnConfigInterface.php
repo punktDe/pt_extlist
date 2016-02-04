@@ -33,45 +33,43 @@
  * @subpackage Configuration
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtExtlist_Domain_Configuration_RenderConfigInterface {
-	
-	
-	/**
-	 * Returns the identifier for the column
-	 * @return string
-	 */
-	public function getColumnIdentifier();
-	
-	
-	/**
-	 * Returns an array of field identifiers, the datafields assigned to this collumn
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
-	 */
-	public function getFieldIdentifier();
-	
-	
-	/**
-	 * @abstract
-	 * @return void
-	 */
-	public function getSpecialCell();
-	
+interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtExtlist_Domain_Configuration_RenderConfigInterface
+{
+    /**
+     * Returns the identifier for the column
+     * @return string
+     */
+    public function getColumnIdentifier();
+    
+    
+    /**
+     * Returns an array of field identifiers, the datafields assigned to this collumn
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
+     */
+    public function getFieldIdentifier();
+    
+    
+    /**
+     * @abstract
+     * @return void
+     */
+    public function getSpecialCell();
+    
 
-	/**
-	 * @abstract
-	 * @return void
-	 */
-	public function getContainsArrayData();
-
-
-	/**
-	 * @abstract
-	 * @return boolean
-	 */
-	public function getRawFields();
+    /**
+     * @abstract
+     * @return void
+     */
+    public function getContainsArrayData();
 
 
+    /**
+     * @abstract
+     * @return boolean
+     */
+    public function getRawFields();
 
-	//Todo add cell css
-	
+
+
+    //Todo add cell css
 }

@@ -36,27 +36,27 @@
  * @see class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
 
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory {
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory
+{
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param $filterboxIdentifier
+     * @param array $filterBoxSettings
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     */
+    public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterBoxSettings)
+    {
+        $filterboxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilder, $filterboxIdentifier, $filterBoxSettings);
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param $filterboxIdentifier
-	 * @param array $filterBoxSettings
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
-	 */
-	public static function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterBoxSettings) {
-		$filterboxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilder, $filterboxIdentifier, $filterBoxSettings);
+        $filterSettingsArray = is_array($filterBoxSettings['filterConfigs']) ? $filterBoxSettings['filterConfigs'] : array();
+        ksort($filterSettingsArray);
 
-		$filterSettingsArray = is_array($filterBoxSettings['filterConfigs']) ? $filterBoxSettings['filterConfigs'] : array();
-		ksort($filterSettingsArray);
-
-		foreach($filterSettingsArray as $arrayIndex => $filterSettings) {
-			Tx_PtExtbase_Assertions_Assert::isArray($filterSettings, array('message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788'));
-			$filterConfig = Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterSettings);
-			$filterboxConfiguration->addFilterConfig($filterConfig, $arrayIndex);
-		}
-		
-		return $filterboxConfiguration;
-	}
-
+        foreach ($filterSettingsArray as $arrayIndex => $filterSettings) {
+            Tx_PtExtbase_Assertions_Assert::isArray($filterSettings, array('message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788'));
+            $filterConfig = Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterSettings);
+            $filterboxConfiguration->addFilterConfig($filterConfig, $arrayIndex);
+        }
+        
+        return $filterboxConfiguration;
+    }
 }

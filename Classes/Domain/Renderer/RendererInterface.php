@@ -35,45 +35,44 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_Renderer_RendererInterface {
-	
-	/**
-	 * Renders the given list through TypoScript.
-	 * Also uses the column definitions.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData);
-	
-	
-	
-	/**
-	 * Renders the column captions out of the TS definition
-	 * 
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader 
-	 */
-	public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
-	
-	
-	
-	/**
+interface Tx_PtExtlist_Domain_Renderer_RendererInterface
+{
+    /**
+     * Renders the given list through TypoScript.
+     * Also uses the column definitions.
+     * 
+     * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData);
+    
+    
+    
+    /**
+     * Renders the column captions out of the TS definition
+     * 
+     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader 
+     */
+    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
+    
+    
+    
+    /**
      * Returns a rendered aggregate list for a given row of aggregates
      *
      * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
      * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
      */
-	public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData);
+    public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData);
 
 
 
-	/**
-	 * @abstract
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $row
-	 * @param $rowIndex
-	 * @return Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex);
-
+    /**
+     * @abstract
+     * @param Tx_PtExtlist_Domain_Model_List_Row $row
+     * @param $rowIndex
+     * @return Tx_PtExtlist_Domain_Model_List_Row
+     */
+    public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex);
 }

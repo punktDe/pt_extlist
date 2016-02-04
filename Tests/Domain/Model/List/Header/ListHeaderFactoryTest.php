@@ -36,11 +36,11 @@
  * @subpackage Model\List\Header
  * @see Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderfactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/** @test */
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory');
-	}
-	
+class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderfactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /** @test */
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory');
+    }
 }

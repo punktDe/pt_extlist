@@ -34,23 +34,24 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-		
-	
-	
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory');
-	}
-	
-	
-	public function testGetInstance() {
-		$exportConfigInstance = Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory::getInstance($this->configurationBuilderMock);
-		$this->assertIsA($exportConfigInstance, 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfig');
-	}
-	
+class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+        
+    
+    
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory');
+    }
+    
+    
+    public function testGetInstance()
+    {
+        $exportConfigInstance = Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory::getInstance($this->configurationBuilderMock);
+        $this->assertIsA($exportConfigInstance, 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfig');
+    }
 }

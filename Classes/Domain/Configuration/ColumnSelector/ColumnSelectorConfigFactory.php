@@ -34,16 +34,16 @@
  * @author Daniel Lienert
  */
 
-class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory {
-	
-	/**
-	 * Returns a instance of the columnSelector configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('columnSelector'));
-	}
-	
+class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory
+{
+    /**
+     * Returns a instance of the columnSelector configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        return new Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('columnSelector'));
+    }
 }

@@ -35,196 +35,208 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Configuration\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
-
-	/** 
-	 * @var string
-	 */
-	protected $columnIdentifier;
-
-
-	
-	/** 
-	 * @var array
-	 */
-	protected $aggregateDataIdentifier;
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface
+{
+    /** 
+     * @var string
+     */
+    protected $columnIdentifier;
 
 
-	
-	/**
-	 * @var array
-	 */
-	protected $renderUserFunctions = NULL;
-	
+    
+    /** 
+     * @var array
+     */
+    protected $aggregateDataIdentifier;
 
 
-	/**
-	 * @var array
-	 */
-	protected $renderObj = null;
+    
+    /**
+     * @var array
+     */
+    protected $renderUserFunctions = null;
+    
 
 
-
-	/**
-	 * Set to true, if we want to cache rendering
-	 *
-	 * @var bool
-	 */
-	protected $cacheRendering;
-	
-
-
-	/**
-	 * Path to fluid template
-	 * @var string
-	 */
-	protected $renderTemplate;
+    /**
+     * @var array
+     */
+    protected $renderObj = null;
 
 
 
-	/**
-	 * @var string
-	 */
-	protected $cellCSSClass = NULL;
+    /**
+     * Set to true, if we want to cache rendering
+     *
+     * @var bool
+     */
+    protected $cacheRendering;
+    
+
+
+    /**
+     * Path to fluid template
+     * @var string
+     */
+    protected $renderTemplate;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param array $settings
-	 * @param string $columnIdentifier
-	 * @return \Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings, $columnIdentifier) {
-		$settings['columnIdentifier'] = $columnIdentifier;
-		parent::__construct($configurationBuilder, $settings);
-	}	
-	
-	
-																	     	
-	/**
-	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
-	 */
-	protected function init() {
-		// required
-		$this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
-		
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array('message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619'));
-		$this->aggregateDataIdentifier = GeneralUtility::trimExplode(',', $this->settings['aggregateDataIdentifier']);
-		
-		// optional
-		$this->setValueIfExistsAndNotNothing('renderTemplate');
-		$this->setValueIfExistsAndNotNothing('cellCSSClass');
-		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
-		
-		if(array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
-			asort($this->settings['renderUserFunctions']);
-			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
-		}
-
-		if (array_key_exists('renderObj', $this->settings)) {
-			$this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
-		}
-	}
-
-	
-	
-	/**
-	 * @return string columnIdentifier
-	 */
-	public function getColumnIdentifier() {
-		return $this->columnIdentifier;
-	}
-	
-	
-	
-	/**
-	 * @return array aggregateDataIdentifier
-	 */
-	public function getAggregateDataIdentifier() {
-		return $this->aggregateDataIdentifier;
-	} 
-	
-	
-	
-	/**
-	 * This method exists to fullfill the interface
-	 * The renderer expects the method to map da data to the column
-	 * 
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface::getFieldIdentifier()
-	 */
-	public function getFieldIdentifier() {
-		return $this->aggregateDataIdentifier;
-	}
-	
-	
-	
-	public function getSpecialCell() {
-		return '';
-	}
-	
+    /**
+     * @var string
+     */
+    protected $cellCSSClass = null;
 
 
-	public function getContainsArrayData() {
-		return false;
-	}
+
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param array $settings
+     * @param string $columnIdentifier
+     * @return \Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
+     */
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings, $columnIdentifier)
+    {
+        $settings['columnIdentifier'] = $columnIdentifier;
+        parent::__construct($configurationBuilder, $settings);
+    }
+    
+    
+                                                                             
+    /**
+     * (non-PHPdoc)
+     * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
+     */
+    protected function init()
+    {
+        // required
+        $this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
+        
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], array('message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619'));
+        $this->aggregateDataIdentifier = GeneralUtility::trimExplode(',', $this->settings['aggregateDataIdentifier']);
+        
+        // optional
+        $this->setValueIfExistsAndNotNothing('renderTemplate');
+        $this->setValueIfExistsAndNotNothing('cellCSSClass');
+        $this->setBooleanIfExistsAndNotNothing('cacheRendering');
+        
+        if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
+            asort($this->settings['renderUserFunctions']);
+            $this->renderUserFunctions = $this->settings['renderUserFunctions'];
+        }
+
+        if (array_key_exists('renderObj', $this->settings)) {
+            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+        }
+    }
+
+    
+    
+    /**
+     * @return string columnIdentifier
+     */
+    public function getColumnIdentifier()
+    {
+        return $this->columnIdentifier;
+    }
+    
+    
+    
+    /**
+     * @return array aggregateDataIdentifier
+     */
+    public function getAggregateDataIdentifier()
+    {
+        return $this->aggregateDataIdentifier;
+    }
+    
+    
+    
+    /**
+     * This method exists to fullfill the interface
+     * The renderer expects the method to map da data to the column
+     * 
+     * (non-PHPdoc)
+     * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface::getFieldIdentifier()
+     */
+    public function getFieldIdentifier()
+    {
+        return $this->aggregateDataIdentifier;
+    }
+    
+    
+    
+    public function getSpecialCell()
+    {
+        return '';
+    }
+    
 
 
-	
-	/**
-	 * @return array
-	 */
-	public function getRenderObj() {
-		return $this->renderObj;
-	}
-	
-	
-	
-	/**
-	 * @return array
-	 */
-	public function getRenderUserFunctions() {
-		return $this->renderUserFunctions;
-	}
-	
-	
-	
-	/**
-	* @return string renderTemplate
-	*/
-	public function getRenderTemplate() {
-		return $this->renderTemplate;
-	}
+    public function getContainsArrayData()
+    {
+        return false;
+    }
+
+
+    
+    /**
+     * @return array
+     */
+    public function getRenderObj()
+    {
+        return $this->renderObj;
+    }
+    
+    
+    
+    /**
+     * @return array
+     */
+    public function getRenderUserFunctions()
+    {
+        return $this->renderUserFunctions;
+    }
+    
+    
+    
+    /**
+    * @return string renderTemplate
+    */
+    public function getRenderTemplate()
+    {
+        return $this->renderTemplate;
+    }
     
     
 
-	/**
-	 * @return string
-	 */
-	public function getCellCSSClass() {
-		return $this->cellCSSClass;
-	}
+    /**
+     * @return string
+     */
+    public function getCellCSSClass()
+    {
+        return $this->cellCSSClass;
+    }
 
 
 
-	/**
-	 * @return bool
-	 */
-	public function getRawFields() {
-		return false;
-	}
+    /**
+     * @return bool
+     */
+    public function getRawFields()
+    {
+        return false;
+    }
 
 
 
-	/**
-	 * Returns true, if rendering should be cached
-	 *
-	 * @return bool True, if rendering should be cached
-	 */
-	public function getCacheRendering() {
-		return $this->cacheRendering;
-	}
-
+    /**
+     * Returns true, if rendering should be cached
+     *
+     * @return bool True, if rendering should be cached
+     */
+    public function getCacheRendering()
+    {
+        return $this->cacheRendering;
+    }
 }

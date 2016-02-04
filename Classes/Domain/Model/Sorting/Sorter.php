@@ -37,78 +37,82 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest
  */
-class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
-
-	/**
-	 * Array that holds sorters to be observerd by sorter
-	 *
-	 * @var array<Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface>
-	 */
-	protected $sortingObservers;
-	
-	
-	
-	/**
-	 * Holds sorter configuration
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
-	 */
-	protected $sorterConfiguration;
-	
-	
-	
-	/**
-	 * Holds a collection of sorting states that are used for sorting
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
-	 */
-	protected $sortingStateCollection;
-	
-	
-	
-	/**
-	 * Registers sorter that can influence sorting.
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver
-	 */
-    public function registerSortingObserver(Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver) {
-    	$this->sortingObservers[] = $sortingObserver;
-    	$sortingObserver->registerSorter($this);
+class Tx_PtExtlist_Domain_Model_Sorting_Sorter
+{
+    /**
+     * Array that holds sorters to be observerd by sorter
+     *
+     * @var array<Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface>
+     */
+    protected $sortingObservers;
+    
+    
+    
+    /**
+     * Holds sorter configuration
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
+     */
+    protected $sorterConfiguration;
+    
+    
+    
+    /**
+     * Holds a collection of sorting states that are used for sorting
+     *
+     * @var Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     */
+    protected $sortingStateCollection;
+    
+    
+    
+    /**
+     * Registers sorter that can influence sorting.
+     *
+     * @param Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver
+     */
+    public function registerSortingObserver(Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver)
+    {
+        $this->sortingObservers[] = $sortingObserver;
+        $sortingObserver->registerSorter($this);
     }
 
 
 
-	/**
-	 * Removes all registered sorting observers and resets sorting state collection
-	 */
-	public function removeAllSortingObservers() {
-		$this->sortingObservers = array();
-		$this->buildSortingStateCollection();
-	}
-
-
-
-	/**
-	 * Injector for sorter configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration
-	 */
-    public function _injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration) {
-    	$this->sorterConfiguration = $sorterConfiguration;
+    /**
+     * Removes all registered sorting observers and resets sorting state collection
+     */
+    public function removeAllSortingObservers()
+    {
+        $this->sortingObservers = array();
+        $this->buildSortingStateCollection();
     }
 
 
-	/**
-	 * Returns current sorting state collection of this sorter
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
-	 */
-	public function getSortingStateCollection() {
-		if ($this->sortingStateCollection == NULL) {
-			$this->buildSortingStateCollection();
-		}
-		return $this->sortingStateCollection;
-	}
+
+    /**
+     * Injector for sorter configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration
+     */
+    public function _injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration)
+    {
+        $this->sorterConfiguration = $sorterConfiguration;
+    }
+
+
+    /**
+     * Returns current sorting state collection of this sorter
+     *
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     */
+    public function getSortingStateCollection()
+    {
+        if ($this->sortingStateCollection == null) {
+            $this->buildSortingStateCollection();
+        }
+        return $this->sortingStateCollection;
+    }
 
 
 
@@ -117,22 +121,24 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
      *
      * @return void
      */
-    public function reset() {
-        foreach($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+    public function reset()
+    {
+        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
             $sortingObserver->resetSorting();
         }
     }
 
 
 
-	/**
-	 * Resets all sorting observers to default sorting
-	 */
-	public function resetToDefault() {
-		foreach($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
-			$sortingObserver->resetToDefaultSorting();
-		}
-	}
+    /**
+     * Resets all sorting observers to default sorting
+     */
+    public function resetToDefault()
+    {
+        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+            $sortingObserver->resetToDefaultSorting();
+        }
+    }
 
 
 
@@ -142,18 +148,18 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter {
      *
      * @return void
      */
-    protected function buildSortingStateCollection() {
+    protected function buildSortingStateCollection()
+    {
         $this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
 
         // Gather sorting states from registered sorting observers
-		if (is_array($this->sortingObservers)) {
-			foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
-				$sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
-				foreach($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
-					$this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
-				}
-			}
-		}
+        if (is_array($this->sortingObservers)) {
+            foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+                $sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
+                foreach ($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
+                    $this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);
+                }
+            }
+        }
     }
-
 }

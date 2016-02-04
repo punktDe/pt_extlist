@@ -34,26 +34,25 @@
  * @subpackage Configuration\Pager
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory {
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$pagerCollectionSettings = $configurationBuilder->getSettingsForConfigObject('pager');
+class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory
+{
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $pagerCollectionSettings = $configurationBuilder->getSettingsForConfigObject('pager');
 
-		$pagerConfigCollection = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection($configurationBuilder);
-		
-		foreach($pagerCollectionSettings['pagerConfigs'] as $pagerIdentifier => $pagerSettings) {
-			
-			$pagerSettings['itemsPerPage'] = $pagerCollectionSettings['itemsPerPage'];
-			$pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($configurationBuilder, $pagerIdentifier, $pagerSettings);
+        $pagerConfigCollection = new Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection($configurationBuilder);
+        
+        foreach ($pagerCollectionSettings['pagerConfigs'] as $pagerIdentifier => $pagerSettings) {
+            $pagerSettings['itemsPerPage'] = $pagerCollectionSettings['itemsPerPage'];
+            $pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($configurationBuilder, $pagerIdentifier, $pagerSettings);
 
-			$pagerConfigCollection->addPagerConfig($pagerConfiguration, $pagerIdentifier);
-		}
+            $pagerConfigCollection->addPagerConfig($pagerConfiguration, $pagerIdentifier);
+        }
 
-		return $pagerConfigCollection;
-	}
-
+        return $pagerConfigCollection;
+    }
 }

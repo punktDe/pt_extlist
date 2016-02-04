@@ -34,63 +34,65 @@
  * @package Utility
  * @see Tx_PtExtlist_Tests_Utility_DbUtilsTest
  */
-class Tx_PtExtlist_Utility_DbUtils {
-
-
-	/**
-	 * Creates an aliased select part for given field config
-	 *
-	 * <table>.<field> as <fieldIdentifier>
-	 *
-	 * Or: if a special mysql string is given
-	 * <special mysql string> as <fieldIdentifier>
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
-	 * @return string
-	 */
-	public static function getAliasedSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
-		return self::getSelectPartByFieldConfig($fieldConfiguration) . ' AS ' . $fieldConfiguration->getIdentifier();
-	}
-
-
-
-	/**
-	 * Creates the select part for given field config
-	 *
-	 * <table>.<field>
-	 *
-	 * Or: if a special mysql string is given
-	 * <special mysql string>
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
-	 * @return string
-	 */
-	public static function getSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration) {
-		if ($fieldConfiguration->getSpecial()) {
-			$selectPart = '(' . $fieldConfiguration->getSpecial() . ')';
-		} else {
-			$selectPart = $fieldConfiguration->getTableFieldCombined();
-		}
-
-		return $selectPart;
-	}
+class Tx_PtExtlist_Utility_DbUtils
+{
+    /**
+     * Creates an aliased select part for given field config
+     *
+     * <table>.<field> as <fieldIdentifier>
+     *
+     * Or: if a special mysql string is given
+     * <special mysql string> as <fieldIdentifier>
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+     * @return string
+     */
+    public static function getAliasedSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration)
+    {
+        return self::getSelectPartByFieldConfig($fieldConfiguration) . ' AS ' . $fieldConfiguration->getIdentifier();
+    }
 
 
 
-	/**
-	 * Turns a fieldConfigCollection into a list of comma separated selectParts
-	 *
-	 * @static
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
-	 * @return string
-	 */
-	public static function getSelectPartByFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
-		$selectParts = array();
+    /**
+     * Creates the select part for given field config
+     *
+     * <table>.<field>
+     *
+     * Or: if a special mysql string is given
+     * <special mysql string>
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+     * @return string
+     */
+    public static function getSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration)
+    {
+        if ($fieldConfiguration->getSpecial()) {
+            $selectPart = '(' . $fieldConfiguration->getSpecial() . ')';
+        } else {
+            $selectPart = $fieldConfiguration->getTableFieldCombined();
+        }
 
-		foreach ($fieldConfigCollection as $field) {
-			$selectParts[] = self::getSelectPartByFieldConfig($field);
-		}
+        return $selectPart;
+    }
 
-		return implode(', ', $selectParts);
-	}
+
+
+    /**
+     * Turns a fieldConfigCollection into a list of comma separated selectParts
+     *
+     * @static
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+     * @return string
+     */
+    public static function getSelectPartByFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection)
+    {
+        $selectParts = array();
+
+        foreach ($fieldConfigCollection as $field) {
+            $selectParts[] = self::getSelectPartByFieldConfig($field);
+        }
+
+        return implode(', ', $selectParts);
+    }
 }

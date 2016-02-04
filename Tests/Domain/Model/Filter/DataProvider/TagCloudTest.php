@@ -36,48 +36,50 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $defaultFilterSettings = array(
-		'filterIdentifier' => 'tagCloudTest',
-		'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
-		'partialPath' => 'Filter/Options/TagCloudFilter',
-		'fieldIdentifier' => 'field1',
-		'displayFields' => 'field1',
-		'filterField' => 'field3',
-		'invert' => '0'
-	);
-
-
-
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $defaultFilterSettings = array(
+        'filterIdentifier' => 'tagCloudTest',
+        'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
+        'partialPath' => 'Filter/Options/TagCloudFilter',
+        'fieldIdentifier' => 'field1',
+        'displayFields' => 'field1',
+        'filterField' => 'field3',
+        'invert' => '0'
+    );
 
 
 
-	/** @test */
-	public function initDataProviderByTsConfigElementCountField() {
-		$filterSettings = $this->defaultFilterSettings;
-		$tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
-		$this->assertEquals($tagCloudDataProvider->_get('elementCountField'), NULL);
-		$filterSettings['countFieldIdentifier'] = 'field2';
-		$tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
-		$this->assertEquals($tagCloudDataProvider->_get('elementCountField')->getField(), 'fieldName2');
-	}
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
 
 
-	protected function buildAccessibleTagCloudDataProvider($filterSettings) {
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud');
-		$accessibleTagCloudDataProvider = new $accessibleClassName;
-		/* @var $accessibleTagCloudDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud */
-		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-		$dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
-		$accessibleTagCloudDataProvider->_injectDataBackend($dataBackend);
-		$accessibleTagCloudDataProvider->_injectFilterConfig($filterConfiguration);
-		$accessibleTagCloudDataProvider->init();
-		return $accessibleTagCloudDataProvider;
-	}
+    /** @test */
+    public function initDataProviderByTsConfigElementCountField()
+    {
+        $filterSettings = $this->defaultFilterSettings;
+        $tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
+        $this->assertEquals($tagCloudDataProvider->_get('elementCountField'), null);
+        $filterSettings['countFieldIdentifier'] = 'field2';
+        $tagCloudDataProvider = $this->buildAccessibleTagCloudDataProvider($filterSettings);
+        $this->assertEquals($tagCloudDataProvider->_get('elementCountField')->getField(), 'fieldName2');
+    }
 
+
+
+    protected function buildAccessibleTagCloudDataProvider($filterSettings)
+    {
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud');
+        $accessibleTagCloudDataProvider = new $accessibleClassName;
+        /* @var $accessibleTagCloudDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud */
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+        $accessibleTagCloudDataProvider->_injectDataBackend($dataBackend);
+        $accessibleTagCloudDataProvider->_injectFilterConfig($filterConfiguration);
+        $accessibleTagCloudDataProvider->init();
+        return $accessibleTagCloudDataProvider;
+    }
 }

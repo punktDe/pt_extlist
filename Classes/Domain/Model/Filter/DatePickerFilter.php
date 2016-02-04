@@ -33,68 +33,72 @@
  * @subpackage Model\Filter
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
-	 */
-	protected $dataProviderFactory;
-
-
-
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
-	 */
-	public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory) {
-		$this->dataProviderFactory = $dataProviderFactory;
-	}
+class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+     */
+    protected $dataProviderFactory;
 
 
 
-	/**
-	 * @return void
-	 */
-	public function initFilterByGpVars() {
-		if (is_array($this->gpVarFilterData) && array_key_exists('filterValue',$this->gpVarFilterData) && $this->gpVarFilterData['filterValue']) {
-			$dateTimeZone = new DateTimeZone(date_default_timezone_get());
-			$startDateTime = new DateTime($this->gpVarFilterData['filterValue']);
-			$startDateTime->setTimezone($dateTimeZone);
-
-			$endDateTime = new DateTime($this->gpVarFilterData['filterValue']);
-			$endDateTime->setTimezone($dateTimeZone);
-			$endDateTime->modify('+86399 seconds');
-
-			$this->gpVarFilterData['filterValueStart'] = $startDateTime->format('U');
-			$this->gpVarFilterData['filterValueEnd'] = $endDateTime->format('U');
-		}
-		parent::initFilterByGpVars();
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
+     */
+    public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory)
+    {
+        $this->dataProviderFactory = $dataProviderFactory;
+    }
 
 
 
-	/**
-	 * @return string
-	 */
-	public function getValue() {
-		$result = '';
-		if (isset($this->filterValueStart)) {
-			$dateTimeZone = new DateTimeZone(date_default_timezone_get());
-			$this->getFilterValueStart()->setTimezone($dateTimeZone);
-			$result = $this->getFilterValueStart()->format('Y-m-d');
-		}
-		return $result;
-	}
+    /**
+     * @return void
+     */
+    public function initFilterByGpVars()
+    {
+        if (is_array($this->gpVarFilterData) && array_key_exists('filterValue', $this->gpVarFilterData) && $this->gpVarFilterData['filterValue']) {
+            $dateTimeZone = new DateTimeZone(date_default_timezone_get());
+            $startDateTime = new DateTime($this->gpVarFilterData['filterValue']);
+            $startDateTime->setTimezone($dateTimeZone);
+
+            $endDateTime = new DateTime($this->gpVarFilterData['filterValue']);
+            $endDateTime->setTimezone($dateTimeZone);
+            $endDateTime->modify('+86399 seconds');
+
+            $this->gpVarFilterData['filterValueStart'] = $startDateTime->format('U');
+            $this->gpVarFilterData['filterValueEnd'] = $endDateTime->format('U');
+        }
+        parent::initFilterByGpVars();
+    }
 
 
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
-	 */
-	public function getOptions() {
-		$dataProvider = $this->dataProviderFactory->createInstance($this->filterConfig);
-		return $dataProvider->getRenderedOptions();
-	}
+    /**
+     * @return string
+     */
+    public function getValue()
+    {
+        $result = '';
+        if (isset($this->filterValueStart)) {
+            $dateTimeZone = new DateTimeZone(date_default_timezone_get());
+            $this->getFilterValueStart()->setTimezone($dateTimeZone);
+            $result = $this->getFilterValueStart()->format('Y-m-d');
+        }
+        return $result;
+    }
+
+
+
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
+     */
+    public function getOptions()
+    {
+        $dataProvider = $this->dataProviderFactory->createInstance($this->filterConfig);
+        return $dataProvider->getRenderedOptions();
+    }
 
 
 
@@ -105,43 +109,45 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
      *
      * @return mixed
      */
-	public function getDatePickerOptions() {
-		return $this->buildJson($this->filterConfig->getSettings('options'));
-	}
+    public function getDatePickerOptions()
+    {
+        return $this->buildJson($this->filterConfig->getSettings('options'));
+    }
 
 
 
-	/**
-	 * Build Json
-	 *
-	 * json_encode() can't be used, since object literal values mustn't be
-	 * placed within double quotations.
-	 *
-	 * This method is highly customized with respect to DatePicker's options
-	 * structure. Thus, it is not swapped to a generic helper class.
-	 *
-	 * @param array $options DatePicker Options as array from TypoScript
-	 * @return string
-	 */
-	protected function buildJson($options) {
-		$result = '';
-		if (is_array($options)) {
-			$elements = array();
-			foreach ($options as $key => $value) {
-				$elements[] = '"' . $key . '":' . $value;
-			}
-			$result = implode(',', $elements);
-		}
-		return "{" . $result . "}";
-	}
+    /**
+     * Build Json
+     *
+     * json_encode() can't be used, since object literal values mustn't be
+     * placed within double quotations.
+     *
+     * This method is highly customized with respect to DatePicker's options
+     * structure. Thus, it is not swapped to a generic helper class.
+     *
+     * @param array $options DatePicker Options as array from TypoScript
+     * @return string
+     */
+    protected function buildJson($options)
+    {
+        $result = '';
+        if (is_array($options)) {
+            $elements = array();
+            foreach ($options as $key => $value) {
+                $elements[] = '"' . $key . '":' . $value;
+            }
+            $result = implode(',', $elements);
+        }
+        return "{" . $result . "}";
+    }
 
 
 
-	/**
-	 * @return array
-	 */
-	public function _persistToSession() {
-		return array();
-	}
-
+    /**
+     * @return array
+     */
+    public function _persistToSession()
+    {
+        return array();
+    }
 }

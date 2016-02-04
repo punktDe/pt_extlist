@@ -34,101 +34,107 @@
  * @subpackage Domain\Model\ViewHelpers\NameSpace
  * @see Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper
  */
-class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	/**
-	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
-	 */
-	protected $configurationBuilderMock;
-	
-	
-	
-	public function setup() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-	}
-	
-	
-	
-	public function testGetArgumentArraySingleNoValue() {
-		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$GPArray = $GPArrayViewHelper->getArgumentArray('label');
-		$this->assertEquals($GPArray, array('label' => NULL));
-	}
-	
-	
-	
-	public function testGetArgumentArrayMultiNoValue() {
-		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$GPArray = $GPArrayViewHelper->getArgumentArray('label,name');
-		$this->assertEquals($GPArray, array('label' => NULL, 'name' => NULL));
-	}
-	
-	
-	
-	public function testGetArgumentArraySingle() {
-		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$GPArray = $GPArrayViewHelper->getArgumentArray('label:test');
-		$this->assertEquals($GPArray, array('label' => 'test'));
-	}
-	
-	
-	
-	public function testGetArgumentArrayMulti() {
-		$GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$GPArray = $GPArrayViewHelper->getArgumentArray('label:test,name:daniel');
-		$this->assertEquals($GPArray, array('label' => 'test', 'name' => 'daniel'));
-	}
-	
-	
-	
-	public function testRenderWithObject() {
-		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('addSessionRelatedArguments'), array(), '', FALSE);
-		$sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
-		$sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', FALSE);
-		$sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
-		/* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
+     */
+    protected $configurationBuilderMock;
+    
+    
+    
+    public function setup()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+    }
+    
+    
+    
+    public function testGetArgumentArraySingleNoValue()
+    {
+        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArray = $GPArrayViewHelper->getArgumentArray('label');
+        $this->assertEquals($GPArray, array('label' => null));
+    }
+    
+    
+    
+    public function testGetArgumentArrayMultiNoValue()
+    {
+        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArray = $GPArrayViewHelper->getArgumentArray('label,name');
+        $this->assertEquals($GPArray, array('label' => null, 'name' => null));
+    }
+    
+    
+    
+    public function testGetArgumentArraySingle()
+    {
+        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArray = $GPArrayViewHelper->getArgumentArray('label:test');
+        $this->assertEquals($GPArray, array('label' => 'test'));
+    }
+    
+    
+    
+    public function testGetArgumentArrayMulti()
+    {
+        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArray = $GPArrayViewHelper->getArgumentArray('label:test,name:daniel');
+        $this->assertEquals($GPArray, array('label' => 'test', 'name' => 'daniel'));
+    }
+    
+    
+    
+    public function testRenderWithObject()
+    {
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('addSessionRelatedArguments'), array(), '', false);
+        $sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
+        $sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', false);
+        $sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
+        /* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
-		
-		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace','getLabel'));
+        $linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
+        
+        $object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace', 'getLabel'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
             ->will($this->returnValue('listName.objectType.objectName'));
-		$object->expects($this->once())
+        $object->expects($this->once())
             ->method('getLabel')
             ->will($this->returnValue('test'));
             
             
-		$gpArray = $linkViewHelper->render('label',$object);
-		
-		$refArray['listName']['objectType']['objectName']['label'] = 'test';
-		$this->assertEquals($gpArray, $refArray);
-	}
+        $gpArray = $linkViewHelper->render('label', $object);
+        
+        $refArray['listName']['objectType']['objectName']['label'] = 'test';
+        $this->assertEquals($gpArray, $refArray);
+    }
 
-	
-	
-	public function testRenderWithObjectAndValue() {
-		$sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('addSessionRelatedArguments'), array(), '', FALSE);
-		$sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
-		$sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', FALSE);
-		$sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
-		/* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+    
+    
+    public function testRenderWithObjectAndValue()
+    {
+        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array('addSessionRelatedArguments'), array(), '', false);
+        $sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
+        $sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', array('getInstance'), array(), '', false);
+        $sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
+        /* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
 
-		$linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
-		
-		$object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
+        $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
+        
+        $object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', array('getObjectNamespace'));
         $object->expects($this->once())
             ->method('getObjectNamespace')
             ->will($this->returnValue('listName.objectType.objectName'));
             
             
-		$gpArray = $linkViewHelper->render('label:test', $object);
-		
-		$refArray['listName']['objectType']['objectName']['label'] = 'test';
-		$this->assertEquals($gpArray, $refArray);
-	}
-
+        $gpArray = $linkViewHelper->render('label:test', $object);
+        
+        $refArray['listName']['objectType']['objectName']['label'] = 'test';
+        $this->assertEquals($gpArray, $refArray);
+    }
 }

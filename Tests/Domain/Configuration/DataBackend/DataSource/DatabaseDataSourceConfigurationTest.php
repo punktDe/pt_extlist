@@ -33,38 +33,43 @@
  * @subpackage pt_extlist
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataSource_DataBaseDataSourceConfigurationTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $dataBackendConfiguration;
-	
-	public function setUp() {
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$this->dataBackendConfiguration = $configurationBuilderMock->buildDataBackendConfiguration();
-	}
-	
-	public function testGetUsername() {
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
-		$this->assertEquals($dataSourceConfig->getUsername(), 'user');
-	}
-	
-	public function testGetPassword() {
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
-		$this->assertEquals($dataSourceConfig->getPassword(), 'pass');
-	}
-		
-	public function testGetHost() {
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
-		$this->assertEquals($dataSourceConfig->getHost(), 'localhost');
-	}
-	
-	public function testGetPort() {
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
-		$this->assertEquals($dataSourceConfig->getPort(), 3306);
-	}
-	
-	public function testGetDataBaseName() {
-		$dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
-		$this->assertEquals($dataSourceConfig->getDatabaseName(), 'typo3');
-	}
-	
+class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataSource_DataBaseDataSourceConfigurationTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $dataBackendConfiguration;
+    
+    public function setUp()
+    {
+        $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $this->dataBackendConfiguration = $configurationBuilderMock->buildDataBackendConfiguration();
+    }
+    
+    public function testGetUsername()
+    {
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
+        $this->assertEquals($dataSourceConfig->getUsername(), 'user');
+    }
+    
+    public function testGetPassword()
+    {
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
+        $this->assertEquals($dataSourceConfig->getPassword(), 'pass');
+    }
+        
+    public function testGetHost()
+    {
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
+        $this->assertEquals($dataSourceConfig->getHost(), 'localhost');
+    }
+    
+    public function testGetPort()
+    {
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
+        $this->assertEquals($dataSourceConfig->getPort(), 3306);
+    }
+    
+    public function testGetDataBaseName()
+    {
+        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($this->dataBackendConfiguration->getDataSourceSettings());
+        $this->assertEquals($dataSourceConfig->getDatabaseName(), 'typo3');
+    }
 }

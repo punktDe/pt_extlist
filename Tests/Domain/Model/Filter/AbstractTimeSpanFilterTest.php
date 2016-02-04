@@ -34,161 +34,169 @@
  * @subpackage Domain\Model\Filter
  * @see Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $defaultFilterSettings;
-
-
-
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-
-		$this->defaultFilterSettings = array(
-			'filterIdentifier' => 'test',
-			'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter',
-			'partialPath' => 'Filter/TimeSpan',
-			'dbTimeFormat' => 'd.m.Y H:i',
-			'fieldIdentifier' => array(
-				10 => array(
-					'start' => 'field1',
-					'end' => 'field2'
-				)
-			),
-		);
-	}
+class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $defaultFilterSettings;
 
 
 
-	/**
-	 * @test
-	 */
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter'));
-	}
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+
+        $this->defaultFilterSettings = array(
+            'filterIdentifier' => 'test',
+            'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter',
+            'partialPath' => 'Filter/TimeSpan',
+            'dbTimeFormat' => 'd.m.Y H:i',
+            'fieldIdentifier' => array(
+                10 => array(
+                    'start' => 'field1',
+                    'end' => 'field2'
+                )
+            ),
+        );
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function buildDateFieldIdentifierArrayWithRawFieldIdentifiers() {
-
-		$timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter(); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
-		$fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
-
-		$testField1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'field1', array('field' => 'fieldName1', 'table' => 'tableName1'));
-		$testField2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'field2', array('field' => 'fieldName2', 'table' => 'tableName2'));
-
-		$this->assertTrue(is_a($fieldIdentifierArray[10]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-		$this->assertTrue(is_a($fieldIdentifierArray[10]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-		$this->assertEquals($testField1->getIdentifier(), $fieldIdentifierArray[10]['start']->getIdentifier());
-		$this->assertEquals($testField2->getIdentifier(), $fieldIdentifierArray[10]['end']->getIdentifier());
-	}
+    /**
+     * @test
+     */
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter'));
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function buildDateFieldIdentifierArrayWithFieldIdentifierCollection() {
+    /**
+     * @test
+     */
+    public function buildDateFieldIdentifierArrayWithRawFieldIdentifiers()
+    {
+        $timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter(); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
+        $fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
 
-		$filterSettings = $this->defaultFilterSettings;
-		$filterSettings['fieldIdentifier'] = 'field1';
+        $testField1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('field' => 'fieldName1', 'table' => 'tableName1'));
+        $testField2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('field' => 'fieldName2', 'table' => 'tableName2'));
 
-		$timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter($filterSettings); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
-		$fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
-
-		$testField = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock,'field1', array('field' => 'fieldName1', 'table' => 'tableName1'));
-
-		$this->assertTrue(is_a($fieldIdentifierArray[0]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-		$this->assertTrue(is_a($fieldIdentifierArray[0]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-		$this->assertEquals($testField->getIdentifier(), $fieldIdentifierArray[0]['start']->getIdentifier());
-		$this->assertEquals($testField->getIdentifier(), $fieldIdentifierArray[0]['end']->getIdentifier());
-	}
+        $this->assertTrue(is_a($fieldIdentifierArray[10]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertTrue(is_a($fieldIdentifierArray[10]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertEquals($testField1->getIdentifier(), $fieldIdentifierArray[10]['start']->getIdentifier());
+        $this->assertEquals($testField2->getIdentifier(), $fieldIdentifierArray[10]['end']->getIdentifier());
+    }
 
 
 
-	public function testDBTimeFormatIsSet() {
-		$filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
-		$this->assertEquals('d.m.Y H:i', $filterMock->_get('dbTimeFormat'));
-	}
+    /**
+     * @test
+     */
+    public function buildDateFieldIdentifierArrayWithFieldIdentifierCollection()
+    {
+        $filterSettings = $this->defaultFilterSettings;
+        $filterSettings['fieldIdentifier'] = 'field1';
+
+        $timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter($filterSettings); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
+        $fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
+
+        $testField = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('field' => 'fieldName1', 'table' => 'tableName1'));
+
+        $this->assertTrue(is_a($fieldIdentifierArray[0]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertTrue(is_a($fieldIdentifierArray[0]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertEquals($testField->getIdentifier(), $fieldIdentifierArray[0]['start']->getIdentifier());
+        $this->assertEquals($testField->getIdentifier(), $fieldIdentifierArray[0]['end']->getIdentifier());
+    }
 
 
 
-	/**
-	 * Getter for FROM filter value
-	 *
-	 * @test
-	 */
-	public function getFilterValueStart() {
-		$filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
-		$this->assertEquals($filterMock->getFilterValueStart(), date_create('2000-01-01'));
-	}
+    public function testDBTimeFormatIsSet()
+    {
+        $filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
+        $this->assertEquals('d.m.Y H:i', $filterMock->_get('dbTimeFormat'));
+    }
 
 
 
-	/**
-	 * Getter for filter value
-	 *
-	 * @test
-	 */
-	public function getFilterValueEnd() {
-		$filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
-		$this->assertEquals($filterMock->getFilterValueEnd(), date_create());
-	}
+    /**
+     * Getter for FROM filter value
+     *
+     * @test
+     */
+    public function getFilterValueStart()
+    {
+        $filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
+        $this->assertEquals($filterMock->getFilterValueStart(), date_create('2000-01-01'));
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function getFilterValueStartInDBFormat() {
-		$filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
-		$this->assertEquals($filterMock->getFilterValueStartInDBFormat(), date_create('2000-01-01')->format('d.m.Y H:i'));
-	}
+    /**
+     * Getter for filter value
+     *
+     * @test
+     */
+    public function getFilterValueEnd()
+    {
+        $filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
+        $this->assertEquals($filterMock->getFilterValueEnd(), date_create());
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function getFilterValueEndInDBFormat() {
-		$filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
-		$this->assertEquals($filterMock->getFilterValueEndInDBFormat(), date_create()->format('d.m.Y H:i'));
-	}
+    /**
+     * @test
+     */
+    public function getFilterValueStartInDBFormat()
+    {
+        $filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
+        $this->assertEquals($filterMock->getFilterValueStartInDBFormat(), date_create('2000-01-01')->format('d.m.Y H:i'));
+    }
 
 
 
-	/**
-	 * Utility Methods
-	 *
-	 * @param array $filterSettings
-	 * @return Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter
-	 */
-	public function buildAccessibleAbstractTimeSpanFilter($filterSettings = NULL) {
+    /**
+     * @test
+     */
+    public function getFilterValueEndInDBFormat()
+    {
+        $filterMock = $this->buildAccessibleAbstractTimeSpanFilter();
+        $this->assertEquals($filterMock->getFilterValueEndInDBFormat(), date_create()->format('d.m.Y H:i'));
+    }
 
-		if(!$filterSettings) $filterSettings = $this->defaultFilterSettings;
 
-		$gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', array(), array(), '', FALSE); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
 
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter');
-		$abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName); /* @var $abstractTimeSpanFilter Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter */
+    /**
+     * Utility Methods
+     *
+     * @param array $filterSettings
+     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter
+     */
+    public function buildAccessibleAbstractTimeSpanFilter($filterSettings = null)
+    {
+        if (!$filterSettings) {
+            $filterSettings = $this->defaultFilterSettings;
+        }
 
-		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+        $gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', array(), array(), '', false); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
 
-		$dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
-		$dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter');
+        $abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName); /* @var $abstractTimeSpanFilter Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter */
 
-		$abstractTimeSpanFilter->_injectFilterConfig($filterConfiguration);
-		$abstractTimeSpanFilter->_injectDataBackend($dataBackendMock);
-		$abstractTimeSpanFilter->_injectGpVarsAdapter($gpVarsAdapgerMock);
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
-		$abstractTimeSpanFilter->_set('filterValueStart', date_create('2000-01-01'));
-		$abstractTimeSpanFilter->_set('filterValueEnd', date_create());
-		
-		$abstractTimeSpanFilter->init();
+        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
-		return $abstractTimeSpanFilter;
-	}
+        $abstractTimeSpanFilter->_injectFilterConfig($filterConfiguration);
+        $abstractTimeSpanFilter->_injectDataBackend($dataBackendMock);
+        $abstractTimeSpanFilter->_injectGpVarsAdapter($gpVarsAdapgerMock);
 
+        $abstractTimeSpanFilter->_set('filterValueStart', date_create('2000-01-01'));
+        $abstractTimeSpanFilter->_set('filterValueEnd', date_create());
+        
+        $abstractTimeSpanFilter->init();
+
+        return $abstractTimeSpanFilter;
+    }
 }

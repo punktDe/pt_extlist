@@ -21,16 +21,16 @@ return array(
     'tx_ptextlist_tests_domain_model_filter_stubs_filterstub' => $extensionBasePath.'Tests/Domain/Model/Filter/Stubs/FilterStub.php',
     'tx_ptextlist_tests_domain_renderer_dummyrenderer' => $extensionBasePath.'Tests/Domain/Renderer/DummyRenderer.php',
     'tx_ptextlist_tests_view_testview' => $extensionBasePath.'Tests/View/TestView.php',
-	'tx_ptextlist_view_export_abstractexportview' => $extensionBasePath.'Classes/View/Export/AbstractExportView.php',
+    'tx_ptextlist_view_export_abstractexportview' => $extensionBasePath.'Classes/View/Export/AbstractExportView.php',
     'tx_ptextlist_view_baseview' => $extensionBasePath.'Classes/View/BaseView.php',
-	'tx_ptextlist_view_configurableviewinterface' => $extensionBasePath.'Classes/View/ConfigurableViewInterface.php',
+    'tx_ptextlist_view_configurableviewinterface' => $extensionBasePath.'Classes/View/ConfigurableViewInterface.php',
     'tx_ptextlist_tests_performance_testdatabackend' => $extensionBasePath . 'Tests/Performance/TestDataBackend.php',
     'tx_ptextlist_tests_performance_testdatasource' => $extensionBasePath . 'Tests/Performance/TestDataSource.php',
-	'tx_ptextlist_domain_databackend_datasource_iterationdatasourceinterface' => $extensionBasePath . 'Classes/Domain/DataBackend/DataSource/IterationDataSourceInterface.php',
-	'tx_ptextlist_tests_domain_model_filter_dataprovider_abstractdataproviderbasetestcase' => $extensionBasePath . 'Tests/Domain/Model/Filter/DataProvider/AbstractDataProviderBaseTestcase.php',
-	'tx_ptextlist_foreign_phpexcel' => $extensionBasePath . 'Classes/Foreign/PHPExcel',
+    'tx_ptextlist_domain_databackend_datasource_iterationdatasourceinterface' => $extensionBasePath . 'Classes/Domain/DataBackend/DataSource/IterationDataSourceInterface.php',
+    'tx_ptextlist_tests_domain_model_filter_dataprovider_abstractdataproviderbasetestcase' => $extensionBasePath . 'Tests/Domain/Model/Filter/DataProvider/AbstractDataProviderBaseTestcase.php',
+    'tx_ptextlist_foreign_phpexcel' => $extensionBasePath . 'Classes/Foreign/PHPExcel',
 
-	'user_tx_ptextlist_utility_flexformdataprovider' => $extensionBasePath.'Classes/Utility/FlexformDataProvider.php',
+    'user_tx_ptextlist_utility_flexformdataprovider' => $extensionBasePath.'Classes/Utility/FlexformDataProvider.php',
 
     'tx_ptextbase_configuration_abstractconfigurationbuilder' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase').'Classes/Configuration/AbstractConfigurationBuilder.php'
 );

@@ -34,15 +34,16 @@
  * @author Daniel Lienert 
  */
 
-class Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory {
-	
-	/**
-	 * Returns a instance of the list configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		return new Tx_PtExtlist_Domain_Configuration_List_ListConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('list'));
-	}
+class Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory
+{
+    /**
+     * Returns a instance of the list configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        return new Tx_PtExtlist_Domain_Configuration_List_ListConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('list'));
+    }
 }

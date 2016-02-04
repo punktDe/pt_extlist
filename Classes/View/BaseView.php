@@ -37,31 +37,33 @@
  */
 
 class Tx_PtExtlist_View_BaseView
-	extends Tx_PtExtbase_View_BaseView
-	implements Tx_PtExtlist_View_ConfigurableViewInterface {
+    extends Tx_PtExtbase_View_BaseView
+    implements Tx_PtExtlist_View_ConfigurableViewInterface
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    protected $configurationBuilder;
+    
+    
+    /**
+     * Inject the configurationBuilder
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return mixed|void
+     */
+    public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $this->configurationBuilder = $configurationBuilder;
+    }
+    
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilder;
-	
-	
-	/**
-	 * Inject the configurationBuilder
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return mixed|void
-	 */
-	public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-	}
-	
-
-	/**
-	 * Called by setConfiguration
-	 *
-	 * @return void
-	 */
-	protected function initConfiguration() {
-	}
+    /**
+     * Called by setConfiguration
+     *
+     * @return void
+     */
+    protected function initConfiguration()
+    {
+    }
 }

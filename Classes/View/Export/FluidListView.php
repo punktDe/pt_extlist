@@ -33,46 +33,46 @@
  * @package View
  * @subpackage Export
  */
-class Tx_PtExtlist_View_Export_FluidListView Extends Tx_PtExtlist_View_Export_AbstractExportView {
-
-	/**
-	 * Path to fluid template
-	 *
-	 * @var string
-	 */
-	protected $templatePath;
-
-
-	/**
-	 * Initialize additional class properties
-	 */
-	public function initConfiguration() {
-
-		$this->templatePath = $this->exportConfiguration->getSettings('templatePath');
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export!', 1284621481));
-		$this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->templatePath));
-	}
+class Tx_PtExtlist_View_Export_FluidListView extends Tx_PtExtlist_View_Export_AbstractExportView
+{
+    /**
+     * Path to fluid template
+     *
+     * @var string
+     */
+    protected $templatePath;
 
 
+    /**
+     * Initialize additional class properties
+     */
+    public function initConfiguration()
+    {
+        $this->templatePath = $this->exportConfiguration->getSettings('templatePath');
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export!', 1284621481));
+        $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->templatePath));
+    }
 
-	/**
-	 * Overwriting the render method to generate a downloadable output
-	 *
-	 * @return  void (never returns)
-	 */
-	public function render() {
 
-		ob_clean();
 
-		$outputData = parent::render();
+    /**
+     * Overwriting the render method to generate a downloadable output
+     *
+     * @return  void (never returns)
+     */
+    public function render()
+    {
+        ob_clean();
 
-		$this->sendHeader($this->getFilenameFromTs());
-		$out = fopen('php://output', 'w');
+        $outputData = parent::render();
 
-		fwrite($out, $outputData);
+        $this->sendHeader($this->getFilenameFromTs());
+        $out = fopen('php://output', 'w');
 
-		fclose($out);
+        fwrite($out, $outputData);
 
-		exit();
-	}
+        fclose($out);
+
+        exit();
+    }
 }

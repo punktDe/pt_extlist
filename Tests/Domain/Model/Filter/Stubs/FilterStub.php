@@ -35,87 +35,102 @@ require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * @package Tests
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
-
-	public function _persistToSession() {
-	}
-
-
-
-	public function _injectSessionData(array $sessionData) {
-	}
+class Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+{
+    public function _persistToSession()
+    {
+    }
 
 
 
-	public function init() {
-	}
+    public function _injectSessionData(array $sessionData)
+    {
+    }
 
 
 
-	protected function initFilterByTsConfig() {
-	}
+    public function init()
+    {
+    }
 
 
 
-	protected function initFilterBySession() {
-	}
+    protected function initFilterByTsConfig()
+    {
+    }
 
 
 
-	protected function initFilterByGpVars() {
-	}
+    protected function initFilterBySession()
+    {
+    }
 
 
 
-	protected function buildFilterQuery() {
-	}
+    protected function initFilterByGpVars()
+    {
+    }
 
 
 
-	protected function buildFilterCriteriaForAllFields() {
-	}
+    protected function buildFilterQuery()
+    {
+    }
 
 
 
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {
-	}
+    protected function buildFilterCriteriaForAllFields()
+    {
+    }
 
 
 
-	protected function initFilter() {
-	}
+    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    {
+    }
 
 
 
-	protected function setActiveState() {
-	}
+    protected function initFilter()
+    {
+    }
 
 
 
-	public function reset() {
-	}
+    protected function setActiveState()
+    {
+    }
 
 
 
-	public function getFilterBreadCrumb() {
-		return null;
-	}
+    public function reset()
+    {
+    }
 
 
 
-	public function getFilterValueForBreadCrumb() {
-		return null;
-	}
+    public function getFilterBreadCrumb()
+    {
+        return null;
+    }
 
 
 
-	public function isActive() {
-		return false;
-	}
+    public function getFilterValueForBreadCrumb()
+    {
+        return null;
+    }
 
 
 
-	public function getValue() {
-	}
+    public function isActive()
+    {
+        return false;
+    }
 
+
+
+    public function getValue()
+    {
+    }
 }

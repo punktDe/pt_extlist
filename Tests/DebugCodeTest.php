@@ -32,39 +32,40 @@
  * @author Daniel Lienert
  * @package Tests
  */
-class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
+class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase
+{
+    protected $extensionName = 'pt_extlist';
 
-	protected $extensionName = 'pt_extlist';
 
+    /**
+     * @return array
+     */
+    public function debugStringDataProvider()
+    {
+        return array(
+            'Search for print_r in code!' => array('debugCommand' => 'print_r'),
+            'Search for var_dump in code!' => array('debugCommand' => 'var_dump'),
+        );
+    }
 
-	/**
-	 * @return array
-	 */
-	public function debugStringDataProvider() {
-		return array(
-			'Search for print_r in code!' => array('debugCommand' => 'print_r'),
-			'Search for var_dump in code!' => array('debugCommand' => 'var_dump'),
-		);
-	}
+    /**
+     * @test
+     * @dataProvider debugStringDataProvider
+     *
+     * @var $debugCommand
+     */
+    public function checkForForgottenDebugCode($debugCommand)
+    {
+        $searchPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($this->extensionName);
 
-	/**
-	 * @test
-	 * @dataProvider debugStringDataProvider
-	 *
-	 * @var $debugCommand
-	 */
-	public function checkForForgottenDebugCode($debugCommand) {
-		$searchPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($this->extensionName);
+        $command = 'fgrep -i -r ' . escapeshellarg($debugCommand) . ' ' . escapeshellarg($searchPath) . '| grep ".php:"';
+        $result = `$command`;
+        $lines = explode("\n", trim($result));
 
-		$command = 'fgrep -i -r ' . escapeshellarg($debugCommand) . ' ' . escapeshellarg($searchPath) . '| grep ".php:"';
-		$result = `$command`;
-		$lines = explode("\n", trim($result));
-
-		foreach($lines as $line) {
-			if(!stristr(basename($line), basename(__FILE__))) {
-				$this->fail('Found ' . $debugCommand . ': ' . $line);
-			}
-		}
-	}
-
+        foreach ($lines as $line) {
+            if (!stristr(basename($line), basename(__FILE__))) {
+                $this->fail('Found ' . $debugCommand . ': ' . $line);
+            }
+        }
+    }
 }

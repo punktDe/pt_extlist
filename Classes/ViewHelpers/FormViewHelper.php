@@ -34,110 +34,111 @@
  * @author Daniel Lienert 
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper {
-
-	/**
-	 * Holds uri for form action
-	 *
-	 * @var string
-	 */
-	protected  $formActionUri;
-	
-
-
-	/**
-	 * Holds instance of session persistence manager builder
-	 *
-	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
-	 */
-	protected $sessionPersistenceManagerBuilder;
+class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
+{
+    /**
+     * Holds uri for form action
+     *
+     * @var string
+     */
+    protected $formActionUri;
+    
 
 
-
-	/**
-	 * Injects session persistence manager factory (used by DI)
-	 *
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
-	 */
-	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
-		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
-	}
+    /**
+     * Holds instance of session persistence manager builder
+     *
+     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     */
+    protected $sessionPersistenceManagerBuilder;
 
 
 
-	/**
-	 * Sets the "action" attribute of the form tag
-	 *
-	 * @return void
-	 */
-	protected function setFormActionUri() {
-		if (array_key_exists('actionUri', $this->arguments) && !empty($this->arguments['actionUri'])) {
-			$formActionUri = $this->arguments['actionUri'];
-		} else {
-			$uriBuilder = $this->controllerContext->getUriBuilder();
-			$formActionUri = $uriBuilder
-				->reset()
-				->setTargetPageUid($this->arguments['pageUid'])
-				->setTargetPageType($this->arguments['pageType'])
-				->setNoCache($this->arguments['noCache'])
-				->setUseCacheHash(!$this->arguments['noCacheHash'])
-				->setSection($this->arguments['section'])
-				->setCreateAbsoluteUri($this->arguments['absolute'])
-				->setArguments((array)$this->arguments['additionalParams'])
-				->setAddQueryString($this->arguments['addQueryString'])
-				->setArgumentsToBeExcludedFromQueryString((array)$this->arguments['argumentsToBeExcludedFromQueryString'])
-				->setFormat($this->arguments['format'])
-				->uriFor($this->arguments['action'], $this->arguments['arguments'], $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']);
-			$this->formActionUriArguments = $uriBuilder->getArguments();
-		}
-		
-		$this->formActionUri = $formActionUri;
-		$this->tag->addAttribute('action', $formActionUri);
-	}
-	
+    /**
+     * Injects session persistence manager factory (used by DI)
+     *
+     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     */
+    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    {
+        $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+    }
 
-	/**
-	 * Renders hidden form fields for referrer information about
-	 * the current controller and action.
-	 *
-	 * @return string Hidden fields with referrer information
-	 * @todo filter out referrer information that is equal to the target (e.g. same packageKey)
-	 */
-	protected function renderHiddenReferrerFields() {
-		
-		$request = $this->controllerContext->getRequest();
-		$extensionName = $request->getControllerExtensionName();
-		$controllerName = $request->getControllerName();
-		$actionName = $request->getControllerActionName();
-		
-		$result = chr(10);
-		
-		// quick ugly hack 
-		if(strtolower($this->arguments['method']) === 'get') {
-			$uriTemp = explode('?', $this->formActionUri);
-			$uriTemp = explode('&', $uriTemp[1]);
-			
-			foreach($uriTemp as $parameter) {
-				$paramTemp = explode('=', $parameter);
-				$result .= '<input type="hidden" name="' . $paramTemp[0] . '" value="' . $paramTemp[1] . '" />' . chr(10);
-			}
-		}
-		
-		
-		$extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
-		
-		if($extBaseContext->isInCachedMode()) {
-			$listIdentifier = $extBaseContext->getCurrentListIdentifier();
-			$stateHash = $this->sessionPersistenceManagerBuilder->getInstance()->getSessionDataHash();
-			
-			$result .=  '<input type="hidden" name="' . $this->prefixFieldName($listIdentifier.'[state]') . '" value="' . $stateHash . '" />' . chr(10);
-		}
-		
-		
-		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[extensionName]') . '" value="' . $extensionName . '" />' . chr(10);
-		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[controllerName]') . '" value="' . $controllerName . '" />' . chr(10);
-		$result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[actionName]') . '" value="' . $actionName . '" />' . chr(10);	
-		return $result;
-	}
 
+
+    /**
+     * Sets the "action" attribute of the form tag
+     *
+     * @return void
+     */
+    protected function setFormActionUri()
+    {
+        if (array_key_exists('actionUri', $this->arguments) && !empty($this->arguments['actionUri'])) {
+            $formActionUri = $this->arguments['actionUri'];
+        } else {
+            $uriBuilder = $this->controllerContext->getUriBuilder();
+            $formActionUri = $uriBuilder
+                ->reset()
+                ->setTargetPageUid($this->arguments['pageUid'])
+                ->setTargetPageType($this->arguments['pageType'])
+                ->setNoCache($this->arguments['noCache'])
+                ->setUseCacheHash(!$this->arguments['noCacheHash'])
+                ->setSection($this->arguments['section'])
+                ->setCreateAbsoluteUri($this->arguments['absolute'])
+                ->setArguments((array)$this->arguments['additionalParams'])
+                ->setAddQueryString($this->arguments['addQueryString'])
+                ->setArgumentsToBeExcludedFromQueryString((array)$this->arguments['argumentsToBeExcludedFromQueryString'])
+                ->setFormat($this->arguments['format'])
+                ->uriFor($this->arguments['action'], $this->arguments['arguments'], $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']);
+            $this->formActionUriArguments = $uriBuilder->getArguments();
+        }
+        
+        $this->formActionUri = $formActionUri;
+        $this->tag->addAttribute('action', $formActionUri);
+    }
+    
+
+    /**
+     * Renders hidden form fields for referrer information about
+     * the current controller and action.
+     *
+     * @return string Hidden fields with referrer information
+     * @todo filter out referrer information that is equal to the target (e.g. same packageKey)
+     */
+    protected function renderHiddenReferrerFields()
+    {
+        $request = $this->controllerContext->getRequest();
+        $extensionName = $request->getControllerExtensionName();
+        $controllerName = $request->getControllerName();
+        $actionName = $request->getControllerActionName();
+        
+        $result = chr(10);
+        
+        // quick ugly hack 
+        if (strtolower($this->arguments['method']) === 'get') {
+            $uriTemp = explode('?', $this->formActionUri);
+            $uriTemp = explode('&', $uriTemp[1]);
+            
+            foreach ($uriTemp as $parameter) {
+                $paramTemp = explode('=', $parameter);
+                $result .= '<input type="hidden" name="' . $paramTemp[0] . '" value="' . $paramTemp[1] . '" />' . chr(10);
+            }
+        }
+        
+        
+        $extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+        
+        if ($extBaseContext->isInCachedMode()) {
+            $listIdentifier = $extBaseContext->getCurrentListIdentifier();
+            $stateHash = $this->sessionPersistenceManagerBuilder->getInstance()->getSessionDataHash();
+            
+            $result .=  '<input type="hidden" name="' . $this->prefixFieldName($listIdentifier.'[state]') . '" value="' . $stateHash . '" />' . chr(10);
+        }
+        
+        
+        $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[extensionName]') . '" value="' . $extensionName . '" />' . chr(10);
+        $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[controllerName]') . '" value="' . $controllerName . '" />' . chr(10);
+        $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[actionName]') . '" value="' . $actionName . '" />' . chr(10);
+        return $result;
+    }
 }

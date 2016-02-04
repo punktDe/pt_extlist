@@ -30,65 +30,69 @@
 * @subpackage Domain\Configuration\Columns\ObjectMapper
 * @author Daniel Lienert <linert@punkt.de>
 */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
 
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function getClassReturnsClassIfDefined() {
-		$objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => 'Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest'));
-		$this->assertEquals('Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest', $objectMapperConfig->getClass());
-	}
-
-
-
-	/**
-	 * @test
-	 */
-	public function exceptionIsThrownIfClassIsNotDefined() {
-		try {
-			$objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => ''));
-		} catch (Exception $e) {
-			return;
-		}
-
-		$this->fail('No exception is thrown if class is missing');
-	}
+    /**
+     * @test
+     */
+    public function getClassReturnsClassIfDefined()
+    {
+        $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => 'Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest'));
+        $this->assertEquals('Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest', $objectMapperConfig->getClass());
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function exceptionIsThrownIfClassIsNotExistant() {
-		try {
-			$objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => 'blaUndSo'));
-		} catch (Exception $e) {
-			return;
-		}
+    /**
+     * @test
+     */
+    public function exceptionIsThrownIfClassIsNotDefined()
+    {
+        try {
+            $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => ''));
+        } catch (Exception $e) {
+            return;
+        }
 
-		$this->fail('No exception is thrown if class is missing');
-	}
+        $this->fail('No exception is thrown if class is missing');
+    }
 
 
-	/**
-	 * @test
-	 */
-	public function mappingIsRetutrnedAsArray() {
-		$mapping = array('x' => 'y', 'z' => 'a');
 
-		$objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array(
-			'class' => 'Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest',
-			'mapping' => $mapping
-			)
-		);
+    /**
+     * @test
+     */
+    public function exceptionIsThrownIfClassIsNotExistant()
+    {
+        try {
+            $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => 'blaUndSo'));
+        } catch (Exception $e) {
+            return;
+        }
 
-		$this->assertEquals($mapping, $objectMapperConfig->getMapping());
-	}
+        $this->fail('No exception is thrown if class is missing');
+    }
+
+
+    /**
+     * @test
+     */
+    public function mappingIsRetutrnedAsArray()
+    {
+        $mapping = array('x' => 'y', 'z' => 'a');
+
+        $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array(
+            'class' => 'Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest',
+            'mapping' => $mapping
+            )
+        );
+
+        $this->assertEquals($mapping, $objectMapperConfig->getMapping());
+    }
 }

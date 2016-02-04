@@ -34,13 +34,12 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
-	 */
-	protected $baseConfig;
+class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+     */
+    protected $baseConfig;
 
 
 
@@ -50,39 +49,43 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest extends Tx_PtE
     protected $configArray;
 
 
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-		
-		$this->configArray = array('uncachedSessionStorageAdapter' => 'uncachedSessionStorageAdapter',
-							       'cachedSessionStorageAdapter' => 'cachedSessionStorageAdapter'
-							);
-		
-		$this->baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
-	}
+    
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        
+        $this->configArray = array('uncachedSessionStorageAdapter' => 'uncachedSessionStorageAdapter',
+                                   'cachedSessionStorageAdapter' => 'cachedSessionStorageAdapter'
+                            );
+        
+        $this->baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
+    }
 
 
-	
-	/**
-	 * @test
-	 */
-	public function getCachedSessionStorageAdapter() {
-		$this->assertEquals($this->baseConfig->getCachedSessionStorageAdapter(), 'cachedSessionStorageAdapter');
-	}
-	
-	
-	
-	/**
-	 * @test
-	 */
-	public function getUncachedSessionStorageAdapter() {
-		$this->assertEquals($this->baseConfig->getUncachedSessionStorageAdapter(), 'uncachedSessionStorageAdapter');
-	}
+    
+    /**
+     * @test
+     */
+    public function getCachedSessionStorageAdapter()
+    {
+        $this->assertEquals($this->baseConfig->getCachedSessionStorageAdapter(), 'cachedSessionStorageAdapter');
+    }
+    
+    
+    
+    /**
+     * @test
+     */
+    public function getUncachedSessionStorageAdapter()
+    {
+        $this->assertEquals($this->baseConfig->getUncachedSessionStorageAdapter(), 'uncachedSessionStorageAdapter');
+    }
 
 
 
     /** @test */
-    public function getResetOnEmptySubmitReturnsTrueIfSetInSettingsArray() {
+    public function getResetOnEmptySubmitReturnsTrueIfSetInSettingsArray()
+    {
         $this->configArray['resetOnEmptySubmit'] = '1';
         $baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
         $this->assertEquals($baseConfig->getResetOnEmptySubmit(), true);
@@ -91,26 +94,28 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest extends Tx_PtE
 
 
     /** @test */
-    public function getResetOnEmptySubmitReturnsFalseIfNotSetInSettingsArray() {
+    public function getResetOnEmptySubmitReturnsFalseIfNotSetInSettingsArray()
+    {
         $this->configArray['resetOnEmptySubmit'] = null;
         $baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
         $this->assertEquals($baseConfig->getResetOnEmptySubmit(), false);
     }
 
-	/** @test */
-	public function getResetSessionOnResetParameterReturnsTrueIfSetInSettingsArray() {
-		$this->configArray['resetSessionOnResetParameter'] = '1';
-		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
-		$this->assertEquals($baseConfig->getResetSessionOnResetParameter(), true);
-	}
+    /** @test */
+    public function getResetSessionOnResetParameterReturnsTrueIfSetInSettingsArray()
+    {
+        $this->configArray['resetSessionOnResetParameter'] = '1';
+        $baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
+        $this->assertEquals($baseConfig->getResetSessionOnResetParameter(), true);
+    }
 
 
 
-	/** @test */
-	public function getResetSessionOnResetParameterReturnsFalseIfNotSetInSettingsArray() {
-		$this->configArray['resetSessionOnResetParameter'] = null;
-		$baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
-		$this->assertEquals($baseConfig->getResetSessionOnResetParameter(), false);
-	}
-	
+    /** @test */
+    public function getResetSessionOnResetParameterReturnsFalseIfNotSetInSettingsArray()
+    {
+        $this->configArray['resetSessionOnResetParameter'] = null;
+        $baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
+        $this->assertEquals($baseConfig->getResetSessionOnResetParameter(), false);
+    }
 }

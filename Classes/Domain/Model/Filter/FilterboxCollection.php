@@ -35,13 +35,13 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-    
-	/**
-	 * Restrict collection to filter box class
-	 *
-	 * @var String
-	 */
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_Collection_ObjectCollection
+{
+    /**
+     * Restrict collection to filter box class
+     *
+     * @var String
+     */
     protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_Filterbox';
     
     
@@ -60,10 +60,11 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      *
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder = NULL) {
-    	if($configurationBuilder != NULL) {
-	    	$this->listIdentifier = $configurationBuilder->getListIdentifier();
-    	}
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder = null)
+    {
+        if ($configurationBuilder != null) {
+            $this->listIdentifier = $configurationBuilder->getListIdentifier();
+        }
     }
     
     
@@ -73,8 +74,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      * 
      * @param string $listIdentifier
      */
-    public function setListIdentifier($listIdentifier) {
-    	$this->listIdentifier = $listIdentifier;
+    public function setListIdentifier($listIdentifier)
+    {
+        $this->listIdentifier = $listIdentifier;
     }
     
     
@@ -86,8 +88,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      * @param string $filterBoxIdentifier
      * @author Daniel Lienert 
      */
-    public function addFilterBox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterBox, $filterBoxIdentifier) {
-    	$this->addItem($filterBox, $filterBoxIdentifier);
+    public function addFilterBox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterBox, $filterBoxIdentifier)
+    {
+        $this->addItem($filterBox, $filterBoxIdentifier);
     }
     
     
@@ -98,20 +101,22 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      * @param string $filterBoxIdentifier Identifier of filterbox to be returned
      * @param bool $throwExceptionOnNonExistingIdentifier If set to true, an exception will be thrown, if no filterbox is registered for given identifier
      * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
-	 * @throws Exception
+     * @throws Exception
      */
-    public function getFilterboxByFilterboxIdentifier($filterBoxIdentifier, $throwExceptionOnNonExistingIdentifier = false) {
-    	if ($this->hasItem($filterBoxIdentifier)) {
-    		return $this->getItemById($filterBoxIdentifier);
-    	} elseif($throwExceptionOnNonExistingIdentifier) {
-    		throw new Exception('No filterBox can be found for ID ' . $filterBoxIdentifier, 1280857703);
-    	}
+    public function getFilterboxByFilterboxIdentifier($filterBoxIdentifier, $throwExceptionOnNonExistingIdentifier = false)
+    {
+        if ($this->hasItem($filterBoxIdentifier)) {
+            return $this->getItemById($filterBoxIdentifier);
+        } elseif ($throwExceptionOnNonExistingIdentifier) {
+            throw new Exception('No filterBox can be found for ID ' . $filterBoxIdentifier, 1280857703);
+        }
     }
     
     
     
-    public function getAccessableFilterboxCollection() {
-     # @todo 
+    public function getAccessableFilterboxCollection()
+    {
+        # @todo 
     }
     
     
@@ -121,8 +126,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      *
      * @return String
      */
-    public function getListIdentifier() {
-    	return $this->listIdentifier;
+    public function getListIdentifier()
+    {
+        return $this->listIdentifier;
     }
     
     
@@ -132,10 +138,11 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      *
      * Resetting filterbox includes reset of their filters.
      */
-    public function reset() {
-    	foreach($this->itemsArr as $filterBox) { /* @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
-    		$filterBox->reset();
-    	}
+    public function reset()
+    {
+        foreach ($this->itemsArr as $filterBox) { /* @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+            $filterBox->reset();
+        }
     }
 
 
@@ -146,7 +153,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      * 
      * @return null|Tx_PtExtlist_Domain_Model_Filter_Filterbox
      */
-    public function getSubmittedFilterbox() {
+    public function getSubmittedFilterbox()
+    {
         foreach ($this->itemsArr as $filterboxIdentifier => $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             if ($filterbox->isSubmittedFilterbox()) {
                 return $filterbox;
@@ -165,7 +173,8 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
      *
      * @return array
      */
-    public function getExcludeFilters() {
+    public function getExcludeFilters()
+    {
         $submittedFilterbox = $this->getSubmittedFilterbox();
         if ($submittedFilterbox) {
             return $submittedFilterbox->getFilterboxConfiguration()->getExcludeFilters();
@@ -175,10 +184,11 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
 
 
 
-	/**
-	 * @return void
-	 */
-    public function resetIsSubmittedFilterbox() {
+    /**
+     * @return void
+     */
+    public function resetIsSubmittedFilterbox()
+    {
         foreach ($this->itemsArr as $filterboxIdentifier => $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
             $filterbox->resetIsSubmittedFilterbox();
         }
@@ -186,19 +196,19 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_
 
 
 
-	/**
-	 * Returns filter for given full filter name (filterboxIdentifier.filterIdentifier)
-	 *
-	 * TODO since we have this method here, refactor extbaseContext and put a proxy method into abstract backend
-	 *
-	 * @param $fullFilterName
-	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
-	 */
-	public function getFilterByFullFiltername($fullFilterName) {
-		list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
-		$filterbox = $this->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
-		$filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
-		return $filter;
-	}
-
+    /**
+     * Returns filter for given full filter name (filterboxIdentifier.filterIdentifier)
+     *
+     * TODO since we have this method here, refactor extbaseContext and put a proxy method into abstract backend
+     *
+     * @param $fullFilterName
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     */
+    public function getFilterByFullFiltername($fullFilterName)
+    {
+        list($filterboxIdentifier, $filterIdentifier) = explode('.', $fullFilterName);
+        $filterbox = $this->getFilterboxByFilterboxIdentifier($filterboxIdentifier);
+        $filter = $filterbox->getFilterByFilterIdentifier($filterIdentifier);
+        return $filter;
+    }
 }

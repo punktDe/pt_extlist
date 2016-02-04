@@ -34,100 +34,107 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	/**
-	 * @var string 
-	 */
-	protected $headerPartial;
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $bodyPartial;
-	
-	
-	/**
-	 * @var string headerPartial
-	 */
-	protected $aggregateRowsPartial;
+class Tx_PtExtlist_Domain_Configuration_List_ListConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+{
+    /**
+     * @var string 
+     */
+    protected $headerPartial;
+    
+    
+    /**
+     * @var string
+     */
+    protected $bodyPartial;
+    
+    
+    /**
+     * @var string headerPartial
+     */
+    protected $aggregateRowsPartial;
 
 
-	/**
-	 * @var boolean
-	 */
-	protected $useIterationListData;
+    /**
+     * @var boolean
+     */
+    protected $useIterationListData;
 
 
-	/**
-	 * Is set to true, if rendering (e.g. of cells) should be cached
-	 *
-	 * @var bool
-	 */
-	protected $cacheRendering;
+    /**
+     * Is set to true, if rendering (e.g. of cells) should be cached
+     *
+     * @var bool
+     */
+    protected $cacheRendering;
 
-	
-	/**
-	 * Set the properties
-	 */
-	protected function init() {
-		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
-		$this->setValueIfExistsAndNotNothing('headerPartial');
-		$this->setValueIfExistsAndNotNothing('bodyPartial');
-		$this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
-		$this->setBooleanIfExistsAndNotNothing('useIterationListData');
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getHeaderPartial() {
-		return $this->headerPartial;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getBodyPartial() {
-		return $this->bodyPartial;		
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getAggregateRowsPartial() {
-		return $this->aggregateRowsPartial;
-	}
+    
+    /**
+     * Set the properties
+     */
+    protected function init()
+    {
+        $this->setBooleanIfExistsAndNotNothing('cacheRendering');
+        $this->setValueIfExistsAndNotNothing('headerPartial');
+        $this->setValueIfExistsAndNotNothing('bodyPartial');
+        $this->setValueIfExistsAndNotNothing('aggregateRowsPartial');
+        $this->setBooleanIfExistsAndNotNothing('useIterationListData');
+    }
 
 
-	/**
-	 * @return boolean
-	 */
-	public function getUseIterationListData() {
-		return $this->useIterationListData;
-	}
+    /**
+     * @return string
+     */
+    public function getHeaderPartial()
+    {
+        return $this->headerPartial;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getBodyPartial()
+    {
+        return $this->bodyPartial;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getAggregateRowsPartial()
+    {
+        return $this->aggregateRowsPartial;
+    }
 
 
-
-	/**
-	 * @return integer
-	 */
-	public function getSortingDirection() {
-		return $this->sortingDirection;
-	}
+    /**
+     * @return boolean
+     */
+    public function getUseIterationListData()
+    {
+        return $this->useIterationListData;
+    }
 
 
 
-	/**
-	 * @return bool
-	 */
-	public function getCacheRendering() {
-		return $this->cacheRendering;
-	}
+    /**
+     * @return integer
+     */
+    public function getSortingDirection()
+    {
+        return $this->sortingDirection;
+    }
+
+
+
+    /**
+     * @return bool
+     */
+    public function getCacheRendering()
+    {
+        return $this->cacheRendering;
+    }
 }

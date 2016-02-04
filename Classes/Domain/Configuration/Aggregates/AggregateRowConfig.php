@@ -32,35 +32,36 @@
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig extends Tx_PtExtbase_Collection_ObjectCollection {
-
-	/**
-	 * @var string
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig';
-	
-	
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig $aggregateColumnConfig 
-	 * @param string $columnIdentifier
-	 */
-	public function addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier) {
-		$this->addItem($aggregateColumnConfig, $columnIdentifier);
-	}
-	
-	
-	
-	/** 
-	 * @param string $identifier
-	 * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
-	 */
-	public function getAggregateColumnConfigByIdentifier($columnIdentifier) {
-		if($this->hasItem($columnIdentifier)) {
-			return $this->getItemById($columnIdentifier);
-		} else {
-			throw new Exception('The aggregate column with id ' . $columnIdentifier . ' does not exist! 1282919033');
-		}
-	}
-	
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig extends Tx_PtExtbase_Collection_ObjectCollection
+{
+    /**
+     * @var string
+     */
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig';
+    
+    
+    
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig $aggregateColumnConfig 
+     * @param string $columnIdentifier
+     */
+    public function addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier)
+    {
+        $this->addItem($aggregateColumnConfig, $columnIdentifier);
+    }
+    
+    
+    
+    /** 
+     * @param string $identifier
+     * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
+     */
+    public function getAggregateColumnConfigByIdentifier($columnIdentifier)
+    {
+        if ($this->hasItem($columnIdentifier)) {
+            return $this->getItemById($columnIdentifier);
+        } else {
+            throw new Exception('The aggregate column with id ' . $columnIdentifier . ' does not exist! 1282919033');
+        }
+    }
 }

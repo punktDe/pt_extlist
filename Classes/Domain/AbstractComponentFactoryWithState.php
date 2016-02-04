@@ -31,36 +31,37 @@
  * @author Michael Knoll <knoll@punkt.de>
  * @package Domain
  */
-abstract class Tx_PtExtlist_Domain_AbstractComponentFactoryWithState extends Tx_PtExtlist_Domain_AbstractComponentFactory {
-
-	/**
-	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
-	 */
-	protected $sessionPersistenceManagerBuilder;
-
-
-
-	/**
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
-	 */
-	protected $getPostVarsAdapterFactory;
+abstract class Tx_PtExtlist_Domain_AbstractComponentFactoryWithState extends Tx_PtExtlist_Domain_AbstractComponentFactory
+{
+    /**
+     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     */
+    protected $sessionPersistenceManagerBuilder;
 
 
 
-	/**
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
-	 */
-	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
-		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
-	}
+    /**
+     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     */
+    protected $getPostVarsAdapterFactory;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory
-	 */
-	public function injectGetPostVarAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory) {
-		$this->getPostVarsAdapterFactory = $getPostVarAdapterFactory;
-	}
+    /**
+     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     */
+    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    {
+        $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+    }
 
+
+
+    /**
+     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory
+     */
+    public function injectGetPostVarAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory)
+    {
+        $this->getPostVarsAdapterFactory = $getPostVarAdapterFactory;
+    }
 }

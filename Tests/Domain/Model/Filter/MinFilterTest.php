@@ -26,103 +26,109 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_PtExtlist_Tests_Domain_Model_Filter_MinFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	public function setup(){
-		$this->initDefaultConfigurationBuilderMock();
-	}
-	
-	public function testSetup() {
-		$filter = new Tx_PtExtlist_Domain_Model_Filter_MinFilter();
-		$this->assertTrue(is_a($filter,'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'));
-	}
-	
-	
-	public function testValidationOnInactiveState() {
-		$filterMock = $this->getFilterMock(0,0,0,true,false);
-		$this->assertTrue((bool)$filterMock->validate());
-	}
-	public function testValidationMaxEquals() {
-		
-		$filterMock = $this->getFilterMock(10);
-		$this->assertTrue((bool)$filterMock->validate());
-	}
-	public function testValidationMaxSmaller() {
-		
-		$filterMock = $this->getFilterMock(5);
-		$this->assertTrue((bool)$filterMock->validate());
-	}
-	public function testValidationMaxBigger() {
-		
-		$filterMock = $this->getFilterMock(11);
-		$this->assertFalse((bool)$filterMock->validate());
-	}
-	
-	public function testValidationMinEquals() {
-		
-		$filterMock = $this->getFilterMock(1);
-		$this->assertTrue((bool)$filterMock->validate());
-	}
-	public function testValidationMinBigger() {
-		
-		$filterMock = $this->getFilterMock(3);
-		$this->assertTrue((bool)$filterMock->validate());
-	}
-	public function testValidationMinSmaller() {
-		
-		$filterMock = $this->getFilterMock(-1);
-		$this->assertFalse((bool)$filterMock->validate());
-	}
-	
-	public function testCriteria() {
-		$filterMock = $this->getFilterMock(5,10,1,false);
-		
-		$fieldConfig = $this->buildFieldCollection('field1')->getFieldConfigByIdentifier('field1');
-		
-		$criteria = $filterMock->_callRef('buildFilterCriteria',$fieldConfig);
-		
-		$this->assertTrue(is_a($criteria,'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
-		
-		$this->assertEquals('>=',$criteria->getOperator());
-		$this->assertEquals('5',$criteria->getValue());
-	}
-	
-	
-	protected function getFilterMock($filterValue, $max=10, $min=1, $injectConfigMock = true, $active = true) {
-		if($injectConfigMock) {
-			
-			$configMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', 
-				array('getSettings'), array(),'',FALSE);			
-				
-			$settings = array('maxValue'=>$max, 'minValue'=>$min);
-			$configMock
-				->expects($this->any())
-				->method('getSettings')
-				->with('validation')
-				->will($this->returnValue($settings));
-		}
-			
-		$fieldMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig',
-			array('getTableFieldCombined'), array(),'',FALSE);
-		$fieldMock->expects($this->any())
-			->method('getTableFieldCombined')
-			->will($this->returnValue('foo'));
-	
-		$filterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_MinFilter', 
-			array('dummyMethod'), array(),'',FALSE);
-			
-		$filterMock->_set('listIdentifier','test');
-		if($injectConfigMock) $filterMock->_set('filterConfig', $configMock);
-		$filterMock->_set('isActive', $active);
-		$filterMock->_set('filterValue',$filterValue);
-		$filterMock->_set('fieldIdentifierCollection', $this->buildFieldCollection('field1'));
-		
-		return $filterMock;
-	}
-	
-	protected function buildFieldCollection($fields) {
-		$fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fields);
-		return  $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
-	}
-	
+class Tx_PtExtlist_Tests_Domain_Model_Filter_MinFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+    
+    public function testSetup()
+    {
+        $filter = new Tx_PtExtlist_Domain_Model_Filter_MinFilter();
+        $this->assertTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'));
+    }
+    
+    
+    public function testValidationOnInactiveState()
+    {
+        $filterMock = $this->getFilterMock(0, 0, 0, true, false);
+        $this->assertTrue((bool)$filterMock->validate());
+    }
+    public function testValidationMaxEquals()
+    {
+        $filterMock = $this->getFilterMock(10);
+        $this->assertTrue((bool)$filterMock->validate());
+    }
+    public function testValidationMaxSmaller()
+    {
+        $filterMock = $this->getFilterMock(5);
+        $this->assertTrue((bool)$filterMock->validate());
+    }
+    public function testValidationMaxBigger()
+    {
+        $filterMock = $this->getFilterMock(11);
+        $this->assertFalse((bool)$filterMock->validate());
+    }
+    
+    public function testValidationMinEquals()
+    {
+        $filterMock = $this->getFilterMock(1);
+        $this->assertTrue((bool)$filterMock->validate());
+    }
+    public function testValidationMinBigger()
+    {
+        $filterMock = $this->getFilterMock(3);
+        $this->assertTrue((bool)$filterMock->validate());
+    }
+    public function testValidationMinSmaller()
+    {
+        $filterMock = $this->getFilterMock(-1);
+        $this->assertFalse((bool)$filterMock->validate());
+    }
+    
+    public function testCriteria()
+    {
+        $filterMock = $this->getFilterMock(5, 10, 1, false);
+        
+        $fieldConfig = $this->buildFieldCollection('field1')->getFieldConfigByIdentifier('field1');
+        
+        $criteria = $filterMock->_callRef('buildFilterCriteria', $fieldConfig);
+        
+        $this->assertTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+        
+        $this->assertEquals('>=', $criteria->getOperator());
+        $this->assertEquals('5', $criteria->getValue());
+    }
+    
+    
+    protected function getFilterMock($filterValue, $max=10, $min=1, $injectConfigMock = true, $active = true)
+    {
+        if ($injectConfigMock) {
+            $configMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
+                array('getSettings'), array(), '', false);
+                
+            $settings = array('maxValue'=>$max, 'minValue'=>$min);
+            $configMock
+                ->expects($this->any())
+                ->method('getSettings')
+                ->with('validation')
+                ->will($this->returnValue($settings));
+        }
+            
+        $fieldMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig',
+            array('getTableFieldCombined'), array(), '', false);
+        $fieldMock->expects($this->any())
+            ->method('getTableFieldCombined')
+            ->will($this->returnValue('foo'));
+    
+        $filterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_MinFilter',
+            array('dummyMethod'), array(), '', false);
+            
+        $filterMock->_set('listIdentifier', 'test');
+        if ($injectConfigMock) {
+            $filterMock->_set('filterConfig', $configMock);
+        }
+        $filterMock->_set('isActive', $active);
+        $filterMock->_set('filterValue', $filterValue);
+        $filterMock->_set('fieldIdentifierCollection', $this->buildFieldCollection('field1'));
+        
+        return $filterMock;
+    }
+    
+    protected function buildFieldCollection($fields)
+    {
+        $fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $fields);
+        return  $this->configurationBuilderMock->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+    }
 }

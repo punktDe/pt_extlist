@@ -35,75 +35,78 @@
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactoryTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
-	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-	implements \TYPO3\CMS\Core\SingletonInterface {
-
-	/**
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
-	 */
-	private $dataBackendFactory;
-
-
-
-	/**
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
+    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+    implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+     */
+    private $dataBackendFactory;
 
 
 
-	/**
-	 * We can not use DI here, since we would get cyclic dependency!
-	 *
-	 * TODO think about how we get rid of this cyclic dependency!
-	 *
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
-	 */
-	public function setDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory) {
-		$this->dataBackendFactory = $dataBackendFactory;
-	}
-
-
-	
-	/**
-	 * Creates an instance of a filter for a given configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
-	 */
-	public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig) {
-		$filter = $this->createFilterObject($filterConfig->getFilterClassName()); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-		$filter->_injectFilterConfig($filterConfig);
-
-		$sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance();
-
-		// TODO check whether filter interface should extend session persistable interface
-		$sessionPersistenceManager->registerObjectAndLoadFromSession($filter);
-
-		$filter->_injectDataBackend($this->dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
-
-		$filter->init();
-
-		return $filter;
-	}
+    /**
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     */
+    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
 
 
-	/**
-	 * Creates filter object for given filter class name
-	 *
-	 * @param string $filterClassName
-	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
-	 */
-	private function createFilterObject($filterClassName) {
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check TS configuration! 1277889459'));
-		Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460'));
+    /**
+     * We can not use DI here, since we would get cyclic dependency!
+     *
+     * TODO think about how we get rid of this cyclic dependency!
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+     */
+    public function setDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory)
+    {
+        $this->dataBackendFactory = $dataBackendFactory;
+    }
+
+
+    
+    /**
+     * Creates an instance of a filter for a given configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     */
+    public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig)
+    {
+        $filter = $this->createFilterObject($filterConfig->getFilterClassName()); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+        $filter->_injectFilterConfig($filterConfig);
+
+        $sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance();
+
+        // TODO check whether filter interface should extend session persistable interface
+        $sessionPersistenceManager->registerObjectAndLoadFromSession($filter);
+
+        $filter->_injectDataBackend($this->dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
+
+        $filter->init();
+
+        return $filter;
+    }
+
+
+
+    /**
+     * Creates filter object for given filter class name
+     *
+     * @param string $filterClassName
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     */
+    private function createFilterObject($filterClassName)
+    {
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check TS configuration! 1277889459'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460'));
         $filter = $this->objectManager->get($filterClassName); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
         Tx_PtExtbase_Assertions_Assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
-		$filter->_injectGpVarsAdapter($this->getPostVarsAdapterFactory->getInstance());
+        $filter->_injectGpVarsAdapter($this->getPostVarsAdapterFactory->getInstance());
         return $filter;
-	}
-	
+    }
 }

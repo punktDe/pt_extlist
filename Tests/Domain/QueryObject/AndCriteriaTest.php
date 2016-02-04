@@ -34,30 +34,31 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_QueryObject_AndCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
-     
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_AndCriteria'));
-	}
-	
-	
-	
-	public function testConstruct() {
-		$firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'test', '>');
-		$secondCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'test', '>');
-		$andCriteria = new Tx_PtExtlist_Domain_QueryObject_AndCriteria($firstCriteria, $secondCriteria);
-		$this->assertTrue(is_a($andCriteria, 'Tx_PtExtlist_Domain_QueryObject_AndCriteria'));
-	}
-	
-	
-	
-	public function testGetter() {
-		$firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'test', '>');
+class Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_AndCriteria'));
+    }
+    
+    
+    
+    public function testConstruct()
+    {
+        $firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'test', '>');
+        $secondCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'test', '>');
+        $andCriteria = new Tx_PtExtlist_Domain_QueryObject_AndCriteria($firstCriteria, $secondCriteria);
+        $this->assertTrue(is_a($andCriteria, 'Tx_PtExtlist_Domain_QueryObject_AndCriteria'));
+    }
+    
+    
+    
+    public function testGetter()
+    {
+        $firstCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'test', '>');
         $secondCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', 'test', '>');
         $andCriteria = new Tx_PtExtlist_Domain_QueryObject_AndCriteria($firstCriteria, $secondCriteria);
         $this->assertTrue($andCriteria->getFirstCriteria() === $firstCriteria);
         $this->assertTrue($andCriteria->getSecondCriteria() === $secondCriteria);
-	}
-	
-	
+    }
 }

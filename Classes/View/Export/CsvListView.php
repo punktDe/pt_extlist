@@ -35,156 +35,159 @@
  * @subpackage Export
  * @see Tx_PtExtlist_Tests_View_List_CsvListViewTest
  */
-class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_AbstractExportView {
-
-	/**
-	 * @var string sets the output encoding
-	 */
-	protected $outputEncoding = 'ISO-8859-1';
-
-
-
-	/**
-	 * @var string sets the delimiter
-	 */
-	protected $delimiter = ';';
+class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_AbstractExportView
+{
+    /**
+     * @var string sets the output encoding
+     */
+    protected $outputEncoding = 'ISO-8859-1';
 
 
 
-	/**
-	 * @var string
-	 */
-	protected $enclosure = '"';
+    /**
+     * @var string sets the delimiter
+     */
+    protected $delimiter = ';';
 
 
 
-	/**
-	 * @var \TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer
-	 */
-	protected $templateVariableContainer;
+    /**
+     * @var string
+     */
+    protected $enclosure = '"';
 
 
 
-	/**
-	 * @var resource stream
-	 */
-	protected $outputStreamHandle;
+    /**
+     * @var \TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer
+     */
+    protected $templateVariableContainer;
 
 
 
-	/**
-	 * Init the configuration for CSVExport
-	 */
-	public function initConfiguration() {
-		parent::initConfiguration();
-
-		if ($this->exportConfiguration->getSettings('outputEncoding')) {
-			$this->outputEncoding = $this->exportConfiguration->getSettings('outputEncoding');
-		}
-
-		if ($this->exportConfiguration->getSettings('delimiter')) {
-			$this->delimiter = $this->exportConfiguration->getSettings('delimiter');
-		}
-
-		if ($this->exportConfiguration->getSettings('enclosure')) {
-			$this->enclosure = $this->exportConfiguration->getSettings('enclosure');
-		}
-	}
+    /**
+     * @var resource stream
+     */
+    protected $outputStreamHandle;
 
 
 
-	/**
-	 * Overwriting the render method to generate a CSV output
-	 *
-	 * @return  void (never returns)
-	 */
-	public function render() {
+    /**
+     * Init the configuration for CSVExport
+     */
+    public function initConfiguration()
+    {
+        parent::initConfiguration();
 
-		$this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+        if ($this->exportConfiguration->getSettings('outputEncoding')) {
+            $this->outputEncoding = $this->exportConfiguration->getSettings('outputEncoding');
+        }
 
-		ob_clean();
+        if ($this->exportConfiguration->getSettings('delimiter')) {
+            $this->delimiter = $this->exportConfiguration->getSettings('delimiter');
+        }
 
-		$this->sendHeader($this->getFilenameFromTs());
-		$this->outputStreamHandle = fopen('php://output', 'w');
-
-		$this->renderHeader();
-
-		// Render the body
-		$this->renderData($this->templateVariableContainer['listData']);
-
-		// Render the aggregates if defined
-		$this->renderData($this->templateVariableContainer['aggregateRows']);
-
-		fclose($this->outputStreamHandle);
-
-		exit();
-	}
+        if ($this->exportConfiguration->getSettings('enclosure')) {
+            $this->enclosure = $this->exportConfiguration->getSettings('enclosure');
+        }
+    }
 
 
 
-	/**
-	 * Render the header
-	 */
-	public function renderHeader() {
+    /**
+     * Overwriting the render method to generate a CSV output
+     *
+     * @return  void (never returns)
+     */
+    public function render()
+    {
+        $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
 
-		// Headers
-		if ($this->templateVariableContainer->exists('listCaptions')) {
-			$row = array();
+        ob_clean();
 
-			foreach ($this->templateVariableContainer['listCaptions'] as $caption) {
-				$row[] = iconv('UTF-8', $this->outputEncoding, $caption);
-			}
+        $this->sendHeader($this->getFilenameFromTs());
+        $this->outputStreamHandle = fopen('php://output', 'w');
 
-			fputcsv($this->outputStreamHandle, $row, $this->delimiter, $this->enclosure);
-		}
-	}
+        $this->renderHeader();
 
+        // Render the body
+        $this->renderData($this->templateVariableContainer['listData']);
 
+        // Render the aggregates if defined
+        $this->renderData($this->templateVariableContainer['aggregateRows']);
 
-	/**
-	 * Render given multi-row data
-	 */
-	public function renderData($data) {
+        fclose($this->outputStreamHandle);
 
-		// Rows
-		foreach ($data as $listRow) {
-			/* @var $listRow Tx_PtExtlist_Domain_Model_List_Row */
-
-			$row = array();
-
-			if ($this->outputEncoding == 'UTF-8') {
-				foreach ($listRow as &$listCell) {
-					/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
-					$row[] = $listCell->getValue();
-				}
-
-			} else {
-				foreach ($listRow as &$listCell) {
-					/* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
-					$row[] = iconv('UTF-8', $this->outputEncoding, $listCell->getValue());
-				}
-			}
-
-			fputcsv($this->outputStreamHandle, $row, $this->delimiter, $this->enclosure);
-		}
-	}
+        exit();
+    }
 
 
 
-	/**
-	 * @param resource $outputStreamHandle
-	 */
-	public function setOutputStreamHandle($outputStreamHandle) {
-		$this->outputStreamHandle = $outputStreamHandle;
-	}
+    /**
+     * Render the header
+     */
+    public function renderHeader()
+    {
+
+        // Headers
+        if ($this->templateVariableContainer->exists('listCaptions')) {
+            $row = array();
+
+            foreach ($this->templateVariableContainer['listCaptions'] as $caption) {
+                $row[] = iconv('UTF-8', $this->outputEncoding, $caption);
+            }
+
+            fputcsv($this->outputStreamHandle, $row, $this->delimiter, $this->enclosure);
+        }
+    }
 
 
 
-	/**
-	 * @return resource
-	 */
-	public function getOutputStreamHandle() {
-		return $this->outputStreamHandle;
-	}
+    /**
+     * Render given multi-row data
+     */
+    public function renderData($data)
+    {
 
+        // Rows
+        foreach ($data as $listRow) {
+            /* @var $listRow Tx_PtExtlist_Domain_Model_List_Row */
+
+            $row = array();
+
+            if ($this->outputEncoding == 'UTF-8') {
+                foreach ($listRow as &$listCell) {
+                    /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                    $row[] = $listCell->getValue();
+                }
+            } else {
+                foreach ($listRow as &$listCell) {
+                    /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                    $row[] = iconv('UTF-8', $this->outputEncoding, $listCell->getValue());
+                }
+            }
+
+            fputcsv($this->outputStreamHandle, $row, $this->delimiter, $this->enclosure);
+        }
+    }
+
+
+
+    /**
+     * @param resource $outputStreamHandle
+     */
+    public function setOutputStreamHandle($outputStreamHandle)
+    {
+        $this->outputStreamHandle = $outputStreamHandle;
+    }
+
+
+
+    /**
+     * @return resource
+     */
+    public function getOutputStreamHandle()
+    {
+        return $this->outputStreamHandle;
+    }
 }

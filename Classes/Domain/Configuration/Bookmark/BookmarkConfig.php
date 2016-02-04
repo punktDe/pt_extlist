@@ -34,22 +34,22 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfgTest
  */
-class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration {
-	
-	/**
-	 * Holds comma separated list of pids to search for bookmarks
-	 *
-	 * @var string
-	 */
-	protected $bookmarkPid;
-	
-	
-	
-	/**
-	 * If true, user bookmarks should be displayed
-	 *
-	 * @var boolean
-	 */
+class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+{
+    /**
+     * Holds comma separated list of pids to search for bookmarks
+     *
+     * @var string
+     */
+    protected $bookmarkPid;
+    
+    
+    
+    /**
+     * If true, user bookmarks should be displayed
+     *
+     * @var boolean
+     */
     protected $showPrivateBookmarks;
     
     
@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
     protected $showPublicBookmarks;
 
 
-	/**
+    /**
      * Holds comma-seperated list of fe group ids to show bookmarks for
      *
      * @var string
@@ -80,145 +80,153 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
 
 
 
-	/**
-	 * If true, users are allowed to create public bookmarks
-	 *
-	 * @var boolean
-	 */
-	protected $createPublicBookmarks;
+    /**
+     * If true, users are allowed to create public bookmarks
+     *
+     * @var boolean
+     */
+    protected $createPublicBookmarks;
 
 
 
-	/**
-	 * If true, users are allowed to create private bookmarks
-	 *
-	 * @var boolean
-	 */
-	protected $createPrivateBookmarks;
+    /**
+     * If true, users are allowed to create private bookmarks
+     *
+     * @var boolean
+     */
+    protected $createPrivateBookmarks;
 
 
 
-	/**
-	 * If true, users are allowed to create group bookmarks
-	 *
-	 * @var boolean
-	 */
-	protected $createGroupBookmarks;
+    /**
+     * If true, users are allowed to create group bookmarks
+     *
+     * @var boolean
+     */
+    protected $createGroupBookmarks;
 
 
 
-	/**
-	 * @var boolean
-	 */
-	protected $userCanDeleteAll;
+    /**
+     * @var boolean
+     */
+    protected $userCanDeleteAll;
 
 
 
-	/**
+    /**
      * Initializes properties from given settings
      *
      */
-    protected function init() {
-    	
-    	$this->setValueIfExistsAndNotNothing('bookmarkPid');
-    	$this->setValueIfExistsAndNotNothing('groupIdsToShowBookmarksFor');
-    	
-    	$this->setBooleanIfExistsAndNotNothing('showPrivateBookmarks');
-    	$this->setBooleanIfExistsAndNotNothing('showGroupBookmarks');
-    	$this->setBooleanIfExistsAndNotNothing('showPublicBookmarks');
-		$this->setBooleanIfExistsAndNotNothing('createPublicBookmarks');
-		$this->setBooleanIfExistsAndNotNothing('createPrivateBookmarks');
-		$this->setBooleanIfExistsAndNotNothing('createGroupBookmarks');
-		$this->setBooleanIfExistsAndNotNothing('userCanDeleteAll');
+    protected function init()
+    {
+        $this->setValueIfExistsAndNotNothing('bookmarkPid');
+        $this->setValueIfExistsAndNotNothing('groupIdsToShowBookmarksFor');
+        
+        $this->setBooleanIfExistsAndNotNothing('showPrivateBookmarks');
+        $this->setBooleanIfExistsAndNotNothing('showGroupBookmarks');
+        $this->setBooleanIfExistsAndNotNothing('showPublicBookmarks');
+        $this->setBooleanIfExistsAndNotNothing('createPublicBookmarks');
+        $this->setBooleanIfExistsAndNotNothing('createPrivateBookmarks');
+        $this->setBooleanIfExistsAndNotNothing('createGroupBookmarks');
+        $this->setBooleanIfExistsAndNotNothing('userCanDeleteAll');
     }
 
 
 
-	/**
-	 * @return boolean
-	 */
-	public function getUserCanDeleteAll() {
-		return $this->userCanDeleteAll;
-	}
+    /**
+     * @return boolean
+     */
+    public function getUserCanDeleteAll()
+    {
+        return $this->userCanDeleteAll;
+    }
 
 
 
-	/**
-	 * @return boolean
-	 */
-	public function getCreateGroupBookmarks() {
-		return $this->createGroupBookmarks;
-	}
+    /**
+     * @return boolean
+     */
+    public function getCreateGroupBookmarks()
+    {
+        return $this->createGroupBookmarks;
+    }
 
 
 
-	/**
-	 * @return boolean
-	 */
-	public function getCreatePrivateBookmarks() {
-		return $this->createPrivateBookmarks;
-	}
+    /**
+     * @return boolean
+     */
+    public function getCreatePrivateBookmarks()
+    {
+        return $this->createPrivateBookmarks;
+    }
 
 
 
-	/**
-	 * @return boolean
-	 */
-	public function getCreatePublicBookmarks() {
-		return $this->createPublicBookmarks;
-	}
+    /**
+     * @return boolean
+     */
+    public function getCreatePublicBookmarks()
+    {
+        return $this->createPublicBookmarks;
+    }
     
     
     
-	/**
-	 * @return string
-	 */
-	public function getBookmarkPid() {
-		return $this->bookmarkPid;
-	}
-	
+    /**
+     * @return string
+     */
+    public function getBookmarkPid()
+    {
+        return $this->bookmarkPid;
+    }
+    
 
-	
-	/**
-	 * Returns comma-separated list of fe groups to show bookmarks for
-	 * 
-	 * @return string
-	 */
-	public function getGroupIdsToShowBookmarksFor() {
-		return $this->groupIdsToShowBookmarksFor;
-	}
+    
+    /**
+     * Returns comma-separated list of fe groups to show bookmarks for
+     * 
+     * @return string
+     */
+    public function getGroupIdsToShowBookmarksFor()
+    {
+        return $this->groupIdsToShowBookmarksFor;
+    }
 
-	
-	
-	/**
-	 * Returns true if group bookmarks should be shown
-	 * 
-	 * @return bool
-	 */
-	public function getShowGroupBookmarks() {
-		return $this->showGroupBookmarks;
-	}
-	
-	
-	
-	/**
-	 * Returns true if public bookmarks should be shown
-	 * 
-	 * @return bool
-	 */
-	public function getShowPublicBookmarks() {
-		return $this->showPublicBookmarks;
-	}
-	
-	
-	
-	/**
-	 * Returns TRUE if private bookmarks should be shown
-	 * 
-	 * @return bool
-	 */
-	public function getShowPrivateBookmarks() {
-		return $this->showPrivateBookmarks;
-	}
-
+    
+    
+    /**
+     * Returns true if group bookmarks should be shown
+     * 
+     * @return bool
+     */
+    public function getShowGroupBookmarks()
+    {
+        return $this->showGroupBookmarks;
+    }
+    
+    
+    
+    /**
+     * Returns true if public bookmarks should be shown
+     * 
+     * @return bool
+     */
+    public function getShowPublicBookmarks()
+    {
+        return $this->showPublicBookmarks;
+    }
+    
+    
+    
+    /**
+     * Returns TRUE if private bookmarks should be shown
+     * 
+     * @return bool
+     */
+    public function getShowPrivateBookmarks()
+    {
+        return $this->showPrivateBookmarks;
+    }
 }

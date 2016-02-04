@@ -34,45 +34,48 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtbase_Configuration_AbstractConfiguration {
-
-	/**
-	 * The listidentifier this config object belings to
-	 * 
-	 * @var string
-	 */
-	protected $listIdentifier;
-	
-	
-	
-	/**
-	 * Constructor for configuration object
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param array $settings
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings = array()) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-		parent::__construct($configurationBuilder, $settings);
-	}
-
-
-
-	/**
-	 * Returns a reference to the extlist configurationbuilder
-	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	public function getConfigurationBuilder() {
-		return $this->configurationBuilder;
-	}
+abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtbase_Configuration_AbstractConfiguration
+{
+    /**
+     * The listidentifier this config object belings to
+     * 
+     * @var string
+     */
+    protected $listIdentifier;
+    
+    
+    
+    /**
+     * Constructor for configuration object
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param array $settings
+     */
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings = array())
+    {
+        $this->listIdentifier = $configurationBuilder->getListIdentifier();
+        parent::__construct($configurationBuilder, $settings);
+    }
 
 
-	
-	/**
-	 * @return string listIdentifier
-	 */
-	public function getListIdentifier() {
-		return $this->listIdentifier;
-	}
+
+    /**
+     * Returns a reference to the extlist configurationbuilder
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    public function getConfigurationBuilder()
+    {
+        return $this->configurationBuilder;
+    }
+
+
+    
+    /**
+     * @return string listIdentifier
+     */
+    public function getListIdentifier()
+    {
+        return $this->listIdentifier;
+    }
 }

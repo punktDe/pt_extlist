@@ -35,79 +35,86 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FullTextFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter {
-
-	/**
-	 * @var integer
-	 */
-	protected $minWordLength;
-
-
-
-	/**
-	 * @return void
-	 */
-	protected function initFilterByTsConfig() {
-		$this->minWordLength = (int) $this->filterConfig->getSettings('minWordLength');
-		parent::initFilterByTsConfig();
-	}
+class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+{
+    /**
+     * @var integer
+     */
+    protected $minWordLength;
 
 
 
-	/**
-	 * Build the filterCriteria for filter
-	 *
-	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 */
-	protected function buildFilterCriteriaForAllFields() {
-		$criteria = NULL;
-
-		if ($this->filterValue == '') return NULL;
-
-		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue, $this->getSearchParameterArray());
-
-		return $criteria;
-	}
+    /**
+     * @return void
+     */
+    protected function initFilterByTsConfig()
+    {
+        $this->minWordLength = (int) $this->filterConfig->getSettings('minWordLength');
+        parent::initFilterByTsConfig();
+    }
 
 
 
-	/**
-	 * Build an array with additional search parameter
-	 *
-	 * @return array
-	 */
-	protected function getSearchParameterArray() {
-		$searchParameter = array();
-		
-		$searchParameter['booleanMode'] = $this->filterConfig->getSettings('booleanMode') ? true : false;
-		$searchParameter['booleanModeWrapWithStars'] = $this->filterConfig->getSettings('booleanModeWrapWithStars') ? true : false;
+    /**
+     * Build the filterCriteria for filter
+     *
+     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     */
+    protected function buildFilterCriteriaForAllFields()
+    {
+        $criteria = null;
 
-		return $searchParameter;
-	}
+        if ($this->filterValue == '') {
+            return null;
+        }
 
+        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue, $this->getSearchParameterArray());
 
-
-	/**
-	 * Validates filter
-	 *
-	 * @return bool True, if filter validates
-	 */
-	public function validate() {
-		if(!$this->isActive() || strlen(trim($this->filterValue)) >= $this->minWordLength) {
-			return true;
-		} else {
-			$this->errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('filter.fullText.errorWordTooShort', 'ptExtlist', array($this->minWordLength),'',\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-			return false;
-		}
-	}
+        return $criteria;
+    }
 
 
 
-	/**
-	 * Not called
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-	 * @return void
-	 */
-	protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier) {}
+    /**
+     * Build an array with additional search parameter
+     *
+     * @return array
+     */
+    protected function getSearchParameterArray()
+    {
+        $searchParameter = array();
+        
+        $searchParameter['booleanMode'] = $this->filterConfig->getSettings('booleanMode') ? true : false;
+        $searchParameter['booleanModeWrapWithStars'] = $this->filterConfig->getSettings('booleanModeWrapWithStars') ? true : false;
 
+        return $searchParameter;
+    }
+
+
+
+    /**
+     * Validates filter
+     *
+     * @return bool True, if filter validates
+     */
+    public function validate()
+    {
+        if (!$this->isActive() || strlen(trim($this->filterValue)) >= $this->minWordLength) {
+            return true;
+        } else {
+            $this->errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('filter.fullText.errorWordTooShort', 'ptExtlist', array($this->minWordLength), '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+            return false;
+        }
+    }
+
+
+
+    /**
+     * Not called
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+     * @return void
+     */
+    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    {
+    }
 }

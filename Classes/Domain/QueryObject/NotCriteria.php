@@ -34,13 +34,13 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_NotCriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
-
-	/**
-	 * Criteria to be negated
-	 *
-	 * @var Tx_PtExtlist_Domain_QueryObject_Criteria
-	 */
+class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+{
+    /**
+     * Criteria to be negated
+     *
+     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+     */
     protected $criteria;
     
     
@@ -50,7 +50,8 @@ class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_Qu
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
      */
-    public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+    public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    {
         $this->criteria = $criteria;
     }
     
@@ -62,11 +63,12 @@ class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_Qu
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
      * @return bool
      */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    {
         if (is_a($criteria, __CLASS__)) {
-        	if ($this->criteria->isEqualTo($criteria)) {
-        		return true;
-        	}
+            if ($this->criteria->isEqualTo($criteria)) {
+                return true;
+            }
         }
         return false;
     }
@@ -78,8 +80,8 @@ class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_Qu
      *
      * @return Tx_PtExtlist_Domain_QueryObject_Criteria
      */
-    public function getCriteria() {
+    public function getCriteria()
+    {
         return $this->criteria;
     }
-    
 }

@@ -34,76 +34,79 @@
  * @author Michael Knoll 
  * @author Christoph Ehscheidt 
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
+class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
-	
-	
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_ListFactory'));
-	}
-
-
-
-	/**
-	 * @test
-	 */
-	public function createList() {
-		$overwriteSettings['listConfig']['test']['useIterationListData'] = 0;
-		$this->initDefaultConfigurationBuilderMock($overwriteSettings);
-
-		$listData = new Tx_PtExtlist_Domain_Model_List_ListData();
-		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
-		
-		$backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getListData','getListHeader'), array($this->configurationBuilderMock));
-		$backendMock->expects($this->any())
-		    ->method('getListData')
-		    ->will($this->returnValue($listData));
-		$backendMock->expects($this->any())
-		    ->method('getListHeader')
-		    ->will($this->returnValue($listHeader));
-		    
-		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
-					->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
-					->createList($backendMock, $this->configurationBuilderMock);
-		
-		$this->assertEquals($listData, $list->getListData());
-		$this->assertNotNull($list->getListHeader());
-	}
+    
+    
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_ListFactory'));
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function createIterationList() {
-		$overwriteSettings['listConfig']['test']['useIterationListData'] = 1;
-		$this->initDefaultConfigurationBuilderMock($overwriteSettings);
+    /**
+     * @test
+     */
+    public function createList()
+    {
+        $overwriteSettings['listConfig']['test']['useIterationListData'] = 0;
+        $this->initDefaultConfigurationBuilderMock($overwriteSettings);
 
-		$iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
-		$listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
-		$aggregateListData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
+        
+        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getListData', 'getListHeader'), array($this->configurationBuilderMock));
+        $backendMock->expects($this->any())
+            ->method('getListData')
+            ->will($this->returnValue($listData));
+        $backendMock->expects($this->any())
+            ->method('getListHeader')
+            ->will($this->returnValue($listHeader));
+            
+        $list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
+                    ->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
+                    ->createList($backendMock, $this->configurationBuilderMock);
+        
+        $this->assertEquals($listData, $list->getListData());
+        $this->assertNotNull($list->getListHeader());
+    }
 
-		$backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getIterationListData','getListHeader', 'getAggregateListData'), array($this->configurationBuilderMock));
-		$backendMock->expects($this->any())
-			->method('getIterationListData')
-			->will($this->returnValue($iterationListData));
-		$backendMock->expects($this->any())
-			->method('getListHeader')
-			->will($this->returnValue($listHeader));
-		$backendMock->expects($this->any())
-			->method('getAggregateListData')
-			->will($this->returnValue($aggregateListData));
 
-		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
-						->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
-						->createList($backendMock, $this->configurationBuilderMock);
 
-		$this->assertEquals($iterationListData, $list->getIterationListData());
-		$this->assertNotNull($list->getListHeader());
-	}
+    /**
+     * @test
+     */
+    public function createIterationList()
+    {
+        $overwriteSettings['listConfig']['test']['useIterationListData'] = 1;
+        $this->initDefaultConfigurationBuilderMock($overwriteSettings);
 
+        $iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+        $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
+        $aggregateListData = new Tx_PtExtlist_Domain_Model_List_ListData();
+
+        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getIterationListData', 'getListHeader', 'getAggregateListData'), array($this->configurationBuilderMock));
+        $backendMock->expects($this->any())
+            ->method('getIterationListData')
+            ->will($this->returnValue($iterationListData));
+        $backendMock->expects($this->any())
+            ->method('getListHeader')
+            ->will($this->returnValue($listHeader));
+        $backendMock->expects($this->any())
+            ->method('getAggregateListData')
+            ->will($this->returnValue($aggregateListData));
+
+        $list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
+                        ->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
+                        ->createList($backendMock, $this->configurationBuilderMock);
+
+        $this->assertEquals($iterationListData, $list->getIterationListData());
+        $this->assertNotNull($list->getListHeader());
+    }
 }

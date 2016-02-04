@@ -35,45 +35,47 @@
  * @package Domain
  * @subpackage DataBackend\Mapper
  */
-abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface {
-
-	/**
-	 * Holds mapping configurations
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	protected $fieldConfigurationCollection = null;
-
-
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilder;
+abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
+{
+    /**
+     * Holds mapping configurations
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     */
+    protected $fieldConfigurationCollection = null;
 
 
 
-	public function init() {
-	}
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    protected $configurationBuilder;
 
 
 
-	/**
-	 * Sets the mapper configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
-	 */
-	public function _injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration) {
-		$this->fieldConfigurationCollection = $mapperConfiguration;
-	}
+    public function init()
+    {
+    }
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-	}
+    /**
+     * Sets the mapper configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
+     */
+    public function _injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration)
+    {
+        $this->fieldConfigurationCollection = $mapperConfiguration;
+    }
 
+
+
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $this->configurationBuilder = $configurationBuilder;
+    }
 }

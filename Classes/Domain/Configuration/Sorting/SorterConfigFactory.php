@@ -33,19 +33,21 @@
  * @subpackage Configuration\Pager
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory {
-	
-	/**
-	 * Returns a instance of a sorter configuration.
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory
+{
+    /**
+     * Returns a instance of a sorter configuration.
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
         $sorterSettings = $configurationBuilder->getSettings('sorter');
-        if (!is_array($sorterSettings)) $sorterSettings = array();
-		$sorterConfig = new Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig($configurationBuilder, $sorterSettings);
-		return $sorterConfig;
-	}
-    
+        if (!is_array($sorterSettings)) {
+            $sorterSettings = array();
+        }
+        $sorterConfig = new Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig($configurationBuilder, $sorterSettings);
+        return $sorterConfig;
+    }
 }

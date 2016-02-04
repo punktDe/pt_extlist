@@ -34,61 +34,64 @@
  * @author Daniel Lienert
  * @see user_Tx_PtExtlist_Utility_FlexformDataProvider
  */
-class Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	 
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-	
-	
-	
-	public function testSetup() {
-		$flexformDataProvider = new user_Tx_PtExtlist_Utility_FlexformDataProvider();
-	}
-	
-	
-	
-	public function testGetDefinedExportConfigs() {
-		$flexFormDataProvider = $this->getAccessibleFlexFormDataProvider();
-		
-		$config = array('items' => array(array('default', 'default')));
-		$selectArray = $flexFormDataProvider->getDefinedExportConfigs($config);
+class Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+    
+    
+    
+    public function testSetup()
+    {
+        $flexformDataProvider = new user_Tx_PtExtlist_Utility_FlexformDataProvider();
+    }
+    
+    
+    
+    public function testGetDefinedExportConfigs()
+    {
+        $flexFormDataProvider = $this->getAccessibleFlexFormDataProvider();
+        
+        $config = array('items' => array(array('default', 'default')));
+        $selectArray = $flexFormDataProvider->getDefinedExportConfigs($config);
 
-		$this->assertEquals(current(current($selectArray['items'])), 'default', 'The default key does not exist.');
-		$this->assertEquals($selectArray['items'][1][0], 'export1');
-		$this->assertEquals($selectArray['items'][2][0], 'export2');
-	}
-	
-	
-	
-	public function testGetDefinedListConfigs() {
-		$flexFormDataProvider = $this->getAccessibleFlexFormDataProvider();
-		
-		$config = array('items' => array(array('default', 'default')));
-		
-		$selectArray = $flexFormDataProvider->getDefinedListConfigs($config);
-		
-		$this->assertEquals(current(current($selectArray['items'])), 'default', 'The default key does not exist.');
-		$this->assertEquals($selectArray['items'][1][0], 'testList');
-	}
-	
-	
-	
-	protected function getAccessibleFlexFormDataProvider() {
-
-		$tsArray['settings']['listConfig']['testList'] = $this->configurationBuilderMock->getSettings(); 
-		
-		$tsArray['settings']['export']['exportConfigs'] = array ('export1' => array('viewClassName' => 'x')
-																, 'export2' => array('viewClassName' => 'y'));
-		
-		
-		$flexformDataProviderMock = $this->getAccessibleMock('user_Tx_PtExtlist_Utility_FlexformDataProvider', array('loadExtListTyposcriptArray'));
-		$flexformDataProviderMock->expects($this->once())
-			->method('loadExtListTyposcriptArray');
-		
-		$flexformDataProviderMock->_set('extListTypoScript', $tsArray);	
-			
-		return $flexformDataProviderMock;
-	}
-	
+        $this->assertEquals(current(current($selectArray['items'])), 'default', 'The default key does not exist.');
+        $this->assertEquals($selectArray['items'][1][0], 'export1');
+        $this->assertEquals($selectArray['items'][2][0], 'export2');
+    }
+    
+    
+    
+    public function testGetDefinedListConfigs()
+    {
+        $flexFormDataProvider = $this->getAccessibleFlexFormDataProvider();
+        
+        $config = array('items' => array(array('default', 'default')));
+        
+        $selectArray = $flexFormDataProvider->getDefinedListConfigs($config);
+        
+        $this->assertEquals(current(current($selectArray['items'])), 'default', 'The default key does not exist.');
+        $this->assertEquals($selectArray['items'][1][0], 'testList');
+    }
+    
+    
+    
+    protected function getAccessibleFlexFormDataProvider()
+    {
+        $tsArray['settings']['listConfig']['testList'] = $this->configurationBuilderMock->getSettings();
+        
+        $tsArray['settings']['export']['exportConfigs'] = array('export1' => array('viewClassName' => 'x')
+                                                                , 'export2' => array('viewClassName' => 'y'));
+        
+        
+        $flexformDataProviderMock = $this->getAccessibleMock('user_Tx_PtExtlist_Utility_FlexformDataProvider', array('loadExtListTyposcriptArray'));
+        $flexformDataProviderMock->expects($this->once())
+            ->method('loadExtListTyposcriptArray');
+        
+        $flexformDataProviderMock->_set('extListTypoScript', $tsArray);
+            
+        return $flexformDataProviderMock;
+    }
 }

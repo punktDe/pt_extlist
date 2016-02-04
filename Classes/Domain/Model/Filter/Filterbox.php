@@ -36,303 +36,320 @@
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_Filterbox
-	extends Tx_PtExtbase_Collection_ObjectCollection
-	implements Tx_PtExtbase_State_IdentifiableInterface, Tx_PtExtbase_State_Session_SessionPersistableInterface {
+    extends Tx_PtExtbase_Collection_ObjectCollection
+    implements Tx_PtExtbase_State_IdentifiableInterface, Tx_PtExtbase_State_Session_SessionPersistableInterface
+{
+    /**
+     * Holds a constant added to object namespace to
+     */
+    const OBJECT_NAMESPACE_SUFFIX = '__filterbox';
 
-	/**
-	 * Holds a constant added to object namespace to
-	 */
-	const OBJECT_NAMESPACE_SUFFIX = '__filterbox';
 
 
+    /**
+     * filterbox identifier of this filterbox
+     *
+     * @var string
+     */
+    protected $filterboxIdentifier;
 
-	/**
-	 * filterbox identifier of this filterbox
-	 *
-	 * @var string
-	 */
-	protected $filterboxIdentifier;
 
 
+    /**
+     * List identifier of list to which this filterbox belongs to
+     *
+     * @var string
+     */
+    protected $listIdentifier;
 
-	/**
-	 * List identifier of list to which this filterbox belongs to
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
 
 
+    /**
+     * Holds an instance of the configuration
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     */
+    protected $filterBoxConfig;
 
-	/**
-	 * Holds an instance of the configuration
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
-	 */
-	protected $filterBoxConfig;
 
 
+    /**
+     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
+     */
+    protected $filterboxFactory;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
-	 */
-	protected $filterboxFactory;
 
 
+    /**
+     * Class name to restrict collection to
+     *
+     * @var string
+     */
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface';
 
-	/**
-	 * Class name to restrict collection to
-	 *
-	 * @var string
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface';
 
 
+    /**
+     * If set to true, this filterbox is submitted filterbox for this request
+     *
+     * @var bool
+     */
+    protected $isSubmittedFilterbox = false;
 
-	/**
-	 * If set to true, this filterbox is submitted filterbox for this request
-	 *
-	 * @var bool
-	 */
-	protected $isSubmittedFilterbox = false;
 
 
+    /**
+     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     */
+    protected $gpVarsAdapterFactory;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
-	 */
-	protected $gpVarsAdapterFactory;
 
 
+    /**
+     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory
+     */
+    public function injectGpVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory)
+    {
+        $this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
+    }
 
-	/**
-	 * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory
-	 */
-	public function injectGpVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory) {
-		$this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
-	}
 
 
+    /**
+     * Injects filterbox configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
+     */
+    public function _injectFilterboxConfiguration(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration)
+    {
+        $this->filterBoxConfig = $filterboxConfiguration;
+        $this->listIdentifier = $filterboxConfiguration->getListIdentifier();
+        $this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
+    }
 
-	/**
-	 * Injects filterbox configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
-	 */
-	public function _injectFilterboxConfiguration(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration) {
-		$this->filterBoxConfig = $filterboxConfiguration;
-		$this->listIdentifier = $filterboxConfiguration->getListIdentifier();
-		$this->filterboxIdentifier = $filterboxConfiguration->getFilterboxIdentifier();
-	}
 
 
+    public function _injectFilterboxFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory $filterboxFactory)
+    {
+        $this->filterboxFactory = $filterboxFactory;
+    }
 
-	public function _injectFilterboxFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory $filterboxFactory) {
-		$this->filterboxFactory = $filterboxFactory;
-	}
 
 
-
-	/**
-	 * Helper method for initializing filterbox.
-	 *
-	 * If filterbox gets gpvars from current request, we set this filterbox as submitted
-	 *
-	 * @return void
-	 */
-	public function initializeObject() {
-		$gpVarAdapter = $this->gpVarsAdapterFactory->getInstance();
-		$gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespaceWithoutSuffix());
-
-		if (count($gpVarsForFilterbox) > 0) {
-			$this->isSubmittedFilterbox = true;
-		}
-	}
-
-
-
-	/**
-	 * Returns the filterbox configuration
-	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
-	 */
-	public function getFilterboxConfiguration() {
-		return $this->filterBoxConfig;
-	}
-
-
-
-	/**
-	 * Returns filterbox identifier
-	 *
-	 * @return string
-	 */
-	public function getFilterboxIdentifier() {
-		return $this->filterboxIdentifier;
-	}
-
-
-
-	/**
-	 * Returns list identifier to which this filterbox belongs to
-	 *
-	 * @return string
-	 */
-	public function getListIdentifier() {
-		return $this->listIdentifier;
-	}
-
-
-
-	/**
-	 * Returns a new filterbox with accessable filters only.
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
-	 */
-	public function getAccessableFilterbox() {
-		return $this->filterboxFactory->createAccessableInstance($this);
-	}
-
-
-
-	/**
-	 * Resets all filters in this filterbox
-	 *
-	 * @return void
-	 */
-	public function reset() {
-		$this->isSubmittedFilterbox = false;
-		foreach ($this->itemsArr as $filter) {
-			/* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-			$filter->reset();
-		}
-	}
-
-
-
-	/**
-	 * Returns a object namespace for filterbox
-	 *
-	 * @return string Namespace of filterbox
-	 */
-	public function getObjectNamespace() {
-		return $this->getObjectNamespaceWithoutSuffix() . '.' . self::OBJECT_NAMESPACE_SUFFIX;
-	}
-
-
-
-	/**
-	 * Helper method to create the object namespace without suffix for
-	 * internal usage to check whether we have GP vars or not.
-	 *
-	 * TODO make this dependent of object namespace of filters, as if those change, we have a problem here!
-	 *
-	 * @return string
-	 */
-	protected function getObjectNamespaceWithoutSuffix() {
-		return $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
-	}
-
-
-
-	/**
-	 * Checks whether all filters in filterbox are validating.
-	 *
-	 * @return bool True, if all filters are validating
-	 */
-	public function validate() {
-		$validates = true;
-		foreach ($this->itemsArr as $filter) {
-			/* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-			if (!$filter->validate()) {
-				$validates = false;
-			}
-		}
-		return $validates;
-	}
-
-
-
-	/**
-	 * Add Filter to Filterbox
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
-	 * @param string $filterIdentifier
-	 */
-	public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterIdentifier) {
-		$this->addItem($filter, $filterIdentifier);
-	}
-
-
-
-	/**
-	 * Returns filter by given filter identifier
-	 *
-	 * @param string $filterIdentifier
-	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
-	 */
-	public function getFilterByFilterIdentifier($filterIdentifier) {
-		if ($this->hasItem($filterIdentifier)) {
-			return $this->getItemById($filterIdentifier);
-		} else {
-			return null;
-		}
-	}
-
-
-
-	/**
-	 * Returns true if this filterbox is submitted filterbox of current request
-	 *
-	 * @return bool
-	 */
-	public function isSubmittedFilterbox() {
-		return $this->isSubmittedFilterbox;
-	}
-
-
-
-	/**
-	 * Resets is submitted filterbox and checks gpvars for being currently submitted filterbox
-	 *
-	 * @return void
-	 */
-	public function resetIsSubmittedFilterbox() {
-		/*
-		 * Being a submitted filterbox can either be set by session or by gp vars.
-		 * Whenever new filter data is submitted by gp vars, we have to reset session
-		 * state and initialize submitted state by gp vars alone. This is done here.
-		 */
-		$this->isSubmittedFilterbox = false;
-		$this->initializeObject();
-	}
-
-
-
-	/**
-	 * Called by any mechanism to persist an object's state to session
-	 *
-	 * @return array Object's state to be persisted to session
-	 */
-	public function _persistToSession() {
-		$sessionArray = NULL;
-		if ($this->isSubmittedFilterbox) {
-			$sessionArray = array('isSubmittedFilterbox' => 1);
-		}
-		return $sessionArray;
-	}
-
-
-
-	/**
-	 * Called by any mechanism to inject an object's state from session
-	 *
-	 * @param array $sessionData Object's state previously persisted to session
-	 */
-	public function _injectSessionData(array $sessionData) {
-		if (array_key_exists('isSubmittedFilterbox', $sessionData) && $sessionData['isSubmittedFilterbox'] == 1) {
-			$this->isSubmittedFilterbox = true;
-		}
-	}
-
+    /**
+     * Helper method for initializing filterbox.
+     *
+     * If filterbox gets gpvars from current request, we set this filterbox as submitted
+     *
+     * @return void
+     */
+    public function initializeObject()
+    {
+        $gpVarAdapter = $this->gpVarsAdapterFactory->getInstance();
+        $gpVarsForFilterbox = $gpVarAdapter->extractGpVarsByNamespace($this->getObjectNamespaceWithoutSuffix());
+
+        if (count($gpVarsForFilterbox) > 0) {
+            $this->isSubmittedFilterbox = true;
+        }
+    }
+
+
+
+    /**
+     * Returns the filterbox configuration
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     */
+    public function getFilterboxConfiguration()
+    {
+        return $this->filterBoxConfig;
+    }
+
+
+
+    /**
+     * Returns filterbox identifier
+     *
+     * @return string
+     */
+    public function getFilterboxIdentifier()
+    {
+        return $this->filterboxIdentifier;
+    }
+
+
+
+    /**
+     * Returns list identifier to which this filterbox belongs to
+     *
+     * @return string
+     */
+    public function getListIdentifier()
+    {
+        return $this->listIdentifier;
+    }
+
+
+
+    /**
+     * Returns a new filterbox with accessable filters only.
+     *
+     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     */
+    public function getAccessableFilterbox()
+    {
+        return $this->filterboxFactory->createAccessableInstance($this);
+    }
+
+
+
+    /**
+     * Resets all filters in this filterbox
+     *
+     * @return void
+     */
+    public function reset()
+    {
+        $this->isSubmittedFilterbox = false;
+        foreach ($this->itemsArr as $filter) {
+            /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            $filter->reset();
+        }
+    }
+
+
+
+    /**
+     * Returns a object namespace for filterbox
+     *
+     * @return string Namespace of filterbox
+     */
+    public function getObjectNamespace()
+    {
+        return $this->getObjectNamespaceWithoutSuffix() . '.' . self::OBJECT_NAMESPACE_SUFFIX;
+    }
+
+
+
+    /**
+     * Helper method to create the object namespace without suffix for
+     * internal usage to check whether we have GP vars or not.
+     *
+     * TODO make this dependent of object namespace of filters, as if those change, we have a problem here!
+     *
+     * @return string
+     */
+    protected function getObjectNamespaceWithoutSuffix()
+    {
+        return $this->listIdentifier . '.filters.' . $this->filterboxIdentifier;
+    }
+
+
+
+    /**
+     * Checks whether all filters in filterbox are validating.
+     *
+     * @return bool True, if all filters are validating
+     */
+    public function validate()
+    {
+        $validates = true;
+        foreach ($this->itemsArr as $filter) {
+            /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            if (!$filter->validate()) {
+                $validates = false;
+            }
+        }
+        return $validates;
+    }
+
+
+
+    /**
+     * Add Filter to Filterbox
+     *
+     * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+     * @param string $filterIdentifier
+     */
+    public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterIdentifier)
+    {
+        $this->addItem($filter, $filterIdentifier);
+    }
+
+
+
+    /**
+     * Returns filter by given filter identifier
+     *
+     * @param string $filterIdentifier
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     */
+    public function getFilterByFilterIdentifier($filterIdentifier)
+    {
+        if ($this->hasItem($filterIdentifier)) {
+            return $this->getItemById($filterIdentifier);
+        } else {
+            return null;
+        }
+    }
+
+
+
+    /**
+     * Returns true if this filterbox is submitted filterbox of current request
+     *
+     * @return bool
+     */
+    public function isSubmittedFilterbox()
+    {
+        return $this->isSubmittedFilterbox;
+    }
+
+
+
+    /**
+     * Resets is submitted filterbox and checks gpvars for being currently submitted filterbox
+     *
+     * @return void
+     */
+    public function resetIsSubmittedFilterbox()
+    {
+        /*
+         * Being a submitted filterbox can either be set by session or by gp vars.
+         * Whenever new filter data is submitted by gp vars, we have to reset session
+         * state and initialize submitted state by gp vars alone. This is done here.
+         */
+        $this->isSubmittedFilterbox = false;
+        $this->initializeObject();
+    }
+
+
+
+    /**
+     * Called by any mechanism to persist an object's state to session
+     *
+     * @return array Object's state to be persisted to session
+     */
+    public function _persistToSession()
+    {
+        $sessionArray = null;
+        if ($this->isSubmittedFilterbox) {
+            $sessionArray = array('isSubmittedFilterbox' => 1);
+        }
+        return $sessionArray;
+    }
+
+
+
+    /**
+     * Called by any mechanism to inject an object's state from session
+     *
+     * @param array $sessionData Object's state previously persisted to session
+     */
+    public function _injectSessionData(array $sessionData)
+    {
+        if (array_key_exists('isSubmittedFilterbox', $sessionData) && $sessionData['isSubmittedFilterbox'] == 1) {
+            $this->isSubmittedFilterbox = true;
+        }
+    }
 }

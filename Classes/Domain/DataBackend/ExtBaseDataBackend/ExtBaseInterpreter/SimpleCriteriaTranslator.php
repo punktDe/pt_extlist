@@ -34,10 +34,10 @@
  * @author Michael Knoll
  * @see
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator 
-    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface {
-	
-	/**
+class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator
+    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface
+{
+    /**
      * Translates a query an manipulates given query object
      * 
      * TODO check, if there is already a constraint added to extbase query and use AND constraint then
@@ -46,93 +46,93 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
      * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
-	 *
-	 * @throws \Exception
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     *
+     * @throws \Exception
      */
     public static function translateCriteria(
             Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
-			\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
-			\TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository) {
-
+            \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
+            \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository)
+    {
         Tx_PtExtbase_Assertions_Assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
-      	    array('message' => 'Criteria is not a simple criteria! 1281724991'));
-      	/* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
-      	    
-      	$propertyName = self::getPropertyNameByCriteria($criteria);
-      	    
-      	switch ($criteria->getOperator()) {
-      		case '.' :
-      		    self::addConstraint($extbaseQuery, $extbaseQuery->contains($propertyName, $criteria->getValue()));
-      		break;
-      		
-      		case '=' :
-      		    self::addConstraint($extbaseQuery, $extbaseQuery->equals($propertyName, $criteria->getValue()));
-      		break;
-      		
-      		case '<' :
-      		    self::addConstraint($extbaseQuery, $extbaseQuery->lessThan($propertyName, $criteria->getValue()));   
-      	    break;
-      	    
-      		case '>' :
-      	        self::addConstraint($extbaseQuery, $extbaseQuery->greaterThan($propertyName, $criteria->getValue()));
-      		break;
-      		
-      		case '<=' :
-      			self::addConstraint($extbaseQuery, $extbaseQuery->lessThanOrEqual($propertyName, $criteria->getValue()));
-      		break;
-      		
-      		case '>=' :
-      		    self::addConstraint($extbaseQuery, $extbaseQuery->greaterThanOrEqual($propertyName, $criteria->getValue()));
-      		break;
-      		
-      		case 'LIKE' :
-      			self::addConstraint($extbaseQuery, $extbaseQuery->like($propertyName, $criteria->getValue()));
-      		break;
-      		
-      		case 'IN' :
-      			self::addConstraint($extbaseQuery, $extbaseQuery->in($propertyName, $criteria->getValue()));
-      	    break;
-      		
-      		default:
-      			throw new Exception('No translation implemented for ' . $criteria->getOperator() . ' operator! 1281727494');
-      		break;
-      	}
-      	
-      	return $extbaseQuery;
-		
-	}
-	
-	
-	
-	/**
-	 * Adds given constraint to given query. Uses logical AND if there is already a constraint registered in query
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
-	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
-	 */
-	protected static function addConstraint(\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint) {
-		if ($extbaseQuery->getConstraint() != null) {
-			$extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(), $constraint));
-		} else {
-			$extbaseQuery->matching($constraint);
-		}
-		return $extbaseQuery;
-	}
-	
-	
-	
-	/**
-	 * Returns field name for a given criteria object
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria
-	 * @return string Fieldname
-	 */
-	protected static function getPropertyNameByCriteria(Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria) {
-		list($predot, $postdot) = explode('.', $criteria->getField());
-		return $postdot != '' ? $postdot : $predot;
-	}
-	
+              array('message' => 'Criteria is not a simple criteria! 1281724991'));
+          /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+              
+          $propertyName = self::getPropertyNameByCriteria($criteria);
+              
+        switch ($criteria->getOperator()) {
+              case '.' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->contains($propertyName, $criteria->getValue()));
+              break;
+              
+              case '=' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->equals($propertyName, $criteria->getValue()));
+              break;
+              
+              case '<' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->lessThan($propertyName, $criteria->getValue()));
+              break;
+              
+              case '>' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->greaterThan($propertyName, $criteria->getValue()));
+              break;
+              
+              case '<=' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->lessThanOrEqual($propertyName, $criteria->getValue()));
+              break;
+              
+              case '>=' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->greaterThanOrEqual($propertyName, $criteria->getValue()));
+              break;
+              
+              case 'LIKE' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->like($propertyName, $criteria->getValue()));
+              break;
+              
+              case 'IN' :
+                  self::addConstraint($extbaseQuery, $extbaseQuery->in($propertyName, $criteria->getValue()));
+              break;
+              
+              default:
+                  throw new Exception('No translation implemented for ' . $criteria->getOperator() . ' operator! 1281727494');
+              break;
+          }
+          
+        return $extbaseQuery;
+    }
+    
+    
+    
+    /**
+     * Adds given constraint to given query. Uses logical AND if there is already a constraint registered in query
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint
+     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     */
+    protected static function addConstraint(\TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface $constraint)
+    {
+        if ($extbaseQuery->getConstraint() != null) {
+            $extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(), $constraint));
+        } else {
+            $extbaseQuery->matching($constraint);
+        }
+        return $extbaseQuery;
+    }
+    
+    
+    
+    /**
+     * Returns field name for a given criteria object
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria
+     * @return string Fieldname
+     */
+    protected static function getPropertyNameByCriteria(Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria)
+    {
+        list($predot, $postdot) = explode('.', $criteria->getField());
+        return $postdot != '' ? $postdot : $predot;
+    }
 }

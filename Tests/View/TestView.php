@@ -33,62 +33,63 @@
  * @package View
  * @subpackage Export
  */
-class Tx_PtExtlist_Tests_View_TestView extends Tx_PtExtlist_View_BaseView {
+class Tx_PtExtlist_Tests_View_TestView extends Tx_PtExtlist_View_BaseView
+{
+    /**
+     * Returns true, if view has a template
+     *
+     * TODO We return true here, because otherwise, another view class is
+     * instantiated in controller.
+     *
+     * @return bool
+     */
+    public function hasTemplate()
+    {
+        return true;
+    }
 
 
-	/**
-	 * Returns true, if view has a template
-	 *
-	 * TODO We return true here, because otherwise, another view class is
-	 * instantiated in controller.
-	 *
-	 * @return bool
-	 */
-	public function hasTemplate() {
-		return TRUE;
-	}
+    /**
+     * @return void
+     */
+    protected function initConfiguration()
+    {
+    }
 
 
-	/**
-	 * @return void
-	 */
-	protected function initConfiguration() {
-		
-	}
+    /**
+     * (non-PHPdoc)
+     * @see \TYPO3\CMS\Fluid\View\TemplateView::canRender()
+     */
+    public function canRender(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext)
+    {
+        return true;
+    }
 
+    
 
-	/**
-	 * (non-PHPdoc)
-	 * @see \TYPO3\CMS\Fluid\View\TemplateView::canRender()
-	 */
-	public function canRender(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext) {
-		return true;
-	}
+    /**
+     * Overwriting the render method to generate a CSV output
+     *
+     * @return  void (never returns)
+     */
+    public function render()
+    {
+        $templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
 
-	
+        $data =  'The output was successfully rendered through the TestView</br>';
 
-	/**
-	 * Overwriting the render method to generate a CSV output
-	 *
-	 * @return  void (never returns)
-	 */
-	public function render() {
+        foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
 
-		$templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+            $data .= '<ul>';
 
-		$data =  'The output was successfully rendered through the TestView</br>';
+            foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                $data .= '<li>'.$listCell->getValue().'</li>';
+            }
 
-		foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+            $data .= '</ul>';
+        }
 
-			$data .= '<ul>';
-
-			foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
-				$data .= '<li>'.$listCell->getValue().'</li>';
-			}
-
-			$data .= '</ul>';
-		}
-
-		return $data;
-	}
+        return $data;
+    }
 }

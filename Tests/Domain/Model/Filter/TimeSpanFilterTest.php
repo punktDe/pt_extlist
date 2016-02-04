@@ -33,37 +33,37 @@
  * @package Test
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     *
+     * @returns array
+     */
+    public static function fieldsDataProvider()
+    {
+        return array(
+            
+        );
+    }
 
 
-	/**
-	 *
-	 * @returns array
-	 */
-	public static function fieldsDataProvider() {
-		return array(
-			
-		);
-	}
+    /**
+     * @test
+     */
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter'));
+    }
 
 
-	/**
-	 * @test
-	 */
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter'));
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd
+     *	@dataProvider fieldsDataProvider
+     * @return void
+     * @test
+     */
+    //public function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd, $resultingQuery) {
 
-
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd
- 	 *	@dataProvider fieldsDataProvider
-	 * @return void
-	 * @test
-	 */
-	//public function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd, $resultingQuery) {
-
-	//}
-
+    //}
 }

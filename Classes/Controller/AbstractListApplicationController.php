@@ -34,306 +34,321 @@
  * @package Controller
  * @author Daniel Lienert
  */
-abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends Tx_PtExtlist_Controller_AbstractController {
+abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends Tx_PtExtlist_Controller_AbstractController
+{
+    /**
+     * @var string relative path under settings of this extension to the extlist typoScript configuration
+     */
+    protected $extlistTypoScriptSettingsPath = '';
 
-	/**
-	 * @var string relative path under settings of this extension to the extlist typoScript configuration
-	 */
-	protected $extlistTypoScriptSettingsPath = '';
 
 
+    /**
+     * @var string the pagerIdentifier to use
+     */
+    protected $pagerIdentifier = 'delta';
 
-	/**
-	 * @var string the pagerIdentifier to use
-	 */
-	protected $pagerIdentifier = 'delta';
 
 
+    /**
+     * @var string
+     */
+    protected $filterboxIdentifier = '';
 
-	/**
-	 * @var string
-	 */
-	protected $filterboxIdentifier = '';
 
 
+    /**
+     * Array of available exportTypeIdentifiers
+     *
+     * @var array
+     */
+    protected $exportIdentifiers = array();
 
-	/**
-	 * Array of available exportTypeIdentifiers
-	 *
-	 * @var array
-	 */
-	protected $exportIdentifiers = array();
 
 
+    /******************************************************
+     * End of configuration section
+     */
 
-	/******************************************************
-	 * End of configuration section
-	 */
 
+    /**
+     * Holds an instance of filterbox collection for processed list
+     *
+     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     */
+    protected $filterboxCollection = null;
 
-	/**
-	 * Holds an instance of filterbox collection for processed list
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
-	 */
-	protected $filterboxCollection = NULL;
 
 
+    /**
+     * Holds an instance of filterbox processed by this controller
+     *
+     * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     */
+    protected $filterbox = null;
 
-	/**
-	 * Holds an instance of filterbox processed by this controller
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
-	 */
-	protected $filterbox = NULL;
 
 
+    /**
+     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     */
+    protected $pagerCollection = null;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
-	 */
-	protected $pagerCollection = NULL;
 
 
+    /**
+     * @var Tx_PtExtlist_ExtlistContext_ExtlistContext
+     */
+    protected $extListContext;
 
-	/**
-	 * @var Tx_PtExtlist_ExtlistContext_ExtlistContext
-	 */
-	protected $extListContext;
 
 
+    /**
+     * @var Tx_PtExtbase_Utility_HeaderInclusion
+     */
+    protected $headerInclusionUtility;
 
-	/**
-	 * @var Tx_PtExtbase_Utility_HeaderInclusion
-	 */
-	protected $headerInclusionUtility;
 
 
+    /**
+     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     */
+    protected $listFactory;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
-	 */
-	protected $listFactory;
 
 
+    /**
+     * @var Tx_PtExtlist_ExtlistContext_ExtlistContextFactory
+     */
+    protected $extlistContextFactory;
 
-	/**
-	 * @var Tx_PtExtlist_ExtlistContext_ExtlistContextFactory
-	 */
-	protected $extlistContextFactory;
 
 
+    /**
+     * @param Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility
+     */
+    public function injectHeaderInclusionUtility(Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility)
+    {
+        $this->headerInclusionUtility = $headerInclusionUtility;
+    }
 
-	/**
-	 * @param Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility
-	 */
-	public function injectHeaderInclusionUtility(Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility) {
-		$this->headerInclusionUtility = $headerInclusionUtility;
-	}
 
 
+    public function injectExtlistContextFactory(Tx_PtExtlist_ExtlistContext_ExtlistContextFactory $extlistContextFactory)
+    {
+        $this->extlistContextFactory = $extlistContextFactory;
+    }
 
-	public function injectExtlistContextFactory(Tx_PtExtlist_ExtlistContext_ExtlistContextFactory $extlistContextFactory) {
-		$this->extlistContextFactory = $extlistContextFactory;
-	}
 
 
+    /**
+     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     */
+    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    {
+        $this->listFactory = $listFactory;
+    }
+
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
-	 */
-	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
-		$this->listFactory = $listFactory;
-	}
 
+    /**
+     * Initialize this controller
+     */
+    public function initializeAction()
+    {
+        parent::initializeAction();
+        $this->initFilterBox();
+        $this->initPager();
+    }
+
+
 
+    /**
+     * Init the filterbox
+     */
+    protected function initFilterBox()
+    {
+        if ($this->filterboxIdentifier) {
+            $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
+            $this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
+        }
+    }
+
 
-	/**
-	 * Initialize this controller
-	 */
-	public function initializeAction() {
-		parent::initializeAction();
-		$this->initFilterBox();
-		$this->initPager();
-	}
+
+    /**
+     * Init the pager
+     */
+    protected function initPager()
+    {
+        $this->pagerCollection = $this->dataBackend->getPagerCollection();
+        $this->pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
+    }
+
+
 
+    /**
+     * Sets list identifier for this controller
+     *
+     * @throws Exception
+     */
+    protected function initListIdentifier()
+    {
+        $settings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
+
+        if (!$this->extlistTypoScriptSettingsPath) {
+            throw new Exception('No extlist typoscript settings path given', 1330188161);
+        }
+        $this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
+        $this->extListContext = $this->extlistContextFactory->getContextByCustomConfigurationNonStatic($settings, $this->listIdentifier);
 
+        return $this->extListContext->getConfigurationBuilder();
+    }
 
-	/**
-	 * Init the filterbox
-	 */
-	protected function initFilterBox() {
-		if ($this->filterboxIdentifier) {
-			$this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
-			$this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
-		}
-	}
 
 
+    /**
+     * Build the configuration builder with settings from the given extlistTypoScriptConfigurationPath
+     *
+     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @throws Exception
+     */
+    protected function buildConfigurationBuilder()
+    {
+        $this->configurationBuilder = $this->extListContext->getConfigurationBuilder();
+    }
+
+
+
+    /**
+     * Alias action to use the unmodified pager templates
+     */
+    public function showAction()
+    {
+        $this->forward('list');
+    }
+
+
+
+    /**
+     * List action rendering list
+     *
+     * @return string  Rendered list for given list identifier
+     */
+    public function listAction()
+    {
+        $list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
 
-	/**
-	 * Init the pager
-	 */
-	protected function initPager() {
-		$this->pagerCollection = $this->dataBackend->getPagerCollection();
-		$this->pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
-	}
+        if ($list->count() == 0) {
+            $this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('general.emptyList', 'PtExtlist'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO);
+        }
 
-
-
-	/**
-	 * Sets list identifier for this controller
-	 *
-	 * @throws Exception
-	 */
-	protected function initListIdentifier() {
-		$settings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
-
-		if (!$this->extlistTypoScriptSettingsPath) throw new Exception('No extlist typoscript settings path given', 1330188161);
-		$this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
-		$this->extListContext = $this->extlistContextFactory->getContextByCustomConfigurationNonStatic($settings, $this->listIdentifier);
-
-		return $this->extListContext->getConfigurationBuilder();
-	}
-
-
-
-	/**
-	 * Build the configuration builder with settings from the given extlistTypoScriptConfigurationPath
-	 *
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 * @throws Exception
-	 */
-	protected function buildConfigurationBuilder() {
-		$this->configurationBuilder = $this->extListContext->getConfigurationBuilder();
-	}
-
-
-
-	/**
-	 * Alias action to use the unmodified pager templates
-	 */
-	public function showAction() {
-		$this->forward('list');
-	}
-
-
-
-	/**
-	 * List action rendering list
-	 *
-	 * @return string  Rendered list for given list identifier
-	 */
-	public function listAction() {
-		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
-
-		if ($list->count() == 0) {
-			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('general.emptyList', 'PtExtlist'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO);
-		}
-
-		$this->view->assign('config', $this->configurationBuilder);
-		$this->view->assign('listHeader', $list->getListHeader());
-		$this->view->assign('listCaptions', $list->getRenderedListHeader());
-		$this->view->assign('listData', $list->getRenderedListData());
-		$this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
-
-		$this->view->assign('exportIdentifiers', $this->exportIdentifiers);
-
-		if ($this->filterbox) {
-			$this->view->assign('filterBoxCollection', $this->filterboxCollection);
-			$this->view->assign('filterbox', $this->filterbox);
-		}
-
-		if ($this->pagerIdentifier) {
-			$this->view->assign('pagerCollection', $this->pagerCollection);
-			$this->view->assign('pager', $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier));
-		}
-	}
-
-
-
-	/**
-	 * @param string $exportIdentifier
-	 * @return string
-	 * @throws Exception
-	 */
-	public function downloadAction($exportIdentifier) {
-		$exportSettingsPath = $this->extlistTypoScriptSettingsPath . '.export.exportConfigs.' . $exportIdentifier;
-		$exportSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
-
-		if (!is_array($exportSettings) || empty($exportSettings)) {
-			throw new Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
-		}
-
-		$exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilder, $exportSettings);
-
-		if (array_key_exists('exportListSettingsPath', $exportSettings)) {
-			$exportListSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
-		} else {
-			$exportListSettings = $this->configurationBuilder->getSettings();
-		}
-
-		$extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
-		$list = $extListContext->getList(true);
-
-		$view = $this->objectManager->get($exportConfig->getViewClassName());
-		$view->setConfigurationBuilder($extListContext->getConfigurationBuilder());
-		$view->setExportConfiguration($exportConfig);
-		$view->assign('listHeader', $list->getListHeader());
-		$view->assign('listCaptions', $list->getRenderedListHeader());
-		$view->assign('listData', $list->getRenderedListData());
-		$view->assign('aggregateRows', $list->getRenderedAggregateListData());
-
-		return $view->render();
-	}
-
-
-
-	/**
-	 * Resets all filters of filterbox
-	 *
-	 * @param string $filterboxIdentifier Identifier of filter which should be reset
-	 * @return string Rendered reset action
-	 */
-	public function resetAction($filterboxIdentifier) {
-		if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
-			$this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
-		}
-
-		$this->resetPagers();
-
-		$this->redirect('list');
-	}
-
-
-
-	/**
-	 * Sorting action used to change sorting of a list
-	 *
-	 * @return string Rendered sorting action
-	 */
-	public function sortAction() {
-		$this->dataBackend->resetListDataCache();
-		// ATTENTION: When a list header is reset, its GP var data is not reset, so every header that has
-		// sorting data set in GP vars will not be effected when reset!
-		$this->dataBackend->getSorter()->reset();
-
-		$this->forward('list');
-	}
-
-
-
-	/**
-	 * Reset all pagers for this list.
-	 *
-	 */
-	protected function resetPagers() {
-		// Reset pagers
-		if ($this->pagerCollection === NULL) {
-			// Only get pagerCollection if it's not set already. Important for testing.
-			$this->pagerCollection = $this->dataBackend->getPagerCollection();
-		}
-		$this->pagerCollection->reset();
-	}
-
+        $this->view->assign('config', $this->configurationBuilder);
+        $this->view->assign('listHeader', $list->getListHeader());
+        $this->view->assign('listCaptions', $list->getRenderedListHeader());
+        $this->view->assign('listData', $list->getRenderedListData());
+        $this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
+
+        $this->view->assign('exportIdentifiers', $this->exportIdentifiers);
+
+        if ($this->filterbox) {
+            $this->view->assign('filterBoxCollection', $this->filterboxCollection);
+            $this->view->assign('filterbox', $this->filterbox);
+        }
+
+        if ($this->pagerIdentifier) {
+            $this->view->assign('pagerCollection', $this->pagerCollection);
+            $this->view->assign('pager', $this->pagerCollection->getPagerByIdentifier($this->pagerIdentifier));
+        }
+    }
+
+
+
+    /**
+     * @param string $exportIdentifier
+     * @return string
+     * @throws Exception
+     */
+    public function downloadAction($exportIdentifier)
+    {
+        $exportSettingsPath = $this->extlistTypoScriptSettingsPath . '.export.exportConfigs.' . $exportIdentifier;
+        $exportSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
+
+        if (!is_array($exportSettings) || empty($exportSettings)) {
+            throw new Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
+        }
+
+        $exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilder, $exportSettings);
+
+        if (array_key_exists('exportListSettingsPath', $exportSettings)) {
+            $exportListSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
+        } else {
+            $exportListSettings = $this->configurationBuilder->getSettings();
+        }
+
+        $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
+        $list = $extListContext->getList(true);
+
+        $view = $this->objectManager->get($exportConfig->getViewClassName());
+        $view->setConfigurationBuilder($extListContext->getConfigurationBuilder());
+        $view->setExportConfiguration($exportConfig);
+        $view->assign('listHeader', $list->getListHeader());
+        $view->assign('listCaptions', $list->getRenderedListHeader());
+        $view->assign('listData', $list->getRenderedListData());
+        $view->assign('aggregateRows', $list->getRenderedAggregateListData());
+
+        return $view->render();
+    }
+
+
+
+    /**
+     * Resets all filters of filterbox
+     *
+     * @param string $filterboxIdentifier Identifier of filter which should be reset
+     * @return string Rendered reset action
+     */
+    public function resetAction($filterboxIdentifier)
+    {
+        if ($this->filterboxCollection->hasItem($filterboxIdentifier)) {
+            $this->filterboxCollection->getFilterboxByFilterboxIdentifier($filterboxIdentifier)->reset();
+        }
+
+        $this->resetPagers();
+
+        $this->redirect('list');
+    }
+
+
+
+    /**
+     * Sorting action used to change sorting of a list
+     *
+     * @return string Rendered sorting action
+     */
+    public function sortAction()
+    {
+        $this->dataBackend->resetListDataCache();
+        // ATTENTION: When a list header is reset, its GP var data is not reset, so every header that has
+        // sorting data set in GP vars will not be effected when reset!
+        $this->dataBackend->getSorter()->reset();
+
+        $this->forward('list');
+    }
+
+
+
+    /**
+     * Reset all pagers for this list.
+     *
+     */
+    protected function resetPagers()
+    {
+        // Reset pagers
+        if ($this->pagerCollection === null) {
+            // Only get pagerCollection if it's not set already. Important for testing.
+            $this->pagerCollection = $this->dataBackend->getPagerCollection();
+        }
+        $this->pagerCollection->reset();
+    }
 }

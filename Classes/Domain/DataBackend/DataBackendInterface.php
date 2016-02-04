@@ -34,48 +34,48 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
+interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+{
+    /**
+     * Returns list identifier of list to which this backend belongs to.
+     *
+     * @return string List identifier of associated list
+     */
+    public function getListIdentifier();
 
-	/**
-	 * Returns list identifier of list to which this backend belongs to.
-	 *
-	 * @return string List identifier of associated list
-	 */
-	public function getListIdentifier();
 
 
-
-	/**
-	 * Creates an instance of data source object to be used with current backend
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
-	
-	
-	
-	/**
-	 * Returns mapped List structure
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
+    /**
+     * Creates an instance of data source object to be used with current backend
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
+    
+    
+    
+    /**
+     * Returns mapped List structure
+     * 
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     */
     public function getListData();
 
 
 
-	/**
-	 * @abstract
-	 * @return Tx_PtExtlist_Domain_Model_List_IterationListData
-	 */
-	public function getIterationListData();
+    /**
+     * @abstract
+     * @return Tx_PtExtlist_Domain_Model_List_IterationListData
+     */
+    public function getIterationListData();
 
 
     
     /**
-	 * Returns the list header
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 */
+     * Returns the list header
+     * 
+     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     */
     public function getListHeader();
     
     
@@ -96,11 +96,11 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
     public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
-								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL);
+                                 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null);
     
     
     
@@ -109,7 +109,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
      *
      * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
-    public function getFieldConfigurationCollection(); 
+    public function getFieldConfigurationCollection();
     
     
     
@@ -140,12 +140,12 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
 
 
-	/**
-	 * Return an aggregate for a field and with a method defined in the given config
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
-	 * @return
-	 */
+    /**
+     * Return an aggregate for a field and with a method defined in the given config
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+     * @return
+     */
     public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection);
     
     
@@ -258,25 +258,24 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface {
 
 
 
-	/**
-	 * Reset sorting if sorting changes due to GP vars
-	 *
-	 * DOES NOT RESET SORTING TO DEFAULT SORTING!!! @see resetSortingToDefault()
-	 */
-	public function resetSorting();
+    /**
+     * Reset sorting if sorting changes due to GP vars
+     *
+     * DOES NOT RESET SORTING TO DEFAULT SORTING!!! @see resetSortingToDefault()
+     */
+    public function resetSorting();
 
 
 
-	/**
-	 * Reset sorting to default sorting (configured in TS)
-	 */
-	public function resetSortingToDefault();
+    /**
+     * Reset sorting to default sorting (configured in TS)
+     */
+    public function resetSortingToDefault();
 
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	public function getConfigurationBuilder();
-
+    /**
+     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    public function getConfigurationBuilder();
 }

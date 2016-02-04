@@ -34,63 +34,63 @@
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData {
-
-	/**
-	 * ElementCountField is either a rowcount or an explicitly defined count field
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
-	 */
-	protected $elementCountField = NULL;
-
-
-
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData::initDataProviderByTsConfig()
-	 */
-	protected function initDataProviderByTsConfig($filterSettings) {
-		parent::initDataProviderByTsConfig($filterSettings);
-
-		if (array_key_exists('countFieldIdentifier', $filterSettings) && $filterSettings['countFieldIdentifier']) {
-			$this->elementCountField = $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($filterSettings['countFieldIdentifier']);
-		}
-
-	}
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData
+{
+    /**
+     * ElementCountField is either a rowcount or an explicitly defined count field
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     */
+    protected $elementCountField = null;
 
 
 
-	/**
-	 * Build the group data query to retrieve the group data
-	 *
-	 * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
-	 * @return \Tx_PtExtlist_Domain_QueryObject_Query
-	 */
-	protected function buildGroupDataQuery($fields) {
-		$groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData::initDataProviderByTsConfig()
+     */
+    protected function initDataProviderByTsConfig($filterSettings)
+    {
+        parent::initDataProviderByTsConfig($filterSettings);
 
-		foreach ($fields as $selectField) {
-			$groupDataQuery->addField(Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField));
-		}
-
-		if ($this->additionalTables != '') {
-			$groupDataQuery->addFrom($this->additionalTables);
-		}
+        if (array_key_exists('countFieldIdentifier', $filterSettings) && $filterSettings['countFieldIdentifier']) {
+            $this->elementCountField = $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($filterSettings['countFieldIdentifier']);
+        }
+    }
 
 
-		$groupDataQuery->addSorting('elementCount', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+
+    /**
+     * Build the group data query to retrieve the group data
+     *
+     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+     * @return \Tx_PtExtlist_Domain_QueryObject_Query
+     */
+    protected function buildGroupDataQuery($fields)
+    {
+        $groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+
+        foreach ($fields as $selectField) {
+            $groupDataQuery->addField(Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField));
+        }
+
+        if ($this->additionalTables != '') {
+            $groupDataQuery->addFrom($this->additionalTables);
+        }
 
 
-		if ($this->elementCountField !== NULL) {
-			$groupDataQuery->addField(sprintf('%s as elementCount', $this->elementCountField->getTableFieldCombined()));
-		} else {
-			// TODO only works with SQL!
-			$groupDataQuery->addField(sprintf('count("%s") as elementCount', $this->filterField->getTableFieldCombined()));
-		}
+        $groupDataQuery->addSorting('elementCount', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
 
-		$groupDataQuery->addGroupBy($this->filterConfig->getFieldIdentifier()->getItemByIndex(0)->getIdentifier());
 
-		return $groupDataQuery;
-	}
+        if ($this->elementCountField !== null) {
+            $groupDataQuery->addField(sprintf('%s as elementCount', $this->elementCountField->getTableFieldCombined()));
+        } else {
+            // TODO only works with SQL!
+            $groupDataQuery->addField(sprintf('count("%s") as elementCount', $this->filterField->getTableFieldCombined()));
+        }
 
+        $groupDataQuery->addGroupBy($this->filterConfig->getFieldIdentifier()->getItemByIndex(0)->getIdentifier());
+
+        return $groupDataQuery;
+    }
 }

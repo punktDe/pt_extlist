@@ -35,19 +35,19 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
 
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
 
+    public function testGetRendererConfiguration()
+    {
+        $config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getInstance($this->configurationBuilderMock);
 
-
-	public function testGetRendererConfiguration() {
-		$config = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getInstance($this->configurationBuilderMock);
-
-		$this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig);
-	}
-
+        $this->assertTrue($config instanceof Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig);
+    }
 }

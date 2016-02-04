@@ -34,95 +34,102 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * Holds a dummy configuration for a aggregate config object
-	 * @var array
-	 */
-	protected $aggregateSettings = array();
-
-
-
-	/**
-	 * Holds an instance of field configuration object
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
-	 */
-	protected $aggregateConfig = null;
+class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Holds a dummy configuration for a aggregate config object
+     * @var array
+     */
+    protected $aggregateSettings = array();
 
 
 
-	public function setup() {
-		$this->aggregateSettings = array(
-			'fieldIdentifier' => 'field1',
-			'method' => 'avg',
-			'scope' => 'page',
-		);
-
-		$this->initDefaultConfigurationBuilderMock();
-		$this->aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg1', $this->aggregateSettings, $this->configurationBuilderMock);
-	}
+    /**
+     * Holds an instance of field configuration object
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     */
+    protected $aggregateConfig = null;
 
 
 
-	public function testGetFieldIdentifier() {
-		$this->assertEquals('field1', $this->aggregateConfig->getFieldIdentifier()->getIdentifier());
-	}
+    public function setup()
+    {
+        $this->aggregateSettings = array(
+            'fieldIdentifier' => 'field1',
+            'method' => 'avg',
+            'scope' => 'page',
+        );
+
+        $this->initDefaultConfigurationBuilderMock();
+        $this->aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg1', $this->aggregateSettings, $this->configurationBuilderMock);
+    }
 
 
 
-	public function testGetIndetifier() {
-		$this->assertEquals('agg1', $this->aggregateConfig->getIdentifier());
-	}
+    public function testGetFieldIdentifier()
+    {
+        $this->assertEquals('field1', $this->aggregateConfig->getFieldIdentifier()->getIdentifier());
+    }
 
 
 
-	public function testGetMethod() {
-		$this->assertEquals('avg', $this->aggregateConfig->getMethod());
-	}
+    public function testGetIndetifier()
+    {
+        $this->assertEquals('agg1', $this->aggregateConfig->getIdentifier());
+    }
 
 
 
-	public function testGetScope() {
-		$this->assertEquals('page', $this->aggregateConfig->getScope());
-	}
+    public function testGetMethod()
+    {
+        $this->assertEquals('avg', $this->aggregateConfig->getMethod());
+    }
 
 
 
-	public function testGetSpecial() {
-		$aggregateSettings = array(
-			'fieldIdentifier' => 'field1',
-			'method' => 'avg',
-			'special' => 'sql',
-		);
-		$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
-		$this->assertEquals('sql', $aggregateConfig->getSpecial());
-	}
+    public function testGetScope()
+    {
+        $this->assertEquals('page', $this->aggregateConfig->getScope());
+    }
 
 
 
-	public function testScopeIsQueryByDefault() {
-		$aggregateSettings = array(
-			'fieldIdentifier' => 'field1',
-			'method' => 'avg',
-		);
+    public function testGetSpecial()
+    {
+        $aggregateSettings = array(
+            'fieldIdentifier' => 'field1',
+            'method' => 'avg',
+            'special' => 'sql',
+        );
+        $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
+        $this->assertEquals('sql', $aggregateConfig->getSpecial());
+    }
 
-		$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
-		$this->assertEquals('query', $aggregateConfig->getScope());
-	}
+
+
+    public function testScopeIsQueryByDefault()
+    {
+        $aggregateSettings = array(
+            'fieldIdentifier' => 'field1',
+            'method' => 'avg',
+        );
+
+        $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
+        $this->assertEquals('query', $aggregateConfig->getScope());
+    }
 
 
 
-	public function testScopeIsForcedToQueryIfSpecialIsGiven() {
-		$aggregateSettings = array(
-			'fieldIdentifier' => 'field1',
-			'method' => 'avg',
-			'special' => 'sql',
-			'scope' => 'page',
-		);
+    public function testScopeIsForcedToQueryIfSpecialIsGiven()
+    {
+        $aggregateSettings = array(
+            'fieldIdentifier' => 'field1',
+            'method' => 'avg',
+            'special' => 'sql',
+            'scope' => 'page',
+        );
 
-		$aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
-		$this->assertEquals('query', $aggregateConfig->getScope());
-	}
-
+        $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
+        $this->assertEquals('query', $aggregateConfig->getScope());
+    }
 }

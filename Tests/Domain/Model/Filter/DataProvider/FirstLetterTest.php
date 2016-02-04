@@ -34,76 +34,78 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-    
-	protected $defaultFilterSettings = array(
-		'filterIdentifier' => 'firstLetterTest',
-		'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_FirsrLetterFilter',
-		'partialPath' => 'Filter/Options/FirstLetterFilter',
-		'fieldIdentifier' => 'field1',
-		'displayFields' => 'field1',
-		'filterField' => 'field3',
-		'invert' => '0',
-		'addLettersIfMissing' => 'X,B'
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $defaultFilterSettings = array(
+        'filterIdentifier' => 'firstLetterTest',
+        'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_FirsrLetterFilter',
+        'partialPath' => 'Filter/Options/FirstLetterFilter',
+        'fieldIdentifier' => 'field1',
+        'displayFields' => 'field1',
+        'filterField' => 'field3',
+        'invert' => '0',
+        'addLettersIfMissing' => 'X,B'
     );
-	
-	
+    
+    
 
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-	
-
-
-	/**
-	 * @test
-	 */
-	public function getMissingLetters() {
-		$firstLetterDataProvider = $this->buildAccessibleFirstLetterDataProvider($this->defaultFilterSettings);
-		$missingLetters = $firstLetterDataProvider->_call('getMissingLetters');
-		
-		$this->assertEquals('X', $missingLetters[0]);
-		$this->assertEquals('B', $missingLetters[1]);
-	}
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+    
 
 
-
-	/**
-	 * @test
-	 */
-	public function addMissingLetters() {
-		$firstLetterDataProvider = $this->buildAccessibleFirstLetterDataProvider($this->defaultFilterSettings);
-
-		$missingLetters = array('F', 'B');
-		
-		$renderedOptions['A'] = array('value' => 'A','hasRecords' => TRUE, 'selected' => FALSE);
-		$renderedOptions['G'] = array('value' => 'G','hasRecords' => TRUE, 'selected' => FALSE);
-		
-		$renderedOprionsWithMissingLetters = $firstLetterDataProvider->_call('addMissingLetters', $renderedOptions, $missingLetters);
-		
-		$this->assertEquals(4, count($renderedOprionsWithMissingLetters));
-
-		$expectedMissingLetter = array('value' => 'B','hasRecords' => FALSE, 'selected' => FALSE);
-		$this->assertEquals($expectedMissingLetter, $renderedOprionsWithMissingLetters['B']);
-	}
+    /**
+     * @test
+     */
+    public function getMissingLetters()
+    {
+        $firstLetterDataProvider = $this->buildAccessibleFirstLetterDataProvider($this->defaultFilterSettings);
+        $missingLetters = $firstLetterDataProvider->_call('getMissingLetters');
+        
+        $this->assertEquals('X', $missingLetters[0]);
+        $this->assertEquals('B', $missingLetters[1]);
+    }
 
 
-	
-	protected function buildAccessibleFirstLetterDataProvider($filterSettings) {
 
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter');
-		$accesibleFirstLetterDataProvider = new $accessibleClassName;
+    /**
+     * @test
+     */
+    public function addMissingLetters()
+    {
+        $firstLetterDataProvider = $this->buildAccessibleFirstLetterDataProvider($this->defaultFilterSettings);
 
-		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+        $missingLetters = array('F', 'B');
+        
+        $renderedOptions['A'] = array('value' => 'A','hasRecords' => true, 'selected' => false);
+        $renderedOptions['G'] = array('value' => 'G','hasRecords' => true, 'selected' => false);
+        
+        $renderedOprionsWithMissingLetters = $firstLetterDataProvider->_call('addMissingLetters', $renderedOptions, $missingLetters);
+        
+        $this->assertEquals(4, count($renderedOprionsWithMissingLetters));
 
-		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-		$dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
+        $expectedMissingLetter = array('value' => 'B','hasRecords' => false, 'selected' => false);
+        $this->assertEquals($expectedMissingLetter, $renderedOprionsWithMissingLetters['B']);
+    }
+
+
+    
+    protected function buildAccessibleFirstLetterDataProvider($filterSettings)
+    {
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter');
+        $accesibleFirstLetterDataProvider = new $accessibleClassName;
+
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+
+        $dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+        $dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($this->configurationBuilderMock->getListIdentifier());
 
         $accesibleFirstLetterDataProvider->_injectDataBackend($dataBackend);
-		$accesibleFirstLetterDataProvider->_injectFilterConfig($filterConfiguration);
-		$accesibleFirstLetterDataProvider->init();
+        $accesibleFirstLetterDataProvider->_injectFilterConfig($filterConfiguration);
+        $accesibleFirstLetterDataProvider->init();
 
-		return $accesibleFirstLetterDataProvider;
-	}
-
+        return $accesibleFirstLetterDataProvider;
+    }
 }

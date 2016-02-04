@@ -34,34 +34,35 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /** @test */
+    public function assertThatClassExists()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory');
+    }
+    
 
-	/** @test */
-	public function assertThatClassExists() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory');
-	}
-	
 
+    public function testGetSingletonInstancesByConfigurationBuilder()
+    {
+        // TODO: reactivate this test if the BUG in TYPO3 that causes an error is fixed
 
-	public function testGetSingletonInstancesByConfigurationBuilder() {
-		// TODO: reactivate this test if the BUG in TYPO3 that causes an error is fixed
-		
-		/*
-		$configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array(), array(), '', FALSE);
-		$configurationBuilderMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue('test'));
+        /*
+        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array(), array(), '', FALSE);
+        $configurationBuilderMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue('test'));
 
-		$instance1 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock);
-		$instance2 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock);
+        $instance1 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock);
+        $instance2 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock);
 
-		$this->assertEquals($instance1, $instance2);
-		
-		$configurationBuilderMock2 = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array(), array(), '', FALSE);
+        $this->assertEquals($instance1, $instance2);
+        
+        $configurationBuilderMock2 = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array(), array(), '', FALSE);
         $configurationBuilderMock2->expects($this->any())->method('getListIdentifier')->will($this->returnValue('test2'));
-		$instance3 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock2);
-		
-		$this->assertTrue($instance1 !== $instance3);
-		$this->assertTrue($instance2 !== $instance3);
-		*/
-	}
-	
+        $instance3 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock2);
+        
+        $this->assertTrue($instance1 !== $instance3);
+        $this->assertTrue($instance2 !== $instance3);
+        */
+    }
 }

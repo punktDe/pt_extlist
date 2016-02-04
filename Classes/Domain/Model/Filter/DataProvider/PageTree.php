@@ -35,79 +35,79 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
+class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+{
+    /**
+     * @var int
+     */
+    protected $rootPageUid;
 
-	/**
-	 * @var int
-	 */
-	protected $rootPageUid;
+    /**
+     * @var boolean
+     */
+    protected $respectEnableFields;
 
-	/**
-	 * @var boolean
-	 */
-	protected $respectEnableFields;
+    /**
+     * @var
+     */
+    protected $respectDeletedField;
 
-	/**
-	 * @var
-	 */
-	protected $respectDeletedField;
+    /**
+     * @var \Tx_PtExtbase_Domain_Repository_PageRepository
+     * @inject
+     */
+    protected $pageRepository;
 
-	/**
-	 * @var \Tx_PtExtbase_Domain_Repository_PageRepository
-	 * @inject
-	 */
-	protected $pageRepository;
+    /**
+     * Init the data provider
+     */
+    public function init()
+    {
+        $this->rootPageUid = $this->filterConfig->getSettings('rootPageUid');
+        $this->respectEnableFields = $this->filterConfig->getSettings('respectEnableFields');
+        $this->respectDeletedField = $this->filterConfig->getSettings('respectDeletedField');
+    }
 
-	/**
-	 * Init the data provider
-	 */
-	public function init() {
-		$this->rootPageUid = $this->filterConfig->getSettings('rootPageUid');
-		$this->respectEnableFields = $this->filterConfig->getSettings('respectEnableFields');
-		$this->respectDeletedField = $this->filterConfig->getSettings('respectDeletedField');
-	}
+    /**
+     * Return the rendered filteroptions
+     *
+     * @return array filter options
+     */
+    public function getRenderedOptions()
+    {
+        $pageTree = $this->pageRepository->getPageTreeFromRootPageUid($this->rootPageUid, $this->respectEnableFields, $this->respectDeletedField);
 
-	/**
-	 * Return the rendered filteroptions
-	 *
-	 * @return array filter options
-	 */
-	public function getRenderedOptions() {
-		$pageTree = $this->pageRepository->getPageTreeFromRootPageUid($this->rootPageUid, $this->respectEnableFields, $this->respectDeletedField);
+        $valueData = $this->getPageDataFromTreeLevel($pageTree);
 
-		$valueData = $this->getPageDataFromTreeLevel($pageTree);
+        return $valueData;
+    }
 
-		return $valueData;
-	}
-
-	/**
-	 * @param $pageTree
-	 * @param int $depth
-	 *
-	 * @return array
-	 */
-	protected function getPageDataFromTreeLevel($pageTree, $depth = 0) {
-		$valueData = array();
-
-
-		foreach ($pageTree as $pageUid => $pageData) {
-
-			$pageObject = $pageData['pageObject'];
-
-			if($pageObject instanceOf \Tx_PtExtbase_Domain_Model_Page) {
-				$valueData[$pageUid] = array(
-					'value' => sprintf('%s%s (%s)', str_repeat(' - ', $depth), $pageObject->getTitle(), $pageObject->getUid())
-				);
-			}
-
-			if (count($pageData['subPages'])) {
-				$subPageArray = $this->getPageDataFromTreeLevel($pageData['subPages'], $depth+1);
-				$valueData = $valueData + $subPageArray;
-			}
-		}
-
-		return $valueData;
-	}
+    /**
+     * @param $pageTree
+     * @param int $depth
+     *
+     * @return array
+     */
+    protected function getPageDataFromTreeLevel($pageTree, $depth = 0)
+    {
+        $valueData = array();
 
 
+        foreach ($pageTree as $pageUid => $pageData) {
+            $pageObject = $pageData['pageObject'];
+
+            if ($pageObject instanceof \Tx_PtExtbase_Domain_Model_Page) {
+                $valueData[$pageUid] = array(
+                    'value' => sprintf('%s%s (%s)', str_repeat(' - ', $depth), $pageObject->getTitle(), $pageObject->getUid())
+                );
+            }
+
+            if (count($pageData['subPages'])) {
+                $subPageArray = $this->getPageDataFromTreeLevel($pageData['subPages'], $depth+1);
+                $valueData = $valueData + $subPageArray;
+            }
+        }
+
+        return $valueData;
+    }
 }

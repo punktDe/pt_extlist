@@ -37,155 +37,162 @@ require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * @subpackage Tests\Performance\TestDataBackend
  *
  */
-class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend {
-
-	/**
-	 * @var integer
-	 */
-	protected $rowCount = 20;
-
-
-
-	/**
-	 * @var integer
-	 */
-	protected $colCount = 5;
+class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+{
+    /**
+     * @var integer
+     */
+    protected $rowCount = 20;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
-	 */
-	protected $rendererChainFactory;
+    /**
+     * @var integer
+     */
+    protected $colCount = 5;
 
 
 
-	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
-		$this->rendererChainFactory = $rendererChainFactory;
-	}
+    /**
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     */
+    protected $rendererChainFactory;
 
 
 
-	/**
-	 *
-	 * Build the listData and cache it in $this->listData
-	 */
-	protected function buildListData() {
-
-		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
-
-		$rawData = $dataSource->fetchAll();
-
-		for ($i = 0; $i < $this->rowCount; $i++) {
-			for ($j = 1; $j <= $this->colCount; $j++) {
-				$rawData[$i]['col_' . $j] = "Testdaten aus der Koordinate $i:$j";
-			}
-		}
-
-		$mappedData = $this->dataMapper->getMappedListData($rawData);
-
-		unset($rawData);
-
-		return $mappedData;
-	}
+    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    {
+        $this->rendererChainFactory = $rendererChainFactory;
+    }
 
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
-	 */
-	public function getIterationListData() {
+    /**
+     *
+     * Build the listData and cache it in $this->listData
+     */
+    protected function buildListData()
+    {
+        $dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
 
-		$rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
-		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
+        $rawData = $dataSource->fetchAll();
 
-		$dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
+        for ($i = 0; $i < $this->rowCount; $i++) {
+            for ($j = 1; $j <= $this->colCount; $j++) {
+                $rawData[$i]['col_' . $j] = "Testdaten aus der Koordinate $i:$j";
+            }
+        }
 
-		$iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
-		$iterationListData->_injectDataSource($dataSource);
-		$iterationListData->_injectDataMapper($this->dataMapper);
-		$iterationListData->_injectRenderChain($rendererChain);
+        $mappedData = $this->dataMapper->getMappedListData($rawData);
 
-		return $iterationListData;
-	}
+        unset($rawData);
 
-
-
-	/**
-	 * Returns raw data for all filters excluding given filters.
-	 *
-	 * Result is given as associative array with fields given in query object.
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
-	 * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 * @return array Array of group data with given fields as array keys
-	 */
-	public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
-								 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = NULL) {
-		// TODO: Implement getGroupData() method.
-	}
+        return $mappedData;
+    }
 
 
 
-	/**
-	 * Returns the number of items for current settings without pager settings
-	 *
-	 * @return integer Total number of items for current data set
-	 */
-	public function getTotalItemsCount() {
-		// TODO: Implement getTotalItemsCount() method.
-	}
+    /**
+     * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
+     */
+    public function getIterationListData()
+    {
+        $rendererChainConfiguration = $this->configurationBuilder->buildRendererChainConfiguration();
+        $rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
+
+        $dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
+
+        $iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+        $iterationListData->_injectDataSource($dataSource);
+        $iterationListData->_injectDataMapper($this->dataMapper);
+        $iterationListData->_injectRenderChain($rendererChain);
+
+        return $iterationListData;
+    }
 
 
 
-	/**
-	 * Return an aggregate for a field and with a method defined in the given config
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
-	 */
-	public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
-		// TODO: Implement getAggregatesByConfigCollection() method.
-	}
+    /**
+     * Returns raw data for all filters excluding given filters.
+     *
+     * Result is given as associative array with fields given in query object.
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
+     * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @return array Array of group data with given fields as array keys
+     */
+    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+                                 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
+    {
+        // TODO: Implement getGroupData() method.
+    }
 
 
 
-	/**
-	 * @param $rowCount
-	 * @return Tx_PtExtlist_Tests_Performance_TestDataBackend
-	 */
-	public function setRowCount($rowCount) {
-		$this->rowCount = $rowCount;
-		return $this;
-	}
+    /**
+     * Returns the number of items for current settings without pager settings
+     *
+     * @return integer Total number of items for current data set
+     */
+    public function getTotalItemsCount()
+    {
+        // TODO: Implement getTotalItemsCount() method.
+    }
 
 
 
-	/**
-	 * @return integer
-	 */
-	public function getRowCount() {
-		return $this->rowCount;
-	}
+    /**
+     * Return an aggregate for a field and with a method defined in the given config
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+     */
+    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection)
+    {
+        // TODO: Implement getAggregatesByConfigCollection() method.
+    }
 
 
 
-	/**
-	 * @param integer $colCount
-	 * @return $this
-	 */
-	public function setColCount($colCount) {
-		$this->colCount = $colCount;
-		return $this;
-	}
+    /**
+     * @param $rowCount
+     * @return Tx_PtExtlist_Tests_Performance_TestDataBackend
+     */
+    public function setRowCount($rowCount)
+    {
+        $this->rowCount = $rowCount;
+        return $this;
+    }
 
 
 
-	/**
-	 * @return integer
-	 */
-	public function getColCount() {
-		return $this->colCount;
-	}
+    /**
+     * @return integer
+     */
+    public function getRowCount()
+    {
+        return $this->rowCount;
+    }
 
+
+
+    /**
+     * @param integer $colCount
+     * @return $this
+     */
+    public function setColCount($colCount)
+    {
+        $this->colCount = $colCount;
+        return $this;
+    }
+
+
+
+    /**
+     * @return integer
+     */
+    public function getColCount()
+    {
+        return $this->colCount;
+    }
 }

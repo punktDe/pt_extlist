@@ -37,74 +37,73 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-    implements Tx_PtExtbase_State_IdentifiableInterface {
+    implements Tx_PtExtbase_State_IdentifiableInterface
+{
+    const PTEXTLIST_BOOKMARK_PUBLIC = 1;
+    const PTEXTLIST_BOOKMARK_PRIVATE = 2;
+    const PTEXTLIST_BOOKMARK_GROUP = 3;
 
 
-	const PTEXTLIST_BOOKMARK_PUBLIC = 1;
-	const PTEXTLIST_BOOKMARK_PRIVATE = 2;
-	const PTEXTLIST_BOOKMARK_GROUP = 3;
-
-
-	/**
-	 * Name for bookmark
-	 *
-	 * @var string
-	 */
-	protected $name;
-	
-	
-	
-	/**
-	 * Frontend user that saved bookmark
-	 *
-	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
-	 */
-	protected $feUser;
-	
-	
-	
-	/**
+    /**
+     * Name for bookmark
+     *
+     * @var string
+     */
+    protected $name;
+    
+    
+    
+    /**
+     * Frontend user that saved bookmark
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     */
+    protected $feUser;
+    
+    
+    
+    /**
      * Frontend group bookmark should be shown to
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
-	protected $feGroup;
-	
-	
-	
-	/**
-	 * Description for bookmark
-	 *
-	 * @var string
-	 */
-	protected $description;
-	
-	
-	
-	/**
-	 * Information to be stored by bookmark
-	 *
-	 * @var string
-	 */
-	protected $content;
-	
-	
-	
-	/**
-	 * Identifier of list bookmark stores information for
-	 *
-	 * @var string
-	 */
-	protected $listId;
-	
-	
-	
-	/**
-	 * Date on which bookmark was created (timestamp)
-	 *
-	 * @var integer
-	 */
-    protected $createDate;	
+    protected $feGroup;
+    
+    
+    
+    /**
+     * Description for bookmark
+     *
+     * @var string
+     */
+    protected $description;
+    
+    
+    
+    /**
+     * Information to be stored by bookmark
+     *
+     * @var string
+     */
+    protected $content;
+    
+    
+    
+    /**
+     * Identifier of list bookmark stores information for
+     *
+     * @var string
+     */
+    protected $listId;
+    
+    
+    
+    /**
+     * Date on which bookmark was created (timestamp)
+     *
+     * @var integer
+     */
+    protected $createDate;
     
     
     
@@ -123,104 +122,114 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
      * @var integer
      */
     protected $pid;
-	
     
     
-	/**
-	 * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
-	 *
-	 * @return String
-	 */
-	public function getObjectNamespace() {
-		return $this->listId . '.bookmark.' . $this->getUid();
-	}
-	
-	
-	
-	/**
-	 * Getter for PID
-	 *
-	 * @return integer
-	 */
-	public function getPid() {
-		return $this->pid;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getContent() {
-		return $this->content;
-	}
-	
-	
-	
-	/**
-	 * @return integer
-	 */
-	public function getCreateDate() {
-		return $this->createDate;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
-	
-	
-	
-	/**
-	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
-	 */
-	public function getFeUser() {
-		return $this->feUser;
-	}
-	
-	
-	
-	/**
-	 * Returns FE group to which this bookmark should be shown to
-	 *
-	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
-	 */
-	public function getFeGroup() {
-		return $this->feGroup;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getListId() {
-		return $this->listId;
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    
+    /**
+     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
+     *
+     * @return String
+     */
+    public function getObjectNamespace()
+    {
+        return $this->listId . '.bookmark.' . $this->getUid();
+    }
+    
+    
+    
+    /**
+     * Getter for PID
+     *
+     * @return integer
+     */
+    public function getPid()
+    {
+        return $this->pid;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+    
+    
+    
+    /**
+     * @return integer
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    
+    
+    /**
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     */
+    public function getFeUser()
+    {
+        return $this->feUser;
+    }
+    
+    
+    
+    /**
+     * Returns FE group to which this bookmark should be shown to
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     */
+    public function getFeGroup()
+    {
+        return $this->feGroup;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getListId()
+    {
+        return $this->listId;
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
 
 
-	/**
-	 * Getter for type property
-	 *
-	 * @return integer
-	 */
-	public function getType() {
-		return $this->type;
-	}
+    /**
+     * Getter for type property
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
     
     
     
@@ -229,83 +238,91 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
      *
      * @param integer $pid
      */
-    public function setPid($pid) {
+    public function setPid($pid)
+    {
         $this->pid = $pid;
     }
-	
-	
-	
-	/**
-	 * @param string $content
-	 */
-	public function setContent($content) {
-		$this->content = $content;
-	}
-	
-	
-	
-	/**
-	 * @param integer $date
-	 */
-	public function setCreateDate($date) {
-		$this->createDate = $date;
-	}
-	
-	
-	
-	/**
-	 * @param string $description
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
-	
-	
-	
-	/**
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
-	 */
-	public function setFeUser($feUser) {
-		$this->feUser = $feUser;
-	}
-	
-	
-	
-	/**
-	 * Setter for fe group to which this bookmark should be shown to
-	 *
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup
-	 */
-	public function setFeGroup($feGroup) {
-		$this->feGroup = $feGroup;
-	}
-	
-	
-	
-	/**
-	 * @param string $listId
-	 */
-	public function setListId($listId) {
-		$this->listId = $listId;
-	}
-	
-	
-	
-	/**
-	 * @param string $name
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    
+    
+    
+    /**
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+    
+    
+    
+    /**
+     * @param integer $date
+     */
+    public function setCreateDate($date)
+    {
+        $this->createDate = $date;
+    }
+    
+    
+    
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+    
+    
+    
+    /**
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
+     */
+    public function setFeUser($feUser)
+    {
+        $this->feUser = $feUser;
+    }
+    
+    
+    
+    /**
+     * Setter for fe group to which this bookmark should be shown to
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup
+     */
+    public function setFeGroup($feGroup)
+    {
+        $this->feGroup = $feGroup;
+    }
+    
+    
+    
+    /**
+     * @param string $listId
+     */
+    public function setListId($listId)
+    {
+        $this->listId = $listId;
+    }
+    
+    
+    
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
 
-	/**
-	 * Setter for type property
-	 *
-	 * @param integer $type
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
-
+    /**
+     * Setter for type property
+     *
+     * @param integer $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 }

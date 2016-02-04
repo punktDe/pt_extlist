@@ -31,16 +31,16 @@
  *
  * @see Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $settings = array(
+class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $settings = array(
                 'listIdentifier' => 'Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest',
                 'prototype' => array(
                 'pager' => array(
                         'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
                     ),
-                'backend' => array (
-                    'mysql' => array (
+                'backend' => array(
+                    'mysql' => array(
                         'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
                         'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                         'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
@@ -48,14 +48,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                         
                     )
                     ),
-                'column' => array (
+                'column' => array(
                         'xy' => 'z',
                     ),
                 ),
                 'listConfig' => array(
                      'Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest' => array(
                         
-                        'backendConfig' => array (
+                        'backendConfig' => array(
                                 'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
                                 'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                                 'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
@@ -68,13 +68,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                          'def' => '3',
                             
                          'fields' => array(
-                             'field1' => array( 
+                             'field1' => array(
                                  'table' => 'tableName1',
                                  'field' => 'fieldName1',
                                  'isSortable' => '0',
                                  'access' => '1,2,3,4'
                              ),
-                             'field2' => array( 
+                             'field2' => array(
                                  'table' => 'tableName2',
                                  'field' => 'fieldName2',
                                  'isSortable' => '1',
@@ -82,17 +82,17 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                              )
                          ),
                         'columns' => array(
-                            10 => array( 
+                            10 => array(
                                 'columnIdentifier' => 'column1',
                                 'fieldIdentifier' => 'field1',
                                 'label' => 'Column 1',
                                 'isSortable' => '0',
                                 'access' => '1,2,3,4'
                             ),
-                            20 => array( 
+                            20 => array(
                                 'columnIdentifier' => 'column2',
                                 'fieldIdentifier' => 'field2',
-                                'label' => 'Column 2',  
+                                'label' => 'Column 2',
                                 'isSortable' => '1',
                                 'sorting' => 'tstamp, title',
                                 'access' => '1,2,3,4'
@@ -117,25 +117,26 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                     )
                 )
         );
-	
-	
+    
+    
         
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock($this->settings);
-	}
-	
-	
-	
-	public function testGetInstance() {
-		$pagerCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory');
-		$pagerCollection = $pagerCollectionFactory->getInstance($this->configurationBuilderMock);
-		
-		$this->assertIsA($pagerCollection, 'Tx_PtExtlist_Domain_Model_Pager_PagerCollection'); /* @var $pagerCollection Tx_PtExtlist_Domain_Model_Pager_PagerCollection */
-		
-		$this->assertEquals(1, $pagerCollection->count());
-		
-		$pager = $pagerCollection->getItemById('default');
-		$this->assertNotNull($pager);
-	}
-	
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock($this->settings);
+    }
+    
+    
+    
+    public function testGetInstance()
+    {
+        $pagerCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory');
+        $pagerCollection = $pagerCollectionFactory->getInstance($this->configurationBuilderMock);
+        
+        $this->assertIsA($pagerCollection, 'Tx_PtExtlist_Domain_Model_Pager_PagerCollection'); /* @var $pagerCollection Tx_PtExtlist_Domain_Model_Pager_PagerCollection */
+        
+        $this->assertEquals(1, $pagerCollection->count());
+        
+        $pager = $pagerCollection->getItemById('default');
+        $this->assertNotNull($pager);
+    }
 }

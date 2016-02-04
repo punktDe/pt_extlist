@@ -34,77 +34,82 @@
  * @author Michael Knoll
  * @see  Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendInstancesContainerTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/** @test */
-	public function classExists() {
-		$instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
-	}
-
-
-
-	/** @test */
-	public function classIsInstantiatedAsSingleton() {
-		$instancesContainer1 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
-		$instancesContainer2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
-		$this->assertEquals($instancesContainer1, $instancesContainer2);
-	}
+class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendInstancesContainerTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /** @test */
+    public function classExists()
+    {
+        $instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
+    }
 
 
 
-	/** @test */
-	public function addAddsDataBackendInstanceAsExcepted() {
-		$listIdentifier = 'testListIdentifier';
-		$dataBackenMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', FALSE);
-		$dataBackenMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
-		$instancesContainer->add($dataBackenMock);
-		$this->assertTrue($instancesContainer->contains($listIdentifier));
-		$this->assertEquals($dataBackenMock, $instancesContainer->get($listIdentifier));
-	}
+    /** @test */
+    public function classIsInstantiatedAsSingleton()
+    {
+        $instancesContainer1 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
+        $instancesContainer2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer');
+        $this->assertEquals($instancesContainer1, $instancesContainer2);
+    }
 
 
 
-	/** @test */
-	public function addThrowsExceptionIfSameBackendIsAddedTwice() {
-		$listIdentifier = 'testListIdentifier';
-		$dataBackenMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', FALSE);
-		$dataBackenMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
-		$instancesContainer->add($dataBackenMock);
-		try {
-			$instancesContainer->add($dataBackenMock);
-		} catch (Exception $e) {
-			return;
-		}
-		$this->fail('No exception has been thrown whent rying to add the same backend twice to the container');
-	}
+    /** @test */
+    public function addAddsDataBackendInstanceAsExcepted()
+    {
+        $listIdentifier = 'testListIdentifier';
+        $dataBackenMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', false);
+        $dataBackenMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
+        $instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
+        $instancesContainer->add($dataBackenMock);
+        $this->assertTrue($instancesContainer->contains($listIdentifier));
+        $this->assertEquals($dataBackenMock, $instancesContainer->get($listIdentifier));
+    }
 
 
 
-	/** @test */
-	public function getReturnNullOnNonExistingDataBackend() {
-		$instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
-		$this->assertEquals(NULL, $instancesContainer->get('testblubber'));
-	}
+    /** @test */
+    public function addThrowsExceptionIfSameBackendIsAddedTwice()
+    {
+        $listIdentifier = 'testListIdentifier';
+        $dataBackenMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', false);
+        $dataBackenMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
+        $instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
+        $instancesContainer->add($dataBackenMock);
+        try {
+            $instancesContainer->add($dataBackenMock);
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail('No exception has been thrown whent rying to add the same backend twice to the container');
+    }
 
 
 
-	/** @test */
-	public function setOverwritesInstances() {
-		$listIdentifier = 'testListIdentifier';
-		$dataBackenMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', FALSE);
-		$dataBackenMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
-		$instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
+    /** @test */
+    public function getReturnNullOnNonExistingDataBackend()
+    {
+        $instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
+        $this->assertEquals(null, $instancesContainer->get('testblubber'));
+    }
 
-		$instancesContainer->add($dataBackenMock);
-		$this->assertEquals($dataBackenMock, $instancesContainer->get($listIdentifier));
 
-		$dataBackenMock2 = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', FALSE);
-		$dataBackenMock2->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
 
-		$instancesContainer->set($dataBackenMock2);
-		$this->assertEquals($dataBackenMock2, $instancesContainer->get($listIdentifier));
-	}
+    /** @test */
+    public function setOverwritesInstances()
+    {
+        $listIdentifier = 'testListIdentifier';
+        $dataBackenMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', false);
+        $dataBackenMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
+        $instancesContainer = new Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer();
 
+        $instancesContainer->add($dataBackenMock);
+        $this->assertEquals($dataBackenMock, $instancesContainer->get($listIdentifier));
+
+        $dataBackenMock2 = $this->getMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getListIdentifier'), array(), '', false);
+        $dataBackenMock2->expects($this->any())->method('getListIdentifier')->will($this->returnValue($listIdentifier));
+
+        $instancesContainer->set($dataBackenMock2);
+        $this->assertEquals($dataBackenMock2, $instancesContainer->get($listIdentifier));
+    }
 }

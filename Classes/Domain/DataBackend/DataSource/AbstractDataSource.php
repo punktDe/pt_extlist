@@ -35,59 +35,65 @@
  * @subpackage DataBackend\DataSource
  * @author Daniel Lienert
  */
-abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource {
-	
-	/**
-	 * Holds a data source configuration object
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
-	 */
-	protected $dataSourceConfiguration;
+abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+{
+    /**
+     * Holds a data source configuration object
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
+     */
+    protected $dataSourceConfiguration;
 
 
-	/**
-	 * @var float
-	 */
-	protected $lastQueryDuration;
+    /**
+     * @var float
+     */
+    protected $lastQueryDuration;
 
 
-	/**
-	 * @var float
-	 */
-	protected $queryStartTime;
+    /**
+     * @var float
+     */
+    protected $queryStartTime;
 
 
-	/**
-	 * Constructor for typo3 data source
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-		$this->dataSourceConfiguration = $dataSourceConfiguration;
-	}
+    /**
+     * Constructor for typo3 data source
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+     */
+    public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    {
+        $this->dataSourceConfiguration = $dataSourceConfiguration;
+    }
 
 
-	/**
-	 * Template method to initialize the dataSource
-	 */
-	public function initialize() {}
+    /**
+     * Template method to initialize the dataSource
+     */
+    public function initialize()
+    {
+    }
 
 
-	protected function startTimeMeasure() {
-		$this->queryStartTime = round(microtime(TRUE) * 1000);
-	}
+    protected function startTimeMeasure()
+    {
+        $this->queryStartTime = round(microtime(true) * 1000);
+    }
 
 
-	protected function stopTimeMeasure() {
-		$this->lastQueryDuration = round(microtime(TRUE) * 1000) - $this->queryStartTime;
-		$this->queryStartTime = 0;
-	}
+    protected function stopTimeMeasure()
+    {
+        $this->lastQueryDuration = round(microtime(true) * 1000) - $this->queryStartTime;
+        $this->queryStartTime = 0;
+    }
 
 
-	/**
-	 * @return float
-	 */
-	public function getLastQueryExecutionTime() {
-		return $this->lastQueryDuration;
-	}
+    /**
+     * @return float
+     */
+    public function getLastQueryExecutionTime()
+    {
+        return $this->lastQueryDuration;
+    }
 }

@@ -37,27 +37,27 @@
  * @see Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest
  */
 class Tx_PtExtlist_Domain_Renderer_RendererFactory
-	extends Tx_PtExtlist_Domain_AbstractComponentFactory
-	implements \TYPO3\CMS\Core\SingletonInterface {
+    extends Tx_PtExtlist_Domain_AbstractComponentFactory
+    implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * Build and return the renderer
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+     * @return Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
+     */
+    public function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration)
+    {
+        $rendererClassName = $rendererConfiguration->getRendererClassName();
+        Tx_PtExtbase_Assertions_Assert::classExists($rendererClassName, array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
 
-	/**
-	 * Build and return the renderer
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
-	 * @return Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
-	 */
-	public function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration) {
-		$rendererClassName = $rendererConfiguration->getRendererClassName();
-		Tx_PtExtbase_Assertions_Assert::classExists($rendererClassName, array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
+        $renderer = $this->objectManager->get($rendererClassName); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
 
-		$renderer = $this->objectManager->get($rendererClassName); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
-		Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
+        $renderer->_injectConfiguration($rendererConfiguration);
+        
+        $renderer->initRenderer();
 
-		$renderer->_injectConfiguration($rendererConfiguration);
-		
-		$renderer->initRenderer();
-
-		return $renderer;
-	}
-
+        return $renderer;
+    }
 }

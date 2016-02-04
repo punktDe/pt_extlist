@@ -39,109 +39,116 @@
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
     extends Tx_PtExtlist_Domain_Model_List_Row
-    implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
-
-	/**
-	 * ListIdentifier of the current list
-	 * @var string
-	 */
-	protected $listIdentifier;
-
-
-
-	/**
-	 * @var array
-	 */
-	protected $gpVarData = array();
-
-
-	
-	/**
-	 * @param string $listIdentifier
-	 */
-	public function __construct($listIdentifier) {
-		$this->listIdentifier = $listIdentifier;
-	}
+    implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
+{
+    /**
+     * ListIdentifier of the current list
+     * @var string
+     */
+    protected $listIdentifier;
 
 
 
-	/**
-	 * Injects GetPost Vars into object
-	 *
-	 * @param array $GPVars GP Var data to be injected into the object
-	 */
-	public function _injectGPVars($GPVars) {
-		$this->gpVarData = $GPVars;
-	}
+    /**
+     * @var array
+     */
+    protected $gpVarData = array();
+
+
+    
+    /**
+     * @param string $listIdentifier
+     */
+    public function __construct($listIdentifier)
+    {
+        $this->listIdentifier = $listIdentifier;
+    }
 
 
 
-	/**
-	 * Init the column collection
-	 */
-	public function init() {
-	}
+    /**
+     * Injects GetPost Vars into object
+     *
+     * @param array $GPVars GP Var data to be injected into the object
+     */
+    public function _injectGPVars($GPVars)
+    {
+        $this->gpVarData = $GPVars;
+    }
 
 
 
-	/**
-	 * Add a header column to the collection
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader
-	 * @param integer $columnIdentifier
-	 */
-	public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier) {	
-		$this->addItem($columnHeader, $columnIdentifier);
-	}
-	
-	
-	
-	/**
-	 * Return column Identifier if exists
-	 * 
-	 * @param string $columnIdentifier
-	 * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
-	 * @throws Exception
-	 */
-	public function getHeaderColumn($columnIdentifier) {
-		if(!$this->hasItem($columnIdentifier)) {
-			throw new Exception('The column header with column identifier ' . $columnIdentifier . ' does not exist! 1288303528');
-		}
-		
-		return $this->itemsArr[$columnIdentifier];
-	}
-	
-	
-	
-	/**
-	 * Returns namespace for this object
-	 * 
-	 * @return string Namespace to identify this object
-	 */
-	public function getObjectNamespace() {
-		return $this->listIdentifier . '.columns';
-	}
-	
-	
-	
-	/**
-	 * reset session of all list columnHeaders
-	 * 
-	 * @return void
-	 */
-	public function reset() {
-		foreach($this->itemsArr as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
-			$headerColumn->reset();
-		}
-	}
-	
-	
-	
-	/**
-	 * @return string
-	 */
-	public function getListIdentifier() {
-		return $this->listIdentifier;
-	}
+    /**
+     * Init the column collection
+     */
+    public function init()
+    {
+    }
 
+
+
+    /**
+     * Add a header column to the collection
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader
+     * @param integer $columnIdentifier
+     */
+    public function addHeaderColumn(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $columnHeader, $columnIdentifier)
+    {
+        $this->addItem($columnHeader, $columnIdentifier);
+    }
+    
+    
+    
+    /**
+     * Return column Identifier if exists
+     * 
+     * @param string $columnIdentifier
+     * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
+     * @throws Exception
+     */
+    public function getHeaderColumn($columnIdentifier)
+    {
+        if (!$this->hasItem($columnIdentifier)) {
+            throw new Exception('The column header with column identifier ' . $columnIdentifier . ' does not exist! 1288303528');
+        }
+        
+        return $this->itemsArr[$columnIdentifier];
+    }
+    
+    
+    
+    /**
+     * Returns namespace for this object
+     * 
+     * @return string Namespace to identify this object
+     */
+    public function getObjectNamespace()
+    {
+        return $this->listIdentifier . '.columns';
+    }
+    
+    
+    
+    /**
+     * reset session of all list columnHeaders
+     * 
+     * @return void
+     */
+    public function reset()
+    {
+        foreach ($this->itemsArr as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+            $headerColumn->reset();
+        }
+    }
+    
+    
+    
+    /**
+     * @return string
+     */
+    public function getListIdentifier()
+    {
+        return $this->listIdentifier;
+    }
 }

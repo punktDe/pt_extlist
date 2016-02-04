@@ -33,64 +33,63 @@
  * @package Tests
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DateRangeFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DateRangeFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $proxyClass;
 
-	protected $proxyClass;
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
-	 */
-	protected $proxy;
-
-
-
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter');
-		$this->proxy = new $this->proxyClass();
-	}
+    /**
+     * @var Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
+     */
+    protected $proxy;
 
 
-	public function calculateTimestampBoundariesDataProvider() {
-		return array(
-			'sameDate' => array(
-				'userDateFromValue' => '20101027',
-				'userDateToValue'  => '20101027',
-				'timestampBoundaries' => array(
-					'filterValueFromTimestamp' => 1288130400,
-					'filterValueToTimestamp' => 1288216799
-				)
-			),
-			'sameDateDefaultFormat' => array(
-				'userDateFromValue' => '2010-10-27',
-				'userDateToValue'  => '2010-10-27',
-				'timestampBoundaries' => array(
-					'filterValueFromTimestamp' => 1288130400,
-					'filterValueToTimestamp' => 1288216799
-				)
-			),
-		);
-	}
+
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter');
+        $this->proxy = new $this->proxyClass();
+    }
 
 
-	/**
-	 * @test
-	 * @dataProvider calculateTimestampBoundariesDataProvider
-	 *
-	 * @param $userDateFromValue
-	 * @param $userDateToValue
-	 * @param $timestampBoundaries
-	 */
-	public function calculateTimestampBoundaries($userDateFromValue, $userDateToValue, $timestampBoundaries) {
+    public function calculateTimestampBoundariesDataProvider()
+    {
+        return array(
+            'sameDate' => array(
+                'userDateFromValue' => '20101027',
+                'userDateToValue'  => '20101027',
+                'timestampBoundaries' => array(
+                    'filterValueFromTimestamp' => 1288130400,
+                    'filterValueToTimestamp' => 1288216799
+                )
+            ),
+            'sameDateDefaultFormat' => array(
+                'userDateFromValue' => '2010-10-27',
+                'userDateToValue'  => '2010-10-27',
+                'timestampBoundaries' => array(
+                    'filterValueFromTimestamp' => 1288130400,
+                    'filterValueToTimestamp' => 1288216799
+                )
+            ),
+        );
+    }
 
-		$this->proxy->_set('filterValueFrom', $userDateFromValue);
-		$this->proxy->_set('filterValueTo', $userDateToValue);
 
-		$actualTimestampBoundaries = $this->proxy->_call('getCalculatedTimestampBoundaries'); /** @var Tx_PtExtlist_Domain_QueryObject_Criteria $criteria */
+    /**
+     * @test
+     * @dataProvider calculateTimestampBoundariesDataProvider
+     *
+     * @param $userDateFromValue
+     * @param $userDateToValue
+     * @param $timestampBoundaries
+     */
+    public function calculateTimestampBoundaries($userDateFromValue, $userDateToValue, $timestampBoundaries)
+    {
+        $this->proxy->_set('filterValueFrom', $userDateFromValue);
+        $this->proxy->_set('filterValueTo', $userDateToValue);
 
-		$this->assertEquals($timestampBoundaries, $actualTimestampBoundaries);
-	}
+        $actualTimestampBoundaries = $this->proxy->_call('getCalculatedTimestampBoundaries'); /** @var Tx_PtExtlist_Domain_QueryObject_Criteria $criteria */
 
+        $this->assertEquals($timestampBoundaries, $actualTimestampBoundaries);
+    }
 }
- 
-?>

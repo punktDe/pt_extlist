@@ -34,27 +34,29 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_View_Export_AbstractExportView
  */
-class Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-
-
-
-	public function testSetup() {
-		$this->assertClassExists('Tx_PtExtlist_View_Export_AbstractExportView');
-	}
+class Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
 
 
-	public function testSetConfigurationBuilder() {
-		$viewMock = new Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView();
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_View_Export_AbstractExportView');
+    }
 
-		$viewMock->setConfigurationBuilder($this->configurationBuilderMock);
-		$this->markTestIncomplete('Check for Settings after init process');
-	}
 
+
+    public function testSetConfigurationBuilder()
+    {
+        $viewMock = new Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView();
+
+        $viewMock->setConfigurationBuilder($this->configurationBuilderMock);
+        $this->markTestIncomplete('Check for Settings after init process');
+    }
 }
 
 
@@ -62,15 +64,15 @@ class Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest extends Tx_PtExtlist
  * Private class for testing abstract export view
  *
  */
-class Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView extends Tx_PtExtlist_View_Export_AbstractExportView {
-
-	/**
-	 * @see Tx_PtExtlist_View_AbstractExportView::getDefaultFilePrefix()
-	 *
-	 * @return string
-	 */
-	protected function getDefaultFilePrefix() {
-		return 'testprefix';
-	}
-
+class Tx_PtExtlist_Tests_View_Export_AbstractExportView_ConcreteExportView extends Tx_PtExtlist_View_Export_AbstractExportView
+{
+    /**
+     * @see Tx_PtExtlist_View_AbstractExportView::getDefaultFilePrefix()
+     *
+     * @return string
+     */
+    protected function getDefaultFilePrefix()
+    {
+        return 'testprefix';
+    }
 }

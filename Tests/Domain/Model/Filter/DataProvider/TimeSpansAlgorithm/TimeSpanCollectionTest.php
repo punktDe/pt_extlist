@@ -32,63 +32,66 @@
  * @package pt_extlist
  * @subpackage Tests\Domain\Model\Filter\DataProvider\TimeSpanAlgorithm
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $proxyClass;
-
-
-
-	protected $proxy;
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $proxyClass;
 
 
 
-	public function setUp() {
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection');
-		$this->proxy = new $this->proxyClass();
-	}
+    protected $proxy;
 
 
 
-	public function tearDown() {
-		unset($this->proxyClass);
-		unset($this->proxy);
-	}
+    public function setUp()
+    {
+        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection');
+        $this->proxy = new $this->proxyClass();
+    }
 
 
 
-	public function testRestrictedCollectionItemsType() {
-		$expected = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan';
-		$actual = $this->proxy->_get('restrictedClassName');
-		$this->assertEquals($expected, $actual);
-	}
+    public function tearDown()
+    {
+        unset($this->proxyClass);
+        unset($this->proxy);
+    }
 
 
 
-	public function testType() {
-		$this->assertInstanceOf('Tx_PtExtbase_Collection_SortableObjectCollection', $this->proxy);
-	}
+    public function testRestrictedCollectionItemsType()
+    {
+        $expected = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan';
+        $actual = $this->proxy->_get('restrictedClassName');
+        $this->assertEquals($expected, $actual);
+    }
 
 
 
-	public function testGetJsonValue() {
-		$timeSpan01 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
-		$timeSpan01->expects($this->any())
-			->method('getJsonValue')
-			->will($this->returnValue("{\"start\":\"20111224\",\"end\":\"20111231\"}")); // 2011-12-24 - 2011-12-31
-
-		$timeSpan02 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
-		$timeSpan02->expects($this->any())
-			->method('getJsonValue')
-			->will($this->returnValue("{\"start\":\"20120504\",\"end\":\"20120504\"}")); // 2012-05-04 - 2012-05-04
-
-		$timeSpans = array($timeSpan01, $timeSpan02);
-
-		$this->proxy->_set('itemsArr', $timeSpans);
-
-		$expected = "{\"timeSpans\":[{\"start\":\"20111224\",\"end\":\"20111231\"},{\"start\":\"20120504\",\"end\":\"20120504\"}]}";
-		$actual = $this->proxy->getJsonValue();
-		$this->assertEquals($expected, $actual);
-	}
+    public function testType()
+    {
+        $this->assertInstanceOf('Tx_PtExtbase_Collection_SortableObjectCollection', $this->proxy);
+    }
 
 
+
+    public function testGetJsonValue()
+    {
+        $timeSpan01 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
+        $timeSpan01->expects($this->any())
+            ->method('getJsonValue')
+            ->will($this->returnValue("{\"start\":\"20111224\",\"end\":\"20111231\"}")); // 2011-12-24 - 2011-12-31
+
+        $timeSpan02 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
+        $timeSpan02->expects($this->any())
+            ->method('getJsonValue')
+            ->will($this->returnValue("{\"start\":\"20120504\",\"end\":\"20120504\"}")); // 2012-05-04 - 2012-05-04
+
+        $timeSpans = array($timeSpan01, $timeSpan02);
+
+        $this->proxy->_set('itemsArr', $timeSpans);
+
+        $expected = "{\"timeSpans\":[{\"start\":\"20111224\",\"end\":\"20111231\"},{\"start\":\"20120504\",\"end\":\"20120504\"}]}";
+        $actual = $this->proxy->getJsonValue();
+        $this->assertEquals($expected, $actual);
+    }
 }

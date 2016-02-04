@@ -33,161 +33,179 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider {
-
-	/**
-	 * @var string
-	 */
-	protected $selectPart;
-
-
-
-	/**
-	 * @var string
-	 */
-	protected $fromPart;
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+{
+    /**
+     * @var string
+     */
+    protected $selectPart;
 
 
 
-	/**
-	 * @var string
-	 */
-	protected $wherePart;
+    /**
+     * @var string
+     */
+    protected $fromPart;
 
 
 
-	/**
-	 * @var string
-	 */
-	protected $groupByPart;
+    /**
+     * @var string
+     */
+    protected $wherePart;
 
 
 
-	/**
-	 * @var string
-	 */
-	protected $orderByPart;
+    /**
+     * @var string
+     */
+    protected $groupByPart;
 
 
 
-	/**
-	 * @var string
-	 */
-	protected $limitPart;
+    /**
+     * @var string
+     */
+    protected $orderByPart;
 
 
 
-	/**
-	 * @var array
-	 */
-	protected $displayFields;
+    /**
+     * @var string
+     */
+    protected $limitPart;
 
 
 
-	/**
-	 * @var string
-	 */
-	protected $filterField;
+    /**
+     * @var array
+     */
+    protected $displayFields;
 
 
 
-	/**
-	 * @var t3lib_DB
-	 */
-	protected $dbObj;
+    /**
+     * @var string
+     */
+    protected $filterField;
 
 
 
-	/**
-	 * Init the data provider
-	 */
-	public function init() {
-		// TODO use DI here!
-		$this->dbObj = $GLOBALS['TYPO3_DB'];
-
-		$sqlQuerySettings = $this->filterConfig->getSettings('optionsSqlQuery');
-
-		foreach($sqlQuerySettings as $type => $part) {
-			if (!is_array($part)) {
-				$sqlQuerySettings[$type] = trim($part);
-			}
-		}
-
-		if ($sqlQuerySettings['select']) $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
-		if ($sqlQuerySettings['from']) $this->fromPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']);
-		if ($sqlQuerySettings['where']) $this->wherePart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']);
-		if ($sqlQuerySettings['orderBy']) $this->orderByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['orderBy']);
-		if ($sqlQuerySettings['groupBy']) $this->groupByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']);
-		if ($sqlQuerySettings['limit']) $this->limitPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']);
-
-
-		$this->filterField = trim($this->filterConfig->getSettings('filterField'));
-		$this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
-
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, array('info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957'));
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, array('info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958'));
-		Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, array('info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959'));
-	}
+    /**
+     * @var t3lib_DB
+     */
+    protected $dbObj;
 
 
 
-	/**
-	 * Return the rendered filterOptions
-	 *
-	 * @return array filter options
-	 */
-	public function getRenderedOptions() {
-		$renderedOptions = array();
-		$options = $this->getDataFromSqlServer();
-		foreach ($options as $optionData) {
-			$optionKey = $optionData[$this->filterField];
+    /**
+     * Init the data provider
+     */
+    public function init()
+    {
+        // TODO use DI here!
+        $this->dbObj = $GLOBALS['TYPO3_DB'];
 
-			$renderedOptions[$optionKey] = $optionData;
-			$renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
-			$renderedOptions[$optionKey]['selected'] = false;
-		}
-		return $renderedOptions;
-	}
+        $sqlQuerySettings = $this->filterConfig->getSettings('optionsSqlQuery');
 
+        foreach ($sqlQuerySettings as $type => $part) {
+            if (!is_array($part)) {
+                $sqlQuerySettings[$type] = trim($part);
+            }
+        }
 
-
-	/**
-	 * Render a single option line by cObject or default
-	 *
-	 * @param array $optionData
-	 * @return string The rendered option
-	 */
-	protected function renderOptionData($optionData) {
-		$values = array();
-		if (is_array($this->displayFields)) {
-			foreach ($this->displayFields as $displayField) {
-				$values[] = $optionData[$displayField];
-			}
-		}
-		$optionData['allDisplayFields'] = implode(' ', $values);
-		$option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
-		return $option;
-	}
+        if ($sqlQuerySettings['select']) {
+            $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
+        }
+        if ($sqlQuerySettings['from']) {
+            $this->fromPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']);
+        }
+        if ($sqlQuerySettings['where']) {
+            $this->wherePart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']);
+        }
+        if ($sqlQuerySettings['orderBy']) {
+            $this->orderByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['orderBy']);
+        }
+        if ($sqlQuerySettings['groupBy']) {
+            $this->groupByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']);
+        }
+        if ($sqlQuerySettings['limit']) {
+            $this->limitPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']);
+        }
 
 
+        $this->filterField = trim($this->filterConfig->getSettings('filterField'));
+        $this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
 
-	/**
-	 * @throws Exception
-	 * @return array of options
-	 */
-	protected function getDataFromSqlServer() {
-		$query = $this->dbObj->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, array('info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, array('info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, array('info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959'));
+    }
 
-		$dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
 
-		if (!method_exists($dataSource, 'executeQuery')) {
-			throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider!', 1315216209);
-		}
 
-		$data =  $dataSource->executeQuery($query)->fetchAll();
+    /**
+     * Return the rendered filterOptions
+     *
+     * @return array filter options
+     */
+    public function getRenderedOptions()
+    {
+        $renderedOptions = array();
+        $options = $this->getDataFromSqlServer();
+        foreach ($options as $optionData) {
+            $optionKey = $optionData[$this->filterField];
 
-		if (TYPO3_DLOG) \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query));
+            $renderedOptions[$optionKey] = $optionData;
+            $renderedOptions[$optionKey]['value'] = $this->renderOptionData($optionData);
+            $renderedOptions[$optionKey]['selected'] = false;
+        }
+        return $renderedOptions;
+    }
 
-		return $data;
-	}
+
+
+    /**
+     * Render a single option line by cObject or default
+     *
+     * @param array $optionData
+     * @return string The rendered option
+     */
+    protected function renderOptionData($optionData)
+    {
+        $values = array();
+        if (is_array($this->displayFields)) {
+            foreach ($this->displayFields as $displayField) {
+                $values[] = $optionData[$displayField];
+            }
+        }
+        $optionData['allDisplayFields'] = implode(' ', $values);
+        $option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        return $option;
+    }
+
+
+
+    /**
+     * @throws Exception
+     * @return array of options
+     */
+    protected function getDataFromSqlServer()
+    {
+        $query = $this->dbObj->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
+
+        $dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
+
+        if (!method_exists($dataSource, 'executeQuery')) {
+            throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider!', 1315216209);
+        }
+
+        $data =  $dataSource->executeQuery($query)->fetchAll();
+
+        if (TYPO3_DLOG) {
+            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query));
+        }
+
+        return $data;
+    }
 }

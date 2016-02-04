@@ -35,72 +35,76 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_OrCriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria {
+class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+{
+    /**
+     * Holds first criteria for or conjunction
+     *
+     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+     */
+    protected $firstCriteria;
+    
+    
+    
+    /**
+     * Holds second criteria for or conjunction
+     *
+     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+     */
+    protected $secondCriteria;
 
-	/**
-	 * Holds first criteria for or conjunction
-	 *
-	 * @var Tx_PtExtlist_Domain_QueryObject_Criteria
-	 */
-	protected $firstCriteria;
-	
-	
-	
-	/**
-	 * Holds second criteria for or conjunction
-	 *
-	 * @var Tx_PtExtlist_Domain_QueryObject_Criteria
-	 */
-	protected $secondCriteria;
 
 
-
-	/**
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria
-	 * @return \Tx_PtExtlist_Domain_QueryObject_OrCriteria
-	 */
-	public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria) {
-		$this->firstCriteria = $firstCriteria;
-		$this->secondCriteria = $secondCriteria;
-	}
-	
-	
-	
-	/**
-	 * Returns true, if criteria is equal to this criteria
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this criteria
-	 * @return bool
-	 */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
+    /**
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria
+     * @return \Tx_PtExtlist_Domain_QueryObject_OrCriteria
+     */
+    public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria)
+    {
+        $this->firstCriteria = $firstCriteria;
+        $this->secondCriteria = $secondCriteria;
+    }
+    
+    
+    
+    /**
+     * Returns true, if criteria is equal to this criteria
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this criteria
+     * @return bool
+     */
+    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    {
         if (!is_a($criteria, __CLASS__)) {
-        	return false;   
+            return false;
         } else {
-			/* @var $criteria Tx_PtExtlist_Domain_QueryObject_OrCriteria */
-        	if ($this->firstCriteria == $criteria->firstCriteria || $this->secondCriteria == $criteria->secondCriteria) {
-        		return true;
-        	} else {
-        		return false;
-        	}
+            /* @var $criteria Tx_PtExtlist_Domain_QueryObject_OrCriteria */
+            if ($this->firstCriteria == $criteria->firstCriteria || $this->secondCriteria == $criteria->secondCriteria) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
-	
-	
-	
-	/**
-	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 */
-	public function getFirstCriteria() {
-		return $this->firstCriteria;
-	}
-	
-	
-	
-	/**
-	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 */
-	public function getSecondCriteria() {
-		return $this->secondCriteria;
-	}
+    
+    
+    
+    /**
+     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     */
+    public function getFirstCriteria()
+    {
+        return $this->firstCriteria;
+    }
+    
+    
+    
+    /**
+     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     */
+    public function getSecondCriteria()
+    {
+        return $this->secondCriteria;
+    }
 }

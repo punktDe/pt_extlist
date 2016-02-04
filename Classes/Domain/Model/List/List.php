@@ -35,190 +35,205 @@
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_List {
-	
-	/**
-	 * Holds a reference of the list data object holding all list data
-	 * @var Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	protected $listData = NULL;
+class Tx_PtExtlist_Domain_Model_List_List
+{
+    /**
+     * Holds a reference of the list data object holding all list data
+     * @var Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    protected $listData = null;
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
-	 */
-	protected $iterationListData = NULL;
+    /**
+     * @var Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+     */
+    protected $iterationListData = null;
 
 
-	/**
-	 * A reference to the header data.
-	 * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 */
-	protected $listHeader;
+    /**
+     * A reference to the header data.
+     * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     */
+    protected $listHeader;
 
-	
-	/**
-	 * A List Data Object holding the aggregate rows
-	 * @var Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	protected $aggregateListData;
-
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
-	 */
-	protected $rendererChain;
+    
+    /**
+     * A List Data Object holding the aggregate rows
+     * @var Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    protected $aggregateListData;
 
 
-	/**
-	 * @var boolean
-	 */
-	protected $useIterationListData = FALSE;
-	
-	
+    /**
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     */
+    protected $rendererChain;
+
+
+    /**
+     * @var boolean
+     */
+    protected $useIterationListData = false;
+    
+    
     /**
      * Getter for list data. 
      *
      * @return Tx_PtExtlist_Domain_Model_List_ListData      Returns list data of this list
-     */	
-	public function getListData() {
-		return $this->listData;
-	}
+     */
+    public function getListData()
+    {
+        return $this->listData;
+    }
 
 
-	/**
-	 * @return \Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
-	 */
-	public function getIterationListData() {
-		return $this->iterationListData;
-	}
-	
-	
-	/**
-	 * Setter for aggregate rows
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData  $aggregateListData   List data object holding aggregate rows
-	 */
-	public function setAggregateListData(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData) {
-		$this->aggregateListData = $aggregateListData;
-	}
-	
-	
-	
-	/**
-	 * Setter for list data
-	 * @param Tx_PtExtlist_Domain_Model_List_ListData  $listData   List data to be set for this list object
-	 */
-	public function setListData(Tx_PtExtlist_Domain_Model_List_ListData $listData) {
-		$this->listData = $listData;
-	}
+    /**
+     * @return \Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+     */
+    public function getIterationListData()
+    {
+        return $this->iterationListData;
+    }
+    
+    
+    /**
+     * Setter for aggregate rows
+     * @param Tx_PtExtlist_Domain_Model_List_ListData  $aggregateListData   List data object holding aggregate rows
+     */
+    public function setAggregateListData(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData)
+    {
+        $this->aggregateListData = $aggregateListData;
+    }
+    
+    
+    
+    /**
+     * Setter for list data
+     * @param Tx_PtExtlist_Domain_Model_List_ListData  $listData   List data to be set for this list object
+     */
+    public function setListData(Tx_PtExtlist_Domain_Model_List_ListData $listData)
+    {
+        $this->listData = $listData;
+    }
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_List_IterationListDataInterface $iterationListData
-	 */
-	public function setIterationListData(Tx_PtExtlist_Domain_Model_List_IterationListDataInterface $iterationListData) {
-		$this->iterationListData = $iterationListData;
-	}
-	
-	
-	/**
-	 * 
-	 * Setter for list header.
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-	 */
-	public function setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader) {
-		$this->listHeader = $listHeader;
-	}
-	
-	
-	
-	/**
-	 * 
-	 * Getter for list header.
-	 * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
-	 */
-	public function getListHeader() {
-		return $this->listHeader;
-	}
-	
-	
-	
-	/**
-	 * Getter for aggregate rows
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function getAggregateListData() {
-		return $this->aggregateListData;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Model_List_IterationListDataInterface $iterationListData
+     */
+    public function setIterationListData(Tx_PtExtlist_Domain_Model_List_IterationListDataInterface $iterationListData)
+    {
+        $this->iterationListData = $iterationListData;
+    }
+    
+    
+    /**
+     * 
+     * Setter for list header.
+     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     */
+    public function setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    {
+        $this->listHeader = $listHeader;
+    }
+    
+    
+    
+    /**
+     * 
+     * Getter for list header.
+     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     */
+    public function getListHeader()
+    {
+        return $this->listHeader;
+    }
+    
+    
+    
+    /**
+     * Getter for aggregate rows
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    public function getAggregateListData()
+    {
+        return $this->aggregateListData;
+    }
 
 
-	/**
-	 * @return Traversable
-	 */
-	public function getRenderedListData() {
-		if($this->useIterationListData === TRUE) {
-			return $this->iterationListData;
-		} else {
-			return $this->rendererChain->renderList($this->listData);
-		}
-	}
+    /**
+     * @return Traversable
+     */
+    public function getRenderedListData()
+    {
+        if ($this->useIterationListData === true) {
+            return $this->iterationListData;
+        } else {
+            return $this->rendererChain->renderList($this->listData);
+        }
+    }
 
 
-	/**
-	 * @return integer
-	 */
-	public function count() {
-		if($this->useIterationListData) {
-			return $this->iterationListData->count();
-		} else {
-			return $this->listData->count();
-		}
-	}
+    /**
+     * @return integer
+     */
+    public function count()
+    {
+        if ($this->useIterationListData) {
+            return $this->iterationListData->count();
+        } else {
+            return $this->listData->count();
+        }
+    }
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	public function getRenderedListHeader() {
-		return $this->rendererChain->renderCaptions($this->listHeader);
-	}
+    /**
+     * @return Tx_PtExtlist_Domain_Model_List_Row
+     */
+    public function getRenderedListHeader()
+    {
+        return $this->rendererChain->renderCaptions($this->listHeader);
+    }
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function getRenderedAggregateListData() {
-		return $this->rendererChain->renderAggregateList($this->aggregateListData);
-	}
+    /**
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    public function getRenderedAggregateListData()
+    {
+        return $this->rendererChain->renderAggregateList($this->aggregateListData);
+    }
 
 
-	/**
-	 * @param \Tx_PtExtlist_Domain_Renderer_RendererChain $rendererChain
-	 */
-	public function setRendererChain($rendererChain) {
-		$this->rendererChain = $rendererChain;
-	}
+    /**
+     * @param \Tx_PtExtlist_Domain_Renderer_RendererChain $rendererChain
+     */
+    public function setRendererChain($rendererChain)
+    {
+        $this->rendererChain = $rendererChain;
+    }
 
 
-	/**
-	 * @return \Tx_PtExtlist_Domain_Renderer_RendererChain
-	 */
-	public function getRendererChain() {
-		return $this->rendererChain;
-	}
+    /**
+     * @return \Tx_PtExtlist_Domain_Renderer_RendererChain
+     */
+    public function getRendererChain()
+    {
+        return $this->rendererChain;
+    }
 
-	/**
-	 * @param boolean $useIterationListData
-	 */
-	public function setUseIterationListData($useIterationListData) {
-		$this->useIterationListData = $useIterationListData;
-	}
+    /**
+     * @param boolean $useIterationListData
+     */
+    public function setUseIterationListData($useIterationListData)
+    {
+        $this->useIterationListData = $useIterationListData;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function getUseIterationListData() {
-		return $this->useIterationListData;
-	}
-
+    /**
+     * @return boolean
+     */
+    public function getUseIterationListData()
+    {
+        return $this->useIterationListData;
+    }
 }

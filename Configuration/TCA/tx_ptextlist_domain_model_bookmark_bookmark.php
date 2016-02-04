@@ -1,20 +1,20 @@
 <?php
 return array(
-    'ctrl' => array (
-		'title'             => 'Bookmark',
-		'label'             => 'name',
-		'tstamp'            => 'tstamp',
-		'crdate'            => 'crdate',
-		'origUid'           => 't3_origuid',
-		'languageField'     => 'sys_language_uid',
-		'transOrigPointerField'     => 'l18n_parent',
-		'transOrigDiffSourceField'  => 'l18n_diffsource',
-		'delete'            => 'deleted',
-		'enablecolumns'     => array(
-			'disabled' => 'hidden'
-		),
-		'iconfile'          => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('pt_extlist') . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
-	),
+    'ctrl' => array(
+        'title'             => 'Bookmark',
+        'label'             => 'name',
+        'tstamp'            => 'tstamp',
+        'crdate'            => 'crdate',
+        'origUid'           => 't3_origuid',
+        'languageField'     => 'sys_language_uid',
+        'transOrigPointerField'     => 'l18n_parent',
+        'transOrigDiffSourceField'  => 'l18n_diffsource',
+        'delete'            => 'deleted',
+        'enablecolumns'     => array(
+            'disabled' => 'hidden'
+        ),
+        'iconfile'          => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('pt_extlist') . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
+    ),
     'interface' => array(
         'showRecordFieldList' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content'
     ),
@@ -26,10 +26,10 @@ return array(
     ),
     'columns' => array(
 
-        'sys_language_uid' => array (
+        'sys_language_uid' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
-            'config' => array (
+            'config' => array(
                 'type' => 'select',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
@@ -40,13 +40,13 @@ return array(
             )
         ),
         
-        'l18n_parent' => array (
+        'l18n_parent' => array(
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
-            'config' => array (
+            'config' => array(
                 'type' => 'select',
-                'items' => array (
+                'items' => array(
                     array('', 0),
                 ),
                 'foreign_table' => 'tt_news',
@@ -59,10 +59,10 @@ return array(
                 'type'=>'passthrough')
         ),
         
-        't3ver_label' => array (
+        't3ver_label' => array(
             'displayCond' => 'FIELD:t3ver_label:REQ:true',
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',
-            'config' => array (
+            'config' => array(
                 'type'=>'none',
                 'cols' => 27
             )
@@ -164,13 +164,12 @@ return array(
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.type',
             'config'  => array(
                 'type' => 'select',
-				'items' => array(
-					array('public', 1),
-					array('private', 2),
-					array('group', 3)
-				)
+                'items' => array(
+                    array('public', 1),
+                    array('private', 2),
+                    array('group', 3)
+                )
             )
         )
     )
 );
-?>

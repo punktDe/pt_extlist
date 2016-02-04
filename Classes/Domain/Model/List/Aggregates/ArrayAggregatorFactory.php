@@ -33,18 +33,19 @@
  * @package Domain
  * @subpackage Model\List\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory {
-
-	/**
-	 *  build the arrayAgregator
-	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
-	 */
-	public static function createInstance(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$arrayAgregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
-		$arrayAgregator->injectDataBackend($dataBackend);	
-	
-		return $arrayAgregator;
-	}
+class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory
+{
+    /**
+     *  build the arrayAgregator
+     * 
+     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @return Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+     */
+    public static function createInstance(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    {
+        $arrayAgregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
+        $arrayAgregator->injectDataBackend($dataBackend);
+    
+        return $arrayAgregator;
+    }
 }

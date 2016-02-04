@@ -34,8 +34,8 @@
  * @author         	Daniel Lienert
  * @author          Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+{
     /**
      * Class name to which this collection should be restricted to.
      * Collection accepts only items of this class.
@@ -64,7 +64,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends 
      *
      * @param bool $columnSorting
      */
-    public function __construct($columnSorting = false) {
+    public function __construct($columnSorting = false)
+    {
         $this->columnSorting = $columnSorting;
     }
 
@@ -77,9 +78,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends 
      * @param string $fieldIdentifier
      * @return void
      */
-	public function addSortingField($sortingField, $fieldIdentifier) {
-		$this->addItem($sortingField, $fieldIdentifier);
-	}
+    public function addSortingField($sortingField, $fieldIdentifier)
+    {
+        $this->addItem($sortingField, $fieldIdentifier);
+    }
 
 
 
@@ -88,8 +90,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends 
      * 
      * @return bool
      */
-    public function getColumnSorting() {
+    public function getColumnSorting()
+    {
         return $this->columnSorting;
     }
-    
 }

@@ -34,27 +34,27 @@
  * @subpackage Configuration\Renderer
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory {
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory
+{
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $rendererChainConfiguration = null;
+        $rendererChainSettings = $configurationBuilder->getSettingsForConfigObject('rendererChain');
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$rendererChainConfiguration = NULL;
-		$rendererChainSettings = $configurationBuilder->getSettingsForConfigObject('rendererChain');
+        if (is_array($rendererChainSettings['rendererConfigs'])) {
+            ksort($rendererChainSettings['rendererConfigs']);
+            $rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder, $rendererChainSettings);
 
-		if(is_array($rendererChainSettings['rendererConfigs'])) {
-			ksort($rendererChainSettings['rendererConfigs']);
-			$rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder, $rendererChainSettings);
+            foreach ($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
+                $rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($configurationBuilder, $rendererSettings);
+                $rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
+            }
+        }
 
-			foreach ($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
-				$rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($configurationBuilder, $rendererSettings);
-				$rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
-			}
-		}
-
-		return $rendererChainConfiguration;
-	}
-
+        return $rendererChainConfiguration;
+    }
 }

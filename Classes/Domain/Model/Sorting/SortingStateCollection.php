@@ -33,109 +33,115 @@
  * @subpackage Domain\Model\Sorting
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-	
-	/**
-	 * Factory method to create a sorting state from a given session array
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param array $sessionArray
-	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
-	 */
-	public static function getInstanceBySessionArray(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionArray) {
-		$sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
-		foreach($sessionArray as $sortingStateSessionArray) {
-			$sortingStateCollection->addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceBySessionArray($configurationBuilder, $sortingStateSessionArray));
-		}
-		return $sortingStateCollection;
-	}
-	
-	
+class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtbase_Collection_ObjectCollection
+{
+    /**
+     * Factory method to create a sorting state from a given session array
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param array $sessionArray
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     */
+    public static function getInstanceBySessionArray(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionArray)
+    {
+        $sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+        foreach ($sessionArray as $sortingStateSessionArray) {
+            $sortingStateCollection->addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceBySessionArray($configurationBuilder, $sortingStateSessionArray));
+        }
+        return $sortingStateCollection;
+    }
+    
+    
 
-	/**
-	 * Holds class name of objects that this collection is restrictedd to
-	 *
-	 * @var string
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Sorting_SortingState';
-
-
-	/**
-	 * Adds a given field and direction to sorting state
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field
-	 * @param integer $direction
-	 */
-	public function addSortingByFieldAndDirection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field, $direction) {
-		$sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($field, $direction);
-		$this->addItem($sortingState, $field->getIdentifier());
-	}
+    /**
+     * Holds class name of objects that this collection is restrictedd to
+     *
+     * @var string
+     */
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Sorting_SortingState';
 
 
-	/**
-	 * Adds a sorting state to this collection
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState
-	 */
-	public function addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState) {
-		$this->addItem($sortingState, $sortingState->getField()->getIdentifier());
-	}
+    /**
+     * Adds a given field and direction to sorting state
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field
+     * @param integer $direction
+     */
+    public function addSortingByFieldAndDirection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field, $direction)
+    {
+        $sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($field, $direction);
+        $this->addItem($sortingState, $field->getIdentifier());
+    }
 
 
-	/**
-	 * @param $sortingStateIdentifier
-	 * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
-	 */
-	public function getSortingState($sortingStateIdentifier) {
-		if($this->hasItem($sortingStateIdentifier)) {
-			return $this->getItemById($sortingStateIdentifier);
-		}
-	}
-
-	/**
-	 * Returns an array of field configs that are contained by this sorting state collection
-	 *
-	 * @return array<Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig>
-	 */
-	public function getSortedFields() {
-		$sortedFields = array();
-		foreach ($this->itemsArr as $sortingState) {
-			$sortedFields[] = $sortingState->getField();
-		}
-		return $sortedFields;
-	}
+    /**
+     * Adds a sorting state to this collection
+     *
+     * @param Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState
+     */
+    public function addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState)
+    {
+        $this->addItem($sortingState, $sortingState->getField()->getIdentifier());
+    }
 
 
-	/**
-	 * Returns a query object with sortings for this sorting state collection
-	 *
-	 * @return Tx_PtExtlist_Domain_QueryObject_Query
-	 */
-	public function getSortingsQuery() {
-		$sortingsQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
-		foreach ($this->itemsArr as $sortingState) {
-			/* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
-			$sortingsQuery->addSorting($sortingState->getField()->getIdentifier(), $sortingState->getDirection());
-		}
-		return $sortingsQuery;
-	}
+    /**
+     * @param $sortingStateIdentifier
+     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
+     */
+    public function getSortingState($sortingStateIdentifier)
+    {
+        if ($this->hasItem($sortingStateIdentifier)) {
+            return $this->getItemById($sortingStateIdentifier);
+        }
+    }
+
+    /**
+     * Returns an array of field configs that are contained by this sorting state collection
+     *
+     * @return array<Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig>
+     */
+    public function getSortedFields()
+    {
+        $sortedFields = array();
+        foreach ($this->itemsArr as $sortingState) {
+            $sortedFields[] = $sortingState->getField();
+        }
+        return $sortedFields;
+    }
 
 
-	/**
-	 * Returns an array representing the sortings states of this collection
-	 * that can be stored in session.
-	 *
-	 * Array looks like array( array( 'fieldName' => fieldName, 'direction' => direction), ... )
-	 *
-	 * @return array
-	 */
-	public function getSessionPersistableArray() {
-		$sessionPersistableArray = array();
-		foreach ($this->itemsArr as $sortingState) {
-			/* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
-			$sessionPersistableArray[] = $sortingState->getSessionPersistableArray();
-		}
-		return $sessionPersistableArray;
-	}
+    /**
+     * Returns a query object with sortings for this sorting state collection
+     *
+     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     */
+    public function getSortingsQuery()
+    {
+        $sortingsQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        foreach ($this->itemsArr as $sortingState) {
+            /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            $sortingsQuery->addSorting($sortingState->getField()->getIdentifier(), $sortingState->getDirection());
+        }
+        return $sortingsQuery;
+    }
 
+
+    /**
+     * Returns an array representing the sortings states of this collection
+     * that can be stored in session.
+     *
+     * Array looks like array( array( 'fieldName' => fieldName, 'direction' => direction), ... )
+     *
+     * @return array
+     */
+    public function getSessionPersistableArray()
+    {
+        $sessionPersistableArray = array();
+        foreach ($this->itemsArr as $sortingState) {
+            /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            $sessionPersistableArray[] = $sortingState->getSessionPersistableArray();
+        }
+        return $sessionPersistableArray;
+    }
 }

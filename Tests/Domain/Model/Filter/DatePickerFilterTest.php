@@ -33,33 +33,34 @@
  * @package Tests
  * @subpackage Domain\Model\Filter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DatePickerFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $proxyClass;
-
-
-
-	protected $proxy;
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DatePickerFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $proxyClass;
 
 
 
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-		$this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter');
-		$this->proxy = new $this->proxyClass();
-	}
+    protected $proxy;
 
 
 
-	public function testRemoveQuotationsFromJsonObjectValues() {
-		$input = array(
-			"changeMonth" => "true",
-			"changeYear" => "false",
-			"monthNames" => "['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
-		);
-		$expected = "{\"changeMonth\":true,\"changeYear\":false,\"monthNames\":['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}";
-		$actual = $this->proxy->_call('buildJson', $input);
-		$this->assertEquals($expected, $actual);
-	}
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter');
+        $this->proxy = new $this->proxyClass();
+    }
 
+
+
+    public function testRemoveQuotationsFromJsonObjectValues()
+    {
+        $input = array(
+            "changeMonth" => "true",
+            "changeYear" => "false",
+            "monthNames" => "['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
+        );
+        $expected = "{\"changeMonth\":true,\"changeYear\":false,\"monthNames\":['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}";
+        $actual = $this->proxy->_call('buildJson', $input);
+        $this->assertEquals($expected, $actual);
+    }
 }

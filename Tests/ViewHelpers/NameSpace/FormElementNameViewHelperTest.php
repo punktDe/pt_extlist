@@ -34,76 +34,77 @@
  * @subpackage Domain\Model\ViewHelpers\NameSpace
  * @see Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper
  */
-class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @dataProvider
+     * @return array
+     */
+    public function argumentDataProvider()
+    {
+        $identifiableObjectFixture = new Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture();
+
+        $argumentData = array(
+            'oneWordPropertyWithoutPrefix' => array(
+                'object' => $identifiableObjectFixture,
+                'property' => 'key',
+                'addExtPrefix' => false,
+                'expectedResult' => 'test[object][namespace][key]'
+            ),
+            'oneWordPropertyWithPrefix' => array(
+                'object' => $identifiableObjectFixture,
+                'property' => 'key',
+                'addExtPrefix' => true,
+                'expectedResult' => 'tx_ptextlist_pi1[test][object][namespace][key]'
+            ),
+            'threeWordPropertyWithoutPrefix' => array(
+                'object' => $identifiableObjectFixture,
+                'property' => 'key.foo.bar',
+                'addExtPrefix' => false,
+                'expectedResult' => 'test[object][namespace][key][foo][bar]'
+            ),
+            'threeWordPropertyWithPrefix' => array(
+                'object' => $identifiableObjectFixture,
+                'property' => 'key.foo.bar',
+                'addExtPrefix' => true,
+                'expectedResult' => 'tx_ptextlist_pi1[test][object][namespace][key][foo][bar]'
+            )
+        );
+
+        return $argumentData;
+    }
 
 
-	/**
-	 * @dataProvider
-	 * @return array
-	 */
-	public function argumentDataProvider() {
-		$identifiableObjectFixture = new Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture();
-
-		$argumentData = array(
-			'oneWordPropertyWithoutPrefix' => array(
-				'object' => $identifiableObjectFixture,
-				'property' => 'key',
-				'addExtPrefix' => false,
-				'expectedResult' => 'test[object][namespace][key]'
-			),
-			'oneWordPropertyWithPrefix' => array(
-				'object' => $identifiableObjectFixture,
-				'property' => 'key',
-				'addExtPrefix' => true,
-				'expectedResult' => 'tx_ptextlist_pi1[test][object][namespace][key]'
-			),
-			'threeWordPropertyWithoutPrefix' => array(
-				'object' => $identifiableObjectFixture,
-				'property' => 'key.foo.bar',
-				'addExtPrefix' => false,
-				'expectedResult' => 'test[object][namespace][key][foo][bar]'
-			),
-			'threeWordPropertyWithPrefix' => array(
-				'object' => $identifiableObjectFixture,
-				'property' => 'key.foo.bar',
-				'addExtPrefix' => true,
-				'expectedResult' => 'tx_ptextlist_pi1[test][object][namespace][key][foo][bar]'
-			)
-		);
-
-		return $argumentData;
-	}
-
-
-	/**
-	 * @param Tx_PtExtbase_State_IdentifiableInterface $object
-	 * @param $property
-	 * @param $addExtPrefix
-	 * @param $expectedResult
-	 *
-	 * @test
-	 * @dataProvider argumentDataProvider
-	 */
-	public function render(Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix, $expectedResult) {
-		$linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper();
-		$result = $linkViewHelper->render($object, $property, $addExtPrefix);
-		$this->assertEquals($expectedResult, $result);
-	}
-
+    /**
+     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param $property
+     * @param $addExtPrefix
+     * @param $expectedResult
+     *
+     * @test
+     * @dataProvider argumentDataProvider
+     */
+    public function render(Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix, $expectedResult)
+    {
+        $linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper();
+        $result = $linkViewHelper->render($object, $property, $addExtPrefix);
+        $this->assertEquals($expectedResult, $result);
+    }
 }
 
 
-class Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture implements Tx_PtExtbase_State_IdentifiableInterface {
-
-	/**
-	 * Generates an unique namespace for an object to be used
-	 * for addressing object specific session data and gp variables.
-	 *
-	 * Expected notation: ns1.ns2.ns3.(...)
-	 *
-	 * @return String Unique namespace for object
-	 */
-	public function getObjectNamespace() {
-		return 'test.object.namespace';
-	}
+class Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture implements Tx_PtExtbase_State_IdentifiableInterface
+{
+    /**
+     * Generates an unique namespace for an object to be used
+     * for addressing object specific session data and gp variables.
+     *
+     * Expected notation: ns1.ns2.ns3.(...)
+     *
+     * @return String Unique namespace for object
+     */
+    public function getObjectNamespace()
+    {
+        return 'test.object.namespace';
+    }
 }

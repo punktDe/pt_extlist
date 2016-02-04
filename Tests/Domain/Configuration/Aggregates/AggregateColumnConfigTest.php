@@ -34,46 +34,48 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Holds a dummy configuration for a aggregate column config object
+     * @var array
+     */
+    protected $aggregateColumnSettings = array();
+    
+    
+    /**
+     * Holds an instance of aggregate column configuration object
+     * @var Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
+     */
+    protected $aggregateColumnConfig = null;
+    
 
-	/**
-	 * Holds a dummy configuration for a aggregate column config object
-	 * @var array
-	 */
-	protected $aggregateColumnSettings = array();
-	
-	
-	/**
-	 * Holds an instance of aggregate column configuration object
-	 * @var Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
-	 */
-	protected $aggregateColumnConfig = null; 
-	
-
-	public function setup() {
-		
-		$this->initDefaultConfigurationBuilderMock();
-		$aggregateRowSettings = $this->configurationBuilderMock->getSettingsForConfigObject('aggregateRows');
-		$columnIdentifier = key(current($aggregateRowSettings));
-		$this->aggregateColumnSettings = current(current($aggregateRowSettings));
-		$this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->configurationBuilderMock, $this->aggregateColumnSettings, $columnIdentifier);
-	}
-	
-	
-	
-	public function testGetAggregateDataIdentifier() {
-		$this->assertEquals($this->aggregateColumnConfig->getAggregateDataIdentifier(), array($this->aggregateColumnSettings['aggregateDataIdentifier']));
-	}
-	
-	
-	
-	public function testGetColumnIdentifier() {
-		$this->assertEquals($this->aggregateColumnConfig->getColumnIdentifier(), 'column2');
-	}
-	
-	
-	public function testGetRenderTemplate() {
-		$this->markTestIncomplete();
-	}
-	
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $aggregateRowSettings = $this->configurationBuilderMock->getSettingsForConfigObject('aggregateRows');
+        $columnIdentifier = key(current($aggregateRowSettings));
+        $this->aggregateColumnSettings = current(current($aggregateRowSettings));
+        $this->aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($this->configurationBuilderMock, $this->aggregateColumnSettings, $columnIdentifier);
+    }
+    
+    
+    
+    public function testGetAggregateDataIdentifier()
+    {
+        $this->assertEquals($this->aggregateColumnConfig->getAggregateDataIdentifier(), array($this->aggregateColumnSettings['aggregateDataIdentifier']));
+    }
+    
+    
+    
+    public function testGetColumnIdentifier()
+    {
+        $this->assertEquals($this->aggregateColumnConfig->getColumnIdentifier(), 'column2');
+    }
+    
+    
+    public function testGetRenderTemplate()
+    {
+        $this->markTestIncomplete();
+    }
 }

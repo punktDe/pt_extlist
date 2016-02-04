@@ -34,13 +34,12 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration {
-
-
-	/**
-	 * @var array
-	 */
-	protected $settings;
+class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
+{
+    /**
+     * @var array
+     */
+    protected $settings;
 
 
     /**
@@ -48,135 +47,141 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
      *
      * @var string
      */
-	protected $host;
-	
-	
-	
-	/**
-	 * Username for database connection
-	 *
-	 * @var string
-	 */
-	protected $username;
-	
-	
-	
-	/**
-	 * Password for database connection
-	 *
-	 * @var string
-	 */
-	protected $password;
-	
-	
-	
-	/**
-	 * Name of database to connect to
-	 *
-	 * @var string
-	 */
-	protected $databaseName;
-	
-	
-	
-	/**
-	 * Port number of database to connect to
-	 *
-	 * @var string
-	 */
-	protected $port;
-	
-	
-	
-	/**
-	 * Constructor for data source configuration
-	 *
-	 * @param array $dataSourceSettings dataBaseDataSourceSettings 
-	 */
-	public function __construct(array $dataSourceSettings) {
-		$this->settings = $dataSourceSettings;
+    protected $host;
+    
+    
+    
+    /**
+     * Username for database connection
+     *
+     * @var string
+     */
+    protected $username;
+    
+    
+    
+    /**
+     * Password for database connection
+     *
+     * @var string
+     */
+    protected $password;
+    
+    
+    
+    /**
+     * Name of database to connect to
+     *
+     * @var string
+     */
+    protected $databaseName;
+    
+    
+    
+    /**
+     * Port number of database to connect to
+     *
+     * @var string
+     */
+    protected $port;
+    
+    
+    
+    /**
+     * Constructor for data source configuration
+     *
+     * @param array $dataSourceSettings dataBaseDataSourceSettings 
+     */
+    public function __construct(array $dataSourceSettings)
+    {
+        $this->settings = $dataSourceSettings;
 
-		$this->host = $dataSourceSettings['host'];
-		$this->username = $dataSourceSettings['username'];
-		$this->password = $dataSourceSettings['password'];
-		$this->databaseName = $dataSourceSettings['databaseName'];
-		$this->port = $dataSourceSettings['port'];
-	}
+        $this->host = $dataSourceSettings['host'];
+        $this->username = $dataSourceSettings['username'];
+        $this->password = $dataSourceSettings['password'];
+        $this->databaseName = $dataSourceSettings['databaseName'];
+        $this->port = $dataSourceSettings['port'];
+    }
 
 
 
-	/**
-	 * Returns sub array of settings for given array namespace
-	 * (e.g. key1.key2.key3 returns settings['key1']['key2']['key3'])
-	 *
-	 * If no key is given, whole settings array is returned.
-	 *
-	 * If key does not exist, empty array is returned.
-	 *
-	 * @param string $key Key of settings array to be returned
-	 * @return array
-	 */
-	public function getSettings($key = '') {
-		if ($key != '' ) {
-			return Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $key);
-		} else {
-			return $this->settings;
-		}
-	}
-	
-	
-	
-	/**
-	 * Returns database name to connect to
-	 * 
-	 * @return string
-	 */
-	public function getDatabaseName() {
-		return $this->databaseName;
-	}
-	
-	
-	
-	/**
-	 * Returns host name or ip address to connect to
-	 * 
-	 * @return string
-	 */
-	public function getHost() {
-		return $this->host;
-	}
-	
-	
-	
-	/**
-	 * Returns password for db connection
-	 * 
-	 * @return string
-	 */
-	public function getPassword() {
-		return $this->password;
-	}
-	
-	
-	
-	/**
-	 * Returns port to connect to
-	 * 
-	 * @return string
-	 */
-	public function getPort() {
-		return $this->port;
-	}
-	
-	
-	
-	/**
-	 * Returns username for db connection
-	 * 
-	 * @return string
-	 */
-	public function getUsername() {
-		return $this->username;
-	}
-	
+    /**
+     * Returns sub array of settings for given array namespace
+     * (e.g. key1.key2.key3 returns settings['key1']['key2']['key3'])
+     *
+     * If no key is given, whole settings array is returned.
+     *
+     * If key does not exist, empty array is returned.
+     *
+     * @param string $key Key of settings array to be returned
+     * @return array
+     */
+    public function getSettings($key = '')
+    {
+        if ($key != '') {
+            return Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $key);
+        } else {
+            return $this->settings;
+        }
+    }
+    
+    
+    
+    /**
+     * Returns database name to connect to
+     * 
+     * @return string
+     */
+    public function getDatabaseName()
+    {
+        return $this->databaseName;
+    }
+    
+    
+    
+    /**
+     * Returns host name or ip address to connect to
+     * 
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+    
+    
+    
+    /**
+     * Returns password for db connection
+     * 
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    
+    
+    
+    /**
+     * Returns port to connect to
+     * 
+     * @return string
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+    
+    
+    
+    /**
+     * Returns username for db connection
+     * 
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
 }

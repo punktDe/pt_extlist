@@ -33,139 +33,160 @@
  * @subpackage Security
  * @see Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest
  */
-class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_Security_SecurityInterface, \TYPO3\CMS\Core\SingletonInterface {
-
-	/**
-	 * Comma separated list of user groups
-	 *
-	 * @var string
-	 */
-	protected $userGroups;
-
-
-
-	public function __construct() {
-		$this->userGroups = $GLOBALS['TSFE']->fe_user->user['usergroup'];
-	}
+class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_Security_SecurityInterface, \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * Comma separated list of user groups
+     *
+     * @var string
+     */
+    protected $userGroups;
 
 
 
-	/**
-	 * Evaluates if a column is accessable by the FE-User(-Group).
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig
-	 *
-	 * @return bool
-	 */
-	public function isAccessableColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
-
-		// FAIL if one of this tests are failing.
-		if (!$this->checkFields($columnConfig->getFieldIdentifier())) {
-			return false;
-		}
-		// OR
-		if (!$this->checkColumn($columnConfig)) {
-			return false;
-		}
-
-		// OTHERWISE allow access.
-		return true;
-	}
+    public function __construct()
+    {
+        $this->userGroups = $GLOBALS['TSFE']->fe_user->user['usergroup'];
+    }
 
 
 
-	protected function checkColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig) {
-		$groups = $columnConfig->getAccessGroups();
+    /**
+     * Evaluates if a column is accessable by the FE-User(-Group).
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig
+     *
+     * @return bool
+     */
+    public function isAccessableColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig)
+    {
 
-		if (!is_array($groups)) return true; // for testing purposes
-		if (empty($groups)) return true;
+        // FAIL if one of this tests are failing.
+        if (!$this->checkFields($columnConfig->getFieldIdentifier())) {
+            return false;
+        }
+        // OR
+        if (!$this->checkColumn($columnConfig)) {
+            return false;
+        }
 
-		return $this->compareAccess($groups);
-	}
-
-
-
-	/**
-	 * Evaluates if a filter is accessable by the FE-User(-Group).
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
-	 *
-	 * @return bool
-	 */
-	public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder) {
-
-		$fieldConfigCollection = $filterConfig->getFieldIdentifier();
-
-		// FAIL if one of this tests are failing.
-		if (!$this->checkFields($fieldConfigCollection)) {
-			return false;
-		}
-
-		// OR
-		if (!$this->checkFilter($filterConfig)) {
-			return false;
-		}
-
-		// OTHERWISE allow access.
-		return true;
-	}
+        // OTHERWISE allow access.
+        return true;
+    }
 
 
 
-	/**
-	 * Check field access
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
-	 * @return bool
-	 */
-	protected function checkFields(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection) {
+    protected function checkColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig)
+    {
+        $groups = $columnConfig->getAccessGroups();
 
-		foreach ($fieldConfigCollection as $fieldConfig) { /* @var $fieldConfig Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
-			$ident = $fieldConfig->getAccessGroups();
+        if (!is_array($groups)) {
+            return true;
+        } // for testing purposes
+        if (empty($groups)) {
+            return true;
+        }
 
-			if (empty($ident)) continue;
-			if (!$this->compareAccess($ident)) return false;
-		}
-
-		return true;
-	}
+        return $this->compareAccess($groups);
+    }
 
 
 
-	protected function checkFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filter) {
-		$groups = $filter->getAccessGroups();
-		if (!is_array($groups)) return true; // for testing purposes
+    /**
+     * Evaluates if a filter is accessable by the FE-User(-Group).
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
+     *
+     * @return bool
+     */
+    public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder)
+    {
+        $fieldConfigCollection = $filterConfig->getFieldIdentifier();
 
-		if (empty($groups)) return true;
+        // FAIL if one of this tests are failing.
+        if (!$this->checkFields($fieldConfigCollection)) {
+            return false;
+        }
 
-		return $this->compareAccess($groups);
-	}
+        // OR
+        if (!$this->checkFilter($filterConfig)) {
+            return false;
+        }
+
+        // OTHERWISE allow access.
+        return true;
+    }
 
 
 
-	/**
-	 * Compare the defined access credentials with internal data (e.g. FE-USER-GROUP)
-	 *
-	 * @param array $groups
-	 * @return bool
-	 */
-	protected function compareAccess(array $groups) {
-		if (count($groups) == 0) return true;
+    /**
+     * Check field access
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+     * @return bool
+     */
+    protected function checkFields(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection)
+    {
+        foreach ($fieldConfigCollection as $fieldConfig) { /* @var $fieldConfig Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+            $ident = $fieldConfig->getAccessGroups();
 
-		foreach ($groups as $group) {
-			$group = trim($group);
-			if (empty($group)) return true;
+            if (empty($ident)) {
+                continue;
+            }
+            if (!$this->compareAccess($ident)) {
+                return false;
+            }
+        }
 
-			$groupArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->userGroups);
+        return true;
+    }
 
-			foreach ($groupArray as $groupData) {
 
-				if ($group == $groupData) return true;
-			}
-		}
 
-		return false;
-	}
+    protected function checkFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filter)
+    {
+        $groups = $filter->getAccessGroups();
+        if (!is_array($groups)) {
+            return true;
+        } // for testing purposes
 
+        if (empty($groups)) {
+            return true;
+        }
+
+        return $this->compareAccess($groups);
+    }
+
+
+
+    /**
+     * Compare the defined access credentials with internal data (e.g. FE-USER-GROUP)
+     *
+     * @param array $groups
+     * @return bool
+     */
+    protected function compareAccess(array $groups)
+    {
+        if (count($groups) == 0) {
+            return true;
+        }
+
+        foreach ($groups as $group) {
+            $group = trim($group);
+            if (empty($group)) {
+                return true;
+            }
+
+            $groupArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->userGroups);
+
+            foreach ($groupArray as $groupData) {
+                if ($group == $groupData) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

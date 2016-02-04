@@ -34,26 +34,28 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_QueryObject_NotCriteria
  */
-class Tx_PtExtlist_Tests_Domain_QueryObject_NotCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase {
-     
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
+class Tx_PtExtlist_Tests_Domain_QueryObject_NotCriteriaTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
     }
     
     
     
-    public function testConstruct() {
-    	$simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
-    	$notCriteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria($simpleCriteria);
-    	$this->assertTrue(is_a($notCriteria, 'Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
+    public function testConstruct()
+    {
+        $simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
+        $notCriteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria($simpleCriteria);
+        $this->assertTrue(is_a($notCriteria, 'Tx_PtExtlist_Domain_QueryObject_NotCriteria'));
     }
     
     
     
-    public function testGetCriteria() {
-    	$simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
+    public function testGetCriteria()
+    {
+        $simpleCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', '10', '>');
         $notCriteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria($simpleCriteria);
         $this->assertTrue($notCriteria->getCriteria() === $simpleCriteria);
     }
-    
 }

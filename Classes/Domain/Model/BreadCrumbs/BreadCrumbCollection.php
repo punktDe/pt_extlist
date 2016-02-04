@@ -35,83 +35,87 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionTest
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtExtbase_Collection_ObjectCollection 
-	implements  Tx_PtExtbase_State_IdentifiableInterface,
-	            Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface {
-
-	/**
-	 * Restrict collection to breadcrumb class
-	 *
-	 * @var String
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb';
-
-
-
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilder;
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtExtbase_Collection_ObjectCollection
+    implements  Tx_PtExtbase_State_IdentifiableInterface,
+                Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
+{
+    /**
+     * Restrict collection to breadcrumb class
+     *
+     * @var String
+     */
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb';
 
 
 
-	/**
-	 * @var array
-	 */
-	protected $gpVarData;
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    protected $configurationBuilder;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-	}
+    /**
+     * @var array
+     */
+    protected $gpVarData;
 
 
 
-	/**
-	 * Inject the GPVarData
-	 *
-	 * @param array $gpVarData
-	 */
-	public function _injectGPVars($gpVarData) {
-		$this->gpVarData = $gpVarData;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $this->configurationBuilder = $configurationBuilder;
+    }
 
 
 
-	/**
-	 * Adds a breadcrumb to collection
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb BreadCrumb to be added
-	 */
-	public function addBreadCrumb(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb) {
-		$breadcrumbIdentifier = $breadCrumb->getFilter()->getFilterBoxIdentifier() . '.' . $breadCrumb->getFilter()->getFilterIdentifier();
-		$this->addItem($breadCrumb,$breadcrumbIdentifier);
-	}
+    /**
+     * Inject the GPVarData
+     *
+     * @param array $gpVarData
+     */
+    public function _injectGPVars($gpVarData)
+    {
+        $this->gpVarData = $gpVarData;
+    }
 
 
 
-	/**
-	 * @see Tx_PtExtbase_State_IdentifiableInterface
-	 */
-	public function getObjectNamespace() {
-		return $this->configurationBuilder->getListIdentifier() . '.' . 'breadcrumbs';
-	}
+    /**
+     * Adds a breadcrumb to collection
+     *
+     * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb BreadCrumb to be added
+     */
+    public function addBreadCrumb(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb)
+    {
+        $breadcrumbIdentifier = $breadCrumb->getFilter()->getFilterBoxIdentifier() . '.' . $breadCrumb->getFilter()->getFilterIdentifier();
+        $this->addItem($breadCrumb, $breadcrumbIdentifier);
+    }
 
 
 
-	/**
-	 * 
-	 *
-	 */
-	public function resetFilters() {
-		$breadCrumbIdentifier = $this->gpVarData['filterboxIdentifier'] . '.' . $this->gpVarData['filterIdentifier'];
-		if ($this->hasItem($breadCrumbIdentifier)) {
-			$this->getItemById($breadCrumbIdentifier)->getFilter()->reset();
-		}
-	}
+    /**
+     * @see Tx_PtExtbase_State_IdentifiableInterface
+     */
+    public function getObjectNamespace()
+    {
+        return $this->configurationBuilder->getListIdentifier() . '.' . 'breadcrumbs';
+    }
 
+
+
+    /**
+     * 
+     *
+     */
+    public function resetFilters()
+    {
+        $breadCrumbIdentifier = $this->gpVarData['filterboxIdentifier'] . '.' . $this->gpVarData['filterIdentifier'];
+        if ($this->hasItem($breadCrumbIdentifier)) {
+            $this->getItemById($breadCrumbIdentifier)->getFilter()->reset();
+        }
+    }
 }

@@ -34,30 +34,30 @@
  * @subpackage Model\List\Header
  * @see Tx_PtExtlist_Twests_Domain_Model_List_Header_HeaderColumnFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState {
+class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+{
+    /**
+     * build an instance of a header column by columnConfiguration 
+     * 
+     * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration
+     * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
+     */
+    public function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration)
+    {
+        $headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+        $headerColumn->injectColumnConfig($columnConfiguration);
 
-	/**
-	 * build an instance of a header column by columnConfiguration 
-	 * 
-	 * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration
-	 * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
-	 */
-	public function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration) {
-		$headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
-		$headerColumn->injectColumnConfig($columnConfiguration);
+        $this->sessionPersistenceManagerBuilder->getInstance()->registerObjectAndLoadFromSession($headerColumn);
+        $this->getPostVarsAdapterFactory->getInstance()->injectParametersInObject($headerColumn);
 
-		$this->sessionPersistenceManagerBuilder->getInstance()->registerObjectAndLoadFromSession($headerColumn);
-		$this->getPostVarsAdapterFactory->getInstance()->injectParametersInObject($headerColumn);
+        // Register headerColumn in sorter
+        // TODO we cannot use DI here since this would lead to cyclic dependencies
+        $sorterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'); /* @var $sorterFactory Tx_PtExtlist_Domain_Model_Sorting_SorterFactory */
+        $sorter = $sorterFactory->getInstance($columnConfiguration->getConfigurationBuilder());
+        $sorter->registerSortingObserver($headerColumn);
 
-		// Register headerColumn in sorter
-		// TODO we cannot use DI here since this would lead to cyclic dependencies
-		$sorterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'); /* @var $sorterFactory Tx_PtExtlist_Domain_Model_Sorting_SorterFactory */
-		$sorter = $sorterFactory->getInstance($columnConfiguration->getConfigurationBuilder());
-		$sorter->registerSortingObserver($headerColumn);
-
-		$headerColumn->init();
-		
-		return $headerColumn;
-	}
-
+        $headerColumn->init();
+        
+        return $headerColumn;
+    }
 }

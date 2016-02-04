@@ -34,83 +34,87 @@
  * @subpackage Tests\Performance\TestDataBackend
  *
  */
-class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface {
-
-	/**
-	 * @var integer
-	 */
-	protected $rowCount = 10;
-
-
-	/**
-	 * @var integer
-	 */
-	protected $colCount = 10;
+class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+{
+    /**
+     * @var integer
+     */
+    protected $rowCount = 10;
 
 
-	/**
-	 * @var array
-	 */
-	protected $data;
+    /**
+     * @var integer
+     */
+    protected $colCount = 10;
 
 
-	public function __construct($rowCount = 10, $colCount = 10) {
-		$this->rowCount = $rowCount;
-		$this->colCount = $colCount;
-		$this->data = $this->buildData();
-	}
+    /**
+     * @var array
+     */
+    protected $data;
 
 
-
-	protected function buildData() {
-		$rawData = array();
-
-		for($i = 0; $i < $this->rowCount; $i++) {
-			for($j = 1; $j <= $this->colCount; $j++) {
-				$rawData[$i]['field' . $j] = "Testdaten aus der Koordinate $i:$j" ;
-			}
-		}
-
-		return $rawData;
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public function fetchAll() {
-		return $this->data;
-	}
-
-
-	/**
-	 * Return data row as array
-	 *
-	 * @return array
-	 */
-	public function fetchRow() {
-		return current($this->data);
-		next($this->data);
-	}
+    public function __construct($rowCount = 10, $colCount = 10)
+    {
+        $this->rowCount = $rowCount;
+        $this->colCount = $colCount;
+        $this->data = $this->buildData();
+    }
 
 
 
-	/**
-	 * Return record count
-	 *
-	 * @return integer
-	 */
-	public function count() {
-		return count($this->data);
-	}
+    protected function buildData()
+    {
+        $rawData = array();
+
+        for ($i = 0; $i < $this->rowCount; $i++) {
+            for ($j = 1; $j <= $this->colCount; $j++) {
+                $rawData[$i]['field' . $j] = "Testdaten aus der Koordinate $i:$j" ;
+            }
+        }
+
+        return $rawData;
+    }
 
 
-	/**
-	 * Rewind the cursor to the first row
-	 */
-	public function rewind() {
-		reset($this->data);
-	}
+    /**
+     * @return array
+     */
+    public function fetchAll()
+    {
+        return $this->data;
+    }
 
 
+    /**
+     * Return data row as array
+     *
+     * @return array
+     */
+    public function fetchRow()
+    {
+        return current($this->data);
+        next($this->data);
+    }
+
+
+
+    /**
+     * Return record count
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        return count($this->data);
+    }
+
+
+    /**
+     * Rewind the cursor to the first row
+     */
+    public function rewind()
+    {
+        reset($this->data);
+    }
 }

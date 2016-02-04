@@ -34,39 +34,38 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerFactory implements \TYPO3\CMS\Core\SingletonInterface {
-
-
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 */
-	private $objectManager;
-
-
-
-	/**
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
+class Tx_PtExtlist_Domain_Model_Pager_PagerFactory implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     */
+    private $objectManager;
 
 
 
-	/**
-	 * Returns an instance of pager for a given configuration builder and a pager configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration
-	 * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
-	 */
-	public function getInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration) {
-		$pagerClassName = $pagerConfiguration->getPagerClassName();
+    /**
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     */
+    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
-		$pager = $this->objectManager->get($pagerClassName, $pagerConfiguration);
-		Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
 
-		return $pager;
 
-	}
+    /**
+     * Returns an instance of pager for a given configuration builder and a pager configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration
+     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     */
+    public function getInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration)
+    {
+        $pagerClassName = $pagerConfiguration->getPagerClassName();
 
+        $pager = $this->objectManager->get($pagerClassName, $pagerConfiguration);
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
+
+        return $pager;
+    }
 }

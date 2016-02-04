@@ -34,35 +34,39 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
+class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+{
+    /**
+     * translate fullText criteria
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+     * @return string
+     */
+    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    {
+        $connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
 
-	/**
-	 * translate fullText criteria
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
-	 * @return string
-	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria) {
-		$connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
+        $searchString = $criteria->getSearchString();
 
-		$searchString = $criteria->getSearchString();
+        if ($criteria->getSearchParameter('booleanMode')) {
+            $booleanMode = $criteria->getSearchParameter('booleanMode') ? ' IN BOOLEAN MODE' : '';
 
-		if($criteria->getSearchParameter('booleanMode')) {
-			$booleanMode = $criteria->getSearchParameter('booleanMode') ? ' IN BOOLEAN MODE' : '';
+            if ($criteria->getSearchParameter('booleanModeWrapWithStars')) {
+                if (substr($searchString, 0, 1) != '*') {
+                    $searchString = '*' . $searchString;
+                }
+                if (substr($searchString, -1, 1) != '*') {
+                    $searchString .= '*';
+                }
+            }
+        }
 
-			if($criteria->getSearchParameter('booleanModeWrapWithStars')) {
-				if(substr($searchString,0,1) != '*') $searchString = '*' . $searchString;
-				if(substr($searchString,-1,1) != '*') $searchString .= '*';
-			}
-		}
+        $searchString = $connection->fullQuoteStr($searchString, '');
 
-		$searchString = $connection->fullQuoteStr($searchString,'');
-
-		return sprintf('MATCH (%s) AGAINST (%s%s)',
-								Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
-								$searchString,
-								$booleanMode
-						);
-	}
-
+        return sprintf('MATCH (%s) AGAINST (%s%s)',
+                                Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
+                                $searchString,
+                                $booleanMode
+                        );
+    }
 }

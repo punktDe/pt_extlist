@@ -34,198 +34,205 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  * @subpackage Somain\Model\Filter\DataProvider
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	protected $defaultFilterSettings = array(
+class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    protected $defaultFilterSettings = array(
                'filterIdentifier' => 'timeSpanTest',
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter',
                'partialPath' => 'Filter/Options/TimeSpanFilter',
                'fieldIdentifier' => 'field1',
                'invert' => '0',
-					'dateIteratorStart' => '1227999510',
-					'dateIteratorEnd' =>   '1314607478',
-					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => '%m',
-       		 );
-	
-	
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
+                    'dateIteratorStart' => '1227999510',
+                    'dateIteratorEnd' =>   '1314607478',
+                    'dateIteratorIncrement' => 'm',
+                    'dateIteratorFormat' => '%m',
+                );
+    
+    
+    
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
 
 
-	public function settingsDataProvider() {
-		return array(
-			'incrementMonth' => array(
-				'settings' => array (
-					'dateIteratorStart' => mktime(0,0,0,1,1,2011),
-					'dateIteratorEnd' => mktime(0,0,0,12,31,2011),
-					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => '%m.%Y',
-				),
-				'result' => array(
-					'count' => 12,
-					'firstRendered' => '01.2011',
-					'lastRendered' => '12.2011',
-					'rangeArray' => array('1293836400,1296514800','1296514800,1298934000','1298934000,1301608800','1301608800,1304200800','1304200800,1306879200','1306879200,1309471200','1309471200,1312149600','1312149600,1314828000','1314828000,1317420000','1317420000,1320102000','1320102000,1322694000','1322694000,1325372400')
-				)
-			)
-		);
-	}
+    public function settingsDataProvider()
+    {
+        return array(
+            'incrementMonth' => array(
+                'settings' => array(
+                    'dateIteratorStart' => mktime(0, 0, 0, 1, 1, 2011),
+                    'dateIteratorEnd' => mktime(0, 0, 0, 12, 31, 2011),
+                    'dateIteratorIncrement' => 'm',
+                    'dateIteratorFormat' => '%m.%Y',
+                ),
+                'result' => array(
+                    'count' => 12,
+                    'firstRendered' => '01.2011',
+                    'lastRendered' => '12.2011',
+                    'rangeArray' => array('1293836400,1296514800','1296514800,1298934000','1298934000,1301608800','1301608800,1304200800','1304200800,1306879200','1306879200,1309471200','1309471200,1312149600','1312149600,1314828000','1314828000,1317420000','1317420000,1320102000','1320102000,1322694000','1322694000,1325372400')
+                )
+            )
+        );
+    }
 
 
 
-	public function incorrectSettingsDataProvider() {
-		return array(
-			'NoStartDateGiven' => array(
-				'settings' => array (
-					'dateIteratorStart' => '',
-					'dateIteratorEnd' => '1314607478',
-					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => '%m',
-				)
-			),
-			'NoEndDateGiven' => array(
-				'settings' => array (
-					'dateIteratorStart' => '1227999510',
-					'dateIteratorEnd' => '',
-					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => '%m',
-				)
-			),
-			'NoIncrementGiven' => array(
-				'settings' => array (
-					'dateIteratorStart' => '1227999510',
-					'dateIteratorEnd' => '1314607478',
-					'dateIteratorIncrement' => '',
-					'dateIteratorFormat' => '%m',
-				)
-			),
-			'NoFormatGiven' => array(
-				'settings' => array (
-					'dateIteratorStart' => '1227999510',
-					'dateIteratorEnd' => '1314607478',
-					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => '',
-				)
-			),
-			'EndDateIsBeforeStartDate' => array(
-				'settings' => array (
-					'dateIteratorStart' => '1314607478',
-					'dateIteratorEnd' => '1227999510',
-					'dateIteratorIncrement' => 'm',
-					'dateIteratorFormat' => '%m',
-				)
-			),
-			'IncrementSettingUnknown' => array(
-				'settings' => array (
-					'dateIteratorStart' => '1314607478',
-					'dateIteratorEnd' => '1227999510',
-					'dateIteratorIncrement' => 'X',
-					'dateIteratorFormat' => '%m',
-				)
-			)
-		);
-	}
+    public function incorrectSettingsDataProvider()
+    {
+        return array(
+            'NoStartDateGiven' => array(
+                'settings' => array(
+                    'dateIteratorStart' => '',
+                    'dateIteratorEnd' => '1314607478',
+                    'dateIteratorIncrement' => 'm',
+                    'dateIteratorFormat' => '%m',
+                )
+            ),
+            'NoEndDateGiven' => array(
+                'settings' => array(
+                    'dateIteratorStart' => '1227999510',
+                    'dateIteratorEnd' => '',
+                    'dateIteratorIncrement' => 'm',
+                    'dateIteratorFormat' => '%m',
+                )
+            ),
+            'NoIncrementGiven' => array(
+                'settings' => array(
+                    'dateIteratorStart' => '1227999510',
+                    'dateIteratorEnd' => '1314607478',
+                    'dateIteratorIncrement' => '',
+                    'dateIteratorFormat' => '%m',
+                )
+            ),
+            'NoFormatGiven' => array(
+                'settings' => array(
+                    'dateIteratorStart' => '1227999510',
+                    'dateIteratorEnd' => '1314607478',
+                    'dateIteratorIncrement' => 'm',
+                    'dateIteratorFormat' => '',
+                )
+            ),
+            'EndDateIsBeforeStartDate' => array(
+                'settings' => array(
+                    'dateIteratorStart' => '1314607478',
+                    'dateIteratorEnd' => '1227999510',
+                    'dateIteratorIncrement' => 'm',
+                    'dateIteratorFormat' => '%m',
+                )
+            ),
+            'IncrementSettingUnknown' => array(
+                'settings' => array(
+                    'dateIteratorStart' => '1314607478',
+                    'dateIteratorEnd' => '1227999510',
+                    'dateIteratorIncrement' => 'X',
+                    'dateIteratorFormat' => '%m',
+                )
+            )
+        );
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function settingsAreInjectedAndSet() {
-		$dataProvider = $this->buildAccessibleDateIteratorDataProvider();
+    /**
+     * @test
+     */
+    public function settingsAreInjectedAndSet()
+    {
+        $dataProvider = $this->buildAccessibleDateIteratorDataProvider();
 
-		$this->assertEquals($this->defaultFilterSettings['dateIteratorStart'], $dataProvider->_get('dateIteratorStart'));
-		$this->assertEquals($this->defaultFilterSettings['dateIteratorEnd'], $dataProvider->_get('dateIteratorEnd'));
-		$this->assertEquals($this->defaultFilterSettings['dateIteratorIncrement'], $dataProvider->_get('dateIteratorIncrement'));
-		$this->assertEquals($this->defaultFilterSettings['dateIteratorFormat'], $dataProvider->_get('dateIteratorFormat'));
-	}
-
-
-
-	/**
-	 * @test
-	 * @dataProvider incorrectSettingsDataProvider
-	 */
-	public function initThrowsExceptionOnConfigurationError($settings) {
-		$filterSettings = $this->defaultFilterSettings;
-		ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
-
-		try {
-			$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
-		} catch (Exception $e) {
-			return;
-		}
-
-		$this->fail('No Exception thrown!');
-	}
+        $this->assertEquals($this->defaultFilterSettings['dateIteratorStart'], $dataProvider->_get('dateIteratorStart'));
+        $this->assertEquals($this->defaultFilterSettings['dateIteratorEnd'], $dataProvider->_get('dateIteratorEnd'));
+        $this->assertEquals($this->defaultFilterSettings['dateIteratorIncrement'], $dataProvider->_get('dateIteratorIncrement'));
+        $this->assertEquals($this->defaultFilterSettings['dateIteratorFormat'], $dataProvider->_get('dateIteratorFormat'));
+    }
 
 
 
-	/**
-	 * @test
-	 * @dataProvider settingsDataProvider
-	 */
-	public function getRenderedOptions($settings, $result) {
+    /**
+     * @test
+     * @dataProvider incorrectSettingsDataProvider
+     */
+    public function initThrowsExceptionOnConfigurationError($settings)
+    {
+        $filterSettings = $this->defaultFilterSettings;
+        ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
 
-		$filterSettings = $this->defaultFilterSettings;
-		ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
+        try {
+            $dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
+        } catch (Exception $e) {
+            return;
+        }
 
-		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
+        $this->fail('No Exception thrown!');
+    }
 
-		$resultArray = $dataProvider->getRenderedOptions();
-		$this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
-	}
-	
-	
-	
-	/**
-	 * @test
-	 * @dataProvider settingsDataProvider
-	 */
-	public function buildTimeStampList($settings, $result) {
-		$filterSettings = $this->defaultFilterSettings;
-		ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
 
-		$dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
-		$resultArray = $dataProvider->_call('buildTimeStampList');
 
-		$this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
+    /**
+     * @test
+     * @dataProvider settingsDataProvider
+     */
+    public function getRenderedOptions($settings, $result)
+    {
+        $filterSettings = $this->defaultFilterSettings;
+        ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
 
-		$i =0;
-		foreach($resultArray as $range => $renderValue) {
-			$this->assertEquals($range, $result['rangeArray'][$i], 'Range ' . $i . 'differs from test value');
-			$i++;
-		}
+        $dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
 
-		reset($resultArray);
-		$this->assertEquals($result['firstRendered'], strftime($settings['dateIteratorFormat'],current($resultArray)));
-		$this->assertEquals($result['lastRendered'], strftime($settings['dateIteratorFormat'], end($resultArray)));
-	}
+        $resultArray = $dataProvider->getRenderedOptions();
+        $this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
+    }
+    
+    
+    
+    /**
+     * @test
+     * @dataProvider settingsDataProvider
+     */
+    public function buildTimeStampList($settings, $result)
+    {
+        $filterSettings = $this->defaultFilterSettings;
+        ArrayUtility::mergeRecursiveWithOverrule($filterSettings, $settings);
 
-	
-	
+        $dataProvider = $this->buildAccessibleDateIteratorDataProvider($filterSettings);
+        $resultArray = $dataProvider->_call('buildTimeStampList');
 
-	/**
-	 * @param $filterSettings
-	 * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
-	 */
-	protected function buildAccessibleDateIteratorDataProvider($filterSettings = NULL) {
+        $this->assertEquals($result['count'], count($resultArray), 'The result array should contain ' . $result['count'] . ' Items, but we got ' .  count($resultArray));
 
-		if(!$filterSettings) $filterSettings = $this->defaultFilterSettings;
+        $i =0;
+        foreach ($resultArray as $range => $renderValue) {
+            $this->assertEquals($range, $result['rangeArray'][$i], 'Range ' . $i . 'differs from test value');
+            $i++;
+        }
 
-		$accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator');
-		$accessibleTimeSpanDataProvider = new $accessibleClassName; /* @var $accessibleTimeSpanDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
+        reset($resultArray);
+        $this->assertEquals($result['firstRendered'], strftime($settings['dateIteratorFormat'], current($resultArray)));
+        $this->assertEquals($result['lastRendered'], strftime($settings['dateIteratorFormat'], end($resultArray)));
+    }
 
-		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+    
+    
 
-		$accessibleTimeSpanDataProvider->_injectFilterConfig($filterConfiguration);
-		$accessibleTimeSpanDataProvider->init();
+    /**
+     * @param $filterSettings
+     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
+     */
+    protected function buildAccessibleDateIteratorDataProvider($filterSettings = null)
+    {
+        if (!$filterSettings) {
+            $filterSettings = $this->defaultFilterSettings;
+        }
 
-		return $accessibleTimeSpanDataProvider;
-	}
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator');
+        $accessibleTimeSpanDataProvider = new $accessibleClassName; /* @var $accessibleTimeSpanDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
 
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
+
+        $accessibleTimeSpanDataProvider->_injectFilterConfig($filterConfiguration);
+        $accessibleTimeSpanDataProvider->init();
+
+        return $accessibleTimeSpanDataProvider;
+    }
 }

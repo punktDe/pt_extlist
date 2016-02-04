@@ -36,482 +36,507 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest
  */
 class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
-	extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
-	implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface {
+    extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+    implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface
+{
+    /**
+     * @var string
+     */
+    protected $columnIdentifier;
 
-	/**
-	 * @var string
-	 */
-	protected $columnIdentifier;
 
 
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     */
+    protected $fieldIdentifier;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	protected $fieldIdentifier;
 
 
+    /**
+     * @var string
+     */
+    protected $label = '';
 
-	/**
-	 * @var string
-	 */
-	protected $label = '';
 
 
+    /**
+     * @var array
+     */
+    protected $accessGroups;
 
-	/**
-	 * @var array
-	 */
-	protected $accessGroups;
 
 
+    /**
+     * @var boolean
+     */
+    protected $isSortable = true;
 
-	/**
-	 * @var boolean
-	 */
-	protected $isSortable = TRUE;
 
 
+    /**
+     * @var array
+     */
+    protected $renderUserFunctions = null;
 
-	/**
-	 * @var array
-	 */
-	protected $renderUserFunctions = NULL;
 
 
+    /**
+     * @var array
+     */
+    protected $renderObj;
 
-	/**
-	 * @var array
-	 */
-	protected $renderObj;
 
 
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
+     */
+    protected $objectMapperConfig = null;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
-	 */
-	protected $objectMapperConfig = NULL;
 
 
+    /**
+     * Path to fluid template
+     * @var string
+     */
+    protected $renderTemplate;
 
-	/**
-	 * Path to fluid template
-	 * @var string
-	 */
-	protected $renderTemplate;
 
 
+    /**
+     * @var string
+     */
+    protected $specialCell = null;
 
-	/**
-	 * @var string
-	 */
-	protected $specialCell = NULL;
 
 
+    /**
+     * @var string
+     */
+    protected $cellCSSClass = null;
 
-	/**
-	 * @var string
-	 */
-	protected $cellCSSClass = NULL;
 
 
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     */
+    protected $sortingConfigCollection = null;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
-	 */
-	protected $sortingConfigCollection = NULL;
 
 
+    /**
+     * Sortingstate of this column
+     * @var integer
+     */
+    protected $sortingState = 0;
 
-	/**
-	 * Sortingstate of this column
-	 * @var integer
-	 */
-	protected $sortingState = 0;
 
 
+    /**
+     * Image to show as sorting link.
+     * @var string
+     */
+    protected $sortingImageDefault = '';
 
-	/**
-	 * Image to show as sorting link.
-	 * @var string
-	 */
-	protected $sortingImageDefault = '';
 
 
+    /**
+     * Image to show as sorting link.
+     * @var string
+     */
+    protected $sortingImageAsc = '';
 
-	/**
-	 * Image to show as sorting link.
-	 * @var string
-	 */
-	protected $sortingImageAsc = '';
 
 
+    /**
+     * Image to show as sorting link.
+     * @var string
+     */
+    protected $sortingImageDesc = '';
 
-	/**
-	 * Image to show as sorting link.
-	 * @var string
-	 */
-	protected $sortingImageDesc = '';
 
 
+    /**
+     * Says if this column is accessible by the current FE-User. Will be injected by the factory.
+     *
+     * @var boolean
+     */
+    protected $accessable = false;
 
-	/**
-	 * Says if this column is accessible by the current FE-User. Will be injected by the factory.
-	 *
-	 * @var boolean
-	 */
-	protected $accessable = FALSE;
 
 
+    /**
+     * Holds CSS class for header th tag
+     *
+     * @var string
+     */
+    protected $headerThCssClass = '';
 
-	/**
-	 * Holds CSS class for header th tag
-	 *
-	 * @var string
-	 */
-	protected $headerThCssClass = '';
 
+    /**
+     * @var bool
+     */
+    protected $showInHeader = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $showInHeader = TRUE;
 
+    /**
+     * if one of this columns fields is a expanded GroupField,
+     * this column has an array as dataStructure
+     * @var boolean
+     */
+    protected $containsArrayData = false;
 
-	/**
-	 * if one of this columns fields is a expanded GroupField,
-	 * this column has an array as dataStructure
-	 * @var boolean
-	 */
-	protected $containsArrayData = FALSE;
 
 
+    /**
+     * @var bool
+     */
+    protected $isVisible = true;
 
-	/**
-	 * @var bool
-	 */
-	protected $isVisible = TRUE;
 
 
+    /**
+     * If this is true, the default renderer returns the array of raw fieldValues instead of rendered content
+     * @var bool
+     */
+    protected $rawFields;
 
-	/**
-	 * If this is true, the default renderer returns the array of raw fieldValues instead of rendered content
-	 * @var bool
-	 */
-	protected $rawFields;
 
 
+    /**
+     * If this is true, we want to cache rendered cells
+     * @var bool
+     */
+    protected $cacheRendering;
 
-	/**
-	 * If this is true, we want to cache rendered cells
-	 * @var bool
-	 */
-	protected $cacheRendering;
 
 
+    /**
+     * (non-PHPdoc)
+     * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
+     */
+    protected function init()
+    {
+        $headerInclusionUtility = GeneralUtility::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
-	 */
-	protected function init() {
+        $this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
+        $this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "' . $this->columnIdentifier . '" not given 1277889447');
 
-		$headerInclusionUtility = GeneralUtility::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
+        $fieldIdentifierList = GeneralUtility::trimExplode(',', $this->settings['fieldIdentifier']);
+        $this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
 
-		$this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
-		$this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "' . $this->columnIdentifier . '" not given 1277889447');
+        foreach ($this->fieldIdentifier as $fieldConfig) {
+            if ($fieldConfig->getExpandGroupRows()) {
+                $this->containsArrayData = true;
+                break;
+            }
+        }
 
-		$fieldIdentifierList = GeneralUtility::trimExplode(',', $this->settings['fieldIdentifier']);
-		$this->fieldIdentifier = $this->configurationBuilder->buildFieldsConfiguration()->extractCollectionByIdentifierList($fieldIdentifierList);
+        $this->setBooleanIfExistsAndNotNothing('isVisible');
+        $this->setBooleanIfExistsAndNotNothing('isSortable');
+        $this->setBooleanIfExistsAndNotNothing('rawFields');
+        $this->setValueIfExistsAndNotNothing('renderTemplate');
+        $this->setValueIfExistsAndNotNothing('sortingImageAsc');
+        $this->setValueIfExistsAndNotNothing('sortingImageDesc');
+        $this->setValueIfExistsAndNotNothing('sortingImageDefault');
+        $this->setValueIfExistsAndNotNothing('specialCell');
+        $this->setValueIfExistsAndNotNothing('cellCSSClass');
+        $this->setValueIfExistsAndNotNothing('label');
+        $this->setValueIfExistsAndNotNothing('headerThCssClass');
+        $this->setBooleanIfExistsAndNotNothing('cacheRendering');
+        $this->setBooleanIfExistsAndNotNothing('showInHeader');
 
-		foreach ($this->fieldIdentifier as $fieldConfig) {
-			if ($fieldConfig->getExpandGroupRows()) {
-				$this->containsArrayData = true;
-				break;
-			}
-		}
+        if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
+            asort($this->settings['renderUserFunctions']);
+            $this->renderUserFunctions = $this->settings['renderUserFunctions'];
+        }
 
-		$this->setBooleanIfExistsAndNotNothing('isVisible');
-		$this->setBooleanIfExistsAndNotNothing('isSortable');
-		$this->setBooleanIfExistsAndNotNothing('rawFields');
-		$this->setValueIfExistsAndNotNothing('renderTemplate');
-		$this->setValueIfExistsAndNotNothing('sortingImageAsc');
-		$this->setValueIfExistsAndNotNothing('sortingImageDesc');
-		$this->setValueIfExistsAndNotNothing('sortingImageDefault');
-		$this->setValueIfExistsAndNotNothing('specialCell');
-		$this->setValueIfExistsAndNotNothing('cellCSSClass');
-		$this->setValueIfExistsAndNotNothing('label');
-		$this->setValueIfExistsAndNotNothing('headerThCssClass');
-		$this->setBooleanIfExistsAndNotNothing('cacheRendering');
-		$this->setBooleanIfExistsAndNotNothing('showInHeader');
+        if (array_key_exists('renderObj', $this->settings)) {
+            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+        }
 
-		if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
-			asort($this->settings['renderUserFunctions']);
-			$this->renderUserFunctions = $this->settings['renderUserFunctions'];
-		}
+        /* Sorting configuration is set as follows:
+              1. We check whether we have 'sortingFields' settings in column configuration
+              2. We check whether we have 'sorting' settings in column configuration
+              3. If we don't have either, we use first field identifier and make this sorting field of column
+         */
+        if (array_key_exists('sortingFields', $this->settings)) {
+            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+        } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
+            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
+        } else {
+            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
+        }
 
-		if (array_key_exists('renderObj', $this->settings)) {
-			$this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
-		}
+        if (array_key_exists('accessGroups', $this->settings)) {
+            $this->accessGroups = GeneralUtility::trimExplode(',', $this->settings['accessGroups']);
+        }
 
-		/* Sorting configuration is set as follows:
-			  1. We check whether we have 'sortingFields' settings in column configuration
-			  2. We check whether we have 'sorting' settings in column configuration
-			  3. If we don't have either, we use first field identifier and make this sorting field of column
-		 */
-		if (array_key_exists('sortingFields', $this->settings)) {
-			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
-		} elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
-			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
-		} else {
-			$this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
-		}
+        // Generate relative paths for sorting images
+        $this->sortingImageDefault = $headerInclusionUtility->getFileRelFileName($this->sortingImageDefault);
+        $this->sortingImageAsc = $headerInclusionUtility->getFileRelFileName($this->sortingImageAsc);
+        $this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
 
-		if (array_key_exists('accessGroups', $this->settings)) {
-			$this->accessGroups = GeneralUtility::trimExplode(',', $this->settings['accessGroups']);
-		}
+        // Build the objectMapperConfig
+        if (array_key_exists('objectMapper', $this->settings)) {
+            $this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
+        }
+    }
 
-		// Generate relative paths for sorting images
-		$this->sortingImageDefault = $headerInclusionUtility->getFileRelFileName($this->sortingImageDefault);
-		$this->sortingImageAsc = $headerInclusionUtility->getFileRelFileName($this->sortingImageAsc);
-		$this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
 
-		// Build the objectMapperConfig
-		if (array_key_exists('objectMapper', $this->settings)) {
-			$this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
-		}
-	}
 
+    /**
+     * @param boolean $accessable
+     */
+    public function setAccessable($accessable)
+    {
+        $this->accessable = $accessable;
+    }
 
 
-	/**
-	 * @param boolean $accessable
-	 */
-	public function setAccessable($accessable) {
-		$this->accessable = $accessable;
-	}
 
+    public function isAccessable()
+    {
+        return $this->accessable;
+    }
 
 
-	public function isAccessable() {
-		return $this->accessable;
-	}
 
+    /**
+     * @return string columnIdentifier
+     */
+    public function getColumnIdentifier()
+    {
+        return $this->columnIdentifier;
+    }
 
 
-	/**
-	 * @return string columnIdentifier
-	 */
-	public function getColumnIdentifier() {
-		return $this->columnIdentifier;
-	}
 
+    /**
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
+     */
+    public function getFieldIdentifier()
+    {
+        return $this->fieldIdentifier;
+    }
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
-	 */
-	public function getFieldIdentifier() {
-		return $this->fieldIdentifier;
-	}
 
+    /**
+     * @return string label
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
 
-	/**
-	 * @return string label
-	 */
-	public function getLabel() {
-		return $this->label;
-	}
 
+    /**
+     * @param string $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
 
 
-	/**
-	 * @param string $label
-	 */
-	public function setLabel($label) {
-		$this->label = $label;
-	}
 
+    /**
+     * @return bool
+     */
+    public function getIsSortable()
+    {
+        return (bool)$this->isSortable;
+    }
 
 
-	/**
-	 * @return bool
-	 */
-	public function getIsSortable() {
-		return (bool)$this->isSortable;
-	}
 
+    /**
+     * @return array
+     */
+    public function getRenderObj()
+    {
+        return $this->renderObj;
+    }
 
 
-	/**
-	 * @return array
-	 */
-	public function getRenderObj() {
-		return $this->renderObj;
-	}
 
+    /**
+     * @return array
+     */
+    public function getRenderUserFunctions()
+    {
+        return $this->renderUserFunctions;
+    }
 
 
-	/**
-	 * @return array
-	 */
-	public function getRenderUserFunctions() {
-		return $this->renderUserFunctions;
-	}
 
+    /**
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     */
+    public function getSortingConfig()
+    {
+        return $this->sortingConfigCollection;
+    }
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
-	 */
-	public function getSortingConfig() {
-		return $this->sortingConfigCollection;
-	}
 
+    /**
+     * Return the default image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageDefault()
+    {
+        return $this->sortingImageDefault;
+    }
 
 
-	/**
-	 * Return the default image path to show for sorting link.
-	 * @return string
-	 */
-	public function getSortingImageDefault() {
-		return $this->sortingImageDefault;
-	}
 
+    /**
+     * Return the ASC image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageAsc()
+    {
+        return $this->sortingImageAsc;
+    }
 
 
-	/**
-	 * Return the ASC image path to show for sorting link.
-	 * @return string
-	 */
-	public function getSortingImageAsc() {
-		return $this->sortingImageAsc;
-	}
 
+    /**
+     * Return the DESC image path to show for sorting link.
+     * @return string
+     */
+    public function getSortingImageDesc()
+    {
+        return $this->sortingImageDesc;
+    }
 
 
-	/**
-	 * Return the DESC image path to show for sorting link.
-	 * @return string
-	 */
-	public function getSortingImageDesc() {
-		return $this->sortingImageDesc;
-	}
 
+    /**
+     * Returns the special cell user function path
+     * @return string
+     */
+    public function getSpecialCell()
+    {
+        return $this->specialCell;
+    }
 
 
-	/**
-	 * Returns the special cell user function path
-	 * @return string
-	 */
-	public function getSpecialCell() {
-		return $this->specialCell;
-	}
 
+    /**
+     * Return array off groupIds
+     * @return array
+     */
+    public function getAccessGroups()
+    {
+        return $this->accessGroups;
+    }
 
 
-	/**
-	 * Return array off groupIds
-	 * @return array
-	 */
-	public function getAccessGroups() {
-		return $this->accessGroups;
-	}
 
+    /**
+     * Indicates if the data for this columns cells are arrays
+     * @return boolean
+     */
+    public function getContainsArrayData()
+    {
+        return $this->containsArrayData;
+    }
 
 
-	/**
-	 * Indicates if the data for this columns cells are arrays
-	 * @return boolean
-	 */
-	public function getContainsArrayData() {
-		return $this->containsArrayData;
-	}
 
+    /**
+     * @return string renderTemplate
+     */
+    public function getRenderTemplate()
+    {
+        return $this->renderTemplate;
+    }
 
 
-	/**
-	 * @return string renderTemplate
-	 */
-	public function getRenderTemplate() {
-		return $this->renderTemplate;
-	}
 
+    /**
+     * @return string;
+     */
+    public function getCellCSSClass()
+    {
+        return $this->cellCSSClass;
+    }
 
 
-	/**
-	 * @return string;
-	 */
-	public function getCellCSSClass() {
-		return $this->cellCSSClass;
-	}
 
+    /**
+     * Getter for CSS class for header th tag
+     *
+     * @return string
+     */
+    public function getHeaderThCssClass()
+    {
+        return $this->headerThCssClass;
+    }
 
 
-	/**
-	 * Getter for CSS class for header th tag
-	 *
-	 * @return string
-	 */
-	public function getHeaderThCssClass() {
-		return $this->headerThCssClass;
-	}
 
+    /**
+     * @return boolean
+     */
+    public function getIsVisible()
+    {
+        return $this->isVisible;
+    }
 
 
-	/**
-	 * @return boolean
-	 */
-	public function getIsVisible() {
-		return $this->isVisible;
-	}
 
+    /**
+     * @return Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
+     */
+    public function getObjectMapperConfig()
+    {
+        return $this->objectMapperConfig;
+    }
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
-	 */
-	public function getObjectMapperConfig() {
-		return $this->objectMapperConfig;
-	}
 
+    /**
+     * @param boolean $rawFields
+     */
+    public function setRawFields($rawFields)
+    {
+        $this->rawFields = $rawFields;
+    }
 
 
-	/**
-	 * @param boolean $rawFields
-	 */
-	public function setRawFields($rawFields) {
-		$this->rawFields = $rawFields;
-	}
 
+    /**
+     * @return boolean
+     */
+    public function getRawFields()
+    {
+        return $this->rawFields;
+    }
 
 
-	/**
-	 * @return boolean
-	 */
-	public function getRawFields() {
-		return $this->rawFields;
-	}
 
+    /**
+     * Returns true, if rendering should be cached
+     *
+     * @return bool True, if rendering should be cached
+     */
+    public function getCacheRendering()
+    {
+        return $this->cacheRendering;
+    }
 
 
-	/**
-	 * Returns true, if rendering should be cached
-	 *
-	 * @return bool True, if rendering should be cached
-	 */
-	public function getCacheRendering() {
-		return $this->cacheRendering;
-	}
 
-
-
-	/**
-	 * @return boolean
-	 */
-	public function getShowInHeader() {
-		return $this->showInHeader;
-	}
+    /**
+     * @return boolean
+     */
+    public function getShowInHeader()
+    {
+        return $this->showInHeader;
+    }
 }

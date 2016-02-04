@@ -33,25 +33,27 @@
  * @subpackage Tests\Domain\Model\Sorting
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtlist_Tests_BaseTestcase {
-     
-	/** @test */
-	public function classExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_SortingState'));
-	}
+class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /** @test */
+    public function classExists()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_SortingState'));
+    }
 
 
 
     /** @test */
-    public function getInstanceBySessionArrayReturnsCorrectSortingState() {
+    public function getInstanceBySessionArrayReturnsCorrectSortingState()
+    {
         $fieldName = 'testFieldName';
         $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
         $dummySessionArray = array('fieldName' => $fieldName, 'direction' => $sortingDirection);
 
-        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array(), array(), '', FALSE);
-        $fieldsConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection', array('getFieldConfigByIdentifier'), array(), '', FALSE);
+        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array(), array(), '', false);
+        $fieldsConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection', array('getFieldConfigByIdentifier'), array(), '', false);
         $fieldsConfigurationMock->expects($this->once())->method('getFieldConfigByIdentifier')->will($this->returnValue($fieldConfigurationMock));
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder',array('buildFieldsConfiguration'), array(), '', FALSE);
+        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('buildFieldsConfiguration'), array(), '', false);
         $configurationBuilderMock->expects($this->once())->method('buildFieldsConfiguration')->will($this->returnValue($fieldsConfigurationMock));
 
         $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceBySessionArray($configurationBuilderMock, $dummySessionArray);
@@ -63,10 +65,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtl
 
 
     /** @test */
-    public function getSessionPersistableArrayReturnsCorrectArray() {
+    public function getSessionPersistableArrayReturnsCorrectArray()
+    {
         $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
         $fieldIdentifier = 'testFieldIdentifier';
-        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', FALSE);
+        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', false);
         $fieldConfigurationMock->expects($this->once())->method('getIdentifier')->will($this->returnValue($fieldIdentifier));
         $sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($fieldConfigurationMock, $sortingDirection);
         $sessionPersistedArray = $sortingState->getSessionPersistableArray();
@@ -77,8 +80,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtl
 
 
     /** @test */
-    public function getFieldAndGetDirectionReturnsCorrectFieldForSortingState() {
-        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', FALSE);
+    public function getFieldAndGetDirectionReturnsCorrectFieldForSortingState()
+    {
+        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', false);
         $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
         $sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($fieldConfigurationMock, $sortingDirection);
         $this->assertEquals($sortingState->getDirection(), $sortingDirection);
@@ -88,13 +92,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtl
 
 
     /** @test */
-    public function getSortingQueryReturnsCorrectQueryObjectForSortingState() {
-        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', FALSE);
+    public function getSortingQueryReturnsCorrectQueryObjectForSortingState()
+    {
+        $fieldConfigurationMock = $this->getMock(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig, array('getIdentifier'), array(), '', false);
         $fieldConfigurationMock->expects($this->any())->method('getIdentifier')->will($this->returnValue('test'));
         $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
         $sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($fieldConfigurationMock, $sortingDirection);
         $sortingQuery = $sortingState->getSortingQuery();
         $this->assertEquals($sortingQuery->getSortings(), array('test' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC));
     }
-
 }

@@ -33,59 +33,63 @@
  * @subpackage Domain\Renderer
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	/**
-	 * Holds an instance of renderer chain to be tested
-	 *
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
-	 */
-	protected $fixture;
-	
-	
-	
-	/**
-	 * Holds an instance of a renderer chain configuration
-	 */
-	protected $rendererChainConfigurationMock;
-	
-	
-	
-	/**
-	 * Sets up testcase and fixtures etc.
-	 */
-	public function setUp() {
-		$this->rendererChainConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig', array(), array(), '', FALSE);
-		$this->rendererChainConfigurationMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
-		$this->fixture = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
-	}
-	
-	
+class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Holds an instance of renderer chain to be tested
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     */
+    protected $fixture;
+    
+    
+    
+    /**
+     * Holds an instance of a renderer chain configuration
+     */
+    protected $rendererChainConfigurationMock;
+    
+    
+    
+    /**
+     * Sets up testcase and fixtures etc.
+     */
+    public function setUp()
+    {
+        $this->rendererChainConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig', array(), array(), '', false);
+        $this->rendererChainConfigurationMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
+        $this->fixture = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
+    }
+    
+    
 
-	/** @test */
-	public function setupTest() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChain'));
-		$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
-		$this->assertTrue(is_a($rendererChain, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
-	}
-	
-	
-	
-	/** @test */
-	public function addRendererAddsRendererToListOfRenderers() {
-		$rendererToBeAdded = new Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer();
-		$this->fixture->addRenderer(new Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer());
-		$this->assertTrue(in_array($rendererToBeAdded, $this->fixture->getRenderers()));
-	}
-	
-	
-	
-	/** @test */
-	public function renderListCallsRenderListInAddedRenderers() {
-		$listDataDummy = $this->getMock('Tx_PtExtlist_Domain_Model_List_ListData',array(),array(),'', FALSE);
-		$firstRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderList'), array(), '', FALSE);
-		$firstRendererMock->expects($this->once())->method('renderList')->with($listDataDummy)->will($this->returnValue($listDataDummy));
-		$secondRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderList'), array(), '', FALSE);
+    /** @test */
+    public function setupTest()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChain'));
+        $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
+        $this->assertTrue(is_a($rendererChain, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
+    }
+    
+    
+    
+    /** @test */
+    public function addRendererAddsRendererToListOfRenderers()
+    {
+        $rendererToBeAdded = new Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer();
+        $this->fixture->addRenderer(new Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer());
+        $this->assertTrue(in_array($rendererToBeAdded, $this->fixture->getRenderers()));
+    }
+    
+    
+    
+    /** @test */
+    public function renderListCallsRenderListInAddedRenderers()
+    {
+        $listDataDummy = $this->getMock('Tx_PtExtlist_Domain_Model_List_ListData', array(), array(), '', false);
+        $firstRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderList'), array(), '', false);
+        $firstRendererMock->expects($this->once())->method('renderList')->with($listDataDummy)->will($this->returnValue($listDataDummy));
+        $secondRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderList'), array(), '', false);
         $secondRendererMock->expects($this->once())->method('renderList')->with($listDataDummy)->will($this->returnValue($listDataDummy));
         
         $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
@@ -93,16 +97,17 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
         $rendererChain->addRenderer($secondRendererMock);
         
         $rendererChain->renderList($listDataDummy);
-	}
-	
-	
-	
-	/** @test */
-	public function renderCaptionsCallsRenderCaptionsInAddedRenderers() {
-		$captionsDummy = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_ListHeader',array(),array(),'', FALSE);
-        $firstRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderCaptions'), array(), '', FALSE);
+    }
+    
+    
+    
+    /** @test */
+    public function renderCaptionsCallsRenderCaptionsInAddedRenderers()
+    {
+        $captionsDummy = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_ListHeader', array(), array(), '', false);
+        $firstRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderCaptions'), array(), '', false);
         $firstRendererMock->expects($this->once())->method('renderCaptions')->with($captionsDummy)->will($this->returnValue($captionsDummy));
-        $secondRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderCaptions'), array(), '', FALSE);
+        $secondRendererMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer', array('renderCaptions'), array(), '', false);
         $secondRendererMock->expects($this->once())->method('renderCaptions')->with($captionsDummy)->will($this->returnValue($captionsDummy));
         
         $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
@@ -110,7 +115,5 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
         $rendererChain->addRenderer($secondRendererMock);
         
         $rendererChain->renderCaptions($captionsDummy);
-	}
-	
-	
+    }
 }

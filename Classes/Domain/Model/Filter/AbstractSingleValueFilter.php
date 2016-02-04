@@ -34,150 +34,162 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter {
-
-	/**
-	 * Holds the current filter value
-	 *
-	 * @var string
-	 */
-	protected $filterValue = '';
-
-
-
-	/**
-	 * Returns raw value of filter (NOT FILTER QUERY!!!)
-	 *
-	 * @return string
-	 */
-	public function getFilterValue() {
-		return $this->filterValue;
-	}
+abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+{
+    /**
+     * Holds the current filter value
+     *
+     * @var string
+     */
+    protected $filterValue = '';
 
 
 
-	/**
-	 * @param $filterValue
-	 * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
-	 */
-	public function setFilterValue($filterValue) {
-		$this->filterValue = $filterValue;
-		$this->setActiveState();
-		return $this;
-	}
+    /**
+     * Returns raw value of filter (NOT FILTER QUERY!!!)
+     *
+     * @return string
+     */
+    public function getFilterValue()
+    {
+        return $this->filterValue;
+    }
 
 
 
-	/**
-	 * @return string
-	 */
-	public function getValue() {
-		return $this->filterValue;
-	}
+    /**
+     * @param $filterValue
+     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     */
+    public function setFilterValue($filterValue)
+    {
+        $this->filterValue = $filterValue;
+        $this->setActiveState();
+        return $this;
+    }
 
 
 
-	/**
-	 * Returns field description identifier on which this filter operates
-	 *
-	 * @return string Field description Identifier
-	 */
-	public function getFieldIdentifier() {
-		return $this->fieldIdentifierCollection;
-	}
+    /**
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->filterValue;
+    }
 
 
 
-	/**
-	 * Persists filter state to session
-	 *
-	 * @return array Array of filter data to persist to session
-	 */
-	public function _persistToSession() {
-		$sessionArray = array('filterValue' => $this->filterValue, 'invert' => $this->invert);
-		return $sessionArray;
-	}
+    /**
+     * Returns field description identifier on which this filter operates
+     *
+     * @return string Field description Identifier
+     */
+    public function getFieldIdentifier()
+    {
+        return $this->fieldIdentifierCollection;
+    }
 
 
 
-	/**
-	 * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
-	 */
-	public function reset() {
-		$this->filterValue = '';
-		parent::reset();
-
-		return $this;
-	}
-
-
-
-	/**
-	 * Returns an error message for this filter
-	 *
-	 * @return string
-	 */
-	public function getErrorMessage() {
-		return $this->errorMessage;
-	}
+    /**
+     * Persists filter state to session
+     *
+     * @return array Array of filter data to persist to session
+     */
+    public function _persistToSession()
+    {
+        $sessionArray = array('filterValue' => $this->filterValue, 'invert' => $this->invert);
+        return $sessionArray;
+    }
 
 
 
-	/**
-	 * Template method for initializing filter by get / post vars
-	 */
-	protected function initFilterByGpVars() {
-		if (array_key_exists('filterValue', $this->gpVarFilterData)) {
-			$this->filterValue = $this->gpVarFilterData['filterValue'];
-		}
-	}
+    /**
+     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     */
+    public function reset()
+    {
+        $this->filterValue = '';
+        parent::reset();
+
+        return $this;
+    }
 
 
 
-	/**
-	 * Template method for initializing filter by session data
-	 */
-	protected function initFilterBySession() {
-		$this->filterValue = array_key_exists('filterValue', $this->sessionFilterData) ? $this->sessionFilterData['filterValue'] : $this->filterValue;
-	}
+    /**
+     * Returns an error message for this filter
+     *
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
+    }
 
 
 
-	/**
-	 * Template method for initializing filter by TS configuration
-	 */
-	protected function initFilterByTsConfig() {
-		$this->filterValue = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
-	}
+    /**
+     * Template method for initializing filter by get / post vars
+     */
+    protected function initFilterByGpVars()
+    {
+        if (array_key_exists('filterValue', $this->gpVarFilterData)) {
+            $this->filterValue = $this->gpVarFilterData['filterValue'];
+        }
+    }
 
 
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
-	 */
-	protected function setActiveState() {
-		$this->isActive = ($this->filterValue != $this->filterConfig->getInactiveValue() ? true : false);
-	}
+    /**
+     * Template method for initializing filter by session data
+     */
+    protected function initFilterBySession()
+    {
+        $this->filterValue = array_key_exists('filterValue', $this->sessionFilterData) ? $this->sessionFilterData['filterValue'] : $this->filterValue;
+    }
 
 
 
-	/**
-	 * (non-PHPdoc)
-	 * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
-	 */
-	protected function initFilter() {
+    /**
+     * Template method for initializing filter by TS configuration
+     */
+    protected function initFilterByTsConfig()
+    {
+        $this->filterValue = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
+    }
 
-	}
+
+
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+     */
+    protected function setActiveState()
+    {
+        $this->isActive = ($this->filterValue != $this->filterConfig->getInactiveValue() ? true : false);
+    }
 
 
 
-	/**
-	 * Returns filter value for breadcrumb
-	 *
-	 * @return string
-	 */
-	public function getDisplayValue() {
-		return $this->filterValue;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     */
+    protected function initFilter()
+    {
+    }
+
+
+
+    /**
+     * Returns filter value for breadcrumb
+     *
+     * @return string
+     */
+    public function getDisplayValue()
+    {
+        return $this->filterValue;
+    }
 }

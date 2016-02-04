@@ -34,164 +34,173 @@
  * @subpackage Model\List\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilderTest
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder {
-	
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilder;
-	
-	
-	
-	/**
-	 * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
-	 */
-	protected $dataBackend;
-	
-	
-	
-	/**
-	 * Aggregator for aggregating listData
-	 * 
-	 * @var Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
-	 */
-	protected $arrayAggregator;
-	
-	
-	
-	/**
-	 * Holds the aggregated data
-	 * @var Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	protected $aggregatedDataRow;
-	
-	
-	
-	/**
-	 * Reference to the configured renderer
-	 * 
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererInterface
-	 */
-	protected $renderer;
-	
-	
-	
-	/**
-	 * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
-	 */
-	protected $aggregateDataConfiguration;
-	
-	
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->configurationBuilder = $configurationBuilder;
-		$this->aggregateDataConfiguration = $configurationBuilder->buildAggregateDataConfiguration();
-	}
-	
-	
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator
-	 */
-	public function injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator) {
-		$this->arrayAggregator = $arrayAggregator;
-	}
+class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    protected $configurationBuilder;
+    
+    
+    
+    /**
+     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     */
+    protected $dataBackend;
+    
+    
+    
+    /**
+     * Aggregator for aggregating listData
+     * 
+     * @var Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+     */
+    protected $arrayAggregator;
+    
+    
+    
+    /**
+     * Holds the aggregated data
+     * @var Tx_PtExtlist_Domain_Model_List_Row
+     */
+    protected $aggregatedDataRow;
+    
+    
+    
+    /**
+     * Reference to the configured renderer
+     * 
+     * @var Tx_PtExtlist_Domain_Renderer_RendererInterface
+     */
+    protected $renderer;
+    
+    
+    
+    /**
+     * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+     */
+    protected $aggregateDataConfiguration;
+    
+    
+    
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $this->configurationBuilder = $configurationBuilder;
+        $this->aggregateDataConfiguration = $configurationBuilder->buildAggregateDataConfiguration();
+    }
+    
+    
+    
+    /**
+     * @param Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator
+     */
+    public function injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator)
+    {
+        $this->arrayAggregator = $arrayAggregator;
+    }
 
-	
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer
-	 */
-	public function injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer) {
-		$this->renderer = $renderer;
-	}
-	
-	
-	
-	/**
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 */
-	public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend) {
-		$this->dataBackend = $dataBackend;	
-	}
-	
-	
-	
-	/**
-	 * Init the aggregates to fill in the columns
-	 */
-	public function init() { 
-	}
+    
+    
+    /**
+     * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer
+     */
+    public function injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer)
+    {
+        $this->renderer = $renderer;
+    }
+    
+    
+    
+    /**
+     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     */
+    public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    {
+        $this->dataBackend = $dataBackend;
+    }
+    
+    
+    
+    /**
+     * Init the aggregates to fill in the columns
+     */
+    public function init()
+    {
+    }
 
-	
-	
-	/**
-	 * Build the aggregate list
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public function buildAggregateListData() {
-		$aggreagteListData = new Tx_PtExtlist_Domain_Model_List_ListData();
-		$aggreagteListData->addRow($this->buildAggregateDataRow());
-		return $aggreagteListData;
-	}
-	
-	
-	
-	/**
-	 * Build the aggregate data by configuration
-	 * 
-	 * @return Tx_PtExtlist_Domain_Model_List_Row
-	 */
-	protected function buildAggregateDataRow() {
-		$dataRow = new Tx_PtExtlist_Domain_Model_List_Row();
-		$aggregateDataConfigCollection = $this->configurationBuilder->buildAggregateDataConfig();
-		
-		$aggregatesForPage = $this->getAggregatesForPage($aggregateDataConfigCollection->extractCollectionByScope('page'));
-		$aggregatesForQuery = $this->getAggregatesForQuery($aggregateDataConfigCollection->extractCollectionByScope('query'));
-		\TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($aggregatesForQuery, $aggregatesForPage);
+    
+    
+    /**
+     * Build the aggregate list
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    public function buildAggregateListData()
+    {
+        $aggreagteListData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $aggreagteListData->addRow($this->buildAggregateDataRow());
+        return $aggreagteListData;
+    }
+    
+    
+    
+    /**
+     * Build the aggregate data by configuration
+     * 
+     * @return Tx_PtExtlist_Domain_Model_List_Row
+     */
+    protected function buildAggregateDataRow()
+    {
+        $dataRow = new Tx_PtExtlist_Domain_Model_List_Row();
+        $aggregateDataConfigCollection = $this->configurationBuilder->buildAggregateDataConfig();
+        
+        $aggregatesForPage = $this->getAggregatesForPage($aggregateDataConfigCollection->extractCollectionByScope('page'));
+        $aggregatesForQuery = $this->getAggregatesForQuery($aggregateDataConfigCollection->extractCollectionByScope('query'));
+        \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($aggregatesForQuery, $aggregatesForPage);
 
-		foreach($aggregatesForQuery as $key => $value) {
-			$dataRow->createAndAddCell($value, $key);
-		}
-		
-		return $dataRow;
-	}
-
-
-	/**
-	 * Get Aggregate data for Page
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
-	 * @return array
-	 */
-	protected function getAggregatesForPage(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
-		
-		$aggregates = array();
-	
-		foreach($aggregateDataConfigCollection as $aggregateDataConfig) {
-			$aggregates[$aggregateDataConfig->getIdentifier()] = $this->arrayAggregator->getAggregateByConfig($aggregateDataConfig);
-		}
-
-		return $aggregates;
-	}
+        foreach ($aggregatesForQuery as $key => $value) {
+            $dataRow->createAndAddCell($value, $key);
+        }
+        
+        return $dataRow;
+    }
 
 
-	/**
-	 * Get aggregate data for the whole query
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
-	 * @return array
-	 */
-	protected function getAggregatesForQuery(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection) {
-		if($aggregateDataConfigCollection->count() > 0) {
-			$aggregates = $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
-		}
+    /**
+     * Get Aggregate data for Page
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+     * @return array
+     */
+    protected function getAggregatesForPage(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection)
+    {
+        $aggregates = array();
+    
+        foreach ($aggregateDataConfigCollection as $aggregateDataConfig) {
+            $aggregates[$aggregateDataConfig->getIdentifier()] = $this->arrayAggregator->getAggregateByConfig($aggregateDataConfig);
+        }
 
-		if(!is_array($aggregates)) $aggregates = array();
-		return $aggregates;
-	}
-	
+        return $aggregates;
+    }
+
+
+    /**
+     * Get aggregate data for the whole query
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+     * @return array
+     */
+    protected function getAggregatesForQuery(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection)
+    {
+        if ($aggregateDataConfigCollection->count() > 0) {
+            $aggregates = $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);
+        }
+
+        if (!is_array($aggregates)) {
+            $aggregates = array();
+        }
+        return $aggregates;
+    }
 }

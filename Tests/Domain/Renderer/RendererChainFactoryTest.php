@@ -33,38 +33,40 @@
  * @subpackage Tests\Domain\Renderer
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     */
+    protected $rendererChainFactory;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
-	 */
-	protected $rendererChainFactory;
 
 
-
-	/**
-	 * Sets up testcase
-	 */
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-		$this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
-	}
-	
-	
-	
-	/** @test */
-	public function testSetup() {
-		$this->isTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
-	}
-	
-	
-	
-	/** @test */
-	public function getRendererChainReturnsRendererChainForConfiguration() {
-		$rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
-		$rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
-		$renderers = $rendererChain->getRenderers();
-		$this->assertEquals(get_class($renderers[0]), 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer');
-	}
-	
+    /**
+     * Sets up testcase
+     */
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
+    }
+    
+    
+    
+    /** @test */
+    public function testSetup()
+    {
+        $this->isTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
+    }
+    
+    
+    
+    /** @test */
+    public function getRendererChainReturnsRendererChainForConfiguration()
+    {
+        $rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
+        $rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
+        $renderers = $rendererChain->getRenderers();
+        $this->assertEquals(get_class($renderers[0]), 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer');
+    }
 }

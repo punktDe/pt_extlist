@@ -36,60 +36,62 @@
  * @subpackage Domain\Model\Filter
  * @see Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
+     */
+    protected $filterboxFactory;
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
-	 */
-	protected $filterboxFactory;
 
+    
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
+        $this->filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory');
+        $this->filterboxFactory->setDataBackendFactory($dataBackendFactory);
+    }
+    
+    
 
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-		$dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-		$this->filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory');
-		$this->filterboxFactory->setDataBackendFactory($dataBackendFactory);
-	}
-	
-	
+    /** @test */
+    public function getFilterboxConfigurationMockReturnsInstanceOfConfigurationBuilder()
+    {
 
-	/** @test */
-	public function getFilterboxConfigurationMockReturnsInstanceOfConfigurationBuilder() {
+        // TODO what is this test for?
 
-		// TODO what is this test for?
-
-		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
-		$filterboxConfigurationMock->setup();
+        $filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
+        $filterboxConfigurationMock->setup();
         $filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         $this->assertTrue($filterboxConfiguration->getConfigurationBuilder() instanceof Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder);
-	}
-	
-	
+    }
+    
+    
 
-	/** @test */
-	public function createInstanceByFilterboxConfigurationReturnsInstanceOfFilterbox() {
-		$filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
-		$filterboxConfigurationMock->setup();
-		$filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
+    /** @test */
+    public function createInstanceByFilterboxConfigurationReturnsInstanceOfFilterbox()
+    {
+        $filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
+        $filterboxConfigurationMock->setup();
+        $filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
         $filterbox = $this->filterboxFactory->createInstance($filterboxConfiguration);
 
         $this->assertTrue($filterbox instanceof Tx_PtExtlist_Domain_Model_Filter_Filterbox);
-	}
-	
-	
+    }
+    
+    
 
-	/** @test */
-	public function containedFiltersHaveCorrectAccessRights() {
-		$filterBoxConfig = $this->configurationBuilderMock->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
-		$filterbox = $this->filterboxFactory->createInstance($filterBoxConfig);
+    /** @test */
+    public function containedFiltersHaveCorrectAccessRights()
+    {
+        $filterBoxConfig = $this->configurationBuilderMock->getFilterboxConfigurationByFilterboxIdentifier('testfilterbox');
+        $filterbox = $this->filterboxFactory->createInstance($filterBoxConfig);
 
-		$accessableFilterBox = $this->filterboxFactory->createAccessableInstance($filterbox);
-		
-		// AccessGroups are configured for filter2 -> should not be allowed to access.
-		$this->assertTrue($accessableFilterBox->hasItem('filter1'));
-		$this->assertFalse($accessableFilterBox->hasItem('filter2'));
-		
-	}
-	
+        $accessableFilterBox = $this->filterboxFactory->createAccessableInstance($filterbox);
+        
+        // AccessGroups are configured for filter2 -> should not be allowed to access.
+        $this->assertTrue($accessableFilterBox->hasItem('filter1'));
+        $this->assertFalse($accessableFilterBox->hasItem('filter2'));
+    }
 }

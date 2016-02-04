@@ -34,177 +34,194 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * Holds a dummy configuration for a column config object
-	 * @var array
-	 */
-	protected $columnSettings = array();
-
-
-	
-	/**
-	 * Holds an instance of column configuration object
-	 * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
-	 */
-	protected $columnConfig = null; 
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Holds a dummy configuration for a column config object
+     * @var array
+     */
+    protected $columnSettings = array();
 
 
-	
-	/**
-	 * @return void
-	 * @author Daniel Lienert 
-	 */
-	public function setup() {
-		
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
-		$this->columnSettings = $allColumnSettings[30];
-		
-		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
-	}
-
-	
-	
-	public function testGetFieldIdentifier() {
-		$this->assertEquals($this->columnConfig->getFieldIdentifier()->getFieldConfigByIdentifier($this->columnSettings['fieldIdentifier'])->getIdentifier(), $this->columnSettings['fieldIdentifier']);
-	}
-	
-	
-	
-	public function testGetColumnIdentifier() {
-		$this->assertEquals($this->columnConfig->getColumnIdentifier(), $this->columnSettings['columnIdentifier']);
-	}
-	
-	
-	
-	public function testGetLabelWhenLabelGiven() {
-		$this->assertEquals($this->columnConfig->getLabel(), $this->columnSettings['label']);
-	}
+    
+    /**
+     * Holds an instance of column configuration object
+     * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     */
+    protected $columnConfig = null;
 
 
-	/**
-	 * @test
-	 */
-	public function showInHeaderDefaultIsTrue() {
-		$this->assertEquals($this->columnConfig->getShowInHeader(), TRUE);
-	}
+    
+    /**
+     * @return void
+     * @author Daniel Lienert 
+     */
+    public function setup()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+        $this->columnSettings = $allColumnSettings[30];
+        
+        $this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
+    }
+
+    
+    
+    public function testGetFieldIdentifier()
+    {
+        $this->assertEquals($this->columnConfig->getFieldIdentifier()->getFieldConfigByIdentifier($this->columnSettings['fieldIdentifier'])->getIdentifier(), $this->columnSettings['fieldIdentifier']);
+    }
+    
+    
+    
+    public function testGetColumnIdentifier()
+    {
+        $this->assertEquals($this->columnConfig->getColumnIdentifier(), $this->columnSettings['columnIdentifier']);
+    }
+    
+    
+    
+    public function testGetLabelWhenLabelGiven()
+    {
+        $this->assertEquals($this->columnConfig->getLabel(), $this->columnSettings['label']);
+    }
 
 
-	/**
-	 * @test
-	 */
-	public function showInHeaderCanBeSetToFalse() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
-		$this->columnSettings = $allColumnSettings[20];
-
-		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
-
-		$this->assertEquals($this->columnConfig->getShowInHeader(), FALSE);
-	}
-
-	
-	public function testGetAccessGroups() {
-		$this->assertEquals($this->columnConfig->getAccessGroups(), \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',',$this->columnSettings['accessGroups']));
-	}
-	
+    /**
+     * @test
+     */
+    public function showInHeaderDefaultIsTrue()
+    {
+        $this->assertEquals($this->columnConfig->getShowInHeader(), true);
+    }
 
 
-    /** @test */
-	public function getLabelReturnsEmptyStringIfNoLabelIsGiven() {
-		unset($this->columnSettings['label']);
-		$this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
-		$this->assertEquals($this->columnConfig->getLabel(), '');
-	}
-	
+    /**
+     * @test
+     */
+    public function showInHeaderCanBeSetToFalse()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+        $this->columnSettings = $allColumnSettings[20];
 
+        $this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
 
-	public function testNoColumnIdentifierGivenException() {
-		try {
-			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'test'));
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
-	
-	
-	
-	public function testNoFieldIdentifierGivenException() {
-		try {
-			new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'test'));
-		} catch(Exception $e) {
-			return;
-		}
-		$this->fail();
-	}
+        $this->assertEquals($this->columnConfig->getShowInHeader(), false);
+    }
 
-
-
-	public function testSetAccessable() {
-		$this->columnConfig->setAccessable(true);
-		$this->assertTrue($this->columnConfig->isAccessable());
-	}
-	
-	
-	
-	public function testIsAccessableDefault() {
-		$this->assertFalse($this->columnConfig->isAccessable());
-	}
-	
-
-
-	public function testGetContainsArrayData() {
-		$pluginSettings = $this->configurationBuilderMock->getPluginSettings();
-		$pluginSettings['listConfig']['test']['fields']['field4']['expandGroupRows'] = 1;
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($pluginSettings);
-		
-		$allColumnSettings = $configurationBuilderMock->getSettingsForConfigObject('columns');
-		
-		$columnSettings = $allColumnSettings[40];
-		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilderMock, $columnSettings);
-		
-		$this->assertTrue($columnConfig->getContainsArrayData());
-	}
-	
-
-
-	public function testGetRenderTemplate() {
-		$this->assertEquals($this->columnSettings['renderTemplate'], $this->columnConfig->getRenderTemplate());
-	}
-
-
-
-	public function testGetCellCSSClass() {
-		$this->assertEquals($this->columnSettings['cellCSSClass'], $this->columnConfig->getCellCSSClass());
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function columnIsVisibleByDefault() {
-		$this->assertEquals(true, $this->columnConfig->getIsVisible());
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function columnConfigurationReturnsIsVisibleFalseIfSetToZero() {
-		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
-		$columnSettings = $allColumnSettings[30];
-		$columnSettings['isVisible'] = '0';
-
-		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
-		$this->assertEquals(false, $columnConfig->getIsVisible());
-	}
+    
+    public function testGetAccessGroups()
+    {
+        $this->assertEquals($this->columnConfig->getAccessGroups(), \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->columnSettings['accessGroups']));
+    }
+    
 
 
     /** @test */
-    public function getHeaderThCssClassReturnsValueFromSettings() {
+    public function getLabelReturnsEmptyStringIfNoLabelIsGiven()
+    {
+        unset($this->columnSettings['label']);
+        $this->columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $this->columnSettings);
+        $this->assertEquals($this->columnConfig->getLabel(), '');
+    }
+    
+
+
+    public function testNoColumnIdentifierGivenException()
+    {
+        try {
+            new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'test'));
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail();
+    }
+    
+    
+    
+    public function testNoFieldIdentifierGivenException()
+    {
+        try {
+            new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'test'));
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail();
+    }
+
+
+
+    public function testSetAccessable()
+    {
+        $this->columnConfig->setAccessable(true);
+        $this->assertTrue($this->columnConfig->isAccessable());
+    }
+    
+    
+    
+    public function testIsAccessableDefault()
+    {
+        $this->assertFalse($this->columnConfig->isAccessable());
+    }
+    
+
+
+    public function testGetContainsArrayData()
+    {
+        $pluginSettings = $this->configurationBuilderMock->getPluginSettings();
+        $pluginSettings['listConfig']['test']['fields']['field4']['expandGroupRows'] = 1;
+        $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($pluginSettings);
+        
+        $allColumnSettings = $configurationBuilderMock->getSettingsForConfigObject('columns');
+        
+        $columnSettings = $allColumnSettings[40];
+        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($configurationBuilderMock, $columnSettings);
+        
+        $this->assertTrue($columnConfig->getContainsArrayData());
+    }
+    
+
+
+    public function testGetRenderTemplate()
+    {
+        $this->assertEquals($this->columnSettings['renderTemplate'], $this->columnConfig->getRenderTemplate());
+    }
+
+
+
+    public function testGetCellCSSClass()
+    {
+        $this->assertEquals($this->columnSettings['cellCSSClass'], $this->columnConfig->getCellCSSClass());
+    }
+
+
+    /**
+     * @test
+     */
+    public function columnIsVisibleByDefault()
+    {
+        $this->assertEquals(true, $this->columnConfig->getIsVisible());
+    }
+
+
+    /**
+     * @test
+     */
+    public function columnConfigurationReturnsIsVisibleFalseIfSetToZero()
+    {
+        $allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+        $columnSettings = $allColumnSettings[30];
+        $columnSettings['isVisible'] = '0';
+
+        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
+        $this->assertEquals(false, $columnConfig->getIsVisible());
+    }
+
+
+    /** @test */
+    public function getHeaderThCssClassReturnsValueFromSettings()
+    {
         $columnSettings = $this->columnSettings;
         $columnSettings['headerThCssClass'] = 'testCssClass';
         $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
@@ -212,31 +229,32 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends T
     }
 
 
-	/**
-	 * @test
-	 */
-	public function getMapperConfigurationReturnsObjectIfDefined() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
-		$columnSettings = $allColumnSettings['60'];
+    /**
+     * @test
+     */
+    public function getMapperConfigurationReturnsObjectIfDefined()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+        $columnSettings = $allColumnSettings['60'];
 
-		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
+        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
 
-		$this->assertTrue(is_a($columnConfig->getObjectMapperConfig(), 'Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig'), 'getObjectMapperConfig does not return objectMapperConfig object');
-	}
+        $this->assertTrue(is_a($columnConfig->getObjectMapperConfig(), 'Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig'), 'getObjectMapperConfig does not return objectMapperConfig object');
+    }
 
 
-	/**
-	 * @test
-	 */
-	public function getMapperConfigurationReturnsNullIfNotDefined() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
-		$columnSettings = $allColumnSettings['50'];
+    /**
+     * @test
+     */
+    public function getMapperConfigurationReturnsNullIfNotDefined()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $allColumnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+        $columnSettings = $allColumnSettings['50'];
 
-		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
+        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings);
 
-		$this->assertNull($columnConfig->getObjectMapperConfig());
-	}
-
+        $this->assertNull($columnConfig->getObjectMapperConfig());
+    }
 }

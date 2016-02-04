@@ -37,50 +37,52 @@
  * @subpackage Link
  * @author Michael Knoll
  */
-class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
-
-	/**
-	 * Holds instance of session persistence manager builder
-	 *
-	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
-	 */
-	protected $sessionPersistenceManagerBuilder;
-
-
-
-	/**
-	 * Injects session persistence manager factory (used by DI)
-	 *
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
-	 */
-	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
-		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
-	}
+class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+{
+    /**
+     * Holds instance of session persistence manager builder
+     *
+     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     */
+    protected $sessionPersistenceManagerBuilder;
 
 
 
-	/**
-	 * Renders a link for given header and sortingFields
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
-	 * @param array $fieldAndDirection List of fields and direction for which we want to generate sorting link {field: fieldName, direction: sortingDirection}
-	 * @param string $action Rendered link for sorting action
-	 * @param int $pageUid target page. See TypoLink destination
-	 * @param int $pageType type of the target page. See typolink.parameter
-	 * @param bool $noCache set this to disable caching for the target page. You should not need this.
-	 * @param bool $noCacheHash set this to supress the cHash query parameter created by TypoLink. You should not need this.
-	 * @param string $section the anchor to be added to the URI
-	 * @param string $format The requested format, e.g. ".html
-	 * @param bool $linkAccessRestrictedPages If set, links pointing to access restricted pages will still link to the page even though the page cannot be accessed.
-	 * @param array $additionalParams additional query parameters that won't be prefixed like $arguments (overrule $arguments)
-	 * @param bool $absolute If set, the URI of the rendered link is absolute
-	 * @param bool $addQueryString If set, the current query parameters will be kept in the URI
-	 * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
-	 * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
-	 * @return string Rendered link
-	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, array $fieldAndDirection, $action='sort', $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = NULL) {
-		$sortingFieldParams = array();
+    /**
+     * Injects session persistence manager factory (used by DI)
+     *
+     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     */
+    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    {
+        $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+    }
+
+
+
+    /**
+     * Renders a link for given header and sortingFields
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+     * @param array $fieldAndDirection List of fields and direction for which we want to generate sorting link {field: fieldName, direction: sortingDirection}
+     * @param string $action Rendered link for sorting action
+     * @param int $pageUid target page. See TypoLink destination
+     * @param int $pageType type of the target page. See typolink.parameter
+     * @param bool $noCache set this to disable caching for the target page. You should not need this.
+     * @param bool $noCacheHash set this to supress the cHash query parameter created by TypoLink. You should not need this.
+     * @param string $section the anchor to be added to the URI
+     * @param string $format The requested format, e.g. ".html
+     * @param bool $linkAccessRestrictedPages If set, links pointing to access restricted pages will still link to the page even though the page cannot be accessed.
+     * @param array $additionalParams additional query parameters that won't be prefixed like $arguments (overrule $arguments)
+     * @param bool $absolute If set, the URI of the rendered link is absolute
+     * @param bool $addQueryString If set, the current query parameters will be kept in the URI
+     * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
+     * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
+     * @return string Rendered link
+     */
+    public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, array $fieldAndDirection, $action='sort', $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = array(), $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = null)
+    {
+        $sortingFieldParams = array();
 
         $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($fieldAndDirection['currentDirection']);
         $sortingFieldParams[] = $fieldAndDirection['field'] . ':' . $sortingDirection;
@@ -89,12 +91,11 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\
 
         $sortingFieldParam = implode(';', $sortingFieldParams);
 
-		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
+        $gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
 
-		$this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
+        $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
-		return parent::render($action, $argumentArray, NULL, NULL, NULL, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
-	}
-
+        return parent::render($action, $argumentArray, null, null, null, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
+    }
 }

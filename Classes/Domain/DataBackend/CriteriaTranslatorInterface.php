@@ -34,13 +34,12 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface {
-	
-	/**
-	 * Translates given criteria into current query language
-	 *
-	 * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
-	 */
-	public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria);
-	
+interface Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+{
+    /**
+     * Translates given criteria into current query language
+     *
+     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+     */
+    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria);
 }

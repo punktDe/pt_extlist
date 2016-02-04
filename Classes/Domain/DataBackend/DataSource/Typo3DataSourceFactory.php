@@ -33,31 +33,31 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory  {
-	
+class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory
+{
+    /**
+     * Create instance of typo3 data source
+     *
+     * @static
+     * @param string $dataSourceClassName
+     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
+     */
+    public static function createInstance($dataSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    {
+        $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource $dataSource */
+        $dataSource->injectDbObject(self::createDataObject());
+        $dataSource->initialize();
+        return $dataSource;
+    }
 
-	/**
-	 * Create instance of typo3 data source
-	 *
-	 * @static
-	 * @param string $dataSourceClassName
-	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
-	 */
-	public static function createInstance($dataSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-		$dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource $dataSource */
-		$dataSource->injectDbObject(self::createDataObject());
-		$dataSource->initialize();
-		return $dataSource;
-	}
 
-
-	/**
-	 * @static
-	 * @return t3lib_DB
-	 */
-	protected static function createDataObject() {
-		return $GLOBALS['TYPO3_DB'];
-	}
-	
+    /**
+     * @static
+     * @return t3lib_DB
+     */
+    protected static function createDataObject()
+    {
+        return $GLOBALS['TYPO3_DB'];
+    }
 }

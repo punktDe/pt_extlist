@@ -34,99 +34,105 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	public function setUp() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-
-
-	/** @test */
-	public function assertThatClassExists() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper'));
-	}
+class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setUp()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
 
 
-
-	/** @test */
-	public function getMappedListDataReturnsExpectedListData() {
-		$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
-		$domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
-		$mappedListData = $domainObjectMapper->getMappedListData($this->createMappingTestData());
-		$this->assertEquals(count($mappedListData), 4);
-		$this->assertEquals(get_class($mappedListData[0]), 'Tx_PtExtlist_Domain_Model_List_Row');
-		$this->assertEquals(count($mappedListData[0]), 2);
-		$row = $mappedListData[0]; /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
-		$this->assertEquals(get_class($row['field1']), 'Tx_PtExtlist_Domain_Model_List_Cell');
-		$this->assertEquals($row['field1']->getValue(), 'group 1');
-	}
+    /** @test */
+    public function assertThatClassExists()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper'));
+    }
 
 
 
-	/** @test */
-	public function getMappedListDataThrowsExceptionOnNonExistingMappingConfiguration() {
-		$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
-		try {
-			$domainObjectMapper->getMappedListData($this->createMappingTestData());
-		} catch (Exception $e) {
-			return;
-		}
-		$this->fail('No Exception has been thrown on non-existing mapping configuration');
-	}
+    /** @test */
+    public function getMappedListDataReturnsExpectedListData()
+    {
+        $domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+        $domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
+        $mappedListData = $domainObjectMapper->getMappedListData($this->createMappingTestData());
+        $this->assertEquals(count($mappedListData), 4);
+        $this->assertEquals(get_class($mappedListData[0]), 'Tx_PtExtlist_Domain_Model_List_Row');
+        $this->assertEquals(count($mappedListData[0]), 2);
+        $row = $mappedListData[0]; /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+        $this->assertEquals(get_class($row['field1']), 'Tx_PtExtlist_Domain_Model_List_Cell');
+        $this->assertEquals($row['field1']->getValue(), 'group 1');
+    }
 
 
 
-	/** @test */
-	public function resolveObjectPathResolvesPathAsExpected() {
-		$domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
-		$domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
-		$rightObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getName'), array(), '', FALSE);
-		$rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
-		$groupObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getRight'), array(), '', FALSE);
-		$groupObjectMock->expects($this->any())->method('getRight')->will($this->returnValue($rightObjectMock));
-		$userObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser', array('getGroup'), array(), '', FALSE);
-		$userObjectMock->expects($this->any())->method('getGroup')->will($this->returnValue($groupObjectMock));
-		$objectPath = 'group.right.name';
-
-		$resolvedObject = $domainObjectMapper->resolveObjectPath($userObjectMock, $objectPath);
-
-		$this->assertEquals($rightObjectMock, $resolvedObject);
-		$this->assertEquals('test', $resolvedObject->getName());
-
-		// test throw exception on non exisiting property (wrong object path)
-		try {
-			$objectPath = 'group.rights.name';
-			$resolvedObject = $domainObjectMapper->resolveObjectPath($userObjectMock, $objectPath);
-		} catch (Exception $e) {
-			return;
-		}
-		$this->fail('No exception has been thrown on trying to access non-existing property!');
-	}
+    /** @test */
+    public function getMappedListDataThrowsExceptionOnNonExistingMappingConfiguration()
+    {
+        $domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+        try {
+            $domainObjectMapper->getMappedListData($this->createMappingTestData());
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail('No Exception has been thrown on non-existing mapping configuration');
+    }
 
 
 
-	protected function createMappingTestData() {
-		$objectCollection = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$feGroup1 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 1');
-		$feGroup2 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 2');
-		$feGroup3 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 3');
-		$feGroup4 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 4');
-		$objectCollection->attach($feGroup1);
-		$objectCollection->attach($feGroup2);
-		$objectCollection->attach($feGroup3);
-		$objectCollection->attach($feGroup4);
-		return $objectCollection;
-	}
+    /** @test */
+    public function resolveObjectPathResolvesPathAsExpected()
+    {
+        $domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+        $domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
+        $rightObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getName'), array(), '', false);
+        $rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
+        $groupObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getRight'), array(), '', false);
+        $groupObjectMock->expects($this->any())->method('getRight')->will($this->returnValue($rightObjectMock));
+        $userObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser', array('getGroup'), array(), '', false);
+        $userObjectMock->expects($this->any())->method('getGroup')->will($this->returnValue($groupObjectMock));
+        $objectPath = 'group.right.name';
+
+        $resolvedObject = $domainObjectMapper->resolveObjectPath($userObjectMock, $objectPath);
+
+        $this->assertEquals($rightObjectMock, $resolvedObject);
+        $this->assertEquals('test', $resolvedObject->getName());
+
+        // test throw exception on non exisiting property (wrong object path)
+        try {
+            $objectPath = 'group.rights.name';
+            $resolvedObject = $domainObjectMapper->resolveObjectPath($userObjectMock, $objectPath);
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail('No exception has been thrown on trying to access non-existing property!');
+    }
 
 
 
-	protected function createMapperConfiguration() {
-		$mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		$field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('table' => '__self__', 'field' => 'title'));
-		$field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('table' => '__self__', 'field' => 'title'));
-		$mapperConfiguration->addFieldConfig($field1Configuration);
-		$mapperConfiguration->addFieldConfig($field2Configuration);
-		return $mapperConfiguration;
-	}
+    protected function createMappingTestData()
+    {
+        $objectCollection = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $feGroup1 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 1');
+        $feGroup2 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 2');
+        $feGroup3 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 3');
+        $feGroup4 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup('group 4');
+        $objectCollection->attach($feGroup1);
+        $objectCollection->attach($feGroup2);
+        $objectCollection->attach($feGroup3);
+        $objectCollection->attach($feGroup4);
+        return $objectCollection;
+    }
 
+
+
+    protected function createMapperConfiguration()
+    {
+        $mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('table' => '__self__', 'field' => 'title'));
+        $field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('table' => '__self__', 'field' => 'title'));
+        $mapperConfiguration->addFieldConfig($field1Configuration);
+        $mapperConfiguration->addFieldConfig($field2Configuration);
+        return $mapperConfiguration;
+    }
 }

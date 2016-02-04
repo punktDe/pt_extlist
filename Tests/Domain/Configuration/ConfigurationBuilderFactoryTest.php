@@ -34,222 +34,229 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase
+{
+    protected $settings = array(
+        'listIdentifier' => 'test',
+        'abc' => '1',
+        'prototype' => array(
+            'pager' => array(
+                'default' => array(
+                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                    'pagerProperty' => 'pagerValue'
+                )
+            ),
+            'column' => array(
+                'xy' => 'z',
+            )
+        ),
+        'listConfig' => array(
+            'test' => array(
+                'abc' => '2',
+                'def' => '3',
+                'fields' => array(
+                    'field1' => array(
+                        'table' => 'tableName1',
+                        'field' => 'fieldName1',
+                        'isSortable' => '0',
+                        'access' => '1,2,3,4'
+                    ),
+                    'field2' => array(
+                        'table' => 'tableName2',
+                        'field' => 'fieldName2',
+                        'isSortable' => '0',
+                        'access' => '1,2,3,4'
+                    )
+                ),
+                'columns' => array(
+                    10 => array(
+                        'columnIdentifier' => 'column1',
+                        'fieldIdentifier' => 'field1',
+                        'label' => 'Column 1'
+                    ),
+                    20 => array(
+                        'columnIdentifier' => 'column2',
+                        'fieldIdentifier' => 'field2',
+                        'label' => 'Column 2'
+                    )
+                ),
+                'filters' => array(
+                    'testfilterbox' => array(
+                        10 => array(
+                            'testkey' => 'testvalue',
+                            'filterIdentifier' => 'filter1',
+                            'fieldIdentifier' => 'field1',
+                            'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
+                            'partialPath' => 'Filter/StringFilter',
+                        )
+                    )
+                ),
+                'pager' => array(
+                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager'
+                ),
 
-	protected $settings = array(
-		'listIdentifier' => 'test',
-		'abc' => '1',
-		'prototype' => array(
-			'pager' => array(
-				'default' => array(
-					'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
-					'pagerProperty' => 'pagerValue'
-				)
-			),
-			'column' => array(
-				'xy' => 'z',
-			)
-		),
-		'listConfig' => array(
-			'test' => array(
-				'abc' => '2',
-				'def' => '3',
-				'fields' => array(
-					'field1' => array(
-						'table' => 'tableName1',
-						'field' => 'fieldName1',
-						'isSortable' => '0',
-						'access' => '1,2,3,4'
-					),
-					'field2' => array(
-						'table' => 'tableName2',
-						'field' => 'fieldName2',
-						'isSortable' => '0',
-						'access' => '1,2,3,4'
-					)
-				),
-				'columns' => array(
-					10 => array(
-						'columnIdentifier' => 'column1',
-						'fieldIdentifier' => 'field1',
-						'label' => 'Column 1'
-					),
-					20 => array(
-						'columnIdentifier' => 'column2',
-						'fieldIdentifier' => 'field2',
-						'label' => 'Column 2'
-					)
-				),
-				'filters' => array(
-					'testfilterbox' => array(
-						10 => array(
-							'testkey' => 'testvalue',
-							'filterIdentifier' => 'filter1',
-							'fieldIdentifier' => 'field1',
-							'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
-							'partialPath' => 'Filter/StringFilter',
-						)
-					)
-				),
-				'pager' => array(
-					'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager'
-				),
+                'aggregateData' => array(
+                    'sumField1' => array(
+                        'fieldIdentifier' => 'field1',
+                        'method' => 'sum',
+                    ),
+                    'avgField2' => array(
+                        'fieldIdentifier' => 'field2',
+                        'method' => 'avg',
+                    ),
+                ),
 
-				'aggregateData' => array(
-					'sumField1' => array(
-						'fieldIdentifier' => 'field1',
-						'method' => 'sum',
-					),
-					'avgField2' => array(
-						'fieldIdentifier' => 'field2',
-						'method' => 'avg',
-					),
-				),
-
-				'bookmarks' => array(
-					'showPublicBookmarks' => '1',
-					'showUserBookmarks' => '1',
-					'showGroupBookmarks' => '1',
-					'bookmarksPid' => '1',
-					'groupIdsToShowBookmarksFor' => '4,5,6'
-				),
-
-
-				'aggregateRows' => array(
-					10 => array(
-						'column2' => array(
-							'aggregateDataIdentifier' => 'avgField2',
-						)
-					)
-				),
-
-				'controller' => array(
-					'Export' => array(
-						'download' => array(
-							'view' => 'export.exportConfigs.test'
-						)
-					)
-				),
-
-				'rendererChain' => array(
-					'rendererConfigs' => array(
-						100 => array(
-							'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer'
-						)
-					)
-				),
-
-				'export' => array(
-					'exportConfigs' => array(
-						'test' => array(
-							'downloadType' => 'D',
-							'fileName' => 'testfile',
-							'fileExtension' => 'ext',
-							'addDateToFilename' => 1,
-							'pager' => array('enabled' => 0),
-							'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
-						)
-					)
-				)
-
-			)
-		)
-	);
+                'bookmarks' => array(
+                    'showPublicBookmarks' => '1',
+                    'showUserBookmarks' => '1',
+                    'showGroupBookmarks' => '1',
+                    'bookmarksPid' => '1',
+                    'groupIdsToShowBookmarksFor' => '4,5,6'
+                ),
 
 
+                'aggregateRows' => array(
+                    10 => array(
+                        'column2' => array(
+                            'aggregateDataIdentifier' => 'avgField2',
+                        )
+                    )
+                ),
 
-	/** @test */
-	public function makeSureClassExists() {
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-	}
+                'controller' => array(
+                    'Export' => array(
+                        'download' => array(
+                            'view' => 'export.exportConfigs.test'
+                        )
+                    )
+                ),
+
+                'rendererChain' => array(
+                    'rendererConfigs' => array(
+                        100 => array(
+                            'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer'
+                        )
+                    )
+                ),
+
+                'export' => array(
+                    'exportConfigs' => array(
+                        'test' => array(
+                            'downloadType' => 'D',
+                            'fileName' => 'testfile',
+                            'fileExtension' => 'ext',
+                            'addDateToFilename' => 1,
+                            'pager' => array('enabled' => 0),
+                            'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
+                        )
+                    )
+                )
+
+            )
+        )
+    );
 
 
 
-	/** @test */
-	public function configurationManagerCanBeInjected() {
-		$configurationManagerMock = $this->getSimpleMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager'); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-		$configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
-	}
+    /** @test */
+    public function makeSureClassExists()
+    {
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+    }
 
 
 
-	/** @test */
-	public function settingsCanBeSet() {
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-		$configurationBuilderFactory->setSettings($this->settings);
-	}
+    /** @test */
+    public function configurationManagerCanBeInjected()
+    {
+        $configurationManagerMock = $this->getSimpleMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager'); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
+    }
 
 
 
-	/** @test */
-	public function extbaseContextCanBeInjected() {
-		$extbaseContextMock = $this->getSimpleMock('Tx_PtExtlist_Extbase_ExtbaseContext'); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-		$configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
-	}
+    /** @test */
+    public function settingsCanBeSet()
+    {
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory->setSettings($this->settings);
+    }
 
 
 
-	/** @test */
-	public function getInstanceThrowsExceptionIfNoListIdentifierIsGiven() {
-		$extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', array('getCurrentListIdentifier'), array(), '', FALSE);
-		$extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue(NULL)); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-		$configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
-		try {
-			$configurationBuilderFactory->getInstance();
-		} catch (Exception $e) {
-			return;
-		}
-		$this->fail('Configuration Builder Factory was expected to throw an exception due to no list identifier given, but no exception has been thrown.');
-	}
+    /** @test */
+    public function extbaseContextCanBeInjected()
+    {
+        $extbaseContextMock = $this->getSimpleMock('Tx_PtExtlist_Extbase_ExtbaseContext'); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
+    }
 
 
 
-	/** @test */
-	public function getInstanceReturnsExceptedConfigurationBuilderInstance() {
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-		$configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', FALSE);
-		$configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
-		$configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
-		$configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
-		$configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
-		$configurationBuilder = $configurationBuilderFactory->getInstance('test');
-		$this->assertTrue(is_a($configurationBuilder, 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'));
-	}
+    /** @test */
+    public function getInstanceThrowsExceptionIfNoListIdentifierIsGiven()
+    {
+        $extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', array('getCurrentListIdentifier'), array(), '', false);
+        $extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue(null)); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
+        try {
+            $configurationBuilderFactory->getInstance();
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail('Configuration Builder Factory was expected to throw an exception due to no list identifier given, but no exception has been thrown.');
+    }
 
 
 
-	/** @test */
-	public function getInstanceAsksInjectedExtbaseContextForListIdentifierIfNoneIsGivenInSettings() {
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-		unset($this->settings['listIdentifer']);
-		$configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', FALSE);
-		$configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
-		$extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', array('getCurrentListIdentifier'), array(), '', FALSE);
-		$extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue('test')); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
-		$configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
-		$configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
-		$configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
-		$configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
-		$configurationBuilder = $configurationBuilderFactory->getInstance();
-		$this->assertTrue(is_a($configurationBuilder, 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'));
-	}
+    /** @test */
+    public function getInstanceReturnsExceptedConfigurationBuilderInstance()
+    {
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', false);
+        $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
+        $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
+        $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+        $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
+        $configurationBuilder = $configurationBuilderFactory->getInstance('test');
+        $this->assertTrue(is_a($configurationBuilder, 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'));
+    }
 
 
 
-	/** @test */
-	public function getInstanceReturnsSingletonInstanceForSameListIdentifier() {
-		$configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-		$configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', FALSE);
-		$configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
-		$configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
-		$configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
-		$configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
-		$firstInstance = $configurationBuilderFactory->getInstance('test');
-		$secondInstance = $configurationBuilderFactory->getInstance('test');
-		$this->assertTrue($firstInstance === $secondInstance);
-	}
+    /** @test */
+    public function getInstanceAsksInjectedExtbaseContextForListIdentifierIfNoneIsGivenInSettings()
+    {
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        unset($this->settings['listIdentifer']);
+        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', false);
+        $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
+        $extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', array('getCurrentListIdentifier'), array(), '', false);
+        $extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue('test')); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
+        $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
+        $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
+        $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+        $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
+        $configurationBuilder = $configurationBuilderFactory->getInstance();
+        $this->assertTrue(is_a($configurationBuilder, 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'));
+    }
 
+
+
+    /** @test */
+    public function getInstanceReturnsSingletonInstanceForSameListIdentifier()
+    {
+        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', false);
+        $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
+        $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
+        $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+        $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
+        $firstInstance = $configurationBuilderFactory->getInstance('test');
+        $secondInstance = $configurationBuilderFactory->getInstance('test');
+        $this->assertTrue($firstInstance === $secondInstance);
+    }
 }

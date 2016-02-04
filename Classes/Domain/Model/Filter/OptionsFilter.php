@@ -35,6 +35,6 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_OptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter {
-
+class Tx_PtExtlist_Domain_Model_Filter_OptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+{
 }

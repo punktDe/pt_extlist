@@ -33,49 +33,49 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory {
+class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory
+{
+    /**
+     * Create instance of mysql data source
+     *
+     * @static
+     * @param string $datSourceClassName
+     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+     */
+    public static function createInstance($datSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    {
+        $dataSource = new $datSourceClassName($dataSourceConfiguration);
+        $dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
+        return $dataSource;
+    }
 
 
-	/**
-	 * Create instance of mysql data source
-	 *
-	 * @static
-	 * @param string $datSourceClassName
-	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-	 * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
-	 */
-	public static function createInstance($datSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-		$dataSource = new $datSourceClassName($dataSourceConfiguration);
-		$dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
-		return $dataSource;
-	}
+    /**
+     * Create Database Object
+     *
+     * @static
+     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return PDO
+     * @throws Exception
+     */
+    protected static function createDataObject(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    {
+        $dsn = sprintf('mysql:dbname=%s;host=%s;port=%s',
+                $dataSourceConfiguration->getDatabaseName(),
+                $dataSourceConfiguration->getHost(),
+                $dataSourceConfiguration->getPort());
 
+        try {
+            $pdo = new PDO($dsn,
+                    $dataSourceConfiguration->getUsername(),
+                    $dataSourceConfiguration->getPassword(),
+                    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+            );
+        } catch (Exception $e) {
+            throw new Exception('Unable to establish MYSQL Databse Connection: ' . $e->getMessage(),  1281215132);
+        }
 
-	/**
-	 * Create Database Object
-	 *
-	 * @static
-	 * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-	 * @return PDO
-	 * @throws Exception
-	 */
-	protected static function createDataObject(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration) {
-
-		$dsn = sprintf('mysql:dbname=%s;host=%s;port=%s',
-				$dataSourceConfiguration->getDatabaseName(),
-				$dataSourceConfiguration->getHost(),
-				$dataSourceConfiguration->getPort());
-
-		try {
-			$pdo = new PDO($dsn,
-					$dataSourceConfiguration->getUsername(),
-					$dataSourceConfiguration->getPassword(),
-					array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
-			);
-		} catch (Exception $e) {
-			throw new Exception('Unable to establish MYSQL Databse Connection: ' . $e->getMessage(),  1281215132);
-		}
-
-		return $pdo;
-	}
+        return $pdo;
+    }
 }

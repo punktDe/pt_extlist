@@ -35,8 +35,8 @@
  * @subpackage Renderer
  * @author Michael Knoll 
  */
-interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_PtExtlist_Domain_Renderer_RendererInterface {  
-    
+interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_PtExtlist_Domain_Renderer_RendererInterface
+{
     /**
      * Injecotr for render configuration
      *
@@ -46,11 +46,10 @@ interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_
 
 
 
-	/**
-	 * Initializes the renderer
-	 *
-	 * @return void
-	 */
-	public function initRenderer();
-
+    /**
+     * Initializes the renderer
+     *
+     * @return void
+     */
+    public function initRenderer();
 }

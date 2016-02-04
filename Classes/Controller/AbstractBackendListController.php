@@ -34,11 +34,11 @@
  * @package Controller
  * @author Daniel Lienert
  */
-abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_PtExtlist_Controller_AbstractListApplicationController {
-
-	public function initializeAction() {
-		parent::initializeAction();
-		$this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
-	}
-
+abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_PtExtlist_Controller_AbstractListApplicationController
+{
+    public function initializeAction()
+    {
+        parent::initializeAction();
+        $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
+    }
 }

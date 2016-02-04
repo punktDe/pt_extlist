@@ -34,58 +34,60 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-	
-	/**
-	 * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
-	 *
-	 * @var string
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig';
-	
-	
-	
-	/**
-	 * Adds a aggregate configuration object to collection
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
-	 */
-	public function addAggregateConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig) {
-		$this->addItem($aggregateConfig, $aggregateConfig->getIdentifier());
-	}
+class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+{
+    /**
+     * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     *
+     * @var string
+     */
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig';
+    
+    
+    
+    /**
+     * Adds a aggregate configuration object to collection
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     */
+    public function addAggregateConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig)
+    {
+        $this->addItem($aggregateConfig, $aggregateConfig->getIdentifier());
+    }
 
 
 
-	/**
-	 * Returns a aggregate configuration object for a given identifier
-	 *
-	 * @param string $identifier
-	 * @throws Exception
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
-	 */
-	public function getAggregateConfigByIdentifier($identifier) {
-		if ($this->hasItem($identifier)) {
-			return $this->getItemById($identifier);
-		} else {
-			throw new Exception('Aggregate configuration for key ' . $identifier . ' does not exist! 1282893634');
-		}
-	}
-	
-	
-	/**
-	 * Extract the items with the given scope
-	 * 
-	 * @param string $scope
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
-	 */
-	public function extractCollectionByScope($scope) {
-		$collection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection;
-		foreach($this->itemsArr as $itemKey => $item) {
-			if($item->getScope() == $scope) {
-				$collection->addAggregateConfig($item,$itemKey);
-			}
-		}
-		return $collection;
-	}
-	
+    /**
+     * Returns a aggregate configuration object for a given identifier
+     *
+     * @param string $identifier
+     * @throws Exception
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     */
+    public function getAggregateConfigByIdentifier($identifier)
+    {
+        if ($this->hasItem($identifier)) {
+            return $this->getItemById($identifier);
+        } else {
+            throw new Exception('Aggregate configuration for key ' . $identifier . ' does not exist! 1282893634');
+        }
+    }
+    
+    
+    /**
+     * Extract the items with the given scope
+     * 
+     * @param string $scope
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+     */
+    public function extractCollectionByScope($scope)
+    {
+        $collection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection;
+        foreach ($this->itemsArr as $itemKey => $item) {
+            if ($item->getScope() == $scope) {
+                $collection->addAggregateConfig($item, $itemKey);
+            }
+        }
+        return $collection;
+    }
 }

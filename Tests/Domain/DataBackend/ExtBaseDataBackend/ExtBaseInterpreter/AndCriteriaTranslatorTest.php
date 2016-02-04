@@ -34,11 +34,11 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator
  */
-class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/** @test */
-	public function assertThatClassExists() {
-		$this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator');
-	}
-	
+class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /** @test */
+    public function assertThatClassExists()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator');
+    }
 }

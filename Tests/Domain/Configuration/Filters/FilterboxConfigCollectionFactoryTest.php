@@ -34,19 +34,20 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory does not exist!'));
+    }
 
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory does not exist!'));
-	}
 
 
-
-	public function testCreateInstance() {
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-		$filterboxConfigurationCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getInstance($configurationBuilderMock);
-		$filterBoxConfiguration = $filterboxConfigurationCollection['testfilterbox'];
-		$this->assertEquals($filterBoxConfiguration->getFilterboxIdentifier(), 'testfilterbox');
-	}
-
+    public function testCreateInstance()
+    {
+        $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+        $filterboxConfigurationCollection = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory::getInstance($configurationBuilderMock);
+        $filterBoxConfiguration = $filterboxConfigurationCollection['testfilterbox'];
+        $this->assertEquals($filterBoxConfiguration->getFilterboxIdentifier(), 'testfilterbox');
+    }
 }

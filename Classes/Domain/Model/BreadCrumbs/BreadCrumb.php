@@ -34,149 +34,157 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbTest
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_State_IdentifiableInterface {
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_State_IdentifiableInterface
+{
+    /**
+     * The listIdentifier for which this pager is active.
+     *
+     * @var string
+     */
+    protected $listIdentifier;
 
-	/**
-	 * The listIdentifier for which this pager is active.
-	 *
-	 * @var string
-	 */
-	protected $listIdentifier;
+    
 
-	
+    /**
+     * Associated filter object
+     *
+     * @var Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     */
+    protected $filter;
 
-	/**
-	 * Associated filter object
-	 *
-	 * @var Tx_PtExtlist_Domain_Model_Filter_FilterInterface
-	 */
-	protected $filter;
+    
 
-	
-
-	/**
-	 * Message to be shown as breadcrumb
-	 *
-	 * @var string
-	 */
-	protected $message;
-
-
-	
-	/**
-	 * True, if filter can be resetted via breadcrumb
-	 *
-	 * @var bool
-	 */
-	protected $isResettable = true;
-	
-	
-	
-	/**
-	 * Holds an instance of breadcrumbs configuration
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
-	 */
-	protected $breadCrumbsConfiguration;
-	
+    /**
+     * Message to be shown as breadcrumb
+     *
+     * @var string
+     */
+    protected $message;
 
 
-	/**
-	 * Constructor for breadcrumb. Takes filter object to show breadcrumb for as parameter
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter) {
-		$this->filter = $filter;
-		$this->listIdentifier = $filter->getListIdentifier();
-	}
-	
-	
-	
-	/**
-	 * Injects breadcrumb configuration
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig
-	 */
-	public function injectBreadCrumbsConfiguration(Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig) {
-		$this->breadCrumbsConfiguration = $breadCrumbsConfig;
-	}
+    
+    /**
+     * True, if filter can be resetted via breadcrumb
+     *
+     * @var bool
+     */
+    protected $isResettable = true;
+    
+    
+    
+    /**
+     * Holds an instance of breadcrumbs configuration
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
+     */
+    protected $breadCrumbsConfiguration;
+    
 
 
-
-	/**
-	 * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
-	 *
-	 * @return String
-	 */
-	public function getObjectNamespace() {
-		return $this->listIdentifier . '.demolist.breadcrumb';
-	}
+    /**
+     * Constructor for breadcrumb. Takes filter object to show breadcrumb for as parameter
+     *
+     * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+     */
+    public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter)
+    {
+        $this->filter = $filter;
+        $this->listIdentifier = $filter->getListIdentifier();
+    }
+    
+    
+    
+    /**
+     * Injects breadcrumb configuration
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig
+     */
+    public function injectBreadCrumbsConfiguration(Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig)
+    {
+        $this->breadCrumbsConfiguration = $breadCrumbsConfig;
+    }
 
 
 
-	/**
-	 * Getter for filter object
-	 *
-	 * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
-	 */
-	public function getFilter() {
-		return $this->filter;
-	}
+    /**
+     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
+     *
+     * @return String
+     */
+    public function getObjectNamespace()
+    {
+        return $this->listIdentifier . '.demolist.breadcrumb';
+    }
 
 
 
-	/**
-	 * Setter for breadcrumb message
-	 *
-	 * @param string $message
-	 */
-	public function setMessage($message) {
-		$this->message = $message;
-	}
+    /**
+     * Getter for filter object
+     *
+     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
 
 
 
-	/**
-	 * Getter for breadcrumb message
-	 *
-	 * @return string
-	 */
-	public function getMessage() {
-		return $this->message;
-	}
+    /**
+     * Setter for breadcrumb message
+     *
+     * @param string $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
 
 
 
-	/**
-	 * Setter for is resettable (true, if filter can be resetted via breadcrumb)
-	 *
-	 * @param bool $isResettable
-	 */
-	public function setIsResettable($isResettable) {
-		$this->isResettable = $isResettable;
-	}
+    /**
+     * Getter for breadcrumb message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
 
 
 
-	/**
-	 * Getter for is resettable (true, if filter can be resetted via breadcrumb)
-	 *
-	 * @return bool
-	 */
-	public function getIsResettable() {
-		return $this->isResettable;
-	}
-	
-	
-	
-	/**
-	 * Returns true, if reset links should be shown
-	 *
-	 * @return bool
-	 */
-	public function getShowResetLinks() {
-		return $this->breadCrumbsConfiguration->getShowResetLinks();
-	}
+    /**
+     * Setter for is resettable (true, if filter can be resetted via breadcrumb)
+     *
+     * @param bool $isResettable
+     */
+    public function setIsResettable($isResettable)
+    {
+        $this->isResettable = $isResettable;
+    }
 
+
+
+    /**
+     * Getter for is resettable (true, if filter can be resetted via breadcrumb)
+     *
+     * @return bool
+     */
+    public function getIsResettable()
+    {
+        return $this->isResettable;
+    }
+    
+    
+    
+    /**
+     * Returns true, if reset links should be shown
+     *
+     * @return bool
+     */
+    public function getShowResetLinks()
+    {
+        return $this->breadCrumbsConfiguration->getShowResetLinks();
+    }
 }

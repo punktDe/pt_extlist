@@ -37,83 +37,87 @@
  * @subpackage  Configuration
  * @see
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface {
-
-	/**
-	 * Holds an array of data backend instances as list-identifier based singletons
-	 *
-	 * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
-	 */
-	private $instances = array();
-
-
-
-	/**
-	 * Adds a given configuration builder to the instances of this container.
-	 *
-	 * Use set() if you want to overwrite existing instances.
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @throws Exception if a configuration builder for this list identifier has already been added to this container.
-	 */
-	public function add(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		if (empty($this->instances[$configurationBuilder->getListIdentifier()])) {
-			$this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
-		} else {
-			throw new Exception('A configuration builder for this list identifier has already been added. Please check first, whether this container already has an instance for the given list identifier! 1363856875');
-		}
-	}
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * Holds an array of data backend instances as list-identifier based singletons
+     *
+     * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
+     */
+    private $instances = array();
 
 
 
-	/**
-	 * Sets a given configuration builder as instance. Overwrites already set instance.
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function set(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
-	}
+    /**
+     * Adds a given configuration builder to the instances of this container.
+     *
+     * Use set() if you want to overwrite existing instances.
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @throws Exception if a configuration builder for this list identifier has already been added to this container.
+     */
+    public function add(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        if (empty($this->instances[$configurationBuilder->getListIdentifier()])) {
+            $this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
+        } else {
+            throw new Exception('A configuration builder for this list identifier has already been added. Please check first, whether this container already has an instance for the given list identifier! 1363856875');
+        }
+    }
 
 
 
-	/**
-	 * Returns true, if a configuration builder for given list identifier exists.
-	 *
-	 * @param $listIdentifier
-	 * @return bool
-	 */
-	public function contains($listIdentifier) {
-		return array_key_exists($listIdentifier, $this->instances);
-	}
+    /**
+     * Sets a given configuration builder as instance. Overwrites already set instance.
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    public function set(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
+    }
 
 
 
-	/**
-	 * Removes a configuration builder for the given list identifier.
-	 *
-	 * @param string $listIdentifier
-	 */
-	public function remove($listIdentifier) {
-		if ($this->contains($listIdentifier)) {
-			unset($this->instances[$listIdentifier]);
-		}
-	}
+    /**
+     * Returns true, if a configuration builder for given list identifier exists.
+     *
+     * @param $listIdentifier
+     * @return bool
+     */
+    public function contains($listIdentifier)
+    {
+        return array_key_exists($listIdentifier, $this->instances);
+    }
 
 
 
-	/**
-	 * Returns instance of configuration builder for given list identifier
-	 *
-	 * @param $listIdentifier
-	 * @return null|Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	public function get($listIdentifier) {
-		if (array_key_exists($listIdentifier, $this->instances)) {
-			return $this->instances[$listIdentifier];
-		} else {
-			return NULL;
-		}
-	}
+    /**
+     * Removes a configuration builder for the given list identifier.
+     *
+     * @param string $listIdentifier
+     */
+    public function remove($listIdentifier)
+    {
+        if ($this->contains($listIdentifier)) {
+            unset($this->instances[$listIdentifier]);
+        }
+    }
 
+
+
+    /**
+     * Returns instance of configuration builder for given list identifier
+     *
+     * @param $listIdentifier
+     * @return null|Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    public function get($listIdentifier)
+    {
+        if (array_key_exists($listIdentifier, $this->instances)) {
+            return $this->instances[$listIdentifier];
+        } else {
+            return null;
+        }
+    }
 }

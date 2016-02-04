@@ -34,10 +34,10 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-    public function testSetup() {
-    	$this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory does not exist!');
+class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory', 'Class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory does not exist!');
     }
-	
 }

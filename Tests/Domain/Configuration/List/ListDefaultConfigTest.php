@@ -34,55 +34,59 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfigTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * Holds an instance of list default configuration
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
-	 */
-	protected $listDefaultConfiguration;
-	
-	
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-		$this->listDefaultConfiguration = $this->configurationBuilderMock->buildListDefaultConfig();
-	}
-		
-	
-	
-	public function testSetup() {
-		$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig'));
-	}
-
-
-	/**
-	 * @test
-	 */
-	public function getSortingColumn() {
-		$this->assertEquals($this->listDefaultConfiguration->getSortingColumn(), 'column3');
-	}
+class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Holds an instance of list default configuration
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+     */
+    protected $listDefaultConfiguration;
+    
+    
+    
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+        $this->listDefaultConfiguration = $this->configurationBuilderMock->buildListDefaultConfig();
+    }
+        
+    
+    
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig'));
+    }
 
 
-	/**
-	 * @test
-	 */
-	public function getSortingColumnDirectionASC() {
-		$this->assertEquals($this->listDefaultConfiguration->getSortingDirection(), 1);
-	}
+    /**
+     * @test
+     */
+    public function getSortingColumn()
+    {
+        $this->assertEquals($this->listDefaultConfiguration->getSortingColumn(), 'column3');
+    }
 
-	/**
-	 * @test
-	 */
-	public function getSortingColumnDirectionDESC() {
-		
-		$overwriteSettings['listConfig']['test']['default']['sortingColumn'] = 'column3 DESC';
-		
-		$configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(NULL,$overwriteSettings);
-		
-		$listDefaultConfiguration = $configurationBuilderMock->buildListDefaultConfig();
-		$this->assertEquals($listDefaultConfiguration->getSortingDirection(), -1);
-		$this->assertEquals($listDefaultConfiguration->getSortingColumn(), 'column3');
-	}
+
+    /**
+     * @test
+     */
+    public function getSortingColumnDirectionASC()
+    {
+        $this->assertEquals($this->listDefaultConfiguration->getSortingDirection(), 1);
+    }
+
+    /**
+     * @test
+     */
+    public function getSortingColumnDirectionDESC()
+    {
+        $overwriteSettings['listConfig']['test']['default']['sortingColumn'] = 'column3 DESC';
+        
+        $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(null, $overwriteSettings);
+        
+        $listDefaultConfiguration = $configurationBuilderMock->buildListDefaultConfig();
+        $this->assertEquals($listDefaultConfiguration->getSortingDirection(), -1);
+        $this->assertEquals($listDefaultConfiguration->getSortingColumn(), 'column3');
+    }
 }

@@ -33,40 +33,39 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter {
+class Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter
+{
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart
+     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd
+     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     *
+     * TODO: Optimize this for a 1-field query
+     */
+    protected function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd)
+    {
+        $fieldStartName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldStart);
+        $fieldEndName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldEnd);
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart
-	 * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd
-	 * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-	 *
-	 * TODO: Optimize this for a 1-field query
-	 */
-	protected function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd) {
+        $startValueCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp(
+                                        Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldStartName, $this->getFilterValueStartInDBFormat()),
+                                        Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldEndName, $this->getFilterValueStartInDBFormat()));
 
-		$fieldStartName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldStart);
-		$fieldEndName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldEnd);
+        $endValueCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp(
+                                        Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldStartName, $this->getFilterValueEndInDBFormat()),
+                                        Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldEndName, $this->getFilterValueEndInDBFormat()));
 
-		$startValueCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp(
-										Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldStartName, $this->getFilterValueStartInDBFormat()),
-										Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldEndName, $this->getFilterValueStartInDBFormat()));
-
-		$endValueCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp(
-										Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldStartName, $this->getFilterValueEndInDBFormat()),
-										Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldEndName, $this->getFilterValueEndInDBFormat()));
-
-		$betweenValuesCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp(
-										Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldStartName, $this->getFilterValueStartInDBFormat()),
-										Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldEndName, $this->getFilterValueEndInDBFormat()));
+        $betweenValuesCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp(
+                                        Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldStartName, $this->getFilterValueStartInDBFormat()),
+                                        Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldEndName, $this->getFilterValueEndInDBFormat()));
 
 
 
-		$criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp(
-			Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($startValueCriteria, $endValueCriteria),
-			$betweenValuesCriteria
-		);
-				
-		return $criteria;
-	}
-
+        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp(
+            Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($startValueCriteria, $endValueCriteria),
+            $betweenValuesCriteria
+        );
+                
+        return $criteria;
+    }
 }

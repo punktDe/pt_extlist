@@ -35,46 +35,47 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Tests
  * @subpackage Domain\DataBackend
  */
-abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * Holds configuration string for demo TS setup
-	 *
-	 * @var string
-	 */
-	protected $tsConfigString;
-
-
-	/**
-	 * Holds array with demo ts config
-	 *
-	 * @var unknown_type
-	 */
-	protected $tsConfig;
+abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * Holds configuration string for demo TS setup
+     *
+     * @var string
+     */
+    protected $tsConfigString;
 
 
-	/**
-	 * Holds an instance of TS parser
-	 *
-	 * @var \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
-	 */
-	protected $typoScriptParser;
+    /**
+     * Holds array with demo ts config
+     *
+     * @var unknown_type
+     */
+    protected $tsConfig;
 
 
-	/**
-	 * Holds an instance of extlist configuration builder
-	 *
-	 * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-	 */
-	protected $configurationBuilder;
+    /**
+     * Holds an instance of TS parser
+     *
+     * @var \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
+     */
+    protected $typoScriptParser;
 
 
-	/**
-	 * Setup test by loading some demo ts settings
-	 */
-	public function setup() {
-		$this->tsConfigString =
-			"plugin.tx_ptextlist.settings {
+    /**
+     * Holds an instance of extlist configuration builder
+     *
+     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     */
+    protected $configurationBuilder;
+
+
+    /**
+     * Setup test by loading some demo ts settings
+     */
+    public function setup()
+    {
+        $this->tsConfigString =
+            "plugin.tx_ptextlist.settings {
 			
 			    prototype {
 			    
@@ -127,11 +128,9 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        }
 			   }
 			}";
-		$this->typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
-		$this->typoScriptParser->parse($this->tsConfigString);
-		$this->tsConfig = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
-		$this->configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
-
-	}
-
+        $this->typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+        $this->typoScriptParser->parse($this->tsConfigString);
+        $this->tsConfig = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+        $this->configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
+    }
 }

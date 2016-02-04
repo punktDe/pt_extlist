@@ -36,52 +36,54 @@
  * @subpackage Link
  * @author Michael Knoll
  */
-class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
-
-	/**
-	 * Holds instance of session persistence manager builder
-	 *
-	 * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
-	 */
-	protected $sessionPersistenceManagerBuilder;
-
-
-
-	/**
-	 * Injects session persistence manager factory (used by DI)
-	 *
-	 * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
-	 */
-	public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder) {
-		$this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
-	}
+class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+{
+    /**
+     * Holds instance of session persistence manager builder
+     *
+     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     */
+    protected $sessionPersistenceManagerBuilder;
 
 
 
-	/**
-	 * Renders a link for given header
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
-	 * @param string $action Rendered link for sorting action
-	 * @param int $pageUid
-	 * @param int $pageType
-	 * @param bool $noCache
-	 * @param bool $noCacheHash
-	 * @param string $section
-	 * @param string $format
-	 * @param bool $linkAccessRestrictedPages
-	 * @param array $additionalParams
-	 * @param bool $absolute
-	 * @param bool $addQueryString
-	 * @param array $argumentsToBeExcludedFromQueryString
-	 * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
-	 * @return string
-	 */
-	public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort', $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = NULL) {
-		$sortingFieldParams = array();
+    /**
+     * Injects session persistence manager factory (used by DI)
+     *
+     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     */
+    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    {
+        $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+    }
+
+
+
+    /**
+     * Renders a link for given header
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+     * @param string $action Rendered link for sorting action
+     * @param int $pageUid
+     * @param int $pageType
+     * @param bool $noCache
+     * @param bool $noCacheHash
+     * @param string $section
+     * @param string $format
+     * @param bool $linkAccessRestrictedPages
+     * @param array $additionalParams
+     * @param bool $absolute
+     * @param bool $addQueryString
+     * @param array $argumentsToBeExcludedFromQueryString
+     * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
+     * @return string
+     */
+    public function render(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header, $action='sort', $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = array(), $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = null)
+    {
+        $sortingFieldParams = array();
 
         // We generate sorting parameters for every sorting field configured for this column
-        foreach($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+        foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
             $newSortingDirection = (
                 ($header->getSortingDirectionForField($sortingFieldConfig->getField()) != 0) ?
                         Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($header->getSortingDirectionForField($sortingFieldConfig->getField()))
@@ -98,16 +100,16 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends \TYPO3\CMS\Fluid\
         #echo "Sorting field param for " . $header->getColumnConfig()->getColumnIdentifier() . " = " . $sortingFieldParam . "<br>";
         #echo "Sorting direction for " . $header->getColumnConfig()->getColumnIdentifier() . " = ". $this->getSortingDirectionForHeader($header) . "<br>";
 
-		$gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
-		$argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
-		
-		$this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
+        $gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
+        
+        $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
-		$output = parent::render($action, $argumentArray, NULL, NULL, NULL, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
+        $output = parent::render($action, $argumentArray, null, null, null, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
 
         $this->templateVariableContainer->remove('sortingDirection');
-		return $output;
-	}
+        return $output;
+    }
 
 
 
@@ -120,9 +122,10 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends \TYPO3\CMS\Fluid\
      * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
      * @return integer Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC
      */
-    protected function getSortingDirectionForHeader(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header) {
+    protected function getSortingDirectionForHeader(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header)
+    {
         $sortingFieldConfigForHeader = $header->getColumnConfig()->getSortingConfig();
-        foreach($sortingFieldConfigForHeader as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+        foreach ($sortingFieldConfigForHeader as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
             if (!$sortingFieldConfig->getForceDirection()
                 && $header->getSortingDirectionForField($sortingFieldConfig->getField()) != Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
                 return $header->getSortingDirectionForField($sortingFieldConfig->getField());

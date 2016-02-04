@@ -33,27 +33,27 @@
  * @package Domain
  * @subpackage Model\List\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory {
-	
-	/**
-	 * Get defined aggregate rows as list data structure
-	 * if no aggregate Rows are defined return an empty list structure
-	 * 
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Model_List_ListData
-	 */
-	public static function getAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		
-		$aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
-		$aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
-		// TODO make this class non-static and use injection for rendererChainFactory here
-		// $rendererChainFactory = t3lib_div::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'); /* @var $rendererChainFactory Tx_PtExtlist_Domain_Renderer_RendererChainFactory */
-		// $aggregateListBuilder->injectRenderer($rendererChainFactory->getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
-		$aggregateListBuilder->injectDataBackend($dataBackend);
-		
-		$aggregateListData = $aggregateListBuilder->buildAggregateListData();	
+class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory
+{
+    /**
+     * Get defined aggregate rows as list data structure
+     * if no aggregate Rows are defined return an empty list structure
+     * 
+     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     */
+    public static function getAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
+        $aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
+        // TODO make this class non-static and use injection for rendererChainFactory here
+        // $rendererChainFactory = t3lib_div::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'); /* @var $rendererChainFactory Tx_PtExtlist_Domain_Renderer_RendererChainFactory */
+        // $aggregateListBuilder->injectRenderer($rendererChainFactory->getRendererChain($configurationBuilder->buildRendererChainConfiguration()));
+        $aggregateListBuilder->injectDataBackend($dataBackend);
+        
+        $aggregateListData = $aggregateListBuilder->buildAggregateListData();
 
-		return $aggregateListData;
-	}
+        return $aggregateListData;
+    }
 }

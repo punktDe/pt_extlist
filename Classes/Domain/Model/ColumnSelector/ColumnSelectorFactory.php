@@ -34,40 +34,39 @@
  * @subpackage Domain\Model\columnSelector
  */
 class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
-	extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-	implements \TYPO3\CMS\Core\SingletonInterface {
+    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+    implements \TYPO3\CMS\Core\SingletonInterface
+{
+    /**
+     * Holds singleton instances of column selectors for each list
+     *
+     * @var array<Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector>
+     */
+    private $instances = array();
 
-	/**
-	 * Holds singleton instances of column selectors for each list
-	 *
-	 * @var array<Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector>
-	 */
-	private $instances = array();
 
 
+    /**
+     * Factory method for returning a singleton instance of a column selector
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
+     */
+    public function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $listIdentifier = $configurationBuilder->getListIdentifier();
 
-	/**
-	 * Factory method for returning a singleton instance of a column selector
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
-	 */
-	public function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
+        if ($this->instances[$listIdentifier] === null) {
+            $this->instances[$listIdentifier] = new  Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector();
+            $this->instances[$listIdentifier]->setConfiguration($configurationBuilder->buildColumnSelectorConfiguration());
 
-		$listIdentifier = $configurationBuilder->getListIdentifier();
+            // Inject settings from session.
+            $this->sessionPersistenceManagerBuilder->getInstance()->registerObjectAndLoadFromSession($this->instances[$listIdentifier]);
 
-		if ($this->instances[$listIdentifier] === null) {
-			$this->instances[$listIdentifier] = new  Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector();
-			$this->instances[$listIdentifier]->setConfiguration($configurationBuilder->buildColumnSelectorConfiguration());
+            // Inject settings from gp-vars.
+            $this->getPostVarsAdapterFactory->getInstance()->injectParametersInObject($this->instances[$listIdentifier]);
+        }
 
-			// Inject settings from session.
-			$this->sessionPersistenceManagerBuilder->getInstance()->registerObjectAndLoadFromSession($this->instances[$listIdentifier]);
-
-			// Inject settings from gp-vars.
-			$this->getPostVarsAdapterFactory->getInstance()->injectParametersInObject($this->instances[$listIdentifier]);
-		}
-
-		return $this->instances[$listIdentifier];
-	}
-
+        return $this->instances[$listIdentifier];
+    }
 }

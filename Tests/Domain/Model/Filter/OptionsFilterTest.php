@@ -34,23 +34,25 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	public function setup() {
-	}
-	
-	
-	
-    public function testSetup() {
-    	$this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_OptionsFilter');
-    	$optionsFilter = new Tx_PtExtlist_Domain_Model_Filter_OptionsFilter();
-    	$this->assertIsA($optionsFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface');
+class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setup()
+    {
+    }
+    
+    
+    
+    public function testSetup()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_OptionsFilter');
+        $optionsFilter = new Tx_PtExtlist_Domain_Model_Filter_OptionsFilter();
+        $this->assertIsA($optionsFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface');
     }
        
     
     
-    public function testGetoptions() {
-    	$this->markTestIncomplete();
+    public function testGetoptions()
+    {
+        $this->markTestIncomplete();
     }
-    
 }

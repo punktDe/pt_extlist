@@ -33,21 +33,21 @@
  * @subpackage Model\Bookmarks
  * @see Tests/Domain/Security/SecurityFactoryTest.php
  */
-interface Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface {
+interface Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface
+{
+    /**
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param array $sessionData
+     * @return array merged SessionData
+     */
+    public function mergeSessionAndBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, array $sessionData);
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
-	 * @param array $sessionData
-	 * @return array merged SessionData
-	 */
-	public function mergeSessionAndBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, array $sessionData);
 
-
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param array $sessionData
-	 * @return void
-	 */
-	public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionData);
+    /**
+     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param array $sessionData
+     * @return void
+     */
+    public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionData);
 }

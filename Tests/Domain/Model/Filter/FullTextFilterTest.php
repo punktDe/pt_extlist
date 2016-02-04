@@ -34,17 +34,18 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Domain_Model_Filter_FullTextFilter
  */
- class Tx_PtExtlist_Tests_Domain_Model_Filter_FullTextFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
- 	
- 	public function setup() {
-        $this->initDefaultConfigurationBuilderMock();
-    }
+ class Tx_PtExtlist_Tests_Domain_Model_Filter_FullTextFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+ {
+     public function setup()
+     {
+         $this->initDefaultConfigurationBuilderMock();
+     }
     
 
 
-	/** @test */
-    public function assertThatClassExists() {
- 		$this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_FullTextFilter');
- 	}
- 		
-}
+    /** @test */
+    public function assertThatClassExists()
+    {
+        $this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_FullTextFilter');
+    }
+ }

@@ -31,59 +31,61 @@
  *
  * @see Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase {
-
-	/**
-	 * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
-	 */
-	protected $configurationBuilderMock;
-	
-	public function setup() {
-		$this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-	}
-	
-	
-	
-	public function testExceptionOnGettingNonAddedItem() {
-		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection($this->configurationBuilderMock);
+class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    /**
+     * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
+     */
+    protected $configurationBuilderMock;
+    
+    public function setup()
+    {
+        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
+    }
+    
+    
+    
+    public function testExceptionOnGettingNonAddedItem()
+    {
+        $columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection($this->configurationBuilderMock);
         try {
             $columnConfigCollection->getColumnConfigById(30);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return;
         }
         $this->fail();
-	}
+    }
 
 
 
-	/**
-	 * @test
-	 */
-	public function getColumnConfigByIdentifier() {
-		$columnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
-		$columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[10]);
+    /**
+     * @test
+     */
+    public function getColumnConfigByIdentifier()
+    {
+        $columnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[10]);
 
-		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
-		$columnConfigCollection->addColumnConfig(10,$columnConfig);
+        $columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
+        $columnConfigCollection->addColumnConfig(10, $columnConfig);
 
-		$testColumn = $columnConfigCollection->getColumnConfigByIdentifier('column1');
+        $testColumn = $columnConfigCollection->getColumnConfigByIdentifier('column1');
 
-		$this->assertEquals($columnConfig, $testColumn);
-	}
+        $this->assertEquals($columnConfig, $testColumn);
+    }
 
-	
-	
-	public function testAddGetCorrectItems() {
-		
-		$columnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
-		
-		$columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
-		$columnConfigCollection->addColumnConfig(10,new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[10]));
-		$columnConfigCollection->addColumnConfig(20,new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[20]));
-		$columnConfig10 = $columnConfigCollection->getColumnConfigById(10);
-		$this->assertEquals($columnConfig10->getColumnIdentifier(), 'column1');
-		$columnConfig20 = $columnConfigCollection->getColumnConfigById(20);
-		$this->assertEquals($columnConfig20->getColumnIdentifier(), 'column2');
-	}
-	
+    
+    
+    public function testAddGetCorrectItems()
+    {
+        $columnSettings = $this->configurationBuilderMock->getSettingsForConfigObject('columns');
+        
+        $columnConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection();
+        $columnConfigCollection->addColumnConfig(10, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[10]));
+        $columnConfigCollection->addColumnConfig(20, new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, $columnSettings[20]));
+        $columnConfig10 = $columnConfigCollection->getColumnConfigById(10);
+        $this->assertEquals($columnConfig10->getColumnIdentifier(), 'column1');
+        $columnConfig20 = $columnConfigCollection->getColumnConfigById(20);
+        $this->assertEquals($columnConfig20->getColumnIdentifier(), 'column2');
+    }
 }

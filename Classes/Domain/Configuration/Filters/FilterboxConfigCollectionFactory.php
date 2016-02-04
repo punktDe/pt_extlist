@@ -33,25 +33,26 @@
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory {
-	
-	/**
-	 * 
-	 * @param $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$filterboxCollectionSettings = $configurationBuilder->getSettingsForConfigObject('filter');
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
+{
+    /**
+     * 
+     * @param $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $filterboxCollectionSettings = $configurationBuilder->getSettingsForConfigObject('filter');
 
 
-		$filterBoxConfigCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection($configurationBuilder);
+        $filterBoxConfigCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection($configurationBuilder);
 
-		foreach($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
-			$filterboxConfiguration = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
-			
-			$filterBoxConfigCollection->addFilterBoxConfig($filterboxConfiguration, $filterboxIdentifier);
-		}
-		
-		return $filterBoxConfigCollection;
-	}
+        foreach ($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
+            $filterboxConfiguration = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
+            
+            $filterBoxConfigCollection->addFilterBoxConfig($filterboxConfiguration, $filterboxIdentifier);
+        }
+        
+        return $filterBoxConfigCollection;
+    }
 }

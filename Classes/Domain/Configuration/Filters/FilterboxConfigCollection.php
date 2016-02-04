@@ -34,42 +34,44 @@
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection {
-
-	protected $listIdentifier;
-
-
-
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig';
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+{
+    protected $listIdentifier;
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 */
-	public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$this->listIdentifier = $configurationBuilder->getListIdentifier();
-	}
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig';
 
 
 
-	/**
-	 * Add a filterbox config
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox
-	 * @param string $filterBoxIdentifier
-	 */
-	public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier) {
-		$this->addItem($filterBox, $filterBoxIdentifier);
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     */
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $this->listIdentifier = $configurationBuilder->getListIdentifier();
+    }
 
 
 
-	/**
-	 * @param $filterBoxIdentifier
-	 * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
-	 */
-	public function getFilterBoxConfig($filterBoxIdentifier) {
-		return $this->getItemById($filterBoxIdentifier);
-	}
+    /**
+     * Add a filterbox config
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox
+     * @param string $filterBoxIdentifier
+     */
+    public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier)
+    {
+        $this->addItem($filterBox, $filterBoxIdentifier);
+    }
 
+
+
+    /**
+     * @param $filterBoxIdentifier
+     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     */
+    public function getFilterBoxConfig($filterBoxIdentifier)
+    {
+        return $this->getItemById($filterBoxIdentifier);
+    }
 }

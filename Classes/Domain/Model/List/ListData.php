@@ -35,55 +35,58 @@
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest
  */
-class Tx_PtExtlist_Domain_Model_List_ListData extends Tx_PtExtbase_Collection_ObjectCollection implements Tx_PtExtlist_Domain_Model_List_ListDataInterface {
-	
-	/**
-	 * Class name to restrict collection to
-	 *
-	 * @var string
-	 */
-	protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_List_Row';
-	
-	
-	
-	/**
-	 * Adds a row to list data
-	 *
-	 * @param Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 * @return void
-	 */
-	public function addRow(Tx_PtExtlist_Domain_Model_List_Row $row) {
-		$this->addItem($row);
-	}
-	
-	
-	/**
-	 * @param integer $id
-	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 */
-	public function getRow($id) {
-		return $this->getItemById($id);
-	}
-	
-	
-	/**
-	 * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-	 */
-	public function getFirstRow() {
-		return $this->itemsArr[0];
-	}
-	
-	
-	
-	/**
-	 * Getter for count of items in list data
-	 * 
-	 * (Fluid-compatible getter for count() method in collection)
-	 *
-	 * @return integer Count of objects in list data
-	 */
-	public function getCount() {
-		return $this->count();
-	}
-
+class Tx_PtExtlist_Domain_Model_List_ListData extends Tx_PtExtbase_Collection_ObjectCollection implements Tx_PtExtlist_Domain_Model_List_ListDataInterface
+{
+    /**
+     * Class name to restrict collection to
+     *
+     * @var string
+     */
+    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_List_Row';
+    
+    
+    
+    /**
+     * Adds a row to list data
+     *
+     * @param Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+     * @return void
+     */
+    public function addRow(Tx_PtExtlist_Domain_Model_List_Row $row)
+    {
+        $this->addItem($row);
+    }
+    
+    
+    /**
+     * @param integer $id
+     * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+     */
+    public function getRow($id)
+    {
+        return $this->getItemById($id);
+    }
+    
+    
+    /**
+     * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+     */
+    public function getFirstRow()
+    {
+        return $this->itemsArr[0];
+    }
+    
+    
+    
+    /**
+     * Getter for count of items in list data
+     * 
+     * (Fluid-compatible getter for count() method in collection)
+     *
+     * @return integer Count of objects in list data
+     */
+    public function getCount()
+    {
+        return $this->count();
+    }
 }

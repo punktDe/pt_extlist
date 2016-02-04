@@ -36,56 +36,60 @@ require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_Model_Filter_SelectFilter
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtlist_Tests_BaseTestcase {
-	
-	public function setup() {
-		$this->initDefaultConfigurationBuilderMock();
-	}
-	
-	
-	
-    public function testSetup() {
-    	$this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_SelectFilter'));
-    	$selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
-    	$this->assertTrue(is_a($selectFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'));
+class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
+{
+    public function setup()
+    {
+        $this->initDefaultConfigurationBuilderMock();
+    }
+    
+    
+    
+    public function testSetup()
+    {
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_SelectFilter'));
+        $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
+        $this->assertTrue(is_a($selectFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'));
     }
 
 
-	/** @test */
-	public function testGetMultiple() {
-		$selectFilter = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_SelectFilter'); /* @var $selectFilter Tx_PtExtlist_Domain_Model_Filter_SelectFilter */
-		$selectFilter->_injectGpVarsAdapter(new Tx_PtExtbase_State_GpVars_GpVarsAdapter('pt_extlist'));
-		$filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
-			$this->configurationBuilderMock,
-			array(
-				  'filterIdentifier' => 'test',
-				  'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
-				  'partialPath' => 'Filter/SelectFilter',
-				  'fieldIdentifier' => 'field1',
-				  'filterField' => 'field2',
-				  'displayFields' => 'field1',
-				  'excludeFilters' => 'filterbox1.filter1',
-				  'multiple' => 1
-			),
-			'test'
-		);
-		$selectFilter->_injectFilterConfig($filterConfiguration);
-		$sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', FALSE);
+    /** @test */
+    public function testGetMultiple()
+    {
+        $selectFilter = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_SelectFilter'); /* @var $selectFilter Tx_PtExtlist_Domain_Model_Filter_SelectFilter */
+        $selectFilter->_injectGpVarsAdapter(new Tx_PtExtbase_State_GpVars_GpVarsAdapter('pt_extlist'));
+        $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
+            $this->configurationBuilderMock,
+            array(
+                  'filterIdentifier' => 'test',
+                  'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
+                  'partialPath' => 'Filter/SelectFilter',
+                  'fieldIdentifier' => 'field1',
+                  'filterField' => 'field2',
+                  'displayFields' => 'field1',
+                  'excludeFilters' => 'filterbox1.filter1',
+                  'multiple' => 1
+            ),
+            'test'
+        );
+        $selectFilter->_injectFilterConfig($filterConfiguration);
+        $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', false);
 
-		$dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
-		$dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
-		$selectFilter->_injectDataBackend($dataBackendMock);
+        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
+        $selectFilter->_injectDataBackend($dataBackendMock);
 
-		$selectFilter->init();
-		$this->assertEquals(1, $selectFilter->getMultiple());
-	}
+        $selectFilter->init();
+        $this->assertEquals(1, $selectFilter->getMultiple());
+    }
 
 
 
     /**
      * @return array
      */
-    public function displayValueDataProvider() {
+    public function displayValueDataProvider()
+    {
         return array(
             'none' => array('values' => array(), 'selectedValues' => array(), 'expected' => ''),
             'one' => array('values' => array('key' => 'test', 'otherKey' => 'test2'), 'selectedValues' => array('key'), 'expected' => 'test'),
@@ -103,7 +107,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
      * @param $selectedValues
      * @param $expected
      */
-    public function displayValue($values, $selectedValues, $expected) {
+    public function displayValue($values, $selectedValues, $expected)
+    {
         $abstractOptionsFilter = $this->buildAcccessibleSelectFilterWithTestDataProvider($values, $selectedValues);
 
         $abstractOptionsFilter->_set('filterValues', $selectedValues);
@@ -119,9 +124,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
      * @param null $testData
      * @return Tx_PtExtlist_Domain_Model_Filter_SelectFilter
      */
-    protected function buildAcccessibleSelectFilterWithTestDataProvider($testData = NULL) {
-
-        if(!$testData) {
+    protected function buildAcccessibleSelectFilterWithTestDataProvider($testData = null)
+    {
+        if (!$testData) {
             $testData = array('key1' => 'value1', 'key2' => 'value2');
         }
 
@@ -137,7 +142,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
         $abstractOptionsFilter->_set('filterConfig', new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
             $this->configurationBuilderMock,
             $filterSettings, 'test')
-		);
+        );
 
         $dataProviderFixture = new Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider();
         $dataProviderFixture->setOptions($testData);
@@ -146,5 +151,4 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
 
         return $abstractOptionsFilter;
     }
-    
 }

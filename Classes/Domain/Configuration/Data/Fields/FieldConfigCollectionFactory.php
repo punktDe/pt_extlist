@@ -34,37 +34,38 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory {
-	
-	/**
-	 * Returns an instance of a field config collection for given field settings
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder) {
-		$fieldsSettings = $configurationBuilder->getSettingsForConfigObject('fields');
-		$fieldConfigCollection = self::buildFieldConfigCollection($configurationBuilder, $fieldsSettings);
-	    return $fieldConfigCollection;	
-	}
+class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
+{
+    /**
+     * Returns an instance of a field config collection for given field settings
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     */
+    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    {
+        $fieldsSettings = $configurationBuilder->getSettingsForConfigObject('fields');
+        $fieldConfigCollection = self::buildFieldConfigCollection($configurationBuilder, $fieldsSettings);
+        return $fieldConfigCollection;
+    }
 
 
 
-	/**
-	 * Builds a collection of field config objects for a given settings array
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-	 * @param array $fieldSettingsArray
-	 * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
-	 */
-	protected static function buildFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $fieldSettingsArray = null) {
-		$fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-		foreach ($fieldSettingsArray as $fieldIdentifier => $fieldSettings) {
-			$fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($configurationBuilder, $fieldIdentifier, $fieldSettings);
-			//$fieldConfigCollection->addItem($fieldConfig, $fieldConfig->getIdentifier());
-			$fieldConfigCollection->addFieldConfig($fieldConfig);
-		}
-		return $fieldConfigCollection;
-	}
-	
+    /**
+     * Builds a collection of field config objects for a given settings array
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param array $fieldSettingsArray
+     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     */
+    protected static function buildFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $fieldSettingsArray = null)
+    {
+        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        foreach ($fieldSettingsArray as $fieldIdentifier => $fieldSettings) {
+            $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($configurationBuilder, $fieldIdentifier, $fieldSettings);
+            //$fieldConfigCollection->addItem($fieldConfig, $fieldConfig->getIdentifier());
+            $fieldConfigCollection->addFieldConfig($fieldConfig);
+        }
+        return $fieldConfigCollection;
+    }
 }

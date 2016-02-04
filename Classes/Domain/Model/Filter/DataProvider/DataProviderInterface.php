@@ -33,14 +33,14 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
-		
-	/**
-	 * inject the filterconfig
-	 *
-	 * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-	 */
-	public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+{
+    /**
+     * inject the filterconfig
+     *
+     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     */
+    public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
 
 
 
@@ -53,20 +53,19 @@ interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface {
      */
     public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
 
-	
-	
-	/**
-	 * Init the data provider
-	 */
-	public function init();
+    
+    
+    /**
+     * Init the data provider
+     */
+    public function init();
 
-	
-	
-	/**
-	 * Return the rendered filteroptions
-	 * 
-	 * @return array filter options
-	 */
-	public function getRenderedOptions();
-	
+    
+    
+    /**
+     * Return the rendered filteroptions
+     * 
+     * @return array filter options
+     */
+    public function getRenderedOptions();
 }

@@ -33,40 +33,39 @@
  * @package Domain
  * @subpackage Model\List
  */
-interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface extends Iterator {
-
-	/**
-	 * Set the datasource
-	 *
-	 * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
-	 */
-	public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource);
-
-
-	/**
-	 * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper
-	 */
-	public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper);
+interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface extends Iterator
+{
+    /**
+     * Set the datasource
+     *
+     * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
+     */
+    public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource);
 
 
-	/**
-	 * @abstract
-	 * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
-	 */
-	public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain);
+    /**
+     * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper
+     */
+    public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper);
 
 
-	/**
-	 * Alias function for count to be accessible in fluid
-	 *
-	 * @return integer
-	 */
-	public function getCount();
+    /**
+     * @abstract
+     * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
+     */
+    public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain);
 
 
-	/**
-	 * @return integer
-	 */
-	public function count();
+    /**
+     * Alias function for count to be accessible in fluid
+     *
+     * @return integer
+     */
+    public function getCount();
 
+
+    /**
+     * @return integer
+     */
+    public function count();
 }

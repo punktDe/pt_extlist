@@ -34,92 +34,96 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Controller_ColumnSelectorControllerTest
  */
-class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Controller_AbstractController {
-
-	/**
-	 * Holds an instance of list renderer
-	 *
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChain
-	 */
-	protected $rendererChain;
-
-
-
-	/**
-	 * Holds an instance of the renderer chain factory
-	 *
-	 * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
-	 */
-	protected $rendererChainFactory;
+class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Controller_AbstractController
+{
+    /**
+     * Holds an instance of list renderer
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     */
+    protected $rendererChain;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
-	 */
-	protected $columnSelectorFactory;
+    /**
+     * Holds an instance of the renderer chain factory
+     *
+     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     */
+    protected $rendererChainFactory;
 
 
 
-	/**
-	 * @var Tx_PtExtlist_Domain_Model_List_ListFactory
-	 */
-	protected $listFactory;
+    /**
+     * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
+     */
+    protected $columnSelectorFactory;
+
+
+
+    /**
+     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     */
+    protected $listFactory;
 
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
-	 */
-	public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory) {
-		$this->rendererChainFactory = $rendererChainFactory;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+     */
+    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    {
+        $this->rendererChainFactory = $rendererChainFactory;
+    }
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
-	 */
-	public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory) {
-		$this->listFactory = $listFactory;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     */
+    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    {
+        $this->listFactory = $listFactory;
+    }
 
 
 
-	/**
-	 * @param Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory
-	 */
-	public function injectColumnSelectorFactory(Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory) {
-		$this->columnSelectorFactory = $columnSelectorFactory;
-	}
+    /**
+     * @param Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory
+     */
+    public function injectColumnSelectorFactory(Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory)
+    {
+        $this->columnSelectorFactory = $columnSelectorFactory;
+    }
 
 
 
-	/**
-	 * Overwrites initAction for setting properties
-	 * and enabling easy testing
-	 */
-	public function initializeAction() {
-		parent::initializeAction();
-		$this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
-	}
+    /**
+     * Overwrites initAction for setting properties
+     * and enabling easy testing
+     */
+    public function initializeAction()
+    {
+        parent::initializeAction();
+        $this->rendererChain = $this->rendererChainFactory->getRendererChain($this->configurationBuilder->buildRendererChainConfiguration());
+    }
 
 
 
-	/**
-	 * Renders show action for column selector controller
-	 *
-	 * @return string The rendered index action
-	 */
-	public function showAction() {
-		$list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
-		$renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
-		$columnSelector = $this->columnSelectorFactory->getInstance($this->configurationBuilder);
+    /**
+     * Renders show action for column selector controller
+     *
+     * @return string The rendered index action
+     */
+    public function showAction()
+    {
+        $list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
+        $renderedCaptions = $this->rendererChain->renderCaptions($list->getListHeader());
+        $columnSelector = $this->columnSelectorFactory->getInstance($this->configurationBuilder);
 
-		$this->view->assign('columnSelector', $columnSelector);
-		$this->view->assign('listHeader', $list->getListHeader());
-		$this->view->assign('listCaptions', $renderedCaptions);
-	}
-
+        $this->view->assign('columnSelector', $columnSelector);
+        $this->view->assign('listHeader', $list->getListHeader());
+        $this->view->assign('listCaptions', $renderedCaptions);
+    }
 }
