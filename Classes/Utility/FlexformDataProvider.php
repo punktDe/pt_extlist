@@ -173,7 +173,11 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
      */
     protected function getFlexformValue($optionName, $config)
     {
-        $flexformContent = GeneralUtility::xml2array($config['row']['pi_flexform']);
+        if (isset($config['flexParentDatabaseRow']['pi_flexform'])) {
+            $flexformContent = $config['flexParentDatabaseRow']['pi_flexform'];
+        } else {
+            $flexformContent = GeneralUtility::xml2array($config['row']['pi_flexform']);
+        }
         if (is_array($flexformContent)
             && array_key_exists('data', $flexformContent)
             && array_key_exists('sDefault', $flexformContent['data'])
