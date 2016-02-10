@@ -26,6 +26,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+
 /**
  * Class implements data source for TYPO3 databases
  * 
@@ -40,10 +42,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
     /**
      * Holds an instance of typo3 db object
      *
-     * @var t3lib_DB
+     * @var DatabaseConnection
      */
     protected $connection;
-
 
 
     /**
@@ -56,7 +57,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
     /**
      * Injector for database connection object
      *
-     * @param t3lib_DB $dbObject
+     * @param DatabaseConnection $dbObject
      */
     public function injectDbObject($dbObject)
     {
@@ -73,7 +74,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
         try {
             $this->startTimeMeasure();
             $this->resource = $this->connection->sql_query($query);
-            Tx_PtExtbase_Assertions_Assert::isMySQLRessource($this->resource, $this->dbObj);
+            Tx_PtExtbase_Assertions_Assert::isMySQLRessource($this->resource, $this->connection);
             $this->stopTimeMeasure();
         } catch (Exception $e) {
             throw new Exception('Error while retrieving data from database using typo3 db object.<br> 

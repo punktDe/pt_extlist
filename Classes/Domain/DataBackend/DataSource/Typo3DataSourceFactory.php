@@ -26,6 +26,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+
 /**
  * Class implements data source for typo3 databases
  * 
@@ -54,7 +56,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory
 
     /**
      * @static
-     * @return t3lib_DB
+     * @return DatabaseConnection
      */
     protected static function createDataObject()
     {

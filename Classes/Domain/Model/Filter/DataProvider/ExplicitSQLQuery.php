@@ -25,6 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 
 /**
  * Implements data provider for explicit defined SQL query
@@ -92,7 +93,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 
 
     /**
-     * @var t3lib_DB
+     * @var DatabaseConnection
      */
     protected $dbObj;
 
