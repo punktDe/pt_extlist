@@ -25,7 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -103,7 +105,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var string
      */
     protected $fieldIdentifier;
 
@@ -113,7 +115,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
      *
      * @var array
      */
-    protected $accessGroups = array();
+    protected $accessGroups = [];
 
 
     /**
@@ -129,7 +131,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
      *
      * @var array
      */
-    protected $resetFilters = array();
+    protected $resetFilters = [];
 
 
     /**
@@ -141,19 +143,15 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 
 
     /**
-     * TODO ry21 what does this property do?
-     *
-     * @var unknown_type
+     * @var string
      */
     protected $dependsOn;
 
 
     /**
-     * TODO ry21 what does this property do?
-     *
      * @var array
      */
-    protected $onValidated = array();
+    protected $onValidated = [];
 
 
     /**
@@ -185,7 +183,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
      *
      * @var array
      */
-    protected $settings = array();
+    protected $settings = [];
 
 
     /**
@@ -350,7 +348,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
         }
 
         if (array_key_exists('renderObj', $this->settings)) {
-            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $this->settings['renderObj']));
+            $this->renderObj = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
         }
 
         if (array_key_exists('accessGroups', $this->settings)) {
@@ -367,7 +365,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
      */
     protected function processAndSetFieldIdentifier($fieldIdentifier)
     {
-        $fieldIdentifierList = array();
+        $fieldIdentifierList = [];
 
         if (is_array($fieldIdentifier)) {
             foreach ($fieldIdentifier as $firstLevel) {
