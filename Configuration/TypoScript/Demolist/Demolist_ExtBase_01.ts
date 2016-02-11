@@ -48,7 +48,7 @@ plugin.tx_ptextlist.settings {
 			dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
 			dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
 			queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
-			repositoryClassName = Tx_ExtBase_Domain_Repository_FrontendUserGroupRepository
+			repositoryClassName = TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
 
 			dataSource {
 			}

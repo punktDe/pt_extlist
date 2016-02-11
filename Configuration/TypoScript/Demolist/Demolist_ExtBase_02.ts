@@ -13,13 +13,13 @@ config.tx_extbase {
 		enableAutomaticCacheClearing = 1
 		updateReferenceIndex = 0
 		classes {
-			Tx_Extbase_Domain_Model_FrontendUser {
+			TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 				mapping {
 					tableName = fe_users
 					recordType =
 				}
 			}
-			Tx_Extbase_Domain_Model_FrontendUserGroup {
+			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 				mapping {
 					tableName = fe_groups
 					recordType =
@@ -42,7 +42,7 @@ plugin.tx_ptextlist.settings {
 			dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
 			dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
 			queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
-			repositoryClassName = Tx_ExtBase_Domain_Repository_FrontendUserRepository
+			repositoryClassName = TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
 
 			dataSource {
 			}
@@ -74,12 +74,12 @@ plugin.tx_ptextlist.settings {
 			}
 
 			groupuid {
-				 table = usergroups
+				 table = usergroup
 				 field = uid
 			}
 
 			grouptitle {
-				table = usergroups
+				table = usergroup
 				field = title
 			}
 		}
