@@ -211,7 +211,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
             $this->bookmarkRepository->remove($bookmark);
             $this->persistenceManager->persistAll();
         } else {
-            $this->flashMessageContainer->add('You are not allowed to delete this bookmark.');
+            $this->addFlashMessage('You are not allowed to delete this bookmark.');
         }
         $this->forward('show');
     }
