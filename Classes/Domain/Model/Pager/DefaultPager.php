@@ -121,7 +121,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
         $this->pagerConfiguration = $pagerConfiguration;
         $this->enabled = $pagerConfiguration->getEnabled();
         $this->settings = $pagerConfiguration->getPagerSettings();
-        $this->itemsPerPage = $pagerConfiguration->getItemsPerPage();
+		$this->setItemsPerPage($pagerConfiguration->getItemsPerPage());
         $this->pagerIdentifier = $pagerConfiguration->getPagerIdentifier();
         $this->listIdentifier = $pagerConfiguration->getListIdentifier();
     }
