@@ -90,7 +90,7 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
      */
     protected function getTypo3SpecialFieldsWhereClause()
     {
-        $typo3Tables = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->backendConfiguration->getDataBackendSettings('tables'), true);
+        $typo3Tables = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->tables, true);
         $specialFieldsWhereClause = '';
 
         foreach ($typo3Tables as $typo3Table) {
