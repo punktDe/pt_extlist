@@ -60,6 +60,14 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
     protected $listIdentifier;
 
 
+    /**
+     * Holds pager identifier as default
+     *
+     * @var string
+     */
+    protected $pagerIdentifier = 'default';
+
+
 
     /**
      * Holds data backend for list identifier
@@ -279,6 +287,15 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
         return $this->pagerCollection;
     }
 
+    /**
+     * Set a pager Identifier
+     *
+     * @param string $pagerIdentifier
+     */
+    public function setPagerIdentifier($pagerIdentifier = '')
+    {
+        $this->pagerIdentifier = $pagerIdentifier;
+    }
 
 
     /**
@@ -289,7 +306,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
      */
     public function getPager($pagerIdentifier = '')
     {
-        $pagerIdentifier = $pagerIdentifier ? $pagerIdentifier : 'default';
+        $pagerIdentifier = $pagerIdentifier ? $pagerIdentifier : $this->pagerIdentifier;
         return $this->dataBackend->getPagerCollection()->getPagerByIdentifier($pagerIdentifier);
     }
 
