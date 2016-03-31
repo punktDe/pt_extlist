@@ -35,6 +35,8 @@ plugin.tx_ptextlist.prototype.filter {
 		defaultValue =
 		accessGroups =
 
+		resetToDefaultValue = 0
+
 		maxLength =
 		size =
 
@@ -54,6 +56,9 @@ plugin.tx_ptextlist.prototype.filter {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FullTextFilter
 		partialPath = Filter/String/StringFilter
 		defaultValue =
+
+		resetToDefaultValue = 0
+
 		accessGroups =
 
 		label =
@@ -83,6 +88,9 @@ plugin.tx_ptextlist.prototype.filter {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MaxFilter
 		partialPath = Filter/Range/MaxFilter
 		defaultValue =
+
+		resetToDefaultValue = 0
+
 		accessGroups =
 
 		label =
@@ -107,6 +115,9 @@ plugin.tx_ptextlist.prototype.filter {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MinFilter
 		partialPath = Filter/Range/MinFilter
 		defaultValue =
+
+		resetToDefaultValue = 0
+
 		accessGroups =
 
 		label =
@@ -146,6 +157,8 @@ plugin.tx_ptextlist.prototype.filter {
 		    start =
 		    end =
 		}
+
+		resetToDefaultValue = 0
 
         #fieldIdentifier {
         #    10 {
@@ -238,6 +251,9 @@ plugin.tx_ptextlist.prototype.filter {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		#dataProviderClassName =
 		defaultValue =
+
+		resetToDefaultValue = 0
+
 		filterIdentifier =
 
 		label =
@@ -283,6 +299,9 @@ plugin.tx_ptextlist.prototype.filter {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter
 		#dataProviderClassName =
 		defaultValue =
+
+		resetToDefaultValue = 0
+
 		filterIdentifier =
 		displayFields =
 		fieldIdentifier =
@@ -329,6 +348,8 @@ plugin.tx_ptextlist.prototype.filter {
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
 
+		resetToDefaultValue = 0
+
 		filterIdentifier =
 
 		label =
@@ -370,6 +391,8 @@ plugin.tx_ptextlist.prototype.filter {
 
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
+
+		resetToDefaultValue = 0
 
 		filterIdentifier =
 
@@ -415,6 +438,8 @@ plugin.tx_ptextlist.prototype.filter {
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
 		defaultValue =
 
+		resetToDefaultValue = 0
+
 		filterIdentifier =
 
 		label =
@@ -455,6 +480,8 @@ plugin.tx_ptextlist.prototype.filter {
 		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
 
 		defaultValue =
+
+		resetToDefaultValue = 0
 
 		# addLettersIfMissing = A,B,C,D,E,F,G,H,I,J,K,L,N,M,O,P,Q,R,S,T,U,V,W,X,Y,Z
 
