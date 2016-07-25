@@ -70,7 +70,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionF
     public function testGetFieldConfigCollection()
     {
         $fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getInstance($this->configurationBuilderMock);
-        $this->assertTrue(is_a($fieldConfigCollection, 'Tx_PtExtbase_Collection_ObjectCollection'));
+        $this->assertTrue(is_a($fieldConfigCollection, \PunktDe\PtExtbase\Collection\ObjectCollection::class));
         $fieldConfig1 = $fieldConfigCollection->getFieldConfigByIdentifier('field1');
         $this->assertEquals($fieldConfig1->getTable(), 'tableName1');
     }

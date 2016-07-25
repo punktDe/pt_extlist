@@ -38,7 +38,7 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  * @author Christoph Ehscheidt
  * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends Tx_PtExtbase_Configuration_AbstractConfigurationBuilder
+class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConfigurationBuilder
 {
     /**
      * Holds settings to build configuration objects

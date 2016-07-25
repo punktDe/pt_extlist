@@ -36,7 +36,7 @@
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_RowTest
  */
-class Tx_PtExtlist_Domain_Model_List_Row extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Special values for multiple purpose. Values are stored as key=>value pair

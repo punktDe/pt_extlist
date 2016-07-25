@@ -34,7 +34,7 @@
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Hash map between filter identifier and numeric filter index

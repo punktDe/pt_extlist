@@ -34,7 +34,7 @@
  * @author         	Daniel Lienert
  * @author          Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Class name to which this collection should be restricted to.

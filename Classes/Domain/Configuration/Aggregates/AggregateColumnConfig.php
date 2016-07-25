@@ -35,7 +35,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Configuration\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends Tx_PtExtbase_Configuration_AbstractConfiguration implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends \PunktDe\PtExtbase\Configuration\AbstractConfiguration implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface
 {
     /** 
      * @var string
@@ -105,7 +105,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
                                                                              
     /**
      * (non-PHPdoc)
-     * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
+     * @see \PunktDe\PtExtbase\Configuration\AbstractConfiguration::init()
      */
     protected function init()
     {

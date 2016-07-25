@@ -38,7 +38,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCo
     /**
      * Restricted class name
      * @var string
-     * @see Tx_PtExtbase_Collection_ObjectCollection::checkItemType()
+     * @see \PunktDe\PtExtbase\Collection\ObjectCollection::checkItemType()
      */
     protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan';
 

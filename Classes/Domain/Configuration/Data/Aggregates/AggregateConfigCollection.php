@@ -34,7 +34,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig

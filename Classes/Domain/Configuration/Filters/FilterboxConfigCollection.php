@@ -34,7 +34,7 @@
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     protected $listIdentifier;
 

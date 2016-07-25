@@ -33,7 +33,7 @@
  * @subpackage Configuration\Renderer
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Holds TS settings for rendering chain

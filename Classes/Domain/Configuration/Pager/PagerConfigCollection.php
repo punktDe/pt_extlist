@@ -34,7 +34,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     protected $listIdentifier;
     protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig';
