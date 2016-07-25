@@ -60,7 +60,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionFact
     public function testGetColumnConfigCollection()
     {
         $columnConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory::getInstance($this->configurationBuilderMock);
-        $this->assertTrue(is_a($columnConfigCollection, 'Tx_PtExtbase_Collection_ObjectCollection'));
+        $this->assertTrue(is_a($columnConfigCollection, \PunktDe\PtExtbase\Collection\ObjectCollection::class));
         
         
         $columnConfig1 = $columnConfigCollection->getColumnConfigById(10);

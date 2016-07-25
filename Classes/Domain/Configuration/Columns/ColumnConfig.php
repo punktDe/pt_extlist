@@ -213,7 +213,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
     /**
      * (non-PHPdoc)
-     * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
+     * @see \PunktDe\PtExtbase\Configuration\AbstractConfiguration::init()
      */
     protected function init()
     {

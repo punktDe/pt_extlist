@@ -33,7 +33,7 @@
  * @subpackage 	Configuration\Columns
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * @var string

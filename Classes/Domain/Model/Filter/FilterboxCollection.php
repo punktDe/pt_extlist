@@ -35,7 +35,7 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Restrict collection to filter box class

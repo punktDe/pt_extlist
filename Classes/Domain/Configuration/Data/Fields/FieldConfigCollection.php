@@ -34,7 +34,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig

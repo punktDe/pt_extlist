@@ -32,7 +32,7 @@
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * @var string

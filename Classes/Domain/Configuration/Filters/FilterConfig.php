@@ -295,7 +295,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 
     /**
      * (non-PHPdoc)
-     * @see Tx_PtExtbase_Configuration_AbstractConfiguration::init()
+     * @see \PunktDe\PtExtbase\Configuration\AbstractConfiguration::init()
      */
     public function init()
     {

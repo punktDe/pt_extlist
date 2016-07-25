@@ -33,7 +33,7 @@
  * @subpackage Domain\Model\Sorting
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Factory method to create a sorting state from a given session array

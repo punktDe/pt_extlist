@@ -352,7 +352,7 @@ class Tx_PtExtlist_Utility_RenderValue
                     $GLOBALS['TSFE']->newCObj();
                 }
             } else {
-                GeneralUtility::makeInstance('Tx_PtExtbase_Utility_FakeFrontendFactory')->createFakeFrontend();
+                GeneralUtility::makeInstance(\PunktDe\PtExtbase\Utility\FakeFrontendFactory::class)->createFakeFrontend();
                 $GLOBALS['TSFE']->newCObj();
             }
 

@@ -34,7 +34,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends Tx_PtExtbase_Configuration_AbstractConfiguration
+abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends \PunktDe\PtExtbase\Configuration\AbstractConfiguration
 {
     /**
      * The listidentifier this config object belings to

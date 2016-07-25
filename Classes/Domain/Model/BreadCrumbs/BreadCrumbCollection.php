@@ -35,7 +35,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionTest
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends Tx_PtExtbase_Collection_ObjectCollection
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
     implements  Tx_PtExtbase_State_IdentifiableInterface,
                 Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
 {

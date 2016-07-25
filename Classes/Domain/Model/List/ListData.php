@@ -35,7 +35,7 @@
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest
  */
-class Tx_PtExtlist_Domain_Model_List_ListData extends Tx_PtExtbase_Collection_ObjectCollection implements Tx_PtExtlist_Domain_Model_List_ListDataInterface
+class Tx_PtExtlist_Domain_Model_List_ListData extends \PunktDe\PtExtbase\Collection\ObjectCollection implements Tx_PtExtlist_Domain_Model_List_ListDataInterface
 {
     /**
      * Class name to restrict collection to

@@ -36,7 +36,7 @@
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest
  */
 class Tx_PtExtlist_Domain_Model_Filter_Filterbox
-    extends Tx_PtExtbase_Collection_ObjectCollection
+    extends \PunktDe\PtExtbase\Collection\ObjectCollection
     implements Tx_PtExtbase_State_IdentifiableInterface, Tx_PtExtbase_State_Session_SessionPersistableInterface
 {
     /**
