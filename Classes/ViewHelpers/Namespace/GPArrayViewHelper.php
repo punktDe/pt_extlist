@@ -25,12 +25,13 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use PunktDe\PtExtbase\Utility\NamespaceUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * GPValueViewHelper
  * 
  * USAGE:
- * 
  * 
  * 
  * Set namespace and arguments as string: 
@@ -40,10 +41,6 @@
  * Set namespace from object:
  * {extlist:namespace.GPArray(object:'{filter}' arguments:'invert')}
  * 
- * 
- * @author Daniel Lienert 
- * @package ViewHelpers
- * @subpackage NameSpace
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest
  */
 class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
@@ -129,12 +126,12 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     public function getArgumentArray($argumentString)
     {
         $argumentArray = array();
-        $argumentChunks = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $argumentString);
+        $argumentChunks = GeneralUtility::trimExplode(',', $argumentString);
         
         foreach ($argumentChunks as $argument) {
             if (strstr($argument, ':')) {
-                list($key, $value) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(':', $argument);
-                $argumentArray = Tx_PtExtbase_Utility_NameSpace::saveDataInNamespaceTree($key, $argumentArray, $value);
+                list($key, $value) = GeneralUtility::trimExplode(':', $argument);
+                $argumentArray = NamespaceUtility::saveDataInNamespaceTree($key, $argumentArray, $value);
             } else {
                 $key = $argument;
                 $argumentArray[$key] = false;
@@ -174,7 +171,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
      */
     public function buildNamespaceValueArray($nameSpace, $key, $value)
     {
-        $nameSpaceChunks =  \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('.', $nameSpace);
+        $nameSpaceChunks =  GeneralUtility::trimExplode('.', $nameSpace);
         
         $returnArray = array();
         $pointer = &$returnArray;

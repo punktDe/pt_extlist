@@ -28,11 +28,6 @@
 
 /**
  * Database Datasource configuration class. Holds configuration parameters for database data sources as MySql
- *
- * @package Domain
- * @subpackage Configuration\DataBackend\DataSource
- * @author Michael Knoll 
- * @author Daniel Lienert 
  */
 class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
 {
@@ -119,7 +114,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     public function getSettings($key = '')
     {
         if ($key != '') {
-            return Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $key);
+            return \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $key);
         } else {
             return $this->settings;
         }

@@ -29,10 +29,6 @@
 
 /**
  * This controller is meant to be used in a backend module, as in backend context we have only one controller
- * on one site we can
- *
- * @package Controller
- * @author Daniel Lienert
  */
 abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends Tx_PtExtlist_Controller_AbstractController
 {
@@ -194,7 +190,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
      */
     protected function initListIdentifier()
     {
-        $settings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
+        $settings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
 
         if (!$this->extlistTypoScriptSettingsPath) {
             throw new Exception('No extlist typoscript settings path given', 1330188161);
@@ -272,7 +268,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     public function downloadAction($exportIdentifier)
     {
         $exportSettingsPath = $this->extlistTypoScriptSettingsPath . '.export.exportConfigs.' . $exportIdentifier;
-        $exportSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
+        $exportSettings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
 
         if (!is_array($exportSettings) || empty($exportSettings)) {
             throw new Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
@@ -281,7 +277,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
         $exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilder, $exportSettings);
 
         if (array_key_exists('exportListSettingsPath', $exportSettings)) {
-            $exportListSettings = Tx_PtExtbase_Utility_NameSpace::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
+            $exportListSettings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
         } else {
             $exportListSettings = $this->configurationBuilder->getSettings();
         }
