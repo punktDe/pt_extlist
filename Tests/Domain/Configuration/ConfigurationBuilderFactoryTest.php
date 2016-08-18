@@ -34,7 +34,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase
+class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
     protected $settings = array(
         'listIdentifier' => 'test',

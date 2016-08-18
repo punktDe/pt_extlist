@@ -37,7 +37,7 @@
  * @subpackage Model\Pager
  * @see Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends Tx_PtExtbase_Collection_Collection
+class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends PunktDe\PtExtbase\Collection\Collection
     implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
 {
     /**

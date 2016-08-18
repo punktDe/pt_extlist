@@ -32,7 +32,7 @@
  * @author Daniel Lienert
  * @package Tests
  */
-class Tx_PtExtlist_Tests_DebugCodeTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase
+class Tx_PtExtlist_Tests_DebugCodeTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
     protected $extensionName = 'pt_extlist';
 
