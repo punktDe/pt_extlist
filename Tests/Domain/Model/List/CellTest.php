@@ -35,7 +35,7 @@
  * @subpackage Domain\Model\List
  * @see Tx_PtExtlist_Domain_Model_List_Cell
  */
-class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase
+class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
     protected $testDataArray = array(
         'value' => 'testValue',

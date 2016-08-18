@@ -33,7 +33,7 @@
  * @subpackage pt_extlist
  * @see Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase
+class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
     protected $settings = array(
         'listIdentifier' => 'test',

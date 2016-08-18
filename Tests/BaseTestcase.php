@@ -35,7 +35,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Tests
  * @author Michael Knoll 
  */
-abstract class Tx_PtExtlist_Tests_BaseTestcase extends Tx_PtExtbase_Tests_Unit_AbstractBaseTestcase
+abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
     protected $extBaseSettings = array();
 
