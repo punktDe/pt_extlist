@@ -249,7 +249,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     public function initializeAction()
     {
         parent::initializeAction();
-        $this->initFeUser();
+        if (!TYPO3_MODE === 'BE') {
+            $this->initFeUser();
+        }
         $this->initListIdentifier();
         $this->buildConfigurationBuilder();
         $this->buildAndInitSessionPersistenceManager();
