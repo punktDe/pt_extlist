@@ -37,7 +37,7 @@
 class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     private $objectManager;
 
