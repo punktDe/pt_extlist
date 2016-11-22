@@ -34,9 +34,9 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-#require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/RendererInterface.php';
-#require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/ConfigurableRendererInterface.php';
-#require_once t3lib_extMgm::extPath('pt_extlist') . 'Classes/Domain/Renderer/AbstractRenderer.php';
+#require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Classes/Domain/Renderer/RendererInterface.php';
+#require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Classes/Domain/Renderer/ConfigurableRendererInterface.php';
+#require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Classes/Domain/Renderer/AbstractRenderer.php';
 class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer
 {
     /**
