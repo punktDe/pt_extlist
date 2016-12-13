@@ -22,7 +22,8 @@
       "PunktDe\\PtExtlist\\": "Classes"
     },
     "classmap": [
-      "Classes/"
+      "Classes/",
+      "Tests/"
     ]
   },
   "replace": {
