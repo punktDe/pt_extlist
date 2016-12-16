@@ -30,10 +30,10 @@ if (TYPO3_MODE == 'BE') {
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Export', '[pt_extlist] Export settings');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_extlist] Demolist Package');
 
-$pluginModes = array(
+$pluginModes = [
     'Pi1' => 'ExtList',
     'Cached' => 'ExtList (Cached)'
-);
+];
 
 foreach ($pluginModes as $ident => $label) {
     

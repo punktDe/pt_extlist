@@ -79,7 +79,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
     {
         $fieldIdentifier = $this->filterConfig->getSettings('fieldIdentifier');
 
-        $this->dateFieldConfigs = array();
+        $this->dateFieldConfigs = [];
 
         if (is_array($fieldIdentifier)) {
             foreach ($fieldIdentifier as $tupleId => $dateFieldTuple) {
@@ -87,17 +87,17 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
                     throw new Exception('Found a fieldIdentifier array, but the array was not suitable for a timeSpanFilter. 1314627131');
                 }
 
-                $this->dateFieldConfigs[$tupleId] = array(
+                $this->dateFieldConfigs[$tupleId] = [
                     'start' => $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($dateFieldTuple['start']),
                     'end' => $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($dateFieldTuple['end'])
-                );
+                ];
             }
         } else {
             foreach ($this->filterConfig->getFieldIdentifier() as $fieldIdentifierConfig) {
-                $this->dateFieldConfigs[] = array(
+                $this->dateFieldConfigs[] = [
                     'start' => $fieldIdentifierConfig,
                     'end' => $fieldIdentifierConfig
-                );
+                ];
             }
         }
     }
@@ -137,7 +137,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
      */
     protected function buildExcludeFiltersArray()
     {
-        $excludeFiltersAssocArray = array($this->filterConfig->getFilterboxIdentifier() => array($this->filterConfig->getFilterIdentifier()));
+        $excludeFiltersAssocArray = [$this->filterConfig->getFilterboxIdentifier() => [$this->filterConfig->getFilterIdentifier()]];
 
         if ($this->excludeFilters) {
             foreach ($this->excludeFilters as $excludeFilter) {

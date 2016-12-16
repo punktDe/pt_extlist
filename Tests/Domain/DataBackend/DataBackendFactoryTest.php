@@ -79,155 +79,155 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_Pt
 
     protected function getConfigForFirstDbe()
     {
-        return array(
+        return [
             'listIdentifier' => 'testBackend1',
             'abc' => '1',
-            'prototype' => array(),
-            'listConfig' => array(
-                'testBackend1' => array(
-                    'backendConfig' => array(
+            'prototype' => [],
+            'listConfig' => [
+                'testBackend1' => [
+                    'backendConfig' => [
                         'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
                         'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                         'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource',
                         'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-                        'dataSource' => array(
+                        'dataSource' => [
                             'testKey' => 'testValue',
-                        )
-                    ),
+                        ]
+                    ],
                     'abc' => '2',
                     'def' => '3',
-                    'fields' => array(
-                        'field1' => array(
+                    'fields' => [
+                        'field1' => [
                             'table' => 'tableName1',
                             'field' => 'fieldName1',
                             'isSortable' => '0',
                             'access' => '1,2,3,4'
-                        ),
-                        'field2' => array(
+                        ],
+                        'field2' => [
                             'table' => 'tableName2',
                             'field' => 'fieldName2',
                             'isSortable' => '0',
                             'access' => '1,2,3,4'
-                        )
-                    ),
-                    'columns' => array(
-                        10 => array(
+                        ]
+                    ],
+                    'columns' => [
+                        10 => [
                             'columnIdentifier' => 'column1',
                             'fieldIdentifier' => 'field1',
                             'label' => 'Column 1'
-                        ),
-                        20 => array(
+                        ],
+                        20 => [
                             'columnIdentifier' => 'column2',
                             'fieldIdentifier' => 'field2',
                             'label' => 'Column 2'
-                        )
-                    ),
-                    'filters' => array(
-                        'testfilterbox' => array(
-                            '10' => array(
+                        ]
+                    ],
+                    'filters' => [
+                        'testfilterbox' => [
+                            '10' => [
                                 'filterIdentifier' => 'filter1',
                                 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                 'fieldIdentifier' => 'field1',
                                 'partialPath' => 'partialPath'
-                            ),
-                            '20' => array(
+                            ],
+                            '20' => [
                                 'filterIdentifier' => 'filter2',
                                 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                 'fieldIdentifier' => 'field2',
                                 'partialPath' => 'partialPath'
-                            )
-                        )
-                    ),
-                    'pager' => array(
+                            ]
+                        ]
+                    ],
+                    'pager' => [
                         'itemsPerPage' => '10',
-                        'pagerConfigs' => array(
-                            'default' => array(
+                        'pagerConfigs' => [
+                            'default' => [
                                 'templatePath' => 'EXT:pt_extlist/',
                                 'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                                 'enabled' => '1'
-                            ),
-                        ),
-                    ),
-                )
-            )
-        );
+                            ],
+                        ],
+                    ],
+                ]
+            ]
+        ];
     }
 
 
 
     protected function getConfigForSecondDbe()
     {
-        return array(
+        return [
             'listIdentifier' => 'testBackend2',
             'abc' => '1',
-            'prototype' => array(),
-            'listConfig' => array(
-                'testBackend2' => array(
-                    'backendConfig' => array(
+            'prototype' => [],
+            'listConfig' => [
+                'testBackend2' => [
+                    'backendConfig' => [
                         'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
                         'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                         'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource',
                         'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-                        'dataSource' => array(
+                        'dataSource' => [
                             'testKey' => 'testValue',
-                        )
-                    ),
+                        ]
+                    ],
                     'abc' => '2',
                     'def' => '3',
-                    'fields' => array(
-                        'field1' => array(
+                    'fields' => [
+                        'field1' => [
                             'table' => 'tableName1',
                             'field' => 'fieldName1',
                             'isSortable' => '0',
                             'access' => '1,2,3,4'
-                        ),
-                        'field2' => array(
+                        ],
+                        'field2' => [
                             'table' => 'tableName2',
                             'field' => 'fieldName2',
                             'isSortable' => '0',
                             'access' => '1,2,3,4'
-                        )
-                    ),
-                    'columns' => array(
-                        10 => array(
+                        ]
+                    ],
+                    'columns' => [
+                        10 => [
                             'columnIdentifier' => 'column1',
                             'fieldIdentifier' => 'field1',
                             'label' => 'Column 1'
-                        ),
-                        20 => array(
+                        ],
+                        20 => [
                             'columnIdentifier' => 'column2',
                             'fieldIdentifier' => 'field2',
                             'label' => 'Column 2'
-                        )
-                    ),
-                    'filters' => array(
-                        'testfilterbox' => array(
-                            '10' => array(
+                        ]
+                    ],
+                    'filters' => [
+                        'testfilterbox' => [
+                            '10' => [
                                 'filterIdentifier' => 'filter1',
                                 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                 'fieldIdentifier' => 'field1',
                                 'partialPath' => 'partialPath'
-                            ),
-                            '20' => array(
+                            ],
+                            '20' => [
                                 'filterIdentifier' => 'filter2',
                                 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                 'fieldIdentifier' => 'field1',
                                 'partialPath' => 'partialPath'
-                            )
-                        )
-                    ),
-                    'pager' => array(
+                            ]
+                        ]
+                    ],
+                    'pager' => [
                         'itemsPerPage' => '10',
-                        'pagerConfigs' => array(
-                            'default' => array(
+                        'pagerConfigs' => [
+                            'default' => [
                                 'templatePath' => 'EXT:pt_extlist/',
                                 'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                                 'enabled' => '1'
-                            )
-                        )
-                    )
-                )
-            )
-        );
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
     }
 }

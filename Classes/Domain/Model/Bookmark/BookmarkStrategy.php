@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy implements Tx_PtExtlis
         $listIdentifier = $bookmark->getListId();
 
         if (array_key_exists($listIdentifier, $contentArray)) {
-            $sessionData[$listIdentifier] = array();
+            $sessionData[$listIdentifier] = [];
 
             if (array_key_exists('headerColumns', $contentArray[$listIdentifier])) {
                 $sessionData[$listIdentifier]['headerColumns'] = $contentArray[$listIdentifier]['headerColumns'];
@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy implements Tx_PtExtlis
     public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionData)
     {
         $listIdentifier = $configurationBuilder->getListIdentifier();
-        $bookmarkContentArray = array();
+        $bookmarkContentArray = [];
 
         if (array_key_exists($listIdentifier, $sessionData)) {
             if (array_key_exists('headerColumns', $sessionData[$listIdentifier])) {

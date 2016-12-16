@@ -111,7 +111,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
      */
     protected function initGenericFilterByTSConfig()
     {
-        Tx_PtExtbase_Assertions_Assert::isString($this->filterConfig->getSettings('dbTimeFormat'), array('message' => 'No dbTimeFormat defined for filter ' . $this->filterIdentifier . ' 1314579114'));
+        Tx_PtExtbase_Assertions_Assert::isString($this->filterConfig->getSettings('dbTimeFormat'), ['message' => 'No dbTimeFormat defined for filter ' . $this->filterIdentifier . ' 1314579114']);
         ;
         $this->dbTimeFormat = $this->filterConfig->getSettings('dbTimeFormat');
 
@@ -130,7 +130,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
     {
         $fieldIdentifier = $this->filterConfig->getSettings('fieldIdentifier');
 
-        $this->dateFieldConfigs = array();
+        $this->dateFieldConfigs = [];
 
         if (is_array($fieldIdentifier)) {
             foreach ($fieldIdentifier as $tupleId => $dateFieldTuple) {
@@ -138,17 +138,17 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
                     throw new Exception('Found a fieldIdentifier array, but the array was not suitable for a timeSpanFilter. 1314627131');
                 }
 
-                $this->dateFieldConfigs[$tupleId] = array(
+                $this->dateFieldConfigs[$tupleId] = [
                     'start' => $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($dateFieldTuple['start']),
                     'end' => $this->filterConfig->getConfigurationBuilder()->buildFieldsConfiguration()->getFieldConfigByIdentifier($dateFieldTuple['end'])
-                );
+                ];
             }
         } else {
             foreach ($this->filterConfig->getFieldIdentifier() as $fieldIdentifierConfig) {
-                $this->dateFieldConfigs[] = array(
+                $this->dateFieldConfigs[] = [
                     'start' => $fieldIdentifierConfig,
                     'end' => $fieldIdentifierConfig
-                );
+                ];
             }
         }
     }
@@ -281,7 +281,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
      */
     public function getValue()
     {
-        $returnArray = array();
+        $returnArray = [];
         if ($this->filterValueStart) {
             $returnArray['filterValueStart'] = $this->filterValueStart->format('U');
         }

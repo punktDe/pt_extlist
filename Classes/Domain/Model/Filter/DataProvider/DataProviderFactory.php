@@ -65,7 +65,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
     {
         $dataProviderClassName = $this->determineDataProviderClass($filterConfig);
         $dataProvider = $this->objectManager->get($dataProviderClassName);
-        Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataProvider, 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface', array('message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125'));
+        Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataProvider, 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface', ['message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125']);
         /* @var $dataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
 
         $dataProvider->_injectFilterConfig($filterConfig);
@@ -95,7 +95,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
                 $dataProviderClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData';
             }
         }
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataProviderClassName), array('message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataProviderClassName), ['message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558']);
         return $dataProviderClassName;
     }
 }

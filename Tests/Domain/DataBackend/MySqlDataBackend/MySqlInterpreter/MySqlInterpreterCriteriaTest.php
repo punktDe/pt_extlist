@@ -142,7 +142,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     
     public function testWrapArrayInBracketsInSimpleCriteriaTranslator()
     {
-        $wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets(array('tes"t1', 'test2', 'test3'));
+        $wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets(['tes"t1', 'test2', 'test3']);
         $this->assertEquals('(\'tes\"t1\',\'test2\',\'test3\')', $wrappedString);
         
         $wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets('tes"t1');
@@ -153,7 +153,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     
     public function testTranslateInCriteria()
     {
-        $inCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', array('test1', 'test2'), 'IN');
+        $inCriteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('test', ['test1', 'test2'], 'IN');
         $translatedCriteria = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($inCriteria);
         $this->assertEquals($translatedCriteria, "test IN ('test1','test2')");
     }
@@ -162,8 +162,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     /**  @test */
     public function translateFullTextCriteria()
     {
-        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', array('field' => 'field', 'table' => 'table'));
-        $fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test2', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
+        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
+        $fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test2', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
 
         $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
         $fieldConfigCollection->addFieldConfig($fieldConfig1);
@@ -180,7 +180,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     /** @test */
     public function translateFullTextCriteriaInBooleanMode()
     {
-        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', array('field' => 'field', 'table' => 'table'));
+        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
 
         $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
         $fieldConfigCollection->addFieldConfig($fieldConfig1);
@@ -198,7 +198,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     /** @test */
     public function translateFullTextCriteriaInBooleanModeWrappedWithStars()
     {
-        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', array('field' => 'field', 'table' => 'table'));
+        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
 
         $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
         $fieldConfigCollection->addFieldConfig($fieldConfig1);
@@ -218,7 +218,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     public function translateRawSqlQueryReturnsGivenRawSqlQueryString()
     {
         $fakeRawSqlQuery = 'THIS IS A FAKE QUERY';
-        $rawSqlCriteriaMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria', array(), array(), '', false);
+        $rawSqlCriteriaMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria', [], [], '', false);
         $rawSqlCriteriaMock->expects($this->once())->method('getRawSqlString')->will($this->returnValue($fakeRawSqlQuery));
         $this->assertEquals(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator::translateCriteria($rawSqlCriteriaMock), $fakeRawSqlQuery);
     }

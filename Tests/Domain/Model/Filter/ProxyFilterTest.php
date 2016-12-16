@@ -114,7 +114,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_ProxyFilterTest extends Tx_PtExtlis
 
     protected function buildAccessibleProxyFilter()
     {
-        $proxyFilterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_ProxyFilter', array('getConfigurationBuilderForRealList'), array());
+        $proxyFilterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_ProxyFilter', ['getConfigurationBuilderForRealList'], []);
         $proxyFilterMock->expects($this->any())
                 ->method('getConfigurationBuilderForRealList')
                 ->will($this->returnValue($this->configurationBuilderMock));
@@ -124,12 +124,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_ProxyFilterTest extends Tx_PtExtlis
         $filterFactory->setDataBackendFactory($this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier()));
         $proxyFilterMock->injectFilterFactory($filterFactory);
 
-        $filterSettings = array('filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_ProxyFilter',
+        $filterSettings = ['filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_ProxyFilter',
             'partialPath' => 'partialPath',
             'proxyPath' => 'testlist.testfilterbox.filter1',
             'fieldIdentifier' => 'field1',
             'filterIdentifier' => 'testProxyFilter',
-        );
+        ];
 
         $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'someOtherBox');
 

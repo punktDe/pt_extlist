@@ -40,26 +40,26 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionF
      * Holds a dummy configuration for a field config collection object
      * @var array
      */
-    protected $fieldSettings = array();
+    protected $fieldSettings = [];
     
     
     
     public function setup()
     {
-        $this->fieldSettings = array(
-            'field1' => array(
+        $this->fieldSettings = [
+            'field1' => [
                 'table' => 'tableName1',
                 'field' => 'fieldName1',
                 'isSortable' => '0',
                 'access' => '1,2,3,4'
-            ),
-            'field2' => array(
+            ],
+            'field2' => [
                 'table' => 'tableName2',
                 'field' => 'fieldName2',
                 'isSortable' => '0',
                 'access' => '1,2,3,4'
-            )
-        );
+            ]
+        ];
         
         $fieldsSettings['listConfig']['test']['fields'] = $this->fieldSettings;
         $this->initDefaultConfigurationBuilderMock($fieldsSettings);

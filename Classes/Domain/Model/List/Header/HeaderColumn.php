@@ -56,7 +56,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      *
      * @var array GP-Var Data
      */
-    protected $headerGPVarData = array();
+    protected $headerGPVarData = [];
 
 
 
@@ -65,7 +65,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      *
      * @var array
      */
-    protected $headerSessionData = array();
+    protected $headerSessionData = [];
 
 
 
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      *
      * @var array
      */
-    protected $sortedFields = array();
+    protected $sortedFields = [];
 
 
 
@@ -173,7 +173,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
     public function setSorting($sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC)
     {
-        $this->sortedFields = array();
+        $this->sortedFields = [];
         $sortingConfig = $this->columnConfig->getSortingConfig();
         foreach ($sortingConfig as $fieldConfig) {
             /* @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $fieldConfig */
@@ -255,11 +255,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
     protected function initByGpVarsSortingFields($sortingFields)
     {
-        $this->sortedFields = array();
+        $this->sortedFields = [];
         $fieldsAndDirections = explode(';', $sortingFields);
         foreach ($fieldsAndDirections as $fieldAndSortingDirection) {
             list($fieldIdentifier, $sortingDirection) = explode(':', $fieldAndSortingDirection);
-            if (in_array($sortingDirection, array(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC))
+            if (in_array($sortingDirection, [Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC])
                 && $this->sortingFieldConfig->hasItem($fieldIdentifier)
             ) {
                 $this->sortedFields[$fieldIdentifier] = $sortingDirection;
@@ -368,7 +368,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     public function reset()
     {
         $this->resetSorting();
-        $this->headerSessionData = array();
+        $this->headerSessionData = [];
         // we must not reset header GP data!
         $this->init();
     }
@@ -440,7 +440,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
     public function resetSorting()
     {
-        $this->sortedFields = array();
+        $this->sortedFields = [];
         unset($this->headerSessionData['sortedFields']);
         $this->init();
     }

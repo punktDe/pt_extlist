@@ -68,7 +68,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements \TYPO3\CMS
         $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
         // Check whether mapper implements interface
-        Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, array('message' => 'Data mapper must implement data mapper interface! 1280415471'));
+        Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, ['message' => 'Data mapper must implement data mapper interface! 1280415471']);
 
         $dataMapper->_injectConfigurationBuilder($configurationBuilder);
         $dataMapper->_injectMapperConfiguration($mapperConfiguration);

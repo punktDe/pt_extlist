@@ -77,15 +77,15 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
      */
     protected function getRenderedOptionsByFields($fields)
     {
-        $renderedOptions = array();
+        $renderedOptions = [];
         $options =& $this->getOptionsByFields($fields);
 
         foreach ($options as $optionData) {
             $optionKey = $optionData['firstLetter'];
 
-            $renderedOptions[$optionKey] = array('value' => $this->renderOptionData($optionData),
+            $renderedOptions[$optionKey] = ['value' => $this->renderOptionData($optionData),
                 'hasRecords' => true,
-                'selected' => false);
+                'selected' => false];
         }
 
 
@@ -109,9 +109,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
     {
         foreach ($missingLetters as $letter) {
             if (!array_key_exists($letter, $renderedOptions)) {
-                $renderedOptions[$letter] = array('value' => $this->renderOptionData(array('firstLetter' => $letter)),
+                $renderedOptions[$letter] = ['value' => $this->renderOptionData(['firstLetter' => $letter]),
                     'hasRecords' => false,
-                    'selected' => false);
+                    'selected' => false];
             }
         }
 

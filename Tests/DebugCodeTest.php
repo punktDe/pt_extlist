@@ -42,10 +42,10 @@ class Tx_PtExtlist_Tests_DebugCodeTest extends \PunktDe\PtExtbase\Testing\Unit\A
      */
     public function debugStringDataProvider()
     {
-        return array(
-            'Search for print_r in code!' => array('debugCommand' => 'print_r'),
-            'Search for var_dump in code!' => array('debugCommand' => 'var_dump'),
-        );
+        return [
+            'Search for print_r in code!' => ['debugCommand' => 'print_r'],
+            'Search for var_dump in code!' => ['debugCommand' => 'var_dump'],
+        ];
     }
 
     /**

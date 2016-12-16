@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactoryTest extends Tx_PtExtl
 
         $mockFilterConfiguration = $this->getMock(
             'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
-            array('getFilterIdentifier', 'getFilterClassName', 'getListIdentifier'), array(), '', false, false, false);
+            ['getFilterIdentifier', 'getFilterClassName', 'getListIdentifier'], [], '', false, false, false);
 
         $mockFilterConfiguration->expects($this->once())
             ->method('getFilterClassName')

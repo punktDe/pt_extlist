@@ -44,32 +44,32 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest ext
     {
         $identifiableObjectFixture = new Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture();
 
-        $argumentData = array(
-            'oneWordPropertyWithoutPrefix' => array(
+        $argumentData = [
+            'oneWordPropertyWithoutPrefix' => [
                 'object' => $identifiableObjectFixture,
                 'property' => 'key',
                 'addExtPrefix' => false,
                 'expectedResult' => 'test[object][namespace][key]'
-            ),
-            'oneWordPropertyWithPrefix' => array(
+            ],
+            'oneWordPropertyWithPrefix' => [
                 'object' => $identifiableObjectFixture,
                 'property' => 'key',
                 'addExtPrefix' => true,
                 'expectedResult' => 'tx_ptextlist_pi1[test][object][namespace][key]'
-            ),
-            'threeWordPropertyWithoutPrefix' => array(
+            ],
+            'threeWordPropertyWithoutPrefix' => [
                 'object' => $identifiableObjectFixture,
                 'property' => 'key.foo.bar',
                 'addExtPrefix' => false,
                 'expectedResult' => 'test[object][namespace][key][foo][bar]'
-            ),
-            'threeWordPropertyWithPrefix' => array(
+            ],
+            'threeWordPropertyWithPrefix' => [
                 'object' => $identifiableObjectFixture,
                 'property' => 'key.foo.bar',
                 'addExtPrefix' => true,
                 'expectedResult' => 'tx_ptextlist_pi1[test][object][namespace][key][foo][bar]'
-            )
-        );
+            ]
+        ];
 
         return $argumentData;
     }

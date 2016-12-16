@@ -132,7 +132,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
     {
         $result = '';
         if (is_array($options)) {
-            $elements = array();
+            $elements = [];
             foreach ($options as $key => $value) {
                 $elements[] = '"' . $key . '":' . $value;
             }
@@ -148,6 +148,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
      */
     public function _persistToSession()
     {
-        return array();
+        return [];
     }
 }

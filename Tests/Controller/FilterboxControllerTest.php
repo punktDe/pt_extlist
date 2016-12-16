@@ -53,7 +53,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         try {
             $mockController = $this->getMock(
                 $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
-                array('dummy'), array(), '', false);
+                ['dummy'], [], '', false);
             $mockController->injectConfigurationmanager($this->objectManager->get('TYPO3\CMS\Extbase\Configuration\ConfigurationManager'));
             $this->fail('No exception has been thrown, when no filterbox identifier has been set!');
         } catch (Exception $e) {
@@ -65,16 +65,16 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 
     public function testShowAction()
     {
-        $mockFilterbox = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', array(), array(), '', false);
+        $mockFilterbox = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_Filterbox', [], [], '', false);
 
         $mockView = $this->getMock(
             '\TYPO3\CMS\Fluid\View\TemplateView',
-            array('assign'), array(), '', false);
+            ['assign'], [], '', false);
         //$mockView->expects($this->once())->method('assign')->with('filterbox', $mockFilterbox);
 
         $mockController = $this->getMock(
             $this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'),
-            array('dummy'), array(), '', false);
+            ['dummy'], [], '', false);
         $mockController->_set('view', $mockView);
         $mockController->_set('filterbox', $mockFilterbox);
 
@@ -91,31 +91,31 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 
         $filterboxConfigMock = $this->getMock(
             Tx_PtExtlist_Domain_Model_Filter_Filterbox,
-            array('doRedirectOnSubmit'),
-            array(),
+            ['doRedirectOnSubmit'],
+            [],
             '',
             false
         );
 
         $filterboxConfigMock->expects($this->any())->method('doRedirectOnSubmit')->will($this->returnValue(false));
 
-        $filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('validate', 'getFilterValidationErrors', 'getFilterboxConfiguration'), array(), '', false);
+        $filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, ['validate', 'getFilterValidationErrors', 'getFilterboxConfiguration'], [], '', false);
         $filterboxMock->expects($this->once())->method('validate')->will($this->returnValue(false));
 
-        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward', 'resetSorter'), array(), '', false);
+        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), ['forward', 'resetSorter'], [], '', false);
         $filterboxControllerMock->expects($this->any())->method('forward')->with('show');
         $filterboxControllerMock->expects($this->once())->method('resetSorter');
 
-        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('resetIsSubmittedFilterbox'), array(), '', false);
+        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', ['resetIsSubmittedFilterbox'], [], '', false);
         $filterboxCollectionMock->expects($this->once())->method('resetIsSubmittedFilterbox');
 
-        $viewMock = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView', array('assign'), array(), '', false);
+        $viewMock = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView', ['assign'], [], '', false);
         $viewMock->expects($this->once())->method('assign')->with('filtersDontValidate', true);
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', false);
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getSettings'), array(), '', false);
+        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', ['getSettings'], [], '', false);
         $configurationBuilderMock->expects($this->any())->method('getSettings')->will($this->returnValue(''));
 
         $filterboxControllerMock->_set('view', $viewMock);
@@ -138,28 +138,28 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
 
         $filterboxConfigMock = $this->getMock(
             Tx_PtExtlist_Domain_Model_Filter_Filterbox,
-            array('getRedirectOnSubmitPageId', 'getRedirectOnSubmitControllerName', 'getRedirectOnSubmitAction', 'doRedirectOnSubmit'),
-            array(),
+            ['getRedirectOnSubmitPageId', 'getRedirectOnSubmitControllerName', 'getRedirectOnSubmitAction', 'doRedirectOnSubmit'],
+            [],
             '',
             false
         );
         $filterboxConfigMock->expects($this->any())->method('doRedirectOnSubmit')->will($this->returnValue(false));
 
-        $filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('validate', 'getFilterValidationErrors', 'getFilterboxConfiguration'), array(), '', false);
+        $filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, ['validate', 'getFilterValidationErrors', 'getFilterboxConfiguration'], [], '', false);
         $filterboxMock->expects($this->once())->method('validate')->will($this->returnValue(true));
 
-        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', array('resetIsSubmittedFilterbox'), array(), '', false);
+        $filterboxCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection', ['resetIsSubmittedFilterbox'], [], '', false);
         $filterboxCollectionMock->expects($this->once())->method('resetIsSubmittedFilterbox');
 
-        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('forward', 'resetSorter'), array(), '', false);
+        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), ['forward', 'resetSorter'], [], '', false);
         $filterboxControllerMock->expects($this->once())->method('forward')->with('show');
         $filterboxControllerMock->expects($this->once())->method('resetSorter');
         $filterboxControllerMock->_set('filterboxCollection', $filterboxCollectionMock);
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', false);
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getSettings'), array(), '', false);
+        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', ['getSettings'], [], '', false);
         $configurationBuilderMock->expects($this->any())->method('getSettings')->will($this->returnValue(''));
 
         $filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
@@ -178,12 +178,12 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         // TODO: Abstract controller holds a data backend which is used in the called action -> addd a databackend to the controller mock
         $this->markTestIncomplete();
 
-        $filterboxMock1 = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('reset'), array(), '', false);
+        $filterboxMock1 = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, ['reset'], [], '', false);
         $filterboxMock1->expects($this->once())->method('reset');
 
-        $filterboxMock2 = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('reset'), array(), '', false);
+        $filterboxMock2 = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, ['reset'], [], '', false);
 
-        $filterboxCollectionMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection, array('hasItem', 'getFilterboxByFilterboxIdentifier'), array(), '', false);
+        $filterboxCollectionMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection, ['hasItem', 'getFilterboxByFilterboxIdentifier'], [], '', false);
         /* @var $filterboxCollectionMock Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection */
         $filterboxCollectionMock->expects($this->any())->method('hasItem')->with($this->equalTo('toBeResetted'))->will($this->returnValue(true));
         $filterboxCollectionMock->expects($this->any())->method('getFilterboxByFilterboxIdentifier')->with($this->equalTo('toBeResetted'))->will($this->returnValue($filterboxMock1));
@@ -191,10 +191,10 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxCollectionMock->addFilterbox($filterboxMock1, 'toBeResetted');
         $filterboxCollectionMock->addFilterBox($filterboxMock2, 'notToBeResetted');
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', false);
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
-        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect', 'getFilterboxForControllerSettings', 'resetSorter'), array(), '', false);
+        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), ['redirect', 'getFilterboxForControllerSettings', 'resetSorter'], [], '', false);
         $filterboxControllerMock->_set('filterboxIdentifier', 'test');
         $filterboxControllerMock->_set('filterboxCollection', $filterboxCollectionMock);
         $filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
@@ -215,8 +215,8 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         
         $filterboxConfigMock = $this->getMock(
             Tx_PtExtlist_Domain_Model_Filter_Filterbox,
-            array('getRedirectOnSubmitPageId', 'getRedirectOnSubmitControllerName', 'getRedirectOnSubmitAction', 'doRedirectOnSubmit'),
-            array(),
+            ['getRedirectOnSubmitPageId', 'getRedirectOnSubmitControllerName', 'getRedirectOnSubmitAction', 'doRedirectOnSubmit'],
+            [],
             '',
             false
         );
@@ -226,14 +226,14 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxConfigMock->expects($this->any())->method('getRedirectOnSubmitAction')->will($this->returnValue($redirectActionName));
         
         
-        $filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, array('reset', 'getFilterboxConfiguration'), array(), '', false);
+        $filterboxMock = $this->getMock(Tx_PtExtlist_Domain_Model_Filter_Filterbox, ['reset', 'getFilterboxConfiguration'], [], '', false);
         $filterboxMock->expects($this->once())->method('reset');
         $filterboxMock->expects($this->any())->method('getFilterboxConfiguration')->will($this->returnValue($filterboxConfigMock));
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('reset'), array(), '', false);
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
-        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), array('redirect', 'getFilterboxForControllerSettings'), array(), '', false);
+        $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), ['redirect', 'getFilterboxForControllerSettings'], [], '', false);
         $filterboxControllerMock->_set('filterboxIdentifier', 'test');
         $filterboxControllerMock->_set('filterbox', $filterboxMock);
         $filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);

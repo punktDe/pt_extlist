@@ -48,11 +48,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory
     {
         $filterboxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilder, $filterboxIdentifier, $filterBoxSettings);
 
-        $filterSettingsArray = is_array($filterBoxSettings['filterConfigs']) ? $filterBoxSettings['filterConfigs'] : array();
+        $filterSettingsArray = is_array($filterBoxSettings['filterConfigs']) ? $filterBoxSettings['filterConfigs'] : [];
         ksort($filterSettingsArray);
 
         foreach ($filterSettingsArray as $arrayIndex => $filterSettings) {
-            Tx_PtExtbase_Assertions_Assert::isArray($filterSettings, array('message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788'));
+            Tx_PtExtbase_Assertions_Assert::isArray($filterSettings, ['message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788']);
             $filterConfig = Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterSettings);
             $filterboxConfiguration->addFilterConfig($filterConfig, $arrayIndex);
         }

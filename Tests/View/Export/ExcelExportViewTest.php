@@ -82,7 +82,7 @@ class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_
     public function renderCallsAllParts()
     {
         $viewMock = $this->getMockBuilder('Tx_PtExtlist_View_Export_ExcelListView')
-                  ->setMethods(array('renderPreHeaderRows', 'renderHeader', 'renderBody', 'renderPostBodyRows', 'clearOutputBufferAndSendHeaders', 'saveOutputAndExit'))
+                  ->setMethods(['renderPreHeaderRows', 'renderHeader', 'renderBody', 'renderPostBodyRows', 'clearOutputBufferAndSendHeaders', 'saveOutputAndExit'])
                     ->getMock();
 
         $viewMock->expects($this->once())->method('renderPreHeaderRows');
@@ -105,8 +105,8 @@ class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_
      */
     public function buildBorderStyle()
     {
-        $settings = array('style' => '1006A3', 'color' => '1006A3');
-        $expected = array('style' => '1006A3', 'color' => array('rgb' => '1006A3'));
+        $settings = ['style' => '1006A3', 'color' => '1006A3'];
+        $expected = ['style' => '1006A3', 'color' => ['rgb' => '1006A3']];
 
         $this->assertEquals($expected, $this->proxy->_call('buildBorderStyle', $settings));
     }
@@ -120,10 +120,10 @@ class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_
     {
         $this->proxy->_call('init');
 
-        $expected = array(
+        $expected = [
             'wrap' => 0,
             'vertical' => 'top'
-        );
+        ];
 
         $this->assertEquals($expected, $this->proxy->_call('getExcelSettingsByColumnIdentifier', 'column1'));
     }

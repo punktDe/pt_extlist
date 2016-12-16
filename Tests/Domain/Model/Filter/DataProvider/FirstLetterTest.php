@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $defaultFilterSettings = array(
+    protected $defaultFilterSettings = [
         'filterIdentifier' => 'firstLetterTest',
         'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_FirsrLetterFilter',
         'partialPath' => 'Filter/Options/FirstLetterFilter',
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extend
         'filterField' => 'field3',
         'invert' => '0',
         'addLettersIfMissing' => 'X,B'
-    );
+    ];
     
     
 
@@ -77,16 +77,16 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest extend
     {
         $firstLetterDataProvider = $this->buildAccessibleFirstLetterDataProvider($this->defaultFilterSettings);
 
-        $missingLetters = array('F', 'B');
+        $missingLetters = ['F', 'B'];
         
-        $renderedOptions['A'] = array('value' => 'A','hasRecords' => true, 'selected' => false);
-        $renderedOptions['G'] = array('value' => 'G','hasRecords' => true, 'selected' => false);
+        $renderedOptions['A'] = ['value' => 'A','hasRecords' => true, 'selected' => false];
+        $renderedOptions['G'] = ['value' => 'G','hasRecords' => true, 'selected' => false];
         
         $renderedOprionsWithMissingLetters = $firstLetterDataProvider->_call('addMissingLetters', $renderedOptions, $missingLetters);
         
         $this->assertEquals(4, count($renderedOprionsWithMissingLetters));
 
-        $expectedMissingLetter = array('value' => 'B','hasRecords' => false, 'selected' => false);
+        $expectedMissingLetter = ['value' => 'B','hasRecords' => false, 'selected' => false];
         $this->assertEquals($expectedMissingLetter, $renderedOprionsWithMissingLetters['B']);
     }
 

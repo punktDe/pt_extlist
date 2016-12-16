@@ -58,7 +58,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
      *
      * @var array
      */
-    protected $exportIdentifiers = array();
+    protected $exportIdentifiers = [];
 
 
 

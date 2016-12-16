@@ -79,7 +79,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     public function render($arguments, $object = null, $nameSpace = '')
     {
         $argumentStringArray = $this->getArgumentArray($arguments);
-        $argumentArray = array();
+        $argumentArray = [];
         
         foreach ($argumentStringArray as $key => $value) {
             if ($object !== null && $value === false) {
@@ -110,7 +110,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     protected function getObjectValue(Tx_PtExtbase_State_IdentifiableInterface $object, $property)
     {
         $getterMethod = 'get'.ucfirst($property);
-        Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), array('message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), ['message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630']);
         
         return $object->$getterMethod();
     }
@@ -125,7 +125,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
      */
     public function getArgumentArray($argumentString)
     {
-        $argumentArray = array();
+        $argumentArray = [];
         $argumentChunks = GeneralUtility::trimExplode(',', $argumentString);
         
         foreach ($argumentChunks as $argument) {
@@ -154,7 +154,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     public function buildObjectValueArray(Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value)
     {
         $nameSpace = $object->getObjectNamespace();
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
         
         return $this->buildNamespaceValueArray($nameSpace, $key, $value);
     }
@@ -173,7 +173,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     {
         $nameSpaceChunks =  GeneralUtility::trimExplode('.', $nameSpace);
         
-        $returnArray = array();
+        $returnArray = [];
         $pointer = &$returnArray;
         
         // Build array

@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpansAlgorithm_Con
 
     public function testProcess()
     {
-        $timeSpanAlgorithmMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm', array('dummy'));
+        $timeSpanAlgorithmMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm', ['dummy']);
 
         $timeSpan01 = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
         $timeSpan01->setStartDate(new DateTime('2011/12/24'));

@@ -79,7 +79,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      *
      * @var array
      */
-    protected $sessionFilterData = array();
+    protected $sessionFilterData = [];
     
     
     
@@ -88,7 +88,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      *
      * @var array
      */
-    protected $gpVarFilterData = array();
+    protected $gpVarFilterData = [];
     
     
     
@@ -629,10 +629,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      */
     protected function getFieldsForBreadcrumb()
     {
-        return array(
+        return [
             'label' => $this->filterConfig->getLabel(),
             'value' => $this->getDisplayValue()
-        );
+        ];
     }
 
 
@@ -688,7 +688,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      */
     protected function resetSessionDataForFilter()
     {
-        $this->sessionFilterData = array();
+        $this->sessionFilterData = [];
     }
 
 
@@ -698,7 +698,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      */
     protected function resetGpVarDataForFilter()
     {
-        $this->gpVarFilterData = array();
+        $this->gpVarFilterData = [];
     }
 
 

@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTe
      * Holds a dummy configuration for a aggregate column config object
      * @var array
      */
-    protected $aggregateColumnSettings = array();
+    protected $aggregateColumnSettings = [];
     
     
     /**
@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTe
     
     public function testGetAggregateDataIdentifier()
     {
-        $this->assertEquals($this->aggregateColumnConfig->getAggregateDataIdentifier(), array($this->aggregateColumnSettings['aggregateDataIdentifier']));
+        $this->assertEquals($this->aggregateColumnConfig->getAggregateDataIdentifier(), [$this->aggregateColumnSettings['aggregateDataIdentifier']]);
     }
     
     

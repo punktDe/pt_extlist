@@ -86,7 +86,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
         if (!$this->exportListIdentifier) {
             $this->exportListIdentifier = $this->listIdentifier;
         }
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, array('message' => 'No export list identifier set.', 1316446015));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, ['message' => 'No export list identifier set.', 1316446015]);
     }
 
 

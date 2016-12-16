@@ -54,11 +54,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DatePickerFilterTest extends Tx_PtE
 
     public function testRemoveQuotationsFromJsonObjectValues()
     {
-        $input = array(
+        $input = [
             "changeMonth" => "true",
             "changeYear" => "false",
             "monthNames" => "['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
-        );
+        ];
         $expected = "{\"changeMonth\":true,\"changeYear\":false,\"monthNames\":['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}";
         $actual = $this->proxy->_call('buildJson', $input);
         $this->assertEquals($expected, $actual);

@@ -41,8 +41,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory
      */
     public static function getInstanceBySortingSettings($sortingSettings)
     {
-        $nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
-                                       'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+        $nameToConstantMapping = ['asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+                                       'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC];
 
         // We create new sortingConfigCollection for column that can only be sorted as a whole
         $sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(true);
@@ -56,9 +56,9 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory
                 $sortingDir = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
                 $forceSortingDir = false;
 
-                if (in_array($tempSortingDir, array('asc', 'desc'))) {
+                if (in_array($tempSortingDir, ['asc', 'desc'])) {
                     $sortingDir = $nameToConstantMapping[$tempSortingDir];
-                } elseif (in_array($tempSortingDir, array('!asc', '!desc'))) {
+                } elseif (in_array($tempSortingDir, ['!asc', '!desc'])) {
                     $forceSortingDir = true;
                     $sortingDir = $nameToConstantMapping[substr($tempSortingDir, 1)];
                 }
@@ -82,8 +82,8 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory
      */
     public static function getInstanceBySortingFieldsSettings(array $sortingFieldsSettings)
     {
-        $nameToConstantMapping = array('asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
-                                       'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+        $nameToConstantMapping = ['asc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC,
+                                       'desc' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC];
 
         // We create sortingConfigCollection that can handle sorting of individual fields
         $sortingConfigCollection = new Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection(false);

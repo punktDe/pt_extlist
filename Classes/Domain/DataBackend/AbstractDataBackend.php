@@ -118,7 +118,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
      *
      * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
      */
-    protected $fieldConfigurationCollection = array();
+    protected $fieldConfigurationCollection = [];
 
 
     /**

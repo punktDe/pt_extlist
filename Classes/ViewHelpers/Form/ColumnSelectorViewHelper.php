@@ -102,8 +102,8 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
     {
         $columns = $this->arguments['columns'];
 
-        $options = array();
-        $selectedOptions = array();
+        $options = [];
+        $selectedOptions = [];
 
         foreach ($columns as $columnIdentifier => $column) { /** @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 

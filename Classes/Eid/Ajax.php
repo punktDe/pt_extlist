@@ -37,7 +37,7 @@ if (!defined('TYPO3_MODE')) {
 require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Utility/AjaxDispatcher.php';
 
 $TSFE = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController', $TYPO3_CONF_VARS, 0, 0); /* @var $TSFE \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController */
-$TSFE->config['config'] = array();
+$TSFE->config['config'] = [];
 $TSFE->renderCharset = 'utf-8';
 $TSFE->fe_user = \TYPO3\CMS\Frontend\Utility\EidUtility::initFeUser();
 $GLOBALS['TSFE'] = $TSFE;

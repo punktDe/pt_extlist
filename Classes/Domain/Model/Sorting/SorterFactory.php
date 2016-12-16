@@ -59,7 +59,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory implements \TYPO3\CMS\Core
      *
      * @var array<Tx_PtExtlist_Domain_Model_Sorting_Sorter>
      */
-    private $instances = array();
+    private $instances = [];
 
 
 

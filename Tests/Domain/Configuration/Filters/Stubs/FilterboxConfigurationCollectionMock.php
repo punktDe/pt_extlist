@@ -58,7 +58,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
         $mockFilterConfiguration1 = $this->getFilterConfigurationMock('filter1', $filterBoxIdentifier);
         $mockFilterConfiguration2 = $this->getFilterConfigurationMock('filter2', $filterBoxIdentifier);
         
-        $filterBoxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilderMock, $filterBoxIdentifier, array());
+        $filterBoxConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($configurationBuilderMock, $filterBoxIdentifier, []);
         
         $filterBoxConfiguration->addItem($mockFilterConfiguration1);
         $filterBoxConfiguration->addItem($mockFilterConfiguration2);
@@ -72,9 +72,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
     {
         $mockFilterConfiguration1 = $this->getMock(
             'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
-            array('getFilterIdentifier', 'getConfigurationBuilder', 'getFilterClassName', 'getListIdentifier', 'getFilterboxIdentifier', 'isAccessable'),
-            array(Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(),
-                $this->extBaseSettings, 'test'), '', false, false);
+            ['getFilterIdentifier', 'getConfigurationBuilder', 'getFilterClassName', 'getListIdentifier', 'getFilterboxIdentifier', 'isAccessable'],
+            [Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance(),
+                $this->extBaseSettings, 'test'], '', false, false);
             
         $mockFilterConfiguration1->expects($this->any())
             ->method('getFilterIdentifier')

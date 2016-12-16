@@ -75,21 +75,21 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
         parent::initConfiguration();
         //echo 's';
         $this->templatePath = $this->exportConfiguration->getSettings('templatePath');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, array('message' => 'No template path given for fluid export! 1284621481'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, ['message' => 'No template path given for fluid export! 1284621481']);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->templatePath));
 
         $this->paperSize = strtolower($this->exportConfiguration->getSettings('paperSize'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->paperSize, array('message' => 'No PaperSize given for the PDF output! 1322585559'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->paperSize, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
         
         $this->paperOrientation = $this->exportConfiguration->getSettings('paperOrientation');
-        Tx_PtExtbase_Assertions_Assert::isInArray($this->paperOrientation, array('portrait', 'landscape'), array('message' => 'The Orientation must either be portrait or landscape! 1322585560'));
+        Tx_PtExtbase_Assertions_Assert::isInArray($this->paperOrientation, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
 
 
         $this->cssFilePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), array('message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
 
         $this->dompdfSourcePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('dompdfSourcePath'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_dir($this->dompdfSourcePath), array('message' => 'DomPdf source in path ' . $this->dompdfSourcePath . ' was not found. 1322753515'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_dir($this->dompdfSourcePath), ['message' => 'DomPdf source in path ' . $this->dompdfSourcePath . ' was not found. 1322753515']);
         $this->dompdfSourcePath = substr($this->dompdfSourcePath, -1, 1) == '/' ? $this->dompdfSourcePath : $this->dompdfSourcePath . '/';
     }
 
@@ -194,7 +194,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
         $dompdf->load_html($html);
         $dompdf->render();
 
-        $dompdf->stream("test" . time() .'.pdf', array("Attachment" => 0));
+        $dompdf->stream("test" . time() .'.pdf', ["Attachment" => 0]);
 
         exit();
     }

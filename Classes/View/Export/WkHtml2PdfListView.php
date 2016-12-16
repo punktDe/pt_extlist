@@ -384,7 +384,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
      */
     private static function pipeExec($cmd, $input = '')
     {
-        $proc = proc_open($cmd, array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'w')), $pipes);
+        $proc = proc_open($cmd, [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
         fwrite($pipes[0], $input);
         fclose($pipes[0]);
         $stdout = stream_get_contents($pipes[1]);
@@ -392,11 +392,11 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
         $stderr = stream_get_contents($pipes[2]);
         fclose($pipes[2]);
         $rtn = proc_close($proc);
-        return array(
+        return [
             'stdout' => $stdout,
             'stderr' => $stderr,
             'return' => $rtn
-        );
+        ];
     }
 
 
@@ -404,22 +404,22 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
     private function initTypoScriptSettings()
     {
         $this->fluidTemplatePath = $this->exportConfiguration->getSettings('templatePath');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fluidTemplatePath, array('message' => 'No template path given for fluid export! 1284621481'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fluidTemplatePath, ['message' => 'No template path given for fluid export! 1284621481']);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->fluidTemplatePath));
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further information on parameters!
         // --page-size	<Size>	Set paper size to: A4, Letter, etc. (default A4)
         $this->size = strtolower($this->exportConfiguration->getSettings('paperSize'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->size, array('message' => 'No PaperSize given for the PDF output! 1322585559'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->size, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further informatoin on parameters
         // --orientation	<orientation>	Set orientation to Landscape or Portrait (default Portrait)
         $this->orient = $this->exportConfiguration->getSettings('paperOrientation');
-        Tx_PtExtbase_Assertions_Assert::isInArray($this->orient, array('portrait', 'landscape'), array('message' => 'The Orientation must either be portrait or landscape! 1322585560'));
+        Tx_PtExtbase_Assertions_Assert::isInArray($this->orient, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
 
 
         $this->cssFilePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), array('message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
 
         $this->additionalWkhtmlParams = $this->exportConfiguration->getSettings('additionalWkhtmlParams');
 

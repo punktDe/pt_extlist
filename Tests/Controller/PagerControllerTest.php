@@ -51,14 +51,14 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
 
     public function testShowAction()
     {
-        $pagerConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration', array('getTemplatePath'), array(), '', false);
+        $pagerConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfiguration', ['getTemplatePath'], [], '', false);
          
-        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('getPagerConfiguration'), array(), '', false);
+        $pagerMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', ['getPagerConfiguration'], [], '', false);
          
 
-        $mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView', array('assign'));
+        $mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView', ['assign']);
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('getItemCount', 'getItemById', 'hasItem'), array(), '', false);
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['getItemCount', 'getItemById', 'hasItem'], [], '', false);
         $pagerCollectionMock->expects($this->once())
         ->method('getItemCount')
         ->will($this->returnValue(1));
@@ -73,7 +73,7 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
 
          
 
-        $pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), array('dummy'), array(), '', false);
+        $pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), ['dummy'], [], '', false);
         $pagerControllerMock->_set('view', $mockView);
         $pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
         $pagerControllerMock->_set('pagerIdentifier', 'default');

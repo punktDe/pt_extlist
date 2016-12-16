@@ -55,7 +55,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTes
     /** @test */
     public function buildWherePartWithEnableFields()
     {
-        $backendMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', array('getWhereClauseFromFilterboxes', 'getTypo3SpecialFieldsWhereClause'), array($this->configurationBuilder));
+        $backendMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', ['getWhereClauseFromFilterboxes', 'getTypo3SpecialFieldsWhereClause'], [$this->configurationBuilder]);
 
         $backendMock->_set('backendConfiguration', $this->configurationBuilder->buildDataBackendConfiguration());
         

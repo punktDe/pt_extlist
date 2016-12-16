@@ -37,7 +37,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
-    protected $extBaseSettings = array();
+    protected $extBaseSettings = [];
 
     /**
      * @var Tx_Phpunit_Framework
@@ -101,7 +101,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
      * Holds settings for testcase setup
      * @var array
      */
-    protected $settings = array();
+    protected $settings = [];
     
     
     
@@ -148,9 +148,9 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
      * @param array $overrideMethods Methods to be overwritten in mocked class
      * @return PHPUnit_Framework_MockObject_MockObject Mock instance of $className
      */
-    public function getSimpleMock($className, $overrideMethods = array())
+    public function getSimpleMock($className, $overrideMethods = [])
     {
-        return $this->getMock($className, array(), $overrideMethods, '', false);
+        return $this->getMock($className, [], $overrideMethods, '', false);
     }
 
 
@@ -158,13 +158,13 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
     public function getDataBackendFactoryMockForListConfigurationAndListIdentifier($listConfigurationArray, $listIdentifier)
     {
         return $this->getDataBackendFactoryMock(
-            array(
+            [
                 'listIdentifier' => $listIdentifier,
-                'prototype' => array(),
-                'listConfig' => array(
+                'prototype' => [],
+                'listConfig' => [
                     $listIdentifier => $listConfigurationArray
-                )
-            ),
+                ]
+            ],
             $listIdentifier
         );
     }
@@ -188,7 +188,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
         if (!$listIdentifier) {
             throw new Exception('No list identifier was given and no list identifier could be found in given TS settings. 1363856864');
         }
-        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', false);
+        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($typoScriptSettingsForListIdentifier)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
 
         $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
@@ -201,7 +201,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
 
         $instancesContainer = GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
 
-        $objectManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Object\ObjectManager', array('get'), array(), '', false);
+        $objectManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Object\ObjectManager', ['get'], [], '', false);
         $objectManagerMock->expects($this->any())
                 ->method('get')
                 ->with('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', $configurationBuilderFactory->getInstance($listIdentifier))

@@ -187,10 +187,10 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
          */
         $filterValue = str_replace('  ', ' ', $filterValue);
         if ($this->andToken) {
-            $filterValue = str_replace(array(' ' . $this->andToken, ' ' . $this->andToken . ' ', $this->andToken . ' '), $this->andToken, $filterValue);
+            $filterValue = str_replace([' ' . $this->andToken, ' ' . $this->andToken . ' ', $this->andToken . ' '], $this->andToken, $filterValue);
         }
         if ($this->orToken) {
-            $filterValue = str_replace(array(' ' . $this->orToken, ' ' . $this->orToken . ' ', $this->orToken . ' '), $this->orToken, $filterValue);
+            $filterValue = str_replace([' ' . $this->orToken, ' ' . $this->orToken . ' ', $this->orToken . ' '], $this->orToken, $filterValue);
         }
 
         /*
@@ -199,10 +199,10 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
         if ($this->orToken && !$this->andToken) {
             $valueArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->orToken, $filterValue);
             foreach ($valueArray as &$value) {
-                $value = array($value);
+                $value = [$value];
             }
         } elseif (!$this->orToken && $this->andToken) {
-            $valueArray = array(\TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->andToken, $filterValue));
+            $valueArray = [\TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->andToken, $filterValue)];
         } elseif ($this->orToken && $this->andToken) {
             $valueArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->orToken, $filterValue);
 
@@ -210,7 +210,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
                 $orValue = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($this->andToken, $orValue);
             }
         } else {
-            $valueArray = array($filterValue);
+            $valueArray = [$filterValue];
         }
 
         return $valueArray;

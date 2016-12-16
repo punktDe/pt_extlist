@@ -49,10 +49,10 @@ class Tx_PtExtlist_Domain_Renderer_RendererFactory
     public function getRenderer(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration)
     {
         $rendererClassName = $rendererConfiguration->getRendererClassName();
-        Tx_PtExtbase_Assertions_Assert::classExists($rendererClassName, array('message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512'));
+        Tx_PtExtbase_Assertions_Assert::classExists($rendererClassName, ['message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512']);
 
         $renderer = $this->objectManager->get($rendererClassName); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), array('message' => 'Configured renderer class ' . $rendererClassName . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), ['message' => 'Configured renderer class ' . $rendererClassName . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513']);
 
         $renderer->_injectConfiguration($rendererConfiguration);
         

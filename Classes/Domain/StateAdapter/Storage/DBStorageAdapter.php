@@ -151,7 +151,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
         
         $stateHash = md5(serialize($value));
 
-        $this->stateCache->set($stateHash, serialize($stateData), array($this->cacheTag), 0);
+        $this->stateCache->set($stateHash, serialize($stateData), [$this->cacheTag], 0);
     }
     
     
@@ -168,6 +168,6 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
         }
         
         unset($stateData[$key]);
-        $this->stateCache->set($stateHash, serialize($stateData), array($this->cacheTag), 0);
+        $this->stateCache->set($stateHash, serialize($stateData), [$this->cacheTag], 0);
     }
 }

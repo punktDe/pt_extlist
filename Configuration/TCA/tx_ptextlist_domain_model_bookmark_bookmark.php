@@ -1,6 +1,6 @@
 <?php
-return array(
-    'ctrl' => array(
+return [
+    'ctrl' => [
         'title'             => 'Bookmark',
         'label'             => 'name',
         'tstamp'            => 'tstamp',
@@ -10,129 +10,129 @@ return array(
         'transOrigPointerField'     => 'l18n_parent',
         'transOrigDiffSourceField'  => 'l18n_diffsource',
         'delete'            => 'deleted',
-        'enablecolumns'     => array(
+        'enablecolumns'     => [
             'disabled' => 'hidden'
-        ),
+        ],
         'iconfile'          => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('pt_extlist') . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
-    ),
-    'interface' => array(
+    ],
+    'interface' => [
         'showRecordFieldList' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content'
-    ),
-    'types' => array(
-        '1' => array('showitem' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content')
-    ),
-    'palettes' => array(
-        '1' => array('showitem' => '')
-    ),
-    'columns' => array(
+    ],
+    'types' => [
+        '1' => ['showitem' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content']
+    ],
+    'palettes' => [
+        '1' => ['showitem' => '']
+    ],
+    'columns' => [
 
-        'sys_language_uid' => array(
+        'sys_language_uid' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
-                'items' => array(
-                    array('LLL:EXT:lang/locallang_general.php:LGL.allLanguages',-1),
-                    array('LLL:EXT:lang/locallang_general.php:LGL.default_value',0)
-                )
-            )
-        ),
+                'items' => [
+                    ['LLL:EXT:lang/locallang_general.php:LGL.allLanguages',-1],
+                    ['LLL:EXT:lang/locallang_general.php:LGL.default_value',0]
+                ]
+            ]
+        ],
         
-        'l18n_parent' => array(
+        'l18n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
-                'items' => array(
-                    array('', 0),
-                ),
+                'items' => [
+                    ['', 0],
+                ],
                 'foreign_table' => 'tt_news',
                 'foreign_table_where' => 'AND tt_news.uid=###REC_FIELD_l18n_parent### AND tt_news.sys_language_uid IN (-1,0)', // TODO
-            )
-        ),
+            ]
+        ],
         
-        'l18n_diffsource' => array(
-            'config'=>array(
-                'type'=>'passthrough')
-        ),
+        'l18n_diffsource' => [
+            'config'=> [
+                'type'=>'passthrough']
+        ],
         
-        't3ver_label' => array(
+        't3ver_label' => [
             'displayCond' => 'FIELD:t3ver_label:REQ:true',
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',
-            'config' => array(
+            'config' => [
                 'type'=>'none',
                 'cols' => 27
-            )
-        ),
+            ]
+        ],
     
-        'hidden' => array(
+        'hidden' => [
             'exclude' => 1,
             'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-            'config'  => array(
+            'config'  => [
                 'type' => 'check'
-            )
-        ),
+            ]
+        ],
         
-        'name' => array(
+        'name' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.name',
-            'config'  => array(
+            'config'  => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required'
-            )
-        ),
+            ]
+        ],
         
-        'list_id' => array(
+        'list_id' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.list_id',
-            'config'  => array(
+            'config'  => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required'
-            )
-        ),
+            ]
+        ],
         
-        'description' => array(
+        'description' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.description',
-            'config'  => array(
+            'config'  => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim'
-            )
-        ),
+            ]
+        ],
         
-        'content' => array(
+        'content' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.content',
-            'config'  => array(
+            'config'  => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim'
-            )
-        ),
+            ]
+        ],
         
-        'create_date' => array(
+        'create_date' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.create_date',
-            'config'  => array(
+            'config'  => [
                 'type' => 'input',
                 'size' => 12,
                 'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => '0',
                 'default' => '0'
-            )
-        ),
+            ]
+        ],
         
-        'fe_user' => array(
+        'fe_user' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.fe_user',
-            'config'  => array(
+            'config'  => [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'fe_users',
@@ -141,13 +141,13 @@ return array(
                 'minitems' => 0,
                 'maxitems'      => 1,
                 'multiple' => 0
-            )
-        ),
+            ]
+        ],
         
-        'fe_group' => array(
+        'fe_group' => [
             'exclude' => 0,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.fe_group',
-            'config'  => array(
+            'config'  => [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'fe_users',
@@ -156,20 +156,20 @@ return array(
                 'minitems' => 0,
                 'maxitems'      => 1,
                 'multiple' => 0
-            )
-        ),
+            ]
+        ],
         
-        'type' => array(
+        'type' => [
             'exclude' => 1,
             'label'   => 'LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:tx_pt_extlist_domain_model_bookmark_bookmark.type',
-            'config'  => array(
+            'config'  => [
                 'type' => 'select',
-                'items' => array(
-                    array('public', 1),
-                    array('private', 2),
-                    array('group', 3)
-                )
-            )
-        )
-    )
-);
+                'items' => [
+                    ['public', 1],
+                    ['private', 2],
+                    ['group', 3]
+                ]
+            ]
+        ]
+    ]
+];

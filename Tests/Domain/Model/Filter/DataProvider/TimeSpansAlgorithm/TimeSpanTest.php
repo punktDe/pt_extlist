@@ -113,7 +113,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_Time
     {
         $input = new DateTime("2011/10/31");
         $proxyMock = $this->getMockBuilder($this->proxyClass)
-            ->setMethods(array('getStartDate'))
+            ->setMethods(['getStartDate'])
             ->getMock();
         $proxyMock->expects($this->once())
             ->method('getStartDate')
@@ -141,7 +141,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_Time
         $inputStartDate = new DateTime("2011/10/31");
         $inputEndDate = new DateTime("2011/11/05");
         $proxyMock = $this->getMockBuilder($this->proxyClass)
-            ->setMethods(array('getStartDate', 'getEndDate'))
+            ->setMethods(['getStartDate', 'getEndDate'])
             ->getMock();
         $proxyMock->expects($this->once())
             ->method('getStartDate')

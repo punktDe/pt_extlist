@@ -54,7 +54,7 @@ class Tx_PtExtlist_Utility_RenderValue
     /**
      * @var array
      */
-    protected static $renderCache = array();
+    protected static $renderCache = [];
 
 
 
@@ -161,7 +161,7 @@ class Tx_PtExtlist_Utility_RenderValue
      */
     public static function renderDefault($data)
     {
-        $renderedFields = array();
+        $renderedFields = [];
         
         foreach ($data as $fieldIdentifier => $field) {
             
@@ -200,7 +200,7 @@ class Tx_PtExtlist_Utility_RenderValue
      */
     protected static function renderDefaultArray(array $array)
     {
-        $renderedFields = array();
+        $renderedFields = [];
         
         foreach ($array as $label => $field) {
             $renderedFields[] = $label . ' : ' . $field;
@@ -220,7 +220,7 @@ class Tx_PtExtlist_Utility_RenderValue
     protected static function renderDefaultObject($object)
     {
         return $object;
-        $renderedFields = array();
+        $renderedFields = [];
         
         $objectMethods = get_class_methods(get_class($object));
         
@@ -399,7 +399,7 @@ class Tx_PtExtlist_Utility_RenderValue
             return $tsConfigValue;
         }
 
-        $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('tsConfigArray' => $tsConfigValue));
+        $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray(['tsConfigArray' => $tsConfigValue]);
         $content = Tx_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
 
         return $content;

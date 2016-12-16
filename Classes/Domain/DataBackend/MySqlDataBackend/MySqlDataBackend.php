@@ -184,7 +184,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $rawData = $this->dataSource->executeQuery($sqlQuery)->fetchAll();
 
         if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
+            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
         }
 
         $mappedListData = $this->dataMapper->getMappedListData($rawData);
@@ -209,7 +209,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $dataSource->executeQuery($sqlQuery);
 
         if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery));
+            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
         }
 
         $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData');
@@ -269,11 +269,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
         $fluidView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView'); /** @var \TYPO3\CMS\Fluid\View\StandaloneView $fluidView */
         $fluidView->setTemplateSource($query);
-        $fluidView->assignMultiple(array(
+        $fluidView->assignMultiple([
             'filters' => $this->filterboxCollection,
             'pager' => $this->pagerCollection,
             'sorter' => $this->sorter
-        ));
+        ]);
 
         return $fluidView->render();
     }
@@ -329,7 +329,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
     public function buildSelectPart()
     {
-        $selectParts = array();
+        $selectParts = [];
 
         foreach ($this->fieldConfigurationCollection as $fieldConfiguration) {
             /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
@@ -357,7 +357,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
             $fromPart = $this->tables;
         }
 
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($fromPart, array('message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420']);
 
         return $fromPart;
     }
@@ -369,7 +369,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @return string WHERE part of query without 'WHERE'
      * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
      */
-    public function buildWherePart($excludeFilters = array())
+    public function buildWherePart($excludeFilters = [])
     {
         $wherePart = '';
         $baseWhereClause = $this->getBaseWhereClause();
@@ -422,12 +422,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
      * @return string WHERE clause from filterboxcollection without 'WHERE'
      */
-    public function getWhereClauseFromFilterboxes($excludeFilters = array())
+    public function getWhereClauseFromFilterboxes($excludeFilters = [])
     {
-        $whereClauses = array();
+        $whereClauses = [];
         foreach ($this->filterboxCollection as $filterBox) { /* @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
 
-            $excludeFilterbox = array_key_exists($filterBox->getfilterboxIdentifier(), $excludeFilters) ? $excludeFilters[$filterBox->getfilterboxIdentifier()] : array();
+            $excludeFilterbox = array_key_exists($filterBox->getfilterboxIdentifier(), $excludeFilters) ? $excludeFilters[$filterBox->getfilterboxIdentifier()] : [];
             $whereClauseFromFilterbox = $this->getWhereClauseFromFilterbox($filterBox, $excludeFilterbox);
             if ($whereClauseFromFilterbox) {
                 $whereClauses[] = $whereClauseFromFilterbox;
@@ -445,9 +445,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @param array $excludeFilters Filters from which no where clause should be returned
      * @return string WHERE clause from filterbox without 'WHERE'
      */
-    public function getWhereClauseFromFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox, array $excludeFilters = array())
+    public function getWhereClauseFromFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox, array $excludeFilters = [])
     {
-        $whereClausesFromFilterbox = array();
+        $whereClausesFromFilterbox = [];
         foreach ($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
 
             if (!in_array($filter->getFilterIdentifier(), $excludeFilters)) {
@@ -545,7 +545,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
             $countResult = $this->dataSource->executeQuery($query)->fetchAll();
 
             if (TYPO3_DLOG) {
-                \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
+                \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
             }
 
             if ($this->listQueryParts['GROUPBY']) {
@@ -576,7 +576,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
                                  Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
     {
         $query = $this->buildGroupDataQuery($groupDataQuery, $excludeFilters, $filterConfig);
@@ -584,7 +584,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
 
         if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query));
+            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
         }
 
         return $groupDataArray;
@@ -597,7 +597,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return string
      */
-    protected function buildGroupDataQuery(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+    protected function buildGroupDataQuery(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
                                             Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
     {
         $this->buildQuery();
@@ -634,7 +634,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
             }
         }
 
-        $query = implode(" \n", array($selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart));
+        $query = implode(" \n", [$selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart]);
 
 
         $query = $this->processQueryWithFluid($query);
@@ -655,7 +655,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
 
         if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, array('executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery));
+            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery]);
         }
 
         return $aggregates[0];
@@ -675,7 +675,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $selectPart = 'SELECT ' . $this->buildAggregateFieldsSQLByConfigCollection($aggregateConfigCollection);
         $fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $this->listQueryParts['WHERE'] . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY';
 
-        $query = implode(" \n", array($selectPart, $fromPart));
+        $query = implode(" \n", [$selectPart, $fromPart]);
 
         return $query;
     }
@@ -689,7 +689,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
     protected function buildAggregateFieldsSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection)
     {
-        $fieldsSQL = array();
+        $fieldsSQL = [];
 
         foreach ($aggregateConfigCollection as $aggregateConfig) {
             $fieldsSQL[] = $this->buildAggregateFieldSQLByConfig($aggregateConfig);
@@ -707,12 +707,12 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
     protected function buildAggregateFieldSQLByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig)
     {
-        $supportedMethods = array('sum', 'avg', 'min', 'max', 'count');
+        $supportedMethods = ['sum', 'avg', 'min', 'max', 'count'];
 
         if ($aggregateConfig->getSpecial()) {
             $aggregateFieldSQL = $aggregateConfig->getSpecial();
         } else {
-            Tx_PtExtbase_Assertions_Assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, array('info' => 'The given aggregate method "' . $aggregateConfig->getMethod() . '" is not supported by this DataBackend'));
+            Tx_PtExtbase_Assertions_Assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, ['info' => 'The given aggregate method "' . $aggregateConfig->getMethod() . '" is not supported by this DataBackend']);
             $aggregateFieldSQL = strtoupper($aggregateConfig->getMethod()) . '(' . $aggregateConfig->getFieldIdentifier() . ')';
         }
 
@@ -730,8 +730,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      */
     protected function convertTableFieldToAlias($query)
     {
-        $convertTableFieldAsAliasArray = array();
-        $convertTableFieldArray = array();
+        $convertTableFieldAsAliasArray = [];
+        $convertTableFieldArray = [];
 
         foreach ($this->getFieldConfigurationCollection() as $fieldConfiguration) {
             if ($fieldConfiguration->getSpecial() == '') {

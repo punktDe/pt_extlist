@@ -42,48 +42,48 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      *
      * @var array
      */
-    protected $testData = array(
-        'rows' => array(
-            0 => array(
-                'columns' => array(
-                    'col0' => array(
+    protected $testData = [
+        'rows' => [
+            0 => [
+                'columns' => [
+                    'col0' => [
                         'value' => 'testValue1',
                         'cssClass' => 'testCssClass1',
                         'rowIndex' => 0,
                         'columnIndex' => 0,
-                        'specialValues' => array('key1' => 'value1')
-                    ),
-                    'col1' => array(
+                        'specialValues' => ['key1' => 'value1']
+                    ],
+                    'col1' => [
                         'value' => 'testValue2',
                         'cssClass' => 'testCssClass2',
                         'rowIndex' => 0,
                         'columnIndex' => 1,
-                        'specialValues' => array('key1' => 'value1')
-                    )
-                ),
-                'specialValues' => array(),
-            ),
-            1 => array(
-                'columns' => array(
-                    'col0' => array(
+                        'specialValues' => ['key1' => 'value1']
+                    ]
+                ],
+                'specialValues' => [],
+            ],
+            1 => [
+                'columns' => [
+                    'col0' => [
                         'value' => 'testValue3',
                         'cssClass' => 'testCssClass3',
                         'rowIndex' => 1,
                         'columnIndex' => 0,
-                        'specialValues' => array('key1' => 'value1')
-                    ),
-                    'col1' => array(
+                        'specialValues' => ['key1' => 'value1']
+                    ],
+                    'col1' => [
                         'value' => 'testValue4',
                         'cssClass' => 'testCssClass4',
                         'rowIndex' => 1,
                         'columnIndex' => 1,
-                        'specialValues' => array('key1' => 'value1')
-                    ),
-                    'specialValues' => array(),
-                )
-            )
-        ),
-    );
+                        'specialValues' => ['key1' => 'value1']
+                    ],
+                    'specialValues' => [],
+                ]
+            ]
+        ],
+    ];
 
 
 

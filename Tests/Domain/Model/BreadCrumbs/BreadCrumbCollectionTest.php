@@ -47,9 +47,9 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionTest exten
     /** @test */
     public function addBreadCrumbAddsBreadCrumbToCollection()
     {
-        $filterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array(), array(), '', false);
+        $filterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', [], [], '', false);
         
-        $breadCrumbMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array('dummy'), array($filterMock), '', false);
+        $breadCrumbMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', ['dummy'], [$filterMock], '', false);
         $breadCrumbMock->_set('filter', $filterMock);
         
         $breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();

@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
     /**
      * @var array
      */
-    protected $selectedColumnIdentifiers = array();
+    protected $selectedColumnIdentifiers = [];
 
 
 
@@ -103,7 +103,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
     {
         $returnValue = null;
         if ($this->configuration->getPersistToSession()) {
-            $returnValue = array('selectedColumns' => $this->selectedColumnIdentifiers);
+            $returnValue = ['selectedColumns' => $this->selectedColumnIdentifiers];
         }
         return $returnValue;
     }

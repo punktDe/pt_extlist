@@ -54,7 +54,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilderTest e
 
     public function setUp()
     {
-        $this->testData = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        $this->testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
         $this->initDefaultConfigurationBuilderMock();
         $this->builddataBackendMock();
@@ -105,12 +105,12 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilderTest e
             $this->testListData->addRow($row);
         }
 
-        $this->dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getListData', 'getAggregatesByConfigCollection'), array(), '', false);
+        $this->dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', ['getListData', 'getAggregatesByConfigCollection'], [], '', false);
         $this->dataBackendMock->expects($this->any())
                 ->method('getListData')
                 ->will($this->returnValue($this->testListData));
         $this->dataBackendMock->expects($this->any())
                 ->method('getAggregatesByConfigCollection')
-                ->will($this->returnValue(array('avgField2' => 5)));
+                ->will($this->returnValue(['avgField2' => 5]));
     }
 }

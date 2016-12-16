@@ -51,7 +51,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
 
     public function setUp()
     {
-        $this->testData = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        $this->testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
         $this->initDefaultConfigurationBuilderMock();
         $this->buildTestDataBackend();
@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
 
     public function testExceptionIfMethodNotExists()
     {
-        $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', array('fieldIdentifier' => 'field2', 'method' => 'notExistingMethod'), $this->configurationBuilderMock);
+        $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', ['fieldIdentifier' => 'field2', 'method' => 'notExistingMethod'], $this->configurationBuilderMock);
 
         $arrayAggregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
         $arrayAggregator->injectDataBackend($this->testDataBackend);
@@ -93,10 +93,10 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
 
     public function testAggregateMethods()
     {
-        $aggregateConfigSum = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', array('fieldIdentifier' => 'field2', 'method' => 'sum'), $this->configurationBuilderMock);
-        $aggregateConfigAvg = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('avgField2', array('fieldIdentifier' => 'field2', 'method' => 'avg'), $this->configurationBuilderMock);
-        $aggregateConfigMax = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('maxField2', array('fieldIdentifier' => 'field2', 'method' => 'max'), $this->configurationBuilderMock);
-        $aggregateConfigMin = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('minField2', array('fieldIdentifier' => 'field2', 'method' => 'min'), $this->configurationBuilderMock);
+        $aggregateConfigSum = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', ['fieldIdentifier' => 'field2', 'method' => 'sum'], $this->configurationBuilderMock);
+        $aggregateConfigAvg = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('avgField2', ['fieldIdentifier' => 'field2', 'method' => 'avg'], $this->configurationBuilderMock);
+        $aggregateConfigMax = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('maxField2', ['fieldIdentifier' => 'field2', 'method' => 'max'], $this->configurationBuilderMock);
+        $aggregateConfigMin = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('minField2', ['fieldIdentifier' => 'field2', 'method' => 'min'], $this->configurationBuilderMock);
 
 
         $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator');
@@ -145,7 +145,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
             $this->testListData->addRow($row);
         }
 
-        $this->testDataBackend = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getListData'), array(), '', false);
+        $this->testDataBackend = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', ['getListData'], [], '', false);
         $this->testDataBackend->expects($this->any())
                 ->method('getListData')
                 ->will($this->returnValue($this->testListData));

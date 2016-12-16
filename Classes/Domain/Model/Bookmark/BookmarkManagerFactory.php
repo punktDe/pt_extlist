@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
      *
      * @var array
      */
-    protected $instances = array();
+    protected $instances = [];
 
 
 

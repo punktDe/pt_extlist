@@ -53,7 +53,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
      */
     public function getRenderedOptions()
     {
-        $renderedOptions = array();
+        $renderedOptions = [];
         
         foreach ($this->tsOptions as $key => $option) {
             if (is_array($option)) {
@@ -73,8 +73,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
                 }
             }
 
-            $renderedOptions[$optionKey] = array('value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
-                                                     'selected' => false);
+            $renderedOptions[$optionKey] = ['value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
+                                                     'selected' => false];
         }
         
         return $renderedOptions;
@@ -101,6 +101,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
     protected function initDataProviderByTsConfig($filterSettings)
     {
         $this->tsOptions = $this->filterConfig->getSettings('options');
-        Tx_PtExtbase_Assertions_Assert::isArray($this->tsOptions, array('message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006'));
+        Tx_PtExtbase_Assertions_Assert::isArray($this->tsOptions, ['message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006']);
     }
 }

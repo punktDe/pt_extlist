@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
         $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
         $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
         
-        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getListData', 'getListHeader'), array($this->configurationBuilderMock));
+        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', ['getListData', 'getListHeader'], [$this->configurationBuilderMock]);
         $backendMock->expects($this->any())
             ->method('getListData')
             ->will($this->returnValue($listData));
@@ -91,7 +91,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
         $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
         $aggregateListData = new Tx_PtExtlist_Domain_Model_List_ListData();
 
-        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', array('getIterationListData', 'getListHeader', 'getAggregateListData'), array($this->configurationBuilderMock));
+        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', ['getIterationListData', 'getListHeader', 'getAggregateListData'], [$this->configurationBuilderMock]);
         $backendMock->expects($this->any())
             ->method('getIterationListData')
             ->will($this->returnValue($iterationListData));

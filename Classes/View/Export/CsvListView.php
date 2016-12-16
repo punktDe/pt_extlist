@@ -131,7 +131,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 
         // Headers
         if ($this->templateVariableContainer->exists('listCaptions')) {
-            $row = array();
+            $row = [];
 
             foreach ($this->templateVariableContainer['listCaptions'] as $caption) {
                 $row[] = iconv('UTF-8', $this->outputEncoding, $caption);
@@ -153,7 +153,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
         foreach ($data as $listRow) {
             /* @var $listRow Tx_PtExtlist_Domain_Model_List_Row */
 
-            $row = array();
+            $row = [];
 
             if ($this->outputEncoding == 'UTF-8') {
                 foreach ($listRow as &$listCell) {

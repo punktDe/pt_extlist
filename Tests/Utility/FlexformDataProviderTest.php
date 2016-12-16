@@ -54,7 +54,7 @@ class Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest extends Tx_PtExtlist_T
     {
         $flexFormDataProvider = $this->getAccessibleFlexFormDataProvider();
         
-        $config = array('items' => array(array('default', 'default')));
+        $config = ['items' => [['default', 'default']]];
         $selectArray = $flexFormDataProvider->getDefinedExportConfigs($config);
 
         $this->assertEquals(current(current($selectArray['items'])), 'default', 'The default key does not exist.');
@@ -68,7 +68,7 @@ class Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest extends Tx_PtExtlist_T
     {
         $flexFormDataProvider = $this->getAccessibleFlexFormDataProvider();
         
-        $config = array('items' => array(array('default', 'default')));
+        $config = ['items' => [['default', 'default']]];
         
         $selectArray = $flexFormDataProvider->getDefinedListConfigs($config);
         
@@ -82,11 +82,11 @@ class Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest extends Tx_PtExtlist_T
     {
         $tsArray['settings']['listConfig']['testList'] = $this->configurationBuilderMock->getSettings();
         
-        $tsArray['settings']['export']['exportConfigs'] = array('export1' => array('viewClassName' => 'x')
-                                                                , 'export2' => array('viewClassName' => 'y'));
+        $tsArray['settings']['export']['exportConfigs'] = ['export1' => ['viewClassName' => 'x']
+                                                                , 'export2' => ['viewClassName' => 'y']];
         
         
-        $flexformDataProviderMock = $this->getAccessibleMock('user_Tx_PtExtlist_Utility_FlexformDataProvider', array('loadExtListTyposcriptArray'));
+        $flexformDataProviderMock = $this->getAccessibleMock('user_Tx_PtExtlist_Utility_FlexformDataProvider', ['loadExtListTyposcriptArray']);
         $flexformDataProviderMock->expects($this->once())
             ->method('loadExtListTyposcriptArray');
         

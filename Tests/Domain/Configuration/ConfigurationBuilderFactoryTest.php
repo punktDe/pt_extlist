@@ -36,125 +36,125 @@
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
-    protected $settings = array(
+    protected $settings = [
         'listIdentifier' => 'test',
         'abc' => '1',
-        'prototype' => array(
-            'pager' => array(
-                'default' => array(
+        'prototype' => [
+            'pager' => [
+                'default' => [
                     'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                     'pagerProperty' => 'pagerValue'
-                )
-            ),
-            'column' => array(
+                ]
+            ],
+            'column' => [
                 'xy' => 'z',
-            )
-        ),
-        'listConfig' => array(
-            'test' => array(
+            ]
+        ],
+        'listConfig' => [
+            'test' => [
                 'abc' => '2',
                 'def' => '3',
-                'fields' => array(
-                    'field1' => array(
+                'fields' => [
+                    'field1' => [
                         'table' => 'tableName1',
                         'field' => 'fieldName1',
                         'isSortable' => '0',
                         'access' => '1,2,3,4'
-                    ),
-                    'field2' => array(
+                    ],
+                    'field2' => [
                         'table' => 'tableName2',
                         'field' => 'fieldName2',
                         'isSortable' => '0',
                         'access' => '1,2,3,4'
-                    )
-                ),
-                'columns' => array(
-                    10 => array(
+                    ]
+                ],
+                'columns' => [
+                    10 => [
                         'columnIdentifier' => 'column1',
                         'fieldIdentifier' => 'field1',
                         'label' => 'Column 1'
-                    ),
-                    20 => array(
+                    ],
+                    20 => [
                         'columnIdentifier' => 'column2',
                         'fieldIdentifier' => 'field2',
                         'label' => 'Column 2'
-                    )
-                ),
-                'filters' => array(
-                    'testfilterbox' => array(
-                        10 => array(
+                    ]
+                ],
+                'filters' => [
+                    'testfilterbox' => [
+                        10 => [
                             'testkey' => 'testvalue',
                             'filterIdentifier' => 'filter1',
                             'fieldIdentifier' => 'field1',
                             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                             'partialPath' => 'Filter/StringFilter',
-                        )
-                    )
-                ),
-                'pager' => array(
+                        ]
+                    ]
+                ],
+                'pager' => [
                     'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager'
-                ),
+                ],
 
-                'aggregateData' => array(
-                    'sumField1' => array(
+                'aggregateData' => [
+                    'sumField1' => [
                         'fieldIdentifier' => 'field1',
                         'method' => 'sum',
-                    ),
-                    'avgField2' => array(
+                    ],
+                    'avgField2' => [
                         'fieldIdentifier' => 'field2',
                         'method' => 'avg',
-                    ),
-                ),
+                    ],
+                ],
 
-                'bookmarks' => array(
+                'bookmarks' => [
                     'showPublicBookmarks' => '1',
                     'showUserBookmarks' => '1',
                     'showGroupBookmarks' => '1',
                     'bookmarksPid' => '1',
                     'groupIdsToShowBookmarksFor' => '4,5,6'
-                ),
+                ],
 
 
-                'aggregateRows' => array(
-                    10 => array(
-                        'column2' => array(
+                'aggregateRows' => [
+                    10 => [
+                        'column2' => [
                             'aggregateDataIdentifier' => 'avgField2',
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
 
-                'controller' => array(
-                    'Export' => array(
-                        'download' => array(
+                'controller' => [
+                    'Export' => [
+                        'download' => [
                             'view' => 'export.exportConfigs.test'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
 
-                'rendererChain' => array(
-                    'rendererConfigs' => array(
-                        100 => array(
+                'rendererChain' => [
+                    'rendererConfigs' => [
+                        100 => [
                             'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
 
-                'export' => array(
-                    'exportConfigs' => array(
-                        'test' => array(
+                'export' => [
+                    'exportConfigs' => [
+                        'test' => [
                             'downloadType' => 'D',
                             'fileName' => 'testfile',
                             'fileExtension' => 'ext',
                             'addDateToFilename' => 1,
-                            'pager' => array('enabled' => 0),
+                            'pager' => ['enabled' => 0],
                             'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
-                        )
-                    )
-                )
+                        ]
+                    ]
+                ]
 
-            )
-        )
-    );
+            ]
+        ]
+    ];
 
 
 
@@ -198,7 +198,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     /** @test */
     public function getInstanceThrowsExceptionIfNoListIdentifierIsGiven()
     {
-        $extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', array('getCurrentListIdentifier'), array(), '', false);
+        $extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', ['getCurrentListIdentifier'], [], '', false);
         $extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue(null)); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
         $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
         $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
@@ -216,7 +216,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     public function getInstanceReturnsExceptedConfigurationBuilderInstance()
     {
         $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', false);
+        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
         $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
@@ -232,9 +232,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     {
         $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
         unset($this->settings['listIdentifer']);
-        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', false);
+        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
-        $extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', array('getCurrentListIdentifier'), array(), '', false);
+        $extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', ['getCurrentListIdentifier'], [], '', false);
         $extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue('test')); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
         $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
@@ -250,7 +250,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     public function getInstanceReturnsSingletonInstanceForSameListIdentifier()
     {
         $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
-        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', array('getConfiguration'), array(), '', false);
+        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
         $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();

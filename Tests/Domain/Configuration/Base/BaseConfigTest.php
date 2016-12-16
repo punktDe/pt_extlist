@@ -54,9 +54,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest extends Tx_PtE
     {
         $this->initDefaultConfigurationBuilderMock();
         
-        $this->configArray = array('uncachedSessionStorageAdapter' => 'uncachedSessionStorageAdapter',
+        $this->configArray = ['uncachedSessionStorageAdapter' => 'uncachedSessionStorageAdapter',
                                    'cachedSessionStorageAdapter' => 'cachedSessionStorageAdapter'
-                            );
+        ];
         
         $this->baseConfig = new Tx_PtExtlist_Domain_Configuration_Base_BaseConfig($this->configurationBuilderMock, $this->configArray);
     }

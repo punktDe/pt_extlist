@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer i
      *
      * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
      */
-    private $instances = array();
+    private $instances = [];
 
 
 

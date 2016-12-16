@@ -92,7 +92,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
      */
     public function fetchAll()
     {
-        $rows = array();
+        $rows = [];
 
         while (($a_row = $this->connection->sql_fetch_assoc($this->resource)) == true) {
             $rows[] = $a_row;

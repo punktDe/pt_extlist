@@ -40,22 +40,22 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
      * Holds a dummy configuration for a aggregate config collection object
      * @var array
      */
-    protected $aggregateSettings = array();
+    protected $aggregateSettings = [];
     
     
     
     public function setup()
     {
-        $this->aggregateSettings = array(
-            'agg1' => array(
+        $this->aggregateSettings = [
+            'agg1' => [
                 'fieldIdentifier' => 'field1',
                 'method' => 'avg',
-            ),
-            'agg2' => array(
+            ],
+            'agg2' => [
                 'fieldIdentifier' => 'field1',
                 'method' => 'max',
-            )
-        );
+            ]
+        ];
         
         $settingsTree['listConfig']['test']['aggregateData'] = $this->aggregateSettings;
         $this->initDefaultConfigurationBuilderMock($settingsTree);

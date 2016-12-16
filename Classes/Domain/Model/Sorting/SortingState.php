@@ -154,6 +154,6 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingState
      */
     public function getSessionPersistableArray()
     {
-        return array('fieldName' => $this->field->getIdentifier(), 'direction' => $this->direction);
+        return ['fieldName' => $this->field->getIdentifier(), 'direction' => $this->direction];
     }
 }

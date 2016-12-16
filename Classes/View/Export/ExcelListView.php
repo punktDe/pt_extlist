@@ -121,7 +121,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     /**
      * @var array
      */
-    protected $freeText = array();
+    protected $freeText = [];
 
 
 
@@ -228,7 +228,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     {
         $activeSheet = $this->objPHPExcel->getActiveSheet();
         $freeText = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->freeText);
-        $activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(array('font' => array('bold' => true)));
+        $activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(['font' => ['bold' => true]]);
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, $freeText);
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, '');
     }
@@ -245,7 +245,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         $filterBoxCollection = $extlistContext->getFilterBoxCollection();
 
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber, 'Filter');
-        $this->activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(array('font' => array('bold' => true)));
+        $this->activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(['font' => ['bold' => true]]);
         $this->rowNumber++;
 
         foreach ($filterBoxCollection as $filterBox) {
@@ -418,7 +418,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         if ($this->columnConfigCollection->hasIdentifier($columnIdentifier)) {
             $excelSettings = $this->columnConfigCollection->getColumnConfigByIdentifier($columnIdentifier)->getSettings('excelExport');
             if (!is_array($excelSettings)) {
-                $excelSettings = array();
+                $excelSettings = [];
             }
         }
 
@@ -473,7 +473,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
      */
     protected function buildStyleArray($styleSettings)
     {
-        $style = array();
+        $style = [];
 
         if (array_key_exists('borders', $styleSettings)) {
             $style['borders']['bottom'] = $this->buildBorderStyle($styleSettings['borders']['bottom']);
@@ -483,10 +483,10 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         }
 
         if (array_key_exists('fill', $styleSettings)) {
-            $style['fill'] = array(
+            $style['fill'] = [
                 'type' => $styleSettings['fill']['type'],
-                'color' => array('rgb' => $styleSettings['fill']['color'])
-            );
+                'color' => ['rgb' => $styleSettings['fill']['color']]
+            ];
         }
 
         if (array_key_exists('font', $styleSettings)) {
@@ -504,10 +504,10 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
      */
     protected function buildBorderStyle($borderStyleSettings)
     {
-        return array(
+        return [
             'style' => $borderStyleSettings['style'],
-            'color' => array('rgb' => $borderStyleSettings['color']),
-        );
+            'color' => ['rgb' => $borderStyleSettings['color']],
+        ];
     }
 
 

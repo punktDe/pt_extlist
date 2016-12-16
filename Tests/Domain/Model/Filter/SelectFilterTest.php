@@ -60,7 +60,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
         $selectFilter->_injectGpVarsAdapter(new Tx_PtExtbase_State_GpVars_GpVarsAdapter('pt_extlist'));
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
             $this->configurationBuilderMock,
-            array(
+            [
                   'filterIdentifier' => 'test',
                   'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                   'partialPath' => 'Filter/SelectFilter',
@@ -69,11 +69,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
                   'displayFields' => 'field1',
                   'excludeFilters' => 'filterbox1.filter1',
                   'multiple' => 1
-            ),
+            ],
             'test'
         );
         $selectFilter->_injectFilterConfig($filterConfiguration);
-        $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', array(), array(), '', false);
+        $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', [], [], '', false);
 
         $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
@@ -90,11 +90,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
      */
     public function displayValueDataProvider()
     {
-        return array(
-            'none' => array('values' => array(), 'selectedValues' => array(), 'expected' => ''),
-            'one' => array('values' => array('key' => 'test', 'otherKey' => 'test2'), 'selectedValues' => array('key'), 'expected' => 'test'),
-            'multiple' => array('values' => array('key1' => 'val1', 'key2' => 'val2', 'key3' => 'val3'),  'selectedValues' => array('key1', 'key2'), 'expected' => 'val1, val2'),
-        );
+        return [
+            'none' => ['values' => [], 'selectedValues' => [], 'expected' => ''],
+            'one' => ['values' => ['key' => 'test', 'otherKey' => 'test2'], 'selectedValues' => ['key'], 'expected' => 'test'],
+            'multiple' => ['values' => ['key1' => 'val1', 'key2' => 'val2', 'key3' => 'val3'],  'selectedValues' => ['key1', 'key2'], 'expected' => 'val1, val2'],
+        ];
     }
 
 
@@ -127,13 +127,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
     protected function buildAcccessibleSelectFilterWithTestDataProvider($testData = null)
     {
         if (!$testData) {
-            $testData = array('key1' => 'value1', 'key2' => 'value2');
+            $testData = ['key1' => 'value1', 'key2' => 'value2'];
         }
 
         $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_SelectFilter');
 
         $abstractOptionsFilter = $this->getMockBuilder($accessibleClassName)
-            ->setMethods(array('buildDataProvider'))
+            ->setMethods(['buildDataProvider'])
             ->getMock();
 
         $allFilterSettings = $this->configurationBuilderMock->getSettings('filters');

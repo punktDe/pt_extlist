@@ -88,11 +88,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
 
     public function isNeededDataProvider()
     {
-        return array(
-            'same' => array('itemsPerPage' => 10, 'totalItemCount' => 10, 'isNeeded' => false),
-            'moreItemsThanPageSize' => array('itemsPerPage' => 10, 'totalItemCount' => 20, 'isNeeded' => true),
-            'lessItemsThanPageSize' => array('itemsPerPage' => 20, 'totalItemCount' => 10, 'isNeeded' => false),
-        );
+        return [
+            'same' => ['itemsPerPage' => 10, 'totalItemCount' => 10, 'isNeeded' => false],
+            'moreItemsThanPageSize' => ['itemsPerPage' => 10, 'totalItemCount' => 20, 'isNeeded' => true],
+            'lessItemsThanPageSize' => ['itemsPerPage' => 20, 'totalItemCount' => 10, 'isNeeded' => false],
+        ];
     }
 
 
@@ -282,11 +282,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
      */
     public function getPageCountDataProvider()
     {
-        return array(
-            'no data -> no page' => array('totalItemCount' => 0, 'itemsPerPage' => 10, 'expectedPageCount' => 0),
-            'itemsPerPage is set to zero -> we have 1 page ' => array('totalItemCount' => 10, 'itemsPerPage' => 0, 'expectedPageCount' => 1),
-            'we have a pageCount and itemsPerPage -> divide' => array('totalItemCount' => 50, 'itemsPerPage' => 10, 'expectedPageCount' => 5)
-        );
+        return [
+            'no data -> no page' => ['totalItemCount' => 0, 'itemsPerPage' => 10, 'expectedPageCount' => 0],
+            'itemsPerPage is set to zero -> we have 1 page ' => ['totalItemCount' => 10, 'itemsPerPage' => 0, 'expectedPageCount' => 1],
+            'we have a pageCount and itemsPerPage -> divide' => ['totalItemCount' => 50, 'itemsPerPage' => 10, 'expectedPageCount' => 5]
+        ];
     }
 
 
@@ -321,7 +321,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $pagerSettings['itemsPerPage'] = 10;
         $pagerConfigurationArray = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($pagerSettings, $pagerConfigurationArray);
 
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array('getPagerSettings', 'getListIdentifier'), array(array()), '', false);
+        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', ['getPagerSettings', 'getListIdentifier'], [[]], '', false);
         $configurationBuilderMock->expects($this->any())
             ->method('getListIdentifier')
             ->will($this->returnValue('test'));
@@ -341,9 +341,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
      */
     protected function getPagerBaseSettings()
     {
-        return array(
+        return [
             'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
             'enabled' => '1'
-        );
+        ];
     }
 }

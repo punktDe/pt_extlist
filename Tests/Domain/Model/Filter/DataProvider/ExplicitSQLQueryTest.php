@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTe
     {
         $this->initDefaultConfigurationBuilderMock();
 
-        $this->defaultFilterSettings = array(
+        $this->defaultFilterSettings = [
             'filterIdentifier' => 'test',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
             'partialPath' => 'Filter/SelectFilter',
@@ -47,14 +47,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTe
             'displayFields' => 'field1,field2',
             'filterField' => 'field3',
             'invert' => '0',
-            'optionsSqlQuery' => array('select' => 'username, email',
+            'optionsSqlQuery' => ['select' => 'username, email',
                 'from' => 'be_users',
                 'where' => 'deleted = 0',
                 'orderBy' => 'username',
                 'groupBy' => 'username',
                 'limit' => 10
-            )
-        );
+            ]
+        ];
     }
 
 
@@ -85,7 +85,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTe
         $this->assertEquals($dataProvider->_get('limitPart'), 10);
 
         $this->assertEquals($dataProvider->_get('filterField'), 'field3');
-        $this->assertEquals($dataProvider->_get('displayFields'), array('field1', 'field2'));
+        $this->assertEquals($dataProvider->_get('displayFields'), ['field1', 'field2']);
     }
 
 
@@ -95,7 +95,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTe
      */
     public function faultySettingsDataProvider()
     {
-        $defaultFilterSettings = array(
+        $defaultFilterSettings = [
             'filterIdentifier' => 'test',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
             'partialPath' => 'Filter/SelectFilter',
@@ -103,20 +103,20 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTe
             'displayFields' => 'field1,field2',
             'filterField' => 'field3',
             'invert' => '0',
-            'optionsSqlQuery' => array('select' => 'username, email',
+            'optionsSqlQuery' => ['select' => 'username, email',
                 'from' => 'be_users',
                 'where' => 'deleted = 0',
                 'orderBy' => 'username',
                 'groupBy' => 'username',
                 'limit' => 10
-            )
-        );
+            ]
+        ];
 
-        $faultySettings = array();
-        $faultySettings['SelectPartIsMissing'] = array('faultySettings' => $defaultFilterSettings);
+        $faultySettings = [];
+        $faultySettings['SelectPartIsMissing'] = ['faultySettings' => $defaultFilterSettings];
         unset($faultySettings['SelectPartIsMissing']['faultySettings']['optionsSqlQuery']['select']);
 
-        $faultySettings['FromPartIsMissing'] = array('faultySettings' => $defaultFilterSettings);
+        $faultySettings['FromPartIsMissing'] = ['faultySettings' => $defaultFilterSettings];
         unset($faultySettings['FromPartIsMissing']['faultySettings']['optionsSqlQuery']['from']);
 
         return $faultySettings;

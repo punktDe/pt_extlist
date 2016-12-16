@@ -58,8 +58,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
     {
         $dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], array('message' => 'No repository class name is given for extBase backend. 1281546327'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), array('message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], ['message' => 'No repository class name is given for extBase backend. 1281546327']);
+        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), ['message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328']);
         $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get($dataBackendSettings['repositoryClassName']);
         return $repository;
     }
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
      * @return array
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = array(),
+    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
                                  Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
     {
         /**
@@ -123,10 +123,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
             $fromArray = $groupDataQuery->getFrom();
 
             $repositoryClassName = $fromArray[0];
-            Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), array('message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744'));
+            Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), ['message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744']);
 
             $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($repositoryClassName);
-            Tx_PtExtbase_Assertions_Assert::isTrue($repository instanceof \TYPO3\CMS\Extbase\Persistence\Repository, array('message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository'));
+            Tx_PtExtbase_Assertions_Assert::isTrue($repository instanceof \TYPO3\CMS\Extbase\Persistence\Repository, ['message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository']);
         } else {
             $repository = $this->repository;
         }
@@ -139,10 +139,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 
         $domainObjectsForFilterOptions = $extBaseQuery->execute();
 
-        $result = array();
+        $result = [];
 
         foreach ($domainObjectsForFilterOptions as $domainObjectForFilterOption) {
-            $row = array();
+            $row = [];
 
             foreach ($groupDataQuery->getFields() as $field) {
                 list($dottedField, $alias) = explode('AS', $field);
@@ -265,7 +265,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      */
     protected function setSortingFromSorterOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
     {
-        $sorting = array();
+        $sorting = [];
         $sortingStateCollection = $this->sorter->getSortingStateCollection();
         foreach ($sortingStateCollection as $sortingState) { /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
             $fieldName = $sortingState->getField()->getIdentifier();
@@ -285,7 +285,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     protected function setSortingFromDefaultSortingOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
     {
         list($field, $direction) = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
-        $sorting = array();
+        $sorting = [];
         $sorting[$field] = strtoupper($direction) == 'DESC' ?
             Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC : Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
         $query->addSortingArray($sorting);
@@ -299,7 +299,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      * @param array $excludeFilters
      * @return Tx_PtExtlist_Domain_QueryObject_Query
      */
-    protected function buildGenericQueryWithoutPager(array $excludeFilters = array())
+    protected function buildGenericQueryWithoutPager(array $excludeFilters = [])
     {
         $query = $this->buildGenericQueryExcludingFilters($excludeFilters);
         return $query;
@@ -313,7 +313,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
      * @return Tx_PtExtlist_Domain_QueryObject_Query
      */
-    protected function buildGenericQueryExcludingFilters(array $excludeFilters = array())
+    protected function buildGenericQueryExcludingFilters(array $excludeFilters = [])
     {
         $query = new Tx_PtExtlist_Domain_QueryObject_Query();
         
@@ -385,7 +385,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      */
     public function _injectDataSource($dataSource)
     {
-        Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', array('message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172'));
+        Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', ['message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172']);
         $this->repository = $dataSource;
     }
 

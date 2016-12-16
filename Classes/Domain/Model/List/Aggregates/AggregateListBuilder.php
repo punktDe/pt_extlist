@@ -176,7 +176,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
      */
     protected function getAggregatesForPage(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection)
     {
-        $aggregates = array();
+        $aggregates = [];
     
         foreach ($aggregateDataConfigCollection as $aggregateDataConfig) {
             $aggregates[$aggregateDataConfig->getIdentifier()] = $this->arrayAggregator->getAggregateByConfig($aggregateDataConfig);
@@ -199,7 +199,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
         }
 
         if (!is_array($aggregates)) {
-            $aggregates = array();
+            $aggregates = [];
         }
         return $aggregates;
     }

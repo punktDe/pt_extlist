@@ -37,13 +37,13 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
-    protected $testDataArray = array(
+    protected $testDataArray = [
         'value' => 'testValue',
         'cssClass' => 'testCssClass',
         'rowIndex' => 1,
         'columnIndex' => 2,
-        'specialValues' => array('key1' => 'value1')
-    );
+        'specialValues' => ['key1' => 'value1']
+    ];
 
 
 
@@ -61,20 +61,20 @@ class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\T
     {
         $testObject = new Tx_PtExtlist_Tests_Domain_Model_List_CellTest_TestClass();
 
-        return array(
-            'object' => array('value' => $testObject, 'expected' => 'OBJECT::' . get_class($testObject)),
+        return [
+            'object' => ['value' => $testObject, 'expected' => 'OBJECT::' . get_class($testObject)],
 
-            'string' => array('value' => 'test', 'expected' => 'test'),
-            'emptyString' => array('value' => '', 'expected' => ''),
+            'string' => ['value' => 'test', 'expected' => 'test'],
+            'emptyString' => ['value' => '', 'expected' => ''],
 
-            'integerPositive' => array('value' => 1, 'expected' => '1'),
-            'integerZero' => array('value' => 0, 'expected' => '0'),
-            'integerNegative' => array('value' => -100, 'expected' => '-100'),
+            'integerPositive' => ['value' => 1, 'expected' => '1'],
+            'integerZero' => ['value' => 0, 'expected' => '0'],
+            'integerNegative' => ['value' => -100, 'expected' => '-100'],
 
-            'array' => array('value' => array(1, 2), 'expected' => implode(', ', array(1, 2))),
+            'array' => ['value' => [1, 2], 'expected' => implode(', ', [1, 2])],
 
-            'null' => array('value' => null, 'expected' => ''),
-        );
+            'null' => ['value' => null, 'expected' => ''],
+        ];
     }
 
 
@@ -107,7 +107,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\T
         $this->assertEquals('testCssClass', $cell->getCSSClass());
         $this->assertEquals(1, $cell->getRowIndex());
         $this->assertEquals(2, $cell->getColumnIndex());
-        $this->assertEquals(array('key1' => 'value1'), $cell->getSpecialValues());
+        $this->assertEquals(['key1' => 'value1'], $cell->getSpecialValues());
     }
 
 

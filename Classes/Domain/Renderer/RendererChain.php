@@ -41,7 +41,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
      *
      * @var array<Tx_PtExtlist_Domain_Renderer_RendererInterface>
      */
-    protected $renderers = array();
+    protected $renderers = [];
     
     
     

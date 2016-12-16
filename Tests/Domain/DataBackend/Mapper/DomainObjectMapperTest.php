@@ -85,11 +85,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
     {
         $domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
         $domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
-        $rightObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getName'), array(), '', false);
+        $rightObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', ['getName'], [], '', false);
         $rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
-        $groupObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', array('getRight'), array(), '', false);
+        $groupObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', ['getRight'], [], '', false);
         $groupObjectMock->expects($this->any())->method('getRight')->will($this->returnValue($rightObjectMock));
-        $userObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser', array('getGroup'), array(), '', false);
+        $userObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser', ['getGroup'], [], '', false);
         $userObjectMock->expects($this->any())->method('getGroup')->will($this->returnValue($groupObjectMock));
         $objectPath = 'group.right.name';
 
@@ -129,8 +129,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
     protected function createMapperConfiguration()
     {
         $mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-        $field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('table' => '__self__', 'field' => 'title'));
-        $field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('table' => '__self__', 'field' => 'title'));
+        $field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', ['table' => '__self__', 'field' => 'title']);
+        $field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', ['table' => '__self__', 'field' => 'title']);
         $mapperConfiguration->addFieldConfig($field1Configuration);
         $mapperConfiguration->addFieldConfig($field2Configuration);
         return $mapperConfiguration;

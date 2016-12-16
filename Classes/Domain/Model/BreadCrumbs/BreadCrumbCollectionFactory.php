@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
      *
      * @var array
      */
-    protected $instances = array();
+    protected $instances = [];
 
 
 

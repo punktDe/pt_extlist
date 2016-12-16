@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Utility_DbUtilsTest extends Tx_PtExtlist_Tests_BaseTest
 
     public function testGetAliasedSelectPartByFieldConfigTableAndField()
     {
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', array('field' => 'field', 'table' => 'table'));
+        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', ['field' => 'field', 'table' => 'table']);
         $this->assertEquals('table.field AS test', Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
     }
     
@@ -53,7 +53,7 @@ class Tx_PtExtlist_Tests_Utility_DbUtilsTest extends Tx_PtExtlist_Tests_BaseTest
 
     public function testGetAliasedSelectPartByFieldConfigSpecialString()
     {
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
+        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
         $this->assertEquals('(special) AS test', Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
     }
 
@@ -64,8 +64,8 @@ class Tx_PtExtlist_Tests_Utility_DbUtilsTest extends Tx_PtExtlist_Tests_BaseTest
      */
     public function getAliasedSelectPartByFieldConfigCollection()
     {
-        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', array('field' => 'field', 'table' => 'table'));
-        $fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test2', array('field' => 'field', 'table' => 'table', 'special' => 'special'));
+        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
+        $fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test2', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
 
         $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
         $fieldConfigCollection->addFieldConfig($fieldConfig1);

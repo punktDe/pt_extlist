@@ -57,13 +57,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider
      */
     public function getRenderedOptions()
     {
-        $renderedOptions = array();
+        $renderedOptions = [];
 
         foreach ($this->options as $key => $value) {
-            $renderedOptions[$key] = array(
+            $renderedOptions[$key] = [
                 'value' => $value,
                 'selected' => false,
-            );
+            ];
         }
 
         return $renderedOptions;

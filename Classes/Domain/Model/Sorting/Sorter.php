@@ -84,7 +84,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     public function removeAllSortingObservers()
     {
-        $this->sortingObservers = array();
+        $this->sortingObservers = [];
         $this->buildSortingStateCollection();
     }
 

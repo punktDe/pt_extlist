@@ -53,18 +53,18 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $operand2 = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\DynamicOperandInterface');
         $extbaseQueryInnerConstraint = new \TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison($operand1, 2, $operand2);
 
-        $extbaseQueryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array('getConstraint', 'matching', 'logicalAnd', 'logicalNot'), array('any'));
+        $extbaseQueryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', ['getConstraint', 'matching', 'logicalAnd', 'logicalNot'], ['any']);
         $extbaseQueryMock->expects($this->any())->method('getConstraint')->will($this->returnValue($extbaseQueryInnerConstraint));
 
-        $tmpQueryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array('getConstraint'), array('any'), '', false);
+        $tmpQueryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', ['getConstraint'], ['any'], '', false);
         $tmpQueryMock->expects($this->at(0))->method('getConstraint')->will($this->returnValue(null));
 
-        $extbaseRepositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', array('createQuery'), array(), '', false);
+        $extbaseRepositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', ['createQuery'], [], '', false);
         $extbaseRepositoryMock->expects($this->once())->method('createQuery')->will($this->returnValue($tmpQueryMock));
 
         $notCriteriaInnerCriteria = Tx_PtExtlist_Domain_QueryObject_SimpleCriteria::equals('test', 1);
 
-        $notCriteria = $this->getMock('Tx_PtExtlist_Domain_QueryObject_NotCriteria', array('getCriteria'), array(), '', false);
+        $notCriteria = $this->getMock('Tx_PtExtlist_Domain_QueryObject_NotCriteria', ['getCriteria'], [], '', false);
         $notCriteria->expects($this->any())->method('getCriteria')->will($this->returnValue($notCriteriaInnerCriteria));
 
         $translatedQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator::translateCriteria($notCriteria, $extbaseQueryMock, $extbaseRepositoryMock);

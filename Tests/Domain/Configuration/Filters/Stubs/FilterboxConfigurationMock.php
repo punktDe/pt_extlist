@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurati
             $filterboxIdentifier = 'test';
         }
         if ($settings == null) {
-            $settings = array();
+            $settings = [];
         }
         parent::__construct($configurationBuilder, $filterboxIdentifier, $settings);
     }

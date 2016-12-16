@@ -86,7 +86,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_Time
             ->method('getJsonValue')
             ->will($this->returnValue("{\"start\":\"20120504\",\"end\":\"20120504\"}")); // 2012-05-04 - 2012-05-04
 
-        $timeSpans = array($timeSpan01, $timeSpan02);
+        $timeSpans = [$timeSpan01, $timeSpan02];
 
         $this->proxy->_set('itemsArr', $timeSpans);
 

@@ -42,13 +42,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
      *
      * @var array
      */
-    protected static $translatorClasses = array('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
+    protected static $translatorClasses = ['Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
                                                 'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator',
                                                 'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
                                                 'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator',
                                                 'Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator',
                                                 'Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator'
-     );
+    ];
      
      
     
@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
      */
     public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query)
     {
-        $criteriaArray = array();
+        $criteriaArray = [];
         foreach ($query->getCriterias() as $criteria) {
             $criteriaArray[] = self::translateCriteria($criteria);
         }
@@ -116,10 +116,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
      */
     public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query)
     {
-        $directionMap = array(Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC => 'ASC',
-                              Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC => 'DESC');
+        $directionMap = [Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC => 'ASC',
+                              Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC => 'DESC'];
         
-        $sortingsArray = array();
+        $sortingsArray = [];
         foreach ($query->getSortings() as $field => $direction) {
             $sortingsArray[] = $field . ' ' . $directionMap[$direction];
         }

@@ -43,7 +43,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
 
     public function setup()
     {
-        $this->repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', array(), array(), '', false);
+        $this->repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', [], [], '', false);
     }
 
 
@@ -60,7 +60,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     public function translateCriteriaThrowsExceptionOnWrongCriteriaType()
     {
         $criteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '='));
-        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array(), array(), '', false);
+        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', [], [], '', false);
         try {
             Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator::translateCriteria(
                 $criteria, $query, $this->repositoryMock

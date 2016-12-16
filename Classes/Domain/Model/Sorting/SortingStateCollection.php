@@ -103,7 +103,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\
      */
     public function getSortedFields()
     {
-        $sortedFields = array();
+        $sortedFields = [];
         foreach ($this->itemsArr as $sortingState) {
             $sortedFields[] = $sortingState->getField();
         }
@@ -137,7 +137,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\
      */
     public function getSessionPersistableArray()
     {
-        $sessionPersistableArray = array();
+        $sessionPersistableArray = [];
         foreach ($this->itemsArr as $sortingState) {
             /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
             $sessionPersistableArray[] = $sortingState->getSessionPersistableArray();

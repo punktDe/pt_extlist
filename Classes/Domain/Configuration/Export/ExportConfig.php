@@ -116,7 +116,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
         $this->setRequiredValue('fileExtension', 'No file extension given for export file! 1284620580');
         
         $this->setRequiredValue('viewClassName', 'No viewClassName given for export file ' . $this->fileName . '1284563489');
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->viewClassName), array('message' => 'The class name "' . $this->viewClassName . '" for export view does not exist! 1284563683'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->viewClassName), ['message' => 'The class name "' . $this->viewClassName . '" for export view does not exist! 1284563683']);
                 
         $this->setBooleanIfExistsAndNotNothing('addDateToFilename');
         $this->setValueIfExistsAndNotNothing('dateFormat');

@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_SysCategoryTest extend
     protected $dataProviderClassName = '\PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\SysCategory';
 
 
-    protected $defaultFilterSettings = array(
+    protected $defaultFilterSettings = [
                'filterIdentifier' => 'tagCloudTest',
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
                'partialPath' => 'Filter/Options/TagCloudFilter',
@@ -49,7 +49,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_SysCategoryTest extend
                'displayFields' => 'field1',
                'filterField' => 'field3',
                'invert' => '0'
-                );
+    ];
 
 
     public function setup()

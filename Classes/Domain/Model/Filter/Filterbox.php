@@ -334,7 +334,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     {
         $sessionArray = null;
         if ($this->isSubmittedFilterbox) {
-            $sessionArray = array('isSubmittedFilterbox' => 1);
+            $sessionArray = ['isSubmittedFilterbox' => 1];
         }
         return $sessionArray;
     }

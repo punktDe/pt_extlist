@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
     {
         $collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($this->configurationBuilderMock);
 
-        $pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage'), array(), '', false, false, true);
+        $pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', ['setCurrentPage'], [], '', false, false, true);
 
         $collection->addPager($pager);
     }
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
     public function setPageByItemIndex()
     {
         $collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($this->configurationBuilderMock);
-        $pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage', 'getItemCount', 'getLastPage'), array(), '', false, false);
+        $pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', ['setCurrentPage', 'getItemCount', 'getLastPage'], [], '', false, false);
         $pager->expects($this->any())->method('getItemCount')->will($this->returnValue(1000));
         $pager->expects($this->any())->method('getLastPage')->will($this->returnValue(200));
         $collection->addPager($pager);
@@ -80,12 +80,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest extends Tx_PtExt
     public function pagerCollectionReturnsFirstPageIfCurrentPageIsOutOfItemCount()
     {
         $collection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($this->configurationBuilderMock);
-        $pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', array('setCurrentPage', 'getItemCount', 'getLastPage'), array(), '', false, false);
+        $pager = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_DefaultPager', ['setCurrentPage', 'getItemCount', 'getLastPage'], [], '', false, false);
         $pager->expects($this->any())->method('getItemCount')->will($this->returnValue(10));
         $pager->expects($this->any())->method('getLastPage')->will($this->returnValue(2));
         $collection->addPager($pager);
 
-        $collection->_injectSessionData(array('page' => 2));
+        $collection->_injectSessionData(['page' => 2]);
         $collection->setItemsPerPage(5);
 
         // We check whether we still get correct page, if we are "in bound"

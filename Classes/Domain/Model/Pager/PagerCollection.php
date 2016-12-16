@@ -235,7 +235,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends PunktDe\PtExtbase\
     public function _persistToSession()
     {
         if ($this->currentPage > 1) {
-            return array('page' => $this->currentPage);
+            return ['page' => $this->currentPage];
         } else {
             /*
              *  Page 1 is default therefore we don't need it in the session

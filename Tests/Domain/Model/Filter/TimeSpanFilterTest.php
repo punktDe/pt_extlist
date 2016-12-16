@@ -41,9 +41,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExt
      */
     public static function fieldsDataProvider()
     {
-        return array(
-            
-        );
+        return [
+
+        ];
     }
 
 

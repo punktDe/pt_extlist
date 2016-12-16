@@ -36,7 +36,7 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $defaultFilterSettings = array(
+    protected $defaultFilterSettings = [
                'filterIdentifier' => 'timeSpanTest',
                'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter',
                'partialPath' => 'Filter/Options/TimeSpanFilter',
@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
                     'dateIteratorEnd' =>   '1314607478',
                     'dateIteratorIncrement' => 'm',
                     'dateIteratorFormat' => '%m',
-                );
+    ];
     
     
     
@@ -59,78 +59,78 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
 
     public function settingsDataProvider()
     {
-        return array(
-            'incrementMonth' => array(
-                'settings' => array(
+        return [
+            'incrementMonth' => [
+                'settings' => [
                     'dateIteratorStart' => mktime(0, 0, 0, 1, 1, 2011),
                     'dateIteratorEnd' => mktime(0, 0, 0, 12, 31, 2011),
                     'dateIteratorIncrement' => 'm',
                     'dateIteratorFormat' => '%m.%Y',
-                ),
-                'result' => array(
+                ],
+                'result' => [
                     'count' => 12,
                     'firstRendered' => '01.2011',
                     'lastRendered' => '12.2011',
-                    'rangeArray' => array('1293836400,1296514800','1296514800,1298934000','1298934000,1301608800','1301608800,1304200800','1304200800,1306879200','1306879200,1309471200','1309471200,1312149600','1312149600,1314828000','1314828000,1317420000','1317420000,1320102000','1320102000,1322694000','1322694000,1325372400')
-                )
-            )
-        );
+                    'rangeArray' => ['1293836400,1296514800','1296514800,1298934000','1298934000,1301608800','1301608800,1304200800','1304200800,1306879200','1306879200,1309471200','1309471200,1312149600','1312149600,1314828000','1314828000,1317420000','1317420000,1320102000','1320102000,1322694000','1322694000,1325372400']
+                ]
+            ]
+        ];
     }
 
 
 
     public function incorrectSettingsDataProvider()
     {
-        return array(
-            'NoStartDateGiven' => array(
-                'settings' => array(
+        return [
+            'NoStartDateGiven' => [
+                'settings' => [
                     'dateIteratorStart' => '',
                     'dateIteratorEnd' => '1314607478',
                     'dateIteratorIncrement' => 'm',
                     'dateIteratorFormat' => '%m',
-                )
-            ),
-            'NoEndDateGiven' => array(
-                'settings' => array(
+                ]
+            ],
+            'NoEndDateGiven' => [
+                'settings' => [
                     'dateIteratorStart' => '1227999510',
                     'dateIteratorEnd' => '',
                     'dateIteratorIncrement' => 'm',
                     'dateIteratorFormat' => '%m',
-                )
-            ),
-            'NoIncrementGiven' => array(
-                'settings' => array(
+                ]
+            ],
+            'NoIncrementGiven' => [
+                'settings' => [
                     'dateIteratorStart' => '1227999510',
                     'dateIteratorEnd' => '1314607478',
                     'dateIteratorIncrement' => '',
                     'dateIteratorFormat' => '%m',
-                )
-            ),
-            'NoFormatGiven' => array(
-                'settings' => array(
+                ]
+            ],
+            'NoFormatGiven' => [
+                'settings' => [
                     'dateIteratorStart' => '1227999510',
                     'dateIteratorEnd' => '1314607478',
                     'dateIteratorIncrement' => 'm',
                     'dateIteratorFormat' => '',
-                )
-            ),
-            'EndDateIsBeforeStartDate' => array(
-                'settings' => array(
+                ]
+            ],
+            'EndDateIsBeforeStartDate' => [
+                'settings' => [
                     'dateIteratorStart' => '1314607478',
                     'dateIteratorEnd' => '1227999510',
                     'dateIteratorIncrement' => 'm',
                     'dateIteratorFormat' => '%m',
-                )
-            ),
-            'IncrementSettingUnknown' => array(
-                'settings' => array(
+                ]
+            ],
+            'IncrementSettingUnknown' => [
+                'settings' => [
                     'dateIteratorStart' => '1314607478',
                     'dateIteratorEnd' => '1227999510',
                     'dateIteratorIncrement' => 'X',
                     'dateIteratorFormat' => '%m',
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
 

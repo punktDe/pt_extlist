@@ -65,7 +65,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig extends Tx_PtExt
         $this->setBooleanIfExistsAndNotNothing('enabled');
         
         $this->setRequiredValue('rendererClassName', 'No class name given for renderer. 1280408323');
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->rendererClassName), array('message' => 'Given renderer class ' . $this->rendererClassName . ' does not exist or is not loaded! 1279541306'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->rendererClassName), ['message' => 'Given renderer class ' . $this->rendererClassName . ' does not exist or is not loaded! 1279541306']);
     }
 
     

@@ -71,7 +71,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
      * Minimum color as integer 
      * @var array
      */
-    protected $minColor = array();
+    protected $minColor = [];
 
 
 
@@ -79,7 +79,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
      * Maximum color as integer 
      * @var array
      */
-    protected $maxColor = array();
+    protected $maxColor = [];
 
 
 
@@ -112,7 +112,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
      */
     public function _persistToSession()
     {
-        return array('filterValues' => current($this->filterValues), 'invert' => $this->invert);
+        return ['filterValues' => current($this->filterValues), 'invert' => $this->invert];
     }
 
 
@@ -132,8 +132,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
             $maxColorHex = substr($maxColorHex, 1);
         }
         
-        $this->minColor = array(hexdec(substr($minColorHex, 0, 2)), hexdec(substr($minColorHex, 2, 2)), hexdec(substr($minColorHex, 4, 2)));
-        $this->maxColor  = array(hexdec(substr($maxColorHex, 0, 2)), hexdec(substr($maxColorHex, 2, 2)), hexdec(substr($maxColorHex, 4, 2)));
+        $this->minColor = [hexdec(substr($minColorHex, 0, 2)), hexdec(substr($minColorHex, 2, 2)), hexdec(substr($minColorHex, 4, 2))];
+        $this->maxColor  = [hexdec(substr($maxColorHex, 0, 2)), hexdec(substr($maxColorHex, 2, 2)), hexdec(substr($maxColorHex, 4, 2))];
     }
 
 

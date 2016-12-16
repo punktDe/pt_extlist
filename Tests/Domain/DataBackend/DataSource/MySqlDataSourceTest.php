@@ -64,14 +64,14 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
         $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
         
-        $fakedReturnArray = array('test' => 'test');
+        $fakedReturnArray = ['test' => 'test'];
         
-        $pdoStatementMock = $this->getMock('PDOStatement', array('fetchAll'));
+        $pdoStatementMock = $this->getMock('PDOStatement', ['fetchAll']);
         $pdoStatementMock->expects($this->once())
             ->method('fetchAll')
             ->will($this->returnValue($fakedReturnArray));
             
-        $pdoMock = $this->getMock('TestPDO', array('prepare'));
+        $pdoMock = $this->getMock('TestPDO', ['prepare']);
         $pdoMock->expects($this->once())
             ->method('prepare')
             ->will($this->returnValue($pdoStatementMock));
@@ -92,7 +92,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
         $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
         $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
         
-        $pdoMock = $this->getMock('TestPDO', array('prepare'));
+        $pdoMock = $this->getMock('TestPDO', ['prepare']);
         $pdoMock->expects($this->once())
             ->method('prepare')
             ->will($this->returnValue(new Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_PDOErrorMock()));

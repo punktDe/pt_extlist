@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements \
      *
      * @var array<Tx_PtExtlist_Domain_DataBackend_DataBackendInterface>
      */
-    private $instances = array();
+    private $instances = [];
 
 
 
@@ -111,6 +111,6 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements \
      */
     public function clear()
     {
-        $this->instances = array();
+        $this->instances = [];
     }
 }

@@ -55,7 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     public function filterConfigCanBeInjected()
     {
         $filter = $this->getExtendingFilterMock();
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'field1', 'filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'), 'test');
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, ['fieldIdentifier' => 'field1', 'filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'], 'test');
         $filter->_injectFilterConfig($filterConfig);
     }
 
@@ -75,7 +75,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     public function gettersReturnExpectedResults()
     {
         $filter = $this->getExtendingFilterMock();
-        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'field1', 'filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'), 'test');
+        $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, ['fieldIdentifier' => 'field1', 'filterIdentifier' => 'test', 'filterClassName' => 'Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'partialPath' => 'partialPath'], 'test');
         $filter->_injectFilterConfig($filterConfig);
 
         $this->assertEquals($filter->getFilterIdentifier(), 'test');
@@ -90,7 +90,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     public function sessionDataCanBeInjected()
     {
         $filter = $this->getExtendingFilterMock();
-        $filter->_injectSessionData(array('filterValue' => 'filterValueValue'));
+        $filter->_injectSessionData(['filterValue' => 'filterValueValue']);
     }
 
 
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     /** @test */
     public function getFilterConfigurationReturnsExpectedConfiguration()
     {
-        $filterConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', array(), array(), '', false);
+        $filterConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig', [], [], '', false);
         $filter = new Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub('testfilter'); /* @var $filterConfiguration Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig */
         $filter->_injectFilterConfig($filterConfiguration);
         $this->assertTrue($filter->getFilterConfig() == $filterConfiguration);
@@ -135,7 +135,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     {
         $filterClass = $this->buildAccessibleProxy('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', 'testfilter');
         $filter = new $filterClass;
-        $filter->_set('filterValue', array('val1', 'val2')); /* @var $filter Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub */
+        $filter->_set('filterValue', ['val1', 'val2']); /* @var $filter Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub */
         $this->assertEquals('val1, val2', $filter->getDisplayValue());
     }
 }

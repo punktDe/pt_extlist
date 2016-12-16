@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory
      *
      * @var array<Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection>
      */
-    private $instances = array();
+    private $instances = [];
 
 
 

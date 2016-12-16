@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      *
      * @var array
      */
-    protected $fields = array();
+    protected $fields = [];
     
     
     
@@ -51,7 +51,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      *
      * @var array
      */
-    protected $from = array();
+    protected $from = [];
     
     
     
@@ -60,7 +60,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      * Holds an array of fields to group by
      * @var array
      */
-    protected $groupByFields = array();
+    protected $groupByFields = [];
     
     
     
@@ -78,7 +78,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      *
      * @var array<Tx_PtExtlist_Domain_QueryObject_Criteria>
      */
-    protected $criterias = array();
+    protected $criterias = [];
     
     
     
@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      *
      * @var array
      */
-    protected $sortings = array();
+    protected $sortings = [];
     
     
     
@@ -120,7 +120,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      */
     public function addField($field)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, array('message' => 'Field must not be empty! 1279988488'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1279988488']);
         $this->fields[] = $field;
     }
     
@@ -145,7 +145,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      */
     public function addFrom($from)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($from, array('message' => 'From must not be empty! 1279988763'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($from, ['message' => 'From must not be empty! 1279988763']);
         $this->from[] = $from;
     }
     
@@ -265,7 +265,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      */
     public function addSorting($field, $direction = self::SORTINGSTATE_ASC)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, array('message' => 'field must not be empty! 1280060692'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'field must not be empty! 1280060692']);
         
         if ($direction == self::SORTINGSTATE_ASC || $direction == self::SORTINGSTATE_DESC) {
             $this->sortings[$field] = $direction;

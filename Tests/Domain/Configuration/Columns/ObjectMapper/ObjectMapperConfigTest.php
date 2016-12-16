@@ -43,7 +43,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperC
      */
     public function getClassReturnsClassIfDefined()
     {
-        $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => 'Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest'));
+        $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, ['class' => 'Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest']);
         $this->assertEquals('Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest', $objectMapperConfig->getClass());
     }
 
@@ -55,7 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperC
     public function exceptionIsThrownIfClassIsNotDefined()
     {
         try {
-            $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => ''));
+            $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, ['class' => '']);
         } catch (Exception $e) {
             return;
         }
@@ -71,7 +71,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperC
     public function exceptionIsThrownIfClassIsNotExistant()
     {
         try {
-            $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array('class' => 'blaUndSo'));
+            $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, ['class' => 'blaUndSo']);
         } catch (Exception $e) {
             return;
         }
@@ -85,12 +85,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperC
      */
     public function mappingIsRetutrnedAsArray()
     {
-        $mapping = array('x' => 'y', 'z' => 'a');
+        $mapping = ['x' => 'y', 'z' => 'a'];
 
-        $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, array(
+        $objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilderMock, [
             'class' => 'Tx_PtExtlist_Tests_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfigTest',
             'mapping' => $mapping
-            )
+            ]
         );
 
         $this->assertEquals($mapping, $objectMapperConfig->getMapping());

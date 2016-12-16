@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
     /** @test */
     public function getRendererConfigurationReturnsConfigurationAfterInjection()
     {
-        $rendererConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(), '', false);
+        $rendererConfigurationMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', [], [], '', false);
         $rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
         $rowRenderer->injectRendererConfiguration($rendererConfigurationMock);
         $this->assertEquals($rendererConfigurationMock, $rowRenderer->getRendererConfiguration());
@@ -73,7 +73,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
         $row->createAndAddCell('val3', 'field3');
         $row->createAndAddCell('val4', 'field4');
         
-        $cellRenderer = $this->getMock('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer', array(), array(), '', false);
+        $cellRenderer = $this->getMock('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer', [], [], '', false);
         $cellRenderer->expects($this->any())->method('renderCell')->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_Cell('test')));
         $rowRenderer = $this->getRowRenderer();
         $rowRenderer->injectCellRenderer($cellRenderer);
@@ -93,7 +93,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
      */
     protected function getRowRenderer()
     {
-        $rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, array('rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer'));
+        $rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, ['rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer']);
         $renderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
         $renderer->injectRendererConfiguration($rendererConfiguration);
         return $renderer;

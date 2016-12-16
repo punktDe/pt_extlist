@@ -36,7 +36,7 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilterTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $filterSettings = array('filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
+    protected $filterSettings = ['filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
         'partialPath' => 'partialPath',
         'fieldIdentifier' => 'field1',
         'filterIdentifier' => 'testtagCloudFilter',
@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilterTest extends Tx_PtExt
         'maxColor' => '#1c448d',
 
         'minSize' => 9,
-        'maxSize' => 24);
+        'maxSize' => 24];
 
 
 
@@ -82,7 +82,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilterTest extends Tx_PtExt
 
     protected function buildAccessibleTagCloudFilter($filterSettings)
     {
-        $tagCloudFilterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter', array('dummy'), array());
+        $tagCloudFilterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter', ['dummy'], []);
 
         $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'someOtherBox');
 

@@ -86,7 +86,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends \TYPO
     public function getObjectNameSpace(Tx_PtExtbase_State_IdentifiableInterface $object)
     {
         $nameSpace = $object->getObjectNamespace();
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, array('message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
 
         return $nameSpace;
     }

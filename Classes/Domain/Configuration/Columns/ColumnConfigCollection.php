@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends \
     /**
      * @var array
      */
-    protected $identifierToIdMap = array();
+    protected $identifierToIdMap = [];
 
 
 

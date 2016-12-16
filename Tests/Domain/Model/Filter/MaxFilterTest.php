@@ -95,9 +95,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
     {
         if ($injectConfigMock) {
             $configMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig',
-                array('getSettings', 'getFieldIdentifier'), array(), '', false);
+                ['getSettings', 'getFieldIdentifier'], [], '', false);
                 
-            $settings = array('maxValue'=>$max, 'minValue'=>$min);
+            $settings = ['maxValue'=>$max, 'minValue'=>$min];
             $configMock
                 ->expects($this->any())
                 ->method('getSettings')
@@ -112,13 +112,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
         }
             
         $fieldMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig',
-            array('getTableFieldCombined'), array(), '', false);
+            ['getTableFieldCombined'], [], '', false);
         $fieldMock->expects($this->any())
             ->method('getTableFieldCombined')
             ->will($this->returnValue('foo'));
     
         $filterMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_MaxFilter',
-            array('dummyMethod'), array(), '', false);
+            ['dummyMethod'], [], '', false);
             
         $filterMock->_set('listIdentifier', 'test');
         if ($injectConfigMock) {

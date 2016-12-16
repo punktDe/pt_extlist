@@ -88,7 +88,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
      */
     protected function convertOptionsToSelectOptions(&$renderedOptions)
     {
-        $selectOptions = array();
+        $selectOptions = [];
         foreach ($renderedOptions as $optionKey => $optionValue) {
             $selectOptions[$optionKey] = $optionValue['value'];
         }
@@ -107,7 +107,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
     protected function addInactiveOption(&$renderedOptions)
     {
         if ($renderedOptions == null) {
-            $renderedOptions = array();
+            $renderedOptions = [];
         }
 
         if ($this->filterConfig->getInactiveOption()) {
@@ -121,8 +121,8 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
 
             $inactiveValue = $this->filterConfig->getInactiveValue();
 
-            $renderedInactiveOption[$inactiveValue] = array('value' => $this->filterConfig->getInactiveOption(),
-                                                                 'selected' => $selected);
+            $renderedInactiveOption[$inactiveValue] = ['value' => $this->filterConfig->getInactiveOption(),
+                                                                 'selected' => $selected];
 
             $renderedOptions= $renderedInactiveOption + $renderedOptions;
         }
@@ -147,6 +147,6 @@ class Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter extends Tx_PtExtlist
      */
     public function _persistToSession()
     {
-        return array();
+        return [];
     }
 }

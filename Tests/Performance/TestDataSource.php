@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Doma
 
     protected function buildData()
     {
-        $rawData = array();
+        $rawData = [];
 
         for ($i = 0; $i < $this->rowCount; $i++) {
             for ($j = 1; $j <= $this->colCount; $j++) {

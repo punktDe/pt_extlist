@@ -59,30 +59,30 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
         if (is_array($settings) && count($settings)) {
             $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
         } else {
-            $settings = array(
+            $settings = [
                 'listIdentifier' => 'test',
 
                 'abc' => '1',
-                'prototype' => array(
+                'prototype' => [
 
-                    'backend' => array(
-                        'mysql' => array(
+                    'backend' => [
+                        'mysql' => [
                             'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
                             'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                             'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource',
                             'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-                        )
-                    ),
-                    'column' => array(
+                        ]
+                    ],
+                    'column' => [
                         'xy' => 'z',
-                    ),
-                ),
-                'listConfig' => array(
-                    'test' => array(
+                    ],
+                ],
+                'listConfig' => [
+                    'test' => [
 
-                        'default' => array(
+                        'default' => [
                             'sortingColumn' => 'column3',
-                        ),
+                        ],
 
 
                         'headerPartial' => 'List/ListHeader',
@@ -90,74 +90,74 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
                         'aggregateRowsPartial' => 'List/AggregateRows',
                         'useIterationListData' => 1,
 
-                        'backendConfig' => array(
+                        'backendConfig' => [
                             'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
                             'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                             'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource',
                             'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
 
-                            'dataSource' => array(
+                            'dataSource' => [
                                 'testKey' => 'testValue',
                                 'username' => 'user',
                                 'password' => 'pass',
                                 'host' => 'localhost',
                                 'port' => 3306,
                                 'databaseName' => 'typo3',
-                            ),
+                            ],
 
                             'baseFromClause' => 'companies',
                             'baseGroupByClause' => 'company',
                             'baseWhereClause' => 'employees > 0'
-                        ),
+                        ],
 
                         'abc' => '2',
                         'def' => '3',
 
-                        'controller' => array(
-                            'Export' => array(
-                                'download' => array(
+                        'controller' => [
+                            'Export' => [
+                                'download' => [
                                     'view' => 'export.exportConfigs.test'
-                                )
-                            )
-                        ),
+                                ]
+                            ]
+                        ],
 
-                        'fields' => array(
-                            'field1' => array(
+                        'fields' => [
+                            'field1' => [
                                 'table' => 'tableName1',
                                 'field' => 'fieldName1',
                                 'isSortable' => '0',
                                 'access' => '1,2,3,4'
-                            ),
-                            'field2' => array(
+                            ],
+                            'field2' => [
                                 'table' => 'tableName2',
                                 'field' => 'fieldName2',
                                 'isSortable' => '1',
                                 'access' => '1,2,3,4'
-                            ),
-                            'field3' => array(
+                            ],
+                            'field3' => [
                                 'special' => 'special',
                                 'isSortable' => '1',
                                 'access' => '1,2,3,4'
-                            ),
-                            'field4' => array(
+                            ],
+                            'field4' => [
                                 'table' => 'tableName4',
                                 'field' => 'fieldName4',
-                            )
-                        ),
-                        'columns' => array(
-                            10 => array(
+                            ]
+                        ],
+                        'columns' => [
+                            10 => [
                                 'columnIdentifier' => 'column1',
                                 'fieldIdentifier' => 'field1',
                                 'label' => 'Column 1',
                                 'isSortable' => '0',
 
-                                'excelExport' => array(
+                                'excelExport' => [
                                     'wrap' => 0,
                                     'vertical' => 'top',
-                                ),
-                            ),
-                            20 => array(
+                                ],
+                            ],
+                            20 => [
                                 'columnIdentifier' => 'column2',
                                 'fieldIdentifier' => 'field2',
                                 'label' => 'Column 2',
@@ -166,8 +166,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
                                 'sorting' => 'field1, field2',
                                 'showInHeader' => 0,
 
-                            ),
-                            30 => array(
+                            ],
+                            30 => [
                                 'columnIdentifier' => 'column3',
                                 'fieldIdentifier' => 'field3',
                                 'label' => 'Column 3',
@@ -175,133 +175,133 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
                                 'sorting' => 'field1 asc, field2 !DeSc',
                                 'accessGroups' => '1,2,3,4',
                                 'cellCSSClass' => 'class',
-                            ),
-                            40 => array(
+                            ],
+                            40 => [
                                 'columnIdentifier' => 'column4',
                                 'fieldIdentifier' => 'field4',
                                 'label' => 'Column 4',
                                 //'renderTemplate' => 'typo3conf/ext/pt_extlist/Configuration/TypoScript/Demolist/Demolist_Typo3_02.hierarchicStructure.html',
-                            ),
+                            ],
 
                             // We use this column for testing sortingFields setup
-                            50 => array(
+                            50 => [
                                 'columnIdentifier' => 'column5',
                                 'fieldIdentifier' => 'field4',
                                 'label' => 'Column 5',
-                                'sortingFields' => array(
-                                    10 => array(
+                                'sortingFields' => [
+                                    10 => [
                                         'field' => 'field1',
                                         'direction' => 'desc',
                                         'forceDirection' => 1,
                                         'label' => 'Sorting label 1'
-                                    ),
-                                    20 => array(
+                                    ],
+                                    20 => [
                                         'field' => 'field2',
                                         'direction' => 'asc',
                                         'forceDirection' => 0,
                                         'label' => 'Sorting label 2'
-                                    ),
-                                    30 => array(
+                                    ],
+                                    30 => [
                                         'field' => 'field3',
                                         'direction' => 'desc',
                                         'forceDirection' => 0,
                                         'label' => 'Sorting label 3'
-                                    )
-                                )
-                            ),
+                                    ]
+                                ]
+                            ],
 
                             // This column configuration tests objectMapper
-                            60 => array(
+                            60 => [
                                 'columnIdentifier' => 'column6',
                                 'fieldIdentifier' => 'field4',
                                 'label' => 'Column 6',
-                                'objectMapper' => array(
+                                'objectMapper' => [
                                     'class' => 'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark',
-                                    'mapping' => array(
+                                    'mapping' => [
                                         'label' => 'name'
-                                    )
-                                )
-                            )
+                                    ]
+                                ]
+                            ]
 
-                        ),
+                        ],
 
-                        'rendererChain' => array(
+                        'rendererChain' => [
                             'enabled' => 1,
-                            'rendererConfigs' => array(
-                                100 => array(
+                            'rendererConfigs' => [
+                                100 => [
                                     'rendererClassName' => 'Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer',
-                                )
-                            )
-                        ),
+                                ]
+                            ]
+                        ],
 
-                        'filters' => array(
-                            'testfilterbox' => array(
-                                'filterConfigs' => array(
-                                    '10' => array(
+                        'filters' => [
+                            'testfilterbox' => [
+                                'filterConfigs' => [
+                                    '10' => [
                                         'filterIdentifier' => 'filter1',
                                         'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                         'fieldIdentifier' => 'field1',
                                         'partialPath' => 'Filter/StringFilter',
                                         'defaultValue' => 'default',
-                                    ),
-                                    '20' => array(
+                                    ],
+                                    '20' => [
                                         'filterIdentifier' => 'filter2',
                                         'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                         'fieldIdentifier' => 'field1',
                                         'partialPath' => 'Filter/StringFilter',
                                         'accessGroups' => '1,2,3'
-                                    )
-                                )
-                            )
-                        ),
-                        'pager' => array(
+                                    ]
+                                ]
+                            ]
+                        ],
+                        'pager' => [
                             'itemsPerPage' => '10',
-                            'pagerConfigs' => array(
-                                'default' => array(
+                            'pagerConfigs' => [
+                                'default' => [
                                     'templatePath' => 'EXT:pt_extlist/',
                                     'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                                     'enabled' => '1'
-                                ),
-                            ),
-                        ),
+                                ],
+                            ],
+                        ],
 
 
-                        'aggregateData' => array(
-                            'sumField1' => array(
+                        'aggregateData' => [
+                            'sumField1' => [
                                 'fieldIdentifier' => 'field1',
                                 'method' => 'sum',
                                 'scope' => 'page',
-                            ),
-                            'avgField2' => array(
+                            ],
+                            'avgField2' => [
                                 'fieldIdentifier' => 'field2',
                                 'method' => 'avg',
-                            ),
-                        ),
+                            ],
+                        ],
 
 
-                        'aggregateRows' => array(
-                            10 => array(
-                                'column2' => array(
+                        'aggregateRows' => [
+                            10 => [
+                                'column2' => [
                                     'aggregateDataIdentifier' => 'sumField1',
-                                )
-                            )
-                        ),
+                                ]
+                            ]
+                        ],
 
-                        'export' => array(
-                            'exportConfigs' => array(
-                                'test' => array(
+                        'export' => [
+                            'exportConfigs' => [
+                                'test' => [
                                     'downloadType' => 'D',
                                     'fileName' => 'testfile',
                                     'fileExtension' => 'ext',
                                     'addDateToFilename' => 1,
-                                    'pager' => array('enabled' => 0),
+                                    'pager' => ['enabled' => 0],
                                     'viewClassName' => 'Tx_PtExtlist_View_Export_CsvListView',
-                                )
-                            )
-                        )
-                    )
-                )
-            );
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ];
 
             if (is_array($overwriteSettings)) {
                 \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($settings, $overwriteSettings);

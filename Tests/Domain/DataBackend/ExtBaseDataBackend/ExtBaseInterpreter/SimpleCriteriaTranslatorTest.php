@@ -42,7 +42,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     
     public function setup()
     {
-        $this->repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', array(), array(), '', false);
+        $this->repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', [], [], '', false);
     }
     
     
@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 
         $criteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '='));
-        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array(), array(), '', false);
+        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', [], [], '', false);
         try {
             Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
                 $criteria, $query, $this->repositoryMock
@@ -77,11 +77,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 
         $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
-        $query = $this->getQueryMockWithMatchingCall(array('matching', 'equals'));
+        $query = $this->getQueryMockWithMatchingCall(['matching', 'equals']);
         $query->expects($this->once())
             ->method('equals')
             ->with('field', 'value')
-            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false)));
+            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
@@ -93,11 +93,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 
         $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '<');
-        $query = $this->getQueryMockWithMatchingCall(array('matching', 'lessThan'));
+        $query = $this->getQueryMockWithMatchingCall(['matching', 'lessThan']);
         $query->expects($this->once())
             ->method('lessThan')
             ->with('field', 'value')
-            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false)));
+            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
@@ -109,11 +109,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 
         $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '<=');
-        $query = $this->getQueryMockWithMatchingCall(array('matching', 'lessThanOrEqual'));
+        $query = $this->getQueryMockWithMatchingCall(['matching', 'lessThanOrEqual']);
         $query->expects($this->once())
             ->method('lessThanOrEqual')
             ->with('field', 'value')
-            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false)));
+            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
@@ -125,11 +125,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 
         $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '>');
-        $query = $this->getQueryMockWithMatchingCall(array('matching', 'greaterThan'));
+        $query = $this->getQueryMockWithMatchingCall(['matching', 'greaterThan']);
         $query->expects($this->once())
             ->method('greaterThan')
             ->with('field', 'value')
-            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false)));
+            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
@@ -141,11 +141,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 
         $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '>=');
-        $query = $this->getQueryMockWithMatchingCall(array('matching', 'greaterThanOrEqual'));
+        $query = $this->getQueryMockWithMatchingCall(['matching', 'greaterThanOrEqual']);
         $query->expects($this->once())
             ->method('greaterThanOrEqual')
             ->with('field', 'value')
-            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false)));
+            ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
@@ -157,11 +157,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $this->markTestSkipped('It seems not possible to use a mock as constraint. We need a solution here');
 
         $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '=');
-        $firstConstraintMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false);
-        $secondConstraintMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false);
-        $andConstraintMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', array(), array(), '', false);
+        $firstConstraintMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false);
+        $secondConstraintMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false);
+        $andConstraintMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false);
 
-        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array('matching', 'equals', 'getConstraint', 'logicalAnd'), array(), '', false);
+        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', ['matching', 'equals', 'getConstraint', 'logicalAnd'], [], '', false);
         $query->expects($this->once())
           ->method('matching')
           ->with($andConstraintMock);
@@ -192,9 +192,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
      * @param array $mockedMethods Methods to be mocked
      * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
      */
-    protected function getQueryMockWithMatchingCall(array $mockedMethods = array())
+    protected function getQueryMockWithMatchingCall(array $mockedMethods = [])
     {
-        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', $mockedMethods, array(), '', false);
+        $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', $mockedMethods, [], '', false);
         $query->expects($this->any())
           ->method('matching');
         $query->expects($this->any())

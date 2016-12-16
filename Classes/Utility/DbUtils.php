@@ -87,7 +87,7 @@ class Tx_PtExtlist_Utility_DbUtils
      */
     public static function getSelectPartByFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection)
     {
-        $selectParts = array();
+        $selectParts = [];
 
         foreach ($fieldConfigCollection as $field) {
             $selectParts[] = self::getSelectPartByFieldConfig($field);

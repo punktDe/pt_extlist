@@ -83,13 +83,13 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
     /** @test */
     public function renderCaptionsReturnsLocalizedLabels()
     {
-        $methods = array('getLabel', 'getColumnIdentifier');
+        $methods = ['getLabel', 'getColumnIdentifier'];
         $returnMethods['getLabel'] = 'LLL:EXT:pt_extlist/Tests/Domain/Renderer/locallang.xml:test';
         $returnMethods['getColoumnIdentifier'] = 'test';
 
         $headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
         
-        $columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('isAccessable'), array(), '', false);
+        $columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', ['isAccessable'], [], '', false);
         $columnConfigMock->expects($this->any())
             ->method('isAccessable')
             ->will($this->returnValue(true));
@@ -113,20 +113,20 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
     public function renderCaptionsCreatesSimpleTsLabels()
     {
         $this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
-        $ts = array('10' => array(
+        $ts = ['10' => [
                         '_typoScriptNodeValue' => 'TEXT',
                         'value' => 'test',
-                        ),
+        ],
                     '_typoScriptNodeValue' => 'COA'
-                    );
+        ];
 
-        $methods = array('getLabel', 'getColumnIdentifier');
+        $methods = ['getLabel', 'getColumnIdentifier'];
         $returnMethods['getLabel'] = $ts;
         $returnMethods['getColumnIdentifier'] = 'bla';
 
         $headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
 
-        $columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', array('isAccessable'), array(), '', false);
+        $columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', ['isAccessable'], [], '', false);
         $columnConfigMock->expects($this->any())
             ->method('isAccessable')
             ->will($this->returnValue(true));
@@ -156,7 +156,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
     protected function getConfiguredMock($className, array $methods, array $returnMethods)
     {
         $columnConfig = $this->getMock($className,
-                            $methods, array(), '', false);
+                            $methods, [], '', false);
 
         foreach ($returnMethods as $method => $returnValue) {
             $columnConfig->expects($this->any())->method($method)->will($this->returnValue($returnValue));

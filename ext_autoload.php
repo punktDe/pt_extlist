@@ -7,7 +7,7 @@ $extensionBasePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath
  * So only files and classes from 'old' Extensions are 
  * listed here.
  */
-return array(
+return [
     /* Pt_ExtList depending classes */
     'tx_ptextlist_tests_domain_stateadapter_stubs_persistableobject' => $extensionBasePath.'Tests/Domain/StateAdapter/Stubs/PersistableObject.php',
     'tx_ptextlist_tests_domain_stateadapter_stubs_getpostvarobject' => $extensionBasePath.'Tests/Domain/StateAdapter/Stubs/GetPostVarObject.php',
@@ -33,4 +33,4 @@ return array(
     'user_tx_ptextlist_utility_flexformdataprovider' => $extensionBasePath.'Classes/Utility/FlexformDataProvider.php',
 
     'tx_ptextbase_configuration_abstractconfigurationbuilder' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase').'Classes/Configuration/AbstractConfigurationBuilder.php'
-);
+];

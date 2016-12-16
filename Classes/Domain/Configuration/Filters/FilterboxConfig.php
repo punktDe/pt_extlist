@@ -117,7 +117,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
      *
      * @var array
      */
-    protected $excludeFilters = array();
+    protected $excludeFilters = [];
 
 
 
@@ -164,7 +164,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
      */
     public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'FilterboxIdentifier must not be empty! 1277889451'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'FilterboxIdentifier must not be empty! 1277889451']);
         
         $this->configurationBuilder = $configurationBuilder;
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
@@ -273,8 +273,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
         $excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $excludeFiltersString);
         foreach ($excludeFilters as $excludedFilter) {
             list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
-            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416'));
-            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, array('message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417'));
+            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416']);
+            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, ['message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417']);
             if (!is_array($this->excludeFilters[$filterboxIdentifier]) || !in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
                 $this->excludeFilters[$filterboxIdentifier][] = $filterIdentifier;
             }

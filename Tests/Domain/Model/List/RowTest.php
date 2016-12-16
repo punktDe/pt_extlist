@@ -37,29 +37,29 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $dataArray = array(
-        'specialValues' => array(
+    protected $dataArray = [
+        'specialValues' => [
             'key' => 'value'
-        ),
+        ],
 
-        'columns' => array(
-            'col1' => array(
+        'columns' => [
+            'col1' => [
                 'value' => 'testContent1',
                 'specialValues' => null,
                 'rowIndex' => null,
                 'columnIndex' => null,
                 'cssClass' => null
-            ),
+            ],
 
-            'col2' => array(
+            'col2' => [
                 'value' => 'testContent2',
                 'specialValues' => null,
                 'rowIndex' => null,
                 'columnIndex' => null,
                 'cssClass' => null
-            )
-        )
-    );
+            ]
+        ]
+    ];
 
 
 
@@ -132,7 +132,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
         $this->assertEquals(2, $row->count());
         $this->assertEquals('testContent1', $row->getCell('col1')->getValue());
         $this->assertEquals('testContent2', $row->getCell('col2')->getValue());
-        $this->assertEquals(array('key' => 'value'), $row->getSpecialValues());
+        $this->assertEquals(['key' => 'value'], $row->getSpecialValues());
     }
 
 

@@ -66,11 +66,11 @@ class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_Ba
      */
     public function initConfiguration()
     {
-        $settings = array(
+        $settings = [
             'outputEncoding' => 'UTF888',
             'delimiter' => '|',
             'enclosure' => '#'
-        );
+        ];
 
         $overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = $settings;
 
@@ -92,10 +92,10 @@ class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_Ba
      */
     public function renderHeader()
     {
-        $overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = array(
+        $overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = [
             'delimiter' => '|',
             'enclosure' => "'"
-        );
+        ];
 
         $this->initDefaultConfigurationBuilderMock($overWriteSettings);
         $this->fixture->setExportConfiguration($this->configurationBuilderMock->buildExportConfiguration());
@@ -116,10 +116,10 @@ class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_Ba
      */
     public function renderData()
     {
-        $overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = array(
+        $overWriteSettings['listConfig']['test']['export']['exportConfigs']['test'] = [
             'delimiter' => '|',
             'enclosure' => "'"
-        );
+        ];
 
         $templateVariableContainer = $this->createTemplateVariableContainer();
 

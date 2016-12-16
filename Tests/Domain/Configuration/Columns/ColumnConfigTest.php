@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends T
      * Holds a dummy configuration for a column config object
      * @var array
      */
-    protected $columnSettings = array();
+    protected $columnSettings = [];
 
 
     
@@ -131,7 +131,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends T
     public function testNoColumnIdentifierGivenException()
     {
         try {
-            new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('fieldIdentifier' => 'test'));
+            new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, ['fieldIdentifier' => 'test']);
         } catch (Exception $e) {
             return;
         }
@@ -143,7 +143,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest extends T
     public function testNoFieldIdentifierGivenException()
     {
         try {
-            new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'test'));
+            new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, ['columnIdentifier' => 'test']);
         } catch (Exception $e) {
             return;
         }

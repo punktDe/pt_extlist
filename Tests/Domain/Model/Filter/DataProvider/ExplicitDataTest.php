@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
     public function setup()
     {
         $this->initDefaultConfigurationBuilderMock();
-        $this->defaultFilterSettings = array(
+        $this->defaultFilterSettings = [
             'filterIdentifier' => 'test',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
             'partialPath' => 'Filter/SelectFilter',
@@ -53,10 +53,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
             'displayFields' => 'field1,field2',
             'filterField' => 'field3',
             'invert' => '0',
-            'options' => array('x' => 'test',
+            'options' => ['x' => 'test',
                 'y' => 'hallo'
-            )
-        );
+            ]
+        ];
     }
 
 
@@ -67,7 +67,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
         $explicitDataProvider = $this->buildAccessibleExplicitDataProvider();
         $options = $explicitDataProvider->getRenderedOptions();
         $this->assertEquals(2, count($options));
-        $this->assertEquals(array('value' => 'test', 'selected' => false), $options['x']);
+        $this->assertEquals(['value' => 'test', 'selected' => false], $options['x']);
     }
 
 
@@ -81,7 +81,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
         $filterSettings['options'][10]['value'] = 'theLabel';
         $explicitDataProvider = $this->buildAccessibleExplicitDataProvider($filterSettings);
         $options = $explicitDataProvider->getRenderedOptions();
-        $this->assertEquals(array('value' => 'theLabel', 'selected' => false), $options['theKey']);
+        $this->assertEquals(['value' => 'theLabel', 'selected' => false], $options['theKey']);
     }
 
 

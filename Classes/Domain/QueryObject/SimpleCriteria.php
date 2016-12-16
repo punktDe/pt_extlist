@@ -75,8 +75,8 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
      */
     public function __construct($field = '', $value, $operator)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, array('message' => 'Field must not be empty! 1282849697'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($operator, array('message' => 'Operator must not be empty! 1282849699'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1282849697']);
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($operator, ['message' => 'Operator must not be empty! 1282849699']);
         $this->field = $field;
         $this->value = $value;
         $this->operator = $operator;

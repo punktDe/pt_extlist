@@ -51,7 +51,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
      * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
      * @param array $settings
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings = array())
+    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings = [])
     {
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
         parent::__construct($configurationBuilder, $settings);

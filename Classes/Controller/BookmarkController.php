@@ -253,7 +253,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     public function newAction(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark=null)
     {
         // Assign groups for group bookmarks
-        $groups = array('0' => ' ');
+        $groups = ['0' => ' '];
         if ($this->feUser != null && $this->userIsAllowedToCreateGroupBookmarks()) {
             foreach ($this->feUser->getUsergroups() as $userGroup) { /* @var $userGroup \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup */
                   $groups[$userGroup->getUid()] = $userGroup->getTitle();

@@ -65,126 +65,126 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 
 
     protected $simpleSessionData =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'headerColumns' => 'sorting',
                 'filters' => 'allAvailableFilters'
-            )
-        );
+            ]
+        ];
 
     protected $modifiedSimpleSessionData =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'headerColumns' => 'savedSorting',
                 'filters' => 'allAvailableSavedFilters'
-            )
-        );
+            ]
+        ];
 
     protected $justFiltersSessionData =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'filters' => 'allAvailableFilters'
-            )
-        );
+            ]
+        ];
 
     protected $justHeadersSessionData =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'headerColumns' => 'sorting'
-            )
-        );
+            ]
+        ];
 
     protected $pagerSessionData =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'headerColumns' => 'sorting',
                 'filters' => 'allAvailableFilters',
                 'pageCollection' => 'pages'
-            )
-        );
+            ]
+        ];
 
     protected $complexSessionData =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'headerColumns' => 'sorting',
                 'filters' => 'allAvailableFilters',
                 'pageCollection' => 'pages'
-            ),
-            'anotherIdentifier' => array(
+            ],
+            'anotherIdentifier' => [
                 'headerColumns' => 'otherSorting',
                 'filters' => 'allOtherAvailableFilters',
                 'pageCollection' => 'otherPages'
-            )
-        );
+            ]
+        ];
 
     protected $modifiedComplexSessionData =
-        array(
-            'anotherIdentifier' => array(
+        [
+            'anotherIdentifier' => [
                 'headerColumns' => 'otherSorting',
                 'filters' => 'allOtherAvailableFilters',
                 'pageCollection' => 'otherPages'
-            ),
-            'identifier' => array(
+            ],
+            'identifier' => [
                 'headerColumns' => 'savedSorting',
                 'filters' => 'allAvailableSavedFilters',
-            )
-        );
+            ]
+        ];
 
     protected $modifiedComplexSessionDataJustFilters =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'filters' => 'allAvailableSavedFilters',
-            ),
-            'anotherIdentifier' => array(
+            ],
+            'anotherIdentifier' => [
                 'headerColumns' => 'otherSorting',
                 'filters' => 'allOtherAvailableFilters',
                 'pageCollection' => 'otherPages'
-            )
-        );
+            ]
+        ];
 
     protected $modifiedComplexSessionDataJustHeaders =
-        array(
-            'identifier' => array(
+        [
+            'identifier' => [
                 'headerColumns' => 'savedSorting',
-            ),
-            'anotherIdentifier' => array(
+            ],
+            'anotherIdentifier' => [
                 'headerColumns' => 'otherSorting',
                 'filters' => 'allOtherAvailableFilters',
                 'pageCollection' => 'otherPages'
-            )
-        );
+            ]
+        ];
 
     protected $modifiedComplexSessionDataEmpty =
-        array(
-            'identifier' => array(),
-            'anotherIdentifier' => array(
+        [
+            'identifier' => [],
+            'anotherIdentifier' => [
                 'headerColumns' => 'otherSorting',
                 'filters' => 'allOtherAvailableFilters',
                 'pageCollection' => 'otherPages'
-            )
-        );
+            ]
+        ];
 
     protected $otherSessionData =
-    array(
-        'otherIdentifier' => array(
+    [
+        'otherIdentifier' => [
             'headerColumns' => 'sorting',
             'filters' => 'allAvailableFilters',
             'pageCollection' => 'pages'
-        )
-    );
+        ]
+    ];
 
     protected $modifiedOtherSessionData =
-        array(
-            'otherIdentifier' => array(
+        [
+            'otherIdentifier' => [
                 'headerColumns' => 'sorting',
                 'filters' => 'allAvailableFilters',
                 'pageCollection' => 'pages'
-            ),
-            'identifier' => array(
+            ],
+            'identifier' => [
                 'headerColumns' => 'savedSorting',
                 'filters' => 'allAvailableSavedFilters',
-            )
-        );
+            ]
+        ];
 
     protected $expectedContent = 'a:1:{s:10:"identifier";a:2:{s:13:"headerColumns";s:7:"sorting";s:7:"filters";s:19:"allAvailableFilters";}}';
     protected $savedContent = 'a:1:{s:10:"identifier";a:2:{s:13:"headerColumns";s:12:"savedSorting";s:7:"filters";s:24:"allAvailableSavedFilters";}}';
@@ -202,7 +202,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
         $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy');
         $this->proxy = new $this->proxyClass;
         $this->bookmark = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark')
-            ->setMethods(array('setContent', 'getListId', 'getContent'))
+            ->setMethods(['setContent', 'getListId', 'getContent'])
             ->getMock();
     }
 
@@ -232,7 +232,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
     public function addContentToBookmarkAddsEmptyArrayToBookmarkContent()
     {
         $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
-            ->setMethods(array('getListIdentifier'))
+            ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -243,7 +243,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
             ->method('setContent')
             ->with($this->equalTo('a:0:{}'));
 
-        $this->proxy->addContentToBookmark($this->bookmark, $configurationBuilder, array());
+        $this->proxy->addContentToBookmark($this->bookmark, $configurationBuilder, []);
     }
 
 
@@ -254,7 +254,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
     public function addContentToBookmarkAddsSimpleSessionDataToBookmarkContent()
     {
         $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
-            ->setMethods(array('getListIdentifier'))
+            ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -276,7 +276,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
     public function addContentToBookmarkAddsJustFiltersSessionDataToBookmarkContent()
     {
         $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
-            ->setMethods(array('getListIdentifier'))
+            ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -298,7 +298,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
     public function addContentToBookmarkAddsJustHeadersSessionDataToBookmarkContent()
     {
         $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
-            ->setMethods(array('getListIdentifier'))
+            ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -320,7 +320,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
     public function addContentToBookmarkAddsPagerSessionDataToBookmarkContent()
     {
         $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
-            ->setMethods(array('getListIdentifier'))
+            ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -342,7 +342,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
     public function addContentToBookmarkAddsComplexSessionDataToBookmarkContent()
     {
         $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
-            ->setMethods(array('getListIdentifier'))
+            ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -370,8 +370,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
             ->method('getListId')
             ->will($this->returnValue($this->listIdentifier));
 
-        $expected = array();
-        $actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, array());
+        $expected = [];
+        $actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, []);
 
         $this->assertEquals($expected, $actual);
     }
@@ -390,8 +390,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
             ->method('getListId')
             ->will($this->returnValue($this->listIdentifier));
 
-        $expected = array();
-        $actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, array());
+        $expected = [];
+        $actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, []);
 
         $this->assertEquals($expected, $actual);
     }
@@ -411,7 +411,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
             ->will($this->returnValue($this->listIdentifier));
 
         $expected = $this->modifiedSimpleSessionData;
-        $actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, array());
+        $actual = $this->proxy->mergeSessionAndBookmark($this->bookmark, []);
 
         $this->assertEquals($expected, $actual);
     }

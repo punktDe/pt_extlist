@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements \TYPO3\CMS
      */
     public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, array('message' => 'No header data available. 1280408235'));
+        Tx_PtExtbase_Assertions_Assert::isNotNull($listHeader, ['message' => 'No header data available. 1280408235']);
         
         $renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
 

@@ -44,9 +44,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactoryTest
     {
         $this->initDefaultConfigurationBuilderMock();
         
-        $this->rendererSettings = array(
+        $this->rendererSettings = [
             'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer'
-        );
+        ];
     }
     
     

@@ -50,49 +50,49 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
      *
      * @var array
      */
-    protected $settings = array(
+    protected $settings = [
 
                 'listIdentifier' => 'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest',
 
-                'prototype' => array(
+                'prototype' => [
 
-                    'backend' => array(
-                        'mysql' => array(
+                    'backend' => [
+                        'mysql' => [
                             'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
                             'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                             'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-                            
-                            
-                        )
-                    ),
-                ),
+
+
+                        ]
+                    ],
+                ],
                 
-                'listConfig' => array(
-                     'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest' => array(
+                'listConfig' => [
+                     'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest' => [
                         
-                        'backendConfig' => array(
+                        'backendConfig' => [
                                 'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
                                 'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                                 'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                 
                 
-                                'dataSource' => array(
+                                'dataSource' => [
                                     'testKey' => 'testValue',
                                     'username' => 'user',
                                     'password' => 'pass',
                                     'host' => 'localhost',
                                     'port' => 3306,
                                     'databaseName' => 'typo3',
-                                ),
+                                ],
                                 
                                 'baseFromClause' => 'companies',
                                 'baseGroupByClause' => 'company',
                                 'baseWhereClause' => 'employees > 0'
-                        ),
+                        ],
                             
                                             
                         // this is really ugly but required to make controller work
-                        'bookmarks' => array(
+                        'bookmarks' => [
                             'bookmarkPid' => 30,
                             'createPublicBookmarks' => 1,
                             'createPrivateBookmarks' => 1,
@@ -102,10 +102,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
                             'showGroupBookmarks' => null,
                             'userCanDeleteAll' => 0,
                             'groupIdsToShowBookmarksFor' => '4,5,6'
-                        ),
-                    )
-                )
-            );
+                        ],
+                     ]
+                ]
+    ];
             
             
             

@@ -291,7 +291,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell
     public function getAsArray()
     {
         $internalVars = get_object_vars($this);
-        $returnArray = array();
+        $returnArray = [];
 
         foreach ($internalVars as $key => $value) {
             $returnArray[$key] = $value;

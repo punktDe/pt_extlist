@@ -44,7 +44,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
      * 
      * @var array
      */
-    private $instances = array();
+    private $instances = [];
 
 
 

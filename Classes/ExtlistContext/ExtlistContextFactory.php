@@ -64,7 +64,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
      *
      * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
      */
-    protected $instances = array();
+    protected $instances = [];
 
 
 
@@ -72,7 +72,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
      * Array of listContext Instances
      * @var array<Tx_PtExtlist_ExtlistContext_ExtlistContext>
      */
-    protected static $staticInstances = array();
+    protected static $staticInstances = [];
 
 
 
@@ -300,12 +300,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
         $extListTSArray = $extListTSArray['settings'];
         
         if (!is_array($extListTSArray['listConfig'])) {
-            $extListTSArray['listConfig'] = array();
+            $extListTSArray['listConfig'] = [];
         }
 
         if (is_array($customTSArray)) {
             unset($extListTSArray['listConfig'][$listIdentifier]); // We remove the listConfiguration completely if it was there before
-            \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
+            \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($extListTSArray['listConfig'], [$listIdentifier => $customTSArray]);
         }
 
         if (!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {

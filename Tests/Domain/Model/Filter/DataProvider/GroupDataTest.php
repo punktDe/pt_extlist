@@ -37,7 +37,7 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $defaultFilterSettings = array(
+    protected $defaultFilterSettings = [
         'filterIdentifier' => 'test',
         'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
         'partialPath' => 'Filter/SelectFilter',
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
         'displayFields' => 'field1,field2',
         'filterField' => 'field3',
         'invert' => '0'
-    );
+    ];
 
 
 
@@ -70,7 +70,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
 
     public function testBuildExcludeFiltersArray()
     {
-        $filterSettings = array(
+        $filterSettings = [
             'filterIdentifier' => 'test',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
             'partialPath' => 'Filter/SelectFilter',
@@ -78,7 +78,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
             'displayFields' => 'field1,field2',
             'filterField' => 'field3',
             'excludeFilters' => 'filterbox1.filter1'
-        );
+        ];
         $groupDataProvider = $this->buildAccessibleGroupDataProvider($filterSettings);
         $excludeFiltersArray = $groupDataProvider->_call('buildExcludeFiltersArray');
         $this->assertTrue(array_key_exists('filterbox1', $excludeFiltersArray) && in_array('filter1', $excludeFiltersArray['filterbox1']));
@@ -160,7 +160,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
         /* @var $accessibleGroupDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData */
         $this->defaultFilterSettings = $filterSettings;
         if (!$this->defaultFilterSettings) {
-            $this->defaultFilterSettings = array(
+            $this->defaultFilterSettings = [
                 'filterIdentifier' => 'test',
                 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
                 'partialPath' => 'Filter/SelectFilter',
@@ -168,7 +168,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
                 'displayFields' => 'field1,field2',
                 'filterField' => 'field3',
                 'invert' => '0'
-            );
+            ];
         }
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings, 'test');
         $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);

@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
     /**
      * @var array
      */
-    protected $listConfiguration = array();
+    protected $listConfiguration = [];
 
 
 
@@ -62,11 +62,11 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
      */
     public function performanceDataProvider()
     {
-        return array(
-            'performance 5:1 - Framework only' => array(5, 1),
+        return [
+            'performance 5:1 - Framework only' => [5, 1],
             //'performance 5:10000' => array(5,10000),
             //'performance 5:40000' => array(5,40000),
-        );
+        ];
     }
 
 

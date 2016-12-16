@@ -138,9 +138,9 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
         $this->filterField = trim($this->filterConfig->getSettings('filterField'));
         $this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
 
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, array('info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, array('info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, array('info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, ['info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957']);
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, ['info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958']);
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, ['info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959']);
     }
 
 
@@ -152,7 +152,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
      */
     public function getRenderedOptions()
     {
-        $renderedOptions = array();
+        $renderedOptions = [];
         $options = $this->getDataFromSqlServer();
         foreach ($options as $optionData) {
             $optionKey = $optionData[$this->filterField];
@@ -174,7 +174,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
      */
     protected function renderOptionData($optionData)
     {
-        $values = array();
+        $values = [];
         if (is_array($this->displayFields)) {
             foreach ($this->displayFields as $displayField) {
                 $values[] = $optionData[$displayField];
@@ -204,7 +204,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
         $data =  $dataSource->executeQuery($query)->fetchAll();
 
         if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, array('executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query));
+            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query]);
         }
 
         return $data;

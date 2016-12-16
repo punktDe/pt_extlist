@@ -57,7 +57,7 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
      * Holds additional, backend dependent search parameter
      * @var array
      */
-    protected $searchParameter = array();
+    protected $searchParameter = [];
     
     
     /**
@@ -67,10 +67,10 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
      * @param string $searchString
      * @param array $searchParameter
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields, $searchString, array $searchParameter = array())
+    public function __construct(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields, $searchString, array $searchParameter = [])
     {
-        Tx_PtExtbase_Assertions_Assert::isPositiveInteger($fields->count(), array('message' => 'No field given to search in! 1313532571'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($searchString, array('message' => 'SearchString must not be empty! 1313532596'));
+        Tx_PtExtbase_Assertions_Assert::isPositiveInteger($fields->count(), ['message' => 'No field given to search in! 1313532571']);
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($searchString, ['message' => 'SearchString must not be empty! 1313532596']);
         $this->fields = $fields;
         $this->searchString = $searchString;
         $this->searchParameter = $searchParameter;

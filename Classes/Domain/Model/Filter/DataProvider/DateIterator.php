@@ -71,19 +71,19 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
     protected function initByTsConfig()
     {
         $this->dateIteratorStart = (int) Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('dateIteratorStart'));
-        Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorStart, false, array('message' => 'The Value dateIteratorStart is not given. 1314608757'));
+        Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorStart, false, ['message' => 'The Value dateIteratorStart is not given. 1314608757']);
 
         $this->dateIteratorEnd = (int) Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('dateIteratorEnd'));
-        Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorEnd, false, array('message' => 'The Value dateIteratorEnd is not given. 1314608758'));
+        Tx_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorEnd, false, ['message' => 'The Value dateIteratorEnd is not given. 1314608758']);
 
         $this->dateIteratorFormat = $this->filterConfig->getSettings('dateIteratorFormat');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorFormat, array('message' => 'The Value dateIteratorFormat is not given. 1314608759'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorFormat, ['message' => 'The Value dateIteratorFormat is not given. 1314608759']);
 
         $this->dateIteratorIncrement = strtolower(trim($this->filterConfig->getSettings('dateIteratorIncrement')));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorIncrement, array('message' => 'The Value dateIteratorIncrement is not given. 1314608760'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(in_array($this->dateIteratorIncrement, array('s', 'i', 'h', 'd', 'm', 'y')), array('message' => "The parameter dateIteratorIncrement has to be out of 's', 'i', 'h', 'd', 'm', 'y'"));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorIncrement, ['message' => 'The Value dateIteratorIncrement is not given. 1314608760']);
+        Tx_PtExtbase_Assertions_Assert::isTrue(in_array($this->dateIteratorIncrement, ['s', 'i', 'h', 'd', 'm', 'y']), ['message' => "The parameter dateIteratorIncrement has to be out of 's', 'i', 'h', 'd', 'm', 'y'"]);
 
-        Tx_PtExtbase_Assertions_Assert::isTrue($this->dateIteratorStart < $this->dateIteratorEnd, array('message' => 'The Value dateIteratorStart ('.$this->dateIteratorStart.') is higher than dateIteratorEnd ('.$this->dateIteratorEnd.')'));
+        Tx_PtExtbase_Assertions_Assert::isTrue($this->dateIteratorStart < $this->dateIteratorEnd, ['message' => 'The Value dateIteratorStart ('.$this->dateIteratorStart.') is higher than dateIteratorEnd ('.$this->dateIteratorEnd.')']);
     }
 
 
@@ -109,13 +109,13 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
      */
     public function getRenderedOptions()
     {
-        $renderedOptions = array();
+        $renderedOptions = [];
         $timeSpanList = $this->buildTimeStampList();
 
         foreach ($timeSpanList as $key => $timestamp) {
             $optionData['allDisplayFields'] = strftime($this->dateIteratorFormat, $timestamp);
-            $renderedOptions[$key] = array('value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
-                                                     'selected' => false);
+            $renderedOptions[$key] = ['value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
+                                                     'selected' => false];
         }
 
         return $renderedOptions;
@@ -129,12 +129,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
     protected function buildTimeStampList()
     {
         $iterationDate = $this->dateIteratorStart;
-        $timeStampList = array();
+        $timeStampList = [];
 
-        $iterator = array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), 0);
+        $iterator = array_fill_keys(['h', 'i', 's', 'd', 'm', 'y'], 0);
         $iterator[$this->dateIteratorIncrement] = 1;
 
-        $timeSpanComponents = array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), true);
+        $timeSpanComponents = array_fill_keys(['h', 'i', 's', 'd', 'm', 'y'], true);
 
         foreach ($timeSpanComponents as $identifier => $timeSpanComponent) {
             if ($identifier == $this->dateIteratorIncrement) {
@@ -144,12 +144,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator extends Tx_PtEx
         }
 
         while ($iterationDate <= $this->dateIteratorEnd) {
-            $iterationStart = $this->makeTime($iterationDate, $timeSpanComponents, array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), 0));
+            $iterationStart = $this->makeTime($iterationDate, $timeSpanComponents, array_fill_keys(['h', 'i', 's', 'd', 'm', 'y'], 0));
             $iterationEnd   = $this->makeTime($iterationDate, $timeSpanComponents, $iterator);
 
             $timeStampList[$iterationStart . ',' . $iterationEnd] = $iterationDate;
 
-            $iterationDate  = $this->makeTime($iterationDate, array_fill_keys(array('h', 'i', 's', 'd', 'm', 'y'), true), $iterator);
+            $iterationDate  = $this->makeTime($iterationDate, array_fill_keys(['h', 'i', 's', 'd', 'm', 'y'], true), $iterator);
         }
 
         return $timeStampList;

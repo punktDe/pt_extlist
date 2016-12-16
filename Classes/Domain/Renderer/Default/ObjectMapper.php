@@ -62,7 +62,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements \TYPO3\CMS\Co
             $this->applyKeyMapping($configuration->getMapping(), $data);
         }
 
-        $mappedObject = $this->mapper->map(array(), $data, $configuration->getClass());
+        $mappedObject = $this->mapper->map([], $data, $configuration->getClass());
 
         if ($mappedObject === null) {
             throw new Exception('The data could mot be mapped to the object of class' . $configuration->getClass() .

@@ -60,6 +60,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackendTest extends Tx_PtEx
      */
     public function bookmarkManagerCanBeInjectedVia_injectBookmarkManager()
     {
-        $this->dataBackend->_injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', array(), array('testList')));
+        $this->dataBackend->_injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', [], ['testList']));
     }
 }

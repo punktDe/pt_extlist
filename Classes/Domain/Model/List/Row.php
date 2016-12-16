@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\O
     {
         $this->specialValues = isset($rowArray['specialValues']) ? $rowArray['specialValues'] : null;
 
-        $newItemsArray = array();
+        $newItemsArray = [];
 
         foreach ($rowArray['columns'] as $columnIdentifier => $cellData) {
             if (count($this->itemsArr)) {
@@ -215,7 +215,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\O
      */
     public function getAsArray()
     {
-        $returnArray = array();
+        $returnArray = [];
         $returnArray['specialValues'] = $this->specialValues;
 
         foreach ($this->itemsArr as $colName => $item) {

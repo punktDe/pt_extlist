@@ -101,7 +101,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
     {
         $this->storeAndManipulateOriginalFilterValuesIfNecessary();
 
-        $timestampBoundaries = array();
+        $timestampBoundaries = [];
 
         $filterValueFromDateObject = $this->buildDateObjectFromFilterValue($this->filterValueFrom);
         $timestampBoundaries['filterValueFromTimestamp'] = $filterValueFromDateObject->getTimestamp();
@@ -219,11 +219,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
      */
     public function _persistToSession()
     {
-        $sessionArray = array(
+        $sessionArray = [
             'filterValueFrom' => $this->filterValueFrom,
             'invert' => $this->invert,
             'filterValueTo' => $this->filterValueTo
-        );
+        ];
         return $sessionArray;
     }
 

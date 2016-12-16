@@ -67,7 +67,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
     {
         $options = parent::getOptions();
 
-        $selectOptions = array();
+        $selectOptions = [];
         foreach ($options as $optionKey => $optionValue) {
             $selectOptions[$optionKey] = $optionValue['value'];
         }
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
     public function getDisplayValue()
     {
         $options = parent::getOptions();
-        $displayValues = array();
+        $displayValues = [];
 
         foreach ($options as $option) {
             if ($option['selected'] === true) {

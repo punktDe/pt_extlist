@@ -54,8 +54,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlProfilingDataSource extend
 
     public function __construct()
     {
-        $this->preProcessHookObjects = array();
-        $this->postProcessHookObjects = array();
+        $this->preProcessHookObjects = [];
+        $this->postProcessHookObjects = [];
         if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'])) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_db.php']['queryProcessors'] as $classRef) {
                 $hookObject = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj($classRef);

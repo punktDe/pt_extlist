@@ -59,9 +59,9 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapperTest extends Tx_PtE
      */
     public function mapperReturnsCorrectObjectWithNoDataGiven()
     {
-        $mapperConfig = $this->getMapperConfig(array('class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject'));
+        $mapperConfig = $this->getMapperConfig(['class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject']);
 
-        $object = $this->objectMapper->convert(array(), $mapperConfig);
+        $object = $this->objectMapper->convert([], $mapperConfig);
         $expectedObject = new Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject();
 
         $this->assertEquals($expectedObject, $object);
@@ -74,11 +74,11 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapperTest extends Tx_PtE
      */
     public function mapperMapsDataToObjectWithoutConfiguration()
     {
-        $mapperConfig = $this->getMapperConfig(array('class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject'));
-        $mapperData = array(
+        $mapperConfig = $this->getMapperConfig(['class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject']);
+        $mapperData = [
             'value1' => 'test1',
             'value2' => 'test2'
-        );
+        ];
 
         $object = $this->objectMapper->convert($mapperData, $mapperConfig);
 
@@ -93,17 +93,17 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapperTest extends Tx_PtE
      */
     public function mapperMapsDataToObjectWithAdditionalMapperConfig()
     {
-        $mapperConfig = $this->getMapperConfig(array(
+        $mapperConfig = $this->getMapperConfig([
             'class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject',
-            'mapping' => array(
+            'mapping' => [
                 'valueFromDatabase1' => 'value1',
                 'someOtherValue' => 'value2'
-            ))
+            ]]
         );
-        $mapperData = array(
+        $mapperData = [
             'valueFromDatabase1' => 'test1',
             'someOtherValue' => 'test2'
-        );
+        ];
 
         $object = $this->objectMapper->convert($mapperData, $mapperConfig);
 
@@ -117,10 +117,10 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapperTest extends Tx_PtE
      */
     public function mapperThrowsExceptionIfValueCouldNotBeSet()
     {
-        $mapperConfig = $this->getMapperConfig(array('class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject'));
-        $mapperData = array(
+        $mapperConfig = $this->getMapperConfig(['class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject']);
+        $mapperData = [
             'badKey' => 'test1',
-        );
+        ];
 
         try {
             $object = $this->objectMapper->convert($mapperData, $mapperConfig);
@@ -137,10 +137,10 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapperTest extends Tx_PtE
      */
     public function mapperThrowsExceptionIfValueIsMissing()
     {
-        $mapperConfig = $this->getMapperConfig(array('class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject'));
-        $mapperData = array(
+        $mapperConfig = $this->getMapperConfig(['class' => 'Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapper_testObject']);
+        $mapperData = [
             'value1' => 'test1',
-        );
+        ];
 
         try {
             $object = $this->objectMapper->convert($mapperData, $mapperConfig);

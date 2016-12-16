@@ -38,7 +38,7 @@
  */
 class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $defaultFilterSettings = array(
+    protected $defaultFilterSettings = [
         'filterIdentifier' => 'tagCloudTest',
         'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter',
         'partialPath' => 'Filter/Options/TagCloudFilter',
@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends T
         'displayFields' => 'field1',
         'filterField' => 'field3',
         'invert' => '0'
-    );
+    ];
 
 
 

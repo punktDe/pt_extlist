@@ -70,7 +70,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory
             $pdo = new PDO($dsn,
                     $dataSourceConfiguration->getUsername(),
                     $dataSourceConfiguration->getPassword(),
-                    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+                    [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]
             );
         } catch (Exception $e) {
             throw new Exception('Unable to establish MYSQL Databse Connection: ' . $e->getMessage(),  1281215132);

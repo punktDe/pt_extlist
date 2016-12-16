@@ -102,10 +102,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
      */
     private function createFilterObject($filterClassName)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterClassName, array('message' => 'No filter class name given, check TS configuration! 1277889459'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($filterClassName), array('message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterClassName, ['message' => 'No filter class name given, check TS configuration! 1277889459']);
+        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($filterClassName), ['message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460']);
         $filter = $this->objectManager->get($filterClassName); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), array('message' => 'Given filter class does not implement filter interface! 1277889461'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), ['message' => 'Given filter class does not implement filter interface! 1277889461']);
         $filter->_injectGpVarsAdapter($this->getPostVarsAdapterFactory->getInstance());
         return $filter;
     }

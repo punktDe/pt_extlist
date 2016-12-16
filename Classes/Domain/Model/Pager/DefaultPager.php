@@ -62,7 +62,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
      *
      * @var array
      */
-    protected $settings = array();
+    protected $settings = [];
 
 
 
@@ -220,7 +220,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
      */
     public function getPages()
     {
-        $pages = array();
+        $pages = [];
         for ($i = 1; $i <= $this->getPageCount(); $i++) {
             $pages[$i] = $i;
         }

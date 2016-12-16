@@ -213,7 +213,7 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      * @param array $searchParameter
      * @return Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
      */
-    public static function fullText(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields, $searchString, array $searchParameter = array())
+    public static function fullText(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields, $searchString, array $searchParameter = [])
     {
         return new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fields, $searchString, $searchParameter);
     }

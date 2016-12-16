@@ -37,7 +37,7 @@
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $filterSettings = array();
+    protected $filterSettings = [];
 
 
 
@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
         parent::setup();
 
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $this->filterSettings = array(
+        $this->filterSettings = [
             'breadCrumbString' => 'breadCrumbString',
             'label' => 'testLabel',
             'filterIdentifier' => 'filterName1',
@@ -64,15 +64,15 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
             'inactiveOption' => '[All]',
             'inactiveValue' => 'inactiveValue',
             'submitOnChange' => '1',
-            'renderObj' => array(
+            'renderObj' => [
                 'dataWrap' => '{field:allDisplayFields}',
                 '_typoScriptNodeValue' => 'TEXT',
-            ),
-            'renderUserFunctions' => array(
+            ],
+            'renderUserFunctions' => [
                 10 => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_renderer.php:tx_ptextlist_demolist_renderer->iso2CodeRenderer',
-            ),
+            ],
             'accessGroups' => '1,2,3',
-        );
+        ];
     }
 
 
@@ -89,33 +89,33 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
      */
     public function fieldIdentifierDataProvider()
     {
-        return array(
-            'singleFieldIdentifier' => array(
+        return [
+            'singleFieldIdentifier' => [
                 'fieldIdentifier' => 'field1',
-                'result' => array('field1')
-            ),
-            'listOfFieldIdentifier' => array(
+                'result' => ['field1']
+            ],
+            'listOfFieldIdentifier' => [
                 'fieldIdentifier' => 'field1, field2',
-                'result' => array('field1', 'field2')
-            ),
-            'arrayOfFieldIdentifier' => array(
-                'fieldIdentifier' => array('10' => 'field3', '20' => 'field4'),
-                'result' => array('field3', 'field4')
-            ),
-            'fieldIdentifierForTimeSpanFilter' => array(
-                'fieldIdentifier' => array(
-                    10 => array(
+                'result' => ['field1', 'field2']
+            ],
+            'arrayOfFieldIdentifier' => [
+                'fieldIdentifier' => ['10' => 'field3', '20' => 'field4'],
+                'result' => ['field3', 'field4']
+            ],
+            'fieldIdentifierForTimeSpanFilter' => [
+                'fieldIdentifier' => [
+                    10 => [
                         'start' => 'field1',
                         'end' => 'field2'
-                    ),
-                    20 => array(
+                    ],
+                    20 => [
                         'start' => 'field3',
                         'end' => 'field4'
-                    )
-                ),
-                'result' => array('field1', 'field2', 'field3', 'field4')
-            )
-        );
+                    ]
+                ],
+                'result' => ['field1', 'field2', 'field3', 'field4']
+            ]
+        ];
     }
 
 
@@ -138,7 +138,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
         $accessibleFilterConfig->_call('processAndSetFieldIdentifier', $fieldIdentifier);
 
         $realResult = $accessibleFilterConfig->_get('fieldIdentifier');
-        $resultTestList = array();
+        $resultTestList = [];
         foreach ($realResult as $field) {
             $resultTestList[] = $field->getIdentifier();
         }
@@ -151,7 +151,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
     public function testExceptionOnEmptyFilterIdentifier()
     {
         try {
-            $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array(), 'testFilterbox');
+            $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, [], 'testFilterbox');
         } catch (Exception $e) {
             return;
         }
@@ -163,7 +163,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
     public function testExceptionOnEmptyPartialPath()
     {
         try {
-            $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, array('filterIdentifier' => 'test', 'filterClassName' => 'test'), 'test');
+            $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, ['filterIdentifier' => 'test', 'filterClassName' => 'test'], 'test');
         } catch (Exception $e) {
             return;
         }
@@ -190,12 +190,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
 
         $filterSettings = $this->filterSettings;
 
-        $filterSettings['defaultValue'] = array(
-            'cObject' => array(
+        $filterSettings['defaultValue'] = [
+            'cObject' => [
                 'value' => 'together',
                 '_typoScriptNodeValue' => 'TEXT'
-            )
-        );
+            ]
+        ];
 
         $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
@@ -208,14 +208,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
     {
         $this->markTestSkipped('This test is currently not working in T3 6.1.7 - problem arises in AbstractUserAuthentication.php::904');
         $filterSettings = $this->filterSettings;
-        $filterSettings['defaultValue'] = array(
+        $filterSettings['defaultValue'] = [
             10 => 'one',
             20 => 'two',
             '_typoScriptNodeValue' => '',
-        );
+        ];
 
         $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-        $this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'two'));
+        $this->assertEquals($filterConfig->getdefaultValue(), [10 => 'one', 20 => 'two']);
     }
 
 
@@ -226,19 +226,19 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
         $this->testingFramework->createFakeFrontEnd(0);
 
         $filterSettings = $this->filterSettings;
-        $filterSettings['defaultValue'] = array(
+        $filterSettings['defaultValue'] = [
             10 => 'one',
-            20 => array(
-                'cObject' => array(
+            20 => [
+                'cObject' => [
                     'value' => 'together',
                     '_typoScriptNodeValue' => 'TEXT',
-                )
-            ),
+                ]
+            ],
             '_typoScriptNodeValue' => '',
-        );
+        ];
 
         $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-        $this->assertEquals($filterConfig->getdefaultValue(), array(10 => 'one', 20 => 'together'));
+        $this->assertEquals($filterConfig->getdefaultValue(), [10 => 'one', 20 => 'together']);
     }
 
 
@@ -333,7 +333,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
     public function testGetAccess()
     {
         $filterConfig = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->filterSettings, 'test');
-        $this->assertEquals(array(1, 2, 3), $filterConfig->getAccessGroups());
+        $this->assertEquals([1, 2, 3], $filterConfig->getAccessGroups());
     }
 
 

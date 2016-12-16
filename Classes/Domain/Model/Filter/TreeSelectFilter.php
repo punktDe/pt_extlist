@@ -176,7 +176,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
      */
     protected function getFilterNodeUIds()
     {
-        $treeNodeUIds = array();
+        $treeNodeUIds = [];
 
         foreach ($this->filterValues as $filterValue) {
             $treeNodeUIds = array_merge($treeNodeUIds, $this->getSubTreeUIDs($filterValue));
@@ -206,10 +206,10 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
      */
     public function _persistToSession()
     {
-        return array(
+        return [
             'filterValues' => $this->filterValues,
             'invert' => $this->invert
-        );
+        ];
     }
 
 
@@ -248,7 +248,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
         $arrayWriterVisitor->setMultipleSelect($this->getMultiple());
         $arrayWriterVisitor->setSelection($this->filterValues);
 
-        $jsonTreeWriter = $this->objectManager->get('Tx_PtExtbase_Tree_JsonTreeWriter', array($arrayWriterVisitor), $arrayWriterVisitor);
+        $jsonTreeWriter = $this->objectManager->get('Tx_PtExtbase_Tree_JsonTreeWriter', [$arrayWriterVisitor], $arrayWriterVisitor);
 
         return $jsonTreeWriter->writeTree($this->tree);
     }
@@ -343,7 +343,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
      */
     public function getDisplayValue()
     {
-        $displayValues = array();
+        $displayValues = [];
 
         foreach ($this->filterValues as $value) {
             $node = $this->tree->getNodeByUid($value);
@@ -365,13 +365,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
      */
     protected function getSubTreeUIDs($nodeUid)
     {
-        $subtreeNodeIdArray = array();
+        $subtreeNodeIdArray = [];
 
         $treeNode = $this->tree->getNodeByUid($nodeUid);
 
         if ($treeNode instanceof Tx_PtExtbase_Tree_Node) {
             $subTreeNodes = $treeNode->getSubNodes();
-            $subtreeNodeIdArray = array();
+            $subtreeNodeIdArray = [];
 
             foreach ($subTreeNodes as $subTreeNode) {
                 /** @var Tx_PtExtbase_Tree_Node $subTreeNode */

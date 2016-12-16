@@ -44,18 +44,18 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
     {
         $this->initDefaultConfigurationBuilderMock();
 
-        $this->defaultFilterSettings = array(
+        $this->defaultFilterSettings = [
             'filterIdentifier' => 'test',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter',
             'partialPath' => 'Filter/TimeSpan',
             'dbTimeFormat' => 'd.m.Y H:i',
-            'fieldIdentifier' => array(
-                10 => array(
+            'fieldIdentifier' => [
+                10 => [
                     'start' => 'field1',
                     'end' => 'field2'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
 
@@ -78,8 +78,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
         $timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter(); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
         $fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
 
-        $testField1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('field' => 'fieldName1', 'table' => 'tableName1'));
-        $testField2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', array('field' => 'fieldName2', 'table' => 'tableName2'));
+        $testField1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', ['field' => 'fieldName1', 'table' => 'tableName1']);
+        $testField2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', ['field' => 'fieldName2', 'table' => 'tableName2']);
 
         $this->assertTrue(is_a($fieldIdentifierArray[10]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
         $this->assertTrue(is_a($fieldIdentifierArray[10]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
@@ -100,7 +100,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
         $timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter($filterSettings); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
         $fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
 
-        $testField = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', array('field' => 'fieldName1', 'table' => 'tableName1'));
+        $testField = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', ['field' => 'fieldName1', 'table' => 'tableName1']);
 
         $this->assertTrue(is_a($fieldIdentifierArray[0]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
         $this->assertTrue(is_a($fieldIdentifierArray[0]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
@@ -178,7 +178,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
             $filterSettings = $this->defaultFilterSettings;
         }
 
-        $gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', array(), array(), '', false); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
+        $gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
 
         $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter');
         $abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName); /* @var $abstractTimeSpanFilter Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter */

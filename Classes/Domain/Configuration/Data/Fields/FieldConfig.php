@@ -70,7 +70,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
      * 
      * @var array
      */
-    protected $accessGroups = array();
+    protected $accessGroups = [];
     
     
     /**

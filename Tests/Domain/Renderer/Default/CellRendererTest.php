@@ -54,32 +54,32 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
         /**
          * Change some settings
          */
-        $settings['prototype'] = array();
+        $settings['prototype'] = [];
         $settings['listIdentifier'] = 'testCellRenderer';
-        $settings['listConfig']['testCellRenderer']['columns'][40] = array(
+        $settings['listConfig']['testCellRenderer']['columns'][40] = [
                             'columnIdentifier' => 'column4',
                             'fieldIdentifier' => 'field3',
                             'label' => 'Column 3',
-                            'renderObj' => array(
+                            'renderObj' => [
                                 '_typoScriptNodeValue' => 'COA',
-                                '10' => array(
+                                '10' => [
                                     '_typoScriptNodeValue' => 'COA',
                                     'value' => 'test'
-                                )
-                            )
-                        );
-        $settings['listConfig']['testCellRenderer']['columns'][50] = array(
+                                ]
+                            ]
+        ];
+        $settings['listConfig']['testCellRenderer']['columns'][50] = [
                             'columnIdentifier' => 'column5',
                             'fieldIdentifier' => 'field5',
                             'label' => 'Column 5',
-                            'renderUserFunctions' => array(
+                            'renderUserFunctions' => [
                                 '_typoScriptNodeValue' => 'COA',
-                                '10' => array(
+                                '10' => [
                                     '_typoScriptNodeValue' => 'EXT:pt_extlist/Tests/Domain/Renderer/Strategy/RenderUserFunc.php->render',
                                     'config' => 'blabla'
-                                )
-                            )
-                        );
+                                ]
+                            ]
+        ];
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($settings);
         $this->cellRenderer = new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($this->getRendererConfiguration());
     }
@@ -96,7 +96,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
         $row->createAndAddCell('val3', 'field3');
         
         // see ConfigurationBuilderMock for column definition
-        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, array('columnIdentifier' => 'column1', 'fieldIdentifier' => 'field1'));
+        $columnConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig($this->configurationBuilderMock, ['columnIdentifier' => 'column1', 'fieldIdentifier' => 'field1']);
         $cellContent = $this->cellRenderer->renderCell($columnConfig, $row, 0, 0);
         $this->assertEquals('val1', $cellContent->getValue());
     }
@@ -105,11 +105,11 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
     /** @test */
     public function createArrayDataFieldSetReturnsCorrectFieldset()
     {
-        $array = array(
+        $array = [
             'field1' => 'test1',
-            'field2' => array('value1', 'value2', 'value3'),
+            'field2' => ['value1', 'value2', 'value3'],
             'field3' => 'test3',
-        );
+        ];
 
         $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer');
         $defaultCellRenderer = new $accessibleClassName($this->getRendererConfiguration()); /* @var $defaultCellRenderer Tx_PtExtlist_Domain_Renderer_Default_CellRenderer */

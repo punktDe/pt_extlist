@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
      */
     public function getMappedListData($domainObjects)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, array('message' => 'No mapper configuration has been set for domain object mapper! 1281635601'));
+        Tx_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, ['message' => 'No mapper configuration has been set for domain object mapper! 1281635601']);
         
         $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
         
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
         ) {
             // property is collection of objects
             list($objectName, $propertyName) = explode('.', $property);
-            $value = array();
+            $value = [];
             foreach ($resolvedObject as $object) {
                 $value[] = $this->getPropertyValueSafely($object, $propertyName);
             }

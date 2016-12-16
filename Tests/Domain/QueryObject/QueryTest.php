@@ -172,7 +172,7 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_QueryTest extends Tx_PtExtlist_Tests
         $this->assertTrue(method_exists($query, 'addSortingArray'));
         
         $query->addSorting('name', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
-        $query->addSortingArray(array('test' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC));
+        $query->addSortingArray(['test' => Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC]);
         $query->addSorting('company', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
         
         $sorting = $query->getSortings();

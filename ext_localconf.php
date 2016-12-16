@@ -12,7 +12,7 @@ if (!defined('TYPO3_MODE')) {
  * if no other settings are given.
  */
 
-$controllerActions = array(                                                            // An array holding the controller-action-combinations that are accessible 
+$controllerActions = [                                                            // An array holding the controller-action-combinations that are accessible
     'List' => 'list,sort', // The first controller and its first action will be the default
     'Export'=>'showLink,download',
     'Filterbox' => 'show,submit,reset,resetFilter',
@@ -21,7 +21,7 @@ $controllerActions = array(                                                     
     'BreadCrumbs' => 'index,resetFilter',
     'ColumnSelector' => 'show',
     'AjaxFilter' => 'getFilterElement'
-);
+];
 
 
 
@@ -36,7 +36,7 @@ $controllerActions = array(                                                     
     $_EXTKEY,                                                                        // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
     'Cached',                                                                        // A unique name of the plugin in UpperCamelCase
     $controllerActions,
-    array()
+    []
 );
 
 

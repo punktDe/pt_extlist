@@ -53,7 +53,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest extends Tx_PtExtlis
     /** @test */
     public function getRendererReturnsRendererForConfiguration()
     {
-        $rendererConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', array(), array(), '', false);
+        $rendererConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', [], [], '', false);
         $rendererConfiguration->expects($this->any())->method('getRendererClassName')->will($this->returnValue('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer')); /* @var $rendererConfiguration Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig */
         $renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
         

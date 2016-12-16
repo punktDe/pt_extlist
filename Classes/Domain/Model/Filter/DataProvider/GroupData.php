@@ -107,7 +107,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
      */
     protected function getRenderedOptionsByFields($fields)
     {
-        $renderedOptions = array();
+        $renderedOptions = [];
         $options =& $this->getOptionsByFields($fields);
 
         foreach ($options as $optionData) {
@@ -165,7 +165,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
             $groupDataQuery->addField(sprintf('count("%s") as rowCount', $this->filterField->getTableFieldCombined()));
         }
 
-        $groupFields = array();
+        $groupFields = [];
         foreach ($this->getFieldsRequiredToBeSelected() as $field) { /* @var $field Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
             $groupFields[] = $field->getIdentifier();
         }
@@ -203,7 +203,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
      */
     protected function buildExcludeFiltersArray()
     {
-        $excludeFiltersAssocArray = array($this->filterConfig->getFilterboxIdentifier() => array($this->filterConfig->getFilterIdentifier()));
+        $excludeFiltersAssocArray = [$this->filterConfig->getFilterboxIdentifier() => [$this->filterConfig->getFilterIdentifier()]];
 
         if ($this->excludeFilters) {
             foreach ($this->excludeFilters as $excludeFilter) {

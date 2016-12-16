@@ -52,34 +52,34 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ArrayMapperTest extends Tx_PtExtlist
     {
         $this->initDefaultConfigurationBuilderMock();
 
-        $this->arrayData = array(
-            array('field1' => 'v1_1', 't1_f2' => 'v1_2', 't1_f3' => 'v1_3', 'field2' => 'v1_4', 'field3' => 'v1_5', 'field4' => 'v1_6'),
-            array('field1' => 'v2_1', 't1_f2' => 'v2_2', 't1_f3' => 'v2_3', 'field2' => 'v2_4', 'field3' => 'v2_5', 'field4' => 'v1_6'),
-            array('field1' => 'v3_1', 't1_f2' => 'v3_2', 't1_f3' => 'v3_3', 'field2' => 'v3_4', 'field3' => 'v3_5', 'field4' => 'v1_6'),
-            array('field1' => 'v4_1', 't1_f2' => 'v4_2', 't1_f3' => 'v4_3', 'field2' => 'v4_4', 'field3' => 'v4_5', 'field4' => 'v1_6')
-        );
+        $this->arrayData = [
+            ['field1' => 'v1_1', 't1_f2' => 'v1_2', 't1_f3' => 'v1_3', 'field2' => 'v1_4', 'field3' => 'v1_5', 'field4' => 'v1_6'],
+            ['field1' => 'v2_1', 't1_f2' => 'v2_2', 't1_f3' => 'v2_3', 'field2' => 'v2_4', 'field3' => 'v2_5', 'field4' => 'v1_6'],
+            ['field1' => 'v3_1', 't1_f2' => 'v3_2', 't1_f3' => 'v3_3', 'field2' => 'v3_4', 'field3' => 'v3_5', 'field4' => 'v1_6'],
+            ['field1' => 'v4_1', 't1_f2' => 'v4_2', 't1_f3' => 'v4_3', 'field2' => 'v4_4', 'field3' => 'v4_5', 'field4' => 'v1_6']
+        ];
 
-        $this->fieldSettings = array(
-            'field1' => array(
+        $this->fieldSettings = [
+            'field1' => [
                 'table' => 't1',
                 'field' => 'f1'
-            ),
-            'field2' => array(
+            ],
+            'field2' => [
                 'table' => 't2',
                 'field' => 'f1'
-            ),
-        );
+            ],
+        ];
 
-        $this->wrongFieldSettings = array(
-            'fieldx' => array(
+        $this->wrongFieldSettings = [
+            'fieldx' => [
                 'table' => 't5',
                 'field' => 'f1'
-            ),
-            'fieldy' => array(
+            ],
+            'fieldy' => [
                 'table' => 't2',
                 'field' => 'f1'
-            )
-        );
+            ]
+        ];
     }
 
 

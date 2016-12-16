@@ -113,11 +113,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtEx
 
     public function rowCountProvider()
     {
-        return array(
-            '0 rows' => array('rows' => 0),
-            '1 row' => array('rows' => 1),
-            '1000 rows' => array('rows' => 1000),
-        );
+        return [
+            '0 rows' => ['rows' => 0],
+            '1 row' => ['rows' => 1],
+            '1000 rows' => ['rows' => 1000],
+        ];
     }
 
 

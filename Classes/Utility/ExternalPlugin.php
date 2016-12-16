@@ -147,11 +147,11 @@ class Tx_PtExtlist_Utility_ExternalPlugin
         $extListTSArray = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($extListTS);
 
         if (!is_array($extListTSArray['listConfig'])) {
-            $extListTSArray['listConfig'] = array();
+            $extListTSArray['listConfig'] = [];
         }
 
         if (is_array($customTSArray)) {
-            \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($extListTSArray['listConfig'], array($listIdentifier => $customTSArray));
+            \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($extListTSArray['listConfig'], [$listIdentifier => $customTSArray]);
         }
 
         if (!array_key_exists($listIdentifier, $extListTSArray['listConfig'])) {

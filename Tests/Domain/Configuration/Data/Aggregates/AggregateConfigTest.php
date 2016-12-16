@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTes
      * Holds a dummy configuration for a aggregate config object
      * @var array
      */
-    protected $aggregateSettings = array();
+    protected $aggregateSettings = [];
 
 
 
@@ -54,11 +54,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTes
 
     public function setup()
     {
-        $this->aggregateSettings = array(
+        $this->aggregateSettings = [
             'fieldIdentifier' => 'field1',
             'method' => 'avg',
             'scope' => 'page',
-        );
+        ];
 
         $this->initDefaultConfigurationBuilderMock();
         $this->aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg1', $this->aggregateSettings, $this->configurationBuilderMock);
@@ -96,11 +96,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTes
 
     public function testGetSpecial()
     {
-        $aggregateSettings = array(
+        $aggregateSettings = [
             'fieldIdentifier' => 'field1',
             'method' => 'avg',
             'special' => 'sql',
-        );
+        ];
         $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
         $this->assertEquals('sql', $aggregateConfig->getSpecial());
     }
@@ -109,10 +109,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTes
 
     public function testScopeIsQueryByDefault()
     {
-        $aggregateSettings = array(
+        $aggregateSettings = [
             'fieldIdentifier' => 'field1',
             'method' => 'avg',
-        );
+        ];
 
         $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
         $this->assertEquals('query', $aggregateConfig->getScope());
@@ -122,12 +122,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTes
 
     public function testScopeIsForcedToQueryIfSpecialIsGiven()
     {
-        $aggregateSettings = array(
+        $aggregateSettings = [
             'fieldIdentifier' => 'field1',
             'method' => 'avg',
             'special' => 'sql',
             'scope' => 'page',
-        );
+        ];
 
         $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('agg2', $aggregateSettings, $this->configurationBuilderMock);
         $this->assertEquals('query', $aggregateConfig->getScope());

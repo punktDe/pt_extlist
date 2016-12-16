@@ -54,24 +54,24 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DateRangeFilterTest extends Tx_PtEx
 
     public function calculateTimestampBoundariesDataProvider()
     {
-        return array(
-            'sameDate' => array(
+        return [
+            'sameDate' => [
                 'userDateFromValue' => '20101027',
                 'userDateToValue'  => '20101027',
-                'timestampBoundaries' => array(
+                'timestampBoundaries' => [
                     'filterValueFromTimestamp' => 1288130400,
                     'filterValueToTimestamp' => 1288216799
-                )
-            ),
-            'sameDateDefaultFormat' => array(
+                ]
+            ],
+            'sameDateDefaultFormat' => [
                 'userDateFromValue' => '2010-10-27',
                 'userDateToValue'  => '2010-10-27',
-                'timestampBoundaries' => array(
+                'timestampBoundaries' => [
                     'filterValueFromTimestamp' => 1288130400,
                     'filterValueToTimestamp' => 1288216799
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
 

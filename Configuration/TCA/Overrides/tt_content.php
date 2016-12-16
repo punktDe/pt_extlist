@@ -2,10 +2,10 @@
 defined('TYPO3_MODE') or die();
 
 
-$pluginModes = array(
+$pluginModes = [
     'Pi1' => 'ExtList',
     'Cached' => 'ExtList (Cached)'
-);
+];
 
 foreach ($pluginModes as $ident => $label) {
 

@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
     /** @test */
     public function createInstanceReturnsExpectedClass()
     {
-        $filterSettings = array(
+        $filterSettings = [
             'filterIdentifier' => 'test',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_SelectFilter',
             'partialPath' => 'Filter/SelectFilter',
@@ -67,7 +67,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
             'displayFields' => 'field1,field2',
             'filterField' => 'field3',
             'invert' => '0'
-        );
+        ];
 
         $dataProviderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory');
         /* @var $ataProviderFactory Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory */

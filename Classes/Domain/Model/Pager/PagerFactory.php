@@ -64,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory implements \TYPO3\CMS\Core\Si
         $pagerClassName = $pagerConfiguration->getPagerClassName();
 
         $pager = $this->objectManager->get($pagerClassName, $pagerConfiguration);
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), array('message' => 'Given pager class does not implement pager interface! 1279541488'));
+        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), ['message' => 'Given pager class does not implement pager interface! 1279541488']);
 
         return $pager;
     }

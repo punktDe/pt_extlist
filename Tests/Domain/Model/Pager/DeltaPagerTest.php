@@ -98,70 +98,70 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DeltaPagerTest extends Tx_PtExtlist_
 
     public function pagesDataProvider()
     {
-        return array(
-            'twoPagesAreVisible' => array(
+        return [
+            'twoPagesAreVisible' => [
                 'pageCount' => 2, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 1,
-                'expectedPages' => array(1=>1, 2=>2)
-            ),
-            'threePagesAreVisible' => array(
+                'expectedPages' => [1=>1, 2=>2]
+            ],
+            'threePagesAreVisible' => [
                 'pageCount' => 3, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 1,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3)
-            ),
-            'fourPagesAreVisibleAdFirstSelected' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3]
+            ],
+            'fourPagesAreVisibleAdFirstSelected' => [
                 'pageCount' => 4, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 1,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3, 4=>4)
-            ),
-            'fourPagesAreVisibleAndLastSelected' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3, 4=>4]
+            ],
+            'fourPagesAreVisibleAndLastSelected' => [
                 'pageCount' => 4, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 4,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3, 4=>4)
-            ),
-            'threeFirstPagesAndLastAreVisibleAndFirstPageSelectedAndFivePages' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3, 4=>4]
+            ],
+            'threeFirstPagesAndLastAreVisibleAndFirstPageSelectedAndFivePages' => [
                 'pageCount' => 5, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 1,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3, 4=>4, 5=>5)
-            ),
-            'threeFirstPagesAndLastAreVisibleAndThirdPageSelected' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3, 4=>4, 5=>5]
+            ],
+            'threeFirstPagesAndLastAreVisibleAndThirdPageSelected' => [
                 'pageCount' => 9, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 3,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3, 4 =>4,'ffi'=> '...',8=>8,9=>9)
-            ),
-            'firstAndTheLastThreeAreVisibleWhileLastSelectedAndLessThanTenPages' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3, 4 =>4,'ffi'=> '...',8=>8,9=>9]
+            ],
+            'firstAndTheLastThreeAreVisibleWhileLastSelectedAndLessThanTenPages' => [
                 'pageCount' => 12, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 12,
-                'expectedPages' => array(1=>1,2=>2, 'ffi' => '...', 11 => 11, 12=>12)
-            ),
-            'threeFirstPagesAndLastAreVisibleAndFirstPageSelected' => array(
+                'expectedPages' => [1=>1,2=>2, 'ffi' => '...', 11 => 11, 12=>12]
+            ],
+            'threeFirstPagesAndLastAreVisibleAndFirstPageSelected' => [
                 'pageCount' => 12, 'delta' => 2, 'firstItemDelta' => 2, 'lastItemDelta' => 1, 'currentPage' => 1,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3, 'ffi'=> '...',12=>12)
-            ),
-            'threeFirstPagesAndLastAreVisibleAndSecondPageSelected' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3, 'ffi'=> '...',12=>12]
+            ],
+            'threeFirstPagesAndLastAreVisibleAndSecondPageSelected' => [
                 'pageCount' => 12, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 2,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3, 'ffi'=> '...', 11=>11, 12=>12)
-            ),
-            'firstFourAndLastVisibleWhileThirdSelected' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3, 'ffi'=> '...', 11=>11, 12=>12]
+            ],
+            'firstFourAndLastVisibleWhileThirdSelected' => [
                 'pageCount' => 12, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 3,
-                'expectedPages' => array(1=>1, 2=>2, 3=>3, 4 => 4, 'ffi'=> '...',11=>11, 12=>12)
-            ),
-            'firstOneAndLastFourVisibleWhileThirdToLastSelected' => array(
+                'expectedPages' => [1=>1, 2=>2, 3=>3, 4 => 4, 'ffi'=> '...',11=>11, 12=>12]
+            ],
+            'firstOneAndLastFourVisibleWhileThirdToLastSelected' => [
                 'pageCount' => 12, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 10,
-                'expectedPages' => array(1=>1,2=>2, 'ffi' => '...', 9=>9, 10 => 10, 11 => 11, 12=>12)
-            ),
-            'firstFourAndLastVisibleWhileFourthSelected' => array(
+                'expectedPages' => [1=>1,2=>2, 'ffi' => '...', 9=>9, 10 => 10, 11 => 11, 12=>12]
+            ],
+            'firstFourAndLastVisibleWhileFourthSelected' => [
                 'pageCount' => 12, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 6,
-                'expectedPages' => array(1=>1,2=>2, 'ffi' => '...',  5=>5, 6=>6,7=>7, 'bfi'=> '...',11=>11, 12=>12)
-            ),
-            'firstAndTheLastThreeAreVisibleWhileLastSelected' => array(
+                'expectedPages' => [1=>1,2=>2, 'ffi' => '...',  5=>5, 6=>6,7=>7, 'bfi'=> '...',11=>11, 12=>12]
+            ],
+            'firstAndTheLastThreeAreVisibleWhileLastSelected' => [
                 'pageCount' => 12, 'delta' => 1, 'firstItemDelta' => 2, 'lastItemDelta' => 2, 'currentPage' => 12,
-                'expectedPages' => array(1=>1, 2=>2, 'ffi' => '...', 11 => 11, 12=>12)
-            ),
-            'firstThirdAndLastVisibleFivePages' => array(
+                'expectedPages' => [1=>1, 2=>2, 'ffi' => '...', 11 => 11, 12=>12]
+            ],
+            'firstThirdAndLastVisibleFivePages' => [
                 'pageCount' => 5, 'delta' => 0, 'firstItemDelta' => 1, 'lastItemDelta' => 1, 'currentPage' => 3,
-                'expectedPages' => array(1=>1, 2 => 2, 3 => 3, 4=>4, 5=>5)
-            ),'firstThirdAndLastVisibleSevenPages' => array(
+                'expectedPages' => [1=>1, 2 => 2, 3 => 3, 4=>4, 5=>5]
+            ],'firstThirdAndLastVisibleSevenPages' => [
                 'pageCount' => 7, 'delta' => 0, 'firstItemDelta' => 1, 'lastItemDelta' => 1, 'currentPage' => 4,
-                'expectedPages' => array(1=>1, 'ffi' => '...', 4=>4, 'bfi'=> '...', 7=>7)
-            ),'onePageFirstSelected' => array(
+                'expectedPages' => [1=>1, 'ffi' => '...', 4=>4, 'bfi'=> '...', 7=>7]
+            ],'onePageFirstSelected' => [
                 'pageCount' => 1, 'delta' => 4, 'firstItemDelta' => 4, 'lastItemDelta' => 1, 'currentPage' => 1,
-                'expectedPages' => array(1=>1)
-            )
-        );
+                'expectedPages' => [1=>1]
+            ]
+        ];
     }
 
 

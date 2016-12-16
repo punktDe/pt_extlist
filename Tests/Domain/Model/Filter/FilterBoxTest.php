@@ -47,14 +47,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
     
     
     
-    protected $filterboxSettings = array();
+    protected $filterboxSettings = [];
     
     
     
     public function setup()
     {
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $this->filterBoxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock($this->configurationBuilderMock, 'hirschIdentifier', array());
+        $this->filterBoxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock($this->configurationBuilderMock, 'hirschIdentifier', []);
     }
     
     
@@ -75,7 +75,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
         $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
         $filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
         $filterbox->isSubmittedFilterbox();
-        $filter = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('reset'), array(), '', false);
+        $filter = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', ['reset'], [], '', false);
         $filter->expects($this->once())
           ->method('reset');
         $filterbox->addItem($filter, 'testfilter');
@@ -100,8 +100,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
     public function filterboxValiedatesOnValidatingFilters()
     {
         $validatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-        $validatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
-        $validatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', false);
+        $validatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', []));
+        $validatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', ['validate'], [], '', false);
         $validatingFilterMock->expects($this->once())
             ->method('validate')
             ->will($this->returnValue(true));
@@ -115,8 +115,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
     public function filterboxDoesNotValidateOnNonValidatingFilters()
     {
         $notValidatingFilterboxMock = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
-        $notValidatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', array()));
-        $notValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', array('validate'), array(), '', false);
+        $notValidatingFilterboxMock->_injectFilterboxConfiguration(new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig($this->configurationBuilderMock, 'test', []));
+        $notValidatingFilterMock = $this->getMock('Tx_PtExtlist_Tests_Domain_Model_Filter_Stubs_FilterStub', ['validate'], [], '', false);
         $notValidatingFilterMock->expects($this->once())
             ->method('validate')
             ->will($this->returnValue(false));

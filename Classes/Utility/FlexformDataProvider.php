@@ -83,15 +83,15 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
      */
     public function getDefinedExportConfigs(array $config)
     {
-        $exportConfigs = array();
+        $exportConfigs = [];
         if (!is_array($config['items'])) {
-            $config['items'] = array();
+            $config['items'] = [];
         }
         $this->initTsDataProvider($config);
         $tsArray = $this->getTSArrayByPath('settings.export.exportConfigs');
         foreach ($tsArray as $key => $exportConfig) {
             if (array_key_exists('viewClassName', $exportConfig) && $exportConfig['viewClassName']) {
-                $exportConfigs[] = array($key, 'export.exportConfigs.' . $key);
+                $exportConfigs[] = [$key, 'export.exportConfigs.' . $key];
             }
         }
         ksort($exportConfigs);
@@ -242,11 +242,11 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
      */
     protected function getTypoScriptKeyList($typoScriptPath)
     {
-        $keyList = array();
+        $keyList = [];
         $tsArray = $this->getTSArrayByPath($typoScriptPath);
         ksort($tsArray);
         foreach ($tsArray as $key => $valueArray) {
-            $keyList[] = array($key, $key);
+            $keyList[] = [$key, $key];
         }
         return $keyList;
     }
@@ -265,7 +265,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
         $pathArray = explode('.', $typoScriptPath);
         $outTSArray = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($this->extListTypoScript, $pathArray);
         if (!is_array($outTSArray)) {
-            $outTSArray = array();
+            $outTSArray = [];
         }
         return $outTSArray;
     }

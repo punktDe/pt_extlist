@@ -52,7 +52,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
     /**
      * @var array
      */
-    protected $gpVarData = array();
+    protected $gpVarData = [];
 
 
     

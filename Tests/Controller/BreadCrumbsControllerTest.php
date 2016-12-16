@@ -54,7 +54,7 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest extends Tx_PtExtli
     {
         $this->markTestIncomplete();
         
-        $breadCrumb = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array(), array(), '', false);
+        $breadCrumb = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', [], [], '', false);
 
         $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
         $filterMock->expects($this->any())->method('getFilterBreadCrumb')->will($this->returnValue($breadCrumb));
@@ -69,13 +69,13 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest extends Tx_PtExtli
         
         $mockView = $this->getMock(
             '\TYPO3\CMS\Fluid\View\TemplateView',
-            array('assign'), array(), '', false);
+            ['assign'], [], '', false);
         $mockView->expects($this->once())->method('assign')->with('breadcrumbs', $breadCrumbCollection);
     
         
         $mockController = $this->getMock(
               $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BreadCrumbsController'),
-              array('dummy'), array(), '', false);
+              ['dummy'], [], '', false);
         $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('filterboxCollection', $filterboxCollection);
         $mockController->_set('view', $mockView);
@@ -88,7 +88,7 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest extends Tx_PtExtli
     public function testResetFilterAction()
     {
         $this->markTestIncomplete();
-        $breadCrumb = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', array(), array(), '', false);
+        $breadCrumb = $this->getMock('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb', [], [], '', false);
         
         $filterMock = $this->getMock('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
         $filterMock->expects($this->any())->method('getFilterBreadCrumb')->will($this->returnValue($breadCrumb));
@@ -101,7 +101,7 @@ class Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest extends Tx_PtExtli
         
         $mockController = $this->getMock(
               $this->buildAccessibleProxy('Tx_PtExtlist_Controller_BreadCrumbsController'),
-              array('forward'), array(), '', false);
+              ['forward'], [], '', false);
         $mockController->expects($this->once())->method('forward')->with('index');
         $mockController->_set('configurationBuilder', $this->configurationBuilderMock);
         $mockController->_set('filterboxCollection', $filterboxCollection);

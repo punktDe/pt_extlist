@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
         $treeSelectFilter = $this->getTreeSelectFilter();
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
             $this->configurationBuilderMock,
-            array(
+            [
                 'treeNamespace' => 'test',
                 'filterIdentifier' => 'test',
                 'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter',
@@ -86,7 +86,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
                 'displayFields' => 'field1',
                 'treeNodeRepository' => 'Tx_PtExtbase_Tree_NodeRepository',
                 'multiple' => 1
-            ), 'test');
+            ], 'test');
 
         $treeSelectFilter->_injectFilterConfig($filterConfiguration);
 
@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
     /** @test */
     public function filterChecksTreeNodeRepository()
     {
-        $treeSelectFilter = $this->getTreeSelectFilter(array(
+        $treeSelectFilter = $this->getTreeSelectFilter([
                         'filterIdentifier' => 'test',
                         'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter',
                         'partialPath' => 'Filter/SelectFilter',
@@ -108,7 +108,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
                         'displayFields' => 'field1',
                         'treeNodeRepository' => 'foo',
                         'multiple' => 1
-                    ));
+        ]);
 
         try {
             $treeSelectFilter->init();
@@ -124,8 +124,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
     /** @test */
     public function filterTransformsFilterValuesSingle()
     {
-        $this->accessibleFilterProxy->_set('filterValues', array(5));
-        $this->assertEquals(array(5), $this->accessibleFilterProxy->_get('filterValues'));
+        $this->accessibleFilterProxy->_set('filterValues', [5]);
+        $this->assertEquals([5], $this->accessibleFilterProxy->_get('filterValues'));
     }
 
 
@@ -133,9 +133,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
     /** @test */
     public function filterTransformsFilterValuesMultiple()
     {
-        $this->accessibleFilterProxy->_set('filterValues', array(5, 4, 8));
+        $this->accessibleFilterProxy->_set('filterValues', [5, 4, 8]);
         $this->accessibleFilterProxy->_set('multiple', true);
-        $this->assertEquals(array(5, 4, 8), $this->accessibleFilterProxy->_get('filterValues'));
+        $this->assertEquals([5, 4, 8], $this->accessibleFilterProxy->_get('filterValues'));
     }
 
 
@@ -148,20 +148,20 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
 
         $resultUIds = $this->accessibleFilterProxy->_call('getSubTreeUIDs', 2);
 
-        $this->assertEquals(array(3, 4), $resultUIds);
+        $this->assertEquals([3, 4], $resultUIds);
     }
 
 
 
     public function getFilterNodeUidTestDataProvider()
     {
-        return array(
-            'singleValueLeafNode' => array('values' => array(6), 'expected' => array(6)),
-            'multipleValueLeafNodes' => array('values' => array(6,4), 'expected' => array(6,4)),
-            'singleValueBranchNode' => array('values' => array(5), 'expected' => array(5,6)),
-            'multiValueBranchNodes' => array('values' => array(5,2), 'expected' => array(5,6,2,3,4)),
-            'handleDuplicates' => array('values' => array(2,3), 'expected' => array(2,3,4)),
-        );
+        return [
+            'singleValueLeafNode' => ['values' => [6], 'expected' => [6]],
+            'multipleValueLeafNodes' => ['values' => [6,4], 'expected' => [6,4]],
+            'singleValueBranchNode' => ['values' => [5], 'expected' => [5,6]],
+            'multiValueBranchNodes' => ['values' => [5,2], 'expected' => [5,6,2,3,4]],
+            'handleDuplicates' => ['values' => [2,3], 'expected' => [2,3,4]],
+        ];
     }
 
 
@@ -193,7 +193,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
     public function getDisplayValueChecksIfGetNodeByUidReturnsANodeInstance()
     {
         $this->accessibleFilterProxy->_set('tree', $this->createDemoTree());
-        $this->accessibleFilterProxy->_set('filterValues', array(null));
+        $this->accessibleFilterProxy->_set('filterValues', [null]);
         $this->accessibleFilterProxy->getDisplayValue();
     }
 
@@ -241,14 +241,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
      * @var array $additionalSettings
      * @return Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter
      */
-    protected function getTreeSelectFilter($additionalSettings = array())
+    protected function getTreeSelectFilter($additionalSettings = [])
     {
-        $settings = array(
+        $settings = [
             'filterIdentifier' => 'treeSelectFilter1',
             'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter',
             'fieldIdentifier' => 'field1',
             'partialPath' => 'doesNotMatter'
-        );
+        ];
         $settings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($settings, $additionalSettings);
 
         $accessibleFilterClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter');
@@ -259,12 +259,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
             $this->configurationBuilderMock,
             $settings, 'test'));
 
-        $gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', array('injectParametersInObject'), array(), '', false);
+        $gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', ['injectParametersInObject'], [], '', false);
 
         // TODO why is this method called more than once?!?
         $gpVarAdapterMock->expects($this->any())->method('injectParametersInObject');
 
-        $fieldConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', array('getTable', 'getField'), array($this->configurationBuilderMock, 'testfield', array('field' => 'testfield', 'table' => 'testtable')));
+        $fieldConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', ['getTable', 'getField'], [$this->configurationBuilderMock, 'testfield', ['field' => 'testfield', 'table' => 'testtable']]);
         $fieldConfigMock->expects($this->any())
                 ->method('getTable')
                 ->will($this->returnValue('testtable'));
@@ -272,12 +272,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
                 ->method('getField')
                 ->will($this->returnValue('testfield'));
 
-        $fieldConfigCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection', array('getFieldConfigByIdentifier'));
+        $fieldConfigCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection', ['getFieldConfigByIdentifier']);
         $fieldConfigCollectionMock->expects($this->any())
                 ->method('getFieldConfigByIdentifier')
                 ->will($this->returnValue($fieldConfigMock));
 
-        $dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', array('getFieldConfigurationCollection'), array($this->configurationBuilderMock));
+        $dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', ['getFieldConfigurationCollection'], [$this->configurationBuilderMock]);
         $dataBackendMock->expects($this->any())
                 ->method('getFieldConfigurationCollection')
                 ->will($this->returnValue($fieldConfigCollectionMock));

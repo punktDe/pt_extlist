@@ -45,7 +45,7 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
      */
     public function initializeArguments()
     {
-        $this->registerArgument('exclude', 'array', 'Define identifiers to exclude from the headers', false, array());
+        $this->registerArgument('exclude', 'array', 'Define identifiers to exclude from the headers', false, []);
     }
 
 
@@ -105,10 +105,10 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
      */
     protected function buildSortingFieldParams(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header)
     {
-        $sortingFieldsParams = array();
+        $sortingFieldsParams = [];
 
         foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
-            $sortingFieldParams = array();
+            $sortingFieldParams = [];
             $sortingFieldParams['field'] = $sortingFieldConfig->getField();
             $sortingFieldParams['label'] = $sortingFieldConfig->getLabel();
             $sortingFieldParams['forceDirection'] = $sortingFieldConfig->getForceDirection();

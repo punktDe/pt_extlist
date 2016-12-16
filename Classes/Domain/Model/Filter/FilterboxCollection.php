@@ -179,7 +179,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection extends \PunktDe\PtEx
         if ($submittedFilterbox) {
             return $submittedFilterbox->getFilterboxConfiguration()->getExcludeFilters();
         }
-        return array();
+        return [];
     }
 
 

@@ -45,51 +45,51 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
      *
      * @var array
      */
-    protected $configurationObjectSettings = array(
+    protected $configurationObjectSettings = [
         'aggregateData' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'],
         'aggregateRows' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'],
         'base' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'],
         'bookmarks' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory',
-            'prototype' => 'bookmarks'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory',
+            'prototype' => 'bookmarks'],
         'columns' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'],
         'columnSelector' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory',
-            'prototype' => 'columnSelector'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory',
+            'prototype' => 'columnSelector'],
         'dataBackend' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory',
-            'tsKey' => 'backendConfig'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory',
+            'tsKey' => 'backendConfig'],
         'export' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'],
         'fields' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'],
         'filter' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory',
-            'tsKey' => 'filters'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory',
+            'tsKey' => 'filters'],
         'list' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory',
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory',
             'prototype' => 'list',
-            'tsKey' => null),
+            'tsKey' => null],
         'listDefault' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory',
-            'tsKey' => 'default'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory',
+            'tsKey' => 'default'],
         'pager' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory',
-            'prototype' => 'pager'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory',
+            'prototype' => 'pager'],
         'rendererChain' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
-            'prototype' => 'rendererChain'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
+            'prototype' => 'rendererChain'],
         'breadCrumbs' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
-            'tsKey' => 'breadCrumbs'),
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
+            'tsKey' => 'breadCrumbs'],
         'sorter' =>
-        array('factory' => 'Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory',
-            'tsKey' => 'sorter')
-    );
+        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory',
+            'tsKey' => 'sorter']
+    ];
 
 
 
@@ -131,7 +131,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
      */
     protected function setPrototypeSettings($settings)
     {
-        Tx_PtExtbase_Assertions_Assert::isArray($settings['prototype'], array('message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089'));
+        Tx_PtExtbase_Assertions_Assert::isArray($settings['prototype'], ['message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089']);
         $this->prototypeSettings = $settings['prototype'];
     }
 
@@ -204,7 +204,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, array('message' => 'Filterbox identifier must not be empty! 1277889453'));
+        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'Filterbox identifier must not be empty! 1277889453']);
         return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
 

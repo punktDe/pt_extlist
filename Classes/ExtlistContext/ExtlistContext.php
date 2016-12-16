@@ -447,7 +447,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
      */
     public function getAllListTemplateParts()
     {
-        $viewParts = array(
+        $viewParts = [
             'config' => $this->getConfigurationBuilder(),
             'listHeader' => $this->getList()->getListHeader(),
             'listCaptions' => $this->getRenderedCaptions(),
@@ -455,7 +455,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
             'aggregateRows' => $this->getRenderedAggregateRows(),
             'pagerCollection' => $this->getPagerCollection(),
             'pager' => $this->getPager(),
-        );
+        ];
         if ($this->getFilterBoxCollection()->count() > 0) {
             $viewParts['filterbox'] = $this->getFilterBoxCollection()->getItemByIndex(0);
         }

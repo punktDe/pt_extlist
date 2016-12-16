@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer
         $cellCSSConfig = $columnConfig->getCellCSSClass();
         
         if (is_array($cellCSSConfig)) {
-            $renderObj =            array_key_exists('renderObj', $cellCSSConfig)            ? GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(array('renderObj' => $cellCSSConfig['renderObj'])) : null;
+            $renderObj =            array_key_exists('renderObj', $cellCSSConfig)            ? GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $cellCSSConfig['renderObj']]) : null;
             $renderUserFunction =    array_key_exists('renderUserFunction', $cellCSSConfig)    ? $cellCSSConfig['renderUserFunction'] : null;
             
             return Tx_PtExtlist_Utility_RenderValue::render($fieldSet, $renderObj, $renderUserFunction);
@@ -171,7 +171,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer
      */
     protected function createFieldSet(Tx_PtExtlist_Domain_Model_List_Row $row, Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig)
     {
-        $fieldSet = array();
+        $fieldSet = [];
         foreach ($columnConfig->getFieldIdentifier() as $fieldConfig) {
             $fieldIdentifier = (string) $fieldConfig;
             $fieldSet[$fieldIdentifier] = $row->getCell($fieldIdentifier)->getValue();
@@ -211,7 +211,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer
             throw new Exception('Error Column with Flag "containsArrayData" contains no Field with array-value!', 1283426460);
         }
 
-        $outDataArray = array();
+        $outDataArray = [];
 
         foreach ($loopArray as $index => $value) {
             foreach ($fieldSet as $fieldIdentifier => $field) {

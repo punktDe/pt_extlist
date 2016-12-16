@@ -151,7 +151,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
      */
     protected function mergeBlocks($block1, $block2, $block3)
     {
-        $merged = array();
+        $merged = [];
         foreach ($block1 as $key => $value) {
             if (0 < $key && $key <= $this->getPageCount()) {
                 $merged[$key] = intval($value);
@@ -187,8 +187,8 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
      */
     protected function fillGaps($array)
     {
-        $fillers = array('ffi', 'bfi'); // We use those keys for the fillers for downwardscompatibility
-        $filledArray = array();
+        $fillers = ['ffi', 'bfi']; // We use those keys for the fillers for downwardscompatibility
+        $filledArray = [];
         $previousPage = 0;
         foreach ($array as $page) {
             // Check for gaps like 1 2 3 ^ 6 7 in the given array and add filler
@@ -219,7 +219,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Mod
     private function newRange($low, $high)
     {
         if ($low > $high) {
-            return array();
+            return [];
         } else {
             return range($low, $high);
         }

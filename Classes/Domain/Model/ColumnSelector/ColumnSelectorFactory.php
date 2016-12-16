@@ -42,7 +42,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
      *
      * @var array<Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector>
      */
-    private $instances = array();
+    private $instances = [];
 
 
 

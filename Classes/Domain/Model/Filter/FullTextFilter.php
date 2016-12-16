@@ -82,7 +82,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
      */
     protected function getSearchParameterArray()
     {
-        $searchParameter = array();
+        $searchParameter = [];
         
         $searchParameter['booleanMode'] = $this->filterConfig->getSettings('booleanMode') ? true : false;
         $searchParameter['booleanModeWrapWithStars'] = $this->filterConfig->getSettings('booleanModeWrapWithStars') ? true : false;
@@ -102,7 +102,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
         if (!$this->isActive() || strlen(trim($this->filterValue)) >= $this->minWordLength) {
             return true;
         } else {
-            $this->errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('filter.fullText.errorWordTooShort', 'ptExtlist', array($this->minWordLength), '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+            $this->errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('filter.fullText.errorWordTooShort', 'ptExtlist', [$this->minWordLength], '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
             return false;
         }
     }

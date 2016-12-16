@@ -35,110 +35,110 @@
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
-    protected $settings = array('listIdentifier' => 'test',
+    protected $settings = ['listIdentifier' => 'test',
                 'abc' => '1',
-                'prototype' => array(
-                'pager' => array(
+                'prototype' => [
+                'pager' => [
                         'pagerClassName' => 'Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock',
-                    ),
-                'backend' => array(
-                    'mysql' => array(
+                ],
+                'backend' => [
+                    'mysql' => [
                         'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
                         'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                         'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                         'dataSourceClass' => '\TYPO3\CMS\Extbase\Persistence\Repository',
-                        
-                    )
-                ),
-                'column' => array(
-                        'xy' => 'z',
-                    ),
-                ),
-                'listConfig' => array(
-                     'test' => array(
 
-                         'backendConfig' => array(
+                    ]
+                ],
+                'column' => [
+                        'xy' => 'z',
+                ],
+                ],
+                'listConfig' => [
+                     'test' => [
+
+                         'backendConfig' => [
                              'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
                              'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                              'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                              'dataSourceClass' => 'Tx_Extbase_Persistence_Repository',
                              'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
 
-                         ),
+                         ],
                         
                          'abc' => '2',
                          'def' => '3',
                             
-                         'fields' => array(
-                             'field1' => array(
+                         'fields' => [
+                             'field1' => [
                                  'table' => 'tableName1',
                                  'field' => 'fieldName1',
                                  'isSortable' => '0',
                                  'access' => '1,2,3,4'
-                             ),
-                             'field2' => array(
+                             ],
+                             'field2' => [
                                  'table' => 'tableName2',
                                  'field' => 'fieldName2',
                                  'isSortable' => '1',
                                  'access' => '1,2,3,4'
-                             )
-                         ),
-                        'columns' => array(
-                            10 => array(
+                             ]
+                         ],
+                        'columns' => [
+                            10 => [
                                 'columnIdentifier' => 'column1',
                                 'fieldIdentifier' => 'field1',
                                 'label' => 'Column 1',
                                 'isSortable' => '0',
                                 'access' => '1,2,3,4'
-                            ),
-                            20 => array(
+                            ],
+                            20 => [
                                 'columnIdentifier' => 'column2',
                                 'fieldIdentifier' => 'field2',
                                 'label' => 'Column 2',
                                 'isSortable' => '1',
                                 'sorting' => 'tstamp, title',
                                 'access' => '1,2,3,4'
-                            ),
-                            30 => array(
+                            ],
+                            30 => [
                                 'columnIdentifier' => 'column3',
                                 'fieldIdentifier' => 'field3',
                                 'label' => 'Column 3',
                                 'isSortable' => '1',
                                 'sorting' => 'tstamp asc, title !DeSc',
                                 'access' => '1,2,3,4'
-                            )
-                        ),
-                        'renderer' => array(
+                            ]
+                        ],
+                        'renderer' => [
                             'rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_DefaultRenderer',
                             'enabled' => 1,
                             'showCaptionsInBody' => 0,
                             'specialCell' => 'EXT:pt_extlist/Resources/Private/UserFunctions/class.tx_ptextlist_demolist_specialcell.php:tx_ptextlist_demolist_specialcell->processCell'
-                        ),
-                        'filters' => array(
-                             'testfilterbox' => array(
-                                 '10' => array(
+                        ],
+                        'filters' => [
+                             'testfilterbox' => [
+                                 '10' => [
                                     'filterIdentifier' => 'filter1',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                     'fieldDescriptionIdentifier' => 'field1',
                                     'partialPath' => 'Filter/StringFilter',
                                     'defaultValue' => 'default',
-                                 ),
-                                 '20' => array(
+                                 ],
+                                 '20' => [
                                     'filterIdentifier' => 'filter2',
                                     'filterClassName' => 'Tx_PtExtlist_Domain_Model_Filter_StringFilter',
                                     'fieldDescriptionIdentifier' => 'field1',
                                     'partialPath' => 'Filter/StringFilter'
-                                 )
-                             )
-                        ),
-                        'pager' => array(
+                                 ]
+                             ]
+                        ],
+                        'pager' => [
                             'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
                             'itemsPerPage'   => '10',
                             'enabled' => '1'
-                        ),
-                    )
-                )
-            );
+                        ],
+                     ]
+                ]
+    ];
     
     
     public function setup()
@@ -158,7 +158,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     public function testInjectDataSource()
     {
-        $dataSourceMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository', array(), array(), '', false);
+        $dataSourceMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository', [], [], '', false);
         $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         $extBaseDataBackend->_injectDataSource($dataSourceMock);
     }
@@ -167,7 +167,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     public function testThrowExceptionOnInjectingWrongDataSource()
     {
-        $dataSourceMock = $this->getMock('Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest', array(), array(), '', false);
+        $dataSourceMock = $this->getMock('Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest', [], [], '', false);
         $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         try {
             $extBaseDataBackend->_injectDataSource($dataSourceMock);
@@ -226,15 +226,15 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
         
         // overwrite datasource to return fake query object
-        $returnArray = array('field' => 'value');
+        $returnArray = ['field' => 'value'];
        
-        $queryObjectMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', array('getCriterias'), array(), '', false);
-        $queryObjectMock->expects($this->any())->method('getCriterias')->will($this->returnValue(array()));
+        $queryObjectMock = $this->getMock('Tx_PtExtlist_Domain_QueryObject_Query', ['getCriterias'], [], '', false);
+        $queryObjectMock->expects($this->any())->method('getCriterias')->will($this->returnValue([]));
         
-        $extbaseQueryObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', array('execute', 'getObjectDataByQuery'), array(), '', false);
+        $extbaseQueryObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', ['execute', 'getObjectDataByQuery'], [], '', false);
         $extbaseQueryObjectMock->expects($this->any())->method('execute')->will($this->returnValue($returnArray));
         
-        $repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', array(), array('createQuery'), '', false);
+        $repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', [], ['createQuery'], '', false);
         $repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($extbaseQueryObjectMock));
         
         $extBaseDataBackend->_injectDataSource($repositoryMock);
@@ -262,7 +262,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $extBaseDataBackend->_injectDataSource($dataSource);
         $extBaseDataBackend->_injectBackendConfiguration($this->configurationBuilderMock->buildDataBackendConfiguration());
         
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', array('isEnabled', 'getCurrentPage', 'getItemsPerPage'), array(), '', false);
+        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['isEnabled', 'getCurrentPage', 'getItemsPerPage'], [], '', false);
         $pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
         $pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
         $pagerCollectionMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));
