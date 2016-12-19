@@ -129,7 +129,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
     
     public function testGetInstance()
     {
-        $pagerCollectionFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::class);
+        $pagerCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory');
         $pagerCollection = $pagerCollectionFactory->getInstance($this->configurationBuilderMock);
         
         $this->assertIsA($pagerCollection, 'Tx_PtExtlist_Domain_Model_Pager_PagerCollection'); /* @var $pagerCollection Tx_PtExtlist_Domain_Model_Pager_PagerCollection */

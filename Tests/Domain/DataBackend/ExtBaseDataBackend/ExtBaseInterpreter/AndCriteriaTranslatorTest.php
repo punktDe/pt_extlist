@@ -39,6 +39,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator');
     }
 }

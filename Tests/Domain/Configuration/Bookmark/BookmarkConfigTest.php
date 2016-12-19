@@ -121,7 +121,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig'));
     }
 
 

@@ -107,10 +107,10 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
     
     public function setup()
     {
-        $typoScriptParser = GeneralUtility::makeInstance((\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser::class)); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
+        $typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
         $typoScriptParser->parse($this->extBaseSettingsString);
 
-        $this->extBaseSettings = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
+        $this->extBaseSettings = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
 
         $this->testingFramework = new Tx_Phpunit_Framework('pt_extlist');
     }
@@ -199,7 +199,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
         $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
         $configurationBuilderFactory->getInstance($listIdentifier);
 
-        $instancesContainer = GeneralUtility::makeInstance(\Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer::class); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
+        $instancesContainer = GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
 
         $objectManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Object\ObjectManager', ['get'], [], '', false);
         $objectManagerMock->expects($this->any())
@@ -211,10 +211,10 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
         $dataBackendFactory->injectObjectManager($objectManagerMock);
         $dataBackendFactory->injectConfigurationBuilderFactory($configurationBuilderFactory);
         $dataBackendFactory->injectInstancesContainer($instancesContainer);
-        $dataBackendFactory->injectMapperFactory($this->objectManager->get(\Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::class));
-        $dataBackendFactory->injectFilterboxCollectionFactory($this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::class));
-        $dataBackendFactory->injectPagerCollectionFactory($this->objectManager->get(\Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::class));
-        $dataBackendFactory->injectSorterFactory($this->objectManager->get(\Tx_PtExtlist_Domain_Model_Sorting_SorterFactory::class));
+        $dataBackendFactory->injectMapperFactory($this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
+        $dataBackendFactory->injectFilterboxCollectionFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'));
+        $dataBackendFactory->injectPagerCollectionFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory'));
+        $dataBackendFactory->injectSorterFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'));
 
         return $dataBackendFactory;
     }

@@ -55,7 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfigTest extends
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig'));
     }
 
 

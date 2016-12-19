@@ -36,6 +36,6 @@ class Tx_PtExtlist_Tests_Controller_ColumnSelectorControllerTest extends Tx_PtEx
     /** @test */
     public function classExists()
     {
-        $this->isTrue(class_exists(\Tx_PtExtlist_Controller_ColumnSelectorController::class));
+        $this->isTrue(class_exists('Tx_PtExtlist_Controller_ColumnSelectorController'));
     }
 }

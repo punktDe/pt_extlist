@@ -47,6 +47,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest extends Tx_P
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend');
     }
 }

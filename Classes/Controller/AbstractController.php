@@ -342,7 +342,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     {
         // Determine class name of session storage class to use for session persistence
         if (TYPO3_MODE === 'FE') {
-            $sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Extbase_ExtbaseContext::class)->isInCachedMode()
+            $sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
                 ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter() // We are in cached mode
                 : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter(); // We are in uncached mode
         } else {
@@ -379,7 +379,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
      */
     protected function initializeView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
     {
-        $this->objectManager->get(\Tx_PtExtlist_Extbase_ExtbaseContext::class)->setControllerContext($this->controllerContext);
+        $this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
         if (method_exists($view, 'setConfigurationBuilder')) {
             /* @var $view Tx_PtExtlist_View_ConfigurableViewInterface */
             $view->setConfigurationBuilder($this->configurationBuilder);

@@ -49,7 +49,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactoryTest extends Tx_PtE
     {
         $this->initDefaultConfigurationBuilderMock();
         $dataBackendFactory = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-        $this->filterboxFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::class);
+        $this->filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory');
         $this->filterboxFactory->setDataBackendFactory($dataBackendFactory);
     }
     

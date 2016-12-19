@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest extends Tx_PtEx
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_QueryObject_FullTextCriteria::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'));
     }
     
     

@@ -128,7 +128,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer
         $cellCSSConfig = $columnConfig->getCellCSSClass();
         
         if (is_array($cellCSSConfig)) {
-            $renderObj =            array_key_exists('renderObj', $cellCSSConfig)            ? GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertPlainArrayToTypoScriptArray(['renderObj' => $cellCSSConfig['renderObj']]) : null;
+            $renderObj =            array_key_exists('renderObj', $cellCSSConfig)            ? GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $cellCSSConfig['renderObj']]) : null;
             $renderUserFunction =    array_key_exists('renderUserFunction', $cellCSSConfig)    ? $cellCSSConfig['renderUserFunction'] : null;
             
             return Tx_PtExtlist_Utility_RenderValue::render($fieldSet, $renderObj, $renderUserFunction);

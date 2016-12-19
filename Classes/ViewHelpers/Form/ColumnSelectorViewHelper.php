@@ -54,10 +54,10 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
     public function initialize()
     {
         parent::initialize();
-        $this->captionRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer::class);
+        $this->captionRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
 
         // TODO Remove this, once we have DI
-        $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::class); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+        $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
         $configurationBuilder = $configurationBuilderFactory->getInstance();
 
         $this->columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();

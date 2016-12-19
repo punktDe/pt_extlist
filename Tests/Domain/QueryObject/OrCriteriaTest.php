@@ -38,7 +38,7 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_OrCriteriaTest extends Tx_PtExtlist_
 {
     public function testSetup()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_QueryObject_OrCriteria::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_QueryObject_OrCriteria');
     }
     
     

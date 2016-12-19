@@ -48,7 +48,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
     /** @test */
     public function testSetup()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Renderer_Default_RowRenderer::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_Default_RowRenderer'));
     }
     
     

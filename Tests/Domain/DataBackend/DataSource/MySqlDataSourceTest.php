@@ -40,7 +40,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
     }
     
     

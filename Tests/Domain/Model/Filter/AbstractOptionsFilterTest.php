@@ -320,7 +320,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
             $testData = ['key1' => 'value1', 'key2' => 'value2'];
         }
 
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
 
         $abstractOptionsFilter = $this->getMockBuilder($accessibleClassName)
             ->setMethods(['buildDataProvider'])
@@ -358,7 +358,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
             ];
         }
 
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter');
         $abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
 
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings, 'test');

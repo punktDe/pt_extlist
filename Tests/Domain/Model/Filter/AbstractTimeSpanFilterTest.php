@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
      */
     public function testSetup()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter'));
     }
 
 
@@ -180,7 +180,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
 
         $gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
 
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter');
         $abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName); /* @var $abstractTimeSpanFilter Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter */
 
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');

@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
         $aggregateConfigMin = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('minField2', ['fieldIdentifier' => 'field2', 'method' => 'min'], $this->configurationBuilderMock);
 
 
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator');
         $arrayAggregator = new $accessibleClassName;
 
         $arrayAggregator->injectDataBackend($this->testDataBackend);
@@ -122,7 +122,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
 
     public function testBuildFieldData()
     {
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator');
         $arrayAggregator = new $accessibleClassName;
 
         $arrayAggregator->injectDataBackend($this->testDataBackend);

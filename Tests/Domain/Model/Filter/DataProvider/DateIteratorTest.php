@@ -225,7 +225,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DateIteratorTest exten
             $filterSettings = $this->defaultFilterSettings;
         }
 
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator');
         $accessibleTimeSpanDataProvider = new $accessibleClassName; /* @var $accessibleTimeSpanDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
 
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');

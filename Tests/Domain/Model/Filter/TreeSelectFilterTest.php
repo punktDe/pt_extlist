@@ -47,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
     {
         $this->initDefaultConfigurationBuilderMock();
 
-        $accessibleFilterProxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter::class);
+        $accessibleFilterProxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter');
         $this->accessibleFilterProxy = new $accessibleFilterProxyClass();
     }
 
@@ -63,7 +63,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
     /** @test */
     public function classExist()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter');
         $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter();
         $this->assertIsA($selectFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface');
     }
@@ -251,7 +251,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
         ];
         $settings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($settings, $additionalSettings);
 
-        $accessibleFilterClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter::class);
+        $accessibleFilterClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter');
         $filter = new $accessibleFilterClass();
         /** @var Tx_PtExtlist_Domain_Model_Filter_StringFilter $filter */
 

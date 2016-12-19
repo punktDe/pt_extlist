@@ -54,8 +54,8 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfigFactory
      */
     protected static function setAccessableFlag(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
     {
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class)); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-        $security = $objectManager->get(\Tx_PtExtlist_Domain_Security_GroupSecurity::class); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+        $security = $objectManager->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
         $accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
         $filterConfig->setAccessable($accessable);
         

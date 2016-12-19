@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_Ba
 
     public function setUp()
     {
-        $proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_View_Export_CsvListView::class);
+        $proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_View_Export_CsvListView');
         $this->fixture = new $proxyClass();
 
         $buffer = fopen('php://temp', 'w');
@@ -57,7 +57,7 @@ class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_Ba
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_View_Export_CsvListView::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_View_Export_CsvListView'));
     }
 
 

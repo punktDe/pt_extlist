@@ -47,6 +47,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigFactoryTest exten
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory'));
     }
 }

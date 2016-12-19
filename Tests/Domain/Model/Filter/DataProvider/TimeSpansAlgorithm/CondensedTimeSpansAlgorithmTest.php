@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpansAlgorithm_Con
 
     public function setUp()
     {
-        $this->proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm::class);
+        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm');
         $this->proxy = new $this->proxyClass();
     }
 
@@ -115,7 +115,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpansAlgorithm_Con
 
     public function testSetTimeSpans()
     {
-        $expected = $input = $this->getMockBuilder(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection::class)->getMock();
+        $expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
         $this->proxy->setTimeSpans($input);
         $actual = $this->proxy->_get('timeSpans');
         $this->assertEquals($actual, $expected);
@@ -125,7 +125,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpansAlgorithm_Con
 
     public function testGetTimeSpans()
     {
-        $expected = $input = $this->getMockBuilder(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection::class)->getMock();
+        $expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
         $this->proxy->_set('timeSpans', $input);
         $actual = $this->proxy->getTimeSpans();
         $this->assertEquals($actual, $expected);
@@ -135,7 +135,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpansAlgorithm_Con
 
     public function testGetCondensedTimeSpans()
     {
-        $expected = $input = $this->getMockBuilder(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection::class)->getMock();
+        $expected = $input = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection')->getMock();
         $this->proxy->_set('condensedTimeSpans', $input);
         $actual = $this->proxy->getCondensedTimeSpans();
         $this->assertEquals($actual, $expected);

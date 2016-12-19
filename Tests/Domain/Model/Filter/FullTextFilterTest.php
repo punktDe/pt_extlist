@@ -46,6 +46,6 @@
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_Filter_FullTextFilter::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_FullTextFilter');
     }
  }

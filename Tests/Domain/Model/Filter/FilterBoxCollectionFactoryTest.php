@@ -43,7 +43,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxCollectionFactoryTest exte
         // Initialize singleton instance of databackend
         $dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock, $this->configurationBuilderMock->getListIdentifier());
 
-        $filterboxCollectionFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory::class); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
+        $filterboxCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
         $filterboxCollectionFactory->setDataBackendFactory($dataBackendFactoryMock);
         $filterboxCollection = $filterboxCollectionFactory->createInstance($this->configurationBuilderMock, false);
         $this->assertSame($this->configurationBuilderMock->getListIdentifier(), $filterboxCollection->getListIdentifier());

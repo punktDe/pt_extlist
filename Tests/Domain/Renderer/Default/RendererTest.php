@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
     {
         $this->initDefaultConfigurationBuilderMock();
         $rendererConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($this->configurationBuilderMock, ['rendererClassName' => 'Tx_PtExtlist_Domain_Renderer_Default_Renderer', 'enabled' => '1']);
-        $this->rendererFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Renderer_RendererFactory::class);
+        $this->rendererFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererFactory');
         $this->renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
     }
 
@@ -89,7 +89,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
     /** @test */
     public function renderCaptionRendersCaptionForGivenConfiguration()
     {
-        $listHeaderFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::class);
+        $listHeaderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory');
         $listHeader = $listHeaderFactory->createInstance($this->configurationBuilderMock);
 
         $captions = $this->renderer->renderCaptions($listHeader);

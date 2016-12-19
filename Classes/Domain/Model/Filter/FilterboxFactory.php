@@ -86,7 +86,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
     public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration)
     {
         Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), ['message' => 'List identifier must not be empty 1277889458']);
-        $filterbox = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_Filterbox::class); /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+        $filterbox = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox'); /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
         $filterbox->_injectFilterboxConfiguration($filterboxConfiguration);
         $filterbox->_injectFilterboxFactory($this);
         foreach ($filterboxConfiguration as $filterConfiguration) {
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
      */
     public function createAccessableInstance(Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection)
     {
-        $accessibleCollection = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_Filterbox::class);
+        $accessibleCollection = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox');
         $accessibleCollection->_injectFilterboxConfiguration($collection->getFilterboxConfiguration());
 
         foreach ($collection as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */

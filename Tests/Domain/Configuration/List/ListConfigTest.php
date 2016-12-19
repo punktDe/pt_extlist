@@ -55,7 +55,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_List_ListConfigTest extends Tx_PtE
     
     public function testSetup()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_List_ListConfig::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_List_ListConfig');
     }
     
     public function testGetHeaderPartial()

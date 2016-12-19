@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
 
     public function setUp()
     {
-        $this->proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::class);
+        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark');
         $this->proxy = new $this->proxyClass;
     }
 
@@ -71,7 +71,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark'));
     }
 
 

@@ -92,7 +92,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_List_ListData::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_ListData'));
     }
 
 

@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
         if (is_null($this->dataBackendConfiguration)) {
             $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
             
-            $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration::class);
+            $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration');
             $this->dataBackendConfiguration = new $accessibleClassName($configurationBuilderMock);
         }
     }

@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCol
     
     public function testSetup()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection');
     }
     
     

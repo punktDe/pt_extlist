@@ -126,7 +126,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
         }
 
         if (array_key_exists('renderObj', $this->settings)) {
-            $this->renderObj = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
+            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
         }
     }
 

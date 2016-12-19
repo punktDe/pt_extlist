@@ -188,7 +188,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     /** @test */
     public function extbaseContextCanBeInjected()
     {
-        $extbaseContextMock = $this->getSimpleMock(\Tx_PtExtlist_Extbase_ExtbaseContext::class); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
+        $extbaseContextMock = $this->getSimpleMock('Tx_PtExtlist_Extbase_ExtbaseContext'); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
         $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
         $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
     }

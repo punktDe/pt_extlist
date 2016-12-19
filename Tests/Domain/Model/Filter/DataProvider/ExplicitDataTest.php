@@ -94,7 +94,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest exten
      */
     protected function buildAccessibleExplicitDataProvider($filterSettings = null)
     {
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData');
         $accessibleExplicitDataProvider = new $accessibleClassName;
         /* @var $accessibleExplicitDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
         if (!$filterSettings) {

@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest extends Tx_
     /** @test */
     public function classExists()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
     }
     
     
@@ -54,7 +54,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest extends Tx_
     /** @test */
     public function createDataMapperReturnsMapperObject()
     {
-        $mapperFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory::class);
+        $mapperFactory = $this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory');
         $mapper = $mapperFactory->createDataMapper($this->configurationBuilderMock);
         $this->assertTrue(is_a($mapper, 'Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface'));
     }

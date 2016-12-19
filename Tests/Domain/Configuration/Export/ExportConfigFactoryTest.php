@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigFactoryTest ext
     
     public function testSetup()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory');
     }
     
     

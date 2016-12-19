@@ -102,7 +102,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
     public function queryInterpreterCanBeInjected()
     {
         $dataBackend = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilder);
-        $queryInterpreterMock = $this->getMock(\Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::class);
+        $queryInterpreterMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter');
         $dataBackend->_injectQueryInterpreter($queryInterpreterMock);
     }
 
@@ -487,7 +487,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
         $filterboxCollectionMock->expects($this->any())->method('excludeFilters')->will($this->returnValue([]));
 
         $dataBackend->_injectBackendConfiguration($this->configurationBuilder->buildDataBackendConfiguration());
-        $dataBackend->_injectPagerCollection($this->objectManager->get(\Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::class)->getInstance($this->configurationBuilder));
+        $dataBackend->_injectPagerCollection($this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory')->getInstance($this->configurationBuilder));
         $dataBackend->_injectDataSource($dataSourceMock);
         $dataBackend->_injectQueryInterpreter($queryInterpreterMock);
         $dataBackend->_injectSorter($sorterMock);
@@ -502,7 +502,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackendTest extends Tx_PtEx
     /** @test */
     public function convertTableFieldToAliasReturnsExpectedStrings()
     {
-        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend::class);
+        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
         $dataBackend = new $accessibleClassName($this->configurationBuilder);
         $dataBackend->_injectFieldConfigurationCollection($this->configurationBuilder->buildFieldsConfiguration());
 
@@ -666,7 +666,7 @@ GROUP BY company
             $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
         }
 
-        $dataBackendAccessible = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend::class);
+        $dataBackendAccessible = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend');
         $dataBackend = new $dataBackendAccessible($configurationBuilderMock);
         /** @var $dataBackend  Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend */
 
@@ -684,12 +684,12 @@ GROUP BY company
         $dataBackend->_injectDataSource($dataSourceMock);
         $dataBackend->_injectQueryInterpreter($queryInterpreterMock);
         $dataBackend->_injectFieldConfigurationCollection($configurationBuilderMock->buildFieldsConfiguration());
-        $dataBackend->_injectPagerCollection($this->objectManager->get(\Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory::class)->getInstance($this->configurationBuilder));
+        $dataBackend->_injectPagerCollection($this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory')->getInstance($this->configurationBuilder));
         $dataBackend->_injectSorter($sorterMock);
         $dataBackend->_injectDataMapper($dataMapperMock);
 
         // TODO should we also mock this?!?
-        $dataBackend->injectRendererChainFactory(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Renderer_RendererChainFactory::class));
+        $dataBackend->injectRendererChainFactory(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
 
         $dataBackend->init();
 

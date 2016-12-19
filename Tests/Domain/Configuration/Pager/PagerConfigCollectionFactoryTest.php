@@ -46,6 +46,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionFactory
     /** @test */
     public function testSetup()
     {
-        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory::class);
+        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory');
     }
 }

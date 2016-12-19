@@ -372,11 +372,11 @@ class Tx_PtExtlist_Utility_RenderValue
     protected static function getFluidRenderer()
     {
         if (!self::$fluidRenderer) {
-            $objectManager = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class));
+            $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 
-            self::$fluidRenderer = $objectManager->get((\TYPO3\CMS\Fluid\View\TemplateView::class));
+            self::$fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\TemplateView');
             
-            $controllerContext = $objectManager->get(\Tx_PtExtlist_Extbase_ExtbaseContext::class)->getControllerContext();
+            $controllerContext = $objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getControllerContext();
             self::$fluidRenderer->setControllerContext($controllerContext);
         }
 
@@ -399,7 +399,7 @@ class Tx_PtExtlist_Utility_RenderValue
             return $tsConfigValue;
         }
 
-        $tsArray = GeneralUtility::makeInstance((\TYPO3\\CMS\\Extbase\\Service\\TypoScriptService::class))->convertPlainArrayToTypoScriptArray(['tsConfigArray' => $tsConfigValue]);
+        $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray(['tsConfigArray' => $tsConfigValue]);
         $content = Tx_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
 
         return $content;
@@ -419,7 +419,7 @@ class Tx_PtExtlist_Utility_RenderValue
             return $tsConfigValue;
         }
         
-        $tsArray = GeneralUtility::makeInstance((\TYPO3\\CMS\\Extbase\\Service\\TypoScriptService::class))->convertPlainArrayToTypoScriptArray($tsConfigValue);
+        $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray($tsConfigValue);
 
         return Tx_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
     }

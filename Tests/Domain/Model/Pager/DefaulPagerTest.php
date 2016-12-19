@@ -60,14 +60,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
 
         $this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($this->configurationBuilderMock, 'default', $pagerSettings);
 
-        $accessiblePagerClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Pager_DefaultPager::class);
+        $accessiblePagerClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
         $this->pager = new $accessiblePagerClass($this->pagerConfiguration);
     }
 
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Pager_DefaultPager::class));
+        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Pager_DefaultPager'));
     }
 
 

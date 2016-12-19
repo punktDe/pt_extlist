@@ -130,7 +130,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
     public function getAccessibleFilterboxReturnsExpectedFilterbox()
     {
         $dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-        $filterboxFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::class); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
+        $filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory'); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
         $filterboxFactory->setDataBackendFactory($dataBackendFactoryMock);
 
         $filterbox = $filterboxFactory->createInstance($this->filterBoxConfigurationMock);
@@ -145,7 +145,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
     public function getFilterByFilterIdentifierReturnsExpectedFilter()
     {
         $dataBackendFactoryMock = $this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier());
-        $filterboxFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory::class); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
+        $filterboxFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory'); /* @var $filterboxFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory */
         $filterboxFactory->setDataBackendFactory($dataBackendFactoryMock);
 
         $filterbox = $filterboxFactory->createInstance($this->configurationBuilderMock->buildFilterConfiguration()->getFilterBoxConfig('testfilterbox'));
