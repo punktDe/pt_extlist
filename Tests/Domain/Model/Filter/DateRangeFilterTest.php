@@ -47,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DateRangeFilterTest extends Tx_PtEx
     public function setUp()
     {
         $this->initDefaultConfigurationBuilderMock();
-        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter');
+        $this->proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter::class);
         $this->proxy = new $this->proxyClass();
     }
 

@@ -47,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_SelectFilter'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_SelectFilter::class));
         $selectFilter = new Tx_PtExtlist_Domain_Model_Filter_SelectFilter();
         $this->assertTrue(is_a($selectFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'));
     }
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
     /** @test */
     public function testGetMultiple()
     {
-        $selectFilter = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_SelectFilter'); /* @var $selectFilter Tx_PtExtlist_Domain_Model_Filter_SelectFilter */
+        $selectFilter = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_SelectFilter::class); /* @var $selectFilter Tx_PtExtlist_Domain_Model_Filter_SelectFilter */
         $selectFilter->_injectGpVarsAdapter(new Tx_PtExtbase_State_GpVars_GpVarsAdapter('pt_extlist'));
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig(
             $this->configurationBuilderMock,
@@ -130,7 +130,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
             $testData = ['key1' => 'value1', 'key2' => 'value2'];
         }
 
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_SelectFilter');
+        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_SelectFilter::class);
 
         $abstractOptionsFilter = $this->getMockBuilder($accessibleClassName)
             ->setMethods(['buildDataProvider'])

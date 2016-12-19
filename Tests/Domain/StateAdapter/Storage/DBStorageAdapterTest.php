@@ -41,6 +41,6 @@ class Tx_PtExtlist_Tests_Domain_StateAdapter_Storage_DBStorageAdapter_testcaste 
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter::class));
     }
 }

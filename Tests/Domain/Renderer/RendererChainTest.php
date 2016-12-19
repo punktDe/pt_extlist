@@ -66,7 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainTest extends Tx_PtExtlist_
     /** @test */
     public function setupTest()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChain'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Renderer_RendererChain::class));
         $rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($this->rendererChainConfigurationMock);
         $this->assertTrue(is_a($rendererChain, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));
     }

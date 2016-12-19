@@ -38,6 +38,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactoryTest extends Tx_PtExtlist
     /** @test */
     public function classExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_ExtlistContext_ExtlistContextFactory');
+        $this->assertClassExists(\Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::class);
     }
 }

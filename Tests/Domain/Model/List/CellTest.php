@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\T
      */
     public function classExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Cell');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_List_Cell::class);
     }
 
 

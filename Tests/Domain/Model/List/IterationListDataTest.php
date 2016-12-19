@@ -57,7 +57,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtEx
 
     public function setUp()
     {
-        $this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
+        $this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Renderer_RendererChainFactory::class);
         $this->fixture = $this->getIterationListDataObject(10, 10);
     }
 

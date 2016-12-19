@@ -106,8 +106,8 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
         $resolvedObject = $this->resolveObjectPath($domainObject, $property);
 
         if (get_class($resolvedObject) == '\TYPO3\CMS\Extbase\Persistence\ObjectStorage'
-            || get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage'
-            || get_class($resolvedObject) == 'TYPO3\CMS\Extbase\Persistence\ObjectStorage'
+            || get_class($resolvedObject) == (\TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage::class)
+            || get_class($resolvedObject) == (\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
         ) {
             // property is collection of objects
             list($objectName, $propertyName) = explode('.', $property);

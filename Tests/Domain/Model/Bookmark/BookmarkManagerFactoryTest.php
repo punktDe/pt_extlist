@@ -107,11 +107,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
 
     public function setUp()
     {
-        $this-> proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory');
+        $this-> proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory::class);
         $this->proxy = new $this->proxyClass;
         $this->initDefaultConfigurationBuilderMock();
 
-        $this->bookmarkManagerMock = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager')
+        $this->bookmarkManagerMock = $this->getMockBuilder(\Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager::class)
             ->setMethods(['_injectConfigurationBuilder', '_injectSessionPersistenceManager'])
             ->setConstructorArgs(['Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest'])
             ->getMock();
@@ -123,7 +123,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory::class));
     }
 
 
@@ -158,7 +158,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
     //TODO: fix and reactivate test
     public function getInstanceByConfigurationBuilderBuildsNotYetExistingBookmarkManager()
     {
-        $bookmarkConfigMock = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig')
+        $bookmarkConfigMock = $this->getMockBuilder(\Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig::class)
             ->setMethods(['getBookmarkPid'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -166,7 +166,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
             ->method('getBookmarkPid')
             ->will($this->returnValue(30));
 
-        $configurationBuilderMock = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilderMock = $this->getMockBuilder(\Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder::class)
             ->setMethods(['buildBookmarkConfiguration', 'getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -175,9 +175,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
             ->will($this->returnValue($bookmarkConfigMock));
         $configurationBuilderMock->expects($this->atLeastOnce())
             ->method('getListIdentifier')
-            ->will($this->returnValue('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'));
+            ->will($this->returnValue(\Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory::class));
 
-        $bookmarkRepositoryMock = $this->getMockBuilder('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository')
+        $bookmarkRepositoryMock = $this->getMockBuilder(\Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository::class)
             ->setMethods(['setBookmarkStoragePid'])
             ->getMock();
 
@@ -199,11 +199,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
             ->method('_injectConfigurationBuilder')
             ->with($configurationBuilderMock);
 
-        $sessionPersistenceManagerMock = $this->getMockBuilder('Tx_PtExtbase_State_Session_SessionPersistenceManager')
+        $sessionPersistenceManagerMock = $this->getMockBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManager::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $sessionPersistenceManagerBuilderMock = $this->getMockBuilder('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder')
+        $sessionPersistenceManagerBuilderMock = $this->getMockBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder::class)
             ->setMethods(['getInstance'])
             ->disableOriginalConstructor()
             ->getMock();

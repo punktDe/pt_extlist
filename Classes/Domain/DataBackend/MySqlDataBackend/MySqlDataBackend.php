@@ -212,7 +212,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
             \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
         }
 
-        $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData');
+        $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Model_List_IterationListData::class);
         /** @var $iterationListData Tx_PtExtlist_Domain_Model_List_IterationListData */
         $iterationListData->_injectDataSource($dataSource);
         $iterationListData->_injectDataMapper($this->dataMapper);
@@ -267,7 +267,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
         $query = '{namespace extlist=Tx_PtExtlist_ViewHelpers}{namespace ptx=Tx_PtExtbase_ViewHelpers}' . $query;
 
-        $fluidView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView'); /** @var \TYPO3\CMS\Fluid\View\StandaloneView $fluidView */
+        $fluidView = $this->objectManager->get((\TYPO3\CMS\Fluid\View\StandaloneView::class)); /** @var \TYPO3\CMS\Fluid\View\StandaloneView $fluidView */
         $fluidView->setTemplateSource($query);
         $fluidView->assignMultiple([
             'filters' => $this->filterboxCollection,

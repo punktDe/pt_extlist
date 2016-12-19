@@ -72,7 +72,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends T
 
     protected function buildAccessibleTagCloudDataProvider($filterSettings)
     {
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud');
+        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud::class);
         $accessibleTagCloudDataProvider = new $accessibleClassName;
         /* @var $accessibleTagCloudDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud */
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');

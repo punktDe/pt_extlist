@@ -227,7 +227,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
     {
         if (is_null($this->extListTypoScript)) {
             $extListTS = Tx_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
-            $this->extListTypoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($extListTS);
+            $this->extListTypoScript = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertTypoScriptArrayToPlainArray($extListTS);
         }
     }
 

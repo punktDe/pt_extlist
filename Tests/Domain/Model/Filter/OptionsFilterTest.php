@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_OptionsFilterTest extends Tx_PtExtl
     
     public function testSetup()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_Filter_OptionsFilter');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_Filter_OptionsFilter::class);
         $optionsFilter = new Tx_PtExtlist_Domain_Model_Filter_OptionsFilter();
         $this->assertIsA($optionsFilter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface');
     }

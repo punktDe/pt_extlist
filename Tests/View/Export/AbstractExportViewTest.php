@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest extends Tx_PtExtlist
 
     public function testSetup()
     {
-        $this->assertClassExists('Tx_PtExtlist_View_Export_AbstractExportView');
+        $this->assertClassExists(\Tx_PtExtlist_View_Export_AbstractExportView::class);
     }
 
 

@@ -186,7 +186,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
      */
     protected function getColumnCollection()
     {
-        $listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+        $listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::class); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
         $listHeader = $listHeaderFactory->createInstance($this->rendererConfiguration->getConfigurationBuilder());
         return $listHeader;
     }

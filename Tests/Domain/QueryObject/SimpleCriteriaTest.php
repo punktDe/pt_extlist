@@ -47,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_SimpleCriteriaTest extends Tx_PtExtl
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria::class));
     }
     
     

@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExt
      */
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_TimeSpanFilter::class));
     }
 
 

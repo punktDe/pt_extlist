@@ -41,6 +41,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSourceTest exten
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource::class);
     }
 }

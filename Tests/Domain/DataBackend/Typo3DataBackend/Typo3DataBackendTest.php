@@ -38,7 +38,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTes
 {
     public function testSetUp()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend::class));
     }
     
     

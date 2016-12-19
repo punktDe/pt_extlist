@@ -41,6 +41,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderfactoryTest extends 
     /** @test */
     public function testSetup()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::class);
     }
 }

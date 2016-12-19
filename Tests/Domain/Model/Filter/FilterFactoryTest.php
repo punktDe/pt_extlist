@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactoryTest extends Tx_PtExtl
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_FilterFactory'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_FilterFactory::class));
     }
 
 
@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactoryTest extends Tx_PtExtl
         $filterConfigurationMock->setup();
         $filterConfiguration = $filterConfigurationMock->getFilterConfigurationMock('filter1', 'test');
 
-        $filterFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterFactory'); /* @var $filterFactory Tx_PtExtlist_Domain_Model_Filter_FilterFactory */
+        $filterFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_FilterFactory::class); /* @var $filterFactory Tx_PtExtlist_Domain_Model_Filter_FilterFactory */
 
         $filter = $filterFactory->createInstance($filterConfiguration);
 
@@ -82,7 +82,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactoryTest extends Tx_PtExtl
             ->method('getFilterClassName')
             ->will($this->returnValue(__CLASS__));
 
-        $filterFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterFactory'); /* @var $filterFactory Tx_PtExtlist_Domain_Model_Filter_FilterFactory */
+        $filterFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_FilterFactory::class); /* @var $filterFactory Tx_PtExtlist_Domain_Model_Filter_FilterFactory */
 
         try {
             $filter = $filterFactory->createInstance($mockFilterConfiguration);

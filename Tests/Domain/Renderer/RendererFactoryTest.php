@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest extends Tx_PtExtlis
 
     public function setUp()
     {
-        $this->rendererFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererFactory');
+        $this->rendererFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Renderer_RendererFactory::class);
     }
 
 
@@ -54,7 +54,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest extends Tx_PtExtlis
     public function getRendererReturnsRendererForConfiguration()
     {
         $rendererConfiguration = $this->getMock('Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig', [], [], '', false);
-        $rendererConfiguration->expects($this->any())->method('getRendererClassName')->will($this->returnValue('Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer')); /* @var $rendererConfiguration Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig */
+        $rendererConfiguration->expects($this->any())->method('getRendererClassName')->will($this->returnValue(\Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer::class)); /* @var $rendererConfiguration Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig */
         $renderer = $this->rendererFactory->getRenderer($rendererConfiguration);
         
         $this->assertTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_RendererInterface'));

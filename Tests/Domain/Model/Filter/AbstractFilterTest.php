@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     /** @test */
     public function makeSureClassExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_AbstractFilter'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::class));
     }
 
 

@@ -47,9 +47,9 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_ObjectMapperTest extends Tx_PtE
         $this->initDefaultConfigurationBuilderMock();
 
         $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
-        $mapper = $objectManager->get('Tx_Extbase_Property_Mapper');
+        $mapper = $objectManager->get(\Tx_Extbase_Property_Mapper::class);
 
-        $this->objectMapper = $objectManager->get('Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper');
+        $this->objectMapper = $objectManager->get(\Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper::class);
     }
 
 

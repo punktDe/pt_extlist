@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTes
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::class);
     }
     
 

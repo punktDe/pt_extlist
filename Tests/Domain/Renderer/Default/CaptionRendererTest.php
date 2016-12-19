@@ -62,10 +62,10 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 
 
-        $listHeaderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+        $listHeaderFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory::class); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
 
         $this->listHeader = $listHeaderFactory->createInstance($this->configurationBuilderMock);
-        $this->captionRenderer = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
+        $this->captionRenderer = $this->objectManager->get(\Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer::class);
     }
 
 
@@ -137,7 +137,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
         $listHeader->addHeaderColumn($headerColumn, 'bla');
 
 
-        $captionRendererClass =  $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
+        $captionRendererClass =  $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer::class);
         $captionRenderer = new $captionRendererClass(); /* @var $captionRenderer Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer */
 
         $captions = $captionRenderer->renderCaptions($listHeader);

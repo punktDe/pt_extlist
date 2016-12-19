@@ -79,7 +79,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
 
     public function testSetup()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig::class);
     }
 
 
@@ -132,7 +132,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest extends T
         $filterSettings = $this->filterSettings;
         $filterSettings['fieldIdentifier'] = $fieldIdentifier;
 
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig');
+        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig::class);
         $accessibleFilterConfig = new $accessibleClassName($this->configurationBuilderMock, $filterSettings, 'test');
 
         $accessibleFilterConfig->_call('processAndSetFieldIdentifier', $fieldIdentifier);

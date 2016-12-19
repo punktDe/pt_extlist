@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Controller_PagerController'), 'Class Tx_PtExtlist_Controller_PagerController does not exist!');
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Controller_PagerController::class), 'Class Tx_PtExtlist_Controller_PagerController does not exist!');
     }
 
 
@@ -73,7 +73,7 @@ class Tx_PtExtlist_Tests_Controller_PagerControllerTestcase extends Tx_PtExtlist
 
          
 
-        $pagerControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_PagerController'), ['dummy'], [], '', false);
+        $pagerControllerMock = $this->getMock($this->buildAccessibleProxy(\Tx_PtExtlist_Controller_PagerController::class), ['dummy'], [], '', false);
         $pagerControllerMock->_set('view', $mockView);
         $pagerControllerMock->_set('pagerCollection', $pagerCollectionMock);
         $pagerControllerMock->_set('pagerIdentifier', 'default');

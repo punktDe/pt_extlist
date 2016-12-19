@@ -117,8 +117,8 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory extends Tx_PtExtlist_Do
      */
     public static function getInstance(array $settings = null)
     {
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $instance = $objectManager->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory'); /* @var $instance Tx_PtExtlist_Domain_DataBackend_DataBackendFactory */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class));
+        $instance = $objectManager->get(\Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::class); /* @var $instance Tx_PtExtlist_Domain_DataBackend_DataBackendFactory */
         return $instance;
     }
 
@@ -271,7 +271,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendFactory extends Tx_PtExtlist_Do
     private static function createStaticInstance()
     {
         if (self::$dataBackendFactoryInstance === null) {
-            self::$dataBackendFactoryInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory');
+            self::$dataBackendFactoryInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::class);
         }
     }
 

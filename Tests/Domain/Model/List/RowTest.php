@@ -66,7 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Row');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_List_Row::class);
     }
 
 

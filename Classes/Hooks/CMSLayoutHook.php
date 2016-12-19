@@ -102,8 +102,8 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
         $templatePathAndFilename = GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
                 
         // Fluid
-        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $this->fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+        $objectManager = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class));
+        $this->fluidRenderer = $objectManager->get((\TYPO3\CMS\Fluid\View\StandaloneView::class));
         $this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);
     }
 }

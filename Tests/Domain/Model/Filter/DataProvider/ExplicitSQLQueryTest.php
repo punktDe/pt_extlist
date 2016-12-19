@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitSQLQueryBaseTe
      */
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery::class));
     }
 
 

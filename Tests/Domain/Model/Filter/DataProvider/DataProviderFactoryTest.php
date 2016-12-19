@@ -51,7 +51,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
     /** @test */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::class));
     }
 
 
@@ -69,7 +69,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTes
             'invert' => '0'
         ];
 
-        $dataProviderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory');
+        $dataProviderFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory::class);
         /* @var $ataProviderFactory Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory */
 
         // We need to do this to initially create a configuration builder! TODO remove this, once we have proper DI!

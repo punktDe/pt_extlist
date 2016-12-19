@@ -110,8 +110,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
      */
     public function initFilter()
     {
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $this->treeContext = $this->objectManager->get('Tx_PtExtbase_Tree_TreeContext');
+        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class)); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $this->treeContext = $this->objectManager->get(\Tx_PtExtbase_Tree_TreeContext::class);
         $this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
         $this->buildTree();
     }
@@ -242,7 +242,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
         }
 
 
-        $arrayWriterVisitor = $this->objectManager->get('Tx_PtExtbase_Tree_ExtJsJsonWriterVisitor');
+        $arrayWriterVisitor = $this->objectManager->get(\Tx_PtExtbase_Tree_ExtJsJsonWriterVisitor::class);
         $arrayWriterVisitor->registerFirstVisitCallback($this, 'alterNodeArrayOnFirstVisit');
         $arrayWriterVisitor->registerLastVisitCallBack($this, 'alterNodeArrayOnLastVisit');
         $arrayWriterVisitor->setMultipleSelect($this->getMultiple());

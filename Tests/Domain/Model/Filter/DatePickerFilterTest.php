@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DatePickerFilterTest extends Tx_PtE
     public function setUp()
     {
         $this->initDefaultConfigurationBuilderMock();
-        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter');
+        $this->proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter::class);
         $this->proxy = new $this->proxyClass();
     }
 

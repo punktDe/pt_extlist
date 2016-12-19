@@ -41,6 +41,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderTest extends Tx_PtEx
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Header_ListHeader');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Model_List_Header_ListHeader::class);
     }
 }

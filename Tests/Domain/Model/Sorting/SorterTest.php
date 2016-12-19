@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
     /** @test */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_Sorter'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Sorting_Sorter::class));
     }
     
     
@@ -47,7 +47,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest extends Tx_PtExtlist_Te
     /** @test */
     public function registerSortingObserversAcceptsSortingObserver()
     {
-        $sortingObserver = $this->getMock('Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface');
+        $sortingObserver = $this->getMock(\Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface::class);
         $sorter = new Tx_PtExtlist_Domain_Model_Sorting_Sorter();
         $sorter->registerSortingObserver($sortingObserver);
     }

@@ -39,6 +39,6 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Sorting_SortingConfigTest extends 
     /** @test */
     public function classExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig::class);
     }
 }

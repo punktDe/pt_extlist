@@ -75,7 +75,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionT
     /** @test */
     public function classExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection::class);
     }
     
     

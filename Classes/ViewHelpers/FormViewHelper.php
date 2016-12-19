@@ -126,7 +126,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
         }
         
         
-        $extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+        $extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Extbase_ExtbaseContext::class);
         
         if ($extBaseContext->isInCachedMode()) {
             $listIdentifier = $extBaseContext->getCurrentListIdentifier();

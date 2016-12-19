@@ -128,9 +128,9 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        }
 			   }
 			}";
-        $this->typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+        $this->typoScriptParser = GeneralUtility::makeInstance((\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser::class));
         $this->typoScriptParser->parse($this->tsConfigString);
-        $this->tsConfig = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+        $this->tsConfig = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
         $this->configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
     }
 }

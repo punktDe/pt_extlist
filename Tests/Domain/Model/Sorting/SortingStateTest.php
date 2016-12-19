@@ -38,7 +38,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Sorting_SortingStateTest extends Tx_PtExtl
     /** @test */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Sorting_SortingState'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Sorting_SortingState::class));
     }
 
 

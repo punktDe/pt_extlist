@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactoryTest extend
     
     public function testCreateInstance()
     {
-        $headerColumnFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory');
+        $headerColumnFactory = $this->objectManager->get(\Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory::class);
 
         $columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
         $instance = $headerColumnFactory->createInstance($columnsConfiguration->pop());

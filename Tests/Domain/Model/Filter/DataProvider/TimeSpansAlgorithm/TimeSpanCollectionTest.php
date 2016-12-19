@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_Time
 
     public function setUp()
     {
-        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection');
+        $this->proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection::class);
         $this->proxy = new $this->proxyClass();
     }
 
@@ -76,12 +76,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_Time
 
     public function testGetJsonValue()
     {
-        $timeSpan01 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
+        $timeSpan01 = $this->getAccessibleMock(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan::class);
         $timeSpan01->expects($this->any())
             ->method('getJsonValue')
             ->will($this->returnValue("{\"start\":\"20111224\",\"end\":\"20111231\"}")); // 2011-12-24 - 2011-12-31
 
-        $timeSpan02 = $this->getAccessibleMock('Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan');
+        $timeSpan02 = $this->getAccessibleMock(\Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan::class);
         $timeSpan02->expects($this->any())
             ->method('getJsonValue')
             ->will($this->returnValue("{\"start\":\"20120504\",\"end\":\"20120504\"}")); // 2012-05-04 - 2012-05-04

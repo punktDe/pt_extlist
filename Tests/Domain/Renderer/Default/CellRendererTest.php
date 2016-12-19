@@ -111,7 +111,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
             'field3' => 'test3',
         ];
 
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer');
+        $accessibleClassName = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Renderer_Default_CellRenderer::class);
         $defaultCellRenderer = new $accessibleClassName($this->getRendererConfiguration()); /* @var $defaultCellRenderer Tx_PtExtlist_Domain_Renderer_Default_CellRenderer */
 
         $outArray = $defaultCellRenderer->_call('createArrayDataFieldSet', $array);

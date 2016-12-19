@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigTest extends Tx
 
     public function testSetup()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Export_ExportConfig');
+        $this->assertClassExists(\Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::class);
     }
 
 

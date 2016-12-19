@@ -58,7 +58,7 @@ class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_
 
         $this->initDefaultConfigurationBuilderMock();
 
-        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_View_Export_ExcelListView');
+        $this->proxyClass = $this->buildAccessibleProxy(\Tx_PtExtlist_View_Export_ExcelListView::class);
         $this->proxy = new $this->proxyClass();
 
         $this->proxy->setConfigurationBuilder($this->configurationBuilderMock);
@@ -81,7 +81,7 @@ class Tx_PtExtlist_Tests_View_List_ExcelListViewTest extends Tx_PtExtlist_Tests_
      */
     public function renderCallsAllParts()
     {
-        $viewMock = $this->getMockBuilder('Tx_PtExtlist_View_Export_ExcelListView')
+        $viewMock = $this->getMockBuilder(\Tx_PtExtlist_View_Export_ExcelListView::class)
                   ->setMethods(['renderPreHeaderRows', 'renderHeader', 'renderBody', 'renderPostBodyRows', 'clearOutputBufferAndSendHeaders', 'saveOutputAndExit'])
                     ->getMock();
 

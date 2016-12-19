@@ -132,7 +132,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
         $TSString .=$this->loadTestList();
         
     
-        $parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+        $parserInstance = GeneralUtility::makeInstance((\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser::class));
         $parserInstance->parse($TSString);
         
         //$cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_cObj');
@@ -140,7 +140,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 
         $tsSettings = $parserInstance->setup;
 
-        $settings =  GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
+        $settings =  GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertTypoScriptArrayToPlainArray($tsSettings);
         
         $settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
         

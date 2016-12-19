@@ -129,7 +129,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
     public static function getContextByListIdentifier($listIdentifier)
     {
         if (!array_key_exists($listIdentifier, self::$staticInstances)) {
-            self::$staticObjectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+            self::$staticObjectManager = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class));
             $extListTs = self::getExtListTyposcriptSettings($listIdentifier);
             self::getContextByCustomConfiguration($extListTs['listConfig'][$listIdentifier], $listIdentifier);
         }
@@ -164,12 +164,12 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
     public static function getContextByCustomConfiguration(array $customTSArray, $listIdentifier, $useCache = true, $bookmarkUidToRestore = null)
     {
         if (!array_key_exists($listIdentifier, self::$staticInstances) || !$useCache) {
-            self::$staticObjectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+            self::$staticObjectManager = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class));
             if ($useCache) {
                 try {
                     // TODO Remove this, once we have DI
 
-                    $configurationBuilderFactory = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+                    $configurationBuilderFactory = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::class); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
                     $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
                 } catch (Exception $e) {
                     $configurationBuilder = self::buildConfigurationBuilder($customTSArray, $listIdentifier);
@@ -179,7 +179,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
             }
 
             if ($bookmarkUidToRestore) {
-                $bookmarkManagerFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'); /* @var $bookmarkManagerFactory Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory */
+                $bookmarkManagerFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory::class); /* @var $bookmarkManagerFactory Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory */
                 $bookmarkManager = $bookmarkManagerFactory->getInstanceByConfigurationBuilder($configurationBuilder);
                 $bookmarkManager->restoreBookmarkByUid($bookmarkUidToRestore);
             }
@@ -234,7 +234,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
         // TODO remove this, once we have DI
 
-        $configurationBuilderFactory = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+        $configurationBuilderFactory = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::class); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
         $configurationBuilderFactory->setSettings($extListTs);
         $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier, $resetConfigurationBuilder);
 
@@ -253,7 +253,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
      */
     protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
     {
-        $extListContext = self::$staticObjectManager->get('Tx_PtExtlist_ExtlistContext_ExtlistContext'); /* @var Tx_PtExtlist_ExtlistContext_ExtlistContext $extListContext */
+        $extListContext = self::$staticObjectManager->get(\Tx_PtExtlist_ExtlistContext_ExtlistContext::class); /* @var Tx_PtExtlist_ExtlistContext_ExtlistContext $extListContext */
 
         $extListContext->_injectDataBackend($dataBackend);
         $extListContext->init();
@@ -270,11 +270,11 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
     {
         // TODO use DI here once refactoring is finished
 
-        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-        $lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
-        $sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+        $objectManager = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class)); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+        $lifecycleManager = $objectManager->get(\Tx_PtExtbase_Lifecycle_Manager::class); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
+        $sessionPersistenceManagerBuilder = $objectManager->get(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder::class); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
         $sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
-        $getPostVarAdapterFactory = $objectManager->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+        $getPostVarAdapterFactory = $objectManager->get(\Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory::class); /* @var $getPostVarAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
         $getPostVarAdapter = $getPostVarAdapterFactory->getInstance();
         $lifecycleManager->registerAndUpdateStateOnRegisteredObject($sessionPersistenceManager);
 
@@ -345,9 +345,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
      */
     protected static function getTyposcriptOfCurrentBackendPID()
     {
-        $configurationManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager'); /* @var $configurationManager \TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager */
+        $configurationManager = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get((\TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager::class)); /* @var $configurationManager \TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager */
         $completeTS = $configurationManager->getTypoScriptSetup();
-        return GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+        return GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
     }
 
 
@@ -359,8 +359,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
      */
     protected static function getTyposcriptOfCurrentFrontendPID()
     {
-        $configurationManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager'); /* @var $configurationManager \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager */
+        $configurationManager = GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get((\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::class)); /* @var $configurationManager \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager */
         $completeTS = $configurationManager->getTypoScriptSetup();
-        return GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
+        return GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Service\TypoScriptService::class))->convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']);
     }
 }

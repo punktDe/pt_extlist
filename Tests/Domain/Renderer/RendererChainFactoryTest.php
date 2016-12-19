@@ -48,7 +48,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtE
     public function setUp()
     {
         $this->initDefaultConfigurationBuilderMock();
-        $this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory');
+        $this->rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance((\TYPO3\CMS\Extbase\Object\ObjectManager::class))->get(\Tx_PtExtlist_Domain_Renderer_RendererChainFactory::class);
     }
     
     
@@ -56,7 +56,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_RendererChainFactoryTest extends Tx_PtE
     /** @test */
     public function testSetup()
     {
-        $this->isTrue(class_exists('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'));
+        $this->isTrue(class_exists(\Tx_PtExtlist_Domain_Renderer_RendererChainFactory::class));
     }
     
     

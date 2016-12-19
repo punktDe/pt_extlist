@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilterTest extends Tx_PtExtli
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Filter_StringFilter'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Model_Filter_StringFilter::class));
     }
 
 
@@ -382,7 +382,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilterTest extends Tx_PtExtli
         ];
         \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($settings, $additionalSettings);
 
-        $accessibleFilterClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_StringFilter');
+        $accessibleFilterClass = $this->buildAccessibleProxy(\Tx_PtExtlist_Domain_Model_Filter_StringFilter::class);
         $filter = new $accessibleFilterClass();
         /** @var Tx_PtExtlist_Domain_Model_Filter_StringFilter $filter */
 

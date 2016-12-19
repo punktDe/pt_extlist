@@ -37,7 +37,7 @@ class Tx_PtExtlist_Tests_Controller_ListControllerTestcase extends Tx_PtExtlist_
 {
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Controller_ListController'), 'Class Tx_PtExtlist_Controller_ListController does not exist!');
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Controller_ListController::class), 'Class Tx_PtExtlist_Controller_ListController does not exist!');
     }
     
     

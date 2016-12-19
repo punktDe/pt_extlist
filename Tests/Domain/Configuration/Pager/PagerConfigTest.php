@@ -59,7 +59,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigTest extends Tx_P
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig'));
+        $this->assertTrue(class_exists(\Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig::class));
     }
     
     
