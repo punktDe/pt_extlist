@@ -23,7 +23,11 @@
       "PunktDe\\PtExtlist\\": "Classes"
     },
     "classmap": [
-      "Classes/",
+      "Classes/"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
       "Tests/"
     ]
   },
