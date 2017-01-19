@@ -549,13 +549,15 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
      */
     private function checkRequirements()
     {
-        $phpExcelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist', 'Classes/Foreign/PHPExcel/Classes/PHPExcel.php');
+        if (!class_exists('PHPExcel')) {
+            $phpExcelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist', 'Classes/Foreign/PHPExcel/Classes/PHPExcel.php');
 
-        if (!file_exists($phpExcelPath)) {
-            throw new Exception('Library PHPExcel is required for using Excel export. Run "git submodule update --init" in extension root directory', 1418830027);
+            if (!file_exists($phpExcelPath)) {
+                throw new Exception('Library PHPExcel is required for using Excel export. Run "composer install" in page root directory or "git submodule update --init" in extension root directory', 1418830027);
+            }
+
+            require_once($phpExcelPath);
         }
-
-        require_once($phpExcelPath);
 
         if (!class_exists('XMLWriter')) {
             throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled', 1316565594);
