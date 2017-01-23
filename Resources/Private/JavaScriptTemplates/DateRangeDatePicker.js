@@ -1,3 +1,6 @@
+var $ = $ || TYPO3.jQuery;
+var jQuery = jQuery || TYPO3.jQuery;
+
 $(function() {
 	var baseId = "#typo3-ptextlist-filter-daterangedatepicker-" + "###filterIdentifier###".toLowerCase();
 	var altFormat = "yy-mm-dd";

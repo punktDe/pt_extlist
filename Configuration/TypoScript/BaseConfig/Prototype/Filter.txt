@@ -565,7 +565,7 @@ plugin.tx_ptextlist.prototype.filter {
 	pageTree {
 		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
 		partialPath = Filter/Special/PageTreeFilter
-		dataProviderClassName = \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\PageTree
+		dataProviderClassName = PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\PageTree
 
 		filterIdentifier =
 
