@@ -1,5 +1,7 @@
-var $ = $ || TYPO3.jQuery;
-var jQuery = jQuery || TYPO3.jQuery;
+if ('undefined' !== typeof TYPO3) {
+    var $ = $ || TYPO3.jQuery;
+    var jQuery = jQuery || TYPO3.jQuery;
+}
 
 $(function () {
     window.setTimeout(function () {
