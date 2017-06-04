@@ -54,8 +54,6 @@ class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends \TYPO3\CMS\Fluid\V
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
 
-
-
     /**
      * @param string $action Target action
      * @param array $arguments Arguments
@@ -73,11 +71,13 @@ class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends \TYPO3\CMS\Fluid\V
      * @param boolean $absolute If set, the URI of the rendered link is absolute
      * @param boolean $addQueryString If set, the current query parameters will be kept in the URI
      * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
+     * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
      * @return string Rendered link
      */
-    public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [])
+	 public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
     {
         $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($arguments);
-        return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
+        return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
     }
+
 }

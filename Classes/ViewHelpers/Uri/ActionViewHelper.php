@@ -79,7 +79,7 @@ class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends \TYPO3\CMS\Fluid\Cor
      */
     public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [])
     {
-        $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
+        $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($arguments);
         
         $uriBuilder = $this->controllerContext->getUriBuilder();
         $uri = $uriBuilder
