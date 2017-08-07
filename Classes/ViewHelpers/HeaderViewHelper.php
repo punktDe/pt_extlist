@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers;
 /***************************************************************
  *  Copyright notice
  *
@@ -29,16 +30,16 @@
 
 /**
  * ViewHelper for rendering list headers.
- * 
+ *
  * This ViewHelper acts as a loop over headers given in list. Foreach
  * Header, the child elements of the ViewHelper are rendered. Therefore
  * additional variables are set in the template variable container and
  * hence made accessible for the child elements.
- * 
+ *
  * @package ViewHelpers
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * Define arguments

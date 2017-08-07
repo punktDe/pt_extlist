@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Bookmark;
 /***************************************************************
  *  Copyright notice
  *
@@ -37,7 +38,7 @@
  * @subpackage Link
  * @author Michael Knoll
  */
-class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+class SortingFieldsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
