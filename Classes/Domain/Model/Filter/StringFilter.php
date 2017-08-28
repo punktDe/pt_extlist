@@ -57,6 +57,12 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     protected $andToken;
 
 
+    /**
+     * @var boolean
+     */
+    protected $treatValueAsString = false;
+
+
 
     protected function initFilterByTsConfig()
     {
@@ -91,6 +97,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
             return null;
         }
 
+        $this->treatValueAsString = $fieldIdentifier->getTreatValueAsString();
 
         $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
@@ -162,7 +169,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     protected function buildFilterCriteriaForSingleValue($fieldName, $filterValue)
     {
         if ($this->exactMatch) {
-            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $filterValue);
+            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $filterValue, $this->treatValueAsString);
         } else {
             $filterValue = '%' . $filterValue . '%';
             $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);

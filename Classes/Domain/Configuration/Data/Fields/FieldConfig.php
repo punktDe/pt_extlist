@@ -94,6 +94,15 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
      * @var string
      */
     protected $expandGroupRowsSeparator = '<extListSeparator>';
+
+
+
+    /**
+     * Indicates if numeric strings should be treat as string instead of number in sql query
+     *
+     * @var boolean
+     */
+    protected $treatValueAsString = false;
     
     
     
@@ -116,6 +125,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
         $this->setBooleanIfExistsAndNotNothing('isSortable');
         $this->setBooleanIfExistsAndNotNothing('expandGroupRows');
         $this->setBooleanIfExistsAndNotNothing('isRelation');
+        $this->setBooleanIfExistsAndNotNothing('treatValueAsString');
 
         $this->setValueIfExists('expandGroupRowsSeparator');
         
@@ -211,5 +221,13 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
     public function getExpandGroupRowsSeparator()
     {
         return $this->expandGroupRowsSeparator;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getTreatValueAsString()
+    {
+        return $this->treatValueAsString;
     }
 }

@@ -50,7 +50,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
     protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
     {
         $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
-        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue);
+        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue, $fieldIdentifier->getTreatValueAsString());
 
         return $criteria;
     }

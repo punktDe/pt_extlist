@@ -43,7 +43,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
      */
     public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
     {
-        return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria->getValue());
+        return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria);
     }
 
 
@@ -52,20 +52,20 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
      * Wraps an array in ("<array[0]>",...,"<array[n]>") and escapes values.
      * Returns string as escaped string if no array is given
      *
-     * @param mixed $value
+     * @param \Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
      * @return integer|mixed|string
      */
-    public static function wrapArrayInBrackets($value)
+    public static function wrapArrayInBrackets(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
     {
         $connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
 
-        if (is_array($value)) {
-            $escapedValues = $connection->fullQuoteArray($value, '');
+        if (is_array($criteria->getValue())) {
+            $escapedValues = $connection->fullQuoteArray($criteria->getValue(), '');
             $returnString = '(' . implode(',', $escapedValues) . ')';
-        } elseif (is_numeric($value)) {
-            $returnString = $value;
+        } elseif (is_numeric($criteria->getValue()) && !$criteria->getTreatValueAsString()) {
+            $returnString = $criteria->getValue();
         } else {
-            $returnString = $connection->fullQuoteStr($value, '');
+            $returnString = $connection->fullQuoteStr($criteria->getValue(), '');
         }
 
         return $returnString;

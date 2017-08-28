@@ -56,11 +56,12 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $field Field name to compare value with
      * @param string $value Value to be compared
+     * @param boolean $treatValueAsString
      * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
      */
-    public static function equals($field, $value)
+    public static function equals($field, $value, $treatValueAsString = false)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '=');
+        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '=', $treatValueAsString);
     }
     
     

@@ -79,8 +79,28 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
         $criteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria);
         $this->assertEquals("field = 'value'", $criteriaString);
     }
-    
-    
+
+
+    /**
+     * Test the translation of a simple numeric criteria
+     */
+    public function testSimpleCriteriaTranslatorWithNumericValue()
+    {
+        $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 735, '=');
+        $criteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria);
+        $this->assertEquals("field = 735", $criteriaString);
+    }
+
+
+    /**
+     * Test the translation of a simple numeric criteria
+     */
+    public function testSimpleCriteriaTranslatorWithNumericValueAsString()
+    {
+        $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 735, '=', true);
+        $criteriaString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria);
+        $this->assertEquals("field = '735'", $criteriaString);
+    }
     
     /**
      * Test the AND translation of two simple criterias
@@ -142,10 +162,12 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     
     public function testWrapArrayInBracketsInSimpleCriteriaTranslator()
     {
-        $wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets(['tes"t1', 'test2', 'test3']);
+        $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', ['tes"t1', 'test2', 'test3'], 'IN');
+        $wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets($criteria);
         $this->assertEquals('(\'tes\"t1\',\'test2\',\'test3\')', $wrappedString);
-        
-        $wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets('tes"t1');
+
+        $criteria = new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'tes"t1', '=');
+        $wrappedString = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator::wrapArrayInBrackets($criteria);
         $this->assertEquals("'tes\\\"t1'", $wrappedString);
     }
     
