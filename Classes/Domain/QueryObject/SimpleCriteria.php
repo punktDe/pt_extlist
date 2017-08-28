@@ -63,6 +63,12 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
      * @var string
      */
     protected $operator;
+
+
+    /***
+     * @var boolean
+     */
+    protected $treatValueAsString;
     
     
     /**
@@ -72,14 +78,16 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
      * @param string $field
      * @param string $value
      * @param string $operator
+     * @param boolean $treatValueAsString
      */
-    public function __construct($field = '', $value, $operator)
+    public function __construct($field = '', $value, $operator, $treatValueAsString = false)
     {
         Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1282849697']);
         Tx_PtExtbase_Assertions_Assert::isNotEmptyString($operator, ['message' => 'Operator must not be empty! 1282849699']);
         $this->field = $field;
         $this->value = $value;
         $this->operator = $operator;
+        $this->treatValueAsString = $treatValueAsString;
     }
     
     
@@ -132,10 +140,23 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
     /**
      * Returns operator to be used as comperator
      *
-     * @return strging operator
+     * @return string operator
      */
     public function getOperator()
     {
         return $this->operator;
     }
+
+
+
+    /**
+     * @return boolean
+     */
+    public function getTreatValueAsString()
+    {
+        return $this->treatValueAsString;
+    }
+
+
+
 }

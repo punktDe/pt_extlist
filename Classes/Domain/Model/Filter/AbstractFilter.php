@@ -170,6 +170,14 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     protected $filterbox;
 
 
+    /**
+     * Indicates if numeric strings should be treat as string instead of number in sql query
+     *
+     * @var boolean
+     */
+    protected $treatAsString = false;
+
+
 
     /**
      * Constructor for filter

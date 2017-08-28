@@ -118,7 +118,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
         if ($fieldIdentifier->getIsRelation()) {
             $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::relation($fieldName, current($this->filterValues));
         } elseif (is_array($this->filterValues) && count($this->filterValues) == 1) {
-            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues));
+            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues), $fieldIdentifier->getTreatValueAsString());
         } elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
             $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
         }

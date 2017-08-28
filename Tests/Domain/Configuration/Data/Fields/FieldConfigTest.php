@@ -58,7 +58,8 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
             'field' => 'fieldName',
             'isSortable' => '0',
             'accessGroups' => '1,2,3,4',
-            'expandGroupRows' => 1
+            'expandGroupRows' => 1,
+            'treatValueAsString' => 0
         ];
         
         $this->initDefaultConfigurationBuilderMock();
@@ -109,6 +110,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
     public function testGetIsSortable()
     {
         $this->assertTrue(!$this->fieldConfig->getIsSortable());
+    }
+
+
+    public function testGetTreatValueAsString()
+    {
+        $this->assertTrue(!$this->fieldConfig->getTreatValueAsString());
     }
     
     
