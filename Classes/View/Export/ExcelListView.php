@@ -86,7 +86,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     /**
      * @var array
      */
-    protected $bodyCellStyleCache;
+    protected $bodyCellStyleCache = [];
 
 
 
