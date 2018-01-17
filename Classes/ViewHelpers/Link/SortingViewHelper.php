@@ -88,7 +88,7 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingViewHelper extends \TYPO3\CMS\Fluid\
      */
     public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
     {
-        $header = $arguments['header'];
+        $header = $this->arguments['header'];
         if ($action === null) {
             $action = 'sort';
         }

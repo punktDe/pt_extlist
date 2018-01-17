@@ -90,11 +90,11 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\
      */
     public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
     {
-        $header = $arguments['header'];
+        $header = $this->arguments['header'];
         if ($action === null) {
             $action = 'sort';
         }
-        $fieldAndDirection = $arguments['fieldAndDirection'];
+        $fieldAndDirection = $this->arguments['fieldAndDirection'];
         $sortingFieldParams = [];
 
         $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($fieldAndDirection['currentDirection']);
