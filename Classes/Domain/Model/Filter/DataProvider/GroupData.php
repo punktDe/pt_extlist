@@ -110,6 +110,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
         $renderedOptions = [];
         $options =& $this->getOptionsByFields($fields);
 
+        if (count($options) === 0) {
+            return $renderedOptions;
+        }
+
         foreach ($options as $optionData) {
             $optionKey = $optionData[$this->filterField->getIdentifier()];
 
