@@ -13,7 +13,8 @@
   "require": {
     "typo3/cms-core": ">=6.2.0,<8.0",
     "punktde/pt_extbase": "~2.0",
-    "phpoffice/phpexcel": "^1.8"
+    "phpoffice/phpexcel": "^1.8",
+    "php": ">=7.0.0,<8.0.0"
   },
   "require-dev": {
     "mikey179/vfsStream": "1.4.*@dev",
