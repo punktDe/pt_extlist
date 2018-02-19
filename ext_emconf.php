@@ -32,8 +32,7 @@ $EM_CONF[$_EXTKEY] = array (
   array (
     'depends' => 
     array (
-      'typo3' => '7.6.0-7.9.99',
-      'pt_extbase' => '2.3.0',
+      'typo3' => '8.0.0-8.9.99',
     ),
     'conflicts' => 
     array (
