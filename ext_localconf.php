@@ -52,3 +52,14 @@ require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * Register LifeCycle Manager
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_eofe'][] = 'EXT:pt_extbase/Classes/Lifecycle/HookManager.php:tx_PtExtbase_Lifecycle_HookManager->updateEnd';
+
+/**
+ * Register scheduler tasks
+ */
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\PunktDe\PtExtlist\Scheduler\ExportListTask::class] = [
+    'extension'        => $_EXTKEY,
+    'title'            => 'Extlist Exporter Task',
+    'description'      => 'export an extlist by list config and page id',
+    // 'additionalFields' => \Punktde\PtExtlist\Scheduler\ExportListTaskAdditionalFields::class
+];
+
