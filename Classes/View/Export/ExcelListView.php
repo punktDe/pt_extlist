@@ -347,6 +347,16 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
                 /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
 
                 $cellValue = $listCell->getValue();
+
+                if (is_array($cellValue)) {
+                    if (empty($cellValue)) {
+                        $cellValue = '';
+                    } else {
+                        throw new \TYPO3\CMS\Core\Error\Http\StatusException([\TYPO3\CMS\Core\Utility\HttpUtility::HTTP_STATUS_500],
+                            'Array given to render in excel, string expected', '', 1518776229);
+                    }
+                }
+
                 if ($this->stripTags) {
                     $cellValue = strip_tags($cellValue);
                 }
