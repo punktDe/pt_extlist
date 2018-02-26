@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Sql;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +34,7 @@
  * @author Daniel Lienert
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter

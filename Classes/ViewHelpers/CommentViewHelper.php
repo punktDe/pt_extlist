@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers;
 /***************************************************************
  *  Copyright notice
  *
@@ -30,18 +31,18 @@
  * CommentViewHelper
  * Displays nothing by default or the comment, if the variable "show" is set to true
  * Remove this viewheper if a appropriate viewhelper is implemented in fluid
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_CommentViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class CommentViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * Return nothing or the comment if the variable is set to "show"
      * TODO: Think about a global variable to display / hide all comments
-     * 
+     *
      * @param boolean $show
-     * @return string 
+     * @return string
      */
     public function render($show = false)
     {

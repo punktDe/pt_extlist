@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Namespaces;
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +35,7 @@
  * @subpackage NameSpace
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest
  */
-class Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FormElementNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * render a key/value GET/POST-string within the namespace of the given object

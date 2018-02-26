@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers;
 /***************************************************************
  *  Copyright notice
  *
@@ -30,11 +31,11 @@
  * Form Viewhelper Patch
  * This viewhelper patches the original viewhelper which does not work with method GET.
  * Bug filed on 2010-12-22
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
+class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
 {
     /**
      * Holds uri for form action
@@ -42,7 +43,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
      * @var string
      */
     protected $formActionUri;
-    
+
 
 
     /**
@@ -92,11 +93,11 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
                 ->uriFor($this->arguments['action'], $this->arguments['arguments'], $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']);
             $this->formActionUriArguments = $uriBuilder->getArguments();
         }
-        
+
         $this->formActionUri = $formActionUri;
         $this->tag->addAttribute('action', $formActionUri);
     }
-    
+
 
     /**
      * Renders hidden form fields for referrer information about
@@ -111,31 +112,31 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
         $extensionName = $request->getControllerExtensionName();
         $controllerName = $request->getControllerName();
         $actionName = $request->getControllerActionName();
-        
+
         $result = chr(10);
-        
-        // quick ugly hack 
+
+        // quick ugly hack
         if (strtolower($this->arguments['method']) === 'get') {
             $uriTemp = explode('?', $this->formActionUri);
             $uriTemp = explode('&', $uriTemp[1]);
-            
+
             foreach ($uriTemp as $parameter) {
                 $paramTemp = explode('=', $parameter);
                 $result .= '<input type="hidden" name="' . $paramTemp[0] . '" value="' . $paramTemp[1] . '" />' . chr(10);
             }
         }
-        
-        
+
+
         $extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
-        
+
         if ($extBaseContext->isInCachedMode()) {
             $listIdentifier = $extBaseContext->getCurrentListIdentifier();
             $stateHash = $this->sessionPersistenceManagerBuilder->getInstance()->getSessionDataHash();
-            
+
             $result .=  '<input type="hidden" name="' . $this->prefixFieldName($listIdentifier.'[state]') . '" value="' . $stateHash . '" />' . chr(10);
         }
-        
-        
+
+
         $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[extensionName]') . '" value="' . $extensionName . '" />' . chr(10);
         $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[controllerName]') . '" value="' . $controllerName . '" />' . chr(10);
         $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[actionName]') . '" value="' . $actionName . '" />' . chr(10);

@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Form;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +34,7 @@
  * @package ViewHelpers
  * @subpackage NameSpace
  */
-class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
+class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
 {
     /**
      * @var Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer
@@ -46,7 +47,7 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
      */
     protected $columnSelectorConfig;
 
-    
+
 
     /**
      * Initialize the viewHelper
@@ -62,8 +63,8 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
 
         $this->columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();
     }
-    
-    
+
+
     /**
      * Initialize arguments.
      *

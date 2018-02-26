@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Uri;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,17 +29,17 @@
 
 /**
  * ActionViewHelper, adds state hash to every link
- * 
- * @author Daniel Lienert 
+ *
+ * @author Daniel Lienert
  * @package ViewHelpers
  * @subpackage Uri
  */
-class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class ActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -47,9 +48,9 @@ class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends \TYPO3\CMS\Fluid\Cor
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -79,8 +80,8 @@ class Tx_PtExtlist_ViewHelpers_Uri_ActionViewHelper extends \TYPO3\CMS\Fluid\Cor
      */
     public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [])
     {
-        $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($arguments);
-        
+        $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
+
         $uriBuilder = $this->controllerContext->getUriBuilder();
         $uri = $uriBuilder
             ->reset()
