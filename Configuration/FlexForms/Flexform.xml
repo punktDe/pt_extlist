@@ -46,7 +46,7 @@
                   </numIndex>
                   <numIndex index="2" type="array">
                     <numIndex index="0">Export</numIndex>
-                    <numIndex index="1">Export->showLink;Export->download</numIndex>
+                    <numIndex index="1">Export->showLink;Export->download;Export->writeFile</numIndex>
                   </numIndex>
                   <numIndex index="3" type="array">
                     <numIndex index="0">Filterbox</numIndex>

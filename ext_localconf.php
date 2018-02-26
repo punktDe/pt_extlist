@@ -14,7 +14,7 @@ if (!defined('TYPO3_MODE')) {
 
 $controllerActions = [                                                            // An array holding the controller-action-combinations that are accessible
     'List' => 'list,sort', // The first controller and its first action will be the default
-    'Export'=>'showLink,download',
+    'Export'=>'showLink,download,writeFile',
     'Filterbox' => 'show,submit,reset,resetFilter',
     'Pager' => 'show',
     'Bookmark' => 'show,save,delete,restore',
@@ -60,6 +60,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\PunktDe\PtExtli
     'extension'        => $_EXTKEY,
     'title'            => 'Extlist Exporter Task',
     'description'      => 'export an extlist by list config and page id',
-    // 'additionalFields' => \Punktde\PtExtlist\Scheduler\ExportListTaskAdditionalFields::class
+    'additionalFields' => \PunktDe\PtExtlist\Scheduler\ExportListTaskAdditionalFields::class
 ];
 

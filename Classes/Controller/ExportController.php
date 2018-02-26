@@ -74,24 +74,13 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
     }
 
    protected function setListIdentifierByArgument() {
-       if (!empty($this->request->getArgument('listIdentifier'))) {
+       if ($this->request->hasArgument('listIdentifier')) {
            $this->settings['listIdentifier'] = $this->request->getArgument('listIdentifier');
         }
    }
 
     public function initializeAction()
     {
-        // do nothing, see initializeListConfig
-    }
-
-
-    /**
-     * @return void
-     */
-    public function initializeListConfig()
-    {
-        $this->setListIdentifierByArgument();
-
         parent::initializeAction();
 
         $this->exportListIdentifier = $this->settings['exportListIdentifier'];
@@ -102,6 +91,13 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
     }
 
 
+    protected function initListIdentifier()
+    {
+        $this->setListIdentifierByArgument();
+
+        parent::initListIdentifier();
+    }
+
 
     /**
      * @param string $listIdentifier
@@ -110,8 +106,6 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
      */
     public function showLinkAction()
     {
-        $this->initializeListConfig();
-
         $fileExtension = $this->configurationBuilder->buildExportConfiguration()->getFileExtension();
         $this->view->assign('fileExtension', $fileExtension);
     }
@@ -128,8 +122,6 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
      */
     public function downloadAction()
     {
-        $this->initializeListConfig();
-
         if ($this->listIdentifier == $this->exportListIdentifier || !$this->exportListIdentifier) {
             $list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
         } else {
@@ -148,6 +140,48 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
         $this->view->initConfiguration();
 
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->settings);
+
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->configurationBuilder->buildExportConfiguration()->getSettings());
+
+        $this->view->assign('listHeader', $list->getListHeader());
+        $this->view->assign('listCaptions', $list->getRenderedListHeader());
+        $this->view->assign('listData', $list->getRenderedListData());
+        $this->view->assign('aggregateRows', $list->getRenderedAggregateListData());
+
+        return $this->view->render();
+    }
+
+
+    /**
+     * Returns download for given parameters
+     *
+     * @param string $listIdentifier
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function writeFileAction()
+    {
+        if ($this->listIdentifier == $this->exportListIdentifier || !$this->exportListIdentifier) {
+            $list = $this->listFactory->createList($this->dataBackend, $this->configurationBuilder);
+        } else {
+            $exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
+
+            if (!is_array($exportListConfiguration)) {
+                throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
+            }
+
+            $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
+
+            $list = $extListContext->getList(true);
+        }
+
+        $this->view->setExportConfiguration($this->configurationBuilder->buildExportConfiguration());
+        $this->view->initConfiguration();
+
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->settings);
+
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->configurationBuilder->buildExportConfiguration()->getSettings());
 
         $this->view->assign('listHeader', $list->getListHeader());
         $this->view->assign('listCaptions', $list->getRenderedListHeader());

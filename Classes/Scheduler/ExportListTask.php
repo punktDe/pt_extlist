@@ -14,7 +14,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Dispatcher;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Response;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use PunktDe\PtExtbase\Extbase\Bootstrap;
 
+/**
+ * @property string tx_ptextlist_pageid
+ * @property string tx_ptextlist_listidentifier
+ */
 class ExportListTask extends AbstractSchedulerTask
 {
 
@@ -33,9 +39,9 @@ class ExportListTask extends AbstractSchedulerTask
 
     protected function initializeExtbase()
     {
-        $_POST['id'] = 978;
-        $this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $this->extbaseBootstrap = $this->objectManager->get('PunktDe\PtExtbase\Extbase\Bootstrap');
+        $_POST['id'] = $this->tx_ptextlist_pageid;
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->extbaseBootstrap = $this->objectManager->get(Bootstrap::class);
         $this->extbaseBootstrap->boot(strtolower($this->getExtensionName()), strtolower('Pi1'));
     }
 
@@ -49,14 +55,15 @@ class ExportListTask extends AbstractSchedulerTask
         $request->setControllerActionName('download');
         $request->setControllerName('Export');
         $request->setControllerExtensionName($this->getExtensionName());
-        $request->setArgument('listIdentifier', 'ZcaImporterExportListWithoutZoraCardNumber');
+        $request->setArgument('listIdentifier', $this->tx_ptextlist_listidentifier);
 
         /** @var Response $response */
         $response = $this->objectManager->get(Response::class);
 
         $this->extbaseDispatcher->dispatch($request, $response);
 
-        var_dump($response->shutdown());
+        file_put_contents('/var/tmp/XXX', $response->shutdown());
+        return true;
     }
 
 
