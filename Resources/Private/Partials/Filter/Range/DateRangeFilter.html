@@ -1,5 +1,5 @@
-{namespace extlist=Tx_PtExtlist_ViewHelpers}
-{namespace ptextbase=Tx_PtExtbase_ViewHelpers}
+{namespace extlist=PunktDe\PtExtList\ViewHelpers}
+{namespace ptextbase=PunktDe\PtExtbase\ViewHelpers}
 <extlist:comment>
 <!--
 Partial for rendering a date range filter
@@ -22,14 +22,14 @@ Here is a list of objects / variables that can be accessed in this partial
 	<div class="outer-field-wrapper">
 		<div class="field-wrapper">
 			<div class="field-wrapper-from type-text">
-				<label for="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueFrom')}"><f:translate key="filter.daterange.from" />:</label>
+				<label for="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValueFrom')}"><f:translate key="filter.daterange.from" />:</label>
 				<f:form.textfield id="typo3-ptextlist-filter-daterangedatepicker-{ptextbase:format.stringToLower(string: filter.filterIdentifier)}-from" value="{f:format.date(date: filter.filterValueFrom, format: 'd.m.Y')}" />
-				<f:form.hidden property="filterValueFrom" value="{filter.filterValueFrom}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueFrom')}" id="typo3-ptextlist-filter-daterangedatepicker-{ptextbase:format.stringToLower(string: filter.filterIdentifier)}-daterangefrom" />
+				<f:form.hidden property="filterValueFrom" value="{filter.filterValueFrom}" name="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValueFrom')}" id="typo3-ptextlist-filter-daterangedatepicker-{ptextbase:format.stringToLower(string: filter.filterIdentifier)}-daterangefrom" />
 			</div>
 			<div class="field-wrapper-to type-text">
-				<label for="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueTo')}"><f:translate key="filter.daterange.to" />:</label>
+				<label for="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValueTo')}"><f:translate key="filter.daterange.to" />:</label>
 				<f:form.textfield id="typo3-ptextlist-filter-daterangedatepicker-{ptextbase:format.stringToLower(string: filter.filterIdentifier)}-to" value="{f:format.date(date: filter.filterValueTo, format: 'd.m.Y')}" />
-				<f:form.hidden property="filterValueTo" value="{filter.filterValueTo}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValueTo')}" id="typo3-ptextlist-filter-daterangedatepicker-{ptextbase:format.stringToLower(string: filter.filterIdentifier)}-daterangeto" />
+				<f:form.hidden property="filterValueTo" value="{filter.filterValueTo}" name="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValueTo')}" id="typo3-ptextlist-filter-daterangedatepicker-{ptextbase:format.stringToLower(string: filter.filterIdentifier)}-daterangeto" />
 			</div>
 		</div>
 	</div>

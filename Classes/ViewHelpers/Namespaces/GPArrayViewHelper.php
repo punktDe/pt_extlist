@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Namespaces;
 /***************************************************************
  *  Copyright notice
  *
@@ -43,12 +44,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * 
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest
  */
-class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -57,9 +58,9 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -70,7 +71,7 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
      * render build key/value GET/POST-array within the namespace of the given object
      * 
      * @param string $arguments : list of arguments
-     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
      * 	either as list of 'key : value' pairs 
      *  or as list of properties wich are then recieved from the object
      * @param string $nameSpace
@@ -103,14 +104,14 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     /**
      * Use the objects getter to get the value
      * 
-     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
      * @param string $property
      * @return mixed value
      */
-    protected function getObjectValue(Tx_PtExtbase_State_IdentifiableInterface $object, $property)
+    protected function getObjectValue(\Tx_PtExtbase_State_IdentifiableInterface $object, $property)
     {
         $getterMethod = 'get'.ucfirst($property);
-        Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), ['message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630']);
+        \Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), ['message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630']);
         
         return $object->$getterMethod();
     }
@@ -146,15 +147,15 @@ class Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper extends \TYPO3\CMS\Fl
     /**
      * Get the valueArray with the right objectNamespace
      * 
-     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
      * @param string $key
      * @param string $value
      * @return array
      */
-    public function buildObjectValueArray(Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value)
+    public function buildObjectValueArray(\Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value)
     {
         $nameSpace = $object->getObjectNamespace();
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
+        \Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
         
         return $this->buildNamespaceValueArray($nameSpace, $key, $value);
     }

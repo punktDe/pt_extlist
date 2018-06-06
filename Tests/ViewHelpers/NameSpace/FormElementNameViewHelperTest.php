@@ -26,13 +26,15 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\ViewHelpers\Namespaces\FormElementNameViewHelper;
+
 /**
  * Testcase for getPostPropertyViewHelper
  * 
  * @author Daniel Lienert 
  * @package Tests
  * @subpackage Domain\Model\ViewHelpers\NameSpace
- * @see Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper
+ * @see FormElementNameViewHelper
  */
 class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -76,7 +78,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest ext
 
 
     /**
-     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
      * @param $property
      * @param $addExtPrefix
      * @param $expectedResult
@@ -84,9 +86,9 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest ext
      * @test
      * @dataProvider argumentDataProvider
      */
-    public function render(Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix, $expectedResult)
+    public function render(\Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix, $expectedResult)
     {
-        $linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_FormElementNameViewHelper();
+        $linkViewHelper = new FormElementNameViewHelper();
         $result = $linkViewHelper->render($object, $property, $addExtPrefix);
         $this->assertEquals($expectedResult, $result);
     }

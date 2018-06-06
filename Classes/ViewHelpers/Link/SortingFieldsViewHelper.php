@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Link;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +27,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
+
 
 /**
  * ViewHelpers renders link for given sorting fields.
@@ -37,12 +40,12 @@
  * @subpackage Link
  * @author Michael Knoll
  */
-class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+class  SortingFieldsViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -50,9 +53,9 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -97,14 +100,14 @@ class  Tx_PtExtlist_ViewHelpers_Link_SortingFieldsViewHelper extends \TYPO3\CMS\
         $fieldAndDirection = $this->arguments['fieldAndDirection'];
         $sortingFieldParams = [];
 
-        $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($fieldAndDirection['currentDirection']);
+        $sortingDirection = \Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($fieldAndDirection['currentDirection']);
         $sortingFieldParams[] = $fieldAndDirection['field'] . ':' . $sortingDirection;
 
         # echo "current direction for field " . $fieldAndDirection['field'] . " = " . $fieldAndDirection['currentDirection'] . " link direction = " . $sortingDirection;
 
         $sortingFieldParam = implode(';', $sortingFieldParams);
 
-        $gpArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $gpArrayViewHelper = new GPArrayViewHelper();
         $argumentArray = $gpArrayViewHelper->buildObjectValueArray($header, 'sortingFields', $sortingFieldParam);
 
         $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);

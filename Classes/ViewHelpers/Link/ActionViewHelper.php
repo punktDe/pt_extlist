@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Link;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,12 +34,12 @@
  * @package ViewHelpers
  * @subpackage Link
  */
-class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+class  ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -47,9 +48,9 @@ class  Tx_PtExtlist_ViewHelpers_Link_ActionViewHelper extends \TYPO3\CMS\Fluid\V
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }

@@ -26,15 +26,17 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
+
 /**
  * Testcase for getPostPropertyViewHelper
  * 
  * @author Daniel Lienert 
  * @package Tests
  * @subpackage Domain\Model\ViewHelpers\NameSpace
- * @see Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper
+ * @see GPArrayViewHelper
  */
-class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_PtExtlist_Tests_BaseTestcase
+class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_PtExtlst_Tests_BaseTestcase
 {
     /**
      * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -52,7 +54,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
     
     public function testGetArgumentArraySingleNoValue()
     {
-        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArrayViewHelper = new GPArrayViewHelper();
         $GPArray = $GPArrayViewHelper->getArgumentArray('label');
         $this->assertEquals($GPArray, ['label' => null]);
     }
@@ -61,7 +63,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
     
     public function testGetArgumentArrayMultiNoValue()
     {
-        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArrayViewHelper = new GPArrayViewHelper();
         $GPArray = $GPArrayViewHelper->getArgumentArray('label,name');
         $this->assertEquals($GPArray, ['label' => null, 'name' => null]);
     }
@@ -70,7 +72,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
     
     public function testGetArgumentArraySingle()
     {
-        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArrayViewHelper = new GPArrayViewHelper();
         $GPArray = $GPArrayViewHelper->getArgumentArray('label:test');
         $this->assertEquals($GPArray, ['label' => 'test']);
     }
@@ -79,7 +81,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
     
     public function testGetArgumentArrayMulti()
     {
-        $GPArrayViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $GPArrayViewHelper = new GPArrayViewHelper();
         $GPArray = $GPArrayViewHelper->getArgumentArray('label:test,name:daniel');
         $this->assertEquals($GPArray, ['label' => 'test', 'name' => 'daniel']);
     }
@@ -94,7 +96,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
         $sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
         /* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
-        $linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $linkViewHelper = new GPArrayViewHelper();
         $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
         
         $object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', ['getObjectNamespace', 'getLabel']);
@@ -122,7 +124,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
         $sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
         /* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
-        $linkViewHelper = new Tx_PtExtlist_ViewHelpers_Namespace_GPArrayViewHelper();
+        $linkViewHelper = new GPArrayViewHelper();
 
         $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
         

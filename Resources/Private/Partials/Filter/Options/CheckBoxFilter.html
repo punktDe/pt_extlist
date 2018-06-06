@@ -1,4 +1,4 @@
-{namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace extlist=PunktDe\PtExtList\ViewHelpers}
 <extlist:comment>
 <!--  
 Partial for rendering a radioButton filter
@@ -25,7 +25,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 			<f:then>
 				<f:for each="{filter.options}" key="optionValue" as="option">
 					<div class="field-wrapper type-checkbox">
-						<f:form.checkbox id="{filter.filterIdentifier}_{optionValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" checked="{option.selected}" additionalAttributes="{onchange : 'submit()'}" />
+						<f:form.checkbox id="{filter.filterIdentifier}_{optionValue}" name="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" checked="{option.selected}" additionalAttributes="{onchange : 'submit()'}" />
 						<label for="{filter.filterIdentifier}_{optionValue}">
 							{option.value}
 						</label>
@@ -35,7 +35,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 			<f:else>
 				<f:for each="{filter.options}" key="optionValue" as="option">
 					<div class="field-wrapper type-checkbox float">
-						<f:form.checkbox id="{filter.filterIdentifier}_{optionValue}" name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" checked="{option.selected}" />
+						<f:form.checkbox id="{filter.filterIdentifier}_{optionValue}" name="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValues.{optionValue}')}" value="{optionValue}" checked="{option.selected}" />
 						<label for="{filter.filterIdentifier}_{optionValue}">
 							{option.value}
 						</label>
@@ -48,7 +48,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 
 		<f:if condition="{filter.filterConfig.invertable}">
 			<div class="field-wrapper type-checkbox">
-				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<f:form.checkbox name="{extlist:namespaces.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
 				<label>
 					<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:filter.invert" />
 				</label>

@@ -1,4 +1,4 @@
-{namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace extlist=PunktDe\PtExtList\ViewHelpers}
 <extlist:comment>
 <!--  
 Template for rendering a Pager.
@@ -28,22 +28,22 @@ Tx_PtExtlist_Domain_Model_Pager				The pager object
 <ul class="tx-ptextlist-pager" id="tx-ptextlist-pager-{pager.pagerIdentifier}">
 	<f:if condition="{pager.showFirstLink}">
 		<li class="first">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.firstPage}')}">&lt;&lt;</f:link.action>
+			<f:link.action action="show" arguments="{extlist:namespaces.GPArray(object:'{pagerCollection}' arguments:'page:{pager.firstPage}')}">&lt;&lt;</f:link.action>
 		</li>
 	</f:if>
 	<f:if condition="{pager.showPreviousLink}">
 		<li class="previous">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.previousPage}')}">&lt;</f:link.action>
+			<f:link.action action="show" arguments="{extlist:namespaces.GPArray(object:'{pagerCollection}' arguments:'page:{pager.previousPage}')}">&lt;</f:link.action>
 		</li>
 	</f:if>
 	<f:if condition="{pager.showNextLink}">
 		<li class="next">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.nextPage}')}">&gt;</f:link.action>
+			<f:link.action action="show" arguments="{extlist:namespaces.GPArray(object:'{pagerCollection}' arguments:'page:{pager.nextPage}')}">&gt;</f:link.action>
 		</li>
 	</f:if>
 	<f:if condition="{pager.showLastLink}">
 		<li class="last">
-			<f:link.action action="show" arguments="{extlist:namespace.GPArray(object:'{pagerCollection}' arguments:'page:{pager.lastPage}')}">&gt;&gt;</f:link.action>
+			<f:link.action action="show" arguments="{extlist:namespaces.GPArray(object:'{pagerCollection}' arguments:'page:{pager.lastPage}')}">&gt;&gt;</f:link.action>
 		</li>
 	</f:if>
 </ul>

@@ -1,4 +1,4 @@
-{namespace extlist=Tx_PtExtlist_ViewHelpers}
+{namespace extlist=PunktDe\PtExtList\ViewHelpers}
 <extlist:comment>
 <!--  
 Partial for rendering a firstLetter filter
@@ -25,7 +25,7 @@ Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      
 				<li class="tx-ptextlist-filter-tagCloud-item">
 					<div class="field-wrapper">
 						<f:if condition="{option.selected}"><span class="selected"></f:if>
-						<f:link.action title="{option.elementCount} Items" action="submit" arguments="{extlist:namespace.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}" style="font-size:{option.fontSize}px; color: {option.color}">{option.value}</f:link.action>
+						<f:link.action title="{option.elementCount} Items" action="submit" arguments="{extlist:namespaces.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}" style="font-size:{option.fontSize}px; color: {option.color}">{option.value}</f:link.action>
 						<f:if condition="{option.selected}"></span></f:if>
 					</div>
 				</li>
@@ -36,7 +36,7 @@ Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      
 
 		<f:if condition="{filter.filterConfig.invertable}">
 			<div class="field-wrapper type-checkbox">
-				<f:form.checkbox name="{extlist:namespace.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
+				<f:form.checkbox name="{extlist:namespaces.FormElementName(object:'{filter}' property:'invert')}" value="1" checked="{filter.invert}" />
 				<label>
 					<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:filter.invert" />
 				</label>

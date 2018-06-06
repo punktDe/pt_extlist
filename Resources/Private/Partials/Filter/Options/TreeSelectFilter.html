@@ -1,5 +1,5 @@
-{namespace extlist=Tx_PtExtlist_ViewHelpers}
-{namespace ptx=Tx_PtExtbase_ViewHelpers}
+{namespace extlist=PunktDe\PtExtList\ViewHelpers}
+{namespace ptx=PunktDe\PtExtbase\ViewHelpers}
 
 <extlist:comment>
 <!--  
@@ -22,7 +22,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 	</label>
 	<div class="outer-field-wrapper">
 
-		<ptx:tree.selector name="{extlist:namespace.FormElementName(object:'{filter}' property:'filterValues')}"
+		<ptx:tree.selector name="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValues')}"
 						 id="{filter.filterIdentifier}"
 						 value="{filter.value}"
 						 nodes="{filter.treeNodes}"

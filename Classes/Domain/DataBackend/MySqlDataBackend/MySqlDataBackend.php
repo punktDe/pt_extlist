@@ -265,7 +265,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
             return $query;
         }
 
-        $query = '{namespace extlist=Tx_PtExtlist_ViewHelpers}{namespace ptx=Tx_PtExtbase_ViewHelpers}' . $query;
+        $query = '{namespace extlist=PunktDe\PtExtlist\ViewHelpers}{namespace ptx=PunktDe\PtExtbase\ViewHelpers}' . $query;
 
         $fluidView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView'); /** @var \TYPO3\CMS\Fluid\View\StandaloneView $fluidView */
         $fluidView->setTemplateSource($query);

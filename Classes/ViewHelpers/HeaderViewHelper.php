@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers;
 /***************************************************************
  *  Copyright notice
  *
@@ -38,7 +39,7 @@
  * @package ViewHelpers
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * Define arguments
@@ -54,12 +55,13 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
      *
      * Sets additional template variables for children of this viewhelper.
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
-     * @param Tx_PtExtlist_Domain_Model_List_Row $captions
+     * @param \Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
+     * @param \Tx_PtExtlist_Domain_Model_List_Row $captions
      * @param string $headerKey
      * @param string $captionKey
+     * @throws \PunktDe\PtExtbase\Exception\InternalException
      */
-    public function render(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption")
+    public function render(\Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, \Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption")
     {
         if ($headers === null || $captions === null) {
             return '';
@@ -68,7 +70,7 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
         $output = '';
 
         foreach ($headers as $header) {
-            /* @var $header Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+            /* @var $header \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
             if ($captions->hasItem($header->getColumnIdentifier()) && !in_array($header->getColumnIdentifier(), $this->arguments['exclude'])) {
 
@@ -100,14 +102,14 @@ class Tx_PtExtlist_ViewHelpers_HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
      * Each header can have multiple sorting fields attached, each one
      * can be sorted individually.
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+     * @param \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
      * @return array
      */
-    protected function buildSortingFieldParams(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header)
+    protected function buildSortingFieldParams(\Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header)
     {
         $sortingFieldsParams = [];
 
-        foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+        foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig \Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
             $sortingFieldParams = [];
             $sortingFieldParams['field'] = $sortingFieldConfig->getField();
             $sortingFieldParams['label'] = $sortingFieldConfig->getLabel();

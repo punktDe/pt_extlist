@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtList\ViewHelpers;
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +35,7 @@
  * @author Daniel Lienert 
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
+class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
 {
     /**
      * Holds uri for form action
@@ -48,7 +49,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -57,7 +58,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
     public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
@@ -125,7 +126,7 @@ class Tx_PtExtlist_ViewHelpers_FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpe
             }
         }
         
-        
+        /** @var \Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext */
         $extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
         
         if ($extBaseContext->isInCachedMode()) {
