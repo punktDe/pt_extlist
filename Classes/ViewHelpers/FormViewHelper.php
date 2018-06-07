@@ -43,8 +43,6 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
      * @var string
      */
     protected $formActionUri;
-    
-
 
     /**
      * Holds instance of session persistence manager builder
@@ -53,19 +51,15 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
      */
     protected $sessionPersistenceManagerBuilder;
 
-
-
     /**
      * Injects session persistence manager factory (used by DI)
      *
      * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
-
-
 
     /**
      * Sets the "action" attribute of the form tag
@@ -97,7 +91,6 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
         $this->formActionUri = $formActionUri;
         $this->tag->addAttribute('action', $formActionUri);
     }
-    
 
     /**
      * Renders hidden form fields for referrer information about
@@ -135,8 +128,7 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
             
             $result .=  '<input type="hidden" name="' . $this->prefixFieldName($listIdentifier.'[state]') . '" value="' . $stateHash . '" />' . chr(10);
         }
-        
-        
+
         $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[extensionName]') . '" value="' . $extensionName . '" />' . chr(10);
         $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[controllerName]') . '" value="' . $controllerName . '" />' . chr(10);
         $result .= '<input type="hidden" name="' . $this->prefixFieldName('__referrer[actionName]') . '" value="' . $actionName . '" />' . chr(10);

@@ -53,8 +53,6 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
      */
     protected $sessionPersistenceManagerBuilder;
 
-
-
     /**
      * Injects session persistence manager factory (used by DI)
      *
@@ -65,17 +63,16 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
 
-
-
     /**
      * render build key/value GET/POST-array within the namespace of the given object
-     * 
+     *
      * @param string $arguments : list of arguments
      * @param \Tx_PtExtbase_State_IdentifiableInterface $object
-     * 	either as list of 'key : value' pairs 
+     *    either as list of 'key : value' pairs
      *  or as list of properties wich are then recieved from the object
      * @param string $nameSpace
      * @return array GPArray of objects namespace
+     * @throws \Tx_PtExtbase_Exception_Assertion
      */
     public function render($arguments, $object = null, $nameSpace = '')
     {
@@ -98,15 +95,14 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 
         return $argumentArray;
     }
-    
-    
-    
+
     /**
      * Use the objects getter to get the value
-     * 
+     *
      * @param \Tx_PtExtbase_State_IdentifiableInterface $object
      * @param string $property
      * @return mixed value
+     * @throws \Tx_PtExtbase_Exception_Assertion
      */
     protected function getObjectValue(\Tx_PtExtbase_State_IdentifiableInterface $object, $property)
     {
@@ -115,9 +111,7 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
         
         return $object->$getterMethod();
     }
-    
-    
-    
+
     /**
      * Get an argument array out of a string
      * 
@@ -141,16 +135,15 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
         
         return $argumentArray;
     }
-    
-    
-    
+
     /**
      * Get the valueArray with the right objectNamespace
-     * 
+     *
      * @param \Tx_PtExtbase_State_IdentifiableInterface $object
      * @param string $key
      * @param string $value
      * @return array
+     * @throws \Tx_PtExtbase_Exception_Assertion
      */
     public function buildObjectValueArray(\Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value)
     {
@@ -159,8 +152,6 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
         
         return $this->buildNamespaceValueArray($nameSpace, $key, $value);
     }
-
-
 
     /**
      * Building a namespace array filled with an value.

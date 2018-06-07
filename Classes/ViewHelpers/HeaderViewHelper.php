@@ -27,6 +27,8 @@ namespace PunktDe\PtExtlist\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 
 /**
  * ViewHelper for rendering list headers.
@@ -39,7 +41,7 @@ namespace PunktDe\PtExtlist\ViewHelpers;
  * @package ViewHelpers
  * @author Daniel Lienert
  */
-class HeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class HeaderViewHelper extends AbstractViewHelper
 {
     /**
      * Define arguments

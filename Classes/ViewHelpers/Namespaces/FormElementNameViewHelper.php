@@ -27,6 +27,8 @@ namespace PunktDe\PtExtlist\ViewHelpers\Namespaces;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * GPValueViewHelper
  *
@@ -35,15 +37,16 @@ namespace PunktDe\PtExtlist\ViewHelpers\Namespaces;
  * @subpackage NameSpace
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest
  */
-class FormElementNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FormElementNameViewHelper extends AbstractViewHelper
 {
     /**
      * render a key/value GET/POST-string within the namespace of the given object
      *
      * @param \Tx_PtExtbase_State_IdentifiableInterface $object
-     * @param string $property, single property or propertyPath separated by '.'
+     * @param string $property , single property or propertyPath separated by '.'
      * @param boolean $addExtPrefix
      * @return string
+     * @throws \Tx_PtExtbase_Exception_Assertion
      */
     public function render(\Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix = false)
     {
@@ -83,6 +86,7 @@ class FormElementNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
     /**
      * @param \Tx_PtExtbase_State_IdentifiableInterface $object
      * @return String
+     * @throws \Tx_PtExtbase_Exception_Assertion
      */
     public function getObjectNameSpace(\Tx_PtExtbase_State_IdentifiableInterface $object)
     {

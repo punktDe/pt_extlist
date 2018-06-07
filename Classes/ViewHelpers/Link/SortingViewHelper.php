@@ -28,7 +28,7 @@ namespace PunktDe\PtExtlist\ViewHelpers\Link;
  ***************************************************************/
 
 use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
-
+use \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
 /**
  * ViewHelpers renders link for given sorting.
@@ -39,7 +39,7 @@ use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
  * @subpackage Link
  * @author Michael Knoll
  */
-class  SortingViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+class  SortingViewHelper extends ActionViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
@@ -88,9 +88,11 @@ class  SortingViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHel
      * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
      * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
      * @return string Rendered link
+     * @throws \Tx_PtExtbase_Exception_Assertion
      */
     public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
     {
+        /** @var \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header */
         $header = $this->arguments['header'];
         if ($action === null) {
             $action = 'sort';
