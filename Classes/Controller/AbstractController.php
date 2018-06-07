@@ -402,9 +402,29 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
         if ($this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template']) {
             return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
         }
-        return $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+        if ($this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template']) {
+            return $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+        }
+        if ($this->settings['extlist'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template']) {
+            return $this->settings['extlist'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
+        }
     }
 
+    /**
+     * @return array
+     */
+    protected function getTsPartialRootPaths()
+    {
+        if ($this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialRootPaths']) {
+            return $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialRootPaths'];
+        }
+        if ($this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialRootPaths']) {
+            return $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialRootPaths'];
+        }
+        if ($this->settings['extlist'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialRootPaths']) {
+            return $this->settings['extlist'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialRootPaths'];
+        }
+    }
 
 
     /**
@@ -443,39 +463,6 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
             $this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
         }
     }
-
-
-
-    /**
-     * Set the TS defined custom paths in view
-     *
-     * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
-     * @throws Exception
-     */
-    protected function setCustomPathsInView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
-    {
-        // TODO we do not get global settings from pt_extlist merged into list_identifier settings here. fix this.
-        // Get template for current action from settings for list identifier
-        $templatePathAndFilename = $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
-        // Get template for current action from global settings (e.g. flexform)
-        if (!$templatePathAndFilename) {
-            $templatePathAndFilename = $this->settings['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['template'];
-        }
-        // If no template is given before, take default one
-        if (!$templatePathAndFilename) {
-            $templatePathAndFilename = $this->templatePathAndFileName;
-        }
-        if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
-            if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename))) {
-                /* @var $view Tx_PtExtlist_View_BaseView */
-                $view->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename));
-            } else {
-                throw new Exception('Given template path and filename could not be found or resolved: ' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename), 1284655110);
-            }
-        }
-    }
-
-
 
     /**
      * (non-PHPdoc)

@@ -120,13 +120,6 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
 
 
-    /**
-     * @param Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility
-     */
-    public function injectHeaderInclusionUtility(Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility)
-    {
-        $this->headerInclusionUtility = $headerInclusionUtility;
-    }
 
 
 

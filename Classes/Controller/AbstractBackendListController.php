@@ -42,9 +42,10 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
             /** @var $pageRenderer \TYPO3\CMS\Core\Page\PageRenderer */
             $pageRenderer->setBackPath('');
             $pageRenderer->addInlineLanguageLabelFile('EXT:lang/locallang_mod_web_list.xlf');
+
+            var_dump($params);die();
         };
 
         parent::initializeAction();
-        $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
     }
 }
