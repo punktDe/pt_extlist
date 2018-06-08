@@ -109,6 +109,10 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
                     $specialFieldsWhereClauseSnippet = str_replace(',' . $table . '.',  ',' . $alias . '.', $specialFieldsWhereClauseSnippet);
                 }
 
+                if (trim($specialFieldsWhereClauseSnippet) === 'AND') {
+                    $specialFieldsWhereClauseSnippet = '';
+                }
+
                 $specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
             }
         }
