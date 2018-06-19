@@ -22,7 +22,7 @@ Here is a list of objects / variables that can be accessed in this partial
             <div id="previous3Month" class="dateStringFilterValue">Vor(3)monat</div>
             <div id="previousHalfYear" class="dateStringFilterValue">letztes Halbjahr</div>
             <div id="previousYear" class="dateStringFilterValue">Vorjahr</div>
-			<f:form.hidden id="dateStringFilter" property="filterValue" value="{filter.filterValue}" name="{extlist:namespaces.FormElementName(object:'{filter}' property:'filterValue')}" /><br />
+			<f:form.hidden id="dateStringFilter" property="filterValue" value="{filter.filterValue}" name="{extlist:namespaces.FormElementName(object:{filter}, property:'filterValue')}" /><br />
 		</div>
 	</div>
 

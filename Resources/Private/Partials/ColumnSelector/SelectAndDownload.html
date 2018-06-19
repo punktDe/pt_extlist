@@ -1,6 +1,6 @@
 {namespace extlist=PunktDe\PtExtlist\ViewHelpers}
 <f:form id="tx-ptextlist-columnSelector-form-{config.listIdentifier}" pluginName="pi1" action="download" controller="Export" method="POST">
-	<extlist:form.columnSelector id="{config.listIdentifier}-ColumnSelector" multiple="1" name="{extlist:namespaces.FormElementName(object:'{columnSelector}' property:'selectedColumns')}" columns="{listHeader}" />
+	<extlist:form.columnSelector id="{config.listIdentifier}-ColumnSelector" multiple="1" name="{extlist:namespaces.FormElementName(object:{columnSelector}, property:'selectedColumns')}" columns="{listHeader}" />
 	<div class="outer-wrapper tx-ptextlist-columnSelectorControls">
 		<div class="outer-field-wrapper">
 			<div class="field-wrapper type-button">
