@@ -43,6 +43,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class HeaderViewHelper extends AbstractViewHelper
 {
+    protected $escapeOutput = false;
+
     /**
      * Define arguments
      */
