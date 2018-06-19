@@ -40,7 +40,6 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
     {
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess'][] = function($params, $pageRenderer) {
             /** @var $pageRenderer \TYPO3\CMS\Core\Page\PageRenderer */
-            $pageRenderer->setBackPath('');
             $pageRenderer->addInlineLanguageLabelFile('EXT:lang/locallang_mod_web_list.xlf');
         };
 
