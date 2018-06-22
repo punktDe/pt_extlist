@@ -23,13 +23,13 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 
 		<f:for each="{filter.options}" key="optionValue" as="option">
 			<div class="field-wrapper type-button">
-				<f:form.submit class="{filter.filterIdentifier} {f:if(condition:'{option.selected}' then:'active')}" name="{extlist:namespaces.FormElementName(object:{filter}, property:'filterValues.{optionValue}')}" value="{optionValue}" />
+				<f:form.submit class="{filter.filterIdentifier} {f:if(condition:'{option.selected}' then:'active')}" name="{extlist:namespaces.formElementName(object:filter, property:'filterValues.{optionValue}')}" value="{optionValue}" />
 			</div>
 		</f:for>
 		<f:if condition="{filter.filterConfig.description}"><div class="tx-ptextlist-filterdescription">{filter.filterConfig.description}</div></f:if>
 		<f:if condition="{filter.filterConfig.invertable}">
 			<div class="field-wrapper type-button">
-				<f:form.checkbox name="{extlist:namespaces.FormElementName(object:{filter}, property:'invert')}" value="1" checked="{filter.invert}" />
+				<f:form.checkbox name="{extlist:namespaces.formElementName(object:filter, property:'invert')}" value="1" checked="{filter.invert}" />
 				<label>
 					<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:filter.invert" />
 				</label>

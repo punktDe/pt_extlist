@@ -36,7 +36,7 @@ Tx_PtExtlist_Domain_Model_Filter_TagCloud           filter                      
 
 		<f:if condition="{filter.filterConfig.invertable}">
 			<div class="field-wrapper type-checkbox">
-				<f:form.checkbox name="{extlist:namespaces.FormElementName(object:{filter}, property:'invert')}" value="1" checked="{filter.invert}" />
+				<f:form.checkbox name="{extlist:namespaces.formElementName(object:filter, property:'invert')}" value="1" checked="{filter.invert}" />
 				<label>
 					<f:translate key="LLL:EXT:pt_extlist/Resources/Private/Language/locallang.xml:filter.invert" />
 				</label>

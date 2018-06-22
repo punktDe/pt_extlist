@@ -14,14 +14,13 @@ Tx_PtExtlist_Domain_Model_Filter_StringFilter           filter                  
 @author Daniel Lienert <lienert@punkt.de>
 -->
 </extlist:comment>
-
 <div class="outer-wrapper">
 	<label for="{filter.filterIdentifier}" class="filter-label" >
 		{filter.label}
 	</label>
 	<div class="outer-field-wrapper">
 		<div class="field-wrapper type-text">
-			<f:form.textfield id="{filter.filterIdentifier}" property="filterValue" value="{filter.filterValue}" name="{extlist:namespaces.FormElementName(object:{filter}, property:'filterValue')}" size="{filter.filterConfig.settings.size}" maxlength="{filter.filterConfig.settings.maxLength}"/>
+			<f:form.textfield id="{filter.filterIdentifier}" property="filterValue" value="{filter.filterValue}" name="{extlist:namespaces.formElementName(object:filter, property:'filterValue')}" size="{filter.filterConfig.settings.size}" maxlength="{filter.filterConfig.settings.maxLength}"/>
 		</div>
 	</div>
 
