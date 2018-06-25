@@ -21,7 +21,7 @@ breadcrumbs - Collection of filter breadcrumbs (Tx_PtExtlist_Domain_Model_BreadC
 			    <f:if condition="{breadcrumb.showResetLinks}">
 					<f:if condition="{breadcrumb.isResettable}">
 						<f:link.action action="resetFilter" 
-						  arguments="{extlist:namespaces.GPArray(object:'{breadcrumbs}' arguments:'filterIdentifier : {breadcrumb.filter.filterIdentifier},
+						  arguments="{extlist:namespaces.GPArray(object:breadcrumbs, arguments:'filterIdentifier : {breadcrumb.filter.filterIdentifier},
 	                      filterboxIdentifier : {breadcrumb.filter.filterboxIdentifier}')}"><f:translate key="breadcrumbs.reset" default="reset" /></f:link.action>
 					</f:if>
 			    </f:if>
