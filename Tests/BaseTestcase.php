@@ -39,12 +39,6 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
 {
     protected $extBaseSettings = [];
 
-    /**
-     * @var Tx_Phpunit_Framework
-     */
-    protected $testingFramework;
-
-    
     protected $extBaseSettingsString = '
     plugin.tx_ptextlist.settings.persistence.storagePid = 12
     
@@ -111,8 +105,6 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
         $typoScriptParser->parse($this->extBaseSettingsString);
 
         $this->extBaseSettings = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
-
-        $this->testingFramework = new Tx_Phpunit_Framework('pt_extlist');
     }
     
     
