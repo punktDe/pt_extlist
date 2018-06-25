@@ -24,7 +24,7 @@ Tx_PtExtlist_Domain_Model_Filter_GroupFilter           filter                   
 				<li class="tx-ptextlist-filter-link">
 					<div class="field-wrapper type-content">
 						<span class="{f:if(condition:option.selected, then:'selected')}">
-							<f:link.action action="submit" arguments="{extlist:namespaces.GPArray(object:'{filter}' arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
+							<f:link.action action="submit" arguments="{extlist:namespaces.GPArray(object:filter, arguments:'filterValues:{optionValue}')}">{option.value}</f:link.action>
 						</span>
 					</div>
 				</li>
