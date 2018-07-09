@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Sql;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,22 +34,22 @@
  * @author Daniel Lienert
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+     * @param \Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
      * @param string $filterField
      * @param string $notActiveQuery
      *
      * @return string
      */
-    public function render(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterField = '', $notActiveQuery = '1=1')
+    public function render(\Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterField = '', $notActiveQuery = '1=1')
     {
         if (!$filter->isActive()) {
             return $notActiveQuery;
         }
 
-        if ($filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter) {
+        if ($filter instanceof \Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter) {
             $calculatedTimestampBoundaries = $filter->getCalculatedTimestampBoundaries();
 
             if (is_array($filterField)) {
@@ -59,7 +60,7 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Cor
         }
 
         $filterValue = $filter->getValue();
-        $filterField = $filterField ? $filterField : Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
+        $filterField = $filterField ? $filterField : \Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
 
         if (is_array($filterValue)) {
             return sprintf('%s in (%s)', $filterField, implode(', ', $filterValue));
