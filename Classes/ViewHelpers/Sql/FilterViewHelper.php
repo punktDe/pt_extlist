@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Sql;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,22 +34,29 @@
  * @author Daniel Lienert
  * @package ViewHelpers
  */
-class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
+    public function initializeArguments()
+    {
+        $this->registerArgument('filter', \Tx_PtExtlist_Domain_Model_Filter_FilterInterface::class, 'filter', true);
+        $this->registerArgument('filterField', 'string', 'filterField', false, '');
+        $this->registerArgument('notActiveQuery', 'string', 'not active query', false, '1=1');
+        parent::initializeArguments();
+    }
+
+
     /**
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
-     * @param string $filterField
-     * @param string $notActiveQuery
-     *
      * @return string
      */
-    public function render(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterField = '', $notActiveQuery = '1=1')
+    public function render()
     {
+        /** @var \Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter */
+        $filter = $this->arguments['filter'];
         if (!$filter->isActive()) {
-            return $notActiveQuery;
+            return $this->arguments['notActiveQuery'];
         }
-
-        if ($filter instanceof Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter) {
+        $filterField = $this->arguments['filterField'];
+        if ($filter instanceof \Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter) {
             $calculatedTimestampBoundaries = $filter->getCalculatedTimestampBoundaries();
 
             if (is_array($filterField)) {
@@ -59,7 +67,7 @@ class Tx_PtExtlist_ViewHelpers_Sql_FilterViewHelper extends \TYPO3\CMS\Fluid\Cor
         }
 
         $filterValue = $filter->getValue();
-        $filterField = $filterField ? $filterField : Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
+        $filterField = $filterField ? $filterField : \Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
 
         if (is_array($filterValue)) {
             return sprintf('%s in (%s)', $filterField, implode(', ', $filterValue));

@@ -75,13 +75,14 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      */
     protected $filterbox = null;
 
-    
 
     /**
      * Initialize the Controller
      *
      * @param array $settings Settings container of the current extension
      * @return void
+     * @throws Tx_PtExtbase_Exception_Assertion
+     * @throws Exception
      */
     public function initializeAction()
     {
@@ -92,13 +93,11 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
         $this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
         $this->pagerCollection = $this->dataBackend->getPagerCollection();
     }
-    
 
 
     /**
      * Renders a filterbox
      *
-     * @param Tx_PtExtlist_Domain_Model_Messaging_MessageCollectionCollection $errors
      * @return string The rendered filterbox action
      */
     public function showAction()
@@ -113,6 +112,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      * Renders submit action
      *
      * @return String
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function submitAction()
     {
@@ -162,12 +162,12 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     }
 
 
-
     /**
      * Resets all filters of filterbox
      *
      * @param string $filterboxIdentifier Identifier of filter which should be reset
      * @return string Rendered reset action
+     * @throws Exception
      */
     public function resetAction($filterboxIdentifier)
     {
@@ -194,7 +194,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     }
 
 
-
     /**
      * Resets a single filter
      *
@@ -203,6 +202,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      *
      * @param string $fullQualifiedFilterIdentifier FilterboxIdentifier.FilterIdentifier Identifier of filter to be reseted
      * @return string Rendered resetFilter Action
+     * @throws Exception
      */
     public function resetFilterAction($fullQualifiedFilterIdentifier)
     {

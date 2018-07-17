@@ -196,6 +196,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
     /**
      * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+     * @throws Exception
      */
     public function getIterationListData()
     {

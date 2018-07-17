@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ViewHelpers\Form;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,16 +34,16 @@
  * @package ViewHelpers
  * @subpackage NameSpace
  */
-class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
+class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
 {
     /**
-     * @var Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer
+     * @var \Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer
      */
     protected $captionRenderer;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+     * @var \Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
      */
     protected $columnSelectorConfig;
 
@@ -57,7 +58,7 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
         $this->captionRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
 
         // TODO Remove this, once we have DI
-        $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+        $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory \Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
         $configurationBuilder = $configurationBuilderFactory->getInstance();
 
         $this->columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();
@@ -96,7 +97,7 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
+     * @param \Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
      */
     public function render()
     {
@@ -105,7 +106,7 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
         $options = [];
         $selectedOptions = [];
 
-        foreach ($columns as $columnIdentifier => $column) { /** @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+        foreach ($columns as $columnIdentifier => $column) { /** @var $column \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
 
             if (!($this->columnSelectorConfig->getHideDefaultVisibleInSelector() && $column->getColumnConfig()->getIsVisible())) {
                 $options[$columnIdentifier] = $this->captionRenderer->renderColumnLabel($column);
@@ -116,19 +117,8 @@ class Tx_PtExtlist_ViewHelpers_Form_ColumnSelectorViewHelper extends \TYPO3\CMS\
             }
         }
 
-
-        // This hack is needed to be backwards compatible to Fluid 1.3.0 where arguments was an object
-        if (is_a($this->arguments, 'Tx_Fluid_Core_ViewHelper_Arguments')) {
-            $arg = (array) $this->arguments;
-            $arg['multiple'] = 1;
-            $arg['name'] = $this->arguments['name'];
-            $arg['options'] = $options;
-            $arg['value'] = $selectedOptions;
-            $this->arguments = new \TYPO3\CMS\Fluid\Core\ViewHelper\Arguments($arg);
-        } else {
-            $this->arguments['options'] = $options;
-            $this->arguments['value'] = $selectedOptions;
-        }
+        $this->arguments['options'] = $options;
+        $this->arguments['value'] = $selectedOptions;
 
         return parent::render();
     }
