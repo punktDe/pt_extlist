@@ -34,7 +34,7 @@ namespace PunktDe\PtExtlist\ViewHelpers\Uri;
  * @package ViewHelpers
  * @subpackage Uri
  */
-class ActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
@@ -54,29 +54,6 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelp
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
-
-    public function initializeArguments()
-    {
-        parent::initializeArguments();
-        $this->registerArgument('action', 'string', '', false, null);
-        $this->registerArgument('arguments', 'array', '', false, []);
-        $this->registerArgument('controller', 'string', '', false, null);
-        $this->registerArgument('extensionName', 'string', '', false, null);
-        $this->registerArgument('pluginName', 'string', '', false, null);
-        $this->registerArgument('pageUid', 'integer', '', false, null);
-        $this->registerArgument('pageType', 'integer', '', false, 0);
-        $this->registerArgument('noCache', 'boolean', '', false, false);
-        $this->registerArgument('noCacheHash', 'boolean', '', false, false);
-        $this->registerArgument('section', 'string', '', false, '');
-        $this->registerArgument('format', 'string', '', false, '');
-        $this->registerArgument('linkAccessRestrictedPages', 'boolean', '', false, false);
-        $this->registerArgument('additionalParams', 'array', '', false, []);
-        $this->registerArgument('absolute', 'boolean', '', false, false);
-        $this->registerArgument('addQueryString', 'boolean', '', false, false);
-        $this->registerArgument('argumentsToBeExcludedFromQueryString', 'array', '', false, []);
-
-    }
-
 
     /**
      * @return string Rendered link

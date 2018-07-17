@@ -4,12 +4,22 @@ namespace PunktDe\PtExtlist\ViewHelpers\Bookmark;
 class ShowFormViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
-     * @param \Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig $bookmarkConfig
-     * @param integer $userLoggedIn
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('bookmarkConfig', \Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig::class, 'bookmark config', true);
+        $this->registerArgument('userLoggedIn', 'integer', 'user logged in', true);
+        parent::initializeArguments();
+    }
+
+    /**
      * @return boolean
      */
-    public function render(\Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig $bookmarkConfig, $userLoggedIn)
+    public function render()
     {
-        return ($bookmarkConfig->getCreatePublicBookmarks() || ($bookmarkConfig->getCreatePrivateBookmarks() && $userLoggedIn) || $bookmarkConfig->getCreateGroupBookmarks());
+        /** @var \Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig $bookmarkConfig */
+        $bookmarkConfig = $this->arguments['bookmarkConfig'];
+        return ($bookmarkConfig->getCreatePublicBookmarks() || ($bookmarkConfig->getCreatePrivateBookmarks() && $this->arguments['userLoggedIn']) || $bookmarkConfig->getCreateGroupBookmarks());
     }
 }
