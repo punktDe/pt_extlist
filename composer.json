@@ -31,7 +31,7 @@
   },
   "replace": {
     "pt_extlist": "self.version",
-    "typo3-ter/pt_extlist": "self.version"
+    "typo3-ter/pt-extlist": "self.version"
   },
   "extra": {
     "typo3/cms": {
