@@ -36,6 +36,11 @@ namespace PunktDe\PtExtlist\ViewHelpers\Sql;
  */
 class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
+    /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
     public function initializeArguments()
     {
         $this->registerArgument('filter', \Tx_PtExtlist_Domain_Model_Filter_FilterInterface::class, 'filter', true);
