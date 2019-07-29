@@ -28,7 +28,7 @@
 
 /**
  * Default renderer for list data
- * 
+ *
  * @package Domain
  * @subpackage Renderer\Default
  * @author Daniel Lienert
@@ -43,26 +43,26 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
      * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
      */
     protected $cellRenderer;
-    
-    
-    
+
+
+
     /**
      * The strategy for rendering captions.
      *
      * @var Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface
      */
     protected $captionRenderer;
-    
-    
-    
+
+
+
     /**
      * Holds an instance of a row renderer
      *
      * @var Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
      */
     protected $rowRenderer;
-    
-    
+
+
 
     /**
      * Injector for configuration
@@ -76,9 +76,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
         $this->initRowRenderer();
         $this->initCaptionRenderer();
     }
-    
-    
-    
+
+
+
     /**
      * Initializes the row renderer
      */
@@ -88,8 +88,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
         $this->rowRenderer->injectRendererConfiguration($this->rendererConfiguration);
         $this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($this->rendererConfiguration));
     }
-    
-    
+
+
 
     /**
      * Initializes the caption renderer
@@ -98,9 +98,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     {
         $this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer();
     }
-    
 
-    
+
+
     /**
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      */
@@ -108,9 +108,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     {
         return $this->captionRenderer->renderCaptions($listHeader);
     }
-    
-    
-    
+
+
+
     /**
      * Renders list data
      *
@@ -119,7 +119,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
      */
     public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotNull($listData, [message => 'No list data found in list. 1280405145']);
+        Tx_PtExtbase_Assertions_Assert::isNotNull($listData, ['message' => 'No list data found in list. 1280405145']);
 
         // We could get another type of list data here, so we have to instantiate this class
         $listDataClassName = get_class($listData);
@@ -136,7 +136,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
         }
 
         unset($listData);
-        
+
         return $renderedList;
     }
 
@@ -153,7 +153,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     }
 
 
-    
+
     /**
      * Returns a rendered aggregate list for a given row of aggregates
      *
@@ -165,9 +165,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
         if ($aggregateListData->count() == 0) {
             return $aggregateListData;
         }
-        
+
         $renderedAggregateList = new Tx_PtExtlist_Domain_Model_List_ListData();
-        
+
         $aggregateRowsConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildAggregateRowsConfig();
         $aggregateDataRow = $aggregateListData->getItemByIndex(0);
 
