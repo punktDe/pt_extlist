@@ -66,7 +66,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
      */
     protected $cssFilePath;
 
-    
+
     /**
      * Initialize additional class properties
      */
@@ -80,7 +80,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 
         $this->paperSize = strtolower($this->exportConfiguration->getSettings('paperSize'));
         Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->paperSize, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
-        
+
         $this->paperOrientation = $this->exportConfiguration->getSettings('paperOrientation');
         Tx_PtExtbase_Assertions_Assert::isInArray($this->paperOrientation, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
 
@@ -115,7 +115,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 
         /*
         $includePath = $this->dompdfSourcePath . 'include/';
-        
+
         // load includes
         require_once $includePath . 'dompdf.cls.php';
         require_once $includePath . 'frame_tree.cls.php';
@@ -175,7 +175,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
      *
      * @return  void (never returns)
      */
-    public function render()
+    public function render($actionName = null)
     {
         $this->loadDomPDFClasses();
 

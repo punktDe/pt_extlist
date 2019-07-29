@@ -60,7 +60,7 @@ class Tx_PtExtlist_View_Export_FluidListView extends Tx_PtExtlist_View_Export_Ab
      *
      * @return  void (never returns)
      */
-    public function render()
+    public function render($actionName = null)
     {
         ob_clean();
 
