@@ -249,9 +249,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     public function initializeAction()
     {
         parent::initializeAction();
-        if (!TYPO3_MODE === 'BE') {
-            $this->initFeUser();
-        }
+        $this->initFeUser();
         $this->initListIdentifier();
         $this->buildConfigurationBuilder();
         $this->buildAndInitSessionPersistenceManager();
@@ -319,7 +317,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
         }
     }
 
-    
+
 
     /**
      * @return void
@@ -492,7 +490,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
     protected function initFeUser()
     {
-        $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
-        $this->feUser = $this->feUserRepository->findByUid($userUid);
+        if (array_key_exists('TSFE', $GLOBALS) && $GLOBALS['TSFE']->loginUser) {
+            $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+            $this->feUser = $this->feUserRepository->findByUid($userUid);
+        }
     }
 }
