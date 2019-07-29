@@ -28,8 +28,8 @@
 
 /**
  * Class implements a factory for renderer configurations
- * 
- * @author Daniel Lienet 
+ *
+ * @author Daniel Lienet
  * @package Domain
  * @subpackage Configuration\Renderer
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactoryTest
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory
      */
     public static function getRendererConfiguration(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $rendererSettings)
     {
-        Tx_PtExtbase_Assertions_Assert::isArray($rendererSettings, [message => 'No renderer settings found. 1281087488']);
+        Tx_PtExtbase_Assertions_Assert::isArray($rendererSettings, ['message' => 'No renderer settings found. 1281087488']);
         $config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($configurationBuilder, $rendererSettings);
         return $config;
     }
