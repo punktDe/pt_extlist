@@ -155,7 +155,8 @@ class Tx_PtExtlist_Domain_Renderer_Default_CellRenderer
         }
 
         if (!empty($rendererUserFunc)) {
-            $specialValues = GeneralUtility::callUserFunction($rendererUserFunc, $cell, '');
+            $ref = '';
+            $specialValues = GeneralUtility::callUserFunction($rendererUserFunc, $cell, $ref);
             $cell->setSpecialValues($specialValues);
         }
     }

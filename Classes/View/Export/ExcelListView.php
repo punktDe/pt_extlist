@@ -128,7 +128,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     /**
      * Overwriting the render method to generate Excel output
      */
-    public function render()
+    public function render($actionName = null)
     {
         $this->init();
 
