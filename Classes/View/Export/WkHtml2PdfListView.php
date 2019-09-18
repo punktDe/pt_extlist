@@ -211,7 +211,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
      *
      * Partly taken from https://code.google.com/p/wkhtmltopdf/wiki/IntegrationWithPhp
      */
-    public function render()
+    public function render($actionName = null)
     {
         $htmlDocument = $this->tempPdfBasePath . basename($this->tmp);
 
