@@ -119,7 +119,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
      */
     public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotNull($listData, [message => 'No list data found in list. 1280405145']);
+        Tx_PtExtbase_Assertions_Assert::isNotNull($listData, ['message' => 'No list data found in list. 1280405145']);
 
         // We could get another type of list data here, so we have to instantiate this class
         $listDataClassName = get_class($listData);
