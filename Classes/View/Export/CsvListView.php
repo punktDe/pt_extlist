@@ -99,7 +99,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
      *
      * @return  void (never returns)
      */
-    public function render()
+    public function render($actionName = null)
     {
         $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
 
