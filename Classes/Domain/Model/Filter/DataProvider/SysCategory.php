@@ -29,6 +29,7 @@
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
 use \PunktDe\PtExtbase\Domain\Repository;
+use TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository;
 
 /**
  * Implements data provider for system categories
@@ -41,21 +42,30 @@ use \PunktDe\PtExtbase\Domain\Repository;
 
 class SysCategory extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
-     * @inject
-     */
-    protected $categoryRepository;
-
 
     /**
-     * @var integer
+     * @var int
      */
     protected $categoryPid;
 
 
     /**
+     * @var CategoryRepository
+     */
+    protected $categoryRepository;
+
+    /**
+     * @param CategoryRepository $categoryRepository
+     */
+    public function injectCategoryRepository(CategoryRepository $categoryRepository): void
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+
+    /**
      * (non-PHPdoc)
+     * @throws \Exception
      * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
      */
     public function init()
