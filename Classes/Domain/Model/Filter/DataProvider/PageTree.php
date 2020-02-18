@@ -43,7 +43,7 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
     protected $rootPageUid;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $respectEnableFields;
 
@@ -54,9 +54,17 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
 
     /**
      * @var \Tx_PtExtbase_Domain_Repository_PageRepository
-     * @inject
      */
     protected $pageRepository;
+
+    /**
+     * @param \Tx_PtExtbase_Domain_Repository_PageRepository $pageRepository
+     */
+    public function injectPageRepository(\Tx_PtExtbase_Domain_Repository_PageRepository $pageRepository): void
+    {
+        $this->pageRepository = $pageRepository;
+    }
+
 
     /**
      * Init the data provider
