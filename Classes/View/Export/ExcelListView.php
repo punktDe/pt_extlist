@@ -585,8 +585,8 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     {
         $settings = $this->exportConfiguration->getSettings();
 
-        if ($settings['fileFormat'] == "Excel5") {
-            $contentTypeForApplication= 'octet-stream, charset=' . $this->exportConfiguration->getSettings('outputEncoding');
+        if ($this->fileFormat == "Excel5") {
+            $contentTypeForApplication= 'ms-excel';
         } else {
             $contentTypeForApplication = 'vnd.openxmlformats-officedocument.spreadsheetml.sheet';
         }
