@@ -28,8 +28,8 @@
 
 /**
  * Class implements a factory for renderer configurations
- * 
- * @author Daniel Lienet 
+ *
+ * @author Daniel Lienet
  * @package Domain
  * @subpackage Configuration\Renderer
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactoryTest
